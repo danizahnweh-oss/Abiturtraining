@@ -226,7 +226,7 @@ async function doLogin() {
   const level = document.getElementById("studentLevel").value;
   const pw = document.getElementById("accessPassword").value.trim();
   const err = document.getElementById("loginError");
-  const btn = document.querySelector(".login-btn");
+  const btn = document.querySelector("#login-screen .btn");
 
   if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
   if (!level) { err.textContent = "Bitte wähle dein Niveau (gA/eA)."; err.style.display = "block"; return; }
