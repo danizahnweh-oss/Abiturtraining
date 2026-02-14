@@ -150,7 +150,7 @@ footer a{color:var(--accent);text-decoration:none}
 <div id="module-screen-english" style="display:none;min-height:100vh;flex-direction:column">
   <div class="module-header">
     <div>
-      <a href="#" class="back-link" onclick="backToSubjects();return false">← Fachauswahl</a>
+      <a href="index.html?back=subjects" class="back-link">← Fachauswahl</a>
       <h1 style="margin-top:.3rem">English <span style="color:var(--accent)">Trainer</span></h1>
     </div>
     <div class="header-right">
@@ -180,7 +180,7 @@ footer a{color:var(--accent);text-decoration:none}
 <div id="module-screen-german" style="display:none;min-height:100vh;flex-direction:column">
   <div class="module-header">
     <div>
-      <a href="#" class="back-link" onclick="backToSubjects();return false">← Fachauswahl</a>
+      <a href="index.html?back=subjects" class="back-link">← Fachauswahl</a>
       <h1 style="margin-top:.3rem">Deutsch <span style="color:var(--accent-de)">Trainer</span></h1>
     </div>
     <div class="header-right">
@@ -305,13 +305,32 @@ function initTheme() {
 window.onload = function() {
   initTheme();
   
+  // Check URL parameter for back navigation
+  const urlParams = new URLSearchParams(window.location.search);
+  const backTo = urlParams.get("back");
+  
   // Check existing session
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    const subject = sessionStorage.getItem("current_subject");
-    if (subject) {
-      selectSubject(subject);
-    } else {
+    if (backTo === "german") {
+      // Coming back from a German module -> show German module selection
+      sessionStorage.setItem("current_subject", "german");
+      selectSubject("german");
+    } else if (backTo === "english") {
+      // Coming back from an English module -> show English module selection
+      sessionStorage.setItem("current_subject", "english");
+      selectSubject("english");
+    } else if (backTo === "subjects") {
+      // Coming back from module selection -> show subject selection
+      sessionStorage.removeItem("current_subject");
       showSubjectSelection();
+    } else {
+      // Normal load - show subject selection (not module selection)
+      showSubjectSelection();
+    }
+    
+    // Clean up URL
+    if (backTo) {
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
   }
 };

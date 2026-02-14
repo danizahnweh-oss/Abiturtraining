@@ -74,13 +74,37 @@ textarea{width:100%;min-height:400px;padding:1.4rem;font-family:var(--font-mono)
 .history-table td{padding:.5rem .6rem;border-bottom:1px solid var(--border-light)}
 .history-score{font-family:var(--font-mono);font-weight:600;color:var(--accent)}
 footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:auto}
+
+/* ====== HIGHLIGHTER ====== */
+:root{--hl-yellow:rgba(250,204,21,.45);--hl-green:rgba(74,222,128,.45);--hl-blue:rgba(96,165,250,.45);--hl-pink:rgba(244,114,182,.45);--hl-orange:rgba(251,146,60,.45)}
+[data-theme="dark"]{--hl-yellow:rgba(250,204,21,.35);--hl-green:rgba(74,222,128,.35);--hl-blue:rgba(96,165,250,.35);--hl-pink:rgba(244,114,182,.35);--hl-orange:rgba(251,146,60,.35)}
+.highlighter-toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem 1rem;background:var(--bg-warm);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.highlighter-toolbar .hl-label{font-size:.8rem;color:var(--ink-muted);font-weight:600;margin-right:.3rem}
+.hl-btn{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .1s}
+.hl-btn:hover{transform:scale(1.1)}
+.hl-btn.active{border-color:var(--ink);transform:scale(1.15)}
+.hl-btn.yellow{background:#facc15}
+.hl-btn.green{background:#4ade80}
+.hl-btn.blue{background:#60a5fa}
+.hl-btn.pink{background:#f472b6}
+.hl-btn.orange{background:#fb923c}
+.hl-btn.eraser{background:var(--surface);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.hl-clear{margin-left:auto;font-size:.75rem;color:var(--ink-muted);background:none;border:1px solid var(--border);padding:.3rem .6rem;border-radius:4px;cursor:pointer}
+.hl-clear:hover{border-color:var(--warning);color:var(--warning)}
+.hl-yellow{background:var(--hl-yellow);border-radius:2px;padding:0 2px}
+.hl-green{background:var(--hl-green);border-radius:2px;padding:0 2px}
+.hl-blue{background:var(--hl-blue);border-radius:2px;padding:0 2px}
+.hl-pink{background:var(--hl-pink);border-radius:2px;padding:0 2px}
+.hl-orange{background:var(--hl-orange);border-radius:2px;padding:0 2px}
+.source-text{cursor:text;line-height:2}
+
 @media(max-width:650px){.form-row,.scores-grid,.stats-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
   <div class="header-left">
-    <a href="index.html" class="back-link">← Zurück</a>
+    <a href="index.html?back=german" class="back-link">← Zurück</a>
     <h1>Deutsch · <span>Erörterung</span></h1>
   </div>
   <div style="display:flex;align-items:center;gap:.8rem">
@@ -140,6 +164,19 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
     </div>
     <div class="card">
       <h2 class="card-header" id="textTitle">Ausgangstext</h2>
+      
+      <!-- Highlighter Toolbar -->
+      <div class="highlighter-toolbar">
+        <span class="hl-label">🖍️ Markieren:</span>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
+        <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+      </div>
+      
       <div class="source-text" id="sourceText">Hier erscheint der Text …</div>
       <div class="source-meta" id="sourceMeta"></div>
     </div>
@@ -267,7 +304,28 @@ function exportPDF(){html2pdf().set({margin:10,filename:`Eroerterung_${new Date(
 function toggleDarkMode(){const d=document.documentElement.getAttribute("data-theme")==="dark";document.documentElement.setAttribute("data-theme",d?"light":"dark");localStorage.setItem("theme",d?"light":"dark");document.getElementById("themeToggleBtn").textContent=d?"🌙":"☀️";if(progressChartInstance)renderProgressChart()}
 function initTheme(){const t=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.getElementById("themeToggleBtn").textContent=t==="dark"?"☀️":"🌙"}
 
-window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();setInterval(saveSession,30000)}
+/* ====== HIGHLIGHTER ====== */
+let currentHL = null;
+function selectHL(color) { currentHL = currentHL === color ? null : color; document.querySelectorAll(".hl-btn").forEach(b => b.classList.toggle("active", b.dataset.color === currentHL)); }
+function initHL() { document.querySelectorAll(".source-text").forEach(el => { el.addEventListener("mouseup", () => applyHL(el)); el.addEventListener("touchend", () => applyHL(el)); }); }
+function applyHL(container) {
+  if (!currentHL) return;
+  const sel = window.getSelection(); if (!sel || sel.isCollapsed || !sel.rangeCount) return;
+  const range = sel.getRangeAt(0); if (!container.contains(range.commonAncestorContainer)) return;
+  if (currentHL === "eraser") {
+    const spans = []; const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT); let node;
+    while (node = walker.nextNode()) { if (node.className && node.className.toString().startsWith("hl-") && sel.containsNode(node, true)) spans.push(node); }
+    spans.forEach(span => { const p = span.parentNode; while (span.firstChild) p.insertBefore(span.firstChild, span); p.removeChild(span); }); container.normalize();
+  } else {
+    try { const span = document.createElement("span"); span.className = "hl-" + currentHL; range.surroundContents(span); }
+    catch { const f = range.extractContents(); const span = document.createElement("span"); span.className = "hl-" + currentHL; span.appendChild(f); range.insertNode(span); }
+  }
+  sel.removeAllRanges(); syncHL();
+}
+function clearAllHL() { document.querySelectorAll(".source-text").forEach(c => { c.querySelectorAll("[class^='hl-']").forEach(s => { const p = s.parentNode; while (s.firstChild) p.insertBefore(s.firstChild, s); p.removeChild(s); }); c.normalize(); }); syncHL(); }
+function syncHL() { const s = document.getElementById("sourceText"), w = document.getElementById("writeSourceRef"); if (s && w) w.innerHTML = s.innerHTML; }
+
+window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();initHL();setInterval(saveSession,30000)}
 </script>
 </body>
 </html>
