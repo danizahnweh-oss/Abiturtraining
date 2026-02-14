@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interpretation · Deutsch Trainer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#1a1a2e;--ink-light:#4a4a6a;--ink-muted:#8888a4;
+  --accent:#059669;--accent-hover:#047857;--accent-soft:#d1fae5;--accent-glow:rgba(5,150,105,.08);
+  --surface:#fff;--bg:#f0f0f5;--bg-warm:#fafafa;
+  --border:#e2e2ec;--border-light:#f0f0f5;
+  --success:#059669;--warning:#dc2626;
+  --radius:12px;--radius-sm:8px;
+  --shadow-sm:0 1px 3px rgba(26,26,46,.06);--shadow-md:0 4px 16px rgba(26,26,46,.08);--shadow-lg:0 8px 32px rgba(26,26,46,.12);
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'DM Sans',-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono','Courier New',monospace;
+}
+[data-theme="dark"] {
+  --ink:#e4e4ed;--ink-light:#b0b0c8;--ink-muted:#7878a0;
+  --accent:#34d399;--accent-hover:#6ee7b7;--accent-soft:rgba(52,211,153,.15);--accent-glow:rgba(52,211,153,.08);
+  --surface:#1e1e2e;--bg:#14141f;--bg-warm:#1a1a28;
+  --border:#2e2e42;--border-light:#252538;
+  --success:#34d399;--warning:#f87171;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.2);--shadow-md:0 4px 16px rgba(0,0,0,.3);--shadow-lg:0 8px 32px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+
+header{background:var(--surface);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+header h1{font-family:var(--font-display);font-size:1.3rem}
+header h1 span{color:var(--accent)}
+.header-left{display:flex;align-items:center;gap:1rem}
+.back-link{color:var(--ink-muted);text-decoration:none;font-size:.85rem}
+.back-link:hover{color:var(--accent)}
+.header-meta{font-size:.8rem;color:var(--ink-muted)}
+.theme-toggle{background:var(--border);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem}
+.theme-toggle:hover{background:var(--accent-soft)}
+
+nav{background:var(--surface);padding:0 2rem;display:flex;border-bottom:1px solid var(--border);overflow-x:auto}
+nav button{background:none;border:none;padding:1rem 1.2rem;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.9rem;color:var(--ink-muted);border-bottom:3px solid transparent;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+nav button:hover{color:var(--ink-light)}
+nav button.active{color:var(--accent);border-bottom-color:var(--accent)}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--border);font-size:.75rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+nav button.active .step-num{background:var(--accent);color:white}
+
+main{flex:1;max-width:900px;margin:2rem auto;padding:0 1.5rem;width:100%}
+section{display:none;animation:fadeUp .3s ease-out}
+section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
+
+.card{background:var(--surface);padding:2rem;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--border-light);margin-bottom:1.5rem}
+.card-header{font-family:var(--font-display);font-size:1.35rem;margin-bottom:1.2rem}
+
+label{display:block;font-weight:600;font-size:.85rem;color:var(--ink-light);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+select,input[type="number"]{width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;background:var(--surface);color:var(--ink)}
+select:focus,input:focus{border-color:var(--accent)}
+.form-group{margin-bottom:1.2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:white;border:none;padding:.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.95rem;transition:all .2s}
+.btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn-secondary{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.btn-secondary:hover{background:var(--accent-soft)}
+.btn-small{padding:.5rem 1rem;font-size:.85rem}
+
+.task-box{background:var(--accent-glow);border-left:4px solid var(--accent);padding:1.4rem;margin:1rem 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.7}
+.source-text{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.6rem;margin:1rem 0;line-height:1.9;max-height:500px;overflow-y:auto}
+.source-text .verse{margin-bottom:.3rem}
+.source-meta{font-size:.85rem;color:var(--ink-muted);margin-top:1rem;font-style:italic}
+
+textarea{width:100%;min-height:400px;padding:1.4rem;font-family:var(--font-mono);font-size:.92rem;line-height:1.7;border:2px solid var(--border);border-radius:var(--radius-sm);outline:none;resize:vertical;color:var(--ink);background:var(--surface)}
+textarea:focus{border-color:var(--accent)}
+.write-toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;flex-wrap:wrap;gap:.8rem}
+.word-counter{font-size:.85rem;color:var(--ink-muted);font-family:var(--font-mono)}
+
+.scores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.score-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center}
+.score-card.total{background:var(--accent-glow);border-color:var(--accent)}
+.score-label{font-size:.75rem;font-weight:600;text-transform:uppercase;color:var(--ink-muted);margin-bottom:.3rem}
+.score-value{font-family:var(--font-display);font-size:2rem;line-height:1}
+.score-card.total .score-value{color:var(--accent)}
+.score-max{font-size:.8rem;color:var(--ink-muted)}
+
+.feedback-body{line-height:1.7}
+.feedback-body h2{font-family:var(--font-display);font-size:1.15rem;margin:1.3rem 0 .6rem}
+.feedback-body ul,.feedback-body ol{padding-left:1.5rem;margin:.5rem 0}
+.feedback-body li{margin-bottom:.3rem}
+.feedback-body p{margin-bottom:.6rem}
+.feedback-body blockquote{border-left:3px solid var(--accent);padding-left:1rem;margin:1rem 0;color:var(--ink-light);font-style:italic}
+
+.loader{display:none;margin:2rem auto;text-align:center}
+.loader-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader-text{font-size:.85rem;color:var(--ink-muted)}
+
+.gattung-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+.gattung-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer;transition:all .2s}
+.gattung-card:hover{border-color:var(--accent);background:var(--accent-glow)}
+.gattung-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.gattung-icon{font-size:2rem;margin-bottom:.5rem}
+.gattung-name{font-weight:600;font-size:.9rem}
+
+.timer-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-bottom:1rem;display:none;align-items:center;justify-content:space-between}
+.timer-bar.active{display:flex}
+.timer-display{font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--accent)}
+.timer-display.warning{color:var(--warning)}
+.timer-controls{display:flex;gap:.5rem}
+
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.stat-value{font-family:var(--font-mono);font-size:1.8rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:.75rem;color:var(--ink-muted);text-transform:uppercase;margin-top:.2rem}
+.chart-container{height:220px;margin:1rem 0}
+.history-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:1rem}
+.history-table th{text-align:left;padding:.6rem;font-size:.7rem;font-weight:700;text-transform:uppercase;color:var(--ink-muted);border-bottom:2px solid var(--border)}
+.history-table td{padding:.5rem .6rem;border-bottom:1px solid var(--border-light)}
+.history-score{font-family:var(--font-mono);font-weight:600;color:var(--accent)}
+
+footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:auto}
+
+@media(max-width:650px){
+  .form-row,.scores-grid,.stats-grid,.gattung-grid{grid-template-columns:1fr}
+  nav{padding:0 1rem}
+  main{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-link">← Zurück</a>
+    <h1>Deutsch · <span>Interpretation</span></h1>
+  </div>
+  <div style="display:flex;align-items:center;gap:.8rem">
+    <span id="studentGreeting" class="header-meta" style="display:none"></span>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+  <button onclick="nav('task')"><span class="step-num">2</span> Text lesen</button>
+  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+  <button onclick="nav('progress')"><span class="step-num">5</span> Fortschritt</button>
+</nav>
+
+<main>
+  <!-- STEP 1: SETUP -->
+  <section id="sec-setup" class="active">
+    <div class="card">
+      <h2 class="card-header">Aufgabe konfigurieren</h2>
+      
+      <div class="form-group">
+        <label>Gattung wählen</label>
+        <div class="gattung-grid">
+          <div class="gattung-card selected" data-gattung="lyrik" onclick="selectGattung('lyrik')">
+            <div class="gattung-icon">🎭</div>
+            <div class="gattung-name">Lyrik</div>
+          </div>
+          <div class="gattung-card" data-gattung="drama" onclick="selectGattung('drama')">
+            <div class="gattung-icon">🎪</div>
+            <div class="gattung-name">Drama</div>
+          </div>
+          <div class="gattung-card" data-gattung="epik" onclick="selectGattung('epik')">
+            <div class="gattung-icon">📖</div>
+            <div class="gattung-name">Epik</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Epoche / Themenfeld</label>
+          <select id="epocheSelect">
+            <option value="random">Zufällig auswählen</option>
+            <option value="aufklaerung">Aufklärung</option>
+            <option value="sturm_und_drang">Sturm und Drang</option>
+            <option value="klassik">Weimarer Klassik</option>
+            <option value="romantik">Romantik</option>
+            <option value="realismus">Realismus</option>
+            <option value="naturalismus">Naturalismus</option>
+            <option value="um1900">Umbrüche um 1900 (Themenfeld)</option>
+            <option value="expressionismus">Expressionismus</option>
+            <option value="moderne">Moderne / Nachkriegszeit</option>
+            <option value="gegenwart">Gegenwartsliteratur</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Weiterführender Schreibauftrag</label>
+          <select id="schreibauftragSelect">
+            <option value="motivvergleich">Motivvergleich (mit Vergleichstext)</option>
+            <option value="poetologisch">Poetologische Aufgabe</option>
+            <option value="lektuere">Bezug zur Lektüre (Kleist/Erpenbeck)</option>
+            <option value="themenfeld">Bezug zum Themenfeld</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Bearbeitungszeit (Minuten)</label>
+        <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
+        <span style="font-size:.8rem;color:var(--ink-muted);margin-left:.5rem">Abitur: 315 Min. für alle Aufgaben</span>
+      </div>
+
+      <button class="btn" id="generateBtn" onclick="generateTask()">
+        ✨ Aufgabe generieren
+      </button>
+      <div class="loader" id="setupLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Generiere Interpretationsaufgabe …</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: READ TASK -->
+  <section id="sec-task">
+    <div class="card">
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
+      <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem">
+        <strong>Gewichtung:</strong> Teilaufgabe 1: ca. <span id="weightPart1">70</span>% · Teilaufgabe 2: ca. <span id="weightPart2">30</span>%
+      </p>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header" id="textTitle">Literarischer Text</h2>
+      <div class="source-text" id="sourceText">Hier erscheint der zu interpretierende Text …</div>
+      <div class="source-meta" id="sourceMeta"></div>
+    </div>
+
+    <div class="card" id="compareTextCard" style="display:none">
+      <h2 class="card-header" id="compareTitle">Vergleichstext</h2>
+      <div class="source-text" id="compareText"></div>
+      <div class="source-meta" id="compareMeta"></div>
+    </div>
+
+    <div class="card" id="materialCard" style="display:none">
+      <h2 class="card-header">Material zur Teilaufgabe 2</h2>
+      <div class="task-box" id="materialText"></div>
+      <div class="source-meta" id="materialMeta"></div>
+    </div>
+
+    <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+  </section>
+
+  <!-- STEP 3: WRITE -->
+  <section id="sec-write">
+    <div class="timer-bar" id="timerBar">
+      <div>
+        <span style="font-size:.85rem;color:var(--ink-muted)">Verbleibende Zeit:</span>
+        <span class="timer-display" id="timerDisplay">00:00</span>
+      </div>
+      <div class="timer-controls">
+        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
+        <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header">Deine Interpretation</h2>
+      
+      <details style="margin-bottom:1rem">
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem">📖 Aufgabe & Text anzeigen</summary>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm)">
+          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
+          <div class="source-text" id="writeSourceRef" style="max-height:300px"></div>
+        </div>
+      </details>
+
+      <textarea id="studentText" placeholder="Beginne hier mit deiner Interpretation …
+
+Tipp: Strukturiere deinen Text klar:
+• Einleitung mit Deutungshypothese
+• Hauptteil: systematische Analyse mit Textbelegen
+• Schluss: Zusammenfassung und Einordnung
+
+Vergiss nicht den weiterführenden Schreibauftrag (Teilaufgabe 2)!" oninput="updateWordCount()"></textarea>
+      
+      <div class="write-toolbar">
+        <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
+          <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Zur Bewertung abgeben</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+  </section>
+
+  <!-- STEP 4: FEEDBACK -->
+  <section id="sec-feedback">
+    <div class="loader" id="feedbackLoader">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Bewerte deine Interpretation nach ISB-Kriterien …</div>
+    </div>
+
+    <div id="feedbackContent" style="display:none">
+      <div class="card">
+        <h2 class="card-header">Bewertung</h2>
+        <div class="scores-grid">
+          <div class="score-card">
+            <div class="score-label">Verstehensleistung</div>
+            <div class="score-value" id="scoreVerstehen">–</div>
+            <div class="score-max">/ 15 NP</div>
+          </div>
+          <div class="score-card">
+            <div class="score-label">Darstellungsleistung</div>
+            <div class="score-value" id="scoreDarstellung">–</div>
+            <div class="score-max">/ 15 NP</div>
+          </div>
+          <div class="score-card total">
+            <div class="score-label">Gesamtnote</div>
+            <div class="score-value" id="scoreTotal">–</div>
+            <div class="score-max">/ 15 NP</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Detailliertes Feedback</h2>
+        <div class="feedback-body" id="feedbackBody"></div>
+      </div>
+
+      <div class="card" id="modelAnswerCard" style="display:none">
+        <h2 class="card-header">Musterlösung</h2>
+        <div class="feedback-body" id="modelAnswerBody"></div>
+      </div>
+
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">📄 Musterlösung zeigen</button>
+        <button class="btn btn-secondary" onclick="exportPDF()">📑 Als PDF exportieren</button>
+        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: PROGRESS -->
+  <section id="sec-progress">
+    <div class="card">
+      <h2 class="card-header">Dein Fortschritt</h2>
+      
+      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+        <div style="font-size:3rem;margin-bottom:1rem">📊</div>
+        <p>Noch keine Interpretationen bewertet.</p>
+      </div>
+
+      <div id="progressContent" style="display:none">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="statAttempts">0</div>
+            <div class="stat-label">Versuche</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statAverage">–</div>
+            <div class="stat-label">Ø Punkte</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="statBest">–</div>
+            <div class="stat-label">Bestleistung</div>
+          </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="progressChart"></canvas>
+        </div>
+
+        <table class="history-table">
+          <thead>
+            <tr><th>Datum</th><th>Gattung</th><th>Verstehen</th><th>Darstell.</th><th>Gesamt</th><th></th></tr>
+          </thead>
+          <tbody id="historyTableBody"></tbody>
+        </table>
+      </div>
+
+      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">🗑 Verlauf löschen</button>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 St. Anna Gymnasium · Deutsch Trainer · Interpretation literarischer Texte</footer>
+
+<script>
+const API_BASE = "https://sag-abi-mediation-api.danizahnweh.workers.dev";
+const CONFIG = { gattung: "lyrik", storedData: null };
+
+const BEWERTUNG_PROMPT = `Du bist ein erfahrener Deutschlehrer am bayerischen Gymnasium und bewertest eine Interpretation nach ISB-Kriterien.
+
+VERSTEHENSLEISTUNG (70%):
+- Textverständnis und Deutungshypothese
+- Analyse von Gestaltungsmitteln (Sprache, Form, Struktur)
+- Textbelege und Zitatverwendung
+- Kontextwissen (Epoche, Autor)
+- Bearbeitung des weiterführenden Auftrags
+
+DARSTELLUNGSLEISTUNG (30%):
+- Aufbau und Kohärenz
+- Fachsprache
+- Ausdruck und Stil
+- Sprachrichtigkeit
+
+NOTENPUNKTE (0-15 NP):
+15-13: sehr gut | 12-10: gut | 9-7: befriedigend | 6-4: ausreichend | 3-1: mangelhaft | 0: ungenügend
+
+SPERRKLAUSEL: Bei 0 NP in einem Bereich max. 3 NP gesamt.
+
+Antworte NUR mit validem JSON:
+{"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown-Feedback>"}
+
+gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
+
+function getStudentKey() {
+  return (sessionStorage.getItem("student_name") || "anon").toLowerCase().replace(/\s+/g, "_");
+}
+
+function escapeHtml(str) {
+  return String(str || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+
+function countWords(text) {
+  return (text || "").trim().split(/\s+/).filter(w => w.length > 0).length;
+}
+
+function updateWordCount() {
+  document.getElementById("wordCount").textContent = countWords(document.getElementById("studentText").value);
+}
+
+async function apiCall(endpoint, body) {
+  const res = await fetch(API_BASE + endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Access-Password": "stanna2026" },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error || `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+function nav(step) {
+  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  document.getElementById("sec-" + step).classList.add("active");
+  const idx = ["setup", "task", "write", "feedback", "progress"].indexOf(step);
+  document.querySelectorAll("nav button")[idx]?.classList.add("active");
+  if (step === "progress") renderProgress();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function selectGattung(gattung) {
+  CONFIG.gattung = gattung;
+  document.querySelectorAll(".gattung-card").forEach(c => c.classList.remove("selected"));
+  document.querySelector(`[data-gattung="${gattung}"]`).classList.add("selected");
+}
+
+async function generateTask() {
+  const btn = document.getElementById("generateBtn");
+  btn.disabled = true;
+  document.getElementById("setupLoader").style.display = "block";
+
+  try {
+    const data = await apiCall("/api/generate-deutsch", {
+      gattung: CONFIG.gattung,
+      epoche: document.getElementById("epocheSelect").value,
+      schreibauftrag: document.getElementById("schreibauftragSelect").value,
+      type: "interpretation"
+    });
+
+    CONFIG.storedData = data;
+    localStorage.setItem("deutsch_interpretation_data", JSON.stringify(data));
+    renderTask(data);
+    nav("task");
+  } catch (e) {
+    alert("Fehler beim Generieren: " + e.message);
+  }
+
+  btn.disabled = false;
+  document.getElementById("setupLoader").style.display = "none";
+}
+
+function renderTask(data) {
+  document.getElementById("taskInstruction").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("textTitle").textContent = data.gattung === "lyrik" ? "Gedicht" : data.gattung === "drama" ? "Dramenausschnitt" : "Prosatext";
+  
+  const sourceHtml = (data.primary_text || "").split("\n").map(line => `<div class="verse">${escapeHtml(line) || "&nbsp;"}</div>`).join("");
+  document.getElementById("sourceText").innerHTML = sourceHtml;
+  document.getElementById("sourceMeta").textContent = data.primary_meta || "";
+  document.getElementById("weightPart1").textContent = data.weight_part1 || 70;
+  document.getElementById("weightPart2").textContent = data.weight_part2 || 30;
+
+  if (data.compare_text) {
+    document.getElementById("compareTextCard").style.display = "block";
+    document.getElementById("compareText").innerHTML = (data.compare_text || "").split("\n").map(line => `<div class="verse">${escapeHtml(line) || "&nbsp;"}</div>`).join("");
+    document.getElementById("compareMeta").textContent = data.compare_meta || "";
+  } else {
+    document.getElementById("compareTextCard").style.display = "none";
+  }
+
+  if (data.material_text) {
+    document.getElementById("materialCard").style.display = "block";
+    document.getElementById("materialText").innerHTML = escapeHtml(data.material_text).replace(/\n/g, "<br>");
+    document.getElementById("materialMeta").textContent = data.material_meta || "";
+  } else {
+    document.getElementById("materialCard").style.display = "none";
+  }
+
+  document.getElementById("writeTaskRef").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("writeSourceRef").innerHTML = sourceHtml;
+}
+
+async function submitForGrading() {
+  const text = document.getElementById("studentText").value;
+  if (countWords(text) < 100) { alert("Dein Text ist zu kurz (mindestens 100 Wörter)."); return; }
+  if (!CONFIG.storedData?.primary_text) { alert("Bitte zuerst eine Aufgabe generieren."); return; }
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  nav("feedback");
+  document.getElementById("feedbackLoader").style.display = "block";
+  document.getElementById("feedbackContent").style.display = "none";
+
+  try {
+    const data = await apiCall("/api/grade-deutsch", {
+      task_instruction: CONFIG.storedData.task_instruction,
+      primary_text: CONFIG.storedData.primary_text,
+      primary_meta: CONFIG.storedData.primary_meta,
+      compare_text: CONFIG.storedData.compare_text || null,
+      material_text: CONFIG.storedData.material_text || null,
+      student_text: text,
+      rubric_prompt: BEWERTUNG_PROMPT,
+      type: "interpretation"
+    });
+
+    const vs = data.scores?.verstehen, ds = data.scores?.darstellung, ts = data.scores?.total;
+    document.getElementById("scoreVerstehen").textContent = vs != null ? vs : "–";
+    document.getElementById("scoreDarstellung").textContent = ds != null ? ds : "–";
+    document.getElementById("scoreTotal").textContent = ts != null ? ts : "–";
+
+    saveToHistory({ gattung: CONFIG.storedData.gattung || CONFIG.gattung, verstehen: vs, darstellung: ds, total: ts });
+
+    apiCall("/api/submit-result", {
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+      course: sessionStorage.getItem("student_level") || "",
+      type: "deutsch-interpretation",
+      topic: CONFIG.storedData.primary_meta || "Interpretation",
+      content: vs, language: ds, total: ts,
+      date: new Date().toISOString()
+    }).catch(() => {});
+
+    stopTimer();
+    document.getElementById("feedbackBody").innerHTML = marked.parse(data.feedback || "Kein Feedback generiert.");
+    document.getElementById("feedbackContent").style.display = "block";
+  } catch (e) {
+    document.getElementById("feedbackContent").style.display = "block";
+    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
+  }
+
+  document.getElementById("feedbackLoader").style.display = "none";
+  btn.disabled = false;
+}
+
+async function showModelAnswer() {
+  const card = document.getElementById("modelAnswerCard");
+  const body = document.getElementById("modelAnswerBody");
+  const btn = document.getElementById("showModelBtn");
+
+  if (card.style.display === "block") { card.style.display = "none"; return; }
+
+  btn.disabled = true;
+  btn.textContent = "⏳ Wird generiert …";
+
+  try {
+    const data = await apiCall("/api/model-answer-deutsch", {
+      task_instruction: CONFIG.storedData.task_instruction,
+      primary_text: CONFIG.storedData.primary_text,
+      primary_meta: CONFIG.storedData.primary_meta,
+      compare_text: CONFIG.storedData.compare_text,
+      material_text: CONFIG.storedData.material_text,
+      type: "interpretation"
+    });
+    body.innerHTML = marked.parse(data.model_answer || "Keine Musterlösung generiert.");
+    card.style.display = "block";
+    card.scrollIntoView({ behavior: "smooth" });
+  } catch (e) {
+    body.innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
+    card.style.display = "block";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "📄 Musterlösung zeigen";
+}
+
+let timerInterval = null, timerSeconds = 0, timerPaused = false;
+
+function startTimer() {
+  timerSeconds = (parseInt(document.getElementById("timerMinutes").value) || 180) * 60;
+  timerPaused = false;
+  document.getElementById("timerBar").classList.add("active");
+  document.getElementById("timerStartBtn").style.display = "none";
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    if (timerPaused) return;
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) { clearInterval(timerInterval); alert("⏰ Die Zeit ist abgelaufen!"); }
+  }, 1000);
+}
+
+function pauseTimer() {
+  timerPaused = !timerPaused;
+  document.getElementById("timerPauseBtn").textContent = timerPaused ? "▶ Weiter" : "⏸ Pause";
+}
+
+function stopTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = null; timerSeconds = 0; timerPaused = false;
+  document.getElementById("timerBar").classList.remove("active");
+  document.getElementById("timerStartBtn").style.display = "inline-flex";
+  document.getElementById("timerDisplay").classList.remove("warning");
+}
+
+function updateTimerDisplay() {
+  const h = Math.floor(timerSeconds / 3600), m = Math.floor((timerSeconds % 3600) / 60), s = timerSeconds % 60;
+  const display = document.getElementById("timerDisplay");
+  display.textContent = h > 0 ? `${h}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}` : `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+  display.classList.toggle("warning", timerSeconds <= 600 && timerSeconds > 0);
+}
+
+function saveSession() {
+  localStorage.setItem("deutsch_interpretation_session_" + getStudentKey(), JSON.stringify({
+    studentText: document.getElementById("studentText").value,
+    storedData: CONFIG.storedData,
+    gattung: CONFIG.gattung
+  }));
+}
+
+function restoreSession() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("deutsch_interpretation_session_" + getStudentKey()));
+    if (saved) {
+      if (saved.studentText) document.getElementById("studentText").value = saved.studentText;
+      if (saved.storedData) { CONFIG.storedData = saved.storedData; renderTask(saved.storedData); }
+      if (saved.gattung) { CONFIG.gattung = saved.gattung; selectGattung(saved.gattung); }
+      updateWordCount();
+    }
+  } catch {}
+}
+
+let progressChartInstance = null;
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem("deutsch_interpretation_history_" + getStudentKey()) || "[]"); } catch { return []; }
+}
+
+function saveToHistory(entry) {
+  const history = getHistory();
+  history.push({ date: new Date().toISOString(), gattung: entry.gattung || "–", verstehen: entry.verstehen, darstellung: entry.darstellung, total: entry.total });
+  localStorage.setItem("deutsch_interpretation_history_" + getStudentKey(), JSON.stringify(history));
+}
+
+function deleteHistoryEntry(index) {
+  const history = getHistory();
+  history.splice(index, 1);
+  localStorage.setItem("deutsch_interpretation_history_" + getStudentKey(), JSON.stringify(history));
+  renderProgress();
+}
+
+function clearHistory() {
+  if (!confirm("Gesamten Fortschritt löschen?")) return;
+  localStorage.removeItem("deutsch_interpretation_history_" + getStudentKey());
+  renderProgress();
+}
+
+function renderProgress() {
+  const history = getHistory();
+  const empty = document.getElementById("progressEmpty"), content = document.getElementById("progressContent"), clearBtn = document.getElementById("clearHistoryBtn");
+
+  if (!history.length) { empty.style.display = "block"; content.style.display = "none"; clearBtn.style.display = "none"; return; }
+
+  empty.style.display = "none"; content.style.display = "block"; clearBtn.style.display = "inline-flex";
+
+  const totals = history.map(h => h.total).filter(t => t != null);
+  document.getElementById("statAttempts").textContent = history.length;
+  document.getElementById("statAverage").textContent = totals.length ? (totals.reduce((a,b) => a+b, 0) / totals.length).toFixed(1) : "–";
+  document.getElementById("statBest").textContent = totals.length ? Math.max(...totals) : "–";
+
+  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((h, i) => {
+    const realIdx = history.length - 1 - i;
+    const d = new Date(h.date);
+    const icon = h.gattung === "lyrik" ? "🎭" : h.gattung === "drama" ? "🎪" : "📖";
+    return `<tr><td>${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}</td><td>${icon} ${escapeHtml(h.gattung)}</td><td class="history-score">${h.verstehen ?? "–"}/15</td><td class="history-score">${h.darstellung ?? "–"}/15</td><td class="history-score" style="font-weight:700">${h.total ?? "–"}/15</td><td><button onclick="deleteHistoryEntry(${realIdx})" style="background:none;border:none;cursor:pointer;color:var(--ink-muted)">✕</button></td></tr>`;
+  }).join("");
+
+  renderProgressChart();
+}
+
+function renderProgressChart() {
+  const history = getHistory();
+  if (!history.length) return;
+  const ctx = document.getElementById("progressChart");
+  if (!ctx) return;
+  if (progressChartInstance) progressChartInstance.destroy();
+
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  progressChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: history.map((h, i) => `#${i + 1}`),
+      datasets: [
+        { label: "Gesamt", data: history.map(h => h.total), borderColor: "#059669", backgroundColor: "rgba(5,150,105,0.1)", fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 4 },
+        { label: "Verstehen", data: history.map(h => h.verstehen), borderColor: "#2563eb", borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, fill: false, tension: 0.3 },
+        { label: "Darstellung", data: history.map(h => h.darstellung), borderColor: "#f59e0b", borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, fill: false, tension: 0.3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: isDark ? "#b0b0c8" : "#8888a4", font: { size: 11 } } } },
+      scales: {
+        y: { min: 0, max: 15, grid: { color: isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)" }, ticks: { color: isDark ? "#b0b0c8" : "#8888a4", stepSize: 3 } },
+        x: { grid: { display: false }, ticks: { color: isDark ? "#b0b0c8" : "#8888a4" } }
+      }
+    }
+  });
+}
+
+function exportPDF() {
+  html2pdf().set({ margin: 10, filename: `Interpretation_${new Date().toISOString().slice(0,10)}.pdf`, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4' } }).from(document.getElementById("feedbackContent")).save();
+}
+
+function toggleDarkMode() {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+  localStorage.setItem("theme", isDark ? "light" : "dark");
+  document.getElementById("themeToggleBtn").textContent = isDark ? "🌙" : "☀️";
+  if (progressChartInstance) renderProgressChart();
+}
+
+function initTheme() {
+  const theme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
+  document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+}
+
+window.onload = function() {
+  initTheme();
+  if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) { window.location.href = "index.html"; return; }
+  const name = sessionStorage.getItem("student_name") || "", level = (sessionStorage.getItem("student_level") || "").toUpperCase();
+  document.getElementById("studentGreeting").textContent = `${name} · ${level}`;
+  document.getElementById("studentGreeting").style.display = "inline";
+  restoreSession();
+  setInterval(saveSession, 30000);
+};
+</script>
+</body>
+</html>
