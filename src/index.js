@@ -92,6 +92,9 @@ export default {
       if (pathname === "/api/model-answer-deutsch" && request.method === "POST") {
         return await handleModelAnswerDeutsch(request, env);
       }
+      if (pathname === "/api/parse-task-deutsch" && request.method === "POST") {
+        return await handleParseTaskDeutsch(request, env);
+      }
 
       // ===== DASHBOARD ENDPOINTS =====
       if (pathname === "/api/submit-result" && request.method === "POST") {
@@ -290,6 +293,44 @@ Formatiere als Markdown: Erst die Lösung, dann unter "---" eine kurze Erklärun
   return jsonResponse({ model_answer: answer });
 }
 
+/* ================= DEUTSCH: PARSE TASK (OCR) ================= */
+async function handleParseTaskDeutsch(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Deutsch-Abitur Interpretationsaufgabe. Extrahiere:
+1. Die Aufgabenstellung (task_instruction) - vollständig mit allen Teilaufgaben
+2. Den literarischen Text (primary_text) - Gedicht, Dramenausschnitt oder Prosatext VOLLSTÄNDIG
+3. Metadaten (primary_meta) - Autor, Titel, Erscheinungsjahr
+
+Bei Gedichten: Alle Strophen und Verse extrahieren.
+Bei Dramen: Den kompletten Dialog mit Sprecherangaben.
+Bei Prosa: Den gesamten Textausschnitt.
+
+Antworte NUR mit validem JSON:
+{"task_instruction": "...", "primary_text": "...", "primary_meta": "..."}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
+  });
+
+  const data = await openaiRes.json();
+  if (!openaiRes.ok) throw new Error(data?.error?.message || "OpenAI Vision error");
+  const text = data?.choices?.[0]?.message?.content || "";
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed);
+}
+
 /* ================= DEUTSCH: GENERATE ================= */
 async function handleGenerateDeutsch(request, env) {
   const body = await request.json();
@@ -299,12 +340,20 @@ async function handleGenerateDeutsch(request, env) {
 
   if (type === "interpretation") {
     systemPrompt = `Du bist ein Experte für das bayerische Deutsch-Abitur. Erstelle eine authentische Interpretationsaufgabe.
+
+WICHTIG - TEXTE VOLLSTÄNDIG AUSSCHREIBEN:
+- Bei LYRIK: Das KOMPLETTE Gedicht mit allen Strophen und Versen (nicht nur Titel nennen!)
+- Bei DRAMA: Einen substantiellen Ausschnitt von 30-50 Zeilen Dialog (nicht nur "Ausschnitt aus...")
+- Bei EPIK: Einen Prosaausschnitt von 300-500 Wörtern (nicht nur referenzieren!)
+
+Verwende bekannte, kanonische Texte der deutschen Literatur die du kennst.
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Zweiteilige Aufgabenstellung",
-  "primary_text": "Der literarische Text (vollständig bei Lyrik, Ausschnitt bei Drama/Epik)",
+  "primary_text": "DER VOLLSTÄNDIGE TEXT - nicht nur Titel oder Referenz!",
   "primary_meta": "Autor, Titel, Jahr",
-  "compare_text": "Vergleichstext bei Motivvergleich, sonst null",
+  "compare_text": "VOLLSTÄNDIGER Vergleichstext bei Motivvergleich, sonst null",
   "compare_meta": "Metadaten Vergleichstext oder null",
   "material_text": "Material für poetologische Aufgabe oder null",
   "material_meta": "Quelle oder null",
@@ -317,7 +366,13 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gattung: ${gattung}
 - Epoche: ${epoche === "random" ? "frei wählbar" : epoche}
 - Weiterführender Auftrag: ${schreibauftrag}
-Verwende ECHTE literarische Texte. Die Aufgabe muss abiturtypisch formuliert sein.`;
+
+KRITISCH: Schreibe den VOLLSTÄNDIGEN literarischen Text aus!
+- Lyrik: Alle Strophen, alle Verse
+- Drama: 30-50 Zeilen echten Dialog mit Sprecherangaben
+- Epik: 300-500 Wörter Prosatext
+
+Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist, Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, etc.`;
 
   } else if (type === "analyse") {
     systemPrompt = `Du erstellst Analyseaufgaben für pragmatische Texte (Deutsch-Abitur Bayern).
