@@ -562,28 +562,43 @@ Antworte NUR mit validem JSON:
 
   } else if (type === "materialgestuetzt") {
     systemPrompt = `Du erstellst materialgestützte Schreibaufgaben für das Deutsch-Abitur Bayern.
-Antworte NUR mit validem JSON:
+
+WICHTIG - MATERIALIEN AUSFÜHRLICH:
+- Erstelle genau 4-5 verschiedene Materialien
+- Textmaterialien (type "text"): Jeweils 150-300 Wörter. Vollständige Textauszüge mit Argumenten, nicht nur Zusammenfassungen!
+- Statistiken (type "statistik"): Als Markdown-Tabelle mit konkreten Zahlen und Prozentwerten formatieren. Mindestens 4-6 Datenzeilen. Unter der Tabelle eine kurze Beschreibung.
+- Mindestens 1 Material muss vom Typ "statistik" sein (Umfrage, Studie, Statistik als Tabelle)
+- Mindestens 2 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
+- 1 Material kann ein Zitat/Expertenaussage sein (type "text", aber kürzer: 50-80 Wörter)
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction": "Präzise Aufgabenstellung mit Textsorte, Adressat, Anlass",
+  "task_instruction": "Präzise Aufgabenstellung mit Textsorte, Adressat, Anlass und konkretem Schreibauftrag",
   "zieltext": "Geforderte Textsorte",
   "zielgruppe": "Adressaten",
   "materials": [
-    {"title": "Titel", "type": "text|statistik", "content": "Inhalt", "source": "Quelle"}
+    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (150-300 Wörter)", "source": "Autor, Quelle, Jahr"},
+    {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"}
   ]
-}
-Erstelle 3-5 verschiedene Materialien (Texte, Statistiken, Zitate).`;
+}`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
 - Typ: ${aufgabentyp === "argumentieren" ? "Argumentierender Beitrag" : "Informierender Text"}
 - Thema: ${thema === "random" ? "frei wählbar" : truncate(thema, 200)}
-- Zieltextsorte: ${truncate(textsorte, 200)}`;
+- Zieltextsorte: ${truncate(textsorte, 200)}
+
+KRITISCH:
+- Jedes Textmaterial muss 150-300 Wörter lang sein (vollständige Auszüge, nicht Stichpunkte!)
+- Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen
+- Insgesamt 4-5 Materialien, davon mindestens 1 Statistik`;
   } else {
     return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
 
+  const maxTokens = type === "materialgestuetzt" ? 8000 : 6000;
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 6000);
+  ], maxTokens);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
