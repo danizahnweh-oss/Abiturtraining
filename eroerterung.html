@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erörterung · Deutsch Trainer</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1a1a2e;--ink-light:#4a4a6a;--ink-muted:#8888a4;--accent:#059669;--accent-hover:#047857;--accent-soft:#d1fae5;--accent-glow:rgba(5,150,105,.08);--surface:#fff;--bg:#f0f0f5;--bg-warm:#fafafa;--border:#e2e2ec;--border-light:#f0f0f5;--warning:#dc2626;--radius:12px;--radius-sm:8px;--shadow-sm:0 1px 3px rgba(26,26,46,.06);--font-display:'DM Serif Display',Georgia,serif;--font-body:'DM Sans',-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace}
+[data-theme="dark"]{--ink:#e4e4ed;--ink-light:#b0b0c8;--ink-muted:#7878a0;--accent:#34d399;--accent-hover:#6ee7b7;--accent-soft:rgba(52,211,153,.15);--accent-glow:rgba(52,211,153,.08);--surface:#1e1e2e;--bg:#14141f;--bg-warm:#1a1a28;--border:#2e2e42;--border-light:#252538;--warning:#f87171}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;line-height:1.6}
+header{background:var(--surface);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+header h1{font-family:var(--font-display);font-size:1.3rem}
+header h1 span{color:var(--accent)}
+.header-left{display:flex;align-items:center;gap:1rem}
+.back-link{color:var(--ink-muted);text-decoration:none;font-size:.85rem}
+.header-meta{font-size:.8rem;color:var(--ink-muted)}
+.theme-toggle{background:var(--border);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem}
+nav{background:var(--surface);padding:0 2rem;display:flex;border-bottom:1px solid var(--border);overflow-x:auto}
+nav button{background:none;border:none;padding:1rem 1.2rem;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.9rem;color:var(--ink-muted);border-bottom:3px solid transparent;display:flex;align-items:center;gap:.4rem}
+nav button.active{color:var(--accent);border-bottom-color:var(--accent)}
+.step-num{width:22px;height:22px;border-radius:50%;background:var(--border);font-size:.75rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+nav button.active .step-num{background:var(--accent);color:white}
+main{flex:1;max-width:900px;margin:2rem auto;padding:0 1.5rem;width:100%}
+section{display:none}section.active{display:block}
+.card{background:var(--surface);padding:2rem;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--border-light);margin-bottom:1.5rem}
+.card-header{font-family:var(--font-display);font-size:1.35rem;margin-bottom:1.2rem}
+label{display:block;font-weight:600;font-size:.85rem;color:var(--ink-light);margin-bottom:.4rem;text-transform:uppercase}
+select,input[type="number"]{width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;background:var(--surface);color:var(--ink)}
+.form-group{margin-bottom:1.2rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent);color:white;border:none;padding:.75rem 1.5rem;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-body);font-weight:600}
+.btn:hover{background:var(--accent-hover)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-secondary{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.btn-small{padding:.5rem 1rem;font-size:.85rem}
+.task-box{background:var(--accent-glow);border-left:4px solid var(--accent);padding:1.4rem;margin:1rem 0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.7}
+.source-text{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.6rem;margin:1rem 0;line-height:1.9;max-height:500px;overflow-y:auto}
+.source-meta{font-size:.85rem;color:var(--ink-muted);margin-top:1rem;font-style:italic}
+textarea{width:100%;min-height:400px;padding:1.4rem;font-family:var(--font-mono);font-size:.92rem;line-height:1.7;border:2px solid var(--border);border-radius:var(--radius-sm);resize:vertical;color:var(--ink);background:var(--surface)}
+.write-toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem;flex-wrap:wrap;gap:.8rem}
+.word-counter{font-size:.85rem;color:var(--ink-muted);font-family:var(--font-mono)}
+.scores-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.score-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center}
+.score-card.total{background:var(--accent-glow);border-color:var(--accent)}
+.score-label{font-size:.75rem;font-weight:600;text-transform:uppercase;color:var(--ink-muted)}
+.score-value{font-family:var(--font-display);font-size:2rem}
+.score-card.total .score-value{color:var(--accent)}
+.score-max{font-size:.8rem;color:var(--ink-muted)}
+.feedback-body{line-height:1.7}
+.feedback-body h2{font-family:var(--font-display);font-size:1.15rem;margin:1.3rem 0 .6rem}
+.feedback-body ul,.feedback-body ol{padding-left:1.5rem}
+.feedback-body p{margin-bottom:.6rem}
+.loader{display:none;margin:2rem auto;text-align:center}
+.loader-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.timer-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-bottom:1rem;display:none;align-items:center;justify-content:space-between}
+.timer-bar.active{display:flex}
+.timer-display{font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--accent)}
+.timer-display.warning{color:var(--warning)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.stat-value{font-family:var(--font-mono);font-size:1.8rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:.75rem;color:var(--ink-muted);text-transform:uppercase}
+.chart-container{height:220px;margin:1rem 0}
+.history-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:1rem}
+.history-table th{text-align:left;padding:.6rem;font-size:.7rem;text-transform:uppercase;color:var(--ink-muted);border-bottom:2px solid var(--border)}
+.history-table td{padding:.5rem .6rem;border-bottom:1px solid var(--border-light)}
+.history-score{font-family:var(--font-mono);font-weight:600;color:var(--accent)}
+footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;border-top:1px solid var(--border);margin-top:auto}
+@media(max-width:650px){.form-row,.scores-grid,.stats-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <a href="index.html" class="back-link">← Zurück</a>
+    <h1>Deutsch · <span>Erörterung</span></h1>
+  </div>
+  <div style="display:flex;align-items:center;gap:.8rem">
+    <span id="studentGreeting" class="header-meta" style="display:none"></span>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+  </div>
+</header>
+<nav>
+  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+  <button onclick="nav('task')"><span class="step-num">2</span> Text lesen</button>
+  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+  <button onclick="nav('progress')"><span class="step-num">5</span> Fortschritt</button>
+</nav>
+<main>
+  <section id="sec-setup" class="active">
+    <div class="card">
+      <h2 class="card-header">Aufgabe konfigurieren</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Themenbereich</label>
+          <select id="themaSelect">
+            <option value="random">Zufällig</option>
+            <option value="sprache_politik">Sprache in politischen Zusammenhängen</option>
+            <option value="medien">Medien und Kommunikation</option>
+            <option value="gesellschaft">Gesellschaft und Ethik</option>
+            <option value="bildung">Bildung und Wissenschaft</option>
+            <option value="digitalisierung">Digitalisierung</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Erörterungstyp</label>
+          <select id="typSelect">
+            <option value="linear">Lineare Erörterung</option>
+            <option value="dialektisch">Dialektische Erörterung</option>
+            <option value="textgebunden">Textgebundene Erörterung</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Bearbeitungszeit (Minuten)</label>
+        <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
+      </div>
+      <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
+      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Erörterungsaufgabe …</div></div>
+    </div>
+    <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
+      <h3 style="font-size:1rem;margin-bottom:.5rem">⚖️ Was ist eine Erörterung (EP)?</h3>
+      <p style="font-size:.9rem;color:var(--ink-light)">Bei der Erörterung pragmatischer Texte analysierst du die Position des Autors und nimmst dann <strong>selbst argumentativ Stellung</strong>. Du wägst Pro- und Contra-Argumente ab und entwickelst ein begründetes eigenes Urteil.</p>
+    </div>
+  </section>
+
+  <section id="sec-task">
+    <div class="card">
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
+    </div>
+    <div class="card">
+      <h2 class="card-header" id="textTitle">Ausgangstext</h2>
+      <div class="source-text" id="sourceText">Hier erscheint der Text …</div>
+      <div class="source-meta" id="sourceMeta"></div>
+    </div>
+    <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+  </section>
+
+  <section id="sec-write">
+    <div class="timer-bar" id="timerBar">
+      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
+        <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="card-header">Deine Erörterung</h2>
+      <details style="margin-bottom:1rem">
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📖 Aufgabe & Text anzeigen</summary>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm)">
+          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
+          <div class="source-text" id="writeSourceRef" style="max-height:250px"></div>
+        </div>
+      </details>
+      <textarea id="studentText" placeholder="Beginne hier mit deiner Erörterung …
+
+Struktur:
+• Einleitung: Hinführung zum Thema, These
+• Hauptteil: Argumente mit Belegen, Abwägung
+• Schluss: Fazit und eigene Position" oninput="updateWordCount()"></textarea>
+      <div class="write-toolbar">
+        <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
+          <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Abgeben</button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+  </section>
+
+  <section id="sec-feedback">
+    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte …</div></div>
+    <div id="feedbackContent" style="display:none">
+      <div class="card">
+        <h2 class="card-header">Bewertung</h2>
+        <div class="scores-grid">
+          <div class="score-card"><div class="score-label">Verstehen</div><div class="score-value" id="scoreVerstehen">–</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">–</div><div class="score-max">/ 15</div></div>
+          <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">–</div><div class="score-max">/ 15</div></div>
+        </div>
+      </div>
+      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
+        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-progress">
+    <div class="card">
+      <h2 class="card-header">Fortschritt</h2>
+      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">📊</div><p>Noch keine Ergebnisse.</p></div>
+      <div id="progressContent" style="display:none">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
+          <div class="stat-card"><div class="stat-value" id="statAverage">–</div><div class="stat-label">Ø Punkte</div></div>
+          <div class="stat-card"><div class="stat-value" id="statBest">–</div><div class="stat-label">Best</div></div>
+        </div>
+        <div class="chart-container"><canvas id="progressChart"></canvas></div>
+        <table class="history-table"><thead><tr><th>Datum</th><th>Thema</th><th>V</th><th>D</th><th>Ges.</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+      </div>
+      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">🗑 Löschen</button>
+    </div>
+  </section>
+</main>
+<footer>© 2026 St. Anna Gymnasium · Deutsch Trainer · Erörterung</footer>
+
+<script>
+const API_BASE="https://sag-abi-mediation-api.danizahnweh.workers.dev";
+const CONFIG={storedData:null};
+const HISTORY_KEY="deutsch_eroerterung_history_";
+
+const BEWERTUNG_PROMPT=`Du bewertest eine Erörterung nach ISB-Kriterien.
+VERSTEHEN (70%): Textverständnis, Argumentationsanalyse, eigene Argumentation, Abwägung, Schlussfolgerung
+DARSTELLUNG (30%): Aufbau, Fachsprache, Ausdruck, Sprachrichtigkeit
+Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
+gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
+
+function getStudentKey(){return(sessionStorage.getItem("student_name")||"anon").toLowerCase().replace(/\s+/g,"_")}
+function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function countWords(t){return(t||"").trim().split(/\s+/).filter(w=>w).length}
+function updateWordCount(){document.getElementById("wordCount").textContent=countWords(document.getElementById("studentText").value)}
+
+async function apiCall(e,b){const r=await fetch(API_BASE+e,{method:"POST",headers:{"Content-Type":"application/json","X-Access-Password":"stanna2026"},body:JSON.stringify(b)});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||`HTTP ${r.status}`);return r.json()}
+
+function nav(s){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));document.getElementById("sec-"+s).classList.add("active");document.querySelectorAll("nav button")[["setup","task","write","feedback","progress"].indexOf(s)]?.classList.add("active");if(s==="progress")renderProgress();window.scrollTo({top:0})}
+
+async function generateTask(){const b=document.getElementById("generateBtn");b.disabled=true;document.getElementById("setupLoader").style.display="block";try{const d=await apiCall("/api/generate-deutsch",{thema:document.getElementById("themaSelect").value,typ:document.getElementById("typSelect").value,type:"eroerterung"});CONFIG.storedData=d;renderTask(d);nav("task")}catch(e){alert("Fehler: "+e.message)}b.disabled=false;document.getElementById("setupLoader").style.display="none"}
+
+function renderTask(d){document.getElementById("taskInstruction").innerHTML=escapeHtml(d.task_instruction||"").replace(/\n/g,"<br>");document.getElementById("sourceText").innerHTML=(d.primary_text||"").split("\n").map(p=>`<p>${escapeHtml(p)}</p>`).join("");document.getElementById("sourceMeta").textContent=d.primary_meta||"";document.getElementById("writeTaskRef").innerHTML=escapeHtml(d.task_instruction||"").replace(/\n/g,"<br>");document.getElementById("writeSourceRef").innerHTML=(d.primary_text||"").split("\n").map(p=>`<p>${escapeHtml(p)}</p>`).join("")}
+
+async function submitForGrading(){const t=document.getElementById("studentText").value;if(countWords(t)<100){alert("Min. 100 Wörter");return}if(!CONFIG.storedData){alert("Erst Aufgabe generieren");return}document.getElementById("submitBtn").disabled=true;nav("feedback");document.getElementById("feedbackLoader").style.display="block";document.getElementById("feedbackContent").style.display="none";try{const d=await apiCall("/api/grade-deutsch",{task_instruction:CONFIG.storedData.task_instruction,primary_text:CONFIG.storedData.primary_text,student_text:t,rubric_prompt:BEWERTUNG_PROMPT,type:"eroerterung"});document.getElementById("scoreVerstehen").textContent=d.scores?.verstehen??"–";document.getElementById("scoreDarstellung").textContent=d.scores?.darstellung??"–";document.getElementById("scoreTotal").textContent=d.scores?.total??"–";saveToHistory({thema:CONFIG.storedData.thema||"Erörterung",verstehen:d.scores?.verstehen,darstellung:d.scores?.darstellung,total:d.scores?.total});stopTimer();document.getElementById("feedbackBody").innerHTML=marked.parse(d.feedback||"");document.getElementById("feedbackContent").style.display="block"}catch(e){document.getElementById("feedbackContent").style.display="block";document.getElementById("feedbackBody").innerHTML=`<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`}document.getElementById("feedbackLoader").style.display="none";document.getElementById("submitBtn").disabled=false}
+
+let timerInterval=null,timerSeconds=0,timerPaused=false;
+function startTimer(){timerSeconds=(parseInt(document.getElementById("timerMinutes").value)||180)*60;document.getElementById("timerBar").classList.add("active");document.getElementById("timerStartBtn").style.display="none";updateTimerDisplay();timerInterval=setInterval(()=>{if(!timerPaused){timerSeconds--;updateTimerDisplay();if(timerSeconds<=0){clearInterval(timerInterval);alert("⏰ Zeit!")}}},1000)}
+function pauseTimer(){timerPaused=!timerPaused;document.getElementById("timerPauseBtn").textContent=timerPaused?"▶":"⏸"}
+function stopTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null;timerSeconds=0;document.getElementById("timerBar").classList.remove("active");document.getElementById("timerStartBtn").style.display="inline-flex"}
+function updateTimerDisplay(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById("timerDisplay").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;document.getElementById("timerDisplay").classList.toggle("warning",timerSeconds<=600&&timerSeconds>0)}
+
+function saveSession(){localStorage.setItem("deutsch_eroerterung_session_"+getStudentKey(),JSON.stringify({studentText:document.getElementById("studentText").value,storedData:CONFIG.storedData}))}
+function restoreSession(){try{const s=JSON.parse(localStorage.getItem("deutsch_eroerterung_session_"+getStudentKey()));if(s){if(s.studentText)document.getElementById("studentText").value=s.studentText;if(s.storedData){CONFIG.storedData=s.storedData;renderTask(s.storedData)}updateWordCount()}}catch{}}
+
+let progressChartInstance=null;
+function getHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY+getStudentKey())||"[]")}catch{return[]}}
+function saveToHistory(e){const h=getHistory();h.push({date:new Date().toISOString(),...e});localStorage.setItem(HISTORY_KEY+getStudentKey(),JSON.stringify(h))}
+function deleteHistoryEntry(i){const h=getHistory();h.splice(i,1);localStorage.setItem(HISTORY_KEY+getStudentKey(),JSON.stringify(h));renderProgress()}
+function clearHistory(){if(!confirm("Löschen?"))return;localStorage.removeItem(HISTORY_KEY+getStudentKey());renderProgress()}
+
+function renderProgress(){const h=getHistory();if(!h.length){document.getElementById("progressEmpty").style.display="block";document.getElementById("progressContent").style.display="none";document.getElementById("clearHistoryBtn").style.display="none";return}document.getElementById("progressEmpty").style.display="none";document.getElementById("progressContent").style.display="block";document.getElementById("clearHistoryBtn").style.display="inline-flex";const t=h.map(x=>x.total).filter(x=>x!=null);document.getElementById("statAttempts").textContent=h.length;document.getElementById("statAverage").textContent=t.length?(t.reduce((a,b)=>a+b,0)/t.length).toFixed(1):"–";document.getElementById("statBest").textContent=t.length?Math.max(...t):"–";document.getElementById("historyTableBody").innerHTML=h.slice().reverse().map((x,i)=>`<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${escapeHtml(x.thema)}</td><td class="history-score">${x.verstehen??"–"}</td><td class="history-score">${x.darstellung??"–"}</td><td class="history-score" style="font-weight:700">${x.total??"–"}</td><td><button onclick="deleteHistoryEntry(${h.length-1-i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`).join("");renderProgressChart()}
+
+function renderProgressChart(){const h=getHistory();if(!h.length)return;const c=document.getElementById("progressChart");if(!c)return;if(progressChartInstance)progressChartInstance.destroy();progressChartInstance=new Chart(c,{type:"line",data:{labels:h.map((_,i)=>`#${i+1}`),datasets:[{label:"Gesamt",data:h.map(x=>x.total),borderColor:"#059669",backgroundColor:"rgba(5,150,105,0.1)",fill:true,tension:0.3}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{min:0,max:15}}}})}
+
+function exportPDF(){html2pdf().set({margin:10,filename:`Eroerterung_${new Date().toISOString().slice(0,10)}.pdf`}).from(document.getElementById("feedbackContent")).save()}
+function toggleDarkMode(){const d=document.documentElement.getAttribute("data-theme")==="dark";document.documentElement.setAttribute("data-theme",d?"light":"dark");localStorage.setItem("theme",d?"light":"dark");document.getElementById("themeToggleBtn").textContent=d?"🌙":"☀️";if(progressChartInstance)renderProgressChart()}
+function initTheme(){const t=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);document.getElementById("themeToggleBtn").textContent=t==="dark"?"☀️":"🌙"}
+
+window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();setInterval(saveSession,30000)}
+</script>
+</body>
+</html>
