@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -271,7 +272,8 @@ function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;",
 function countWords(t){return(t||"").trim().split(/\s+/).filter(w=>w).length}
 function updateWordCount(){document.getElementById("wordCount").textContent=countWords(document.getElementById("studentText").value)}
 
-async function apiCall(e,b){const r=await fetch(API_BASE+e,{method:"POST",headers:{"Content-Type":"application/json","X-Access-Password":"stanna2026"},body:JSON.stringify(b)});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||`HTTP ${r.status}`);return r.json()}
+function getAccessToken(){return sessionStorage.getItem("access_token")||""}
+async function apiCall(e,b){const r=await fetch(API_BASE+e,{method:"POST",headers:{"Content-Type":"application/json","X-Access-Token":getAccessToken()},body:JSON.stringify(b)});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||`HTTP ${r.status}`);return r.json()}
 
 function nav(s){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));document.getElementById("sec-"+s).classList.add("active");document.querySelectorAll("nav button")[["setup","task","write","feedback","progress"].indexOf(s)]?.classList.add("active");if(s==="progress")renderProgress();window.scrollTo({top:0})}
 
@@ -279,7 +281,7 @@ async function generateTask(){const b=document.getElementById("generateBtn");b.d
 
 function renderTask(d){document.getElementById("taskInstruction").innerHTML=escapeHtml(d.task_instruction||"").replace(/\n/g,"<br>");document.getElementById("sourceText").innerHTML=(d.primary_text||"").split("\n").map(p=>`<p>${escapeHtml(p)}</p>`).join("");document.getElementById("sourceMeta").textContent=d.primary_meta||"";document.getElementById("writeTaskRef").innerHTML=escapeHtml(d.task_instruction||"").replace(/\n/g,"<br>");document.getElementById("writeSourceRef").innerHTML=(d.primary_text||"").split("\n").map(p=>`<p>${escapeHtml(p)}</p>`).join("")}
 
-async function submitForGrading(){const t=document.getElementById("studentText").value;if(countWords(t)<100){alert("Min. 100 Wörter");return}if(!CONFIG.storedData){alert("Erst Aufgabe generieren");return}document.getElementById("submitBtn").disabled=true;nav("feedback");document.getElementById("feedbackLoader").style.display="block";document.getElementById("feedbackContent").style.display="none";try{const d=await apiCall("/api/grade-deutsch",{task_instruction:CONFIG.storedData.task_instruction,primary_text:CONFIG.storedData.primary_text,student_text:t,rubric_prompt:BEWERTUNG_PROMPT,type:"eroerterung"});document.getElementById("scoreVerstehen").textContent=d.scores?.verstehen??"–";document.getElementById("scoreDarstellung").textContent=d.scores?.darstellung??"–";document.getElementById("scoreTotal").textContent=d.scores?.total??"–";saveToHistory({thema:CONFIG.storedData.thema||"Erörterung",verstehen:d.scores?.verstehen,darstellung:d.scores?.darstellung,total:d.scores?.total});stopTimer();document.getElementById("feedbackBody").innerHTML=marked.parse(d.feedback||"");document.getElementById("feedbackContent").style.display="block"}catch(e){document.getElementById("feedbackContent").style.display="block";document.getElementById("feedbackBody").innerHTML=`<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`}document.getElementById("feedbackLoader").style.display="none";document.getElementById("submitBtn").disabled=false}
+async function submitForGrading(){const t=document.getElementById("studentText").value;if(countWords(t)<100){alert("Min. 100 Wörter");return}if(!CONFIG.storedData){alert("Erst Aufgabe generieren");return}document.getElementById("submitBtn").disabled=true;nav("feedback");document.getElementById("feedbackLoader").style.display="block";document.getElementById("feedbackContent").style.display="none";try{const d=await apiCall("/api/grade-deutsch",{task_instruction:CONFIG.storedData.task_instruction,primary_text:CONFIG.storedData.primary_text,student_text:t,rubric_prompt:BEWERTUNG_PROMPT,type:"eroerterung"});document.getElementById("scoreVerstehen").textContent=d.scores?.verstehen??"–";document.getElementById("scoreDarstellung").textContent=d.scores?.darstellung??"–";document.getElementById("scoreTotal").textContent=d.scores?.total??"–";saveToHistory({thema:CONFIG.storedData.thema||"Erörterung",verstehen:d.scores?.verstehen,darstellung:d.scores?.darstellung,total:d.scores?.total});stopTimer();document.getElementById("feedbackBody").innerHTML=DOMPurify.sanitize(marked.parse(d.feedback||""));document.getElementById("feedbackContent").style.display="block"}catch(e){document.getElementById("feedbackContent").style.display="block";document.getElementById("feedbackBody").innerHTML=`<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`}document.getElementById("feedbackLoader").style.display="none";document.getElementById("submitBtn").disabled=false}
 
 let timerInterval=null,timerSeconds=0,timerPaused=false;
 function startTimer(){timerSeconds=(parseInt(document.getElementById("timerMinutes").value)||180)*60;document.getElementById("timerBar").classList.add("active");document.getElementById("timerStartBtn").style.display="none";updateTimerDisplay();timerInterval=setInterval(()=>{if(!timerPaused){timerSeconds--;updateTimerDisplay();if(timerSeconds<=0){clearInterval(timerInterval);alert("⏰ Zeit!")}}},1000)}
@@ -317,8 +319,19 @@ function applyHL(container) {
     while (node = walker.nextNode()) { if (node.className && node.className.toString().startsWith("hl-") && sel.containsNode(node, true)) spans.push(node); }
     spans.forEach(span => { const p = span.parentNode; while (span.firstChild) p.insertBefore(span.firstChild, span); p.removeChild(span); }); container.normalize();
   } else {
-    try { const span = document.createElement("span"); span.className = "hl-" + currentHL; range.surroundContents(span); }
-    catch { const f = range.extractContents(); const span = document.createElement("span"); span.className = "hl-" + currentHL; span.appendChild(f); range.insertNode(span); }
+    const textNodes = []; const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT); let node;
+    while (node = walker.nextNode()) { if (sel.containsNode(node, true)) textNodes.push(node); }
+    textNodes.forEach(textNode => {
+      let startOffset = 0, endOffset = textNode.length;
+      if (textNode === range.startContainer) startOffset = range.startOffset;
+      if (textNode === range.endContainer) endOffset = range.endOffset;
+      if (startOffset >= endOffset) return;
+      const hlRange = document.createRange();
+      hlRange.setStart(textNode, startOffset);
+      hlRange.setEnd(textNode, endOffset);
+      const span = document.createElement("span"); span.className = "hl-" + currentHL;
+      try { hlRange.surroundContents(span); } catch {}
+    });
   }
   sel.removeAllRanges(); syncHL();
 }

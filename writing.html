@@ -8,6 +8,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1268,7 +1269,7 @@ footer {
 <script>
 /* ================= CONFIG ================= */
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
-const ACCESS_PASSWORD = "stanna2026";
+function getAccessToken() { return sessionStorage.getItem("access_token") || ""; }
 
 const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben). Erstelle eine vollständige Schreiben-Prüfungsaufgabe.
 
@@ -1404,7 +1405,7 @@ async function apiCall(endpoint, body) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Access-Password": ACCESS_PASSWORD
+      "X-Access-Token": getAccessToken()
     },
     body: JSON.stringify(body)
   });
@@ -1498,17 +1499,25 @@ function applyHL(container) {
     });
     container.normalize();
   } else {
-    try {
-      const span = document.createElement("span");
-      span.className = "hl-" + currentHL;
-      range.surroundContents(span);
-    } catch (e) {
-      const fragment = range.extractContents();
-      const span = document.createElement("span");
-      span.className = "hl-" + currentHL;
-      span.appendChild(fragment);
-      range.insertNode(span);
+    // Get all text nodes in selection and highlight each separately
+    const textNodes = [];
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+    let node;
+    while (node = walker.nextNode()) {
+      if (sel.containsNode(node, true)) textNodes.push(node);
     }
+    textNodes.forEach(textNode => {
+      let startOffset = 0, endOffset = textNode.length;
+      if (textNode === range.startContainer) startOffset = range.startOffset;
+      if (textNode === range.endContainer) endOffset = range.endOffset;
+      if (startOffset >= endOffset) return;
+      const hlRange = document.createRange();
+      hlRange.setStart(textNode, startOffset);
+      hlRange.setEnd(textNode, endOffset);
+      const span = document.createElement("span");
+      span.className = "hl-" + currentHL;
+      try { hlRange.surroundContents(span); } catch {}
+    });
   }
   sel.removeAllRanges();
   syncHLToWrite();
@@ -1843,7 +1852,7 @@ async function submitForCorrection() {
 
     // Display feedback
     const feedbackMd = (data.feedback || "") + (data.corrections ? "\n\n## Korrekturen\n" + data.corrections : "");
-    document.getElementById("feedbackBody").innerHTML = marked.parse(feedbackMd);
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(feedbackMd));
 
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
@@ -2111,7 +2120,7 @@ async function generateModelAnswer() {
       task_en: CONFIG.storedData.task_instruction
     });
 
-    body.innerHTML = marked.parse(data.model_answer || "Keine Musterlösung generiert.");
+    body.innerHTML = DOMPurify.sanitize(marked.parse(data.model_answer || "Keine Musterlösung generiert."));
     card.style.display = "block";
     card.scrollIntoView({ behavior: "smooth" });
   } catch (e) {

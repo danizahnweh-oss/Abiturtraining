@@ -509,10 +509,7 @@ async function loadResults() {
   try {
     const res = await fetch(API_BASE + "/api/results", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Access-Password": "stanna2026"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teacher_password: teacherPw })
     });
     const data = await res.json();
@@ -656,7 +653,7 @@ function renderTable() {
       <td class="score-cell">${r.content ?? "–"}/15</td>
       <td class="score-cell">${r.language ?? "–"}/15</td>
       <td class="score-cell" style="font-size:1.05rem;">${r.total ?? "–"}/15</td>
-      <td><button class="delete-btn" onclick="deleteResult('${r.id}')" title="Löschen">✕</button></td>
+      <td><button class="delete-btn" data-id="${esc(r.id)}" onclick="deleteResult(this.dataset.id)" title="Löschen">✕</button></td>
     </tr>`;
   }).join("");
 }
@@ -767,10 +764,7 @@ async function deleteResult(id) {
   try {
     await fetch(API_BASE + "/api/delete-result", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Access-Password": "stanna2026"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ teacher_password: teacherPw, result_id: id })
     });
     allResults = allResults.filter(r => r.id !== id);

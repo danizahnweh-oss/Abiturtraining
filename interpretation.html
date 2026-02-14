@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -398,7 +399,8 @@ function countWords(t) { return (t||"").trim().split(/\s+/).filter(w => w).lengt
 function updateWordCount() { document.getElementById("wordCount").textContent = countWords(document.getElementById("studentText").value); }
 
 async function apiCall(endpoint, body) {
-  const res = await fetch(API_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Password": "stanna2026" }, body: JSON.stringify(body) });
+function getAccessToken() { return sessionStorage.getItem("access_token") || ""; }
+  const res = await fetch(API_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() }, body: JSON.stringify(body) });
   if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || `HTTP ${res.status}`);
   return res.json();
 }
@@ -462,19 +464,48 @@ function applyHL(container) {
     });
     container.normalize();
   } else {
-    // Apply highlight
-    try {
-      const span = document.createElement("span");
-      span.className = "hl-" + currentHL;
-      range.surroundContents(span);
-    } catch (e) {
-      // Complex selection across elements - extract and wrap
-      const fragment = range.extractContents();
-      const span = document.createElement("span");
-      span.className = "hl-" + currentHL;
-      span.appendChild(fragment);
-      range.insertNode(span);
+    // Get all text nodes in selection
+    const textNodes = [];
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+    let node;
+    while (node = walker.nextNode()) {
+      if (sel.containsNode(node, true)) {
+        textNodes.push(node);
+      }
     }
+    
+    // Highlight each text node (or partial)
+    textNodes.forEach(textNode => {
+      const nodeRange = document.createRange();
+      nodeRange.selectNodeContents(textNode);
+      
+      // Calculate overlap with selection
+      let startOffset = 0;
+      let endOffset = textNode.length;
+      
+      if (textNode === range.startContainer) {
+        startOffset = range.startOffset;
+      }
+      if (textNode === range.endContainer) {
+        endOffset = range.endOffset;
+      }
+      
+      if (startOffset >= endOffset) return;
+      
+      // Create range for this portion
+      const hlRange = document.createRange();
+      hlRange.setStart(textNode, startOffset);
+      hlRange.setEnd(textNode, endOffset);
+      
+      // Wrap in highlight span
+      const span = document.createElement("span");
+      span.className = "hl-" + currentHL;
+      try {
+        hlRange.surroundContents(span);
+      } catch (e) {
+        // Skip if surroundContents fails
+      }
+    });
   }
   sel.removeAllRanges();
   saveHL();
@@ -598,7 +629,7 @@ async function submitForGrading() {
     document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
     saveToHistory({ gattung: CONFIG.storedData.gattung, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
     stopTimer();
-    document.getElementById("feedbackBody").innerHTML = marked.parse(d.feedback || "");
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
     document.getElementById("feedbackContent").style.display = "block";
@@ -614,7 +645,7 @@ async function showModelAnswer() {
   document.getElementById("showModelBtn").disabled = true;
   try {
     const d = await apiCall("/api/model-answer-deutsch", { task_instruction: CONFIG.storedData.task_instruction, primary_text: CONFIG.storedData.primary_text, type: "interpretation" });
-    document.getElementById("modelAnswerBody").innerHTML = marked.parse(d.model_answer || "");
+    document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
     card.style.display = "block";
   } catch (e) { alert(e.message); }
   document.getElementById("showModelBtn").disabled = false;
