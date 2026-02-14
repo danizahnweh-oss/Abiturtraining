@@ -496,21 +496,25 @@ async function handleGenerateDeutsch(request, env) {
   let systemPrompt, userPrompt;
 
   if (type === "interpretation") {
-    systemPrompt = `Du bist ein Experte für das bayerische Deutsch-Abitur. Erstelle eine authentische Interpretationsaufgabe.
+    systemPrompt = `Du bist ein Experte für das bayerische Deutsch-Abitur (ab 2026, G9). Erstelle eine authentische Interpretationsaufgabe.
 
-WICHTIG - TEXTE VOLLSTÄNDIG AUSSCHREIBEN:
-- Bei LYRIK: Das KOMPLETTE Gedicht mit allen Strophen und Versen (nicht nur Titel nennen!)
-- Bei DRAMA: Einen substantiellen Ausschnitt von 30-50 Zeilen Dialog (nicht nur "Ausschnitt aus...")
-- Bei EPIK: Einen Prosaausschnitt von 300-500 Wörtern (nicht nur referenzieren!)
+WICHTIG - TEXTLÄNGEN WIE IM ECHTEN ABITUR:
+- Bei LYRIK: Das KOMPLETTE Gedicht (3-7 Strophen, 20-40 Verse, ca. 100-200 Wörter). Bei Vergleichsaufgabe zusätzlich ein kürzeres Vergleichsgedicht (2-4 Strophen, 8-16 Verse).
+- Bei DRAMA: Einen substantiellen Szenenausschnitt von 100-150 Zeilen Dialog mit Regieanweisungen (ca. 800-1200 Wörter). Eine zusammenhängende Szene mit echtem dramatischem Konflikt.
+- Bei EPIK: Einen geschlossenen Prosatext von 1000-1500 Wörtern (ca. 2-3 Druckseiten). Vollständige Kurzgeschichte oder selbständig verständlicher Romanauszug.
 
-Verwende bekannte, kanonische Texte der deutschen Literatur die du kennst.
+Die Aufgabenstellung ist ZWEITEILIG:
+- Teil 1 (70%): Erschließung und Interpretation des Textes
+- Teil 2 (30%): Weiterführender Schreibauftrag (Vergleich, Stellungnahme, Kreativauftrag)
+
+Verwende bekannte, kanonische Texte der deutschen Literatur die du vollständig kennst.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction": "Zweiteilige Aufgabenstellung",
-  "primary_text": "DER VOLLSTÄNDIGE TEXT - nicht nur Titel oder Referenz!",
+  "task_instruction": "Zweiteilige Aufgabenstellung mit klarem Operator",
+  "primary_text": "DER VOLLSTÄNDIGE LITERARISCHE TEXT in voller Länge!",
   "primary_meta": "Autor, Titel, Jahr",
-  "compare_text": "VOLLSTÄNDIGER Vergleichstext bei Motivvergleich, sonst null",
+  "compare_text": "VOLLSTÄNDIGER Vergleichstext oder null",
   "compare_meta": "Metadaten Vergleichstext oder null",
   "material_text": "Material für poetologische Aufgabe oder null",
   "material_meta": "Quelle oder null",
@@ -524,52 +528,80 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Epoche: ${epoche === "random" ? "frei wählbar" : truncate(epoche, 100)}
 - Weiterführender Auftrag: ${truncate(schreibauftrag, 500)}
 
-KRITISCH: Schreibe den VOLLSTÄNDIGEN literarischen Text aus!
-- Lyrik: Alle Strophen, alle Verse
-- Drama: 30-50 Zeilen echten Dialog mit Sprecherangaben
-- Epik: 300-500 Wörter Prosatext
+KRITISCH - Textlängen wie im echten bayerischen Abitur:
+- Lyrik: Komplettes Gedicht mit 3-7 Strophen, 20-40 Versen (ca. 100-200 Wörter). Bei Vergleich: zweites Gedicht mit 2-4 Strophen.
+- Drama: 100-150 Zeilen zusammenhängender Dialog mit Sprecherangaben und Regieanweisungen (800-1200 Wörter)
+- Epik: Geschlossener Prosatext von 1000-1500 Wörtern
 
-Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist, Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, etc.`;
+Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist, Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, Eichendorff, Droste-Hülshoff, etc.`;
 
   } else if (type === "analyse") {
-    systemPrompt = `Du erstellst Analyseaufgaben für pragmatische Texte (Deutsch-Abitur Bayern).
+    systemPrompt = `Du erstellst Analyseaufgaben für pragmatische Texte (Deutsch-Abitur Bayern, ab 2026).
+
+WICHTIG - TEXTLÄNGE WIE IM ECHTEN ABITUR:
+- Der pragmatische Text muss 1000-1500 Wörter lang sein (ca. 2-3 Druckseiten)
+- Das entspricht einem vollständigen Zeitungsartikel, Kommentar, Essay oder Redeauszug
+- Der Text muss eine klare argumentative Struktur, sprachliche Gestaltungsmittel und eine erkennbare Intention haben
+- Typische Quellen: FAZ, Die Zeit, Süddeutsche Zeitung, Spiegel, Reden, Fachessays
+
+Die Aufgabenstellung ist ZWEITEILIG:
+- Teil 1: Analyse des Textes (Argumentationsstruktur, sprachliche Mittel, Intention)
+- Teil 2: Weiterführender Schreibauftrag
+
 Antworte NUR mit validem JSON:
 {
-  "task_instruction": "Aufgabenstellung mit Analyse und weiterführendem Auftrag",
-  "primary_text": "Der pragmatische Text (400-600 Wörter)",
-  "primary_meta": "Autor, Quelle, Jahr",
-  "textsorte": "Textsorte",
+  "task_instruction": "Zweiteilige Aufgabenstellung mit klaren Operatoren",
+  "primary_text": "Der vollständige pragmatische Text (1000-1500 Wörter!)",
+  "primary_meta": "Autor, Quelle (z.B. Zeitung), Erscheinungsdatum",
+  "textsorte": "Textsorte (Kommentar, Essay, Rede, Kolumne, etc.)",
   "compare_text": "Vergleichstext oder null",
   "compare_meta": "Metadaten oder null"
 }`;
     userPrompt = `Erstelle eine Analyseaufgabe:
 - Textsorte: ${textsorte === "random" ? "frei wählbar" : truncate(textsorte, 200)}
 - Thema: ${thema === "random" ? "frei wählbar" : truncate(thema, 200)}
-- Weiterführend: ${truncate(schreibauftrag, 500)}`;
+- Weiterführend: ${truncate(schreibauftrag, 500)}
+
+KRITISCH: Der Text MUSS 1000-1500 Wörter lang sein! Das ist die Länge eines vollständigen Zeitungsartikels oder Essays. Keine Zusammenfassung, sondern ein ausführlicher, durchargumentierter Text mit Einleitung, Hauptteil und Schluss.`;
 
   } else if (type === "eroerterung") {
-    systemPrompt = `Du erstellst Erörterungsaufgaben für das Deutsch-Abitur Bayern.
+    systemPrompt = `Du erstellst Erörterungsaufgaben für das Deutsch-Abitur Bayern (ab 2026).
+
+WICHTIG - TEXTLÄNGE WIE IM ECHTEN ABITUR:
+- Der Ausgangstext muss 1000-1500 Wörter lang sein (ca. 2-3 Druckseiten)
+- Das ist ein vollständiger journalistischer Meinungstext mit klarer These und Argumentation
+- Der Text vertritt eine deutliche Position zu einem kontroversen Thema
+- Typische Quellen: Zeitungskommentare, Kolumnen, Essays, Reden (FAZ, Die Zeit, SZ, Spiegel)
+
+Die Aufgabenstellung hat ZWEI Teile:
+- Teil a) (40%): Analyse der zentralen Aussage und Argumentationsstruktur des Textes
+- Teil b) (60%): Erörterung der im Text vertretenen Position (eigene Stellungnahme mit Argumenten und Beispielen)
+
 Antworte NUR mit validem JSON:
 {
-  "task_instruction": "Aufgabenstellung (Position analysieren + eigene Stellungnahme)",
-  "primary_text": "Ausgangstext mit klarer Position (400-600 Wörter)",
-  "primary_meta": "Autor, Quelle, Jahr",
+  "task_instruction": "Zweiteilige Aufgabenstellung: a) Analyse der Argumentation, b) Erörterung der Position",
+  "primary_text": "Der vollständige Ausgangstext mit klarer Position (1000-1500 Wörter!)",
+  "primary_meta": "Autor, Quelle, Erscheinungsdatum",
   "thema": "Themenbereich"
 }`;
     userPrompt = `Erstelle eine Erörterungsaufgabe:
-- Thema: ${thema === "random" ? "frei wählbar (aktuell, kontrovers)" : truncate(thema, 200)}
-- Typ: ${truncate(typ, 100)}`;
+- Thema: ${thema === "random" ? "frei wählbar (aktuell, kontrovers, gesellschaftlich relevant)" : truncate(thema, 200)}
+- Typ: ${truncate(typ, 100)}
+
+KRITISCH: Der Ausgangstext MUSS 1000-1500 Wörter lang sein! Ein vollständiger Meinungsartikel mit These, Argumenten, Belegen und Schlussfolgerung. Keine Kurzfassung!`;
 
   } else if (type === "materialgestuetzt") {
-    systemPrompt = `Du erstellst materialgestützte Schreibaufgaben für das Deutsch-Abitur Bayern.
+    systemPrompt = `Du erstellst materialgestützte Schreibaufgaben für das Deutsch-Abitur Bayern (ab 2026).
 
-WICHTIG - MATERIALIEN AUSFÜHRLICH:
-- Erstelle genau 4-5 verschiedene Materialien
-- Textmaterialien (type "text"): Jeweils 150-300 Wörter. Vollständige Textauszüge mit Argumenten, nicht nur Zusammenfassungen!
-- Statistiken (type "statistik"): Als Markdown-Tabelle mit konkreten Zahlen und Prozentwerten formatieren. Mindestens 4-6 Datenzeilen. Unter der Tabelle eine kurze Beschreibung.
-- Mindestens 1 Material muss vom Typ "statistik" sein (Umfrage, Studie, Statistik als Tabelle)
-- Mindestens 2 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
-- 1 Material kann ein Zitat/Expertenaussage sein (type "text", aber kürzer: 50-80 Wörter)
+WICHTIG - MATERIALIEN WIE IM ECHTEN ABITUR:
+Im echten Abitur gibt es 5-9 Materialien mit insgesamt 2000-3500 Wörtern Lesematerial.
+
+Erstelle genau 5-6 verschiedene Materialien:
+- Textmaterialien (type "text"): Jeweils 300-600 Wörter. Vollständige Textauszüge aus Zeitungsartikeln, Fachtexten, Essays, Interviews oder Reden. Echte Argumentation, nicht nur Zusammenfassungen!
+- Statistiken (type "statistik"): Als Markdown-Tabelle mit konkreten Zahlen und Prozentwerten formatieren. Mindestens 5-8 Datenzeilen. Unter der Tabelle eine kurze Beschreibung der Erhebung.
+- Mindestens 1-2 Materialien vom Typ "statistik" (Umfrage, Studie, Statistik als Tabelle)
+- Mindestens 3 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
+- 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 50-100 Wörter)
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -577,7 +609,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "zieltext": "Geforderte Textsorte",
   "zielgruppe": "Adressaten",
   "materials": [
-    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (150-300 Wörter)", "source": "Autor, Quelle, Jahr"},
+    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"}
   ]
 }`;
@@ -586,15 +618,18 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Thema: ${thema === "random" ? "frei wählbar" : truncate(thema, 200)}
 - Zieltextsorte: ${truncate(textsorte, 200)}
 
-KRITISCH:
-- Jedes Textmaterial muss 150-300 Wörter lang sein (vollständige Auszüge, nicht Stichpunkte!)
-- Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen
-- Insgesamt 4-5 Materialien, davon mindestens 1 Statistik`;
+KRITISCH - Längen wie im echten Abitur:
+- 5-6 Materialien insgesamt
+- Jedes Textmaterial 300-600 Wörter (vollständige Auszüge, nicht Stichpunkte!)
+- Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen (5-8 Zeilen)
+- Gesamtes Lesematerial: ca. 2000-3500 Wörter`;
   } else {
     return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
 
-  const maxTokens = type === "materialgestuetzt" ? 8000 : 6000;
+  // Längere Texte brauchen mehr Tokens (Epik/Analyse/Erörterung: 1000-1500 Wörter ≈ 10000+ Tokens)
+  const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 12000 };
+  const maxTokens = tokenMap[type] || 8000;
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
