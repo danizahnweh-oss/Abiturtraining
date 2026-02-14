@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Abitur Trainer · St. Anna</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇩🇪</text></svg>">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<style>
+:root{--ink:#1a1a2e;--ink-light:#4a4a6a;--accent:#d97706;--accent-hover:#b45309;--accent-soft:#fef3c7;--surface:#fff;--bg:#fffbeb;--border:#e2e2ec;--radius:12px;--font-sans:'DM Sans',sans-serif;--font-serif:'DM Serif Display',serif}
+[data-theme="dark"]{--ink:#f0f0f5;--ink-light:#a0a0b0;--surface:#13131f;--bg:#0b0b12;--border:#2a2a35;--accent:#f59e0b;--accent-hover:#fbbf24}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-sans);background:var(--bg);color:var(--ink);height:100vh;display:flex;flex-direction:column}
+
+/* NAV */
+.navbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0.75rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.nav-brand{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;display:flex;align-items:center;gap:0.5rem}
+.nav-brand span{color:var(--accent);font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;font-family:var(--font-sans);background:var(--accent-soft);padding:0.2rem 0.6rem;border-radius:6px}
+.nav-btn{background:none;border:1px solid var(--border);padding:0.5rem 1rem;border-radius:8px;cursor:pointer;color:var(--ink);text-decoration:none;font-size:0.9rem;transition:all 0.2s}
+.nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* MAIN GRID */
+.main-grid{display:grid;grid-template-columns:1fr 1fr;flex:1;overflow:hidden}
+.panel{display:flex;flex-direction:column;border-right:1px solid var(--border);background:var(--surface)}
+.panel:last-child{border-right:none}
+
+.panel-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
+.panel-header h2{margin:0;font-size:1.1rem;font-weight:600}
+
+.panel-content{flex:1;padding:2rem;overflow-y:auto;line-height:1.6;font-size:1.05rem}
+.editor{flex:1;padding:2rem;border:none;resize:none;font-family:inherit;font-size:1.1rem;line-height:1.6;background:var(--surface);color:var(--ink);outline:none}
+
+/* CONTROLS */
+.select-input{padding:0.5rem;border-radius:6px;border:1px solid var(--border);font-family:inherit;background:var(--surface);color:var(--ink)}
+.action-bar{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:1rem;background:var(--bg)}
+.action-bar.right{justify-content:flex-end}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:0.8rem 1.5rem;border-radius:8px;font-weight:600;cursor:pointer;transition:background 0.2s}
+.btn-primary:hover{background:var(--accent-hover)}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--ink);padding:0.8rem 1.5rem;border-radius:8px;font-weight:600;cursor:pointer}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+
+/* MODAL */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:100}
+.modal-content{background:var(--surface);padding:2rem;border-radius:var(--radius);max-width:600px;width:90%;max-height:85vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,0.2)}
+.score-display{display:flex;align-items:center;gap:2rem;margin:1.5rem 0;padding:1.5rem;background:var(--bg);border-radius:var(--radius)}
+.score-circle{width:80px;height:80px;border-radius:50%;background:var(--accent);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;font-weight:bold;font-size:1.8rem}
+.score-circle small{font-size:0.8rem;opacity:0.8}
+
+/* MARKDOWN STYLES */
+.markdown-body h1, .markdown-body h2 {margin-top:1.5rem; margin-bottom:1rem;}
+.markdown-body ul {padding-left:1.5rem;}
+.placeholder-box {text-align:center; color:var(--ink-light); margin-top:3rem;}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-brand">St. Anna <span>Deutsch</span></div>
+  <div class="nav-controls">
+    <a href="index.html" class="nav-btn">← Zurück zur Auswahl</a>
+    <button id="themeBtn" class="nav-btn" onclick="toggleDark()">🌙</button>
+  </div>
+</nav>
+
+<main class="main-grid">
+  <section class="panel">
+    <div class="panel-header">
+      <h2>Aufgabe</h2>
+      <select id="taskType" class="select-input">
+        <option value="lyrik">Interpretation Lyrik</option>
+        <option value="drama">Interpretation Drama</option>
+        <option value="epik">Interpretation Epik</option>
+        <option value="eroerterung">Materialgestützte Erörterung</option>
+        <option value="sachtext">Analyse Sachtext</option>
+      </select>
+    </div>
+    
+    <div class="panel-content markdown-body" id="taskOutput">
+      <div class="placeholder-box">
+        <h3>Abiturvorbereitung Deutsch</h3>
+        <p>Wähle oben einen Aufgabentyp und klicke auf "Aufgabe erstellen".</p>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <button onclick="generateTask()" class="btn-primary">✨ Aufgabe erstellen</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-header">
+      <h2>Deine Ausarbeitung</h2>
+      <div id="wordCount" style="font-size:0.9rem; color:var(--ink-light)">0 Wörter</div>
+    </div>
+    <textarea id="studentText" class="editor" placeholder="Beginne hier mit deinem Text... (Automatische Speicherung aktiv)"></textarea>
+    
+    <div class="action-bar right">
+      <button onclick="downloadPDF()" class="btn-secondary">🖨️ PDF (Nur Text)</button>
+      <button onclick="gradeText()" class="btn-primary">📝 Bewerten lassen</button>
+    </div>
+  </section>
+</main>
+
+<div id="resultModal" class="modal">
+  <div class="modal-content">
+    <div style="display:flex; justify-content:space-between; margin-bottom:1rem;">
+        <h2 style="margin:0">Ergebnis</h2>
+        <button onclick="closeModal()" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    
+    <div class="score-display">
+      <div class="score-circle">
+        <span id="scoreVal">--</span>
+        <small>NP</small>
+      </div>
+      <div>
+        <p style="margin:0.2rem 0"><strong>Inhalt:</strong> <span id="scoreContent">--</span> / 15</p>
+        <p style="margin:0.2rem 0"><strong>Sprache:</strong> <span id="scoreLang">--</span> / 15</p>
+      </div>
+    </div>
+
+    <div id="feedbackContent" class="markdown-body"></div>
+    
+    <div style="margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border);">
+        <button onclick="showModelAnswer()" class="btn-secondary" style="width:100%">Musterlösung anzeigen</button>
+        <div id="modelAnswerBox" style="display:none; margin-top:1rem; padding:1rem; background:var(--bg); border-radius:8px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// CONFIG
+const API_URL = "https://sag-abi-mediation-api.DEIN_SUBDOMAIN.workers.dev"; // ⚠️ DEINE URL HIER EINFÜGEN!
+const STORAGE_TEXT = "german_text_draft";
+const STORAGE_TASK = "german_task_current";
+
+// INIT
+window.onload = function() {
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+    
+    if(localStorage.getItem(STORAGE_TEXT)) {
+        document.getElementById("studentText").value = localStorage.getItem(STORAGE_TEXT);
+        updateWordCount();
+    }
+    if(localStorage.getItem(STORAGE_TASK)) {
+        document.getElementById("taskOutput").innerHTML = localStorage.getItem(STORAGE_TASK);
+    }
+}
+
+// AUTO SAVE
+document.getElementById("studentText").addEventListener("input", function(e) {
+    localStorage.setItem(STORAGE_TEXT, e.target.value);
+    updateWordCount();
+});
+
+function updateWordCount() {
+    const txt = document.getElementById("studentText").value;
+    const count = txt.trim() === '' ? 0 : txt.trim().split(/\s+/).length;
+    document.getElementById("wordCount").textContent = count + " Wörter";
+}
+
+// API CALLS
+async function generateTask() {
+    const type = document.getElementById("taskType").value;
+    const output = document.getElementById("taskOutput");
+    output.innerHTML = "<p>⏳ Generiere Abituraufgabe...</p>";
+
+    const prompts = {
+        "lyrik": "Erstelle eine Gedichtanalyse-Aufgabe (Expressionismus, Romantik oder Gegenwart) für Deutsch Abitur.",
+        "drama": "Erstelle eine Dramenanalyse-Aufgabe (Klassik oder Moderne) für Deutsch Abitur.",
+        "epik": "Erstelle eine Textanalyse-Aufgabe zu einem epischen Textauszug.",
+        "eroerterung": "Erstelle ein Thema für eine materialgestützte Erörterung (aktuelles gesellschaftliches Thema).",
+        "sachtext": "Erstelle eine Analyseaufgabe zu einem pragmatischen Text (Kommentar, Rede)."
+    };
+
+    try {
+        const res = await fetch(API_URL + "/generate-task", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Access-Password": sessionStorage.getItem("access_pw") },
+            body: JSON.stringify({ prompt: prompts[type], subject: "german" })
+        });
+        const data = await res.json();
+        const html = marked.parse(data.answer);
+        output.innerHTML = html;
+        localStorage.setItem(STORAGE_TASK, html);
+    } catch(e) {
+        output.innerHTML = "<p style='color:red'>Fehler: " + e.message + "</p>";
+    }
+}
+
+async function gradeText() {
+    const text = document.getElementById("studentText").value;
+    if(text.length < 50) return alert("Bitte schreibe mehr Text für eine Bewertung.");
+    
+    document.getElementById("resultModal").style.display = "flex";
+    document.getElementById("feedbackContent").innerHTML = "⏳ Analysiere Text...";
+    
+    try {
+        const res = await fetch(API_URL + "/generate-grade", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Access-Password": sessionStorage.getItem("access_pw") },
+            body: JSON.stringify({ 
+                prompt: text, 
+                subject: "german",
+                task_context: localStorage.getItem(STORAGE_TASK) 
+            })
+        });
+        const data = await res.json();
+        
+        document.getElementById("scoreVal").textContent = data.gesamt_np || 0;
+        document.getElementById("scoreContent").textContent = data.inhalt_np || 0;
+        document.getElementById("scoreLang").textContent = data.sprache_np || 0;
+        document.getElementById("feedbackContent").innerHTML = marked.parse(data.feedback || "Kein Feedback erhalten.");
+        
+    } catch(e) {
+        document.getElementById("feedbackContent").textContent = "Fehler: " + e.message;
+    }
+}
+
+async function showModelAnswer() {
+    const box = document.getElementById("modelAnswerBox");
+    box.style.display = "block";
+    box.innerHTML = "⏳ Schreibe Musterlösung...";
+    
+    try {
+        const res = await fetch(API_URL + "/generate-model-answer", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Access-Password": sessionStorage.getItem("access_pw") },
+            body: JSON.stringify({ 
+                prompt: localStorage.getItem(STORAGE_TASK), 
+                subject: "german" 
+            })
+        });
+        const data = await res.json();
+        box.innerHTML = marked.parse(data.answer);
+    } catch(e) {
+        box.textContent = "Fehler.";
+    }
+}
+
+// PDF PRINT (Nur Notizen)
+function downloadPDF() {
+    const element = document.getElementById('studentText');
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = `
+        <h1 style="font-family:serif; margin-bottom:0.5rem">Deutsch Abitur Training</h1>
+        <p style="color:#666; font-size:0.9rem; margin-bottom:2rem">Datum: ${new Date().toLocaleDateString()}</p>
+        <div style="font-family:sans-serif; line-height:1.6">
+            ${element.value.replace(/\n/g, '<br>')}
+        </div>
+    `;
+    
+    const opt = {
+        margin: 20,
+        filename: 'Mein_Deutsch_Aufsatz.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(tempDiv).save();
+}
+
+function closeModal() { document.getElementById("resultModal").style.display = "none"; }
+function toggleDark() {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+    localStorage.setItem("theme", isDark ? "light" : "dark");
+}
+</script>
+</body>
+</html>
