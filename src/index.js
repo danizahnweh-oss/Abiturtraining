@@ -1,27 +1,98 @@
 /* ================= AUTH & RATE LIMITING ================= */
 const RATE_LIMIT_WINDOW = 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 10;
+const MAX_LOGIN_ATTEMPTS = 5;
+const MAX_BODY_SIZE = 5 * 1024 * 1024; // 5 MB
+const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
 const rateLimitMap = new Map();
+const loginRateLimitMap = new Map();
 
-function checkAuth(request, env) {
-  const authHeader = request.headers.get("X-Access-Password") || "";
-  const accessPassword = env.ACCESS_PASSWORD || "stanna2026";
-  if (authHeader !== accessPassword) {
-    return jsonResponse({ error: "Nicht autorisiert. Falsches Passwort." }, 401);
+/* ---- Token-System (HMAC-SHA256) ---- */
+async function generateToken(env) {
+  const payload = JSON.stringify({
+    iat: Date.now(),
+    nonce: crypto.randomUUID()
+  });
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(env.ACCESS_PASSWORD),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+  const sigHex = [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, "0")).join("");
+  return btoa(payload) + "." + sigHex;
+}
+
+async function verifyToken(token, env) {
+  try {
+    const parts = token.split(".");
+    if (parts.length !== 2) return false;
+    const [dataB64, sigHex] = parts;
+    const data = atob(dataB64);
+    const payload = JSON.parse(data);
+
+    if (Date.now() - payload.iat > TOKEN_EXPIRY) return false;
+
+    const key = await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder().encode(env.ACCESS_PASSWORD),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"]
+    );
+    const sigBytes = new Uint8Array(sigHex.match(/.{2}/g).map(b => parseInt(b, 16)));
+    return await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(data));
+  } catch {
+    return false;
+  }
+}
+
+/* ---- Timing-safe Passwortvergleich ---- */
+async function safeCompare(a, b) {
+  const enc = new TextEncoder();
+  const keyData = enc.encode(a.padEnd(64, "\0"));
+  const key = await crypto.subtle.importKey(
+    "raw", keyData, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+  );
+  const sigA = await crypto.subtle.sign("HMAC", key, enc.encode("compare"));
+  const keyDataB = enc.encode(b.padEnd(64, "\0"));
+  const keyB = await crypto.subtle.importKey(
+    "raw", keyDataB, { name: "HMAC", hash: "SHA-256" }, false, ["sign"]
+  );
+  const sigB = await crypto.subtle.sign("HMAC", keyB, enc.encode("compare"));
+  const arrA = new Uint8Array(sigA);
+  const arrB = new Uint8Array(sigB);
+  if (arrA.length !== arrB.length) return false;
+  let result = 0;
+  for (let i = 0; i < arrA.length; i++) result |= arrA[i] ^ arrB[i];
+  return result === 0;
+}
+
+/* ---- Auth-Check (Token statt Passwort) ---- */
+async function checkAuth(request, env) {
+  const token = request.headers.get("X-Access-Token") || "";
+  if (!env.ACCESS_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500);
+  }
+  if (!token || !(await verifyToken(token, env))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401);
   }
   return null;
 }
 
-function checkRateLimit(request) {
+/* ---- Rate Limiting ---- */
+function checkRateLimit(request, map, max) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const now = Date.now();
 
-  if (!rateLimitMap.has(ip)) {
-    rateLimitMap.set(ip, { count: 1, windowStart: now });
+  if (!map.has(ip)) {
+    map.set(ip, { count: 1, windowStart: now });
     return null;
   }
 
-  const entry = rateLimitMap.get(ip);
+  const entry = map.get(ip);
   if (now - entry.windowStart > RATE_LIMIT_WINDOW) {
     entry.count = 1;
     entry.windowStart = now;
@@ -29,40 +100,99 @@ function checkRateLimit(request) {
   }
 
   entry.count++;
-  if (entry.count > MAX_REQUESTS_PER_WINDOW) {
+  if (entry.count > max) {
     return jsonResponse({ error: "Zu viele Anfragen. Bitte warte eine Minute." }, 429);
   }
   return null;
 }
 
 let requestCounter = 0;
-function cleanupRateLimitMap() {
+function cleanupRateLimitMaps() {
   requestCounter++;
   if (requestCounter % 100 === 0) {
     const now = Date.now();
-    for (const [ip, entry] of rateLimitMap) {
-      if (now - entry.windowStart > RATE_LIMIT_WINDOW * 5) {
-        rateLimitMap.delete(ip);
+    for (const map of [rateLimitMap, loginRateLimitMap]) {
+      for (const [ip, entry] of map) {
+        if (now - entry.windowStart > RATE_LIMIT_WINDOW * 5) {
+          map.delete(ip);
+        }
       }
     }
   }
 }
 
+/* ---- CORS ---- */
+function corsHeaders(env) {
+  const origin = env?.ALLOWED_ORIGIN || "*";
+  return {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token",
+    "Access-Control-Allow-Methods": "POST, OPTIONS"
+  };
+}
+
+function jsonResponse(data, status = 200, env = null) {
+  return new Response(JSON.stringify(data), { status, headers: corsHeaders(env) });
+}
+
+/* ---- Input-Validierung ---- */
+function checkBodySize(request) {
+  const contentLength = parseInt(request.headers.get("Content-Length") || "0", 10);
+  if (contentLength > MAX_BODY_SIZE) {
+    return jsonResponse({ error: "Anfrage zu groß." }, 413);
+  }
+  return null;
+}
+
+function truncate(str, max) {
+  if (typeof str !== "string") return str;
+  return str.length > max ? str.slice(0, max) : str;
+}
+
+/* ================= MAIN HANDLER ================= */
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
 
     if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders() });
+      return new Response(null, { headers: corsHeaders(env) });
     }
 
     try {
+      // Body-Größe prüfen
+      const sizeError = checkBodySize(request);
+      if (sizeError) return sizeError;
+
+      // ===== LOGIN ENDPOINT (Rate-Limited) =====
+      if (pathname === "/api/login" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleLogin(request, env);
+      }
+
+      // ===== DASHBOARD ENDPOINTS (Lehrer-Passwort) =====
+      if (pathname === "/api/results" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleGetResults(request, env);
+      }
+      if (pathname === "/api/delete-result" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleDeleteResult(request, env);
+      }
+
+      // ===== AUTH CHECK für /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
-        const authError = checkAuth(request, env);
+        const authError = await checkAuth(request, env);
         if (authError) return authError;
-        const rateLimitError = checkRateLimit(request);
+        const rateLimitError = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
         if (rateLimitError) return rateLimitError;
-        cleanupRateLimitMap();
+        cleanupRateLimitMaps();
       }
 
       // ===== ENGLISCH ENDPOINTS =====
@@ -96,32 +226,53 @@ export default {
         return await handleParseTaskDeutsch(request, env);
       }
 
-      // ===== DASHBOARD ENDPOINTS =====
+      // ===== SUBMIT RESULT =====
       if (pathname === "/api/submit-result" && request.method === "POST") {
         return await handleSubmitResult(request, env);
-      }
-      if (pathname === "/api/results" && request.method === "POST") {
-        return await handleGetResults(request, env);
-      }
-      if (pathname === "/api/delete-result" && request.method === "POST") {
-        return await handleDeleteResult(request, env);
       }
 
       return new Response("Not Found", { status: 404 });
     } catch (err) {
-      return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders() });
+      // Keine internen Details leaken
+      return jsonResponse({ error: "Interner Fehler." }, 500, env);
     }
   }
 };
+
+/* ================= LOGIN HANDLER ================= */
+async function handleLogin(request, env) {
+  const { password } = await request.json();
+
+  if (!env.ACCESS_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+
+  if (!password || typeof password !== "string") {
+    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
+  }
+
+  const valid = await safeCompare(password, env.ACCESS_PASSWORD);
+  if (valid) {
+    const token = await generateToken(env);
+    return jsonResponse({ success: true, token }, 200, env);
+  } else {
+    return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+  }
+}
 
 /* ================= ENGLISCH: GENERATE ================= */
 async function handleGenerate(request, env) {
   const body = await request.json();
   const { topic, source_len_words, prompt_template } = body;
 
+  if (!prompt_template || typeof prompt_template !== "string") {
+    return jsonResponse({ error: "prompt_template required" }, 400, env);
+  }
+
+  const safeTopic = truncate(topic || "", 500);
   const prompt = prompt_template
-    .replace(/\{topic\}/g, topic || "")
-    .replace(/\$\{topic\}/g, topic || "")
+    .replace(/\{topic\}/g, safeTopic)
+    .replace(/\$\{topic\}/g, safeTopic)
     .replace(/\{length\}/g, String(source_len_words || 600))
     .replace(/\$\{length\}/g, String(source_len_words || 600));
 
@@ -135,11 +286,11 @@ async function handleGenerate(request, env) {
       content: `You are an Abitur exam generator. Return valid JSON only. No markdown fences. No preamble.
 CRITICAL: The JSON must be valid. All string values must properly escape special characters.`
     },
-    { role: "user", content: prompt }
+    { role: "user", content: truncate(prompt, 10000) }
   ], maxTokens);
 
   const content = extractJSON(openaiRes);
-  return jsonResponse(content);
+  return jsonResponse(content, 200, env);
 }
 
 /* ================= ENGLISCH: GRADE ================= */
@@ -166,10 +317,10 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
     {
       role: "user",
       content:
-        `Deutscher Quelltext:\n${source_text_de}\n\n` +
-        `Englische Aufgabenstellung:\n${task_en}\n\n` +
-        `Schülertext (Englisch):\n${student_text_en}\n\n` +
-        `Bewertungsraster:\n${rubric_prompt}`
+        `Deutscher Quelltext:\n${truncate(source_text_de, 15000)}\n\n` +
+        `Englische Aufgabenstellung:\n${truncate(task_en, 5000)}\n\n` +
+        `Schülertext (Englisch):\n${truncate(student_text_en, 15000)}\n\n` +
+        `Bewertungsraster:\n${truncate(rubric_prompt, 5000)}`
     }
   ];
 
@@ -190,7 +341,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
       scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
       feedback: parsed.feedback || "",
       corrections: parsed.corrections || ""
-    });
+    }, 200, env);
   } catch {
     const contentMatch = openaiRes.match(/inhalt_np["\s:]*(\d{1,2})/i);
     const langMatch = openaiRes.match(/sprache_np["\s:]*(\d{1,2})/i);
@@ -209,7 +360,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
       scores: { content_textstructure: contentScore, language: langScore, total: totalScore },
       feedback: openaiRes,
       corrections: ""
-    });
+    }, 200, env);
   }
 }
 
@@ -217,7 +368,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
 async function handleOCR(request, env) {
   const { image_base64 } = await request.json();
   if (!image_base64) {
-    return jsonResponse({ error: "image_base64 required" }, 400);
+    return jsonResponse({ error: "image_base64 required" }, 400, env);
   }
 
   const content = [
@@ -232,15 +383,18 @@ async function handleOCR(request, env) {
   });
 
   const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error(data?.error?.message || "OpenAI Vision error");
-  return jsonResponse({ text: data?.choices?.[0]?.message?.content || "" });
+  if (!openaiRes.ok) throw new Error("OCR-Verarbeitung fehlgeschlagen.");
+  return jsonResponse({ text: data?.choices?.[0]?.message?.content || "" }, 200, env);
 }
 
 /* ================= ENGLISCH: PARSE TASK ================= */
 async function handleParseTask(request, env) {
   const { images } = await request.json();
   if (!images || !images.length) {
-    return jsonResponse({ error: "images array required" }, 400);
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
   }
 
   const content = [
@@ -264,20 +418,20 @@ Antworte NUR mit validem JSON:
   });
 
   const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error(data?.error?.message || "OpenAI Vision error");
+  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
   const text = data?.choices?.[0]?.message?.content || "";
   const parsed = extractJSON(text);
-  return jsonResponse(parsed);
+  return jsonResponse(parsed, 200, env);
 }
 
 /* ================= ENGLISCH: MODEL ANSWER ================= */
 async function handleModelAnswer(request, env) {
   const { source_text_de, task_en } = await request.json();
   if (!source_text_de || !task_en) {
-    return jsonResponse({ error: "source_text_de and task_en required" }, 400);
+    return jsonResponse({ error: "source_text_de and task_en required" }, 400, env);
   }
 
-  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B2/C1). 
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B2/C1).
 Schreibe eine Musterlösung für die Mediation-Aufgabe auf ENGLISCH.
 - Halte dich an die Aufgabenstellung
 - Paraphrasiere, übersetze NICHT wörtlich
@@ -287,17 +441,20 @@ Formatiere als Markdown: Erst die Lösung, dann unter "---" eine kurze Erklärun
 
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
-    { role: "user", content: `AUFGABE:\n${task_en}\n\nQUELLTEXT:\n${source_text_de}` }
+    { role: "user", content: `AUFGABE:\n${truncate(task_en, 5000)}\n\nQUELLTEXT:\n${truncate(source_text_de, 15000)}` }
   ]);
 
-  return jsonResponse({ model_answer: answer });
+  return jsonResponse({ model_answer: answer }, 200, env);
 }
 
 /* ================= DEUTSCH: PARSE TASK (OCR) ================= */
 async function handleParseTaskDeutsch(request, env) {
   const { images } = await request.json();
   if (!images || !images.length) {
-    return jsonResponse({ error: "images array required" }, 400);
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
   }
 
   const content = [
@@ -325,10 +482,10 @@ Antworte NUR mit validem JSON:
   });
 
   const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error(data?.error?.message || "OpenAI Vision error");
+  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
   const text = data?.choices?.[0]?.message?.content || "";
   const parsed = extractJSON(text);
-  return jsonResponse(parsed);
+  return jsonResponse(parsed, 200, env);
 }
 
 /* ================= DEUTSCH: GENERATE ================= */
@@ -357,15 +514,15 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "compare_meta": "Metadaten Vergleichstext oder null",
   "material_text": "Material für poetologische Aufgabe oder null",
   "material_meta": "Quelle oder null",
-  "gattung": "${gattung}",
+  "gattung": "${truncate(gattung, 100)}",
   "epoche": "Konkrete Epoche",
   "weight_part1": 70,
   "weight_part2": 30
 }`;
     userPrompt = `Erstelle eine Interpretationsaufgabe:
-- Gattung: ${gattung}
-- Epoche: ${epoche === "random" ? "frei wählbar" : epoche}
-- Weiterführender Auftrag: ${schreibauftrag}
+- Gattung: ${truncate(gattung, 100)}
+- Epoche: ${epoche === "random" ? "frei wählbar" : truncate(epoche, 100)}
+- Weiterführender Auftrag: ${truncate(schreibauftrag, 500)}
 
 KRITISCH: Schreibe den VOLLSTÄNDIGEN literarischen Text aus!
 - Lyrik: Alle Strophen, alle Verse
@@ -386,9 +543,9 @@ Antworte NUR mit validem JSON:
   "compare_meta": "Metadaten oder null"
 }`;
     userPrompt = `Erstelle eine Analyseaufgabe:
-- Textsorte: ${textsorte === "random" ? "frei wählbar" : textsorte}
-- Thema: ${thema === "random" ? "frei wählbar" : thema}
-- Weiterführend: ${schreibauftrag}`;
+- Textsorte: ${textsorte === "random" ? "frei wählbar" : truncate(textsorte, 200)}
+- Thema: ${thema === "random" ? "frei wählbar" : truncate(thema, 200)}
+- Weiterführend: ${truncate(schreibauftrag, 500)}`;
 
   } else if (type === "eroerterung") {
     systemPrompt = `Du erstellst Erörterungsaufgaben für das Deutsch-Abitur Bayern.
@@ -400,8 +557,8 @@ Antworte NUR mit validem JSON:
   "thema": "Themenbereich"
 }`;
     userPrompt = `Erstelle eine Erörterungsaufgabe:
-- Thema: ${thema === "random" ? "frei wählbar (aktuell, kontrovers)" : thema}
-- Typ: ${typ}`;
+- Thema: ${thema === "random" ? "frei wählbar (aktuell, kontrovers)" : truncate(thema, 200)}
+- Typ: ${truncate(typ, 100)}`;
 
   } else if (type === "materialgestuetzt") {
     systemPrompt = `Du erstellst materialgestützte Schreibaufgaben für das Deutsch-Abitur Bayern.
@@ -417,8 +574,10 @@ Antworte NUR mit validem JSON:
 Erstelle 3-5 verschiedene Materialien (Texte, Statistiken, Zitate).`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
 - Typ: ${aufgabentyp === "argumentieren" ? "Argumentierender Beitrag" : "Informierender Text"}
-- Thema: ${thema === "random" ? "frei wählbar" : thema}
-- Zieltextsorte: ${textsorte}`;
+- Thema: ${thema === "random" ? "frei wählbar" : truncate(thema, 200)}
+- Zieltextsorte: ${truncate(textsorte, 200)}`;
+  } else {
+    return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
 
   const openaiRes = await callOpenAI(env, [
@@ -427,7 +586,7 @@ Erstelle 3-5 verschiedene Materialien (Texte, Statistiken, Zitate).`;
   ], 6000);
 
   const content = extractJSON(openaiRes);
-  return jsonResponse(content);
+  return jsonResponse(content, 200, env);
 }
 
 /* ================= DEUTSCH: GRADE ================= */
@@ -435,22 +594,26 @@ async function handleGradeDeutsch(request, env) {
   const body = await request.json();
   const { task_instruction, primary_text, student_text, rubric_prompt, type, materials, zieltext, zielgruppe } = body;
 
-  let contextInfo = `Aufgabenstellung:\n${task_instruction}\n\n`;
-  
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+
   if (primary_text) {
-    contextInfo += `Ausgangstext:\n${primary_text}\n\n`;
+    contextInfo += `Ausgangstext:\n${truncate(primary_text, 15000)}\n\n`;
   }
-  
+
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.map((m, i) => `Material ${i+1}: ${m.title}\n${m.content}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
-  
-  if (zieltext) contextInfo += `Geforderter Zieltext: ${zieltext}\n`;
-  if (zielgruppe) contextInfo += `Zielgruppe: ${zielgruppe}\n`;
+
+  if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
+  if (zielgruppe) contextInfo += `Zielgruppe: ${truncate(zielgruppe, 200)}\n`;
 
   const messages = [
-    { role: "system", content: rubric_prompt },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${student_text}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 4000);
@@ -461,7 +624,6 @@ async function handleGradeDeutsch(request, env) {
     const darstellung = parsed.darstellung_np ?? null;
     let gesamt = parsed.gesamt_np ?? null;
 
-    // Berechne falls nicht vorhanden (unterschiedliche Gewichtung je nach Aufgabentyp)
     if (gesamt == null && verstehen != null && darstellung != null) {
       const weight = type === "materialgestuetzt" ? 0.6 : 0.7;
       gesamt = Math.round(verstehen * weight + darstellung * (1 - weight));
@@ -471,12 +633,12 @@ async function handleGradeDeutsch(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || ""
-    });
+    }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes
-    });
+    }, 200, env);
   }
 }
 
@@ -484,7 +646,7 @@ async function handleGradeDeutsch(request, env) {
 async function handleModelAnswerDeutsch(request, env) {
   const { task_instruction, primary_text, primary_meta, compare_text, material_text, type, materials } = await request.json();
 
-  let systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Deutsch).
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Deutsch).
 Schreibe eine Musterlösung auf DEUTSCH.
 - Strukturiere klar (Einleitung, Hauptteil, Schluss)
 - Verwende Fachbegriffe korrekt
@@ -493,12 +655,12 @@ Schreibe eine Musterlösung auf DEUTSCH.
 
 Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion, welche Strategien verwendet wurden.`;
 
-  let userContent = `AUFGABE:\n${task_instruction}\n\nHAUPTTEXT:\n${primary_text}`;
-  if (primary_meta) userContent += `\n(${primary_meta})`;
-  if (compare_text) userContent += `\n\nVERGLEICHSTEXT:\n${compare_text}`;
-  if (material_text) userContent += `\n\nMATERIAL:\n${material_text}`;
+  let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}\n\nHAUPTTEXT:\n${truncate(primary_text, 15000)}`;
+  if (primary_meta) userContent += `\n(${truncate(primary_meta, 500)})`;
+  if (compare_text) userContent += `\n\nVERGLEICHSTEXT:\n${truncate(compare_text, 10000)}`;
+  if (material_text) userContent += `\n\nMATERIAL:\n${truncate(material_text, 10000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.map((m, i) => `Material ${i+1}: ${m.title}\n${m.content}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -506,15 +668,15 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion, welche Strate
     { role: "user", content: userContent }
   ], 5000);
 
-  return jsonResponse({ model_answer: answer });
+  return jsonResponse({ model_answer: answer }, 200, env);
 }
 
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
 async function handleSubmitResult(request, env) {
   const { student_name, course, type, topic, content, language, total, date } = await request.json();
 
-  if (!student_name || total == null) {
-    return jsonResponse({ error: "student_name and total required" }, 400);
+  if (!student_name || typeof student_name !== "string" || total == null) {
+    return jsonResponse({ error: "student_name and total required" }, 400, env);
   }
 
   let results = [];
@@ -524,11 +686,11 @@ async function handleSubmitResult(request, env) {
   } catch {}
 
   results.push({
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-    student_name,
-    course: course || "",
-    type: type || "mediation",
-    topic: topic || "—",
+    id: Date.now().toString(36) + crypto.randomUUID().slice(0, 8),
+    student_name: truncate(student_name, 100),
+    course: truncate(course || "", 20),
+    type: truncate(type || "mediation", 50),
+    topic: truncate(topic || "—", 500),
     content: content ?? null,
     language: language ?? null,
     total,
@@ -536,15 +698,17 @@ async function handleSubmitResult(request, env) {
   });
 
   await env.RESULTS_KV.put("all_results", JSON.stringify(results));
-  return jsonResponse({ success: true, count: results.length });
+  return jsonResponse({ success: true, count: results.length }, 200, env);
 }
 
 /* ================= DASHBOARD: GET RESULTS ================= */
 async function handleGetResults(request, env) {
   const { teacher_password } = await request.json();
-  const teacherPw = env.TEACHER_PASSWORD || "stanna-lehrer-2026";
-  if (teacher_password !== teacherPw) {
-    return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401);
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!teacher_password || !(await safeCompare(teacher_password, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401, env);
   }
 
   let results = [];
@@ -553,15 +717,21 @@ async function handleGetResults(request, env) {
     if (raw) results = JSON.parse(raw);
   } catch {}
 
-  return jsonResponse({ results });
+  return jsonResponse({ results }, 200, env);
 }
 
 /* ================= DASHBOARD: DELETE RESULT ================= */
 async function handleDeleteResult(request, env) {
   const { teacher_password, result_id } = await request.json();
-  const teacherPw = env.TEACHER_PASSWORD || "stanna-lehrer-2026";
-  if (teacher_password !== teacherPw) {
-    return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401);
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!teacher_password || !(await safeCompare(teacher_password, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401, env);
+  }
+
+  if (!result_id || typeof result_id !== "string") {
+    return jsonResponse({ error: "result_id required" }, 400, env);
   }
 
   let results = [];
@@ -572,7 +742,7 @@ async function handleDeleteResult(request, env) {
 
   results = results.filter(r => r.id !== result_id);
   await env.RESULTS_KV.put("all_results", JSON.stringify(results));
-  return jsonResponse({ success: true, count: results.length });
+  return jsonResponse({ success: true, count: results.length }, 200, env);
 }
 
 /* ================= OPENAI CALL ================= */
@@ -593,7 +763,7 @@ async function callOpenAI(env, messages, maxTokens = 4000) {
 
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data?.error?.message || "OpenAI error");
+    throw new Error("KI-Verarbeitung fehlgeschlagen.");
   }
   return data.choices[0].message.content;
 }
@@ -617,17 +787,4 @@ function extractJSON(text) {
   }
 
   throw new Error("Model did not return valid JSON.");
-}
-
-function jsonResponse(data, status = 200) {
-  return new Response(JSON.stringify(data), { status, headers: corsHeaders() });
-}
-
-function corsHeaders() {
-  return {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, X-Access-Password",
-    "Access-Control-Allow-Methods": "POST, OPTIONS"
-  };
 }

@@ -219,23 +219,49 @@ footer a{color:var(--accent);text-decoration:none}
 </div>
 
 <script>
-const ACCESS_PASSWORD = "stanna2026";
+const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 
-function doLogin() {
+async function doLogin() {
   const name = document.getElementById("studentName").value.trim();
   const level = document.getElementById("studentLevel").value;
   const pw = document.getElementById("accessPassword").value.trim();
   const err = document.getElementById("loginError");
+  const btn = document.querySelector(".login-btn");
 
   if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
   if (!level) { err.textContent = "Bitte wähle dein Niveau (gA/eA)."; err.style.display = "block"; return; }
-  if (pw !== ACCESS_PASSWORD) { err.textContent = "Falsches Passwort."; err.style.display = "block"; return; }
+  if (!pw) { err.textContent = "Bitte gib das Passwort ein."; err.style.display = "block"; return; }
 
-  sessionStorage.setItem("access", "1");
-  sessionStorage.setItem("student_name", name);
-  sessionStorage.setItem("student_level", level);
-  
-  showSubjectSelection();
+  // Disable button während Login
+  btn.disabled = true;
+  btn.textContent = "Prüfe …";
+  err.style.display = "none";
+
+  try {
+    const res = await fetch(API_BASE + "/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pw })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem("access", "1");
+      sessionStorage.setItem("access_token", data.token);
+      sessionStorage.setItem("student_name", name);
+      sessionStorage.setItem("student_level", level);
+      showSubjectSelection();
+    } else {
+      err.textContent = data.error || "Falsches Passwort.";
+      err.style.display = "block";
+    }
+  } catch (e) {
+    err.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+    err.style.display = "block";
+  }
+
+  btn.disabled = false;
+  btn.textContent = "Einloggen →";
 }
 
 function showSubjectSelection() {

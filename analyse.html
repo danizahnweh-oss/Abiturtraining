@@ -7,6 +7,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -404,7 +405,8 @@ function countWords(text) { return (text || "").trim().split(/\s+/).filter(w => 
 function updateWordCount() { document.getElementById("wordCount").textContent = countWords(document.getElementById("studentText").value); }
 
 async function apiCall(endpoint, body) {
-  const res = await fetch(API_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Password": "stanna2026" }, body: JSON.stringify(body) });
+function getAccessToken() { return sessionStorage.getItem("access_token") || ""; }
+  const res = await fetch(API_BASE + endpoint, { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() }, body: JSON.stringify(body) });
   if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || `HTTP ${res.status}`); }
   return res.json();
 }
@@ -482,7 +484,7 @@ async function submitForGrading() {
     apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-analyse", topic: CONFIG.storedData.textsorte || "Analyse", content: data.scores?.verstehen, language: data.scores?.darstellung, total: data.scores?.total, date: new Date().toISOString() }).catch(() => {});
 
     stopTimer();
-    document.getElementById("feedbackBody").innerHTML = marked.parse(data.feedback || "");
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(data.feedback || ""));
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
     document.getElementById("feedbackContent").style.display = "block";
@@ -544,8 +546,19 @@ function applyHL(container) {
     while (node = walker.nextNode()) { if (node.className && node.className.toString().startsWith("hl-") && sel.containsNode(node, true)) spans.push(node); }
     spans.forEach(span => { const p = span.parentNode; while (span.firstChild) p.insertBefore(span.firstChild, span); p.removeChild(span); }); container.normalize();
   } else {
-    try { const span = document.createElement("span"); span.className = "hl-" + currentHL; range.surroundContents(span); }
-    catch { const f = range.extractContents(); const span = document.createElement("span"); span.className = "hl-" + currentHL; span.appendChild(f); range.insertNode(span); }
+    const textNodes = []; const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT); let node;
+    while (node = walker.nextNode()) { if (sel.containsNode(node, true)) textNodes.push(node); }
+    textNodes.forEach(textNode => {
+      let startOffset = 0, endOffset = textNode.length;
+      if (textNode === range.startContainer) startOffset = range.startOffset;
+      if (textNode === range.endContainer) endOffset = range.endOffset;
+      if (startOffset >= endOffset) return;
+      const hlRange = document.createRange();
+      hlRange.setStart(textNode, startOffset);
+      hlRange.setEnd(textNode, endOffset);
+      const span = document.createElement("span"); span.className = "hl-" + currentHL;
+      try { hlRange.surroundContents(span); } catch {}
+    });
   }
   sel.removeAllRanges(); syncHL();
 }
