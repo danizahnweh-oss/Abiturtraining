@@ -197,7 +197,9 @@ header {
   top: 0;
   z-index: 100;
   backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.92);
+}
+[data-theme="dark"] header {
+  background: rgba(30,30,46,0.92);
 }
 header h1 {
   font-family: var(--font-display);
@@ -501,7 +503,7 @@ textarea:focus { border-color: var(--accent); }
 /* ====== FEEDBACK / SCORES ====== */
 .scores-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -750,6 +752,10 @@ footer {
   background: var(--accent-glow);
   color: var(--accent);
 }
+
+.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);background:var(--warning);color:white;padding:.8rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:toastIn .3s ease-out;max-width:90vw;text-align:center}
+.toast.success{background:var(--accent)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
 /* ====== RESPONSIVE ====== */
 @media (max-width: 640px) {
@@ -1527,7 +1533,10 @@ function syncHLToWrite() {
   if (source && writeRef) writeRef.innerHTML = source.innerHTML;
 }
 
+function showToast(msg,type){const t=document.createElement("div");t.className="toast"+(type==="success"?" success":"");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity="0";setTimeout(()=>t.remove(),300)},3500)}
+
 /* ================= INIT ================= */
+window.addEventListener("beforeunload",function(e){if(document.getElementById("studentText").value.trim().length>50){e.preventDefault();e.returnValue=""}});
 window.onload = function () {
   initTheme();
 
@@ -1582,7 +1591,7 @@ async function generateExam() {
     renderExam(content);
     nav("task");
   } catch (e) {
-    alert("Fehler beim Generieren: " + e.message);
+    showToast("Fehler beim Generieren: " + e.message);
   }
 
   btn.disabled = false;
@@ -1603,7 +1612,7 @@ const taskUploadImages = []; // {file, url, base64}
 async function handleTaskUpload(fileList) {
   const files = Array.from(fileList).filter(f => {
     if (!f.type.startsWith("image/")) return false;
-    if (f.size > 10 * 1024 * 1024) { alert(`${f.name} zu groß (max. 10 MB).`); return false; }
+    if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} zu groß (max. 10 MB).`); return false; }
     return true;
   });
   if (!files.length) return;
@@ -1635,7 +1644,7 @@ async function handleTaskUpload(fileList) {
     document.getElementById("parsedHeadline").value = data.headline || "";
     document.getElementById("taskUploadResult").style.display = "block";
   } catch (e) {
-    alert("Fehler bei der Erkennung: " + e.message);
+    showToast("Fehler bei der Erkennung: " + e.message);
   }
 
   document.getElementById("taskUploadLoader").style.display = "none";
@@ -1666,7 +1675,7 @@ function useUploadedTask() {
   const headline = document.getElementById("parsedHeadline").value.trim();
 
   if (!task && !article) {
-    alert("Kein Text erkannt. Bitte prüfe die Bilder oder gib den Text manuell ein.");
+    showToast("Kein Text erkannt. Bitte prüfe die Bilder oder gib den Text manuell ein.");
     return;
   }
 
@@ -1687,7 +1696,7 @@ function useManualTask() {
   const headline = document.getElementById("manualHeadline").value.trim();
 
   if (!task && !article) {
-    alert("Bitte mindestens Aufgabenstellung oder Quelltext eingeben.");
+    showToast("Bitte mindestens Aufgabenstellung oder Quelltext eingeben.");
     return;
   }
 
@@ -1746,11 +1755,11 @@ function renderExam(d) {
 async function submitForCorrection() {
   const text = document.getElementById("studentText").value;
   if (countWords(text) < 30) {
-    alert("Dein Text ist zu kurz (mindestens 30 Wörter).");
+    showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");
     return;
   }
   if (!CONFIG.storedData?.article_text || !CONFIG.storedData?.task_instruction) {
-    alert("Bitte zuerst eine Prüfung generieren (Schritt 1).");
+    showToast("Bitte zuerst eine Prüfung generieren (Schritt 1).");
     return;
   }
 
@@ -1829,8 +1838,8 @@ const ocrPages = []; // {file, base64, text, status}
 async function handleOCRFiles(fileList) {
   const files = Array.from(fileList);
   const valid = files.filter(f => {
-    if (!f.type.startsWith("image/")) { alert(`${f.name} ist kein Bild.`); return false; }
-    if (f.size > 10 * 1024 * 1024) { alert(`${f.name} ist zu groß (max. 10 MB).`); return false; }
+    if (!f.type.startsWith("image/")) { showToast(`${f.name} ist kein Bild.`); return false; }
+    if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} ist zu groß (max. 10 MB).`); return false; }
     return true;
   });
   if (!valid.length) return;
@@ -1935,7 +1944,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function useOCRText() {
   const text = document.getElementById("ocrText").value;
-  if (!text.trim()) { alert("Kein Text vorhanden."); return; }
+  if (!text.trim()) { showToast("Kein Text vorhanden."); return; }
 
   // Clean up page separators if present
   const cleaned = text.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
@@ -2064,7 +2073,7 @@ async function generateModelAnswer() {
   }
 
   if (!CONFIG.storedData.article_text || !CONFIG.storedData.task_instruction) {
-    alert("Keine Aufgabe vorhanden.");
+    showToast("Keine Aufgabe vorhanden.");
     return;
   }
 
@@ -2132,7 +2141,7 @@ function startTimer() {
       timerInterval = null;
       document.getElementById("timerDisplay").textContent = "00:00";
       document.getElementById("timerDisplay").classList.add("warning");
-      alert("⏰ Die Zeit ist abgelaufen! Du kannst deinen Text trotzdem noch abgeben.");
+      showToast("Zeit abgelaufen! Du kannst deinen Text trotzdem noch abgeben.");
     }
   }, 1000);
 }

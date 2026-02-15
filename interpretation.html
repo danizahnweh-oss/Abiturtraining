@@ -148,6 +148,10 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
 .hl-legend-item{display:flex;align-items:center;gap:.3rem}
 .hl-legend-dot{width:12px;height:12px;border-radius:2px}
 
+.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);background:var(--warning);color:white;padding:.8rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:toastIn .3s ease-out;max-width:90vw;text-align:center}
+.toast.success{background:var(--accent)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
 @media(max-width:650px){.form-row,.scores-grid,.stats-grid,.gattung-grid{grid-template-columns:1fr}.mode-toggle{grid-template-columns:1fr}nav{padding:0 1rem}main{padding:0 1rem}.highlighter-toolbar{gap:.3rem}}
 </style>
 </head>
@@ -286,12 +290,12 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
       <h2 class="card-header">Vergleichstext</h2>
       <div class="highlighter-toolbar">
         <span class="hl-label">🖍️</span>
-        <button class="hl-btn yellow" onclick="selectHL('yellow')"></button>
-        <button class="hl-btn green" onclick="selectHL('green')"></button>
-        <button class="hl-btn blue" onclick="selectHL('blue')"></button>
-        <button class="hl-btn pink" onclick="selectHL('pink')"></button>
-        <button class="hl-btn orange" onclick="selectHL('orange')"></button>
-        <button class="hl-btn eraser" onclick="selectHL('eraser')">✕</button>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')"></button>
+        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')">✕</button>
       </div>
       <div class="source-text" id="compareText"></div>
       <div class="source-meta" id="compareMeta"></div>
@@ -393,6 +397,8 @@ DARSTELLUNG (30%): Aufbau, Fachsprache, Ausdruck, Sprachrichtigkeit
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
+function showToast(msg,type){const t=document.createElement("div");t.className="toast"+(type==="success"?" success":"");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity="0";setTimeout(()=>t.remove(),300)},3500)}
+
 function getStudentKey() { return (sessionStorage.getItem("student_name") || "anon").toLowerCase().replace(/\s+/g, "_"); }
 function escapeHtml(s) { return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
 function countWords(t) { return (t||"").trim().split(/\s+/).filter(w => w).length; }
@@ -406,10 +412,12 @@ function getAccessToken() { return sessionStorage.getItem("access_token") || "";
 }
 
 function nav(step) {
+  const steps=["setup","task","write","feedback","progress"];const idx=steps.indexOf(step);
+  if(idx>=1&&idx<=3&&!CONFIG.storedData){showToast("Bitte zuerst eine Aufgabe generieren.");return}
   document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
   document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
   document.getElementById("sec-" + step).classList.add("active");
-  document.querySelectorAll("nav button")[["setup","task","write","feedback","progress"].indexOf(step)]?.classList.add("active");
+  document.querySelectorAll("nav button")[idx]?.classList.add("active");
   if (step === "progress") renderProgress();
   if (step === "write") syncHL();
   window.scrollTo({ top: 0 });
@@ -549,7 +557,7 @@ async function generateTask() {
     CONFIG.storedData = d;
     renderTask(d);
     nav("task");
-  } catch (e) { alert("Fehler: " + e.message); }
+  } catch (e) { showToast("Fehler: " + e.message); }
   btn.disabled = false;
   document.getElementById("setupLoader").style.display = "none";
 }
@@ -571,13 +579,13 @@ async function handleTaskUpload(files) {
     document.getElementById("parsedPrimaryText").value = d.primary_text || "";
     document.getElementById("parsedMeta").value = d.primary_meta || "";
     document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) { alert("Fehler: " + e.message); }
+  } catch (e) { showToast("Fehler: " + e.message); }
   document.getElementById("taskUploadLoader").style.display = "none";
 }
 
 function useUploadedTask() {
   const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value, gattung: CONFIG.gattung };
-  if (!c.primary_text) { alert("Kein Text"); return; }
+  if (!c.primary_text) { showToast("Kein Text"); return; }
   CONFIG.storedData = c;
   renderTask(c);
   nav("task");
@@ -585,7 +593,7 @@ function useUploadedTask() {
 
 function useManualTask() {
   const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Interpretieren Sie den Text.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value, gattung: CONFIG.gattung };
-  if (!c.primary_text) { alert("Kein Text"); return; }
+  if (!c.primary_text) { showToast("Kein Text"); return; }
   CONFIG.storedData = c;
   renderTask(c);
   nav("task");
@@ -616,8 +624,8 @@ function renderTask(d) {
 /* ====== GRADING ====== */
 async function submitForGrading() {
   const t = document.getElementById("studentText").value;
-  if (countWords(t) < 100) { alert("Min. 100 Wörter"); return; }
-  if (!CONFIG.storedData?.primary_text) { alert("Erst Aufgabe erstellen"); return; }
+  if (countWords(t) < 100) { showToast("Min. 100 Wörter"); return; }
+  if (!CONFIG.storedData?.primary_text) { showToast("Erst Aufgabe erstellen"); return; }
   document.getElementById("submitBtn").disabled = true;
   nav("feedback");
   document.getElementById("feedbackLoader").style.display = "block";
@@ -647,13 +655,13 @@ async function showModelAnswer() {
     const d = await apiCall("/api/model-answer-deutsch", { task_instruction: CONFIG.storedData.task_instruction, primary_text: CONFIG.storedData.primary_text, type: "interpretation" });
     document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
     card.style.display = "block";
-  } catch (e) { alert(e.message); }
+  } catch (e) { showToast(e.message); }
   document.getElementById("showModelBtn").disabled = false;
 }
 
 /* ====== TIMER ====== */
 let timerInterval = null, timerSeconds = 0, timerPaused = false;
-function startTimer() { timerSeconds = (parseInt(document.getElementById("timerMinutes").value) || 180) * 60; document.getElementById("timerBar").classList.add("active"); document.getElementById("timerStartBtn").style.display = "none"; updateTimerDisplay(); timerInterval = setInterval(() => { if (!timerPaused) { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); alert("⏰ Zeit!"); } } }, 1000); }
+function startTimer() { timerSeconds = (parseInt(document.getElementById("timerMinutes").value) || 180) * 60; document.getElementById("timerBar").classList.add("active"); document.getElementById("timerStartBtn").style.display = "none"; updateTimerDisplay(); timerInterval = setInterval(() => { if (!timerPaused) { timerSeconds--; updateTimerDisplay(); if (timerSeconds <= 0) { clearInterval(timerInterval); showToast("Zeit abgelaufen!"); } } }, 1000); }
 function pauseTimer() { timerPaused = !timerPaused; document.getElementById("timerPauseBtn").textContent = timerPaused ? "▶" : "⏸"; }
 function stopTimer() { if (timerInterval) clearInterval(timerInterval); timerInterval = null; document.getElementById("timerBar").classList.remove("active"); document.getElementById("timerStartBtn").style.display = "inline-flex"; }
 function updateTimerDisplay() { const m = Math.floor(timerSeconds / 60), s = timerSeconds % 60; document.getElementById("timerDisplay").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`; document.getElementById("timerDisplay").classList.toggle("warning", timerSeconds <= 600 && timerSeconds > 0); }
@@ -726,6 +734,7 @@ function exportPDF() { html2pdf().set({ margin: 10, filename: `Interpretation_${
 function toggleDarkMode() { const d = document.documentElement.getAttribute("data-theme") === "dark"; document.documentElement.setAttribute("data-theme", d ? "light" : "dark"); localStorage.setItem("theme", d ? "light" : "dark"); document.getElementById("themeToggleBtn").textContent = d ? "🌙" : "☀️"; }
 function initTheme() { const t = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme:dark)").matches ? "dark" : "light"); document.documentElement.setAttribute("data-theme", t); document.getElementById("themeToggleBtn").textContent = t === "dark" ? "☀️" : "🌙"; }
 
+window.addEventListener("beforeunload",function(e){if(document.getElementById("studentText").value.trim().length>50){e.preventDefault();e.returnValue=""}});
 window.onload = function() {
   initTheme();
   if (sessionStorage.getItem("access") !== "1") { window.location.href = "index.html"; return; }

@@ -113,6 +113,10 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
 .hl-orange{background:var(--hl-orange);border-radius:2px;padding:0 2px}
 .material-box{cursor:text;line-height:1.8}
 
+.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);background:var(--warning);color:white;padding:.8rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:toastIn .3s ease-out;max-width:90vw;text-align:center}
+.toast.success{background:var(--accent)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
 @media(max-width:650px){.form-row,.scores-grid,.stats-grid,.type-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -324,6 +328,7 @@ DARSTELLUNGSLEISTUNG (40%):
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
 
+function showToast(msg,type){const t=document.createElement("div");t.className="toast"+(type==="success"?" success":"");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity="0";setTimeout(()=>t.remove(),300)},3500)}
 function getStudentKey(){return(sessionStorage.getItem("student_name")||"anon").toLowerCase().replace(/\s+/g,"_")}
 function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function countWords(t){return(t||"").trim().split(/\s+/).filter(w=>w).length}
@@ -332,11 +337,11 @@ function updateWordCount(){document.getElementById("wordCount").textContent=coun
 function getAccessToken(){return sessionStorage.getItem("access_token")||""}
 async function apiCall(e,b){const r=await fetch(API_BASE+e,{method:"POST",headers:{"Content-Type":"application/json","X-Access-Token":getAccessToken()},body:JSON.stringify(b)});if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||`HTTP ${r.status}`);return r.json()}
 
-function nav(s){document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));document.getElementById("sec-"+s).classList.add("active");document.querySelectorAll("nav button")[["setup","task","write","feedback","progress"].indexOf(s)]?.classList.add("active");if(s==="progress")renderProgress();window.scrollTo({top:0})}
+function nav(s){const steps=["setup","task","write","feedback","progress"];const idx=steps.indexOf(s);if(idx>=1&&idx<=3&&!CONFIG.storedData){showToast("Bitte zuerst eine Aufgabe generieren.");return}document.querySelectorAll("section").forEach(x=>x.classList.remove("active"));document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));document.getElementById("sec-"+s).classList.add("active");document.querySelectorAll("nav button")[idx]?.classList.add("active");if(s==="progress")renderProgress();window.scrollTo({top:0})}
 
 function selectType(t){CONFIG.aufgabentyp=t;document.querySelectorAll(".type-card").forEach(c=>c.classList.remove("selected"));document.querySelector(`[data-type="${t}"]`).classList.add("selected")}
 
-async function generateTask(){const b=document.getElementById("generateBtn");b.disabled=true;document.getElementById("setupLoader").style.display="block";try{const d=await apiCall("/api/generate-deutsch",{aufgabentyp:CONFIG.aufgabentyp,thema:document.getElementById("themaSelect").value,textsorte:document.getElementById("textsorteSelect").value,type:"materialgestuetzt"});CONFIG.storedData=d;renderTask(d);nav("task")}catch(e){alert("Fehler: "+e.message)}b.disabled=false;document.getElementById("setupLoader").style.display="none"}
+async function generateTask(){const b=document.getElementById("generateBtn");b.disabled=true;document.getElementById("setupLoader").style.display="block";try{const d=await apiCall("/api/generate-deutsch",{aufgabentyp:CONFIG.aufgabentyp,thema:document.getElementById("themaSelect").value,textsorte:document.getElementById("textsorteSelect").value,type:"materialgestuetzt"});CONFIG.storedData=d;renderTask(d);nav("task")}catch(e){showToast("Fehler: "+e.message)}b.disabled=false;document.getElementById("setupLoader").style.display="none"}
 
 function renderMaterialContent(content, type) {
   if (type === "statistik" && content && content.includes("|")) {
@@ -394,7 +399,7 @@ function renderTask(d){
   `).join("");
 }
 
-async function submitForGrading(){const t=document.getElementById("studentText").value;if(countWords(t)<150){alert("Min. 150 Wörter");return}if(!CONFIG.storedData){alert("Erst Aufgabe generieren");return}document.getElementById("submitBtn").disabled=true;nav("feedback");document.getElementById("feedbackLoader").style.display="block";document.getElementById("feedbackContent").style.display="none";
+async function submitForGrading(){const t=document.getElementById("studentText").value;if(countWords(t)<150){showToast("Bitte mindestens 150 Wörter schreiben.");return}if(!CONFIG.storedData){showToast("Bitte zuerst eine Aufgabe generieren.");return}document.getElementById("submitBtn").disabled=true;nav("feedback");document.getElementById("feedbackLoader").style.display="block";document.getElementById("feedbackContent").style.display="none";
 try{
   const d=await apiCall("/api/grade-deutsch",{
     task_instruction:CONFIG.storedData.task_instruction,
@@ -416,7 +421,7 @@ try{
 document.getElementById("feedbackLoader").style.display="none";document.getElementById("submitBtn").disabled=false}
 
 let timerInterval=null,timerSeconds=0,timerPaused=false;
-function startTimer(){timerSeconds=(parseInt(document.getElementById("timerMinutes").value)||180)*60;document.getElementById("timerBar").classList.add("active");document.getElementById("timerStartBtn").style.display="none";updateTimerDisplay();timerInterval=setInterval(()=>{if(!timerPaused){timerSeconds--;updateTimerDisplay();if(timerSeconds<=0){clearInterval(timerInterval);alert("⏰ Zeit!")}}},1000)}
+function startTimer(){timerSeconds=(parseInt(document.getElementById("timerMinutes").value)||180)*60;document.getElementById("timerBar").classList.add("active");document.getElementById("timerStartBtn").style.display="none";updateTimerDisplay();timerInterval=setInterval(()=>{if(!timerPaused){timerSeconds--;updateTimerDisplay();if(timerSeconds<=0){clearInterval(timerInterval);showToast("Zeit abgelaufen!")}}},1000)}
 function pauseTimer(){timerPaused=!timerPaused;document.getElementById("timerPauseBtn").textContent=timerPaused?"▶":"⏸"}
 function stopTimer(){if(timerInterval)clearInterval(timerInterval);timerInterval=null;timerSeconds=0;document.getElementById("timerBar").classList.remove("active");document.getElementById("timerStartBtn").style.display="inline-flex"}
 function updateTimerDisplay(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById("timerDisplay").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;document.getElementById("timerDisplay").classList.toggle("warning",timerSeconds<=600&&timerSeconds>0)}
@@ -470,6 +475,7 @@ function applyHL(container) {
 function clearAllHL() { document.querySelectorAll(".material-box").forEach(c => { c.querySelectorAll("[class^='hl-']").forEach(s => { const p = s.parentNode; while (s.firstChild) p.insertBefore(s.firstChild, s); p.removeChild(s); }); c.normalize(); }); syncHL(); }
 function syncHL() { const c = document.getElementById("materialsContainer"), w = document.getElementById("writeMaterialsRef"); if (c && w) w.innerHTML = c.innerHTML; }
 
+window.addEventListener("beforeunload",function(e){if(document.getElementById("studentText").value.trim().length>50){e.preventDefault();e.returnValue=""}});
 window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();initHL();setInterval(saveSession,30000)}
 </script>
 </body>
