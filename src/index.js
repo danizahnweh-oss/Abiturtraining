@@ -487,7 +487,9 @@ Return your evaluation in JSON format ONLY:
   "inhalt_np": <number 0-15>,
   "sprache_np": <number 0-15>,
   "gesamt_np": <number 0-15>,
-  "feedback": "<detailed feedback in German with Markdown formatting>"
+  "feedback": "<detailed feedback in German with Markdown formatting>",
+  "korrektur_text": "<Der VOLLSTÄNDIGE Schülertext. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.>",
+  "fehlende_aspekte": [{"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}]
 }
 CALCULATION: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
 SPERRKLAUSEL: If inhalt_np OR sprache_np is 0, gesamt_np must be at most 3.
@@ -503,7 +505,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages);
+  const openaiRes = await callOpenAI(env, messages, 8000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -519,7 +521,9 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
     return jsonResponse({
       scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
       feedback: parsed.feedback || "",
-      corrections: parsed.corrections || ""
+      corrections: parsed.corrections || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     const contentMatch = openaiRes.match(/inhalt_np["\s:]*(\d{1,2})/i);
@@ -538,7 +542,9 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
     return jsonResponse({
       scores: { content_textstructure: contentScore, language: langScore, total: totalScore },
       feedback: openaiRes,
-      corrections: ""
+      corrections: "",
+      korrektur_text: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -963,12 +969,16 @@ async function handleGradeDeutsch(request, env) {
   if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
   if (zielgruppe) contextInfo += `Zielgruppe: ${truncate(zielgruppe, 200)}\n`;
 
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
     { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 4000);
+  const openaiRes = await callOpenAI(env, messages, 8000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -984,12 +994,16 @@ async function handleGradeDeutsch(request, env) {
 
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -1400,12 +1414,16 @@ async function handleGradePuG(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
     { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 4000);
+  const openaiRes = await callOpenAI(env, messages, 8000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -1420,12 +1438,16 @@ async function handleGradePuG(request, env) {
 
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -1668,12 +1690,17 @@ async function handleGradeAbiturPuG(request, env) {
 
   contextInfo += `=== PRÜFUNGSTEIL B (Ausweitung) ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
 
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
+- "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
     { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 5000);
+  const openaiRes = await callOpenAI(env, messages, 10000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -1689,12 +1716,18 @@ async function handleGradeAbiturPuG(request, env) {
 
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text_a: parsed.korrektur_text_a || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text_a: "",
+      korrektur_text_b: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -1930,7 +1963,9 @@ Antworte NUR mit validem JSON:
   "be_erreicht": <Zahl>,
   "be_max": ${maxBE},
   "notenpunkte": <0-15>,
-  "feedback": "<Ausführliches Markdown-Feedback mit Stärken, Schwächen, Verbesserungsvorschlägen>"
+  "feedback": "<Ausführliches Markdown-Feedback mit Stärken, Schwächen, Verbesserungsvorschlägen>",
+  "korrektur_text": "<Der VOLLSTÄNDIGE Schülertext. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.>",
+  "fehlende_aspekte": [{"aufgabe": "Teilaufgabe 1.1", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}]
 }`;
 
   const messages = [
@@ -1938,7 +1973,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 5000);
+  const openaiRes = await callOpenAI(env, messages, 10000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -1953,13 +1988,17 @@ Antworte NUR mit validem JSON:
     return jsonResponse({
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       bewertung_bloecke: parsed.bewertung_bloecke || [],
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       bewertung_bloecke: [],
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -2169,12 +2208,17 @@ async function handleGradeAbiturGeschichte(request, env) {
     contextInfo += `Materialimpuls:\n${truncate(primary_text_b, 3000)}\n\n`;
   }
 
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
+- "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
     { role: "user", content: `${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 5000);
+  const openaiRes = await callOpenAI(env, messages, 10000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -2190,12 +2234,18 @@ async function handleGradeAbiturGeschichte(request, env) {
 
     return jsonResponse({
       scores: { sach_a, sach_b, darstellung, total: gesamt },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text_a: parsed.korrektur_text_a || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { sach_a: null, sach_b: null, darstellung: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text_a: "",
+      korrektur_text_b: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
@@ -2390,7 +2440,10 @@ Antworte NUR mit validem JSON:
   "be_gesamt": <Zahl>,
   "be_max_gesamt": ${maxBE},
   "notenpunkte": <0-15>,
-  "feedback": "<Ausführliches Markdown-Feedback>"
+  "feedback": "<Ausführliches Markdown-Feedback>",
+  "korrektur_text_a": "<Vollständiger Schülertext Aufgabe 1 mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>>",
+  "korrektur_text_b": "<Vollständiger Schülertext Aufgabe 2 mit gleichen Fehlermarkierungen>",
+  "fehlende_aspekte": [{"aufgabe": "Teilaufgabe 1.1", "aspekte": ["fehlender Punkt 1"]}]
 }`;
 
   const messages = [
@@ -2398,7 +2451,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: `${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 5000);
+  const openaiRes = await callOpenAI(env, messages, 12000);
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -2413,12 +2466,18 @@ Antworte NUR mit validem JSON:
 
     return jsonResponse({
       scores: { be_1: be1, be_max_1: be1Max, be_2: be2, be_max_2: be2Max, be_gesamt: beGesamt, be_max_gesamt: maxBE, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      korrektur_text_a: parsed.korrektur_text_a || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { be_1: null, be_max_1: be1Max, be_2: null, be_max_2: be2Max, be_gesamt: null, be_max_gesamt: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      korrektur_text_a: "",
+      korrektur_text_b: "",
+      fehlende_aspekte: []
     }, 200, env);
   }
 }
