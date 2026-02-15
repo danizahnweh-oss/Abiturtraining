@@ -251,6 +251,8 @@ function serverEntryToLocal(entry) {
       return { ...base, aufgabentyp: entry.topic, verstehen: entry.content, darstellung: entry.language };
     case "geschichte":
       return { ...base, thema: entry.topic, sachkompetenz: entry.content, darstellung: entry.language };
+    case "pug-klausur":
+      return { ...base, halbjahr: entry.topic, verstehen: entry.content, darstellung: entry.language };
     case "pug-abitur":
       return { ...base, halbjahr: entry.topic, teil_a: entry.content, darstellung: entry.language };
     case "wr":
