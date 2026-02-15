@@ -43,37 +43,23 @@
     </div>
 
     <div class="card" id="setupGenerate">
-      <h2 class="card-header">Aufgabe konfigurieren</h2>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Themenbereich</label>
-          <select id="themaSelect">
-            <option value="random">Zufällig</option>
-            <option value="antike_mittelalter">Antike und Mittelalter</option>
-            <option value="fruehe_neuzeit">Reformation und Frühe Neuzeit</option>
-            <option value="aufklaerung_revolutionen">Aufklärung und Revolutionen (1776–1848)</option>
-            <option value="19_jahrhundert">Nationenbildung im 19. Jahrhundert</option>
-            <option value="imperialismus_wk1">Imperialismus und Erster Weltkrieg</option>
-            <option value="weimarer_republik">Weimarer Republik</option>
-            <option value="ns_zeit">Nationalsozialismus und Zweiter Weltkrieg</option>
-            <option value="nachkrieg_kalter_krieg">Nachkriegsordnung und Kalter Krieg</option>
-            <option value="wiedervereinigung_europa">Wiedervereinigung und europäische Integration</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Aufgabentyp</label>
-          <select id="aufgabentypSelect">
-            <option value="quellenanalyse">Quellenanalyse</option>
-            <option value="darstellung">Darstellung</option>
-          </select>
-        </div>
+      <h2 class="card-header">Schwerpunkt & Aufgabe wählen</h2>
+      <div class="form-group">
+        <label>Schwerpunkt (Halbjahr)</label>
+        <select id="schwerpunktSelect">
+          <option value="random">Zufällig</option>
+          <option value="12_1">12/1 – Gesellschaft und Politik (19. Jh. bis Weimarer Republik)</option>
+          <option value="12_2">12/2 – Deutschland zwischen Demokratie und Diktatur</option>
+          <option value="13_1">13/1 – Akteure internationaler Politik</option>
+          <option value="13_2">13/2 – Politische Ordnungsformen und Identität in Europa</option>
+        </select>
       </div>
       <div class="form-group">
         <label>Bearbeitungszeit (Minuten)</label>
         <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
       </div>
       <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
-      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Geschichtsaufgabe …</div></div>
+      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Abituraufgabe mit Quellenmaterial …</div></div>
     </div>
 
     <div class="card" id="setupUpload" style="display:none">
@@ -101,8 +87,8 @@
     </div>
 
     <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
-      <h3 style="font-size:1rem;margin-bottom:.5rem">🏛️ Geschichte im Abitur</h3>
-      <p style="font-size:.9rem;color:var(--ink-light)">Im Geschichtsabitur arbeitest du mit <strong>historischen Quellen</strong> (Reden, Briefe, Verträge, Zeitungsartikel) oder verfasst eine <strong>historische Darstellung</strong>. Du beschreibst, analysierst und beurteilst im historischen Kontext. Bewertet werden <strong>Sachkompetenz</strong> (70%) und <strong>Darstellungskompetenz</strong> (30%).</p>
+      <h3 style="font-size:1rem;margin-bottom:.5rem">🏛️ Geschichte im Abitur (ab 2026)</h3>
+      <p style="font-size:.9rem;color:var(--ink-light)">Die Aufgaben orientieren sich am <strong>Beispielabitur Bayern G9</strong>. Du bearbeitest authentische <strong>historische Quellen</strong> (Reden, Zeitungsartikel, Memoiren, Verträge) mit <strong>Teilaufgaben</strong> nach AFB-Stufen (Wiedergeben → Analysieren → Beurteilen). Wähle einen der <strong>4 Schwerpunkte</strong> (Halbjahre 12/1–13/2). Bewertet werden <strong>Sachkompetenz</strong> (70%) und <strong>Darstellungskompetenz</strong> (30%).</p>
     </div>
   </section>
 
@@ -313,8 +299,7 @@ async function generateTask() {
   document.getElementById("setupLoader").style.display = "block";
   try {
     const d = await apiCall("/api/generate-geschichte", {
-      thema: document.getElementById("themaSelect").value,
-      aufgabentyp: document.getElementById("aufgabentypSelect").value,
+      schwerpunkt: document.getElementById("schwerpunktSelect").value,
       level: sessionStorage.getItem("student_level") || "gA"
     });
     CONFIG.storedData = d;
@@ -326,12 +311,14 @@ async function generateTask() {
 }
 
 function renderTask(d) {
-  document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("textTitle").textContent = d.primary_meta ? "Quellenmaterial" : "Material";
-  document.getElementById("sourceText").innerHTML = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-  document.getElementById("sourceMeta").textContent = d.primary_meta || "";
-  document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("writeSourceRef").innerHTML = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+  const taskHtml = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("taskInstruction").innerHTML = taskHtml;
+  document.getElementById("textTitle").textContent = "Material M 1";
+  const sourceHtml = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+  document.getElementById("sourceText").innerHTML = sourceHtml;
+  document.getElementById("sourceMeta").textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
+  document.getElementById("writeTaskRef").innerHTML = taskHtml;
+  document.getElementById("writeSourceRef").innerHTML = sourceHtml;
 }
 
 async function submitForGrading() {
@@ -353,8 +340,9 @@ async function submitForGrading() {
     document.getElementById("scoreSachkompetenz").textContent = d.scores?.verstehen ?? "–";
     document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
     document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
-    saveToHistory({ thema: CONFIG.storedData.thema || CONFIG.storedData.epoche || "Geschichte", sachkompetenz: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
-    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "geschichte", topic: CONFIG.storedData.thema || CONFIG.storedData.epoche || "Geschichte", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
+    const topicLabel = CONFIG.storedData.thema || CONFIG.storedData.schwerpunkt || "Geschichte";
+    saveToHistory({ thema: topicLabel, sachkompetenz: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
+    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "geschichte", topic: topicLabel, content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
     stopTimer();
     document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
     document.getElementById("feedbackContent").style.display = "block";

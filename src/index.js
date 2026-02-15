@@ -641,87 +641,109 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE: GENERATE ================= */
 async function handleGenerateGeschichte(request, env) {
   const body = await request.json();
-  const { thema, aufgabentyp, level } = body;
+  const { schwerpunkt, level } = body;
+
+  const schwerpunkte = {
+    "12_1": {
+      titel: "Auf dem Weg zu gesellschaftlicher und politischer Partizipation",
+      zeitraum: level === "eA" ? "vom Ende des 18. Jahrhunderts bis zur Weimarer Republik" : "vom 19. Jahrhundert bis zur Weimarer Republik",
+      themen: "Revolution 1848/49, Deutsches Kaiserreich, Industrialisierung und soziale Frage, Gesellschaftliche Modernisierung, Frauenbewegung, Erster Weltkrieg, Weimarer Republik" + (level === "eA" ? ", Französische Revolution, Aufklärung" : "")
+    },
+    "12_2": {
+      titel: "Deutschland zwischen Demokratie und Diktatur",
+      zeitraum: "von der Weimarer Republik bis zur Wiedervereinigung",
+      themen: "Endphase der Weimarer Republik, Aufbau des NS-Staates, Verfolgung und Holocaust, Widerstand gegen den NS, DDR und SED-Diktatur, Friedliche Revolution 1989, Wiedervereinigung, Aufarbeitung der SED-Diktatur"
+    },
+    "13_1": {
+      titel: "Akteure internationaler Politik in historischer Perspektive",
+      zeitraum: "im 20. und 21. Jahrhundert",
+      themen: "Nahostkonflikt und israelisch-palästinensische Beziehungen, Kalter Krieg und Blockkonfrontation, USA als Weltmacht, Chinas Transformation und Aufstieg, UNO und Weltordnung, Dekolonisation"
+    },
+    "13_2": {
+      titel: "Historische Grundlagen moderner politischer Ordnungsformen und Identifikationsmuster in Europa",
+      zeitraum: "von der Antike bis zur Gegenwart",
+      themen: "Attische Demokratie, Aufklärung und Menschenrechte, Nationalismus und Nationsvorstellungen im 19. Jahrhundert, Deutsch-französische Beziehungen, Deutsch-polnische Beziehungen, Europäische Integration"
+    }
+  };
+
+  const selectedSchwerpunkt = schwerpunkt === "random"
+    ? Object.keys(schwerpunkte)[Math.floor(Math.random() * 4)]
+    : schwerpunkt;
+  const sp = schwerpunkte[selectedSchwerpunkt];
 
   const niveauText = level === "eA"
-    ? "Erhöhtes Anforderungsniveau (eA): Anspruchsvoller Kontext, höherer Anteil AFB III, tiefere Analyse erwartet."
-    : "Grundlegendes Anforderungsniveau (gA): Schwerpunkt auf AFB I und II, zugänglicherer historischer Kontext.";
+    ? "Erhöhtes Anforderungsniveau (eA), 120 BE gesamt. Komplexere Quellen, höherer Anteil AFB III, tiefere multiperspektivische Analyse."
+    : "Grundlegendes Anforderungsniveau (gA), 100 BE gesamt. Schwerpunkt auf AFB I und II, zugänglicherer Quellenzugang.";
 
-  let systemPrompt, userPrompt;
+  const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Abituraufgabe exakt nach dem Format der offiziellen IQB-Beispielaufgaben.
 
-  if (aufgabentyp === "darstellung") {
-    systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Darstellungsaufgabe.
-
-AUFGABENFORMAT:
-1. Ein kurzer MATERIALIMPULS (100-300 Wörter): Historikerzitat, kurze Quelle oder These als Ausgangspunkt
-2. Eine AUFGABENSTELLUNG mit 2 Teilaufgaben:
-   a) Darstellung (ca. 60%): "Stellen Sie ... dar." / "Erläutern Sie ..."
-   b) Beurteilung (ca. 40%): "Erörtern Sie ..." / "Beurteilen Sie die These, dass ..."
-
+SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
+MÖGLICHE THEMEN: ${sp.themen}
 ANFORDERUNGSNIVEAU: ${niveauText}
 
-WICHTIG:
-- Historische Zusammenhänge müssen KORREKT sein
-- Operatoren müssen den AFB-Stufen entsprechen (AFB I: nennen/beschreiben, AFB II: einordnen/erläutern/analysieren, AFB III: beurteilen/erörtern)
-- Das Thema muss abiturrelevant und im bayerischen Lehrplan verankert sein
+AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
+Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und 2 Teilaufgaben.
+
+1. EINLEITUNG (2-4 Sätze):
+   - Stellt den historischen Kontext her und führt zur Quelle hin
+   - Kann ein Szenario enthalten (z.B. "An Ihrer Schule findet ... statt", "Im Rahmen eines Projekts ...")
+   - Benennt die Quelle (z.B. "In seiner Rede ... legte XY dar (M 1).")
+   - Beispiel: "Der deutsche Staatsrechtler Hugo Preuß legte am 14. November 1918 seine Kritik an der Revolutionsregierung dar (M 1)."
+
+2. QUELLENMATERIAL (M 1) - ZWINGEND eine substanzielle TEXTQUELLE von 400-800 Wörtern:
+   - Genres: Rede, Zeitungsartikel, Denkschrift, Brief, Memoiren, Flugblatt, Erlass, Vertragsauszug, Historikertext
+   - MUSS einen REALEN historischen Autor und korrekten Kontext haben
+   - Mit Zeilennummerierung (alle 5 Zeilen) und ggf. Fußnoten für schwierige Begriffe
+   - Sprache muss dem Entstehungszeitraum entsprechen
+   - Vollständige Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort
+
+3. TEILAUFGABEN mit Bewertungseinheiten (BE):
+   Teilaufgabe 1 (AFB I/II, ca. 55-60% der BE):
+   - Operatoren: "Arbeiten Sie aus M 1 heraus ...", "Analysieren Sie ...", "Stellen Sie mithilfe von M 1 dar ...", "Charakterisieren Sie ..."
+   - Bezieht sich DIREKT auf die Quelle M 1
+
+   Teilaufgabe 2 (AFB II/III, ca. 40-45% der BE):
+   - Operatoren: "Beurteilen Sie ...", "Erörtern Sie, inwieweit ...", "Nehmen Sie Stellung ...", "Überprüfen Sie ..."
+   - Verlangt Transfer, Urteilsbildung, Einbeziehung von Ergebnissen aus Teilaufgabe 1
+   - Geht über die Quelle hinaus und erfordert eigenes Wissen
+
+BEISPIELE FÜR KORREKTE AUFGABENSTELLUNGEN:
+- "1 Arbeiten Sie aus dem Zeitungsartikel M 1 die Argumentation und Position von Hugo Preuß vor dem Hintergrund des Ringens um eine demokratische Ordnung heraus!"
+- "2 Erörtern Sie, inwieweit die Weimarer Reichsverfassung ein Gegenmodell zum Obrigkeitsstaat des Deutschen Kaiserreichs entwirft!"
+- "1 Stellen Sie auch mithilfe von M 1 zentrale Konfliktthemen in den israelisch-palästinensischen Beziehungen seit 1948 dar!"
+- "2 Arbeiten Sie aus M 1 die Grundlinien für eine Lösung heraus und bewerten Sie diese differenziert!"
+
+ABSOLUTE PFLICHT:
+- Die Quelle MUSS historisch KORREKT sein mit realen Personen und Fakten
+- Die Operatoren MÜSSEN den AFB-Stufen entsprechen
+- Die Aufgabe MUSS zum Schwerpunkt passen
+- Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
+- Verwende KEINE Bildquellen oder Statistiken - nur Textquellen
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction": "Vollständige Aufgabenstellung mit 2 Teilaufgaben (a, b)",
-  "primary_text": "Materialimpuls (100-300 Wörter)",
-  "primary_meta": "Quellenangabe zum Material",
-  "thema": "Themenbereich",
-  "epoche": "Historische Epoche/Zeitraum"
+  "task_instruction": "Vollständige Aufgabenstellung: Einleitung + nummerierte Teilaufgaben (1, 2) mit BE-Angaben",
+  "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
+  "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
+  "thema": "Konkretes Thema der Aufgabe",
+  "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
 }`;
-    userPrompt = `Erstelle eine Darstellungsaufgabe für das Geschichte-Abitur:
-- Themenbereich: ${thema === "random" ? "frei wählbar (abiturrelevant)" : truncate(thema, 200)}
-- Anforderungsniveau: ${level || "gA"}
 
-Die Aufgabe soll eine klare historische Fragestellung haben, die strukturiertes Darstellen und begründetes Urteilen erfordert.`;
+  const userPrompt = `Erstelle eine materialgebundene Abituraufgabe für das Fach Geschichte (Bayern, G9, ab 2026).
 
-  } else {
-    // Quellenanalyse (default)
-    systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Quellenanalyse-Aufgabe.
+Schwerpunkt: ${sp.titel} ${sp.zeitraum}
+Anforderungsniveau: ${level || "gA"}
 
-AUFGABENFORMAT:
-1. Eine historische TEXTQUELLE (400-800 Wörter):
-   - Authentisch wirkende Quelle: Rede, Brief, Tagebucheintrag, Zeitungsartikel, Vertragsauszug, Denkschrift, Flugblatt, Memoiren, Erlass
-   - Mit vollständiger Quellenangabe (Autor, Textsorte, Datum, Anlass/Kontext)
-   - Historisch korrekte Inhalte und dem Entstehungszeitraum angemessene Sprache
+KRITISCH:
+- Die Textquelle M 1 MUSS mindestens 400 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle.
+- Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
+- Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
+- Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.`;
 
-2. Eine AUFGABENSTELLUNG mit 3 Teilaufgaben:
-   a) AFB I (Reproduktion, ca. 20%): "Geben Sie den Inhalt der Quelle strukturiert wieder." / "Beschreiben Sie die Position des Autors."
-   b) AFB II (Reorganisation, ca. 40%): "Ordnen Sie die Quelle in den historischen Kontext ein." / "Analysieren Sie die Argumentation des Verfassers."
-   c) AFB III (Transfer/Urteil, ca. 40%): "Beurteilen Sie die Aussage des Verfassers vor dem Hintergrund Ihrer Kenntnisse über ..." / "Erörtern Sie, inwieweit ..."
-
-ANFORDERUNGSNIVEAU: ${niveauText}
-
-WICHTIG:
-- Die Quelle muss authentisch wirken und historisch KORREKT sein
-- Verwende bekannte historische Persönlichkeiten und reale Kontexte
-- Die Aufgabenstellung muss die Operatoren korrekt verwenden
-- Bei eA: komplexere Quelle, anspruchsvollere Urteilsbildung
-
-Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
-{
-  "task_instruction": "Vollständige Aufgabenstellung mit 3 Teilaufgaben (a, b, c)",
-  "primary_text": "Die historische Quelle (400-800 Wörter)",
-  "primary_meta": "Quellenangabe: Autor, Textsorte, Datum, Kontext",
-  "thema": "Themenbereich",
-  "epoche": "Historische Epoche/Zeitraum"
-}`;
-    userPrompt = `Erstelle eine Quellenanalyse-Aufgabe für das Geschichte-Abitur:
-- Themenbereich: ${thema === "random" ? "frei wählbar (abiturrelevant)" : truncate(thema, 200)}
-- Anforderungsniveau: ${level || "gA"}
-
-KRITISCH: Die Quelle MUSS 400-800 Wörter lang sein! Eine substanzielle historische Textquelle, nicht nur ein kurzes Zitat.`;
-  }
-
-  const maxTokens = aufgabentyp === "darstellung" ? 4000 : 8000;
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], maxTokens);
+  ], 8000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -1598,6 +1620,313 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
   ], 8000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= WIRTSCHAFT UND RECHT: GENERATE ================= */
+async function handleGenerateWR(request, env) {
+  const body = await request.json();
+  const { niveau, fachbereich, thema } = body;
+
+  const isGA = (niveau || "gA").toLowerCase() === "ga";
+  const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
+  const gesamtBE = isGA ? 100 : 60;
+  const bloecke = isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
+  const materialCount = isGA ? "4-5 Materialien" : "3-4 Materialien";
+
+  const fachbereiche = {
+    bwl: {
+      label: "Betriebswirtschaftslehre",
+      themen: {
+        unternehmensziele: "Unternehmensziele und Zielkonflikte",
+        swot: "SWOT-Analyse und strategische Planung",
+        investition: "Investitionsrechnung (statisch und dynamisch)",
+        finanzierung: "Finanzierung (Eigen-/Fremdfinanzierung, Leasing)",
+        bilanz: "Bilanzkennzahlen und Jahresabschlussanalyse",
+        organisation: "Organisationsstruktur und Unternehmensführung",
+        marketing: "Marketing-Mix und Marktanalyse",
+        rechtsformen: "Rechtsformen von Unternehmen"
+      }
+    },
+    vwl: {
+      label: "Volkswirtschaftslehre",
+      themen: {
+        konjunktur: "Konjunktur und Konjunkturpolitik",
+        geldpolitik: "Geldpolitik der EZB",
+        tarifpolitik: "Tarifpolitik und Arbeitsmarkt",
+        wirtschaftspolitik: "Wirtschaftspolitik (Angebots-/Nachfrageorientiert)",
+        spieltheorie: "Spieltheorie und Marktverhalten",
+        aussenhandel: "Außenhandel und Globalisierung",
+        preisbildung: "Preisbildung auf verschiedenen Märkten",
+        soziale_marktwirtschaft: "Soziale Marktwirtschaft"
+      }
+    },
+    recht: {
+      label: "Recht",
+      themen: {
+        vertragsrecht: "Vertragsrecht (Zustandekommen, Anfechtung, Nichtigkeit)",
+        kaufrecht: "Kaufrecht und Gewährleistung",
+        schuldrecht: "Schuldrecht (Leistungsstörungen)",
+        sachenrecht: "Sachenrecht (Eigentum, Besitz)",
+        deliktsrecht: "Deliktsrecht (§ 823 BGB)",
+        arbeitsrecht: "Arbeitsrecht (Kündigung, Arbeitsvertrag)",
+        handelsrecht: "Handelsrecht und Gesellschaftsrecht"
+      }
+    }
+  };
+
+  let fbLabel, fbThemen;
+  if (isGA) {
+    fbLabel = "Integriert (BWL + VWL + Recht)";
+    fbThemen = "Integrierte Aufgabe über alle drei Fachbereiche";
+  } else {
+    const fb = fachbereiche[fachbereich] || fachbereiche.bwl;
+    fbLabel = fb.label;
+    fbThemen = Object.values(fb.themen).join(", ");
+  }
+
+  const themaLabel = (thema && thema !== "random")
+    ? truncate(thema, 200)
+    : "frei wählbar (abiturrelevant)";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur 2026 im Fach Wirtschaft und Recht (G9).
+Erstelle eine authentische Abituraufgabe.
+
+PRÜFUNGSFORMAT:
+- ${niveauLabel}
+- Gesamt: ${gesamtBE} BE (Bewertungseinheiten)
+- ${bloecke}
+- ${materialCount}
+- Fachbereich: ${fbLabel}
+
+AUFGABENSTRUKTUR:
+- Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
+- AFB I (Reproduktion): beschreiben, nennen, darstellen, zusammenfassen (ca. 20% der BE)
+- AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40% der BE)
+- AFB III (Reflexion/Problemlösung): beurteilen, erörtern, Stellung nehmen, entwickeln (ca. 40% der BE)
+- Jede Teilaufgabe hat eine konkrete BE-Angabe
+- Operatoren müssen korrekt und eindeutig verwendet werden
+
+MATERIALIEN:
+- Materialien (M1, M2, …) sind der Kern der Aufgabe
+- Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Schaubilder (als Text), Fallbeispiele
+- Textmaterialien: 150-400 Wörter, realistisch und fachlich korrekt
+- Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
+- Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut
+- Jedes Material hat einen Titel und eine Quellenangabe
+${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction": "Einleitender Situationstext / Rahmenhandlung",
+  "aufgabenbloecke": [
+    {
+      "nr": 1,
+      "titel": "Titel des Aufgabenblocks",
+      "teilaufgaben": [
+        {"nr": "1.1", "text": "Aufgabentext mit Operator und Materialbezug", "be": 5, "afb": "I"},
+        {"nr": "1.2", "text": "Aufgabentext", "be": 10, "afb": "II"}
+      ],
+      "be_gesamt": 15
+    }
+  ],
+  "materialien": [
+    {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Materialinhalt", "quelle": "Quellenangabe"}
+  ],
+  "gesamt_be": ${gesamtBE},
+  "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
+  "thema": "Konkretes Thema"
+}`;
+
+  const userPrompt = `Erstelle eine Wirtschaft-und-Recht-Abituraufgabe:
+- Niveau: ${niveauLabel}
+- Fachbereich: ${fbLabel}
+- Thema: ${themaLabel}
+- Gesamt-BE: ${gesamtBE}
+
+Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
+Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte).
+Alle Materialien müssen fachlich korrekt und realistisch sein.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 12000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= WIRTSCHAFT UND RECHT: GRADE ================= */
+async function handleGradeWR(request, env) {
+  const body = await request.json();
+  const { aufgabenbloecke, materialien, student_text, niveau, gesamt_be, task_instruction } = body;
+
+  if (!student_text) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || (niveau === "gA" ? 100 : 60);
+
+  let aufgabenInfo = "";
+  if (task_instruction) aufgabenInfo += `Situationstext:\n${truncate(task_instruction, 3000)}\n\n`;
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    aufgabenInfo += "Aufgabenblöcke:\n";
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      aufgabenInfo += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          aufgabenInfo += `  ${ta.nr} (${ta.be} BE, AFB ${ta.afb}): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien && materialien.length) {
+    aufgabenInfo += "\nMaterialien:\n";
+    for (const m of materialien.slice(0, 6)) {
+      aufgabenInfo += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 2000)}\n(${m.quelle || ""})\n\n`;
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Wirtschaft-und-Recht-Abiturarbeit nach dem bayerischen BE-System (Bewertungseinheiten).
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Berücksichtige: Materialbezug, Operatoren-Anforderung (AFB I/II/III), fachliche Korrektheit, Struktur
+- AFB I: Korrekte Wiedergabe von Fakten/Definitionen
+- AFB II: Sachgerechte Analyse, korrekte Berechnungen, logische Transferleistung
+- AFB III: Eigenständiges, begründetes Urteil mit Abwägung
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (0-15):
+Formel: NP = round((erreichte_BE / ${maxBE}) * 15)
+Mindestens 0, maximal 15.
+
+Antworte NUR mit validem JSON:
+{
+  "bewertung_bloecke": [
+    {"block_nr": 1, "teilaufgaben": [{"nr": "1.1", "be_erreicht": 4, "be_max": 5, "kommentar": "..."}], "be_erreicht": 12, "be_max": 15}
+  ],
+  "be_erreicht": <Zahl>,
+  "be_max": ${maxBE},
+  "notenpunkte": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit Stärken, Schwächen, Verbesserungsvorschlägen>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 5000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.be_erreicht ?? null;
+    const beMax = parsed.be_max ?? maxBE;
+    let np = parsed.notenpunkte ?? null;
+
+    if (np == null && beErreicht != null) {
+      np = Math.max(0, Math.min(15, Math.round((beErreicht / beMax) * 15)));
+    }
+
+    return jsonResponse({
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      bewertung_bloecke: parsed.bewertung_bloecke || [],
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      bewertung_bloecke: [],
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= WIRTSCHAFT UND RECHT: MODEL ANSWER ================= */
+async function handleModelAnswerWR(request, env) {
+  const { task_instruction, aufgabenbloecke, materialien } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
+Schreibe eine Musterlösung auf DEUTSCH.
+- Bearbeite ALLE Teilaufgaben strukturiert
+- Verwende Fachbegriffe korrekt (BWL, VWL, Recht)
+- Beziehe die Materialien ein und verweise darauf
+- Beachte die Operatoren und AFB-Stufen
+- Bei Berechnungen: Rechenweg aufzeigen
+- Bei Rechtsfragen: Obersatz, Definition, Subsumtion, Ergebnis
+- Zielumfang: 800-1500 Wörter
+
+Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
+
+  let userContent = "";
+  if (task_instruction) userContent += `SITUATION:\n${truncate(task_instruction, 3000)}\n\n`;
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    userContent += "AUFGABEN:\n";
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      userContent += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          userContent += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien && materialien.length) {
+    userContent += "\nMATERIALIEN:\n";
+    for (const m of materialien.slice(0, 6)) {
+      userContent += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 3000)}\n\n`;
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= WIRTSCHAFT UND RECHT: PARSE TASK (OCR) ================= */
+async function handleParseTaskWR(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Wirtschaft und Recht (Bayern). Extrahiere:
+1. Den Situationstext / die Aufgabenstellung (task_instruction)
+2. Die Aufgabenblöcke mit Teilaufgaben und BE-Angaben
+3. Die Materialien (Texte, Tabellen, Gesetzestexte)
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Situationstext",
+  "aufgabenbloecke": [{"nr": 1, "titel": "...", "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 5, "afb": "I"}], "be_gesamt": 15}],
+  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}],
+  "gesamt_be": 60
+}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 8000, temperature: 0.2 })
+  });
+
+  const data = await openaiRes.json();
+  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
+  const text = data?.choices?.[0]?.message?.content || "";
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
 }
 
 /* ================= OPENAI CALL ================= */
