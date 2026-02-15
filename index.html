@@ -9,16 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* German accent (index uses both EN blue + DE green) */
+/* German accent (index uses both EN blue + DE green + PuG red) */
 :root{
   --accent-de:#059669;--accent-de-hover:#047857;--accent-de-soft:#d1fae5;--accent-de-glow:rgba(5,150,105,.08);
+  --accent-pug:#9f1239;--accent-pug-hover:#881337;--accent-pug-soft:#ffe4e6;--accent-pug-glow:rgba(159,18,57,.08);
+  --accent-ge:#b45309;--accent-ge-hover:#92400e;--accent-ge-soft:#fef3c7;--accent-ge-glow:rgba(180,83,9,.08);
 }
 [data-theme="dark"]{
   --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
+  --accent-pug:#fb7185;--accent-pug-hover:#fda4af;--accent-pug-soft:rgba(251,113,133,.15);--accent-pug-glow:rgba(251,113,133,.08);
+  --accent-ge:#fbbf24;--accent-ge-hover:#fcd34d;--accent-ge-soft:rgba(251,191,36,.15);--accent-ge-glow:rgba(251,191,36,.08);
 }
 
 /* School badge gradient (both accent colors) */
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft));color:var(--ink)}
+.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft));color:var(--ink)}
 .login-box h2{font-size:1.8rem}
 
 /* ====== SUBJECT SELECTION SCREEN ====== */
@@ -28,23 +32,31 @@
 .subject-header h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-de));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .greeting-bar{text-align:center;margin-top:2rem;color:var(--ink-muted);font-size:.9rem}
 .greeting-bar strong{color:var(--ink)}
-.subject-grid{max-width:900px;width:100%;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.subject-grid{max-width:1000px;width:100%;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 .subject-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--ink);position:relative;overflow:hidden}
 .subject-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
 .subject-card.english::before{background:linear-gradient(135deg,var(--accent-glow),transparent)}
 .subject-card.german::before{background:linear-gradient(135deg,var(--accent-de-glow),transparent)}
+.subject-card.pug::before{background:linear-gradient(135deg,var(--accent-pug-glow),transparent)}
+.subject-card.history::before{background:linear-gradient(135deg,var(--accent-ge-glow),transparent)}
 .subject-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .subject-card:hover::before{opacity:1}
 .subject-card.english:hover{border-color:var(--accent)}
 .subject-card.german:hover{border-color:var(--accent-de)}
+.subject-card.pug:hover{border-color:var(--accent-pug)}
+.subject-card.history:hover{border-color:var(--accent-ge)}
 .subject-icon{font-size:4rem;margin-bottom:1rem;position:relative;z-index:1}
 .subject-title{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;position:relative;z-index:1}
 .subject-card.english .subject-title{color:var(--accent)}
 .subject-card.german .subject-title{color:var(--accent-de)}
+.subject-card.pug .subject-title{color:var(--accent-pug)}
+.subject-card.history .subject-title{color:var(--accent-ge)}
 .subject-desc{color:var(--ink-muted);font-size:.9rem;line-height:1.5;position:relative;z-index:1}
 .subject-badge{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;position:relative;z-index:1}
 .subject-card.english .subject-badge{background:var(--accent-soft);color:var(--accent)}
 .subject-card.german .subject-badge{background:var(--accent-de-soft);color:var(--accent-de)}
+.subject-card.pug .subject-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
+.subject-card.history .subject-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
 
 /* ====== MODULE SCREEN ====== */
 #module-screen{display:none;min-height:100vh;flex-direction:column}
@@ -55,11 +67,15 @@
 .module-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:1.8rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--ink)}
 .module-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-2px)}
 .module-card.german:hover{border-color:var(--accent-de)}
+.module-card.pug:hover{border-color:var(--accent-pug)}
+.module-card.history:hover{border-color:var(--accent-ge)}
 .module-icon{font-size:2.5rem;margin-bottom:.8rem}
 .module-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.4rem}
 .module-desc{color:var(--ink-muted);font-size:.85rem;line-height:1.5}
 .module-badge{display:inline-block;margin-top:.8rem;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em}
 .module-card.german .module-badge{background:var(--accent-de-soft);color:var(--accent-de)}
+.module-card.pug .module-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
+.module-card.history .module-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
 
 /* ====== LOGIN MODE TOGGLE ====== */
 .login-mode-toggle{display:flex;margin-bottom:1.5rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
@@ -130,6 +146,18 @@ footer a{color:var(--accent)}
       <div class="subject-title">Deutsch</div>
       <div class="subject-desc">Interpretation, Analyse, Erörterung und materialgestütztes Schreiben – bewertet nach KMS-Kriterien.</div>
       <div class="subject-badge">4 Module</div>
+    </div>
+    <div class="subject-card history" onclick="selectSubject('history', true)">
+      <div class="subject-icon">📜</div>
+      <div class="subject-title">Geschichte</div>
+      <div class="subject-desc">Quellenanalyse und historische Darstellung – mit KI-Bewertung nach ISB-Kriterien für das G9-Abitur.</div>
+      <div class="subject-badge">1 Modul</div>
+    </div>
+    <div class="subject-card pug" onclick="selectSubject('pug', true)">
+      <div class="subject-icon">🏛️</div>
+      <div class="subject-title">Politik und Gesellschaft</div>
+      <div class="subject-desc">Aufgaben zu allen vier Halbjahren mit Materialanalyse und Erörterung – bewertet nach ISB-Kriterien.</div>
+      <div class="subject-badge">1 Modul</div>
     </div>
   </div>
   <footer>© 2026 St. Anna Gymnasium · Abitur Trainer · Created by DZ<br><a href="dashboard.html" style="opacity:.5;font-size:.75rem;">Lehrer-Dashboard →</a></footer>
@@ -207,6 +235,54 @@ footer a{color:var(--accent)}
   <footer>© 2026 St. Anna Gymnasium · Deutsch Trainer · Created by DZ</footer>
 </div>
 
+<!-- ====== GESCHICHTE MODULE SCREEN ====== -->
+<div id="module-screen-history" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+      <h1 style="margin-top:.3rem">Geschichte <span style="color:var(--accent-ge)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoGe" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGe">🌙</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card history" href="geschichte.html">
+      <div class="module-icon">📜</div>
+      <div class="module-title">Quellenarbeit</div>
+      <div class="module-desc">Historische Quellen analysieren, einordnen und beurteilen – mit KI-Bewertung nach ISB-Kriterien.</div>
+      <div class="module-badge">Quellenanalyse & Darstellung</div>
+    </a>
+  </div>
+  <footer>© 2026 St. Anna Gymnasium · Geschichte Trainer · Created by DZ</footer>
+</div>
+
+<!-- ====== PUG MODULE SCREEN ====== -->
+<div id="module-screen-pug" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+      <h1 style="margin-top:.3rem">Politik und Gesellschaft <span style="color:var(--accent-pug)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoPug" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnPug">🌙</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card pug" href="politik.html">
+      <div class="module-icon">🏛️</div>
+      <div class="module-title">Klausurtraining</div>
+      <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Prüfungsteil A und B.</div>
+      <div class="module-badge">Schriftliche Prüfung</div>
+    </a>
+  </div>
+  <footer>© 2026 St. Anna Gymnasium · PuG Trainer · Created by DZ</footer>
+</div>
+
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 let loginMode = "login";
@@ -279,6 +355,8 @@ function showSubjectSelection(_push) {
   document.getElementById("subject-screen").style.display = "flex";
   document.getElementById("module-screen-english").style.display = "none";
   document.getElementById("module-screen-german").style.display = "none";
+  document.getElementById("module-screen-history").style.display = "none";
+  document.getElementById("module-screen-pug").style.display = "none";
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
@@ -302,6 +380,12 @@ function selectSubject(subject, _push) {
   if (subject === "english") {
     document.getElementById("module-screen-english").style.display = "flex";
     document.getElementById("userInfoEn").textContent = info;
+  } else if (subject === "history") {
+    document.getElementById("module-screen-history").style.display = "flex";
+    document.getElementById("userInfoGe").textContent = info;
+  } else if (subject === "pug") {
+    document.getElementById("module-screen-pug").style.display = "flex";
+    document.getElementById("userInfoPug").textContent = info;
   } else {
     document.getElementById("module-screen-german").style.display = "flex";
     document.getElementById("userInfoDe").textContent = info;
@@ -312,6 +396,8 @@ function selectSubject(subject, _push) {
 function backToSubjects() {
   document.getElementById("module-screen-english").style.display = "none";
   document.getElementById("module-screen-german").style.display = "none";
+  document.getElementById("module-screen-history").style.display = "none";
+  document.getElementById("module-screen-pug").style.display = "none";
   document.getElementById("subject-screen").style.display = "flex";
 }
 
@@ -320,6 +406,8 @@ function logout() {
   document.getElementById("subject-screen").style.display = "none";
   document.getElementById("module-screen-english").style.display = "none";
   document.getElementById("module-screen-german").style.display = "none";
+  document.getElementById("module-screen-history").style.display = "none";
+  document.getElementById("module-screen-pug").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
   document.getElementById("studentLevel").value = "";
@@ -353,6 +441,10 @@ function checkSession() {
       selectSubject("german");
     } else if (backTo === "english") {
       selectSubject("english");
+    } else if (backTo === "history") {
+      selectSubject("history");
+    } else if (backTo === "pug") {
+      selectSubject("pug");
     } else if (backTo === "subjects") {
       showSubjectSelection();
     } else {
