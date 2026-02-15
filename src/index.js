@@ -748,8 +748,8 @@ ABSOLUTE PFLICHT:
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
-- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Karikaturen, Schaubilder, Statistiken
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. historische Karikatur), title = Bildtitel
+- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -758,7 +758,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -774,7 +774,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur oder ein Schaubild (type "bild").`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). KEINE Karikaturen oder Darstellungen von Personen!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -899,8 +899,8 @@ Erstelle genau 6-8 verschiedene Materialien:
 - Mindestens 1-2 Materialien vom Typ "statistik" (Umfrage, Studie, Statistik als Tabelle)
 - Mindestens 4 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
 - 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 100-200 Wörter)
-- Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Karikatur, Infografik-Beschreibung), title = Bildtitel
+- Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -910,7 +910,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
@@ -1059,7 +1059,7 @@ async function handleGenerateImage(request, env) {
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: prompt,
+        prompt: prompt + "\n\nWICHTIG: Alle Texte, Beschriftungen und Wörter im Bild MÜSSEN auf Deutsch sein. Verwende ausschließlich korrekte, natürliche deutsche Sprache. Keine englischen Begriffe. Stil: professionelle Infografik oder Schaubild für den Schulunterricht.",
         n: 1,
         size: "1024x1024",
         quality: "standard"
@@ -1338,8 +1338,8 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. politische Karikatur, Schaubild, Protestplakat), title = Bildtitel
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm), title = Bildtitel. KEINE politischen Karikaturen oder Personen!
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1356,7 +1356,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -1594,8 +1594,8 @@ MATERIALIEN (nur für Teil A):
 - 2-3 realistische Materialien (Texte, Statistiken, Bilder)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung, title = Bildtitel
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1620,7 +1620,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",
@@ -2101,7 +2101,7 @@ async function handleGenerateAbiturGeschichte(request, env) {
    - MUSS einen REALEN historischen Autor und korrekten Kontext haben
    - Sprache muss dem Entstehungszeitraum entsprechen
    - Vollständige Quellenangabe
-   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Karikaturen, Schaubilder, Statistiken
+   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Schaubilder, Infografiken, Statistiken
 3. TEILAUFGABEN (3 Stück, steigende AFB):
    - Teilaufgabe 1 (AFB I/II): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
    - Teilaufgabe 2 (AFB II): "Ordnen Sie ein …" / "Erläutern Sie …"
@@ -2123,7 +2123,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben",
   "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
@@ -2141,7 +2141,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor
 - Teil A: 3 Teilaufgaben mit steigendem AFB
 - Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur oder ein Schaubild (type "bild").`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). KEINE Karikaturen oder Darstellungen von Personen!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
