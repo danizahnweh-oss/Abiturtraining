@@ -335,8 +335,7 @@ export default {
 
       return new Response("Not Found", { status: 404 });
     } catch (err) {
-      // Keine internen Details leaken
-      return jsonResponse({ error: "Interner Fehler." }, 500, env);
+      return jsonResponse({ error: err.message || "Interner Fehler." }, 500, env);
     }
   }
 };
@@ -2517,7 +2516,7 @@ async function callOpenAI(env, messages, maxTokens = 4000) {
 
   const data = await response.json();
   if (!response.ok) {
-    throw new Error("KI-Verarbeitung fehlgeschlagen.");
+    throw new Error("OpenAI: " + (data?.error?.message || JSON.stringify(data)));
   }
   return data.choices[0].message.content;
 }
