@@ -171,6 +171,12 @@ export default {
         cleanupRateLimitMaps();
         return await handleLogin(request, env);
       }
+      if (pathname === "/api/check-student" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleCheckStudent(request, env);
+      }
 
       // ===== DASHBOARD ENDPOINTS (Lehrer-Passwort) =====
       if (pathname === "/api/results" && request.method === "POST") {
@@ -263,6 +269,54 @@ async function handleLogin(request, env) {
   } else {
     return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
   }
+}
+
+/* ================= CHECK STUDENT (Register / Login) ================= */
+async function handleCheckStudent(request, env) {
+  const { password, student_name, mode, level } = await request.json();
+
+  if (!env.ACCESS_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!password || typeof password !== "string") {
+    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
+  }
+  if (!student_name || typeof student_name !== "string" || !student_name.trim()) {
+    return jsonResponse({ success: false, error: "Name erforderlich." }, 400, env);
+  }
+  if (mode !== "register" && mode !== "login") {
+    return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
+  }
+
+  const valid = await safeCompare(password, env.ACCESS_PASSWORD);
+  if (!valid) {
+    return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+  }
+
+  // Load registered students
+  let students = [];
+  try {
+    const raw = await env.RESULTS_KV.get("registered_students");
+    if (raw) students = JSON.parse(raw);
+  } catch {}
+
+  const nameLower = student_name.trim().toLowerCase();
+  const exists = students.some(s => (s.name || "").trim().toLowerCase() === nameLower);
+
+  if (mode === "register") {
+    if (exists) {
+      return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
+    }
+    students.push({ name: student_name.trim(), level: level || "", date: new Date().toISOString() });
+    await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+  } else {
+    if (!exists) {
+      return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
+    }
+  }
+
+  const token = await generateToken(env);
+  return jsonResponse({ success: true, token }, 200, env);
 }
 
 /* ================= ENGLISCH: GENERATE ================= */
