@@ -49,6 +49,23 @@ async function verifyToken(token, env) {
   }
 }
 
+/* ---- PBKDF2 Password Hashing ---- */
+async function hashPassword(password, salt) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey("raw", enc.encode(password), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode(salt), iterations: 100000, hash: "SHA-256" }, keyMaterial, 256);
+  return [...new Uint8Array(bits)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function verifyPassword(password, salt, hash) {
+  const computed = await hashPassword(password, salt);
+  // Timing-safe comparison
+  if (computed.length !== hash.length) return false;
+  let result = 0;
+  for (let i = 0; i < computed.length; i++) result |= computed.charCodeAt(i) ^ hash.charCodeAt(i);
+  return result === 0;
+}
+
 /* ---- Timing-safe Passwortvergleich ---- */
 async function safeCompare(a, b) {
   const enc = new TextEncoder();
@@ -273,13 +290,10 @@ async function handleLogin(request, env) {
 
 /* ================= CHECK STUDENT (Register / Login) ================= */
 async function handleCheckStudent(request, env) {
-  const { password, student_name, mode, level } = await request.json();
+  const { password, personal_password, student_name, mode, level } = await request.json();
 
   if (!env.ACCESS_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
-  }
-  if (!password || typeof password !== "string") {
-    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
   }
   if (!student_name || typeof student_name !== "string" || !student_name.trim()) {
     return jsonResponse({ success: false, error: "Name erforderlich." }, 400, env);
@@ -287,10 +301,8 @@ async function handleCheckStudent(request, env) {
   if (mode !== "register" && mode !== "login") {
     return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
   }
-
-  const valid = await safeCompare(password, env.ACCESS_PASSWORD);
-  if (!valid) {
-    return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+  if (!personal_password || typeof personal_password !== "string" || personal_password.length < 4) {
+    return jsonResponse({ success: false, error: "Passwort muss mindestens 4 Zeichen haben." }, 400, env);
   }
 
   // Load registered students
@@ -301,17 +313,52 @@ async function handleCheckStudent(request, env) {
   } catch {}
 
   const nameLower = student_name.trim().toLowerCase();
-  const exists = students.some(s => (s.name || "").trim().toLowerCase() === nameLower);
+  const existingIdx = students.findIndex(s => (s.name || "").trim().toLowerCase() === nameLower);
 
   if (mode === "register") {
-    if (exists) {
+    // Registration requires class password
+    if (!password || typeof password !== "string") {
+      return jsonResponse({ success: false, error: "Klassenpasswort erforderlich." }, 400, env);
+    }
+    const validClass = await safeCompare(password, env.ACCESS_PASSWORD);
+    if (!validClass) {
+      return jsonResponse({ success: false, error: "Falsches Klassenpasswort." }, 401, env);
+    }
+    if (existingIdx >= 0) {
       return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
     }
-    students.push({ name: student_name.trim(), level: level || "", date: new Date().toISOString() });
+
+    // Hash personal password with PBKDF2
+    const salt = crypto.randomUUID();
+    const hash = await hashPassword(personal_password, salt);
+
+    students.push({
+      name: student_name.trim(),
+      level: level || "",
+      salt: salt,
+      hash: hash,
+      date: new Date().toISOString()
+    });
     await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
   } else {
-    if (!exists) {
+    // Login: verify personal password
+    if (existingIdx < 0) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
+    }
+
+    const student = students[existingIdx];
+    if (!student.hash || !student.salt) {
+      // Legacy student (registered before password feature) — migrate: set their password now
+      const salt = crypto.randomUUID();
+      const hash = await hashPassword(personal_password, salt);
+      students[existingIdx].salt = salt;
+      students[existingIdx].hash = hash;
+      await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+    } else {
+      const match = await verifyPassword(personal_password, student.salt, student.hash);
+      if (!match) {
+        return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+      }
     }
   }
 
