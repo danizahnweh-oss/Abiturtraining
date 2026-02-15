@@ -297,6 +297,7 @@ const MODULE_CONFIG = {
   steps: ["setup","task","write","feedback","progress"],
   storagePrefix: "deutsch_interpretation",
   historyKey: "deutsch_interpretation_history_",
+  historyType: "deutsch-interpretation",
   pdfFilename: "Interpretation",
   chartColor: "#059669",
   minWords: 100,
@@ -453,6 +454,7 @@ async function submitForGrading() {
     document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
     document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
     saveToHistory({ gattung: CONFIG.storedData.gattung, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
+    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-interpretation", topic: CONFIG.storedData.gattung || "Interpretation", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
     stopTimer();
     document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
     document.getElementById("feedbackContent").style.display = "block";

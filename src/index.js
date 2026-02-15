@@ -195,6 +195,11 @@ export default {
         cleanupRateLimitMaps();
       }
 
+      // ===== STUDENT RESULTS =====
+      if (pathname === "/api/student-results" && request.method === "POST") {
+        return await handleStudentResults(request, env);
+      }
+
       // ===== ENGLISCH ENDPOINTS =====
       if (pathname === "/api/generate" && request.method === "POST") {
         return await handleGenerate(request, env);
@@ -719,6 +724,27 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion, welche Strate
   ], 5000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= STUDENT: GET OWN RESULTS ================= */
+async function handleStudentResults(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "student_name required" }, 400, env);
+  }
+
+  let results = [];
+  try {
+    const raw = await env.RESULTS_KV.get("all_results");
+    if (raw) results = JSON.parse(raw);
+  } catch {}
+
+  const name = student_name.trim().toLowerCase();
+  const filtered = results
+    .filter(r => (r.student_name || "").trim().toLowerCase() === name)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  return jsonResponse({ results: filtered }, 200, env);
 }
 
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
