@@ -249,6 +249,8 @@ function serverEntryToLocal(entry) {
       return { ...base, gattung: entry.topic, verstehen: entry.content, darstellung: entry.language };
     case "deutsch-materialgestuetzt":
       return { ...base, aufgabentyp: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    case "geschichte":
+      return { ...base, thema: entry.topic, sachkompetenz: entry.content, darstellung: entry.language };
     default: return { ...base, topic: entry.topic };
   }
 }
