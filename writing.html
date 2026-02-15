@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-accent="blue">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,84 +12,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 
 <style>
-/* ============================
-   DESIGN: Refined Editorial
-   ============================ */
-:root {
-  --ink: #1a1a2e;
-  --ink-light: #4a4a6a;
-  --ink-muted: #8888a4;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
-  --accent-soft: #dbeafe;
-  --accent-glow: rgba(37, 99, 235, 0.08);
-  --surface: #ffffff;
-  --bg: #f0f0f5;
-  --bg-warm: #fafafa;
-  --border: #e2e2ec;
-  --border-light: #f0f0f5;
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --warning: #dc2626;
-  --warning-bg: #fef2f2;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow-sm: 0 1px 3px rgba(26,26,46,0.06);
-  --shadow-md: 0 4px 16px rgba(26,26,46,0.08);
-  --shadow-lg: 0 8px 32px rgba(26,26,46,0.12);
-  --font-display: 'DM Serif Display', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-/* ====== DARK MODE ====== */
-[data-theme="dark"] {
-  --ink: #e4e4ed;
-  --ink-light: #b0b0c8;
-  --ink-muted: #7878a0;
-  --accent: #60a5fa;
-  --accent-hover: #93bbfd;
-  --accent-soft: rgba(96, 165, 250, 0.15);
-  --accent-glow: rgba(96, 165, 250, 0.08);
-  --surface: #1e1e2e;
-  --bg: #14141f;
-  --bg-warm: #1a1a28;
-  --border: #2e2e42;
-  --border-light: #252538;
-  --success: #34d399;
-  --success-bg: rgba(52,211,153,0.1);
-  --warning: #f87171;
-  --warning-bg: rgba(248,113,113,0.1);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
-}
-
-*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--ink);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ====== LOGIN ====== */
-#login-screen {
-  position: fixed;
-  inset: 0;
-  background: var(--ink);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
+/* Page-specific overrides — base styles from shared.css */
+#login-screen { position: fixed; inset: 0; background: var(--ink); z-index: 9999; }
 #login-screen::before {
   content: '';
   position: absolute;
@@ -98,713 +25,34 @@ body {
     radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.1) 0%, transparent 50%);
 }
-.login-box {
-  position: relative;
-  background: var(--surface);
-  padding: 3rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  animation: fadeUp .5s ease-out;
-}
-.login-box h2 {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  margin-bottom: .4rem;
-  color: var(--ink);
-}
-.login-box p {
-  color: var(--ink-muted);
-  margin-bottom: 1.5rem;
-  font-size: .95rem;
-}
-.login-box .school-badge {
-  display: inline-block;
-  background: var(--accent-soft);
-  color: var(--accent);
-  padding: .3rem .8rem;
-  border-radius: 20px;
-  font-size: .8rem;
-  font-weight: 600;
-  margin-bottom: 1.2rem;
-  letter-spacing: .03em;
-}
-.login-input {
-  width: 100%;
-  padding: .85rem 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 1rem;
-  transition: border-color .2s;
-  outline: none;
-}
-.login-input:focus {
-  border-color: var(--accent);
-}
-.login-error {
-  color: var(--warning);
-  display: none;
-  font-weight: 600;
-  font-size: .85rem;
-  margin-top: .8rem;
-}
-
-/* ====== BUTTONS ====== */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: .75rem 1.5rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: .95rem;
-  transition: all .2s;
-  letter-spacing: .01em;
-}
-.btn:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn:active { transform: translateY(0); }
-.btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-.btn-secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
-}
-.btn-secondary:hover { background: var(--accent-soft); }
-.btn-small { padding: .5rem 1rem; font-size: .85rem; }
-.btn-danger { background: var(--warning); }
-.btn-danger:hover { background: #b91c1c; }
-
-/* ====== APP WRAPPER ====== */
-#app-wrapper { display: none; flex-direction: column; min-height: 100vh; }
-
-/* ====== HEADER ====== */
-header {
-  background: var(--surface);
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-}
-[data-theme="dark"] header {
-  background: rgba(30,30,46,0.92);
-}
-header h1 {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  color: var(--ink);
-}
-header h1 span {
-  color: var(--accent);
-}
-.header-meta {
-  font-size: .8rem;
-  color: var(--ink-muted);
-  font-weight: 500;
-}
-
-/* ====== NAV STEPS ====== */
-nav {
-  background: var(--surface);
-  padding: 0 2rem;
-  display: flex;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-  overflow-x: auto;
-}
-nav button {
-  background: none;
-  border: none;
-  padding: 1rem 1.2rem;
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: .9rem;
-  color: var(--ink-muted);
-  border-bottom: 3px solid transparent;
-  transition: all .2s;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  gap: .4rem;
-}
-nav button:hover { color: var(--ink-light); }
-nav button.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--border);
-  font-size: .75rem;
-  font-weight: 700;
-  color: var(--ink-muted);
-  transition: all .2s;
-}
-nav button.active .step-num {
-  background: var(--accent);
-  color: white;
-}
-
-/* ====== MAIN ====== */
-main {
-  flex: 1;
-  max-width: 860px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
-  width: 100%;
-}
-
-section {
-  display: none;
-  animation: fadeUp .3s ease-out;
-}
-section.active { display: block; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ====== CARDS ====== */
-.card {
-  background: var(--surface);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-light);
-  margin-bottom: 1.5rem;
-}
-.card-header {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  margin-bottom: 1.2rem;
-  color: var(--ink);
-}
-
-/* ====== FORM ELEMENTS ====== */
-label {
-  display: block;
-  font-weight: 600;
-  font-size: .85rem;
-  color: var(--ink-light);
-  margin-bottom: .4rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-}
-select, input[type="number"], input[type="password"] {
-  width: 100%;
-  padding: .75rem 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: .95rem;
-  transition: border-color .2s;
-  outline: none;
-  background: var(--surface);
-  color: var(--ink);
-}
-select:focus, input:focus { border-color: var(--accent); }
-
-.form-group { margin-bottom: 1.2rem; }
-
-/* ====== TASK DISPLAY ====== */
-.task-box {
-  background: var(--accent-glow);
-  border-left: 4px solid var(--accent);
-  padding: 1.4rem 1.6rem;
-  margin: 1rem 0;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  line-height: 1.7;
-  font-size: .95rem;
-  white-space: pre-wrap;
-}
-.source-text {
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1.6rem;
-  margin: 1rem 0;
-  line-height: 1.8;
-  font-size: .95rem;
-  max-height: 500px;
-  overflow-y: auto;
-}
+.login-box { position: relative; animation: fadeUp .5s ease-out; }
+header { backdrop-filter: blur(12px); }
+[data-theme="dark"] header { background: rgba(30,30,46,0.92); }
+main { max-width: 860px; }
+.task-box { white-space: pre-wrap; }
 .source-text p { margin-bottom: .8rem; }
 .word-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: .3rem;
-  background: var(--border-light);
-  padding: .3rem .7rem;
-  border-radius: 20px;
-  font-size: .8rem;
-  font-weight: 600;
-  color: var(--ink-muted);
-  margin-top: .8rem;
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: var(--border-light); padding: .3rem .7rem;
+  border-radius: 20px; font-size: .8rem; font-weight: 600;
+  color: var(--ink-muted); margin-top: .8rem;
 }
-
-/* ====== TEXTAREA ====== */
-textarea {
-  width: 100%;
-  min-height: 380px;
-  padding: 1.4rem;
-  font-family: var(--font-mono);
-  font-size: .92rem;
-  line-height: 1.7;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-sizing: border-box;
-  outline: none;
-  transition: border-color .2s;
-  resize: vertical;
-  color: var(--ink);
-}
-textarea:focus { border-color: var(--accent); }
-
-.write-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: .8rem;
-  flex-wrap: wrap;
-  gap: .8rem;
-}
-.word-counter {
-  font-size: .85rem;
-  color: var(--ink-muted);
-  font-weight: 500;
-  font-family: var(--font-mono);
-}
-
-/* ====== OCR UPLOAD ====== */
-.ocr-section {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-}
-.upload-zone {
-  border: 2px dashed var(--border);
-  border-radius: var(--radius-sm);
-  padding: 2rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all .2s;
-  background: var(--bg-warm);
-}
-.upload-zone:hover {
-  border-color: var(--accent);
-  background: var(--accent-glow);
-}
-.upload-zone.dragover {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-.upload-icon {
-  font-size: 2rem;
-  margin-bottom: .5rem;
-}
-.upload-text {
-  font-size: .9rem;
-  color: var(--ink-muted);
-}
-.upload-text strong {
-  color: var(--accent);
-}
-#ocrPreview {
-  display: none;
-  margin-top: 1rem;
-  text-align: center;
-}
-#ocrPreview img {
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-}
-
-/* ====== OCR MULTI-PAGE ====== */
-.ocr-pages {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .6rem;
-  margin-top: 1rem;
-}
-.ocr-page-thumb {
-  position: relative;
-  width: 90px;
-  height: 90px;
-  border-radius: var(--radius-sm);
-  border: 2px solid var(--border);
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.ocr-page-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.ocr-page-thumb .page-num {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,.6);
-  color: white;
-  font-size: .7rem;
-  font-weight: 700;
-  text-align: center;
-  padding: .15rem;
-}
-.ocr-page-thumb .remove-page {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(220,38,38,.85);
-  color: white;
-  border: none;
-  font-size: .7rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity .15s;
-}
-.ocr-page-thumb:hover .remove-page { opacity: 1; }
-.ocr-page-thumb.processing {
-  border-color: var(--accent);
-  animation: pulse 1.5s infinite;
-}
-.ocr-page-thumb.done { border-color: var(--success); }
-.ocr-page-thumb.error { border-color: var(--warning); }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
-
-/* ====== FEEDBACK / SCORES ====== */
-.scores-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-.score-card {
-  background: var(--bg-warm);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 1.2rem;
-  text-align: center;
-}
-.score-card.total {
-  background: var(--accent-glow);
-  border-color: var(--accent);
-}
-.score-label {
-  font-size: .75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--ink-muted);
-  margin-bottom: .3rem;
-}
-.score-value {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  color: var(--ink);
-  line-height: 1;
-}
-.score-card.total .score-value { color: var(--accent); }
-.score-max {
-  font-size: .8rem;
-  color: var(--ink-muted);
-}
-
-.feedback-body {
-  line-height: 1.7;
-  font-size: .95rem;
-}
+.scores-grid { grid-template-columns: repeat(2, 1fr); }
+.timer-display { font-size: 1.6rem; min-width: 80px; }
+.timer-display.warning { animation: pulse 1s infinite; }
+.timer-controls { margin-left: auto; }
 .feedback-body h1 { font-family: var(--font-display); font-size: 1.4rem; margin: 1.5rem 0 .8rem; }
-.feedback-body h2 { font-family: var(--font-display); font-size: 1.15rem; margin: 1.3rem 0 .6rem; color: var(--ink); }
 .feedback-body h3 { font-size: 1rem; margin: 1rem 0 .5rem; }
-.feedback-body ul, .feedback-body ol { padding-left: 1.5rem; margin: .5rem 0; }
-.feedback-body li { margin-bottom: .3rem; }
-.feedback-body p { margin-bottom: .6rem; }
 .feedback-body strong { color: var(--ink); }
-.feedback-body code {
-  background: var(--border-light);
-  padding: .15rem .4rem;
-  border-radius: 4px;
-  font-family: var(--font-mono);
-  font-size: .85em;
-}
-
-/* ====== LOADER ====== */
-.loader {
-  display: none;
-  margin: 2rem auto;
-  text-align: center;
-}
-.loader-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-  margin: 0 auto .8rem;
-}
-.loader-text {
-  font-size: .85rem;
-  color: var(--ink-muted);
-  font-weight: 500;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ====== FOOTER ====== */
-footer {
-  text-align: center;
-  padding: 2rem;
-  color: var(--ink-muted);
-  font-size: .8rem;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
-}
-
-/* ====== PDF EXPORT ====== */
-.pdf-actions {
-  display: flex;
-  gap: .6rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* ====== DARK MODE TOGGLE ====== */
-.theme-toggle {
-  background: var(--border);
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  transition: all .2s;
-  flex-shrink: 0;
-}
-.theme-toggle:hover { background: var(--accent-soft); }
-
-/* ====== TIMER ====== */
-.timer-bar {
-  display: none;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: .8rem 1.2rem;
-  margin-bottom: 1rem;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.timer-bar.active { display: flex; }
-.timer-display {
-  font-family: var(--font-mono);
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--ink);
-  min-width: 80px;
-}
-.timer-display.warning { color: var(--warning); animation: pulse 1s infinite; }
-.timer-label {
-  font-size: .8rem;
-  color: var(--ink-muted);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-.timer-controls { display: flex; gap: .4rem; margin-left: auto; }
-.timer-controls button {
-  background: var(--border);
-  border: none;
-  padding: .4rem .7rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: .8rem;
-  font-weight: 600;
-  color: var(--ink-light);
-  transition: all .15s;
-}
-.timer-controls button:hover { background: var(--accent-soft); color: var(--accent); }
-
-.timer-setup {
-  display: flex;
-  align-items: center;
-  gap: .8rem;
-  flex-wrap: wrap;
-}
-.timer-setup input[type="number"] {
-  width: 70px;
-  padding: .4rem .6rem;
-  text-align: center;
-}
-
-/* ====== PROGRESS TRACKER ====== */
-.history-empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--ink-muted);
-}
-.history-empty .empty-icon { font-size: 2.5rem; margin-bottom: .8rem; }
-
-.history-chart {
-  width: 100%;
-  height: 220px;
-  margin: 1rem 0;
-}
-.history-chart canvas { width: 100% !important; height: 100% !important; }
-
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: .88rem;
-}
-.history-table th {
-  text-align: left;
-  padding: .6rem .8rem;
-  font-size: .75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  color: var(--ink-muted);
-  border-bottom: 2px solid var(--border);
-}
-.history-table td {
-  padding: .6rem .8rem;
-  border-bottom: 1px solid var(--border-light);
-  color: var(--ink-light);
-}
-.history-table tr:hover td { background: var(--accent-glow); }
-.history-score {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--accent);
-}
-.history-delete {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--ink-muted);
-  font-size: .85rem;
-  padding: .2rem;
-  transition: color .15s;
-}
-.history-delete:hover { color: var(--warning); }
-
-/* ====== MODE TOGGLE ====== */
-.mode-toggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .6rem;
-}
-.mode-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .5rem;
-  padding: .9rem 1rem;
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--bg-warm);
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: .9rem;
-  color: var(--ink-muted);
-  transition: all .2s;
-}
-.mode-btn:hover {
-  border-color: var(--accent);
-  color: var(--ink);
-}
-.mode-btn.active {
-  border-color: var(--accent);
-  background: var(--accent-glow);
-  color: var(--accent);
-}
-
-/* ====== TOAST ====== */
-.toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);background:var(--warning);color:white;padding:.8rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:toastIn .3s ease-out;max-width:90vw;text-align:center}
-.toast.success{background:var(--accent)}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-
-/* ====== RESPONSIVE ====== */
+.feedback-body code { background: var(--border-light); padding: .15rem .4rem; border-radius: 4px; font-family: var(--font-mono); font-size: .85em; }
+.ocr-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+#ocrPreview { display: none; margin-top: 1rem; text-align: center; }
+#ocrPreview img { max-width: 100%; max-height: 200px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.source-text { cursor: text; line-height: 2; }
 @media (max-width: 640px) {
-  header { padding: .8rem 1rem; }
-  header h1 { font-size: 1.1rem; }
-  nav { padding: 0 .5rem; }
-  nav button { padding: .8rem .7rem; font-size: .82rem; }
-  main { padding: 0 1rem; margin: 1rem auto; }
-  .card { padding: 1.4rem; }
   .scores-grid { grid-template-columns: 1fr; }
-  textarea { min-height: 280px; }
   .mode-toggle { grid-template-columns: 1fr; }
 }
-
-/* ====== HIGHLIGHTER ====== */
-:root {
-  --hl-yellow:rgba(250,204,21,.45);
-  --hl-green:rgba(74,222,128,.45);
-  --hl-blue:rgba(96,165,250,.45);
-  --hl-pink:rgba(244,114,182,.45);
-  --hl-orange:rgba(251,146,60,.45);
-}
-[data-theme="dark"] {
-  --hl-yellow:rgba(250,204,21,.35);
-  --hl-green:rgba(74,222,128,.35);
-  --hl-blue:rgba(96,165,250,.35);
-  --hl-pink:rgba(244,114,182,.35);
-  --hl-orange:rgba(251,146,60,.35);
-}
-.highlighter-toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:.8rem;padding:.7rem 1rem;background:var(--bg-warm);border-radius:var(--radius-sm);border:1px solid var(--border)}
-.highlighter-toolbar .hl-label{font-size:.8rem;color:var(--ink-muted);font-weight:600;margin-right:.3rem}
-.hl-btn{width:28px;height:28px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .1s}
-.hl-btn:hover{transform:scale(1.1)}
-.hl-btn.active{border-color:var(--ink);transform:scale(1.15)}
-.hl-btn.yellow{background:#facc15}
-.hl-btn.green{background:#4ade80}
-.hl-btn.blue{background:#60a5fa}
-.hl-btn.pink{background:#f472b6}
-.hl-btn.orange{background:#fb923c}
-.hl-btn.eraser{background:var(--surface);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.9rem}
-.hl-clear{margin-left:auto;font-size:.75rem;color:var(--ink-muted);background:none;border:1px solid var(--border);padding:.3rem .6rem;border-radius:4px;cursor:pointer}
-.hl-clear:hover{border-color:var(--warning);color:var(--warning)}
-.hl-yellow{background:var(--hl-yellow);border-radius:2px;padding:0 2px}
-.hl-green{background:var(--hl-green);border-radius:2px;padding:0 2px}
-.hl-blue{background:var(--hl-blue);border-radius:2px;padding:0 2px}
-.hl-pink{background:var(--hl-pink);border-radius:2px;padding:0 2px}
-.hl-orange{background:var(--hl-orange);border-radius:2px;padding:0 2px}
-.source-text{cursor:text;line-height:2}
 </style>
 </head>
 
@@ -823,8 +71,8 @@ footer {
 
   <header>
     <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Textproduktion <span>Trainer</span></h1>
-    <div style="display:flex;align-items:center;gap:.8rem;">
-      <span id="studentGreeting" style="display:none;font-size:.85rem;color:var(--ink-muted);font-weight:500;"></span>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
       <div class="header-meta">Created by DZ · St. Anna</div>
       <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten" id="themeToggleBtn">🌙</button>
     </div>
@@ -983,7 +231,7 @@ footer {
     <section id="task">
       <div class="card">
         <h2 class="card-header" id="articleTitle">Ausgangstext</h2>
-        
+
         <!-- Highlighter Toolbar -->
         <div class="highlighter-toolbar">
           <span class="hl-label">🖍️ Markieren:</span>
@@ -995,7 +243,7 @@ footer {
           <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
           <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
         </div>
-        
+
         <div class="source-text" id="articleBody"></div>
         <div style="font-size:.82rem;color:var(--ink-muted);margin-top:.5rem;" id="sourceInfo"></div>
         <div class="word-badge">
@@ -1274,9 +522,26 @@ footer {
 </div>
 
 <script>
-/* ================= CONFIG ================= */
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
-function getAccessToken() { return sessionStorage.getItem("access_token") || ""; }
+const MODULE_CONFIG = {
+  sectionPrefix: "",
+  steps: ["setup","task","write","feedback","progress"],
+  storagePrefix: "writing",
+  historyKey: "writing_history_",
+  pdfFilename: "Textproduktion",
+  chartColor: "#2563eb",
+  minWords: 100,
+  hasOwnLogin: true,
+  hlSelector: ".source-text",
+  syncHL: function() {
+    const source = document.getElementById("articleBody");
+    const writeRef = document.getElementById("writeArticlePreview");
+    if (source && writeRef) writeRef.innerHTML = source.innerHTML;
+  }
+};
+</script>
+<script src="shared.js"></script>
+<script>
+/* ================= PROMPTS ================= */
 
 const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben). Erstelle eine vollständige Schreiben-Prüfungsaufgabe.
 
@@ -1404,32 +669,6 @@ Liste Sprachfehler auf: "Fehler" -> "Korrektur" (Erklärung). Gehe auf Korrekthe
 WICHTIG: Nenne KEINE Gesamtpunktzahl und KEINE Schulnote im Feedback.
 Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
-const CONFIG = { storedData: {} };
-
-/* ================= API HELPER (sends auth header) ================= */
-async function apiCall(endpoint, body) {
-  const res = await fetch(API_BASE + endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Access-Token": getAccessToken()
-    },
-    body: JSON.stringify(body)
-  });
-  if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || `Serverfehler (${res.status})`);
-  }
-  return res.json();
-}
-
-/* ================= LOGIN ================= */
-/* ================= LOGIN (session-based from index.html) ================= */
-function checkPassword() {
-  // Redirect to main login
-  window.location.href = "index.html";
-}
-
 /* ================= SESSION RECOVERY ================= */
 function saveSession() {
   const session = {
@@ -1463,133 +702,6 @@ function restoreSession() {
   } catch { return false; }
 }
 
-function getStudentKey() {
-  const name = sessionStorage.getItem("student_name") || "default";
-  return name.toLowerCase().replace(/\s+/g, "_");
-}
-
-/* ================= HIGHLIGHTER ================= */
-let currentHL = null;
-
-function selectHL(color) {
-  currentHL = currentHL === color ? null : color;
-  document.querySelectorAll(".hl-btn").forEach(b => b.classList.toggle("active", b.dataset.color === currentHL));
-}
-
-function initHL() {
-  document.querySelectorAll(".source-text").forEach(el => {
-    el.addEventListener("mouseup", () => applyHL(el));
-    el.addEventListener("touchend", () => applyHL(el));
-  });
-}
-
-function applyHL(container) {
-  if (!currentHL) return;
-  const sel = window.getSelection();
-  if (!sel || sel.isCollapsed || !sel.rangeCount) return;
-  const range = sel.getRangeAt(0);
-  if (!container.contains(range.commonAncestorContainer)) return;
-
-  if (currentHL === "eraser") {
-    const spans = [];
-    const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT);
-    let node;
-    while (node = walker.nextNode()) {
-      if (node.className && node.className.toString().startsWith("hl-") && sel.containsNode(node, true)) {
-        spans.push(node);
-      }
-    }
-    spans.forEach(span => {
-      const parent = span.parentNode;
-      while (span.firstChild) parent.insertBefore(span.firstChild, span);
-      parent.removeChild(span);
-    });
-    container.normalize();
-  } else {
-    // Get all text nodes in selection and highlight each separately
-    const textNodes = [];
-    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-    let node;
-    while (node = walker.nextNode()) {
-      if (sel.containsNode(node, true)) textNodes.push(node);
-    }
-    textNodes.forEach(textNode => {
-      let startOffset = 0, endOffset = textNode.length;
-      if (textNode === range.startContainer) startOffset = range.startOffset;
-      if (textNode === range.endContainer) endOffset = range.endOffset;
-      if (startOffset >= endOffset) return;
-      const hlRange = document.createRange();
-      hlRange.setStart(textNode, startOffset);
-      hlRange.setEnd(textNode, endOffset);
-      const span = document.createElement("span");
-      span.className = "hl-" + currentHL;
-      try { hlRange.surroundContents(span); } catch {}
-    });
-  }
-  sel.removeAllRanges();
-  syncHLToWrite();
-}
-
-function clearAllHL() {
-  document.querySelectorAll(".source-text").forEach(container => {
-    container.querySelectorAll("[class^='hl-']").forEach(span => {
-      const parent = span.parentNode;
-      while (span.firstChild) parent.insertBefore(span.firstChild, span);
-      parent.removeChild(span);
-    });
-    container.normalize();
-  });
-  syncHLToWrite();
-}
-
-function syncHLToWrite() {
-  const source = document.getElementById("articleBody");
-  const writeRef = document.getElementById("writeArticlePreview");
-  if (source && writeRef) writeRef.innerHTML = source.innerHTML;
-}
-
-function showToast(msg,type){const t=document.createElement("div");t.className="toast"+(type==="success"?" success":"");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity="0";setTimeout(()=>t.remove(),300)},3500)}
-
-/* ================= INIT ================= */
-window.addEventListener("beforeunload",function(e){if(document.getElementById("studentText").value.trim().length>50){e.preventDefault();e.returnValue=""}});
-window.onload = function () {
-  initTheme();
-
-  // Check session – redirect to login if not authenticated
-  if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
-    document.getElementById("login-screen").style.display = "flex";
-    document.getElementById("app-wrapper").style.display = "none";
-    return;
-  }
-
-  // Restore login display
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("app-wrapper").style.display = "flex";
-  const name = sessionStorage.getItem("student_name") || "";
-  const course = sessionStorage.getItem("student_course") || "";
-  const level = (sessionStorage.getItem("student_level") || "").toUpperCase();
-  document.getElementById("studentGreeting").textContent = [name, course, level].filter(Boolean).join(" · ");
-  document.getElementById("studentGreeting").style.display = "inline";
-
-  // Restore session
-  restoreSession();
-  
-  // Init highlighter
-  initHL();
-
-  // Auto-save session every 15 seconds
-  setInterval(saveSession, 15000);
-};
-
-// Handle bfcache restoration (browser back/forward button)
-window.addEventListener("pageshow", function(e) {
-  if (e.persisted) {
-    if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
-      document.getElementById("login-screen").style.display = "flex";
-      document.getElementById("app-wrapper").style.display = "none";
-    }
-  }
-});
 
 /* ================= GENERATE ================= */
 async function generateExam() {
@@ -1886,164 +998,16 @@ async function submitForCorrection() {
   btn.disabled = false;
 }
 
-/* ================= OCR (Multi-Page) ================= */
-const ocrPages = []; // {file, base64, text, status}
-
-async function handleOCRFiles(fileList) {
-  const files = Array.from(fileList);
-  const valid = files.filter(f => {
-    if (!f.type.startsWith("image/")) { showToast(`${f.name} ist kein Bild.`); return false; }
-    if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} ist zu groß (max. 10 MB).`); return false; }
-    return true;
-  });
-  if (!valid.length) return;
-
-  // Add pages
-  for (const file of valid) {
-    const url = URL.createObjectURL(file);
-    ocrPages.push({ file, url, base64: null, text: "", status: "pending" });
-  }
-  renderOCRPages();
-
-  // Process each new page
-  const startIdx = ocrPages.length - valid.length;
-  document.getElementById("ocrLoader").style.display = "block";
-
-  for (let i = startIdx; i < ocrPages.length; i++) {
-    const page = ocrPages[i];
-    page.status = "processing";
-    renderOCRPages();
-    document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length}`;
-
-    try {
-      const base64 = await fileToBase64(page.file);
-      page.base64 = base64;
-
-      const data = await apiCall("/api/ocr", { image_base64: base64 });
-
-      page.text = data.text || "";
-      page.status = "done";
-    } catch (e) {
-      page.text = `[Fehler bei Seite ${i + 1}: ${e.message}]`;
-      page.status = "error";
-    }
-    renderOCRPages();
-  }
-
-  document.getElementById("ocrLoader").style.display = "none";
-  document.getElementById("ocrProgress").textContent = "";
-
-  // Combine all texts and show result
-  combineOCRTexts();
-  document.getElementById("ocrResult").style.display = "block";
-
-  // Reset file input so same files can be re-selected
-  document.getElementById("ocrFileInput").value = "";
-}
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error("Datei konnte nicht gelesen werden"));
-    reader.readAsDataURL(file);
-  });
-}
-
-function renderOCRPages() {
-  const container = document.getElementById("ocrPages");
-  if (!ocrPages.length) { container.innerHTML = ""; return; }
-
-  container.innerHTML = ocrPages.map((p, i) => `
-    <div class="ocr-page-thumb ${p.status}">
-      <img src="${p.url}" alt="Seite ${i + 1}">
-      <div class="page-num">Seite ${i + 1}</div>
-      <button class="remove-page" onclick="removeOCRPage(${i})" title="Entfernen">✕</button>
-    </div>
-  `).join("");
-}
-
-function removeOCRPage(index) {
-  URL.revokeObjectURL(ocrPages[index].url);
-  ocrPages.splice(index, 1);
-  renderOCRPages();
-  if (ocrPages.length) {
-    combineOCRTexts();
-  } else {
-    document.getElementById("ocrResult").style.display = "none";
-  }
-}
-
-function combineOCRTexts() {
-  const combined = ocrPages
-    .map((p, i) => ocrPages.length > 1 ? `--- Seite ${i + 1} ---\n${p.text}` : p.text)
-    .join("\n\n");
-  document.getElementById("ocrText").value = combined;
-  updateOCRWordCount();
-}
-
-function updateOCRWordCount() {
-  const text = document.getElementById("ocrText").value;
-  const count = countWords(text);
-  document.getElementById("ocrWordCount").textContent = `${count} Wörter erkannt`;
-}
-
-// Make OCR textarea editable – update word count on input
-document.addEventListener("DOMContentLoaded", () => {
-  const ocrTextarea = document.getElementById("ocrText");
-  if (ocrTextarea) {
-    ocrTextarea.addEventListener("input", updateOCRWordCount);
-  }
-});
-
-function useOCRText() {
-  const text = document.getElementById("ocrText").value;
-  if (!text.trim()) { showToast("Kein Text vorhanden."); return; }
-
-  // Clean up page separators if present
-  const cleaned = text.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
-  document.getElementById("studentText").value = cleaned;
-  updateWordCount();
-  document.getElementById("studentText").scrollIntoView({ behavior: "smooth" });
-}
-
-function clearOCR() {
-  ocrPages.forEach(p => URL.revokeObjectURL(p.url));
-  ocrPages.length = 0;
-  renderOCRPages();
-  document.getElementById("ocrText").value = "";
-  document.getElementById("ocrResult").style.display = "none";
-  document.getElementById("ocrFileInput").value = "";
-}
-
-// Drag & Drop (multi-file)
-document.addEventListener("DOMContentLoaded", () => {
-  const zone = document.getElementById("uploadZone");
-  if (!zone) return;
-  zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("dragover"); });
-  zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
-  zone.addEventListener("drop", e => {
-    e.preventDefault();
-    zone.classList.remove("dragover");
-    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"));
-    if (files.length) handleOCRFiles(files);
-  });
-});
-
-/* ================= PDF EXPORT ================= */
+/* ================= PDF EXPORT (override shared.js with custom options) ================= */
 function exportPDF() {
   const content = document.getElementById("feedbackContent");
   if (!content) return;
-
-  const opt = {
+  html2pdf().set({
     margin: [10, 10, 10, 10],
     filename: "Textproduktion_Bewertung.pdf",
     image: { type: "jpeg", quality: 0.98 },
-    html2pdf: { breakBefore: ".card" },
     jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-  };
-
-  html2pdf().set(opt).from(content).save();
+  }).from(content).save();
 }
 
 /* ================= RESET ================= */
@@ -2072,16 +1036,6 @@ function resetAll() {
 }
 
 /* ================= UTILS ================= */
-function updateWordCount() {
-  const t = document.getElementById("studentText").value;
-  localStorage.setItem("student_text", t);
-  document.getElementById("currentWordCount").innerText = countWords(t);
-}
-
-function countWords(s) {
-  return (s || "").trim().split(/\s+/).filter(a => a).length;
-}
-
 function npToGrade(np) {
   if (np >= 15) return { note: "1+", label: "sehr gut" };
   if (np >= 14) return { note: "1", label: "sehr gut" };
@@ -2099,22 +1053,6 @@ function npToGrade(np) {
   if (np >= 2)  return { note: "5", label: "mangelhaft" };
   if (np >= 1)  return { note: "5–", label: "mangelhaft" };
   return { note: "6", label: "ungenügend" };
-}
-
-function nav(id) {
-  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  const navBtn = document.getElementById("nav-" + id);
-  if (navBtn) navBtn.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  if (id === "progress") renderProgress();
-}
-
-function escapeHtml(str) {
-  return String(str).replace(/[&<>"']/g, m => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-  }[m]));
 }
 
 /* ================= MUSTERLÖSUNG ================= */
@@ -2155,44 +1093,18 @@ async function generateModelAnswer() {
   btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Musterlösung zeigen`;
 }
 
-/* ================= DARK MODE ================= */
-function toggleDarkMode() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute("data-theme") === "dark";
-  html.setAttribute("data-theme", isDark ? "light" : "dark");
-  localStorage.setItem("theme", isDark ? "light" : "dark");
-  document.getElementById("themeToggleBtn").textContent = isDark ? "🌙" : "☀️";
-  // Update chart colors if chart exists
-  if (progressChartInstance) renderProgressChart();
-}
-
-function initTheme() {
-  const saved = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const theme = saved || (prefersDark ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", theme);
-  document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
-}
-
-/* ================= TIMER ================= */
-let timerInterval = null;
-let timerSeconds = 0;
-let timerPaused = false;
-
+/* ================= TIMER (custom — different UI from shared.js) ================= */
 function startTimer() {
   const minutes = parseInt(document.getElementById("timerMinutes").value) || 60;
   timerSeconds = minutes * 60;
   timerPaused = false;
-
   document.getElementById("timerBar").classList.add("active");
   document.getElementById("timerSetup").style.display = "none";
   updateTimerDisplay();
-
   timerInterval = setInterval(() => {
     if (timerPaused) return;
     timerSeconds--;
     updateTimerDisplay();
-
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
       timerInterval = null;
@@ -2203,16 +1115,8 @@ function startTimer() {
   }, 1000);
 }
 
-function pauseTimer() {
-  timerPaused = !timerPaused;
-  document.getElementById("timerPauseBtn").textContent = timerPaused ? "▶ Weiter" : "⏸ Pause";
-}
-
 function stopTimer() {
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-  }
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
   timerSeconds = 0;
   timerPaused = false;
   document.getElementById("timerBar").classList.remove("active");
@@ -2226,81 +1130,11 @@ function updateTimerDisplay() {
   const s = timerSeconds % 60;
   const display = document.getElementById("timerDisplay");
   display.textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-
-  // Warning when under 5 minutes
-  if (timerSeconds <= 300 && timerSeconds > 0) {
-    display.classList.add("warning");
-  } else if (timerSeconds > 300) {
-    display.classList.remove("warning");
-  }
+  display.classList.toggle("warning", timerSeconds <= 300 && timerSeconds > 0);
 }
 
-/* ================= PROGRESS TRACKER ================= */
-let progressChartInstance = null;
-
-function getHistory() {
-  try {
-    const key = "mediation_history_" + getStudentKey();
-    return JSON.parse(localStorage.getItem(key) || "[]");
-  } catch { return []; }
-}
-
-function saveToHistory(entry) {
-  const history = getHistory();
-  history.push({
-    date: new Date().toISOString(),
-    topic: entry.topic || "—",
-    content: entry.content,
-    language: entry.language,
-    total: entry.total
-  });
-  const key = "mediation_history_" + getStudentKey();
-  localStorage.setItem(key, JSON.stringify(history));
-}
-
-function deleteHistoryEntry(index) {
-  const history = getHistory();
-  history.splice(index, 1);
-  const key = "mediation_history_" + getStudentKey();
-  localStorage.setItem(key, JSON.stringify(history));
-  renderProgress();
-}
-
-function clearHistory() {
-  if (!confirm("Gesamten Fortschritt löschen?")) return;
-  const key = "mediation_history_" + getStudentKey();
-  localStorage.removeItem(key);
-  renderProgress();
-}
-
-function renderProgress() {
-  const history = getHistory();
-  const empty = document.getElementById("progressEmpty");
-  const content = document.getElementById("progressContent");
-  const clearBtn = document.getElementById("clearHistoryBtn");
-
-  if (!history.length) {
-    empty.style.display = "block";
-    content.style.display = "none";
-    clearBtn.style.display = "none";
-    return;
-  }
-
-  empty.style.display = "none";
-  content.style.display = "block";
-  clearBtn.style.display = "inline-flex";
-
-  // Stats
-  const totals = history.map(h => h.total).filter(t => t != null);
-  document.getElementById("statAttempts").textContent = history.length;
-  document.getElementById("statAverage").textContent = totals.length
-    ? (totals.reduce((a,b) => a+b, 0) / totals.length).toFixed(1)
-    : "–";
-  document.getElementById("statBest").textContent = totals.length
-    ? Math.max(...totals)
-    : "–";
-
-  // Table
+/* ================= PROGRESS (custom chart with 3 datasets) ================= */
+function renderHistoryTable(history) {
   const tbody = document.getElementById("historyTableBody");
   tbody.innerHTML = history.slice().reverse().map((h, i) => {
     const realIdx = history.length - 1 - i;
@@ -2316,98 +1150,39 @@ function renderProgress() {
       <td><button class="history-delete" onclick="deleteHistoryEntry(${realIdx})" title="Löschen">✕</button></td>
     </tr>`;
   }).join("");
-
-  // Chart
-  renderProgressChart();
 }
 
 function renderProgressChart() {
   const history = getHistory();
   if (!history.length) return;
-
   const ctx = document.getElementById("progressChart");
   if (!ctx) return;
-
-  // Destroy old chart
-  if (progressChartInstance) {
-    progressChartInstance.destroy();
-    progressChartInstance = null;
-  }
+  if (progressChartInstance) { progressChartInstance.destroy(); progressChartInstance = null; }
 
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
   const textColor = isDark ? "#b0b0c8" : "#8888a4";
 
-  const labels = history.map((h, i) => `#${i + 1}`);
-  const totals = history.map(h => h.total);
-  const contents = history.map(h => h.content);
-  const langs = history.map(h => h.language);
-
   progressChartInstance = new Chart(ctx, {
     type: "line",
     data: {
-      labels,
+      labels: history.map((_, i) => `#${i + 1}`),
       datasets: [
-        {
-          label: "Gesamt (/15 NP)",
-          data: totals,
-          borderColor: "#2563eb",
-          backgroundColor: "rgba(37,99,235,0.1)",
-          fill: true,
-          tension: 0.3,
-          borderWidth: 2.5,
-          pointRadius: 4,
-          pointBackgroundColor: "#2563eb"
-        },
-        {
-          label: "Inhalt (/15 NP)",
-          data: contents,
-          borderColor: "#059669",
-          backgroundColor: "transparent",
-          tension: 0.3,
-          borderWidth: 1.5,
-          borderDash: [4, 3],
-          pointRadius: 3,
-          pointBackgroundColor: "#059669"
-        },
-        {
-          label: "Sprache (/15 NP)",
-          data: langs,
-          borderColor: "#f59e0b",
-          backgroundColor: "transparent",
-          tension: 0.3,
-          borderWidth: 1.5,
-          borderDash: [4, 3],
-          pointRadius: 3,
-          pointBackgroundColor: "#f59e0b"
-        }
+        { label: "Gesamt (/15 NP)", data: history.map(h => h.total), borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,0.1)", fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: "#2563eb" },
+        { label: "Inhalt (/15 NP)", data: history.map(h => h.content), borderColor: "#059669", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#059669" },
+        { label: "Sprache (/15 NP)", data: history.map(h => h.language), borderColor: "#f59e0b", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#f59e0b" }
       ]
     },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          labels: { color: textColor, font: { size: 11 } }
-        }
-      },
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: textColor, font: { size: 11 } } } },
       scales: {
-        y: {
-          min: 0, max: 15,
-          grid: { color: gridColor },
-          ticks: { color: textColor, stepSize: 3 }
-        },
-        x: {
-          grid: { display: false },
-          ticks: { color: textColor }
-        }
+        y: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
+        x: { grid: { display: false }, ticks: { color: textColor } }
       }
     }
   });
 }
-
-/* ================= INIT UPDATES ================= */
-// Theme and session recovery are now handled in the main window.onload above
 </script>
 
 </body>
