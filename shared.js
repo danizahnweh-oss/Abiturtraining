@@ -67,6 +67,42 @@ async function apiCall(endpoint, body) {
   return res.json();
 }
 
+/* ================= KORREKTUR & ASPEKTE ================= */
+
+function renderKorrekturFeedback(d) {
+  const korrekturCard = document.getElementById("korrekturCard");
+  const aspekteCard = document.getElementById("aspekteCard");
+  if (korrekturCard) korrekturCard.style.display = "none";
+  if (aspekteCard) aspekteCard.style.display = "none";
+
+  const sanitizeOpts = { ALLOWED_TAGS: ["mark", "br", "p"], ALLOWED_ATTR: ["class", "title"] };
+
+  // Single-part korrektur
+  const body = document.getElementById("korrekturBody");
+  if (body && d.korrektur_text) {
+    body.innerHTML = DOMPurify.sanitize(d.korrektur_text.replace(/\n/g, "<br>"), sanitizeOpts);
+    if (korrekturCard) korrekturCard.style.display = "";
+  }
+
+  // Two-part korrektur
+  const bodyA = document.getElementById("korrekturBodyA");
+  const bodyB = document.getElementById("korrekturBodyB");
+  if (bodyA && (d.korrektur_text_a || d.korrektur_text_b)) {
+    if (d.korrektur_text_a) bodyA.innerHTML = DOMPurify.sanitize(d.korrektur_text_a.replace(/\n/g, "<br>"), sanitizeOpts);
+    if (d.korrektur_text_b && bodyB) bodyB.innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), sanitizeOpts);
+    if (korrekturCard) korrekturCard.style.display = "";
+  }
+
+  // Fehlende Aspekte
+  const aspekteBody = document.getElementById("aspekteBody");
+  if (aspekteBody && d.fehlende_aspekte?.length) {
+    aspekteBody.innerHTML = d.fehlende_aspekte.map(a =>
+      `<details class="aspekt-details"><summary>${escapeHtml(a.aufgabe)} <span class="aspekt-count">${a.aspekte.length} fehlend</span></summary><ul class="aspekt-liste">${a.aspekte.map(p => `<li>${escapeHtml(p)}</li>`).join("")}</ul></details>`
+    ).join("");
+    if (aspekteCard) aspekteCard.style.display = "";
+  }
+}
+
 /* ================= NAVIGATION ================= */
 
 let currentStep = null;
