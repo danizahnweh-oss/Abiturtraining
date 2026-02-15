@@ -275,6 +275,16 @@ Strukturvorschlag:
         <div class="feedback-body" id="feedbackBody"></div>
       </div>
 
+      <div class="card" id="korrekturCard" style="display:none">
+        <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
+        <div class="korrektur-body" id="korrekturBody"></div>
+      </div>
+      <div class="card" id="aspekteCard" style="display:none">
+        <h2 class="card-header">Fehlende Aspekte</h2>
+        <div id="aspekteBody"></div>
+      </div>
+
       <div style="display:flex;gap:.8rem;flex-wrap:wrap">
         <button class="btn btn-secondary" onclick="exportPDF()">📑 Als PDF exportieren</button>
         <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
@@ -457,6 +467,7 @@ async function submitForGrading() {
 
     stopTimer();
     document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(data.feedback || ""));
+    renderKorrekturFeedback(data);
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
     document.getElementById("feedbackContent").style.display = "block";

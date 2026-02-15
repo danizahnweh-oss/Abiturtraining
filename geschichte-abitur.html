@@ -694,15 +694,7 @@ async function submitForGrading() {
     }).catch(() => {});
     stopTimer();
     document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
-    if (d.korrektur_text_a || d.korrektur_text_b) {
-      if (d.korrektur_text_a) document.getElementById("korrekturBodyA").innerHTML = DOMPurify.sanitize(d.korrektur_text_a.replace(/\n/g, "<br>"), { ALLOWED_TAGS: ["mark", "br", "p"], ALLOWED_ATTR: ["class", "title"] });
-      if (d.korrektur_text_b) document.getElementById("korrekturBodyB").innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), { ALLOWED_TAGS: ["mark", "br", "p"], ALLOWED_ATTR: ["class", "title"] });
-      document.getElementById("korrekturCard").style.display = "";
-    }
-    if (d.fehlende_aspekte?.length) {
-      document.getElementById("aspekteBody").innerHTML = d.fehlende_aspekte.map(a => `<details class="aspekt-details"><summary>${escapeHtml(a.aufgabe)} <span class="aspekt-count">${a.aspekte.length} fehlend</span></summary><ul class="aspekt-liste">${a.aspekte.map(p => `<li>${escapeHtml(p)}</li>`).join("")}</ul></details>`).join("");
-      document.getElementById("aspekteCard").style.display = "";
-    }
+    renderKorrekturFeedback(d);
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
     document.getElementById("feedbackContent").style.display = "block";
@@ -761,7 +753,7 @@ async function loadDallEImage(prompt, containerId) {
     document.getElementById(containerId).innerHTML = `<img src="${d.url}" alt="KI-generierte Illustration" class="material-img">`;
   } catch(e) {
     console.error("DALL-E Fehler:", e);
-    document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${e.message}</div>`;
+    document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
   }
 }
 async function loadUnsplashImage(keywords, containerId) {
