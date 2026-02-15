@@ -29,6 +29,13 @@
 .type-icon{font-size:2rem;margin-bottom:.5rem}
 .type-name{font-weight:600}
 .type-desc{font-size:.8rem;color:var(--ink-muted);margin-top:.3rem}
+/* Chart & image styles */
+.material-chart{margin:1rem 0;max-height:280px}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
+.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
+.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
+
 @media(max-width:650px){.type-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -68,12 +75,12 @@
           <div class="type-card selected" data-type="argumentieren" onclick="selectType('argumentieren')">
             <div class="type-icon">💬</div>
             <div class="type-name">Argumentierender Beitrag</div>
-            <div class="type-desc">Kommentar, Rede, Leserbrief</div>
+            <div class="type-desc">Kommentar, Rede, Leserbrief, Essay</div>
           </div>
           <div class="type-card" data-type="informieren" onclick="selectType('informieren')">
             <div class="type-icon">📰</div>
             <div class="type-name">Informierender Text</div>
-            <div class="type-desc">Artikel, Bericht, Sachtext</div>
+            <div class="type-desc">Zeitungsartikel, Blogbeitrag, Sachtext</div>
           </div>
         </div>
       </div>
@@ -93,18 +100,13 @@
         <div class="form-group">
           <label>Zieltextsorte</label>
           <select id="textsorteSelect">
-            <option value="kommentar">Kommentar</option>
-            <option value="rede">Rede</option>
-            <option value="leserbrief">Leserbrief</option>
-            <option value="artikel">Zeitungsartikel</option>
-            <option value="blogbeitrag">Blogbeitrag</option>
           </select>
         </div>
       </div>
 
       <div class="form-group">
         <label>Bearbeitungszeit (Minuten)</label>
-        <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
+        <input type="number" id="timerMinutes" value="315" min="30" max="315" style="max-width:150px">
       </div>
 
       <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
@@ -300,6 +302,27 @@ const MODULE_CONFIG = {
 <script>
 CONFIG.aufgabentyp = "argumentieren";
 
+const TEXTSORTEN = {
+  argumentieren: [
+    { value: "kommentar", label: "Kommentar" },
+    { value: "rede", label: "Rede" },
+    { value: "leserbrief", label: "Leserbrief" },
+    { value: "essay", label: "Essay" }
+  ],
+  informieren: [
+    { value: "artikel", label: "Zeitungsartikel" },
+    { value: "blogbeitrag", label: "Blogbeitrag" },
+    { value: "sachtext", label: "Sachtext" },
+    { value: "lexikonartikel", label: "Lexikonartikel" }
+  ]
+};
+
+function updateTextsorten() {
+  const sel = document.getElementById("textsorteSelect");
+  const opts = TEXTSORTEN[CONFIG.aufgabentyp] || TEXTSORTEN.argumentieren;
+  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+}
+
 const BEWERTUNG_PROMPT = `Du bewertest einen materialgestützten Text nach ISB-Kriterien.
 
 VERSTEHENSLEISTUNG (60%):
@@ -321,9 +344,10 @@ function selectType(t) {
   CONFIG.aufgabentyp = t;
   document.querySelectorAll(".type-card").forEach(c => c.classList.remove("selected"));
   document.querySelector(`[data-type="${t}"]`).classList.add("selected");
+  updateTextsorten();
 }
 
-function renderMaterialContent(content, type) {
+function renderMaterialContent(content, type, idx) {
   if (type === "statistik" && content && content.includes("|")) {
     const lines = content.split("\n");
     let tableHtml = "";
@@ -347,7 +371,13 @@ function renderMaterialContent(content, type) {
     }
     if (inTable) tableHtml += "</tbody></table>";
     const desc = afterTable.length ? `<p style="margin-top:.5rem;font-size:.85rem;color:var(--ink-light)">${escapeHtml(afterTable.join(" "))}</p>` : "";
-    return tableHtml + desc;
+    return tableHtml + desc + `<div class="material-chart"><canvas id="chart-mg-${idx}"></canvas></div>`;
+  }
+  if (type === "bild") {
+    return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+  }
+  if (type === "foto") {
+    return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
   }
   return escapeHtml(content || "").replace(/\n/g, "<br>");
 }
@@ -420,19 +450,31 @@ function renderTask(d) {
 
   const container = document.getElementById("materialsContainer");
   const materials = d.materials || [];
+  const typeIcons = { statistik: "📊", bild: "🖼️", foto: "📷" };
   container.innerHTML = materials.map((m, i) => `
     <div class="material-box">
-      <div class="material-label">${m.type === "statistik" ? "📊" : "📄"} Material ${i + 1}: ${escapeHtml(m.title || "")}</div>
-      <div class="material-content">${renderMaterialContent(m.content, m.type)}</div>
+      <div class="material-label">${typeIcons[m.type] || "📄"} Material ${i + 1}: ${escapeHtml(m.title || "")}</div>
+      <div class="material-content">${renderMaterialContent(m.content, m.type, i)}</div>
       <div class="source-meta">${escapeHtml(m.source || "")}</div>
     </div>
   `).join("");
+
+  // Load charts and images after DOM update
+  materials.forEach((m, i) => {
+    if (m.type === "statistik" && (m.content || "").includes("|")) {
+      renderStatistikChart(m.content, `chart-mg-${i}`);
+    } else if (m.type === "bild") {
+      loadDallEImage(m.content, `img-mg-${i}`);
+    } else if (m.type === "foto") {
+      loadUnsplashImage(m.content, `img-mg-${i}`);
+    }
+  });
 
   document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
   document.getElementById("writeMaterialsRef").innerHTML = materials.map((m, i) => `
     <div class="material-box" style="margin-bottom:.5rem">
       <div class="material-label" style="font-size:.7rem">Material ${i + 1}: ${escapeHtml(m.title || "")}</div>
-      <div class="material-content" style="font-size:.85rem;max-height:150px;overflow-y:auto">${renderMaterialContent(m.content, m.type)}</div>
+      <div class="material-content" style="font-size:.85rem;max-height:150px;overflow-y:auto">${renderMaterialContent(m.content, m.type, 'ref-'+i)}</div>
     </div>
   `).join("");
 
@@ -496,11 +538,59 @@ function restoreSession() {
   } catch {}
 }
 
+const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+function renderStatistikChart(markdown, canvasId) {
+  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+  if (lines.length < 2) return;
+  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+  const headers = parse(lines[0]);
+  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+  if (dataLines.length < 2) return;
+  const rows = dataLines.slice(1).map(parse);
+  const labels = rows.map(r => r[0]);
+  const datasets = headers.slice(1).map((h, i) => ({
+    label: h,
+    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
+    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+  }));
+  new Chart(document.getElementById(canvasId), {
+    type: "bar", data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: "top" } } }
+  });
+}
+async function loadDallEImage(prompt, containerId) {
+  try {
+    const res = await fetch("/api/generate-image", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt })
+    });
+    const { url } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Bild konnte nicht geladen werden.</div>`;
+  }
+}
+async function loadUnsplashImage(keywords, containerId) {
+  try {
+    const res = await fetch("/api/fetch-unsplash", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ keywords })
+    });
+    const { url, credit } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Foto konnte nicht geladen werden.</div>`;
+  }
+}
+
 function renderHistoryTable(history) {
   document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
     `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${x.aufgabentyp === "argumentieren" ? "💬" : "📰"}</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
   ).join("");
 }
+
+// Init
+updateTextsorten();
 </script>
 </body>
 </html>

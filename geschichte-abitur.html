@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-accent="amber">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PuG · Abiturtraining</title>
+<title>Geschichte · Abiturtraining</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -13,12 +13,12 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-/* PuG accent override */
+/* Geschichte accent override */
 :root {
-  --accent:#9f1239;--accent-hover:#881337;--accent-soft:#ffe4e6;--accent-glow:rgba(159,18,57,.08);
+  --accent:#b45309;--accent-hover:#92400e;--accent-soft:#fef3c7;--accent-glow:rgba(180,83,9,.08);
 }
 [data-theme="dark"] {
-  --accent:#fb7185;--accent-hover:#fda4af;--accent-soft:rgba(251,113,133,.15);--accent-glow:rgba(251,113,133,.08);
+  --accent:#fbbf24;--accent-hover:#fcd34d;--accent-soft:rgba(251,191,36,.15);--accent-glow:rgba(251,191,36,.08);
 }
 
 /* Halbjahr selection */
@@ -39,26 +39,27 @@
 .material-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
 .material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
 .material-card .material-body{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
-.material-type-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.03em;margin-left:.5rem;background:var(--accent-soft);color:var(--accent)}
-.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
-.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
-.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
-.material-chart{margin:1rem 0;max-height:280px}
-.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
-.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
-.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
-.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
 
 /* Teil-Trenner */
 .teil-header{font-family:var(--font-display);font-size:1.1rem;margin:1.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent);color:var(--accent)}
 .teil-header:first-child{margin-top:0}
-.teil-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;background:var(--accent-soft);color:var(--accent);margin-left:.5rem}
 
 /* Zwei Textareas */
 .write-part{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
 .write-part h3{font-size:.95rem;margin-bottom:.6rem;color:var(--accent)}
 .write-part textarea{min-height:250px}
 .write-part .word-counter{font-size:.8rem;color:var(--ink-muted);margin-top:.4rem}
+
+/* Chart & image styles */
+.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
+.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
+.material-type-badge{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;text-transform:uppercase;margin-left:.3rem}
+.material-chart{margin:1rem 0;max-height:280px}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
+.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
+.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
 
 @media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
 </style>
@@ -67,8 +68,8 @@
 
 <header>
   <div class="header-left">
-    <a href="index.html?back=pug" class="back-link">← Zurück</a>
-    <h1>PuG · <span>Abiturtraining</span></h1>
+    <a href="index.html?back=history" class="back-link">← Zurück</a>
+    <h1>Geschichte · <span>Abiturtraining</span></h1>
   </div>
   <div class="header-right">
     <span id="studentGreeting" class="header-meta" style="display:none"></span>
@@ -98,35 +99,29 @@
     <div class="card" id="setupGenerate">
       <h2 class="card-header">Neue Abituraufgabe generieren</h2>
       <div class="form-group">
-        <label>Halbjahr / Themenbereich (für Prüfungsteil A)</label>
+        <label>Schwerpunkt (Halbjahr)</label>
         <div class="hj-grid">
           <div class="hj-card selected" data-hj="12_1" onclick="selectHalbjahr('12_1')">
-            <div class="hj-icon">🕊️</div>
+            <div class="hj-icon">🏛️</div>
             <div class="hj-name">12/1</div>
-            <div class="hj-desc">Frieden & Sicherheit, EU</div>
+            <div class="hj-desc">Partizipation (19. Jh. – Weimar)</div>
           </div>
           <div class="hj-card" data-hj="12_2" onclick="selectHalbjahr('12_2')">
-            <div class="hj-icon">⚖️</div>
+            <div class="hj-icon">⚡</div>
             <div class="hj-name">12/2</div>
-            <div class="hj-desc">Pol. Systeme & Demokratie</div>
+            <div class="hj-desc">Demokratie & Diktatur</div>
           </div>
           <div class="hj-card" data-hj="13_1" onclick="selectHalbjahr('13_1')">
-            <div class="hj-icon">🔄</div>
+            <div class="hj-icon">🌍</div>
             <div class="hj-name">13/1</div>
-            <div class="hj-desc">Modernisierung & Gesellschaft</div>
+            <div class="hj-desc">Internationale Politik</div>
           </div>
           <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
-            <div class="hj-icon">🌍</div>
+            <div class="hj-icon">🇪🇺</div>
             <div class="hj-name">13/2</div>
-            <div class="hj-desc">Soziale Ungleichheit & Völkerrecht</div>
+            <div class="hj-desc">Ordnungsformen & Europa</div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label>Schwerpunkt (optional)</label>
-        <select id="schwerpunktSelect">
-          <option value="random">Zufällig</option>
-        </select>
       </div>
       <button class="btn" id="generateBtn" onclick="generateTask()">✨ Abituraufgabe generieren</button>
       <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Abituraufgabe (Teil A + B) …</div></div>
@@ -135,24 +130,26 @@
     <div class="card" id="setupUpload" style="display:none">
       <h2 class="card-header">Eigene Aufgabe</h2>
       <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
-        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Quellen)</div>
       </div>
       <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
       <div id="taskUploadPages" class="ocr-pages"></div>
       <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
       <div id="taskUploadResult" style="display:none;margin-top:1rem">
-        <div class="form-group"><label>Aufgabenstellung Prüfungsteil A</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
-        <div class="form-group"><label>Aufgabenstellung Prüfungsteil B</label><textarea id="parsedTaskInstructionB" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+        <div class="form-group"><label>Aufgabenstellung Teil A (Quellenanalyse)</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Quellenmaterial</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
+        <div class="form-group"><label>Aufgabenstellung Teil B (Darstellung)</label><textarea id="parsedTaskInstructionB" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Materialimpuls Teil B</label><textarea id="parsedPrimaryTextB" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Quellenangabe</label><input type="text" id="parsedMeta"></div>
         <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
       </div>
       <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
       <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-      <div class="form-group"><label>Aufgabenstellung Prüfungsteil A</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Stellen Sie … dar! / Diskutieren Sie …"></textarea></div>
-      <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Materialtext hier einfügen …"></textarea></div>
-      <div class="form-group"><label>Aufgabenstellung Prüfungsteil B (Ausweitung)</label><textarea id="manualTaskInstructionB" style="min-height:60px" placeholder="Prüfungsteil B: Transfer-/Ausweitungsaufgabe …"></textarea></div>
-      <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta" placeholder="z.B. FAZ, 12.03.2024"></div>
+      <div class="form-group"><label>Aufgabenstellung Teil A</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Arbeiten Sie aus M 1 heraus …"></textarea></div>
+      <div class="form-group"><label>Quellenmaterial</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Historische Quelle hier einfügen …"></textarea></div>
+      <div class="form-group"><label>Aufgabenstellung Teil B</label><textarea id="manualTaskInstructionB" style="min-height:60px" placeholder="Stellen Sie dar … / Beurteilen Sie …"></textarea></div>
+      <div class="form-group"><label>Materialimpuls Teil B (optional)</label><textarea id="manualPrimaryTextB" style="min-height:60px" placeholder="Kurzer Impulstext oder Zitat …"></textarea></div>
+      <div class="form-group"><label>Quellenangabe</label><input type="text" id="manualMeta" placeholder="z.B. Bismarck, Rede, 6.2.1888"></div>
       <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
     </div>
 
@@ -166,42 +163,51 @@
   <!-- STEP 2: READ MATERIALS -->
   <section id="sec-task">
     <div class="card">
-      <h3 class="teil-header">Prüfungsteil A <span class="teil-badge" id="teilABadge">85 BE</span></h3>
+      <h3 class="teil-header">Teil A — Quellenanalyse</h3>
       <h2 class="card-header">Aufgabenstellung</h2>
       <div class="task-box" id="taskInstructionA">…</div>
     </div>
 
     <div class="card">
-      <h2 class="card-header" id="textTitle">Materialien</h2>
+      <h2 class="card-header" id="textTitle">Quellenmaterial</h2>
 
       <!-- Highlighter Toolbar -->
       <div class="highlighter-toolbar">
         <span class="hl-label">🖍️ Markieren:</span>
-        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb – z.B. Kernaussagen"></button>
-        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün – z.B. Pro-Argumente"></button>
-        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau – z.B. Fachbegriffe"></button>
-        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink – z.B. Contra-Argumente"></button>
-        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange – z.B. Zitate/Belege"></button>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb – Kernaussagen"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün – Argumente"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau – Fachbegriffe"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink – Wertungen"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange – Zitate/Belege"></button>
         <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Markierung entfernen">✕</button>
         <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
       </div>
 
-      <div id="materialsContainer"></div>
+      <div class="source-text" id="sourceText">Hier erscheint das Quellenmaterial …</div>
+      <div class="source-meta" id="sourceMeta"></div>
 
       <div class="hl-legend">
         <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#facc15"></div> Kernaussagen</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#4ade80"></div> Pro</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#4ade80"></div> Argumente</div>
         <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#60a5fa"></div> Fachbegriffe</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#f472b6"></div> Contra</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#f472b6"></div> Wertungen</div>
         <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#fb923c"></div> Zitate</div>
       </div>
     </div>
 
     <div class="card">
-      <h3 class="teil-header">Prüfungsteil B – Ausweitung <span class="teil-badge" id="teilBBadge">35 BE</span></h3>
+      <h3 class="teil-header">Teil B — Darstellung</h3>
       <div class="task-box" id="taskInstructionB" style="font-size:.95rem">…</div>
-      <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Prüfungsteil B geht über die Materialien hinaus. Nutze dein Fachwissen.</p>
+      <div id="materialImpulsB" style="margin-top:.8rem;display:none">
+        <div class="material-card">
+          <h4>Materialimpuls</h4>
+          <div class="source-text material-body" id="materialImpulsText"></div>
+        </div>
+      </div>
+      <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Teil B erfordert eine eigenständige historische Darstellung. Nutze dein Fachwissen über die Quelle hinaus.</p>
     </div>
+
+    <div id="zusatzMaterialien"></div>
 
     <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
   </section>
@@ -220,38 +226,38 @@
       <h2 class="card-header">Deine Antwort</h2>
 
       <details style="margin-bottom:1rem" open>
-        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgabe & Materialien</summary>
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgabe & Material</summary>
         <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Prüfungsteil A</div>
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil A — Quellenanalyse</div>
           <div class="task-box" id="writeTaskRefA" style="margin:0 0 1rem 0;font-size:.9rem"></div>
-          <div id="writeMaterialsRef" style="font-size:.85rem"></div>
+          <div class="source-text" id="writeSourceRef" style="font-size:.85rem;max-height:200px;overflow-y:auto"></div>
           <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
-          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Prüfungsteil B – Ausweitung</div>
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil B — Darstellung</div>
           <div class="task-box" id="writeTaskRefB" style="margin:0;font-size:.9rem"></div>
         </div>
       </details>
 
       <!-- Teil A Textarea -->
       <div class="write-part">
-        <h3>Prüfungsteil A</h3>
-        <textarea id="studentTextA" placeholder="Beginne hier mit Prüfungsteil A …
+        <h3>Teil A: Quellenanalyse</h3>
+        <textarea id="studentTextA" placeholder="Beginne hier mit der Quellenanalyse …
 
 Tipp: Strukturiere deinen Text:
-• Einleitung mit Bezug zur Aufgabenstellung
-• Hauptteil mit Fachbegriffen und Materialverweisen
-• Schluss mit begründetem Urteil" oninput="updateWordCounts()"></textarea>
+• Einleitung mit Quelleneinordnung (Autor, Textsorte, Datum, Kontext)
+• Hauptteil: Herausarbeitung der Kernaussagen mit Textbelegen
+• Schluss: Historische Einordnung und Beurteilung" oninput="updateWordCounts()"></textarea>
         <div class="word-counter"><span id="wordCountA">0</span> Wörter</div>
       </div>
 
       <!-- Teil B Textarea -->
       <div class="write-part">
-        <h3>Prüfungsteil B – Ausweitung</h3>
-        <textarea id="studentTextB" placeholder="Beginne hier mit Prüfungsteil B (Ausweitung) …
+        <h3>Teil B: Darstellung</h3>
+        <textarea id="studentTextB" placeholder="Beginne hier mit der Darstellung …
 
-Tipp: Teil B geht über die Materialien hinaus.
-• Beziehe dein Fachwissen ein
-• Transfer zu anderen Halbjahren/Themen
-• Eigenständige politikwissenschaftliche Reflexion" oninput="updateWordCounts()"></textarea>
+Tipp: Teil B geht über die Quelle hinaus.
+• Eigenständige historische Darstellung
+• Einbeziehung von Fachwissen
+• Multiperspektivische Beurteilung" oninput="updateWordCounts()"></textarea>
         <div class="word-counter"><span id="wordCountB">0</span> Wörter</div>
       </div>
 
@@ -303,8 +309,8 @@ Tipp: Teil B geht über die Materialien hinaus.
       <div class="card">
         <h2 class="card-header">Bewertung</h2>
         <div class="scores-grid">
-          <div class="score-card"><div class="score-label">Teil A (Inhalt)</div><div class="score-value" id="scoreTeilA">–</div><div class="score-max">/ 15</div></div>
-          <div class="score-card"><div class="score-label">Teil B (Inhalt)</div><div class="score-value" id="scoreTeilB">–</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Sachkomp. A</div><div class="score-value" id="scoreSachA">–</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Sachkomp. B</div><div class="score-value" id="scoreSachB">–</div><div class="score-max">/ 15</div></div>
           <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">–</div><div class="score-max">/ 15</div></div>
           <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">–</div><div class="score-max">/ 15</div></div>
         </div>
@@ -338,19 +344,19 @@ Tipp: Teil B geht über die Materialien hinaus.
   </section>
 </main>
 
-<footer>© 2026 St. Anna Gymnasium · PuG Abiturtraining</footer>
+<footer>© 2026 St. Anna Gymnasium · Geschichte Abiturtraining</footer>
 
 <!-- MODULE CONFIG -->
 <script>
 const MODULE_CONFIG = {
   sectionPrefix: "sec-",
   steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "pug_abitur",
-  historyKey: "pug_abitur_history_",
-  historyType: "pug-abitur",
-  pdfFilename: "PuG_Abitur",
-  chartColor: "#9f1239",
-  minWords: 80,
+  storagePrefix: "geschichte_abitur",
+  historyKey: "geschichte_abitur_history_",
+  historyType: "geschichte-abitur",
+  pdfFilename: "Geschichte_Abitur",
+  chartColor: "#b45309",
+  minWords: 200,
   afterHL: function() { saveHL(); }
 };
 </script>
@@ -361,101 +367,55 @@ const MODULE_CONFIG = {
 CONFIG.halbjahr = "12_1";
 
 const HJ_LABELS = {
-  "12_1": "12/1 – Frieden & Sicherheit, EU",
-  "12_2": "12/2 – Pol. Systeme & Demokratie",
-  "13_1": "13/1 – Modernisierung & Gesellschaft",
-  "13_2": "13/2 – Soziale Ungleichheit, Völkerrecht & Konflikte"
+  "12_1": "12/1 – Partizipation (19. Jh. – Weimar)",
+  "12_2": "12/2 – Demokratie & Diktatur",
+  "13_1": "13/1 – Internationale Politik",
+  "13_2": "13/2 – Ordnungsformen & Europa"
 };
 
-const HJ_ICONS = { "12_1": "🕊️", "12_2": "⚖️", "13_1": "🔄", "13_2": "🌍" };
+const HJ_ICONS = { "12_1": "🏛️", "12_2": "⚡", "13_1": "🌍", "13_2": "🇪🇺" };
 
-const SCHWERPUNKTE = {
-  "12_1": [
-    { value: "random", label: "Zufällig" },
-    { value: "aussenpolitik", label: "Deutsche Außenpolitik" },
-    { value: "sicherheit", label: "Umfassender Sicherheitsbegriff" },
-    { value: "eu_erweiterung", label: "EU-Erweiterung & Zukunft" },
-    { value: "gasp", label: "Gemeinsame Außen- und Sicherheitspolitik" }
-  ],
-  "12_2": [
-    { value: "random", label: "Zufällig" },
-    { value: "liberalismus", label: "Liberalismus / Konservativismus / Sozialismus" },
-    { value: "politische_systeme", label: "Politische Systeme vergleichen" },
-    { value: "demokratiefoerderung", label: "Demokratieförderung" },
-    { value: "digitalisierung_politik", label: "Digitalisierung & pol. Willensbildung" }
-  ],
-  "13_1": [
-    { value: "random", label: "Zufällig" },
-    { value: "modernisierung", label: "Dimensionen der Modernisierung" },
-    { value: "arbeitswelt", label: "Digitalisierung der Arbeitswelt" },
-    { value: "geschlechter", label: "Geschlechterrollen & Gleichstellung" },
-    { value: "gewerkschaften", label: "Gewerkschaften & Mitbestimmung" }
-  ],
-  "13_2": [
-    { value: "random", label: "Zufällig" },
-    { value: "soziale_ungleichheit", label: "Soziale Ungleichheit & Gerechtigkeit" },
-    { value: "sozialstaat", label: "Sozialstaatlichkeit & Sozialpolitik" },
-    { value: "voelkerrecht", label: "Kennzeichen des Völkerrechts" },
-    { value: "igos_ngos", label: "IGOs & NGOs" },
-    { value: "istgh", label: "Internationaler Strafgerichtshof" },
-    { value: "medien", label: "Medien als Akteure" }
-  ]
-};
-
-const BEWERTUNG_PROMPT = `Du bewertest eine vollständige Abiturprüfung im Fach Politik und Gesellschaft (Bayern, Abitur ab 2026).
-Die Prüfung besteht aus Prüfungsteil A und Prüfungsteil B (Ausweitung).
+const BEWERTUNG_PROMPT = `Du bewertest eine vollständige Abiturprüfung im Fach Geschichte (Bayern, G9, ab 2026).
+Die Prüfung besteht aus Teil A (Quellenanalyse) und Teil B (Darstellung).
 
 BEWERTUNGSKRITERIEN:
 
-PRÜFUNGSTEIL A – INHALT:
-- Präzise Themaerschließung und korrekte Verwendung von Fachbegriffen
-- Sinnvoller Aufbau und schlüssige Argumentation
-- Angemessener Grad der Reflexion und eigenständiges begründetes Urteil
-- Korrekte Anwendung der Operatoren (darstellen, ermitteln, erarbeiten, erläutern, begründen, beurteilen, bewerten, diskutieren)
-- Angemessene Berücksichtigung des beigefügten Materials mit Textbelegen
+TEIL A — SACHKOMPETENZ (Quellenanalyse):
+- Korrekte Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
+- Herausarbeitung der zentralen Aussagen und Argumentationsstruktur der Quelle
+- Korrekte Textbelege und Zitate
+- Historische Einordnung und Kontextualisierung
+- Operatorengerechte Bearbeitung aller Teilaufgaben
 
-PRÜFUNGSTEIL B – INHALT (Ausweitung):
-- Eigenständiger Transfer über die Materialien hinaus
-- Verknüpfung mit anderen Halbjahren/Themenbereichen oder breitere politikwissenschaftliche Reflexion
-- Korrekte Anwendung der Operatoren
-- Eigenständiges, differenziertes Urteil
+TEIL B — SACHKOMPETENZ (Darstellung):
+- Eigenständige historische Darstellung über die Quelle hinaus
+- Korrekte Verwendung historischer Fakten und Zusammenhänge
+- Multiperspektivität und differenziertes historisches Urteil
+- Transferleistung und eigenständige Reflexion
 
 DARSTELLUNG (für beide Teile zusammen):
 - Klarer Aufbau und logische Gliederung
-- Angemessene Fachterminologie
+- Angemessene historische Fachsprache
 - Sprachliche Gewandtheit und Korrektheit
+- Argumentative Stringenz
 
-ANFORDERUNGSEBENEN:
-- I (Reproduktion): Darstellen, Beschreiben, Nennen
-- II (Reorganisation und Transfer): Ermitteln, Erarbeiten, Erläutern, Analysieren, Vergleichen
-- III (Reflexion und Problemlösung): Begründen, Beurteilen, Bewerten, Diskutieren, Stellung nehmen
+ANFORDERUNGSBEREICHE:
+- I (Reproduktion): Beschreiben, Nennen, Wiedergeben
+- II (Reorganisation/Transfer): Analysieren, Herausarbeiten, Einordnen, Vergleichen
+- III (Reflexion/Urteil): Beurteilen, Erörtern, Stellung nehmen, Bewerten
 
-Antworte NUR JSON: {"teil_a_np":<0-15>,"teil_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
-gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
+Antworte NUR JSON: {"sach_a_np":<0-15>,"sach_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
+gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
 
 function selectHalbjahr(hj) {
   CONFIG.halbjahr = hj;
   document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === hj));
-  updateSchwerpunkte();
   updateTimerDefault();
 }
 
 function updateTimerDefault() {
   const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
   document.getElementById("timerMinutes").value = level === "ea" ? 270 : 210;
-}
-
-function updateSchwerpunkte() {
-  const sel = document.getElementById("schwerpunktSelect");
-  const opts = SCHWERPUNKTE[CONFIG.halbjahr] || [{ value: "random", label: "Zufällig" }];
-  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
-}
-
-function updateBEBadges() {
-  const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-  const isEA = level === "ea";
-  document.getElementById("teilABadge").textContent = isEA ? "85 BE" : "75 BE";
-  document.getElementById("teilBBadge").textContent = isEA ? "35 BE" : "25 BE";
 }
 
 function setSetupMode(m) {
@@ -466,8 +426,8 @@ function setSetupMode(m) {
 }
 
 function saveHL() {
-  localStorage.setItem("hl_pug_abitur_" + getStudentKey(), JSON.stringify({
-    materials: document.getElementById("materialsContainer")?.innerHTML || ""
+  localStorage.setItem("hl_geschichte_abitur_" + getStudentKey(), JSON.stringify({
+    source: document.getElementById("sourceText")?.innerHTML || ""
   }));
 }
 
@@ -478,7 +438,7 @@ function saveSession() {
     studentTextB: document.getElementById("studentTextB").value,
     storedData: CONFIG.storedData,
     halbjahr: CONFIG.halbjahr,
-    hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
+    hlSource: document.getElementById("sourceText")?.innerHTML || ""
   }));
 }
 
@@ -492,7 +452,7 @@ function restoreSession() {
       if (s.storedData) {
         CONFIG.storedData = s.storedData;
         renderTask(s.storedData);
-        if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+        if (s.hlSource) document.getElementById("sourceText").innerHTML = s.hlSource;
         syncHL();
       }
       if (s.halbjahr) selectHalbjahr(s.halbjahr);
@@ -510,7 +470,6 @@ function updateWordCounts() {
   document.getElementById("wordCountTotal").textContent = a + b;
 }
 
-// Override shared.js updateWordCount to use our version
 function updateWordCount() { updateWordCounts(); }
 
 async function generateTask() {
@@ -519,9 +478,8 @@ async function generateTask() {
   document.getElementById("setupLoader").style.display = "block";
   try {
     const level = sessionStorage.getItem("student_level") || "eA";
-    const d = await apiCall("/api/generate-abitur-pug", {
-      halbjahr: CONFIG.halbjahr,
-      schwerpunkt: document.getElementById("schwerpunktSelect").value,
+    const d = await apiCall("/api/generate-abitur-geschichte", {
+      schwerpunkt: CONFIG.halbjahr,
       level: level
     });
     CONFIG.storedData = d;
@@ -544,10 +502,9 @@ async function handleTaskUpload(files) {
       const r = new FileReader();
       return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
     }));
-    const d = await apiCall("/api/parse-task-pug", { images: base64s });
+    const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
     document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
     document.getElementById("parsedPrimaryText").value = d.primary_text || "";
-    document.getElementById("parsedTaskInstructionB").value = d.task_instruction_b || "";
     document.getElementById("parsedMeta").value = d.primary_meta || "";
     document.getElementById("taskUploadResult").style.display = "block";
   } catch (e) { showToast("Fehler: " + e.message); }
@@ -557,10 +514,11 @@ async function handleTaskUpload(files) {
 function useUploadedTask() {
   const c = {
     task_instruction_a: document.getElementById("parsedTaskInstruction").value,
-    primary_text: document.getElementById("parsedPrimaryText").value,
+    primary_text_a: document.getElementById("parsedPrimaryText").value,
+    primary_meta_a: document.getElementById("parsedMeta").value,
     task_instruction_b: document.getElementById("parsedTaskInstructionB").value,
-    primary_meta: document.getElementById("parsedMeta").value,
-    halbjahr: CONFIG.halbjahr
+    primary_text_b: document.getElementById("parsedPrimaryTextB").value,
+    schwerpunkt: CONFIG.halbjahr
   };
   if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
   CONFIG.storedData = c;
@@ -570,11 +528,12 @@ function useUploadedTask() {
 
 function useManualTask() {
   const c = {
-    task_instruction_a: document.getElementById("manualTaskInstruction").value || "Bearbeiten Sie die folgende Aufgabe.",
-    primary_text: document.getElementById("manualPrimaryText").value,
+    task_instruction_a: document.getElementById("manualTaskInstruction").value || "Analysieren Sie die Quelle.",
+    primary_text_a: document.getElementById("manualPrimaryText").value,
+    primary_meta_a: document.getElementById("manualMeta").value,
     task_instruction_b: document.getElementById("manualTaskInstructionB").value || "",
-    primary_meta: document.getElementById("manualMeta").value,
-    halbjahr: CONFIG.halbjahr
+    primary_text_b: document.getElementById("manualPrimaryTextB").value || "",
+    schwerpunkt: CONFIG.halbjahr
   };
   if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
   CONFIG.storedData = c;
@@ -583,81 +542,79 @@ function useManualTask() {
 }
 
 function renderTask(d) {
-  // Teil A Aufgabenstellung
+  // Teil A
   const taskA = d.task_instruction_a || d.task_instruction || "";
   document.getElementById("taskInstructionA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
 
-  // Teil B Aufgabenstellung
+  // Teil B
   const taskB = d.task_instruction_b || "";
   document.getElementById("taskInstructionB").innerHTML = taskB
     ? escapeHtml(taskB).replace(/\n/g, "<br>")
-    : '<span style="color:var(--ink-muted)">Kein Prüfungsteil B vorhanden.</span>';
+    : '<span style="color:var(--ink-muted)">Kein Teil B vorhanden.</span>';
 
-  const hjLabel = HJ_LABELS[d.halbjahr || CONFIG.halbjahr] || "";
-  document.getElementById("textTitle").textContent = "Materialien – " + hjLabel;
+  // Quellenmaterial
+  const sourceText = d.primary_text_a || d.primary_text || "";
+  const sourceHtml = sourceText.split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+  document.getElementById("sourceText").innerHTML = sourceHtml;
+  document.getElementById("sourceMeta").textContent = d.primary_meta_a || d.primary_meta || "";
 
-  const container = document.getElementById("materialsContainer");
+  const hjLabel = HJ_LABELS[d.schwerpunkt || CONFIG.halbjahr] || "";
+  document.getElementById("textTitle").textContent = "Material M 1 – " + hjLabel;
 
-  // Handle materials array (from AI generation)
-  if (d.materials && d.materials.length) {
-    container.innerHTML = d.materials.map((m, i) => {
-      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
-      const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
-      let body;
-      if (m.type === "statistik" && (m.content || "").includes("|")) {
-        body = DOMPurify.sanitize(marked.parse(m.content || ""));
-        body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
-      } else if (m.type === "bild") {
-        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-      } else if (m.type === "foto") {
-        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-      } else {
-        body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
-      }
-      return `<div class="material-card">
-        <h4>M ${i+1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
-        <div class="source-text material-body">${body}</div>
-        ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
-      </div>`;
-    }).join("");
-    d.materials.forEach((m, i) => {
-      if (m.type === "statistik" && (m.content || "").includes("|")) {
-        renderStatistikChart(m.content, `chart-m-${i}`);
-      } else if (m.type === "bild") {
-        loadDallEImage(m.content, `img-m-${i}`);
-      } else if (m.type === "foto") {
-        loadUnsplashImage(m.content, `img-m-${i}`);
-      }
-    });
-  }
-  // Handle single text (from upload/manual)
-  else if (d.primary_text) {
-    const html = escapeHtml(d.primary_text).replace(/\n/g, "<br>");
-    container.innerHTML = `<div class="material-card">
-      <h4>Material</h4>
-      <div class="source-text material-body">${html}</div>
-      ${d.primary_meta ? `<div class="material-source">${escapeHtml(d.primary_meta)}</div>` : ""}
-    </div>`;
+  // Material impuls for Teil B
+  const impulsB = d.primary_text_b || "";
+  const impulsContainer = document.getElementById("materialImpulsB");
+  if (impulsB) {
+    document.getElementById("materialImpulsText").innerHTML = escapeHtml(impulsB).replace(/\n/g, "<br>");
+    impulsContainer.style.display = "block";
   } else {
-    container.innerHTML = '<p style="color:var(--ink-muted)">Keine Materialien verfügbar.</p>';
+    impulsContainer.style.display = "none";
   }
 
   // Write step references
   document.getElementById("writeTaskRefA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
   document.getElementById("writeTaskRefB").innerHTML = taskB
     ? escapeHtml(taskB).replace(/\n/g, "<br>")
-    : '<span style="color:var(--ink-muted)">Kein Prüfungsteil B</span>';
+    : '<span style="color:var(--ink-muted)">Kein Teil B</span>';
+  document.getElementById("writeSourceRef").innerHTML = sourceHtml;
 
-  const refContainer = document.getElementById("writeMaterialsRef");
-  if (d.materials && d.materials.length) {
-    refContainer.innerHTML = d.materials.map((m, i) =>
-      `<div style="margin-bottom:.8rem"><strong>M ${i+1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}…</span></div>`
-    ).join("");
-  } else if (d.primary_text) {
-    refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}…</span>`;
+  // Zusatz-Materialien (Bilder, Fotos, Statistiken)
+  const zm = [].concat(d.zusatz_materialien || [], d.zusatz_materialien_a || [], d.zusatz_materialien_b || []);
+  const zmContainer = document.getElementById("zusatzMaterialien");
+  if (zm.length) {
+    zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
+      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+      const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+      let body;
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        body = DOMPurify.sanitize(marked.parse(m.content || ""));
+        body += `<div class="material-chart"><canvas id="chart-ga-${i}"></canvas></div>`;
+      } else if (m.type === "bild") {
+        body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+      } else if (m.type === "foto") {
+        body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+      } else {
+        body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+      }
+      return `<div class="material-card">
+        <h4>M ${i+2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+        <div class="material-body">${body}</div>
+        ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+      </div>`;
+    }).join("") + '</div>';
+    zm.forEach((m, i) => {
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        renderStatistikChart(m.content, `chart-ga-${i}`);
+      } else if (m.type === "bild") {
+        loadDallEImage(m.content, `img-ga-${i}`);
+      } else if (m.type === "foto") {
+        loadUnsplashImage(m.content, `img-ga-${i}`);
+      }
+    });
+  } else {
+    zmContainer.innerHTML = "";
   }
 
-  updateBEBadges();
   initHL();
 }
 
@@ -696,31 +653,31 @@ async function submitForGrading() {
     const payload = {
       task_instruction_a: taskA,
       task_instruction_b: taskB,
-      primary_text: CONFIG.storedData.primary_text || "",
+      primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
+      primary_text_b: CONFIG.storedData.primary_text_b || "",
       student_text_a: tA,
       student_text_b: tB,
       rubric_prompt: BEWERTUNG_PROMPT,
-      type: "pug-abitur"
+      type: "geschichte-abitur"
     };
-    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-    const d = await apiCall("/api/grade-abitur-pug", payload);
-    document.getElementById("scoreTeilA").textContent = d.scores?.teil_a ?? "–";
-    document.getElementById("scoreTeilB").textContent = d.scores?.teil_b ?? "–";
+    const d = await apiCall("/api/grade-abitur-geschichte", payload);
+    document.getElementById("scoreSachA").textContent = d.scores?.sach_a ?? "–";
+    document.getElementById("scoreSachB").textContent = d.scores?.sach_b ?? "–";
     document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
     document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
     saveToHistory({
-      halbjahr: CONFIG.storedData.halbjahr || CONFIG.halbjahr,
-      teil_a: d.scores?.teil_a,
-      teil_b: d.scores?.teil_b,
+      thema: CONFIG.storedData.thema || HJ_LABELS[CONFIG.storedData.schwerpunkt || CONFIG.halbjahr] || "Geschichte",
+      sach_a: d.scores?.sach_a,
+      sach_b: d.scores?.sach_b,
       darstellung: d.scores?.darstellung,
       total: d.scores?.total
     });
     apiCall("/api/submit-result", {
       student_name: sessionStorage.getItem("student_name") || "Unbekannt",
-      type: "pug-abitur",
-      topic: HJ_LABELS[CONFIG.storedData.halbjahr || CONFIG.halbjahr] || "PuG Abitur",
-      content: d.scores?.teil_a,
+      type: "geschichte-abitur",
+      topic: CONFIG.storedData.thema || HJ_LABELS[CONFIG.storedData.schwerpunkt || CONFIG.halbjahr] || "Geschichte Abitur",
+      content: d.scores?.sach_a,
       language: d.scores?.darstellung,
       total: d.scores?.total,
       date: new Date().toISOString()
@@ -747,26 +704,18 @@ async function showModelAnswer() {
     const payload = {
       task_instruction_a: taskA,
       task_instruction_b: taskB,
-      primary_text: CONFIG.storedData.primary_text || "",
-      type: "pug-abitur"
+      primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
+      primary_text_b: CONFIG.storedData.primary_text_b || "",
+      type: "geschichte-abitur"
     };
-    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-    const d = await apiCall("/api/model-answer-abitur-pug", payload);
+    const d = await apiCall("/api/model-answer-abitur-geschichte", payload);
     document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
     card.style.display = "block";
   } catch (e) { showToast(e.message); }
   document.getElementById("showModelBtn").disabled = false;
 }
 
-function renderHistoryTable(history) {
-  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
-    const ic = HJ_ICONS[x.halbjahr] || "📝";
-    return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.teil_a ?? "–"}</td><td class="history-score">${x.teil_b ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`;
-  }).join("");
-}
-
-// === Shared: Chart & Image helpers ===
 const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
 function renderStatistikChart(markdown, canvasId) {
   const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
@@ -812,10 +761,15 @@ async function loadUnsplashImage(keywords, containerId) {
   }
 }
 
+function renderHistoryTable(history) {
+  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+    const ic = HJ_ICONS[x.halbjahr] || "📝";
+    return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.sach_a ?? "–"}</td><td class="history-score">${x.sach_b ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`;
+  }).join("");
+}
+
 // Init
-updateSchwerpunkte();
 updateTimerDefault();
-updateBEBadges();
 </script>
 </body>
 </html>

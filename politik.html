@@ -40,6 +40,14 @@
 .material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
 .material-card .material-body{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
 .material-type-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.03em;margin-left:.5rem;background:var(--accent-soft);color:var(--accent)}
+.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
+.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
+.material-chart{margin:1rem 0;max-height:280px}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
+.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
+.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
 @media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
 </style>
 </head>
@@ -98,7 +106,7 @@
           <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
             <div class="hj-icon">🌍</div>
             <div class="hj-name">13/2</div>
-            <div class="hj-desc">Völkerrecht & Konflikte</div>
+            <div class="hj-desc">Soziale Ungleichheit & Völkerrecht</div>
           </div>
         </div>
       </div>
@@ -311,7 +319,7 @@ const HJ_LABELS = {
   "12_1": "12/1 – Frieden & Sicherheit, EU",
   "12_2": "12/2 – Pol. Systeme & Demokratie",
   "13_1": "13/1 – Modernisierung & Gesellschaft",
-  "13_2": "13/2 – Völkerrecht & Konflikte"
+  "13_2": "13/2 – Soziale Ungleichheit, Völkerrecht & Konflikte"
 };
 
 const HJ_ICONS = { "12_1": "🕊️", "12_2": "⚖️", "13_1": "🔄", "13_2": "🌍" };
@@ -340,6 +348,8 @@ const SCHWERPUNKTE = {
   ],
   "13_2": [
     { value: "random", label: "Zufällig" },
+    { value: "soziale_ungleichheit", label: "Soziale Ungleichheit & Gerechtigkeit" },
+    { value: "sozialstaat", label: "Sozialstaatlichkeit & Sozialpolitik" },
     { value: "voelkerrecht", label: "Kennzeichen des Völkerrechts" },
     { value: "igos_ngos", label: "IGOs & NGOs" },
     { value: "istgh", label: "Internationaler Strafgerichtshof" },
@@ -492,14 +502,35 @@ function renderTask(d) {
   // Handle materials array (from AI generation)
   if (d.materials && d.materials.length) {
     container.innerHTML = d.materials.map((m, i) => {
-      const typeBadge = m.type === "statistik" ? '<span class="material-type-badge">Statistik</span>' : '<span class="material-type-badge">Text</span>';
-      const body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+      const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+      let body;
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        body = DOMPurify.sanitize(marked.parse(m.content || ""));
+        body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
+      } else if (m.type === "bild") {
+        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+      } else if (m.type === "foto") {
+        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+      } else {
+        body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+      }
       return `<div class="material-card">
         <h4>M ${i+1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
         <div class="source-text material-body">${body}</div>
         ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
       </div>`;
     }).join("");
+    // Render charts and load images after DOM update
+    d.materials.forEach((m, i) => {
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        renderStatistikChart(m.content, `chart-m-${i}`);
+      } else if (m.type === "bild") {
+        loadDallEImage(m.content, `img-m-${i}`);
+      } else if (m.type === "foto") {
+        loadUnsplashImage(m.content, `img-m-${i}`);
+      }
+    });
   }
   // Handle single text (from upload/manual)
   else if (d.primary_text) {
@@ -586,6 +617,52 @@ function renderHistoryTable(history) {
     const ic = HJ_ICONS[x.halbjahr] || "🏛️";
     return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`;
   }).join("");
+}
+
+// === Shared: Chart & Image helpers ===
+const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+function renderStatistikChart(markdown, canvasId) {
+  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+  if (lines.length < 2) return;
+  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+  const headers = parse(lines[0]);
+  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+  if (dataLines.length < 2) return;
+  const rows = dataLines.slice(1).map(parse);
+  const labels = rows.map(r => r[0]);
+  const datasets = headers.slice(1).map((h, i) => ({
+    label: h,
+    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
+    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+  }));
+  new Chart(document.getElementById(canvasId), {
+    type: "bar", data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: "top" } } }
+  });
+}
+async function loadDallEImage(prompt, containerId) {
+  try {
+    const res = await fetch("/api/generate-image", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt })
+    });
+    const { url } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Bild konnte nicht geladen werden.</div>`;
+  }
+}
+async function loadUnsplashImage(keywords, containerId) {
+  try {
+    const res = await fetch("/api/fetch-unsplash", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ keywords })
+    });
+    const { url, credit } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Foto konnte nicht geladen werden.</div>`;
+  }
 }
 
 // Init
