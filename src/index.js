@@ -2322,7 +2322,7 @@ KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 20000);
+  ], 16000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -2508,7 +2508,7 @@ async function callOpenAI(env, messages, maxTokens = 4000) {
       Authorization: `Bearer ${env.OPENAI_API_KEY}`
     },
     body: JSON.stringify({
-      model: "gpt-4o",
+      model: "gpt-5.2",
       messages,
       temperature: 0.7,
       max_tokens: maxTokens

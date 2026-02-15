@@ -649,7 +649,7 @@ async function loadDallEImage(prompt, containerId) {
     const { url } = await res.json();
     document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
   } catch(e) {
-    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Bild konnte nicht geladen werden.</div>`;
+    document.getElementById(containerId).innerHTML = "";
   }
 }
 async function loadUnsplashImage(keywords, containerId) {
@@ -661,7 +661,7 @@ async function loadUnsplashImage(keywords, containerId) {
     const { url, credit } = await res.json();
     document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
   } catch(e) {
-    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Foto konnte nicht geladen werden.</div>`;
+    loadDallEImage(keywords, containerId);
   }
 }
 
