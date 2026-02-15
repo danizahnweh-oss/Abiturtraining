@@ -792,7 +792,8 @@ async function loadDallEImage(prompt, containerId) {
     const d = await apiCall("/api/generate-image", { prompt });
     document.getElementById(containerId).innerHTML = `<img src="${d.url}" alt="KI-generierte Illustration" class="material-img">`;
   } catch(e) {
-    document.getElementById(containerId).innerHTML = "";
+    console.error("DALL-E Fehler:", e);
+    document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${e.message}</div>`;
   }
 }
 async function loadUnsplashImage(keywords, containerId) {
