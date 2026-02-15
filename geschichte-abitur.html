@@ -738,12 +738,8 @@ function renderStatistikChart(markdown, canvasId) {
 }
 async function loadDallEImage(prompt, containerId) {
   try {
-    const res = await fetch("/api/generate-image", {
-      method: "POST", headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt })
-    });
-    const { url } = await res.json();
-    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
+    const d = await apiCall("/api/generate-image", { prompt });
+    document.getElementById(containerId).innerHTML = `<img src="${d.url}" alt="KI-generierte Illustration" class="material-img">`;
   } catch(e) {
     document.getElementById(containerId).innerHTML = "";
   }
