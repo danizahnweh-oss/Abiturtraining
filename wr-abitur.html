@@ -690,16 +690,7 @@ async function loadDallEImage(prompt, containerId) {
   }
 }
 async function loadUnsplashImage(keywords, containerId) {
-  try {
-    const res = await fetch("/api/fetch-unsplash", {
-      method: "POST", headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ keywords })
-    });
-    const { url, credit } = await res.json();
-    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
-  } catch(e) {
-    loadDallEImage(keywords, containerId);
-  }
+  loadDallEImage(keywords, containerId);
 }
 
 function renderHistoryTable(history) {

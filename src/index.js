@@ -748,9 +748,8 @@ ABSOLUTE PFLICHT:
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
-- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Karikaturen, historische Fotos, Statistiken
+- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Karikaturen, Schaubilder, Statistiken
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. historische Karikatur), title = Bildtitel
-  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt, title = Bildtitel
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -759,8 +758,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"},
-    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": "Beschreibung"}
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -776,7 +774,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur (type "bild") oder ein historisches Foto (type "foto").`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur oder ein Schaubild (type "bild").`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -901,9 +899,8 @@ Erstelle genau 6-8 verschiedene Materialien:
 - Mindestens 1-2 Materialien vom Typ "statistik" (Umfrage, Studie, Statistik als Tabelle)
 - Mindestens 4 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
 - 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 100-200 Wörter)
-- Erstelle IMMER 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild) UND 1 vom Typ "foto" (Stockfoto):
+- Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Karikatur, Infografik-Beschreibung), title = Bildtitel
-  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt (z.B. "climate protest, young people, demonstration"), title = Bildtitel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -913,8 +910,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""},
-    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
@@ -928,7 +924,7 @@ KRITISCH - Längen wie im echten Abitur:
 - Die Materialien sollen MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten
 - Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen (6-10 Zeilen)
 - Gesamtes Lesematerial: ca. 3000-5000 Wörter
-- IMMER 1 Bild und 1 Foto als Material erstellen`;
+- IMMER 1-2 Bilder als Material erstellen`;
   } else {
     return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
@@ -1342,9 +1338,8 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild) ODER "foto" (Stockfoto):
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. politische Karikatur, Schaubild, Protestplakat), title = Bildtitel
-  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt (z.B. "german parliament, debate, democracy"), title = Bildtitel
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1361,8 +1356,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""},
-    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -1374,7 +1368,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Niveau: ${niveauLabel}
 
 Die Aufgabe soll 2-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (I → II → III).
-Erstelle 2-3 passende Materialien (Texte, Statistiken, plus 1 Bild oder Foto).
+Erstelle 2-3 passende Materialien (Texte, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
 Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
 
@@ -1600,9 +1594,8 @@ MATERIALIEN (nur für Teil A):
 - 2-3 realistische Materialien (Texte, Statistiken, Bilder)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Karikatur/Schaubild) ODER "foto" (Stockfoto):
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild/Illustration):
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung, title = Bildtitel
-  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt, title = Bildtitel
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1627,8 +1620,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""},
-    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",
@@ -1644,7 +1636,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
 Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.
 
-KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild oder Foto als Material.`;
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1838,9 +1830,8 @@ MATERIALIEN:
 - Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut (150-300 Wörter)
 - Jedes Material hat einen Titel und eine Quellenangabe
-- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild/Diagramm) ODER "foto" (Stockfoto):
+- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild/Diagramm/Illustration):
   - typ "bild": inhalt = detaillierte Bildbeschreibung für KI-Generierung, titel = Bildtitel
-  - typ "foto": inhalt = 3-5 englische Suchbegriffe kommagetrennt (z.B. "stock market, trading, economy"), titel = Bildtitel
 ${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1860,8 +1851,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien": [
     {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
     {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
-    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Detaillierte Bildbeschreibung für KI-Generierung", "quelle": ""},
-    {"nr": "M4", "titel": "Foto: ...", "typ": "foto", "inhalt": "english, search, keywords", "quelle": ""}
+    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Detaillierte Bildbeschreibung für KI-Generierung", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
@@ -1875,8 +1865,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gesamt-BE: ${gesamtBE}
 
 Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
-Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild oder Foto.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild oder Foto als Material.`;
+Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild.
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2111,7 +2101,7 @@ async function handleGenerateAbiturGeschichte(request, env) {
    - MUSS einen REALEN historischen Autor und korrekten Kontext haben
    - Sprache muss dem Entstehungszeitraum entsprechen
    - Vollständige Quellenangabe
-   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Karikaturen, historische Fotos, Statistiken
+   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Karikaturen, Schaubilder, Statistiken
 3. TEILAUFGABEN (3 Stück, steigende AFB):
    - Teilaufgabe 1 (AFB I/II): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
    - Teilaufgabe 2 (AFB II): "Ordnen Sie ein …" / "Erläutern Sie …"
@@ -2133,8 +2123,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
-    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"},
-    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": "Beschreibung"}
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben",
   "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
@@ -2152,7 +2141,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor
 - Teil A: 3 Teilaufgaben mit steigendem AFB
 - Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur (type "bild") oder ein historisches Foto (type "foto").`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur oder ein Schaubild (type "bild").`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2288,9 +2277,8 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte herausarbeiten müssen.
 - Tabellen: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben (150-300 Wörter)
-- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild) ODER "foto" (Stockfoto) pro Aufgabe:
+- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild/Illustration) pro Aufgabe:
   - typ "bild": inhalt = detaillierte Bildbeschreibung, titel = Bildtitel
-  - typ "foto": inhalt = 3-5 englische Suchbegriffe kommagetrennt, titel = Bildtitel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -2299,7 +2287,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien_1": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Bildbeschreibung","quelle":""}],
   "task_instruction_2": "Situationstext / Rahmenhandlung Aufgabe 2",
   "aufgabenbloecke_2": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"II"}],"be_gesamt":15}],
-  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Foto: ...","typ":"foto","inhalt":"english, keywords","quelle":""}],
+  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Detaillierte Bildbeschreibung","quelle":""}],
   "gesamt_be": ${isEA ? 120 : 100},
   "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
   "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",
@@ -2316,7 +2304,7 @@ ${isEA
 - Aufgabe 2: Transferaufgabe ohne Materialien (25 BE)`}
 
 Beide Aufgaben müssen eigenständig und thematisch verschieden sein.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild oder Foto als Material.`;
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild als Material.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2510,7 +2498,7 @@ async function callOpenAI(env, messages, maxTokens = 4000) {
       model: "gpt-5.2",
       messages,
       temperature: 0.7,
-      max_tokens: maxTokens
+      max_completion_tokens: maxTokens
     })
   });
 
