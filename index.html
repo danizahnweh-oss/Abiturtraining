@@ -315,6 +315,7 @@ function checkSession() {
   const backTo = urlParams.get("back");
 
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+    document.getElementById("login-screen").style.display = "none";
     if (backTo === "german") {
       selectSubject("german");
     } else if (backTo === "english") {
