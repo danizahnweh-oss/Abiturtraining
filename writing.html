@@ -1581,6 +1581,16 @@ window.onload = function () {
   setInterval(saveSession, 15000);
 };
 
+// Handle bfcache restoration (browser back/forward button)
+window.addEventListener("pageshow", function(e) {
+  if (e.persisted) {
+    if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
+      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("app-wrapper").style.display = "none";
+    }
+  }
+});
+
 /* ================= GENERATE ================= */
 async function generateExam() {
   const topic = document.getElementById("topicSelect").value;

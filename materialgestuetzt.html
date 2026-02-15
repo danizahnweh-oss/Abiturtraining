@@ -117,6 +117,24 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
 .toast.success{background:var(--accent)}
 @keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 
+/* ====== OCR UPLOAD ====== */
+.upload-zone{border:2px dashed var(--border);border-radius:var(--radius-sm);padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg-warm)}
+.upload-zone:hover{border-color:var(--accent);background:var(--accent-glow)}
+.upload-zone.dragover{border-color:var(--accent);background:var(--accent-soft)}
+.upload-icon{font-size:2rem;margin-bottom:.5rem}
+.upload-text{font-size:.9rem;color:var(--ink-muted)}
+.upload-text strong{color:var(--accent)}
+.ocr-pages{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.ocr-page-thumb{position:relative;width:90px;height:90px;border-radius:var(--radius-sm);border:2px solid var(--border);overflow:hidden;flex-shrink:0}
+.ocr-page-thumb img{width:100%;height:100%;object-fit:cover}
+.ocr-page-thumb .page-num{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);color:white;font-size:.7rem;font-weight:700;text-align:center;padding:.15rem}
+.ocr-page-thumb .remove-page{position:absolute;top:2px;right:2px;width:20px;height:20px;border-radius:50%;background:rgba(220,38,38,.85);color:white;border:none;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s}
+.ocr-page-thumb:hover .remove-page{opacity:1}
+.ocr-page-thumb.processing{border-color:var(--accent);animation:pulse 1.5s infinite}
+.ocr-page-thumb.done{border-color:var(--accent)}
+.ocr-page-thumb.error{border-color:var(--warning)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
 @media(max-width:650px){.form-row,.scores-grid,.stats-grid,.type-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -136,7 +154,7 @@ footer{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.8rem;bor
   <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
   <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
   <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-  <button onclick="nav('progress')"><span class="step-num">5</span> Fortschritt</button>
+  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span> Fortschritt</button>
 </nav>
 <main>
   <section id="sec-setup" class="active">
@@ -264,6 +282,36 @@ Denke an:
         </div>
       </div>
     </div>
+
+    <!-- OCR UPLOAD -->
+    <div class="card">
+      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+        Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
+        Du kannst mehrere Seiten nacheinander hinzufügen.
+      </p>
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
+      </div>
+      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+      <div id="ocrPages" class="ocr-pages"></div>
+      <div id="ocrLoader" class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+      </div>
+      <div id="ocrResult" style="display:none;margin-top:1rem;">
+        <label>Erkannter Text (bearbeitbar):</label>
+        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …" oninput="updateOCRWordCount()"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
+          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+        </div>
+      </div>
+    </div>
+
     <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
   </section>
 
@@ -475,8 +523,21 @@ function applyHL(container) {
 function clearAllHL() { document.querySelectorAll(".material-box").forEach(c => { c.querySelectorAll("[class^='hl-']").forEach(s => { const p = s.parentNode; while (s.firstChild) p.insertBefore(s.firstChild, s); p.removeChild(s); }); c.normalize(); }); syncHL(); }
 function syncHL() { const c = document.getElementById("materialsContainer"), w = document.getElementById("writeMaterialsRef"); if (c && w) w.innerHTML = c.innerHTML; }
 
+/* ====== OCR ====== */
+const ocrPages=[];
+async function handleOCRFiles(fileList){const files=Array.from(fileList).filter(f=>{if(!f.type.startsWith("image/")){showToast(f.name+" ist kein Bild.");return false}if(f.size>10*1024*1024){showToast(f.name+" ist zu groß (max 10 MB).");return false}return true});for(const f of files){ocrPages.push({file:f,url:URL.createObjectURL(f),base64:null,text:"",status:"pending"})}renderOCRPages();const startIdx=ocrPages.length-files.length;document.getElementById("ocrLoader").style.display="block";for(let i=startIdx;i<ocrPages.length;i++){const p=ocrPages[i];p.status="processing";renderOCRPages();document.getElementById("ocrProgress").textContent=`Seite ${i+1} von ${ocrPages.length}`;try{const b64=await fileToBase64(p.file);p.base64=b64;const d=await apiCall("/api/ocr",{image_base64:b64});p.text=d.text||"";p.status="done"}catch(e){p.text=`[Fehler bei Seite ${i+1}: ${e.message}]`;p.status="error"}renderOCRPages()}document.getElementById("ocrLoader").style.display="none";document.getElementById("ocrProgress").textContent="";combineOCRTexts();document.getElementById("ocrResult").style.display="block";document.getElementById("ocrFileInput").value=""}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(",")[1]);r.onerror=rej;r.readAsDataURL(file)})}
+function renderOCRPages(){const c=document.getElementById("ocrPages");if(!ocrPages.length){c.innerHTML="";return}c.innerHTML=ocrPages.map((p,i)=>`<div class="ocr-page-thumb ${p.status}"><img src="${p.url}" alt="Seite ${i+1}"><div class="page-num">Seite ${i+1}</div><button class="remove-page" onclick="removeOCRPage(${i})" title="Entfernen">✕</button></div>`).join("")}
+function removeOCRPage(i){URL.revokeObjectURL(ocrPages[i].url);ocrPages.splice(i,1);renderOCRPages();if(ocrPages.length)combineOCRTexts();else document.getElementById("ocrResult").style.display="none"}
+function combineOCRTexts(){const t=ocrPages.map((p,i)=>ocrPages.length>1?`--- Seite ${i+1} ---\n${p.text}`:p.text).join("\n\n");document.getElementById("ocrText").value=t;updateOCRWordCount()}
+function updateOCRWordCount(){document.getElementById("ocrWordCount").textContent=countWords(document.getElementById("ocrText").value)+" Wörter erkannt"}
+function useOCRText(){const t=document.getElementById("ocrText").value;if(!t.trim()){showToast("Kein Text vorhanden.");return}const clean=t.replace(/---\s*Seite\s*\d+\s*---\n?/g,"").trim();document.getElementById("studentText").value=clean;updateWordCount();showToast("Text übernommen!","success");document.getElementById("studentText").scrollIntoView({behavior:"smooth"})}
+function clearOCR(){ocrPages.forEach(p=>URL.revokeObjectURL(p.url));ocrPages.length=0;renderOCRPages();document.getElementById("ocrText").value="";document.getElementById("ocrResult").style.display="none";document.getElementById("ocrFileInput").value=""}
+;(function(){const z=document.getElementById("uploadZone");if(!z)return;z.addEventListener("dragover",e=>{e.preventDefault();z.classList.add("dragover")});z.addEventListener("dragleave",()=>z.classList.remove("dragover"));z.addEventListener("drop",e=>{e.preventDefault();z.classList.remove("dragover");const f=Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith("image/"));if(f.length)handleOCRFiles(f)})})();
+
 window.addEventListener("beforeunload",function(e){if(document.getElementById("studentText").value.trim().length>50){e.preventDefault();e.returnValue=""}});
-window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();initHL();setInterval(saveSession,30000)}
+window.onload=function(){initTheme();if(sessionStorage.getItem("access")!=="1"){window.location.href="index.html";return}document.getElementById("studentGreeting").textContent=`${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level")||"").toUpperCase()}`;document.getElementById("studentGreeting").style.display="inline";restoreSession();initHL();setInterval(saveSession,30000)};
+window.addEventListener("pageshow",function(e){if(e.persisted){if(sessionStorage.getItem("access")!=="1")window.location.href="index.html"}});
 </script>
 </body>
 </html>
