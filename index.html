@@ -61,6 +61,11 @@
 .module-badge{display:inline-block;margin-top:.8rem;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em}
 .module-card.german .module-badge{background:var(--accent-de-soft);color:var(--accent-de)}
 
+/* ====== LOGIN MODE TOGGLE ====== */
+.login-mode-toggle{display:flex;margin-bottom:1.5rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
+.login-mode-toggle button{flex:1;padding:.6rem;border:none;background:transparent;cursor:pointer;font-size:.9rem;color:var(--ink-muted);transition:all .15s;font-family:var(--font-body)}
+.login-mode-toggle button.active{background:var(--accent);color:#fff}
+
 /* ====== INDEX-SPECIFIC ====== */
 .logout-btn{background:none;border:none;color:var(--ink-muted);font-size:.85rem;cursor:pointer;padding:.4rem .8rem;border-radius:var(--radius-sm);transition:all .15s}
 .logout-btn:hover{background:var(--warning);color:#fff}
@@ -81,6 +86,10 @@ footer a{color:var(--accent)}
     <div class="school-badge">St. Anna Gymnasium</div>
     <h2>Abitur Trainer</h2>
     <p>Abitur 2026</p>
+    <div class="login-mode-toggle">
+      <button id="modeLogin" class="active" onclick="setLoginMode('login')">Anmelden</button>
+      <button id="modeRegister" onclick="setLoginMode('register')">Neu registrieren</button>
+    </div>
     <input type="text" id="studentName" class="login-input" placeholder="Dein Name …" autocomplete="off">
     <select id="studentLevel" class="login-input">
       <option value="" disabled selected>Niveau wählen …</option>
@@ -89,7 +98,7 @@ footer a{color:var(--accent)}
     </select>
     <input type="password" id="accessPassword" class="login-input" placeholder="Passwort eingeben …" autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
     <br><br>
-    <button class="btn" style="width:100%" onclick="doLogin()">Zugang starten</button>
+    <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
     <div id="loginError" class="login-error"></div>
   </div>
 </div>
@@ -196,28 +205,36 @@ footer a{color:var(--accent)}
 
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+let loginMode = "login";
+
+function setLoginMode(mode) {
+  loginMode = mode;
+  document.getElementById("modeLogin").classList.toggle("active", mode === "login");
+  document.getElementById("modeRegister").classList.toggle("active", mode === "register");
+  document.getElementById("loginBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
+  document.getElementById("loginError").style.display = "none";
+}
 
 async function doLogin() {
   const name = document.getElementById("studentName").value.trim();
   const level = document.getElementById("studentLevel").value;
   const pw = document.getElementById("accessPassword").value.trim();
   const err = document.getElementById("loginError");
-  const btn = document.querySelector("#login-screen .btn");
+  const btn = document.getElementById("loginBtn");
 
   if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
   if (!level) { err.textContent = "Bitte wähle dein Niveau (gA/eA)."; err.style.display = "block"; return; }
   if (!pw) { err.textContent = "Bitte gib das Passwort ein."; err.style.display = "block"; return; }
 
-  // Disable button während Login
   btn.disabled = true;
   btn.textContent = "Prüfe …";
   err.style.display = "none";
 
   try {
-    const res = await fetch(API_BASE + "/api/login", {
+    const res = await fetch(API_BASE + "/api/check-student", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password: pw })
+      body: JSON.stringify({ password: pw, student_name: name, mode: loginMode, level: level })
     });
     const data = await res.json();
 
@@ -229,7 +246,7 @@ async function doLogin() {
       showSubjectSelection();
       history.replaceState({ screen: "subjects" }, "");
     } else {
-      err.textContent = data.error || "Falsches Passwort.";
+      err.textContent = data.error || "Fehler bei der Anmeldung.";
       err.style.display = "block";
     }
   } catch (e) {
@@ -238,7 +255,7 @@ async function doLogin() {
   }
 
   btn.disabled = false;
-  btn.textContent = "Einloggen →";
+  btn.textContent = loginMode === "register" ? "Registrieren" : "Anmelden";
 }
 
 function showSubjectSelection(_push) {
