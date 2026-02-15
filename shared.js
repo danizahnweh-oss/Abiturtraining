@@ -69,6 +69,8 @@ async function apiCall(endpoint, body) {
 
 /* ================= NAVIGATION ================= */
 
+let currentStep = null;
+
 function nav(step, _pushHistory) {
   const prefix = MODULE_CONFIG.sectionPrefix || "";
   const steps = MODULE_CONFIG.steps;
@@ -97,6 +99,7 @@ function nav(step, _pushHistory) {
     document.querySelectorAll("nav button")[idx]?.classList.add("active");
   }
 
+  currentStep = step;
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -503,8 +506,9 @@ function clearOCR() {
   });
 })();
 
-// beforeunload protection
+// beforeunload protection — only warn when actively writing
 window.addEventListener("beforeunload", function (e) {
+  if (currentStep !== "write") return;
   const ta = document.getElementById("studentText");
   if (ta && ta.value.trim().length > 50) {
     e.preventDefault();
