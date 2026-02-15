@@ -14,15 +14,17 @@
   --accent-de:#059669;--accent-de-hover:#047857;--accent-de-soft:#d1fae5;--accent-de-glow:rgba(5,150,105,.08);
   --accent-pug:#9f1239;--accent-pug-hover:#881337;--accent-pug-soft:#ffe4e6;--accent-pug-glow:rgba(159,18,57,.08);
   --accent-ge:#b45309;--accent-ge-hover:#92400e;--accent-ge-soft:#fef3c7;--accent-ge-glow:rgba(180,83,9,.08);
+  --accent-wr:#7c3aed;--accent-wr-hover:#6d28d9;--accent-wr-soft:#ede9fe;--accent-wr-glow:rgba(124,58,237,.08);
 }
 [data-theme="dark"]{
   --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
   --accent-pug:#fb7185;--accent-pug-hover:#fda4af;--accent-pug-soft:rgba(251,113,133,.15);--accent-pug-glow:rgba(251,113,133,.08);
   --accent-ge:#fbbf24;--accent-ge-hover:#fcd34d;--accent-ge-soft:rgba(251,191,36,.15);--accent-ge-glow:rgba(251,191,36,.08);
+  --accent-wr:#a78bfa;--accent-wr-hover:#c4b5fd;--accent-wr-soft:rgba(167,139,250,.15);--accent-wr-glow:rgba(167,139,250,.08);
 }
 
 /* School badge gradient (both accent colors) */
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft));color:var(--ink)}
+.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft));color:var(--ink)}
 .login-box h2{font-size:1.8rem}
 
 /* ====== SUBJECT SELECTION SCREEN ====== */
@@ -39,24 +41,28 @@
 .subject-card.german::before{background:linear-gradient(135deg,var(--accent-de-glow),transparent)}
 .subject-card.pug::before{background:linear-gradient(135deg,var(--accent-pug-glow),transparent)}
 .subject-card.history::before{background:linear-gradient(135deg,var(--accent-ge-glow),transparent)}
+.subject-card.wr::before{background:linear-gradient(135deg,var(--accent-wr-glow),transparent)}
 .subject-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .subject-card:hover::before{opacity:1}
 .subject-card.english:hover{border-color:var(--accent)}
 .subject-card.german:hover{border-color:var(--accent-de)}
 .subject-card.pug:hover{border-color:var(--accent-pug)}
 .subject-card.history:hover{border-color:var(--accent-ge)}
+.subject-card.wr:hover{border-color:var(--accent-wr)}
 .subject-icon{font-size:4rem;margin-bottom:1rem;position:relative;z-index:1}
 .subject-title{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;position:relative;z-index:1}
 .subject-card.english .subject-title{color:var(--accent)}
 .subject-card.german .subject-title{color:var(--accent-de)}
 .subject-card.pug .subject-title{color:var(--accent-pug)}
 .subject-card.history .subject-title{color:var(--accent-ge)}
+.subject-card.wr .subject-title{color:var(--accent-wr)}
 .subject-desc{color:var(--ink-muted);font-size:.9rem;line-height:1.5;position:relative;z-index:1}
 .subject-badge{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;position:relative;z-index:1}
 .subject-card.english .subject-badge{background:var(--accent-soft);color:var(--accent)}
 .subject-card.german .subject-badge{background:var(--accent-de-soft);color:var(--accent-de)}
 .subject-card.pug .subject-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
 .subject-card.history .subject-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
+.subject-card.wr .subject-badge{background:var(--accent-wr-soft);color:var(--accent-wr)}
 
 /* ====== MODULE SCREEN ====== */
 #module-screen{display:none;min-height:100vh;flex-direction:column}
@@ -69,6 +75,7 @@
 .module-card.german:hover{border-color:var(--accent-de)}
 .module-card.pug:hover{border-color:var(--accent-pug)}
 .module-card.history:hover{border-color:var(--accent-ge)}
+.module-card.wr:hover{border-color:var(--accent-wr)}
 .module-icon{font-size:2.5rem;margin-bottom:.8rem}
 .module-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.4rem}
 .module-desc{color:var(--ink-muted);font-size:.85rem;line-height:1.5}
@@ -76,6 +83,7 @@
 .module-card.german .module-badge{background:var(--accent-de-soft);color:var(--accent-de)}
 .module-card.pug .module-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
 .module-card.history .module-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
+.module-card.wr .module-badge{background:var(--accent-wr-soft);color:var(--accent-wr)}
 
 /* ====== LOGIN MODE TOGGLE ====== */
 .login-mode-toggle{display:flex;margin-bottom:1.5rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
@@ -157,6 +165,12 @@ footer a{color:var(--accent)}
       <div class="subject-icon">🏛️</div>
       <div class="subject-title">Politik und Gesellschaft</div>
       <div class="subject-desc">Aufgaben zu allen vier Halbjahren mit Materialanalyse und Erörterung – bewertet nach ISB-Kriterien.</div>
+      <div class="subject-badge">2 Module</div>
+    </div>
+    <div class="subject-card wr" onclick="selectSubject('wr', true)">
+      <div class="subject-icon">⚖️</div>
+      <div class="subject-title">Wirtschaft & Recht</div>
+      <div class="subject-desc">Materialgestützte Aufgaben zu BWL, VWL und Recht – mit BE-Bewertung nach Abiturstandard.</div>
       <div class="subject-badge">1 Modul</div>
     </div>
   </div>
@@ -279,8 +293,38 @@ footer a{color:var(--accent)}
       <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Prüfungsteil A und B.</div>
       <div class="module-badge">Schriftliche Prüfung</div>
     </a>
+    <a class="module-card pug" href="pug-abitur.html">
+      <div class="module-icon">📝</div>
+      <div class="module-title">Abiturtraining</div>
+      <div class="module-desc">Komplette Abiturprüfung simulieren – Prüfungsteil A + B (Ausweitung) mit Gesamtbewertung.</div>
+      <div class="module-badge">Komplette Prüfung</div>
+    </a>
   </div>
   <footer>© 2026 St. Anna Gymnasium · PuG Trainer · Created by DZ</footer>
+</div>
+
+<!-- ====== WR MODULE SCREEN ====== -->
+<div id="module-screen-wr" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+      <h1 style="margin-top:.3rem">Wirtschaft & Recht <span style="color:var(--accent-wr)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoWr" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnWr">🌙</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card wr" href="wr.html">
+      <div class="module-icon">⚖️</div>
+      <div class="module-title">Wirtschaft & Recht</div>
+      <div class="module-desc">BWL, VWL und Recht – materialgestützte Aufgaben mit BE-Bewertung nach Abiturstandard.</div>
+      <div class="module-badge">Schriftliche Prüfung</div>
+    </a>
+  </div>
+  <footer>© 2026 St. Anna Gymnasium · WR Trainer · Created by DZ</footer>
 </div>
 
 <script>
@@ -357,6 +401,7 @@ function showSubjectSelection(_push) {
   document.getElementById("module-screen-german").style.display = "none";
   document.getElementById("module-screen-history").style.display = "none";
   document.getElementById("module-screen-pug").style.display = "none";
+  document.getElementById("module-screen-wr").style.display = "none";
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
@@ -386,6 +431,9 @@ function selectSubject(subject, _push) {
   } else if (subject === "pug") {
     document.getElementById("module-screen-pug").style.display = "flex";
     document.getElementById("userInfoPug").textContent = info;
+  } else if (subject === "wr") {
+    document.getElementById("module-screen-wr").style.display = "flex";
+    document.getElementById("userInfoWr").textContent = info;
   } else {
     document.getElementById("module-screen-german").style.display = "flex";
     document.getElementById("userInfoDe").textContent = info;
@@ -398,6 +446,7 @@ function backToSubjects() {
   document.getElementById("module-screen-german").style.display = "none";
   document.getElementById("module-screen-history").style.display = "none";
   document.getElementById("module-screen-pug").style.display = "none";
+  document.getElementById("module-screen-wr").style.display = "none";
   document.getElementById("subject-screen").style.display = "flex";
 }
 
@@ -408,6 +457,7 @@ function logout() {
   document.getElementById("module-screen-german").style.display = "none";
   document.getElementById("module-screen-history").style.display = "none";
   document.getElementById("module-screen-pug").style.display = "none";
+  document.getElementById("module-screen-wr").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
   document.getElementById("studentLevel").value = "";
@@ -445,6 +495,8 @@ function checkSession() {
       selectSubject("history");
     } else if (backTo === "pug") {
       selectSubject("pug");
+    } else if (backTo === "wr") {
+      selectSubject("wr");
     } else if (backTo === "subjects") {
       showSubjectSelection();
     } else {

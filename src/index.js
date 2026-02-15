@@ -273,6 +273,31 @@ export default {
         return await handleParseTaskPuG(request, env);
       }
 
+      // ===== PUG ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-pug" && request.method === "POST") {
+        return await handleGenerateAbiturPuG(request, env);
+      }
+      if (pathname === "/api/grade-abitur-pug" && request.method === "POST") {
+        return await handleGradeAbiturPuG(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-pug" && request.method === "POST") {
+        return await handleModelAnswerAbiturPuG(request, env);
+      }
+
+      // ===== WIRTSCHAFT UND RECHT ENDPOINTS =====
+      if (pathname === "/api/generate-wr" && request.method === "POST") {
+        return await handleGenerateWR(request, env);
+      }
+      if (pathname === "/api/grade-wr" && request.method === "POST") {
+        return await handleGradeWR(request, env);
+      }
+      if (pathname === "/api/model-answer-wr" && request.method === "POST") {
+        return await handleModelAnswerWR(request, env);
+      }
+      if (pathname === "/api/parse-task-wr" && request.method === "POST") {
+        return await handleParseTaskWR(request, env);
+      }
+
       // ===== SUBMIT RESULT =====
       if (pathname === "/api/submit-result" && request.method === "POST") {
         return await handleSubmitResult(request, env);
@@ -1303,6 +1328,274 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
   ], 5000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= PUG ABITUR: GENERATE (Teil A + B) ================= */
+async function handleGenerateAbiturPuG(request, env) {
+  const body = await request.json();
+  const { halbjahr, schwerpunkt, level } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const bePruefungB = isEA ? "35 BE" : "25 BE";
+  const beGesamt = isEA ? "120 BE" : "100 BE";
+
+  const hjThemen = {
+    "12_1": {
+      title: "Frieden und Sicherheit als Motive deutscher Außenpolitik und das europäische Projekt",
+      lernbereiche: "LB 12.1 (Frieden und Sicherheit) und LB 12.2 (Das europäische Projekt)",
+      inhalte: `- Negativer und positiver Frieden, Frieden als Prozess
+- Mittel bundesdeutscher Außenpolitik: Diplomatie, Bündnisse, Sanktionen
+- Einflussfaktoren: historische Verantwortung, geostrategische Lage, internationale Organisationen, Grundgesetz, wirtschaftliche Interessen
+- Umfassender Sicherheitsbegriff: vernetzte Sicherheit, ressortgemeinsamer Ansatz
+- Bundeswehr als Parlamentsarmee, Auslandseinsätze
+- Kopenhagener Kriterien, EU-Erweiterung, Aufnahmefähigkeit
+- Szenarien zukünftiger EU-Entwicklung, GASP, Europäische Armee`,
+      schwerpunkte: {
+        aussenpolitik: "Deutsche Außenpolitik und Bundeswehreinsätze",
+        sicherheit: "Umfassender Sicherheitsbegriff und vernetzte Sicherheit",
+        eu_erweiterung: "EU-Erweiterung, Kopenhagener Kriterien und EU-Zukunftsszenarien",
+        gasp: "Gemeinsame Außen- und Sicherheitspolitik der EU"
+      }
+    },
+    "12_2": {
+      title: "Politische Theorien, Politische Systeme und Demokratieförderung",
+      lernbereiche: isEA
+        ? "LB 12.3 (Politische Theorien und Utopien), LB 12.4 (Politische Systeme vergleichen) und LB 12.5 (Demokratieförderung)"
+        : "LB 12.3 (Politische Systeme vergleichen) und LB 12.4 (Demokratieförderung)",
+      inhalte: isEA
+        ? `- Liberalismus, Konservativismus, Sozialismus (Verhältnis Individuum – Staat)
+- Staatstheoretische Ansätze der Aufklärung (Locke, Montesquieu)
+- Utopien und Dystopien: Definition, Merkmale, politisch-gesellschaftliche Funktionen
+- Kriterien zur Bestimmung politischer Systeme: Partizipation, Gewaltenteilung, Rechtsstaat
+- Herrschaftsbegriff: Legitimation, Zugang, Anspruch, Weise, Monopol, Struktur
+- Parlamentarische, semipräsidentielle, präsidentielle Demokratien
+- Digitalisierung und politische Willensbildung
+- Demokratisierungsprozesse von innen und außen, Akteure der Demokratieförderung`
+        : `- Formen politischer Teilhabe auf Bundesebene
+- Kriterien zur Bestimmung politischer Systeme
+- Menschenrechte als Unterscheidungsmerkmal Demokratie/Diktatur
+- Digitalisierung und politische Willensbildung
+- Demokratieförderung: Chancen und Grenzen`,
+      schwerpunkte: {
+        liberalismus: "Politische Theorien zum Verhältnis Individuum und Staat",
+        politische_systeme: "Vergleich politischer Systeme (parlamentarisch, semipräsidentiell, präsidentiell)",
+        demokratiefoerderung: "Demokratisierungsprozesse und Demokratieförderung",
+        digitalisierung_politik: "Digitalisierung und politische Willensbildung"
+      }
+    },
+    "13_1": {
+      title: "Modernisierungsprozesse und ihre Auswirkungen auf Gesellschaft und Politik",
+      lernbereiche: isEA
+        ? "LB 13.1 (Soziologische Theorien) und LB 13.2 (Modernisierungsprozesse und Zusammenleben)"
+        : "LB 13.1 (Modernisierungsprozesse und Zusammenleben)",
+      inhalte: isEA
+        ? `- Dimensionen der Modernisierung: Domestizierung, Differenzierung, Rationalisierung, Individualisierung
+- Soziologische Theorien als Erklärungsansätze
+- Familienformen im Wandel
+- Geschlechterrollen: Hierarchien, Emanzipation, Gender Pay Gap, Sexismus
+- Familienpolitische Maßnahmen, Quotenregelungen
+- Digitalisierung der Arbeitswelt: Flexibilisierung, lebenslanges Lernen
+- Robotik und KI: Herausforderungen, Gewerkschaften und betriebliche Mitbestimmung
+- Plattformökonomie und neue Arbeitsformen`
+        : `- Zeitgenössische Familienformen
+- Geschlechterrollen: Gender Pay/Time Gap, Gleichstellung
+- Digitalisierung der Arbeitswelt: Industrie 4.0, Chancen und Herausforderungen
+- Staatliche Maßnahmen zur Gleichstellung`,
+      schwerpunkte: {
+        modernisierung: "Dimensionen der Modernisierung (Domestizierung, Differenzierung, Rationalisierung, Individualisierung)",
+        arbeitswelt: "Digitalisierung der Arbeitswelt und Industrie 4.0",
+        geschlechter: "Geschlechterrollen, Gender Pay Gap und Gleichstellungspolitik",
+        gewerkschaften: "Gewerkschaften und betriebliche Mitbestimmung in der digitalen Arbeitswelt"
+      }
+    },
+    "13_2": {
+      title: "Internationale Konfliktbearbeitung vor dem Hintergrund des Völkerrechts",
+      lernbereiche: isEA
+        ? "LB 13.4 (Internationale Beziehungen) und LB 13.5 (Völkerrecht und Konfliktbearbeitung)"
+        : "LB 13.3 (Internationale Beziehungen und Völkerrecht)",
+      inhalte: `- Staatliche, transnationale und supranationale Akteure (IGOs, NGOs, Wirtschaftsunternehmen)
+- Kennzeichen des Völkerrechts: Souveränität, Gewohnheitsrecht, Kodifizierung, eingeschränkte Sanktionierbarkeit
+- Humanitäres Völkerrecht, Gewaltverbot, Selbstverteidigungsrecht
+- Internationaler Strafgerichtshof: Aufbau, Zuständigkeiten, Römisches Statut
+- Menschenrechte: UN-Menschenrechtskonvention
+- Medien als Akteure der internationalen Politik
+- Private Sicherheitsfirmen, hybride Kriegsführung`,
+      schwerpunkte: {
+        voelkerrecht: "Kennzeichen und Grenzen des Völkerrechts",
+        igos_ngos: "Rolle von IGOs und NGOs in der internationalen Politik",
+        istgh: "Internationaler Strafgerichtshof und Menschenrechte",
+        medien: "Medien als Akteure der internationalen Politik"
+      }
+    }
+  };
+
+  const hj = hjThemen[halbjahr] || hjThemen["12_1"];
+  const schwerpunktLabel = (schwerpunkt && schwerpunkt !== "random" && hj.schwerpunkte[schwerpunkt])
+    ? hj.schwerpunkte[schwerpunkt]
+    : "frei wählbar innerhalb des Halbjahres";
+
+  // Determine a different Halbjahr for Teil B transfer
+  const allHJ = ["12_1", "12_2", "13_1", "13_2"];
+  const otherHJ = allHJ.filter(h => h !== halbjahr);
+  const transferHJ = otherHJ[Math.floor(Math.random() * otherHJ.length)];
+  const transferThema = hjThemen[transferHJ]?.title || "";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Politik und Gesellschaft (ab 2026, G9).
+Erstelle eine VOLLSTÄNDIGE Abituraufgabe bestehend aus Prüfungsteil A UND Prüfungsteil B auf ${niveauLabel}.
+
+=== PRÜFUNGSTEIL A (${bePruefungA}) ===
+STRUKTUR:
+- 2-4 Teilaufgaben mit steigendem Anforderungsniveau
+- Teilaufgabe 1: Reproduktion (Ebene I) – z.B. "Stellen Sie … dar!", "Beschreiben Sie …"
+- Teilaufgaben 2-3: Reorganisation und Transfer (Ebene II) – z.B. "Ermitteln Sie aus M1 …", "Arbeiten Sie … heraus!"
+- Letzte Teilaufgabe: Reflexion und Problemlösung (Ebene III) – z.B. "Beurteilen Sie …", "Diskutieren Sie …"
+- Gib bei jeder Teilaufgabe die BE an, Summe = ${bePruefungA}
+- Verwende offizielle Operatoren: darstellen, beschreiben, nennen, ermitteln, erarbeiten, erläutern, analysieren, vergleichen, begründen, beurteilen, bewerten, diskutieren, Stellung nehmen
+
+MATERIALIEN (nur für Teil A):
+- 1-2 realistische Materialien (Texte, ggf. Statistiken)
+- Textmaterialien: 200-500 Wörter, authentische Quellentexte
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
+
+HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
+Lernbereiche: ${hj.lernbereiche}
+Relevante Inhalte:
+${hj.inhalte}
+
+SITUIERUNG:
+- Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag)
+
+=== PRÜFUNGSTEIL B – AUSWEITUNG (${bePruefungB}) ===
+- EIGENSTÄNDIGE Aufgabe, die über die Materialien hinausgeht
+- Transfer zu einem ANDEREN Halbjahr/Themenbereich oder breitere politikwissenschaftliche Reflexion
+- Möglicher Transferbezug: ${transferHJ.replace("_", "/")} – ${transferThema}
+- 1-2 Teilaufgaben auf Ebene II-III
+- Gib BE an, Summe = ${bePruefungB}
+- Teil B hat KEINE eigenen Materialien
+- Typische Formulierungen: "Unabhängig von den Materialien …", "Unter Rückgriff auf Ihre Kenntnisse aus … erörtern Sie …"
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction_a": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE-Angaben",
+  "materials": [
+    {"title": "Titel", "type": "text", "content": "Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
+    {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"}
+  ],
+  "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
+  "halbjahr": "${halbjahr || "12_1"}",
+  "thema": "Konkretes Thema der Aufgabe"
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Abituraufgabe (Teil A + B) für Politik und Gesellschaft:
+- Halbjahr (für Teil A): ${halbjahr?.replace("_", "/") || "12/1"}
+- Schwerpunkt: ${schwerpunktLabel}
+- Niveau: ${niveauLabel}
+- Gesamt-BE: ${beGesamt} (Teil A: ${bePruefungA}, Teil B: ${bePruefungB})
+
+Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
+Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 12000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= PUG ABITUR: GRADE ================= */
+async function handleGradeAbiturPuG(request, env) {
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+
+  if ((!student_text_a && !student_text_b) || !rubric_prompt) {
+    return jsonResponse({ error: "student_text_a/b und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `=== PRÜFUNGSTEIL A ===\nAufgabenstellung:\n${truncate(task_instruction_a, 5000)}\n\n`;
+
+  if (primary_text) {
+    contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  }
+
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  contextInfo += `=== PRÜFUNGSTEIL B (Ausweitung) ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 5000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const teil_a = parsed.teil_a_np ?? null;
+    const teil_b = parsed.teil_b_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
+      gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);
+      if (teil_a === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { teil_a, teil_b, darstellung, total: gesamt },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= PUG ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturPuG(request, env) {
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
+Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+
+PRÜFUNGSTEIL A:
+- Bearbeite ALLE Teilaufgaben
+- Verwende politikwissenschaftliche Fachbegriffe korrekt
+- Beziehe das Material ein und zitiere daraus
+- Beachte die Operatoren und Anforderungsebenen
+- Strukturiere klar nach Teilaufgaben
+- Formuliere bei Reflexionsaufgaben ein eigenständiges, begründetes Urteil
+
+PRÜFUNGSTEIL B (Ausweitung):
+- Bearbeite die Transferaufgabe eigenständig
+- Beziehe Fachwissen aus anderen Halbjahren ein
+- Zeige politikwissenschaftliche Urteilsfähigkeit
+- Teil B hat KEINE Materialien – nutze dein Fachwissen
+
+Zielumfang: Teil A ca. 800-1200 Wörter, Teil B ca. 400-600 Wörter.
+
+Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und jede Teilaufgabe. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = `PRÜFUNGSTEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}`;
+  if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
+  if (materials && materials.length) {
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+  userContent += `\n\nPRÜFUNGSTEIL B – AUFGABE (Ausweitung):\n${truncate(task_instruction_b, 3000)}`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 8000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

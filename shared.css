@@ -47,6 +47,14 @@
   --accent-glow: rgba(180, 83, 9, 0.08);
 }
 
+/* ====== VIOLET ACCENT (Wirtschaft & Recht module) ====== */
+[data-accent="violet"] {
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-soft: #ede9fe;
+  --accent-glow: rgba(124, 58, 237, 0.08);
+}
+
 /* ====== DARK MODE ====== */
 [data-theme="dark"] {
   --ink: #e4e4ed;
@@ -80,6 +88,12 @@
   --accent-hover: #fcd34d;
   --accent-soft: rgba(251, 191, 36, 0.15);
   --accent-glow: rgba(251, 191, 36, 0.08);
+}
+[data-accent="violet"][data-theme="dark"] {
+  --accent: #a78bfa;
+  --accent-hover: #c4b5fd;
+  --accent-soft: rgba(167, 139, 250, 0.15);
+  --accent-glow: rgba(167, 139, 250, 0.08);
 }
 
 /* ====== RESET & BASE ====== */
