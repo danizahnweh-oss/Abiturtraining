@@ -315,6 +315,24 @@ textarea:focus { border-color: var(--accent); }
 .feedback-body blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1rem 0; color: var(--ink-light); font-style: italic; }
 .pdf-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.5rem; }
 
+/* ====== FEHLERKORREKTUR ====== */
+.fehler-rs { background: #fecdd3; color: #be123c; border-radius: 2px; padding: 0 2px; cursor: help; }
+.fehler-gr { background: #fed7aa; color: #c2410c; border-radius: 2px; padding: 0 2px; cursor: help; }
+.korrektur-legende { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: .8rem; }
+.fehler-rs-demo { background: #fecdd3; color: #be123c; padding: 2px 8px; border-radius: 4px; }
+.fehler-gr-demo { background: #fed7aa; color: #c2410c; padding: 2px 8px; border-radius: 4px; }
+.korrektur-body { font-size: .95rem; line-height: 1.7; white-space: pre-wrap; padding: 1rem; background: var(--bg-warm); border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.korrektur-teil { margin-bottom: 1rem; }
+.korrektur-teil h3 { font-size: .9rem; font-weight: 600; margin-bottom: .5rem; color: var(--ink-muted); }
+
+/* ====== FEHLENDE ASPEKTE ====== */
+.aspekt-details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: .5rem; }
+.aspekt-details summary { padding: .8rem 1rem; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.aspekt-details summary:hover { background: var(--bg-warm); }
+.aspekt-count { font-size: .75rem; color: var(--ink-muted); font-weight: 400; }
+.aspekt-liste { padding: .5rem 1rem .8rem 2rem; }
+.aspekt-liste li { margin-bottom: .3rem; color: var(--ink-muted); }
+
 /* ====== LOADER ====== */
 .loader { display: none; margin: 2rem auto; text-align: center; }
 .loader-spinner {
