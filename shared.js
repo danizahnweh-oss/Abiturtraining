@@ -197,34 +197,78 @@ function restoreSession() {
 /* ================= PROGRESS ================= */
 
 let progressChartInstance = null;
+let serverHistory = null; // cached server results
 
 function getHistory() {
+  // Prefer server history if loaded, fall back to localStorage
+  if (serverHistory !== null) return serverHistory;
   try {
     return JSON.parse(localStorage.getItem(MODULE_CONFIG.historyKey + getStudentKey()) || "[]");
   } catch { return []; }
 }
 
 function saveToHistory(entry) {
-  const history = getHistory();
+  // Save to localStorage (immediate cache)
+  const localKey = MODULE_CONFIG.historyKey + getStudentKey();
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch {}
   history.push({ date: new Date().toISOString(), ...entry });
-  localStorage.setItem(MODULE_CONFIG.historyKey + getStudentKey(), JSON.stringify(history));
+  localStorage.setItem(localKey, JSON.stringify(history));
+  // Invalidate server cache so next renderProgress fetches fresh data
+  serverHistory = null;
 }
 
 function deleteHistoryEntry(index) {
-  const history = getHistory();
+  // Only works on localStorage entries (server entries are permanent)
+  const localKey = MODULE_CONFIG.historyKey + getStudentKey();
+  let history = [];
+  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch {}
   history.splice(index, 1);
-  localStorage.setItem(MODULE_CONFIG.historyKey + getStudentKey(), JSON.stringify(history));
+  localStorage.setItem(localKey, JSON.stringify(history));
+  serverHistory = null;
   renderProgress();
 }
 
 function clearHistory() {
-  if (!confirm("Verlauf löschen?")) return;
+  if (!confirm("Lokalen Verlauf löschen? Server-Ergebnisse bleiben erhalten.")) return;
   localStorage.removeItem(MODULE_CONFIG.historyKey + getStudentKey());
+  serverHistory = null;
   renderProgress();
 }
 
-function renderProgress() {
-  const history = getHistory();
+function serverEntryToLocal(entry) {
+  const base = { date: entry.date, total: entry.total };
+  switch (entry.type) {
+    case "mediation": case "writing":
+      return { ...base, topic: entry.topic, content: entry.content, language: entry.language };
+    case "deutsch-analyse":
+      return { ...base, textsorte: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    case "deutsch-eroerterung":
+      return { ...base, thema: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    case "deutsch-interpretation":
+      return { ...base, gattung: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    case "deutsch-materialgestuetzt":
+      return { ...base, aufgabentyp: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    default: return { ...base, topic: entry.topic };
+  }
+}
+
+async function fetchServerHistory() {
+  if (!MODULE_CONFIG.historyType) return null;
+  try {
+    const data = await apiCall("/api/student-results", {
+      student_name: sessionStorage.getItem("student_name") || ""
+    });
+    if (data.results) {
+      return data.results
+        .filter(r => r.type === MODULE_CONFIG.historyType)
+        .map(serverEntryToLocal);
+    }
+  } catch {}
+  return null;
+}
+
+function renderProgressWith(history) {
   const empty = document.getElementById("progressEmpty");
   const content = document.getElementById("progressContent");
   const clearBtn = document.getElementById("clearHistoryBtn");
@@ -247,12 +291,24 @@ function renderProgress() {
     : "–";
   document.getElementById("statBest").textContent = totals.length ? Math.max(...totals) : "–";
 
-  // Table — delegate to module-specific renderer if available
   if (typeof renderHistoryTable === "function") {
     renderHistoryTable(history);
   }
 
   renderProgressChart();
+}
+
+function renderProgress() {
+  // Show localStorage data immediately
+  renderProgressWith(getHistory());
+
+  // Then fetch from server and update
+  fetchServerHistory().then(function (results) {
+    if (results) {
+      serverHistory = results;
+      renderProgressWith(results);
+    }
+  });
 }
 
 function renderProgressChart() {

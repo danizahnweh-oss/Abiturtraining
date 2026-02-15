@@ -282,6 +282,7 @@ const MODULE_CONFIG = {
   steps: ["setup","task","write","feedback","progress"],
   storagePrefix: "deutsch_material",
   historyKey: "deutsch_material_history_",
+  historyType: "deutsch-materialgestuetzt",
   pdfFilename: "Materialgestuetzt",
   chartColor: "#059669",
   minWords: 150,
@@ -460,6 +461,7 @@ async function submitForGrading() {
     document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
     document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
     saveToHistory({ aufgabentyp: CONFIG.aufgabentyp, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
+    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-materialgestuetzt", topic: CONFIG.aufgabentyp || "Materialgestützt", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
     stopTimer();
     document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
     document.getElementById("feedbackContent").style.display = "block";
