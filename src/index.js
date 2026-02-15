@@ -284,6 +284,28 @@ export default {
         return await handleModelAnswerAbiturPuG(request, env);
       }
 
+      // ===== GESCHICHTE ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-geschichte" && request.method === "POST") {
+        return await handleGenerateAbiturGeschichte(request, env);
+      }
+      if (pathname === "/api/grade-abitur-geschichte" && request.method === "POST") {
+        return await handleGradeAbiturGeschichte(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-geschichte" && request.method === "POST") {
+        return await handleModelAnswerAbiturGeschichte(request, env);
+      }
+
+      // ===== WR ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-wr" && request.method === "POST") {
+        return await handleGenerateAbiturWR(request, env);
+      }
+      if (pathname === "/api/grade-abitur-wr" && request.method === "POST") {
+        return await handleGradeAbiturWR(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-wr" && request.method === "POST") {
+        return await handleModelAnswerAbiturWR(request, env);
+      }
+
       // ===== WIRTSCHAFT UND RECHT ENDPOINTS =====
       if (pathname === "/api/generate-wr" && request.method === "POST") {
         return await handleGenerateWR(request, env);
@@ -296,6 +318,14 @@ export default {
       }
       if (pathname === "/api/parse-task-wr" && request.method === "POST") {
         return await handleParseTaskWR(request, env);
+      }
+
+      // ===== IMAGE GENERATION =====
+      if (pathname === "/api/generate-image" && request.method === "POST") {
+        return await handleGenerateImage(request, env);
+      }
+      if (pathname === "/api/fetch-unsplash" && request.method === "POST") {
+        return await handleFetchUnsplash(request, env);
       }
 
       // ===== SUBMIT RESULT =====
@@ -718,13 +748,21 @@ ABSOLUTE PFLICHT:
 - Die Operatoren MÜSSEN den AFB-Stufen entsprechen
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
-- Verwende KEINE Bildquellen oder Statistiken - nur Textquellen
+- Die Hauptquelle M 1 ist IMMER ein Textdokument
+- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Karikaturen, historische Fotos, Statistiken
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. historische Karikatur), title = Bildtitel
+  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt, title = Bildtitel
+  - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Vollständige Aufgabenstellung: Einleitung + nummerierte Teilaufgaben (1, 2) mit BE-Angaben",
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
+  "zusatz_materialien": [
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"},
+    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": "Beschreibung"}
+  ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
 }`;
@@ -735,15 +773,16 @@ Schwerpunkt: ${sp.titel} ${sp.zeitraum}
 Anforderungsniveau: ${level || "gA"}
 
 KRITISCH:
-- Die Textquelle M 1 MUSS mindestens 400 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle.
+- Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle mit MEHR Informationen als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
-- Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.`;
+- Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur (type "bild") oder ein historisches Foto (type "foto").`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 8000);
+  ], 10000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -857,12 +896,15 @@ KRITISCH: Der Ausgangstext MUSS 1000-1500 Wörter lang sein! Ein vollständiger 
 WICHTIG - MATERIALIEN WIE IM ECHTEN ABITUR:
 Im echten Abitur gibt es 5-9 Materialien mit insgesamt 2000-3500 Wörtern Lesematerial.
 
-Erstelle genau 5-6 verschiedene Materialien:
-- Textmaterialien (type "text"): Jeweils 300-600 Wörter. Vollständige Textauszüge aus Zeitungsartikeln, Fachtexten, Essays, Interviews oder Reden. Echte Argumentation, nicht nur Zusammenfassungen!
-- Statistiken (type "statistik"): Als Markdown-Tabelle mit konkreten Zahlen und Prozentwerten formatieren. Mindestens 5-8 Datenzeilen. Unter der Tabelle eine kurze Beschreibung der Erhebung.
+Erstelle genau 6-8 verschiedene Materialien:
+- Textmaterialien (type "text"): MINDESTENS 400-800 Wörter pro Material! Vollständige Textauszüge aus Zeitungsartikeln, Fachtexten, Essays, Interviews oder Reden. Echte Argumentation, NICHT nur Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+- Statistiken (type "statistik"): Als Markdown-Tabelle mit konkreten Zahlen und Prozentwerten formatieren. Mindestens 6-10 Datenzeilen. Unter der Tabelle eine kurze Beschreibung der Erhebung.
 - Mindestens 1-2 Materialien vom Typ "statistik" (Umfrage, Studie, Statistik als Tabelle)
-- Mindestens 3 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
-- 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 50-100 Wörter)
+- Mindestens 4 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
+- 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 100-200 Wörter)
+- Erstelle IMMER 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild) UND 1 vom Typ "foto" (Stockfoto):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Karikatur, Infografik-Beschreibung), title = Bildtitel
+  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt (z.B. "climate protest, young people, demonstration"), title = Bildtitel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -871,7 +913,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "zielgruppe": "Adressaten",
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
-    {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"}
+    {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""},
+    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
@@ -880,16 +924,18 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Zieltextsorte: ${truncate(textsorte, 200)}
 
 KRITISCH - Längen wie im echten Abitur:
-- 5-6 Materialien insgesamt
-- Jedes Textmaterial 300-600 Wörter (vollständige Auszüge, nicht Stichpunkte!)
-- Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen (5-8 Zeilen)
-- Gesamtes Lesematerial: ca. 2000-3500 Wörter`;
+- 6-8 Materialien insgesamt
+- Jedes Textmaterial MINDESTENS 400-800 Wörter (vollständige Auszüge, NICHT Stichpunkte oder Zusammenfassungen!)
+- Die Materialien sollen MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten
+- Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen (6-10 Zeilen)
+- Gesamtes Lesematerial: ca. 3000-5000 Wörter
+- IMMER 1 Bild und 1 Foto als Material erstellen`;
   } else {
     return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
 
   // Längere Texte brauchen mehr Tokens (Epik/Analyse/Erörterung: 1000-1500 Wörter ≈ 10000+ Tokens)
-  const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 12000 };
+  const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 16000 };
   const maxTokens = tokenMap[type] || 8000;
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1001,6 +1047,61 @@ async function handleStudentResults(request, env) {
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   return jsonResponse({ results: filtered }, 200, env);
+}
+
+/* ================= IMAGE GENERATION: DALL-E ================= */
+async function handleGenerateImage(request, env) {
+  const { prompt } = await request.json();
+  if (!prompt) {
+    return jsonResponse({ error: "prompt erforderlich." }, 400, env);
+  }
+  try {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "dall-e-3",
+        prompt: prompt,
+        n: 1,
+        size: "1024x1024",
+        quality: "standard"
+      })
+    });
+    const data = await response.json();
+    if (data.error) {
+      return jsonResponse({ error: data.error.message || "DALL-E Fehler" }, 500, env);
+    }
+    return jsonResponse({ url: data.data[0].url }, 200, env);
+  } catch (e) {
+    return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
+  }
+}
+
+/* ================= IMAGE FETCH: UNSPLASH ================= */
+async function handleFetchUnsplash(request, env) {
+  const { keywords } = await request.json();
+  if (!keywords) {
+    return jsonResponse({ error: "keywords erforderlich." }, 400, env);
+  }
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keywords)}&orientation=landscape`,
+      { headers: { "Authorization": `Client-ID ${env.UNSPLASH_ACCESS_KEY}` } }
+    );
+    const data = await response.json();
+    if (data.errors) {
+      return jsonResponse({ error: data.errors[0] || "Unsplash Fehler" }, 500, env);
+    }
+    return jsonResponse({
+      url: data.urls.regular,
+      credit: `${data.user.name} / Unsplash`
+    }, 200, env);
+  } catch (e) {
+    return jsonResponse({ error: "Foto laden fehlgeschlagen: " + e.message }, 500, env);
+  }
 }
 
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
@@ -1195,11 +1296,15 @@ async function handleGeneratePuG(request, env) {
       }
     },
     "13_2": {
-      title: "Internationale Konfliktbearbeitung vor dem Hintergrund des Völkerrechts",
+      title: "Soziale Ungleichheit, internationale Konfliktbearbeitung und Völkerrecht",
       lernbereiche: isEA
-        ? "LB 13.4 (Internationale Beziehungen) und LB 13.5 (Völkerrecht und Konfliktbearbeitung)"
-        : "LB 13.3 (Internationale Beziehungen und Völkerrecht)",
-      inhalte: `- Staatliche, transnationale und supranationale Akteure (IGOs, NGOs, Wirtschaftsunternehmen)
+        ? "LB 13.3 (Soziale Ungleichheit), LB 13.4 (Internationale Beziehungen) und LB 13.5 (Völkerrecht)"
+        : "LB 13.2 (Soziale Ungleichheit) und LB 13.3 (Internationale Beziehungen und Völkerrecht)",
+      inhalte: `- Einkommens- und Vermögensverteilung, Gini-Koeffizient, Armutsquote
+- Dimensionen sozialer Ungleichheit: Einkommen, Bildung, Gesundheit
+- Sozialstaatsprinzip (Art. 20 GG), Modelle des Sozialstaats
+- Sozialpolitische Maßnahmen: Mindestlohn, Transfers, Steuerprogression
+- Staatliche, transnationale und supranationale Akteure (IGOs, NGOs, Wirtschaftsunternehmen)
 - Kennzeichen des Völkerrechts: Souveränität, Gewohnheitsrecht, Kodifizierung, eingeschränkte Sanktionierbarkeit
 - Humanitäres Völkerrecht, Gewaltverbot, Selbstverteidigungsrecht
 - Internationaler Strafgerichtshof: Aufbau, Zuständigkeiten, Römisches Statut
@@ -1207,6 +1312,8 @@ async function handleGeneratePuG(request, env) {
 - Medien als Akteure der internationalen Politik
 - Private Sicherheitsfirmen, hybride Kriegsführung`,
       schwerpunkte: {
+        soziale_ungleichheit: "Einkommens-/Vermögensverteilung und Dimensionen sozialer Ungleichheit",
+        sozialstaat: "Sozialstaatsprinzip und sozialpolitische Maßnahmen",
         voelkerrecht: "Kennzeichen und Grenzen des Völkerrechts",
         igos_ngos: "Rolle von IGOs und NGOs in der internationalen Politik",
         istgh: "Internationaler Strafgerichtshof und Menschenrechte",
@@ -1232,10 +1339,13 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 1-2 realistische Materialien (Texte, ggf. Statistiken)
-- Textmaterialien: 200-500 Wörter, authentische Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte)
-- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
+- Erstelle 2-3 realistische Materialien (Texte, Statistiken, Bilder)
+- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generierte Karikatur/Schaubild) ODER "foto" (Stockfoto):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. politische Karikatur, Schaubild, Protestplakat), title = Bildtitel
+  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt (z.B. "german parliament, debate, democracy"), title = Bildtitel
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1251,7 +1361,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
-    {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"}
+    {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""},
+    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -1263,13 +1375,14 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Niveau: ${niveauLabel}
 
 Die Aufgabe soll 2-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (I → II → III).
-Erstelle 1-2 passende Materialien (Texte und/oder Statistiken).
+Erstelle 2-3 passende Materialien (Texte, Statistiken, plus 1 Bild oder Foto).
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
 Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 10000);
+  ], 14000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -1435,11 +1548,15 @@ async function handleGenerateAbiturPuG(request, env) {
       }
     },
     "13_2": {
-      title: "Internationale Konfliktbearbeitung vor dem Hintergrund des Völkerrechts",
+      title: "Soziale Ungleichheit, internationale Konfliktbearbeitung und Völkerrecht",
       lernbereiche: isEA
-        ? "LB 13.4 (Internationale Beziehungen) und LB 13.5 (Völkerrecht und Konfliktbearbeitung)"
-        : "LB 13.3 (Internationale Beziehungen und Völkerrecht)",
-      inhalte: `- Staatliche, transnationale und supranationale Akteure (IGOs, NGOs, Wirtschaftsunternehmen)
+        ? "LB 13.3 (Soziale Ungleichheit), LB 13.4 (Internationale Beziehungen) und LB 13.5 (Völkerrecht)"
+        : "LB 13.2 (Soziale Ungleichheit) und LB 13.3 (Internationale Beziehungen und Völkerrecht)",
+      inhalte: `- Einkommens- und Vermögensverteilung, Gini-Koeffizient, Armutsquote
+- Dimensionen sozialer Ungleichheit: Einkommen, Bildung, Gesundheit
+- Sozialstaatsprinzip (Art. 20 GG), Modelle des Sozialstaats
+- Sozialpolitische Maßnahmen: Mindestlohn, Transfers, Steuerprogression
+- Staatliche, transnationale und supranationale Akteure (IGOs, NGOs, Wirtschaftsunternehmen)
 - Kennzeichen des Völkerrechts: Souveränität, Gewohnheitsrecht, Kodifizierung, eingeschränkte Sanktionierbarkeit
 - Humanitäres Völkerrecht, Gewaltverbot, Selbstverteidigungsrecht
 - Internationaler Strafgerichtshof: Aufbau, Zuständigkeiten, Römisches Statut
@@ -1447,6 +1564,8 @@ async function handleGenerateAbiturPuG(request, env) {
 - Medien als Akteure der internationalen Politik
 - Private Sicherheitsfirmen, hybride Kriegsführung`,
       schwerpunkte: {
+        soziale_ungleichheit: "Einkommens-/Vermögensverteilung und Dimensionen sozialer Ungleichheit",
+        sozialstaat: "Sozialstaatsprinzip und sozialpolitische Maßnahmen",
         voelkerrecht: "Kennzeichen und Grenzen des Völkerrechts",
         igos_ngos: "Rolle von IGOs und NGOs in der internationalen Politik",
         istgh: "Internationaler Strafgerichtshof und Menschenrechte",
@@ -1479,9 +1598,12 @@ STRUKTUR:
 - Verwende offizielle Operatoren: darstellen, beschreiben, nennen, ermitteln, erarbeiten, erläutern, analysieren, vergleichen, begründen, beurteilen, bewerten, diskutieren, Stellung nehmen
 
 MATERIALIEN (nur für Teil A):
-- 1-2 realistische Materialien (Texte, ggf. Statistiken)
-- Textmaterialien: 200-500 Wörter, authentische Quellentexte
-- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
+- 2-3 realistische Materialien (Texte, Statistiken, Bilder)
+- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Karikatur/Schaubild) ODER "foto" (Stockfoto):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung, title = Bildtitel
+  - type "foto": content = 3-5 englische Suchbegriffe kommagetrennt, title = Bildtitel
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1504,8 +1626,10 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction_a": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE-Angaben",
   "materials": [
-    {"title": "Titel", "type": "text", "content": "Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
-    {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"}
+    {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
+    {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""},
+    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",
@@ -1519,12 +1643,14 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gesamt-BE: ${beGesamt} (Teil A: ${bePruefungA}, Teil B: ${bePruefungB})
 
 Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
-Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.`;
+Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.
+
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild oder Foto als Material.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 12000);
+  ], 14000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -1708,11 +1834,14 @@ AUFGABENSTRUKTUR:
 
 MATERIALIEN:
 - Materialien (M1, M2, …) sind der Kern der Aufgabe
-- Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Schaubilder (als Text), Fallbeispiele
-- Textmaterialien: 150-400 Wörter, realistisch und fachlich korrekt
-- Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
-- Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut
+- Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Schaubilder, Fallbeispiele
+- Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen oder Stichpunkte! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
+- Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
+- Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut (150-300 Wörter)
 - Jedes Material hat einen Titel und eine Quellenangabe
+- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild/Diagramm) ODER "foto" (Stockfoto):
+  - typ "bild": inhalt = detaillierte Bildbeschreibung für KI-Generierung, titel = Bildtitel
+  - typ "foto": inhalt = 3-5 englische Suchbegriffe kommagetrennt (z.B. "stock market, trading, economy"), titel = Bildtitel
 ${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1730,7 +1859,10 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     }
   ],
   "materialien": [
-    {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Materialinhalt", "quelle": "Quellenangabe"}
+    {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
+    {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
+    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Detaillierte Bildbeschreibung für KI-Generierung", "quelle": ""},
+    {"nr": "M4", "titel": "Foto: ...", "typ": "foto", "inhalt": "english, search, keywords", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
@@ -1744,13 +1876,13 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Gesamt-BE: ${gesamtBE}
 
 Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
-Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte).
-Alle Materialien müssen fachlich korrekt und realistisch sein.`;
+Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild oder Foto.
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild oder Foto als Material.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 12000);
+  ], 14000);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -1927,6 +2059,444 @@ Antworte NUR mit validem JSON:
   const text = data?.choices?.[0]?.message?.content || "";
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
+}
+
+/* ================= GESCHICHTE ABITUR: GENERATE (Teil A + B) ================= */
+async function handleGenerateAbiturGeschichte(request, env) {
+  const body = await request.json();
+  const { schwerpunkt, level } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+
+  const schwerpunkte = {
+    "12_1": {
+      titel: "Auf dem Weg zu gesellschaftlicher und politischer Partizipation",
+      zeitraum: level === "eA" ? "vom Ende des 18. Jahrhunderts bis zur Weimarer Republik" : "vom 19. Jahrhundert bis zur Weimarer Republik",
+      themen: "Revolution 1848/49, Deutsches Kaiserreich, Industrialisierung und soziale Frage, Gesellschaftliche Modernisierung, Frauenbewegung, Erster Weltkrieg, Weimarer Republik" + (level === "eA" ? ", Französische Revolution, Aufklärung" : "")
+    },
+    "12_2": {
+      titel: "Deutschland zwischen Demokratie und Diktatur",
+      zeitraum: "von der Weimarer Republik bis zur Wiedervereinigung",
+      themen: "Endphase der Weimarer Republik, Aufbau des NS-Staates, Verfolgung und Holocaust, Widerstand gegen den NS, DDR und SED-Diktatur, Friedliche Revolution 1989, Wiedervereinigung"
+    },
+    "13_1": {
+      titel: "Akteure internationaler Politik in historischer Perspektive",
+      zeitraum: "im 20. und 21. Jahrhundert",
+      themen: "Nahostkonflikt, Kalter Krieg, USA als Weltmacht, Chinas Aufstieg, UNO und Weltordnung, Dekolonisation"
+    },
+    "13_2": {
+      titel: "Historische Grundlagen moderner politischer Ordnungsformen in Europa",
+      zeitraum: "von der Antike bis zur Gegenwart",
+      themen: "Attische Demokratie, Aufklärung und Menschenrechte, Nationalismus im 19. Jh., Deutsch-französische Beziehungen, Europäische Integration"
+    }
+  };
+
+  const selectedSP = schwerpunkt === "random"
+    ? Object.keys(schwerpunkte)[Math.floor(Math.random() * 4)]
+    : schwerpunkt;
+  const sp = schwerpunkte[selectedSP] || schwerpunkte["12_1"];
+
+  // Determine a different Schwerpunkt for Teil B
+  const allSP = Object.keys(schwerpunkte);
+  const otherSP = allSP.filter(s => s !== selectedSP);
+  const transferSP = otherSP[Math.floor(Math.random() * otherSP.length)];
+  const transferThema = schwerpunkte[transferSP]?.titel || "";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine VOLLSTÄNDIGE Abituraufgabe bestehend aus Teil A (Quellenanalyse) UND Teil B (Darstellung) auf ${niveauLabel}.
+
+=== TEIL A — QUELLENANALYSE ===
+1. EINLEITUNG (2-4 Sätze): Historischer Kontext, Hinführung zur Quelle
+2. QUELLENMATERIAL (M 1) — ZWINGEND eine substanzielle TEXTQUELLE von 400-800 Wörtern:
+   - Genres: Rede, Zeitungsartikel, Denkschrift, Brief, Memoiren, Flugblatt, Erlass
+   - MUSS einen REALEN historischen Autor und korrekten Kontext haben
+   - Sprache muss dem Entstehungszeitraum entsprechen
+   - Vollständige Quellenangabe
+   - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Karikaturen, historische Fotos, Statistiken
+3. TEILAUFGABEN (3 Stück, steigende AFB):
+   - Teilaufgabe 1 (AFB I/II): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
+   - Teilaufgabe 2 (AFB II): "Ordnen Sie ein …" / "Erläutern Sie …"
+   - Teilaufgabe 3 (AFB III): "Beurteilen Sie …" / "Erörtern Sie …"
+
+SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
+THEMEN: ${sp.themen}
+
+=== TEIL B — DARSTELLUNG ===
+- Eigenständige Aufgabe OHNE eigene Quelle (oder mit kurzem Materialimpuls, max. 200 Wörter)
+- Erfordert historische Darstellung und Beurteilung
+- Kann Transfer zu einem anderen Halbjahr enthalten
+- Möglicher Transferbezug: ${transferSP.replace("_", "/")} – ${transferThema}
+- 2 Teilaufgaben auf AFB II-III
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction_a": "Vollständige Aufgabenstellung Teil A: Einleitung + 3 nummerierte Teilaufgaben",
+  "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
+  "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
+  "zusatz_materialien": [
+    {"title": "Karikatur: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": "Quelle"},
+    {"title": "Foto: ...", "type": "foto", "content": "english, search, keywords", "source": "Beschreibung"}
+  ],
+  "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben",
+  "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
+  "primary_meta_b": "Quellenangabe Impuls oder leerer String",
+  "thema": "Konkretes Thema",
+  "schwerpunkt": "${selectedSP}"
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Geschichte-Abituraufgabe (Teil A + B):
+- Schwerpunkt (Teil A): ${sp.titel} ${sp.zeitraum}
+- Niveau: ${niveauLabel}
+
+KRITISCH:
+- Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Die Quelle soll MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
+- Verwende eine REALE historische Persönlichkeit als Autor
+- Teil A: 3 Teilaufgaben mit steigendem AFB
+- Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. eine historische Karikatur (type "bild") oder ein historisches Foto (type "foto").`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= GESCHICHTE ABITUR: GRADE ================= */
+async function handleGradeAbiturGeschichte(request, env) {
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b, student_text_a, student_text_b, rubric_prompt } = body;
+
+  if ((!student_text_a && !student_text_b) || !rubric_prompt) {
+    return jsonResponse({ error: "student_text_a/b und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `=== TEIL A — QUELLENANALYSE ===\nAufgabenstellung:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  contextInfo += `Quellenmaterial M 1:\n${truncate(primary_text_a, 15000)}\n\n`;
+
+  contextInfo += `=== TEIL B — DARSTELLUNG ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text_b) {
+    contextInfo += `Materialimpuls:\n${truncate(primary_text_b, 3000)}\n\n`;
+  }
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) },
+    { role: "user", content: `${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 5000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const sach_a = parsed.sach_a_np ?? null;
+    const sach_b = parsed.sach_b_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && sach_a != null && sach_b != null && darstellung != null) {
+      gesamt = Math.round(sach_a * 0.4 + sach_b * 0.3 + darstellung * 0.3);
+      if (sach_a === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { sach_a, sach_b, darstellung, total: gesamt },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { sach_a: null, sach_b: null, darstellung: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= GESCHICHTE ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturGeschichte(request, env) {
+  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geschichte (Leistungsfach).
+Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+
+TEIL A — QUELLENANALYSE:
+- Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
+- Herausarbeitung der Kernaussagen mit Textbelegen
+- Historische Einordnung und Kontextualisierung
+- Beurteilung mit multiperspektivischer Reflexion
+- Zielumfang: ca. 800 Wörter
+
+TEIL B — DARSTELLUNG:
+- Eigenständige historische Darstellung
+- Einbeziehung von Fachwissen über die Quelle hinaus
+- Differenziertes historisches Urteil
+- Zielumfang: ca. 500 Wörter
+
+Formatiere als Markdown mit klaren Überschriften. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = `TEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}\n\nQUELLE M 1:\n${truncate(primary_text_a, 15000)}`;
+  userContent += `\n\nTEIL B – AUFGABE:\n${truncate(task_instruction_b, 3000)}`;
+  if (primary_text_b) userContent += `\n\nMATERIALIMPULS:\n${truncate(primary_text_b, 3000)}`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 8000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= WR ABITUR: GENERATE (2 Aufgaben) ================= */
+async function handleGenerateAbiturWR(request, env) {
+  const body = await request.json();
+  const { niveau, fachbereich_1, fachbereich_2 } = body;
+
+  const isEA = (niveau || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+
+  const fbLabels = { bwl: "Betriebswirtschaftslehre", vwl: "Volkswirtschaftslehre", recht: "Recht" };
+
+  let aufgabenDesc;
+  if (isEA) {
+    const fb1 = fbLabels[fachbereich_1] || "BWL";
+    const fb2 = fbLabels[fachbereich_2] || "VWL";
+    aufgabenDesc = `Die Prüfung besteht aus 2 SEPARATEN Aufgaben:
+- Aufgabe 1: Fachbereich ${fb1}, 60 BE, 2-3 Aufgabenblöcke, 3-4 Materialien
+- Aufgabe 2: Fachbereich ${fb2}, 60 BE, 2-3 Aufgabenblöcke, 3-4 Materialien
+Gesamt: 120 BE, 270 Minuten`;
+  } else {
+    aufgabenDesc = `Die Prüfung besteht aus 2 Teilen:
+- Aufgabe 1: Integrierte Aufgabe (BWL + VWL + Recht), 75 BE, 2-3 Aufgabenblöcke, 4-5 Materialien
+- Aufgabe 2: Transferaufgabe OHNE eigene Materialien, 25 BE, 1-2 Aufgabenblöcke
+Gesamt: 100 BE, 210 Minuten`;
+  }
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur 2026 im Fach Wirtschaft und Recht (G9).
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 2 Aufgaben auf ${niveauLabel}.
+
+PRÜFUNGSFORMAT:
+${aufgabenDesc}
+
+AUFGABENSTRUKTUR:
+- Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
+- AFB I (Reproduktion): beschreiben, nennen, darstellen (ca. 20%)
+- AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40%)
+- AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40%)
+- Jede Teilaufgabe hat eine konkrete BE-Angabe
+
+MATERIALIEN:
+- Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Fallbeispiele
+- Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte herausarbeiten müssen.
+- Tabellen: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
+- Gesetzestexte: Korrekte §-Angaben (150-300 Wörter)
+- Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild) ODER "foto" (Stockfoto) pro Aufgabe:
+  - typ "bild": inhalt = detaillierte Bildbeschreibung, titel = Bildtitel
+  - typ "foto": inhalt = 3-5 englische Suchbegriffe kommagetrennt, titel = Bildtitel
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction_1": "Situationstext / Rahmenhandlung Aufgabe 1",
+  "aufgabenbloecke_1": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"I"}],"be_gesamt":15}],
+  "materialien_1": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Bildbeschreibung","quelle":""}],
+  "task_instruction_2": "Situationstext / Rahmenhandlung Aufgabe 2",
+  "aufgabenbloecke_2": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"II"}],"be_gesamt":15}],
+  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Foto: ...","typ":"foto","inhalt":"english, keywords","quelle":""}],
+  "gesamt_be": ${isEA ? 120 : 100},
+  "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
+  "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",
+  "thema_1": "Konkretes Thema Aufgabe 1",
+  "thema_2": "Konkretes Thema Aufgabe 2"
+}`;
+
+  const userPrompt = `Erstelle eine vollständige WR-Abiturprüfung (2 Aufgaben):
+- Niveau: ${niveauLabel}
+${isEA
+  ? `- Aufgabe 1: ${fbLabels[fachbereich_1] || "BWL"} (60 BE)
+- Aufgabe 2: ${fbLabels[fachbereich_2] || "VWL"} (60 BE)`
+  : `- Aufgabe 1: Integriert BWL+VWL+Recht (75 BE)
+- Aufgabe 2: Transferaufgabe ohne Materialien (25 BE)`}
+
+Beide Aufgaben müssen eigenständig und thematisch verschieden sein.
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild oder Foto als Material.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 20000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= WR ABITUR: GRADE ================= */
+async function handleGradeAbiturWR(request, env) {
+  const body = await request.json();
+  const { task_instruction_1, aufgabenbloecke_1, materialien_1, task_instruction_2, aufgabenbloecke_2, materialien_2, student_text_1, student_text_2, niveau, gesamt_be } = body;
+
+  if (!student_text_1 && !student_text_2) {
+    return jsonResponse({ error: "student_text_1/2 erforderlich." }, 400, env);
+  }
+
+  const isEA = (niveau || "eA").toLowerCase() === "ea";
+  const maxBE = gesamt_be || (isEA ? 120 : 100);
+  const be1Max = isEA ? 60 : 75;
+  const be2Max = isEA ? 60 : 25;
+
+  let contextInfo = "=== AUFGABE 1 ===\n";
+  if (task_instruction_1) contextInfo += `Situationstext:\n${truncate(task_instruction_1, 3000)}\n\n`;
+  if (aufgabenbloecke_1 && aufgabenbloecke_1.length) {
+    contextInfo += "Aufgabenblöcke:\n";
+    for (const block of aufgabenbloecke_1.slice(0, 5)) {
+      contextInfo += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          contextInfo += `  ${ta.nr} (${ta.be} BE, AFB ${ta.afb}): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien_1 && materialien_1.length) {
+    contextInfo += "\nMaterialien Aufg. 1:\n";
+    for (const m of materialien_1.slice(0, 6)) {
+      contextInfo += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 2000)}\n\n`;
+    }
+  }
+
+  contextInfo += "\n=== AUFGABE 2 ===\n";
+  if (task_instruction_2) contextInfo += `Situationstext:\n${truncate(task_instruction_2, 3000)}\n\n`;
+  if (aufgabenbloecke_2 && aufgabenbloecke_2.length) {
+    contextInfo += "Aufgabenblöcke:\n";
+    for (const block of aufgabenbloecke_2.slice(0, 5)) {
+      contextInfo += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          contextInfo += `  ${ta.nr} (${ta.be} BE, AFB ${ta.afb}): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien_2 && materialien_2.length) {
+    contextInfo += "\nMaterialien Aufg. 2:\n";
+    for (const m of materialien_2.slice(0, 6)) {
+      contextInfo += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 2000)}\n\n`;
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine vollständige WR-Abiturprüfung (2 Aufgaben) nach dem bayerischen BE-System.
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Aufgabe separat mit BE
+- Aufgabe 1: max ${be1Max} BE
+- Aufgabe 2: max ${be2Max} BE
+- Gesamt: max ${maxBE} BE
+- Berücksichtige: Materialbezug, Operatoren (AFB I/II/III), fachliche Korrektheit, Struktur
+
+BE → NOTENPUNKTE (0-15):
+Formel: NP = round((be_gesamt / ${maxBE}) * 15)
+
+Antworte NUR mit validem JSON:
+{
+  "be_1": <Zahl>,
+  "be_max_1": ${be1Max},
+  "be_2": <Zahl>,
+  "be_max_2": ${be2Max},
+  "be_gesamt": <Zahl>,
+  "be_max_gesamt": ${maxBE},
+  "notenpunkte": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 5000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const be1 = parsed.be_1 ?? null;
+    const be2 = parsed.be_2 ?? null;
+    const beGesamt = parsed.be_gesamt ?? (be1 != null && be2 != null ? be1 + be2 : null);
+    let np = parsed.notenpunkte ?? null;
+
+    if (np == null && beGesamt != null) {
+      np = Math.max(0, Math.min(15, Math.round((beGesamt / maxBE) * 15)));
+    }
+
+    return jsonResponse({
+      scores: { be_1: be1, be_max_1: be1Max, be_2: be2, be_max_2: be2Max, be_gesamt: beGesamt, be_max_gesamt: maxBE, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { be_1: null, be_max_1: be1Max, be_2: null, be_max_2: be2Max, be_gesamt: null, be_max_gesamt: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= WR ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturWR(request, env) {
+  const { task_instruction_1, aufgabenbloecke_1, materialien_1, task_instruction_2, aufgabenbloecke_2, materialien_2 } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
+Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (2 Aufgaben) auf DEUTSCH.
+- Bearbeite ALLE Teilaufgaben beider Aufgaben
+- Verwende Fachbegriffe korrekt (BWL, VWL, Recht)
+- Beziehe die Materialien ein
+- Bei Berechnungen: Rechenweg aufzeigen
+- Bei Rechtsfragen: Obersatz, Definition, Subsumtion, Ergebnis
+- Zielumfang: Aufgabe 1 ca. 800-1200 Wörter, Aufgabe 2 ca. 500-800 Wörter
+
+Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Block.`;
+
+  let userContent = "=== AUFGABE 1 ===\n";
+  if (task_instruction_1) userContent += `SITUATION:\n${truncate(task_instruction_1, 3000)}\n\n`;
+  if (aufgabenbloecke_1 && aufgabenbloecke_1.length) {
+    userContent += "AUFGABEN:\n";
+    for (const block of aufgabenbloecke_1.slice(0, 5)) {
+      userContent += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          userContent += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien_1 && materialien_1.length) {
+    userContent += "\nMATERIALIEN:\n";
+    for (const m of materialien_1.slice(0, 6)) {
+      userContent += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 3000)}\n\n`;
+    }
+  }
+
+  userContent += "\n=== AUFGABE 2 ===\n";
+  if (task_instruction_2) userContent += `SITUATION:\n${truncate(task_instruction_2, 3000)}\n\n`;
+  if (aufgabenbloecke_2 && aufgabenbloecke_2.length) {
+    userContent += "AUFGABEN:\n";
+    for (const block of aufgabenbloecke_2.slice(0, 5)) {
+      userContent += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 8)) {
+          userContent += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+        }
+      }
+    }
+  }
+  if (materialien_2 && materialien_2.length) {
+    userContent += "\nMATERIALIEN:\n";
+    for (const m of materialien_2.slice(0, 6)) {
+      userContent += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 3000)}\n\n`;
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
 }
 
 /* ================= OPENAI CALL ================= */

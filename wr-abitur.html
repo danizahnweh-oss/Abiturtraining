@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="violet">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WR · Abiturtraining</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* WR accent override */
+:root {
+  --accent:#7c3aed;--accent-hover:#6d28d9;--accent-soft:#ede9fe;--accent-glow:rgba(124,58,237,.08);
+}
+[data-theme="dark"] {
+  --accent:#a78bfa;--accent-hover:#c4b5fd;--accent-soft:rgba(167,139,250,.15);--accent-glow:rgba(167,139,250,.08);
+}
+
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
+.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+
+/* Material cards */
+.material-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.8rem;overflow:hidden}
+.material-card summary{padding:1rem 1.2rem;cursor:pointer;font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:.5rem}
+.material-card summary:hover{background:var(--accent-glow)}
+.material-card .material-body{padding:0 1.2rem 1.2rem;line-height:1.7}
+.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
+.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
+.material-source{font-size:.8rem;color:var(--ink-muted);font-style:italic;margin-top:.5rem}
+.material-badge{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;text-transform:uppercase}
+
+/* Aufgaben blocks */
+.aufgabe-block{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;margin-bottom:1rem}
+.aufgabe-block h3{font-family:var(--font-display);font-size:1.05rem;margin-bottom:.8rem;display:flex;justify-content:space-between;align-items:center}
+.aufgabe-block h3 .be-tag{font-family:var(--font-mono);font-size:.85rem;color:var(--accent);font-weight:700}
+.teilaufgabe{padding:.5rem 0;border-bottom:1px solid var(--border-light)}
+.teilaufgabe:last-child{border-bottom:none}
+.teilaufgabe .ta-nr{font-weight:700;color:var(--accent);min-width:2.5rem;display:inline-block}
+.teilaufgabe .ta-be{font-family:var(--font-mono);font-size:.8rem;color:var(--ink-muted);margin-left:.5rem}
+.teilaufgabe .ta-afb{font-size:.7rem;font-weight:700;padding:.1rem .4rem;border-radius:3px;background:var(--border);color:var(--ink-light);margin-left:.3rem}
+
+/* BE display */
+.be-display{display:flex;align-items:baseline;gap:.3rem;font-family:var(--font-mono)}
+.be-big{font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}
+.be-max{font-size:1rem;color:var(--ink-muted)}
+.block-score{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem}
+.block-score .block-name{font-weight:600;font-size:.9rem}
+.block-score .block-be{font-family:var(--font-mono);font-weight:700;color:var(--accent)}
+.material-chart{margin:1rem 0;max-height:280px}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
+.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
+.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
+
+/* Teil-Trenner */
+.teil-header{font-family:var(--font-display);font-size:1.1rem;margin:1.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent);color:var(--accent)}
+.teil-header:first-child{margin-top:0}
+.teil-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;background:var(--accent-soft);color:var(--accent);margin-left:.5rem}
+
+/* Zwei Textareas */
+.write-part{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
+.write-part h3{font-size:.95rem;margin-bottom:.6rem;color:var(--accent)}
+.write-part textarea{min-height:250px}
+.write-part .word-counter{font-size:.8rem;color:var(--ink-muted);margin-top:.4rem}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+@media(max-width:650px){.mode-toggle{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html?back=wr" class="back-link">← Zurück</a>
+    <h1>WR · <span>Abiturtraining</span></h1>
+  </div>
+  <div class="header-right">
+    <span id="studentGreeting" class="header-meta" style="display:none"></span>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+  <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
+  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span> Fortschritt</button>
+</nav>
+
+<main>
+  <!-- STEP 1: SETUP -->
+  <section id="sec-setup" class="active">
+    <div class="card">
+      <h2 class="card-header">Aufgabe wählen</h2>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
+        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
+      </div>
+    </div>
+
+    <div class="card" id="setupGenerate">
+      <h2 class="card-header">Abiturprüfung konfigurieren</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Niveau</label>
+          <select id="niveauSelect" onchange="updateNiveau()">
+            <option value="eA">Erhöhtes Anforderungsniveau (eA)</option>
+            <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
+          </select>
+        </div>
+      </div>
+      <div id="eaFachbereiche">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fachbereich Aufgabe 1</label>
+            <select id="fachbereich1Select">
+              <option value="bwl">BWL</option>
+              <option value="vwl">VWL</option>
+              <option value="recht">Recht</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Fachbereich Aufgabe 2</label>
+            <select id="fachbereich2Select">
+              <option value="vwl">VWL</option>
+              <option value="bwl">BWL</option>
+              <option value="recht">Recht</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="btn" id="generateBtn" onclick="generateTask()">✨ Abiturprüfung generieren</button>
+      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere WR-Abiturprüfung (2 Aufgaben) …</div></div>
+    </div>
+
+    <div class="card" id="setupUpload" style="display:none">
+      <h2 class="card-header">Eigene Aufgabe</h2>
+      <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+      </div>
+      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
+      <div id="taskUploadPages" class="ocr-pages"></div>
+      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
+      <div id="taskUploadResult" style="display:none;margin-top:1rem">
+        <div class="form-group"><label>Erkannte Aufgabe (JSON, bearbeitbar)</label><textarea id="parsedMaterials" style="min-height:150px"></textarea></div>
+        <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Bearbeitungszeit (Min.)</label>
+      <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
+      <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
+    </div>
+  </section>
+
+  <!-- STEP 2: READ MATERIALS -->
+  <section id="sec-task">
+    <div class="card">
+      <h3 class="teil-header">Aufgabe 1 <span class="teil-badge" id="aufgabe1Badge">60 BE</span></h3>
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstruction1">…</div>
+      <div id="aufgabenbloecke1Container"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header">Materialien — Aufgabe 1</h2>
+      <div class="highlighter-toolbar">
+        <span class="hl-label">🖍️ Markieren:</span>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
+        <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+      </div>
+      <div id="materialien1Container" class="material-box">…</div>
+    </div>
+
+    <div class="card">
+      <h3 class="teil-header">Aufgabe 2 <span class="teil-badge" id="aufgabe2Badge">60 BE</span></h3>
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstruction2">…</div>
+      <div id="aufgabenbloecke2Container"></div>
+    </div>
+
+    <div class="card" id="materialien2Card">
+      <h2 class="card-header">Materialien — Aufgabe 2</h2>
+      <div id="materialien2Container" class="material-box">…</div>
+    </div>
+
+    <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+  </section>
+
+  <!-- STEP 3: WRITE -->
+  <section id="sec-write">
+    <div class="timer-bar" id="timerBar">
+      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸</button>
+        <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header">Deine Antwort</h2>
+
+      <details style="margin-bottom:1rem" open>
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgaben & Materialien</summary>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Aufgabe 1</div>
+          <div class="task-box" id="writeTaskRef1" style="margin:0 0 1rem 0;font-size:.9rem"></div>
+          <div id="writeAufgabenRef1" style="font-size:.85rem"></div>
+          <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Aufgabe 2</div>
+          <div class="task-box" id="writeTaskRef2" style="margin:0;font-size:.9rem"></div>
+          <div id="writeAufgabenRef2" style="font-size:.85rem"></div>
+        </div>
+      </details>
+
+      <!-- Aufgabe 1 Textarea -->
+      <div class="write-part">
+        <h3>Aufgabe 1</h3>
+        <textarea id="studentText1" placeholder="Beginne hier mit Aufgabe 1 …
+
+Tipp: Strukturiere nach Teilaufgaben:
+• Bearbeite alle Teilaufgaben der Reihe nach
+• Verweise auf die Materialien (M1, M2, …)
+• Bei Berechnungen: Rechenweg zeigen
+• Bei Rechtsfragen: Obersatz → Definition → Subsumtion → Ergebnis" oninput="updateWordCounts()"></textarea>
+        <div class="word-counter"><span id="wordCount1">0</span> Wörter</div>
+      </div>
+
+      <!-- Aufgabe 2 Textarea -->
+      <div class="write-part">
+        <h3>Aufgabe 2</h3>
+        <textarea id="studentText2" placeholder="Beginne hier mit Aufgabe 2 …
+
+Tipp: Beachte den Fachbereich:
+• Verwende die entsprechenden Fachbegriffe
+• Beziehe dich auf die Materialien
+• Zeige Transferleistung und eigenständiges Urteil" oninput="updateWordCounts()"></textarea>
+        <div class="word-counter"><span id="wordCount2">0</span> Wörter</div>
+      </div>
+
+      <div class="write-toolbar">
+        <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> Wörter</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-secondary btn-small" onclick="saveSession()">💾</button>
+          <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Abgeben</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCR UPLOAD -->
+    <div class="card">
+      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+        Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
+      </p>
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+        <div class="upload-icon">📷</div>
+        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild</div>
+      </div>
+      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+      <div id="ocrPages" class="ocr-pages"></div>
+      <div id="ocrLoader" class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+      </div>
+      <div id="ocrResult" style="display:none;margin-top:1rem;">
+        <label>Erkannter Text (bearbeitbar):</label>
+        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …" oninput="updateOCRWordCount()"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-small" onclick="useOCRText1()">✓ In Aufgabe 1</button>
+          <button class="btn btn-small" onclick="useOCRText2()">✓ In Aufgabe 2</button>
+          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+  </section>
+
+  <!-- STEP 4: FEEDBACK -->
+  <section id="sec-feedback">
+    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte WR-Abiturprüfung …</div></div>
+    <div id="feedbackContent" style="display:none">
+      <div class="card">
+        <h2 class="card-header">Bewertung</h2>
+        <div class="scores-grid">
+          <div class="score-card">
+            <div class="score-label">Aufgabe 1</div>
+            <div class="be-display"><span class="be-big" id="scoreBE1">–</span><span class="be-max">/ <span id="scoreBEMax1">60</span></span></div>
+          </div>
+          <div class="score-card">
+            <div class="score-label">Aufgabe 2</div>
+            <div class="be-display"><span class="be-big" id="scoreBE2">–</span><span class="be-max">/ <span id="scoreBEMax2">60</span></span></div>
+          </div>
+          <div class="score-card">
+            <div class="score-label">Gesamt BE</div>
+            <div class="be-display"><span class="be-big" id="scoreBEGesamt">–</span><span class="be-max">/ <span id="scoreBEMaxGesamt">120</span></span></div>
+          </div>
+          <div class="score-card total">
+            <div class="score-label">Notenpunkte</div>
+            <div class="score-value" id="scoreNP">–</div>
+            <div class="score-max">/ 15</div>
+          </div>
+        </div>
+        <div id="blockScoresContainer"></div>
+      </div>
+      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
+      <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterlösung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">📄 Musterlösung</button>
+        <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
+        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: PROGRESS -->
+  <section id="sec-progress">
+    <div class="card">
+      <h2 class="card-header">Fortschritt</h2>
+      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">📊</div><p>Noch keine Daten.</p></div>
+      <div id="progressContent" style="display:none">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
+          <div class="stat-card"><div class="stat-value" id="statAverage">–</div><div class="stat-label">Ø</div></div>
+          <div class="stat-card"><div class="stat-value" id="statBest">–</div><div class="stat-label">Best</div></div>
+        </div>
+        <div class="chart-container"><canvas id="progressChart"></canvas></div>
+        <table class="history-table"><thead><tr><th>Datum</th><th>Bereich</th><th>BE</th><th>NP</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+      </div>
+      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">🗑</button>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 St. Anna Gymnasium · WR Abiturtraining</footer>
+
+<!-- MODULE CONFIG -->
+<script>
+const MODULE_CONFIG = {
+  sectionPrefix: "sec-",
+  steps: ["setup","task","write","feedback","progress"],
+  storagePrefix: "wr_abitur",
+  historyKey: "wr_abitur_history_",
+  historyType: "wr-abitur",
+  pdfFilename: "WR_Abitur",
+  chartColor: "#7c3aed",
+  minWords: 100,
+  hlSelector: ".material-box"
+};
+</script>
+<script src="shared.js"></script>
+
+<!-- MODULE-SPECIFIC CODE -->
+<script>
+function updateNiveau() {
+  const niveau = document.getElementById("niveauSelect").value;
+  const eaSection = document.getElementById("eaFachbereiche");
+  eaSection.style.display = niveau === "eA" ? "block" : "none";
+  document.getElementById("timerMinutes").value = niveau === "eA" ? 270 : 210;
+}
+
+function setSetupMode(m) {
+  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+}
+
+function saveSession() {
+  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+  localStorage.setItem(key, JSON.stringify({
+    studentText1: document.getElementById("studentText1").value,
+    studentText2: document.getElementById("studentText2").value,
+    storedData: CONFIG.storedData
+  }));
+}
+
+function restoreSession() {
+  try {
+    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+    const s = JSON.parse(localStorage.getItem(key));
+    if (s) {
+      if (s.studentText1) document.getElementById("studentText1").value = s.studentText1;
+      if (s.studentText2) document.getElementById("studentText2").value = s.studentText2;
+      if (s.storedData) {
+        CONFIG.storedData = s.storedData;
+        renderTask(s.storedData);
+      }
+      updateWordCounts();
+    }
+  } catch {}
+}
+
+function updateWordCounts() {
+  const a = countWords(document.getElementById("studentText1").value);
+  const b = countWords(document.getElementById("studentText2").value);
+  document.getElementById("wordCount1").textContent = a;
+  document.getElementById("wordCount2").textContent = b;
+  document.getElementById("wordCountTotal").textContent = a + b;
+}
+
+function updateWordCount() { updateWordCounts(); }
+
+async function generateTask() {
+  const btn = document.getElementById("generateBtn");
+  btn.disabled = true;
+  document.getElementById("setupLoader").style.display = "block";
+  try {
+    const niveau = document.getElementById("niveauSelect").value;
+    const payload = { niveau: niveau };
+    if (niveau === "eA") {
+      payload.fachbereich_1 = document.getElementById("fachbereich1Select").value;
+      payload.fachbereich_2 = document.getElementById("fachbereich2Select").value;
+    }
+    const d = await apiCall("/api/generate-abitur-wr", payload);
+    CONFIG.storedData = d;
+    CONFIG.storedData._niveau = niveau;
+    renderTask(d);
+    nav("task");
+  } catch (e) { showToast("Fehler: " + e.message); }
+  btn.disabled = false;
+  document.getElementById("setupLoader").style.display = "none";
+}
+
+const taskUploadImages = [];
+async function handleTaskUpload(files) {
+  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+  }
+  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+  document.getElementById("taskUploadLoader").style.display = "block";
+  try {
+    const base64s = await Promise.all(taskUploadImages.map(async p => {
+      const r = new FileReader();
+      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+    }));
+    const d = await apiCall("/api/parse-task-wr", { images: base64s });
+    document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+    document.getElementById("taskUploadResult").style.display = "block";
+  } catch (e) { showToast("Fehler: " + e.message); }
+  document.getElementById("taskUploadLoader").style.display = "none";
+}
+
+function useUploadedTask() {
+  try {
+    const raw = document.getElementById("parsedMaterials").value;
+    const parsed = JSON.parse(raw);
+    CONFIG.storedData = parsed;
+    renderTask(parsed);
+    nav("task");
+  } catch (e) { showToast("Ungültiges JSON: " + e.message); }
+}
+
+function renderBlocksHtml(bloecke) {
+  return (bloecke || []).map(block => {
+    const taHtml = (block.teilaufgaben || []).map(ta =>
+      `<div class="teilaufgabe"><span class="ta-nr">${escapeHtml(String(ta.nr))}</span> ${escapeHtml(ta.text)} <span class="ta-be">${ta.be} BE</span><span class="ta-afb">AFB ${escapeHtml(ta.afb || "")}</span></div>`
+    ).join("");
+    return `<div class="aufgabe-block"><h3>${escapeHtml(block.titel || "Block " + block.nr)} <span class="be-tag">${block.be_gesamt} BE</span></h3>${taHtml}</div>`;
+  }).join("");
+}
+
+let _wrAbiMatIdx = 0;
+function renderMaterialsHtml(mats, prefix) {
+  const pfx = prefix || ('wra-' + (_wrAbiMatIdx++));
+  return (mats || []).map((m, idx) => {
+    let inhalt;
+    if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
+      inhalt = DOMPurify.sanitize(marked.parse(m.inhalt || ""));
+      inhalt += `<div class="material-chart"><canvas id="chart-${pfx}-${idx}"></canvas></div>`;
+    } else if (m.typ === "bild") {
+      inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+    } else if (m.typ === "foto") {
+      inhalt = `<div class="material-img-loading" id="img-${pfx}-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+    } else {
+      inhalt = escapeHtml(m.inhalt || "").replace(/\n/g, "<br>");
+    }
+    return `<details class="material-card" open>
+      <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(m.typ || "")}</span></summary>
+      <div class="material-body">${inhalt}<div class="material-source">${escapeHtml(m.quelle || "")}</div></div>
+    </details>`;
+  }).join("");
+}
+function loadMaterialAssets(mats, prefix) {
+  (mats || []).forEach((m, idx) => {
+    if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
+      renderStatistikChart(m.inhalt, `chart-${prefix}-${idx}`);
+    } else if (m.typ === "bild") {
+      loadDallEImage(m.inhalt, `img-${prefix}-${idx}`);
+    } else if (m.typ === "foto") {
+      loadUnsplashImage(m.inhalt, `img-${prefix}-${idx}`);
+    }
+  });
+}
+
+function renderTask(d) {
+  const niveau = d._niveau || document.getElementById("niveauSelect").value;
+  const isEA = niveau === "eA";
+
+  // Aufgabe 1
+  document.getElementById("taskInstruction1").innerHTML = escapeHtml(d.task_instruction_1 || d.task_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("aufgabenbloecke1Container").innerHTML = renderBlocksHtml(d.aufgabenbloecke_1 || d.aufgabenbloecke || []);
+  const mats1 = d.materialien_1 || d.materialien || [];
+  document.getElementById("materialien1Container").innerHTML = renderMaterialsHtml(mats1, 'mat1') || "<p style='color:var(--ink-muted)'>Keine Materialien.</p>";
+  loadMaterialAssets(mats1, 'mat1');
+
+  // Aufgabe 2
+  document.getElementById("taskInstruction2").innerHTML = escapeHtml(d.task_instruction_2 || "").replace(/\n/g, "<br>");
+  document.getElementById("aufgabenbloecke2Container").innerHTML = renderBlocksHtml(d.aufgabenbloecke_2 || []);
+  const mats2 = d.materialien_2 || [];
+  const mat2Html = renderMaterialsHtml(mats2, 'mat2');
+  document.getElementById("materialien2Container").innerHTML = mat2Html || "<p style='color:var(--ink-muted)'>Keine eigenen Materialien (Transferaufgabe).</p>";
+  loadMaterialAssets(mats2, 'mat2');
+
+  // BE badges
+  const be1 = isEA ? 60 : (d.be_1 || 100);
+  const be2 = isEA ? 60 : (d.be_2 || 0);
+  document.getElementById("aufgabe1Badge").textContent = be1 + " BE";
+  document.getElementById("aufgabe2Badge").textContent = be2 + " BE";
+
+  // Write references
+  document.getElementById("writeTaskRef1").innerHTML = escapeHtml(d.task_instruction_1 || d.task_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("writeAufgabenRef1").innerHTML = renderBlocksHtml(d.aufgabenbloecke_1 || d.aufgabenbloecke || []);
+  document.getElementById("writeTaskRef2").innerHTML = escapeHtml(d.task_instruction_2 || "").replace(/\n/g, "<br>");
+  document.getElementById("writeAufgabenRef2").innerHTML = renderBlocksHtml(d.aufgabenbloecke_2 || []);
+
+  initHL();
+}
+
+function useOCRText1() {
+  const t = document.getElementById("ocrText").value;
+  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+  const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+  document.getElementById("studentText1").value = clean;
+  updateWordCounts();
+  showToast("Text in Aufgabe 1 übernommen!", "success");
+}
+
+function useOCRText2() {
+  const t = document.getElementById("ocrText").value;
+  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+  const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+  document.getElementById("studentText2").value = clean;
+  updateWordCounts();
+  showToast("Text in Aufgabe 2 übernommen!", "success");
+}
+
+async function submitForGrading() {
+  const t1 = document.getElementById("studentText1").value;
+  const t2 = document.getElementById("studentText2").value;
+  const totalWords = countWords(t1) + countWords(t2);
+  if (totalWords < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " Wörter insgesamt"); return; }
+  if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+  document.getElementById("submitBtn").disabled = true;
+  nav("feedback");
+  document.getElementById("feedbackLoader").style.display = "block";
+  document.getElementById("feedbackContent").style.display = "none";
+  try {
+    const niveau = CONFIG.storedData._niveau || document.getElementById("niveauSelect").value;
+    const gesamt_be = CONFIG.storedData.gesamt_be || (niveau === "eA" ? 120 : 100);
+
+    const payload = {
+      task_instruction_1: CONFIG.storedData.task_instruction_1 || CONFIG.storedData.task_instruction || "",
+      aufgabenbloecke_1: CONFIG.storedData.aufgabenbloecke_1 || CONFIG.storedData.aufgabenbloecke || [],
+      materialien_1: CONFIG.storedData.materialien_1 || CONFIG.storedData.materialien || [],
+      task_instruction_2: CONFIG.storedData.task_instruction_2 || "",
+      aufgabenbloecke_2: CONFIG.storedData.aufgabenbloecke_2 || [],
+      materialien_2: CONFIG.storedData.materialien_2 || [],
+      student_text_1: t1,
+      student_text_2: t2,
+      niveau: niveau,
+      gesamt_be: gesamt_be,
+      type: "wr-abitur"
+    };
+
+    const d = await apiCall("/api/grade-abitur-wr", payload);
+    const be1 = d.scores?.be_1 ?? "–";
+    const beMax1 = d.scores?.be_max_1 ?? (niveau === "eA" ? 60 : gesamt_be);
+    const be2 = d.scores?.be_2 ?? "–";
+    const beMax2 = d.scores?.be_max_2 ?? (niveau === "eA" ? 60 : 0);
+    const beGesamt = d.scores?.be_gesamt ?? "–";
+    const beMaxGesamt = d.scores?.be_max_gesamt ?? gesamt_be;
+    const np = d.scores?.notenpunkte ?? "–";
+
+    document.getElementById("scoreBE1").textContent = be1;
+    document.getElementById("scoreBEMax1").textContent = beMax1;
+    document.getElementById("scoreBE2").textContent = be2;
+    document.getElementById("scoreBEMax2").textContent = beMax2;
+    document.getElementById("scoreBEGesamt").textContent = beGesamt;
+    document.getElementById("scoreBEMaxGesamt").textContent = beMaxGesamt;
+    document.getElementById("scoreNP").textContent = np;
+
+    const fb = CONFIG.storedData.fachbereich_1 || CONFIG.storedData.fachbereich || "WR";
+    const thema = CONFIG.storedData.thema_1 || CONFIG.storedData.thema || "Abitur";
+    saveToHistory({
+      fachbereich: fb + " / " + (CONFIG.storedData.fachbereich_2 || ""),
+      be: beGesamt,
+      notenpunkte: np,
+      total: typeof np === "number" ? np : null
+    });
+    apiCall("/api/submit-result", {
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+      type: "wr-abitur",
+      topic: fb + " / " + (CONFIG.storedData.fachbereich_2 || thema),
+      content: beGesamt,
+      language: np,
+      total: typeof np === "number" ? np : null,
+      date: new Date().toISOString()
+    }).catch(() => {});
+    stopTimer();
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+    document.getElementById("feedbackContent").style.display = "block";
+  } catch (e) {
+    document.getElementById("feedbackContent").style.display = "block";
+    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">${escapeHtml(e.message)}</p>`;
+  }
+  document.getElementById("feedbackLoader").style.display = "none";
+  document.getElementById("submitBtn").disabled = false;
+}
+
+async function showModelAnswer() {
+  const card = document.getElementById("modelAnswerCard");
+  if (card.style.display === "block") { card.style.display = "none"; return; }
+  document.getElementById("showModelBtn").disabled = true;
+  try {
+    const payload = {
+      task_instruction_1: CONFIG.storedData.task_instruction_1 || CONFIG.storedData.task_instruction || "",
+      aufgabenbloecke_1: CONFIG.storedData.aufgabenbloecke_1 || CONFIG.storedData.aufgabenbloecke || [],
+      materialien_1: CONFIG.storedData.materialien_1 || CONFIG.storedData.materialien || [],
+      task_instruction_2: CONFIG.storedData.task_instruction_2 || "",
+      aufgabenbloecke_2: CONFIG.storedData.aufgabenbloecke_2 || [],
+      materialien_2: CONFIG.storedData.materialien_2 || [],
+      type: "wr-abitur"
+    };
+    const d = await apiCall("/api/model-answer-abitur-wr", payload);
+    document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+    card.style.display = "block";
+  } catch (e) { showToast(e.message); }
+  document.getElementById("showModelBtn").disabled = false;
+}
+
+const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+function renderStatistikChart(markdown, canvasId) {
+  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+  if (lines.length < 2) return;
+  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+  const headers = parse(lines[0]);
+  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+  if (dataLines.length < 2) return;
+  const rows = dataLines.slice(1).map(parse);
+  const labels = rows.map(r => r[0]);
+  const datasets = headers.slice(1).map((h, i) => ({
+    label: h,
+    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
+    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+  }));
+  new Chart(document.getElementById(canvasId), {
+    type: "bar", data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: "top" } } }
+  });
+}
+async function loadDallEImage(prompt, containerId) {
+  try {
+    const res = await fetch("/api/generate-image", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt })
+    });
+    const { url } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Bild konnte nicht geladen werden.</div>`;
+  }
+}
+async function loadUnsplashImage(keywords, containerId) {
+  try {
+    const res = await fetch("/api/fetch-unsplash", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ keywords })
+    });
+    const { url, credit } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Foto konnte nicht geladen werden.</div>`;
+  }
+}
+
+function renderHistoryTable(history) {
+  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
+    `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${escapeHtml(x.fachbereich || "–")}</td><td class="history-score">${x.be ?? "–"}</td><td class="history-score" style="font-weight:700">${x.notenpunkte ?? x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length-1-i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
+  ).join("");
+}
+
+// Init
+(function() {
+  const level = sessionStorage.getItem("student_level") || "eA";
+  const sel = document.getElementById("niveauSelect");
+  if (sel) {
+    sel.value = level;
+    updateNiveau();
+  }
+})();
+</script>
+</body>
+</html>

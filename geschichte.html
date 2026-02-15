@@ -12,6 +12,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
+<style>
+/* Material cards & image styles */
+.material-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
+.material-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
+.material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
+.material-card .material-body{font-size:.88rem;line-height:1.6}
+.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
+.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
+.material-type-badge{display:inline-block;background:var(--accent-soft);color:var(--accent);font-size:.65rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;text-transform:uppercase;margin-left:.3rem}
+.material-chart{margin:1rem 0;max-height:280px}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
+.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
+.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
+</style>
 </head>
 <body>
 <header>
@@ -113,6 +129,7 @@
       <div class="source-text" id="sourceText">Hier erscheint das Quellenmaterial …</div>
       <div class="source-meta" id="sourceMeta"></div>
     </div>
+    <div id="zusatzMaterialien"></div>
     <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
   </section>
 
@@ -319,6 +336,43 @@ function renderTask(d) {
   document.getElementById("sourceMeta").textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
   document.getElementById("writeTaskRef").innerHTML = taskHtml;
   document.getElementById("writeSourceRef").innerHTML = sourceHtml;
+
+  // Zusatz-Materialien (Bilder, Fotos, Statistiken)
+  const zm = d.zusatz_materialien || [];
+  const zmContainer = document.getElementById("zusatzMaterialien");
+  if (zm.length) {
+    zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
+      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+      const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+      let body;
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        body = DOMPurify.sanitize(marked.parse(m.content || ""));
+        body += `<div class="material-chart"><canvas id="chart-gz-${i}"></canvas></div>`;
+      } else if (m.type === "bild") {
+        body = `<div class="material-img-loading" id="img-gz-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+      } else if (m.type === "foto") {
+        body = `<div class="material-img-loading" id="img-gz-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+      } else {
+        body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+      }
+      return `<div class="material-card">
+        <h4>M ${i+2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+        <div class="material-body">${body}</div>
+        ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+      </div>`;
+    }).join("") + '</div>';
+    zm.forEach((m, i) => {
+      if (m.type === "statistik" && (m.content || "").includes("|")) {
+        renderStatistikChart(m.content, `chart-gz-${i}`);
+      } else if (m.type === "bild") {
+        loadDallEImage(m.content, `img-gz-${i}`);
+      } else if (m.type === "foto") {
+        loadUnsplashImage(m.content, `img-gz-${i}`);
+      }
+    });
+  } else {
+    zmContainer.innerHTML = "";
+  }
 }
 
 async function submitForGrading() {
@@ -352,6 +406,51 @@ async function submitForGrading() {
   }
   document.getElementById("feedbackLoader").style.display = "none";
   document.getElementById("submitBtn").disabled = false;
+}
+
+const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
+function renderStatistikChart(markdown, canvasId) {
+  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+  if (lines.length < 2) return;
+  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+  const headers = parse(lines[0]);
+  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+  if (dataLines.length < 2) return;
+  const rows = dataLines.slice(1).map(parse);
+  const labels = rows.map(r => r[0]);
+  const datasets = headers.slice(1).map((h, i) => ({
+    label: h,
+    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
+    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+  }));
+  new Chart(document.getElementById(canvasId), {
+    type: "bar", data: { labels, datasets },
+    options: { responsive: true, plugins: { legend: { position: "top" } } }
+  });
+}
+async function loadDallEImage(prompt, containerId) {
+  try {
+    const res = await fetch("/api/generate-image", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ prompt })
+    });
+    const { url } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="KI-generierte Illustration" class="material-img">`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Bild konnte nicht geladen werden.</div>`;
+  }
+}
+async function loadUnsplashImage(keywords, containerId) {
+  try {
+    const res = await fetch("/api/fetch-unsplash", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ keywords })
+    });
+    const { url, credit } = await res.json();
+    document.getElementById(containerId).innerHTML = `<img src="${url}" alt="Foto" class="material-img"><div class="material-img-credit">${escapeHtml(credit)}</div>`;
+  } catch(e) {
+    document.getElementById(containerId).innerHTML = `<div class="material-img-error">Foto konnte nicht geladen werden.</div>`;
+  }
 }
 
 function renderHistoryTable(h) {
