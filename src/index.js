@@ -1973,6 +1973,8 @@ async function handleGradeWR(request, env) {
 
   const rubricPrompt = `Du bewertest eine Wirtschaft-und-Recht-Abiturarbeit nach dem bayerischen BE-System (Bewertungseinheiten).
 
+WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen. Erwähne dies explizit im Feedback.
+
 BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
 - Berücksichtige: Materialbezug, Operatoren-Anforderung (AFB I/II/III), fachliche Korrektheit, Struktur
@@ -2450,6 +2452,8 @@ async function handleGradeAbiturWR(request, env) {
   }
 
   const rubricPrompt = `Du bewertest eine vollständige WR-Abiturprüfung (2 Aufgaben) nach dem bayerischen BE-System.
+
+WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen. Erwähne dies explizit im Feedback.
 
 BEWERTUNGSREGELN:
 - Bewerte JEDE Aufgabe separat mit BE
