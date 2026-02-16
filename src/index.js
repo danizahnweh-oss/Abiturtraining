@@ -2548,7 +2548,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Bl
 /* ================= OPENAI CALL ================= */
 async function callOpenAI(env, messages, maxTokens = 4000) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 25000);
+  const timeout = setTimeout(() => controller.abort(), 90000);
 
   let response;
   try {
