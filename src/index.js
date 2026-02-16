@@ -2566,31 +2566,19 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Bl
 
 /* ================= OPENAI CALL ================= */
 async function callOpenAI(env, messages, maxTokens = 4000) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 90000);
-
-  let response;
-  try {
-    response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${env.OPENAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "gpt-5.2",
-        messages,
-        temperature: 0.7,
-        max_completion_tokens: maxTokens
-      }),
-      signal: controller.signal
-    });
-  } catch (e) {
-    clearTimeout(timeout);
-    if (e.name === "AbortError") throw new Error("OpenAI-Anfrage hat zu lange gedauert (Timeout). Bitte erneut versuchen.");
-    throw e;
-  }
-  clearTimeout(timeout);
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${env.OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: "gpt-5.2",
+      messages,
+      temperature: 0.7,
+      max_completion_tokens: maxTokens
+    })
+  });
 
   const data = await response.json();
   if (!response.ok) {
