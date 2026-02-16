@@ -1083,9 +1083,26 @@ async function handleGenerateImage(request, env) {
     if (data.error) {
       return jsonResponse({ error: data.error.message || "DALL-E Fehler" }, 500, env);
     }
-    // Generate a short German caption from the original prompt
-    const caption = prompt.length > 120 ? prompt.substring(0, 120) + "…" : prompt;
-    return jsonResponse({ url: data.data[0].url, caption }, 200, env);
+    const url = data.data[0].url;
+
+    // Generate a short German caption via GPT (fire-and-forget style, don't block if it fails)
+    let caption = "";
+    try {
+      const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein Schaubild mit folgendem Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
+          max_tokens: 60,
+          temperature: 0.3
+        })
+      });
+      const captionData = await captionRes.json();
+      caption = captionData.choices?.[0]?.message?.content?.trim() || "";
+    } catch {}
+
+    return jsonResponse({ url, caption }, 200, env);
   } catch (e) {
     return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
   }
