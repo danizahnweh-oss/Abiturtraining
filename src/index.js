@@ -1064,28 +1064,35 @@ async function handleGenerateImage(request, env) {
   if (!prompt) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
+
+  // Extract short search keywords from the prompt via GPT
+  let keywords = prompt;
   try {
-    const response = await fetch("https://api.openai.com/v1/images/generations", {
+    const kwRes = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
       body: JSON.stringify({
-        model: "dall-e-3",
-        prompt: prompt + "\n\nWICHTIG: Das Bild darf KEINERLEI Text, Beschriftungen, Zahlen, Buchstaben oder Wörter enthalten. Keine Schrift im Bild! Erstelle ein rein visuelles Schaubild/Illustration ohne jegliche Texteinblendungen. Stil: professionelle, klare Illustration für den Schulunterricht.",
-        n: 1,
-        size: "1024x1024",
-        quality: "standard"
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: `Extrahiere 2-4 englische Suchbegriffe für ein Stockfoto zu folgendem Thema. Nur die Begriffe, kommagetrennt, keine Erklärung.\n\nThema: ${prompt}` }],
+        max_tokens: 30,
+        temperature: 0.3
       })
     });
-    const data = await response.json();
-    if (data.error) {
-      return jsonResponse({ error: data.error.message || "DALL-E Fehler" }, 500, env);
-    }
-    const url = data.data[0].url;
+    const kwData = await kwRes.json();
+    keywords = kwData.choices?.[0]?.message?.content?.trim() || prompt;
+  } catch {}
 
-    // Generate a short German caption via GPT (fire-and-forget style, don't block if it fails)
+  try {
+    const response = await fetch(
+      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keywords)}&orientation=landscape`,
+      { headers: { "Authorization": `Client-ID ${env.UNSPLASH_ACCESS_KEY}` } }
+    );
+    const data = await response.json();
+    if (data.errors) {
+      return jsonResponse({ error: data.errors[0] || "Unsplash Fehler" }, 500, env);
+    }
+
+    // Generate a short German caption
     let caption = "";
     try {
       const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -1093,7 +1100,7 @@ async function handleGenerateImage(request, env) {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
         body: JSON.stringify({
           model: "gpt-4o-mini",
-          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein Schaubild mit folgendem Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
+          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein Foto zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
           max_tokens: 60,
           temperature: 0.3
         })
@@ -1102,9 +1109,13 @@ async function handleGenerateImage(request, env) {
       caption = captionData.choices?.[0]?.message?.content?.trim() || "";
     } catch {}
 
-    return jsonResponse({ url, caption }, 200, env);
+    return jsonResponse({
+      url: data.urls.regular,
+      credit: `${data.user.name} / Unsplash`,
+      caption
+    }, 200, env);
   } catch (e) {
-    return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
+    return jsonResponse({ error: "Foto laden fehlgeschlagen: " + e.message }, 500, env);
   }
 }
 

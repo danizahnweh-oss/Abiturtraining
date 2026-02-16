@@ -24,6 +24,7 @@
 .material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:0}
 .material-figure{margin:0;padding:0}
 .material-caption{font-size:.8rem;color:var(--ink-muted);text-align:center;margin-top:.4rem;font-style:italic;line-height:1.4}
+.material-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.2rem;opacity:.7}
 .material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
 .material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
 .material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
@@ -610,9 +611,11 @@ function renderStatistikChart(markdown, canvasId) {
 async function loadDallEImage(prompt, containerId) {
   try {
     const d = await apiCall("/api/generate-image", { prompt });
-    document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="KI-generierte Illustration" class="material-img">${d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : ""}</figure>`;
+    const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
+    const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
+    document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
   } catch(e) {
-    console.error("DALL-E Fehler:", e);
+    console.error("Bild-Fehler:", e);
     document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
   }
 }
