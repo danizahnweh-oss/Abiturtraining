@@ -617,7 +617,15 @@ async function handleModelAnswer(request, env) {
   }
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B2/C1).
-Schreibe eine Musterlösung für die Mediation-Aufgabe auf ENGLISCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Mediation-Aufgabe auf ENGLISCH.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein — wie ein echter Aufsatz, den ein Schüler in der Prüfung abgeben würde.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich flüssig lesen lassen, mit sinnvollen Absätzen und Gedankenführung
+
+Inhaltlich:
 - Halte dich an die Aufgabenstellung
 - Paraphrasiere, übersetze NICHT wörtlich
 - Zielumfang: 200–280 Wörter
@@ -1013,8 +1021,16 @@ async function handleModelAnswerDeutsch(request, env) {
   const { task_instruction, primary_text, primary_meta, compare_text, material_text, type, materials } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Deutsch).
-Schreibe eine Musterlösung auf DEUTSCH.
-- Strukturiere klar (Einleitung, Hauptteil, Schluss)
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit eleganten Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Aufsatz lesen — mit sinnvollen Absätzen und klarer Gedankenführung
+- Strukturiere klar (Einleitung, Hauptteil, Schluss), aber gliedere durch Absätze, NICHT durch Aufzählungen
+
+Inhaltlich:
 - Verwende Fachbegriffe korrekt
 - Belege Aussagen mit Textzitaten
 - Zielumfang: 800-1200 Wörter
@@ -1487,12 +1503,20 @@ async function handleModelAnswerPuG(request, env) {
   const { task_instruction, primary_text, materials } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
-Schreibe eine Musterlösung auf DEUTSCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+
+Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
 - Verwende politikwissenschaftliche Fachbegriffe korrekt
 - Beziehe das Material ein und zitiere daraus
 - Beachte die Operatoren und Anforderungsebenen
-- Strukturiere klar nach Teilaufgaben
 - Formuliere bei Reflexionsaufgaben ein eigenständiges, begründetes Urteil
 - Zielumfang: 800-1200 Wörter
 
@@ -1767,14 +1791,20 @@ async function handleModelAnswerAbiturPuG(request, env) {
   const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
-Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
 
 PRÜFUNGSTEIL A:
 - Bearbeite ALLE Teilaufgaben
 - Verwende politikwissenschaftliche Fachbegriffe korrekt
 - Beziehe das Material ein und zitiere daraus
 - Beachte die Operatoren und Anforderungsebenen
-- Strukturiere klar nach Teilaufgaben
 - Formuliere bei Reflexionsaufgaben ein eigenständiges, begründetes Urteil
 
 PRÜFUNGSTEIL B (Ausweitung):
@@ -2040,7 +2070,16 @@ async function handleModelAnswerWR(request, env) {
   const { task_instruction, aufgabenbloecke, materialien } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
-Schreibe eine Musterlösung auf DEUTSCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+
+Inhaltlich:
 - Bearbeite ALLE Teilaufgaben strukturiert
 - Verwende Fachbegriffe korrekt (BWL, VWL, Recht)
 - Beziehe die Materialien ein und verweise darauf
@@ -2287,7 +2326,14 @@ async function handleModelAnswerAbiturGeschichte(request, env) {
   const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geschichte (Leistungsfach).
-Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen, klarer Argumentation und Gedankenführung
+- Jeder Teil als eigener Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
 
 TEIL A — QUELLENANALYSE:
 - Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
@@ -2521,7 +2567,16 @@ async function handleModelAnswerAbiturWR(request, env) {
   const { task_instruction_1, aufgabenbloecke_1, materialien_1, task_instruction_2, aufgabenbloecke_2, materialien_2 } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
-Schreibe eine Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (2 Aufgaben) auf DEUTSCH.
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (2 Aufgaben) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+
+Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Aufgaben
 - Verwende Fachbegriffe korrekt (BWL, VWL, Recht)
 - Beziehe die Materialien ein
