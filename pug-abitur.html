@@ -44,7 +44,9 @@
 .material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
 .material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
 .material-chart{margin:1rem 0;max-height:280px}
-.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:.5rem 0}
+.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:0}
+.material-figure{margin:0;padding:0}
+.material-caption{font-size:.8rem;color:var(--ink-muted);text-align:center;margin-top:.4rem;font-style:italic;line-height:1.4}
 .material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
 .material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
 .material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
@@ -801,7 +803,7 @@ function renderStatistikChart(markdown, canvasId) {
 async function loadDallEImage(prompt, containerId) {
   try {
     const d = await apiCall("/api/generate-image", { prompt });
-    document.getElementById(containerId).innerHTML = `<img src="${d.url}" alt="KI-generierte Illustration" class="material-img">`;
+    document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="KI-generierte Illustration" class="material-img">${d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : ""}</figure>`;
   } catch(e) {
     console.error("DALL-E Fehler:", e);
     document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;

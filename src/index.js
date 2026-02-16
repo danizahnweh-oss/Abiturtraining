@@ -1073,7 +1073,7 @@ async function handleGenerateImage(request, env) {
       },
       body: JSON.stringify({
         model: "dall-e-3",
-        prompt: prompt + "\n\nWICHTIG: Alle Texte, Beschriftungen und Wörter im Bild MÜSSEN auf Deutsch sein. Verwende ausschließlich korrekte, natürliche deutsche Sprache. Keine englischen Begriffe. Stil: professionelle Infografik oder Schaubild für den Schulunterricht.",
+        prompt: prompt + "\n\nWICHTIG: Das Bild darf KEINERLEI Text, Beschriftungen, Zahlen, Buchstaben oder Wörter enthalten. Keine Schrift im Bild! Erstelle ein rein visuelles Schaubild/Illustration ohne jegliche Texteinblendungen. Stil: professionelle, klare Illustration für den Schulunterricht.",
         n: 1,
         size: "1024x1024",
         quality: "standard"
@@ -1083,7 +1083,9 @@ async function handleGenerateImage(request, env) {
     if (data.error) {
       return jsonResponse({ error: data.error.message || "DALL-E Fehler" }, 500, env);
     }
-    return jsonResponse({ url: data.data[0].url }, 200, env);
+    // Generate a short German caption from the original prompt
+    const caption = prompt.length > 120 ? prompt.substring(0, 120) + "…" : prompt;
+    return jsonResponse({ url: data.data[0].url, caption }, 200, env);
   } catch (e) {
     return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
   }
