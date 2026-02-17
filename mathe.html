@@ -318,6 +318,37 @@ function loadGeoGebraScript() {
   });
 }
 function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function(c){c.remove();}); }
+function autoFitGeoGebra(api, type) {
+  var names = api.getAllObjectNames();
+  if (!names || !names.length) return;
+  // Make everything black
+  for (var n = 0; n < names.length; n++) { api.setColor(names[n], 0, 0, 0); }
+  if (type === "3d" || type === "probability") return;
+  // Collect bounds from all objects
+  var ax = [], ay = [];
+  for (var n = 0; n < names.length; n++) {
+    var t = api.getObjectType(names[n]);
+    if (t === "point") {
+      var px = api.getXcoord(names[n]), py = api.getYcoord(names[n]);
+      if (isFinite(px) && isFinite(py)) { ax.push(px); ay.push(py); }
+    } else if (t === "function") {
+      // Coarse scan: find peak
+      var peak = 0;
+      for (var x = -30; x <= 50; x += 0.5) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y)) peak = Math.max(peak, Math.abs(y)); }
+      // Fine scan: include x where |f(x)| > 1% of peak
+      var th = Math.max(peak * 0.01, 0.001);
+      for (var x = -30; x <= 50; x += 0.25) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y) && Math.abs(y) >= th) { ax.push(x); ay.push(y); } }
+    }
+  }
+  if (ax.length < 2) return;
+  var xlo = Math.min.apply(null, ax), xhi = Math.max.apply(null, ax);
+  var ylo = Math.min.apply(null, ay), yhi = Math.max.apply(null, ay);
+  // Always include origin region
+  if (xlo > -2) xlo = -1;
+  if (ylo > -1) ylo = Math.min(ylo, -0.5);
+  var xp = Math.max((xhi - xlo) * 0.1, 1), yp = Math.max((yhi - ylo) * 0.12, 0.5);
+  api.setCoordSystem(xlo - xp, xhi + xp, ylo - yp, yhi + yp);
+}
 async function renderGeoGebra(containerEl, grafik, idPrefix) {
   if (!grafik || !grafik.commands || !grafik.commands.length) return;
   const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
@@ -343,10 +374,7 @@ async function renderGeoGebra(containerEl, grafik, idPrefix) {
       try {
         if (api.setErrorDialogsActive) api.setErrorDialogsActive(false);
         for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
-        if (grafik.settings && grafik.type !== "probability") {
-          var st = grafik.settings;
-          if (st.xmin != null && st.xmax != null && st.ymin != null && st.ymax != null) api.setCoordSystem(st.xmin, st.xmax, st.ymin, st.ymax);
-        }
+        autoFitGeoGebra(api, grafik.type);
         if (isDark) { api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)"); }
       } catch(e) { console.warn("GeoGebra cmd error:", e); }
     }

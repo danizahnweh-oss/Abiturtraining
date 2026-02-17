@@ -4786,12 +4786,10 @@ KRITISCHE GEOGEBRA-REGELN:
 6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
 7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
 
-KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
-FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
-
-8. settings: Wähle xmin/xmax/ymin/ymax so, dass der Graph GUT SICHTBAR ist und den Bildschirm füllt!
-   Berechne mental: Wo ist das Maximum? Wo sind die Nullstellen? Setze die Achsen eng um den relevanten Bereich.
-   Beispiel: f(x)=6*x*exp(-0.25*x) hat Maximum bei x≈4, y≈8.8 → settings: xmin=-1, xmax=25, ymin=-1, ymax=12
+KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2))
+FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
+8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
+9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
 Wann Grafik: Kurvendiskussion, Flächenberechnung, 3D-Geometrie, Funktionsgraphen.
 Wann KEINE Grafik: Reine Rechenaufgaben, Hypothesentests, algebraische Umformungen.
@@ -4807,7 +4805,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${isKurz ? 5 : "20-30"},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
-  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1", "SetColor(f, 16, 185, 129)"], "settings": {"xmin": -1, "xmax": 4, "ymin": -1, "ymax": 5}}
+  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 }
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
@@ -5019,11 +5017,10 @@ KRITISCHE GEOGEBRA-REGELN:
 6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
 7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
 
-KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
-FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
-
-8. settings: Wähle xmin/xmax/ymin/ymax so, dass der Graph GUT SICHTBAR ist!
-   Berechne mental: Wo ist das Maximum? Wo sind die Nullstellen? Setze die Achsen eng um den relevanten Bereich.
+KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2))
+FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
+8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
+9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
 Empfohlen: Grafik bei Teil-B-Aufgaben (Analysis: Funktionsgraph, Geometrie: 3D)
 Selten: Teil-A-Kurzaufgaben (nur wenn Grafik explizit hilfreich)
@@ -5046,9 +5043,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
   ],
   "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [...], "grafik": {"type": "graphing", "commands": ["f(x) = ..."], "settings": {"xmin": -2, "xmax": 8, "ymin": -5, "ymax": 20}}},
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [...], "grafik": {"type": "graphing", "commands": ["f(x) = ..."]}},
     {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "...", "teilaufgaben": [...]},
-    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...], "grafik": {"type": "3d", "commands": ["A = (1,2,3)", "g: X = (1,2,3) + t*(1,0,-1)"], "settings": {}}}
+    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...], "grafik": {"type": "3d", "commands": ["A = (1,2,3)"]}}
   ]
 }
 Hinweis: "grafik" ist OPTIONAL pro Aufgabe.`;
