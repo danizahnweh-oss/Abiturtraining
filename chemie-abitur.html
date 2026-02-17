@@ -14,8 +14,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<!-- SmilesDrawer -->
-<script src="https://unpkg.com/smiles-drawer@2.1.7/dist/smiles-drawer.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
@@ -74,9 +72,9 @@
 .material-details .material-body th,.material-details .material-body td{border:1px solid var(--border);padding:.3rem .5rem;text-align:left}
 .material-details .material-body th{background:var(--accent-glow);font-weight:600}
 
-/* SMILES canvas */
-.smiles-canvas{display:block;max-width:280px;margin:.5rem auto;background:#fff;border-radius:var(--radius-sm);border:1px solid var(--border)}
-[data-theme="dark"] .smiles-canvas{background:#1e1e2e}
+/* Strukturformel images (PubChem) */
+.struktur-img{display:block;max-width:280px;margin:.5rem auto;border-radius:var(--radius-sm);border:1px solid var(--border);background:#fff;padding:.3rem}
+[data-theme="dark"] .struktur-img{filter:invert(1) hue-rotate(180deg)}
 
 /* Sachgebiet badge */
 .sachgebiet-badge{display:inline-block;font-size:.7rem;font-weight:600;padding:.15rem .5rem;border-radius:3px;background:var(--accent-glow);color:var(--accent);margin-left:.4rem}
@@ -287,23 +285,6 @@ function updateLevelDisplay() {
 CONFIG.selectedAufgaben = new Set();
 const AUFGABEN_NEEDED = 3;
 
-/* ====== SmilesDrawer ====== */
-function renderSmilesCanvases(container) {
-  if (typeof SmilesDrawer === "undefined" || typeof SmilesDrawer.Drawer === "undefined") return;
-  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  var drawer = new SmilesDrawer.Drawer({ width: 260, height: 200 });
-  container.querySelectorAll("canvas[data-smiles]").forEach(function(canvas) {
-    var smiles = canvas.getAttribute("data-smiles");
-    if (!smiles || !canvas.id) return;
-    SmilesDrawer.parse(smiles, function(tree) {
-      drawer.draw(tree, canvas.id, isDark ? "dark" : "light", false);
-    }, function(err) {
-      console.warn("SMILES parse error:", smiles, err);
-      if (canvas) canvas.style.display = "none";
-    });
-  });
-}
-
 // BE -> NP conversion table (ISB)
 const BE_NP_TABLE = [
   [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
@@ -462,11 +443,11 @@ function renderTask(d) {
         if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
         if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
         if (m.strukturformeln && m.strukturformeln.length) {
-          m.strukturformeln.forEach(function(sf, si) {
-            var canvasId = "smiles_" + idx + "_" + mi + "_" + si;
+          m.strukturformeln.forEach(function(sf) {
+            if (!sf.name) return;
             html += '<div style="text-align:center;margin:.5rem 0">';
-            if (sf.name) html += '<div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">' + renderInlineKatex(sf.name) + '</div>';
-            html += '<canvas class="smiles-canvas" id="' + canvasId + '" data-smiles="' + escapeHtml(sf.smiles || "") + '" width="260" height="200"></canvas>';
+            html += '<img class="struktur-img" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + encodeURIComponent(sf.name) + '/PNG?image_size=300" alt="' + escapeHtml(sf.caption || sf.name) + '" onerror="this.parentElement.style.display=\'none\'">';
+            if (sf.caption) html += '<div style="font-size:.8rem;font-weight:600;margin-top:.2rem">' + renderInlineKatex(sf.caption) + '</div>';
             html += '</div>';
           });
         }
@@ -495,7 +476,6 @@ function renderTask(d) {
   }).join("");
 
   renderMath(container);
-  renderSmilesCanvases(container);
   updateWahlUI();
 }
 
@@ -955,11 +935,8 @@ function clearMathFieldFor(feIdx) {
   if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
 }
 
-/* ====== DARK MODE OBSERVER FOR SMILES ====== */
-new MutationObserver(function() {
-  // Re-render SMILES canvases when theme changes
-  renderSmilesCanvases(document.getElementById("aufgabengruppenContainer"));
-}).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+/* ====== DARK MODE OBSERVER ====== */
+// PubChem images use CSS filter for dark mode inversion — no JS re-render needed.
 
 /* ====== INIT LEVEL DISPLAY ====== */
 ;(function() {
