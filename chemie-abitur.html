@@ -297,6 +297,7 @@ function renderSmilesCanvases(container) {
       drawer.draw(tree, canvas.id, isDark ? "dark" : "light", false);
     }, function(err) {
       console.warn("SMILES parse error:", smiles, err);
+      if (canvas) canvas.style.display = "none";
     });
   });
 }

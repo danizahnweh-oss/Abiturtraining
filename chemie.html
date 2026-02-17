@@ -538,10 +538,20 @@ function renderTask(d) {
       var drawer = new SmilesDrawer.Drawer({ width: 300, height: 200 });
       var isDark = document.documentElement.getAttribute("data-theme") === "dark";
       d.strukturformeln.forEach(function(sf, i) {
-        if (!sf.smiles) return;
+        if (!sf.smiles) { document.getElementById("smiles_task_" + i).style.display = "none"; return; }
         SmilesDrawer.parse(sf.smiles, function(tree) {
           drawer.draw(tree, "smiles_task_" + i, isDark ? "dark" : "light", false);
-        }, function(err) { console.warn("SMILES parse error:", sf.smiles, err); });
+        }, function(err) {
+          console.warn("SMILES parse error:", sf.smiles, err);
+          var c = document.getElementById("smiles_task_" + i);
+          if (c) c.style.display = "none";
+        });
+      });
+    } else {
+      // SmilesDrawer not loaded, hide all canvases
+      d.strukturformeln.forEach(function(sf, i) {
+        var c = document.getElementById("smiles_task_" + i);
+        if (c) c.style.display = "none";
       });
     }
   }
