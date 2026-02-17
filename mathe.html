@@ -462,13 +462,20 @@ function restoreSession() {
 }
 
 /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
-function safeMathParse(text) {
+function protectMath(text) {
   var blocks = [];
   text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
   text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-  var html = marked.parse(text);
-  html = html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
-  return html;
+  return { text: text, blocks: blocks };
+}
+function restoreMath(html, blocks) {
+  return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
+}
+function safeMathParse(text) {
+  var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+}
+function safeMathParseInline(text) {
+  var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
 }
 
 function renderMath(el) {
@@ -549,7 +556,7 @@ function renderTask(d) {
   if (d.teilaufgaben && d.teilaufgaben.length) {
     container.innerHTML = d.teilaufgaben.map(t =>
       '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-      DOMPurify.sanitize(marked.parseInline(t.text || "")) +
+      DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
       ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>'
     ).join("");
     renderMath(container);
