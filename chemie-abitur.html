@@ -476,8 +476,27 @@ function renderTask(d) {
 
     // Single material field (alternative format)
     if (a.material && !a.materialien) {
-      html += '<details class="material-details"><summary>Material</summary>';
-      html += '<div class="material-body">' + DOMPurify.sanitize(safeMathParse(a.material)) + '</div></details>';
+      if (Array.isArray(a.material)) {
+        a.material.forEach(function(m, mi) {
+          html += '<details class="material-details"><summary>' + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+          html += '<div class="material-body">';
+          if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+          if (m.tabelle) html += m.tabelle;
+          if (m.strukturformeln && m.strukturformeln.length) {
+            m.strukturformeln.forEach(function(sf, si) {
+              var canvasId = "smiles_mat_" + idx + "_" + mi + "_" + si;
+              html += '<div style="text-align:center;margin:.5rem 0">';
+              if (sf.name) html += '<div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">' + escapeHtml(sf.name) + '</div>';
+              html += '<canvas class="smiles-canvas" id="' + canvasId + '" data-smiles="' + escapeHtml(sf.smiles || "") + '" width="260" height="200"></canvas>';
+              html += '</div>';
+            });
+          }
+          html += '</div></details>';
+        });
+      } else {
+        html += '<details class="material-details"><summary>Material</summary>';
+        html += '<div class="material-body">' + DOMPurify.sanitize(safeMathParse(a.material)) + '</div></details>';
+      }
     }
 
     // Teilaufgaben
