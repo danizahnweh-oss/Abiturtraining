@@ -526,15 +526,19 @@ function renderTask(d) {
       if (sf.caption) {
         var cap = document.createElement("div");
         cap.style.cssText = "font-size:.8rem;color:var(--ink-muted);margin-top:.3rem";
-        cap.textContent = sf.caption;
+        cap.innerHTML = renderInlineKatex(sf.caption);
         wrapper.appendChild(cap);
       }
       smilesContainer.appendChild(wrapper);
       // Render SMILES
-      if (typeof SmilesDrawer !== "undefined" && sf.smiles) {
-        var isDark = document.documentElement.getAttribute("data-theme") === "dark";
-        var smilesDrawer = new SmilesDrawer.SmiDrawer({ width: 300, height: 200, bondThickness: 1.5, fontSizeLarge: 11, fontSizeSmall: 7, padding: 20, themes: { dark: { C: "#e4e4ed", O: "#f87171", N: "#60a5fa", S: "#fbbf24", H: "#b0b0c8", BACKGROUND: "#1e1e2e" }, light: { C: "#1a1a2e", O: "#dc2626", N: "#2563eb", S: "#b45309", H: "#4a4a6a", BACKGROUND: "#ffffff" } } });
-        smilesDrawer.draw(sf.smiles, canvas, isDark ? "dark" : "light");
+      if (typeof SmilesDrawer !== "undefined" && typeof SmilesDrawer.Drawer !== "undefined" && sf.smiles) {
+        (function(smi, cvs) {
+          var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+          var drawer = new SmilesDrawer.Drawer({ width: 300, height: 200 });
+          SmilesDrawer.parse(smi, function(tree) {
+            drawer.draw(tree, cvs, isDark ? "dark" : "light", false);
+          }, function(err) { console.warn("SMILES parse error:", smi, err); });
+        })(sf.smiles, canvas);
       }
     });
     container.parentNode.insertBefore(smilesContainer, container);
@@ -549,7 +553,7 @@ function renderTask(d) {
       details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
       var summary = document.createElement("summary");
       summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-      summary.textContent = (m.id || "") + " " + (m.titel || "");
+      summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
       var body = document.createElement("div");
       body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
       body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
