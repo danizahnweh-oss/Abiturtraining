@@ -5418,7 +5418,13 @@ CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - pH-Berechnungen: $\\text{pH} = -\\lg c(\\ce{H3O+})$
 - Nernst-Gleichung: $E = E^\\circ + \\frac{R \\cdot T}{z \\cdot F} \\cdot \\ln Q$
 
+TEMPERATUR-NOTATION:
+- RICHTIG: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$
+- FALSCH: $^\\circ\\ce{C}$ (\\ce{C} wird als Kohlenstoff interpretiert!)
+- FALSCH: $\\vartheta$ (nicht in KaTeX verfügbar) — verwende stattdessen $\\theta$ oder $T$
+
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
+KEINE Strukturformeln als SMILES — verwende stattdessen Textbeschreibungen für Strukturen.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5430,11 +5436,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${isKurz ? 10 : 30},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
-  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
-  "strukturformeln": [{"smiles": "OCC(O)CO", "caption": "Glycerin"}]
+  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
 }
-Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
-Hinweis: "strukturformeln" ist OPTIONAL — nur wenn Strukturformeln pädagogisch sinnvoll sind.`;
+Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
   const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
@@ -5510,6 +5514,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für chemische und mathematische Ausdrücke.
 LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
 CHEMIE-REGELN: Verwende $\\ce{}$ für alle Reaktionsgleichungen und chemische Formeln.
+TEMPERATUR: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$).
 
 Antworte NUR mit validem JSON:
 {
@@ -5588,7 +5593,8 @@ CHEMIE-SPEZIFISCHE LATEX-REGELN:
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
 - Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
-- Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$`;
+- Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$
+- Temperatur: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$)`;
 
   let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
   if (material && material.length) {
@@ -5696,7 +5702,13 @@ CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
 - Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$, $\\text{kJ/mol}$
 
+TEMPERATUR-NOTATION:
+- RICHTIG: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$
+- FALSCH: $^\\circ\\ce{C}$ (\\ce{C} wird als Kohlenstoff interpretiert!)
+- FALSCH: $\\vartheta$ (nicht in KaTeX verfügbar) — verwende stattdessen $\\theta$ oder $T$
+
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
+KEINE Strukturformeln als SMILES — verwende stattdessen Textbeschreibungen für Strukturen.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5706,7 +5718,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "titel": "Titel der Aufgabe",
       "sachgebiet": "elektrochemie",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten...", "strukturformeln": [{"smiles": "...", "caption": "..."}]}
+        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
       ],
       "teilaufgaben": [
         {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 5},
@@ -5742,8 +5754,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "level": "${lvl}",
   "pruefungsdauer": ${pruefungsdauer},
   "gesamt_be": ${gesamtBE}
-}
-Hinweis: "strukturformeln" innerhalb von material ist OPTIONAL.`;
+}`;
 
   const userPrompt = `Erstelle eine vollständige Chemie-Abiturprüfung (${lvl}, ${gesamtBE} BE).
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
@@ -5816,6 +5827,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Verwende LaTeX-Notation ($...$, $$...$$) und $\\ce{}$ im Feedback.
+TEMPERATUR: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$).
 
 Antworte NUR mit validem JSON:
 {
@@ -5885,6 +5897,7 @@ WICHTIG:
 - Begründe Ansätze kurz
 - LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
 - CHEMIE-REGELN: $\\ce{H2O}$ für Formeln, $\\ce{2H2 + O2 -> 2H2O}$ für Reaktionen, $\\ce{<=>}$ für Gleichgewichte
+- TEMPERATUR: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$)
 - Formatiere als Markdown mit klaren Überschriften:
   ## Aufgabe 1: [Titel]
   ### Teilaufgabe 1.1
