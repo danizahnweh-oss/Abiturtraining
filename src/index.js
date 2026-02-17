@@ -4773,16 +4773,22 @@ WICHTIG:
 
 GEOGEBRA-VISUALISIERUNG (optional):
 Falls die Aufgabe von einer grafischen Darstellung profitiert, füge ein "grafik"-Feld hinzu.
-- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Nullstellen, Flächen
+- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Nullstellen
 - Geometrie: type "3d" — Punkte, Geraden, Ebenen im 3D-Raum
 - Stochastik: type "probability" — nur wenn es die Aufgabe verdeutlicht
-GeoGebra-Syntax (NICHT LaTeX!):
-- Funktionen: f(x) = 2*x^2 - 3*x + 1 (immer * für Multiplikation)
-- Punkte: A = (1, 2) oder A = (1, 2, 3) für 3D
-- Geraden: g: X = (1,2,3) + t*(1,0,-1) oder Line(A, B)
-- Ebenen: E: 2*x + 3*y - z = 5
-- Farben: SetColor(f, 16, 185, 129) für Akzentfarbe
-- KEINE $ oder LaTeX in GeoGebra-Befehlen!
+
+KRITISCHE GEOGEBRA-REGELN:
+1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: b(x) = 80*x*exp(-0.2*x)
+2. Immer * für Multiplikation: 2*x, NICHT 2x
+3. e-Funktion: exp(x), NICHT e^x oder e^(x)
+4. Nur EINFACHE Befehle: Funktionsdefinitionen, Punkte, Geraden
+5. VERBOTEN: Integral(), Derivative(), Solve(), If(), Sequence(), Zip() — diese erzeugen Fehler!
+6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
+7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
+
+KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
+FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
+
 Wann Grafik: Kurvendiskussion, Flächenberechnung, 3D-Geometrie, Funktionsgraphen.
 Wann KEINE Grafik: Reine Rechenaufgaben, Hypothesentests, algebraische Umformungen.
 Wenn keine Grafik nötig, lasse das "grafik"-Feld einfach weg.
@@ -4996,16 +5002,22 @@ WICHTIG:
 
 GEOGEBRA-VISUALISIERUNG (optional, pro Aufgabe):
 Jede Aufgabe kann ein optionales "grafik"-Feld enthalten, um eine interaktive Grafik anzuzeigen.
-- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Flächen
+- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Nullstellen
 - Geometrie: type "3d" — Punkte, Geraden, Ebenen im 3D-Raum
 - Stochastik: type "probability" — nur wenn sinnvoll
-GeoGebra-Syntax (NICHT LaTeX!):
-- Funktionen: f(x) = 2*x^2 - 3*x + 1 (immer * für Multiplikation)
-- Punkte: A = (1, 2) oder A = (1, 2, 3) für 3D
-- Geraden: g: X = (1,2,3) + t*(1,0,-1) oder Line(A, B)
-- Ebenen: E: 2*x + 3*y - z = 5
-- Farben: SetColor(f, 16, 185, 129) für Akzentfarbe
-- KEINE $ oder LaTeX in GeoGebra-Befehlen!
+
+KRITISCHE GEOGEBRA-REGELN:
+1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: b(x) = 80*x*exp(-0.2*x)
+2. Immer * für Multiplikation: 2*x, NICHT 2x
+3. e-Funktion: exp(x), NICHT e^x oder e^(x)
+4. Nur EINFACHE Befehle: Funktionsdefinitionen, Punkte, Geraden
+5. VERBOTEN: Integral(), Derivative(), Solve(), If(), Sequence(), Zip() — diese erzeugen Fehler!
+6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
+7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
+
+KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
+FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
+
 Empfohlen: Grafik bei Teil-B-Aufgaben (Analysis: Funktionsgraph, Geometrie: 3D)
 Selten: Teil-A-Kurzaufgaben (nur wenn Grafik explizit hilfreich)
 Wenn keine Grafik nötig, lasse das "grafik"-Feld weg.
