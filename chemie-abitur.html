@@ -285,19 +285,19 @@ function updateLevelDisplay() {
 CONFIG.selectedAufgaben = new Set();
 const AUFGABEN_NEEDED = 3;
 
-/* ====== SmilesDrawer (v2 API) ====== */
+/* ====== SmilesDrawer ====== */
 function renderSmilesCanvases(container) {
-  if (typeof SmilesDrawer === "undefined" || typeof SmilesDrawer.SmiDrawer === "undefined") return;
+  if (typeof SmilesDrawer === "undefined" || typeof SmilesDrawer.Drawer === "undefined") return;
   var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  var drawer = new SmilesDrawer.Drawer({ width: 260, height: 200 });
   container.querySelectorAll("canvas[data-smiles]").forEach(function(canvas) {
     var smiles = canvas.getAttribute("data-smiles");
     if (!smiles) return;
-    try {
-      var drawer = new SmilesDrawer.SmiDrawer({ width: canvas.width || 260, height: canvas.height || 200, bondThickness: 1.5, fontSizeLarge: 11, fontSizeSmall: 7, padding: 20, themes: { dark: { C: "#e4e4ed", O: "#f87171", N: "#60a5fa", S: "#fbbf24", H: "#b0b0c8", BACKGROUND: "#1e1e2e" }, light: { C: "#1a1a2e", O: "#dc2626", N: "#2563eb", S: "#b45309", H: "#4a4a6a", BACKGROUND: "#ffffff" } } });
-      drawer.draw(smiles, canvas, isDark ? "dark" : "light");
-    } catch(err) {
-      console.warn("SMILES render error:", smiles, err);
-    }
+    SmilesDrawer.parse(smiles, function(tree) {
+      drawer.draw(tree, canvas, isDark ? "dark" : "light", false);
+    }, function(err) {
+      console.warn("SMILES parse error:", smiles, err);
+    });
   });
 }
 
@@ -453,7 +453,7 @@ function renderTask(d) {
     if (mats.length) {
       mats.forEach(function(m, mi) {
         if (!m || typeof m !== "object") return;
-        html += '<details class="material-details"><summary>' + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+        html += '<details class="material-details"><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
         html += '<div class="material-body">';
         if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
         if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
@@ -461,7 +461,7 @@ function renderTask(d) {
           m.strukturformeln.forEach(function(sf, si) {
             var canvasId = "smiles_" + idx + "_" + mi + "_" + si;
             html += '<div style="text-align:center;margin:.5rem 0">';
-            if (sf.name) html += '<div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">' + escapeHtml(sf.name) + '</div>';
+            if (sf.name) html += '<div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">' + renderInlineKatex(sf.name) + '</div>';
             html += '<canvas class="smiles-canvas" id="' + canvasId + '" data-smiles="' + escapeHtml(sf.smiles || "") + '" width="260" height="200"></canvas>';
             html += '</div>';
           });
