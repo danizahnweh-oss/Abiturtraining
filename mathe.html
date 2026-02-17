@@ -433,6 +433,18 @@ function restoreSession() {
   } catch {}
 }
 
+/* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
+function safeMathParse(text) {
+  var blocks = [];
+  // Protect $$...$$ first (display math)
+  text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
+  // Protect $...$ (inline math)
+  text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
+  var html = marked.parse(text);
+  html = html.replace(/\x00M(\d+)\x00/g, function(_, i) { return blocks[parseInt(i)]; });
+  return html;
+}
+
 function renderMath(el) {
   if (typeof renderMathInElement === "function") {
     renderMathInElement(el || document.body, {
@@ -500,7 +512,7 @@ function useManualTask() {
 
 function renderTask(d) {
   const instrEl = document.getElementById("taskInstruction");
-  instrEl.innerHTML = DOMPurify.sanitize(marked.parse(d.aufgabe || d.task_instruction || ""));
+  instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
   renderMath(instrEl);
 
   // GeoGebra: clean up old, render new
@@ -596,7 +608,7 @@ async function submitForGrading() {
     }).catch(() => {});
     stopTimer();
     const fb = document.getElementById("feedbackBody");
-    fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+    fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
     renderMath(fb);
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
@@ -619,7 +631,7 @@ async function showModelAnswer() {
       sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet
     });
     const body = document.getElementById("modelAnswerBody");
-    body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+    body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
     renderMath(body);
     card.style.display = "block";
   } catch (e) { showToast(e.message); }
