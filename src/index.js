@@ -367,6 +367,31 @@ export default {
         return await handleModelAnswerAbiturEthik(request, env);
       }
 
+      // ===== GEOGRAPHIE ENDPOINTS =====
+      if (pathname === "/api/generate-geographie" && request.method === "POST") {
+        return await handleGenerateGeographie(request, env);
+      }
+      if (pathname === "/api/grade-geographie" && request.method === "POST") {
+        return await handleGradeGeographie(request, env);
+      }
+      if (pathname === "/api/model-answer-geographie" && request.method === "POST") {
+        return await handleModelAnswerGeographie(request, env);
+      }
+      if (pathname === "/api/parse-task-geographie" && request.method === "POST") {
+        return await handleParseTaskGeographie(request, env);
+      }
+
+      // ===== GEOGRAPHIE ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-geographie" && request.method === "POST") {
+        return await handleGenerateAbiturGeographie(request, env);
+      }
+      if (pathname === "/api/grade-abitur-geographie" && request.method === "POST") {
+        return await handleGradeAbiturGeographie(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-geographie" && request.method === "POST") {
+        return await handleModelAnswerAbiturGeographie(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -3405,6 +3430,497 @@ Inhaltlich:
 - Beziehe die Materialien ein und zitiere daraus
 - Zeige multiperspektivisches Denken
 - Formuliere eigenständige, philosophisch begründete Urteile
+- Zielumfang: 1200-1800 Wörter insgesamt
+
+Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = "";
+  if (task_instruction_a) userContent += `TEIL A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 8000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= GEOGRAPHIE: PARSE TASK (OCR) ================= */
+async function handleParseTaskGeographie(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Geographie (Bayern). Extrahiere:
+1. Die Aufgabenstellung (task_instruction) - vollständig mit allen Teilaufgaben und BE-Angaben
+2. Den/die Materialtext(e) (primary_text) - vollständig mit allen geographischen Materialien (Karten, Klimadiagramme, Texte, Statistiken)
+3. Quellenangaben (primary_meta) - Autor, Quelle, Datum
+
+Antworte NUR mit validem JSON:
+{"task_instruction": "...", "primary_text": "...", "primary_meta": "..."}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
+  });
+
+  const data = await openaiRes.json();
+  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
+  const text = data?.choices?.[0]?.message?.content || "";
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
+}
+
+/* ================= GEOGRAPHIE: GENERATE ================= */
+async function handleGenerateGeographie(request, env) {
+  const body = await request.json();
+  const { halbjahr, schwerpunkt, level } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const bePruefungA = isEA ? "85 BE" : "75 BE";
+
+  const hjThemen = {
+    "12_1": {
+      title: "Physische Geographie",
+      inhalte: `- Subpolare und Polare Zone: Klima, Vegetation, Permafrost
+- Vegetationszonen der Erde und ihre klimatischen Bedingungen
+- Gletscherdynamik: Akkumulation, Ablation, Gletscherrückzug im Klimawandel
+- Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen, Lawinen
+- Bodentypen und Bodenbildungsprozesse (Podsol, Schwarzerde, Laterit)
+- Klimaklassifikationen (Köppen, Neef) und Klimadiagramme
+- Geomorphologische Prozesse: Verwitterung, Erosion, Sedimentation
+- Plattentektonik und endogene Kräfte`,
+      schwerpunkte: {
+        klima: "Klimazonen und Vegetationszonen der Erde",
+        permafrost: "Permafrost und Auswirkungen des Klimawandels",
+        gletscher: "Gletscherdynamik und glaziale Prozesse",
+        naturgefahren: "Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen",
+        boden: "Bodentypen und Bodenbildungsprozesse"
+      }
+    },
+    "12_2": {
+      title: "Humangeographie I",
+      inhalte: `- Ressource Fläche: Flächennutzung, Flächenverbrauch, Flächenkonkurrenz
+- Wasser als Ressource: Wasserverfügbarkeit, Wasserkonflikte, virtuelles Wasser
+- Gebirgsregionen: Alpen als Lebens-, Wirtschafts- und Erholungsraum
+- Landwirtschaft: konventionell vs. ökologisch, Agrarstrukturwandel, Welternährung
+- Erneuerbare Energien: Standortfaktoren, Energiewende, Raumwirksamkeit
+- Tourismus: Massentourismus, nachhaltiger Tourismus, Overtourism, Tragfähigkeit
+- Flächennutzungskonflikte: Siedlung vs. Landwirtschaft vs. Naturschutz
+- Rohstoffe und Ressourcenmanagement`,
+      schwerpunkte: {
+        flaeche: "Ressource Fläche und Flächennutzungskonflikte",
+        wasser: "Wasser als Ressource und Wasserkonflikte",
+        landwirtschaft: "Landwirtschaft und Welternährung",
+        energie: "Erneuerbare Energien und Energiewende",
+        tourismus: "Tourismus: Nachhaltigkeit und Tragfähigkeit"
+      }
+    },
+    "13_1": {
+      title: "Entwicklungsgeographie",
+      inhalte: `- Entwicklungsländer: Merkmale, Indikatoren (HDI, Gini-Koeffizient, BNE)
+- Globalisierung: Global Players, Welthandel, Standortverlagerung, Wertschöpfungsketten
+- Fragmentierende Entwicklung (Fred Scholz): Globale Orte vs. abgehängte Räume
+- Nachhaltigkeit: Drei-Säulen-Modell, SDGs, Nachhaltigkeitsstrategien
+- Megacities: Urbanisierung in Entwicklungsländern, informelle Siedlungen, Primatstadt
+- Tropischer Regenwald: Ökosystem, Abholzung, Nutzungskonflikte, Shifting Cultivation
+- Desertifikation: Ursachen, Sahelzone, Gegenmaßnahmen
+- Entwicklungstheorien: Modernisierungstheorie, Dependenztheorie`,
+      schwerpunkte: {
+        entwicklung: "Entwicklungsländer und Entwicklungsindikatoren (HDI, Gini)",
+        globalisierung: "Globalisierung und fragmentierende Entwicklung",
+        nachhaltigkeit: "Nachhaltigkeit und SDGs",
+        megacities: "Megacities und Urbanisierung in Entwicklungsländern",
+        regenwald: "Tropischer Regenwald: Ökosystem und Nutzungskonflikte",
+        desertifikation: "Desertifikation: Ursachen und Gegenmaßnahmen"
+      }
+    },
+    "13_2": {
+      title: "Stadtgeographie",
+      inhalte: `- Stadtentwicklung: historische Stadttypen (europäische Stadt, US-amerikanische Stadt, orientalische Stadt)
+- Migration: Binnenmigration, internationale Migration, Push-Pull-Modell, Integration
+- Bevölkerungsentwicklung: demographischer Übergang, Altersstruktur, Bevölkerungspyramiden
+- Smart Cities: Digitalisierung, nachhaltige Stadtplanung, Mobilität der Zukunft
+- Gentrifizierung: Ursachen, Phasen, soziale Folgen, Verdrängungsprozesse
+- Suburbanisierung: Stadtflucht, Zersiedlung, Pendlerströme, Reurbanisierung
+- Klimawandel in Städten: Hitzeinsel-Effekt, Stadtklima, Anpassungsstrategien
+- Segregation: soziale, ethnische und demographische Entmischung`,
+      schwerpunkte: {
+        stadtentwicklung: "Stadtentwicklung und historische Stadttypen",
+        migration: "Migration und Bevölkerungsentwicklung",
+        smart_cities: "Smart Cities und nachhaltige Stadtplanung",
+        gentrifizierung: "Gentrifizierung und soziale Folgen",
+        suburbanisierung: "Suburbanisierung und Reurbanisierung",
+        segregation: "Segregation und sozialräumliche Ungleichheit"
+      }
+    }
+  };
+
+  const hj = hjThemen[halbjahr] || hjThemen["12_1"];
+  const schwerpunktLabel = (schwerpunkt && schwerpunkt !== "random" && hj.schwerpunkte[schwerpunkt])
+    ? hj.schwerpunkte[schwerpunkt]
+    : "frei wählbar innerhalb des Halbjahres";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Geographie (ab 2026, G9).
+Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+STRUKTUR DER AUFGABE:
+- Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
+- Teilaufgabe 1: Anforderungsbereich I (Reproduktion) – z.B. "Beschreiben Sie …!", "Stellen Sie … dar!"
+- Teilaufgaben 2-3: Anforderungsbereich II (Transfer/Reorganisation) – z.B. "Erläutern Sie …", "Erklären Sie …", "Herausarbeiten Sie …"
+- Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Bewerten Sie …", "Diskutieren Sie …"
+- Verwende die offiziellen Operatoren: beschreiben, darstellen, erläutern, erklären, herausarbeiten, bewerten, erörtern, diskutieren, zuordnen, überprüfen, belegen, entwickeln
+- Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
+
+MATERIALIEN:
+- Erstelle 2-3 realistische Materialien (geographische Texte, Statistiken mit Klimadaten oder Bevölkerungsdaten)
+- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche geographische Quellentexte (Fachartikel, Zeitungsartikel, Auszüge aus geographischen Werken). NICHT kürzer als 400 Wörter!
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
+- Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Karte/Satellitenbild):
+  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Karte, Satellitenbild, Klimadiagramm). KEINE Personen!
+
+HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
+Relevante Inhalte:
+${hj.inhalte}
+
+SITUIERUNG:
+- Bette die Aufgabe in einen geographisch relevanten Kontext ein (z.B. konkreter Raumbeispiel, aktuelle Umweltdebatte, Nachhaltigkeitsproblem)
+- Das macht die Aufgabe authentischer und prüft die Fähigkeit zum räumlichen Transfer
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
+  "materials": [
+    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
+    {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
+    {"title": "Karte: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+  ],
+  "halbjahr": "${halbjahr || "12_1"}",
+  "thema": "Konkretes Thema der Aufgabe"
+}`;
+
+  const userPrompt = `Erstelle eine Prüfungsaufgabe (Prüfungsteil A) für Geographie:
+- Halbjahr: ${halbjahr?.replace("_", "/") || "12/1"}
+- Schwerpunkt: ${schwerpunktLabel}
+- Niveau: ${niveauLabel}
+
+Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
+Erstelle 2-3 passende Materialien (geographische Texte, Statistiken, plus 1 Bild).
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= GEOGRAPHIE: GRADE ================= */
+async function handleGradeGeographie(request, env) {
+  const body = await request.json();
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+
+  if (primary_text) {
+    contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  }
+
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const verstehen = parsed.verstehen_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && verstehen != null && darstellung != null) {
+      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
+      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { verstehen, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { verstehen: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= GEOGRAPHIE: MODEL ANSWER ================= */
+async function handleModelAnswerGeographie(request, env) {
+  const { task_instruction, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geographie (Leistungsfach).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben der Aufgabenstellung
+- Verwende geographische Fachbegriffe korrekt (z.B. Klimadiagramm, Vegetationszone, Permafrost, HDI, Disparitäten, Fragmentierung, Nachhaltigkeit)
+- Beziehe Karten, Statistiken und Texte ein und zitiere daraus
+- Beachte die Operatoren und Anforderungsbereiche
+- Formuliere bei Reflexionsaufgaben ein eigenständiges, raumbezogenes, multiperspektivisches Urteil
+- Zeige multiperspektivisches Denken: Stelle verschiedene geographische Perspektiven gegenüber
+- Zielumfang: 800-1200 Wörter
+
+Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende unter "---" eine kurze Reflexion zu den verwendeten Strategien.`;
+
+  let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
+  if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
+  if (materials && materials.length) {
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 5000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= GEOGRAPHIE ABITUR: GENERATE (Teil A + B) ================= */
+async function handleGenerateAbiturGeographie(request, env) {
+  const body = await request.json();
+  const { halbjahr, schwerpunkt, level } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const bePruefungB = isEA ? "35 BE" : "25 BE";
+  const beGesamt = isEA ? "120 BE" : "100 BE";
+
+  const hjThemen = {
+    "12_1": {
+      title: "Physische Geographie",
+      inhalte: `- Subpolare und Polare Zone: Klima, Vegetation, Permafrost
+- Vegetationszonen der Erde und ihre klimatischen Bedingungen
+- Gletscherdynamik: Akkumulation, Ablation, Gletscherrückzug
+- Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen, Lawinen
+- Bodentypen und Bodenbildungsprozesse
+- Klimaklassifikationen und Klimadiagramme
+- Geomorphologische Prozesse: Verwitterung, Erosion, Sedimentation`
+    },
+    "12_2": {
+      title: "Humangeographie I",
+      inhalte: `- Ressource Fläche: Flächennutzung, Flächenverbrauch, Flächenkonkurrenz
+- Wasser als Ressource: Wasserverfügbarkeit, Wasserkonflikte, virtuelles Wasser
+- Gebirgsregionen: Alpen als Lebens- und Wirtschaftsraum
+- Landwirtschaft: konventionell vs. ökologisch, Agrarstrukturwandel
+- Erneuerbare Energien: Standortfaktoren, Energiewende
+- Tourismus: Massentourismus, nachhaltiger Tourismus, Tragfähigkeit
+- Flächennutzungskonflikte: Siedlung vs. Landwirtschaft vs. Naturschutz`
+    },
+    "13_1": {
+      title: "Entwicklungsgeographie",
+      inhalte: `- Entwicklungsländer: Merkmale, Indikatoren (HDI, Gini-Koeffizient, BNE)
+- Globalisierung: Global Players, Welthandel, Wertschöpfungsketten
+- Fragmentierende Entwicklung (Fred Scholz): Globale Orte vs. abgehängte Räume
+- Nachhaltigkeit: Drei-Säulen-Modell, SDGs
+- Megacities: Urbanisierung in Entwicklungsländern, informelle Siedlungen
+- Tropischer Regenwald: Ökosystem, Abholzung, Nutzungskonflikte
+- Desertifikation: Ursachen, Sahelzone, Gegenmaßnahmen`
+    },
+    "13_2": {
+      title: "Stadtgeographie",
+      inhalte: `- Stadtentwicklung: europäische Stadt, US-amerikanische Stadt, orientalische Stadt
+- Migration: Binnenmigration, internationale Migration, Push-Pull-Modell
+- Bevölkerungsentwicklung: demographischer Übergang, Altersstruktur
+- Smart Cities: Digitalisierung, nachhaltige Stadtplanung
+- Gentrifizierung: Ursachen, Phasen, soziale Folgen
+- Suburbanisierung: Stadtflucht, Zersiedlung, Reurbanisierung
+- Klimawandel in Städten: Hitzeinsel-Effekt, Anpassungsstrategien
+- Segregation: soziale, ethnische und demographische Entmischung`
+    }
+  };
+
+  const hj = hjThemen[halbjahr] || hjThemen["12_1"];
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Geographie (ab 2026, G9).
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit Prüfungsteil A (${bePruefungA}) und Prüfungsteil B (${bePruefungB}) auf ${niveauLabel}.
+Gesamtumfang: ${beGesamt}.
+
+PRÜFUNGSTEIL A (${bePruefungA}):
+- 3-4 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- 2-3 Materialien (geographische Texte 400-800 Wörter, Statistiken mit Klima-/Bevölkerungsdaten, 1 Bild/Karte)
+- Verwende offizielle Operatoren: beschreiben, darstellen, erläutern, erklären, herausarbeiten, bewerten, erörtern, diskutieren, zuordnen, überprüfen, belegen, entwickeln
+- Situiere die Aufgabe in einem konkreten Raumbeispiel
+
+PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
+- 1-2 Teilaufgaben, die einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel erfordern
+- Bezug zu einem ANDEREN geographischen Raum oder einer aktuellen Umwelt-/Nachhaltigkeitsdebatte
+- Höherer Reflexionsanspruch (vorwiegend AFB II-III)
+- Kann auf Material aus Teil A Bezug nehmen oder neues Material einführen
+
+HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
+Relevante Inhalte:
+${hj.inhalte}
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a": {
+    "task_instruction": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
+    "materials": [
+      {"title": "Titel", "type": "text", "content": "Geographischer Quelltext (400-800 Wörter)", "source": "Autor, Quelle, Jahr"},
+      {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
+      {"title": "Karte: ...", "type": "bild", "content": "Bildbeschreibung für KI-Generierung", "source": ""}
+    ]
+  },
+  "teil_b": {
+    "task_instruction": "Vollständige Aufgabenstellung Teil B (räumlicher Vergleich/Transfer) mit BE",
+    "materials": []
+  },
+  "halbjahr": "${halbjahr || "12_1"}",
+  "thema": "Konkretes Thema der Prüfung"
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Geographie-Abiturprüfung (Teil A + Teil B):
+- Halbjahr: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
+- Niveau: ${niveauLabel}
+- Teil A: ${bePruefungA}, Teil B: ${bePruefungB}, Gesamt: ${beGesamt}
+
+KRITISCH: Jedes Textmaterial in Teil A MUSS 400-800 Wörter lang sein.
+Teil B soll einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel darstellen.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= GEOGRAPHIE ABITUR: GRADE ================= */
+async function handleGradeAbiturGeographie(request, env) {
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+
+  if ((!student_text_a && !student_text_b) || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = "";
+  if (task_instruction_a) contextInfo += `Aufgabenstellung Teil A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  let studentTexts = "";
+  if (student_text_a) studentTexts += `Schülertext Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
+  if (student_text_b) studentTexts += `Schülertext Teil B:\n${truncate(student_text_b, 6000)}`;
+
+  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const verstehen = parsed.verstehen_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && verstehen != null && darstellung != null) {
+      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
+      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { verstehen, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { verstehen: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= GEOGRAPHIE ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturGeographie(request, env) {
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geographie (Leistungsfach).
+Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben beider Prüfungsteile
+- Verwende geographische Fachbegriffe korrekt (z.B. Klimadiagramm, Vegetationszone, Permafrost, HDI, Disparitäten, Fragmentierung, Nachhaltigkeit)
+- Beziehe Karten, Statistiken und Texte ein und zitiere daraus
+- Zeige multiperspektivisches Denken
+- Formuliere eigenständige, raumbezogene Urteile
 - Zielumfang: 1200-1800 Wörter insgesamt
 
 Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;

@@ -18,6 +18,7 @@
   --accent-fr:#db2777;--accent-fr-hover:#be185d;--accent-fr-soft:#fce7f3;--accent-fr-glow:rgba(219,39,119,.08);
   --accent-it:#0d9488;--accent-it-hover:#0f766e;--accent-it-soft:#ccfbf1;--accent-it-glow:rgba(13,148,136,.08);
   --accent-eth:#4f46e5;--accent-eth-hover:#4338ca;--accent-eth-soft:#e0e7ff;--accent-eth-glow:rgba(79,70,229,.08);
+  --accent-geo:#0891b2;--accent-geo-hover:#0e7490;--accent-geo-soft:#cffafe;--accent-geo-glow:rgba(8,145,178,.08);
 }
 [data-theme="dark"]{
   --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
@@ -27,12 +28,14 @@
   --accent-fr:#f472b6;--accent-fr-hover:#f9a8d4;--accent-fr-soft:rgba(244,114,182,.15);--accent-fr-glow:rgba(244,114,182,.08);
   --accent-it:#2dd4bf;--accent-it-hover:#5eead4;--accent-it-soft:rgba(45,212,191,.15);--accent-it-glow:rgba(45,212,191,.08);
   --accent-eth:#818cf8;--accent-eth-hover:#a5b4fc;--accent-eth-soft:rgba(129,140,248,.15);--accent-eth-glow:rgba(129,140,248,.08);
+  --accent-geo:#22d3ee;--accent-geo-hover:#67e8f9;--accent-geo-soft:rgba(34,211,238,.15);--accent-geo-glow:rgba(34,211,238,.08);
 }
 
 /* School badge gradient (both accent colors) */
 .module-card.italian .module-badge{background:var(--accent-it-soft);color:var(--accent-it)}
 .module-card.ethik .module-badge{background:var(--accent-eth-soft);color:var(--accent-eth)}
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft),var(--accent-eth-soft));color:var(--ink)}
+.module-card.geographie .module-badge{background:var(--accent-geo-soft);color:var(--accent-geo)}
+.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft),var(--accent-eth-soft),var(--accent-geo-soft));color:var(--ink)}
 .login-box h2{font-size:1.8rem}
 
 /* ====== SUBJECT SELECTION SCREEN ====== */
@@ -53,6 +56,7 @@
 .subject-card.french::before{background:linear-gradient(135deg,var(--accent-fr-glow),transparent)}
 .subject-card.italian::before{background:linear-gradient(135deg,var(--accent-it-glow),transparent)}
 .subject-card.ethik::before{background:linear-gradient(135deg,var(--accent-eth-glow),transparent)}
+.subject-card.geographie::before{background:linear-gradient(135deg,var(--accent-geo-glow),transparent)}
 .subject-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .subject-card:hover::before{opacity:1}
 .subject-card.english:hover{border-color:var(--accent)}
@@ -63,6 +67,7 @@
 .subject-card.french:hover{border-color:var(--accent-fr)}
 .subject-card.italian:hover{border-color:var(--accent-it)}
 .subject-card.ethik:hover{border-color:var(--accent-eth)}
+.subject-card.geographie:hover{border-color:var(--accent-geo)}
 .subject-icon{font-size:4rem;margin-bottom:1rem;position:relative;z-index:1}
 .subject-title{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;position:relative;z-index:1}
 .subject-card.english .subject-title{color:var(--accent)}
@@ -73,6 +78,7 @@
 .subject-card.french .subject-title{color:var(--accent-fr)}
 .subject-card.italian .subject-title{color:var(--accent-it)}
 .subject-card.ethik .subject-title{color:var(--accent-eth)}
+.subject-card.geographie .subject-title{color:var(--accent-geo)}
 .subject-desc{color:var(--ink-muted);font-size:.9rem;line-height:1.5;position:relative;z-index:1}
 .subject-badge{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;position:relative;z-index:1}
 .subject-card.english .subject-badge{background:var(--accent-soft);color:var(--accent)}
@@ -83,6 +89,7 @@
 .subject-card.french .subject-badge{background:var(--accent-fr-soft);color:var(--accent-fr)}
 .subject-card.italian .subject-badge{background:var(--accent-it-soft);color:var(--accent-it)}
 .subject-card.ethik .subject-badge{background:var(--accent-eth-soft);color:var(--accent-eth)}
+.subject-card.geographie .subject-badge{background:var(--accent-geo-soft);color:var(--accent-geo)}
 
 /* ====== MODULE SCREEN ====== */
 #module-screen{display:none;min-height:100vh;flex-direction:column}
@@ -99,6 +106,7 @@
 .module-card.french:hover{border-color:var(--accent-fr)}
 .module-card.italian:hover{border-color:var(--accent-it)}
 .module-card.ethik:hover{border-color:var(--accent-eth)}
+.module-card.geographie:hover{border-color:var(--accent-geo)}
 .module-icon{font-size:2.5rem;margin-bottom:.8rem}
 .module-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.4rem}
 .module-desc{color:var(--ink-muted);font-size:.85rem;line-height:1.5}
@@ -218,6 +226,12 @@ footer a{color:var(--accent)}
       <div class="subject-icon">🧠</div>
       <div class="subject-title">Ethik</div>
       <div class="subject-desc">Philosophische Texte analysieren und erörtern – mit KI-Bewertung nach ISB-Kriterien für das Abitur.</div>
+      <div class="subject-badge">2 Module</div>
+    </div>
+    <div class="subject-card geographie" onclick="selectSubject('geographie', true)">
+      <div class="subject-icon">🌍</div>
+      <div class="subject-title">Geographie</div>
+      <div class="subject-desc">Materialgestützte Aufgaben zu Klima, Ressourcen, Entwicklung und Stadtgeographie – bewertet nach ISB-Kriterien.</div>
       <div class="subject-badge">2 Module</div>
     </div>
   </div>
@@ -518,6 +532,42 @@ footer a{color:var(--accent)}
   <footer>© 2026 myAbiFlow · Ethik Trainer</footer>
 </div>
 
+<!-- ====== GEOGRAPHIE MODULE SCREEN ====== -->
+<div id="module-screen-geographie" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+      <h1 style="margin-top:.3rem">Geographie <span style="color:var(--accent-geo)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoGeo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGeo">🌙</button>
+    </div>
+  </div>
+  <div class="level-toggle">
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card geographie" href="geographie.html">
+      <div class="module-icon">🌍</div>
+      <div class="module-title">Klausurtraining</div>
+      <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Karten, Statistiken und Texte.</div>
+      <div class="module-badge">Schriftliche Prüfung</div>
+    </a>
+    <a class="module-card geographie" href="geographie-abitur.html">
+      <div class="module-icon">📝</div>
+      <div class="module-title">Abiturtraining</div>
+      <div class="module-desc">Komplette Geographie-Prüfung simulieren – Prüfungsteil A + B mit Gesamtbewertung.</div>
+      <div class="module-badge">Komplette Prüfung</div>
+    </a>
+  </div>
+  <footer>© 2026 myAbiFlow · Geographie Trainer</footer>
+</div>
+
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 let loginMode = "login";
@@ -595,6 +645,7 @@ function showSubjectSelection(_push) {
   document.getElementById("module-screen-french").style.display = "none";
   document.getElementById("module-screen-italian").style.display = "none";
   document.getElementById("module-screen-ethik").style.display = "none";
+  document.getElementById("module-screen-geographie").style.display = "none";
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
@@ -621,6 +672,7 @@ function selectSubject(subject, _push) {
     french: "module-screen-french",
     italian: "module-screen-italian",
     ethik: "module-screen-ethik",
+    geographie: "module-screen-geographie",
     german: "module-screen-german"
   };
   const infoMap = {
@@ -631,6 +683,7 @@ function selectSubject(subject, _push) {
     french: "userInfoFr",
     italian: "userInfoIt",
     ethik: "userInfoEth",
+    geographie: "userInfoGeo",
     german: "userInfoDe"
   };
 
@@ -673,6 +726,7 @@ function backToSubjects() {
   document.getElementById("module-screen-french").style.display = "none";
   document.getElementById("module-screen-italian").style.display = "none";
   document.getElementById("module-screen-ethik").style.display = "none";
+  document.getElementById("module-screen-geographie").style.display = "none";
   document.getElementById("subject-screen").style.display = "flex";
 }
 
@@ -687,6 +741,7 @@ function logout() {
   document.getElementById("module-screen-french").style.display = "none";
   document.getElementById("module-screen-italian").style.display = "none";
   document.getElementById("module-screen-ethik").style.display = "none";
+  document.getElementById("module-screen-geographie").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
   document.getElementById("personalPassword").value = "";
@@ -731,6 +786,8 @@ function checkSession() {
       selectSubject("italian");
     } else if (backTo === "ethik") {
       selectSubject("ethik");
+    } else if (backTo === "geographie") {
+      selectSubject("geographie");
     } else if (backTo === "subjects") {
       showSubjectSelection();
     } else {
