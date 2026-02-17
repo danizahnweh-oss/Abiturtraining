@@ -138,6 +138,20 @@
   --accent-glow: rgba(129, 140, 248, 0.08);
 }
 
+/* ====== CYAN ACCENT (Geographie modules) ====== */
+[data-accent="cyan"] {
+  --accent: #0891b2;
+  --accent-hover: #0e7490;
+  --accent-soft: #cffafe;
+  --accent-glow: rgba(8, 145, 178, 0.08);
+}
+[data-accent="cyan"][data-theme="dark"] {
+  --accent: #22d3ee;
+  --accent-hover: #67e8f9;
+  --accent-soft: rgba(34, 211, 238, 0.15);
+  --accent-glow: rgba(34, 211, 238, 0.08);
+}
+
 /* ====== RESET & BASE ====== */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
