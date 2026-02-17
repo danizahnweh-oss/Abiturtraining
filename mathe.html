@@ -203,14 +203,7 @@
         </div>
       </details>
 
-      <textarea id="studentText" placeholder="Beginne hier mit deiner L&ouml;sung &hellip;
-
-Tipp: Verwende Plain-Text-Mathe:
-&bull; f(x) = 2x^2 + 3x - 1
-&bull; f'(x) = 4x + 3
-&bull; int_0^1 x^2 dx = 1/3
-&bull; P(X >= 3) = 1 - P(X <= 2)
-&bull; vec(a) = (1, 2, 3)" oninput="updateWordCount()"></textarea>
+      <div id="studentTextareas"></div>
 
       <div class="write-toolbar">
         <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
@@ -451,8 +444,12 @@ function setSetupMode(m) {
 
 function saveSession() {
   const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+  const studentTexts = {};
+  document.querySelectorAll('#studentTextareas textarea').forEach(function(ta, i) {
+    studentTexts[i] = ta.value;
+  });
   localStorage.setItem(key, JSON.stringify({
-    studentText: document.getElementById("studentText").value,
+    studentTexts: studentTexts,
     storedData: CONFIG.storedData,
     sachgebiet: CONFIG.sachgebiet,
     aufgabentyp: CONFIG.aufgabentyp
@@ -464,10 +461,20 @@ function restoreSession() {
     const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
     const s = JSON.parse(localStorage.getItem(key));
     if (s) {
-      if (s.studentText) document.getElementById("studentText").value = s.studentText;
       if (s.storedData) {
         CONFIG.storedData = s.storedData;
         renderTask(s.storedData);
+      }
+      // Restore per-textarea values
+      if (s.studentTexts) {
+        Object.keys(s.studentTexts).forEach(function(i) {
+          var ta = document.getElementById("studentText_" + i);
+          if (ta) ta.value = s.studentTexts[i];
+        });
+      } else if (s.studentText) {
+        // Migration: old single-textarea format → load into first textarea
+        var first = document.getElementById("studentText_0");
+        if (first) first.value = s.studentText;
       }
       if (s.sachgebiet) selectSachgebiet(s.sachgebiet);
       if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
@@ -596,11 +603,63 @@ function renderTask(d) {
     writeRef.innerHTML += container.innerHTML;
   }
   renderMath(writeRef);
+
+  // Render per-Teilaufgabe textareas
+  renderStudentTextareas(d);
+}
+
+/* ====== PER-TEILAUFGABE TEXTAREAS ====== */
+let activeStudentTaId = "studentText_0";
+
+function renderStudentTextareas(d) {
+  const wrap = document.getElementById("studentTextareas");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+
+  const ta_list = (d.teilaufgaben && d.teilaufgaben.length) ? d.teilaufgaben : null;
+
+  if (ta_list) {
+    ta_list.forEach(function(t, i) {
+      const id = "studentText_" + i;
+      const label = escapeHtml((t.id || t.nr || String.fromCharCode(97 + i) + ")") + " " + (t.text || "")) + " (" + (t.be || "?") + " BE)";
+      const div = document.createElement("div");
+      div.className = "student-ta-group";
+      div.innerHTML =
+        '<label for="' + id + '">' + label + '</label>' +
+        '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")") + ' \u2026" oninput="updateWordCount()"></textarea>' +
+        '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
+      wrap.appendChild(div);
+      document.getElementById(id).addEventListener("focus", function() { activeStudentTaId = id; });
+    });
+  } else {
+    // Fallback: single textarea for upload/manual tasks without teilaufgaben
+    wrap.innerHTML =
+      '<div class="student-ta-group">' +
+      '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Plain-Text-Mathe:\n\u2022 f(x) = 2x^2 + 3x - 1\n\u2022 f\'(x) = 4x + 3\n\u2022 int_0^1 x^2 dx = 1/3\n\u2022 P(X >= 3) = 1 - P(X <= 2)\n\u2022 vec(a) = (1, 2, 3)" oninput="updateWordCount()"></textarea>' +
+      '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
+      '</div>';
+    document.getElementById("studentText_0").addEventListener("focus", function() { activeStudentTaId = "studentText_0"; });
+  }
+
+  activeStudentTaId = "studentText_0";
+  updateWordCount();
 }
 
 async function submitForGrading() {
-  const text = document.getElementById("studentText").value;
-  if (countWords(text) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+  // Collect per-textarea texts
+  const textareas = document.querySelectorAll('#studentTextareas textarea');
+  const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];
+  const student_texts = {};
+  let allText = "";
+  textareas.forEach(function(ta, i) {
+    const taData = teilaufgaben[i];
+    const key = taData ? (taData.id || taData.nr || String.fromCharCode(97 + i) + ")") : "Lösung";
+    student_texts[key] = ta.value;
+    if (ta.value.trim()) {
+      allText += (allText ? "\n\n" : "") + key + "\n" + ta.value;
+    }
+  });
+  if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
   if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
   document.getElementById("submitBtn").disabled = true;
   nav("feedback");
@@ -613,7 +672,8 @@ async function submitForGrading() {
       gesamt_be: CONFIG.storedData.gesamt_be || 0,
       sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
       aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
-      student_text: text
+      student_text: allText,
+      student_texts: student_texts
     });
 
     // Render per-Teilaufgabe BE scores
@@ -816,7 +876,8 @@ function insertFormula() {
   var mf = document.getElementById("formelMF");
   if (!mf || !mf.value) return;
   var latex = "$" + mf.value + "$";
-  var ta = document.getElementById("studentText");
+  var ta = document.getElementById(activeStudentTaId || "studentText_0");
+  if (!ta) return;
   var start = ta.selectionStart, end = ta.selectionEnd;
   var before = ta.value.substring(0, start);
   var after = ta.value.substring(end);
@@ -836,6 +897,32 @@ function clearMathField() {
   if (mf) { mf.value = ""; updateFormelPreview(); mf.focus(); }
 }
 
+/* ====== OVERRIDE: updateWordCount — per-Textarea + Gesamtsumme ====== */
+function updateWordCount() {
+  var total = 0;
+  document.querySelectorAll('#studentTextareas textarea').forEach(function(ta) {
+    var c = countWords(ta.value);
+    total += c;
+    var wcEl = document.getElementById("wc_" + ta.id);
+    if (wcEl) wcEl.textContent = c + " W\u00f6rter";
+  });
+  document.getElementById("wordCount").textContent = total;
+}
+
+/* ====== OVERRIDE: useOCRText — insert into last-focused textarea ====== */
+function useOCRText() {
+  var t = document.getElementById("ocrText").value;
+  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+  var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+  var ta = document.getElementById(activeStudentTaId || "studentText_0");
+  if (ta) {
+    ta.value = clean;
+    ta.scrollIntoView({ behavior: "smooth" });
+  }
+  updateWordCount();
+  showToast("Text \u00fcbernommen in " + (activeStudentTaId || "studentText_0").replace("studentText_", "Feld ") + "!", "success");
+}
+
 // Lazy load on first open
 document.getElementById("formelEditor")?.addEventListener("toggle", function(e) {
   if (this.open && !mathLiveLoaded) {
@@ -853,6 +940,9 @@ document.getElementById("formelEditor")?.addEventListener("toggle", function(e) 
     renderFormelButtons();
   }
 });
+
+// Render default fallback textarea on page load (before any task is generated)
+renderStudentTextareas({ teilaufgaben: [] });
 </script>
 </body>
 </html>
