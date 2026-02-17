@@ -14,8 +14,6 @@
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<!-- SmilesDrawer -->
-<script src="https://unpkg.com/smiles-drawer@2.1.7/dist/smiles-drawer.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
@@ -60,6 +58,10 @@
 /* Material body list indentation */
 details ol,details ul{padding-left:1.8rem;margin:.4rem 0}
 details li{margin-bottom:.3rem}
+
+/* Strukturformel images (PubChem) */
+.struktur-img{display:block;max-width:280px;margin:.5rem auto;border-radius:var(--radius-sm);border:1px solid var(--border);background:#fff;padding:.3rem}
+[data-theme="dark"] .struktur-img{filter:invert(1) hue-rotate(180deg)}
 
 @media(max-width:650px){.hj-grid{grid-template-columns:1fr}.mode-toggle,.type-toggle{grid-template-columns:1fr}}
 </style>
@@ -517,47 +519,29 @@ function renderTask(d) {
   const meta = document.getElementById("taskMeta");
   meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
 
-  // Render SMILES structural formulas if provided
+  // Render structural formulas via PubChem images
   if (d.strukturformeln && d.strukturformeln.length) {
-    var smilesContainer = document.createElement("div");
-    smilesContainer.style.cssText = "display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0";
-    d.strukturformeln.forEach(function(sf, i) {
+    var strukturContainer = document.createElement("div");
+    strukturContainer.style.cssText = "display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0";
+    d.strukturformeln.forEach(function(sf) {
+      if (!sf.name) return;
       var wrapper = document.createElement("div");
       wrapper.style.cssText = "text-align:center";
-      var canvas = document.createElement("canvas");
-      canvas.id = "smiles_task_" + i;
-      canvas.width = 300; canvas.height = 200;
-      wrapper.appendChild(canvas);
+      var img = document.createElement("img");
+      img.className = "struktur-img";
+      img.src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/" + encodeURIComponent(sf.name) + "/PNG?image_size=300";
+      img.alt = sf.caption || sf.name;
+      img.onerror = function() { wrapper.style.display = "none"; };
+      wrapper.appendChild(img);
       if (sf.caption) {
         var cap = document.createElement("div");
         cap.style.cssText = "font-size:.8rem;color:var(--ink-muted);margin-top:.3rem";
         cap.innerHTML = renderInlineKatex(sf.caption);
         wrapper.appendChild(cap);
       }
-      smilesContainer.appendChild(wrapper);
+      strukturContainer.appendChild(wrapper);
     });
-    // Insert into DOM FIRST, then draw (SmilesDrawer uses getElementById)
-    container.parentNode.insertBefore(smilesContainer, container);
-    if (typeof SmilesDrawer !== "undefined" && typeof SmilesDrawer.Drawer !== "undefined") {
-      var drawer = new SmilesDrawer.Drawer({ width: 300, height: 200 });
-      var isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      d.strukturformeln.forEach(function(sf, i) {
-        if (!sf.smiles) { document.getElementById("smiles_task_" + i).style.display = "none"; return; }
-        SmilesDrawer.parse(sf.smiles, function(tree) {
-          drawer.draw(tree, "smiles_task_" + i, isDark ? "dark" : "light", false);
-        }, function(err) {
-          console.warn("SMILES parse error:", sf.smiles, err);
-          var c = document.getElementById("smiles_task_" + i);
-          if (c) c.style.display = "none";
-        });
-      });
-    } else {
-      // SmilesDrawer not loaded, hide all canvases
-      d.strukturformeln.forEach(function(sf, i) {
-        var c = document.getElementById("smiles_task_" + i);
-        if (c) c.style.display = "none";
-      });
-    }
+    container.parentNode.insertBefore(strukturContainer, container);
   }
 
   // Render material (for Langaufgaben)
