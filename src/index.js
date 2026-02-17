@@ -5424,7 +5424,18 @@ TEMPERATUR-NOTATION:
 - FALSCH: $\\vartheta$ (nicht in KaTeX verfügbar) — verwende stattdessen $\\theta$ oder $T$
 
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
-KEINE Strukturformeln als SMILES — verwende stattdessen Textbeschreibungen für Strukturen.
+
+STRUKTURFORMELN (optional, nur bei Organik-Aufgaben):
+Du kannst ein "strukturformeln"-Array angeben. Verwende GÜLTIGE SMILES-Notation (Simplified Molecular Input Line Entry System).
+WICHTIGE SMILES-REGELN:
+- Einfache Moleküle: "O" (Wasser), "CCO" (Ethanol), "CC(=O)O" (Essigsäure), "CC=O" (Acetaldehyd)
+- Verzweigungen in Klammern: "CC(C)C" (Isobutan), "CC(O)CC" (2-Butanol)
+- Doppelbindungen =, Dreifachbindungen #: "C=C" (Ethen), "C#N" (Blausäure)
+- Ringe: "C1CCCCC1" (Cyclohexan), "c1ccccc1" (Benzol)
+- Funktionelle Gruppen: "CC(=O)O" (Essigsäure), "CCN" (Ethylamin), "CC=O" (Ethanal)
+- KEINE ausgeschriebenen Strukturformeln wie "CH3-CH2-OH" — das ist KEIN gültiges SMILES!
+- KEINE Summenformeln wie "C2H5OH" — das ist KEIN gültiges SMILES!
+- Wenn du dir bei der SMILES-Notation unsicher bist, LASSE strukturformeln WEG.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5436,9 +5447,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${isKurz ? 10 : 30},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
-  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
+  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
+  "strukturformeln": [{"smiles": "CCO", "caption": "Ethanol"}]
 }
-Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
+Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
+Hinweis: "strukturformeln" ist OPTIONAL — nur bei Organik, und NUR mit gültiger SMILES-Notation.`;
 
   const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
@@ -5708,7 +5721,12 @@ TEMPERATUR-NOTATION:
 - FALSCH: $\\vartheta$ (nicht in KaTeX verfügbar) — verwende stattdessen $\\theta$ oder $T$
 
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
-KEINE Strukturformeln als SMILES — verwende stattdessen Textbeschreibungen für Strukturen.
+
+STRUKTURFORMELN (optional, nur bei Organik-Aufgaben):
+Du kannst ein "strukturformeln"-Array innerhalb von material angeben. Verwende GÜLTIGE SMILES-Notation.
+SMILES-Beispiele: "CCO" (Ethanol), "CC(=O)O" (Essigsäure), "c1ccccc1" (Benzol), "CC(C)C" (Isobutan), "C=C" (Ethen).
+KEIN gültiges SMILES: "CH3-CH2-OH", "C2H5OH", "HO-CH2-COOH" — das sind Strukturformeln/Summenformeln!
+Wenn du unsicher bist, LASSE strukturformeln WEG.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5718,7 +5736,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "titel": "Titel der Aufgabe",
       "sachgebiet": "elektrochemie",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
+        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten...", "strukturformeln": [{"smiles": "CCO", "caption": "Ethanol"}]}
       ],
       "teilaufgaben": [
         {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 5},
