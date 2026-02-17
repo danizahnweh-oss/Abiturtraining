@@ -5425,11 +5425,13 @@ TEMPERATUR-NOTATION:
 
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
 
-STRUKTURFORMELN (optional):
-Du kannst ein "strukturformeln"-Array mit chemischen Namen angeben (IUPAC oder Trivialname, auf Englisch).
-Beispiel: [{"name": "ethanol", "caption": "Edukt"}, {"name": "acetic acid"}]
-Verwende englische Namen (für PubChem-Lookup). KEIN SMILES, KEIN InChI.
-Nur angeben wenn Strukturformeln pädagogisch sinnvoll sind (v.a. Organik, Kunststoffe).
+STRUKTURFORMELN:
+Bei Organik- und Kunststoffe-Aufgaben MUSST du ein "strukturformeln"-Array mit 2–4 relevanten Molekülen angeben.
+Bei anderen Sachgebieten (Elektrochemie, Gleichgewicht, Thermochemie etc.) kannst du es weglassen.
+Format: [{"name": "ethanol", "caption": "Ethanol (Edukt)"}, {"name": "acetic acid", "caption": "Essigsäure"}]
+- "name": englischer chemischer Name (IUPAC oder Trivialname) für PubChem-Lookup
+- "caption": deutsche Beschriftung für die Anzeige
+- KEIN SMILES, KEIN InChI — nur englische Namen!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5442,14 +5444,15 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
-  "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}]
+  "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}, {"name": "acetic acid", "caption": "Essigsäure"}]
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
-Hinweis: "strukturformeln" ist OPTIONAL — nur bei Organik/Kunststoffe, englische chemische Namen verwenden.`;
+Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
+  const organikHint = (sg === "organik" || sg === "kunststoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
   const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
-KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.`;
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.${organikHint}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -5716,11 +5719,13 @@ TEMPERATUR-NOTATION:
 
 KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
 
-STRUKTURFORMELN (optional):
-Du kannst ein "strukturformeln"-Array innerhalb von material angeben. Verwende englische chemische Namen (IUPAC oder Trivialname).
-Beispiel: [{"name": "ethanol", "caption": "Edukt"}, {"name": "acetic acid"}]
-Verwende englische Namen (für PubChem-Lookup). KEIN SMILES, KEIN InChI.
-Nur angeben wenn Strukturformeln pädagogisch sinnvoll sind (v.a. Organik, Kunststoffe).
+STRUKTURFORMELN:
+Bei Aufgaben zu Organik oder Kunststoffen MUSST du ein "strukturformeln"-Array innerhalb von material angeben (2–4 Moleküle).
+Bei anderen Sachgebieten ist es optional.
+Format: [{"name": "ethanol", "caption": "Ethanol (Edukt)"}, {"name": "acetic acid", "caption": "Essigsäure"}]
+- "name": englischer chemischer Name (IUPAC oder Trivialname) für PubChem-Lookup
+- "caption": deutsche Beschriftung für die Anzeige
+- KEIN SMILES, KEIN InChI — nur englische Namen!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5772,7 +5777,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
-KRITISCH: Alle Formeln in LaTeX-Notation, chemische Formeln mit $\\ce{}$.`;
+KRITISCH: Alle Formeln in LaTeX-Notation, chemische Formeln mit $\\ce{}$.
+WICHTIG: Bei Organik/Kunststoffe-Aufgaben UNBEDINGT strukturformeln-Array in material angeben (englische Namen für PubChem)!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
