@@ -621,16 +621,19 @@ function renderStudentTextareas(d) {
   if (ta_list) {
     ta_list.forEach(function(t, i) {
       const id = "studentText_" + i;
-      const label = escapeHtml((t.id || t.nr || String.fromCharCode(97 + i) + ")") + " " + (t.text || "")) + " (" + (t.be || "?") + " BE)";
+      const nr = escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")");
+      const textHtml = DOMPurify.sanitize(safeMathParseInline(t.text || ""));
+      const label = nr + " " + textHtml + " (" + (t.be || "?") + " BE)";
       const div = document.createElement("div");
       div.className = "student-ta-group";
       div.innerHTML =
         '<label for="' + id + '">' + label + '</label>' +
-        '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")") + ' \u2026" oninput="updateWordCount()"></textarea>' +
+        '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea>' +
         '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
       wrap.appendChild(div);
       document.getElementById(id).addEventListener("focus", function() { activeStudentTaId = id; });
     });
+    renderMath(wrap);
   } else {
     // Fallback: single textarea for upload/manual tasks without teilaufgaben
     wrap.innerHTML =
