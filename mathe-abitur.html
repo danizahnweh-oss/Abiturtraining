@@ -382,10 +382,10 @@ function beToNP(erreicht, max) {
 /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
 function safeMathParse(text) {
   var blocks = [];
-  text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
-  text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
+  text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+  text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
   var html = marked.parse(text);
-  html = html.replace(/\x00M(\d+)\x00/g, function(_, i) { return blocks[parseInt(i)]; });
+  html = html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
   return html;
 }
 
