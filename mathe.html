@@ -341,6 +341,7 @@ async function renderGeoGebra(containerEl, grafik, idPrefix) {
       loader.remove();
       window[appletId + "_api"] = api;
       try {
+        if (api.setErrorDialogsActive) api.setErrorDialogsActive(false);
         for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
         if (grafik.settings && grafik.type !== "probability") {
           var st = grafik.settings;
