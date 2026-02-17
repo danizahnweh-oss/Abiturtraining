@@ -4870,7 +4870,7 @@ BEWERTUNGSREGELN:
 - Pro Teilaufgabe bewerte: Ansatz, Rechnung/Lösungsweg, Ergebnis
 - Ansatz korrekt aber Rechenfehler → trotzdem Teilpunkte für Ansatz
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
-- Der Schüler schreibt in Plain-Text-Mathe (z.B. f'(x) = 4x + 3, int_0^1 x^2 dx = 1/3). Interpretiere dies großzügig.
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe (z.B. f'(x) = 4x + 3, int_0^1 x^2 dx = 1/3) und LaTeX-Notation ($\\frac{1}{2}$, $\\int_0^1 x^2\\,dx$). Interpretiere beides großzügig.
 - Max BE gesamt: ${maxBE}
 
 BE → NOTENPUNKTE (ISB-Tabelle):
@@ -5167,7 +5167,7 @@ BEWERTUNGSREGELN:
 - Bewerte jede Teilaufgabe einzeln: Ansatz, Rechnung, Ergebnis
 - Ansatz korrekt aber Rechenfehler → Teilpunkte
 - Folgefehler berücksichtigen
-- Der Schüler schreibt in Plain-Text-Mathe. Interpretiere großzügig.
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe und LaTeX-Notation ($...$). Interpretiere beides großzügig.
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
