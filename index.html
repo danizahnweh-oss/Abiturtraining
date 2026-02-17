@@ -113,6 +113,12 @@
 .login-mode-toggle button{flex:1;padding:.6rem;border:none;background:transparent;cursor:pointer;font-size:.9rem;color:var(--ink-muted);transition:all .15s;font-family:var(--font-body)}
 .login-mode-toggle button.active{background:var(--accent);color:#fff}
 
+/* ====== LEVEL TOGGLE ====== */
+.level-toggle{display:flex;gap:.6rem;justify-content:center;margin-bottom:1.2rem}
+.level-btn{padding:.5rem 1.2rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.85rem;color:var(--ink-muted);transition:all .15s}
+.level-btn:hover{border-color:var(--accent);color:var(--ink)}
+.level-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+
 /* ====== INDEX-SPECIFIC ====== */
 .logout-btn{background:none;border:none;color:var(--ink-muted);font-size:.85rem;cursor:pointer;padding:.4rem .8rem;border-radius:var(--radius-sm);transition:all .15s}
 .logout-btn:hover{background:var(--warning);color:#fff}
@@ -137,11 +143,6 @@ footer a{color:var(--accent)}
       <button id="modeRegister" onclick="setLoginMode('register')">Neu registrieren</button>
     </div>
     <input type="text" id="studentName" class="login-input" placeholder="Dein Name …" autocomplete="off">
-    <select id="studentLevel" class="login-input">
-      <option value="" disabled selected>Niveau wählen …</option>
-      <option value="gA">grundlegendes Anforderungsniveau (gA)</option>
-      <option value="eA">erhöhtes Anforderungsniveau (eA)</option>
-    </select>
     <input type="password" id="personalPassword" class="login-input" placeholder="Dein Passwort …" autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
     <div id="registerFields" style="display:none">
       <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort bestätigen …" autocomplete="off">
@@ -229,6 +230,10 @@ footer a{color:var(--accent)}
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEn">🌙</button>
     </div>
   </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+  </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
     <a class="module-card" href="mediation.html">
@@ -258,6 +263,10 @@ footer a{color:var(--accent)}
       <span id="userInfoDe" style="font-size:.85rem;color:var(--ink-muted)"></span>
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnDe">🌙</button>
     </div>
+  </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -301,6 +310,10 @@ footer a{color:var(--accent)}
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGe">🌙</button>
     </div>
   </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+  </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
     <a class="module-card history" href="geschichte.html">
@@ -330,6 +343,10 @@ footer a{color:var(--accent)}
       <span id="userInfoPug" style="font-size:.85rem;color:var(--ink-muted)"></span>
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnPug">🌙</button>
     </div>
+  </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -361,6 +378,10 @@ footer a{color:var(--accent)}
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnWr">🌙</button>
     </div>
   </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+  </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
     <a class="module-card wr" href="wr.html">
@@ -390,6 +411,10 @@ footer a{color:var(--accent)}
       <span id="userInfoFr" style="font-size:.85rem;color:var(--ink-muted)"></span>
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnFr">🌙</button>
     </div>
+  </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -421,6 +446,10 @@ footer a{color:var(--accent)}
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnIt">🌙</button>
     </div>
   </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+  </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
     <a class="module-card italian" href="italiano-mediation.html">
@@ -450,6 +479,10 @@ footer a{color:var(--accent)}
       <span id="userInfoEth" style="font-size:.85rem;color:var(--ink-muted)"></span>
       <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEth">🌙</button>
     </div>
+  </div>
+  <div class="level-toggle">
+    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -485,15 +518,14 @@ function setLoginMode(mode) {
 
 async function doLogin() {
   const name = document.getElementById("studentName").value.trim();
-  const level = document.getElementById("studentLevel").value;
   const personalPw = document.getElementById("personalPassword").value;
   const err = document.getElementById("loginError");
   const btn = document.getElementById("loginBtn");
 
   if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
-  if (!level) { err.textContent = "Bitte wähle dein Niveau (gA/eA)."; err.style.display = "block"; return; }
   if (!personalPw || personalPw.length < 4) { err.textContent = "Passwort muss mindestens 4 Zeichen haben."; err.style.display = "block"; return; }
 
+  const level = sessionStorage.getItem("student_level") || "eA";
   const body = { student_name: name, personal_password: personalPw, mode: loginMode, level: level };
 
   if (loginMode === "register") {
@@ -520,7 +552,7 @@ async function doLogin() {
       sessionStorage.setItem("access", "1");
       sessionStorage.setItem("access_token", data.token);
       sessionStorage.setItem("student_name", name);
-      sessionStorage.setItem("student_level", level);
+      if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
       showSubjectSelection();
       history.replaceState({ screen: "subjects" }, "");
     } else {
@@ -550,11 +582,9 @@ function showSubjectSelection(_push) {
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
-  const level = (sessionStorage.getItem("student_level") || "").toUpperCase();
-  const info = `${name} · ${level}`;
 
   document.getElementById("greetName").textContent = name;
-  document.getElementById("userInfo").textContent = info;
+  document.getElementById("userInfo").textContent = name;
   if (_push) history.pushState({ screen: "subjects" }, "");
 }
 
@@ -564,35 +594,53 @@ function selectSubject(subject, _push) {
   document.getElementById("subject-screen").style.display = "none";
 
   const name = sessionStorage.getItem("student_name") || "";
-  const level = (sessionStorage.getItem("student_level") || "").toUpperCase();
+  const level = (sessionStorage.getItem("student_level") || "eA").toUpperCase();
   const info = `${name} · ${level}`;
 
-  if (subject === "english") {
-    document.getElementById("module-screen-english").style.display = "flex";
-    document.getElementById("userInfoEn").textContent = info;
-  } else if (subject === "history") {
-    document.getElementById("module-screen-history").style.display = "flex";
-    document.getElementById("userInfoGe").textContent = info;
-  } else if (subject === "pug") {
-    document.getElementById("module-screen-pug").style.display = "flex";
-    document.getElementById("userInfoPug").textContent = info;
-  } else if (subject === "wr") {
-    document.getElementById("module-screen-wr").style.display = "flex";
-    document.getElementById("userInfoWr").textContent = info;
-  } else if (subject === "french") {
-    document.getElementById("module-screen-french").style.display = "flex";
-    document.getElementById("userInfoFr").textContent = info;
-  } else if (subject === "italian") {
-    document.getElementById("module-screen-italian").style.display = "flex";
-    document.getElementById("userInfoIt").textContent = info;
-  } else if (subject === "ethik") {
-    document.getElementById("module-screen-ethik").style.display = "flex";
-    document.getElementById("userInfoEth").textContent = info;
-  } else {
-    document.getElementById("module-screen-german").style.display = "flex";
-    document.getElementById("userInfoDe").textContent = info;
-  }
+  const screenMap = {
+    english: "module-screen-english",
+    history: "module-screen-history",
+    pug: "module-screen-pug",
+    wr: "module-screen-wr",
+    french: "module-screen-french",
+    italian: "module-screen-italian",
+    ethik: "module-screen-ethik",
+    german: "module-screen-german"
+  };
+  const infoMap = {
+    english: "userInfoEn",
+    history: "userInfoGe",
+    pug: "userInfoPug",
+    wr: "userInfoWr",
+    french: "userInfoFr",
+    italian: "userInfoIt",
+    ethik: "userInfoEth",
+    german: "userInfoDe"
+  };
+
+  const screenId = screenMap[subject] || screenMap.german;
+  const infoId = infoMap[subject] || infoMap.german;
+
+  document.getElementById(screenId).style.display = "flex";
+  document.getElementById(infoId).textContent = info;
+
+  // Update level toggle buttons in this module screen
+  document.querySelectorAll(`#${screenId} .level-btn`).forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.level === (sessionStorage.getItem("student_level") || "eA"));
+  });
+
   if (_push) history.pushState({ screen: "module-" + subject }, "");
+}
+
+function setLevel(lvl) {
+  sessionStorage.setItem("student_level", lvl);
+  const name = sessionStorage.getItem("student_name") || "";
+  const info = `${name} · ${lvl.toUpperCase()}`;
+  // Update all userInfo spans and level toggles
+  document.querySelectorAll("[id^='userInfo']").forEach(el => { if (el.textContent.includes("·")) el.textContent = info; });
+  document.querySelectorAll(".level-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.level === lvl);
+  });
 }
 
 function backToSubjects() {
@@ -620,7 +668,6 @@ function logout() {
   document.getElementById("module-screen-ethik").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
-  document.getElementById("studentLevel").value = "";
   document.getElementById("personalPassword").value = "";
 }
 
