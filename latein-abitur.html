@@ -61,6 +61,12 @@
 .aufgabe-nr{font-weight:700;color:var(--accent);margin-right:.3rem}
 .aufgabe-be{font-size:.8rem;color:var(--ink-muted);font-weight:600}
 .aufgaben-liste{margin-top:.5rem}
+.aufgabe-item.selectable{cursor:pointer;padding:.6rem .8rem;border-radius:.5rem;border:2px solid var(--border);margin:.4rem 0;transition:all .2s;border-bottom:2px solid var(--border)}
+.aufgabe-item.selectable:hover{border-color:var(--accent);background:var(--accent-glow)}
+.aufgabe-item.selectable.selected{border-color:var(--accent);background:var(--accent-soft)}
+.aufgabe-item.selectable:not(.selected){opacity:.65}
+.wahl-hint{font-size:.85rem;color:var(--ink-muted);padding:.4rem 0;font-style:italic}
+.wahl-hint.complete{color:var(--accent);font-weight:600;font-style:normal}
 
 @media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
 </style>
@@ -631,12 +637,22 @@ function renderTask(d) {
     </div>`;
   }
   if (d.teil_b_aufgaben && d.teil_b_aufgaben.length) {
+    const level = sessionStorage.getItem("student_level") || "eA";
+    const wahlNeeded = level === "gA" ? 2 : 3;
+    CONFIG.wahlNeeded = wahlNeeded;
+    CONFIG.selectedAbschnittIII = new Set();
     htmlB += d.teil_b_aufgaben.map(a => {
-      const teilaufgaben = (a.teilaufgaben || []).map(t =>
-        `<div class="aufgabe-item"><span class="aufgabe-nr">${escapeHtml(t.nr || "")}</span> ${escapeHtml(t.text || "")} <span class="aufgabe-be">(${t.be} BE)</span></div>`
-      ).join("");
+      const isIII = a.abschnitt === "III";
+      const teilaufgaben = (a.teilaufgaben || []).map((t, idx) => {
+        if (isIII) {
+          return `<div class="aufgabe-item selectable" data-idx="${idx}" onclick="toggleAufgabeIII(this,${idx})"><span class="aufgabe-nr">${escapeHtml(t.nr || "")}</span> ${escapeHtml(t.text || "")} <span class="aufgabe-be">(${t.be} BE)</span></div>`;
+        }
+        return `<div class="aufgabe-item"><span class="aufgabe-nr">${escapeHtml(t.nr || "")}</span> ${escapeHtml(t.text || "")} <span class="aufgabe-be">(${t.be} BE)</span></div>`;
+      }).join("");
+      const wahlHint = isIII ? `<div class="wahl-hint" id="wahlHint">W\u00e4hle <strong>${wahlNeeded}</strong> von ${(a.teilaufgaben||[]).length} Aufgaben</div>` : "";
       return `<div class="material-card">
         <h4>${escapeHtml(a.abschnitt || "")}: ${escapeHtml(a.titel || "")}</h4>
+        ${wahlHint}
         <div class="aufgaben-liste">${teilaufgaben}</div>
       </div>`;
     }).join("");
@@ -654,6 +670,41 @@ function renderTask(d) {
 
   updateBEBadges();
   initHL();
+}
+
+function toggleAufgabeIII(el, idx) {
+  if (CONFIG.selectedAbschnittIII.has(idx)) {
+    CONFIG.selectedAbschnittIII.delete(idx);
+    el.classList.remove("selected");
+  } else {
+    if (CONFIG.selectedAbschnittIII.size >= CONFIG.wahlNeeded) {
+      showToast("Max. " + CONFIG.wahlNeeded + " Aufgaben");
+      return;
+    }
+    CONFIG.selectedAbschnittIII.add(idx);
+    el.classList.add("selected");
+  }
+  const hint = document.getElementById("wahlHint");
+  if (hint) {
+    const remaining = CONFIG.wahlNeeded - CONFIG.selectedAbschnittIII.size;
+    if (remaining > 0) {
+      hint.innerHTML = "Noch <strong>" + remaining + "</strong> Aufgabe" + (remaining > 1 ? "n" : "") + " ausw\u00e4hlen";
+      hint.classList.remove("complete");
+    } else {
+      hint.innerHTML = CONFIG.wahlNeeded + " Aufgaben ausgew\u00e4hlt \u2713";
+      hint.classList.add("complete");
+    }
+  }
+}
+
+function getFilteredTeilBAufgaben() {
+  if (!CONFIG.storedData?.teil_b_aufgaben) return [];
+  return CONFIG.storedData.teil_b_aufgaben.map(a => {
+    if (a.abschnitt === "III" && CONFIG.selectedAbschnittIII?.size) {
+      return { ...a, teilaufgaben: (a.teilaufgaben || []).filter((_, i) => CONFIG.selectedAbschnittIII.has(i)) };
+    }
+    return a;
+  });
 }
 
 function useOCRTextA() {
@@ -680,6 +731,9 @@ async function submitForGrading() {
   const totalWords = countWords(tA) + countWords(tB);
   if (totalWords < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter insgesamt"); return; }
   if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+  if (CONFIG.storedData.teil_b_aufgaben?.length && CONFIG.wahlNeeded && (!CONFIG.selectedAbschnittIII || CONFIG.selectedAbschnittIII.size < CONFIG.wahlNeeded)) {
+    showToast("Bitte " + CONFIG.wahlNeeded + " Aufgaben in Abschnitt III ausw\u00e4hlen"); return;
+  }
   document.getElementById("submitBtn").disabled = true;
   nav("feedback");
   document.getElementById("feedbackLoader").style.display = "block";
@@ -692,7 +746,7 @@ async function submitForGrading() {
       teil_b_instruction: CONFIG.storedData.teil_b_instruction || "",
       teil_b_latin_text: CONFIG.storedData.teil_b_latin_text || "",
       teil_b_deutsche_uebersetzung: CONFIG.storedData.teil_b_deutsche_uebersetzung || "",
-      teil_b_aufgaben: CONFIG.storedData.teil_b_aufgaben || [],
+      teil_b_aufgaben: getFilteredTeilBAufgaben(),
       student_text_a: tA,
       student_text_b: tB,
       rubric_prompt: BEWERTUNG_PROMPT,
@@ -745,7 +799,7 @@ async function showModelAnswer() {
       teil_b_instruction: CONFIG.storedData.teil_b_instruction || "",
       teil_b_latin_text: CONFIG.storedData.teil_b_latin_text || "",
       teil_b_deutsche_uebersetzung: CONFIG.storedData.teil_b_deutsche_uebersetzung || "",
-      teil_b_aufgaben: CONFIG.storedData.teil_b_aufgaben || [],
+      teil_b_aufgaben: getFilteredTeilBAufgaben(),
       type: "latein-abitur"
     };
 
