@@ -529,7 +529,7 @@ function renderTask(d) {
       wrapper.style.cssText = "text-align:center";
       var img = document.createElement("img");
       img.className = "struktur-img";
-      img.src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/" + encodeURIComponent(sf.name) + "/PNG?image_size=300";
+      img.src = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/" + encodeURIComponent(sf.name) + "/PNG?record_type=2d&image_size=300x300";
       img.alt = sf.caption || sf.name;
       img.onerror = function() { wrapper.style.display = "none"; };
       wrapper.appendChild(img);
