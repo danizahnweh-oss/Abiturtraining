@@ -299,6 +299,10 @@ function serverEntryToLocal(entry) {
       return { ...base, halbjahr: entry.topic, verstehen: entry.content, darstellung: entry.language };
     case "geographie-abitur":
       return { ...base, halbjahr: entry.topic, teil_a: entry.content, darstellung: entry.language };
+    case "latein":
+      return { ...base, autor: entry.topic, verstehen: entry.content, darstellung: entry.language };
+    case "latein-abitur":
+      return { ...base, autor: entry.topic, teil_a: entry.content, darstellung: entry.language };
     case "geschichte-abitur":
       return { ...base, thema: entry.topic, sach_a: entry.content, darstellung: entry.language };
     case "wr":

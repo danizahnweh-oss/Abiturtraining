@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myAbiFlow &middot; Latein</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F3FA;</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Latein accent override – red */
+:root {
+  --accent:#dc2626;--accent-hover:#b91c1c;--accent-soft:#fee2e2;--accent-glow:rgba(220,38,38,.08);
+}
+[data-theme="dark"] {
+  --accent:#f87171;--accent-hover:#fca5a5;--accent-soft:rgba(248,113,113,.15);--accent-glow:rgba(248,113,113,.08);
+}
+
+/* Autor selection */
+.hj-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin:1rem 0}
+.hj-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer}
+.hj-card:hover,.hj-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.hj-icon{font-size:1.5rem;margin-bottom:.4rem}
+.hj-name{font-weight:600;font-size:.85rem}
+.hj-desc{font-size:.75rem;color:var(--ink-muted);margin-top:.3rem;line-height:1.3}
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
+.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.source-text .verse{margin-bottom:.2rem;padding:.1rem 0}
+.hl-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;font-size:.8rem;color:var(--ink-muted)}
+.hl-legend-item{display:flex;align-items:center;gap:.3rem}
+.hl-legend-dot{width:12px;height:12px;border-radius:2px}
+.material-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
+.material-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
+.material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
+.material-card .material-body{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
+.material-type-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.03em;margin-left:.5rem;background:var(--accent-soft);color:var(--accent)}
+.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
+.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
+.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
+/* Latin-specific styles */
+.latin-text{font-family:'JetBrains Mono',monospace;font-size:.95rem;line-height:1.8;letter-spacing:.02em}
+.vokabel-liste{display:grid;grid-template-columns:auto 1fr;gap:.3rem .8rem;font-size:.88rem}
+.vokabel-lat{font-weight:700;font-style:italic;color:var(--accent)}
+.vokabel-deu{color:var(--ink-muted)}
+.aufgabe-item{padding:.5rem 0;border-bottom:1px solid var(--border)}
+.aufgabe-item:last-child{border-bottom:none}
+.aufgabe-nr{font-weight:700;color:var(--accent);margin-right:.3rem}
+.aufgabe-be{font-size:.8rem;color:var(--ink-muted);font-weight:600}
+.aufgaben-liste{margin-top:.5rem}
+@media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html?back=latein" class="back-link">&larr; Zur&uuml;ck</a>
+    <h1>Latein &middot; <span>Klausurtraining</span></h1>
+  </div>
+  <div class="header-right">
+    <span id="studentGreeting" class="header-meta" style="display:none"></span>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+  <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
+  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
+</nav>
+
+<main>
+  <!-- STEP 1: SETUP -->
+  <section id="sec-setup" class="active">
+    <div class="card">
+      <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+      </div>
+    </div>
+
+    <div class="card" id="setupGenerate">
+      <h2 class="card-header">Neue Aufgabe generieren</h2>
+
+      <!-- Aufgabentyp toggle (unique to Latein) -->
+      <div class="form-group">
+        <label>Aufgabentyp</label>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeUebersetzung" onclick="setAufgabentyp('uebersetzung')">&#x1F4DD; &Uuml;bersetzung</button>
+          <button class="mode-btn" id="modeInterpretation" onclick="setAufgabentyp('interpretation')">&#x1F50D; Interpretation</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Autor / Textgattung</label>
+        <div class="hj-grid">
+          <div class="hj-card selected" data-hj="cicero" onclick="selectAutor('cicero')">
+            <div class="hj-icon">&#x1F3DB;&#xFE0F;</div>
+            <div class="hj-name">Cicero</div>
+            <div class="hj-desc">Reden, Rhetorik, Philosophie</div>
+          </div>
+          <div class="hj-card" data-hj="seneca" onclick="selectAutor('seneca')">
+            <div class="hj-icon">&#x1F4DC;</div>
+            <div class="hj-name">Seneca</div>
+            <div class="hj-desc">Moralphilosophie, Epistulae</div>
+          </div>
+          <div class="hj-card" data-hj="livius" onclick="selectAutor('livius')">
+            <div class="hj-icon">&#x2694;&#xFE0F;</div>
+            <div class="hj-name">Livius</div>
+            <div class="hj-desc">Geschichtsschreibung</div>
+          </div>
+          <div class="hj-card" data-hj="vergil" onclick="selectAutor('vergil')">
+            <div class="hj-icon">&#x1F33F;</div>
+            <div class="hj-name">Vergil</div>
+            <div class="hj-desc">Aeneis, Epos</div>
+          </div>
+          <div class="hj-card" data-hj="lyrik" onclick="selectAutor('lyrik')">
+            <div class="hj-icon">&#x1F3B5;</div>
+            <div class="hj-name">Lyrik</div>
+            <div class="hj-desc">Catull, Horaz</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Schwerpunkt (optional)</label>
+        <select id="schwerpunktSelect">
+          <option value="random">Zuf&auml;llig</option>
+        </select>
+      </div>
+      <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Aufgabe &hellip;</div></div>
+    </div>
+
+    <div class="card" id="setupUpload" style="display:none">
+      <h2 class="card-header">Eigene Aufgabe</h2>
+      <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+      </div>
+      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
+      <div id="taskUploadPages" class="ocr-pages"></div>
+      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
+      <div id="taskUploadResult" style="display:none;margin-top:1rem">
+        <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
+        <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+        <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+      </div>
+      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+      <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="&Uuml;bersetzen Sie den folgenden Text &hellip;"></textarea></div>
+      <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Lateinischen Text hier einf&uuml;gen &hellip;"></textarea></div>
+      <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta" placeholder="z.B. Cicero, In Catilinam I"></div>
+      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+    </div>
+
+    <div class="card">
+      <label>Bearbeitungszeit (Min.)</label>
+      <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
+    </div>
+  </section>
+
+  <!-- STEP 2: READ MATERIALS -->
+  <section id="sec-task">
+    <div class="card">
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstruction">&hellip;</div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header" id="textTitle">Materialien</h2>
+
+      <!-- Highlighter Toolbar -->
+      <div class="highlighter-toolbar">
+        <span class="hl-label">&#x1F58D;&#xFE0F; Markieren:</span>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb &ndash; z.B. Kernaussagen"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Gr&uuml;n &ndash; z.B. Pro-Argumente"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau &ndash; z.B. Fachbegriffe"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink &ndash; z.B. Contra-Argumente"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange &ndash; z.B. Zitate/Belege"></button>
+        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Markierung entfernen">&#x2715;</button>
+        <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
+      </div>
+
+      <div id="materialsContainer"></div>
+
+      <div class="hl-legend">
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#facc15"></div> Kernaussagen</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#4ade80"></div> Pro</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#60a5fa"></div> Fachbegriffe</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#f472b6"></div> Contra</div>
+        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#fb923c"></div> Zitate</div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
+  </section>
+
+  <!-- STEP 3: WRITE -->
+  <section id="sec-write">
+    <div class="timer-bar" id="timerBar">
+      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+        <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header">Deine Antwort</h2>
+
+      <details style="margin-bottom:1rem" open>
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe &amp; Materialien</summary>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0;font-size:.9rem"></div>
+          <div id="writeMaterialsRef" style="font-size:.85rem"></div>
+        </div>
+      </details>
+
+      <textarea id="studentText" placeholder="Beginne hier mit deiner Antwort &hellip;
+
+Tipp: Strukturiere deinen Text sorgf&auml;ltig:
+&bull; &Uuml;bersetzung: sinngetreu und idiomatisches Deutsch
+&bull; Interpretation: Flie&szlig;text mit Textbelegen" oninput="updateWordCount()"></textarea>
+
+      <div class="write-toolbar">
+        <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+          <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCR UPLOAD -->
+    <div class="card">
+      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+        Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
+      </p>
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+        <div class="upload-icon">&#x1F4F7;</div>
+        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+      </div>
+      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+      <div id="ocrPages" class="ocr-pages"></div>
+      <div id="ocrLoader" class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+      </div>
+      <div id="ocrResult" style="display:none;margin-top:1rem;">
+        <label>Erkannter Text (bearbeitbar):</label>
+        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+  </section>
+
+  <!-- STEP 4: FEEDBACK -->
+  <section id="sec-feedback">
+    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte &hellip;</div></div>
+    <div id="feedbackContent" style="display:none">
+      <div class="card">
+        <h2 class="card-header">Bewertung</h2>
+        <div class="scores-grid">
+          <div class="score-card"><div class="score-label">Inhalt</div><div class="score-value" id="scoreVerstehen">&ndash;</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">&ndash;</div><div class="score-max">/ 15</div></div>
+          <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">&ndash;</div><div class="score-max">/ 15</div></div>
+        </div>
+      </div>
+      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
+      <div class="card" id="korrekturCard" style="display:none">
+        <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
+        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
+        <div class="korrektur-body" id="korrekturBody"></div>
+      </div>
+      <div class="card" id="aspekteCard" style="display:none">
+        <h2 class="card-header">Fehlende Aspekte</h2>
+        <div id="aspekteBody"></div>
+      </div>
+      <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterl&ouml;sung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
+        <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: PROGRESS -->
+  <section id="sec-progress">
+    <div class="card">
+      <h2 class="card-header">Fortschritt</h2>
+      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">&#x1F4CA;</div><p>Noch keine Daten.</p></div>
+      <div id="progressContent" style="display:none">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
+          <div class="stat-card"><div class="stat-value" id="statAverage">&ndash;</div><div class="stat-label">&Oslash;</div></div>
+          <div class="stat-card"><div class="stat-value" id="statBest">&ndash;</div><div class="stat-label">Best</div></div>
+        </div>
+        <div class="chart-container"><canvas id="progressChart"></canvas></div>
+        <table class="history-table"><thead><tr><th>Datum</th><th></th><th>I</th><th>D</th><th>&Sigma;</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+      </div>
+      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">&#x1F5D1;</button>
+    </div>
+  </section>
+</main>
+
+<footer>&copy; 2026 myAbiFlow &middot; Latein Trainer</footer>
+
+<!-- MODULE CONFIG -->
+<script>
+const MODULE_CONFIG = {
+  sectionPrefix: "sec-",
+  steps: ["setup","task","write","feedback","progress"],
+  storagePrefix: "latein",
+  historyKey: "latein_history",
+  historyType: "latein",
+  pdfFilename: "Latein_Klausur",
+  chartColor: "#dc2626",
+  minWords: 50,
+  afterHL: function() { saveHL(); }
+};
+</script>
+<script src="shared.js"></script>
+
+<!-- MODULE-SPECIFIC CODE -->
+<script>
+CONFIG.autor = "cicero";
+CONFIG.aufgabentyp = "uebersetzung";
+
+const AUTOR_LABELS = {
+  "cicero": "Cicero \u2013 Reden & Philosophie",
+  "seneca": "Seneca \u2013 Moralphilosophie",
+  "livius": "Livius \u2013 Geschichtsschreibung",
+  "vergil": "Vergil \u2013 Aeneis",
+  "lyrik": "Lyrik \u2013 Catull & Horaz"
+};
+
+const AUTOR_ICONS = { "cicero": "\u{1F3DB}\uFE0F", "seneca": "\u{1F4DC}", "livius": "\u2694\uFE0F", "vergil": "\u{1F33F}", "lyrik": "\u{1F3B5}" };
+
+const SCHWERPUNKTE = {
+  "cicero": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "reden", label: "Reden (In Catilinam, Pro Murena)" },
+    { value: "philosophie", label: "Philosophie (De officiis, De re publica)" },
+    { value: "briefe", label: "Briefe (Ad familiares)" }
+  ],
+  "seneca": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "epistulae", label: "Epistulae morales" },
+    { value: "dialogi", label: "De brevitate vitae, De vita beata" },
+    { value: "consolationes", label: "Trostschriften" }
+  ],
+  "livius": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "fruehzeit", label: "Fr\u00fchzeit Roms (Buch I\u2013V)" },
+    { value: "punisch", label: "Punische Kriege (Buch XXI\u2013XXX)" },
+    { value: "exempla", label: "Exempla und Moralvorstellungen" }
+  ],
+  "vergil": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "aeneis_1_6", label: "Aeneis I\u2013VI (Irrfahrten)" },
+    { value: "aeneis_7_12", label: "Aeneis VII\u2013XII (K\u00e4mpfe in Latium)" },
+    { value: "georgica", label: "Georgica" }
+  ],
+  "lyrik": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "catull_liebe", label: "Catull \u2013 Liebeslyrik (Lesbia)" },
+    { value: "catull_spott", label: "Catull \u2013 Spottgedichte" },
+    { value: "horaz_oden", label: "Horaz \u2013 Oden (carpe diem)" },
+    { value: "horaz_satiren", label: "Horaz \u2013 Satiren & Episteln" }
+  ]
+};
+
+const BEWERTUNG_UEBERSETZUNG = `Du bewertest eine \u00dcbersetzung aus dem Lateinischen ins Deutsche (Bayern, Abitur ab 2026).
+
+BEWERTUNGSMETHODE: NEGATIVE KORREKTUR
+- Ausgangspunkt: volle BE-Zahl
+- Schwerer Fehler (sinnentstellend, falsche Konstruktion): -1 BE
+- Leichter Fehler (Ungenauigkeit, falsches Tempus/Modus): -0,5 BE
+- Halber Fehler (stilistisch unsch\u00f6n, aber verst\u00e4ndlich): -0,25 BE
+- Minimum: 0 BE
+
+QUALIT\u00c4TSKRITERIEN:
+- Grammatische Korrektheit (Kongruenz, Tempus, Modus, Kasuswahl)
+- Sinngem\u00e4\u00dfe Wiedergabe des Inhalts
+- Idiomatisches Deutsch (kein "Lateinisch-Deutsch")
+- Erfassung von Stilmitteln und Nuancen
+- Ber\u00fccksichtigung des Kontexts
+
+WICHTIG: Z\u00e4hle die Fehler genau auf und berechne die verbleibenden BE.
+
+Antworte NUR JSON: {"fehler": [{"stelle": "lat. Wort/Phrase", "schueler": "falsche \u00dcbersetzung", "korrekt": "richtige \u00dcbersetzung", "typ": "schwer/leicht/halb", "abzug": 1.0}], "gesamt_be": <verbleibende BE>, "max_be": <maximale BE>, "uebersetzung_np": <0-15>, "feedback": "<Markdown>"}`;
+
+const BEWERTUNG_INTERPRETATION = `Du bewertest eine Klausur im Fach Latein \u2013 Interpretationsteil (Bayern, Abitur ab 2026).
+
+BEWERTUNGSKRITERIEN:
+INHALT (70%):
+- Korrekte inhaltliche Erschlie\u00dfung des lateinischen Textes
+- Sichere Anwendung der Fachbegriffe (Stilmittel, metrische Begriffe, literaturwiss. Termini)
+- Sinnvoller Aufbau und schl\u00fcssige Argumentation
+- Angemessene Ber\u00fccksichtigung des lateinischen Originals mit Textbelegen
+- Eigenst\u00e4ndiges begr\u00fcndetes Urteil bei Reflexionsaufgaben
+
+DARSTELLUNG (30%):
+- Klarer Aufbau und logische Gliederung
+- Angemessene Fachterminologie
+- Sprachliche Gewandtheit und Korrektheit
+
+WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT: Antworten M\u00dcSSEN in zusammenh\u00e4ngendem Flie\u00dftext verfasst sein.
+
+Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
+gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
+
+function setAufgabentyp(typ) {
+  CONFIG.aufgabentyp = typ;
+  document.getElementById("modeUebersetzung").classList.toggle("active", typ === "uebersetzung");
+  document.getElementById("modeInterpretation").classList.toggle("active", typ === "interpretation");
+}
+
+function selectAutor(autor) {
+  CONFIG.autor = autor;
+  document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === autor));
+  updateSchwerpunkte();
+}
+
+function updateSchwerpunkte() {
+  const sel = document.getElementById("schwerpunktSelect");
+  const opts = SCHWERPUNKTE[CONFIG.autor] || [{ value: "random", label: "Zuf\u00e4llig" }];
+  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+}
+
+function setSetupMode(m) {
+  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+}
+
+function saveHL() {
+  localStorage.setItem("hl_latein_" + getStudentKey(), JSON.stringify({
+    materials: document.getElementById("materialsContainer")?.innerHTML || ""
+  }));
+}
+
+function saveSession() {
+  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+  localStorage.setItem(key, JSON.stringify({
+    studentText: document.getElementById("studentText").value,
+    storedData: CONFIG.storedData,
+    autor: CONFIG.autor,
+    aufgabentyp: CONFIG.aufgabentyp,
+    hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
+  }));
+}
+
+function restoreSession() {
+  try {
+    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+    const s = JSON.parse(localStorage.getItem(key));
+    if (s) {
+      if (s.studentText) document.getElementById("studentText").value = s.studentText;
+      if (s.storedData) {
+        CONFIG.storedData = s.storedData;
+        renderTask(s.storedData);
+        if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+        syncHL();
+      }
+      if (s.autor) selectAutor(s.autor);
+      if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
+      updateWordCount();
+      initHL();
+    }
+  } catch {}
+}
+
+async function generateTask() {
+  const btn = document.getElementById("generateBtn");
+  btn.disabled = true;
+  document.getElementById("setupLoader").style.display = "block";
+  try {
+    const level = sessionStorage.getItem("student_level") || "eA";
+    const d = await apiCall("/api/generate-latein", {
+      autor: CONFIG.autor,
+      aufgabentyp: CONFIG.aufgabentyp,
+      schwerpunkt: document.getElementById("schwerpunktSelect").value,
+      level: level
+    });
+    CONFIG.storedData = d;
+    renderTask(d);
+    nav("task");
+  } catch (e) { showToast("Fehler: " + e.message); }
+  btn.disabled = false;
+  document.getElementById("setupLoader").style.display = "none";
+}
+
+const taskUploadImages = [];
+async function handleTaskUpload(files) {
+  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+  }
+  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+  document.getElementById("taskUploadLoader").style.display = "block";
+  try {
+    const base64s = await Promise.all(taskUploadImages.map(async p => {
+      const r = new FileReader();
+      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+    }));
+    const d = await apiCall("/api/parse-task-latein", { images: base64s });
+    document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+    document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+    document.getElementById("parsedMeta").value = d.primary_meta || "";
+    document.getElementById("taskUploadResult").style.display = "block";
+  } catch (e) { showToast("Fehler: " + e.message); }
+  document.getElementById("taskUploadLoader").style.display = "none";
+}
+
+function useUploadedTask() {
+  const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value, autor: CONFIG.autor };
+  if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
+  CONFIG.storedData = c;
+  renderTask(c);
+  nav("task");
+}
+
+function useManualTask() {
+  const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Bearbeiten Sie die folgende Aufgabe.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value, autor: CONFIG.autor };
+  if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
+  CONFIG.storedData = c;
+  renderTask(c);
+  nav("task");
+}
+
+function renderTask(d) {
+  const container = document.getElementById("materialsContainer");
+  const autorLabel = AUTOR_LABELS[d.autor || CONFIG.autor] || "";
+
+  if (d.latin_text && d.vokabelhilfen && !d.aufgaben) {
+    // UEBERSETZUNG MODE
+    document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "\u00dcbersetzen Sie den folgenden lateinischen Text ins Deutsche.").replace(/\n/g, "<br>");
+    document.getElementById("textTitle").textContent = "Lateinischer Text \u2013 " + autorLabel;
+
+    let vokabelHtml = "";
+    if (d.vokabelhilfen && d.vokabelhilfen.length) {
+      vokabelHtml = `<div class="material-card">
+        <h4>Vokabelhilfen</h4>
+        <div class="vokabel-liste">${d.vokabelhilfen.map(v =>
+          `<div class="vokabel-item"><span class="vokabel-lat">${escapeHtml(v.latein)}</span> <span class="vokabel-deu">${escapeHtml(v.deutsch)}</span></div>`
+        ).join("")}</div>
+      </div>`;
+    }
+
+    container.innerHTML = `<div class="material-card">
+      <h4>Lateinischer Text</h4>
+      <div class="source-text material-body latin-text">${escapeHtml(d.latin_text).replace(/\n/g, "<br>")}</div>
+    </div>${vokabelHtml}`;
+
+    // Write step refs
+    document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    const refContainer = document.getElementById("writeMaterialsRef");
+    refContainer.innerHTML = `<div style="margin-bottom:.8rem"><strong>Lat. Text</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml(d.latin_text.substring(0, 200))}\u2026</span></div>`;
+  } else if (d.aufgaben) {
+    // INTERPRETATION MODE
+    const taskParts = [];
+    if (d.task_instruction) taskParts.push(d.task_instruction);
+    document.getElementById("taskInstruction").innerHTML = escapeHtml(taskParts.join("\n") || "Interpretationsaufgabe").replace(/\n/g, "<br>");
+    document.getElementById("textTitle").textContent = "Text & Aufgaben \u2013 " + autorLabel;
+
+    let html = `<div class="material-card">
+      <h4>Lateinischer Text</h4>
+      <div class="source-text material-body latin-text">${escapeHtml(d.latin_text || "").replace(/\n/g, "<br>")}</div>
+    </div>`;
+
+    if (d.deutsche_uebersetzung) {
+      html += `<div class="material-card">
+        <h4>Deutsche \u00dcbersetzung</h4>
+        <div class="source-text material-body">${escapeHtml(d.deutsche_uebersetzung).replace(/\n/g, "<br>")}</div>
+      </div>`;
+    }
+
+    if (d.aufgaben && d.aufgaben.length) {
+      html += d.aufgaben.map(a => {
+        const teilaufgaben = (a.teilaufgaben || []).map(t =>
+          `<div class="aufgabe-item"><span class="aufgabe-nr">${escapeHtml(t.nr || "")}</span> ${escapeHtml(t.text || "")} <span class="aufgabe-be">(${t.be} BE)</span></div>`
+        ).join("");
+        return `<div class="material-card">
+          <h4>${escapeHtml(a.abschnitt || "")}: ${escapeHtml(a.titel || "")}</h4>
+          <div class="aufgaben-liste">${teilaufgaben}</div>
+        </div>`;
+      }).join("");
+    }
+
+    container.innerHTML = html;
+
+    // Write step refs
+    document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    const refContainer = document.getElementById("writeMaterialsRef");
+    refContainer.innerHTML = `<div style="margin-bottom:.8rem"><strong>Lat. Text + Aufgaben</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((d.latin_text || "").substring(0, 150))}\u2026</span></div>`;
+  }
+  // Handle materials array if present (from upload)
+  else if (d.materials && d.materials.length) {
+    document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    document.getElementById("textTitle").textContent = "Materialien \u2013 " + autorLabel;
+    container.innerHTML = d.materials.map((m, i) => {
+      const body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+      return `<div class="material-card">
+        <h4>M ${i+1}: ${escapeHtml(m.title || "")}</h4>
+        <div class="source-text material-body">${body}</div>
+        ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+      </div>`;
+    }).join("");
+    document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    document.getElementById("writeMaterialsRef").innerHTML = "";
+  }
+  else if (d.primary_text) {
+    document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    document.getElementById("textTitle").textContent = "Material";
+    container.innerHTML = `<div class="material-card"><h4>Material</h4><div class="source-text material-body">${escapeHtml(d.primary_text).replace(/\n/g, "<br>")}</div></div>`;
+    document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    document.getElementById("writeMaterialsRef").innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}\u2026</span>`;
+  }
+
+  initHL();
+}
+
+async function submitForGrading() {
+  const t = document.getElementById("studentText").value;
+  if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter"); return; }
+  if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+  document.getElementById("submitBtn").disabled = true;
+  nav("feedback");
+  document.getElementById("feedbackLoader").style.display = "block";
+  document.getElementById("feedbackContent").style.display = "none";
+  try {
+    const isUebersetzung = CONFIG.storedData.vokabelhilfen && !CONFIG.storedData.aufgaben;
+    const rubric = isUebersetzung ? BEWERTUNG_UEBERSETZUNG : BEWERTUNG_INTERPRETATION;
+
+    const payload = {
+      aufgabentyp: isUebersetzung ? "uebersetzung" : "interpretation",
+      task_instruction: CONFIG.storedData.task_instruction || "",
+      latin_text: CONFIG.storedData.latin_text || "",
+      student_text: t,
+      rubric_prompt: rubric,
+      level: sessionStorage.getItem("student_level") || "eA",
+      type: "latein"
+    };
+    if (CONFIG.storedData.vokabelhilfen) payload.vokabelhilfen = CONFIG.storedData.vokabelhilfen;
+    if (CONFIG.storedData.musteruebersetzung) payload.musteruebersetzung = CONFIG.storedData.musteruebersetzung;
+    if (CONFIG.storedData.aufgaben) payload.aufgaben = CONFIG.storedData.aufgaben;
+    if (CONFIG.storedData.deutsche_uebersetzung) payload.deutsche_uebersetzung = CONFIG.storedData.deutsche_uebersetzung;
+    if (CONFIG.storedData.primary_text) payload.primary_text = CONFIG.storedData.primary_text;
+    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
+
+    const d = await apiCall("/api/grade-latein", payload);
+
+    if (isUebersetzung) {
+      document.getElementById("scoreVerstehen").textContent = d.scores?.uebersetzung ?? "\u2013";
+      document.getElementById("scoreDarstellung").textContent = "\u2013";
+      // Change labels for translation mode
+      document.querySelector("#scoreVerstehen").closest(".score-card").querySelector(".score-label").textContent = "\u00dcbersetzung (BE)";
+      document.querySelector("#scoreDarstellung").closest(".score-card").style.display = "none";
+    } else {
+      document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "\u2013";
+      document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
+      document.querySelector("#scoreVerstehen").closest(".score-card").querySelector(".score-label").textContent = "Inhalt";
+      document.querySelector("#scoreDarstellung").closest(".score-card").style.display = "";
+    }
+    document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";
+
+    saveToHistory({
+      autor: CONFIG.storedData.autor || CONFIG.autor,
+      verstehen: isUebersetzung ? d.scores?.uebersetzung : d.scores?.verstehen,
+      darstellung: d.scores?.darstellung,
+      total: d.scores?.total
+    });
+    apiCall("/api/submit-result", {
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+      type: "latein",
+      topic: AUTOR_LABELS[CONFIG.storedData.autor || CONFIG.autor] || "Latein",
+      content: isUebersetzung ? d.scores?.uebersetzung : d.scores?.verstehen,
+      language: d.scores?.darstellung,
+      total: d.scores?.total,
+      date: new Date().toISOString()
+    }).catch(() => {});
+    stopTimer();
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+    renderKorrekturFeedback(d);
+    document.getElementById("feedbackContent").style.display = "block";
+  } catch (e) {
+    document.getElementById("feedbackContent").style.display = "block";
+    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">${escapeHtml(e.message)}</p>`;
+  }
+  document.getElementById("feedbackLoader").style.display = "none";
+  document.getElementById("submitBtn").disabled = false;
+}
+
+async function showModelAnswer() {
+  const card = document.getElementById("modelAnswerCard");
+  if (card.style.display === "block") { card.style.display = "none"; return; }
+  document.getElementById("showModelBtn").disabled = true;
+  try {
+    const isUebersetzung = CONFIG.storedData.vokabelhilfen && !CONFIG.storedData.aufgaben;
+    const payload = {
+      aufgabentyp: isUebersetzung ? "uebersetzung" : "interpretation",
+      task_instruction: CONFIG.storedData.task_instruction || "",
+      latin_text: CONFIG.storedData.latin_text || "",
+      type: "latein"
+    };
+    if (CONFIG.storedData.musteruebersetzung) payload.musteruebersetzung = CONFIG.storedData.musteruebersetzung;
+    if (CONFIG.storedData.aufgaben) payload.aufgaben = CONFIG.storedData.aufgaben;
+    if (CONFIG.storedData.deutsche_uebersetzung) payload.deutsche_uebersetzung = CONFIG.storedData.deutsche_uebersetzung;
+    if (CONFIG.storedData.primary_text) payload.primary_text = CONFIG.storedData.primary_text;
+    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
+
+    const d = await apiCall("/api/model-answer-latein", payload);
+    document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+    card.style.display = "block";
+  } catch (e) { showToast(e.message); }
+  document.getElementById("showModelBtn").disabled = false;
+}
+
+function renderHistoryTable(history) {
+  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+    const ic = AUTOR_ICONS[x.autor] || "\u{1F3FA}";
+    return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.verstehen ?? "\u2013"}</td><td class="history-score">${x.darstellung ?? "\u2013"}</td><td class="history-score" style="font-weight:700">${x.total ?? "\u2013"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>`;
+  }).join("");
+}
+
+// Init
+updateSchwerpunkte();
+</script>
+</body>
+</html>
