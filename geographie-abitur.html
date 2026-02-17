@@ -51,6 +51,8 @@
 .material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
 .material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
 .material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
+.material-map{width:100%;height:350px;border:1px solid var(--border);border-radius:var(--radius-sm)}
+.material-klimadiagramm{margin:1rem 0;max-height:320px}
 
 /* Teil-Trenner */
 .teil-header{font-family:var(--font-display);font-size:1.1rem;margin:1.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent);color:var(--accent)}
@@ -618,12 +620,16 @@ function renderTask(d) {
   // Handle materials array (from AI generation)
   if (d.materials && d.materials.length) {
     container.innerHTML = d.materials.map((m, i) => {
-      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karte: 'Karte', klimadiagramm: 'Klimadiagramm' };
       const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
       let body;
       if (m.type === "statistik" && (m.content || "").includes("|")) {
         body = DOMPurify.sanitize(marked.parse(m.content || ""));
         body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
+      } else if (m.type === "karte") {
+        body = `<div id="map-m-${i}" style="text-align:center;color:var(--ink-muted)">Karte wird geladen...</div>`;
+      } else if (m.type === "klimadiagramm") {
+        body = `<div class="material-klimadiagramm"><canvas id="klima-m-${i}"></canvas></div>`;
       } else if (m.type === "bild") {
         body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
       } else if (m.type === "foto") {
@@ -640,6 +646,10 @@ function renderTask(d) {
     d.materials.forEach((m, i) => {
       if (m.type === "statistik" && (m.content || "").includes("|")) {
         renderStatistikChart(m.content, `chart-m-${i}`);
+      } else if (m.type === "karte") {
+        renderKarte(m.content, `map-m-${i}`);
+      } else if (m.type === "klimadiagramm") {
+        renderKlimadiagramm(m.content, `klima-m-${i}`);
       } else if (m.type === "bild") {
         loadDallEImage(m.content, `img-m-${i}`);
       } else if (m.type === "foto") {
@@ -818,6 +828,84 @@ async function loadDallEImage(prompt, containerId) {
 }
 async function loadUnsplashImage(keywords, containerId) {
   loadDallEImage(keywords, containerId);
+}
+
+function renderKarte(contentStr, containerId) {
+  try {
+    const data = typeof contentStr === "string" ? JSON.parse(contentStr) : contentStr;
+    const lat = data.lat || 0;
+    const lon = data.lon || 0;
+    const zoom = data.zoom || 6;
+    const d = [0.5, 0.25, 0.12, 0.06, 0.03, 0.015, 0.008, 0.004, 0.002, 0.001][Math.min(Math.max(zoom - 3, 0), 9)] || 0.06;
+    const bbox = `${(lon - d * 1.5).toFixed(4)}%2C${(lat - d).toFixed(4)}%2C${(lon + d * 1.5).toFixed(4)}%2C${(lat + d).toFixed(4)}`;
+    const marker = `${lat.toFixed(4)}%2C${lon.toFixed(4)}`;
+    const label = data.label || "";
+    document.getElementById(containerId).innerHTML =
+      `<iframe class="material-map" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${marker}" loading="lazy"></iframe>` +
+      (label ? `<div style="text-align:center;font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">${escapeHtml(label)}</div>` : "");
+  } catch (e) {
+    document.getElementById(containerId).innerHTML = `<div style="color:var(--ink-muted);font-style:italic">Karte konnte nicht geladen werden.</div>`;
+  }
+}
+
+function renderKlimadiagramm(contentStr, canvasId) {
+  try {
+    const data = typeof contentStr === "string" ? JSON.parse(contentStr) : contentStr;
+    const station = data.station || "Unbekannt";
+    const hoehe = data.hoehe || 0;
+    const temp = data.temp || [];
+    const niederschlag = data.niederschlag || [];
+    const monate = ["J","F","M","A","M","J","J","A","S","O","N","D"];
+    const avgTemp = temp.length ? (temp.reduce((a,b) => a+b, 0) / temp.length).toFixed(1) : "\u2013";
+    const sumNied = niederschlag.length ? niederschlag.reduce((a,b) => a+b, 0).toFixed(0) : "\u2013";
+
+    new Chart(document.getElementById(canvasId), {
+      type: "bar",
+      data: {
+        labels: monate,
+        datasets: [
+          {
+            type: "line",
+            label: "Temperatur (\u00b0C)",
+            data: temp,
+            borderColor: "#ef4444",
+            backgroundColor: "rgba(239,68,68,0.1)",
+            borderWidth: 2.5,
+            pointRadius: 3,
+            pointBackgroundColor: "#ef4444",
+            fill: false,
+            yAxisID: "y",
+            tension: 0.3,
+            order: 1
+          },
+          {
+            type: "bar",
+            label: "Niederschlag (mm)",
+            data: niederschlag,
+            backgroundColor: "rgba(59,130,246,0.6)",
+            borderColor: "#3b82f6",
+            borderWidth: 1,
+            yAxisID: "y1",
+            order: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: { display: true, text: `${station} (${hoehe} m) \u2014 \u00d8 ${avgTemp}\u00b0C, ${sumNied} mm/Jahr`, font: { size: 13 } },
+          legend: { position: "bottom", labels: { font: { size: 11 } } }
+        },
+        scales: {
+          y: { type: "linear", position: "left", title: { display: true, text: "\u00b0C", color: "#ef4444" }, ticks: { color: "#ef4444" }, grid: { drawOnChartArea: true } },
+          y1: { type: "linear", position: "right", title: { display: true, text: "mm", color: "#3b82f6" }, ticks: { color: "#3b82f6" }, grid: { drawOnChartArea: false }, min: 0 }
+        }
+      }
+    });
+  } catch (e) {
+    console.error("Klimadiagramm-Fehler:", e);
+  }
 }
 
 // Init

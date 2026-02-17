@@ -3590,12 +3590,20 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 2-3 realistische Materialien (geographische Texte, Statistiken mit Klimadaten oder Bevölkerungsdaten)
+- Erstelle 3-5 realistische Materialien (geographische Texte, Statistiken, Karten, Klimadiagramme, Fotos)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche geographische Quellentexte (Fachartikel, Zeitungsartikel, Auszüge aus geographischen Werken). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Karte/Satellitenbild):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Karte, Satellitenbild, Klimadiagramm). KEINE Personen!
+- Erstelle IMMER mindestens 1 Material vom Typ "karte" (interaktive OpenStreetMap-Karte):
+  - type "karte": content ist ein OBJEKT (kein String!) mit: {"lat": 48.1, "lon": 11.5, "zoom": 6, "label": "Beschriftung"}
+  - Wähle präzise Koordinaten für den geographischen Raum der Aufgabe
+  - zoom: 3=Kontinent, 5=Land, 7=Region, 10=Stadt, 13=Stadtteil
+- Erstelle wenn thematisch passend 1 Material vom Typ "klimadiagramm" (Walter-Lieth-Diagramm):
+  - type "klimadiagramm": content ist ein OBJEKT (kein String!) mit: {"station": "Ortsname", "hoehe": 206, "temp": [-26.8,-24.1,-16.5,-5.2,5.8,12.3,16.1,14.2,7.5,-3.1,-15.8,-23.4], "niederschlag": [14,11,13,18,22,30,40,38,32,28,22,16]}
+  - temp: Array mit 12 Monatsmitteltemperaturen in °C (Jan-Dez), plausible Werte für den Ort!
+  - niederschlag: Array mit 12 Monatsniederschlägen in mm, plausible Werte für den Ort!
+- Optional: Erstelle 1 Material vom Typ "foto" (Unsplash-Foto):
+  - type "foto": content = englische Suchbegriffe für Unsplash (z.B. "glacier landscape arctic", "tropical rainforest aerial")
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Relevante Inhalte:
@@ -3611,7 +3619,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Karte: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Karte: Region X", "type": "karte", "content": {"lat": 48.1, "lon": 11.5, "zoom": 7, "label": "Süddeutschland"}, "source": "OpenStreetMap"},
+    {"title": "Klimadiagramm: Ort X", "type": "klimadiagramm", "content": {"station": "München", "hoehe": 519, "temp": [-1.5,0.2,4.1,8.2,12.8,16.1,18.0,17.4,13.5,8.4,3.2,-0.3], "niederschlag": [48,44,58,62,90,115,126,110,75,56,52,50]}, "source": "DWD Klimadaten"},
+    {"title": "Foto: ...", "type": "foto", "content": "glacier landscape arctic", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -3623,8 +3633,9 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Niveau: ${niveauLabel}
 
 Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
-Erstelle 2-3 passende Materialien (geographische Texte, Statistiken, plus 1 Bild).
-KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+Erstelle 3-5 passende Materialien: 1 geographischer Text (400-800 Wörter), 1 Statistik, 1 Karte (mit Koordinaten-Objekt), und wenn passend 1 Klimadiagramm (mit Klimadaten-Objekt) oder 1 Foto.
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen!
+KRITISCH: Bei "karte" und "klimadiagramm" ist content ein JSON-OBJEKT, KEIN String! Klimadaten müssen realistisch sein für den jeweiligen Ort.
 Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
 
   const openaiRes = await callOpenAI(env, [
@@ -3795,9 +3806,12 @@ Gesamtumfang: ${beGesamt}.
 
 PRÜFUNGSTEIL A (${bePruefungA}):
 - 3-4 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- 2-3 Materialien (geographische Texte 400-800 Wörter, Statistiken mit Klima-/Bevölkerungsdaten, 1 Bild/Karte)
+- 3-5 Materialien: geographische Texte (400-800 Wörter), Statistiken, Karten, Klimadiagramme, Fotos
 - Verwende offizielle Operatoren: beschreiben, darstellen, erläutern, erklären, herausarbeiten, bewerten, erörtern, diskutieren, zuordnen, überprüfen, belegen, entwickeln
 - Situiere die Aufgabe in einem konkreten Raumbeispiel
+- IMMER mindestens 1 Material vom Typ "karte" — content ist ein OBJEKT: {"lat": ..., "lon": ..., "zoom": ..., "label": "..."}
+- Wenn thematisch passend: 1 Material vom Typ "klimadiagramm" — content ist ein OBJEKT: {"station": "...", "hoehe": ..., "temp": [12 Werte], "niederschlag": [12 Werte]}
+- Optional: 1 Material vom Typ "foto" mit englischen Suchbegriffen für Unsplash
 
 PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 - 1-2 Teilaufgaben, die einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel erfordern
@@ -3816,7 +3830,9 @@ Antworte NUR mit validem JSON:
     "materials": [
       {"title": "Titel", "type": "text", "content": "Geographischer Quelltext (400-800 Wörter)", "source": "Autor, Quelle, Jahr"},
       {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
-      {"title": "Karte: ...", "type": "bild", "content": "Bildbeschreibung für KI-Generierung", "source": ""}
+      {"title": "Karte: Region X", "type": "karte", "content": {"lat": 48.1, "lon": 11.5, "zoom": 7, "label": "Süddeutschland"}, "source": "OpenStreetMap"},
+      {"title": "Klimadiagramm: Ort X", "type": "klimadiagramm", "content": {"station": "München", "hoehe": 519, "temp": [-1.5,0.2,4.1,8.2,12.8,16.1,18.0,17.4,13.5,8.4,3.2,-0.3], "niederschlag": [48,44,58,62,90,115,126,110,75,56,52,50]}, "source": "DWD Klimadaten"},
+      {"title": "Foto: ...", "type": "foto", "content": "glacier landscape arctic", "source": ""}
     ]
   },
   "teil_b": {
@@ -3832,7 +3848,8 @@ Antworte NUR mit validem JSON:
 - Niveau: ${niveauLabel}
 - Teil A: ${bePruefungA}, Teil B: ${bePruefungB}, Gesamt: ${beGesamt}
 
-KRITISCH: Jedes Textmaterial in Teil A MUSS 400-800 Wörter lang sein.
+Erstelle 3-5 Materialien: 1 Text (400-800 Wörter), 1 Statistik, 1 Karte (mit Koordinaten-Objekt), und wenn passend 1 Klimadiagramm (mit Klimadaten-Objekt) oder 1 Foto.
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein. Bei "karte" und "klimadiagramm" ist content ein JSON-OBJEKT, KEIN String!
 Teil B soll einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel darstellen.`;
 
   const openaiRes = await callOpenAI(env, [
