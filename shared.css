@@ -152,6 +152,20 @@
   --accent-glow: rgba(34, 211, 238, 0.08);
 }
 
+/* ====== RED ACCENT (Latein modules) ====== */
+[data-accent="red"] {
+  --accent: #dc2626;
+  --accent-hover: #b91c1c;
+  --accent-soft: #fee2e2;
+  --accent-glow: rgba(220, 38, 38, 0.08);
+}
+[data-accent="red"][data-theme="dark"] {
+  --accent: #f87171;
+  --accent-hover: #fca5a5;
+  --accent-soft: rgba(248, 113, 113, 0.15);
+  --accent-glow: rgba(248, 113, 113, 0.08);
+}
+
 /* ====== RESET & BASE ====== */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {

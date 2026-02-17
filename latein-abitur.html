@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myAbiFlow · Latein Abiturtraining</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* Latein accent override (red) */
+:root {
+  --accent:#dc2626;--accent-hover:#b91c1c;--accent-soft:#fee2e2;--accent-glow:rgba(220,38,38,.08);
+}
+[data-theme="dark"] {
+  --accent:#f87171;--accent-hover:#fca5a5;--accent-soft:rgba(248,113,113,.15);--accent-glow:rgba(248,113,113,.08);
+}
+
+/* Autor selection */
+.hj-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin:1rem 0}
+.hj-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer}
+.hj-card:hover,.hj-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+.hj-icon{font-size:1.5rem;margin-bottom:.4rem}
+.hj-name{font-weight:600;font-size:.85rem}
+.hj-desc{font-size:.75rem;color:var(--ink-muted);margin-top:.3rem;line-height:1.3}
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
+.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.source-text .verse{margin-bottom:.2rem;padding:.1rem 0}
+.hl-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;font-size:.8rem;color:var(--ink-muted)}
+.hl-legend-item{display:flex;align-items:center;gap:.3rem}
+.hl-legend-dot{width:12px;height:12px;border-radius:2px}
+.material-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
+.material-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
+.material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
+.material-card .material-body{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
+
+/* Teil-Trenner */
+.teil-header{font-family:var(--font-display);font-size:1.1rem;margin:1.5rem 0 .8rem;padding-bottom:.5rem;border-bottom:2px solid var(--accent);color:var(--accent)}
+.teil-header:first-child{margin-top:0}
+.teil-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;background:var(--accent-soft);color:var(--accent);margin-left:.5rem}
+
+/* Zwei Textareas */
+.write-part{margin-bottom:1.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
+.write-part h3{font-size:.95rem;margin-bottom:.6rem;color:var(--accent)}
+.write-part textarea{min-height:250px}
+.write-part .word-counter{font-size:.8rem;color:var(--ink-muted);margin-top:.4rem}
+
+/* Latin-specific */
+.latin-text{font-family:'JetBrains Mono',monospace;font-size:.95rem;line-height:1.8;letter-spacing:.02em}
+.vokabel-liste{display:grid;grid-template-columns:auto 1fr;gap:.3rem .8rem;font-size:.88rem}
+.vokabel-lat{font-weight:700;font-style:italic;color:var(--accent)}
+.vokabel-deu{color:var(--ink-muted)}
+.aufgabe-item{padding:.5rem 0;border-bottom:1px solid var(--border)}
+.aufgabe-item:last-child{border-bottom:none}
+.aufgabe-nr{font-weight:700;color:var(--accent);margin-right:.3rem}
+.aufgabe-be{font-size:.8rem;color:var(--ink-muted);font-weight:600}
+.aufgaben-liste{margin-top:.5rem}
+
+@media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <a href="index.html?back=latein" class="back-link">&larr; Zur&uuml;ck</a>
+    <h1>Latein &middot; <span>Abiturtraining</span></h1>
+  </div>
+  <div class="header-right">
+    <span id="studentGreeting" class="header-meta" style="display:none"></span>
+    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+  <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
+  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
+</nav>
+
+<main>
+  <!-- STEP 1: SETUP -->
+  <section id="sec-setup" class="active">
+    <div class="card">
+      <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+      </div>
+    </div>
+
+    <div class="card" id="setupGenerate">
+      <h2 class="card-header">Neue Abituraufgabe generieren</h2>
+      <div class="form-group">
+        <label>Autor / Textgattung</label>
+        <div class="hj-grid">
+          <div class="hj-card selected" data-hj="cicero" onclick="selectAutor('cicero')">
+            <div class="hj-icon">&#x1F3DB;&#xFE0F;</div>
+            <div class="hj-name">Cicero</div>
+            <div class="hj-desc">Reden, Rhetorik, Philosophie</div>
+          </div>
+          <div class="hj-card" data-hj="seneca" onclick="selectAutor('seneca')">
+            <div class="hj-icon">&#x1F4DC;</div>
+            <div class="hj-name">Seneca</div>
+            <div class="hj-desc">Moralphilosophie, Epistulae</div>
+          </div>
+          <div class="hj-card" data-hj="livius" onclick="selectAutor('livius')">
+            <div class="hj-icon">&#x2694;&#xFE0F;</div>
+            <div class="hj-name">Livius</div>
+            <div class="hj-desc">Geschichtsschreibung</div>
+          </div>
+          <div class="hj-card" data-hj="vergil" onclick="selectAutor('vergil')">
+            <div class="hj-icon">&#x1F33F;</div>
+            <div class="hj-name">Vergil</div>
+            <div class="hj-desc">Aeneis, Epos</div>
+          </div>
+          <div class="hj-card" data-hj="lyrik" onclick="selectAutor('lyrik')">
+            <div class="hj-icon">&#x1F3B5;</div>
+            <div class="hj-name">Lyrik</div>
+            <div class="hj-desc">Catull, Horaz</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Schwerpunkt (optional)</label>
+        <select id="schwerpunktSelect">
+          <option value="random">Zuf&auml;llig</option>
+        </select>
+      </div>
+      <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Abituraufgabe generieren</button>
+      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Abituraufgabe (Teil A + B) &hellip;</div></div>
+    </div>
+
+    <div class="card" id="setupUpload" style="display:none">
+      <h2 class="card-header">Eigene Aufgabe</h2>
+      <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Texte)</div>
+      </div>
+      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
+      <div id="taskUploadPages" class="ocr-pages"></div>
+      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
+      <div id="taskUploadResult" style="display:none;margin-top:1rem">
+        <div class="form-group"><label>Teil A: &Uuml;bersetzungstext (Latein)</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
+        <div class="form-group"><label>Teil B: Aufgabenteil</label><textarea id="parsedTaskInstructionB" style="min-height:80px"></textarea></div>
+        <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+        <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+      </div>
+      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+      <div class="form-group"><label>Teil A: Lateinischer Text</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Lateinischen Text hier einf&uuml;gen &hellip;"></textarea></div>
+      <div class="form-group"><label>Deutsche &Uuml;bersetzung / Material</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Deutsche &Uuml;bersetzung oder Material &hellip;"></textarea></div>
+      <div class="form-group"><label>Teil B: Aufgabenteil</label><textarea id="manualTaskInstructionB" style="min-height:60px" placeholder="Interpretationsaufgaben &hellip;"></textarea></div>
+      <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta" placeholder="z.B. Cicero, De officiis I, 20"></div>
+      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+    </div>
+
+    <div class="card">
+      <label>Bearbeitungszeit (Min.)</label>
+      <input type="number" id="timerMinutes" value="300" min="60" max="360" style="max-width:120px">
+      <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 300 Min. / gA: 240 Min.</div>
+    </div>
+  </section>
+
+  <!-- STEP 2: READ MATERIALS -->
+  <section id="sec-task">
+    <div class="card">
+      <h3 class="teil-header">Teil A &ndash; &Uuml;bersetzung <span class="teil-badge" id="teilABadge">60 BE</span></h3>
+      <h2 class="card-header">Aufgabenstellung</h2>
+      <div class="task-box" id="taskInstructionA">&hellip;</div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header" id="textTitleA">Lateinischer Text</h2>
+
+      <!-- Highlighter Toolbar -->
+      <div class="highlighter-toolbar">
+        <span class="hl-label">&#x1F58D;&#xFE0F; Markieren:</span>
+        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Gr&uuml;n"></button>
+        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Markierung entfernen">&#x2715;</button>
+        <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
+      </div>
+
+      <div id="materialsContainerA"></div>
+    </div>
+
+    <div class="card">
+      <h3 class="teil-header">Teil B &ndash; Aufgabenteil <span class="teil-badge" id="teilBBadge">60 BE</span></h3>
+      <div id="materialsContainerB"></div>
+    </div>
+
+    <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
+  </section>
+
+  <!-- STEP 3: WRITE -->
+  <section id="sec-write">
+    <div class="timer-bar" id="timerBar">
+      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+        <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-header">Deine Antwort</h2>
+
+      <details style="margin-bottom:1rem" open>
+        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe &amp; Texte</summary>
+        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil A &ndash; &Uuml;bersetzung</div>
+          <div class="task-box" id="writeTaskRefA" style="margin:0 0 1rem 0;font-size:.9rem"></div>
+          <div id="writeMaterialsRef" style="font-size:.85rem"></div>
+          <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
+          <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil B &ndash; Aufgabenteil</div>
+          <div class="task-box" id="writeTaskRefB" style="margin:0;font-size:.9rem"></div>
+        </div>
+      </details>
+
+      <!-- Teil A Textarea -->
+      <div class="write-part">
+        <h3>Teil A &ndash; &Uuml;bersetzung</h3>
+        <textarea id="studentTextA" placeholder="&Uuml;bersetze den lateinischen Text hier ins Deutsche &hellip;" oninput="updateWordCounts()"></textarea>
+        <div class="word-counter"><span id="wordCountA">0</span> W&ouml;rter</div>
+      </div>
+
+      <!-- Teil B Textarea -->
+      <div class="write-part">
+        <h3>Teil B &ndash; Aufgabenteil</h3>
+        <textarea id="studentTextB" placeholder="Beginne hier mit dem Aufgabenteil &hellip;
+
+Tipp: Strukturiere deinen Text:
+&bull; Bearbeite alle Abschnitte (I, II, III)
+&bull; Beziehe dich auf den lateinischen Text
+&bull; Verwende Fachbegriffe" oninput="updateWordCounts()"></textarea>
+        <div class="word-counter"><span id="wordCountB">0</span> W&ouml;rter</div>
+      </div>
+
+      <div class="write-toolbar">
+        <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+          <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCR UPLOAD -->
+    <div class="card">
+      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+        Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
+      </p>
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+        <div class="upload-icon">&#x1F4F7;</div>
+        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+      </div>
+      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+      <div id="ocrPages" class="ocr-pages"></div>
+      <div id="ocrLoader" class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+      </div>
+      <div id="ocrResult" style="display:none;margin-top:1rem;">
+        <label>Erkannter Text (bearbeitbar):</label>
+        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+          <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil A &uuml;bernehmen</button>
+          <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil B &uuml;bernehmen</button>
+          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+  </section>
+
+  <!-- STEP 4: FEEDBACK -->
+  <section id="sec-feedback">
+    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte Abiturpr&uuml;fung &hellip;</div></div>
+    <div id="feedbackContent" style="display:none">
+      <div class="card">
+        <h2 class="card-header">Bewertung</h2>
+        <div class="scores-grid">
+          <div class="score-card"><div class="score-label">Teil A (&Uuml;bersetzung)</div><div class="score-value" id="scoreTeilA">&ndash;</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Teil B (Aufgaben)</div><div class="score-value" id="scoreTeilB">&ndash;</div><div class="score-max">/ 15</div></div>
+          <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">&ndash;</div><div class="score-max">/ 15</div></div>
+          <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">&ndash;</div><div class="score-max">/ 15</div></div>
+        </div>
+      </div>
+      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
+      <div class="card" id="korrekturCard" style="display:none">
+        <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
+        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
+        <div class="korrektur-teil"><h3>Teil A</h3><div class="korrektur-body" id="korrekturBodyA"></div></div>
+        <div class="korrektur-teil"><h3>Teil B</h3><div class="korrektur-body" id="korrekturBodyB"></div></div>
+      </div>
+      <div class="card" id="aspekteCard" style="display:none">
+        <h2 class="card-header">Fehlende Aspekte</h2>
+        <div id="aspekteBody"></div>
+      </div>
+      <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterl&ouml;sung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
+        <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 5: PROGRESS -->
+  <section id="sec-progress">
+    <div class="card">
+      <h2 class="card-header">Fortschritt</h2>
+      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">&#x1F4CA;</div><p>Noch keine Daten.</p></div>
+      <div id="progressContent" style="display:none">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
+          <div class="stat-card"><div class="stat-value" id="statAverage">&ndash;</div><div class="stat-label">&Oslash;</div></div>
+          <div class="stat-card"><div class="stat-value" id="statBest">&ndash;</div><div class="stat-label">Best</div></div>
+        </div>
+        <div class="chart-container"><canvas id="progressChart"></canvas></div>
+        <table class="history-table"><thead><tr><th>Datum</th><th></th><th>A</th><th>B</th><th>D</th><th>&Sigma;</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+      </div>
+      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">&#x1F5D1;</button>
+    </div>
+  </section>
+</main>
+
+<footer>&copy; 2026 myAbiFlow &middot; Latein Abiturtraining</footer>
+
+<!-- MODULE CONFIG -->
+<script>
+const MODULE_CONFIG = {
+  sectionPrefix: "sec-",
+  steps: ["setup","task","write","feedback","progress"],
+  storagePrefix: "latein_abitur",
+  historyKey: "latein_abitur_history_",
+  historyType: "latein-abitur",
+  pdfFilename: "Latein_Abitur",
+  chartColor: "#dc2626",
+  minWords: 50,
+  afterHL: function() { saveHL(); }
+};
+</script>
+<script src="shared.js"></script>
+
+<!-- MODULE-SPECIFIC CODE -->
+<script>
+CONFIG.autor = "cicero";
+
+const AUTOR_LABELS = {
+  "cicero": "Cicero \u2013 Reden & Philosophie",
+  "seneca": "Seneca \u2013 Moralphilosophie",
+  "livius": "Livius \u2013 Geschichtsschreibung",
+  "vergil": "Vergil \u2013 Aeneis",
+  "lyrik": "Lyrik \u2013 Catull & Horaz"
+};
+
+const AUTOR_ICONS = { "cicero": "\u{1F3DB}\uFE0F", "seneca": "\u{1F4DC}", "livius": "\u2694\uFE0F", "vergil": "\u{1F33F}", "lyrik": "\u{1F3B5}" };
+
+const SCHWERPUNKTE = {
+  "cicero": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "reden", label: "Reden (In Catilinam, Pro Murena)" },
+    { value: "philosophie", label: "Philosophie (De officiis, De re publica)" },
+    { value: "briefe", label: "Briefe (Ad familiares)" }
+  ],
+  "seneca": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "epistulae", label: "Epistulae morales" },
+    { value: "dialogi", label: "De brevitate vitae, De vita beata" },
+    { value: "consolationes", label: "Trostschriften" }
+  ],
+  "livius": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "fruehzeit", label: "Fr\u00fchzeit Roms (Buch I\u2013V)" },
+    { value: "punisch", label: "Punische Kriege (Buch XXI\u2013XXX)" },
+    { value: "exempla", label: "Exempla und Moralvorstellungen" }
+  ],
+  "vergil": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "aeneis_1_6", label: "Aeneis I\u2013VI (Irrfahrten)" },
+    { value: "aeneis_7_12", label: "Aeneis VII\u2013XII (K\u00e4mpfe in Latium)" },
+    { value: "georgica", label: "Georgica" }
+  ],
+  "lyrik": [
+    { value: "random", label: "Zuf\u00e4llig" },
+    { value: "catull_liebe", label: "Catull \u2013 Liebeslyrik (Lesbia)" },
+    { value: "catull_spott", label: "Catull \u2013 Spottgedichte" },
+    { value: "horaz_oden", label: "Horaz \u2013 Oden (carpe diem)" },
+    { value: "horaz_satiren", label: "Horaz \u2013 Satiren & Episteln" }
+  ]
+};
+
+const BEWERTUNG_PROMPT = `Du bewertest eine vollst\u00e4ndige Abiturpr\u00fcfung im Fach Latein (Bayern, Abitur ab 2026).
+Die Pr\u00fcfung besteht aus Teil A (\u00dcbersetzung) und Teil B (Aufgabenteil). Verh\u00e4ltnis 1:1.
+
+TEIL A \u2013 \u00dcBERSETZUNG:
+Negative Korrektur: Schwerer Fehler -1 BE, leichter Fehler -0,5 BE, halber Fehler -0,25 BE.
+Bewerte: grammatische Korrektheit, sinngem\u00e4\u00dfe Wiedergabe, idiomatisches Deutsch, Erfassung von Stilmitteln.
+
+TEIL B \u2013 AUFGABENTEIL (Interpretation):
+INHALT: Korrekte Texterschlie\u00dfung, Fachbegriffe (Stilmittel, Metrik, literaturwiss. Termini), schl\u00fcssige Argumentation, Textbelege, eigenst\u00e4ndiges Urteil.
+DARSTELLUNG: Aufbau, Fachsprache, sprachliche Korrektheit.
+
+WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT f\u00fcr Teil B: Antworten M\u00dcSSEN in Flie\u00dftext verfasst sein. Stichpunkte f\u00fchren zu deutlichem Punktabzug.
+
+Antworte NUR JSON: {"teil_a_np":<0-15>,"teil_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
+gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
+
+function selectAutor(autor) {
+  CONFIG.autor = autor;
+  document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === autor));
+  updateSchwerpunkte();
+}
+
+function updateTimerDefault() {
+  const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+  document.getElementById("timerMinutes").value = level === "ea" ? 300 : 240;
+}
+
+function updateSchwerpunkte() {
+  const sel = document.getElementById("schwerpunktSelect");
+  const opts = SCHWERPUNKTE[CONFIG.autor] || [{ value: "random", label: "Zuf\u00e4llig" }];
+  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+}
+
+function updateBEBadges() {
+  const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+  const isEA = level === "ea";
+  document.getElementById("teilABadge").textContent = isEA ? "60 BE" : "45 BE";
+  document.getElementById("teilBBadge").textContent = isEA ? "60 BE" : "45 BE";
+}
+
+function setSetupMode(m) {
+  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+}
+
+function saveHL() {
+  localStorage.setItem("hl_latein_abitur_" + getStudentKey(), JSON.stringify({
+    materialsA: document.getElementById("materialsContainerA")?.innerHTML || "",
+    materialsB: document.getElementById("materialsContainerB")?.innerHTML || ""
+  }));
+}
+
+function saveSession() {
+  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+  localStorage.setItem(key, JSON.stringify({
+    studentTextA: document.getElementById("studentTextA").value,
+    studentTextB: document.getElementById("studentTextB").value,
+    storedData: CONFIG.storedData,
+    autor: CONFIG.autor
+  }));
+}
+
+function restoreSession() {
+  try {
+    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+    const s = JSON.parse(localStorage.getItem(key));
+    if (s) {
+      if (s.studentTextA) document.getElementById("studentTextA").value = s.studentTextA;
+      if (s.studentTextB) document.getElementById("studentTextB").value = s.studentTextB;
+      if (s.storedData) {
+        CONFIG.storedData = s.storedData;
+        renderTask(s.storedData);
+      }
+      if (s.autor) selectAutor(s.autor);
+      updateWordCounts();
+      initHL();
+    }
+  } catch {}
+}
+
+function updateWordCounts() {
+  const a = countWords(document.getElementById("studentTextA").value);
+  const b = countWords(document.getElementById("studentTextB").value);
+  document.getElementById("wordCountA").textContent = a;
+  document.getElementById("wordCountB").textContent = b;
+  document.getElementById("wordCountTotal").textContent = a + b;
+}
+
+function updateWordCount() { updateWordCounts(); }
+
+async function generateTask() {
+  const btn = document.getElementById("generateBtn");
+  btn.disabled = true;
+  document.getElementById("setupLoader").style.display = "block";
+  try {
+    const level = sessionStorage.getItem("student_level") || "eA";
+    const raw = await apiCall("/api/generate-abitur-latein", {
+      autor: CONFIG.autor,
+      schwerpunkt: document.getElementById("schwerpunktSelect").value,
+      level: level
+    });
+    // Flatten nested teil_a/teil_b from API
+    const d = {
+      teil_a_instruction: raw.teil_a?.task_instruction || "",
+      teil_a_latin_text: raw.teil_a?.latin_text || "",
+      teil_a_vokabelhilfen: raw.teil_a?.vokabelhilfen || [],
+      teil_a_musteruebersetzung: raw.teil_a?.musteruebersetzung || "",
+      teil_b_instruction: raw.teil_b?.task_instruction || "",
+      teil_b_latin_text: raw.teil_b?.latin_text || "",
+      teil_b_deutsche_uebersetzung: raw.teil_b?.deutsche_uebersetzung || "",
+      teil_b_aufgaben: raw.teil_b?.aufgaben || [],
+      autor: raw.autor || CONFIG.autor,
+      thema: raw.thema || ""
+    };
+    CONFIG.storedData = d;
+    renderTask(d);
+    nav("task");
+  } catch (e) { showToast("Fehler: " + e.message); }
+  btn.disabled = false;
+  document.getElementById("setupLoader").style.display = "none";
+}
+
+const taskUploadImages = [];
+async function handleTaskUpload(files) {
+  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+  }
+  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+  document.getElementById("taskUploadLoader").style.display = "block";
+  try {
+    const base64s = await Promise.all(taskUploadImages.map(async p => {
+      const r = new FileReader();
+      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+    }));
+    const d = await apiCall("/api/parse-task-latein", { images: base64s });
+    document.getElementById("parsedTaskInstruction").value = d.latin_text || d.task_instruction || "";
+    document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+    document.getElementById("parsedTaskInstructionB").value = d.task_instruction_b || "";
+    document.getElementById("parsedMeta").value = d.primary_meta || "";
+    document.getElementById("taskUploadResult").style.display = "block";
+  } catch (e) { showToast("Fehler: " + e.message); }
+  document.getElementById("taskUploadLoader").style.display = "none";
+}
+
+function useUploadedTask() {
+  const c = {
+    teil_a_instruction: "Übersetzen Sie den folgenden lateinischen Text ins Deutsche.",
+    teil_a_latin_text: document.getElementById("parsedTaskInstruction").value,
+    teil_b_instruction: document.getElementById("parsedTaskInstructionB").value,
+    teil_b_latin_text: "",
+    teil_b_deutsche_uebersetzung: document.getElementById("parsedPrimaryText").value,
+    teil_b_aufgaben: [],
+    teil_a_vokabelhilfen: [],
+    autor: CONFIG.autor
+  };
+  if (!c.teil_a_latin_text) { showToast("Kein lateinischer Text"); return; }
+  CONFIG.storedData = c;
+  renderTask(c);
+  nav("task");
+}
+
+function useManualTask() {
+  const c = {
+    teil_a_instruction: "Übersetzen Sie den folgenden lateinischen Text ins Deutsche.",
+    teil_a_latin_text: document.getElementById("manualTaskInstruction").value || "",
+    teil_b_instruction: document.getElementById("manualTaskInstructionB").value || "",
+    teil_b_latin_text: "",
+    teil_b_deutsche_uebersetzung: document.getElementById("manualPrimaryText").value || "",
+    teil_b_aufgaben: [],
+    teil_a_vokabelhilfen: [],
+    autor: CONFIG.autor
+  };
+  if (!c.teil_a_latin_text) { showToast("Kein lateinischer Text"); return; }
+  CONFIG.storedData = c;
+  renderTask(c);
+  nav("task");
+}
+
+function renderTask(d) {
+  const autorLabel = AUTOR_LABELS[d.autor || CONFIG.autor] || "";
+
+  // Teil A: Übersetzung
+  document.getElementById("taskInstructionA").innerHTML = escapeHtml(d.teil_a_instruction || "\u00dcbersetzen Sie den folgenden lateinischen Text ins Deutsche.").replace(/\n/g, "<br>");
+  document.getElementById("textTitleA").textContent = "Lateinischer Text \u2013 " + autorLabel;
+
+  const containerA = document.getElementById("materialsContainerA");
+  let htmlA = `<div class="material-card">
+    <h4>Lateinischer Text</h4>
+    <div class="source-text material-body latin-text">${escapeHtml(d.teil_a_latin_text || "").replace(/\n/g, "<br>")}</div>
+  </div>`;
+  if (d.teil_a_vokabelhilfen && d.teil_a_vokabelhilfen.length) {
+    htmlA += `<div class="material-card">
+      <h4>Vokabelhilfen</h4>
+      <div class="vokabel-liste">${d.teil_a_vokabelhilfen.map(v =>
+        `<div class="vokabel-item"><span class="vokabel-lat">${escapeHtml(v.latein)}</span> <span class="vokabel-deu">${escapeHtml(v.deutsch)}</span></div>`
+      ).join("")}</div>
+    </div>`;
+  }
+  containerA.innerHTML = htmlA;
+
+  // Teil B: Aufgabenteil
+  const containerB = document.getElementById("materialsContainerB");
+  let htmlB = "";
+  if (d.teil_b_latin_text) {
+    htmlB += `<div class="material-card">
+      <h4>Lateinischer Text</h4>
+      <div class="source-text material-body latin-text">${escapeHtml(d.teil_b_latin_text).replace(/\n/g, "<br>")}</div>
+    </div>`;
+  }
+  if (d.teil_b_deutsche_uebersetzung) {
+    htmlB += `<div class="material-card">
+      <h4>Deutsche \u00dcbersetzung</h4>
+      <div class="source-text material-body">${escapeHtml(d.teil_b_deutsche_uebersetzung).replace(/\n/g, "<br>")}</div>
+    </div>`;
+  }
+  if (d.teil_b_instruction) {
+    htmlB += `<div class="material-card">
+      <h4>Aufgabenstellung</h4>
+      <div class="material-body">${escapeHtml(d.teil_b_instruction).replace(/\n/g, "<br>")}</div>
+    </div>`;
+  }
+  if (d.teil_b_aufgaben && d.teil_b_aufgaben.length) {
+    htmlB += d.teil_b_aufgaben.map(a => {
+      const teilaufgaben = (a.teilaufgaben || []).map(t =>
+        `<div class="aufgabe-item"><span class="aufgabe-nr">${escapeHtml(t.nr || "")}</span> ${escapeHtml(t.text || "")} <span class="aufgabe-be">(${t.be} BE)</span></div>`
+      ).join("");
+      return `<div class="material-card">
+        <h4>${escapeHtml(a.abschnitt || "")}: ${escapeHtml(a.titel || "")}</h4>
+        <div class="aufgaben-liste">${teilaufgaben}</div>
+      </div>`;
+    }).join("");
+  }
+  containerB.innerHTML = htmlB || '<p style="color:var(--ink-muted)">Kein Aufgabenteil vorhanden.</p>';
+
+  // Write step references
+  document.getElementById("writeTaskRefA").innerHTML = escapeHtml(d.teil_a_instruction || "").replace(/\n/g, "<br>");
+  document.getElementById("writeTaskRefB").innerHTML = d.teil_b_instruction
+    ? escapeHtml(d.teil_b_instruction).replace(/\n/g, "<br>")
+    : '<span style="color:var(--ink-muted)">Aufgabenteil</span>';
+
+  const refContainer = document.getElementById("writeMaterialsRef");
+  refContainer.innerHTML = `<div style="margin-bottom:.8rem"><strong>Teil A: Lat. Text</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((d.teil_a_latin_text || "").substring(0, 150))}\u2026</span></div>`;
+
+  updateBEBadges();
+  initHL();
+}
+
+function useOCRTextA() {
+  const t = document.getElementById("ocrText").value;
+  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+  const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+  document.getElementById("studentTextA").value = clean;
+  updateWordCounts();
+  showToast("Text in Teil A \u00fcbernommen!", "success");
+}
+
+function useOCRTextB() {
+  const t = document.getElementById("ocrText").value;
+  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+  const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+  document.getElementById("studentTextB").value = clean;
+  updateWordCounts();
+  showToast("Text in Teil B \u00fcbernommen!", "success");
+}
+
+async function submitForGrading() {
+  const tA = document.getElementById("studentTextA").value;
+  const tB = document.getElementById("studentTextB").value;
+  const totalWords = countWords(tA) + countWords(tB);
+  if (totalWords < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter insgesamt"); return; }
+  if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+  document.getElementById("submitBtn").disabled = true;
+  nav("feedback");
+  document.getElementById("feedbackLoader").style.display = "block";
+  document.getElementById("feedbackContent").style.display = "none";
+  try {
+    const payload = {
+      teil_a_instruction: CONFIG.storedData.teil_a_instruction || "",
+      teil_a_latin_text: CONFIG.storedData.teil_a_latin_text || "",
+      teil_a_musteruebersetzung: CONFIG.storedData.teil_a_musteruebersetzung || "",
+      teil_b_instruction: CONFIG.storedData.teil_b_instruction || "",
+      teil_b_latin_text: CONFIG.storedData.teil_b_latin_text || "",
+      teil_b_deutsche_uebersetzung: CONFIG.storedData.teil_b_deutsche_uebersetzung || "",
+      teil_b_aufgaben: CONFIG.storedData.teil_b_aufgaben || [],
+      student_text_a: tA,
+      student_text_b: tB,
+      rubric_prompt: BEWERTUNG_PROMPT,
+      type: "latein-abitur",
+      level: sessionStorage.getItem("student_level") || "eA"
+    };
+
+    const d = await apiCall("/api/grade-abitur-latein", payload);
+    document.getElementById("scoreTeilA").textContent = d.scores?.teil_a ?? "\u2013";
+    document.getElementById("scoreTeilB").textContent = d.scores?.teil_b ?? "\u2013";
+    document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
+    document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";
+    saveToHistory({
+      autor: CONFIG.storedData.autor || CONFIG.autor,
+      teil_a: d.scores?.teil_a,
+      teil_b: d.scores?.teil_b,
+      darstellung: d.scores?.darstellung,
+      total: d.scores?.total
+    });
+    apiCall("/api/submit-result", {
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+      type: "latein-abitur",
+      topic: AUTOR_LABELS[CONFIG.storedData.autor || CONFIG.autor] || "Latein Abitur",
+      content: d.scores?.teil_a,
+      language: d.scores?.darstellung,
+      total: d.scores?.total,
+      date: new Date().toISOString()
+    }).catch(() => {});
+    stopTimer();
+    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+    renderKorrekturFeedback(d);
+    document.getElementById("feedbackContent").style.display = "block";
+  } catch (e) {
+    document.getElementById("feedbackContent").style.display = "block";
+    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">${escapeHtml(e.message)}</p>`;
+  }
+  document.getElementById("feedbackLoader").style.display = "none";
+  document.getElementById("submitBtn").disabled = false;
+}
+
+async function showModelAnswer() {
+  const card = document.getElementById("modelAnswerCard");
+  if (card.style.display === "block") { card.style.display = "none"; return; }
+  document.getElementById("showModelBtn").disabled = true;
+  try {
+    const payload = {
+      teil_a_instruction: CONFIG.storedData.teil_a_instruction || "",
+      teil_a_latin_text: CONFIG.storedData.teil_a_latin_text || "",
+      teil_a_musteruebersetzung: CONFIG.storedData.teil_a_musteruebersetzung || "",
+      teil_b_instruction: CONFIG.storedData.teil_b_instruction || "",
+      teil_b_latin_text: CONFIG.storedData.teil_b_latin_text || "",
+      teil_b_deutsche_uebersetzung: CONFIG.storedData.teil_b_deutsche_uebersetzung || "",
+      teil_b_aufgaben: CONFIG.storedData.teil_b_aufgaben || [],
+      type: "latein-abitur"
+    };
+
+    const d = await apiCall("/api/model-answer-abitur-latein", payload);
+    document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+    card.style.display = "block";
+  } catch (e) { showToast(e.message); }
+  document.getElementById("showModelBtn").disabled = false;
+}
+
+function renderHistoryTable(history) {
+  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+    const ic = AUTOR_ICONS[x.autor] || "\u{1F3FA}";
+    return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.teil_a ?? "\u2013"}</td><td class="history-score">${x.teil_b ?? "\u2013"}</td><td class="history-score">${x.darstellung ?? "\u2013"}</td><td class="history-score" style="font-weight:700">${x.total ?? "\u2013"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>`;
+  }).join("");
+}
+
+// Init
+updateSchwerpunkte();
+updateTimerDefault();
+updateBEBadges();
+</script>
+</body>
+</html>
