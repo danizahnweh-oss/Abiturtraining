@@ -4771,6 +4771,20 @@ WICHTIG:
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss mathematisch korrekt und eindeutig lösbar sein
 
+LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
+- Exponentialfunktion: $e^{-0{,}12x}$ (NIEMALS $\exp(-0.12*x)$)
+- Brüche: $\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
+- Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
+- Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
+- Integral: $\int_a^b f(x)\,dx$
+- Ableitung: $f'(x)$, $f''(x)$
+- Vektoren: $\vec{a}$, $\overrightarrow{AB}$
+- Intervall: $0 \le x \le 30$ (NICHT $0 <= x <= 30$)
+BEISPIEL: $$p(x) = 3{,}6 \cdot x \cdot e^{-0{,}12x} + 0{,}4 \quad (0 \le x \le 30)$$
+
 GEOGEBRA-VISUALISIERUNG (optional):
 Falls die Aufgabe von einer grafischen Darstellung profitiert, füge ein "grafik"-Feld hinzu.
 - Analysis: type "graphing" — Funktionsgraphen, Tangenten, Nullstellen
@@ -4865,6 +4879,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für mathematische Ausdrücke.
+LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
 
 Antworte NUR mit validem JSON:
 {
@@ -4930,7 +4945,14 @@ WICHTIG:
 - Gib bei jedem Schritt die BE an, die dafür vergeben werden
 - Begründe Ansätze kurz (z.B. "Ableitung mit Kettenregel")
 - Formatiere als Markdown mit Überschriften für jede Teilaufgabe
-- Am Ende: Zusammenfassung der erreichten BE`;
+- Am Ende: Zusammenfassung der erreichten BE
+
+LATEX-FORMATIERUNG (echte Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $\cdot$ (NIEMALS $*$)
+- Exponentialfunktion: $e^{...}$ (NIEMALS $\exp(...)$)
+- Brüche: $\frac{a}{b}$ (NICHT a/b)
+- Dezimalkomma: $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\le$, $\ge$, $\approx$`;
 
   let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
   if (teilaufgaben && teilaufgaben.length) {
@@ -4960,7 +4982,7 @@ async function handleParseTaskMathe(request, env) {
     {
       role: "user",
       content: [
-        { type: "text", text: "Extrahiere die Mathematik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$). Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        { type: "text", text: "Extrahiere die Mathematik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$). LATEX-REGELN: \\cdot statt *, e^{...} statt \\exp(...), \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
         ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
       ]
     }
@@ -5009,6 +5031,20 @@ WICHTIG:
 - Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
+
+LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
+- Exponentialfunktion: $e^{-0{,}12x}$ (NIEMALS $\exp(-0.12*x)$)
+- Brüche: $\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
+- Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
+- Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
+- Integral: $\int_a^b f(x)\,dx$
+- Ableitung: $f'(x)$, $f''(x)$
+- Vektoren: $\vec{a}$, $\overrightarrow{AB}$
+- Intervall: $0 \le x \le 30$ (NICHT $0 <= x <= 30$)
+BEISPIEL: $$p(x) = 3{,}6 \cdot x \cdot e^{-0{,}12x} + 0{,}4 \quad (0 \le x \le 30)$$
 
 GEOGEBRA-VISUALISIERUNG (optional, pro Aufgabe):
 Jede Aufgabe kann ein optionales "grafik"-Feld enthalten, um eine interaktive Grafik anzuzeigen.
@@ -5139,6 +5175,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Verwende LaTeX-Notation ($...$, $$...$$) im Feedback.
+LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
 
 Antworte NUR mit validem JSON:
 {
@@ -5207,6 +5244,7 @@ WICHTIG:
 - Zeige JEDEN Lösungsschritt ausführlich
 - Gib bei jedem Schritt die BE an
 - Begründe Ansätze kurz
+- LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
 - Formatiere als Markdown mit klaren Überschriften:
   ## Teil A – Pflichtteil
   ### A1: Analysis
