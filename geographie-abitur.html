@@ -543,7 +543,6 @@ async function generateTask() {
       schwerpunkt: document.getElementById("schwerpunktSelect").value,
       level: level
     });
-    alert("DEBUG:\nKeys: " + Object.keys(raw).join(", ") + "\nteil_a? " + !!raw.teil_a + "\ntask_instruction_a? " + !!raw.task_instruction_a + "\nmaterials? " + !!raw.materials + "\n\n" + JSON.stringify(raw).substring(0, 400));
     // Flatten nested teil_a/teil_b from API into flat structure for renderTask
     const d = {
       task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
