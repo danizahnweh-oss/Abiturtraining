@@ -446,7 +446,7 @@ function renderTask(d) {
           m.strukturformeln.forEach(function(sf) {
             if (!sf.name) return;
             html += '<div style="text-align:center;margin:.5rem 0">';
-            html += '<img class="struktur-img" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + encodeURIComponent(sf.name) + '/PNG?image_size=300" alt="' + escapeHtml(sf.caption || sf.name) + '" onerror="this.parentElement.style.display=\'none\'">';
+            html += '<img class="struktur-img" src="https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/' + encodeURIComponent(sf.name) + '/PNG?record_type=2d&amp;image_size=300x300" alt="' + escapeHtml(sf.caption || sf.name) + '" onerror="this.parentElement.style.display=\'none\'">';
             if (sf.caption) html += '<div style="font-size:.8rem;font-weight:600;margin-top:.2rem">' + renderInlineKatex(sf.caption) + '</div>';
             html += '</div>';
           });
