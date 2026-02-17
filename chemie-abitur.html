@@ -292,9 +292,9 @@ function renderSmilesCanvases(container) {
   var drawer = new SmilesDrawer.Drawer({ width: 260, height: 200 });
   container.querySelectorAll("canvas[data-smiles]").forEach(function(canvas) {
     var smiles = canvas.getAttribute("data-smiles");
-    if (!smiles) return;
+    if (!smiles || !canvas.id) return;
     SmilesDrawer.parse(smiles, function(tree) {
-      drawer.draw(tree, canvas, isDark ? "dark" : "light", false);
+      drawer.draw(tree, canvas.id, isDark ? "dark" : "light", false);
     }, function(err) {
       console.warn("SMILES parse error:", smiles, err);
     });
@@ -345,7 +345,8 @@ function renderMath(el) {
         {left: "$$", right: "$$", display: true},
         {left: "$", right: "$", display: false}
       ],
-      throwOnError: false
+      throwOnError: false,
+      strict: false
     });
   }
 }
