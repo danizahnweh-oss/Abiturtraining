@@ -403,13 +403,20 @@ function beToNP(erreicht, max) {
 }
 
 /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
-function safeMathParse(text) {
+function protectMath(text) {
   var blocks = [];
   text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
   text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-  var html = marked.parse(text);
-  html = html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
-  return html;
+  return { text: text, blocks: blocks };
+}
+function restoreMath(html, blocks) {
+  return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
+}
+function safeMathParse(text) {
+  var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+}
+function safeMathParseInline(text) {
+  var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
 }
 
 function renderMath(el) {
@@ -497,10 +504,10 @@ function renderTask(d) {
       content += '<div class="aufgaben-liste">';
       if (a.teilaufgaben && a.teilaufgaben.length) {
         a.teilaufgaben.forEach(function(t) {
-          content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(marked.parseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+          content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
         });
       } else {
-        content += '<div class="aufgabe-item">' + DOMPurify.sanitize(marked.parseInline(a.text || a.aufgabe || "")) + '</div>';
+        content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
       }
       content += '</div></div>';
       return content;
@@ -520,7 +527,7 @@ function renderTask(d) {
       return '<div class="aufgabe-item selectable' + (CONFIG.selectedWahl.has(i) ? ' selected' : '') + '" data-idx="' + i + '" onclick="toggleWahl(this,' + i + ')">' +
         '<span class="aufgabe-nr">' + escapeHtml(a.id || ("A" + (i+5))) + '</span> ' +
         escapeHtml(a.sachgebiet || "") + ': ' +
-        DOMPurify.sanitize(marked.parseInline(a.text || a.aufgabe || "")) +
+        DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) +
         ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></div>';
     }).join("");
     renderMath(wahl);
@@ -540,10 +547,10 @@ function renderTask(d) {
       content += '<div class="aufgaben-liste">';
       if (b.teilaufgaben && b.teilaufgaben.length) {
         b.teilaufgaben.forEach(function(t) {
-          content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(marked.parseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+          content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
         });
       } else {
-        content += '<div class="aufgabe-item">' + DOMPurify.sanitize(marked.parseInline(b.text || b.aufgabe || "")) + '</div>';
+        content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(b.text || b.aufgabe || "")) + '</div>';
       }
       content += '</div></div>';
       return content;
