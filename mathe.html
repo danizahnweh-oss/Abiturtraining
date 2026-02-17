@@ -188,6 +188,21 @@
         Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>f'(x) = 4x + 3</code>, <code>int_0^1 x^2 dx = 1/3</code>, <code>sqrt(x)</code>
       </p>
 
+      <!-- Formel-Editor (MathLive) -->
+      <details class="formel-editor" id="formelEditor">
+        <summary>&#x1F9EE; Formel-Editor</summary>
+        <div class="formel-editor-body">
+          <div class="formel-mf-wrap"><math-field id="formelMF" virtual-keyboard-mode="onfocus"></math-field></div>
+          <div class="formel-tabs" id="formelTabs"></div>
+          <div class="formel-btns" id="formelBtns"></div>
+          <div class="formel-actions">
+            <button class="btn btn-small" onclick="insertFormula()">&#x2713; Einf&uuml;gen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearMathField()">L&ouml;schen</button>
+            <span class="formel-preview" id="formelPreview"></span>
+          </div>
+        </div>
+      </details>
+
       <textarea id="studentText" placeholder="Beginne hier mit deiner L&ouml;sung &hellip;
 
 Tipp: Verwende Plain-Text-Mathe:
@@ -677,6 +692,167 @@ function renderHistoryTable(history) {
     return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td>' + (x.aufgabentyp || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
   }).join("");
 }
+
+/* ====== FORMEL-EDITOR (MathLive) ====== */
+let mathLiveLoaded = false, mathLiveLoading = false;
+function loadMathLive() {
+  return new Promise(function(resolve, reject) {
+    if (mathLiveLoaded) { resolve(); return; }
+    if (mathLiveLoading) {
+      var check = setInterval(function() { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100);
+      return;
+    }
+    mathLiveLoading = true;
+    var s = document.createElement("script");
+    s.type = "module";
+    s.src = "https://unpkg.com/mathlive?module";
+    s.onload = function() { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
+    s.onerror = function() { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
+    document.head.appendChild(s);
+  });
+}
+
+const FORMEL_BUTTONS = {
+  grundlagen: {
+    label: "Grundlagen",
+    buttons: [
+      { label: "x^n", latex: "x^{#0}" },
+      { label: "a/b", latex: "\\frac{#0}{#0}" },
+      { label: "\u221A", latex: "\\sqrt{#0}" },
+      { label: "|x|", latex: "\\left|#0\\right|" },
+      { label: "\u2264", latex: "\\leq" },
+      { label: "\u2265", latex: "\\geq" },
+      { label: "\u2260", latex: "\\neq" },
+      { label: "\u00B7", latex: "\\cdot" },
+      { label: "\u03C0", latex: "\\pi" },
+      { label: "e", latex: "e" },
+      { label: "\u221E", latex: "\\infty" }
+    ]
+  },
+  analysis: {
+    label: "Analysis",
+    buttons: [
+      { label: "f'(x)", latex: "f'(x)" },
+      { label: "f''(x)", latex: "f''(x)" },
+      { label: "lim", latex: "\\lim_{x\\to #0}" },
+      { label: "\u222B", latex: "\\int_{#0}^{#0} #0 \\, dx" },
+      { label: "\u03A3", latex: "\\sum_{#0}^{#0}" },
+      { label: "e^x", latex: "e^{#0}" },
+      { label: "ln", latex: "\\ln\\left(#0\\right)" },
+      { label: "sin", latex: "\\sin\\left(#0\\right)" },
+      { label: "cos", latex: "\\cos\\left(#0\\right)" },
+      { label: "tan", latex: "\\tan\\left(#0\\right)" },
+      { label: "dy/dx", latex: "\\frac{dy}{dx}" }
+    ]
+  },
+  stochastik: {
+    label: "Stochastik",
+    buttons: [
+      { label: "P(A)", latex: "P(A)" },
+      { label: "P(A|B)", latex: "P(A \\mid B)" },
+      { label: "P(X=k)", latex: "P(X = #0)" },
+      { label: "n\u00FCr k", latex: "\\binom{n}{k}" },
+      { label: "\u03BC", latex: "\\mu" },
+      { label: "\u03C3", latex: "\\sigma" },
+      { label: "E(X)", latex: "E(X)" },
+      { label: "Var(X)", latex: "\\mathrm{Var}(X)" }
+    ]
+  },
+  geometrie: {
+    label: "Geometrie",
+    buttons: [
+      { label: "Vektor", latex: "\\vec{#0}" },
+      { label: "3D-Vektor", latex: "\\begin{pmatrix} #0 \\\\ #0 \\\\ #0 \\end{pmatrix}" },
+      { label: "\u00D7", latex: "\\times" },
+      { label: "\u2218", latex: "\\circ" },
+      { label: "Matrix", latex: "\\begin{pmatrix} #0 & #0 \\\\ #0 & #0 \\end{pmatrix}" }
+    ]
+  }
+};
+
+let activeFormelTab = "grundlagen";
+
+function renderFormelTabs() {
+  var tabsEl = document.getElementById("formelTabs");
+  if (!tabsEl) return;
+  tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function(key) {
+    return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTab(\'' + key + '\')">' + FORMEL_BUTTONS[key].label + '</button>';
+  }).join("");
+}
+
+function switchFormelTab(cat) {
+  activeFormelTab = cat;
+  renderFormelTabs();
+  renderFormelButtons();
+}
+
+function renderFormelButtons() {
+  var btnsEl = document.getElementById("formelBtns");
+  if (!btnsEl) return;
+  var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+  btnsEl.innerHTML = buttons.map(function(b, i) {
+    return '<button class="formel-btn" onclick="insertQuickLatex(' + i + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
+  }).join("");
+}
+
+function insertQuickLatex(idx) {
+  var mf = document.getElementById("formelMF");
+  if (!mf) return;
+  var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+  var b = buttons[idx];
+  if (!b) return;
+  mf.executeCommand(["insert", b.latex]);
+  mf.focus();
+  updateFormelPreview();
+}
+
+function updateFormelPreview() {
+  var mf = document.getElementById("formelMF");
+  var preview = document.getElementById("formelPreview");
+  if (mf && preview) { preview.textContent = mf.value || ""; }
+}
+
+function insertFormula() {
+  var mf = document.getElementById("formelMF");
+  if (!mf || !mf.value) return;
+  var latex = "$" + mf.value + "$";
+  var ta = document.getElementById("studentText");
+  var start = ta.selectionStart, end = ta.selectionEnd;
+  var before = ta.value.substring(0, start);
+  var after = ta.value.substring(end);
+  var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : "";
+  var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : "";
+  ta.value = before + spaceBefore + latex + spaceAfter + after;
+  var newPos = start + spaceBefore.length + latex.length + spaceAfter.length;
+  ta.selectionStart = ta.selectionEnd = newPos;
+  ta.focus();
+  updateWordCount();
+  mf.value = "";
+  updateFormelPreview();
+}
+
+function clearMathField() {
+  var mf = document.getElementById("formelMF");
+  if (mf) { mf.value = ""; updateFormelPreview(); mf.focus(); }
+}
+
+// Lazy load on first open
+document.getElementById("formelEditor")?.addEventListener("toggle", function(e) {
+  if (this.open && !mathLiveLoaded) {
+    loadMathLive().then(function() {
+      var mf = document.getElementById("formelMF");
+      if (mf) {
+        mf.addEventListener("input", updateFormelPreview);
+      }
+      renderFormelTabs();
+      renderFormelButtons();
+    }).catch(function(err) { showToast(err.message); });
+  }
+  if (this.open && mathLiveLoaded) {
+    renderFormelTabs();
+    renderFormelButtons();
+  }
+});
 </script>
 </body>
 </html>
