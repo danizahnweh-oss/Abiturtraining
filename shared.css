@@ -385,6 +385,26 @@ select:focus, input:focus { border-color: var(--accent); }
 }
 .source-meta { font-size: .85rem; color: var(--ink-muted); margin-top: 1rem; font-style: italic; }
 
+/* ====== STUDENT TEXTAREA GROUPS (per-Teilaufgabe) ====== */
+.student-ta-group { margin-bottom: 1rem; }
+.student-ta-group label {
+  display: block;
+  font-weight: 600;
+  font-size: .85rem;
+  color: var(--ink-light);
+  margin-bottom: .4rem;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.student-ta-group textarea { min-height: 150px; }
+.student-ta-group .ta-word-count {
+  text-align: right;
+  font-size: .78rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  margin-top: .2rem;
+}
+
 /* ====== TEXTAREA & WRITE ====== */
 textarea {
   width: 100%;

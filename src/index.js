@@ -4847,9 +4847,9 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 /* ================= MATHEMATIK: GRADE ================= */
 async function handleGradeMathe(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, aufgabentyp, student_text } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, aufgabentyp, student_text, student_texts } = body;
 
-  if (!student_text) {
+  if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
   }
 
@@ -4861,6 +4861,24 @@ async function handleGradeMathe(request, env) {
     for (const ta of teilaufgaben) {
       aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
     }
+  }
+
+  // Build structured student solution text
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    // Per-Teilaufgabe format
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        // Find matching Teilaufgabe for BE info
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
   }
 
   const rubricPrompt = `Du bewertest eine Mathematik-Klausur (Bayern, eA, Abitur ab 2026) nach dem BE-System (Bewertungseinheiten).
@@ -4894,7 +4912,7 @@ Antworte NUR mit validem JSON:
 
   const messages = [
     { role: "system", content: rubricPrompt },
-    { role: "user", content: `${aufgabenInfo}\nSchülerlösung:\n${truncate(student_text, 15000)}` }
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
