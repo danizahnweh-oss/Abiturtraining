@@ -537,8 +537,8 @@ async function generateTask() {
       schwerpunkt: document.getElementById("schwerpunktSelect").value,
       level: level
     });
-    console.log("RAW API response:", JSON.stringify(raw).substring(0, 500));
-    console.log("RAW keys:", Object.keys(raw));
+    console.log("RAW API response:", JSON.stringify(raw).substring(0, 800));
+    console.log("RAW keys:", Object.keys(raw), "teil_a?", !!raw.teil_a, "task_instruction_a?", !!raw.task_instruction_a);
     // Flatten nested teil_a/teil_b from API into flat structure for renderTask
     const d = {
       task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
@@ -547,7 +547,6 @@ async function generateTask() {
       lernbereich: raw.lernbereich || CONFIG.lernbereich,
       thema: raw.thema || ""
     };
-    console.log("FLATTENED:", JSON.stringify(d).substring(0, 500));
     CONFIG.storedData = d;
     renderTask(d);
     nav("task");
