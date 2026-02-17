@@ -320,6 +320,17 @@ export default {
         return await handleParseTaskWR(request, env);
       }
 
+      // ===== FRANZÖSISCH ENDPOINTS =====
+      if (pathname === "/api/model-answer-french" && request.method === "POST") {
+        return await handleModelAnswerFrench(request, env);
+      }
+      if (pathname === "/api/model-answer-french-writing" && request.method === "POST") {
+        return await handleModelAnswerFrenchWriting(request, env);
+      }
+      if (pathname === "/api/parse-task-french" && request.method === "POST") {
+        return await handleParseTaskFrench(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -2630,6 +2641,114 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Bl
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
   ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= FRANZÖSISCH: PARSE TASK (OCR) ================= */
+async function handleParseTaskFrench(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Französisch-Abitur Aufgabe (Sprachmittlung oder Schreiben). Extrahiere:
+1. Die Aufgabenstellung (task_instruction) — kann auf Französisch oder Deutsch formuliert sein
+2. Den Quelltext (article_text) — bei Sprachmittlung auf Deutsch, bei Schreiben auf Französisch
+3. Die Überschrift/Titel (headline)
+4. Falls vorhanden: Quellenangabe (source_info)
+
+Antworte NUR mit validem JSON:
+{"task_instruction": "...", "article_text": "...", "headline": "...", "source_info": "..."}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 4000, temperature: 0.2 })
+  });
+
+  const data = await openaiRes.json();
+  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
+  const text = data?.choices?.[0]?.message?.content || "";
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
+}
+
+/* ================= FRANZÖSISCH: MODEL ANSWER (Sprachmittlung) ================= */
+async function handleModelAnswerFrench(request, env) {
+  const { source_text_de, task_fr } = await request.json();
+  if (!source_text_de || !task_fr) {
+    return jsonResponse({ error: "source_text_de and task_fr required" }, 400, env);
+  }
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B1+/B2 Französisch).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Sprachmittlung-Aufgabe auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit Übergängen und Verknüpfungen (connecteurs logiques)
+- Der Text muss sich flüssig lesen lassen, mit sinnvollen Absätzen und Gedankenführung
+- Beachte die geforderte Textsorte (courriel, lettre, article) und deren formale Merkmale
+
+Inhaltlich:
+- Halte dich an die Aufgabenstellung
+- Paraphrasiere und vermittle die Inhalte, übersetze NICHT wörtlich
+- Verwende angemessenes, idiomatisches Französisch (registre courant/soutenu)
+- Zielumfang: 200–300 Wörter
+
+Formatiere als Markdown: Erst die Lösung auf Französisch, dann unter "---" eine kurze Erklärung auf Deutsch.`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: `AUFGABE:\n${truncate(task_fr, 5000)}\n\nQUELLTEXT:\n${truncate(source_text_de, 15000)}` }
+  ]);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= FRANZÖSISCH: MODEL ANSWER (Schreiben) ================= */
+async function handleModelAnswerFrenchWriting(request, env) {
+  const { article_text, task_1, task_2, task_3, selected_tasks } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Französisch, Niveau B2).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Verwende vollständige Sätze mit eleganten Übergängen und Verknüpfungen (connecteurs logiques)
+- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
+- Jede Aufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+
+Inhaltlich:
+- Bearbeite ALLE angegebenen Aufgaben
+- Belege Aussagen mit Textzitaten (citations)
+- Analysiere Stilmittel (procédés stylistiques) wenn gefordert
+- Verwende angemessenes, idiomatisches Französisch
+- Zielumfang: 600-1000 Wörter insgesamt
+
+Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unter "---" eine kurze Reflexion auf Deutsch.`;
+
+  let userContent = `AUSGANGSTEXT:\n${truncate(article_text, 15000)}\n\n`;
+  if (task_1) userContent += `AUFGABE 1 (Présentation):\n${truncate(task_1, 1000)}\n\n`;
+  if (task_2) userContent += `AUFGABE 2 (Analyse):\n${truncate(task_2, 1000)}\n\n`;
+  if (task_3) userContent += `AUFGABE 3:\n${truncate(task_3, 1000)}\n\n`;
+  if (selected_tasks) userContent += `Bearbeitete Aufgaben: ${selected_tasks}\n`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
