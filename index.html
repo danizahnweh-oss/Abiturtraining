@@ -151,6 +151,36 @@
 footer{padding:1.5rem;border-top:none}
 footer a{color:var(--accent)}
 
+/* ====== SPLASH SCREEN ====== */
+#splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;animation:splash-fade-out .5s ease 2.2s forwards}
+[data-theme="dark"] #splash{background:var(--bg,#111)}
+.splash-content{position:relative;width:300px;height:120px;display:flex;align-items:center;justify-content:center}
+.splash-wave{position:absolute;width:120px;height:auto;opacity:1;animation:wave-pulse .8s ease-in-out,wave-shrink .8s ease-in-out .8s forwards}
+.splash-logo{position:absolute;width:300px;height:auto;opacity:0;animation:logo-fade-in .8s ease-in-out .8s forwards}
+
+@keyframes wave-pulse{
+  0%{transform:scale(.6);opacity:0}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1);opacity:1}
+}
+@keyframes wave-shrink{
+  0%{transform:scale(1);opacity:1}
+  100%{transform:scale(.3);opacity:0}
+}
+@keyframes logo-fade-in{
+  0%{opacity:0;transform:scale(.9)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes splash-fade-out{
+  0%{opacity:1}
+  100%{opacity:0;pointer-events:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #splash{animation:none;display:none}
+  .splash-wave,.splash-logo{animation:none}
+}
+
 @media(max-width:650px){
   .subject-grid{grid-template-columns:repeat(3,1fr)}
   .module-grid{grid-template-columns:1fr}
@@ -159,6 +189,14 @@ footer a{color:var(--accent)}
 </style>
 </head>
 <body>
+
+<!-- ====== SPLASH SCREEN ====== -->
+<div id="splash">
+  <div class="splash-content">
+    <img src="wave-icon.png" class="splash-wave" alt="">
+    <img src="logo.png" class="splash-logo" alt="myAbiFlow">
+  </div>
+</div>
 
 <!-- ====== LOGIN SCREEN ====== -->
 <div id="login-screen">
@@ -969,7 +1007,23 @@ window.addEventListener("popstate", function(e) {
   else if (e.state.screen.startsWith("module-")) selectSubject(e.state.screen.replace("module-", ""));
 });
 
-window.onload = checkSession;
+window.onload = function() {
+  checkSession();
+
+  // Splash: skip if already shown this session or reduced-motion
+  var splash = document.getElementById("splash");
+  if (!splash) return;
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (sessionStorage.getItem("splash_shown") || reducedMotion) {
+    splash.style.display = "none";
+    return;
+  }
+  // Dismiss splash after animation completes (2.7s)
+  setTimeout(function() {
+    splash.style.display = "none";
+    sessionStorage.setItem("splash_shown", "1");
+  }, 2700);
+};
 
 // Handle bfcache restoration
 window.addEventListener("pageshow", function(e) {
