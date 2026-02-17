@@ -417,6 +417,31 @@ export default {
         return await handleModelAnswerAbiturLatein(request, env);
       }
 
+      // ===== MATHEMATIK ENDPOINTS =====
+      if (pathname === "/api/generate-mathe" && request.method === "POST") {
+        return await handleGenerateMathe(request, env);
+      }
+      if (pathname === "/api/grade-mathe" && request.method === "POST") {
+        return await handleGradeMathe(request, env);
+      }
+      if (pathname === "/api/model-answer-mathe" && request.method === "POST") {
+        return await handleModelAnswerMathe(request, env);
+      }
+      if (pathname === "/api/parse-task-mathe" && request.method === "POST") {
+        return await handleParseTaskMathe(request, env);
+      }
+
+      // ===== MATHEMATIK ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-mathe" && request.method === "POST") {
+        return await handleGenerateAbiturMathe(request, env);
+      }
+      if (pathname === "/api/grade-abitur-mathe" && request.method === "POST") {
+        return await handleGradeAbiturMathe(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-mathe" && request.method === "POST") {
+        return await handleModelAnswerAbiturMathe(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -4675,6 +4700,489 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
   ], 8000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= MATHEMATIK: GENERATE ================= */
+async function handleGenerateMathe(request, env) {
+  const body = await request.json();
+  const { sachgebiet, aufgabentyp } = body;
+
+  const sg = sachgebiet || "analysis";
+  const typ = aufgabentyp || "kurzaufgabe";
+  const isKurz = typ === "kurzaufgabe";
+
+  const sgThemen = {
+    analysis: {
+      title: "Analysis",
+      inhalte: `- Funktionen: ganzrationale, e-Funktionen, ln-Funktionen, trigonometrische Funktionen
+- Ableitungsregeln: Potenz-, Produkt-, Quotienten-, Kettenregel
+- Kurvendiskussion: Nullstellen, Extrema, Wendepunkte, Monotonie, Krümmung
+- Integralrechnung: Stammfunktionen, bestimmtes Integral, Flächenberechnung, Rotationsvolumen
+- Grenzwerte und Stetigkeit
+- Anwendungsaufgaben: Optimierung, Wachstum, Änderungsraten`
+    },
+    stochastik: {
+      title: "Stochastik",
+      inhalte: `- Wahrscheinlichkeitsrechnung: Baumdiagramme, Pfadregeln, bedingte Wahrscheinlichkeit
+- Binomialverteilung: Bernoulli-Kette, Erwartungswert, Standardabweichung
+- Normalverteilung als Näherung
+- Hypothesentests: Signifikanztests, Fehler 1. und 2. Art
+- Kombinatorik: Permutationen, Kombinationen
+- Stochastische Unabhängigkeit, Vierfeldertafel`
+    },
+    geometrie: {
+      title: "Geometrie",
+      inhalte: `- Vektoren: Addition, Skalarprodukt, Kreuzprodukt, Betrag
+- Geraden: Parameterform, Lagebeziehungen, Schnittpunkte
+- Ebenen: Parameter-, Normalenform, Koordinatenform, Spurgeraden
+- Abstände: Punkt-Ebene, Punkt-Gerade, windschiefe Geraden
+- Winkel: zwischen Geraden, Ebenen, Gerade und Ebene
+- Spiegelungen und Symmetrie`
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.analysis;
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
+Erstelle eine authentische Mathematik-Aufgabe.
+
+${isKurz ? `KURZAUFGABE (Teil-A-Stil, ohne CAS/Hilfsmittel):
+- 1 Aufgabe mit 2-3 Teilaufgaben
+- Gesamt: 5 BE
+- Schwierigkeit: ~10 Minuten Bearbeitungszeit
+- OHNE CAS/Taschenrechner lösbar
+- Klare, rechnerisch durchführbare Aufgaben` :
+`LANGAUFGABE (Teil-B-Stil, mit CAS/Hilfsmitteln):
+- 1 große Aufgabe mit 4-6 Teilaufgaben
+- Gesamt: 20-30 BE
+- Schwierigkeit: ~45 Minuten Bearbeitungszeit
+- CAS/Hilfsmittel erlaubt
+- Kontextbezogene Anwendungsaufgabe mit steigendem Anforderungsniveau`}
+
+SACHGEBIET: ${sgInfo.title}
+Relevante Inhalte:
+${sgInfo.inhalte}
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Gib bei jeder Teilaufgabe die BE an
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Die Aufgabe muss mathematisch korrekt und eindeutig lösbar sein
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "teilaufgaben": [
+    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 2},
+    {"id": "b)", "text": "...", "be": 3}
+  ],
+  "gesamt_be": ${isKurz ? 5 : "20-30"},
+  "sachgebiet": "${sg}",
+  "aufgabentyp": "${typ}"
+}`;
+
+  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (5 BE, ohne CAS)" : "Langaufgabe (20-30 BE, mit CAS)"} im Sachgebiet ${sgInfo.title}.
+Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 6000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= MATHEMATIK: GRADE ================= */
+async function handleGradeMathe(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, aufgabentyp, student_text } = body;
+
+  if (!student_text) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 5;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Mathematik-Klausur (Bayern, eA, Abitur ab 2026) nach dem BE-System (Bewertungseinheiten).
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Ansatz, Rechnung/Lösungsweg, Ergebnis
+- Ansatz korrekt aber Rechenfehler → trotzdem Teilpunkte für Ansatz
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Der Schüler schreibt in Plain-Text-Mathe (z.B. f'(x) = 4x + 3, int_0^1 x^2 dx = 1/3). Interpretiere dies großzügig.
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für mathematische Ausdrücke.
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 2, "bewertung": "Markdown-Bewertung mit $LaTeX$"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\nSchülerlösung:\n${truncate(student_text, 15000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= MATHEMATIK: MODEL ANSWER ================= */
+async function handleModelAnswerMathe(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Mathematik-Oberstufenschüler am bayerischen Gymnasium (eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "Ableitung mit Kettenregel")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= MATHEMATIK: PARSE TASK ================= */
+async function handleParseTaskMathe(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Mathematik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$). Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000);
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= MATHEMATIK ABITUR: GENERATE ================= */
+async function handleGenerateAbiturMathe(request, env) {
+  const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 100 BE.
+
+PRÜFUNGSSTRUKTUR:
+
+TEIL A (30 BE, ohne CAS/Hilfsmittel, max. 110 min):
+- Aufgabengruppe 1 (Pflichtteil, 20 BE):
+  - A1 (5 BE): Analysis
+  - A2 (5 BE): Analysis
+  - A3 (5 BE): Stochastik
+  - A4 (5 BE): Geometrie
+  Jede Aufgabe: 2-3 Teilaufgaben, ohne CAS lösbar
+
+- Aufgabengruppe 2 (Wahlteil, 10 BE — Schüler wählt 2 von 6):
+  - A5 (5 BE): Analysis
+  - A6 (5 BE): Analysis
+  - A7 (5 BE): Stochastik
+  - A8 (5 BE): Stochastik
+  - A9 (5 BE): Geometrie
+  - A10 (5 BE): Geometrie
+  Jede Aufgabe: 2-3 Teilaufgaben, ohne CAS lösbar
+
+TEIL B (70 BE, mit CAS/Hilfsmitteln):
+  - B1 (30 BE): Analysis — eine große mehrteilige Aufgabe (6-8 Teilaufgaben)
+    Kontextbezogen (z.B. Modellierung, Optimierung), steigendes Niveau
+  - B2 (20 BE): Stochastik — eine große mehrteilige Aufgabe (4-6 Teilaufgaben)
+    Z.B. Binomialverteilung, Hypothesentest, bedingte Wahrscheinlichkeit
+  - B3 (20 BE): Geometrie — eine große mehrteilige Aufgabe (4-6 Teilaufgaben)
+    Z.B. Geraden/Ebenen im Raum, Abstände, Winkel, Anwendung
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
+- Teil A muss OHNE CAS/Taschenrechner lösbar sein
+- Teil B darf CAS voraussetzen
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "teil_a_pflicht": [
+    {"id": "A1", "sachgebiet": "Analysis", "be": 5, "text": "Aufgabentext", "teilaufgaben": [{"id": "a)", "text": "...", "be": 2}, {"id": "b)", "text": "...", "be": 3}]},
+    {"id": "A2", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A3", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A4", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
+  ],
+  "teil_a_wahl": [
+    {"id": "A5", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A6", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A7", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A8", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A9", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]},
+    {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
+  ],
+  "teil_b": [
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}, ...]},
+    {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "...", "teilaufgaben": [...]},
+    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...]}
+  ]
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Mathematik-Abiturprüfung (eA, 100 BE).
+Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS
+Teil B: B1 Analysis (30 BE), B2 Stochastik (20 BE), B3 Geometrie (20 BE), mit CAS
+KRITISCH: Alle Formeln in LaTeX-Notation. Aufgaben müssen mathematisch korrekt sein.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= MATHEMATIK ABITUR: GRADE ================= */
+async function handleGradeAbiturMathe(request, env) {
+  const body = await request.json();
+  const { teil_a_pflicht, teil_a_wahl, teil_b, student_text_a, student_text_b } = body;
+
+  if (!student_text_a && !student_text_b) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  let aufgabenInfo = "TEIL A (30 BE, ohne CAS):\n\nPflichtteil (20 BE):\n";
+  if (teil_a_pflicht && teil_a_pflicht.length) {
+    for (const a of teil_a_pflicht) {
+      aufgabenInfo += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+  aufgabenInfo += "\nWahlteil (gewählte Aufgaben, 10 BE):\n";
+  if (teil_a_wahl && teil_a_wahl.length) {
+    for (const a of teil_a_wahl) {
+      aufgabenInfo += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+  aufgabenInfo += "\n\nTEIL B (70 BE, mit CAS):\n";
+  if (teil_b && teil_b.length) {
+    for (const b of teil_b) {
+      aufgabenInfo += `${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 500)}\n`;
+      if (b.teilaufgaben) {
+        for (const t of b.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine vollständige Mathematik-Abiturprüfung (Bayern, eA, 100 BE).
+
+BEWERTUNGSREGELN:
+- Teil A (30 BE): Pflichtteil (20 BE) + Wahlteil (10 BE aus gewählten Aufgaben)
+- Teil B (70 BE): B1 Analysis (30 BE), B2 Stochastik (20 BE), B3 Geometrie (20 BE)
+- Bewerte jede Teilaufgabe einzeln: Ansatz, Rechnung, Ergebnis
+- Ansatz korrekt aber Rechenfehler → Teilpunkte
+- Folgefehler berücksichtigen
+- Der Schüler schreibt in Plain-Text-Mathe. Interpretiere großzügig.
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) im Feedback.
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a_be": <0-30>,
+  "teil_b_be": <0-70>,
+  "gesamt_be": <0-100>,
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  let studentTexts = "";
+  if (student_text_a) studentTexts += `Schülerlösung Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
+  if (student_text_b) studentTexts += `Schülerlösung Teil B:\n${truncate(student_text_b, 12000)}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const teilABE = parsed.teil_a_be ?? null;
+    const teilBBE = parsed.teil_b_be ?? null;
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && teilABE != null && teilBBE != null) {
+      gesamtBE = teilABE + teilBBE;
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / 100) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teil_a_be: teilABE,
+      teil_b_be: teilBBE,
+      gesamt_be: gesamtBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teil_a_be: null,
+      teil_b_be: null,
+      gesamt_be: null,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= MATHEMATIK ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturMathe(request, env) {
+  const { teil_a_pflicht, teil_a_wahl, teil_b } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Mathematik-Oberstufenschüler am bayerischen Gymnasium (eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für die GESAMTE Abiturprüfung.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Teil A – Pflichtteil
+  ### A1: Analysis
+  ...
+  ## Teil A – Wahlteil
+  ...
+  ## Teil B
+  ### B1: Analysis
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
+
+  let userContent = "TEIL A – PFLICHTTEIL (20 BE):\n";
+  if (teil_a_pflicht && teil_a_pflicht.length) {
+    for (const a of teil_a_pflicht) {
+      userContent += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+      }
+    }
+  }
+  userContent += "\nTEIL A – WAHLTEIL (gewählte Aufgaben, 10 BE):\n";
+  if (teil_a_wahl && teil_a_wahl.length) {
+    for (const a of teil_a_wahl) {
+      userContent += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+      }
+    }
+  }
+  userContent += "\nTEIL B (70 BE):\n";
+  if (teil_b && teil_b.length) {
+    for (const b of teil_b) {
+      userContent += `${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 500)}\n`;
+      if (b.teilaufgaben) {
+        for (const t of b.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+      }
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
