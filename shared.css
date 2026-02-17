@@ -180,6 +180,15 @@
   --accent-glow: rgba(248, 113, 113, 0.08);
 }
 
+/* ====== GEOGEBRA APPLETS ====== */
+.ggb-container{margin:1rem 0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg-warm);position:relative;min-height:100px}
+.ggb-container>div[id^="ggb_"]{width:100%!important}
+.ggb-loader{text-align:center;padding:2rem;color:var(--ink-muted);font-size:.9rem;font-style:italic}
+.ggb-error{text-align:center;padding:1.5rem;color:#e11d48;font-size:.85rem;background:rgba(225,29,72,.06);border-radius:var(--radius-sm)}
+[data-theme="dark"] .ggb-container{border-color:#2e2e42}
+[data-theme="dark"] .ggb-error{background:rgba(225,29,72,.12)}
+@media(max-width:650px){.ggb-container>div[id^="ggb_"]{height:280px!important}}
+
 /* ====== RESET & BASE ====== */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {

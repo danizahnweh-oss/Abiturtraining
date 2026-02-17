@@ -286,6 +286,82 @@ const MODULE_CONFIG = {
 CONFIG.selectedWahl = new Set();
 const WAHL_NEEDED = 2;
 
+/* ====== GeoGebra lazy loader ====== */
+let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
+function loadGeoGebraScript() {
+  return new Promise(function(resolve) {
+    if (ggbScriptLoaded) { resolve(); return; }
+    ggbLoadCbs.push(resolve);
+    if (ggbScriptLoading) return;
+    ggbScriptLoading = true;
+    const s = document.createElement("script");
+    s.src = "https://www.geogebra.org/apps/deployggb.js";
+    const t = setTimeout(function() { s.onerror(); }, 15000);
+    s.onload = function() { clearTimeout(t); ggbScriptLoaded = true; ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
+    s.onerror = function() { ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
+    document.head.appendChild(s);
+  });
+}
+function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function(c){c.remove();}); }
+async function renderGeoGebra(containerEl, grafik, idPrefix) {
+  if (!grafik || !grafik.commands || !grafik.commands.length) return;
+  const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
+  const appletId = "ggb_" + idPrefix + "_" + (ggbCounter++);
+  const appletDiv = document.createElement("div"); appletDiv.id = appletId;
+  wrapper.appendChild(appletDiv);
+  const loader = document.createElement("div"); loader.className = "ggb-loader"; loader.textContent = "Grafik wird geladen\u2026";
+  wrapper.appendChild(loader);
+  containerEl.appendChild(wrapper);
+  await loadGeoGebraScript();
+  if (typeof GGBApplet === "undefined") { loader.textContent = "Grafik konnte nicht geladen werden."; loader.className = "ggb-error"; return; }
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const appName = ({"graphing":"graphing","3d":"3d","probability":"probability"})[grafik.type] || "graphing";
+  const params = {
+    appName: appName, width: wrapper.clientWidth || 700, height: grafik.type === "3d" ? 450 : 350,
+    showToolBar: false, showAlgebraInput: false, showMenuBar: false, enableRightClick: false,
+    enableShiftDragZoom: true, enableLabelDrags: false, showResetIcon: false, showZoomButtons: true,
+    scaleContainerClass: "ggb-container", allowUpscale: true, language: "de",
+    borderColor: isDark ? "#2e2e42" : "#e2e8f0",
+    appletOnLoad: function(api) {
+      loader.remove();
+      window[appletId + "_api"] = api;
+      try {
+        for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
+        if (grafik.settings && grafik.type !== "probability") {
+          var st = grafik.settings;
+          if (st.xmin != null && st.xmax != null && st.ymin != null && st.ymax != null) api.setCoordSystem(st.xmin, st.xmax, st.ymin, st.ymax);
+        }
+        if (isDark) { api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)"); }
+      } catch(e) { console.warn("GeoGebra cmd error:", e); }
+    }
+  };
+  new GGBApplet(params, true).inject(appletId);
+}
+/* Sequential queue for multiple applets */
+const ggbQueue = [];
+let ggbRendering = false;
+function queueGeoGebra(containerEl, grafik, idPrefix) {
+  ggbQueue.push({containerEl: containerEl, grafik: grafik, idPrefix: idPrefix});
+  if (!ggbRendering) processGeoGebraQueue();
+}
+async function processGeoGebraQueue() {
+  ggbRendering = true;
+  while (ggbQueue.length > 0) {
+    var item = ggbQueue.shift();
+    await renderGeoGebra(item.containerEl, item.grafik, item.idPrefix);
+    await new Promise(function(r) { setTimeout(r, 200); });
+  }
+  ggbRendering = false;
+}
+/* Dark mode observer for GeoGebra */
+new MutationObserver(function() {
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  document.querySelectorAll(".ggb-container div[id^='ggb_']").forEach(function(el) {
+    var api = window[el.id + "_api"];
+    if (api) { try { api.evalCommand(isDark ? "SetBackgroundColor(0.11, 0.11, 0.16)" : "SetBackgroundColor(1, 1, 1)"); } catch(e){} }
+  });
+}).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
 // BE -> NP conversion table (ISB)
 const BE_NP_TABLE = [
   [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
@@ -369,10 +445,17 @@ async function generateTask() {
 }
 
 function renderTask(d) {
+  // Clean up old GeoGebra applets
+  cleanupGeoGebra(document.getElementById("pflichtaufgaben"));
+  cleanupGeoGebra(document.getElementById("wahlaufgaben"));
+  cleanupGeoGebra(document.getElementById("teilBContainer"));
+
   // Teil A Pflicht (A1-A4)
   const pflicht = document.getElementById("pflichtaufgaben");
+  var pflichtGfx = [];
   if (d.teil_a_pflicht && d.teil_a_pflicht.length) {
-    pflicht.innerHTML = d.teil_a_pflicht.map((a, i) => {
+    pflicht.innerHTML = d.teil_a_pflicht.map(function(a, i) {
+      if (a.grafik && a.grafik.commands && a.grafik.commands.length) pflichtGfx.push({idx: i, grafik: a.grafik, id: a.id || ("A" + (i+1))});
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(a.id || ("A" + (i+1))) + ': ' + escapeHtml(a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></h4>';
       if (a.text && a.teilaufgaben && a.teilaufgaben.length) {
         content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(a.text)) + '</div>';
@@ -389,6 +472,11 @@ function renderTask(d) {
       return content;
     }).join("");
     renderMath(pflicht);
+    // Inject GeoGebra applets into pflicht cards
+    pflichtGfx.forEach(function(g) {
+      var card = pflicht.querySelectorAll(".aufgabengruppe-card")[g.idx];
+      if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); queueGeoGebra(target, g.grafik, "pflicht_" + g.id); }
+    });
   }
 
   // Teil A Wahl (A5-A10)
@@ -407,8 +495,10 @@ function renderTask(d) {
 
   // Teil B
   const teilB = document.getElementById("teilBContainer");
+  var teilBGfx = [];
   if (d.teil_b && d.teil_b.length) {
-    teilB.innerHTML = d.teil_b.map(function(b) {
+    teilB.innerHTML = d.teil_b.map(function(b, i) {
+      if (b.grafik && b.grafik.commands && b.grafik.commands.length) teilBGfx.push({idx: i, grafik: b.grafik, id: b.id || ("B" + (i+1))});
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(b.id || "") + ': ' + escapeHtml(b.sachgebiet || "") + ' <span class="aufgabe-be">(' + (b.be || "?") + ' BE)</span></h4>';
       if (b.text && b.teilaufgaben && b.teilaufgaben.length) {
         content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(b.text)) + '</div>';
@@ -425,11 +515,17 @@ function renderTask(d) {
       return content;
     }).join("");
     renderMath(teilB);
+    // Inject GeoGebra applets into Teil B cards
+    teilBGfx.forEach(function(g) {
+      var card = teilB.querySelectorAll(".aufgabengruppe-card")[g.idx];
+      if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); queueGeoGebra(target, g.grafik, "teilb_" + g.id); }
+    });
   }
 
-  // Write step references
+  // Write step references (strip GeoGebra containers)
   document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil A (30 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
   document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil B (70 BE)</strong><br>' + (teilB.innerHTML || "");
+  document.querySelectorAll("#writeTaskRefA .ggb-container, #writeTaskRefB .ggb-container").forEach(function(el){el.remove();});
 }
 
 function toggleWahl(el, idx) {

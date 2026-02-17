@@ -301,6 +301,66 @@ const MODULE_CONFIG = {
 CONFIG.sachgebiet = "analysis";
 CONFIG.aufgabentyp = "kurzaufgabe";
 
+/* ====== GeoGebra lazy loader ====== */
+let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
+function loadGeoGebraScript() {
+  return new Promise(function(resolve) {
+    if (ggbScriptLoaded) { resolve(); return; }
+    ggbLoadCbs.push(resolve);
+    if (ggbScriptLoading) return;
+    ggbScriptLoading = true;
+    const s = document.createElement("script");
+    s.src = "https://www.geogebra.org/apps/deployggb.js";
+    const t = setTimeout(function() { s.onerror(); }, 15000);
+    s.onload = function() { clearTimeout(t); ggbScriptLoaded = true; ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
+    s.onerror = function() { ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
+    document.head.appendChild(s);
+  });
+}
+function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function(c){c.remove();}); }
+async function renderGeoGebra(containerEl, grafik, idPrefix) {
+  if (!grafik || !grafik.commands || !grafik.commands.length) return;
+  const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
+  const appletId = "ggb_" + idPrefix + "_" + (ggbCounter++);
+  const appletDiv = document.createElement("div"); appletDiv.id = appletId;
+  wrapper.appendChild(appletDiv);
+  const loader = document.createElement("div"); loader.className = "ggb-loader"; loader.textContent = "Grafik wird geladen\u2026";
+  wrapper.appendChild(loader);
+  containerEl.appendChild(wrapper);
+  await loadGeoGebraScript();
+  if (typeof GGBApplet === "undefined") { loader.textContent = "Grafik konnte nicht geladen werden."; loader.className = "ggb-error"; return; }
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const appName = ({"graphing":"graphing","3d":"3d","probability":"probability"})[grafik.type] || "graphing";
+  const params = {
+    appName: appName, width: wrapper.clientWidth || 700, height: grafik.type === "3d" ? 450 : 350,
+    showToolBar: false, showAlgebraInput: false, showMenuBar: false, enableRightClick: false,
+    enableShiftDragZoom: true, enableLabelDrags: false, showResetIcon: false, showZoomButtons: true,
+    scaleContainerClass: "ggb-container", allowUpscale: true, language: "de",
+    borderColor: isDark ? "#2e2e42" : "#e2e8f0",
+    appletOnLoad: function(api) {
+      loader.remove();
+      window[appletId + "_api"] = api;
+      try {
+        for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
+        if (grafik.settings && grafik.type !== "probability") {
+          var st = grafik.settings;
+          if (st.xmin != null && st.xmax != null && st.ymin != null && st.ymax != null) api.setCoordSystem(st.xmin, st.xmax, st.ymin, st.ymax);
+        }
+        if (isDark) { api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)"); }
+      } catch(e) { console.warn("GeoGebra cmd error:", e); }
+    }
+  };
+  new GGBApplet(params, true).inject(appletId);
+}
+/* Dark mode observer for GeoGebra */
+new MutationObserver(function() {
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  document.querySelectorAll(".ggb-container div[id^='ggb_']").forEach(function(el) {
+    var api = window[el.id + "_api"];
+    if (api) { try { api.evalCommand(isDark ? "SetBackgroundColor(0.11, 0.11, 0.16)" : "SetBackgroundColor(1, 1, 1)"); } catch(e){} }
+  });
+}).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
 const SG_LABELS = {
   analysis: "Analysis",
   stochastik: "Stochastik",
@@ -442,6 +502,10 @@ function renderTask(d) {
   instrEl.innerHTML = DOMPurify.sanitize(marked.parse(d.aufgabe || d.task_instruction || ""));
   renderMath(instrEl);
 
+  // GeoGebra: clean up old, render new
+  const taskCard = instrEl.closest(".card");
+  cleanupGeoGebra(taskCard);
+
   const container = document.getElementById("teilaufgabenContainer");
   if (d.teilaufgaben && d.teilaufgaben.length) {
     container.innerHTML = d.teilaufgaben.map(t =>
@@ -456,6 +520,13 @@ function renderTask(d) {
 
   const meta = document.getElementById("taskMeta");
   meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
+
+  // Render GeoGebra graph between task text and teilaufgaben
+  if (d.grafik && d.grafik.commands && d.grafik.commands.length) {
+    var ggbTarget = document.createElement("div");
+    container.parentNode.insertBefore(ggbTarget, container);
+    renderGeoGebra(ggbTarget, d.grafik, "task");
+  }
 
   // Write step reference
   const writeRef = document.getElementById("writeTaskRef");

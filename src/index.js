@@ -4771,6 +4771,22 @@ WICHTIG:
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss mathematisch korrekt und eindeutig lösbar sein
 
+GEOGEBRA-VISUALISIERUNG (optional):
+Falls die Aufgabe von einer grafischen Darstellung profitiert, füge ein "grafik"-Feld hinzu.
+- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Nullstellen, Flächen
+- Geometrie: type "3d" — Punkte, Geraden, Ebenen im 3D-Raum
+- Stochastik: type "probability" — nur wenn es die Aufgabe verdeutlicht
+GeoGebra-Syntax (NICHT LaTeX!):
+- Funktionen: f(x) = 2*x^2 - 3*x + 1 (immer * für Multiplikation)
+- Punkte: A = (1, 2) oder A = (1, 2, 3) für 3D
+- Geraden: g: X = (1,2,3) + t*(1,0,-1) oder Line(A, B)
+- Ebenen: E: 2*x + 3*y - z = 5
+- Farben: SetColor(f, 16, 185, 129) für Akzentfarbe
+- KEINE $ oder LaTeX in GeoGebra-Befehlen!
+Wann Grafik: Kurvendiskussion, Flächenberechnung, 3D-Geometrie, Funktionsgraphen.
+Wann KEINE Grafik: Reine Rechenaufgaben, Hypothesentests, algebraische Umformungen.
+Wenn keine Grafik nötig, lasse das "grafik"-Feld einfach weg.
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
@@ -4780,8 +4796,10 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${isKurz ? 5 : "20-30"},
   "sachgebiet": "${sg}",
-  "aufgabentyp": "${typ}"
-}`;
+  "aufgabentyp": "${typ}",
+  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1", "SetColor(f, 16, 185, 129)"], "settings": {"xmin": -2, "xmax": 4, "ymin": -2, "ymax": 8}}
+}
+Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
   const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (5 BE, ohne CAS)" : "Langaufgabe (20-30 BE, mit CAS)"} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
@@ -4976,6 +4994,22 @@ WICHTIG:
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
 
+GEOGEBRA-VISUALISIERUNG (optional, pro Aufgabe):
+Jede Aufgabe kann ein optionales "grafik"-Feld enthalten, um eine interaktive Grafik anzuzeigen.
+- Analysis: type "graphing" — Funktionsgraphen, Tangenten, Flächen
+- Geometrie: type "3d" — Punkte, Geraden, Ebenen im 3D-Raum
+- Stochastik: type "probability" — nur wenn sinnvoll
+GeoGebra-Syntax (NICHT LaTeX!):
+- Funktionen: f(x) = 2*x^2 - 3*x + 1 (immer * für Multiplikation)
+- Punkte: A = (1, 2) oder A = (1, 2, 3) für 3D
+- Geraden: g: X = (1,2,3) + t*(1,0,-1) oder Line(A, B)
+- Ebenen: E: 2*x + 3*y - z = 5
+- Farben: SetColor(f, 16, 185, 129) für Akzentfarbe
+- KEINE $ oder LaTeX in GeoGebra-Befehlen!
+Empfohlen: Grafik bei Teil-B-Aufgaben (Analysis: Funktionsgraph, Geometrie: 3D)
+Selten: Teil-A-Kurzaufgaben (nur wenn Grafik explizit hilfreich)
+Wenn keine Grafik nötig, lasse das "grafik"-Feld weg.
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "teil_a_pflicht": [
@@ -4993,11 +5027,12 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
   ],
   "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}, ...]},
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [...], "grafik": {"type": "graphing", "commands": ["f(x) = ..."], "settings": {"xmin": -2, "xmax": 8, "ymin": -5, "ymax": 20}}},
     {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "...", "teilaufgaben": [...]},
-    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...]}
+    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...], "grafik": {"type": "3d", "commands": ["A = (1,2,3)", "g: X = (1,2,3) + t*(1,0,-1)"], "settings": {}}}
   ]
-}`;
+}
+Hinweis: "grafik" ist OPTIONAL pro Aufgabe.`;
 
   const userPrompt = `Erstelle eine vollständige Mathematik-Abiturprüfung (eA, 100 BE).
 Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS
