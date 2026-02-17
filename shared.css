@@ -71,6 +71,14 @@
   --accent-glow: rgba(13, 148, 136, 0.08);
 }
 
+/* ====== INDIGO ACCENT (Ethik modules) ====== */
+[data-accent="indigo"] {
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-soft: #e0e7ff;
+  --accent-glow: rgba(79, 70, 229, 0.08);
+}
+
 /* ====== DARK MODE ====== */
 [data-theme="dark"] {
   --ink: #e4e4ed;
@@ -122,6 +130,12 @@
   --accent-hover: #5eead4;
   --accent-soft: rgba(45, 212, 191, 0.15);
   --accent-glow: rgba(45, 212, 191, 0.08);
+}
+[data-accent="indigo"][data-theme="dark"] {
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-soft: rgba(129, 140, 248, 0.15);
+  --accent-glow: rgba(129, 140, 248, 0.08);
 }
 
 /* ====== RESET & BASE ====== */
