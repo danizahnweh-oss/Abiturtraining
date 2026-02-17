@@ -12,8 +12,8 @@
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
 <!-- SmilesDrawer -->
 <script src="https://unpkg.com/smiles-drawer@2.1.8/dist/smiles-drawer.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -285,28 +285,19 @@ function updateLevelDisplay() {
 CONFIG.selectedAufgaben = new Set();
 const AUFGABEN_NEEDED = 3;
 
-/* ====== SmilesDrawer ====== */
-var smilesDrawerInstance = null;
-function getSmilesDrawer() {
-  if (!smilesDrawerInstance && typeof SmilesDrawer !== "undefined") {
-    smilesDrawerInstance = new SmilesDrawer.Drawer({ width: 260, height: 200 });
-  }
-  return smilesDrawerInstance;
-}
-
+/* ====== SmilesDrawer (v2 API) ====== */
 function renderSmilesCanvases(container) {
-  if (typeof SmilesDrawer === "undefined") return;
-  var drawer = getSmilesDrawer();
-  if (!drawer) return;
+  if (typeof SmilesDrawer === "undefined" || typeof SmilesDrawer.SmiDrawer === "undefined") return;
+  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
   container.querySelectorAll("canvas[data-smiles]").forEach(function(canvas) {
     var smiles = canvas.getAttribute("data-smiles");
     if (!smiles) return;
-    SmilesDrawer.parse(smiles, function(tree) {
-      var isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      drawer.draw(tree, canvas, isDark ? "dark" : "light");
-    }, function(err) {
-      console.warn("SMILES parse error:", smiles, err);
-    });
+    try {
+      var drawer = new SmilesDrawer.SmiDrawer({ width: canvas.width || 260, height: canvas.height || 200, bondThickness: 1.5, fontSizeLarge: 11, fontSizeSmall: 7, padding: 20, themes: { dark: { C: "#e4e4ed", O: "#f87171", N: "#60a5fa", S: "#fbbf24", H: "#b0b0c8", BACKGROUND: "#1e1e2e" }, light: { C: "#1a1a2e", O: "#dc2626", N: "#2563eb", S: "#b45309", H: "#4a4a6a", BACKGROUND: "#ffffff" } } });
+      drawer.draw(smiles, canvas, isDark ? "dark" : "light");
+    } catch(err) {
+      console.warn("SMILES render error:", smiles, err);
+    }
   });
 }
 
@@ -361,7 +352,7 @@ function renderMath(el) {
 
 /* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
 function renderInlineKatex(text) {
-  if (!text) return "";
+  if (!text || typeof text !== "string") return "";
   if (typeof katex === "undefined") return escapeHtml(text);
   var parts = [];
   var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
@@ -371,7 +362,7 @@ function renderInlineKatex(text) {
     if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
     var math = match[1] !== undefined ? match[1] : match[2];
     var isDisplay = match[1] !== undefined;
-    try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false })); }
+    try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false, strict: false })); }
     catch(e) { parts.push(escapeHtml(match[0])); }
     lastIndex = re.lastIndex;
   }
@@ -457,13 +448,15 @@ function renderTask(d) {
     if (a.sachgebiet) html += ' <span class="sachgebiet-badge">' + escapeHtml(a.sachgebiet) + '</span>';
     html += '</h4>';
 
-    // Material sections
-    if (a.materialien && a.materialien.length) {
-      a.materialien.forEach(function(m, mi) {
-        html += '<details class="material-details"><summary>' + escapeHtml(m.titel || ("M" + (mi + 1))) + '</summary>';
+    // Material sections (normalize: materialien || material)
+    var mats = a.materialien || (Array.isArray(a.material) ? a.material : (a.material && typeof a.material === "string" ? [{text: a.material}] : []));
+    if (mats.length) {
+      mats.forEach(function(m, mi) {
+        if (!m || typeof m !== "object") return;
+        html += '<details class="material-details"><summary>' + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
         html += '<div class="material-body">';
         if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
-        if (m.tabelle) html += m.tabelle;
+        if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
         if (m.strukturformeln && m.strukturformeln.length) {
           m.strukturformeln.forEach(function(sf, si) {
             var canvasId = "smiles_" + idx + "_" + mi + "_" + si;
@@ -475,31 +468,6 @@ function renderTask(d) {
         }
         html += '</div></details>';
       });
-    }
-
-    // Single material field (alternative format)
-    if (a.material && !a.materialien) {
-      if (Array.isArray(a.material)) {
-        a.material.forEach(function(m, mi) {
-          html += '<details class="material-details"><summary>' + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
-          html += '<div class="material-body">';
-          if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
-          if (m.tabelle) html += m.tabelle;
-          if (m.strukturformeln && m.strukturformeln.length) {
-            m.strukturformeln.forEach(function(sf, si) {
-              var canvasId = "smiles_mat_" + idx + "_" + mi + "_" + si;
-              html += '<div style="text-align:center;margin:.5rem 0">';
-              if (sf.name) html += '<div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">' + escapeHtml(sf.name) + '</div>';
-              html += '<canvas class="smiles-canvas" id="' + canvasId + '" data-smiles="' + escapeHtml(sf.smiles || "") + '" width="260" height="200"></canvas>';
-              html += '</div>';
-            });
-          }
-          html += '</div></details>';
-        });
-      } else {
-        html += '<details class="material-details"><summary>Material</summary>';
-        html += '<div class="material-body">' + DOMPurify.sanitize(safeMathParse(a.material)) + '</div></details>';
-      }
     }
 
     // Teilaufgaben
