@@ -329,6 +329,7 @@ function beToNP(erreicht, max) {
 /* ====== Protect LaTeX blocks from marked's Markdown processing ====== */
 function protectMath(text) {
   var blocks = [];
+  if (!text || typeof text !== "string") return { text: text || "", blocks: blocks };
   text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
   text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
   return { text: text, blocks: blocks };
