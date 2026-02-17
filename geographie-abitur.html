@@ -543,6 +543,8 @@ async function generateTask() {
       schwerpunkt: document.getElementById("schwerpunktSelect").value,
       level: level
     });
+    console.log("RAW API response:", JSON.stringify(raw).substring(0, 500));
+    console.log("RAW keys:", Object.keys(raw));
     // Flatten nested teil_a/teil_b from API into flat structure for renderTask
     const d = {
       task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
@@ -551,6 +553,7 @@ async function generateTask() {
       halbjahr: raw.halbjahr || CONFIG.halbjahr,
       thema: raw.thema || ""
     };
+    console.log("FLATTENED:", JSON.stringify(d).substring(0, 500));
     CONFIG.storedData = d;
     renderTask(d);
     nav("task");
