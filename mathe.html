@@ -188,21 +188,6 @@
         Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>f'(x) = 4x + 3</code>, <code>int_0^1 x^2 dx = 1/3</code>, <code>sqrt(x)</code>
       </p>
 
-      <!-- Formel-Editor (MathLive) -->
-      <details class="formel-editor" id="formelEditor">
-        <summary>&#x1F9EE; Formel-Editor</summary>
-        <div class="formel-editor-body">
-          <div class="formel-mf-wrap"><math-field id="formelMF" virtual-keyboard-mode="onfocus"></math-field></div>
-          <div class="formel-tabs" id="formelTabs"></div>
-          <div class="formel-btns" id="formelBtns"></div>
-          <div class="formel-actions">
-            <button class="btn btn-small" onclick="insertFormula()">&#x2713; Einf&uuml;gen</button>
-            <button class="btn btn-small btn-secondary" onclick="clearMathField()">L&ouml;schen</button>
-            <span class="formel-preview" id="formelPreview"></span>
-          </div>
-        </div>
-      </details>
-
       <div id="studentTextareas"></div>
 
       <div class="write-toolbar">
@@ -611,6 +596,22 @@ function renderTask(d) {
 /* ====== PER-TEILAUFGABE TEXTAREAS ====== */
 let activeStudentTaId = "studentText_0";
 
+function formelEditorHTML(idx) {
+  return '<details class="formel-editor" data-fe-idx="' + idx + '">' +
+    '<summary>\u{1F9EE} Formel-Editor</summary>' +
+    '<div class="formel-editor-body">' +
+      '<div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div>' +
+      '<div class="formel-tabs" id="formelTabs_' + idx + '"></div>' +
+      '<div class="formel-btns" id="formelBtns_' + idx + '"></div>' +
+      '<div class="formel-actions">' +
+        '<button class="btn btn-small" onclick="insertFormulaFor(' + idx + ')">\u2713 Einf\u00fcgen</button>' +
+        '<button class="btn btn-small btn-secondary" onclick="clearMathFieldFor(' + idx + ')">L\u00f6schen</button>' +
+        '<span class="formel-preview" id="formelPreview_' + idx + '"></span>' +
+      '</div>' +
+    '</div>' +
+  '</details>';
+}
+
 function renderStudentTextareas(d) {
   const wrap = document.getElementById("studentTextareas");
   if (!wrap) return;
@@ -628,6 +629,7 @@ function renderStudentTextareas(d) {
       div.className = "student-ta-group";
       div.innerHTML =
         '<label for="' + id + '">' + label + '</label>' +
+        formelEditorHTML(i) +
         '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea>' +
         '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
       wrap.appendChild(div);
@@ -638,14 +640,40 @@ function renderStudentTextareas(d) {
     // Fallback: single textarea for upload/manual tasks without teilaufgaben
     wrap.innerHTML =
       '<div class="student-ta-group">' +
+      formelEditorHTML(0) +
       '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Plain-Text-Mathe:\n\u2022 f(x) = 2x^2 + 3x - 1\n\u2022 f\'(x) = 4x + 3\n\u2022 int_0^1 x^2 dx = 1/3\n\u2022 P(X >= 3) = 1 - P(X <= 2)\n\u2022 vec(a) = (1, 2, 3)" oninput="updateWordCount()"></textarea>' +
       '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
       '</div>';
     document.getElementById("studentText_0").addEventListener("focus", function() { activeStudentTaId = "studentText_0"; });
   }
 
+  // Set up lazy-load toggle listeners for each formula editor
+  wrap.querySelectorAll('.formel-editor').forEach(function(details) {
+    var idx = parseInt(details.getAttribute('data-fe-idx'));
+    details.addEventListener('toggle', function() {
+      if (!this.open) return;
+      if (!mathLiveLoaded) {
+        loadMathLive().then(function() {
+          initFormelEditor(idx);
+        }).catch(function(err) { showToast(err.message); });
+      } else {
+        initFormelEditor(idx);
+      }
+    });
+  });
+
   activeStudentTaId = "studentText_0";
   updateWordCount();
+}
+
+function initFormelEditor(idx) {
+  var mf = document.getElementById('formelMF_' + idx);
+  if (mf && !mf._feInit) {
+    mf.addEventListener('input', function() { updateFormelPreviewFor(idx); });
+    mf._feInit = true;
+  }
+  renderFormelTabsFor(idx);
+  renderFormelButtonsFor(idx);
 }
 
 async function submitForGrading() {
@@ -835,51 +863,54 @@ const FORMEL_BUTTONS = {
 
 let activeFormelTab = "grundlagen";
 
-function renderFormelTabs() {
-  var tabsEl = document.getElementById("formelTabs");
+function renderFormelTabsFor(feIdx) {
+  var tabsEl = document.getElementById("formelTabs_" + feIdx);
   if (!tabsEl) return;
   tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function(key) {
-    return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTab(\'' + key + '\')">' + FORMEL_BUTTONS[key].label + '</button>';
+    return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>';
   }).join("");
 }
 
-function switchFormelTab(cat) {
+function switchFormelTabFor(cat, feIdx) {
   activeFormelTab = cat;
-  renderFormelTabs();
-  renderFormelButtons();
+  // Update tabs in all open editors
+  document.querySelectorAll('.formel-editor[open]').forEach(function(d) {
+    renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx')));
+    renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx')));
+  });
 }
 
-function renderFormelButtons() {
-  var btnsEl = document.getElementById("formelBtns");
+function renderFormelButtonsFor(feIdx) {
+  var btnsEl = document.getElementById("formelBtns_" + feIdx);
   if (!btnsEl) return;
   var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
   btnsEl.innerHTML = buttons.map(function(b, i) {
-    return '<button class="formel-btn" onclick="insertQuickLatex(' + i + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
+    return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
   }).join("");
 }
 
-function insertQuickLatex(idx) {
-  var mf = document.getElementById("formelMF");
+function insertQuickLatexFor(btnIdx, feIdx) {
+  var mf = document.getElementById("formelMF_" + feIdx);
   if (!mf) return;
   var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
-  var b = buttons[idx];
+  var b = buttons[btnIdx];
   if (!b) return;
   mf.executeCommand(["insert", b.latex]);
   mf.focus();
-  updateFormelPreview();
+  updateFormelPreviewFor(feIdx);
 }
 
-function updateFormelPreview() {
-  var mf = document.getElementById("formelMF");
-  var preview = document.getElementById("formelPreview");
+function updateFormelPreviewFor(feIdx) {
+  var mf = document.getElementById("formelMF_" + feIdx);
+  var preview = document.getElementById("formelPreview_" + feIdx);
   if (mf && preview) { preview.textContent = mf.value || ""; }
 }
 
-function insertFormula() {
-  var mf = document.getElementById("formelMF");
+function insertFormulaFor(feIdx) {
+  var mf = document.getElementById("formelMF_" + feIdx);
   if (!mf || !mf.value) return;
   var latex = "$" + mf.value + "$";
-  var ta = document.getElementById(activeStudentTaId || "studentText_0");
+  var ta = document.getElementById("studentText_" + feIdx);
   if (!ta) return;
   var start = ta.selectionStart, end = ta.selectionEnd;
   var before = ta.value.substring(0, start);
@@ -892,12 +923,12 @@ function insertFormula() {
   ta.focus();
   updateWordCount();
   mf.value = "";
-  updateFormelPreview();
+  updateFormelPreviewFor(feIdx);
 }
 
-function clearMathField() {
-  var mf = document.getElementById("formelMF");
-  if (mf) { mf.value = ""; updateFormelPreview(); mf.focus(); }
+function clearMathFieldFor(feIdx) {
+  var mf = document.getElementById("formelMF_" + feIdx);
+  if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
 }
 
 /* ====== OVERRIDE: updateWordCount — per-Textarea + Gesamtsumme ====== */
@@ -925,24 +956,6 @@ function useOCRText() {
   updateWordCount();
   showToast("Text \u00fcbernommen in " + (activeStudentTaId || "studentText_0").replace("studentText_", "Feld ") + "!", "success");
 }
-
-// Lazy load on first open
-document.getElementById("formelEditor")?.addEventListener("toggle", function(e) {
-  if (this.open && !mathLiveLoaded) {
-    loadMathLive().then(function() {
-      var mf = document.getElementById("formelMF");
-      if (mf) {
-        mf.addEventListener("input", updateFormelPreview);
-      }
-      renderFormelTabs();
-      renderFormelButtons();
-    }).catch(function(err) { showToast(err.message); });
-  }
-  if (this.open && mathLiveLoaded) {
-    renderFormelTabs();
-    renderFormelButtons();
-  }
-});
 
 // Render default fallback textarea on page load (before any task is generated)
 renderStudentTextareas({ teilaufgaben: [] });
