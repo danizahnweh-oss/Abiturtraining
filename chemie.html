@@ -415,12 +415,15 @@ function protectMath(text) {
   return { text: text, blocks: blocks };
 }
 function restoreMath(html, blocks) {
+  if (!html || typeof html !== "string") return html || "";
   return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
 }
 function safeMathParse(text) {
+  if (!text || typeof text !== "string") return "";
   var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
 }
 function safeMathParseInline(text) {
+  if (!text || typeof text !== "string") return "";
   var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
 }
 
