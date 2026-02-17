@@ -152,6 +152,20 @@
   --accent-glow: rgba(34, 211, 238, 0.08);
 }
 
+/* ====== EMERALD ACCENT (Mathematik modules) ====== */
+[data-accent="emerald"] {
+  --accent: #10b981;
+  --accent-hover: #059669;
+  --accent-soft: #d1fae5;
+  --accent-glow: rgba(16, 185, 129, 0.08);
+}
+[data-accent="emerald"][data-theme="dark"] {
+  --accent: #34d399;
+  --accent-hover: #6ee7b7;
+  --accent-soft: rgba(52, 211, 153, 0.15);
+  --accent-glow: rgba(52, 211, 153, 0.08);
+}
+
 /* ====== RED ACCENT (Latein modules) ====== */
 [data-accent="red"] {
   --accent: #dc2626;

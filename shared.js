@@ -303,6 +303,10 @@ function serverEntryToLocal(entry) {
       return { ...base, autor: entry.topic, verstehen: entry.content, darstellung: entry.language };
     case "latein-abitur":
       return { ...base, autor: entry.topic, teil_a: entry.content, darstellung: entry.language };
+    case "mathe":
+      return { ...base, sachgebiet: entry.topic, aufgabentyp: entry.content, darstellung: entry.language };
+    case "mathe-abitur":
+      return { ...base, teil_a: entry.content, darstellung: entry.language };
     case "geschichte-abitur":
       return { ...base, thema: entry.topic, sach_a: entry.content, darstellung: entry.language };
     case "wr":
