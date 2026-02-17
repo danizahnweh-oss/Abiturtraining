@@ -442,6 +442,31 @@ export default {
         return await handleModelAnswerAbiturMathe(request, env);
       }
 
+      // ===== CHEMIE ENDPOINTS =====
+      if (pathname === "/api/generate-chemie" && request.method === "POST") {
+        return await handleGenerateChemie(request, env);
+      }
+      if (pathname === "/api/grade-chemie" && request.method === "POST") {
+        return await handleGradeChemie(request, env);
+      }
+      if (pathname === "/api/model-answer-chemie" && request.method === "POST") {
+        return await handleModelAnswerChemie(request, env);
+      }
+      if (pathname === "/api/parse-task-chemie" && request.method === "POST") {
+        return await handleParseTaskChemie(request, env);
+      }
+
+      // ===== CHEMIE ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-chemie" && request.method === "POST") {
+        return await handleGenerateAbiturChemie(request, env);
+      }
+      if (pathname === "/api/grade-abitur-chemie" && request.method === "POST") {
+        return await handleGradeAbiturChemie(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-chemie" && request.method === "POST") {
+        return await handleModelAnswerAbiturChemie(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -5299,6 +5324,590 @@ WICHTIG:
       if (b.teilaufgaben) {
         for (const t of b.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
       }
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= CHEMIE: GENERATE ================= */
+async function handleGenerateChemie(request, env) {
+  const body = await request.json();
+  const { sachgebiet, aufgabentyp } = body;
+
+  const sg = sachgebiet || "elektrochemie";
+  const typ = aufgabentyp || "kurzaufgabe";
+  const isKurz = typ === "kurzaufgabe";
+
+  const sgThemen = {
+    elektrochemie: {
+      title: "Elektrochemie",
+      inhalte: "Galvanische Zellen, Elektrolyse, Nernst-Gleichung, Standardpotentiale, Korrosion, Akkumulatoren"
+    },
+    gleichgewicht: {
+      title: "Chemisches Gleichgewicht / Säure-Base",
+      inhalte: "Massenwirkungsgesetz, Le Chatelier, Puffer, pH-Wert, Säure-Base-Titration, Henderson-Hasselbalch"
+    },
+    thermochemie: {
+      title: "Thermochemie",
+      inhalte: "Enthalpie, Entropie, Gibbs-Energie, Hess'scher Satz, Kalorimetrie, Born-Haber-Kreisprozess"
+    },
+    organik: {
+      title: "Organische Chemie",
+      inhalte: "Stoffklassen (Alkane, Alkene, Alkohole, Aldehyde, Ketone, Carbonsäuren, Ester), Reaktionsmechanismen (SN1, SN2, E1, E2, elektrophile Addition), Isomerie, Nomenklatur"
+    },
+    kunststoffe: {
+      title: "Kunststoffe",
+      inhalte: "Polymerisation (radikalisch, kationisch, anionisch), Polykondensation, Polyaddition, Thermoplaste, Duroplaste, Elastomere, Recycling"
+    },
+    spektroskopie: {
+      title: "Spektroskopie",
+      inhalte: "IR-Spektroskopie, NMR-Spektroskopie (1H, 13C), Massenspektrometrie, Strukturaufklärung"
+    },
+    enzymkatalyse: {
+      title: "Enzymkatalyse",
+      inhalte: "Michaelis-Menten-Kinetik, Enzymhemmung (kompetitiv, nicht-kompetitiv), Substratspezifität, Aktivierungsenergie"
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.elektrochemie;
+
+  const systemPrompt = `Du bist ein Chemie-Experte für das bayerische Abitur (gA/eA, G9, ab 2026).
+Erstelle eine authentische Chemie-Aufgabe.
+
+${isKurz ? `KURZAUFGABE:
+- 1 Aufgabe mit 2-3 Teilaufgaben
+- Gesamt: 10 BE
+- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Klare, fachlich korrekte Aufgaben` :
+`LANGAUFGABE (mit Material):
+- 1 große Aufgabe mit 4-6 Teilaufgaben
+- Gesamt: 30 BE
+- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
+- Steigendes Anforderungsniveau`}
+
+SACHGEBIET: ${sgInfo.title}
+Relevante Inhalte:
+${sgInfo.inhalte}
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Gib bei jeder Teilaufgabe die BE an
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
+
+LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
+- Brüche: $\\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\ne$, $\\approx$ (NICHT <=, >=)
+
+CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
+- Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$, $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
+- Phasenindikatoren: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
+- Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
+- Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$, $\\text{kJ/mol}$
+- Gleichgewichtskonstante: $K_c$, $K_p$, $K_s$, $K_w$, $K_a$, $K_b$
+- pH-Berechnungen: $\\text{pH} = -\\lg c(\\ce{H3O+})$
+- Nernst-Gleichung: $E = E^\\circ + \\frac{R \\cdot T}{z \\cdot F} \\cdot \\ln Q$
+
+KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "teilaufgaben": [
+    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 3},
+    {"id": "b)", "text": "...", "be": 4}
+  ],
+  "gesamt_be": ${isKurz ? 10 : 30},
+  "sachgebiet": "${sg}",
+  "aufgabentyp": "${typ}",
+  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
+  "strukturformeln": [{"smiles": "OCC(O)CO", "caption": "Glycerin"}]
+}
+Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
+Hinweis: "strukturformeln" ist OPTIONAL — nur wenn Strukturformeln pädagogisch sinnvoll sind.`;
+
+  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 6000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= CHEMIE: GRADE ================= */
+async function handleGradeChemie(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+
+  if (!student_text && !student_texts) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 10;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    aufgabenInfo += "Materialien:\n";
+    for (const m of material) {
+      aufgabenInfo += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    aufgabenInfo += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  // Build structured student solution text
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    // Per-Teilaufgabe format
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
+  }
+
+  const rubricPrompt = `Du bewertest eine Chemie-Klausur (Bayern, gA/eA, Abitur ab 2026) nach dem BE-System (Bewertungseinheiten).
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Fachsprache, Reaktionsgleichungen, Mechanismen, quantitative Berechnungen, korrekte chemische Nomenklatur
+- Ansatz korrekt aber Rechenfehler → trotzdem Teilpunkte für Ansatz
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie (z.B. H2O, NaOH + HCl -> NaCl + H2O) und LaTeX-Notation ($\\ce{H2O}$, $\\frac{1}{2}$). Interpretiere beides großzügig.
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für chemische und mathematische Ausdrücke.
+LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
+CHEMIE-REGELN: Verwende $\\ce{}$ für alle Reaktionsgleichungen und chemische Formeln.
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 3, "bewertung": "Markdown-Bewertung mit $LaTeX$/$\\\\ce{}$"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$/$\\\\ce{}$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= CHEMIE: MODEL ANSWER ================= */
+async function handleModelAnswerChemie(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, material } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Chemie-Oberstufenschüler am bayerischen Gymnasium (gA/eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "Anwendung der Nernst-Gleichung")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE
+
+LATEX-FORMATIERUNG (echte Chemie/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $\\cdot$ (NIEMALS $*$)
+- Brüche: $\\frac{a}{b}$ (NICHT a/b)
+- Dezimalkomma: $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\approx$
+
+CHEMIE-SPEZIFISCHE LATEX-REGELN:
+- Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
+- Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
+- Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
+- Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    userContent += "MATERIALIEN:\n";
+    for (const m of material) {
+      userContent += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    userContent += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= CHEMIE: PARSE TASK ================= */
+async function handleParseTaskChemie(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Chemie-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln, Reaktionsgleichungen, Strukturformeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$) und $\\ce{}$ für chemische Formeln und Reaktionsgleichungen (mhchem-Erweiterung). CHEMIE-REGELN: $\\ce{H2O}$ für Formeln, $\\ce{2H2 + O2 -> 2H2O}$ für Reaktionen, $\\ce{<=>}$ für Gleichgewichte. LATEX-REGELN: \\cdot statt *, \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000);
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= CHEMIE ABITUR: GENERATE ================= */
+async function handleGenerateAbiturChemie(request, env) {
+  const body = await request.json();
+  const { level } = body;
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+
+  const pruefungsdauer = isEA ? 300 : 255;
+  const beProAufgabe = isEA ? 40 : 30;
+  const gesamtBE = isEA ? 120 : 90;
+  const anzahlAufgaben = 4;
+  const wahlAnzahl = 3;
+
+  const systemPrompt = `Du bist ein Chemie-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE Chemie-Abiturprüfung.
+
+PRÜFUNGSSTRUKTUR (${lvl}):
+- Prüfungsdauer: ${pruefungsdauer} Minuten
+- ${anzahlAufgaben} Aufgabengruppen, der Schüler wählt ${wahlAnzahl} davon
+- Jede Aufgabengruppe: ${beProAufgabe} BE
+- Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
+- Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+SACHGEBIETE (wähle 4 verschiedene aus):
+1. Elektrochemie: Galvanische Zellen, Elektrolyse, Nernst-Gleichung, Standardpotentiale, Korrosion, Akkumulatoren
+2. Chemisches Gleichgewicht / Säure-Base: Massenwirkungsgesetz, Le Chatelier, Puffer, pH-Wert, Säure-Base-Titration, Henderson-Hasselbalch
+3. Thermochemie: Enthalpie, Entropie, Gibbs-Energie, Hess'scher Satz, Kalorimetrie, Born-Haber-Kreisprozess
+4. Organische Chemie: Stoffklassen, Reaktionsmechanismen (SN1, SN2, E1, E2, elektrophile Addition), Isomerie, Nomenklatur
+5. Kunststoffe: Polymerisation, Polykondensation, Polyaddition, Thermoplaste, Duroplaste, Elastomere
+6. Spektroskopie: IR, NMR (1H, 13C), Massenspektrometrie, Strukturaufklärung
+7. Enzymkatalyse: Michaelis-Menten-Kinetik, Enzymhemmung, Substratspezifität, Aktivierungsenergie
+
+JEDE AUFGABENGRUPPE hat:
+- Einen Titel (z.B. "Aufgabe 1: Elektrochemie in der Praxis")
+- Ein Sachgebiet
+- Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten
+- 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Gesamt: ${beProAufgabe} BE
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
+- Materialien müssen realistisch und aussagekräftig sein
+
+LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
+- Brüche: $\\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\ne$, $\\approx$ (NICHT <=, >=)
+
+CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
+- Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
+- Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
+- Phasenindikatoren: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
+- Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
+- Thermochemie: $\\Delta H$, $\\Delta G$, $\\Delta S$, $\\text{kJ/mol}$
+
+KEINE GeoGebra-Visualisierung — Chemie verwendet kein GeoGebra.
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgaben": [
+    {
+      "id": "Aufgabe 1",
+      "titel": "Titel der Aufgabe",
+      "sachgebiet": "elektrochemie",
+      "material": [
+        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten...", "strukturformeln": [{"smiles": "...", "caption": "..."}]}
+      ],
+      "teilaufgaben": [
+        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 5},
+        {"id": "1.2", "text": "...", "be": 8}
+      ],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 2",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 3",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 4",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    }
+  ],
+  "level": "${lvl}",
+  "pruefungsdauer": ${pruefungsdauer},
+  "gesamt_be": ${gesamtBE}
+}
+Hinweis: "strukturformeln" innerhalb von material ist OPTIONAL.`;
+
+  const userPrompt = `Erstelle eine vollständige Chemie-Abiturprüfung (${lvl}, ${gesamtBE} BE).
+${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
+Prüfungsdauer: ${pruefungsdauer} Minuten.
+Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
+KRITISCH: Alle Formeln in LaTeX-Notation, chemische Formeln mit $\\ce{}$.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= CHEMIE ABITUR: GRADE ================= */
+async function handleGradeAbiturChemie(request, env) {
+  const body = await request.json();
+  const { aufgaben, student_texts, level } = body;
+
+  if (!student_texts || !Object.keys(student_texts).length) {
+    return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
+  }
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+  const beProAufgabe = isEA ? 40 : 30;
+  const maxBE = 3 * beProAufgabe;
+
+  let aufgabenInfo = "";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      aufgabenInfo += `\n${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          aufgabenInfo += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 500)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  let studentTexts = "";
+  if (typeof student_texts === "object") {
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        studentTexts += `\nSchülerlösung ${key}:\n${truncate(text, 8000)}\n`;
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Chemie-Abiturprüfung (Bayern, ${lvl}, G9, ab 2026).
+Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
+
+BEWERTUNGSREGELN:
+- Bewerte jede Aufgabe und jede Teilaufgabe einzeln
+- Bewertungskriterien: Fachsprache, Reaktionsgleichungen, Mechanismen, quantitative Berechnungen, korrekte chemische Nomenklatur
+- Ansatz korrekt aber Rechenfehler → Teilpunkte
+- Folgefehler berücksichtigen
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie und LaTeX-Notation. Interpretiere beides großzügig.
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) und $\\ce{}$ im Feedback.
+
+Antworte NUR mit validem JSON:
+{
+  "aufgaben_be": [
+    {"id": "Aufgabe 1", "erreichte_be": <Zahl>, "max_be": ${beProAufgabe}, "bewertung": "Markdown-Feedback"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$/$\\\\ce{}$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && parsed.aufgaben_be && parsed.aufgaben_be.length) {
+      gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      aufgaben_be: parsed.aufgaben_be || [],
+      gesamt_be: gesamtBE,
+      max_be: maxBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      aufgaben_be: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= CHEMIE ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturChemie(request, env) {
+  const { aufgaben, level } = await request.json();
+
+  const lvl = level || "gA";
+
+  const systemPrompt = `Du bist ein sehr guter Chemie-Oberstufenschüler am bayerischen Gymnasium (${lvl}).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für alle gewählten Aufgaben.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Verwende $\\ce{}$ für alle chemischen Formeln und Reaktionsgleichungen
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
+- CHEMIE-REGELN: $\\ce{H2O}$ für Formeln, $\\ce{2H2 + O2 -> 2H2O}$ für Reaktionen, $\\ce{<=>}$ für Gleichgewichte
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Aufgabe 1: [Titel]
+  ### Teilaufgabe 1.1
+  ...
+  ## Aufgabe 2: [Titel]
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
+
+  let userContent = "GEWÄHLTE AUFGABEN:\n\n";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          userContent += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+      userContent += "\n";
     }
   }
 

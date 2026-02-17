@@ -21,6 +21,7 @@
   --accent-geo:#0891b2;--accent-geo-hover:#0e7490;--accent-geo-soft:#cffafe;--accent-geo-glow:rgba(8,145,178,.08);
   --accent-lat:#dc2626;--accent-lat-hover:#b91c1c;--accent-lat-soft:#fee2e2;--accent-lat-glow:rgba(220,38,38,.08);
   --accent-mat:#10b981;--accent-mat-hover:#059669;--accent-mat-soft:#d1fae5;--accent-mat-glow:rgba(16,185,129,.08);
+  --accent-che:#ea580c;--accent-che-hover:#c2410c;--accent-che-soft:#ffedd5;--accent-che-glow:rgba(234,88,12,.08);
 }
 [data-theme="dark"]{
   --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
@@ -33,6 +34,7 @@
   --accent-geo:#22d3ee;--accent-geo-hover:#67e8f9;--accent-geo-soft:rgba(34,211,238,.15);--accent-geo-glow:rgba(34,211,238,.08);
   --accent-lat:#f87171;--accent-lat-hover:#fca5a5;--accent-lat-soft:rgba(248,113,113,.15);--accent-lat-glow:rgba(248,113,113,.08);
   --accent-mat:#34d399;--accent-mat-hover:#6ee7b7;--accent-mat-soft:rgba(52,211,153,.15);--accent-mat-glow:rgba(52,211,153,.08);
+  --accent-che:#fb923c;--accent-che-hover:#fdba74;--accent-che-soft:rgba(251,146,60,.15);--accent-che-glow:rgba(251,146,60,.08);
 }
 
 /* School badge gradient (both accent colors) */
@@ -42,7 +44,9 @@
 .module-card.latein .module-badge{background:var(--accent-lat-soft);color:var(--accent-lat)}
 .module-card.mathe:hover{border-color:var(--accent-mat)}
 .module-card.mathe .module-badge{background:var(--accent-mat-soft);color:var(--accent-mat)}
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft),var(--accent-eth-soft),var(--accent-geo-soft),var(--accent-lat-soft),var(--accent-mat-soft));color:var(--ink)}
+.module-card.chemie:hover{border-color:var(--accent-che)}
+.module-card.chemie .module-badge{background:var(--accent-che-soft);color:var(--accent-che)}
+.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft),var(--accent-eth-soft),var(--accent-geo-soft),var(--accent-lat-soft),var(--accent-mat-soft),var(--accent-che-soft));color:var(--ink)}
 .login-box h2{font-size:1.8rem}
 
 /* ====== SUBJECT SELECTION SCREEN ====== */
@@ -52,8 +56,8 @@
 .subject-header h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-de));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .greeting-bar{text-align:center;margin-top:2rem;color:var(--ink-muted);font-size:.9rem}
 .greeting-bar strong{color:var(--ink)}
-.subject-grid{max-width:1000px;width:100%;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.subject-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--ink);position:relative;overflow:hidden}
+.subject-grid{max-width:1000px;width:100%;margin:1.5rem auto;padding:0 1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.8rem}
+.subject-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:.8rem .5rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--ink);position:relative;overflow:hidden}
 .subject-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
 .subject-card.english::before{background:linear-gradient(135deg,var(--accent-glow),transparent)}
 .subject-card.german::before{background:linear-gradient(135deg,var(--accent-de-glow),transparent)}
@@ -66,6 +70,7 @@
 .subject-card.geographie::before{background:linear-gradient(135deg,var(--accent-geo-glow),transparent)}
 .subject-card.latein::before{background:linear-gradient(135deg,var(--accent-lat-glow),transparent)}
 .subject-card.mathe::before{background:linear-gradient(135deg,var(--accent-mat-glow),transparent)}
+.subject-card.chemie::before{background:linear-gradient(135deg,var(--accent-che-glow),transparent)}
 .subject-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .subject-card:hover::before{opacity:1}
 .subject-card.english:hover{border-color:var(--accent)}
@@ -79,8 +84,9 @@
 .subject-card.geographie:hover{border-color:var(--accent-geo)}
 .subject-card.latein:hover{border-color:var(--accent-lat)}
 .subject-card.mathe:hover{border-color:var(--accent-mat)}
-.subject-icon{font-size:4rem;margin-bottom:1rem;position:relative;z-index:1}
-.subject-title{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;position:relative;z-index:1}
+.subject-card.chemie:hover{border-color:var(--accent-che)}
+.subject-icon{font-size:2.2rem;margin-bottom:.4rem;position:relative;z-index:1}
+.subject-title{font-family:var(--font-display);font-size:.95rem;margin-bottom:0;position:relative;z-index:1}
 .subject-card.english .subject-title{color:var(--accent)}
 .subject-card.german .subject-title{color:var(--accent-de)}
 .subject-card.pug .subject-title{color:var(--accent-pug)}
@@ -92,19 +98,9 @@
 .subject-card.geographie .subject-title{color:var(--accent-geo)}
 .subject-card.latein .subject-title{color:var(--accent-lat)}
 .subject-card.mathe .subject-title{color:var(--accent-mat)}
-.subject-desc{color:var(--ink-muted);font-size:.9rem;line-height:1.5;position:relative;z-index:1}
-.subject-badge{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;position:relative;z-index:1}
-.subject-card.english .subject-badge{background:var(--accent-soft);color:var(--accent)}
-.subject-card.german .subject-badge{background:var(--accent-de-soft);color:var(--accent-de)}
-.subject-card.pug .subject-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
-.subject-card.history .subject-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
-.subject-card.wr .subject-badge{background:var(--accent-wr-soft);color:var(--accent-wr)}
-.subject-card.french .subject-badge{background:var(--accent-fr-soft);color:var(--accent-fr)}
-.subject-card.italian .subject-badge{background:var(--accent-it-soft);color:var(--accent-it)}
-.subject-card.ethik .subject-badge{background:var(--accent-eth-soft);color:var(--accent-eth)}
-.subject-card.geographie .subject-badge{background:var(--accent-geo-soft);color:var(--accent-geo)}
-.subject-card.latein .subject-badge{background:var(--accent-lat-soft);color:var(--accent-lat)}
-.subject-card.mathe .subject-badge{background:var(--accent-mat-soft);color:var(--accent-mat)}
+.subject-card.chemie .subject-title{color:var(--accent-che)}
+.subject-desc{display:none}
+.subject-badge{display:none}
 
 /* ====== MODULE SCREEN ====== */
 #module-screen{display:none;min-height:100vh;flex-direction:column}
@@ -156,7 +152,8 @@ footer{padding:1.5rem;border-top:none}
 footer a{color:var(--accent)}
 
 @media(max-width:650px){
-  .subject-grid,.module-grid{grid-template-columns:1fr}
+  .subject-grid{grid-template-columns:repeat(3,1fr)}
+  .module-grid{grid-template-columns:1fr}
   .login-box{padding:1.5rem}
 }
 </style>
@@ -261,6 +258,12 @@ footer a{color:var(--accent)}
       <div class="subject-title">Mathematik</div>
       <div class="subject-desc">Analysis, Stochastik und Geometrie – mit KaTeX-Formeln, BE-Bewertung und Schritt-für-Schritt-Lösungen.</div>
       <div class="subject-badge">2 Module · nur eA</div>
+    </div>
+    <div class="subject-card chemie" onclick="selectSubject('chemie', true)">
+      <div class="subject-icon">🧪</div>
+      <div class="subject-title">Chemie</div>
+      <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte — materialgestützte Aufgaben nach ISB-Format.</div>
+      <div class="subject-badge">2 Module · gA + eA</div>
     </div>
   </div>
   <footer>© 2026 myAbiFlow · Abitur Trainer<br><a href="dashboard.html" style="opacity:.5;font-size:.75rem;">Lehrer-Dashboard →</a></footer>
@@ -662,6 +665,42 @@ footer a{color:var(--accent)}
   <footer>© 2026 myAbiFlow · Mathematik Trainer</footer>
 </div>
 
+<!-- ====== CHEMIE MODULE SCREEN ====== -->
+<div id="module-screen-chemie" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+      <h1 style="margin-top:.3rem">Chemie <span style="color:var(--accent-che)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoChe" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnChe">🌙</button>
+    </div>
+  </div>
+  <div class="level-toggle">
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card chemie" href="chemie.html">
+      <div class="module-icon">🧪</div>
+      <div class="module-title">Klausurtraining</div>
+      <div class="module-desc">Kurz- und Langaufgaben aus Elektrochemie, Organik, Thermochemie und mehr — mit BE-Bewertung.</div>
+      <div class="module-badge">Einzelaufgabe</div>
+    </a>
+    <a class="module-card chemie" href="chemie-abitur.html">
+      <div class="module-icon">📝</div>
+      <div class="module-title">Abiturtraining</div>
+      <div class="module-desc">Vollständige Chemie-Prüfung — 4 Aufgabengruppen (3 wählen) mit Material und Gesamtbewertung.</div>
+      <div class="module-badge">Komplette Prüfung</div>
+    </a>
+  </div>
+  <footer>© 2026 myAbiFlow · Chemie Trainer</footer>
+</div>
+
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 let loginMode = "login";
@@ -742,6 +781,7 @@ function showSubjectSelection(_push) {
   document.getElementById("module-screen-geographie").style.display = "none";
   document.getElementById("module-screen-latein").style.display = "none";
   document.getElementById("module-screen-mathe").style.display = "none";
+  document.getElementById("module-screen-chemie").style.display = "none";
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
@@ -771,6 +811,7 @@ function selectSubject(subject, _push) {
     geographie: "module-screen-geographie",
     latein: "module-screen-latein",
     mathe: "module-screen-mathe",
+    chemie: "module-screen-chemie",
     german: "module-screen-german"
   };
   const infoMap = {
@@ -784,6 +825,7 @@ function selectSubject(subject, _push) {
     geographie: "userInfoGeo",
     latein: "userInfoLat",
     mathe: "userInfoMat",
+    chemie: "userInfoChe",
     german: "userInfoDe"
   };
 
@@ -829,6 +871,7 @@ function backToSubjects() {
   document.getElementById("module-screen-geographie").style.display = "none";
   document.getElementById("module-screen-latein").style.display = "none";
   document.getElementById("module-screen-mathe").style.display = "none";
+  document.getElementById("module-screen-chemie").style.display = "none";
   document.getElementById("subject-screen").style.display = "flex";
 }
 
@@ -846,6 +889,7 @@ function logout() {
   document.getElementById("module-screen-geographie").style.display = "none";
   document.getElementById("module-screen-latein").style.display = "none";
   document.getElementById("module-screen-mathe").style.display = "none";
+  document.getElementById("module-screen-chemie").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
   document.getElementById("personalPassword").value = "";
@@ -896,6 +940,8 @@ function checkSession() {
       selectSubject("latein");
     } else if (backTo === "mathe") {
       selectSubject("mathe");
+    } else if (backTo === "chemie") {
+      selectSubject("chemie");
     } else if (backTo === "subjects") {
       showSubjectSelection();
     } else {
