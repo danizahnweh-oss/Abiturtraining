@@ -54,6 +54,7 @@
 /* Aufgabengruppe card */
 .aufgabengruppe-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
 .aufgabengruppe-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
+.aufgabe-context{padding:.4rem 0 .2rem;line-height:1.6;font-size:.92rem}
 
 /* BE scores */
 .be-scores-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-bottom:1.5rem}
@@ -373,6 +374,9 @@ function renderTask(d) {
   if (d.teil_a_pflicht && d.teil_a_pflicht.length) {
     pflicht.innerHTML = d.teil_a_pflicht.map((a, i) => {
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(a.id || ("A" + (i+1))) + ': ' + escapeHtml(a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></h4>';
+      if (a.text && a.teilaufgaben && a.teilaufgaben.length) {
+        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(a.text)) + '</div>';
+      }
       content += '<div class="aufgaben-liste">';
       if (a.teilaufgaben && a.teilaufgaben.length) {
         a.teilaufgaben.forEach(function(t) {
@@ -406,6 +410,9 @@ function renderTask(d) {
   if (d.teil_b && d.teil_b.length) {
     teilB.innerHTML = d.teil_b.map(function(b) {
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(b.id || "") + ': ' + escapeHtml(b.sachgebiet || "") + ' <span class="aufgabe-be">(' + (b.be || "?") + ' BE)</span></h4>';
+      if (b.text && b.teilaufgaben && b.teilaufgaben.length) {
+        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(b.text)) + '</div>';
+      }
       content += '<div class="aufgaben-liste">';
       if (b.teilaufgaben && b.teilaufgaben.length) {
         b.teilaufgaben.forEach(function(t) {
