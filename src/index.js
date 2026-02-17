@@ -4791,9 +4791,17 @@ FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
 8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
 9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
-Wann Grafik: Kurvendiskussion, Flächenberechnung, 3D-Geometrie, Funktionsgraphen.
-Wann KEINE Grafik: Reine Rechenaufgaben, Hypothesentests, algebraische Umformungen.
-Wenn keine Grafik nötig, lasse das "grafik"-Feld einfach weg.
+WANN Grafik: NUR wenn die Grafik zum LÖSEN der Aufgabe NOTWENDIG ist!
+- Die Aufgabe verlangt, Werte aus einem Graphen abzulesen
+- Die Aufgabe bezieht sich auf eine abgebildete geometrische Figur
+- Die Aufgabe sagt explizit "Der Graph ist dargestellt" oder "Siehe Abbildung"
+WANN KEINE Grafik (= NORMALFALL, meistens KEINE Grafik!):
+- Schüler sollen den Graph selbst skizzieren (das ist Teil der Aufgabe!)
+- Reine Rechenaufgaben, Ableitungen, Integrale, Gleichungen lösen
+- Kurvendiskussion (Schüler sollen Extrema/Nullstellen SELBST berechnen)
+- Stochastik, Hypothesentests
+- Die Funktion dient nur als Kontext
+Im Zweifel: KEINE Grafik. Nur wenige Aufgaben brauchen tatsächlich eine Grafik.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5022,9 +5030,17 @@ FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
 8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
 9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
-Empfohlen: Grafik bei Teil-B-Aufgaben (Analysis: Funktionsgraph, Geometrie: 3D)
-Selten: Teil-A-Kurzaufgaben (nur wenn Grafik explizit hilfreich)
-Wenn keine Grafik nötig, lasse das "grafik"-Feld weg.
+WANN Grafik: NUR wenn die Grafik zum LÖSEN der Aufgabe NOTWENDIG ist!
+- Die Aufgabe verlangt, Werte aus einem Graphen abzulesen
+- Die Aufgabe bezieht sich auf eine abgebildete geometrische Figur
+- Die Aufgabe sagt "Der Graph ist dargestellt" oder "Siehe Abbildung"
+WANN KEINE Grafik (= NORMALFALL, meistens KEINE Grafik!):
+- Schüler sollen den Graph selbst skizzieren (das ist Teil der Aufgabe!)
+- Reine Rechenaufgaben, Ableitungen, Integrale, Gleichungen lösen
+- Kurvendiskussion (Schüler sollen Extrema/Nullstellen SELBST berechnen)
+- Stochastik, Hypothesentests
+- Die Funktion dient nur als Kontext
+Im Zweifel: KEINE Grafik. Nur wenige Aufgaben brauchen tatsächlich eine Grafik.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
