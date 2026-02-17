@@ -685,9 +685,10 @@ function renderTask(d) {
 
   const refContainer = document.getElementById("writeMaterialsRef");
   if (d.materials && d.materials.length) {
-    refContainer.innerHTML = d.materials.map((m, i) =>
-      `<div style="margin-bottom:.8rem"><strong>M ${i+1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}…</span></div>`
-    ).join("");
+    refContainer.innerHTML = d.materials.map((m, i) => {
+      const preview = typeof m.content === "string" ? m.content.substring(0, 150) : (m.title || "");
+      return `<div style="margin-bottom:.8rem"><strong>M ${i+1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml(preview)}…</span></div>`;
+    }).join("");
   } else if (d.primary_text) {
     refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}…</span>`;
   }
