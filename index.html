@@ -16,6 +16,7 @@
   --accent-ge:#b45309;--accent-ge-hover:#92400e;--accent-ge-soft:#fef3c7;--accent-ge-glow:rgba(180,83,9,.08);
   --accent-wr:#7c3aed;--accent-wr-hover:#6d28d9;--accent-wr-soft:#ede9fe;--accent-wr-glow:rgba(124,58,237,.08);
   --accent-fr:#db2777;--accent-fr-hover:#be185d;--accent-fr-soft:#fce7f3;--accent-fr-glow:rgba(219,39,119,.08);
+  --accent-it:#0d9488;--accent-it-hover:#0f766e;--accent-it-soft:#ccfbf1;--accent-it-glow:rgba(13,148,136,.08);
 }
 [data-theme="dark"]{
   --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
@@ -23,10 +24,12 @@
   --accent-ge:#fbbf24;--accent-ge-hover:#fcd34d;--accent-ge-soft:rgba(251,191,36,.15);--accent-ge-glow:rgba(251,191,36,.08);
   --accent-wr:#a78bfa;--accent-wr-hover:#c4b5fd;--accent-wr-soft:rgba(167,139,250,.15);--accent-wr-glow:rgba(167,139,250,.08);
   --accent-fr:#f472b6;--accent-fr-hover:#f9a8d4;--accent-fr-soft:rgba(244,114,182,.15);--accent-fr-glow:rgba(244,114,182,.08);
+  --accent-it:#2dd4bf;--accent-it-hover:#5eead4;--accent-it-soft:rgba(45,212,191,.15);--accent-it-glow:rgba(45,212,191,.08);
 }
 
 /* School badge gradient (both accent colors) */
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft));color:var(--ink)}
+.module-card.italian .module-badge{background:var(--accent-it-soft);color:var(--accent-it)}
+.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft));color:var(--ink)}
 .login-box h2{font-size:1.8rem}
 
 /* ====== SUBJECT SELECTION SCREEN ====== */
@@ -45,6 +48,7 @@
 .subject-card.history::before{background:linear-gradient(135deg,var(--accent-ge-glow),transparent)}
 .subject-card.wr::before{background:linear-gradient(135deg,var(--accent-wr-glow),transparent)}
 .subject-card.french::before{background:linear-gradient(135deg,var(--accent-fr-glow),transparent)}
+.subject-card.italian::before{background:linear-gradient(135deg,var(--accent-it-glow),transparent)}
 .subject-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
 .subject-card:hover::before{opacity:1}
 .subject-card.english:hover{border-color:var(--accent)}
@@ -53,6 +57,7 @@
 .subject-card.history:hover{border-color:var(--accent-ge)}
 .subject-card.wr:hover{border-color:var(--accent-wr)}
 .subject-card.french:hover{border-color:var(--accent-fr)}
+.subject-card.italian:hover{border-color:var(--accent-it)}
 .subject-icon{font-size:4rem;margin-bottom:1rem;position:relative;z-index:1}
 .subject-title{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.5rem;position:relative;z-index:1}
 .subject-card.english .subject-title{color:var(--accent)}
@@ -61,6 +66,7 @@
 .subject-card.history .subject-title{color:var(--accent-ge)}
 .subject-card.wr .subject-title{color:var(--accent-wr)}
 .subject-card.french .subject-title{color:var(--accent-fr)}
+.subject-card.italian .subject-title{color:var(--accent-it)}
 .subject-desc{color:var(--ink-muted);font-size:.9rem;line-height:1.5;position:relative;z-index:1}
 .subject-badge{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;padding:.3rem .8rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em;position:relative;z-index:1}
 .subject-card.english .subject-badge{background:var(--accent-soft);color:var(--accent)}
@@ -69,6 +75,7 @@
 .subject-card.history .subject-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
 .subject-card.wr .subject-badge{background:var(--accent-wr-soft);color:var(--accent-wr)}
 .subject-card.french .subject-badge{background:var(--accent-fr-soft);color:var(--accent-fr)}
+.subject-card.italian .subject-badge{background:var(--accent-it-soft);color:var(--accent-it)}
 
 /* ====== MODULE SCREEN ====== */
 #module-screen{display:none;min-height:100vh;flex-direction:column}
@@ -83,6 +90,7 @@
 .module-card.history:hover{border-color:var(--accent-ge)}
 .module-card.wr:hover{border-color:var(--accent-wr)}
 .module-card.french:hover{border-color:var(--accent-fr)}
+.module-card.italian:hover{border-color:var(--accent-it)}
 .module-icon{font-size:2.5rem;margin-bottom:.8rem}
 .module-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.4rem}
 .module-desc{color:var(--ink-muted);font-size:.85rem;line-height:1.5}
@@ -182,6 +190,12 @@ footer a{color:var(--accent)}
     <div class="subject-card french" onclick="selectSubject('french', true)">
       <div class="subject-icon">🇫🇷</div>
       <div class="subject-title">Französisch</div>
+      <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.</div>
+      <div class="subject-badge">2 Module</div>
+    </div>
+    <div class="subject-card italian" onclick="selectSubject('italian', true)">
+      <div class="subject-icon">🇮🇹</div>
+      <div class="subject-title">Italienisch</div>
       <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.</div>
       <div class="subject-badge">2 Module</div>
     </div>
@@ -381,6 +395,36 @@ footer a{color:var(--accent)}
   <footer>© 2026 myAbiFlow · Französisch Trainer</footer>
 </div>
 
+<!-- ====== ITALIAN MODULE SCREEN ====== -->
+<div id="module-screen-italian" style="display:none;min-height:100vh;flex-direction:column">
+  <div class="module-header">
+    <div>
+      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
+      <h1 style="margin-top:.3rem">Italienisch <span style="color:var(--accent-it)">Trainer</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="userInfoIt" style="font-size:.85rem;color:var(--ink-muted)"></span>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnIt">🌙</button>
+    </div>
+  </div>
+  <div class="greeting-bar">Was möchtest du üben?</div>
+  <div class="module-grid">
+    <a class="module-card italian" href="italiano-mediation.html">
+      <div class="module-icon">🌍</div>
+      <div class="module-title">Sprachmittlung</div>
+      <div class="module-desc">Deutschen Quelltext lesen und auf Italienisch vermitteln – mit KI-Bewertung nach ISB-Raster.</div>
+      <div class="module-badge">Prüfungsteil C</div>
+    </a>
+    <a class="module-card italian" href="italiano-schreiben.html">
+      <div class="module-icon">✍️</div>
+      <div class="module-title">Textproduktion</div>
+      <div class="module-desc">Italienischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.</div>
+      <div class="module-badge">Prüfungsteil B</div>
+    </a>
+  </div>
+  <footer>© 2026 myAbiFlow · Italienisch Trainer</footer>
+</div>
+
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 let loginMode = "login";
@@ -457,6 +501,7 @@ function showSubjectSelection(_push) {
   document.getElementById("module-screen-pug").style.display = "none";
   document.getElementById("module-screen-wr").style.display = "none";
   document.getElementById("module-screen-french").style.display = "none";
+  document.getElementById("module-screen-italian").style.display = "none";
   sessionStorage.removeItem("current_subject");
 
   const name = sessionStorage.getItem("student_name") || "";
@@ -492,6 +537,9 @@ function selectSubject(subject, _push) {
   } else if (subject === "french") {
     document.getElementById("module-screen-french").style.display = "flex";
     document.getElementById("userInfoFr").textContent = info;
+  } else if (subject === "italian") {
+    document.getElementById("module-screen-italian").style.display = "flex";
+    document.getElementById("userInfoIt").textContent = info;
   } else {
     document.getElementById("module-screen-german").style.display = "flex";
     document.getElementById("userInfoDe").textContent = info;
@@ -506,6 +554,7 @@ function backToSubjects() {
   document.getElementById("module-screen-pug").style.display = "none";
   document.getElementById("module-screen-wr").style.display = "none";
   document.getElementById("module-screen-french").style.display = "none";
+  document.getElementById("module-screen-italian").style.display = "none";
   document.getElementById("subject-screen").style.display = "flex";
 }
 
@@ -518,6 +567,7 @@ function logout() {
   document.getElementById("module-screen-pug").style.display = "none";
   document.getElementById("module-screen-wr").style.display = "none";
   document.getElementById("module-screen-french").style.display = "none";
+  document.getElementById("module-screen-italian").style.display = "none";
   document.getElementById("login-screen").style.display = "flex";
   document.getElementById("studentName").value = "";
   document.getElementById("studentLevel").value = "";
@@ -559,6 +609,8 @@ function checkSession() {
       selectSubject("wr");
     } else if (backTo === "french") {
       selectSubject("french");
+    } else if (backTo === "italian") {
+      selectSubject("italian");
     } else if (backTo === "subjects") {
       showSubjectSelection();
     } else {
