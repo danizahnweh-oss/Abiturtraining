@@ -275,7 +275,7 @@ function clearHistory() {
 function serverEntryToLocal(entry) {
   const base = { date: entry.date, total: entry.total };
   switch (entry.type) {
-    case "mediation": case "writing":
+    case "mediation": case "writing": case "french-mediation": case "french-writing":
       return { ...base, topic: entry.topic, content: entry.content, language: entry.language };
     case "deutsch-analyse":
       return { ...base, textsorte: entry.topic, verstehen: entry.content, darstellung: entry.language };

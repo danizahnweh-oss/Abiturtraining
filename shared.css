@@ -55,6 +55,14 @@
   --accent-glow: rgba(124, 58, 237, 0.08);
 }
 
+/* ====== ROSE ACCENT (Französisch modules) ====== */
+[data-accent="rose"] {
+  --accent: #db2777;
+  --accent-hover: #be185d;
+  --accent-soft: #fce7f3;
+  --accent-glow: rgba(219, 39, 119, 0.08);
+}
+
 /* ====== DARK MODE ====== */
 [data-theme="dark"] {
   --ink: #e4e4ed;
@@ -94,6 +102,12 @@
   --accent-hover: #c4b5fd;
   --accent-soft: rgba(167, 139, 250, 0.15);
   --accent-glow: rgba(167, 139, 250, 0.08);
+}
+[data-accent="rose"][data-theme="dark"] {
+  --accent: #f472b6;
+  --accent-hover: #f9a8d4;
+  --accent-soft: rgba(244, 114, 182, 0.15);
+  --accent-glow: rgba(244, 114, 182, 0.08);
 }
 
 /* ====== RESET & BASE ====== */
