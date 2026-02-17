@@ -532,11 +532,19 @@ async function generateTask() {
   document.getElementById("setupLoader").style.display = "block";
   try {
     const level = sessionStorage.getItem("student_level") || "eA";
-    const d = await apiCall("/api/generate-abitur-ethik", {
+    const raw = await apiCall("/api/generate-abitur-ethik", {
       lernbereich: CONFIG.lernbereich,
       schwerpunkt: document.getElementById("schwerpunktSelect").value,
       level: level
     });
+    // Flatten nested teil_a/teil_b from API into flat structure for renderTask
+    const d = {
+      task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
+      materials: raw.teil_a?.materials || raw.materials || [],
+      task_instruction_b: raw.teil_b?.task_instruction || raw.task_instruction_b || "",
+      lernbereich: raw.lernbereich || CONFIG.lernbereich,
+      thema: raw.thema || ""
+    };
     CONFIG.storedData = d;
     renderTask(d);
     nav("task");
