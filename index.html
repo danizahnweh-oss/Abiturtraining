@@ -114,10 +114,16 @@
 .login-mode-toggle button.active{background:var(--accent);color:#fff}
 
 /* ====== LEVEL TOGGLE ====== */
-.level-toggle{display:flex;gap:.6rem;justify-content:center;margin-bottom:1.2rem}
-.level-btn{padding:.5rem 1.2rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:transparent;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:.85rem;color:var(--ink-muted);transition:all .15s}
-.level-btn:hover{border-color:var(--accent);color:var(--ink)}
-.level-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.level-toggle{display:flex;justify-content:center;margin:.8rem 0 .2rem}
+.level-pill{display:flex;background:var(--border);border-radius:99px;padding:3px;gap:2px}
+.level-pill .level-btn{padding:.45rem 1.4rem;border:none;border-radius:99px;background:transparent;cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:.8rem;color:var(--ink-muted);transition:all .2s;letter-spacing:.04em;text-transform:uppercase}
+.level-pill .level-btn:hover{color:var(--ink)}
+.level-pill .level-btn.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+[data-theme="dark"] .level-pill .level-btn.active{background:var(--bg-warm);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* ====== LEVEL BACKGROUND ====== */
+[data-level-bg="eA"]{background:var(--bg)}
+[data-level-bg="gA"]{background:var(--surface)}
 
 /* ====== INDEX-SPECIFIC ====== */
 .logout-btn{background:none;border:none;color:var(--ink-muted);font-size:.85rem;cursor:pointer;padding:.4rem .8rem;border-radius:var(--radius-sm);transition:all .15s}
@@ -231,8 +237,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -307,8 +315,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -341,8 +351,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -375,8 +387,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -409,8 +423,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -443,8 +459,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -477,8 +495,10 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="level-toggle">
-    <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
-    <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    <div class="level-pill">
+      <button class="level-btn" data-level="gA" onclick="setLevel('gA')">gA</button>
+      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')">eA</button>
+    </div>
   </div>
   <div class="greeting-bar">Was möchtest du üben?</div>
   <div class="module-grid">
@@ -617,12 +637,14 @@ function selectSubject(subject, _push) {
   const screenId = screenMap[subject] || screenMap.german;
   const infoId = infoMap[subject] || infoMap.german;
 
+  const currentLevel = sessionStorage.getItem("student_level") || "eA";
   document.getElementById(screenId).style.display = "flex";
+  document.getElementById(screenId).setAttribute("data-level-bg", currentLevel);
   document.getElementById(infoId).textContent = info;
 
   // Update level toggle buttons in this module screen
   document.querySelectorAll(`#${screenId} .level-btn`).forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.level === (sessionStorage.getItem("student_level") || "eA"));
+    btn.classList.toggle("active", btn.dataset.level === currentLevel);
   });
 
   if (_push) history.pushState({ screen: "module-" + subject }, "");
@@ -632,10 +654,13 @@ function setLevel(lvl) {
   sessionStorage.setItem("student_level", lvl);
   const name = sessionStorage.getItem("student_name") || "";
   const info = `${name} · ${lvl.toUpperCase()}`;
-  // Update all userInfo spans and level toggles
   document.querySelectorAll("[id^='userInfo']").forEach(el => { if (el.textContent.includes("·")) el.textContent = info; });
   document.querySelectorAll(".level-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.level === lvl);
+  });
+  // Update background on visible module screen
+  document.querySelectorAll("[id^='module-screen-']").forEach(el => {
+    if (el.style.display === "flex") el.setAttribute("data-level-bg", lvl);
   });
 }
 
