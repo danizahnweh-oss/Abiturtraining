@@ -379,6 +379,16 @@ function beToNP(erreicht, max) {
   return 0;
 }
 
+/* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
+function safeMathParse(text) {
+  var blocks = [];
+  text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
+  text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "\x00M" + (blocks.length - 1) + "\x00"; });
+  var html = marked.parse(text);
+  html = html.replace(/\x00M(\d+)\x00/g, function(_, i) { return blocks[parseInt(i)]; });
+  return html;
+}
+
 function renderMath(el) {
   if (typeof renderMathInElement === "function") {
     renderMathInElement(el || document.body, {
@@ -459,7 +469,7 @@ function renderTask(d) {
       if (a.grafik && a.grafik.commands && a.grafik.commands.length) pflichtGfx.push({idx: i, grafik: a.grafik, id: a.id || ("A" + (i+1))});
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(a.id || ("A" + (i+1))) + ': ' + escapeHtml(a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></h4>';
       if (a.text && a.teilaufgaben && a.teilaufgaben.length) {
-        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(a.text)) + '</div>';
+        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(safeMathParse(a.text)) + '</div>';
       }
       content += '<div class="aufgaben-liste">';
       if (a.teilaufgaben && a.teilaufgaben.length) {
@@ -502,7 +512,7 @@ function renderTask(d) {
       if (b.grafik && b.grafik.commands && b.grafik.commands.length) teilBGfx.push({idx: i, grafik: b.grafik, id: b.id || ("B" + (i+1))});
       let content = '<div class="aufgabengruppe-card"><h4>' + escapeHtml(b.id || "") + ': ' + escapeHtml(b.sachgebiet || "") + ' <span class="aufgabe-be">(' + (b.be || "?") + ' BE)</span></h4>';
       if (b.text && b.teilaufgaben && b.teilaufgaben.length) {
-        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(b.text)) + '</div>';
+        content += '<div class="aufgabe-context">' + DOMPurify.sanitize(safeMathParse(b.text)) + '</div>';
       }
       content += '<div class="aufgaben-liste">';
       if (b.teilaufgaben && b.teilaufgaben.length) {
@@ -634,7 +644,7 @@ async function submitForGrading() {
     }).catch(function() {});
     stopTimer();
     var fb = document.getElementById("feedbackBody");
-    fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+    fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
     renderMath(fb);
     document.getElementById("feedbackContent").style.display = "block";
   } catch (e) {
@@ -656,7 +666,7 @@ async function showModelAnswer() {
       teil_b: CONFIG.storedData.teil_b || []
     });
     var body = document.getElementById("modelAnswerBody");
-    body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+    body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
     renderMath(body);
     card.style.display = "block";
   } catch (e) { showToast(e.message); }

@@ -4789,6 +4789,10 @@ KRITISCHE GEOGEBRA-REGELN:
 KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
 FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
 
+8. settings: Wähle xmin/xmax/ymin/ymax so, dass der Graph GUT SICHTBAR ist und den Bildschirm füllt!
+   Berechne mental: Wo ist das Maximum? Wo sind die Nullstellen? Setze die Achsen eng um den relevanten Bereich.
+   Beispiel: f(x)=6*x*exp(-0.25*x) hat Maximum bei x≈4, y≈8.8 → settings: xmin=-1, xmax=25, ymin=-1, ymax=12
+
 Wann Grafik: Kurvendiskussion, Flächenberechnung, 3D-Geometrie, Funktionsgraphen.
 Wann KEINE Grafik: Reine Rechenaufgaben, Hypothesentests, algebraische Umformungen.
 Wenn keine Grafik nötig, lasse das "grafik"-Feld einfach weg.
@@ -4803,7 +4807,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${isKurz ? 5 : "20-30"},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
-  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1", "SetColor(f, 16, 185, 129)"], "settings": {"xmin": -2, "xmax": 4, "ymin": -2, "ymax": 8}}
+  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1", "SetColor(f, 16, 185, 129)"], "settings": {"xmin": -1, "xmax": 4, "ymin": -1, "ymax": 5}}
 }
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
@@ -5017,6 +5021,9 @@ KRITISCHE GEOGEBRA-REGELN:
 
 KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2)), SetColor(f, 16, 185, 129)
 FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ...
+
+8. settings: Wähle xmin/xmax/ymin/ymax so, dass der Graph GUT SICHTBAR ist!
+   Berechne mental: Wo ist das Maximum? Wo sind die Nullstellen? Setze die Achsen eng um den relevanten Bereich.
 
 Empfohlen: Grafik bei Teil-B-Aufgaben (Analysis: Funktionsgraph, Geometrie: 3D)
 Selten: Teil-A-Kurzaufgaben (nur wenn Grafik explizit hilfreich)
