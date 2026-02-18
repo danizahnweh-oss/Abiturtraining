@@ -136,6 +136,7 @@ function nav(step, _pushHistory) {
   }
 
   currentStep = step;
+  if (step === "task") injectPdfButton();
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -416,6 +417,175 @@ function renderProgressChart() {
 function exportPDF() {
   const filename = (MODULE_CONFIG.pdfFilename || "Export") + "_" + new Date().toISOString().slice(0, 10) + ".pdf";
   html2pdf().set({ margin: 10, filename: filename }).from(document.getElementById("feedbackContent")).save();
+}
+
+/* ================= TASK/MATERIAL PDF EXPORT ================= */
+
+function hasMaterial() {
+  return !!(
+    document.getElementById("materialsContainer")?.children.length ||
+    document.getElementById("sourceText")?.textContent.trim() ||
+    document.getElementById("articleBody")?.textContent.trim()
+  );
+}
+
+function showPdfExportModal() {
+  if (!hasMaterial()) {
+    exportTaskPDF("task");
+    return;
+  }
+  if (document.getElementById("pdfModal")) return;
+  var overlay = document.createElement("div");
+  overlay.className = "pdf-modal-overlay";
+  overlay.id = "pdfModal";
+  overlay.onclick = function(e) { if (e.target === overlay) closePdfModal(); };
+  overlay.innerHTML =
+    '<div class="pdf-modal">' +
+      '<h3>Als PDF speichern</h3>' +
+      '<div class="pdf-modal-buttons">' +
+        '<button class="btn" onclick="exportTaskPDF(\'task\')">Nur Aufgaben</button>' +
+        '<button class="btn" onclick="exportTaskPDF(\'material\')">Nur Material</button>' +
+        '<button class="btn" onclick="exportTaskPDF(\'both\')">Aufgaben + Material</button>' +
+        '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+function closePdfModal() {
+  var m = document.getElementById("pdfModal");
+  if (m) m.remove();
+}
+
+function collectTaskContent(container) {
+  var h = document.createElement("h2");
+  h.textContent = "Aufgabenstellung";
+  h.style.cssText = "font-size:1.2rem;margin-bottom:.8rem;";
+  container.appendChild(h);
+
+  var inst = document.getElementById("taskInstruction");
+  if (inst) container.appendChild(inst.cloneNode(true));
+
+  var meta = document.getElementById("taskMeta");
+  if (meta && meta.textContent.trim()) container.appendChild(meta.cloneNode(true));
+
+  var teil = document.getElementById("teilaufgabenContainer");
+  if (teil && teil.children.length) container.appendChild(teil.cloneNode(true));
+
+  // Mathe/Chemie Abitur: pflichtaufgaben, wahlaufgaben, teilBContainer
+  var pflicht = document.getElementById("pflichtaufgaben");
+  if (pflicht && pflicht.children.length) {
+    var h4a = document.createElement("h3");
+    h4a.textContent = "Teil A \u2013 Pflichtteil";
+    h4a.style.cssText = "font-size:1rem;margin:1rem 0 .5rem;";
+    container.appendChild(h4a);
+    container.appendChild(pflicht.cloneNode(true));
+  }
+  var wahl = document.getElementById("wahlaufgaben");
+  if (wahl && wahl.children.length) {
+    var h4w = document.createElement("h3");
+    h4w.textContent = "Teil A \u2013 Wahlteil";
+    h4w.style.cssText = "font-size:1rem;margin:1rem 0 .5rem;";
+    container.appendChild(h4w);
+    container.appendChild(wahl.cloneNode(true));
+  }
+  var teilB = document.getElementById("teilBContainer");
+  if (teilB && teilB.children.length) {
+    var h4b = document.createElement("h3");
+    h4b.textContent = "Teil B \u2013 Mit Hilfsmitteln";
+    h4b.style.cssText = "font-size:1rem;margin:1rem 0 .5rem;";
+    container.appendChild(h4b);
+    container.appendChild(teilB.cloneNode(true));
+  }
+}
+
+function collectMaterialContent(container) {
+  var h = document.createElement("h2");
+  h.textContent = "Materialien";
+  h.style.cssText = "font-size:1.2rem;margin:1.2rem 0 .8rem;";
+  container.appendChild(h);
+
+  // materialsContainer (Politik, PuG, WR, Ethik, Geo)
+  var mc = document.getElementById("materialsContainer");
+  if (mc && mc.children.length) { container.appendChild(mc.cloneNode(true)); return; }
+
+  // sourceText + sourceMeta + zusatzMaterialien (Geschichte, Latein)
+  var st = document.getElementById("sourceText");
+  if (st && st.textContent.trim()) {
+    var tt = document.getElementById("textTitle");
+    if (tt && tt.textContent.trim()) container.appendChild(tt.cloneNode(true));
+    container.appendChild(st.cloneNode(true));
+    var sm = document.getElementById("sourceMeta");
+    if (sm && sm.textContent.trim()) container.appendChild(sm.cloneNode(true));
+    var zm = document.getElementById("zusatzMaterialien");
+    if (zm && zm.children.length) container.appendChild(zm.cloneNode(true));
+    return;
+  }
+
+  // articleBody + articleTitle (Mediation, Writing, Französisch, Italienisch)
+  var ab = document.getElementById("articleBody");
+  if (ab && ab.textContent.trim()) {
+    var at = document.getElementById("articleTitle");
+    if (at && at.textContent.trim()) container.appendChild(at.cloneNode(true));
+    container.appendChild(ab.cloneNode(true));
+  }
+}
+
+function exportTaskPDF(mode) {
+  var wrap = document.createElement("div");
+  wrap.style.cssText = "padding:10px;font-family:sans-serif;color:#1a1a2e;";
+
+  if (mode === "task" || mode === "both") collectTaskContent(wrap);
+  if (mode === "material" || mode === "both") collectMaterialContent(wrap);
+
+  // Clean up: remove highlighter spans (keep text), GeoGebra, interactive elements
+  wrap.querySelectorAll("[class^='hl-']").forEach(function(s) {
+    var p = s.parentNode;
+    while (s.firstChild) p.insertBefore(s.firstChild, s);
+    p.removeChild(s);
+  });
+  wrap.querySelectorAll(".ggb-container, .highlighter-toolbar, .wahl-hint").forEach(function(el) { el.remove(); });
+  wrap.querySelectorAll(".selectable").forEach(function(el) { el.style.cursor = "default"; el.removeAttribute("onclick"); });
+
+  var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
+  var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
+
+  html2pdf().set({
+    margin: 10,
+    filename: filename,
+    html2canvas: { scale: 2 },
+    jsPDF: { format: "a4" }
+  }).from(wrap).save();
+
+  closePdfModal();
+}
+
+function injectPdfButton() {
+  var prefix = MODULE_CONFIG.sectionPrefix || "";
+  var secId = prefix + "task";
+  var sec = document.getElementById(secId);
+  console.log("[PDF] injectPdfButton called, secId='" + secId + "', found=", !!sec);
+  if (!sec) return;
+  if (sec.querySelector(".pdf-export-btn")) { console.log("[PDF] button already exists"); return; }
+  var pdfBtn = document.createElement("button");
+  pdfBtn.className = "btn btn-secondary pdf-export-btn";
+  pdfBtn.style.marginRight = "0.5rem";
+  pdfBtn.textContent = "Als PDF speichern";
+  pdfBtn.onclick = showPdfExportModal;
+  // Try to insert before the last nav-button, otherwise append
+  var allBtns = sec.querySelectorAll(":scope > button.btn, :scope > .btn");
+  console.log("[PDF] direct child buttons found:", allBtns.length);
+  var lastNavBtn = null;
+  for (var i = 0; i < allBtns.length; i++) {
+    var oc = allBtns[i].getAttribute("onclick") || "";
+    if (oc.indexOf("nav(") !== -1) lastNavBtn = allBtns[i];
+  }
+  if (lastNavBtn) {
+    lastNavBtn.parentNode.insertBefore(pdfBtn, lastNavBtn);
+  } else {
+    sec.appendChild(pdfBtn);
+  }
+  console.log("[PDF] button injected");
 }
 
 /* ================= HIGHLIGHTER ================= */

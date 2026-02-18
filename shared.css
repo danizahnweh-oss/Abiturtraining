@@ -727,6 +727,47 @@ textarea:focus { border-color: var(--accent); }
 /* ====== PDF ACTIONS ====== */
 .pdf-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.5rem; }
 
+/* ====== PDF EXPORT MODAL ====== */
+.pdf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn .2s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.pdf-modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  max-width: 360px;
+  width: 90%;
+  text-align: center;
+}
+.pdf-modal h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.pdf-modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.pdf-modal-buttons .btn { width: 100%; justify-content: center; }
+.pdf-modal-buttons .btn-cancel {
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid var(--border);
+  margin-top: .3rem;
+}
+.pdf-modal-buttons .btn-cancel:hover { background: var(--bg-warm); color: var(--ink); }
+.pdf-export-btn { margin-right: .5rem; }
+
 /* ====== LOGIN SCREEN ====== */
 #login-screen {
   min-height: 100vh;
