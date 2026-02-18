@@ -503,9 +503,17 @@ function exportTaskPDF(mode) {
     taskIds.forEach(function(id) { tempHide(document.getElementById(id)); });
   }
 
-  // Ensure section has white background for PDF
-  var prevBg = sec.style.background;
+  // Temporarily fix layout for clean PDF: white bg, no animation, no extra spacing
+  var savedStyles = {
+    bg: sec.style.background,
+    anim: sec.style.animation,
+    pad: sec.style.padding,
+    margin: sec.style.margin
+  };
   sec.style.background = "#fff";
+  sec.style.animation = "none";
+  sec.style.padding = "10px 0 0 0";
+  sec.style.margin = "0";
 
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
@@ -514,9 +522,13 @@ function exportTaskPDF(mode) {
     margin: [10, 10, 10, 10],
     filename: filename,
     html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-    jsPDF: { format: "a4", orientation: "portrait" }
+    jsPDF: { format: "a4", orientation: "portrait" },
+    pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
   }).from(sec).save().then(function() {
-    sec.style.background = prevBg;
+    sec.style.background = savedStyles.bg;
+    sec.style.animation = savedStyles.anim;
+    sec.style.padding = savedStyles.pad;
+    sec.style.margin = savedStyles.margin;
     restore();
   });
 
