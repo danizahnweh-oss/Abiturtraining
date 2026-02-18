@@ -152,11 +152,11 @@ footer{padding:1.5rem;border-top:none}
 footer a{color:var(--accent)}
 
 /* ====== SPLASH SCREEN ====== */
-#splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;animation:splash-fade-out .5s ease 3.4s forwards}
+#splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;animation:splash-fade-out .5s ease 4.8s forwards}
 [data-theme="dark"] #splash{background:var(--bg,#111)}
-.splash-content{position:relative;width:300px;height:200px;display:flex;align-items:center;justify-content:center}
-.splash-wave{position:absolute;width:200px;height:auto;opacity:1;animation:wave-pulse 1s ease-in-out,wave-shrink .8s ease-in-out 2s forwards}
-.splash-logo{position:absolute;width:300px;height:auto;opacity:0;animation:logo-fade-in .8s ease-in-out 2s forwards}
+.splash-content{position:relative;width:600px;height:300px;display:flex;align-items:center;justify-content:center}
+.splash-wave{position:absolute;width:400px;height:auto;opacity:1;animation:wave-pulse 1s ease-in-out,wave-shrink .8s ease-in-out 2s forwards}
+.splash-logo{position:absolute;width:600px;height:auto;opacity:0;animation:logo-fade-in .8s ease-in-out 2s forwards}
 
 @keyframes wave-pulse{
   0%{transform:scale(.6);opacity:0}
@@ -1018,11 +1018,11 @@ window.onload = function() {
     splash.style.display = "none";
     return;
   }
-  // Dismiss splash after animation completes (4s)
+  // Dismiss splash after animation completes (5.5s)
   setTimeout(function() {
     splash.style.display = "none";
     sessionStorage.setItem("splash_shown", "1");
-  }, 4000);
+  }, 5500);
 };
 
 // Handle bfcache restoration
