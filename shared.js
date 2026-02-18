@@ -465,6 +465,11 @@ function exportTaskPDF(mode) {
   var sec = document.getElementById(prefix + "task");
   if (!sec) { closePdfModal(); return; }
 
+  // Force light theme for PDF (dark text on white bg)
+  var root = document.documentElement;
+  var prevTheme = root.getAttribute("data-theme");
+  root.setAttribute("data-theme", "light");
+
   // Temporarily hide elements, restore after rendering
   var hidden = [];
   function tempHide(el) {
@@ -478,7 +483,10 @@ function exportTaskPDF(mode) {
       el.style.display = "none";
     });
   }
-  function restore() { hidden.forEach(function(h) { h.el.style.display = h.prev; }); }
+  function restore() {
+    hidden.forEach(function(h) { h.el.style.display = h.prev; });
+    root.setAttribute("data-theme", prevTheme);
+  }
 
   // Always hide: buttons, highlighter toolbar, GeoGebra, wahl-hint
   tempHideAll("button");
@@ -495,15 +503,22 @@ function exportTaskPDF(mode) {
     taskIds.forEach(function(id) { tempHide(document.getElementById(id)); });
   }
 
+  // Ensure section has white background for PDF
+  var prevBg = sec.style.background;
+  sec.style.background = "#fff";
+
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
 
   html2pdf().set({
     margin: [10, 10, 10, 10],
     filename: filename,
-    html2canvas: { scale: 2, useCORS: true },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
     jsPDF: { format: "a4", orientation: "portrait" }
-  }).from(sec).save().then(restore);
+  }).from(sec).save().then(function() {
+    sec.style.background = prevBg;
+    restore();
+  });
 
   closePdfModal();
 }
