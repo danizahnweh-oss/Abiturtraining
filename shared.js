@@ -533,7 +533,7 @@ function collectMaterialContent(container) {
 
 function exportTaskPDF(mode) {
   var wrap = document.createElement("div");
-  wrap.style.cssText = "padding:10px;font-family:sans-serif;color:#1a1a2e;";
+  wrap.style.cssText = "position:fixed;left:-9999px;top:0;width:800px;padding:20px;font-family:sans-serif;color:#1a1a2e;background:#fff;";
 
   if (mode === "task" || mode === "both") collectTaskContent(wrap);
   if (mode === "material" || mode === "both") collectMaterialContent(wrap);
@@ -547,15 +547,21 @@ function exportTaskPDF(mode) {
   wrap.querySelectorAll(".ggb-container, .highlighter-toolbar, .wahl-hint").forEach(function(el) { el.remove(); });
   wrap.querySelectorAll(".selectable").forEach(function(el) { el.style.cursor = "default"; el.removeAttribute("onclick"); });
 
+  // Add to DOM so html2canvas can measure layout
+  document.body.appendChild(wrap);
+
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
 
   html2pdf().set({
-    margin: 10,
+    margin: [10, 10, 10, 10],
     filename: filename,
-    html2canvas: { scale: 2 },
-    jsPDF: { format: "a4" }
-  }).from(wrap).save();
+    html2canvas: { scale: 2, useCORS: true, width: 800 },
+    jsPDF: { format: "a4", orientation: "portrait" },
+    pagebreak: { mode: ["avoid-all", "css", "legacy"] }
+  }).from(wrap).save().then(function() {
+    wrap.remove();
+  });
 
   closePdfModal();
 }
