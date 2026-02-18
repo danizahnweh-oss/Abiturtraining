@@ -156,7 +156,7 @@ footer a{color:var(--accent)}
 [data-theme="dark"] #splash{background:var(--bg,#111)}
 .splash-content{position:relative;width:600px;height:300px;display:flex;align-items:center;justify-content:center}
 .splash-wave{position:absolute;width:400px;height:auto;opacity:1;animation:wave-pulse 1s ease-in-out,wave-shrink .8s ease-in-out 2s forwards}
-.splash-logo{position:absolute;width:600px;height:auto;opacity:0;animation:logo-fade-in .8s ease-in-out 2s forwards}
+.splash-logo{position:absolute;width:600px;height:auto;opacity:0;visibility:hidden;animation:logo-fade-in .8s ease-in-out 2s forwards}
 
 @keyframes wave-pulse{
   0%{transform:scale(.6);opacity:0}
@@ -168,8 +168,8 @@ footer a{color:var(--accent)}
   100%{transform:scale(.3);opacity:0}
 }
 @keyframes logo-fade-in{
-  0%{opacity:0;transform:scale(.9)}
-  100%{opacity:1;transform:scale(1)}
+  0%{opacity:0;visibility:visible;transform:scale(.9)}
+  100%{opacity:1;visibility:visible;transform:scale(1)}
 }
 @keyframes splash-fade-out{
   0%{opacity:1}
