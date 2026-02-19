@@ -131,21 +131,32 @@ function initAiTutor() {
   `;
   document.head.appendChild(style);
 
-  // 3. Inject HTML
+  // 3. Build greeting based on current page
+  var pageInfo = detectPageInfo();
+  var greeting = "Hallo! Ich bin dein Abi-Coach.";
+  if (pageInfo.isIndex) {
+    greeting = "Hey! Ich bin dein Abi-Coach. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
+  } else if (pageInfo.isAbitur) {
+    greeting = "Hey! Ich bin dein " + pageInfo.subject + "-Coach. Generiere eine Pruefung und ich helfe dir bei den Aufgaben — ohne die Loesung zu verraten!";
+  } else {
+    greeting = "Hey! Ich bin dein " + pageInfo.subject + "-Coach. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
+  }
+
+  // 4. Inject HTML
   const widget = document.createElement("div");
   widget.id = "ai-tutor-widget";
   widget.innerHTML = `
     <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">🤖</button>
     <div id="ai-chat-window">
       <div class="ai-chat-header">
-        <span>🤖 Abi-Coach</span>
+        <span>🤖 ${pageInfo.isIndex ? "Abi-Coach" : pageInfo.subject + "-Coach"}</span>
         <button id="ai-close-btn" onclick="toggleAiChat()">×</button>
       </div>
       <div id="ai-chat-messages">
-        <div class="ai-message ai">Hallo! 👋 Ich bin dein persönlicher Abi-Coach. Frag mich etwas zu den Fächern oder Aufgaben!</div>
+        <div class="ai-message ai">${greeting}</div>
       </div>
       <div class="ai-chat-input">
-        <input type="text" id="ai-input" placeholder="Deine Frage..." onkeypress="handleAiEnter(event)">
+        <input type="text" id="ai-input" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
         <button id="ai-send-btn" onclick="sendAiMessage()">➤</button>
       </div>
     </div>
@@ -191,12 +202,50 @@ function detectSubject() {
 }
 
 /**
+ * Erkennt den Seitentyp (Abitur-Prüfung vs. Übung) und den aktuellen Schritt.
+ */
+function detectPageInfo() {
+  var path = location.pathname || "";
+  var filename = path.split("/").pop().replace(".html", "");
+  var isAbitur = filename.indexOf("-abitur") !== -1;
+  var isIndex = filename === "index" || filename === "" || filename === "dashboard";
+
+  // Aktuellen Schritt erkennen über sichtbare Section oder aktiven Nav-Button
+  var step = "";
+  var activeBtn = document.querySelector("nav button.active");
+  if (activeBtn) {
+    step = activeBtn.textContent.trim();
+  } else {
+    // Fallback: sichtbare Section prüfen
+    ["sec-setup", "sec-task", "sec-write", "sec-feedback", "sec-progress"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.style.display !== "none" && el.offsetParent !== null) {
+        var map = { "sec-setup": "Aufgabe generieren", "sec-task": "Prüfung", "sec-write": "Lösung schreiben", "sec-feedback": "Feedback", "sec-progress": "Fortschritt" };
+        step = map[id] || id;
+      }
+    });
+  }
+
+  return {
+    subject: detectSubject(),
+    isAbitur: isAbitur,
+    isIndex: isIndex,
+    step: step,
+    filename: filename
+  };
+}
+
+/**
  * Liest den aktuellen Aufgabentext von der Seite — funktioniert für alle Seitentypen.
+ * Sendet IMMER mindestens Fach + Seite + Schritt, auch ohne generierte Aufgabe.
  */
 function getCurrentTaskContext() {
+  var info = detectPageInfo();
   var parts = [];
-  var subject = detectSubject();
-  parts.push("Fach: " + subject);
+
+  parts.push("Fach: " + info.subject);
+  parts.push("Seite: " + (info.isAbitur ? "Abiturprüfung" : info.isIndex ? "Startseite" : "Übungsaufgabe"));
+  if (info.step) parts.push("Aktueller Schritt: " + info.step);
 
   // 1. Abitur-Seiten: Aufgabengruppen-Container
   var gruppenContainer = document.getElementById("aufgabengruppenContainer");
@@ -208,7 +257,6 @@ function getCurrentTaskContext() {
         var heading = card.querySelector("h4, h3, .aufgabengruppe-title");
         var title = heading ? heading.textContent.trim() : "Aufgabengruppe " + (i + 1);
         var text = card.textContent.trim();
-        // Kürzen auf max 800 Zeichen pro Gruppe
         if (text.length > 800) text = text.substring(0, 800) + "...";
         parts.push((selected ? "[AUSGEWÄHLT] " : "") + title + ":\n" + text);
       });
@@ -233,12 +281,10 @@ function getCurrentTaskContext() {
   if (singleTA && singleTA.value.trim()) {
     studentTexts.push(singleTA.value.trim());
   }
-  // Mathe-Abitur: Teil A + B
   ["studentTextA", "studentTextB"].forEach(function (id) {
     var ta = document.getElementById(id);
     if (ta && ta.value.trim()) studentTexts.push(ta.value.trim());
   });
-  // Abitur-Seiten: mehrere nummerierte Textareas
   document.querySelectorAll("#studentTextareas textarea").forEach(function (ta) {
     if (ta.value.trim()) studentTexts.push(ta.value.trim());
   });
@@ -249,8 +295,7 @@ function getCurrentTaskContext() {
     parts.push("Bisherige Antwort des Schülers:\n" + combined);
   }
 
-  // Nur zurückgeben wenn es mehr als nur das Fach gibt
-  return parts.length > 1 ? parts.join("\n\n") : "";
+  return parts.join("\n\n");
 }
 
 async function sendAiMessage() {
