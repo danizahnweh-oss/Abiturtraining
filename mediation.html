@@ -1,526 +1,691 @@
 <!DOCTYPE html>
 <html lang="de" data-accent="blue">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
-<title>myAbiFlow · Mediation Trainer</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
+  <title>myAbiFlow · Mediation Trainer</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js" integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared-v4.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js"
+    integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
 
-<style>
-/* Page-specific overrides — base styles from shared-v4.css */
-#login-screen { position: fixed; inset: 0; background: var(--ink); z-index: 9999; }
-#login-screen::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(37,99,235,0.1) 0%, transparent 50%);
-}
-.login-box { position: relative; animation: fadeUp .5s ease-out; }
-header { backdrop-filter: blur(12px); }
-[data-theme="dark"] header { background: rgba(30,30,46,0.92); }
-main { max-width: 860px; }
-.task-box { white-space: pre-wrap; }
-.source-text p { margin-bottom: .8rem; }
-.word-badge {
-  display: inline-flex; align-items: center; gap: .3rem;
-  background: var(--border-light); padding: .3rem .7rem;
-  border-radius: 20px; font-size: .8rem; font-weight: 600;
-  color: var(--ink-muted); margin-top: .8rem;
-}
-.scores-grid { grid-template-columns: repeat(2, 1fr); }
-.timer-display { font-size: 1.6rem; min-width: 80px; }
-.timer-display.warning { animation: pulse 1s infinite; }
-.timer-controls { margin-left: auto; }
-.feedback-body h1 { font-family: var(--font-display); font-size: 1.4rem; margin: 1.5rem 0 .8rem; }
-.feedback-body h3 { font-size: 1rem; margin: 1rem 0 .5rem; }
-.feedback-body strong { color: var(--ink); }
-.feedback-body code { background: var(--border-light); padding: .15rem .4rem; border-radius: 4px; font-family: var(--font-mono); font-size: .85em; }
-.ocr-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-#ocrPreview { display: none; margin-top: 1rem; text-align: center; }
-#ocrPreview img { max-width: 100%; max-height: 200px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
-.source-text { cursor: text; line-height: 2; }
-@media (max-width: 640px) {
-  .scores-grid { grid-template-columns: 1fr; }
-  .mode-toggle { grid-template-columns: 1fr; }
-}
-</style>
+  <style>
+    /* Page-specific overrides — base styles from shared-v4.css */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 9999;
+    }
+
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+    }
+
+    .login-box {
+      position: relative;
+      animation: fadeUp .5s ease-out;
+    }
+
+    header {
+      backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] header {
+      background: rgba(30, 30, 46, 0.92);
+    }
+
+    main {
+      max-width: 860px;
+    }
+
+    .task-box {
+      white-space: pre-wrap;
+    }
+
+    .source-text p {
+      margin-bottom: .8rem;
+    }
+
+    .word-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      background: var(--border-light);
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-top: .8rem;
+    }
+
+    .scores-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .timer-display {
+      font-size: 1.6rem;
+      min-width: 80px;
+    }
+
+    .timer-display.warning {
+      animation: pulse 1s infinite;
+    }
+
+    .timer-controls {
+      margin-left: auto;
+    }
+
+    .feedback-body h1 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      margin: 1.5rem 0 .8rem;
+    }
+
+    .feedback-body h3 {
+      font-size: 1rem;
+      margin: 1rem 0 .5rem;
+    }
+
+    .feedback-body strong {
+      color: var(--ink);
+    }
+
+    .feedback-body code {
+      background: var(--border-light);
+      padding: .15rem .4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: .85em;
+    }
+
+    .ocr-section {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    #ocrPreview {
+      display: none;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    #ocrPreview img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .source-text {
+      cursor: text;
+      line-height: 2;
+    }
+
+    @media (max-width: 640px) {
+      .scores-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mode-toggle {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- ====== LOGIN REDIRECT ====== -->
-<div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
-  <div style="text-align:center;">
-    <p style="color:var(--ink-muted);margin-bottom:1rem;">Bitte zuerst über die Startseite einloggen.</p>
-    <a href="index.html" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:1.1rem;">→ Zur Startseite</a>
-  </div>
-</div>
-
-<!-- ====== APP ====== -->
-<div id="app-wrapper">
-
-  <header>
-    <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Mediation <span>Trainer</span></h1>
-    <div class="header-right">
-      <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <div class="header-meta">myAbiFlow</div>
-      <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten" id="themeToggleBtn">🌙</button>
+  <!-- ====== LOGIN REDIRECT ====== -->
+  <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;">
+      <p style="color:var(--ink-muted);margin-bottom:1rem;">Bitte zuerst über die Startseite einloggen.</p>
+      <a href="index.html" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:1.1rem;">→ Zur
+        Startseite</a>
     </div>
-  </header>
+  </div>
 
-  <nav>
-    <button id="nav-setup" class="active" onclick="nav('setup')">
-      <span class="step-num">1</span> Setup
-    </button>
-    <button id="nav-task" onclick="nav('task')">
-      <span class="step-num">2</span> Aufgabe
-    </button>
-    <button id="nav-write" onclick="nav('write')">
-      <span class="step-num">3</span> Schreiben
-    </button>
-    <button id="nav-feedback" onclick="nav('feedback')">
-      <span class="step-num">4</span> Bewertung
-    </button>
-    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;">
-      <span class="step-num">📊</span> Fortschritt
-    </button>
-  </nav>
+  <!-- ====== APP ====== -->
+  <div id="app-wrapper">
 
-  <main>
-
-    <!-- ====== STEP 1: SETUP ====== -->
-    <section id="setup" class="active">
-
-      <!-- Mode Toggle -->
-      <div class="card">
-        <h2 class="card-header">Aufgabe wählen</h2>
-        <div class="mode-toggle">
-          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            KI-Aufgabe generieren
-          </button>
-          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            Eigene Aufgabe hochladen
-          </button>
-        </div>
+    <header>
+      <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Mediation
+        <span>Trainer</span></h1>
+      <div class="header-right">
+        <span id="studentGreeting" class="header-meta" style="display:none"></span>
+        <div class="header-meta">myAbiFlow</div>
+        <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
+          id="themeToggleBtn">🌙</button>
       </div>
+    </header>
 
-      <!-- MODE A: Generate -->
-      <div class="card" id="setupGenerate">
-        <h2 class="card-header">Neue Aufgabe generieren</h2>
-        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
-          Die KI erstellt einen deutschen Quelltext und eine passende englische Mediation Task.
-        </p>
+    <nav>
+      <button id="nav-setup" class="active" onclick="nav('setup')">
+        <span class="step-num">1</span> Setup
+      </button>
+      <button id="nav-task" onclick="nav('task')">
+        <span class="step-num">2</span> Aufgabe
+      </button>
+      <button id="nav-write" onclick="nav('write')">
+        <span class="step-num">3</span> Schreiben
+      </button>
+      <button id="nav-feedback" onclick="nav('feedback')">
+        <span class="step-num">4</span> Bewertung
+      </button>
+      <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;">
+        <span class="step-num">📊</span> Fortschritt
+      </button>
+    </nav>
 
-        <div class="form-group">
-          <label>Themenfeld</label>
-          <select id="topicSelect">
-            <option value="Science & Technology: Visions of the future, Utopia vs. Dystopia">Science & Technology: Visions of the Future</option>
-            <option value="Global Chances and Challenges: Sustainability">Global Chances & Challenges: Sustainability</option>
-            <option value="The Media: Impact on individual and society">The Media: Impact on Individual & Society</option>
-            <option value="Politics and Society: UK/USA tradition and change">Politics & Society: UK/USA Tradition & Change</option>
-            <option value="The World of Work: Automation and Digitalization">The World of Work: Automation & Digitalization</option>
-          </select>
-        </div>
+    <main>
 
-        <div class="form-group">
-          <label>Länge Quelltext (Wörter)</label>
-          <input type="number" id="sourceLength" value="600" min="200" max="1500" step="50">
-        </div>
+      <!-- ====== STEP 1: SETUP ====== -->
+      <section id="setup" class="active">
 
-        <button class="btn" id="generateBtn" onclick="generateExam()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          Aufgabe generieren
-        </button>
-
-        <div id="setupLoader" class="loader">
-          <div class="loader-spinner"></div>
-          <div class="loader-text">Aufgabe wird generiert – das kann bis zu 30 Sekunden dauern …</div>
-        </div>
-      </div>
-
-      <!-- MODE B: Upload own task -->
-      <div class="card" id="setupUpload" style="display:none;">
-        <h2 class="card-header">Eigene Aufgabe hochladen</h2>
-        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
-          Lade Fotos einer Abituraufgabe hoch (z.B. alte Prüfung). Die KI erkennt automatisch
-          den deutschen Quelltext und die englische Aufgabenstellung.
-        </p>
-
-        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
-          <div class="upload-icon">📄</div>
-          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – Mehrere Seiten möglich</div>
-        </div>
-
-        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
-
-        <div id="taskUploadPages" class="ocr-pages"></div>
-
-        <div id="taskUploadLoader" class="loader">
-          <div class="loader-spinner"></div>
-          <div class="loader-text">Aufgabe wird erkannt …</div>
-        </div>
-
-        <!-- Editable preview of parsed task -->
-        <div id="taskUploadResult" style="display:none;margin-top:1.2rem;">
-          <div class="form-group">
-            <label>Erkannte Aufgabenstellung (Englisch) – bearbeitbar</label>
-            <textarea id="parsedTaskInstruction" style="min-height:120px;" placeholder="Englische Aufgabenstellung …"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Erkannter Quelltext (Deutsch) – bearbeitbar</label>
-            <textarea id="parsedArticleText" style="min-height:200px;" placeholder="Deutscher Quelltext …"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Titel / Überschrift</label>
-            <input type="text" id="parsedHeadline" placeholder="Titel des Quelltextes …" style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-            <button class="btn" onclick="useUploadedTask()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Aufgabe übernehmen
+        <!-- Mode Toggle -->
+        <div class="card">
+          <h2 class="card-header">Aufgabe wählen</h2>
+          <div class="mode-toggle">
+            <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              KI-Aufgabe generieren
             </button>
-            <button class="btn btn-secondary" onclick="clearTaskUpload()">Verwerfen</button>
+            <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              Eigene Aufgabe hochladen
+            </button>
           </div>
         </div>
 
-        <!-- OR: Manual text entry -->
-        <details style="margin-top:1.2rem;">
-          <summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;">
-            Alternativ: Text manuell eingeben
-          </summary>
-          <div style="margin-top:1rem;">
+        <!-- MODE A: Generate -->
+        <div class="card" id="setupGenerate">
+          <h2 class="card-header">Neue Aufgabe generieren</h2>
+          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
+            Die KI erstellt einen deutschen Quelltext und eine passende englische Mediation Task.
+          </p>
+
+          <div class="form-group">
+            <label>Themenfeld</label>
+            <select id="topicSelect">
+              <option value="Science & Technology: Visions of the future, Utopia vs. Dystopia">Science & Technology:
+                Visions of the Future</option>
+              <option value="Global Chances and Challenges: Sustainability">Global Chances & Challenges: Sustainability
+              </option>
+              <option value="The Media: Impact on individual and society">The Media: Impact on Individual & Society
+              </option>
+              <option value="Politics and Society: UK/USA tradition and change">Politics & Society: UK/USA Tradition &
+                Change</option>
+              <option value="The World of Work: Automation and Digitalization">The World of Work: Automation &
+                Digitalization</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Länge Quelltext (Wörter)</label>
+            <input type="number" id="sourceLength" value="600" min="200" max="1500" step="50">
+          </div>
+
+          <button class="btn" id="generateBtn" onclick="generateExam()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Aufgabe generieren
+          </button>
+
+          <div id="setupLoader" class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Aufgabe wird generiert – das kann bis zu 30 Sekunden dauern …</div>
+          </div>
+        </div>
+
+        <!-- MODE B: Upload own task -->
+        <div class="card" id="setupUpload" style="display:none;">
+          <h2 class="card-header">Eigene Aufgabe hochladen</h2>
+          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
+            Lade Fotos einer Abituraufgabe hoch (z.B. alte Prüfung). Die KI erkennt automatisch
+            den deutschen Quelltext und die englische Aufgabenstellung.
+          </p>
+
+          <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+            <div class="upload-icon">📄</div>
+            <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+            <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – Mehrere Seiten möglich</div>
+          </div>
+
+          <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+            onchange="handleTaskUpload(this.files)">
+
+          <div id="taskUploadPages" class="ocr-pages"></div>
+
+          <div id="taskUploadLoader" class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Aufgabe wird erkannt …</div>
+          </div>
+
+          <!-- Editable preview of parsed task -->
+          <div id="taskUploadResult" style="display:none;margin-top:1.2rem;">
             <div class="form-group">
-              <label>Aufgabenstellung (Englisch)</label>
-              <textarea id="manualTaskInstruction" style="min-height:100px;" placeholder="Write an article on …"></textarea>
+              <label>Erkannte Aufgabenstellung (Englisch) – bearbeitbar</label>
+              <textarea id="parsedTaskInstruction" style="min-height:120px;"
+                placeholder="Englische Aufgabenstellung …"></textarea>
             </div>
             <div class="form-group">
-              <label>Quelltext (Deutsch)</label>
-              <textarea id="manualArticleText" style="min-height:180px;" placeholder="Deutscher Quelltext hier einfügen …"></textarea>
+              <label>Erkannter Quelltext (Deutsch) – bearbeitbar</label>
+              <textarea id="parsedArticleText" style="min-height:200px;" placeholder="Deutscher Quelltext …"></textarea>
             </div>
             <div class="form-group">
               <label>Titel / Überschrift</label>
-              <input type="text" id="manualHeadline" placeholder="Titel …" style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
+              <input type="text" id="parsedHeadline" placeholder="Titel des Quelltextes …"
+                style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
             </div>
-            <button class="btn" onclick="useManualTask()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Aufgabe übernehmen
-            </button>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+              <button class="btn" onclick="useUploadedTask()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Aufgabe übernehmen
+              </button>
+              <button class="btn btn-secondary" onclick="clearTaskUpload()">Verwerfen</button>
+            </div>
+          </div>
+
+          <!-- OR: Manual text entry -->
+          <details style="margin-top:1.2rem;">
+            <summary style="cursor:pointer;color:var(--accent);font-weight:600;font-size:.9rem;">
+              Alternativ: Text manuell eingeben
+            </summary>
+            <div style="margin-top:1rem;">
+              <div class="form-group">
+                <label>Aufgabenstellung (Englisch)</label>
+                <textarea id="manualTaskInstruction" style="min-height:100px;"
+                  placeholder="Write an article on …"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Quelltext (Deutsch)</label>
+                <textarea id="manualArticleText" style="min-height:180px;"
+                  placeholder="Deutscher Quelltext hier einfügen …"></textarea>
+              </div>
+              <div class="form-group">
+                <label>Titel / Überschrift</label>
+                <input type="text" id="manualHeadline" placeholder="Titel …"
+                  style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
+              </div>
+              <button class="btn" onclick="useManualTask()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Aufgabe übernehmen
+              </button>
+            </div>
+          </details>
+        </div>
+
+      </section>
+
+      <!-- ====== STEP 2: TASK ====== -->
+      <section id="task">
+        <div class="card">
+          <h2 class="card-header">Mediation Task</h2>
+          <div class="task-box" id="taskInstruction">Bitte zuerst eine Prüfung generieren.</div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-header" id="articleTitle">Quelltext</h2>
+
+          <!-- Highlighter Toolbar -->
+          <div class="highlighter-toolbar">
+            <span class="hl-label">🖍️ Markieren:</span>
+            <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+            <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
+            <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+            <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+            <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+            <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
+            <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+          </div>
+
+          <div class="source-text" id="articleBody"></div>
+          <div class="word-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 7V4h16v3" />
+              <path d="M9 20h6" />
+              <path d="M12 4v16" />
+            </svg>
+            <span id="wordCountLabel">0</span> Wörter
+          </div>
+        </div>
+
+        <button class="btn" onclick="nav('write')">
+          Weiter zum Schreiben →
+        </button>
+      </section>
+
+      <!-- ====== STEP 3: WRITE ====== -->
+      <section id="write">
+        <!-- Collapsible Task Reference -->
+        <details class="card" id="taskReference" style="cursor:pointer;">
+          <summary style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;user-select:none;">
+            📋 Aufgabenstellung anzeigen
+          </summary>
+          <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
+            <p style="font-weight:600;color:var(--accent);margin-bottom:.5rem;" id="writeTaskInstruction"></p>
+            <div
+              style="max-height:300px;overflow-y:auto;font-size:.88rem;color:var(--ink-light);line-height:1.6;padding:.8rem;background:var(--bg-warm);border-radius:var(--radius-sm);"
+              id="writeArticlePreview"></div>
           </div>
         </details>
-      </div>
 
-    </section>
-
-    <!-- ====== STEP 2: TASK ====== -->
-    <section id="task">
-      <div class="card">
-        <h2 class="card-header">Mediation Task</h2>
-        <div class="task-box" id="taskInstruction">Bitte zuerst eine Prüfung generieren.</div>
-      </div>
-
-      <div class="card">
-        <h2 class="card-header" id="articleTitle">Quelltext</h2>
-        
-        <!-- Highlighter Toolbar -->
-        <div class="highlighter-toolbar">
-          <span class="hl-label">🖍️ Markieren:</span>
-          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
-          <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
-          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
-          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
-          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
-          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
-          <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
-        </div>
-        
-        <div class="source-text" id="articleBody"></div>
-        <div class="word-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-          <span id="wordCountLabel">0</span> Wörter
-        </div>
-      </div>
-
-      <button class="btn" onclick="nav('write')">
-        Weiter zum Schreiben →
-      </button>
-    </section>
-
-    <!-- ====== STEP 3: WRITE ====== -->
-    <section id="write">
-      <!-- Collapsible Task Reference -->
-      <details class="card" id="taskReference" style="cursor:pointer;">
-        <summary style="font-family:var(--font-display);font-size:1.1rem;font-weight:400;user-select:none;">
-          📋 Aufgabenstellung anzeigen
-        </summary>
-        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
-          <p style="font-weight:600;color:var(--accent);margin-bottom:.5rem;" id="writeTaskInstruction"></p>
-          <div style="max-height:300px;overflow-y:auto;font-size:.88rem;color:var(--ink-light);line-height:1.6;padding:.8rem;background:var(--bg-warm);border-radius:var(--radius-sm);" id="writeArticlePreview"></div>
-        </div>
-      </details>
-
-      <!-- Timer Bar -->
-      <div class="timer-bar" id="timerBar">
-        <div>
-          <div class="timer-label">Verbleibende Zeit</div>
-          <div class="timer-display" id="timerDisplay">60:00</div>
-        </div>
-        <div class="timer-controls">
-          <button onclick="pauseTimer()" id="timerPauseBtn">⏸ Pause</button>
-          <button onclick="stopTimer()">✕ Stopp</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
-          <h2 class="card-header" style="margin-bottom:0">Deine Mediation</h2>
-          <!-- Timer Setup (when not running) -->
-          <div class="timer-setup" id="timerSetup">
-            <label style="margin:0;text-transform:none;font-size:.85rem;letter-spacing:0;">⏱ Prüfungsmodus:</label>
-            <input type="number" id="timerMinutes" value="60" min="5" max="180" step="5">
-            <span style="font-size:.85rem;color:var(--ink-muted)">Min</span>
-            <button class="btn btn-small btn-secondary" onclick="startTimer()">Timer starten</button>
+        <!-- Timer Bar -->
+        <div class="timer-bar" id="timerBar">
+          <div>
+            <div class="timer-label">Verbleibende Zeit</div>
+            <div class="timer-display" id="timerDisplay">60:00</div>
           </div>
-        </div>
-        <textarea id="studentText" placeholder="Write your mediation here …" oninput="updateWordCount()"></textarea>
-
-        <div class="write-toolbar">
-          <div class="word-counter">
-            <span id="currentWordCount">0</span> Wörter
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-            <button class="btn" id="submitBtn" onclick="submitForCorrection()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Zur Bewertung abgeben
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- OCR UPLOAD -->
-      <div class="card">
-        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
-        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-          Fotos deiner handschriftlichen Mediation hochladen – der Text wird automatisch erkannt.
-          Du kannst mehrere Seiten nacheinander hinzufügen.
-        </p>
-
-        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-          <div class="upload-icon">📷</div>
-          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
-        </div>
-
-        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
-
-        <!-- Thumbnail gallery for uploaded pages -->
-        <div id="ocrPages" class="ocr-pages"></div>
-
-        <div id="ocrLoader" class="loader">
-          <div class="loader-spinner"></div>
-          <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
-        </div>
-
-        <div id="ocrResult" style="display:none;margin-top:1rem;">
-          <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier – du kannst ihn vor der Übernahme bearbeiten …"></textarea>
-          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRText()">
-              ✓ Text übernehmen
-            </button>
-            <button class="btn btn-small btn-secondary" onclick="clearOCR()">
-              Verwerfen
-            </button>
-            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== STEP 4: FEEDBACK ====== -->
-    <section id="feedback">
-      <div id="feedbackLoader" class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Bewertung wird erstellt – bitte warten …</div>
-      </div>
-
-      <div id="feedbackContent" style="display:none;">
-        <!-- Scores Grid -->
-        <div class="scores-grid" id="scoresGrid">
-          <div class="score-card">
-            <div class="score-label">Inhalt & Struktur (40%)</div>
-            <div class="score-value" id="scoreContent">–</div>
-            <div class="score-max">von 15 NP</div>
-          </div>
-          <div class="score-card">
-            <div class="score-label">Sprache (60%)</div>
-            <div class="score-value" id="scoreLang">–</div>
-            <div class="score-max">von 15 NP</div>
-          </div>
-          <div class="score-card total">
-            <div class="score-label">Gesamt</div>
-            <div class="score-value" id="scoreTotal">–</div>
-            <div class="score-max">von 15 NP</div>
-          </div>
-          <div class="score-card" style="background:var(--accent-glow);border-color:var(--accent);">
-            <div class="score-label">Schulnote</div>
-            <div class="score-value" id="scoreGrade" style="font-size:1.8rem;">–</div>
-            <div class="score-max" id="scoreGradeLabel"></div>
+          <div class="timer-controls">
+            <button onclick="pauseTimer()" id="timerPauseBtn">⏸ Pause</button>
+            <button onclick="stopTimer()">✕ Stopp</button>
           </div>
         </div>
 
-        <!-- Detailed Feedback -->
         <div class="card">
-          <h2 class="card-header">Detailliertes Feedback</h2>
-          <div class="feedback-body" id="feedbackBody"></div>
+          <div
+            style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+            <h2 class="card-header" style="margin-bottom:0">Deine Mediation</h2>
+            <!-- Timer Setup (when not running) -->
+            <div class="timer-setup" id="timerSetup">
+              <label style="margin:0;text-transform:none;font-size:.85rem;letter-spacing:0;">⏱ Prüfungsmodus:</label>
+              <input type="number" id="timerMinutes" value="60" min="5" max="180" step="5">
+              <span style="font-size:.85rem;color:var(--ink-muted)">Min</span>
+              <button class="btn btn-small btn-secondary" onclick="startTimer()">Timer starten</button>
+            </div>
+          </div>
+          <textarea id="studentText" placeholder="Write your mediation here …" oninput="updateWordCount()"></textarea>
+
+          <div class="write-toolbar">
+            <div class="word-counter">
+              <span id="currentWordCount">0</span> Wörter
+            </div>
+            <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+              <button class="btn" id="submitBtn" onclick="submitForCorrection()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Zur Bewertung abgeben
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Korrektur & Aspekte -->
-        <div class="card" id="korrekturCard" style="display:none">
-          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
-          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
-          <div class="korrektur-body" id="korrekturBody"></div>
-        </div>
-        <div class="card" id="aspekteCard" style="display:none">
-          <h2 class="card-header">Fehlende Aspekte</h2>
-          <div id="aspekteBody"></div>
-        </div>
+        <!-- OCR UPLOAD -->
+        <div class="card">
+          <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+            Fotos deiner handschriftlichen Mediation hochladen – der Text wird automatisch erkannt.
+            Du kannst mehrere Seiten nacheinander hinzufügen.
+          </p>
 
-        <!-- Musterlösung -->
-        <div class="card" id="modelAnswerCard" style="display:none;">
-          <h2 class="card-header">Musterlösung</h2>
-          <div class="feedback-body" id="modelAnswerBody"></div>
-        </div>
-
-        <!-- Disclaimer -->
-        <div style="background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-top:1rem;font-size:.82rem;color:var(--ink-muted);line-height:1.5;">
-          ⚠️ <strong>Hinweis:</strong> Diese Bewertung wurde von einer KI erstellt und dient als Orientierung für dein Lernen. Sie ersetzt keine offizielle Lehrerkorrektur. Besprich deine Ergebnisse im Zweifelsfall mit deiner Lehrkraft.
-        </div>
-
-        <!-- Actions -->
-        <div class="pdf-actions">
-          <button class="btn btn-secondary btn-small" onclick="generateModelAnswer()" id="modelAnswerBtn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            Musterlösung zeigen
-          </button>
-          <button class="btn btn-secondary btn-small" onclick="exportPDF()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Als PDF exportieren
-          </button>
-          <button class="btn btn-secondary btn-small" onclick="resetAll()">
-            Neue Aufgabe starten
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== STEP 5: PROGRESS ====== -->
-    <section id="progress">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
-          <h2 class="card-header" style="margin-bottom:0">Dein Fortschritt</h2>
-          <button class="btn btn-small btn-secondary" onclick="clearHistory()" id="clearHistoryBtn" style="display:none;">
-            Verlauf löschen
-          </button>
-        </div>
-
-        <div id="progressEmpty" class="history-empty">
-          <div class="empty-icon">📈</div>
-          <p>Noch keine Ergebnisse vorhanden.</p>
-          <p style="font-size:.85rem;">Deine Bewertungen erscheinen hier nach jeder Abgabe.</p>
-        </div>
-
-        <div id="progressContent" style="display:none;">
-          <div class="history-chart">
-            <canvas id="progressChart"></canvas>
+          <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+            <div class="upload-icon">📷</div>
+            <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+            <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
+              Seiten möglich</div>
           </div>
 
-          <!-- Stats summary -->
-          <div class="scores-grid" style="margin:1.5rem 0;">
+          <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+            onchange="handleOCRFiles(this.files)">
+
+          <!-- Thumbnail gallery for uploaded pages -->
+          <div id="ocrPages" class="ocr-pages"></div>
+
+          <div id="ocrLoader" class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+          </div>
+
+          <div id="ocrResult" style="display:none;margin-top:1rem;">
+            <label>Erkannter Text (bearbeitbar):</label>
+            <textarea id="ocrText" style="min-height:200px;"
+              placeholder="Erkannter Text erscheint hier – du kannst ihn vor der Übernahme bearbeiten …"></textarea>
+            <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+              <button class="btn btn-small" onclick="useOCRText()">
+                ✓ Text übernehmen
+              </button>
+              <button class="btn btn-small btn-secondary" onclick="clearOCR()">
+                Verwerfen
+              </button>
+              <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== STEP 4: FEEDBACK ====== -->
+      <section id="feedback">
+        <div id="feedbackLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Bewertung wird erstellt – bitte warten …</div>
+        </div>
+
+        <div id="feedbackContent" style="display:none;">
+          <!-- Scores Grid -->
+          <div class="scores-grid" id="scoresGrid">
             <div class="score-card">
-              <div class="score-label">Versuche</div>
-              <div class="score-value" id="statAttempts">0</div>
+              <div class="score-label">Inhalt & Struktur (40%)</div>
+              <div class="score-value" id="scoreContent">–</div>
+              <div class="score-max">von 15 NP</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Durchschnitt</div>
-              <div class="score-value" id="statAverage">–</div>
+              <div class="score-label">Sprache (60%)</div>
+              <div class="score-value" id="scoreLang">–</div>
               <div class="score-max">von 15 NP</div>
             </div>
             <div class="score-card total">
-              <div class="score-label">Bestes Ergebnis</div>
-              <div class="score-value" id="statBest">–</div>
+              <div class="score-label">Gesamt</div>
+              <div class="score-value" id="scoreTotal">–</div>
               <div class="score-max">von 15 NP</div>
+            </div>
+            <div class="score-card" style="background:var(--accent-glow);border-color:var(--accent);">
+              <div class="score-label">Schulnote</div>
+              <div class="score-value" id="scoreGrade" style="font-size:1.8rem;">–</div>
+              <div class="score-max" id="scoreGradeLabel"></div>
             </div>
           </div>
 
-          <h3 style="font-family:var(--font-display);margin-bottom:.8rem;">Vergangene Versuche</h3>
-          <div style="overflow-x:auto;">
-            <table class="history-table">
-              <thead>
-                <tr>
-                  <th>Datum</th>
-                  <th>Thema</th>
-                  <th>Inhalt</th>
-                  <th>Sprache</th>
-                  <th>Gesamt</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody id="historyTableBody"></tbody>
-            </table>
+          <!-- Detailed Feedback -->
+          <div class="card">
+            <h2 class="card-header">Detailliertes Feedback</h2>
+            <div class="feedback-body" id="feedbackBody"></div>
+          </div>
+
+          <!-- Korrektur & Aspekte -->
+          <div class="card" id="korrekturCard" style="display:none">
+            <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+            <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+                class="fehler-gr-demo">Grammatik</span></div>
+            <div class="korrektur-body" id="korrekturBody"></div>
+          </div>
+          <div class="card" id="aspekteCard" style="display:none">
+            <h2 class="card-header">Fehlende Aspekte</h2>
+            <div id="aspekteBody"></div>
+          </div>
+
+          <!-- Musterlösung -->
+          <div class="card" id="modelAnswerCard" style="display:none;">
+            <h2 class="card-header">Musterlösung</h2>
+            <div class="feedback-body" id="modelAnswerBody"></div>
+          </div>
+
+          <!-- Disclaimer -->
+          <div
+            style="background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-top:1rem;font-size:.82rem;color:var(--ink-muted);line-height:1.5;">
+            ⚠️ <strong>Hinweis:</strong> Diese Bewertung wurde von einer KI erstellt und dient als Orientierung für dein
+            Lernen. Sie ersetzt keine offizielle Lehrerkorrektur. Besprich deine Ergebnisse im Zweifelsfall mit deiner
+            Lehrkraft.
+          </div>
+
+          <!-- Actions -->
+          <div class="pdf-actions">
+            <button class="btn btn-secondary btn-small" onclick="generateModelAnswer()" id="modelAnswerBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              Musterlösung zeigen
+            </button>
+            <button class="btn btn-secondary btn-small" onclick="exportPDF()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Als PDF exportieren
+            </button>
+            <button class="btn btn-secondary btn-small" onclick="resetAll()">
+              Neue Aufgabe starten
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-  </main>
+      <!-- ====== STEP 5: PROGRESS ====== -->
+      <section id="progress">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
+            <h2 class="card-header" style="margin-bottom:0">Dein Fortschritt</h2>
+            <button class="btn btn-small btn-secondary" onclick="clearHistory()" id="clearHistoryBtn"
+              style="display:none;">
+              Verlauf löschen
+            </button>
+          </div>
 
-  <footer>
-    © 2026 myAbiFlow · Mediation Trainer
-    <br><a href="index.html?back=english" style="color:var(--ink-muted);font-size:.75rem;text-decoration:none;opacity:.6;">← Zurück zur Modulauswahl</a>
-  </footer>
+          <div id="progressEmpty" class="history-empty">
+            <div class="empty-icon">📈</div>
+            <p>Noch keine Ergebnisse vorhanden.</p>
+            <p style="font-size:.85rem;">Deine Bewertungen erscheinen hier nach jeder Abgabe.</p>
+          </div>
 
-</div>
+          <div id="progressContent" style="display:none;">
+            <div class="history-chart">
+              <canvas id="progressChart"></canvas>
+            </div>
 
-<script>
-const MODULE_CONFIG = {
-  sectionPrefix: "",
-  steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "mediation",
-  historyKey: "mediation_history_",
-  historyType: "mediation",
-  pdfFilename: "Mediation",
-  chartColor: "#2563eb",
-  minWords: 50,
-  hasOwnLogin: true,
-  hlSelector: ".source-text",
-  syncHL: function() {
-    const source = document.getElementById("articleBody");
-    const writeRef = document.getElementById("writeArticlePreview");
-    if (source && writeRef) writeRef.innerHTML = source.innerHTML;
-  }
-};
-</script>
-<script src="shared.js"></script>
-<script>
-/* ================= PROMPTS ================= */
+            <!-- Stats summary -->
+            <div class="scores-grid" style="margin:1.5rem 0;">
+              <div class="score-card">
+                <div class="score-label">Versuche</div>
+                <div class="score-value" id="statAttempts">0</div>
+              </div>
+              <div class="score-card">
+                <div class="score-label">Durchschnitt</div>
+                <div class="score-value" id="statAverage">–</div>
+                <div class="score-max">von 15 NP</div>
+              </div>
+              <div class="score-card total">
+                <div class="score-label">Bestes Ergebnis</div>
+                <div class="score-value" id="statBest">–</div>
+                <div class="score-max">von 15 NP</div>
+              </div>
+            </div>
 
-const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch. Erstelle eine Mediation-Prüfungsaufgabe.
+            <h3 style="font-family:var(--font-display);margin-bottom:.8rem;">Vergangene Versuche</h3>
+            <div style="overflow-x:auto;">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Datum</th>
+                    <th>Thema</th>
+                    <th>Inhalt</th>
+                    <th>Sprache</th>
+                    <th>Gesamt</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2026 myAbiFlow · Mediation Trainer
+      <br><a href="index.html?back=english"
+        style="color:var(--ink-muted);font-size:.75rem;text-decoration:none;opacity:.6;">← Zurück zur Modulauswahl</a>
+    </footer>
+
+  </div>
+
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "mediation",
+      historyKey: "mediation_history_",
+      historyType: "mediation",
+      pdfFilename: "Mediation",
+      chartColor: "#2563eb",
+      minWords: 50,
+      hasOwnLogin: true,
+      hlSelector: ".source-text",
+      syncHL: function () {
+        const source = document.getElementById("articleBody");
+        const writeRef = document.getElementById("writeArticlePreview");
+        if (source && writeRef) writeRef.innerHTML = source.innerHTML;
+      }
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+  <script>
+    /* ================= PROMPTS ================= */
+
+    const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch. Erstelle eine Mediation-Prüfungsaufgabe.
 
 THEMA: {topic}
 STRIKTE ZIELLÄNGE QUELLTEXT: exakt ca. {length} Wörter
@@ -561,7 +726,7 @@ Antworte NUR mit reinem JSON in folgendem Format:
   "task_instruction": "Die kompakte englische Aufgabenstellung in 3-5 Sätzen..."
 }`;
 
-const CORRECTION_RUBRIC_PROMPT = `Rolle: Du bist ein erfahrener und strenger Englischlehrer an einem bayerischen Gymnasium. Du bewertest eine Sprachmittlung (Mediation) nach dem offiziellen ISB-Bewertungsraster für die Profil- und Leistungsstufe / Abiturprüfung (Stand: Juni 2024).
+    const CORRECTION_RUBRIC_PROMPT = `Rolle: Du bist ein erfahrener und strenger Englischlehrer an einem bayerischen Gymnasium. Du bewertest eine Sprachmittlung (Mediation) nach dem offiziellen ISB-Bewertungsraster für die Profil- und Leistungsstufe / Abiturprüfung (Stand: Juni 2024).
 
 BEWERTUNGSSYSTEM:
 - Inhalt und Textstruktur: 0–15 Notenpunkte (Gewichtung 40%)
@@ -672,449 +837,449 @@ WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließt
 
 Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürlich auf Englisch.`;
 
-/* ================= SESSION RECOVERY ================= */
-function saveSession() {
-  const session = {
-    examData: CONFIG.storedData,
-    studentText: document.getElementById("studentText").value,
-    currentStep: document.querySelector("section.active")?.id || "setup",
-    timerSeconds: timerSeconds,
-    timerRunning: !!timerInterval
-  };
-  localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
-}
-
-function restoreSession() {
-  try {
-    const raw = localStorage.getItem("session_" + getStudentKey());
-    if (!raw) return false;
-    const session = JSON.parse(raw);
-
-    if (session.examData && session.examData.article_text) {
-      CONFIG.storedData = session.examData;
-      renderExam(session.examData);
+    /* ================= SESSION RECOVERY ================= */
+    function saveSession() {
+      const session = {
+        examData: CONFIG.storedData,
+        studentText: document.getElementById("studentText").value,
+        currentStep: document.querySelector("section.active")?.id || "setup",
+        timerSeconds: timerSeconds,
+        timerRunning: !!timerInterval
+      };
+      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
     }
-    if (session.studentText) {
-      document.getElementById("studentText").value = session.studentText;
-      updateWordCount();
+
+    function restoreSession() {
+      try {
+        const raw = localStorage.getItem("session_" + getStudentKey());
+        if (!raw) return false;
+        const session = JSON.parse(raw);
+
+        if (session.examData && session.examData.article_text) {
+          CONFIG.storedData = session.examData;
+          renderExam(session.examData);
+        }
+        if (session.studentText) {
+          document.getElementById("studentText").value = session.studentText;
+          updateWordCount();
+        }
+        if (session.currentStep && session.currentStep !== "setup") {
+          nav(session.currentStep);
+        }
+        return true;
+      } catch { return false; }
     }
-    if (session.currentStep && session.currentStep !== "setup") {
-      nav(session.currentStep);
+
+
+    /* ================= GENERATE ================= */
+    async function generateExam() {
+      const topic = document.getElementById("topicSelect").value;
+      const length = Number(document.getElementById("sourceLength").value || 600);
+      const btn = document.getElementById("generateBtn");
+
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+
+      try {
+        const data = await apiCall("/api/generate", {
+          topic,
+          source_len_words: length,
+          prompt_template: GENERATION_PROMPT_TEMPLATE
+        });
+
+        const content = data.article_text && data.task_instruction
+          ? data
+          : { headline: "Mediation Task", article_text: data.source_text_de, task_instruction: data.task_en };
+
+        CONFIG.storedData = content;
+        localStorage.setItem("exam_data", JSON.stringify(content));
+        renderExam(content);
+        nav("task");
+      } catch (e) {
+        showToast("Fehler beim Generieren: " + e.message);
+      }
+
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
     }
-    return true;
-  } catch { return false; }
-}
 
+    /* ================= SETUP MODE TOGGLE ================= */
+    function setSetupMode(mode) {
+      document.getElementById("modeGenerate").classList.toggle("active", mode === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", mode === "upload");
+      document.getElementById("setupGenerate").style.display = mode === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = mode === "upload" ? "block" : "none";
+    }
 
-/* ================= GENERATE ================= */
-async function generateExam() {
-  const topic = document.getElementById("topicSelect").value;
-  const length = Number(document.getElementById("sourceLength").value || 600);
-  const btn = document.getElementById("generateBtn");
+    /* ================= TASK UPLOAD (own exam) ================= */
+    const taskUploadImages = []; // {file, url, base64}
 
-  btn.disabled = true;
-  document.getElementById("setupLoader").style.display = "block";
+    async function handleTaskUpload(fileList) {
+      const files = Array.from(fileList).filter(f => {
+        if (!f.type.startsWith("image/")) return false;
+        if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} zu groß (max. 10 MB).`); return false; }
+        return true;
+      });
+      if (!files.length) return;
 
-  try {
-    const data = await apiCall("/api/generate", {
-      topic,
-      source_len_words: length,
-      prompt_template: GENERATION_PROMPT_TEMPLATE
-    });
+      for (const file of files) {
+        const url = URL.createObjectURL(file);
+        taskUploadImages.push({ file, url, base64: null, status: "pending" });
+      }
+      renderTaskUploadPages();
 
-    const content = data.article_text && data.task_instruction
-      ? data
-      : { headline: "Mediation Task", article_text: data.source_text_de, task_instruction: data.task_en };
+      // Convert all to base64
+      const startIdx = taskUploadImages.length - files.length;
+      for (let i = startIdx; i < taskUploadImages.length; i++) {
+        taskUploadImages[i].base64 = await fileToBase64(taskUploadImages[i].file);
+        taskUploadImages[i].status = "done";
+        renderTaskUploadPages();
+      }
 
-    CONFIG.storedData = content;
-    localStorage.setItem("exam_data", JSON.stringify(content));
-    renderExam(content);
-    nav("task");
-  } catch (e) {
-    showToast("Fehler beim Generieren: " + e.message);
-  }
+      // Now parse all images via API
+      document.getElementById("taskUploadLoader").style.display = "block";
+      document.getElementById("taskUploadResult").style.display = "none";
 
-  btn.disabled = false;
-  document.getElementById("setupLoader").style.display = "none";
-}
+      try {
+        const base64List = taskUploadImages.map(p => p.base64).filter(Boolean);
+        const data = await apiCall("/api/parse-task", { images: base64List });
 
-/* ================= SETUP MODE TOGGLE ================= */
-function setSetupMode(mode) {
-  document.getElementById("modeGenerate").classList.toggle("active", mode === "generate");
-  document.getElementById("modeUpload").classList.toggle("active", mode === "upload");
-  document.getElementById("setupGenerate").style.display = mode === "generate" ? "block" : "none";
-  document.getElementById("setupUpload").style.display = mode === "upload" ? "block" : "none";
-}
+        document.getElementById("parsedTaskInstruction").value = data.task_instruction || "";
+        document.getElementById("parsedArticleText").value = data.article_text || "";
+        document.getElementById("parsedHeadline").value = data.headline || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) {
+        showToast("Fehler bei der Erkennung: " + e.message);
+      }
 
-/* ================= TASK UPLOAD (own exam) ================= */
-const taskUploadImages = []; // {file, url, base64}
+      document.getElementById("taskUploadLoader").style.display = "none";
+      document.getElementById("taskFileInput").value = "";
+    }
 
-async function handleTaskUpload(fileList) {
-  const files = Array.from(fileList).filter(f => {
-    if (!f.type.startsWith("image/")) return false;
-    if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} zu groß (max. 10 MB).`); return false; }
-    return true;
-  });
-  if (!files.length) return;
-
-  for (const file of files) {
-    const url = URL.createObjectURL(file);
-    taskUploadImages.push({ file, url, base64: null, status: "pending" });
-  }
-  renderTaskUploadPages();
-
-  // Convert all to base64
-  const startIdx = taskUploadImages.length - files.length;
-  for (let i = startIdx; i < taskUploadImages.length; i++) {
-    taskUploadImages[i].base64 = await fileToBase64(taskUploadImages[i].file);
-    taskUploadImages[i].status = "done";
-    renderTaskUploadPages();
-  }
-
-  // Now parse all images via API
-  document.getElementById("taskUploadLoader").style.display = "block";
-  document.getElementById("taskUploadResult").style.display = "none";
-
-  try {
-    const base64List = taskUploadImages.map(p => p.base64).filter(Boolean);
-    const data = await apiCall("/api/parse-task", { images: base64List });
-
-    document.getElementById("parsedTaskInstruction").value = data.task_instruction || "";
-    document.getElementById("parsedArticleText").value = data.article_text || "";
-    document.getElementById("parsedHeadline").value = data.headline || "";
-    document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) {
-    showToast("Fehler bei der Erkennung: " + e.message);
-  }
-
-  document.getElementById("taskUploadLoader").style.display = "none";
-  document.getElementById("taskFileInput").value = "";
-}
-
-function renderTaskUploadPages() {
-  const container = document.getElementById("taskUploadPages");
-  if (!taskUploadImages.length) { container.innerHTML = ""; return; }
-  container.innerHTML = taskUploadImages.map((p, i) => `
+    function renderTaskUploadPages() {
+      const container = document.getElementById("taskUploadPages");
+      if (!taskUploadImages.length) { container.innerHTML = ""; return; }
+      container.innerHTML = taskUploadImages.map((p, i) => `
     <div class="ocr-page-thumb ${p.status}">
       <img src="${p.url}" alt="Seite ${i + 1}">
       <div class="page-num">Seite ${i + 1}</div>
       <button class="remove-page" onclick="removeTaskPage(${i})" title="Entfernen">✕</button>
     </div>
   `).join("");
-}
-
-function removeTaskPage(index) {
-  URL.revokeObjectURL(taskUploadImages[index].url);
-  taskUploadImages.splice(index, 1);
-  renderTaskUploadPages();
-}
-
-function useUploadedTask() {
-  const task = document.getElementById("parsedTaskInstruction").value.trim();
-  const article = document.getElementById("parsedArticleText").value.trim();
-  const headline = document.getElementById("parsedHeadline").value.trim();
-
-  if (!task && !article) {
-    showToast("Kein Text erkannt. Bitte prüfe die Bilder oder gib den Text manuell ein.");
-    return;
-  }
-
-  const content = {
-    headline: headline || "Eigene Aufgabe",
-    article_text: article,
-    task_instruction: task
-  };
-  CONFIG.storedData = content;
-  localStorage.setItem("exam_data", JSON.stringify(content));
-  renderExam(content);
-  nav("task");
-}
-
-function useManualTask() {
-  const task = document.getElementById("manualTaskInstruction").value.trim();
-  const article = document.getElementById("manualArticleText").value.trim();
-  const headline = document.getElementById("manualHeadline").value.trim();
-
-  if (!task && !article) {
-    showToast("Bitte mindestens Aufgabenstellung oder Quelltext eingeben.");
-    return;
-  }
-
-  const content = {
-    headline: headline || "Eigene Aufgabe",
-    article_text: article,
-    task_instruction: task
-  };
-  CONFIG.storedData = content;
-  localStorage.setItem("exam_data", JSON.stringify(content));
-  renderExam(content);
-  nav("task");
-}
-
-function clearTaskUpload() {
-  taskUploadImages.forEach(p => URL.revokeObjectURL(p.url));
-  taskUploadImages.length = 0;
-  renderTaskUploadPages();
-  document.getElementById("parsedTaskInstruction").value = "";
-  document.getElementById("parsedArticleText").value = "";
-  document.getElementById("parsedHeadline").value = "";
-  document.getElementById("taskUploadResult").style.display = "none";
-  document.getElementById("taskFileInput").value = "";
-}
-
-// Drag & Drop for task upload zone
-document.addEventListener("DOMContentLoaded", () => {
-  const zone = document.getElementById("taskUploadZone");
-  if (!zone) return;
-  zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("dragover"); });
-  zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
-  zone.addEventListener("drop", e => {
-    e.preventDefault();
-    zone.classList.remove("dragover");
-    const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"));
-    if (files.length) handleTaskUpload(files);
-  });
-});
-
-/* ================= RENDER ================= */
-function renderExam(d) {
-  document.getElementById("taskInstruction").innerText = d.task_instruction || "—";
-  document.getElementById("articleTitle").innerText = d.headline || "Quelltext";
-  document.getElementById("articleBody").innerHTML =
-    (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
-  document.getElementById("wordCountLabel").innerText = countWords(d.article_text || "");
-
-  // Also populate write-tab reference panel
-  document.getElementById("writeTaskInstruction").innerText = d.task_instruction || "";
-  document.getElementById("writeArticlePreview").innerHTML =
-    `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
-    (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
-}
-
-/* ================= SUBMIT FOR GRADING ================= */
-async function submitForCorrection() {
-  const text = document.getElementById("studentText").value;
-  if (countWords(text) < 30) {
-    showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");
-    return;
-  }
-  if (!CONFIG.storedData?.article_text || !CONFIG.storedData?.task_instruction) {
-    showToast("Bitte zuerst eine Prüfung generieren (Schritt 1).");
-    return;
-  }
-
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = true;
-  nav("feedback");
-  document.getElementById("feedbackLoader").style.display = "block";
-  document.getElementById("feedbackContent").style.display = "none";
-
-  try {
-    const data = await apiCall("/api/grade", {
-      source_text_de: CONFIG.storedData.article_text,
-      task_en: CONFIG.storedData.task_instruction,
-      student_text_en: text,
-      rubric_prompt: CORRECTION_RUBRIC_PROMPT
-    });
-
-    // Display scores
-    const cs = data.scores?.content_textstructure;
-    const ls = data.scores?.language;
-    const ts = data.scores?.total;
-
-    document.getElementById("scoreContent").textContent = cs != null ? cs : "–";
-    document.getElementById("scoreLang").textContent = ls != null ? ls : "–";
-    document.getElementById("scoreTotal").textContent = ts != null ? ts : "–";
-
-    // Calculate and display school grade
-    if (ts != null) {
-      const grade = npToGrade(ts);
-      document.getElementById("scoreGrade").textContent = grade.note;
-      document.getElementById("scoreGradeLabel").textContent = grade.label;
     }
 
-    // Save to history (local)
-    saveToHistory({
-      topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "—",
-      content: cs,
-      language: ls,
-      total: ts
+    function removeTaskPage(index) {
+      URL.revokeObjectURL(taskUploadImages[index].url);
+      taskUploadImages.splice(index, 1);
+      renderTaskUploadPages();
+    }
+
+    function useUploadedTask() {
+      const task = document.getElementById("parsedTaskInstruction").value.trim();
+      const article = document.getElementById("parsedArticleText").value.trim();
+      const headline = document.getElementById("parsedHeadline").value.trim();
+
+      if (!task && !article) {
+        showToast("Kein Text erkannt. Bitte prüfe die Bilder oder gib den Text manuell ein.");
+        return;
+      }
+
+      const content = {
+        headline: headline || "Eigene Aufgabe",
+        article_text: article,
+        task_instruction: task
+      };
+      CONFIG.storedData = content;
+      localStorage.setItem("exam_data", JSON.stringify(content));
+      renderExam(content);
+      nav("task");
+    }
+
+    function useManualTask() {
+      const task = document.getElementById("manualTaskInstruction").value.trim();
+      const article = document.getElementById("manualArticleText").value.trim();
+      const headline = document.getElementById("manualHeadline").value.trim();
+
+      if (!task && !article) {
+        showToast("Bitte mindestens Aufgabenstellung oder Quelltext eingeben.");
+        return;
+      }
+
+      const content = {
+        headline: headline || "Eigene Aufgabe",
+        article_text: article,
+        task_instruction: task
+      };
+      CONFIG.storedData = content;
+      localStorage.setItem("exam_data", JSON.stringify(content));
+      renderExam(content);
+      nav("task");
+    }
+
+    function clearTaskUpload() {
+      taskUploadImages.forEach(p => URL.revokeObjectURL(p.url));
+      taskUploadImages.length = 0;
+      renderTaskUploadPages();
+      document.getElementById("parsedTaskInstruction").value = "";
+      document.getElementById("parsedArticleText").value = "";
+      document.getElementById("parsedHeadline").value = "";
+      document.getElementById("taskUploadResult").style.display = "none";
+      document.getElementById("taskFileInput").value = "";
+    }
+
+    // Drag & Drop for task upload zone
+    document.addEventListener("DOMContentLoaded", () => {
+      const zone = document.getElementById("taskUploadZone");
+      if (!zone) return;
+      zone.addEventListener("dragover", e => { e.preventDefault(); zone.classList.add("dragover"); });
+      zone.addEventListener("dragleave", () => zone.classList.remove("dragover"));
+      zone.addEventListener("drop", e => {
+        e.preventDefault();
+        zone.classList.remove("dragover");
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"));
+        if (files.length) handleTaskUpload(files);
+      });
     });
 
-    // Save to server (for teacher dashboard) – fire and forget
-    apiCall("/api/submit-result", {
-      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
-      course: sessionStorage.getItem("student_course") || "",
-      type: "mediation",
-      topic: CONFIG.storedData.headline || "—",
-      content: cs,
-      language: ls,
-      total: ts,
-      date: new Date().toISOString()
-    }).catch(() => {}); // silently fail if server unavailable
+    /* ================= RENDER ================= */
+    function renderExam(d) {
+      document.getElementById("taskInstruction").innerText = d.task_instruction || "—";
+      document.getElementById("articleTitle").innerText = d.headline || "Quelltext";
+      document.getElementById("articleBody").innerHTML =
+        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      document.getElementById("wordCountLabel").innerText = countWords(d.article_text || "");
 
-    // Stop timer if running
-    stopTimer();
+      // Also populate write-tab reference panel
+      document.getElementById("writeTaskInstruction").innerText = d.task_instruction || "";
+      document.getElementById("writeArticlePreview").innerHTML =
+        `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
+        (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+    }
 
-    // Display feedback
-    const feedbackMd = (data.feedback || "") + (data.corrections ? "\n\n## Korrekturen\n" + data.corrections : "");
-    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(feedbackMd));
-    renderKorrekturFeedback(data);
+    /* ================= SUBMIT FOR GRADING ================= */
+    async function submitForCorrection() {
+      const text = document.getElementById("studentText").value;
+      if (countWords(text) < 30) {
+        showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");
+        return;
+      }
+      if (!CONFIG.storedData?.article_text || !CONFIG.storedData?.task_instruction) {
+        showToast("Bitte zuerst eine Prüfung generieren (Schritt 1).");
+        return;
+      }
 
-    document.getElementById("feedbackContent").style.display = "block";
-  } catch (e) {
-    document.getElementById("feedbackContent").style.display = "block";
-    document.getElementById("feedbackBody").innerHTML =
-      `<p style="color:var(--warning);font-weight:600;">Fehler: ${escapeHtml(e.message)}</p>
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      try {
+        const data = await apiCall("/api/grade", {
+          source_text_de: CONFIG.storedData.article_text,
+          task_en: CONFIG.storedData.task_instruction,
+          student_text_en: text,
+          rubric_prompt: CORRECTION_RUBRIC_PROMPT
+        });
+
+        // Display scores
+        const cs = data.scores?.content_textstructure;
+        const ls = data.scores?.language;
+        const ts = data.scores?.total;
+
+        document.getElementById("scoreContent").textContent = cs != null ? cs : "–";
+        document.getElementById("scoreLang").textContent = ls != null ? ls : "–";
+        document.getElementById("scoreTotal").textContent = ts != null ? ts : "–";
+
+        // Calculate and display school grade
+        if (ts != null) {
+          const grade = npToGrade(ts);
+          document.getElementById("scoreGrade").textContent = grade.note;
+          document.getElementById("scoreGradeLabel").textContent = grade.label;
+        }
+
+        // Save to history (local)
+        saveToHistory({
+          topic: CONFIG.storedData.headline || document.getElementById("topicSelect")?.value || "—",
+          content: cs,
+          language: ls,
+          total: ts
+        });
+
+        // Save to server (for teacher dashboard) – fire and forget
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          course: sessionStorage.getItem("student_course") || "",
+          type: "mediation",
+          topic: CONFIG.storedData.headline || "—",
+          content: cs,
+          language: ls,
+          total: ts,
+          date: new Date().toISOString()
+        }).catch(() => { }); // silently fail if server unavailable
+
+        // Stop timer if running
+        stopTimer();
+
+        // Display feedback
+        const feedbackMd = (data.feedback || "") + (data.corrections ? "\n\n## Korrekturen\n" + data.corrections : "");
+        document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(feedbackMd));
+        renderKorrekturFeedback(data);
+
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML =
+          `<p style="color:var(--warning);font-weight:600;">Fehler: ${escapeHtml(e.message)}</p>
        <p style="color:var(--ink-muted);font-size:.9rem;">Bitte versuche es erneut oder kontaktiere deinen Lehrer.</p>`;
-  }
+      }
 
-  document.getElementById("feedbackLoader").style.display = "none";
-  btn.disabled = false;
-}
-
-/* ================= PDF EXPORT (override shared.js with custom options) ================= */
-function exportPDF() {
-  const content = document.getElementById("feedbackContent");
-  if (!content) return;
-  html2pdf().set({
-    margin: [10, 10, 10, 10],
-    filename: "Mediation_Bewertung.pdf",
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollY: -window.scrollY },
-    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-  }).from(content).save();
-}
-
-/* ================= RESET ================= */
-function resetAll() {
-  if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
-  localStorage.removeItem("exam_data");
-  localStorage.removeItem("student_text");
-  localStorage.removeItem("session_" + getStudentKey());
-  CONFIG.storedData = {};
-  document.getElementById("studentText").value = "";
-  document.getElementById("feedbackContent").style.display = "none";
-  document.getElementById("modelAnswerCard").style.display = "none";
-  document.getElementById("taskInstruction").innerText = "Bitte zuerst eine Prüfung generieren.";
-  document.getElementById("articleTitle").innerText = "Quelltext";
-  document.getElementById("articleBody").innerHTML = "";
-  document.getElementById("wordCountLabel").innerText = "0";
-  clearOCR();
-  clearTaskUpload();
-  stopTimer();
-  setSetupMode("generate");
-  updateWordCount();
-  nav("setup");
-}
-
-/* ================= UTILS ================= */
-function npToGrade(np) {
-  if (np >= 15) return { note: "1+", label: "sehr gut" };
-  if (np >= 14) return { note: "1", label: "sehr gut" };
-  if (np >= 13) return { note: "1–", label: "sehr gut" };
-  if (np >= 12) return { note: "2+", label: "gut" };
-  if (np >= 11) return { note: "2", label: "gut" };
-  if (np >= 10) return { note: "2–", label: "gut" };
-  if (np >= 9)  return { note: "3+", label: "befriedigend" };
-  if (np >= 8)  return { note: "3", label: "befriedigend" };
-  if (np >= 7)  return { note: "3–", label: "befriedigend" };
-  if (np >= 6)  return { note: "4+", label: "ausreichend" };
-  if (np >= 5)  return { note: "4", label: "ausreichend" };
-  if (np >= 4)  return { note: "4–", label: "ausreichend" };
-  if (np >= 3)  return { note: "5+", label: "mangelhaft" };
-  if (np >= 2)  return { note: "5", label: "mangelhaft" };
-  if (np >= 1)  return { note: "5–", label: "mangelhaft" };
-  return { note: "6", label: "ungenügend" };
-}
-
-/* ================= MUSTERLÖSUNG ================= */
-async function generateModelAnswer() {
-  const btn = document.getElementById("modelAnswerBtn");
-  const card = document.getElementById("modelAnswerCard");
-  const body = document.getElementById("modelAnswerBody");
-
-  if (card.style.display === "block") {
-    // Already visible – just scroll to it
-    card.scrollIntoView({ behavior: "smooth" });
-    return;
-  }
-
-  if (!CONFIG.storedData.article_text || !CONFIG.storedData.task_instruction) {
-    showToast("Keine Aufgabe vorhanden.");
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = "⏳ Wird generiert …";
-
-  try {
-    const data = await apiCall("/api/model-answer", {
-      source_text_de: CONFIG.storedData.article_text,
-      task_en: CONFIG.storedData.task_instruction
-    });
-
-    body.innerHTML = DOMPurify.sanitize(marked.parse(data.model_answer || "Keine Musterlösung generiert."));
-    card.style.display = "block";
-    card.scrollIntoView({ behavior: "smooth" });
-  } catch (e) {
-    body.innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
-    card.style.display = "block";
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Musterlösung zeigen`;
-}
-
-/* ================= TIMER (custom — different UI from shared.js) ================= */
-function startTimer() {
-  const minutes = parseInt(document.getElementById("timerMinutes").value) || 60;
-  timerSeconds = minutes * 60;
-  timerPaused = false;
-  document.getElementById("timerBar").classList.add("active");
-  document.getElementById("timerSetup").style.display = "none";
-  updateTimerDisplay();
-  timerInterval = setInterval(() => {
-    if (timerPaused) return;
-    timerSeconds--;
-    updateTimerDisplay();
-    if (timerSeconds <= 0) {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      document.getElementById("timerDisplay").textContent = "00:00";
-      document.getElementById("timerDisplay").classList.add("warning");
-      showToast("Zeit abgelaufen! Du kannst deinen Text trotzdem noch abgeben.");
+      document.getElementById("feedbackLoader").style.display = "none";
+      btn.disabled = false;
     }
-  }, 1000);
-}
 
-function stopTimer() {
-  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-  timerSeconds = 0;
-  timerPaused = false;
-  document.getElementById("timerBar").classList.remove("active");
-  document.getElementById("timerSetup").style.display = "flex";
-  document.getElementById("timerDisplay").classList.remove("warning");
-  document.getElementById("timerPauseBtn").textContent = "⏸ Pause";
-}
+    /* ================= PDF EXPORT (override shared.js with custom options) ================= */
+    function exportPDF() {
+      const content = document.getElementById("feedbackContent");
+      if (!content) return;
+      html2pdf().set({
+        margin: [10, 10, 10, 10],
+        filename: "Mediation_Bewertung.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollY: -window.scrollY },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+      }).from(content).save();
+    }
 
-function updateTimerDisplay() {
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  const display = document.getElementById("timerDisplay");
-  display.textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-  display.classList.toggle("warning", timerSeconds <= 300 && timerSeconds > 0);
-}
+    /* ================= RESET ================= */
+    function resetAll() {
+      if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
+      localStorage.removeItem("exam_data");
+      localStorage.removeItem("student_text");
+      localStorage.removeItem("session_" + getStudentKey());
+      CONFIG.storedData = {};
+      document.getElementById("studentText").value = "";
+      document.getElementById("feedbackContent").style.display = "none";
+      document.getElementById("modelAnswerCard").style.display = "none";
+      document.getElementById("taskInstruction").innerText = "Bitte zuerst eine Prüfung generieren.";
+      document.getElementById("articleTitle").innerText = "Quelltext";
+      document.getElementById("articleBody").innerHTML = "";
+      document.getElementById("wordCountLabel").innerText = "0";
+      clearOCR();
+      clearTaskUpload();
+      stopTimer();
+      setSetupMode("generate");
+      updateWordCount();
+      nav("setup");
+    }
 
-/* ================= PROGRESS (custom chart with 3 datasets) ================= */
-function renderHistoryTable(history) {
-  const tbody = document.getElementById("historyTableBody");
-  tbody.innerHTML = history.slice().reverse().map((h, i) => {
-    const realIdx = history.length - 1 - i;
-    const d = new Date(h.date);
-    const dateStr = `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`;
-    const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-    return `<tr>
+    /* ================= UTILS ================= */
+    function npToGrade(np) {
+      if (np >= 15) return { note: "1+", label: "sehr gut" };
+      if (np >= 14) return { note: "1", label: "sehr gut" };
+      if (np >= 13) return { note: "1–", label: "sehr gut" };
+      if (np >= 12) return { note: "2+", label: "gut" };
+      if (np >= 11) return { note: "2", label: "gut" };
+      if (np >= 10) return { note: "2–", label: "gut" };
+      if (np >= 9) return { note: "3+", label: "befriedigend" };
+      if (np >= 8) return { note: "3", label: "befriedigend" };
+      if (np >= 7) return { note: "3–", label: "befriedigend" };
+      if (np >= 6) return { note: "4+", label: "ausreichend" };
+      if (np >= 5) return { note: "4", label: "ausreichend" };
+      if (np >= 4) return { note: "4–", label: "ausreichend" };
+      if (np >= 3) return { note: "5+", label: "mangelhaft" };
+      if (np >= 2) return { note: "5", label: "mangelhaft" };
+      if (np >= 1) return { note: "5–", label: "mangelhaft" };
+      return { note: "6", label: "ungenügend" };
+    }
+
+    /* ================= MUSTERLÖSUNG ================= */
+    async function generateModelAnswer() {
+      const btn = document.getElementById("modelAnswerBtn");
+      const card = document.getElementById("modelAnswerCard");
+      const body = document.getElementById("modelAnswerBody");
+
+      if (card.style.display === "block") {
+        // Already visible – just scroll to it
+        card.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+
+      if (!CONFIG.storedData.article_text || !CONFIG.storedData.task_instruction) {
+        showToast("Keine Aufgabe vorhanden.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "⏳ Wird generiert …";
+
+      try {
+        const data = await apiCall("/api/model-answer", {
+          source_text_de: CONFIG.storedData.article_text,
+          task_en: CONFIG.storedData.task_instruction
+        });
+
+        body.innerHTML = DOMPurify.sanitize(marked.parse(data.model_answer || "Keine Musterlösung generiert."));
+        card.style.display = "block";
+        card.scrollIntoView({ behavior: "smooth" });
+      } catch (e) {
+        body.innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
+        card.style.display = "block";
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Musterlösung zeigen`;
+    }
+
+    /* ================= TIMER (custom — different UI from shared.js) ================= */
+    function startTimer() {
+      const minutes = parseInt(document.getElementById("timerMinutes").value) || 60;
+      timerSeconds = minutes * 60;
+      timerPaused = false;
+      document.getElementById("timerBar").classList.add("active");
+      document.getElementById("timerSetup").style.display = "none";
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        if (timerPaused) return;
+        timerSeconds--;
+        updateTimerDisplay();
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          document.getElementById("timerDisplay").textContent = "00:00";
+          document.getElementById("timerDisplay").classList.add("warning");
+          showToast("Zeit abgelaufen! Du kannst deinen Text trotzdem noch abgeben.");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      timerSeconds = 0;
+      timerPaused = false;
+      document.getElementById("timerBar").classList.remove("active");
+      document.getElementById("timerSetup").style.display = "flex";
+      document.getElementById("timerDisplay").classList.remove("warning");
+      document.getElementById("timerPauseBtn").textContent = "⏸ Pause";
+    }
+
+    function updateTimerDisplay() {
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      const display = document.getElementById("timerDisplay");
+      display.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      display.classList.toggle("warning", timerSeconds <= 300 && timerSeconds > 0);
+    }
+
+    /* ================= PROGRESS (custom chart with 3 datasets) ================= */
+    function renderHistoryTable(history) {
+      const tbody = document.getElementById("historyTableBody");
+      tbody.innerHTML = history.slice().reverse().map((h, i) => {
+        const realIdx = history.length - 1 - i;
+        const d = new Date(h.date);
+        const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
+        const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+        return `<tr>
       <td>${dateStr}<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span></td>
       <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(h.topic)}</td>
       <td class="history-score">${h.content ?? "–"}/15</td>
@@ -1122,41 +1287,42 @@ function renderHistoryTable(history) {
       <td class="history-score" style="font-size:1.05rem;">${h.total ?? "–"}/15</td>
       <td><button class="history-delete" onclick="deleteHistoryEntry(${realIdx})" title="Löschen">✕</button></td>
     </tr>`;
-  }).join("");
-}
-
-function renderProgressChart() {
-  const history = getHistory();
-  if (!history.length) return;
-  const ctx = document.getElementById("progressChart");
-  if (!ctx) return;
-  if (progressChartInstance) { progressChartInstance.destroy(); progressChartInstance = null; }
-
-  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
-  const textColor = isDark ? "#b0b0c8" : "#8888a4";
-
-  progressChartInstance = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: history.map((_, i) => `#${i + 1}`),
-      datasets: [
-        { label: "Gesamt (/15 NP)", data: history.map(h => h.total), borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,0.1)", fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: "#2563eb" },
-        { label: "Inhalt (/15 NP)", data: history.map(h => h.content), borderColor: "#059669", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#059669" },
-        { label: "Sprache (/15 NP)", data: history.map(h => h.language), borderColor: "#f59e0b", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#f59e0b" }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: textColor, font: { size: 11 } } } },
-      scales: {
-        y: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
-        x: { grid: { display: false }, ticks: { color: textColor } }
-      }
+      }).join("");
     }
-  });
-}
-</script>
+
+    function renderProgressChart() {
+      const history = getHistory();
+      if (!history.length) return;
+      const ctx = document.getElementById("progressChart");
+      if (!ctx) return;
+      if (progressChartInstance) { progressChartInstance.destroy(); progressChartInstance = null; }
+
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+      const textColor = isDark ? "#b0b0c8" : "#8888a4";
+
+      progressChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: history.map((_, i) => `#${i + 1}`),
+          datasets: [
+            { label: "Gesamt (/15 NP)", data: history.map(h => h.total), borderColor: "#2563eb", backgroundColor: "rgba(37,99,235,0.1)", fill: true, tension: 0.3, borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: "#2563eb" },
+            { label: "Inhalt (/15 NP)", data: history.map(h => h.content), borderColor: "#059669", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#059669" },
+            { label: "Sprache (/15 NP)", data: history.map(h => h.language), borderColor: "#f59e0b", backgroundColor: "transparent", tension: 0.3, borderWidth: 1.5, borderDash: [4, 3], pointRadius: 3, pointBackgroundColor: "#f59e0b" }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: textColor, font: { size: 11 } } } },
+          scales: {
+            y: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
+            x: { grid: { display: false }, ticks: { color: textColor } }
+          }
+        }
+      });
+    }
+  </script>
 
 </body>
+
 </html>
