@@ -480,6 +480,14 @@ export default {
         return await handleSubmitResult(request, env);
       }
 
+      // ===== STUDENT PREFERENCES =====
+      if (pathname === "/api/get-preferences" && request.method === "POST") {
+        return await handleGetPreferences(request, env);
+      }
+      if (pathname === "/api/save-preferences" && request.method === "POST") {
+        return await handleSavePreferences(request, env);
+      }
+
       return new Response("Not Found", { status: 404 });
     } catch (err) {
       return jsonResponse({ error: err.message || "Interner Fehler." }, 500, env);
@@ -584,6 +592,50 @@ async function handleCheckStudent(request, env) {
 
   const token = await generateToken(env);
   return jsonResponse({ success: true, token }, 200, env);
+}
+
+/* ================= STUDENT PREFERENCES ================= */
+async function handleGetPreferences(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+
+  let students = [];
+  try {
+    const raw = await env.RESULTS_KV.get("registered_students");
+    if (raw) students = JSON.parse(raw);
+  } catch {}
+
+  const nameLower = student_name.trim().toLowerCase();
+  const student = students.find(s => (s.name || "").trim().toLowerCase() === nameLower);
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  return jsonResponse({
+    success: true,
+    preferences: {
+      hidden_subjects: student.hidden_subjects || []
+    }
+  }, 200, env);
+}
+
+async function handleSavePreferences(request, env) {
+  const { student_name, hidden_subjects } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+  if (!Array.isArray(hidden_subjects)) return jsonResponse({ error: "hidden_subjects muss ein Array sein." }, 400, env);
+
+  let students = [];
+  try {
+    const raw = await env.RESULTS_KV.get("registered_students");
+    if (raw) students = JSON.parse(raw);
+  } catch {}
+
+  const nameLower = student_name.trim().toLowerCase();
+  const idx = students.findIndex(s => (s.name || "").trim().toLowerCase() === nameLower);
+  if (idx < 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  students[idx].hidden_subjects = hidden_subjects;
+  await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+
+  return jsonResponse({ success: true }, 200, env);
 }
 
 /* ================= ENGLISCH: GENERATE ================= */
