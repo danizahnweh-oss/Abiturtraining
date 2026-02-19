@@ -2124,22 +2124,53 @@
 
     /* ====== SUBJECT FILTER ====== */
     var subjectEditMode = false;
+    var hiddenSubjectsCache = [];
+    var VALID_SUBJECTS = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
 
-    function getHiddenSubjects() {
-      try { return JSON.parse(localStorage.getItem("hidden_subjects") || "[]"); }
-      catch(e) { return []; }
+    function getSubjectKey(card) {
+      var classes = card.className.split(" ");
+      for (var i = 0; i < classes.length; i++) {
+        if (VALID_SUBJECTS.indexOf(classes[i]) !== -1) return classes[i];
+      }
+      return "";
+    }
+
+    function loadHiddenSubjects() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      fetch(API_BASE + "/api/get-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success && data.preferences) {
+          hiddenSubjectsCache = data.preferences.hidden_subjects || [];
+          applySubjectFilter();
+        }
+      })
+      .catch(function() {});
+    }
+
+    function saveHiddenSubjects() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      fetch(API_BASE + "/api/save-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name, hidden_subjects: hiddenSubjectsCache })
+      }).catch(function() {});
     }
 
     function applySubjectFilter() {
-      var hidden = getHiddenSubjects();
       document.querySelectorAll(".subject-card").forEach(function(card) {
-        var classes = card.className.split(" ");
-        var subj = "";
-        var validSubjects = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
-        for (var i = 0; i < classes.length; i++) {
-          if (validSubjects.indexOf(classes[i]) !== -1) { subj = classes[i]; break; }
-        }
-        if (subj && hidden.indexOf(subj) !== -1) {
+        var subj = getSubjectKey(card);
+        if (subj && hiddenSubjectsCache.indexOf(subj) !== -1) {
           card.classList.add("subject-hidden");
         } else {
           card.classList.remove("subject-hidden");
@@ -2155,7 +2186,6 @@
       if (subjectEditMode) {
         grid.classList.add("edit-mode");
         btn.textContent = "✅ Fertig";
-        // Temporarily override card clicks
         document.querySelectorAll(".subject-card").forEach(function(card) {
           card.setAttribute("data-orig-onclick", card.getAttribute("onclick") || "");
           card.setAttribute("onclick", "toggleSubjectVisibility(this); return false;");
@@ -2163,33 +2193,26 @@
       } else {
         grid.classList.remove("edit-mode");
         btn.textContent = "✏️ Fächer anpassen";
-        // Restore original clicks
         document.querySelectorAll(".subject-card").forEach(function(card) {
           card.setAttribute("onclick", card.getAttribute("data-orig-onclick") || "");
         });
         applySubjectFilter();
+        saveHiddenSubjects();
       }
     }
 
     function toggleSubjectVisibility(card) {
-      var classes = card.className.split(" ");
-      var subj = "";
-      var validSubjects = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
-      for (var i = 0; i < classes.length; i++) {
-        if (validSubjects.indexOf(classes[i]) !== -1) { subj = classes[i]; break; }
-      }
+      var subj = getSubjectKey(card);
       if (!subj) return;
 
-      var hidden = getHiddenSubjects();
-      var idx = hidden.indexOf(subj);
+      var idx = hiddenSubjectsCache.indexOf(subj);
       if (idx !== -1) {
-        hidden.splice(idx, 1);
+        hiddenSubjectsCache.splice(idx, 1);
         card.classList.remove("subject-hidden");
       } else {
-        hidden.push(subj);
+        hiddenSubjectsCache.push(subj);
         card.classList.add("subject-hidden");
       }
-      localStorage.setItem("hidden_subjects", JSON.stringify(hidden));
     }
 
     /* ====== PROGRESS DASHBOARD (#8) ====== */
@@ -2332,6 +2355,7 @@
           if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
           showSubjectSelection();
           loadStudentProgress();
+          loadHiddenSubjects();
           history.replaceState({ screen: "subjects" }, "");
           // Start onboarding if first time
           if (!localStorage.getItem("onboarding_done")) {
@@ -2494,6 +2518,7 @@
         }
 
         loadStudentProgress();
+        loadHiddenSubjects();
       }
     }
 
