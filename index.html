@@ -2628,6 +2628,7 @@
 
   function checkSession() {
   initTheme();
+  if (typeof initAiTutor === "function") initAiTutor();
 
   var urlParams = new URLSearchParams(window.location.search);
   var backTo = urlParams.get("back");
