@@ -470,50 +470,24 @@ function exportTaskPDF(mode) {
   var prevTheme = root.getAttribute("data-theme");
   root.setAttribute("data-theme", "light");
 
-  // Temporarily hide elements, restore after rendering
-  var hidden = [];
-  function tempHide(el) {
-    if (!el || !sec.contains(el)) return;
-    hidden.push({ el: el, prev: el.style.display });
-    el.style.display = "none";
-  }
-  function tempHideAll(selector) {
-    sec.querySelectorAll(selector).forEach(function(el) {
-      hidden.push({ el: el, prev: el.style.display });
-      el.style.display = "none";
-    });
-  }
-  function restore() {
-    hidden.forEach(function(h) { h.el.style.display = h.prev; });
-    root.setAttribute("data-theme", prevTheme);
-  }
+  // Clone section into a clean absolute-positioned container
+  var wrap = sec.cloneNode(true);
+  wrap.removeAttribute("id");
+  wrap.style.cssText = "display:block;position:absolute;left:0;top:0;width:800px;padding:10px 20px;margin:0;background:#fff;color:#1a1a2e;animation:none;z-index:-9999;";
 
-  // Always hide: buttons, highlighter toolbar, GeoGebra, wahl-hint
-  tempHideAll("button");
-  tempHideAll(".highlighter-toolbar");
-  tempHideAll(".ggb-container");
-  tempHideAll(".wahl-hint");
+  // Remove UI elements from clone
+  wrap.querySelectorAll("button, .highlighter-toolbar, .ggb-container, .wahl-hint").forEach(function(el) { el.remove(); });
 
+  // Mode-specific: remove material or task elements from clone
   var materialIds = ["materialsContainer", "sourceText", "sourceMeta", "textTitle", "zusatzMaterialien", "articleBody", "articleTitle"];
   var taskIds = ["taskInstruction", "taskMeta", "teilaufgabenContainer", "teilAPflichtContainer", "teilAWahlContainer", "teilBContainer"];
-
   if (mode === "task") {
-    materialIds.forEach(function(id) { tempHide(document.getElementById(id)); });
+    materialIds.forEach(function(id) { var el = wrap.querySelector("#" + id); if (el) el.remove(); });
   } else if (mode === "material") {
-    taskIds.forEach(function(id) { tempHide(document.getElementById(id)); });
+    taskIds.forEach(function(id) { var el = wrap.querySelector("#" + id); if (el) el.remove(); });
   }
 
-  // Temporarily fix layout for clean PDF: white bg, no animation, no extra spacing
-  var savedStyles = {
-    bg: sec.style.background,
-    anim: sec.style.animation,
-    pad: sec.style.padding,
-    margin: sec.style.margin
-  };
-  sec.style.background = "#fff";
-  sec.style.animation = "none";
-  sec.style.padding = "10px 0 0 0";
-  sec.style.margin = "0";
+  document.body.appendChild(wrap);
 
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
@@ -524,12 +498,9 @@ function exportTaskPDF(mode) {
     html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
     jsPDF: { format: "a4", orientation: "portrait" },
     pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
-  }).from(sec).save().then(function() {
-    sec.style.background = savedStyles.bg;
-    sec.style.animation = savedStyles.anim;
-    sec.style.padding = savedStyles.pad;
-    sec.style.margin = savedStyles.margin;
-    restore();
+  }).from(wrap).save().then(function() {
+    wrap.remove();
+    root.setAttribute("data-theme", prevTheme);
   });
 
   closePdfModal();
