@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v1';
+const CACHE_NAME = 'myabiflow-v2';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -26,7 +26,7 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch: network-first for API, cache-first for assets
+// Fetch: network-first for API and HTML, cache-first for other assets
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
@@ -41,7 +41,21 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Static assets: cache-first, fallback to network
+  // HTML pages: network-first so updates arrive immediately
+  if (event.request.mode === 'navigate' || url.pathname.endsWith('.html')) {
+    event.respondWith(
+      fetch(event.request).then(response => {
+        if (response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        }
+        return response;
+      }).catch(() => caches.match(event.request).then(c => c || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Other static assets: cache-first, fallback to network
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
@@ -52,10 +66,6 @@ self.addEventListener('fetch', event => {
         }
         return response;
       });
-    }).catch(() =>
-      event.request.mode === 'navigate'
-        ? caches.match('./index.html')
-        : new Response('Offline', { status: 503 })
-    )
+    }).catch(() => new Response('Offline', { status: 503 }))
   );
 });
