@@ -8,14 +8,15 @@ const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
 
 /* ---- Token-System (HMAC-SHA256) ---- */
-async function generateToken(env) {
+async function generateToken(env, secret) {
+  const secretKey = secret || env.ACCESS_PASSWORD;
   const payload = JSON.stringify({
     iat: Date.now(),
     nonce: crypto.randomUUID()
   });
   const key = await crypto.subtle.importKey(
     "raw",
-    new TextEncoder().encode(env.ACCESS_PASSWORD),
+    new TextEncoder().encode(secretKey),
     { name: "HMAC", hash: "SHA-256" },
     false,
     ["sign"]
@@ -25,8 +26,9 @@ async function generateToken(env) {
   return btoa(payload) + "." + sigHex;
 }
 
-async function verifyToken(token, env) {
+async function verifyToken(token, env, secret) {
   try {
+    const secretKey = secret || env.ACCESS_PASSWORD;
     const parts = token.split(".");
     if (parts.length !== 2) return false;
     const [dataB64, sigHex] = parts;
@@ -37,7 +39,7 @@ async function verifyToken(token, env) {
 
     const key = await crypto.subtle.importKey(
       "raw",
-      new TextEncoder().encode(env.ACCESS_PASSWORD),
+      new TextEncoder().encode(secretKey),
       { name: "HMAC", hash: "SHA-256" },
       false,
       ["verify"]
@@ -177,6 +179,12 @@ export default {
     }
 
     try {
+      // Origin-Validierung (CSRF-Schutz)
+      const origin = request.headers.get("Origin");
+      if (origin && origin !== (env.ALLOWED_ORIGIN || "https://myabiflow.de")) {
+        return jsonResponse({ error: "Forbidden" }, 403, env);
+      }
+
       // Body-Größe prüfen
       const sizeError = checkBodySize(request);
       if (sizeError) return sizeError;
@@ -195,7 +203,13 @@ export default {
         return await handleCheckStudent(request, env);
       }
 
-      // ===== DASHBOARD ENDPOINTS (Lehrer-Passwort) =====
+      // ===== DASHBOARD ENDPOINTS (Token-basiert) =====
+      if (pathname === "/api/teacher-login" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleTeacherLogin(request, env);
+      }
       if (pathname === "/api/results" && request.method === "POST") {
         const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
         if (rl) return rl;
@@ -490,7 +504,10 @@ export default {
 
       return new Response("Not Found", { status: 404 });
     } catch (err) {
-      return jsonResponse({ error: err.message || "Interner Fehler." }, 500, env);
+      console.error("Unhandled error:", err.message);
+      const msg = err.message || "Interner Fehler.";
+      const isUnsafe = msg.length > 200 || /api[_-]?key|token|secret|stack|\.js:/i.test(msg);
+      return jsonResponse({ error: isUnsafe ? "Interner Fehler." : msg }, 500, env);
     }
   }
 };
@@ -529,8 +546,8 @@ async function handleCheckStudent(request, env) {
   if (mode !== "register" && mode !== "login") {
     return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
   }
-  if (!personal_password || typeof personal_password !== "string" || personal_password.length < 4) {
-    return jsonResponse({ success: false, error: "Passwort muss mindestens 4 Zeichen haben." }, 400, env);
+  if (!personal_password || typeof personal_password !== "string" || personal_password.length < 6) {
+    return jsonResponse({ success: false, error: "Passwort muss mindestens 6 Zeichen haben." }, 400, env);
   }
 
   // Load registered students
@@ -1389,14 +1406,31 @@ async function handleSubmitResult(request, env) {
   return jsonResponse({ success: true, count: results.length }, 200, env);
 }
 
-/* ================= DASHBOARD: GET RESULTS ================= */
-async function handleGetResults(request, env) {
+/* ================= DASHBOARD: TEACHER LOGIN ================= */
+async function handleTeacherLogin(request, env) {
   const { teacher_password } = await request.json();
   if (!env.TEACHER_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
-  if (!teacher_password || !(await safeCompare(teacher_password, env.TEACHER_PASSWORD))) {
+  if (!teacher_password || typeof teacher_password !== "string") {
+    return jsonResponse({ error: "Passwort erforderlich." }, 400, env);
+  }
+  const valid = await safeCompare(teacher_password, env.TEACHER_PASSWORD);
+  if (!valid) {
     return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401, env);
+  }
+  const token = await generateToken(env, env.TEACHER_PASSWORD);
+  return jsonResponse({ success: true, token }, 200, env);
+}
+
+/* ================= DASHBOARD: GET RESULTS ================= */
+async function handleGetResults(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
   let results = [];
@@ -1410,14 +1444,15 @@ async function handleGetResults(request, env) {
 
 /* ================= DASHBOARD: DELETE RESULT ================= */
 async function handleDeleteResult(request, env) {
-  const { teacher_password, result_id } = await request.json();
+  const token = request.headers.get("X-Teacher-Token");
   if (!env.TEACHER_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
-  if (!teacher_password || !(await safeCompare(teacher_password, env.TEACHER_PASSWORD))) {
-    return jsonResponse({ error: "Falsches Lehrer-Passwort." }, 401, env);
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
+  const { result_id } = await request.json();
   if (!result_id || typeof result_id !== "string") {
     return jsonResponse({ error: "result_id required" }, 400, env);
   }
@@ -6022,7 +6057,8 @@ async function callOpenAI(env, messages, maxTokens = 4000) {
 
   const data = await response.json();
   if (!response.ok) {
-    throw new Error("OpenAI: " + (data?.error?.message || JSON.stringify(data)));
+    console.error("OpenAI error:", data?.error?.message || JSON.stringify(data));
+    throw new Error("KI-Verarbeitung fehlgeschlagen. Bitte versuche es erneut.");
   }
   return data.choices[0].message.content;
 }
