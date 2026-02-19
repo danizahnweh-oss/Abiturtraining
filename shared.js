@@ -495,7 +495,7 @@ function exportTaskPDF(mode) {
   html2pdf().set({
     margin: [10, 10, 10, 10],
     filename: filename,
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
     jsPDF: { format: "a4", orientation: "portrait" },
     pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
   }).from(wrap).save().then(function() {
