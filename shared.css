@@ -464,7 +464,88 @@ header .logo-brand .logo-text {
   color: #e4e4ed;
 }
 
-/* ====== RESET & BASE ====== */
+/* ====== GLASSMORPHISM & UTILITIES ====== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] .glass-panel {
+  background: rgba(30, 30, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== MODULE CARDS PRETTY ====== */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+}
+
+.module-card {
+  /* Glassmorphism Base */
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+  border-radius: 16px;
+  /* Slightly more rounded */
+  padding: 2rem 1.5rem;
+  /* More breathing room */
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Bouncy transition */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .module-card {
+  background: rgba(30, 30, 46, 0.6);
+  border-color: rgba(255, 255, 255, 0.05);
+  color: var(--ink);
+}
+
+.module-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: var(--accent);
+  /* Highlight border on hover */
+}
+
+/* Add a subtle shine effect on hover */
+.module-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+  pointer-events: none;
+}
+
+.module-card:hover::after {
+  transform: translateX(100%);
+}
+
 *,
 *::before,
 *::after {
@@ -482,6 +563,32 @@ body {
   flex-direction: column;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ====== DASHBOARD HERO ====== */
+.dashboard-hero {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeUp 0.6s ease-out;
+}
+
+.dashboard-hero h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-muted) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme="dark"] .dashboard-hero h2 {
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ====== HEADER ====== */
