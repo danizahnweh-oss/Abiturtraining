@@ -82,9 +82,16 @@
 .greeting-bar strong{color:var(--ink)}
 
 /* ====== COUNTDOWN WIDGET (#14) ====== */
-.countdown-bar{max-width:600px;margin:.8rem auto 0;padding:0 1.5rem;text-align:center;animation:fadeUp .5s ease .2s both}
+.countdown-toggle{max-width:600px;margin:.8rem auto 0;padding:0 1.5rem;text-align:center;animation:fadeUp .5s ease .2s both}
+.countdown-ask-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem 1.2rem;font-size:.85rem;color:var(--ink-muted);cursor:pointer;transition:all .2s ease;box-shadow:var(--shadow-sm);font-family:inherit}
+.countdown-ask-btn:hover{border-color:var(--accent);color:var(--ink);box-shadow:var(--shadow-md)}
+.countdown-ask-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.countdown-ask-icon{font-size:1.1rem}
+.countdown-bar{max-width:600px;margin:.8rem auto 0;padding:0 1.5rem;text-align:center;animation:fadeUp .5s ease .2s both;position:relative}
 .countdown-pill{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:.5rem 1.2rem;font-size:.9rem;color:var(--ink-muted);box-shadow:var(--shadow-sm)}
 .countdown-pill strong{color:var(--accent);font-family:var(--font-mono);font-size:1.05rem}
+.countdown-hide-btn{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink-muted);font-size:1.2rem;cursor:pointer;padding:.2rem .5rem;border-radius:50%;transition:all .2s}
+.countdown-hide-btn:hover{background:var(--surface);color:var(--ink)}
 .countdown-done{color:var(--success)}
 
 /* ====== PROGRESS BAR (#8) ====== */
@@ -154,7 +161,8 @@
 .subject-card.chemie .subject-title{color:var(--accent-che)}
 .subject-desc{display:none}
 .subject-badge{display:none}
-.subject-countdown{display:block;font-size:.65rem;color:var(--ink-muted);margin-top:.3rem;position:relative;z-index:1;font-family:var(--font-mono);font-weight:600}
+.subject-countdown{display:none;font-size:.65rem;color:var(--ink-muted);margin-top:.3rem;position:relative;z-index:1;font-family:var(--font-mono);font-weight:600}
+.countdown-active .subject-countdown{display:block}
 .subject-countdown.soon{color:var(--warning)}
 .subject-countdown.done{color:var(--success)}
 .subject-last-activity{display:block;font-size:.6rem;color:var(--ink-muted);margin-top:.15rem;position:relative;z-index:1;opacity:.7}
@@ -256,7 +264,7 @@ footer a{color:var(--accent)}
   #splash{animation:none;display:none}
   .splash-wave,.splash-logo{animation:none}
   .subject-card{opacity:1;animation:none}
-  .greeting-bar,.countdown-bar,.progress-bar{animation:none;opacity:1}
+  .greeting-bar,.countdown-bar,.countdown-toggle,.progress-bar{animation:none;opacity:1}
   .tour-spotlight,.tour-tooltip{transition:none;animation:none}
 }
 
@@ -271,6 +279,7 @@ footer a{color:var(--accent)}
   .progress-stats{gap:.8rem;padding:.6rem 1rem}
   .pstat span{font-size:1.1rem}
   .countdown-pill{font-size:.82rem;padding:.4rem .8rem}
+  .countdown-ask-btn{font-size:.78rem;padding:.5rem .8rem}
   .tour-tooltip{max-width:280px;padding:1rem}
 }
 </style>
@@ -321,6 +330,12 @@ footer a{color:var(--accent)}
     </div>
   </div>
   <div class="greeting-bar" role="status">Willkommen, <strong id="greetName"></strong>! Welches Fach möchtest du üben?</div>
+  <div id="countdownToggle" class="countdown-toggle" style="display:none">
+    <button class="countdown-ask-btn" onclick="enableCountdown()">
+      <span class="countdown-ask-icon">📅</span>
+      Möchtest du sehen, wie lange es noch bis zu deinen Prüfungen ist?
+    </button>
+  </div>
   <div id="countdownBar" class="countdown-bar" style="display:none"></div>
   <div id="progressBar" class="progress-bar">
     <div class="progress-stats">
@@ -914,6 +929,7 @@ function daysUntil(date) {
 function renderCountdowns() {
   var level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
   var allDates = [];
+  var isVisible = localStorage.getItem("countdown_visible") === "1";
 
   document.querySelectorAll(".subject-countdown[data-subject]").forEach(function(el) {
     var subj = el.dataset.subject;
@@ -934,15 +950,40 @@ function renderCountdowns() {
   });
 
   var bar = document.getElementById("countdownBar");
-  if (allDates.length) {
-    var minDays = Math.min.apply(null, allDates);
-    if (minDays > 0) {
-      bar.innerHTML = '<div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur ersten Pr\u00fcfung</div>';
-      bar.style.display = "";
+  var toggle = document.getElementById("countdownToggle");
+  var grid = document.querySelector(".subject-grid");
+
+  if (isVisible) {
+    toggle.style.display = "none";
+    grid.classList.add("countdown-active");
+    if (allDates.length) {
+      var minDays = Math.min.apply(null, allDates);
+      if (minDays > 0) {
+        bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Countdown ausblenden" title="Countdown ausblenden">&times;</button><div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur n\u00e4chsten Pr\u00fcfung</div>';
+        bar.style.display = "";
+      } else {
+        bar.style.display = "none";
+      }
+    }
+  } else {
+    bar.style.display = "none";
+    grid.classList.remove("countdown-active");
+    if (allDates.length) {
+      toggle.style.display = "";
     } else {
-      bar.style.display = "none";
+      toggle.style.display = "none";
     }
   }
+}
+
+function enableCountdown() {
+  localStorage.setItem("countdown_visible", "1");
+  renderCountdowns();
+}
+
+function disableCountdown() {
+  localStorage.setItem("countdown_visible", "0");
+  renderCountdowns();
 }
 
 /* ====== PROGRESS DASHBOARD (#8) ====== */
@@ -1243,7 +1284,7 @@ function checkSession() {
 var tourSteps = [
   { type: "welcome", title: "Willkommen bei myAbiFlow!", text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert." },
   { target: ".subject-grid", title: "Deine F\u00e4cher", text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.", pos: "top" },
-  { target: "#countdownBar", title: "Pr\u00fcfungs-Countdown", text: "Hier siehst du, wie viele Tage bis zu deiner n\u00e4chsten Pr\u00fcfung verbleiben.", pos: "bottom" },
+  { target: "#countdownToggle", title: "Pr\u00fcfungs-Countdown", text: "Wenn du m\u00f6chtest, kannst du hier einen Countdown bis zu deinen Pr\u00fcfungen einblenden.", pos: "bottom" },
   { target: "#progressBar", title: "Dein Fortschritt", text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen \u00dcbungs-Streak.", pos: "bottom" },
   { target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos: "left" }
 ];
