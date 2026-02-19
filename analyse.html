@@ -1,347 +1,399 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
-<title>myAbiFlow · Textanalyse</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js" integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared-v4.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
+  <title>myAbiFlow · Textanalyse</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js"
+    integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
 </head>
+
 <body>
 
-<header>
-  <div class="header-left">
-    <a href="index.html?back=german" class="back-link">← Zurück</a>
-    <h1>Deutsch · <span>Textanalyse</span></h1>
-  </div>
-  <div class="header-right">
-    <span id="studentGreeting" class="header-meta" style="display:none"></span>
-    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
-  </div>
-</header>
-
-<nav>
-  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
-  <button onclick="nav('task')"><span class="step-num">2</span> Text lesen</button>
-  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
-  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span> Fortschritt</button>
-</nav>
-
-<main>
-  <!-- STEP 1: SETUP -->
-  <section id="sec-setup" class="active">
-    <div class="card">
-      <h2 class="card-header">Aufgabe wählen</h2>
-      <div class="mode-toggle">
-        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
-        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
-      </div>
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=german" class="back-link">← Zurück</a>
+      <h1>Deutsch · <span>Textanalyse</span></h1>
     </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+    </div>
+  </header>
 
-    <div class="card" id="setupGenerate">
-      <h2 class="card-header">Aufgabe konfigurieren</h2>
-      <div class="form-row">
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Text lesen</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span>
+      Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe wählen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Aufgabe konfigurieren</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Textsorte</label>
+            <select id="textsorteSelect">
+              <option value="random">Zufällig auswählen</option>
+              <option value="rede">Politische Rede</option>
+              <option value="kommentar">Kommentar / Glosse</option>
+              <option value="essay">Essay</option>
+              <option value="artikel">Zeitungsartikel</option>
+              <option value="interview">Interview</option>
+              <option value="sachtext">Sachtext</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Themenbereich</label>
+            <select id="themaSelect">
+              <option value="random">Zufällig auswählen</option>
+              <option value="sprache_politik">Sprache in politisch-gesellschaftlichen Zusammenhängen</option>
+              <option value="medien">Medien und Kommunikation</option>
+              <option value="gesellschaft">Gesellschaft und Zusammenleben</option>
+              <option value="bildung">Bildung und Wissenschaft</option>
+              <option value="kultur">Kultur und Identität</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group">
-          <label>Textsorte</label>
-          <select id="textsorteSelect">
-            <option value="random">Zufällig auswählen</option>
-            <option value="rede">Politische Rede</option>
-            <option value="kommentar">Kommentar / Glosse</option>
-            <option value="essay">Essay</option>
-            <option value="artikel">Zeitungsartikel</option>
-            <option value="interview">Interview</option>
-            <option value="sachtext">Sachtext</option>
+          <label>Weiterführender Schreibauftrag</label>
+          <select id="schreibauftragSelect">
+            <option value="stellungnahme">Stellungnahme verfassen</option>
+            <option value="vergleich">Vergleich mit zweitem Text</option>
+            <option value="kreativ">Kreative Textproduktion (Gegenrede, Leserbrief)</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Themenbereich</label>
-          <select id="themaSelect">
-            <option value="random">Zufällig auswählen</option>
-            <option value="sprache_politik">Sprache in politisch-gesellschaftlichen Zusammenhängen</option>
-            <option value="medien">Medien und Kommunikation</option>
-            <option value="gesellschaft">Gesellschaft und Zusammenleben</option>
-            <option value="bildung">Bildung und Wissenschaft</option>
-            <option value="kultur">Kultur und Identität</option>
-          </select>
+          <label>Bearbeitungszeit (Minuten)</label>
+          <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Analyseaufgabe …</div>
         </div>
       </div>
-      <div class="form-group">
-        <label>Weiterführender Schreibauftrag</label>
-        <select id="schreibauftragSelect">
-          <option value="stellungnahme">Stellungnahme verfassen</option>
-          <option value="vergleich">Vergleich mit zweitem Text</option>
-          <option value="kreativ">Kreative Textproduktion (Gegenrede, Leserbrief)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Bearbeitungszeit (Minuten)</label>
-        <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
-      </div>
-      <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
-      <div class="loader" id="setupLoader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Generiere Analyseaufgabe …</div>
-      </div>
-    </div>
 
-    <div class="card" id="setupUpload" style="display:none">
-      <h2 class="card-header">Eigene Aufgabe</h2>
-      <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Text)</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
-      </div>
-      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
-      <div id="taskUploadPages" class="ocr-pages"></div>
-      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div><div class="loader-text">Text wird erkannt …</div></div>
-      <div id="taskUploadResult" style="display:none;margin-top:1rem">
-        <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Pragmatischer Text</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
-        <div class="form-group"><label>Quelle</label><input type="text" id="parsedMeta"></div>
-        <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
-      </div>
-      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
-      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-      <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Analysieren Sie den Text …"></textarea></div>
-      <div class="form-group"><label>Text</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Text hier einfügen …"></textarea></div>
-      <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta" placeholder="z.B. FAZ, 12.03.2024"></div>
-      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
-    </div>
-
-    <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
-      <h3 style="font-size:1rem;margin-bottom:.5rem">📘 Was ist Textanalyse (AP)?</h3>
-      <p style="font-size:.9rem;color:var(--ink-light);line-height:1.6">
-        Bei der Analyse pragmatischer Texte untersuchst du einen Sachtext auf seine <strong>Argumentationsstruktur</strong>,
-        <strong>sprachliche Gestaltung</strong> und <strong>kommunikative Absicht</strong>. Anders als bei der Erörterung
-        steht hier die genaue Untersuchung des Textes im Vordergrund, nicht deine eigene Positionierung.
-      </p>
-    </div>
-  </section>
-
-  <!-- STEP 2: READ TASK -->
-  <section id="sec-task">
-    <div class="card">
-      <h2 class="card-header">Aufgabenstellung</h2>
-      <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header" id="textTitle">Pragmatischer Text</h2>
-
-      <!-- Highlighter Toolbar -->
-      <div class="highlighter-toolbar">
-        <span class="hl-label">🖍️ Markieren:</span>
-        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
-        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
-        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
-        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
-        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
-        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
-        <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
-      </div>
-
-      <div class="source-text" id="sourceText">Hier erscheint der zu analysierende Text …</div>
-      <div class="source-meta" id="sourceMeta"></div>
-    </div>
-
-    <div class="card" id="compareTextCard" style="display:none">
-      <h2 class="card-header">Vergleichstext</h2>
-      <div class="highlighter-toolbar">
-        <span class="hl-label">🖍️</span>
-        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')"></button>
-        <button class="hl-btn green" data-color="green" onclick="selectHL('green')"></button>
-        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')"></button>
-        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')"></button>
-        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')"></button>
-        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')">✕</button>
-      </div>
-      <div class="source-text" id="compareText"></div>
-      <div class="source-meta" id="compareMeta"></div>
-    </div>
-
-    <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
-  </section>
-
-  <!-- STEP 3: WRITE -->
-  <section id="sec-write">
-    <div class="timer-bar" id="timerBar">
-      <div>
-        <span style="font-size:.85rem;color:var(--ink-muted)">Verbleibende Zeit:</span>
-        <span class="timer-display" id="timerDisplay">00:00</span>
-      </div>
-      <div class="timer-controls">
-        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
-        <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header">Deine Analyse</h2>
-
-      <details style="margin-bottom:1rem">
-        <summary style="cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem">📖 Aufgabe & Text anzeigen</summary>
-        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm)">
-          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
-          <div class="source-text" id="writeSourceRef" style="max-height:300px"></div>
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Text)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
+            Seiten möglich</div>
         </div>
-      </details>
+        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Text wird erkannt …</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Pragmatischer Text</label><textarea id="parsedPrimaryText"
+              style="min-height:150px"></textarea></div>
+          <div class="form-group"><label>Quelle</label><input type="text" id="parsedMeta"></div>
+          <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px"
+            placeholder="Analysieren Sie den Text …"></textarea></div>
+        <div class="form-group"><label>Text</label><textarea id="manualPrimaryText" style="min-height:120px"
+            placeholder="Text hier einfügen …"></textarea></div>
+        <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta"
+            placeholder="z.B. FAZ, 12.03.2024"></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
 
-      <textarea id="studentText" placeholder="Beginne hier mit deiner Textanalyse …
+      <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
+        <h3 style="font-size:1rem;margin-bottom:.5rem">📘 Was ist Textanalyse (AP)?</h3>
+        <p style="font-size:.9rem;color:var(--ink-light);line-height:1.6">
+          Bei der Analyse pragmatischer Texte untersuchst du einen Sachtext auf seine
+          <strong>Argumentationsstruktur</strong>,
+          <strong>sprachliche Gestaltung</strong> und <strong>kommunikative Absicht</strong>. Anders als bei der
+          Erörterung
+          steht hier die genaue Untersuchung des Textes im Vordergrund, nicht deine eigene Positionierung.
+        </p>
+      </div>
+    </section>
+
+    <!-- STEP 2: READ TASK -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabenstellung</h2>
+        <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header" id="textTitle">Pragmatischer Text</h2>
+
+        <!-- Highlighter Toolbar -->
+        <div class="highlighter-toolbar">
+          <span class="hl-label">🖍️ Markieren:</span>
+          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
+          <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+        </div>
+
+        <div class="source-text" id="sourceText">Hier erscheint der zu analysierende Text …</div>
+        <div class="source-meta" id="sourceMeta"></div>
+      </div>
+
+      <div class="card" id="compareTextCard" style="display:none">
+        <h2 class="card-header">Vergleichstext</h2>
+        <div class="highlighter-toolbar">
+          <span class="hl-label">🖍️</span>
+          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')"></button>
+          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')"></button>
+          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')">✕</button>
+        </div>
+        <div class="source-text" id="compareText"></div>
+        <div class="source-meta" id="compareMeta"></div>
+      </div>
+
+      <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div>
+          <span style="font-size:.85rem;color:var(--ink-muted)">Verbleibende Zeit:</span>
+          <span class="timer-display" id="timerDisplay">00:00</span>
+        </div>
+        <div class="timer-controls">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Analyse</h2>
+
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem">📖 Aufgabe & Text anzeigen
+          </summary>
+          <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm)">
+            <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
+            <div class="source-text" id="writeSourceRef" style="max-height:300px"></div>
+          </div>
+        </details>
+
+        <textarea id="studentText" placeholder="Beginne hier mit deiner Textanalyse …
 
 Strukturvorschlag:
 • Einleitung: Textsorte, Autor, Thema, zentrale These
 • Hauptteil: Argumentationsanalyse, sprachliche Mittel, Intention
 • Schluss: Zusammenfassung, Wirkung, ggf. weiterführender Auftrag" oninput="updateWordCount()"></textarea>
 
-      <div class="write-toolbar">
-        <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
-          <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Zur Bewertung abgeben</button>
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Zur Bewertung abgeben</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- OCR UPLOAD -->
-    <div class="card">
-      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
-      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-        Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
-        Du kannst mehrere Seiten nacheinander hinzufügen.
-      </p>
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
+          Du kannst mehrere Seiten nacheinander hinzufügen.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
+            Seiten möglich</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
       </div>
-      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
-      <div id="ocrPages" class="ocr-pages"></div>
-      <div id="ocrLoader" class="loader">
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+        <div class="loader-text">Bewerte deine Analyse …</div>
       </div>
-      <div id="ocrResult" style="display:none;margin-top:1rem;">
-        <label>Erkannter Text (bearbeitbar):</label>
-        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …" oninput="updateOCRWordCount()"></textarea>
-        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-          <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
-          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
-          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Verstehensleistung</div>
+              <div class="score-value" id="scoreVerstehen">–</div>
+              <div class="score-max">/ 15 NP</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Darstellungsleistung</div>
+              <div class="score-value" id="scoreDarstellung">–</div>
+              <div class="score-max">/ 15 NP</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Gesamtnote</div>
+              <div class="score-value" id="scoreTotal">–</div>
+              <div class="score-max">/ 15 NP</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-header">Detailliertes Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="exportPDF()">📑 Als PDF exportieren</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
         </div>
       </div>
-    </div>
+    </section>
 
-    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
-  </section>
-
-  <!-- STEP 4: FEEDBACK -->
-  <section id="sec-feedback">
-    <div class="loader" id="feedbackLoader">
-      <div class="loader-spinner"></div>
-      <div class="loader-text">Bewerte deine Analyse …</div>
-    </div>
-
-    <div id="feedbackContent" style="display:none">
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
       <div class="card">
-        <h2 class="card-header">Bewertung</h2>
-        <div class="scores-grid">
-          <div class="score-card">
-            <div class="score-label">Verstehensleistung</div>
-            <div class="score-value" id="scoreVerstehen">–</div>
-            <div class="score-max">/ 15 NP</div>
-          </div>
-          <div class="score-card">
-            <div class="score-label">Darstellungsleistung</div>
-            <div class="score-value" id="scoreDarstellung">–</div>
-            <div class="score-max">/ 15 NP</div>
-          </div>
-          <div class="score-card total">
-            <div class="score-label">Gesamtnote</div>
-            <div class="score-value" id="scoreTotal">–</div>
-            <div class="score-max">/ 15 NP</div>
-          </div>
+        <h2 class="card-header">Dein Fortschritt</h2>
+
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem;margin-bottom:1rem">📊</div>
+          <p>Noch keine Analysen bewertet.</p>
         </div>
-      </div>
 
-      <div class="card">
-        <h2 class="card-header">Detailliertes Feedback</h2>
-        <div class="feedback-body" id="feedbackBody"></div>
-      </div>
-
-      <div class="card" id="korrekturCard" style="display:none">
-        <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
-        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
-        <div class="korrektur-body" id="korrekturBody"></div>
-      </div>
-      <div class="card" id="aspekteCard" style="display:none">
-        <h2 class="card-header">Fehlende Aspekte</h2>
-        <div id="aspekteBody"></div>
-      </div>
-
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-secondary" onclick="exportPDF()">📑 Als PDF exportieren</button>
-        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- STEP 5: PROGRESS -->
-  <section id="sec-progress">
-    <div class="card">
-      <h2 class="card-header">Dein Fortschritt</h2>
-
-      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
-        <div style="font-size:3rem;margin-bottom:1rem">📊</div>
-        <p>Noch keine Analysen bewertet.</p>
-      </div>
-
-      <div id="progressContent" style="display:none">
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
-          <div class="stat-card"><div class="stat-value" id="statAverage">–</div><div class="stat-label">Ø Punkte</div></div>
-          <div class="stat-card"><div class="stat-value" id="statBest">–</div><div class="stat-label">Bestleistung</div></div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">–</div>
+              <div class="stat-label">Ø Punkte</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">–</div>
+              <div class="stat-label">Bestleistung</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Textsorte</th>
+                <th>Verstehen</th>
+                <th>Darstell.</th>
+                <th>Gesamt</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
         </div>
-        <div class="chart-container"><canvas id="progressChart"></canvas></div>
-        <table class="history-table">
-          <thead><tr><th>Datum</th><th>Textsorte</th><th>Verstehen</th><th>Darstell.</th><th>Gesamt</th><th></th></tr></thead>
-          <tbody id="historyTableBody"></tbody>
-        </table>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">🗑 Verlauf löschen</button>
       </div>
-      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">🗑 Verlauf löschen</button>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<footer>© 2026 myAbiFlow · Deutsch Trainer · Analyse pragmatischer Texte</footer>
+  <footer>© 2026 myAbiFlow · Deutsch Trainer · Analyse pragmatischer Texte</footer>
 
-<!-- MODULE CONFIG -->
-<script>
-const MODULE_CONFIG = {
-  sectionPrefix: "sec-",
-  steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "deutsch_analyse",
-  historyKey: "deutsch_analyse_history_",
-  historyType: "deutsch-analyse",
-  pdfFilename: "Analyse",
-  chartColor: "#059669",
-  minWords: 100
-};
-</script>
-<script src="shared.js"></script>
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "deutsch_analyse",
+      historyKey: "deutsch_analyse_history_",
+      historyType: "deutsch-analyse",
+      pdfFilename: "Analyse",
+      chartColor: "#059669",
+      minWords: 100
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
 
-<!-- MODULE-SPECIFIC CODE -->
-<script>
-const BEWERTUNG_PROMPT = `Du bist ein Deutschlehrer und bewertest eine Analyse eines pragmatischen Textes nach ISB-Kriterien.
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    const BEWERTUNG_PROMPT = `Du bist ein Deutschlehrer und bewertest eine Analyse eines pragmatischen Textes nach ISB-Kriterien.
 
 VERSTEHENSLEISTUNG (70%):
 - Erfassen der Textaussage und zentralen These
@@ -363,130 +415,131 @@ Antworte NUR mit validem JSON:
 
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
-function setSetupMode(m) {
-  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
-  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
-  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
-  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
-}
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
 
-const taskUploadImages = [];
-async function handleTaskUpload(files) {
-  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
-    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
-  }
-  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
-  document.getElementById("taskUploadLoader").style.display = "block";
-  try {
-    const base64s = await Promise.all(taskUploadImages.map(async p => {
-      const r = new FileReader();
-      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
-    }));
-    const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
-    document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
-    document.getElementById("parsedPrimaryText").value = d.primary_text || "";
-    document.getElementById("parsedMeta").value = d.primary_meta || "";
-    document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) { showToast("Fehler: " + e.message); }
-  document.getElementById("taskUploadLoader").style.display = "none";
-}
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+      }
+      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const base64s = await Promise.all(taskUploadImages.map(async p => {
+          const r = new FileReader();
+          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+        }));
+        const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+        document.getElementById("parsedMeta").value = d.primary_meta || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
 
-function useUploadedTask() {
-  const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value };
-  if (!c.primary_text) { showToast("Kein Text"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function useUploadedTask() {
+      const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value };
+      if (!c.primary_text) { showToast("Kein Text"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-function useManualTask() {
-  const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Analysieren Sie den Text.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value };
-  if (!c.primary_text) { showToast("Kein Text"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function useManualTask() {
+      const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Analysieren Sie den Text.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value };
+      if (!c.primary_text) { showToast("Kein Text"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-async function generateTask() {
-  const btn = document.getElementById("generateBtn");
-  btn.disabled = true;
-  document.getElementById("setupLoader").style.display = "block";
-  try {
-    const data = await apiCall("/api/generate-deutsch", {
-      textsorte: document.getElementById("textsorteSelect").value,
-      thema: document.getElementById("themaSelect").value,
-      schreibauftrag: document.getElementById("schreibauftragSelect").value,
-      type: "analyse"
-    });
-    CONFIG.storedData = data;
-    localStorage.setItem("deutsch_analyse_data", JSON.stringify(data));
-    renderTask(data);
-    nav("task");
-  } catch (e) { showToast("Fehler: " + e.message); }
-  btn.disabled = false;
-  document.getElementById("setupLoader").style.display = "none";
-}
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const data = await apiCall("/api/generate-deutsch", {
+          textsorte: document.getElementById("textsorteSelect").value,
+          thema: document.getElementById("themaSelect").value,
+          schreibauftrag: document.getElementById("schreibauftragSelect").value,
+          type: "analyse"
+        });
+        CONFIG.storedData = data;
+        localStorage.setItem("deutsch_analyse_data", JSON.stringify(data));
+        renderTask(data);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
 
-function renderTask(data) {
-  document.getElementById("taskInstruction").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("textTitle").textContent = data.textsorte || "Pragmatischer Text";
-  document.getElementById("sourceText").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-  document.getElementById("sourceMeta").textContent = data.primary_meta || "";
+    function renderTask(data) {
+      document.getElementById("taskInstruction").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
+      document.getElementById("textTitle").textContent = data.textsorte || "Pragmatischer Text";
+      document.getElementById("sourceText").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+      document.getElementById("sourceMeta").textContent = data.primary_meta || "";
 
-  if (data.compare_text) {
-    document.getElementById("compareTextCard").style.display = "block";
-    document.getElementById("compareText").innerHTML = (data.compare_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-    document.getElementById("compareMeta").textContent = data.compare_meta || "";
-  } else { document.getElementById("compareTextCard").style.display = "none"; }
+      if (data.compare_text) {
+        document.getElementById("compareTextCard").style.display = "block";
+        document.getElementById("compareText").innerHTML = (data.compare_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        document.getElementById("compareMeta").textContent = data.compare_meta || "";
+      } else { document.getElementById("compareTextCard").style.display = "none"; }
 
-  document.getElementById("writeTaskRef").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("writeSourceRef").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-}
+      document.getElementById("writeTaskRef").innerHTML = escapeHtml(data.task_instruction || "").replace(/\n/g, "<br>");
+      document.getElementById("writeSourceRef").innerHTML = (data.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+    }
 
-async function submitForGrading() {
-  const text = document.getElementById("studentText").value;
-  if (countWords(text) < 100) { showToast("Bitte mindestens 100 Wörter schreiben."); return; }
-  if (!CONFIG.storedData?.primary_text) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }
+    async function submitForGrading() {
+      const text = document.getElementById("studentText").value;
+      if (countWords(text) < 100) { showToast("Bitte mindestens 100 Wörter schreiben."); return; }
+      if (!CONFIG.storedData?.primary_text) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }
 
-  document.getElementById("submitBtn").disabled = true;
-  nav("feedback");
-  document.getElementById("feedbackLoader").style.display = "block";
-  document.getElementById("feedbackContent").style.display = "none";
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
 
-  try {
-    const data = await apiCall("/api/grade-deutsch", {
-      task_instruction: CONFIG.storedData.task_instruction,
-      primary_text: CONFIG.storedData.primary_text,
-      student_text: text,
-      rubric_prompt: BEWERTUNG_PROMPT,
-      type: "analyse"
-    });
+      try {
+        const data = await apiCall("/api/grade-deutsch", {
+          task_instruction: CONFIG.storedData.task_instruction,
+          primary_text: CONFIG.storedData.primary_text,
+          student_text: text,
+          rubric_prompt: BEWERTUNG_PROMPT,
+          type: "analyse"
+        });
 
-    document.getElementById("scoreVerstehen").textContent = data.scores?.verstehen ?? "–";
-    document.getElementById("scoreDarstellung").textContent = data.scores?.darstellung ?? "–";
-    document.getElementById("scoreTotal").textContent = data.scores?.total ?? "–";
+        document.getElementById("scoreVerstehen").textContent = data.scores?.verstehen ?? "–";
+        document.getElementById("scoreDarstellung").textContent = data.scores?.darstellung ?? "–";
+        document.getElementById("scoreTotal").textContent = data.scores?.total ?? "–";
 
-    saveToHistory({ textsorte: CONFIG.storedData.textsorte || "Text", verstehen: data.scores?.verstehen, darstellung: data.scores?.darstellung, total: data.scores?.total });
+        saveToHistory({ textsorte: CONFIG.storedData.textsorte || "Text", verstehen: data.scores?.verstehen, darstellung: data.scores?.darstellung, total: data.scores?.total });
 
-    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-analyse", topic: CONFIG.storedData.textsorte || "Analyse", content: data.scores?.verstehen, language: data.scores?.darstellung, total: data.scores?.total, date: new Date().toISOString() }).catch(() => {});
+        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-analyse", topic: CONFIG.storedData.textsorte || "Analyse", content: data.scores?.verstehen, language: data.scores?.darstellung, total: data.scores?.total, date: new Date().toISOString() }).catch(() => { });
 
-    stopTimer();
-    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(data.feedback || ""));
-    renderKorrekturFeedback(data);
-    document.getElementById("feedbackContent").style.display = "block";
-  } catch (e) {
-    document.getElementById("feedbackContent").style.display = "block";
-    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
-  }
-  document.getElementById("feedbackLoader").style.display = "none";
-  document.getElementById("submitBtn").disabled = false;
-}
+        stopTimer();
+        document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(data.feedback || ""));
+        renderKorrekturFeedback(data);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning);">Fehler: ${escapeHtml(e.message)}</p>`;
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
 
-function renderHistoryTable(history) {
-  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((h, i) =>
-    `<tr><td>${new Date(h.date).toLocaleDateString("de")}</td><td>${escapeHtml(h.textsorte)}</td><td class="history-score">${h.verstehen ?? "–"}/15</td><td class="history-score">${h.darstellung ?? "–"}/15</td><td class="history-score" style="font-weight:700">${h.total ?? "–"}/15</td><td><button onclick="deleteHistoryEntry(${history.length-1-i})" style="background:none;border:none;cursor:pointer;color:var(--ink-muted)">✕</button></td></tr>`
-  ).join("");
-}
-</script>
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((h, i) =>
+        `<tr><td>${new Date(h.date).toLocaleDateString("de")}</td><td>${escapeHtml(h.textsorte)}</td><td class="history-score">${h.verstehen ?? "–"}/15</td><td class="history-score">${h.darstellung ?? "–"}/15</td><td class="history-score" style="font-weight:700">${h.total ?? "–"}/15</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer;color:var(--ink-muted)">✕</button></td></tr>`
+      ).join("");
+    }
+  </script>
 </body>
+
 </html>
