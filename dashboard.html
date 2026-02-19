@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2563eb">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
 <title>myAbiFlow · Lehrer-Dashboard</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
+<link rel="stylesheet" href="shared-v4.css">
 
 <style>
 /* Dashboard-specific overrides */
@@ -317,14 +318,33 @@ footer a { color: var(--accent); }
 
 <script>
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
-let teacherPw = "";
+let teacherToken = "";
 let allResults = [];
 
 /* ====== LOGIN ====== */
-function loginTeacher() {
-  teacherPw = document.getElementById("teacherPassword").value.trim();
-  if (!teacherPw) return;
-  loadResults();
+async function loginTeacher() {
+  const pw = document.getElementById("teacherPassword").value.trim();
+  if (!pw) return;
+  const err = document.getElementById("loginError");
+  try {
+    const res = await fetch(API_BASE + "/api/teacher-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ teacher_password: pw })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      err.textContent = data.error || "Falsches Passwort.";
+      err.style.display = "block";
+      return;
+    }
+    teacherToken = data.token;
+    err.style.display = "none";
+    loadResults();
+  } catch (e) {
+    err.textContent = "Verbindungsfehler: " + e.message;
+    err.style.display = "block";
+  }
 }
 
 async function loadResults() {
@@ -332,12 +352,19 @@ async function loadResults() {
   try {
     const res = await fetch(API_BASE + "/api/results", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ teacher_password: teacherPw })
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
     });
     const data = await res.json();
 
     if (!res.ok) {
+      if (res.status === 401) {
+        teacherToken = "";
+        document.getElementById("app-wrapper").style.display = "none";
+        document.getElementById("login-screen").style.display = "flex";
+        err.textContent = "Sitzung abgelaufen. Bitte erneut einloggen.";
+        err.style.display = "block";
+        return;
+      }
       err.textContent = data.error || "Fehler beim Laden.";
       err.style.display = "block";
       return;
@@ -585,11 +612,19 @@ function renderChart() {
 async function deleteResult(id) {
   if (!confirm("Ergebnis wirklich löschen?")) return;
   try {
-    await fetch(API_BASE + "/api/delete-result", {
+    const res = await fetch(API_BASE + "/api/delete-result", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ teacher_password: teacherPw, result_id: id })
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ result_id: id })
     });
+    if (res.status === 401) {
+      teacherToken = "";
+      document.getElementById("app-wrapper").style.display = "none";
+      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("loginError").textContent = "Sitzung abgelaufen. Bitte erneut einloggen.";
+      document.getElementById("loginError").style.display = "block";
+      return;
+    }
     allResults = allResults.filter(r => r.id !== id);
     renderAll();
   } catch (e) {
