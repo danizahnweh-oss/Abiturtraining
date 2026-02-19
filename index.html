@@ -2780,177 +2780,193 @@
       container.scrollTop = container.scrollHeight;
       return id;
     }
-  </script>
 
-  function checkSession() {
-  initTheme();
-  if (typeof initAiTutor === "function") initAiTutor();
+    /* Restored toggleTour - originally here */
+    function toggleTour() {
+      // Intentionally empty for now - restored from original
+    }
 
-  var urlParams = new URLSearchParams(window.location.search);
-  var backTo = urlParams.get("back");
+    function checkSession() {
+      initTheme();
+      if (typeof initAiTutor === "function") initAiTutor();
 
-  if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-  document.getElementById("login-screen").style.display = "none";
+      var urlParams = new URLSearchParams(window.location.search);
+      var backTo = urlParams.get("back");
 
-  var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
-  "latein", "mathe", "chemie"];
-  if (backTo && validSubjects.indexOf(backTo) !== -1) {
-  selectSubject(backTo);
-  } else if (backTo === "subjects") {
-  showSubjectSelection();
-  } else {
-  var lastSubject = sessionStorage.getItem("current_subject");
-  if (lastSubject) selectSubject(lastSubject);
-  else showSubjectSelection();
-  }
+      if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+        document.getElementById("login-screen").style.display = "none";
 
-  var subject = sessionStorage.getItem("current_subject");
-  var state = { screen: subject ? "module-" + subject : "subjects" };
-  if (backTo) {
-  history.replaceState(state, "", window.location.pathname);
-  } else {
-  history.replaceState(state, "");
-  }
+        var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
+          "latein", "mathe", "chemie"];
+        if (backTo && validSubjects.indexOf(backTo) !== -1) {
+          selectSubject(backTo);
+        } else if (backTo === "subjects") {
+          showSubjectSelection();
+        } else {
+          var lastSubject = sessionStorage.getItem("current_subject");
+          if (lastSubject) selectSubject(lastSubject);
+          else showSubjectSelection();
+        }
 
-  loadStudentProgress();
-  loadHiddenSubjects();
-  }
-  }
+        var subject = sessionStorage.getItem("current_subject");
+        var state = { screen: subject ? "module-" + subject : "subjects" };
+        if (backTo) {
+          history.replaceState(state, "", window.location.pathname);
+        } else {
+          history.replaceState(state, "");
+        }
 
-  /* ====== ONBOARDING TOUR (#10) ====== */
-  var tourSteps = [
-  { type: "welcome", title: "Willkommen bei myAbiFlow!", text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung.
-  Lass uns dir kurz zeigen, wie alles funktioniert." },
-  { target: ".subject-grid", title: "Deine F\u00e4cher", text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen.
-  Jedes Fach hat verschiedene Aufgabentypen.", pos: "top" },
-  { target: "#progressBar", title: "Dein Fortschritt", text: "Hier siehst du deine Gesamtstatistik: Aufgaben,
-  Durchschnitt und deinen \u00dcbungs-Streak.", pos: "bottom" },
-  { target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos:
-  "left" }
-  ];
-  var tourIndex = 0;
+        loadStudentProgress();
+        loadHiddenSubjects();
+      }
+    }
 
-  function startOnboarding() {
-  if (localStorage.getItem("onboarding_done")) return;
-  tourIndex = 0;
-  showTourStep();
-  }
+    /* ====== ONBOARDING TOUR (#10) ====== */
+    var tourSteps = [
+      {
+        type: "welcome",
+        title: "Willkommen bei myAbiFlow!",
+        text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert."
+      },
+      {
+        target: ".subject-grid",
+        title: "Deine F\u00e4cher",
+        text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
+        pos: "top"
+      },
+      {
+        target: "#progressBar",
+        title: "Dein Fortschritt",
+        text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen \u00dcbungs-Streak.",
+        pos: "bottom"
+      },
+      {
+        target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos:
+          "left"
+      }
+    ];
+    var tourIndex = 0;
 
-  function showTourStep() {
-  // Remove existing tour elements
-  document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
-  (el) { el.remove(); });
+    function startOnboarding() {
+      if (localStorage.getItem("onboarding_done")) return;
+      tourIndex = 0;
+      showTourStep();
+    }
 
-  if (tourIndex >= tourSteps.length) {
-  localStorage.setItem("onboarding_done", "1");
-  return;
-  }
+    function showTourStep() {
+      // Remove existing tour elements
+      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
+        (el) { el.remove(); });
 
-  var step = tourSteps[tourIndex];
-  var dotsHtml = '<div class="tour-dots">';
-    for (var i = 0; i < tourSteps.length; i++) { dotsHtml +='<span class="tour-dot' + (i===tourIndex ? ' active' : '' )
-      + '"></span>' ; } dotsHtml +='</div>' ; if (step.type==="welcome" ) { var backdrop=document.createElement("div");
-      backdrop.className="tour-backdrop" ; document.body.appendChild(backdrop); var
-      welcome=document.createElement("div"); welcome.className="tour-welcome" ;
-      welcome.innerHTML='<div class="tour-welcome-box">' + dotsHtml + '<h2>' + step.title + '</h2><p>' + step.text
-      + '</p>'
-      + '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">Tour \u00fcberspringen</button>'
-      + '<button class="btn" onclick="nextTourStep()">Los geht\' s</button>
-  </div>
-  </div>';
-  document.body.appendChild(welcome);
-  return;
-  }
+      if (tourIndex >= tourSteps.length) {
+        localStorage.setItem("onboarding_done", "1");
+        return;
+      }
 
-  var target = document.querySelector(step.target);
-  if (!target || target.offsetParent === null) { tourIndex++; showTourStep(); return; }
+      var step = tourSteps[tourIndex];
+      var dotsHtml = '<div class="tour-dots">';
+      for (var i = 0; i < tourSteps.length; i++) {
+        dotsHtml += '<span class="tour-dot' + (i === tourIndex ? ' active' : '')
+          + '"></span>';
+      } dotsHtml += '</div>'; if (step.type === "welcome") {
+        var backdrop = document.createElement("div");
+        backdrop.className = "tour-backdrop"; document.body.appendChild(backdrop); var
+          welcome = document.createElement("div"); welcome.className = "tour-welcome";
+        welcome.innerHTML = '<div class="tour-welcome-box">' + dotsHtml + '<h2>' + step.title + '</h2><p>' + step.text + '</p>' +
+          '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">Tour \u00fcberspringen</button>' +
+          '<button class="btn" onclick="nextTourStep()">Los geht\'s</button></div></div>';
+        document.body.appendChild(welcome);
+        return;
+      }
 
-  var rect = target.getBoundingClientRect();
-  var pad = 8;
+      var target = document.querySelector(step.target);
+      if (!target || target.offsetParent === null) { tourIndex++; showTourStep(); return; }
 
-  // Spotlight
-  var spotlight = document.createElement("div");
-  spotlight.className = "tour-spotlight";
-  spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
-  spotlight.style.left = (rect.left - pad) + "px";
-  spotlight.style.width = (rect.width + pad * 2) + "px";
-  spotlight.style.height = (rect.height + pad * 2) + "px";
-  document.body.appendChild(spotlight);
+      var rect = target.getBoundingClientRect();
+      var pad = 8;
 
-  // Tooltip
-  var tooltip = document.createElement("div");
-  tooltip.className = "tour-tooltip";
-  tooltip.innerHTML = dotsHtml + '<h3>' + step.title + '</h3>
-  <p>' + step.text + '</p>' +
-  '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">\u00dcberspringen</button>' +
-    '<button class="btn btn-small" onclick="nextTourStep()">' +
-      (tourIndex === tourSteps.length - 1 ? 'Fertig' : 'Weiter') + '</button></div>';
+      // Spotlight
+      var spotlight = document.createElement("div");
+      spotlight.className = "tour-spotlight";
+      spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
+      spotlight.style.left = (rect.left - pad) + "px";
+      spotlight.style.width = (rect.width + pad * 2) + "px";
+      spotlight.style.height = (rect.height + pad * 2) + "px";
+      document.body.appendChild(spotlight);
 
-  document.body.appendChild(tooltip);
+      // Tooltip
+      var tooltip = document.createElement("div");
+      tooltip.className = "tour-tooltip";
+      tooltip.innerHTML = dotsHtml + '<h3>' + step.title + '</h3><p>' + step.text + '</p>' +
+        '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">\u00dcberspringen</button>' +
+        '<button class="btn btn-small" onclick="nextTourStep()">' +
+        (tourIndex === tourSteps.length - 1 ? 'Fertig' : 'Weiter') + '</button></div>';
 
-  // Position tooltip
-  var pos = step.pos || "bottom";
-  var tRect = tooltip.getBoundingClientRect();
-  if (pos === "bottom") {
-  tooltip.style.top = (rect.bottom + window.scrollY + pad + 8) + "px";
-  tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-  } else if (pos === "top") {
-  tooltip.style.top = (rect.top + window.scrollY - tRect.height - pad - 8) + "px";
-  tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-  } else if (pos === "left") {
-  tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
-  tooltip.style.left = Math.max(8, rect.left - tRect.width - pad - 8) + "px";
-  }
-  }
+      document.body.appendChild(tooltip);
 
-  function nextTourStep() {
-  tourIndex++;
-  showTourStep();
-  }
+      // Position tooltip
+      var pos = step.pos || "bottom";
+      var tRect = tooltip.getBoundingClientRect();
+      if (pos === "bottom") {
+        tooltip.style.top = (rect.bottom + window.scrollY + pad + 8) + "px";
+        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
+      } else if (pos === "top") {
+        tooltip.style.top = (rect.top + window.scrollY - tRect.height - pad - 8) + "px";
+        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
+      } else if (pos === "left") {
+        tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
+        tooltip.style.left = Math.max(8, rect.left - tRect.width - pad - 8) + "px";
+      }
+    }
 
-  function endTour() {
-  document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
-  (el) { el.remove(); });
-  localStorage.setItem("onboarding_done", "1");
-  }
+    function nextTourStep() {
+      tourIndex++;
+      showTourStep();
+    }
 
-  // Browser back/forward between screens
-  window.addEventListener("popstate", function (e) {
-  if (!e.state || !e.state.screen) return;
-  if (e.state.screen === "subjects") showSubjectSelection();
-  else if (e.state.screen.indexOf("module-") === 0) selectSubject(e.state.screen.replace("module-", ""));
-  });
+    function endTour() {
+      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
+        (el) { el.remove(); });
+      localStorage.setItem("onboarding_done", "1");
+    }
 
-  window.onload = function () {
-  checkSession();
-  initTheme();
-  if(typeof initAiTutor === "function") initAiTutor();
+    // Browser back/forward between screens
+    window.addEventListener("popstate", function (e) {
+      if (!e.state || !e.state.screen) return;
+      if (e.state.screen === "subjects") showSubjectSelection();
+      else if (e.state.screen.indexOf("module-") === 0) selectSubject(e.state.screen.replace("module-", ""));
+    });
 
-  // Register Service Worker (#11 PWA)
-  if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js").then(function (reg) {
-  reg.update(); // Force update check immediately
-  }).catch(function () { });
-  }
+    window.onload = function () {
+      checkSession();
+      initTheme();
+      if (typeof initAiTutor === "function") initAiTutor();
 
-  // Splash: skip if already shown this session or reduced-motion
-  var splash = document.getElementById("splash");
-  if (!splash) return;
-  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (sessionStorage.getItem("splash_shown") || reducedMotion) {
-  splash.style.display = "none";
-  return;
-  }
-  setTimeout(function () {
-  splash.style.display = "none";
-  sessionStorage.setItem("splash_shown", "1");
-  }, 5500);
-  };
+      // Register Service Worker (#11 PWA)
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").then(function (reg) {
+          reg.update(); // Force update check immediately
+        }).catch(function () { });
+      }
 
-  // Handle bfcache restoration
-  window.addEventListener("pageshow", function (e) {
-  if (e.persisted) checkSession();
-  });
+      // Splash: skip if already shown this session or reduced-motion
+      var splash = document.getElementById("splash");
+      if (!splash) return;
+      var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (sessionStorage.getItem("splash_shown") || reducedMotion) {
+        splash.style.display = "none";
+        return;
+      }
+      setTimeout(function () {
+        splash.style.display = "none";
+        sessionStorage.setItem("splash_shown", "1");
+      }, 5500);
+    };
+
+    // Handle bfcache restoration
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) checkSession();
+    });
   </script>
   <script src="shared.js?v=7"></script>
 </body>
