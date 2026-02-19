@@ -837,22 +837,22 @@ async function handleGenerateGeschichte(request, env) {
     "12_1": {
       titel: "Auf dem Weg zu gesellschaftlicher und politischer Partizipation",
       zeitraum: level === "eA" ? "vom Ende des 18. Jahrhunderts bis zur Weimarer Republik" : "vom 19. Jahrhundert bis zur Weimarer Republik",
-      themen: "Revolution 1848/49, Deutsches Kaiserreich, Industrialisierung und soziale Frage, Gesellschaftliche Modernisierung, Frauenbewegung, Erster Weltkrieg, Weimarer Republik" + (level === "eA" ? ", Französische Revolution, Aufklärung" : "")
+      themen: "G12 1.1 (22 Std.): Französische Revolution (Ursachen, Überwindung Ständegesellschaft, Terreur), Revolution von oben (Preußen/Bayern), Vormärz ab 1832, Revolution 1848/49 (Märzereignisse, Paulskirche, europäische Dimension, Bilanz). G12 1.2 (26 Std.): Kaiserreich (Industrialisierung, Soziale Frage, Bismarck, Obrigkeitsstaat), Wilhelminismus, Frauenbewegung, Erster Weltkrieg, Weimarer Republik (Verfassung, Parteien, Krisenjahre)" + (level === "eA" ? ". G12 1.3 (8 Std., nur eA): Vertiefungsmodul Jüdisches Leben (Emanzipation, Antisemitismus, kulturelle Beiträge)" : "")
     },
     "12_2": {
       titel: "Deutschland zwischen Demokratie und Diktatur",
       zeitraum: "von der Weimarer Republik bis zur Wiedervereinigung",
-      themen: "Endphase der Weimarer Republik, Aufbau des NS-Staates, Verfolgung und Holocaust, Widerstand gegen den NS, DDR und SED-Diktatur, Friedliche Revolution 1989, Wiedervereinigung, Aufarbeitung der SED-Diktatur"
+      themen: "G12 2.1 (21 Std.): Endphase Weimarer Republik (Präsidialkabinette, Radikalisierung), NS-Machtübernahme (Gleichschaltung, Ermächtigungsgesetz), Ideologie/Terror/Holocaust, Widerstand (20. Juli 1944). G12 2.2 (13 Std.): Zwei deutsche Staaten (Grundgesetz, SED-Diktatur, Mauerbau, Alltag BRD/DDR). G12 2.3 (11 Std.): Wiedervereinigung (Friedliche Revolution, Transformationsprozess, Aufarbeitung der SED-Diktatur)" + (level === "eA" ? ". G12 2.4 (11 Std., nur eA): Vertiefungsmodul Erinnerungskultur (Gedenkstätten, Historikerstreit, Aufarbeitung)" : "")
     },
     "13_1": {
       titel: "Akteure internationaler Politik in historischer Perspektive",
       zeitraum: "im 20. und 21. Jahrhundert",
-      themen: "Nahostkonflikt und israelisch-palästinensische Beziehungen, Kalter Krieg und Blockkonfrontation, USA als Weltmacht, Chinas Transformation und Aufstieg, UNO und Weltordnung, Dekolonisation"
+      themen: "G13 1.1 (10 Std.): Israelisch-palästinensischer Konflikt (Diaspora, Zionismus, Staatsgründung 1948, Kriege, Friedensprozess). G13 1.2 (10 Std.): USA (Supermacht, Interventionismus, Selbstverständnis). G13 1.3 (10 Std.): Russland/Sowjetunion (Revolution, Kalter Krieg, Transformation). G13 1.4 (10 Std.): China (Revolution, Mao, Reform und Öffnung, Aufstieg zur Weltmacht)" + (level === "eA" ? ". G13 1.5 (8 Std., nur eA): Vertiefungsmodul Naher/Mittlerer Osten als Konfliktfeld" : "")
     },
     "13_2": {
       titel: "Historische Grundlagen moderner politischer Ordnungsformen und Identifikationsmuster in Europa",
       zeitraum: "von der Antike bis zur Gegenwart",
-      themen: "Attische Demokratie, Aufklärung und Menschenrechte, Nationalismus und Nationsvorstellungen im 19. Jahrhundert, Deutsch-französische Beziehungen, Deutsch-polnische Beziehungen, Europäische Integration"
+      themen: "G13 2.1 (10 Std.): Attische Demokratie (Polis, Volksversammlung, Grenzen). G13 2.2 (10 Std.): Aufklärung und Menschenrechte (Naturrecht, Gewaltenteilung, Verfassungen). G13 2.3 (14 Std.): Nationalismus im 19. Jh. (Kulturnation, Staatsnation, Nationalstaatsbildung). G13 2.4 (14 Std.): Deutsch-französische/deutsch-polnische Beziehungen, Europäische Integration (Montanunion, EWG, EU)"
     }
   };
 
@@ -908,6 +908,7 @@ ABSOLUTE PFLICHT:
 - Die Operatoren MÜSSEN den AFB-Stufen entsprechen
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
+- LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
@@ -1557,6 +1558,8 @@ SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag, Leserbrief, digitale Pinnwand)
 - Das macht die Aufgabe authentischer und prüft Adressatenorientierung
 
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
@@ -1828,6 +1831,8 @@ ${hj.inhalte}
 SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag)
 
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+
 === PRÜFUNGSTEIL B – AUSWEITUNG (${bePruefungB}) ===
 - EIGENSTÄNDIGE Aufgabe, die über die Materialien hinausgeht
 - Transfer zu einem ANDEREN Halbjahr/Themenbereich oder breitere politikwissenschaftliche Reflexion
@@ -1994,39 +1999,31 @@ async function handleGenerateWR(request, env) {
     bwl: {
       label: "Betriebswirtschaftslehre",
       themen: {
-        unternehmensziele: "Unternehmensziele und Zielkonflikte",
-        swot: "SWOT-Analyse und strategische Planung",
-        investition: "Investitionsrechnung (statisch und dynamisch)",
-        finanzierung: "Finanzierung (Eigen-/Fremdfinanzierung, Leasing)",
-        bilanz: "Bilanzkennzahlen und Jahresabschlussanalyse",
-        organisation: "Organisationsstruktur und Unternehmensführung",
-        marketing: "Marketing-Mix und Marktanalyse",
-        rechtsformen: "Rechtsformen von Unternehmen"
+        unternehmensziele: "WR12 1.1: Ökonomische/ökologische/soziale/ethische Ziele, Zielwechselwirkungen, Stakeholder, Aufbau-/Ablauforganisation (nur eA: Wertschöpfung, Funktionsbereiche)",
+        markt_produktion: "WR12 1.2: Beschaffungsarten (Einzel/JIT/Vorrat), Break-even-Analyse (Gewinnschwelle, fixe/variable Kosten), Marktsituation, ABC-Analyse, BCG-Portfolio (nur eA)",
+        bilanzanalyse: "WR12 1.3 (nur eA): Bilanz, GuV, Lagebericht, Bilanzkennzahlen (Anlageintensität, EK-Quote, Deckungsgrade, Liquiditätsgrade), Rentabilitäten (EK-/GK-/Umsatzrentabilität), EBIT",
+        investition: "WR12 1.4: Gewinnvergleichsrechnung, Amortisationsrechnung (eA: + Kapitalwertmethode), Eigen- vs. Fremdfinanzierung, Leverage-Effekt (nur eA)",
+        management: "WR12 1.5 (nur eA): SWOT-Analyse, Wettbewerbsstrategien nach Porter, Kernkompetenzen, Managementfunktionen (Planung, Entscheidung, Aufgabenübertragung, Kontrolle)"
       }
     },
     vwl: {
       label: "Volkswirtschaftslehre",
       themen: {
-        konjunktur: "Konjunktur und Konjunkturpolitik",
-        geldpolitik: "Geldpolitik der EZB",
-        tarifpolitik: "Tarifpolitik und Arbeitsmarkt",
-        wirtschaftspolitik: "Wirtschaftspolitik (Angebots-/Nachfrageorientiert)",
-        spieltheorie: "Spieltheorie und Marktverhalten",
-        aussenhandel: "Außenhandel und Globalisierung",
-        preisbildung: "Preisbildung auf verschiedenen Märkten",
-        soziale_marktwirtschaft: "Soziale Marktwirtschaft"
+        konjunktur: "WR12 2.1: Magisches Viereck (Wachstum, Beschäftigung, Preisniveaustabilität, außenwirtschaftliches GGW), Konjunkturzyklus, Konjunkturindikatoren, Zielbeziehungen",
+        wirtschaftspolitik: "WR12 2.2: BIP (Verwendungs-/Entstehungsrechnung), Arbeitslosigkeit (friktionell/saisonal/konjunkturell/strukturell), Nachfrage-/Angebotstheorie, expansive/kontraktive Effekte, Staatsverschuldung, Umweltschutz/Klimaschutz",
+        soziale_sicherung: "WR12 2.3: Tarifpartner, Sozialversicherung (Kranken-/Rentenversicherung), Umlage-/Kapitaldeckungsverfahren, demographischer Wandel, Moral Hazard (nur eA), soziale Gerechtigkeit (Leistungs-/Chancen-/Bedarfs-/Generationengerechtigkeit, nur eA), Beveridge-Modell, BGE (nur eA)",
+        geldpolitik: "WR13 2.1: Preisniveaustabilität, EZB (Mandat, Unabhängigkeit), geldpolitische Instrumente (Zins-/Geldmengensteuerung), Transmissionsmechanismus, Wirkungsgrenzen, Kryptowährungen",
+        aussenhandel: "WR13 2.2: Leistungsbilanz, Kapitalbilanz (nur eA), Wechselkursbildung (Marktmodell), Ursachen/Folgen von Wechselkursschwankungen (eA: + Spieltheorie, Gefangenendilemma, Nash-GGW, Pareto-Optimum)"
       }
     },
     recht: {
       label: "Recht",
       themen: {
-        vertragsrecht: "Vertragsrecht (Zustandekommen, Anfechtung, Nichtigkeit)",
-        kaufrecht: "Kaufrecht und Gewährleistung",
-        schuldrecht: "Schuldrecht (Leistungsstörungen)",
-        sachenrecht: "Sachenrecht (Eigentum, Besitz)",
-        deliktsrecht: "Deliktsrecht (§ 823 BGB)",
-        arbeitsrecht: "Arbeitsrecht (Kündigung, Arbeitsvertrag)",
-        handelsrecht: "Handelsrecht und Gesellschaftsrecht"
+        rechtsgrundlagen: "WR12 3.1: Systematik des BGB, Kaufhandlung, Trennungsprinzip, juristische Arbeitstechniken (Zitierweise, Normenanalyse, Subsumtionstechnik, Gutachtenstil)",
+        gesetzl_schuld: "WR12 3.2: Herausgabeanspruch des Eigentümers, gutgläubiger Eigentumserwerb, § 823 I BGB (Schadensersatz), Gefährdungshaftung (nur eA: § 833 BGB, § 7 StVG)",
+        vertragstypen: "WR13 1.1 (nur eA): Werk-/Werklieferungs-/Dienstvertrag, Leistungsstörungen (Pflichtverletzung, Fristsetzung, Rücktritt, Schadensersatz)",
+        kaufrecht: "WR13 1.2: Mangelfreiheit (subjektive/objektive Anforderungen), Gewährleistung beim Verbrauchsgüterkauf (Nacherfüllung, Rücktritt, Minderung, Schadensersatz), Verbraucherschutz (Beweislastumkehr, Widerrufsrecht bei Fernabsatz), AGB, Vertragsfreiheit",
+        strafrecht: "WR13 1.3: Ordnungswidrigkeit vs. Straftat, Aufbau einer Straftat (Tatbestandsmäßigkeit, Rechtswidrigkeit, Schuld), Strafzwecktheorien, Strafzumessung (eA: + Rechtfertigungsgründe Notwehr/Notstand, Entschuldigungsgründe, Radbruchsche Formel)"
       }
     }
   };
@@ -2062,6 +2059,7 @@ AUFGABENSTRUKTUR:
 - AFB III (Reflexion/Problemlösung): beurteilen, erörtern, Stellung nehmen, entwickeln (ca. 40% der BE)
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - Operatoren müssen korrekt und eindeutig verwendet werden
+- LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
 
 MATERIALIEN:
 - Materialien (M1, M2, …) sind der Kern der Aufgabe
@@ -2319,22 +2317,22 @@ async function handleGenerateAbiturGeschichte(request, env) {
     "12_1": {
       titel: "Auf dem Weg zu gesellschaftlicher und politischer Partizipation",
       zeitraum: level === "eA" ? "vom Ende des 18. Jahrhunderts bis zur Weimarer Republik" : "vom 19. Jahrhundert bis zur Weimarer Republik",
-      themen: "Revolution 1848/49, Deutsches Kaiserreich, Industrialisierung und soziale Frage, Gesellschaftliche Modernisierung, Frauenbewegung, Erster Weltkrieg, Weimarer Republik" + (level === "eA" ? ", Französische Revolution, Aufklärung" : "")
+      themen: "G12 1.1: Franz. Revolution (Ursachen, Ständegesellschaft, Terreur), Vormärz, Revolution 1848/49 (Paulskirche, Bilanz). G12 1.2: Kaiserreich (Industrialisierung, Soziale Frage, Bismarck), Wilhelminismus, Frauenbewegung, Erster Weltkrieg, Weimarer Republik" + (isEA ? ". G12 1.3 (nur eA): Jüdisches Leben (Emanzipation, Antisemitismus)" : "")
     },
     "12_2": {
       titel: "Deutschland zwischen Demokratie und Diktatur",
       zeitraum: "von der Weimarer Republik bis zur Wiedervereinigung",
-      themen: "Endphase der Weimarer Republik, Aufbau des NS-Staates, Verfolgung und Holocaust, Widerstand gegen den NS, DDR und SED-Diktatur, Friedliche Revolution 1989, Wiedervereinigung"
+      themen: "G12 2.1: Endphase Weimarer Republik, NS-Machtübernahme (Gleichschaltung, Ermächtigungsgesetz), Holocaust, Widerstand. G12 2.2: Zwei deutsche Staaten (BRD/DDR). G12 2.3: Wiedervereinigung, Aufarbeitung" + (isEA ? ". G12 2.4 (nur eA): Erinnerungskultur" : "")
     },
     "13_1": {
       titel: "Akteure internationaler Politik in historischer Perspektive",
       zeitraum: "im 20. und 21. Jahrhundert",
-      themen: "Nahostkonflikt, Kalter Krieg, USA als Weltmacht, Chinas Aufstieg, UNO und Weltordnung, Dekolonisation"
+      themen: "G13 1.1: Israelisch-palästinensischer Konflikt (Zionismus, Staatsgründung, Kriege, Friedensprozess). G13 1.2: USA (Supermacht, Interventionismus). G13 1.3: Russland/Sowjetunion. G13 1.4: China (Revolution, Reform, Aufstieg)" + (isEA ? ". G13 1.5 (nur eA): Naher/Mittlerer Osten als Konfliktfeld" : "")
     },
     "13_2": {
       titel: "Historische Grundlagen moderner politischer Ordnungsformen in Europa",
       zeitraum: "von der Antike bis zur Gegenwart",
-      themen: "Attische Demokratie, Aufklärung und Menschenrechte, Nationalismus im 19. Jh., Deutsch-französische Beziehungen, Europäische Integration"
+      themen: "G13 2.1: Attische Demokratie. G13 2.2: Aufklärung und Menschenrechte. G13 2.3: Nationalismus im 19. Jh. G13 2.4: Deutsch-französische/deutsch-polnische Beziehungen, Europäische Integration"
     }
   };
 
@@ -2366,6 +2364,7 @@ async function handleGenerateAbiturGeschichte(request, env) {
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
 THEMEN: ${sp.themen}
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 
 === TEIL B — DARSTELLUNG ===
 - Eigenständige Aufgabe OHNE eigene Quelle (oder mit kurzem Materialimpuls, max. 200 Wörter)
@@ -2540,12 +2539,18 @@ Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 2 Aufgaben auf ${niveauLabel}.
 PRÜFUNGSFORMAT:
 ${aufgabenDesc}
 
+LEHRPLAN-INHALTE (G9, Bayern, ab 2026):
+BWL (WR12 LB1): Unternehmensziele/Stakeholder (1.1), Beschaffung/Break-even/Marktsituation/ABC-Analyse/BCG-Portfolio (1.2), Bilanzanalyse/Kennzahlen/EBIT (1.3, nur eA), Investition: Gewinnvergleich/Amortisation/Kapitalwertmethode/Leverage-Effekt (1.4), Management: SWOT/Porter/Kernkompetenzen (1.5, nur eA).
+VWL (WR12 LB2 + WR13 LB2): Magisches Viereck/Konjunktur (12.2.1), BIP/Arbeitslosigkeit/Nachfrage-Angebotstheorie/Staatsverschuldung (12.2.2), Tarifpartner/Sozialversicherung/Umlage-Kapitaldeckung/Moral Hazard/Beveridge/BGE (12.2.3), EZB/Geldpolitik/Transmissionsmechanismus (13.2.1), Leistungsbilanz/Wechselkurse/Spieltheorie/Nash-GGW (13.2.2).
+Recht (WR12 LB3 + WR13 LB1): BGB-Systematik/Gutachtenstil (12.3.1), Herausgabeanspruch/gutgläubiger Erwerb/§823 I/Gefährdungshaftung (12.3.2), Vertragstypen/Leistungsstörungen (13.1.1, nur eA), Mangelfreiheit/Gewährleistung/Verbraucherschutz/AGB/Widerrufsrecht (13.1.2), Strafrecht: Straftat-Aufbau/Strafzwecktheorien/Radbruchsche Formel (13.1.3).
+
 AUFGABENSTRUKTUR:
 - Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
 - AFB I (Reproduktion): beschreiben, nennen, darstellen (ca. 20%)
 - AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40%)
 - AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40%)
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
+- LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Inhalten stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
 
 MATERIALIEN:
 - Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Fallbeispiele
@@ -3048,17 +3053,21 @@ async function handleGenerateEthik(request, env) {
       title: "Theorie und Praxis des Handelns",
       lernbereiche: "LB 12.1 (Theorie und Praxis des Handelns)",
       inhalte: `- Handlungsbegriff: Willensfreiheit, Intentionalität, Verantwortung
+- Platon (Politeia): Idee des Guten, Seelenlehre, Tugenden, Höhlengleichnis
+- Tugendethik (Aristoteles): Eudaimonia, Mesotes-Lehre, dianoetische/ethische Tugenden, Phronesis
 - Pflichtethik (Kant): Kategorischer Imperativ, Maximen, guter Wille, Pflicht vs. Neigung, Autonomie
-- Utilitarismus (Bentham, Mill): Nützlichkeitsprinzip, hedonistisches Kalkül, Handlungs- und Regelutilitarismus
-- Tugendethik (Aristoteles): Eudaimonia, Mesotes-Lehre, Tugenden als Charakterhaltungen, praktische Klugheit (Phronesis)
+- Utilitarismus (Bentham, Mill): Nützlichkeitsprinzip, hedonistisches Kalkül, Handlungs-/Regelutilitarismus
+- Diskursethik (Habermas): ideale Sprechsituation, Diskursregeln, kommunikatives Handeln
 - Verantwortungsethik (Jonas): Prinzip Verantwortung, Heuristik der Furcht, Nachhaltigkeit
+- Philosophie als Sprachkritik (Wittgenstein): Sprachspiel, Grenzen der Sprache
 - Angewandte Ethik: Medizinethik, Technikethik, Wirtschaftsethik, Tierethik
-- Moralische Dilemmata und Fallanalysen
-- Verhältnis von Moral, Recht und Sitte`,
+- Moralische Dilemmata und Fallanalysen`,
       schwerpunkte: {
+        platon: "Platons Ideenlehre, Seelenlehre und Tugenden (Politeia)",
         kant: "Kants Pflichtethik und der Kategorische Imperativ",
         utilitarismus: "Utilitarismus (Bentham/Mill) und Nützlichkeitsprinzip",
         tugend: "Aristoteles' Tugendethik und Eudaimonia",
+        habermas: "Habermas' Diskursethik und kommunikatives Handeln",
         verantwortung: "Jonas' Verantwortungsethik und Nachhaltigkeit",
         angewandt: "Angewandte Ethik: Medizin, Technik, Wirtschaft"
       }
@@ -3097,12 +3106,12 @@ async function handleGenerateEthik(request, env) {
         ? "LB 13.1 (Recht und Gerechtigkeit) und LB 13.2 (Politische Ethik)"
         : "LB 13.1 (Recht und Gerechtigkeit)",
       inhalte: isEA
-        ? `- Gerechtigkeitstheorien: Rawls (Schleier des Nichtwissens, Differenzprinzip), Nozick (Libertarismus), Höffe
-- Naturrecht und Rechtspositivismus: Radbruchsche Formel
+        ? `- Gerechtigkeitstheorien: Rawls (Schleier des Nichtwissens, Differenzprinzip), Nozick (Libertarismus), Aristoteles (kommutative/distributive Gerechtigkeit)
+- Naturrecht und Rechtspositivismus: Radbruchsche Formel, Arendt (Banalität des Bösen, Eichmann-Prozess)
 - Menschenrechte: Universalität vs. Kulturrelativismus
-- Strafe und Gerechtigkeit: Vergeltung, Prävention, Resozialisierung
-- Politische Ethik: Legitimation von Herrschaft, Gemeinwohl
-- Vertragstheorien: Hobbes (Leviathan), Locke, Rousseau
+- Strafe und Gerechtigkeit: Strafzwecktheorien (absolute/relative/Vereinigungstheorie), Tat- vs. Täterstrafrecht, Jugendstrafrecht
+- Kriminalitätstheorien: Anomie-Theorie, Etikettierungsansatz
+- Politische Ethik: Legitimation von Herrschaft, Gemeinwohl, Vertragstheorien (Hobbes, Locke, Rousseau)
 - Globale Gerechtigkeit: Verteilungsgerechtigkeit, Klimagerechtigkeit
 - Zivilcourage und ziviler Ungehorsam
 - Menschenwürde (Art. 1 GG) als Grundlage des Rechtsstaats`
@@ -3185,6 +3194,8 @@ ${lb.inhalte}
 SITUIERUNG:
 - Bette die Aufgabe in einen philosophisch relevanten Kontext ein (z.B. ethische Debatte, philosophisches Gedankenexperiment, aktuelles gesellschaftliches Problem)
 - Das macht die Aufgabe authentischer und prüft die Fähigkeit zum philosophischen Transfer
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -3393,6 +3404,8 @@ ${lb.lernbereiche}
 Relevante Inhalte:
 ${lb.inhalte}
 
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+
 Antworte NUR mit validem JSON:
 {
   "teil_a": {
@@ -3574,76 +3587,60 @@ async function handleGenerateGeographie(request, env) {
   const hjThemen = {
     "12_1": {
       title: "Physische Geographie",
-      inhalte: `- Subpolare und Polare Zone: Klima, Vegetation, Permafrost
-- Vegetationszonen der Erde und ihre klimatischen Bedingungen
-- Gletscherdynamik: Akkumulation, Ablation, Gletscherrückzug im Klimawandel
-- Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen, Lawinen
-- Bodentypen und Bodenbildungsprozesse (Podsol, Schwarzerde, Laterit)
-- Klimaklassifikationen (Köppen, Neef) und Klimadiagramme
-- Geomorphologische Prozesse: Verwitterung, Erosion, Sedimentation
-- Plattentektonik und endogene Kräfte`,
+      inhalte: `Geo12 LB2 (24 Std.): Atmosphäre, Strahlungshaushalt, Drei-Zellen-Modell, Polarfrontjetstream, Monsun, ozeanische Zirkulation, ENSO, Klimawandel (anthropogen/natürlich), IPCC
+Geo12 LB3 (20 Std.): Tropen (Immerfeuchte/Wechselfeuchte/Trockene Zone), Desertifikation, nachhaltige Nutzung tropischer Ökosysteme
+Geo12 LB4 (16 Std.): Subpolare/Polare Zone, Permafrost, Kippelemente, Arktis-Geopolitik
+Geo12 LB5 (24 Std.): Ressource Wasser/Wald/Boden/Fläche, Hochwasser, Klimaschutz in der Landwirtschaft
+Geo12 LB6 (16 Std.): Hochgebirgsräume (Alpen), Massenbewegungen, Gletscherrückzug, Tourismus
+Geo12 LB7 (12 Std.): Tektonische Naturgefahren, Plattentektonik, Vulkanismus, Erdbeben, tropische Wirbelstürme`,
       schwerpunkte: {
-        klima: "Klimazonen und Vegetationszonen der Erde",
-        permafrost: "Permafrost und Auswirkungen des Klimawandels",
-        gletscher: "Gletscherdynamik und glaziale Prozesse",
-        naturgefahren: "Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen",
-        boden: "Bodentypen und Bodenbildungsprozesse"
+        klima: "Geo12 LB2: Klima und Klimawandel, atmosphärische Zirkulation",
+        tropen: "Geo12 LB3: Tropen, Desertifikation, nachhaltige Nutzung",
+        permafrost: "Geo12 LB4: Subpolare/Polare Zone, Permafrost, Kippelemente",
+        ressourcen: "Geo12 LB5: Ressourcenkonflikte Wasser/Wald/Boden/Fläche",
+        hochgebirge: "Geo12 LB6: Hochgebirgsräume, Gletscherrückzug, Tourismus",
+        naturgefahren: "Geo12 LB7: Tektonische Naturgefahren, Plattentektonik"
       }
     },
     "12_2": {
       title: "Humangeographie I",
-      inhalte: `- Ressource Fläche: Flächennutzung, Flächenverbrauch, Flächenkonkurrenz
-- Wasser als Ressource: Wasserverfügbarkeit, Wasserkonflikte, virtuelles Wasser
-- Gebirgsregionen: Alpen als Lebens-, Wirtschafts- und Erholungsraum
-- Landwirtschaft: konventionell vs. ökologisch, Agrarstrukturwandel, Welternährung
-- Erneuerbare Energien: Standortfaktoren, Energiewende, Raumwirksamkeit
-- Tourismus: Massentourismus, nachhaltiger Tourismus, Overtourism, Tragfähigkeit
-- Flächennutzungskonflikte: Siedlung vs. Landwirtschaft vs. Naturschutz
-- Rohstoffe und Ressourcenmanagement`,
+      inhalte: `Geo12 LB5 (24 Std.): Ressource Wasser (Verfügbarkeit, Konflikte, virtuelles Wasser), Ressource Wald (tropischer Regenwald, Abholzung), Ressource Boden (Degradation, nachhaltige Nutzung), Ressource Fläche (Flächenverbrauch, Flächenkonkurrenz, Versiegelung)
+Geo12 LB6 (16 Std.): Alpen als Lebens-/Wirtschafts-/Erholungsraum, Massentourismus, nachhaltiger Tourismus, Tragfähigkeit
+Ergänzend: Landwirtschaft (konventionell vs. ökologisch, Agrarstrukturwandel), Erneuerbare Energien (Standortfaktoren, Energiewende)`,
       schwerpunkte: {
-        flaeche: "Ressource Fläche und Flächennutzungskonflikte",
-        wasser: "Wasser als Ressource und Wasserkonflikte",
-        landwirtschaft: "Landwirtschaft und Welternährung",
+        wasser: "Geo12 LB5: Wasser als Ressource und Wasserkonflikte",
+        flaeche: "Geo12 LB5: Ressource Fläche und Flächennutzungskonflikte",
+        landwirtschaft: "Landwirtschaft, Welternährung, Klimaschutz",
         energie: "Erneuerbare Energien und Energiewende",
-        tourismus: "Tourismus: Nachhaltigkeit und Tragfähigkeit"
+        tourismus: "Geo12 LB6: Tourismus in Hochgebirgsräumen"
       }
     },
     "13_1": {
       title: "Entwicklungsgeographie",
-      inhalte: `- Entwicklungsländer: Merkmale, Indikatoren (HDI, Gini-Koeffizient, BNE)
-- Globalisierung: Global Players, Welthandel, Standortverlagerung, Wertschöpfungsketten
-- Fragmentierende Entwicklung (Fred Scholz): Globale Orte vs. abgehängte Räume
-- Nachhaltigkeit: Drei-Säulen-Modell, SDGs, Nachhaltigkeitsstrategien
-- Megacities: Urbanisierung in Entwicklungsländern, informelle Siedlungen, Primatstadt
-- Tropischer Regenwald: Ökosystem, Abholzung, Nutzungskonflikte, Shifting Cultivation
-- Desertifikation: Ursachen, Sahelzone, Gegenmaßnahmen
-- Entwicklungstheorien: Modernisierungstheorie, Dependenztheorie`,
+      inhalte: `Geo13 LB2 (20 Std.): Entwicklungsindikatoren (HDI, Gini, BNE), Disparitäten, Globalisierung (Global Players, Wertschöpfungsketten), Entwicklungstheorien, Entwicklungsstrategien, Ferntourismus
+Geo13 LB3 (24 Std.): Bevölkerungsentwicklung (demographischer Übergang, Altersstruktur), Migration (Push-Pull, Binnenmigration), Megacities, Urbanisierung (informelle Siedlungen, Primatstadt)
+Geo13 LB4 (20 Std.): Fragmentierende Entwicklung (Fred Scholz), Nachhaltigkeit (SDGs, Drei-Säulen-Modell), Tropischer Regenwald (Ökosystem, Abholzung, Shifting Cultivation), Desertifikation`,
       schwerpunkte: {
-        entwicklung: "Entwicklungsländer und Entwicklungsindikatoren (HDI, Gini)",
-        globalisierung: "Globalisierung und fragmentierende Entwicklung",
-        nachhaltigkeit: "Nachhaltigkeit und SDGs",
-        megacities: "Megacities und Urbanisierung in Entwicklungsländern",
-        regenwald: "Tropischer Regenwald: Ökosystem und Nutzungskonflikte",
-        desertifikation: "Desertifikation: Ursachen und Gegenmaßnahmen"
+        entwicklung: "Geo13 LB2: Entwicklungsländer und Entwicklungsindikatoren",
+        globalisierung: "Geo13 LB2: Globalisierung und Wertschöpfungsketten",
+        bevoelkerung: "Geo13 LB3: Bevölkerungsentwicklung und Migration",
+        megacities: "Geo13 LB3: Megacities und Urbanisierung",
+        nachhaltigkeit: "Geo13 LB4: Nachhaltigkeit und SDGs",
+        regenwald: "Geo13 LB4: Tropischer Regenwald und Desertifikation"
       }
     },
     "13_2": {
       title: "Stadtgeographie",
-      inhalte: `- Stadtentwicklung: historische Stadttypen (europäische Stadt, US-amerikanische Stadt, orientalische Stadt)
-- Migration: Binnenmigration, internationale Migration, Push-Pull-Modell, Integration
-- Bevölkerungsentwicklung: demographischer Übergang, Altersstruktur, Bevölkerungspyramiden
-- Smart Cities: Digitalisierung, nachhaltige Stadtplanung, Mobilität der Zukunft
-- Gentrifizierung: Ursachen, Phasen, soziale Folgen, Verdrängungsprozesse
-- Suburbanisierung: Stadtflucht, Zersiedlung, Pendlerströme, Reurbanisierung
-- Klimawandel in Städten: Hitzeinsel-Effekt, Stadtklima, Anpassungsstrategien
-- Segregation: soziale, ethnische und demographische Entmischung`,
+      inhalte: `Geo13 LB5 (24 Std.): Stadtentwicklung (europäische/US-amerikanische/orientalische Stadt), Funktionale Gliederung, Suburbanisierung/Reurbanisierung, Gentrifizierung
+Geo13 LB6 (20 Std.): Smart Cities, nachhaltige Stadtplanung, Mobilität, Klimawandel in Städten (Hitzeinsel-Effekt, Stadtklima)
+Geo13 LB3: Segregation (soziale/ethnische/demographische), Demographischer Wandel, Integration`,
       schwerpunkte: {
-        stadtentwicklung: "Stadtentwicklung und historische Stadttypen",
-        migration: "Migration und Bevölkerungsentwicklung",
-        smart_cities: "Smart Cities und nachhaltige Stadtplanung",
-        gentrifizierung: "Gentrifizierung und soziale Folgen",
-        suburbanisierung: "Suburbanisierung und Reurbanisierung",
-        segregation: "Segregation und sozialräumliche Ungleichheit"
+        stadtentwicklung: "Geo13 LB5: Stadtentwicklung und historische Stadttypen",
+        gentrifizierung: "Geo13 LB5: Gentrifizierung und soziale Folgen",
+        suburbanisierung: "Geo13 LB5: Suburbanisierung und Reurbanisierung",
+        smart_cities: "Geo13 LB6: Smart Cities und nachhaltige Stadtplanung",
+        segregation: "Geo13 LB3: Segregation und demographischer Wandel",
+        migration: "Geo13 LB3: Migration und Integration"
       }
     }
   };
@@ -3687,6 +3684,8 @@ ${hj.inhalte}
 SITUIERUNG:
 - Bette die Aufgabe in einen geographisch relevanten Kontext ein (z.B. konkreter Raumbeispiel, aktuelle Umweltdebatte, Nachhaltigkeitsproblem)
 - Das macht die Aufgabe authentischer und prüft die Fähigkeit zum räumlichen Transfer
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -3832,44 +3831,30 @@ async function handleGenerateAbiturGeographie(request, env) {
   const hjThemen = {
     "12_1": {
       title: "Physische Geographie",
-      inhalte: `- Subpolare und Polare Zone: Klima, Vegetation, Permafrost
-- Vegetationszonen der Erde und ihre klimatischen Bedingungen
-- Gletscherdynamik: Akkumulation, Ablation, Gletscherrückzug
-- Naturgefahren: Vulkanismus, Erdbeben, Überschwemmungen, Lawinen
-- Bodentypen und Bodenbildungsprozesse
-- Klimaklassifikationen und Klimadiagramme
-- Geomorphologische Prozesse: Verwitterung, Erosion, Sedimentation`
+      inhalte: `Geo12 LB2: Atmosphäre, Strahlungshaushalt, Drei-Zellen-Modell, Jetstream, Monsun, ozeanische Zirkulation, ENSO, Klimawandel
+Geo12 LB3: Tropen (Immerfeuchte/Wechselfeuchte/Trockene Zone), Desertifikation
+Geo12 LB4: Subpolare/Polare Zone, Permafrost, Kippelemente
+Geo12 LB5: Ressource Wasser/Wald/Boden/Fläche, Hochwasser
+Geo12 LB6: Hochgebirgsräume, Gletscherrückzug, Tourismus
+Geo12 LB7: Tektonische Naturgefahren, Plattentektonik, Vulkanismus, tropische Wirbelstürme`
     },
     "12_2": {
       title: "Humangeographie I",
-      inhalte: `- Ressource Fläche: Flächennutzung, Flächenverbrauch, Flächenkonkurrenz
-- Wasser als Ressource: Wasserverfügbarkeit, Wasserkonflikte, virtuelles Wasser
-- Gebirgsregionen: Alpen als Lebens- und Wirtschaftsraum
-- Landwirtschaft: konventionell vs. ökologisch, Agrarstrukturwandel
-- Erneuerbare Energien: Standortfaktoren, Energiewende
-- Tourismus: Massentourismus, nachhaltiger Tourismus, Tragfähigkeit
-- Flächennutzungskonflikte: Siedlung vs. Landwirtschaft vs. Naturschutz`
+      inhalte: `Geo12 LB5: Ressource Wasser/Wald/Boden/Fläche, Konflikte
+Geo12 LB6: Alpen als Lebens-/Wirtschafts-/Erholungsraum, Tourismus
+Ergänzend: Landwirtschaft, Erneuerbare Energien, Energiewende`
     },
     "13_1": {
       title: "Entwicklungsgeographie",
-      inhalte: `- Entwicklungsländer: Merkmale, Indikatoren (HDI, Gini-Koeffizient, BNE)
-- Globalisierung: Global Players, Welthandel, Wertschöpfungsketten
-- Fragmentierende Entwicklung (Fred Scholz): Globale Orte vs. abgehängte Räume
-- Nachhaltigkeit: Drei-Säulen-Modell, SDGs
-- Megacities: Urbanisierung in Entwicklungsländern, informelle Siedlungen
-- Tropischer Regenwald: Ökosystem, Abholzung, Nutzungskonflikte
-- Desertifikation: Ursachen, Sahelzone, Gegenmaßnahmen`
+      inhalte: `Geo13 LB2: Entwicklungsindikatoren (HDI, Gini, BNE), Disparitäten, Globalisierung, Entwicklungstheorien
+Geo13 LB3: Bevölkerungsentwicklung, demographischer Übergang, Migration, Megacities
+Geo13 LB4: Fragmentierende Entwicklung, Nachhaltigkeit, SDGs, Tropischer Regenwald, Desertifikation`
     },
     "13_2": {
       title: "Stadtgeographie",
-      inhalte: `- Stadtentwicklung: europäische Stadt, US-amerikanische Stadt, orientalische Stadt
-- Migration: Binnenmigration, internationale Migration, Push-Pull-Modell
-- Bevölkerungsentwicklung: demographischer Übergang, Altersstruktur
-- Smart Cities: Digitalisierung, nachhaltige Stadtplanung
-- Gentrifizierung: Ursachen, Phasen, soziale Folgen
-- Suburbanisierung: Stadtflucht, Zersiedlung, Reurbanisierung
-- Klimawandel in Städten: Hitzeinsel-Effekt, Anpassungsstrategien
-- Segregation: soziale, ethnische und demographische Entmischung`
+      inhalte: `Geo13 LB5: Stadtentwicklung (europäische/US-amerikanische/orientalische Stadt), Suburbanisierung, Gentrifizierung
+Geo13 LB6: Smart Cities, nachhaltige Stadtplanung, Mobilität, Stadtklima (Hitzeinsel-Effekt)
+Geo13 LB3: Segregation, Migration, demographischer Wandel`
     }
   };
 
@@ -3897,6 +3882,8 @@ PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Relevante Inhalte:
 ${hj.inhalte}
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 
 Antworte NUR mit validem JSON:
 {
@@ -4741,30 +4728,31 @@ async function handleGenerateMathe(request, env) {
   const sgThemen = {
     analysis: {
       title: "Analysis",
-      inhalte: `- Funktionen: ganzrationale, e-Funktionen, ln-Funktionen, trigonometrische Funktionen
-- Ableitungsregeln: Potenz-, Produkt-, Quotienten-, Kettenregel
-- Kurvendiskussion: Nullstellen, Extrema, Wendepunkte, Monotonie, Krümmung
-- Integralrechnung: Stammfunktionen, bestimmtes Integral, Flächenberechnung, Rotationsvolumen
-- Grenzwerte und Stetigkeit
-- Anwendungsaufgaben: Optimierung, Wachstum, Änderungsraten`
+      inhalte: `Lehrplan-Inhalte Jgst. 12:
+- M12.1.1: Ganzrationale Funktionen (mit Parametern), Stammfunktionen, Funktionenscharen
+- M12.1.2: Natürliche Exponentialfunktion, Produkt-/Kettenregel, Wachstums-/Abklingmodelle, Grenzwerte
+- M12.1.3: Sinus-/Kosinusfunktion (Ableitungen, einfache Verknüpfungen)
+- M12.4.1: Gebrochen-rationale Funktionen, Quotientenregel
+- M12.4.2: Wurzelfunktion, Umkehrfunktion, Potenzfunktionen mit rationalen Exponenten
+- M12.4.3: Natürliche Logarithmusfunktion als Umkehrfunktion von e^x
+Lehrplan-Inhalte Jgst. 13:
+- M13.1: Bestimmtes Integral als Flächenbilanz, Hauptsatz, Stammfunktionen, Flächenberechnung, uneigentliche Integrale, Rotationsvolumen
+- M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme`
     },
     stochastik: {
       title: "Stochastik",
-      inhalte: `- Wahrscheinlichkeitsrechnung: Baumdiagramme, Pfadregeln, bedingte Wahrscheinlichkeit
-- Binomialverteilung: Bernoulli-Kette, Erwartungswert, Standardabweichung
-- Normalverteilung als Näherung
-- Hypothesentests: Signifikanztests, Fehler 1. und 2. Art
-- Kombinatorik: Permutationen, Kombinationen
-- Stochastische Unabhängigkeit, Vierfeldertafel`
+      inhalte: `Lehrplan-Inhalte Jgst. 12:
+- M12.2: Zufallsgrößen, Wahrscheinlichkeitsverteilung, Erwartungswert, Varianz, Standardabweichung, Bernoulli-Ketten, Binomialverteilung, Binomialkoeffizienten
+- M12.3: Einseitiger Signifikanztest, Nullhypothese, Fehler 1. und 2. Art, Ablehnungsbereich, Signifikanzniveau
+Lehrplan-Inhalte Jgst. 13:
+- M13.2: Normalverteilung, diskrete vs. stetige Zufallsgrößen, Dichtefunktion, kumulative Verteilungsfunktion, Sigma-Regeln`
     },
     geometrie: {
       title: "Geometrie",
-      inhalte: `- Vektoren: Addition, Skalarprodukt, Kreuzprodukt, Betrag
-- Geraden: Parameterform, Lagebeziehungen, Schnittpunkte
-- Ebenen: Parameter-, Normalenform, Koordinatenform, Spurgeraden
-- Abstände: Punkt-Ebene, Punkt-Gerade, windschiefe Geraden
-- Winkel: zwischen Geraden, Ebenen, Gerade und Ebene
-- Spiegelungen und Symmetrie`
+      inhalte: `Lehrplan-Inhalte Jgst. 12:
+- M12.5: Punkte/Figuren/Körper im 3D-Koordinatensystem, Vektoren (Addition, Skalarprodukt, Kreuzprodukt, Betrag), Winkel, Flächeninhalte, Volumina
+Lehrplan-Inhalte Jgst. 13:
+- M13.3: Geraden und Ebenen (Parameter-, Normalen-, Koordinatenform), Lagebeziehungen, Schnittpunkte/-geraden, Schnittwinkel, Abstände (Punkt-Gerade, Punkt-Ebene, windschiefe Geraden, Hesse'sche Normalform), Kugeln (Koordinatenform, Lage zu Geraden/Ebenen)`
     }
   };
 
@@ -4795,6 +4783,7 @@ WICHTIG:
 - Gib bei jeder Teilaufgabe die BE an
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss mathematisch korrekt und eindeutig lösbar sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Methoden oder Konzepte verwenden, die nicht im Lehrplan stehen.
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
@@ -5068,12 +5057,18 @@ TEIL B (70 BE, mit CAS/Hilfsmitteln):
   - B3 (20 BE): Geometrie — eine große mehrteilige Aufgabe (4-6 Teilaufgaben)
     Z.B. Geraden/Ebenen im Raum, Abstände, Winkel, Anwendung
 
+LEHRPLAN-INHALTE (G9, Bayern, ab 2026):
+Analysis: M12.1 Ganzrationale Funktionen (Parameterscharen, Stammfunktionen), M12.1.2 Natürliche Exponentialfunktion (Produkt-/Kettenregel, Wachstums-/Abklingmodelle), M12.1.3 Sinus-/Kosinusfunktion, M12.4 Gebrochen-rationale Funktionen (Quotientenregel), Wurzel-/Umkehrfunktionen, Logarithmusfunktion. M13.1 Bestimmtes Integral (Flächenbilanz, Hauptsatz, uneigentliche Integrale, Rotationsvolumen), M13.4 Extremwertprobleme, Parameterfunktionen.
+Stochastik: M12.2 Zufallsgrößen, Binomialverteilung (Bernoulli-Ketten, Erwartungswert, Standardabweichung), M12.3 Einseitiger Signifikanztest (Fehler 1./2. Art, Ablehnungsbereich), M13.2 Normalverteilung (Dichtefunktion, Sigma-Regeln).
+Geometrie: M12.5 Vektoren (Skalar-/Kreuzprodukt, Winkel, Flächeninhalte), M13.3 Geraden/Ebenen (Parameter-/Normalen-/Koordinatenform, Lagebeziehungen, Abstände, Hesse'sche Normalform, Kugeln).
+
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Inhalten. Keine Themen, Methoden oder Konzepte verwenden, die nicht im Lehrplan stehen.
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
@@ -5347,31 +5342,35 @@ async function handleGenerateChemie(request, env) {
   const sgThemen = {
     elektrochemie: {
       title: "Elektrochemie",
-      inhalte: "Galvanische Zellen, Elektrolyse, Nernst-Gleichung, Standardpotentiale, Korrosion, Akkumulatoren"
+      inhalte: "C12 LB8: Redoxgleichgewichte, galvanische Zellen (Halbzellen, Leerlaufspannung, Optimierung), Standardwasserstoffhalbzelle, elektrochemische Spannungsreihe, Nernst-Gleichung (Konzentrationsabhängigkeit), Primärzellen (Zink-Luft, Brennstoffzelle), Entropie, Gibbs-Helmholtz-Gleichung, Elektrolyse. C13 LB5: Faraday-Gesetze, Zersetzungsspannung, Überpotential, Chlor-Alkali-Elektrolyse, Korrosion (Sauerstoff-/Säure-/Kontaktkorrosion), aktiver/passiver Korrosionsschutz, Sekundärzellen (Li-Ionen-Akku, Blei-Akku), Redox-Flow-Batterie, Elektromobilität"
     },
     gleichgewicht: {
       title: "Chemisches Gleichgewicht / Säure-Base",
-      inhalte: "Massenwirkungsgesetz, Le Chatelier, Puffer, pH-Wert, Säure-Base-Titration, Henderson-Hasselbalch"
+      inhalte: "C12 LB7: Reversible Reaktion, dynamisches Gleichgewicht, Prinzip von Le Chatelier, Massenwirkungsgesetz (Kc), Löslichkeitsprodukt (KL), Haber-Bosch-Verfahren. C13 LB3: Säure-Base nach Brönsted, Autoprotolyse, Ionenprodukt des Wassers, pKs/pKb als Maß für Säure-/Basenstärke, pH-Berechnungen (starke/schwache Säuren/Basen, Näherungsformeln), Säure-Base-Titration (Titrationskurven, Äquivalenzpunkt, Halbtitration), Henderson-Hasselbalch-Gleichung, Puffersysteme (Acetat-, Carbonat-, Phosphat-Puffer), induktive/mesomere Effekte auf Säurestärke"
     },
     thermochemie: {
-      title: "Thermochemie",
-      inhalte: "Enthalpie, Entropie, Gibbs-Energie, Hess'scher Satz, Kalorimetrie, Born-Haber-Kreisprozess"
+      title: "Thermochemie / Reaktionskinetik",
+      inhalte: "C12 LB6: Reaktionsgeschwindigkeit (mittlere/momentane), Abhängigkeit von Konzentration, Temperatur (RGT-Regel), Druck, Zerteilungsgrad, Katalysator; Stoßtheorie (Maxwell-Boltzmann-Verteilung, Aktivierungsenergie), homogene/heterogene Katalyse. C12 LB5/LB8: Enthalpie, Standard-Reaktionsenthalpien, Satz von Hess, Kalorimetrie, Entropie (Verteilung von Energie/Teilchen), Gibbs-Helmholtz-Gleichung (ΔG = ΔH − TΔS), exergone/endergone Reaktionen"
     },
     organik: {
       title: "Organische Chemie",
-      inhalte: "Stoffklassen (Alkane, Alkene, Alkohole, Aldehyde, Ketone, Carbonsäuren, Ester), Reaktionsmechanismen (SN1, SN2, E1, E2, elektrophile Addition), Isomerie, Nomenklatur"
+      inhalte: "C12 LB5: Kohlenwasserstoffe (Alkane, Alkene, Aromaten), Erdöl/Erdgas/nachwachsende Rohstoffe, Reaktivität und Mechanismen: radikalische Substitution (Homolyse), elektrophile Addition (Heterolyse, SSS-/KKK-Regel), elektrophile aromatische Substitution, nukleophile Substitution; Benzol (Mesomerie, Delokalisierung), induktive/mesomere Effekte, Halogenkohlenwasserstoffe. C12 LB4: LCAO-Modell, Hybridisierung (sp³/sp²/sp), σ-/π-Bindungen, HOMO/LUMO"
     },
     kunststoffe: {
       title: "Kunststoffe",
-      inhalte: "Polymerisation (radikalisch, kationisch, anionisch), Polykondensation, Polyaddition, Thermoplaste, Duroplaste, Elastomere, Recycling"
+      inhalte: "C13 LB4.2: Radikalische Polymerisation (Mechanismus: Start-/Kettenreaktion/Abbruch), Polykondensation (Polyester, Polyamid; bi-/trifunktionelle Monomere), Polyaddition (Polyurethan), Thermoplaste/Duroplaste/Elastomere (Struktur-Eigenschafts-Beziehungen), Copolymerisate, Silikone (anorganische Polymere, Nanotechnologie), elektrisch leitfähige Kunststoffe (konjugiertes π-System), OLED (Farbstoffe + leitende Polymere), Recycling (rohstofflich/werkstofflich/thermisch), biologisch abbaubare Kunststoffe"
     },
     spektroskopie: {
-      title: "Spektroskopie",
-      inhalte: "IR-Spektroskopie, NMR-Spektroskopie (1H, 13C), Massenspektrometrie, Strukturaufklärung"
+      title: "Analytik / Spektroskopie",
+      inhalte: "C12 LB3: Qualitative Nachweisreaktionen (Ionen, funktionelle Gruppen: Fehling, Tollens, Schiff, Bromwasser), chromatographische Verfahren (DC, HPLC, GC; Rf-Wert, Retentionszeit), Redox-Titration (Manganometrie), komplexometrische Titration (EDTA, Wasserhärte), quantitative Fotometrie (Lambert-Beer-Gesetz, Kalibriergerade, Absorptionsmaximum)"
     },
     enzymkatalyse: {
-      title: "Enzymkatalyse",
-      inhalte: "Michaelis-Menten-Kinetik, Enzymhemmung (kompetitiv, nicht-kompetitiv), Substratspezifität, Aktivierungsenergie"
+      title: "Aminosäuren / Proteine / Enzymkatalyse",
+      inhalte: "C13 LB4.1: 2-Aminocarbonsäuren (Ampholyt, Zwitter-Ion, isoelektrischer Punkt, Fischer-Projektion, Enantiomere), Peptidbindung (Kondensation, Mesomerie), Proteinstrukturen (Primär-/Sekundär-/Tertiär-/Quartärstruktur, Faserproteine/globuläre Proteine), Denaturierung (Hitze, pH, Schwermetalle), Enzyme: Substrat-/Wirkungsspezifität, Schlüssel-Schloss-Prinzip, Einflussfaktoren (Konzentration, Temperatur, pH), Nachweisreaktionen (Ninhydrin, Biuret, Xanthoprotein)"
+    },
+    farbstoffe: {
+      title: "Farbigkeit und Farbstoffe",
+      inhalte: "C13 LB2: Farbigkeit durch Lichtabsorption, Energiedifferenz HOMO/LUMO, konjugierte Doppelbindungen und Delokalisierung, Chromophor, auxochrome/antiauxochrome Gruppen, Absorptionsspektren; Azofarbstoffe (Diazotierung + Azokupplung), Triphenylmethanfarbstoffe (Kondensation); Farbstoff-Faser-Bindung (ionisch, Reaktivfarbstoffe, Direktfarbstoffe, Küpenfarbstoffe), Küpenfärbung mit Indigo, Funktionsprinzip von Indikatoren (Säure-Base, Redox)"
     }
   };
 
@@ -5401,6 +5400,7 @@ WICHTIG:
 - Gib bei jeder Teilaufgabe die BE an
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.
 
 LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
@@ -5449,7 +5449,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
-  const organikHint = (sg === "organik" || sg === "kunststoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
+  const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
   const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.${organikHint}`;
@@ -5676,14 +5676,15 @@ PRÜFUNGSSTRUKTUR (${lvl}):
 - Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
 - Jede Aufgabengruppe behandelt ein anderes Sachgebiet
 
-SACHGEBIETE (wähle 4 verschiedene aus):
-1. Elektrochemie: Galvanische Zellen, Elektrolyse, Nernst-Gleichung, Standardpotentiale, Korrosion, Akkumulatoren
-2. Chemisches Gleichgewicht / Säure-Base: Massenwirkungsgesetz, Le Chatelier, Puffer, pH-Wert, Säure-Base-Titration, Henderson-Hasselbalch
-3. Thermochemie: Enthalpie, Entropie, Gibbs-Energie, Hess'scher Satz, Kalorimetrie, Born-Haber-Kreisprozess
-4. Organische Chemie: Stoffklassen, Reaktionsmechanismen (SN1, SN2, E1, E2, elektrophile Addition), Isomerie, Nomenklatur
-5. Kunststoffe: Polymerisation, Polykondensation, Polyaddition, Thermoplaste, Duroplaste, Elastomere
-6. Spektroskopie: IR, NMR (1H, 13C), Massenspektrometrie, Strukturaufklärung
-7. Enzymkatalyse: Michaelis-Menten-Kinetik, Enzymhemmung, Substratspezifität, Aktivierungsenergie
+SACHGEBIETE (wähle 4 verschiedene aus, Lehrplan G9 Bayern ab 2026):
+1. Elektrochemie (C12 LB8, C13 LB5): Galvanische Zellen, Nernst-Gleichung, Spannungsreihe, Elektrolyse, Faraday-Gesetze, Korrosion (O2-/Säure-/Kontaktkorrosion), Korrosionsschutz, Sekundärzellen, Brennstoffzelle, Elektromobilität
+2. Chemisches Gleichgewicht / Säure-Base (C12 LB7, C13 LB3): MWG, Le Chatelier, Löslichkeitsprodukt, Brönsted, pKs/pKb, pH-Berechnungen (Näherungsformeln), Titration (Kurven, Halbtitration), Henderson-Hasselbalch, Puffersysteme
+3. Thermochemie/Kinetik (C12 LB5/6/8): Reaktionsgeschwindigkeit, Stoßtheorie, Aktivierungsenergie, Katalyse, Enthalpie, Hess'scher Satz, Entropie, Gibbs-Helmholtz (ΔG = ΔH − TΔS)
+4. Organische Chemie (C12 LB4/5): Kohlenwasserstoffe, Hybridisierung (sp³/sp²/sp), LCAO, Mesomerie, Reaktionsmechanismen (radikalische Substitution, elektrophile Addition, elektrophile aromatische Substitution, nukleophile Substitution), induktive/mesomere Effekte
+5. Kunststoffe (C13 LB4.2): Radikalische Polymerisation (Mechanismus), Polykondensation (Polyester, Polyamid), Polyaddition (Polyurethan), Thermoplaste/Duroplaste/Elastomere, Silikone, OLED, leitfähige Kunststoffe
+6. Analytik/Spektroskopie (C12 LB3): Nachweisreaktionen, Chromatographie (DC, HPLC, GC), Redox-Titration, Fotometrie (Lambert-Beer), komplexometrische Titration
+7. Aminosäuren/Proteine/Enzyme (C13 LB4.1): Aminocarbonsäuren, Peptidbindung, Proteinstrukturen (Primär-Quartär), Denaturierung, Enzymkinetik (Schlüssel-Schloss), Einflussfaktoren
+8. Farbstoffe (C13 LB2): HOMO/LUMO, konjugierte Doppelbindungen, Azofarbstoffe (Diazotierung/Azokupplung), Triphenylmethanfarbstoffe, Küpenfärbung, Indikatoren
 
 JEDE AUFGABENGRUPPE hat:
 - Einen Titel (z.B. "Aufgabe 1: Elektrochemie in der Praxis")
@@ -5697,6 +5698,7 @@ WICHTIG:
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - Materialien müssen realistisch und aussagekräftig sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.
 
 LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
