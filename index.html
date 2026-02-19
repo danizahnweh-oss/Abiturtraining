@@ -2740,12 +2740,13 @@
 
       // Show typing indicator
       var loadingId = addAiMessage("...", "ai");
+      var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
 
       try {
         var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: text })
+          body: JSON.stringify({ prompt: text, studentName: sName })
         });
 
         var data = await res.json();
