@@ -1,1415 +1,2535 @@
 <!DOCTYPE html>
 <html lang="de" data-accent="blue">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
-<meta name="theme-color" content="#2563eb">
-<title>myAbiFlow – Dein Weg zum Abitur</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<style>
-/* German accent (index uses both EN blue + DE green + PuG red) */
-:root{
-  --accent-de:#059669;--accent-de-hover:#047857;--accent-de-soft:#d1fae5;--accent-de-glow:rgba(5,150,105,.08);
-  --accent-pug:#9f1239;--accent-pug-hover:#881337;--accent-pug-soft:#ffe4e6;--accent-pug-glow:rgba(159,18,57,.08);
-  --accent-ge:#b45309;--accent-ge-hover:#92400e;--accent-ge-soft:#fef3c7;--accent-ge-glow:rgba(180,83,9,.08);
-  --accent-wr:#7c3aed;--accent-wr-hover:#6d28d9;--accent-wr-soft:#ede9fe;--accent-wr-glow:rgba(124,58,237,.08);
-  --accent-fr:#db2777;--accent-fr-hover:#be185d;--accent-fr-soft:#fce7f3;--accent-fr-glow:rgba(219,39,119,.08);
-  --accent-it:#0d9488;--accent-it-hover:#0f766e;--accent-it-soft:#ccfbf1;--accent-it-glow:rgba(13,148,136,.08);
-  --accent-eth:#4f46e5;--accent-eth-hover:#4338ca;--accent-eth-soft:#e0e7ff;--accent-eth-glow:rgba(79,70,229,.08);
-  --accent-geo:#0891b2;--accent-geo-hover:#0e7490;--accent-geo-soft:#cffafe;--accent-geo-glow:rgba(8,145,178,.08);
-  --accent-lat:#dc2626;--accent-lat-hover:#b91c1c;--accent-lat-soft:#fee2e2;--accent-lat-glow:rgba(220,38,38,.08);
-  --accent-mat:#10b981;--accent-mat-hover:#059669;--accent-mat-soft:#d1fae5;--accent-mat-glow:rgba(16,185,129,.08);
-  --accent-che:#ea580c;--accent-che-hover:#c2410c;--accent-che-soft:#ffedd5;--accent-che-glow:rgba(234,88,12,.08);
-}
-[data-theme="dark"]{
-  --accent-de:#34d399;--accent-de-hover:#6ee7b7;--accent-de-soft:rgba(52,211,153,.15);--accent-de-glow:rgba(52,211,153,.08);
-  --accent-pug:#fb7185;--accent-pug-hover:#fda4af;--accent-pug-soft:rgba(251,113,133,.15);--accent-pug-glow:rgba(251,113,133,.08);
-  --accent-ge:#fbbf24;--accent-ge-hover:#fcd34d;--accent-ge-soft:rgba(251,191,36,.15);--accent-ge-glow:rgba(251,191,36,.08);
-  --accent-wr:#a78bfa;--accent-wr-hover:#c4b5fd;--accent-wr-soft:rgba(167,139,250,.15);--accent-wr-glow:rgba(167,139,250,.08);
-  --accent-fr:#f472b6;--accent-fr-hover:#f9a8d4;--accent-fr-soft:rgba(244,114,182,.15);--accent-fr-glow:rgba(244,114,182,.08);
-  --accent-it:#2dd4bf;--accent-it-hover:#5eead4;--accent-it-soft:rgba(45,212,191,.15);--accent-it-glow:rgba(45,212,191,.08);
-  --accent-eth:#818cf8;--accent-eth-hover:#a5b4fc;--accent-eth-soft:rgba(129,140,248,.15);--accent-eth-glow:rgba(129,140,248,.08);
-  --accent-geo:#22d3ee;--accent-geo-hover:#67e8f9;--accent-geo-soft:rgba(34,211,238,.15);--accent-geo-glow:rgba(34,211,238,.08);
-  --accent-lat:#f87171;--accent-lat-hover:#fca5a5;--accent-lat-soft:rgba(248,113,113,.15);--accent-lat-glow:rgba(248,113,113,.08);
-  --accent-mat:#34d399;--accent-mat-hover:#6ee7b7;--accent-mat-soft:rgba(52,211,153,.15);--accent-mat-glow:rgba(52,211,153,.08);
-  --accent-che:#fb923c;--accent-che-hover:#fdba74;--accent-che-soft:rgba(251,146,60,.15);--accent-che-glow:rgba(251,146,60,.08);
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
+  <meta name="theme-color" content="#2563eb">
+  <title>myAbiFlow – Dein Weg zum Abitur</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* German accent (index uses both EN blue + DE green + PuG red) */
+    :root {
+      --accent-de: #059669;
+      --accent-de-hover: #047857;
+      --accent-de-soft: #d1fae5;
+      --accent-de-glow: rgba(5, 150, 105, .08);
+      --accent-pug: #9f1239;
+      --accent-pug-hover: #881337;
+      --accent-pug-soft: #ffe4e6;
+      --accent-pug-glow: rgba(159, 18, 57, .08);
+      --accent-ge: #b45309;
+      --accent-ge-hover: #92400e;
+      --accent-ge-soft: #fef3c7;
+      --accent-ge-glow: rgba(180, 83, 9, .08);
+      --accent-wr: #7c3aed;
+      --accent-wr-hover: #6d28d9;
+      --accent-wr-soft: #ede9fe;
+      --accent-wr-glow: rgba(124, 58, 237, .08);
+      --accent-fr: #db2777;
+      --accent-fr-hover: #be185d;
+      --accent-fr-soft: #fce7f3;
+      --accent-fr-glow: rgba(219, 39, 119, .08);
+      --accent-it: #0d9488;
+      --accent-it-hover: #0f766e;
+      --accent-it-soft: #ccfbf1;
+      --accent-it-glow: rgba(13, 148, 136, .08);
+      --accent-eth: #4f46e5;
+      --accent-eth-hover: #4338ca;
+      --accent-eth-soft: #e0e7ff;
+      --accent-eth-glow: rgba(79, 70, 229, .08);
+      --accent-geo: #0891b2;
+      --accent-geo-hover: #0e7490;
+      --accent-geo-soft: #cffafe;
+      --accent-geo-glow: rgba(8, 145, 178, .08);
+      --accent-lat: #dc2626;
+      --accent-lat-hover: #b91c1c;
+      --accent-lat-soft: #fee2e2;
+      --accent-lat-glow: rgba(220, 38, 38, .08);
+      --accent-mat: #10b981;
+      --accent-mat-hover: #059669;
+      --accent-mat-soft: #d1fae5;
+      --accent-mat-glow: rgba(16, 185, 129, .08);
+      --accent-che: #ea580c;
+      --accent-che-hover: #c2410c;
+      --accent-che-soft: #ffedd5;
+      --accent-che-glow: rgba(234, 88, 12, .08);
+    }
 
-/* School badge gradient (both accent colors) */
-.module-card.italian .module-badge{background:var(--accent-it-soft);color:var(--accent-it)}
-.module-card.ethik .module-badge{background:var(--accent-eth-soft);color:var(--accent-eth)}
-.module-card.geographie .module-badge{background:var(--accent-geo-soft);color:var(--accent-geo)}
-.module-card.latein .module-badge{background:var(--accent-lat-soft);color:var(--accent-lat)}
-.module-card.mathe:hover{border-color:var(--accent-mat)}
-.module-card.mathe .module-badge{background:var(--accent-mat-soft);color:var(--accent-mat)}
-.module-card.chemie:hover{border-color:var(--accent-che)}
-.module-card.chemie .module-badge{background:var(--accent-che-soft);color:var(--accent-che)}
-.school-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft),var(--accent-ge-soft),var(--accent-pug-soft),var(--accent-wr-soft),var(--accent-fr-soft),var(--accent-it-soft),var(--accent-eth-soft),var(--accent-geo-soft),var(--accent-lat-soft),var(--accent-mat-soft),var(--accent-che-soft));color:var(--ink)}
-.login-box h2{font-size:1.8rem}
+    [data-theme="dark"] {
+      --accent-de: #34d399;
+      --accent-de-hover: #6ee7b7;
+      --accent-de-soft: rgba(52, 211, 153, .15);
+      --accent-de-glow: rgba(52, 211, 153, .08);
+      --accent-pug: #fb7185;
+      --accent-pug-hover: #fda4af;
+      --accent-pug-soft: rgba(251, 113, 133, .15);
+      --accent-pug-glow: rgba(251, 113, 133, .08);
+      --accent-ge: #fbbf24;
+      --accent-ge-hover: #fcd34d;
+      --accent-ge-soft: rgba(251, 191, 36, .15);
+      --accent-ge-glow: rgba(251, 191, 36, .08);
+      --accent-wr: #a78bfa;
+      --accent-wr-hover: #c4b5fd;
+      --accent-wr-soft: rgba(167, 139, 250, .15);
+      --accent-wr-glow: rgba(167, 139, 250, .08);
+      --accent-fr: #f472b6;
+      --accent-fr-hover: #f9a8d4;
+      --accent-fr-soft: rgba(244, 114, 182, .15);
+      --accent-fr-glow: rgba(244, 114, 182, .08);
+      --accent-it: #2dd4bf;
+      --accent-it-hover: #5eead4;
+      --accent-it-soft: rgba(45, 212, 191, .15);
+      --accent-it-glow: rgba(45, 212, 191, .08);
+      --accent-eth: #818cf8;
+      --accent-eth-hover: #a5b4fc;
+      --accent-eth-soft: rgba(129, 140, 248, .15);
+      --accent-eth-glow: rgba(129, 140, 248, .08);
+      --accent-geo: #22d3ee;
+      --accent-geo-hover: #67e8f9;
+      --accent-geo-soft: rgba(34, 211, 238, .15);
+      --accent-geo-glow: rgba(34, 211, 238, .08);
+      --accent-lat: #f87171;
+      --accent-lat-hover: #fca5a5;
+      --accent-lat-soft: rgba(248, 113, 113, .15);
+      --accent-lat-glow: rgba(248, 113, 113, .08);
+      --accent-mat: #34d399;
+      --accent-mat-hover: #6ee7b7;
+      --accent-mat-soft: rgba(52, 211, 153, .15);
+      --accent-mat-glow: rgba(52, 211, 153, .08);
+      --accent-che: #fb923c;
+      --accent-che-hover: #fdba74;
+      --accent-che-soft: rgba(251, 146, 60, .15);
+      --accent-che-glow: rgba(251, 146, 60, .08);
+    }
 
-/* ====== LOGIN SCREEN — aufgewertet (#2) ====== */
-#login-screen{position:relative;overflow:hidden}
-#login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(37,99,235,.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(5,150,105,.1) 0%,transparent 50%),radial-gradient(ellipse at 50% 90%,rgba(159,18,57,.06) 0%,transparent 40%);pointer-events:none}
-[data-theme="dark"] #login-screen::before{background:radial-gradient(ellipse at 20% 50%,rgba(96,165,250,.1) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(52,211,153,.08) 0%,transparent 50%),radial-gradient(ellipse at 50% 90%,rgba(251,113,133,.05) 0%,transparent 40%)}
-.login-box{position:relative;animation:fadeUp .5s ease-out}
-.abitur-badge{display:inline-block;background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft));color:var(--accent);font-weight:700;font-size:.8rem;padding:.35rem .9rem;border-radius:20px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:1.2rem}
-[data-theme="dark"] .abitur-badge{background:linear-gradient(135deg,var(--accent-soft),var(--accent-de-soft));color:var(--accent)}
+    /* School badge gradient (both accent colors) */
+    .module-card.italian .module-badge {
+      background: var(--accent-it-soft);
+      color: var(--accent-it)
+    }
 
-/* ====== DARK MODE LOGO FIX (#6) ====== */
-[data-theme="dark"] .login-box img{filter:brightness(1.3) contrast(1.1);mix-blend-mode:screen}
-[data-theme="dark"] .subject-header img{filter:brightness(1.3) contrast(1.1);mix-blend-mode:screen}
-[data-theme="dark"] .splash-logo{filter:brightness(1.3) contrast(1.1)}
-[data-theme="dark"] .splash-wave{filter:brightness(1.2)}
+    .module-card.ethik .module-badge {
+      background: var(--accent-eth-soft);
+      color: var(--accent-eth)
+    }
 
-/* ====== ACCESSIBILITY: Focus styles (#12) ====== */
-.subject-card:focus-visible,.module-card:focus-visible,.theme-toggle:focus-visible,.logout-btn:focus-visible,.level-btn:focus-visible,.login-mode-toggle button:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .module-card.geographie .module-badge {
+      background: var(--accent-geo-soft);
+      color: var(--accent-geo)
+    }
 
-/* ====== SUBJECT SELECTION SCREEN ====== */
-#subject-screen{display:none;min-height:100vh;flex-direction:column}
-.subject-header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.subject-header h1{font-family:var(--font-display);font-size:1.3rem;font-weight:400}
-.subject-header h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-de));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .module-card.latein .module-badge {
+      background: var(--accent-lat-soft);
+      color: var(--accent-lat)
+    }
 
-/* ====== GREETING with animation (#5) ====== */
-.greeting-bar{text-align:center;margin-top:2rem;color:var(--ink-muted);font-size:1.4rem;animation:fadeUp .5s ease .1s both}
-.greeting-bar strong{color:var(--ink)}
+    .module-card.mathe:hover {
+      border-color: var(--accent-mat)
+    }
 
-/* ====== COUNTDOWN WIDGET (#14) ====== */
-.countdown-toggle{max-width:600px;margin:.8rem auto 0;padding:0 1.5rem;text-align:center;animation:fadeUp .5s ease .2s both}
-.countdown-ask-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem 1.2rem;font-size:.85rem;color:var(--ink-muted);cursor:pointer;transition:all .2s ease;box-shadow:var(--shadow-sm);font-family:inherit}
-.countdown-ask-btn:hover{border-color:var(--accent);color:var(--ink);box-shadow:var(--shadow-md)}
-.countdown-ask-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.countdown-ask-icon{font-size:1.1rem}
-.countdown-bar{max-width:600px;margin:.8rem auto 0;padding:0 1.5rem;text-align:center;animation:fadeUp .5s ease .2s both;position:relative}
-.countdown-pill{display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:.5rem 1.2rem;font-size:.9rem;color:var(--ink-muted);box-shadow:var(--shadow-sm)}
-.countdown-pill strong{color:var(--accent);font-family:var(--font-mono);font-size:1.05rem}
-.countdown-hide-btn{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink-muted);font-size:1.2rem;cursor:pointer;padding:.2rem .5rem;border-radius:50%;transition:all .2s}
-.countdown-hide-btn:hover{background:var(--surface);color:var(--ink)}
-.countdown-done{color:var(--success)}
+    .module-card.mathe .module-badge {
+      background: var(--accent-mat-soft);
+      color: var(--accent-mat)
+    }
 
-/* ====== PROGRESS BAR (#8) ====== */
-.progress-bar{max-width:700px;margin:1rem auto 0;padding:0 1.5rem;display:none;animation:fadeUp .5s ease .3s both}
-.progress-stats{display:flex;justify-content:center;gap:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.8rem 1.5rem;box-shadow:var(--shadow-sm)}
-.pstat{text-align:center}
-.pstat span{display:block;font-family:var(--font-mono);font-size:1.4rem;font-weight:700;color:var(--accent);line-height:1.2}
-.pstat small{font-size:.7rem;color:var(--ink-muted);text-transform:uppercase;font-weight:600;letter-spacing:.03em}
+    .module-card.chemie:hover {
+      border-color: var(--accent-che)
+    }
 
-/* ====== SUBJECT GRID with stagger animation (#5) ====== */
-.subject-grid{max-width:1000px;width:100%;margin:1.5rem auto;padding:0 1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.8rem}
-.subject-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:.8rem .5rem;text-align:center;cursor:pointer;transition:all .2s;color:var(--ink);position:relative;overflow:hidden;font-family:inherit;font-size:inherit;line-height:inherit;-webkit-appearance:none;appearance:none;width:100%;opacity:0;animation:staggerFadeIn .4s ease forwards}
-.subject-card:nth-child(1){animation-delay:.05s}
-.subject-card:nth-child(2){animation-delay:.1s}
-.subject-card:nth-child(3){animation-delay:.15s}
-.subject-card:nth-child(4){animation-delay:.2s}
-.subject-card:nth-child(5){animation-delay:.25s}
-.subject-card:nth-child(6){animation-delay:.3s}
-.subject-card:nth-child(7){animation-delay:.35s}
-.subject-card:nth-child(8){animation-delay:.4s}
-.subject-card:nth-child(9){animation-delay:.45s}
-.subject-card:nth-child(10){animation-delay:.5s}
-.subject-card:nth-child(11){animation-delay:.55s}
-.subject-card:nth-child(12){animation-delay:.6s}
-@keyframes staggerFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.subject-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
-.subject-card.english::before{background:linear-gradient(135deg,var(--accent-glow),transparent)}
-.subject-card.german::before{background:linear-gradient(135deg,var(--accent-de-glow),transparent)}
-.subject-card.pug::before{background:linear-gradient(135deg,var(--accent-pug-glow),transparent)}
-.subject-card.history::before{background:linear-gradient(135deg,var(--accent-ge-glow),transparent)}
-.subject-card.wr::before{background:linear-gradient(135deg,var(--accent-wr-glow),transparent)}
-.subject-card.french::before{background:linear-gradient(135deg,var(--accent-fr-glow),transparent)}
-.subject-card.italian::before{background:linear-gradient(135deg,var(--accent-it-glow),transparent)}
-.subject-card.ethik::before{background:linear-gradient(135deg,var(--accent-eth-glow),transparent)}
-.subject-card.geographie::before{background:linear-gradient(135deg,var(--accent-geo-glow),transparent)}
-.subject-card.latein::before{background:linear-gradient(135deg,var(--accent-lat-glow),transparent)}
-.subject-card.mathe::before{background:linear-gradient(135deg,var(--accent-mat-glow),transparent)}
-.subject-card.chemie::before{background:linear-gradient(135deg,var(--accent-che-glow),transparent)}
-.subject-card:hover,.subject-card:focus-visible{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.subject-card:hover::before,.subject-card:focus-visible::before{opacity:1}
-.subject-card.english:hover,.subject-card.english:focus-visible{border-color:var(--accent)}
-.subject-card.german:hover,.subject-card.german:focus-visible{border-color:var(--accent-de)}
-.subject-card.pug:hover,.subject-card.pug:focus-visible{border-color:var(--accent-pug)}
-.subject-card.history:hover,.subject-card.history:focus-visible{border-color:var(--accent-ge)}
-.subject-card.wr:hover,.subject-card.wr:focus-visible{border-color:var(--accent-wr)}
-.subject-card.french:hover,.subject-card.french:focus-visible{border-color:var(--accent-fr)}
-.subject-card.italian:hover,.subject-card.italian:focus-visible{border-color:var(--accent-it)}
-.subject-card.ethik:hover,.subject-card.ethik:focus-visible{border-color:var(--accent-eth)}
-.subject-card.geographie:hover,.subject-card.geographie:focus-visible{border-color:var(--accent-geo)}
-.subject-card.latein:hover,.subject-card.latein:focus-visible{border-color:var(--accent-lat)}
-.subject-card.mathe:hover,.subject-card.mathe:focus-visible{border-color:var(--accent-mat)}
-.subject-card.chemie:hover,.subject-card.chemie:focus-visible{border-color:var(--accent-che)}
-.subject-icon{font-size:4.4rem;margin-bottom:.4rem;position:relative;z-index:1}
-.subject-title{font-family:var(--font-display);font-size:.95rem;margin-bottom:0;position:relative;z-index:1}
-.subject-card.english .subject-title{color:var(--accent)}
-.subject-card.german .subject-title{color:var(--accent-de)}
-.subject-card.pug .subject-title{color:var(--accent-pug)}
-.subject-card.history .subject-title{color:var(--accent-ge)}
-.subject-card.wr .subject-title{color:var(--accent-wr)}
-.subject-card.french .subject-title{color:var(--accent-fr)}
-.subject-card.italian .subject-title{color:var(--accent-it)}
-.subject-card.ethik .subject-title{color:var(--accent-eth)}
-.subject-card.geographie .subject-title{color:var(--accent-geo)}
-.subject-card.latein .subject-title{color:var(--accent-lat)}
-.subject-card.mathe .subject-title{color:var(--accent-mat)}
-.subject-card.chemie .subject-title{color:var(--accent-che)}
-.subject-desc{display:none}
-.subject-badge{display:none}
-.subject-countdown{display:none;font-size:.65rem;color:var(--ink-muted);margin-top:.3rem;position:relative;z-index:1;font-family:var(--font-mono);font-weight:600}
-.countdown-active .subject-countdown{display:block}
-.subject-countdown.soon{color:var(--warning)}
-.subject-countdown.done{color:var(--success)}
-.subject-last-activity{display:block;font-size:.6rem;color:var(--ink-muted);margin-top:.15rem;position:relative;z-index:1;opacity:.7}
+    .module-card.chemie .module-badge {
+      background: var(--accent-che-soft);
+      color: var(--accent-che)
+    }
 
-/* ====== MODULE SCREEN ====== */
-#module-screen{display:none;min-height:100vh;flex-direction:column}
-.module-header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.module-header h1{font-family:var(--font-display);font-size:1.3rem;font-weight:400}
-.back-link{display:flex;align-items:center;gap:.3rem;transition:color .2s}
-.module-grid{max-width:900px;width:100%;margin:2rem auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.module-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:1.8rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:var(--ink)}
-.module-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md);transform:translateY(-2px)}
-.module-card.german:hover{border-color:var(--accent-de)}
-.module-card.pug:hover{border-color:var(--accent-pug)}
-.module-card.history:hover{border-color:var(--accent-ge)}
-.module-card.wr:hover{border-color:var(--accent-wr)}
-.module-card.french:hover{border-color:var(--accent-fr)}
-.module-card.italian:hover{border-color:var(--accent-it)}
-.module-card.ethik:hover{border-color:var(--accent-eth)}
-.module-card.geographie:hover{border-color:var(--accent-geo)}
-.module-card.latein:hover{border-color:var(--accent-lat)}
-.module-icon{font-size:2.5rem;margin-bottom:.8rem}
-.module-title{font-family:var(--font-display);font-size:1.2rem;margin-bottom:.4rem}
-.module-desc{color:var(--ink-muted);font-size:.85rem;line-height:1.5}
-.module-badge{display:inline-block;margin-top:.8rem;background:var(--accent-soft);color:var(--accent);font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:4px;text-transform:uppercase;letter-spacing:.03em}
-.module-card.german .module-badge{background:var(--accent-de-soft);color:var(--accent-de)}
-.module-card.pug .module-badge{background:var(--accent-pug-soft);color:var(--accent-pug)}
-.module-card.history .module-badge{background:var(--accent-ge-soft);color:var(--accent-ge)}
-.module-card.wr .module-badge{background:var(--accent-wr-soft);color:var(--accent-wr)}
+    .school-badge {
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft));
+      color: var(--ink)
+    }
 
-/* ====== LOGIN MODE TOGGLE ====== */
-.login-mode-toggle{display:flex;margin-bottom:1.5rem;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border)}
-.login-mode-toggle button{flex:1;padding:.6rem;border:none;background:transparent;cursor:pointer;font-size:.9rem;color:var(--ink-muted);transition:all .15s;font-family:var(--font-body)}
-.login-mode-toggle button.active{background:var(--accent);color:#fff}
+    .login-box h2 {
+      font-size: 1.8rem
+    }
 
-/* ====== LEVEL TOGGLE ====== */
-.level-toggle{display:flex;justify-content:center;margin:.8rem 0 .2rem}
-.level-pill{display:flex;background:var(--border);border-radius:99px;padding:3px;gap:2px}
-.level-pill .level-btn{padding:.45rem 1.4rem;border:none;border-radius:99px;background:transparent;cursor:pointer;font-family:var(--font-body);font-weight:700;font-size:.8rem;color:var(--ink-muted);transition:all .2s;letter-spacing:.04em;text-transform:uppercase}
-.level-pill .level-btn:hover{color:var(--ink)}
-.level-pill .level-btn.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.1)}
-[data-theme="dark"] .level-pill .level-btn.active{background:var(--bg-warm);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+    /* ====== LOGIN SCREEN — aufgewertet (#2) ====== */
+    #login-screen {
+      position: relative;
+      overflow: hidden
+    }
 
-/* ====== LEVEL BACKGROUND ====== */
-[data-level-bg="eA"]{background:var(--bg)}
-[data-level-bg="gA"]{background:var(--surface)}
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, .12) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(5, 150, 105, .1) 0%, transparent 50%), radial-gradient(ellipse at 50% 90%, rgba(159, 18, 57, .06) 0%, transparent 40%);
+      pointer-events: none
+    }
 
-/* ====== INDEX-SPECIFIC ====== */
-.logout-btn{background:none;border:none;color:var(--ink-muted);font-size:.85rem;cursor:pointer;padding:.4rem .8rem;border-radius:var(--radius-sm);transition:all .15s}
-.logout-btn:hover{background:var(--warning);color:#fff}
-footer{padding:1.5rem;border-top:none}
-footer a{color:var(--accent)}
+    [data-theme="dark"] #login-screen::before {
+      background: radial-gradient(ellipse at 20% 50%, rgba(96, 165, 250, .1) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(52, 211, 153, .08) 0%, transparent 50%), radial-gradient(ellipse at 50% 90%, rgba(251, 113, 133, .05) 0%, transparent 40%)
+    }
 
-/* ====== SPLASH SCREEN ====== */
-#splash{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;animation:splash-fade-out .5s ease 4.8s forwards}
-[data-theme="dark"] #splash{background:var(--bg,#111)}
-.splash-content{position:relative;width:600px;height:300px;display:flex;align-items:center;justify-content:center}
-.splash-wave{position:absolute;width:400px;height:auto;opacity:1;animation:wave-pulse 1s ease-in-out,wave-shrink .8s ease-in-out 2s forwards}
-.splash-logo{position:absolute;width:600px;height:auto;opacity:0;visibility:hidden;animation:logo-fade-in .8s ease-in-out 2s forwards}
+    .login-box {
+      position: relative;
+      animation: fadeUp .5s ease-out
+    }
 
-@keyframes wave-pulse{
-  0%{transform:scale(.6);opacity:0}
-  50%{transform:scale(1.1)}
-  100%{transform:scale(1);opacity:1}
-}
-@keyframes wave-shrink{
-  0%{transform:scale(1);opacity:1}
-  100%{transform:scale(.3);opacity:0}
-}
-@keyframes logo-fade-in{
-  0%{opacity:0;visibility:visible;transform:scale(.9)}
-  100%{opacity:1;visibility:visible;transform:scale(1)}
-}
-@keyframes splash-fade-out{
-  0%{opacity:1}
-  100%{opacity:0;pointer-events:none}
-}
+    .abitur-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft));
+      color: var(--accent);
+      font-weight: 700;
+      font-size: .8rem;
+      padding: .35rem .9rem;
+      border-radius: 20px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem
+    }
 
-/* ====== ONBOARDING TOUR (#10) ====== */
-.tour-overlay{position:fixed;inset:0;z-index:10000;pointer-events:auto;transition:opacity .3s}
-.tour-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000}
-.tour-spotlight{position:absolute;z-index:10001;border-radius:var(--radius);box-shadow:0 0 0 9999px rgba(0,0,0,.55);pointer-events:none;transition:all .4s ease}
-.tour-tooltip{position:absolute;z-index:10002;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.5rem;max-width:320px;box-shadow:var(--shadow-lg);animation:fadeUp .3s ease}
-.tour-tooltip h3{font-family:var(--font-display);font-size:1.1rem;margin-bottom:.4rem;color:var(--ink)}
-.tour-tooltip p{font-size:.88rem;color:var(--ink-muted);line-height:1.5;margin-bottom:1rem}
-.tour-actions{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
-.tour-actions .btn{padding:.5rem 1rem;font-size:.85rem}
-.tour-skip{background:none;border:none;color:var(--ink-muted);font-size:.8rem;cursor:pointer;padding:.3rem .5rem}
-.tour-skip:hover{color:var(--ink)}
-.tour-dots{display:flex;gap:.3rem;justify-content:center;margin-bottom:.8rem}
-.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--border)}
-.tour-dot.active{background:var(--accent)}
-.tour-welcome{position:fixed;inset:0;z-index:10002;display:flex;align-items:center;justify-content:center}
-.tour-welcome-box{background:var(--surface);border-radius:var(--radius);padding:2.5rem;max-width:400px;width:90%;text-align:center;box-shadow:var(--shadow-lg);animation:fadeUp .4s ease}
-.tour-welcome-box h2{font-family:var(--font-display);font-size:1.5rem;margin-bottom:.6rem}
-.tour-welcome-box p{color:var(--ink-muted);font-size:.92rem;line-height:1.5;margin-bottom:1.5rem}
+    [data-theme="dark"] .abitur-badge {
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft));
+      color: var(--accent)
+    }
 
-@media(prefers-reduced-motion:reduce){
-  #splash{animation:none;display:none}
-  .splash-wave,.splash-logo{animation:none}
-  .subject-card{opacity:1;animation:none}
-  .greeting-bar,.countdown-bar,.countdown-toggle,.progress-bar{animation:none;opacity:1}
-  .tour-spotlight,.tour-tooltip{transition:none;animation:none}
-}
+    /* ====== DARK MODE LOGO FIX (#6) ====== */
+    [data-theme="dark"] .login-box img {
+      filter: brightness(1.3) contrast(1.1);
+      mix-blend-mode: screen
+    }
 
-/* ====== MOBILE (#4) ====== */
-@media(max-width:650px){
-  .subject-grid{grid-template-columns:repeat(2,1fr);gap:.6rem}
-  .subject-card{padding:1rem .6rem;min-height:100px}
-  .subject-icon{font-size:3.2rem}
-  .subject-title{font-size:.85rem}
-  .module-grid{grid-template-columns:1fr}
-  .login-box{padding:1.5rem}
-  .progress-stats{gap:.8rem;padding:.6rem 1rem}
-  .pstat span{font-size:1.1rem}
-  .countdown-pill{font-size:.82rem;padding:.4rem .8rem}
-  .countdown-ask-btn{font-size:.78rem;padding:.5rem .8rem}
-  .tour-tooltip{max-width:280px;padding:1rem}
-}
-</style>
+    [data-theme="dark"] .subject-header img {
+      filter: brightness(1.3) contrast(1.1);
+      mix-blend-mode: screen
+    }
+
+    [data-theme="dark"] .splash-logo {
+      filter: brightness(1.3) contrast(1.1)
+    }
+
+    [data-theme="dark"] .splash-wave {
+      filter: brightness(1.2)
+    }
+
+    /* ====== ACCESSIBILITY: Focus styles (#12) ====== */
+    .subject-card:focus-visible,
+    .module-card:focus-visible,
+    .theme-toggle:focus-visible,
+    .logout-btn:focus-visible,
+    .level-btn:focus-visible,
+    .login-mode-toggle button:focus-visible,
+    .btn:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+
+    /* ====== SUBJECT SELECTION SCREEN ====== */
+    #subject-screen {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column
+    }
+
+    .subject-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .subject-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400
+    }
+
+    .subject-header h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent-de));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    /* ====== GREETING with animation (#5) ====== */
+    .greeting-bar {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--ink-muted);
+      font-size: 1.4rem;
+      animation: fadeUp .5s ease .1s both
+    }
+
+    .greeting-bar strong {
+      color: var(--ink)
+    }
+
+    /* ====== COUNTDOWN WIDGET (#14) ====== */
+    .countdown-toggle {
+      max-width: 600px;
+      margin: .8rem auto 0;
+      padding: 0 1.5rem;
+      text-align: center;
+      animation: fadeUp .5s ease .2s both
+    }
+
+    .countdown-ask-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .6rem 1.2rem;
+      font-size: .85rem;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all .2s ease;
+      box-shadow: var(--shadow-sm);
+      font-family: inherit
+    }
+
+    .countdown-ask-btn:hover {
+      border-color: var(--accent);
+      color: var(--ink);
+      box-shadow: var(--shadow-md)
+    }
+
+    .countdown-ask-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    .countdown-ask-icon {
+      font-size: 1.1rem
+    }
+
+    .countdown-bar {
+      max-width: 600px;
+      margin: .8rem auto 0;
+      padding: 0 1.5rem;
+      text-align: center;
+      animation: fadeUp .5s ease .2s both;
+      position: relative
+    }
+
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: .5rem 1.2rem;
+      font-size: .9rem;
+      color: var(--ink-muted);
+      box-shadow: var(--shadow-sm)
+    }
+
+    .countdown-pill strong {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 1.05rem
+    }
+
+    .countdown-hide-btn {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: .2rem .5rem;
+      border-radius: 50%;
+      transition: all .2s
+    }
+
+    .countdown-hide-btn:hover {
+      background: var(--surface);
+      color: var(--ink)
+    }
+
+    .countdown-done {
+      color: var(--success)
+    }
+
+    /* ====== PROGRESS BAR (#8) ====== */
+    .progress-bar {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem;
+      display: none;
+      animation: fadeUp .5s ease .3s both
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .8rem 1.5rem;
+      box-shadow: var(--shadow-sm)
+    }
+
+    .pstat {
+      text-align: center
+    }
+
+    .pstat span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2
+    }
+
+    .pstat small {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: .03em
+    }
+
+    /* ====== SUBJECT GRID with stagger animation (#5) ====== */
+    .subject-grid {
+      max-width: 1000px;
+      width: 100%;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: .8rem
+    }
+
+    .subject-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: .8rem .5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--ink);
+      position: relative;
+      overflow: hidden;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      opacity: 0;
+      animation: staggerFadeIn .4s ease forwards
+    }
+
+    .subject-card:nth-child(1) {
+      animation-delay: .05s
+    }
+
+    .subject-card:nth-child(2) {
+      animation-delay: .1s
+    }
+
+    .subject-card:nth-child(3) {
+      animation-delay: .15s
+    }
+
+    .subject-card:nth-child(4) {
+      animation-delay: .2s
+    }
+
+    .subject-card:nth-child(5) {
+      animation-delay: .25s
+    }
+
+    .subject-card:nth-child(6) {
+      animation-delay: .3s
+    }
+
+    .subject-card:nth-child(7) {
+      animation-delay: .35s
+    }
+
+    .subject-card:nth-child(8) {
+      animation-delay: .4s
+    }
+
+    .subject-card:nth-child(9) {
+      animation-delay: .45s
+    }
+
+    .subject-card:nth-child(10) {
+      animation-delay: .5s
+    }
+
+    .subject-card:nth-child(11) {
+      animation-delay: .55s
+    }
+
+    .subject-card:nth-child(12) {
+      animation-delay: .6s
+    }
+
+    @keyframes staggerFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .subject-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .subject-card.english::before {
+      background: linear-gradient(135deg, var(--accent-glow), transparent)
+    }
+
+    .subject-card.german::before {
+      background: linear-gradient(135deg, var(--accent-de-glow), transparent)
+    }
+
+    .subject-card.pug::before {
+      background: linear-gradient(135deg, var(--accent-pug-glow), transparent)
+    }
+
+    .subject-card.history::before {
+      background: linear-gradient(135deg, var(--accent-ge-glow), transparent)
+    }
+
+    .subject-card.wr::before {
+      background: linear-gradient(135deg, var(--accent-wr-glow), transparent)
+    }
+
+    .subject-card.french::before {
+      background: linear-gradient(135deg, var(--accent-fr-glow), transparent)
+    }
+
+    .subject-card.italian::before {
+      background: linear-gradient(135deg, var(--accent-it-glow), transparent)
+    }
+
+    .subject-card.ethik::before {
+      background: linear-gradient(135deg, var(--accent-eth-glow), transparent)
+    }
+
+    .subject-card.geographie::before {
+      background: linear-gradient(135deg, var(--accent-geo-glow), transparent)
+    }
+
+    .subject-card.latein::before {
+      background: linear-gradient(135deg, var(--accent-lat-glow), transparent)
+    }
+
+    .subject-card.mathe::before {
+      background: linear-gradient(135deg, var(--accent-mat-glow), transparent)
+    }
+
+    .subject-card.chemie::before {
+      background: linear-gradient(135deg, var(--accent-che-glow), transparent)
+    }
+
+    .subject-card:hover,
+    .subject-card:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg)
+    }
+
+    .subject-card:hover::before,
+    .subject-card:focus-visible::before {
+      opacity: 1
+    }
+
+    .subject-card.english:hover,
+    .subject-card.english:focus-visible {
+      border-color: var(--accent)
+    }
+
+    .subject-card.german:hover,
+    .subject-card.german:focus-visible {
+      border-color: var(--accent-de)
+    }
+
+    .subject-card.pug:hover,
+    .subject-card.pug:focus-visible {
+      border-color: var(--accent-pug)
+    }
+
+    .subject-card.history:hover,
+    .subject-card.history:focus-visible {
+      border-color: var(--accent-ge)
+    }
+
+    .subject-card.wr:hover,
+    .subject-card.wr:focus-visible {
+      border-color: var(--accent-wr)
+    }
+
+    .subject-card.french:hover,
+    .subject-card.french:focus-visible {
+      border-color: var(--accent-fr)
+    }
+
+    .subject-card.italian:hover,
+    .subject-card.italian:focus-visible {
+      border-color: var(--accent-it)
+    }
+
+    .subject-card.ethik:hover,
+    .subject-card.ethik:focus-visible {
+      border-color: var(--accent-eth)
+    }
+
+    .subject-card.geographie:hover,
+    .subject-card.geographie:focus-visible {
+      border-color: var(--accent-geo)
+    }
+
+    .subject-card.latein:hover,
+    .subject-card.latein:focus-visible {
+      border-color: var(--accent-lat)
+    }
+
+    .subject-card.mathe:hover,
+    .subject-card.mathe:focus-visible {
+      border-color: var(--accent-mat)
+    }
+
+    .subject-card.chemie:hover,
+    .subject-card.chemie:focus-visible {
+      border-color: var(--accent-che)
+    }
+
+    .subject-icon {
+      font-size: 4.4rem;
+      margin-bottom: .4rem;
+      position: relative;
+      z-index: 1
+    }
+
+    .subject-title {
+      font-family: var(--font-display);
+      font-size: .95rem;
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1
+    }
+
+    .subject-card.english .subject-title {
+      color: var(--accent)
+    }
+
+    .subject-card.german .subject-title {
+      color: var(--accent-de)
+    }
+
+    .subject-card.pug .subject-title {
+      color: var(--accent-pug)
+    }
+
+    .subject-card.history .subject-title {
+      color: var(--accent-ge)
+    }
+
+    .subject-card.wr .subject-title {
+      color: var(--accent-wr)
+    }
+
+    .subject-card.french .subject-title {
+      color: var(--accent-fr)
+    }
+
+    .subject-card.italian .subject-title {
+      color: var(--accent-it)
+    }
+
+    .subject-card.ethik .subject-title {
+      color: var(--accent-eth)
+    }
+
+    .subject-card.geographie .subject-title {
+      color: var(--accent-geo)
+    }
+
+    .subject-card.latein .subject-title {
+      color: var(--accent-lat)
+    }
+
+    .subject-card.mathe .subject-title {
+      color: var(--accent-mat)
+    }
+
+    .subject-card.chemie .subject-title {
+      color: var(--accent-che)
+    }
+
+    .subject-desc {
+      display: none
+    }
+
+    .subject-badge {
+      display: none
+    }
+
+    .subject-countdown {
+      display: none;
+      font-size: .65rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-mono);
+      font-weight: 600
+    }
+
+    .countdown-active .subject-countdown {
+      display: block
+    }
+
+    .subject-countdown.soon {
+      color: var(--warning)
+    }
+
+    .subject-countdown.done {
+      color: var(--success)
+    }
+
+    .subject-last-activity {
+      display: block;
+      font-size: .6rem;
+      color: var(--ink-muted);
+      margin-top: .15rem;
+      position: relative;
+      z-index: 1;
+      opacity: .7
+    }
+
+    /* ====== MODULE SCREEN ====== */
+    #module-screen {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column
+    }
+
+    .module-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .module-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 400
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      transition: color .2s
+    }
+
+    .module-grid {
+      max-width: 900px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem
+    }
+
+    .module-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      color: var(--ink)
+    }
+
+    .module-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px)
+    }
+
+    .module-card.german:hover {
+      border-color: var(--accent-de)
+    }
+
+    .module-card.pug:hover {
+      border-color: var(--accent-pug)
+    }
+
+    .module-card.history:hover {
+      border-color: var(--accent-ge)
+    }
+
+    .module-card.wr:hover {
+      border-color: var(--accent-wr)
+    }
+
+    .module-card.french:hover {
+      border-color: var(--accent-fr)
+    }
+
+    .module-card.italian:hover {
+      border-color: var(--accent-it)
+    }
+
+    .module-card.ethik:hover {
+      border-color: var(--accent-eth)
+    }
+
+    .module-card.geographie:hover {
+      border-color: var(--accent-geo)
+    }
+
+    .module-card.latein:hover {
+      border-color: var(--accent-lat)
+    }
+
+    .module-icon {
+      font-size: 2.5rem;
+      margin-bottom: .8rem
+    }
+
+    .module-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-bottom: .4rem
+    }
+
+    .module-desc {
+      color: var(--ink-muted);
+      font-size: .85rem;
+      line-height: 1.5
+    }
+
+    .module-badge {
+      display: inline-block;
+      margin-top: .8rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .03em
+    }
+
+    .module-card.german .module-badge {
+      background: var(--accent-de-soft);
+      color: var(--accent-de)
+    }
+
+    .module-card.pug .module-badge {
+      background: var(--accent-pug-soft);
+      color: var(--accent-pug)
+    }
+
+    .module-card.history .module-badge {
+      background: var(--accent-ge-soft);
+      color: var(--accent-ge)
+    }
+
+    .module-card.wr .module-badge {
+      background: var(--accent-wr-soft);
+      color: var(--accent-wr)
+    }
+
+    /* ====== LOGIN MODE TOGGLE ====== */
+    .login-mode-toggle {
+      display: flex;
+      margin-bottom: 1.5rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border)
+    }
+
+    .login-mode-toggle button {
+      flex: 1;
+      padding: .6rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: .9rem;
+      color: var(--ink-muted);
+      transition: all .15s;
+      font-family: var(--font-body)
+    }
+
+    .login-mode-toggle button.active {
+      background: var(--accent);
+      color: #fff
+    }
+
+    /* ====== LEVEL TOGGLE ====== */
+    .level-toggle {
+      display: flex;
+      justify-content: center;
+      margin: .8rem 0 .2rem
+    }
+
+    .level-pill {
+      display: flex;
+      background: var(--border);
+      border-radius: 99px;
+      padding: 3px;
+      gap: 2px
+    }
+
+    .level-pill .level-btn {
+      padding: .45rem 1.4rem;
+      border: none;
+      border-radius: 99px;
+      background: transparent;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .8rem;
+      color: var(--ink-muted);
+      transition: all .2s;
+      letter-spacing: .04em;
+      text-transform: uppercase
+    }
+
+    .level-pill .level-btn:hover {
+      color: var(--ink)
+    }
+
+    .level-pill .level-btn.active {
+      background: var(--surface);
+      color: var(--accent);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1)
+    }
+
+    [data-theme="dark"] .level-pill .level-btn.active {
+      background: var(--bg-warm);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .3)
+    }
+
+    /* ====== LEVEL BACKGROUND ====== */
+    [data-level-bg="eA"] {
+      background: var(--bg)
+    }
+
+    [data-level-bg="gA"] {
+      background: var(--surface)
+    }
+
+    /* ====== INDEX-SPECIFIC ====== */
+    .logout-btn {
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      font-size: .85rem;
+      cursor: pointer;
+      padding: .4rem .8rem;
+      border-radius: var(--radius-sm);
+      transition: all .15s
+    }
+
+    .logout-btn:hover {
+      background: var(--warning);
+      color: #fff
+    }
+
+    footer {
+      padding: 1.5rem;
+      border-top: none
+    }
+
+    footer a {
+      color: var(--accent)
+    }
+
+    /* ====== SPLASH SCREEN ====== */
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: splash-fade-out .5s ease 4.8s forwards
+    }
+
+    [data-theme="dark"] #splash {
+      background: var(--bg, #111)
+    }
+
+    .splash-content {
+      position: relative;
+      width: 600px;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .splash-wave {
+      position: absolute;
+      width: 400px;
+      height: auto;
+      opacity: 1;
+      animation: wave-pulse 1s ease-in-out, wave-shrink .8s ease-in-out 2s forwards
+    }
+
+    .splash-logo {
+      position: absolute;
+      opacity: 0;
+      visibility: hidden;
+      animation: logo-fade-in .8s ease-in-out 2s forwards;
+      transform-origin: center;
+    }
+
+    .logo-brand.splash-logo .logo-text {
+      font-size: 3.5rem;
+    }
+
+    .logo-brand.splash-logo .logo-icon {
+      height: 80px;
+    }
+
+    @keyframes wave-pulse {
+      0% {
+        transform: scale(.6);
+        opacity: 0
+      }
+
+      50% {
+        transform: scale(1.1)
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    @keyframes wave-shrink {
+      0% {
+        transform: scale(1);
+        opacity: 1
+      }
+
+      100% {
+        transform: scale(.3);
+        opacity: 0
+      }
+    }
+
+    @keyframes logo-fade-in {
+      0% {
+        opacity: 0;
+        visibility: visible;
+        transform: scale(.9)
+      }
+
+      100% {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1)
+      }
+    }
+
+    @keyframes splash-fade-out {
+      0% {
+        opacity: 1
+      }
+
+      100% {
+        opacity: 0;
+        pointer-events: none
+      }
+    }
+
+    /* ====== ONBOARDING TOUR (#10) ====== */
+    .tour-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      pointer-events: auto;
+      transition: opacity .3s
+    }
+
+    .tour-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      z-index: 10000
+    }
+
+    .tour-spotlight {
+      position: absolute;
+      z-index: 10001;
+      border-radius: var(--radius);
+      box-shadow: 0 0 0 9999px rgba(0, 0, 0, .55);
+      pointer-events: none;
+      transition: all .4s ease
+    }
+
+    .tour-tooltip {
+      position: absolute;
+      z-index: 10002;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      max-width: 320px;
+      box-shadow: var(--shadow-lg);
+      animation: fadeUp .3s ease
+    }
+
+    .tour-tooltip h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-bottom: .4rem;
+      color: var(--ink)
+    }
+
+    .tour-tooltip p {
+      font-size: .88rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      margin-bottom: 1rem
+    }
+
+    .tour-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .tour-actions .btn {
+      padding: .5rem 1rem;
+      font-size: .85rem
+    }
+
+    .tour-skip {
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      font-size: .8rem;
+      cursor: pointer;
+      padding: .3rem .5rem
+    }
+
+    .tour-skip:hover {
+      color: var(--ink)
+    }
+
+    .tour-dots {
+      display: flex;
+      gap: .3rem;
+      justify-content: center;
+      margin-bottom: .8rem
+    }
+
+    .tour-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border)
+    }
+
+    .tour-dot.active {
+      background: var(--accent)
+    }
+
+    .tour-welcome {
+      position: fixed;
+      inset: 0;
+      z-index: 10002;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .tour-welcome-box {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      animation: fadeUp .4s ease
+    }
+
+    .tour-welcome-box h2 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin-bottom: .6rem
+    }
+
+    .tour-welcome-box p {
+      color: var(--ink-muted);
+      font-size: .92rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      #splash {
+        animation: none;
+        display: none
+      }
+
+      .splash-wave,
+      .splash-logo {
+        animation: none
+      }
+
+      .subject-card {
+        opacity: 1;
+        animation: none
+      }
+
+      .greeting-bar,
+      .countdown-bar,
+      .countdown-toggle,
+      .progress-bar {
+        animation: none;
+        opacity: 1
+      }
+
+      .tour-spotlight,
+      .tour-tooltip {
+        transition: none;
+        animation: none
+      }
+    }
+
+    /* ====== MOBILE (#4) ====== */
+    @media(max-width:650px) {
+      .subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: .6rem
+      }
+
+      .subject-card {
+        padding: 1rem .6rem;
+        min-height: 100px
+      }
+
+      .subject-icon {
+        font-size: 3.2rem
+      }
+
+      .subject-title {
+        font-size: .85rem
+      }
+
+      .module-grid {
+        grid-template-columns: 1fr
+      }
+
+      .login-box {
+        padding: 1.5rem
+      }
+
+      .progress-stats {
+        gap: .8rem;
+        padding: .6rem 1rem
+      }
+
+      .pstat span {
+        font-size: 1.1rem
+      }
+
+      .countdown-pill {
+        font-size: .82rem;
+        padding: .4rem .8rem
+      }
+
+      .countdown-ask-btn {
+        font-size: .78rem;
+        padding: .5rem .8rem
+      }
+
+      .tour-tooltip {
+        max-width: 280px;
+        padding: 1rem
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ====== SPLASH SCREEN ====== -->
-<div id="splash" role="status" aria-label="App wird geladen">
-  <div class="splash-content">
-    <img src="wave-icon.png" class="splash-wave" alt="">
-    <img src="logo.png" class="splash-logo" alt="myAbiFlow">
+  <!-- ====== SPLASH SCREEN ====== -->
+  <div id="splash" role="status" aria-label="App wird geladen">
+    <div class="splash-content">
+      <img src="wave-icon.png" class="splash-wave" alt="">
+      <div class="logo-brand splash-logo">
+        <img src="wave-icon.png" class="logo-icon" alt="">
+        <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- ====== LOGIN SCREEN ====== -->
-<div id="login-screen">
-  <div class="login-box" role="main">
-    <img src="logo.png" alt="myAbiFlow – Dein Weg zum Abitur" style="max-width:280px;margin-bottom:.5rem;">
-    <div class="abitur-badge">Abitur 2026</div>
-    <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
-      <button id="modeLogin" class="active" role="tab" aria-selected="true" onclick="setLoginMode('login')">Anmelden</button>
-      <button id="modeRegister" role="tab" aria-selected="false" onclick="setLoginMode('register')">Neu registrieren</button>
+  <!-- ====== LOGIN SCREEN ====== -->
+  <div id="login-screen">
+    <div class="login-box" role="main">
+      <div class="logo-brand" style="justify-content:center; margin-bottom:1.5rem; transform: scale(1.2);">
+        <img src="wave-icon.png" class="logo-icon" alt="">
+        <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
+      </div>
+      <div class="abitur-badge">Abitur 2026</div>
+      <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
+        <button id="modeLogin" class="active" role="tab" aria-selected="true"
+          onclick="setLoginMode('login')">Anmelden</button>
+        <button id="modeRegister" role="tab" aria-selected="false" onclick="setLoginMode('register')">Neu
+          registrieren</button>
+      </div>
+      <label for="studentName" class="sr-only">Name</label>
+      <input type="text" id="studentName" class="login-input" placeholder="Dein Name ..." autocomplete="off">
+      <label for="personalPassword" class="sr-only">Passwort</label>
+      <input type="password" id="personalPassword" class="login-input" placeholder="Dein Passwort ..."
+        autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
+      <div id="registerFields" style="display:none">
+        <label for="personalPasswordConfirm" class="sr-only">Passwort bestätigen</label>
+        <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort bestätigen ..."
+          autocomplete="off">
+        <label for="classPassword" class="sr-only">Klassenpasswort</label>
+        <input type="password" id="classPassword" class="login-input" placeholder="Klassenpasswort ..."
+          autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
+      </div>
+      <br>
+      <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
+      <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
     </div>
-    <label for="studentName" class="sr-only">Name</label>
-    <input type="text" id="studentName" class="login-input" placeholder="Dein Name ..." autocomplete="off">
-    <label for="personalPassword" class="sr-only">Passwort</label>
-    <input type="password" id="personalPassword" class="login-input" placeholder="Dein Passwort ..." autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
-    <div id="registerFields" style="display:none">
-      <label for="personalPasswordConfirm" class="sr-only">Passwort bestätigen</label>
-      <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort bestätigen ..." autocomplete="off">
-      <label for="classPassword" class="sr-only">Klassenpasswort</label>
-      <input type="password" id="classPassword" class="login-input" placeholder="Klassenpasswort ..." autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
-    </div>
-    <br>
-    <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
-    <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
   </div>
-</div>
 
-<!-- ====== SUBJECT SELECTION SCREEN ====== -->
-<div id="subject-screen">
-  <div class="subject-header">
-    <h1><img src="logo.png" alt="myAbiFlow" style="height:36px;vertical-align:middle;"></h1>
-    <div class="header-right">
-      <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
-      <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
+  <!-- ====== SUBJECT SELECTION SCREEN ====== -->
+  <div id="subject-screen">
+    <div class="subject-header">
+      <h1>
+        <div class="logo-brand">
+          <img src="wave-icon.png" class="logo-icon" alt="">
+          <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
+        </div>
+      </h1>
+      <div class="header-right">
+        <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
+        <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
+      </div>
     </div>
-  </div>
-  <div class="greeting-bar" role="status">Willkommen, <strong id="greetName"></strong>! Welches Fach möchtest du üben?</div>
-  <div id="countdownToggle" class="countdown-toggle" style="display:none">
-    <button class="countdown-ask-btn" onclick="enableCountdown()">
-      <span class="countdown-ask-icon">📅</span>
-      Möchtest du sehen, wie lange es noch bis zu deinen Prüfungen ist?
-    </button>
-  </div>
-  <div id="countdownBar" class="countdown-bar" style="display:none"></div>
-  <div id="progressBar" class="progress-bar">
-    <div class="progress-stats">
-      <div class="pstat"><span id="pStatTotal">0</span><small>Aufgaben</small></div>
-      <div class="pstat"><span id="pStatAvg">&ndash;</span><small>&Oslash; Punkte</small></div>
-      <div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>
+    <div class="greeting-bar" role="status">Willkommen, <strong id="greetName"></strong>! Welches Fach möchtest du üben?
     </div>
+    <div id="countdownToggle" class="countdown-toggle" style="display:none">
+      <button class="countdown-ask-btn" onclick="enableCountdown()">
+        <span class="countdown-ask-icon">📅</span>
+        Möchtest du sehen, wie lange es noch bis zu deinen Prüfungen ist?
+      </button>
+    </div>
+    <div id="countdownBar" class="countdown-bar" style="display:none"></div>
+    <div id="progressBar" class="progress-bar">
+      <div class="progress-stats">
+        <div class="pstat"><span id="pStatTotal">0</span><small>Aufgaben</small></div>
+        <div class="pstat"><span id="pStatAvg">&ndash;</span><small>&Oslash; Punkte</small></div>
+        <div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>
+      </div>
+    </div>
+    <div class="subject-grid" role="list" aria-label="Fächer">
+      <button class="subject-card english" type="button" role="listitem" onclick="selectSubject('english', true)"
+        aria-label="Englisch">
+        <div class="subject-icon" aria-hidden="true">🇬🇧</div>
+        <div class="subject-title">Englisch</div>
+        <div class="subject-desc">Sprachmittlung (Mediation) und Textproduktion – mit KI-Bewertung nach ISB-Raster.
+        </div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="english"></span>
+        <span class="subject-last-activity" data-activity="english"></span>
+      </button>
+      <button class="subject-card german" type="button" role="listitem" onclick="selectSubject('german', true)"
+        aria-label="Deutsch">
+        <div class="subject-icon" aria-hidden="true">📖</div>
+        <div class="subject-title">Deutsch</div>
+        <div class="subject-desc">Interpretation, Analyse, Erörterung und materialgestütztes Schreiben – bewertet nach
+          KMS-Kriterien.</div>
+        <div class="subject-badge">4 Module</div>
+        <span class="subject-countdown" data-subject="german"></span>
+        <span class="subject-last-activity" data-activity="german"></span>
+      </button>
+      <button class="subject-card history" type="button" role="listitem" onclick="selectSubject('history', true)"
+        aria-label="Geschichte">
+        <div class="subject-icon" aria-hidden="true">📜</div>
+        <div class="subject-title">Geschichte</div>
+        <div class="subject-desc">Quellenanalyse und historische Darstellung – mit KI-Bewertung nach ISB-Kriterien für
+          das G9-Abitur.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="history"></span>
+        <span class="subject-last-activity" data-activity="history"></span>
+      </button>
+      <button class="subject-card pug" type="button" role="listitem" onclick="selectSubject('pug', true)"
+        aria-label="Politik und Gesellschaft">
+        <div class="subject-icon" aria-hidden="true">🏛️</div>
+        <div class="subject-title">Politik und Gesellschaft</div>
+        <div class="subject-desc">Aufgaben zu allen vier Halbjahren mit Materialanalyse und Erörterung – bewertet nach
+          ISB-Kriterien.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="pug"></span>
+        <span class="subject-last-activity" data-activity="pug"></span>
+      </button>
+      <button class="subject-card wr" type="button" role="listitem" onclick="selectSubject('wr', true)"
+        aria-label="Wirtschaft und Recht">
+        <div class="subject-icon" aria-hidden="true">⚖️</div>
+        <div class="subject-title">Wirtschaft & Recht</div>
+        <div class="subject-desc">Materialgestützte Aufgaben zu BWL, VWL und Recht – mit BE-Bewertung nach
+          Abiturstandard.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="wr"></span>
+        <span class="subject-last-activity" data-activity="wr"></span>
+      </button>
+      <button class="subject-card french" type="button" role="listitem" onclick="selectSubject('french', true)"
+        aria-label="Französisch">
+        <div class="subject-icon" aria-hidden="true">🇫🇷</div>
+        <div class="subject-title">Französisch</div>
+        <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.
+        </div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="french"></span>
+        <span class="subject-last-activity" data-activity="french"></span>
+      </button>
+      <button class="subject-card italian" type="button" role="listitem" onclick="selectSubject('italian', true)"
+        aria-label="Italienisch">
+        <div class="subject-icon" aria-hidden="true">🇮🇹</div>
+        <div class="subject-title">Italienisch</div>
+        <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.
+        </div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="italian"></span>
+        <span class="subject-last-activity" data-activity="italian"></span>
+      </button>
+      <button class="subject-card ethik" type="button" role="listitem" onclick="selectSubject('ethik', true)"
+        aria-label="Ethik">
+        <div class="subject-icon" aria-hidden="true">🧠</div>
+        <div class="subject-title">Ethik</div>
+        <div class="subject-desc">Philosophische Texte analysieren und erörtern – mit KI-Bewertung nach ISB-Kriterien
+          für das Abitur.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="ethik"></span>
+        <span class="subject-last-activity" data-activity="ethik"></span>
+      </button>
+      <button class="subject-card geographie" type="button" role="listitem" onclick="selectSubject('geographie', true)"
+        aria-label="Geographie">
+        <div class="subject-icon" aria-hidden="true">🌍</div>
+        <div class="subject-title">Geographie</div>
+        <div class="subject-desc">Materialgestützte Aufgaben zu Klima, Ressourcen, Entwicklung und Stadtgeographie –
+          bewertet nach ISB-Kriterien.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="geographie"></span>
+        <span class="subject-last-activity" data-activity="geographie"></span>
+      </button>
+      <button class="subject-card latein" type="button" role="listitem" onclick="selectSubject('latein', true)"
+        aria-label="Latein">
+        <div class="subject-icon" aria-hidden="true">🏺</div>
+        <div class="subject-title">Latein</div>
+        <div class="subject-desc">Übersetzung und Interpretation lateinischer Texte – Cicero, Seneca, Vergil und mehr
+          nach ISB-Kriterien.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="latein"></span>
+        <span class="subject-last-activity" data-activity="latein"></span>
+      </button>
+      <button class="subject-card mathe" type="button" role="listitem" onclick="selectSubject('mathe', true)"
+        aria-label="Mathematik">
+        <div class="subject-icon" aria-hidden="true">📐</div>
+        <div class="subject-title">Mathematik</div>
+        <div class="subject-desc">Analysis, Stochastik und Geometrie – mit KaTeX-Formeln, BE-Bewertung und
+          Schritt-für-Schritt-Lösungen.</div>
+        <div class="subject-badge">2 Module · nur eA</div>
+        <span class="subject-countdown" data-subject="mathe"></span>
+        <span class="subject-last-activity" data-activity="mathe"></span>
+      </button>
+      <button class="subject-card chemie" type="button" role="listitem" onclick="selectSubject('chemie', true)"
+        aria-label="Chemie">
+        <div class="subject-icon" aria-hidden="true">🧪</div>
+        <div class="subject-title">Chemie</div>
+        <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte — materialgestützte Aufgaben nach
+          ISB-Format.</div>
+        <div class="subject-badge">2 Module · gA + eA</div>
+        <span class="subject-countdown" data-subject="chemie"></span>
+        <span class="subject-last-activity" data-activity="chemie"></span>
+      </button>
+    </div>
+    <footer>© 2026 myAbiFlow · Abitur Trainer<br><a href="dashboard.html"
+        style="opacity:.5;font-size:.75rem;">Lehrer-Dashboard →</a></footer>
   </div>
-  <div class="subject-grid" role="list" aria-label="Fächer">
-    <button class="subject-card english" type="button" role="listitem" onclick="selectSubject('english', true)" aria-label="Englisch">
-      <div class="subject-icon" aria-hidden="true">🇬🇧</div>
-      <div class="subject-title">Englisch</div>
-      <div class="subject-desc">Sprachmittlung (Mediation) und Textproduktion – mit KI-Bewertung nach ISB-Raster.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="english"></span>
-      <span class="subject-last-activity" data-activity="english"></span>
-    </button>
-    <button class="subject-card german" type="button" role="listitem" onclick="selectSubject('german', true)" aria-label="Deutsch">
-      <div class="subject-icon" aria-hidden="true">📖</div>
-      <div class="subject-title">Deutsch</div>
-      <div class="subject-desc">Interpretation, Analyse, Erörterung und materialgestütztes Schreiben – bewertet nach KMS-Kriterien.</div>
-      <div class="subject-badge">4 Module</div>
-      <span class="subject-countdown" data-subject="german"></span>
-      <span class="subject-last-activity" data-activity="german"></span>
-    </button>
-    <button class="subject-card history" type="button" role="listitem" onclick="selectSubject('history', true)" aria-label="Geschichte">
-      <div class="subject-icon" aria-hidden="true">📜</div>
-      <div class="subject-title">Geschichte</div>
-      <div class="subject-desc">Quellenanalyse und historische Darstellung – mit KI-Bewertung nach ISB-Kriterien für das G9-Abitur.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="history"></span>
-      <span class="subject-last-activity" data-activity="history"></span>
-    </button>
-    <button class="subject-card pug" type="button" role="listitem" onclick="selectSubject('pug', true)" aria-label="Politik und Gesellschaft">
-      <div class="subject-icon" aria-hidden="true">🏛️</div>
-      <div class="subject-title">Politik und Gesellschaft</div>
-      <div class="subject-desc">Aufgaben zu allen vier Halbjahren mit Materialanalyse und Erörterung – bewertet nach ISB-Kriterien.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="pug"></span>
-      <span class="subject-last-activity" data-activity="pug"></span>
-    </button>
-    <button class="subject-card wr" type="button" role="listitem" onclick="selectSubject('wr', true)" aria-label="Wirtschaft und Recht">
-      <div class="subject-icon" aria-hidden="true">⚖️</div>
-      <div class="subject-title">Wirtschaft & Recht</div>
-      <div class="subject-desc">Materialgestützte Aufgaben zu BWL, VWL und Recht – mit BE-Bewertung nach Abiturstandard.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="wr"></span>
-      <span class="subject-last-activity" data-activity="wr"></span>
-    </button>
-    <button class="subject-card french" type="button" role="listitem" onclick="selectSubject('french', true)" aria-label="Französisch">
-      <div class="subject-icon" aria-hidden="true">🇫🇷</div>
-      <div class="subject-title">Französisch</div>
-      <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="french"></span>
-      <span class="subject-last-activity" data-activity="french"></span>
-    </button>
-    <button class="subject-card italian" type="button" role="listitem" onclick="selectSubject('italian', true)" aria-label="Italienisch">
-      <div class="subject-icon" aria-hidden="true">🇮🇹</div>
-      <div class="subject-title">Italienisch</div>
-      <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="italian"></span>
-      <span class="subject-last-activity" data-activity="italian"></span>
-    </button>
-    <button class="subject-card ethik" type="button" role="listitem" onclick="selectSubject('ethik', true)" aria-label="Ethik">
-      <div class="subject-icon" aria-hidden="true">🧠</div>
-      <div class="subject-title">Ethik</div>
-      <div class="subject-desc">Philosophische Texte analysieren und erörtern – mit KI-Bewertung nach ISB-Kriterien für das Abitur.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="ethik"></span>
-      <span class="subject-last-activity" data-activity="ethik"></span>
-    </button>
-    <button class="subject-card geographie" type="button" role="listitem" onclick="selectSubject('geographie', true)" aria-label="Geographie">
-      <div class="subject-icon" aria-hidden="true">🌍</div>
-      <div class="subject-title">Geographie</div>
-      <div class="subject-desc">Materialgestützte Aufgaben zu Klima, Ressourcen, Entwicklung und Stadtgeographie – bewertet nach ISB-Kriterien.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="geographie"></span>
-      <span class="subject-last-activity" data-activity="geographie"></span>
-    </button>
-    <button class="subject-card latein" type="button" role="listitem" onclick="selectSubject('latein', true)" aria-label="Latein">
-      <div class="subject-icon" aria-hidden="true">🏺</div>
-      <div class="subject-title">Latein</div>
-      <div class="subject-desc">Übersetzung und Interpretation lateinischer Texte – Cicero, Seneca, Vergil und mehr nach ISB-Kriterien.</div>
-      <div class="subject-badge">2 Module</div>
-      <span class="subject-countdown" data-subject="latein"></span>
-      <span class="subject-last-activity" data-activity="latein"></span>
-    </button>
-    <button class="subject-card mathe" type="button" role="listitem" onclick="selectSubject('mathe', true)" aria-label="Mathematik">
-      <div class="subject-icon" aria-hidden="true">📐</div>
-      <div class="subject-title">Mathematik</div>
-      <div class="subject-desc">Analysis, Stochastik und Geometrie – mit KaTeX-Formeln, BE-Bewertung und Schritt-für-Schritt-Lösungen.</div>
-      <div class="subject-badge">2 Module · nur eA</div>
-      <span class="subject-countdown" data-subject="mathe"></span>
-      <span class="subject-last-activity" data-activity="mathe"></span>
-    </button>
-    <button class="subject-card chemie" type="button" role="listitem" onclick="selectSubject('chemie', true)" aria-label="Chemie">
-      <div class="subject-icon" aria-hidden="true">🧪</div>
-      <div class="subject-title">Chemie</div>
-      <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte — materialgestützte Aufgaben nach ISB-Format.</div>
-      <div class="subject-badge">2 Module · gA + eA</div>
-      <span class="subject-countdown" data-subject="chemie"></span>
-      <span class="subject-last-activity" data-activity="chemie"></span>
-    </button>
-  </div>
-  <footer>© 2026 myAbiFlow · Abitur Trainer<br><a href="dashboard.html" style="opacity:.5;font-size:.75rem;">Lehrer-Dashboard →</a></footer>
-</div>
 
-<!-- ====== ENGLISH MODULE SCREEN ====== -->
-<div id="module-screen-english" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">English <span style="color:var(--accent)">Trainer</span></h1>
+  <!-- ====== ENGLISH MODULE SCREEN ====== -->
+  <div id="module-screen-english" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">English <span style="color:var(--accent)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoEn" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEn"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoEn" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEn" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card" href="mediation.html">
+        <div class="module-icon">🌍</div>
+        <div class="module-title">Sprachmittlung</div>
+        <div class="module-desc">Deutschen Quelltext lesen und auf Englisch vermitteln – mit KI-Bewertung nach
+          ISB-Raster.</div>
+        <div class="module-badge">Prüfungsteil C</div>
+      </a>
+      <a class="module-card" href="writing.html">
+        <div class="module-icon">✍️</div>
+        <div class="module-title">Textproduktion</div>
+        <div class="module-desc">Englischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.</div>
+        <div class="module-badge">Prüfungsteil B</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · English Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card" href="mediation.html">
-      <div class="module-icon">🌍</div>
-      <div class="module-title">Sprachmittlung</div>
-      <div class="module-desc">Deutschen Quelltext lesen und auf Englisch vermitteln – mit KI-Bewertung nach ISB-Raster.</div>
-      <div class="module-badge">Prüfungsteil C</div>
-    </a>
-    <a class="module-card" href="writing.html">
-      <div class="module-icon">✍️</div>
-      <div class="module-title">Textproduktion</div>
-      <div class="module-desc">Englischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.</div>
-      <div class="module-badge">Prüfungsteil B</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · English Trainer</footer>
-</div>
 
-<!-- ====== GERMAN MODULE SCREEN ====== -->
-<div id="module-screen-german" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Deutsch <span style="color:var(--accent-de)">Trainer</span></h1>
+  <!-- ====== GERMAN MODULE SCREEN ====== -->
+  <div id="module-screen-german" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Deutsch <span style="color:var(--accent-de)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoDe" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnDe"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoDe" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnDe" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card german" href="interpretation.html">
+        <div class="module-icon">📜</div>
+        <div class="module-title">Interpretation</div>
+        <div class="module-desc">Literarische Texte (Lyrik, Drama, Epik) interpretieren – mit weiterführendem
+          Schreibauftrag.</div>
+        <div class="module-badge">Aufgabe I + II</div>
+      </a>
+      <a class="module-card german" href="analyse.html">
+        <div class="module-icon">🔍</div>
+        <div class="module-title">Textanalyse</div>
+        <div class="module-desc">Pragmatische Texte analysieren – Argumentationsstruktur, Intention und sprachliche
+          Mittel.</div>
+        <div class="module-badge">Aufgabe III (AP)</div>
+      </a>
+      <a class="module-card german" href="eroerterung.html">
+        <div class="module-icon">⚖️</div>
+        <div class="module-title">Erörterung</div>
+        <div class="module-desc">Pragmatische Texte erörtern – Position analysieren und argumentativ Stellung nehmen.
+        </div>
+        <div class="module-badge">Aufgabe III (EP)</div>
+      </a>
+      <a class="module-card german" href="materialgestützt.html">
+        <div class="module-icon">📑</div>
+        <div class="module-title">Materialgestützt</div>
+        <div class="module-desc">Informierende oder argumentierende Beiträge auf Materialbasis verfassen.</div>
+        <div class="module-badge">Aufgabe IV</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Deutsch Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card german" href="interpretation.html">
-      <div class="module-icon">📜</div>
-      <div class="module-title">Interpretation</div>
-      <div class="module-desc">Literarische Texte (Lyrik, Drama, Epik) interpretieren – mit weiterführendem Schreibauftrag.</div>
-      <div class="module-badge">Aufgabe I + II</div>
-    </a>
-    <a class="module-card german" href="analyse.html">
-      <div class="module-icon">🔍</div>
-      <div class="module-title">Textanalyse</div>
-      <div class="module-desc">Pragmatische Texte analysieren – Argumentationsstruktur, Intention und sprachliche Mittel.</div>
-      <div class="module-badge">Aufgabe III (AP)</div>
-    </a>
-    <a class="module-card german" href="eroerterung.html">
-      <div class="module-icon">⚖️</div>
-      <div class="module-title">Erörterung</div>
-      <div class="module-desc">Pragmatische Texte erörtern – Position analysieren und argumentativ Stellung nehmen.</div>
-      <div class="module-badge">Aufgabe III (EP)</div>
-    </a>
-    <a class="module-card german" href="materialgestützt.html">
-      <div class="module-icon">📑</div>
-      <div class="module-title">Materialgestützt</div>
-      <div class="module-desc">Informierende oder argumentierende Beiträge auf Materialbasis verfassen.</div>
-      <div class="module-badge">Aufgabe IV</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Deutsch Trainer</footer>
-</div>
 
-<!-- ====== GESCHICHTE MODULE SCREEN ====== -->
-<div id="module-screen-history" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Geschichte <span style="color:var(--accent-ge)">Trainer</span></h1>
+  <!-- ====== GESCHICHTE MODULE SCREEN ====== -->
+  <div id="module-screen-history" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Geschichte <span style="color:var(--accent-ge)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoGe" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGe"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoGe" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGe" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card history" href="geschichte.html">
+        <div class="module-icon">📜</div>
+        <div class="module-title">Quellenarbeit</div>
+        <div class="module-desc">Historische Quellen analysieren, einordnen und beurteilen – mit KI-Bewertung nach
+          ISB-Kriterien.</div>
+        <div class="module-badge">Quellenanalyse & Darstellung</div>
+      </a>
+      <a class="module-card history" href="geschichte-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Geschichtsprüfung — Quellenanalyse + Darstellung mit Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Geschichte Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card history" href="geschichte.html">
-      <div class="module-icon">📜</div>
-      <div class="module-title">Quellenarbeit</div>
-      <div class="module-desc">Historische Quellen analysieren, einordnen und beurteilen – mit KI-Bewertung nach ISB-Kriterien.</div>
-      <div class="module-badge">Quellenanalyse & Darstellung</div>
-    </a>
-    <a class="module-card history" href="geschichte-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette Geschichtsprüfung — Quellenanalyse + Darstellung mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Geschichte Trainer</footer>
-</div>
 
-<!-- ====== PUG MODULE SCREEN ====== -->
-<div id="module-screen-pug" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Politik und Gesellschaft <span style="color:var(--accent-pug)">Trainer</span></h1>
+  <!-- ====== PUG MODULE SCREEN ====== -->
+  <div id="module-screen-pug" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Politik und Gesellschaft <span style="color:var(--accent-pug)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoPug" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnPug"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoPug" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnPug" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card pug" href="politik.html">
+        <div class="module-icon">🏛️</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Prüfungsteil A und B.</div>
+        <div class="module-badge">Schriftliche Prüfung</div>
+      </a>
+      <a class="module-card pug" href="pug-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Abiturprüfung simulieren – Prüfungsteil A + B (Ausweitung) mit
+          Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · PuG Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card pug" href="politik.html">
-      <div class="module-icon">🏛️</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Prüfungsteil A und B.</div>
-      <div class="module-badge">Schriftliche Prüfung</div>
-    </a>
-    <a class="module-card pug" href="pug-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette Abiturprüfung simulieren – Prüfungsteil A + B (Ausweitung) mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · PuG Trainer</footer>
-</div>
 
-<!-- ====== WR MODULE SCREEN ====== -->
-<div id="module-screen-wr" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Wirtschaft & Recht <span style="color:var(--accent-wr)">Trainer</span></h1>
+  <!-- ====== WR MODULE SCREEN ====== -->
+  <div id="module-screen-wr" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Wirtschaft & Recht <span style="color:var(--accent-wr)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoWr" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnWr"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoWr" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnWr" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card wr" href="wr.html">
+        <div class="module-icon">⚖️</div>
+        <div class="module-title">Aufgabentraining</div>
+        <div class="module-desc">BWL, VWL und Recht – materialgestützte Aufgaben mit BE-Bewertung nach Abiturstandard.
+        </div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+      <a class="module-card wr" href="wr-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette WR-Prüfung simulieren — zwei Aufgaben aus verschiedenen Bereichen mit
+          Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · WR Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card wr" href="wr.html">
-      <div class="module-icon">⚖️</div>
-      <div class="module-title">Aufgabentraining</div>
-      <div class="module-desc">BWL, VWL und Recht – materialgestützte Aufgaben mit BE-Bewertung nach Abiturstandard.</div>
-      <div class="module-badge">Einzelaufgabe</div>
-    </a>
-    <a class="module-card wr" href="wr-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette WR-Prüfung simulieren — zwei Aufgaben aus verschiedenen Bereichen mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · WR Trainer</footer>
-</div>
 
-<!-- ====== FRENCH MODULE SCREEN ====== -->
-<div id="module-screen-french" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
-      <h1 style="margin-top:.3rem">Französisch <span style="color:var(--accent-fr)">Trainer</span></h1>
+  <!-- ====== FRENCH MODULE SCREEN ====== -->
+  <div id="module-screen-french" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
+        <h1 style="margin-top:.3rem">Französisch <span style="color:var(--accent-fr)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoFr" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnFr"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoFr" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnFr" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card french" href="francais-mediation.html">
+        <div class="module-icon">🌍</div>
+        <div class="module-title">Sprachmittlung</div>
+        <div class="module-desc">Deutschen Quelltext lesen und auf Französisch vermitteln – mit KI-Bewertung nach
+          ISB-Raster.</div>
+        <div class="module-badge">Prüfungsteil C</div>
+      </a>
+      <a class="module-card french" href="francais-schreiben.html">
+        <div class="module-icon">✍️</div>
+        <div class="module-title">Textproduktion</div>
+        <div class="module-desc">Französischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.
+        </div>
+        <div class="module-badge">Prüfungsteil B</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Französisch Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card french" href="francais-mediation.html">
-      <div class="module-icon">🌍</div>
-      <div class="module-title">Sprachmittlung</div>
-      <div class="module-desc">Deutschen Quelltext lesen und auf Französisch vermitteln – mit KI-Bewertung nach ISB-Raster.</div>
-      <div class="module-badge">Prüfungsteil C</div>
-    </a>
-    <a class="module-card french" href="francais-schreiben.html">
-      <div class="module-icon">✍️</div>
-      <div class="module-title">Textproduktion</div>
-      <div class="module-desc">Französischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.</div>
-      <div class="module-badge">Prüfungsteil B</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Französisch Trainer</footer>
-</div>
 
-<!-- ====== ITALIAN MODULE SCREEN ====== -->
-<div id="module-screen-italian" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
-      <h1 style="margin-top:.3rem">Italienisch <span style="color:var(--accent-it)">Trainer</span></h1>
+  <!-- ====== ITALIAN MODULE SCREEN ====== -->
+  <div id="module-screen-italian" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
+        <h1 style="margin-top:.3rem">Italienisch <span style="color:var(--accent-it)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoIt" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnIt"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoIt" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnIt" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card italian" href="italiano-mediation.html">
+        <div class="module-icon">🌍</div>
+        <div class="module-title">Sprachmittlung</div>
+        <div class="module-desc">Deutschen Quelltext lesen und auf Italienisch vermitteln – mit KI-Bewertung nach
+          ISB-Raster.</div>
+        <div class="module-badge">Prüfungsteil C</div>
+      </a>
+      <a class="module-card italian" href="italiano-schreiben.html">
+        <div class="module-icon">✍️</div>
+        <div class="module-title">Textproduktion</div>
+        <div class="module-desc">Italienischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.
+        </div>
+        <div class="module-badge">Prüfungsteil B</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Italienisch Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card italian" href="italiano-mediation.html">
-      <div class="module-icon">🌍</div>
-      <div class="module-title">Sprachmittlung</div>
-      <div class="module-desc">Deutschen Quelltext lesen und auf Italienisch vermitteln – mit KI-Bewertung nach ISB-Raster.</div>
-      <div class="module-badge">Prüfungsteil C</div>
-    </a>
-    <a class="module-card italian" href="italiano-schreiben.html">
-      <div class="module-icon">✍️</div>
-      <div class="module-title">Textproduktion</div>
-      <div class="module-desc">Italienischen Text analysieren, Stellungnahme oder gestaltendes Schreiben verfassen.</div>
-      <div class="module-badge">Prüfungsteil B</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Italienisch Trainer</footer>
-</div>
 
-<!-- ====== ETHIK MODULE SCREEN ====== -->
-<div id="module-screen-ethik" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Ethik <span style="color:var(--accent-eth)">Trainer</span></h1>
+  <!-- ====== ETHIK MODULE SCREEN ====== -->
+  <div id="module-screen-ethik" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Ethik <span style="color:var(--accent-eth)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoEth" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEth"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoEth" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnEth" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card ethik" href="ethik.html">
+        <div class="module-icon">🧠</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Aufgaben zu allen Lernbereichen (12/1–13/2) mit philosophischen Texten und Materialien.
+        </div>
+        <div class="module-badge">Schriftliche Prüfung</div>
+      </a>
+      <a class="module-card ethik" href="ethik-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Ethik-Prüfung simulieren – alle Teilaufgaben mit Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Ethik Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card ethik" href="ethik.html">
-      <div class="module-icon">🧠</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Aufgaben zu allen Lernbereichen (12/1–13/2) mit philosophischen Texten und Materialien.</div>
-      <div class="module-badge">Schriftliche Prüfung</div>
-    </a>
-    <a class="module-card ethik" href="ethik-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette Ethik-Prüfung simulieren – alle Teilaufgaben mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Ethik Trainer</footer>
-</div>
 
-<!-- ====== GEOGRAPHIE MODULE SCREEN ====== -->
-<div id="module-screen-geographie" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Geographie <span style="color:var(--accent-geo)">Trainer</span></h1>
+  <!-- ====== GEOGRAPHIE MODULE SCREEN ====== -->
+  <div id="module-screen-geographie" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Geographie <span style="color:var(--accent-geo)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoGeo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGeo"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoGeo" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnGeo" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card geographie" href="geographie.html">
+        <div class="module-icon">🌍</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Karten, Statistiken und
+          Texte.</div>
+        <div class="module-badge">Schriftliche Prüfung</div>
+      </a>
+      <a class="module-card geographie" href="geographie-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Geographie-Prüfung simulieren – Prüfungsteil A + B mit Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Geographie Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card geographie" href="geographie.html">
-      <div class="module-icon">🌍</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Aufgaben zu allen Halbjahren (12/1–13/2) mit Materialien – Karten, Statistiken und Texte.</div>
-      <div class="module-badge">Schriftliche Prüfung</div>
-    </a>
-    <a class="module-card geographie" href="geographie-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette Geographie-Prüfung simulieren – Prüfungsteil A + B mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Geographie Trainer</footer>
-</div>
 
-<!-- ====== LATEIN MODULE SCREEN ====== -->
-<div id="module-screen-latein" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Latein <span style="color:var(--accent-lat)">Trainer</span></h1>
+  <!-- ====== LATEIN MODULE SCREEN ====== -->
+  <div id="module-screen-latein" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Latein <span style="color:var(--accent-lat)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoLat" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnLat"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoLat" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnLat" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card latein" href="latein.html">
+        <div class="module-icon">🏺</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Übersetzung oder Interpretation lateinischer Texte – mit KI-Bewertung nach
+          ISB-Kriterien.</div>
+        <div class="module-badge">Schriftliche Prüfung</div>
+      </a>
+      <a class="module-card latein" href="latein-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Lateinprüfung simulieren – Übersetzung + Aufgabenteil mit Gesamtbewertung.
+        </div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Latein Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card latein" href="latein.html">
-      <div class="module-icon">🏺</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Übersetzung oder Interpretation lateinischer Texte – mit KI-Bewertung nach ISB-Kriterien.</div>
-      <div class="module-badge">Schriftliche Prüfung</div>
-    </a>
-    <a class="module-card latein" href="latein-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Komplette Lateinprüfung simulieren – Übersetzung + Aufgabenteil mit Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Latein Trainer</footer>
-</div>
 
-<!-- ====== MATHEMATIK MODULE SCREEN ====== -->
-<div id="module-screen-mathe" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Mathematik <span style="color:var(--accent-mat)">Trainer</span></h1>
+  <!-- ====== MATHEMATIK MODULE SCREEN ====== -->
+  <div id="module-screen-mathe" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Mathematik <span style="color:var(--accent-mat)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoMat" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnMat"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoMat" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnMat" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card mathe" href="mathe.html">
+        <div class="module-icon">📐</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Kurz- und Langaufgaben aus Analysis, Stochastik und Geometrie – mit BE-Bewertung und
+          KaTeX-Formeln.</div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+      <a class="module-card mathe" href="mathe-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Vollständige Mathe-Prüfung — Teil A (ohne CAS) + Teil B (mit CAS) mit 100 BE
+          Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung · 300 min</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Mathematik Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card mathe" href="mathe.html">
-      <div class="module-icon">📐</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Kurz- und Langaufgaben aus Analysis, Stochastik und Geometrie – mit BE-Bewertung und KaTeX-Formeln.</div>
-      <div class="module-badge">Einzelaufgabe</div>
-    </a>
-    <a class="module-card mathe" href="mathe-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Vollständige Mathe-Prüfung — Teil A (ohne CAS) + Teil B (mit CAS) mit 100 BE Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung · 300 min</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Mathematik Trainer</footer>
-</div>
 
-<!-- ====== CHEMIE MODULE SCREEN ====== -->
-<div id="module-screen-chemie" style="display:none;min-height:100vh;flex-direction:column">
-  <div class="module-header">
-    <div>
-      <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Chemie <span style="color:var(--accent-che)">Trainer</span></h1>
+  <!-- ====== CHEMIE MODULE SCREEN ====== -->
+  <div id="module-screen-chemie" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Chemie <span style="color:var(--accent-che)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoChe" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnChe"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
     </div>
-    <div class="header-right">
-      <span id="userInfoChe" style="font-size:.85rem;color:var(--ink-muted)"></span>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtnChe" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
     </div>
-  </div>
-  <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
-    <div class="level-pill">
-      <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
-      <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio" aria-checked="true">eA</button>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card chemie" href="chemie.html">
+        <div class="module-icon">🧪</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Kurz- und Langaufgaben aus Elektrochemie, Organik, Thermochemie und mehr — mit
+          BE-Bewertung.</div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+      <a class="module-card chemie" href="chemie-abitur.html">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Vollständige Chemie-Prüfung — 4 Aufgabengruppen (3 wählen) mit Material und
+          Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Prüfung</div>
+      </a>
     </div>
+    <footer>© 2026 myAbiFlow · Chemie Trainer</footer>
   </div>
-  <div class="greeting-bar">Was möchtest du üben?</div>
-  <div class="module-grid">
-    <a class="module-card chemie" href="chemie.html">
-      <div class="module-icon">🧪</div>
-      <div class="module-title">Klausurtraining</div>
-      <div class="module-desc">Kurz- und Langaufgaben aus Elektrochemie, Organik, Thermochemie und mehr — mit BE-Bewertung.</div>
-      <div class="module-badge">Einzelaufgabe</div>
-    </a>
-    <a class="module-card chemie" href="chemie-abitur.html">
-      <div class="module-icon">📝</div>
-      <div class="module-title">Abiturtraining</div>
-      <div class="module-desc">Vollständige Chemie-Prüfung — 4 Aufgabengruppen (3 wählen) mit Material und Gesamtbewertung.</div>
-      <div class="module-badge">Komplette Prüfung</div>
-    </a>
-  </div>
-  <footer>© 2026 myAbiFlow · Chemie Trainer</footer>
-</div>
 
-<script>
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
-let loginMode = "login";
+  <script>
+    const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+    let loginMode = "login";
 
-/* ====== ABITUR DATES Bayern 2026 (#14) ====== */
-const ABITUR_DATES = {
-  chemie:     "2026-04-24",
-  german:     "2026-04-28",
-  english:    "2026-04-30",
-  mathe:      "2026-05-06",
-  french:     "2026-05-08",
-  history:    { gA: "2026-05-11", eA: "2026-05-13" },
-  pug:        { gA: "2026-05-11", eA: "2026-05-13" },
-  wr:         { gA: "2026-05-11", eA: "2026-05-13" },
-  italian:    { gA: "2026-05-11", eA: "2026-05-13" },
-  ethik:      { gA: "2026-05-11", eA: "2026-05-13" },
-  geographie: { gA: "2026-05-11", eA: "2026-05-13" },
-  latein:     { gA: "2026-05-11", eA: "2026-05-13" }
-};
+    /* ====== ABITUR DATES Bayern 2026 (#14) ====== */
+    const ABITUR_DATES = {
+      chemie: "2026-04-24",
+      german: "2026-04-28",
+      english: "2026-04-30",
+      mathe: "2026-05-06",
+      french: "2026-05-08",
+      history: { gA: "2026-05-11", eA: "2026-05-13" },
+      pug: { gA: "2026-05-11", eA: "2026-05-13" },
+      wr: { gA: "2026-05-11", eA: "2026-05-13" },
+      italian: { gA: "2026-05-11", eA: "2026-05-13" },
+      ethik: { gA: "2026-05-11", eA: "2026-05-13" },
+      geographie: { gA: "2026-05-11", eA: "2026-05-13" },
+      latein: { gA: "2026-05-11", eA: "2026-05-13" }
+    };
 
-const SUBJECT_TYPES = {
-  english: ["mediation","writing"],
-  german: ["deutsch-interpretation","deutsch-analyse","deutsch-eroerterung","deutsch-materialgestützt"],
-  history: ["geschichte","geschichte-abitur"],
-  pug: ["pug-klausur","pug-abitur"],
-  wr: ["wr","wr-abitur"],
-  french: ["french-mediation","french-writing"],
-  italian: ["italian-mediation","italian-writing"],
-  ethik: ["ethik","ethik-abitur"],
-  geographie: ["geographie","geographie-abitur"],
-  latein: ["latein","latein-abitur"],
-  mathe: ["mathe","mathe-abitur"],
-  chemie: ["chemie","chemie-abitur"]
-};
+    const SUBJECT_TYPES = {
+      english: ["mediation", "writing"],
+      german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestützt"],
+      history: ["geschichte", "geschichte-abitur"],
+      pug: ["pug-klausur", "pug-abitur"],
+      wr: ["wr", "wr-abitur"],
+      french: ["french-mediation", "french-writing"],
+      italian: ["italian-mediation", "italian-writing"],
+      ethik: ["ethik", "ethik-abitur"],
+      geographie: ["geographie", "geographie-abitur"],
+      latein: ["latein", "latein-abitur"],
+      mathe: ["mathe", "mathe-abitur"],
+      chemie: ["chemie", "chemie-abitur"]
+    };
 
-/* ====== COUNTDOWN (#14) ====== */
-function getExamDate(subject) {
-  var d = ABITUR_DATES[subject];
-  if (!d) return null;
-  if (typeof d === "string") return new Date(d + "T00:00:00");
-  var lvl = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-  return new Date((d[lvl] || d.eA) + "T00:00:00");
-}
-
-function daysUntil(date) {
-  var now = new Date(); now.setHours(0,0,0,0);
-  return Math.ceil((date - now) / 86400000);
-}
-
-function renderCountdowns() {
-  var level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-  var allDates = [];
-  var isVisible = localStorage.getItem("countdown_visible") === "1";
-
-  document.querySelectorAll(".subject-countdown[data-subject]").forEach(function(el) {
-    var subj = el.dataset.subject;
-    var examDate = getExamDate(subj);
-    if (!examDate) { el.textContent = ""; return; }
-    var days = daysUntil(examDate);
-    if (days > 0) {
-      allDates.push(days);
-      el.textContent = "in " + days + (days === 1 ? " Tag" : " Tagen");
-      el.className = "subject-countdown" + (days <= 14 ? " soon" : "");
-    } else if (days === 0) {
-      el.textContent = "Heute!";
-      el.className = "subject-countdown soon";
-    } else {
-      el.textContent = "abgeschlossen";
-      el.className = "subject-countdown done";
+    /* ====== COUNTDOWN (#14) ====== */
+    function getExamDate(subject) {
+      var d = ABITUR_DATES[subject];
+      if (!d) return null;
+      if (typeof d === "string") return new Date(d + "T00:00:00");
+      var lvl = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+      return new Date((d[lvl] || d.eA) + "T00:00:00");
     }
-  });
 
-  var bar = document.getElementById("countdownBar");
-  var toggle = document.getElementById("countdownToggle");
-  var grid = document.querySelector(".subject-grid");
+    function daysUntil(date) {
+      var now = new Date(); now.setHours(0, 0, 0, 0);
+      return Math.ceil((date - now) / 86400000);
+    }
 
-  if (isVisible) {
-    toggle.style.display = "none";
-    grid.classList.add("countdown-active");
-    if (allDates.length) {
-      var minDays = Math.min.apply(null, allDates);
-      if (minDays > 0) {
-        bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Countdown ausblenden" title="Countdown ausblenden">&times;</button><div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur n\u00e4chsten Pr\u00fcfung</div>';
-        bar.style.display = "";
+    function renderCountdowns() {
+      var level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+      var allDates = [];
+      var isVisible = localStorage.getItem("countdown_visible") === "1";
+
+      document.querySelectorAll(".subject-countdown[data-subject]").forEach(function (el) {
+        var subj = el.dataset.subject;
+        var examDate = getExamDate(subj);
+        if (!examDate) { el.textContent = ""; return; }
+        var days = daysUntil(examDate);
+        if (days > 0) {
+          allDates.push(days);
+          el.textContent = "in " + days + (days === 1 ? " Tag" : " Tagen");
+          el.className = "subject-countdown" + (days <= 14 ? " soon" : "");
+        } else if (days === 0) {
+          el.textContent = "Heute!";
+          el.className = "subject-countdown soon";
+        } else {
+          el.textContent = "abgeschlossen";
+          el.className = "subject-countdown done";
+        }
+      });
+
+      var bar = document.getElementById("countdownBar");
+      var toggle = document.getElementById("countdownToggle");
+      var grid = document.querySelector(".subject-grid");
+
+      if (isVisible) {
+        toggle.style.display = "none";
+        grid.classList.add("countdown-active");
+        if (allDates.length) {
+          var minDays = Math.min.apply(null, allDates);
+          if (minDays > 0) {
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Countdown ausblenden" title="Countdown ausblenden">&times;</button><div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur n\u00e4chsten Pr\u00fcfung</div>';
+            bar.style.display = "";
+          } else {
+            bar.style.display = "none";
+          }
+        }
       } else {
         bar.style.display = "none";
+        grid.classList.remove("countdown-active");
+        if (allDates.length) {
+          toggle.style.display = "";
+        } else {
+          toggle.style.display = "none";
+        }
       }
     }
-  } else {
-    bar.style.display = "none";
-    grid.classList.remove("countdown-active");
-    if (allDates.length) {
-      toggle.style.display = "";
-    } else {
-      toggle.style.display = "none";
+
+    function enableCountdown() {
+      localStorage.setItem("countdown_visible", "1");
+      renderCountdowns();
     }
-  }
-}
 
-function enableCountdown() {
-  localStorage.setItem("countdown_visible", "1");
-  renderCountdowns();
-}
-
-function disableCountdown() {
-  localStorage.setItem("countdown_visible", "0");
-  renderCountdowns();
-}
-
-/* ====== PROGRESS DASHBOARD (#8) ====== */
-var studentResults = null;
-
-function loadStudentProgress() {
-  var name = sessionStorage.getItem("student_name");
-  var token = sessionStorage.getItem("access_token");
-  if (!name || !token) return;
-
-  fetch(API_BASE + "/api/student-results", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Access-Token": token },
-    body: JSON.stringify({ student_name: name })
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
-    if (data.results) {
-      studentResults = data.results;
-      renderProgressBar(data.results);
-      renderLastActivity(data.results);
+    function disableCountdown() {
+      localStorage.setItem("countdown_visible", "0");
+      renderCountdowns();
     }
-  })
-  .catch(function() {});
-}
 
-function renderProgressBar(results) {
-  var bar = document.getElementById("progressBar");
-  if (!results.length) { bar.style.display = "none"; return; }
+    /* ====== PROGRESS DASHBOARD (#8) ====== */
+    var studentResults = null;
 
-  bar.style.display = "";
-  document.getElementById("pStatTotal").textContent = results.length;
+    function loadStudentProgress() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
 
-  var totals = results.map(function(r) { return r.total; }).filter(function(t) { return t != null; });
-  if (totals.length) {
-    var avg = totals.reduce(function(a,b) { return a+b; }, 0) / totals.length;
-    document.getElementById("pStatAvg").textContent = avg.toFixed(1);
-  }
+      fetch(API_BASE + "/api/student-results", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.results) {
+            studentResults = data.results;
+            renderProgressBar(data.results);
+            renderLastActivity(data.results);
+          }
+        })
+        .catch(function () { });
+    }
 
-  // Streak calculation
-  var dates = results.map(function(r) {
-    return new Date(r.date).toISOString().slice(0,10);
-  });
-  var unique = [];
-  dates.forEach(function(d) { if (unique.indexOf(d) === -1) unique.push(d); });
-  unique.sort().reverse();
+    function renderProgressBar(results) {
+      var bar = document.getElementById("progressBar");
+      if (!results.length) { bar.style.display = "none"; return; }
 
-  var streak = 0;
-  var today = new Date(); today.setHours(0,0,0,0);
-  var check = new Date(today);
+      bar.style.display = "";
+      document.getElementById("pStatTotal").textContent = results.length;
 
-  for (var i = 0; i < unique.length; i++) {
-    var d = unique[i];
-    var checkStr = check.toISOString().slice(0,10);
-    if (d === checkStr) {
-      streak++;
-      check.setDate(check.getDate() - 1);
-    } else {
-      // Allow skipping today if no activity yet
-      if (i === 0 && streak === 0) {
-        check.setDate(check.getDate() - 1);
-        if (d === check.toISOString().slice(0,10)) {
+      var totals = results.map(function (r) { return r.total; }).filter(function (t) { return t != null; });
+      if (totals.length) {
+        var avg = totals.reduce(function (a, b) { return a + b; }, 0) / totals.length;
+        document.getElementById("pStatAvg").textContent = avg.toFixed(1);
+      }
+
+      // Streak calculation
+      var dates = results.map(function (r) {
+        return new Date(r.date).toISOString().slice(0, 10);
+      });
+      var unique = [];
+      dates.forEach(function (d) { if (unique.indexOf(d) === -1) unique.push(d); });
+      unique.sort().reverse();
+
+      var streak = 0;
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var check = new Date(today);
+
+      for (var i = 0; i < unique.length; i++) {
+        var d = unique[i];
+        var checkStr = check.toISOString().slice(0, 10);
+        if (d === checkStr) {
           streak++;
           check.setDate(check.getDate() - 1);
-        } else break;
-      } else break;
-    }
-  }
-  document.getElementById("pStatStreak").textContent = streak;
-}
-
-function renderLastActivity(results) {
-  Object.keys(SUBJECT_TYPES).forEach(function(subj) {
-    var types = SUBJECT_TYPES[subj];
-    var matching = results.filter(function(r) { return types.indexOf(r.type) !== -1; });
-    var el = document.querySelector("[data-activity='" + subj + "']");
-    if (!el) return;
-    if (matching.length) {
-      matching.sort(function(a,b) { return new Date(b.date) - new Date(a.date); });
-      var last = new Date(matching[0].date);
-      var daysDiff = Math.floor((Date.now() - last) / 86400000);
-      if (daysDiff === 0) el.textContent = "Heute ge\u00fcbt";
-      else if (daysDiff === 1) el.textContent = "Gestern ge\u00fcbt";
-      else el.textContent = "Vor " + daysDiff + " Tagen";
-    } else {
-      el.textContent = "";
-    }
-  });
-}
-
-/* ====== LOGIN ====== */
-function setLoginMode(mode) {
-  loginMode = mode;
-  document.getElementById("modeLogin").classList.toggle("active", mode === "login");
-  document.getElementById("modeRegister").classList.toggle("active", mode === "register");
-  document.getElementById("modeLogin").setAttribute("aria-selected", mode === "login");
-  document.getElementById("modeRegister").setAttribute("aria-selected", mode === "register");
-  document.getElementById("loginBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
-  document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
-  document.getElementById("personalPassword").placeholder = mode === "register" ? "Eigenes Passwort w\u00e4hlen \u2026" : "Dein Passwort \u2026";
-  document.getElementById("loginError").style.display = "none";
-}
-
-async function doLogin() {
-  var name = document.getElementById("studentName").value.trim();
-  var personalPw = document.getElementById("personalPassword").value;
-  var err = document.getElementById("loginError");
-  var btn = document.getElementById("loginBtn");
-
-  if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
-  if (!personalPw || personalPw.length < 4) { err.textContent = "Passwort muss mindestens 4 Zeichen haben."; err.style.display = "block"; return; }
-
-  var level = sessionStorage.getItem("student_level") || "eA";
-  var body = { student_name: name, personal_password: personalPw, mode: loginMode, level: level };
-
-  if (loginMode === "register") {
-    var confirmPw = document.getElementById("personalPasswordConfirm").value;
-    var classPw = document.getElementById("classPassword").value.trim();
-    if (personalPw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
-    if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
-    body.password = classPw;
-  }
-
-  btn.disabled = true;
-  btn.textContent = "Pr\u00fcfe \u2026";
-  err.style.display = "none";
-
-  try {
-    var res = await fetch(API_BASE + "/api/check-student", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-    var data = await res.json();
-
-    if (data.success) {
-      sessionStorage.setItem("access", "1");
-      sessionStorage.setItem("access_token", data.token);
-      sessionStorage.setItem("student_name", name);
-      if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
-      showSubjectSelection();
-      loadStudentProgress();
-      history.replaceState({ screen: "subjects" }, "");
-      // Start onboarding if first time
-      if (!localStorage.getItem("onboarding_done")) {
-        setTimeout(startOnboarding, 600);
+        } else {
+          // Allow skipping today if no activity yet
+          if (i === 0 && streak === 0) {
+            check.setDate(check.getDate() - 1);
+            if (d === check.toISOString().slice(0, 10)) {
+              streak++;
+              check.setDate(check.getDate() - 1);
+            } else break;
+          } else break;
+        }
       }
-    } else {
-      err.textContent = data.error || "Fehler bei der Anmeldung.";
-      err.style.display = "block";
-    }
-  } catch (e) {
-    err.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
-    err.style.display = "block";
-  }
-
-  btn.disabled = false;
-  btn.textContent = loginMode === "register" ? "Registrieren" : "Anmelden";
-}
-
-function showSubjectSelection(_push) {
-  document.getElementById("login-screen").style.display = "none";
-  document.getElementById("subject-screen").style.display = "flex";
-  document.getElementById("module-screen-english").style.display = "none";
-  document.getElementById("module-screen-german").style.display = "none";
-  document.getElementById("module-screen-history").style.display = "none";
-  document.getElementById("module-screen-pug").style.display = "none";
-  document.getElementById("module-screen-wr").style.display = "none";
-  document.getElementById("module-screen-french").style.display = "none";
-  document.getElementById("module-screen-italian").style.display = "none";
-  document.getElementById("module-screen-ethik").style.display = "none";
-  document.getElementById("module-screen-geographie").style.display = "none";
-  document.getElementById("module-screen-latein").style.display = "none";
-  document.getElementById("module-screen-mathe").style.display = "none";
-  document.getElementById("module-screen-chemie").style.display = "none";
-  sessionStorage.removeItem("current_subject");
-
-  var name = sessionStorage.getItem("student_name") || "";
-  document.getElementById("greetName").textContent = name;
-  document.getElementById("userInfo").textContent = name;
-  renderCountdowns();
-  if (_push) history.pushState({ screen: "subjects" }, "");
-}
-
-function selectSubject(subject, _push) {
-  sessionStorage.setItem("current_subject", subject);
-  document.getElementById("subject-screen").style.display = "none";
-
-  var name = sessionStorage.getItem("student_name") || "";
-  var level = (sessionStorage.getItem("student_level") || "eA").toUpperCase();
-  var info = name + " \u00b7 " + level;
-
-  var screenMap = {
-    english: "module-screen-english", history: "module-screen-history",
-    pug: "module-screen-pug", wr: "module-screen-wr",
-    french: "module-screen-french", italian: "module-screen-italian",
-    ethik: "module-screen-ethik", geographie: "module-screen-geographie",
-    latein: "module-screen-latein", mathe: "module-screen-mathe",
-    chemie: "module-screen-chemie", german: "module-screen-german"
-  };
-  var infoMap = {
-    english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
-    wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
-    ethik: "userInfoEth", geographie: "userInfoGeo", latein: "userInfoLat",
-    mathe: "userInfoMat", chemie: "userInfoChe", german: "userInfoDe"
-  };
-
-  var screenId = screenMap[subject] || screenMap.german;
-  var infoId = infoMap[subject] || infoMap.german;
-
-  var currentLevel = sessionStorage.getItem("student_level") || "eA";
-  document.getElementById(screenId).style.display = "flex";
-  document.getElementById(screenId).setAttribute("data-level-bg", currentLevel);
-  document.getElementById(infoId).textContent = info;
-
-  document.querySelectorAll("#" + screenId + " .level-btn").forEach(function(btn) {
-    btn.classList.toggle("active", btn.dataset.level === currentLevel);
-    btn.setAttribute("aria-checked", btn.dataset.level === currentLevel);
-  });
-
-  if (_push) history.pushState({ screen: "module-" + subject }, "");
-}
-
-function setLevel(lvl) {
-  sessionStorage.setItem("student_level", lvl);
-  var name = sessionStorage.getItem("student_name") || "";
-  var info = name + " \u00b7 " + lvl.toUpperCase();
-  document.querySelectorAll("[id^='userInfo']").forEach(function(el) { if (el.textContent.indexOf("\u00b7") !== -1) el.textContent = info; });
-  document.querySelectorAll(".level-btn").forEach(function(btn) {
-    btn.classList.toggle("active", btn.dataset.level === lvl);
-    btn.setAttribute("aria-checked", btn.dataset.level === lvl);
-  });
-  document.querySelectorAll("[id^='module-screen-']").forEach(function(el) {
-    if (el.style.display === "flex") el.setAttribute("data-level-bg", lvl);
-  });
-  renderCountdowns();
-}
-
-function logout() {
-  sessionStorage.clear();
-  document.getElementById("subject-screen").style.display = "none";
-  document.querySelectorAll("[id^='module-screen-']").forEach(function(el) { el.style.display = "none"; });
-  document.getElementById("login-screen").style.display = "flex";
-  document.getElementById("studentName").value = "";
-  document.getElementById("personalPassword").value = "";
-  studentResults = null;
-  document.getElementById("progressBar").style.display = "none";
-}
-
-function toggleDark() {
-  var d = document.documentElement.getAttribute("data-theme") === "dark";
-  document.documentElement.setAttribute("data-theme", d ? "light" : "dark");
-  localStorage.setItem("theme", d ? "light" : "dark");
-  document.querySelectorAll(".theme-toggle").forEach(function(btn) { btn.textContent = d ? "\uD83C\uDF19" : "\u2600\uFE0F"; });
-}
-
-function initTheme() {
-  var s = localStorage.getItem("theme");
-  var p = window.matchMedia("(prefers-color-scheme:dark)").matches;
-  var t = s || (p ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", t);
-  document.querySelectorAll(".theme-toggle").forEach(function(btn) { btn.textContent = t === "dark" ? "\u2600\uFE0F" : "\uD83C\uDF19"; });
-}
-
-function checkSession() {
-  initTheme();
-
-  var urlParams = new URLSearchParams(window.location.search);
-  var backTo = urlParams.get("back");
-
-  if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    document.getElementById("login-screen").style.display = "none";
-
-    var validSubjects = ["german","english","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
-    if (backTo && validSubjects.indexOf(backTo) !== -1) {
-      selectSubject(backTo);
-    } else if (backTo === "subjects") {
-      showSubjectSelection();
-    } else {
-      var lastSubject = sessionStorage.getItem("current_subject");
-      if (lastSubject) selectSubject(lastSubject);
-      else showSubjectSelection();
+      document.getElementById("pStatStreak").textContent = streak;
     }
 
-    var subject = sessionStorage.getItem("current_subject");
-    var state = { screen: subject ? "module-" + subject : "subjects" };
-    if (backTo) {
-      history.replaceState(state, "", window.location.pathname);
-    } else {
-      history.replaceState(state, "");
+    function renderLastActivity(results) {
+      Object.keys(SUBJECT_TYPES).forEach(function (subj) {
+        var types = SUBJECT_TYPES[subj];
+        var matching = results.filter(function (r) { return types.indexOf(r.type) !== -1; });
+        var el = document.querySelector("[data-activity='" + subj + "']");
+        if (!el) return;
+        if (matching.length) {
+          matching.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+          var last = new Date(matching[0].date);
+          var daysDiff = Math.floor((Date.now() - last) / 86400000);
+          if (daysDiff === 0) el.textContent = "Heute ge\u00fcbt";
+          else if (daysDiff === 1) el.textContent = "Gestern ge\u00fcbt";
+          else el.textContent = "Vor " + daysDiff + " Tagen";
+        } else {
+          el.textContent = "";
+        }
+      });
     }
 
-    loadStudentProgress();
-  }
-}
+    /* ====== LOGIN ====== */
+    function setLoginMode(mode) {
+      loginMode = mode;
+      document.getElementById("modeLogin").classList.toggle("active", mode === "login");
+      document.getElementById("modeRegister").classList.toggle("active", mode === "register");
+      document.getElementById("modeLogin").setAttribute("aria-selected", mode === "login");
+      document.getElementById("modeRegister").setAttribute("aria-selected", mode === "register");
+      document.getElementById("loginBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
+      document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
+      document.getElementById("personalPassword").placeholder = mode === "register" ? "Eigenes Passwort w\u00e4hlen \u2026" : "Dein Passwort \u2026";
+      document.getElementById("loginError").style.display = "none";
+    }
 
-/* ====== ONBOARDING TOUR (#10) ====== */
-var tourSteps = [
-  { type: "welcome", title: "Willkommen bei myAbiFlow!", text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert." },
-  { target: ".subject-grid", title: "Deine F\u00e4cher", text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.", pos: "top" },
-  { target: "#countdownToggle", title: "Pr\u00fcfungs-Countdown", text: "Wenn du m\u00f6chtest, kannst du hier einen Countdown bis zu deinen Pr\u00fcfungen einblenden.", pos: "bottom" },
-  { target: "#progressBar", title: "Dein Fortschritt", text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen \u00dcbungs-Streak.", pos: "bottom" },
-  { target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos: "left" }
-];
-var tourIndex = 0;
+    async function doLogin() {
+      var name = document.getElementById("studentName").value.trim();
+      var personalPw = document.getElementById("personalPassword").value;
+      var err = document.getElementById("loginError");
+      var btn = document.getElementById("loginBtn");
 
-function startOnboarding() {
-  if (localStorage.getItem("onboarding_done")) return;
-  tourIndex = 0;
-  showTourStep();
-}
+      if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
+      if (!personalPw || personalPw.length < 4) { err.textContent = "Passwort muss mindestens 4 Zeichen haben."; err.style.display = "block"; return; }
 
-function showTourStep() {
-  // Remove existing tour elements
-  document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function(el) { el.remove(); });
+      var level = sessionStorage.getItem("student_level") || "eA";
+      var body = { student_name: name, personal_password: personalPw, mode: loginMode, level: level };
 
-  if (tourIndex >= tourSteps.length) {
-    localStorage.setItem("onboarding_done", "1");
-    return;
-  }
+      if (loginMode === "register") {
+        var confirmPw = document.getElementById("personalPasswordConfirm").value;
+        var classPw = document.getElementById("classPassword").value.trim();
+        if (personalPw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
+        if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
+        body.password = classPw;
+      }
 
-  var step = tourSteps[tourIndex];
-  var dotsHtml = '<div class="tour-dots">';
-  for (var i = 0; i < tourSteps.length; i++) {
-    dotsHtml += '<span class="tour-dot' + (i === tourIndex ? ' active' : '') + '"></span>';
-  }
-  dotsHtml += '</div>';
+      btn.disabled = true;
+      btn.textContent = "Pr\u00fcfe \u2026";
+      err.style.display = "none";
 
-  if (step.type === "welcome") {
-    var backdrop = document.createElement("div");
-    backdrop.className = "tour-backdrop";
-    document.body.appendChild(backdrop);
+      try {
+        var res = await fetch(API_BASE + "/api/check-student", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        var data = await res.json();
 
-    var welcome = document.createElement("div");
-    welcome.className = "tour-welcome";
-    welcome.innerHTML = '<div class="tour-welcome-box">' + dotsHtml +
-      '<h2>' + step.title + '</h2><p>' + step.text + '</p>' +
-      '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">Tour \u00fcberspringen</button>' +
-      '<button class="btn" onclick="nextTourStep()">Los geht\'s</button></div></div>';
-    document.body.appendChild(welcome);
-    return;
-  }
+        if (data.success) {
+          sessionStorage.setItem("access", "1");
+          sessionStorage.setItem("access_token", data.token);
+          sessionStorage.setItem("student_name", name);
+          if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+          showSubjectSelection();
+          loadStudentProgress();
+          history.replaceState({ screen: "subjects" }, "");
+          // Start onboarding if first time
+          if (!localStorage.getItem("onboarding_done")) {
+            setTimeout(startOnboarding, 600);
+          }
+        } else {
+          err.textContent = data.error || "Fehler bei der Anmeldung.";
+          err.style.display = "block";
+        }
+      } catch (e) {
+        err.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+        err.style.display = "block";
+      }
 
-  var target = document.querySelector(step.target);
-  if (!target || target.offsetParent === null) { tourIndex++; showTourStep(); return; }
+      btn.disabled = false;
+      btn.textContent = loginMode === "register" ? "Registrieren" : "Anmelden";
+    }
 
-  var rect = target.getBoundingClientRect();
-  var pad = 8;
+    function showSubjectSelection(_push) {
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("subject-screen").style.display = "flex";
+      document.getElementById("module-screen-english").style.display = "none";
+      document.getElementById("module-screen-german").style.display = "none";
+      document.getElementById("module-screen-history").style.display = "none";
+      document.getElementById("module-screen-pug").style.display = "none";
+      document.getElementById("module-screen-wr").style.display = "none";
+      document.getElementById("module-screen-french").style.display = "none";
+      document.getElementById("module-screen-italian").style.display = "none";
+      document.getElementById("module-screen-ethik").style.display = "none";
+      document.getElementById("module-screen-geographie").style.display = "none";
+      document.getElementById("module-screen-latein").style.display = "none";
+      document.getElementById("module-screen-mathe").style.display = "none";
+      document.getElementById("module-screen-chemie").style.display = "none";
+      sessionStorage.removeItem("current_subject");
 
-  // Spotlight
-  var spotlight = document.createElement("div");
-  spotlight.className = "tour-spotlight";
-  spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
-  spotlight.style.left = (rect.left - pad) + "px";
-  spotlight.style.width = (rect.width + pad * 2) + "px";
-  spotlight.style.height = (rect.height + pad * 2) + "px";
-  document.body.appendChild(spotlight);
+      var name = sessionStorage.getItem("student_name") || "";
+      document.getElementById("greetName").textContent = name;
+      document.getElementById("userInfo").textContent = name;
+      renderCountdowns();
+      if (_push) history.pushState({ screen: "subjects" }, "");
+    }
 
-  // Tooltip
-  var tooltip = document.createElement("div");
-  tooltip.className = "tour-tooltip";
-  tooltip.innerHTML = dotsHtml + '<h3>' + step.title + '</h3><p>' + step.text + '</p>' +
-    '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">\u00dcberspringen</button>' +
-    '<button class="btn btn-small" onclick="nextTourStep()">' +
-    (tourIndex === tourSteps.length - 1 ? 'Fertig' : 'Weiter') + '</button></div>';
+    function selectSubject(subject, _push) {
+      sessionStorage.setItem("current_subject", subject);
+      document.getElementById("subject-screen").style.display = "none";
 
-  document.body.appendChild(tooltip);
+      var name = sessionStorage.getItem("student_name") || "";
+      var level = (sessionStorage.getItem("student_level") || "eA").toUpperCase();
+      var info = name + " \u00b7 " + level;
 
-  // Position tooltip
-  var pos = step.pos || "bottom";
-  var tRect = tooltip.getBoundingClientRect();
-  if (pos === "bottom") {
-    tooltip.style.top = (rect.bottom + window.scrollY + pad + 8) + "px";
-    tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-  } else if (pos === "top") {
-    tooltip.style.top = (rect.top + window.scrollY - tRect.height - pad - 8) + "px";
-    tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-  } else if (pos === "left") {
-    tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
-    tooltip.style.left = Math.max(8, rect.left - tRect.width - pad - 8) + "px";
-  }
-}
+      var screenMap = {
+        english: "module-screen-english", history: "module-screen-history",
+        pug: "module-screen-pug", wr: "module-screen-wr",
+        french: "module-screen-french", italian: "module-screen-italian",
+        ethik: "module-screen-ethik", geographie: "module-screen-geographie",
+        latein: "module-screen-latein", mathe: "module-screen-mathe",
+        chemie: "module-screen-chemie", german: "module-screen-german"
+      };
+      var infoMap = {
+        english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
+        wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
+        ethik: "userInfoEth", geographie: "userInfoGeo", latein: "userInfoLat",
+        mathe: "userInfoMat", chemie: "userInfoChe", german: "userInfoDe"
+      };
 
-function nextTourStep() {
-  tourIndex++;
-  showTourStep();
-}
+      var screenId = screenMap[subject] || screenMap.german;
+      var infoId = infoMap[subject] || infoMap.german;
 
-function endTour() {
-  document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function(el) { el.remove(); });
-  localStorage.setItem("onboarding_done", "1");
-}
+      var currentLevel = sessionStorage.getItem("student_level") || "eA";
+      document.getElementById(screenId).style.display = "flex";
+      document.getElementById(screenId).setAttribute("data-level-bg", currentLevel);
+      document.getElementById(infoId).textContent = info;
 
-// Browser back/forward between screens
-window.addEventListener("popstate", function(e) {
-  if (!e.state || !e.state.screen) return;
-  if (e.state.screen === "subjects") showSubjectSelection();
-  else if (e.state.screen.indexOf("module-") === 0) selectSubject(e.state.screen.replace("module-", ""));
-});
+      document.querySelectorAll("#" + screenId + " .level-btn").forEach(function (btn) {
+        btn.classList.toggle("active", btn.dataset.level === currentLevel);
+        btn.setAttribute("aria-checked", btn.dataset.level === currentLevel);
+      });
 
-window.onload = function() {
-  checkSession();
+      if (_push) history.pushState({ screen: "module-" + subject }, "");
+    }
 
-  // Register Service Worker (#11 PWA)
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function() {});
-  }
+    function setLevel(lvl) {
+      sessionStorage.setItem("student_level", lvl);
+      var name = sessionStorage.getItem("student_name") || "";
+      var info = name + " \u00b7 " + lvl.toUpperCase();
+      document.querySelectorAll("[id^='userInfo']").forEach(function (el) { if (el.textContent.indexOf("\u00b7") !== -1) el.textContent = info; });
+      document.querySelectorAll(".level-btn").forEach(function (btn) {
+        btn.classList.toggle("active", btn.dataset.level === lvl);
+        btn.setAttribute("aria-checked", btn.dataset.level === lvl);
+      });
+      document.querySelectorAll("[id^='module-screen-']").forEach(function (el) {
+        if (el.style.display === "flex") el.setAttribute("data-level-bg", lvl);
+      });
+      renderCountdowns();
+    }
 
-  // Splash: skip if already shown this session or reduced-motion
-  var splash = document.getElementById("splash");
-  if (!splash) return;
-  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (sessionStorage.getItem("splash_shown") || reducedMotion) {
-    splash.style.display = "none";
-    return;
-  }
-  setTimeout(function() {
-    splash.style.display = "none";
-    sessionStorage.setItem("splash_shown", "1");
-  }, 5500);
-};
+    function logout() {
+      sessionStorage.clear();
+      document.getElementById("subject-screen").style.display = "none";
+      document.querySelectorAll("[id^='module-screen-']").forEach(function (el) { el.style.display = "none"; });
+      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("studentName").value = "";
+      document.getElementById("personalPassword").value = "";
+      studentResults = null;
+      document.getElementById("progressBar").style.display = "none";
+    }
 
-// Handle bfcache restoration
-window.addEventListener("pageshow", function(e) {
-  if (e.persisted) checkSession();
-});
-</script>
+    function toggleDark() {
+      var d = document.documentElement.getAttribute("data-theme") === "dark";
+      document.documentElement.setAttribute("data-theme", d ? "light" : "dark");
+      localStorage.setItem("theme", d ? "light" : "dark");
+      document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = d ? "\uD83C\uDF19" : "\u2600\uFE0F"; });
+    }
+
+    function initTheme() {
+      var s = localStorage.getItem("theme");
+      var p = window.matchMedia("(prefers-color-scheme:dark)").matches;
+      var t = s || (p ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", t);
+      document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = t === "dark" ? "\u2600\uFE0F" : "\uD83C\uDF19"; });
+    }
+
+    function checkSession() {
+      initTheme();
+
+      var urlParams = new URLSearchParams(window.location.search);
+      var backTo = urlParams.get("back");
+
+      if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+        document.getElementById("login-screen").style.display = "none";
+
+        var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie", "latein", "mathe", "chemie"];
+        if (backTo && validSubjects.indexOf(backTo) !== -1) {
+          selectSubject(backTo);
+        } else if (backTo === "subjects") {
+          showSubjectSelection();
+        } else {
+          var lastSubject = sessionStorage.getItem("current_subject");
+          if (lastSubject) selectSubject(lastSubject);
+          else showSubjectSelection();
+        }
+
+        var subject = sessionStorage.getItem("current_subject");
+        var state = { screen: subject ? "module-" + subject : "subjects" };
+        if (backTo) {
+          history.replaceState(state, "", window.location.pathname);
+        } else {
+          history.replaceState(state, "");
+        }
+
+        loadStudentProgress();
+      }
+    }
+
+    /* ====== ONBOARDING TOUR (#10) ====== */
+    var tourSteps = [
+      { type: "welcome", title: "Willkommen bei myAbiFlow!", text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert." },
+      { target: ".subject-grid", title: "Deine F\u00e4cher", text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.", pos: "top" },
+      { target: "#countdownToggle", title: "Pr\u00fcfungs-Countdown", text: "Wenn du m\u00f6chtest, kannst du hier einen Countdown bis zu deinen Pr\u00fcfungen einblenden.", pos: "bottom" },
+      { target: "#progressBar", title: "Dein Fortschritt", text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen \u00dcbungs-Streak.", pos: "bottom" },
+      { target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos: "left" }
+    ];
+    var tourIndex = 0;
+
+    function startOnboarding() {
+      if (localStorage.getItem("onboarding_done")) return;
+      tourIndex = 0;
+      showTourStep();
+    }
+
+    function showTourStep() {
+      // Remove existing tour elements
+      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function (el) { el.remove(); });
+
+      if (tourIndex >= tourSteps.length) {
+        localStorage.setItem("onboarding_done", "1");
+        return;
+      }
+
+      var step = tourSteps[tourIndex];
+      var dotsHtml = '<div class="tour-dots">';
+      for (var i = 0; i < tourSteps.length; i++) {
+        dotsHtml += '<span class="tour-dot' + (i === tourIndex ? ' active' : '') + '"></span>';
+      }
+      dotsHtml += '</div>';
+
+      if (step.type === "welcome") {
+        var backdrop = document.createElement("div");
+        backdrop.className = "tour-backdrop";
+        document.body.appendChild(backdrop);
+
+        var welcome = document.createElement("div");
+        welcome.className = "tour-welcome";
+        welcome.innerHTML = '<div class="tour-welcome-box">' + dotsHtml +
+          '<h2>' + step.title + '</h2><p>' + step.text + '</p>' +
+          '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">Tour \u00fcberspringen</button>' +
+          '<button class="btn" onclick="nextTourStep()">Los geht\'s</button></div></div>';
+        document.body.appendChild(welcome);
+        return;
+      }
+
+      var target = document.querySelector(step.target);
+      if (!target || target.offsetParent === null) { tourIndex++; showTourStep(); return; }
+
+      var rect = target.getBoundingClientRect();
+      var pad = 8;
+
+      // Spotlight
+      var spotlight = document.createElement("div");
+      spotlight.className = "tour-spotlight";
+      spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
+      spotlight.style.left = (rect.left - pad) + "px";
+      spotlight.style.width = (rect.width + pad * 2) + "px";
+      spotlight.style.height = (rect.height + pad * 2) + "px";
+      document.body.appendChild(spotlight);
+
+      // Tooltip
+      var tooltip = document.createElement("div");
+      tooltip.className = "tour-tooltip";
+      tooltip.innerHTML = dotsHtml + '<h3>' + step.title + '</h3><p>' + step.text + '</p>' +
+        '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">\u00dcberspringen</button>' +
+        '<button class="btn btn-small" onclick="nextTourStep()">' +
+        (tourIndex === tourSteps.length - 1 ? 'Fertig' : 'Weiter') + '</button></div>';
+
+      document.body.appendChild(tooltip);
+
+      // Position tooltip
+      var pos = step.pos || "bottom";
+      var tRect = tooltip.getBoundingClientRect();
+      if (pos === "bottom") {
+        tooltip.style.top = (rect.bottom + window.scrollY + pad + 8) + "px";
+        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
+      } else if (pos === "top") {
+        tooltip.style.top = (rect.top + window.scrollY - tRect.height - pad - 8) + "px";
+        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
+      } else if (pos === "left") {
+        tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
+        tooltip.style.left = Math.max(8, rect.left - tRect.width - pad - 8) + "px";
+      }
+    }
+
+    function nextTourStep() {
+      tourIndex++;
+      showTourStep();
+    }
+
+    function endTour() {
+      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function (el) { el.remove(); });
+      localStorage.setItem("onboarding_done", "1");
+    }
+
+    // Browser back/forward between screens
+    window.addEventListener("popstate", function (e) {
+      if (!e.state || !e.state.screen) return;
+      if (e.state.screen === "subjects") showSubjectSelection();
+      else if (e.state.screen.indexOf("module-") === 0) selectSubject(e.state.screen.replace("module-", ""));
+    });
+
+    window.onload = function () {
+      checkSession();
+
+      // Register Service Worker (#11 PWA)
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(function () { });
+      }
+
+      // Splash: skip if already shown this session or reduced-motion
+      var splash = document.getElementById("splash");
+      if (!splash) return;
+      var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (sessionStorage.getItem("splash_shown") || reducedMotion) {
+        splash.style.display = "none";
+        return;
+      }
+      setTimeout(function () {
+        splash.style.display = "none";
+        sessionStorage.setItem("splash_shown", "1");
+      }, 5500);
+    };
+
+    // Handle bfcache restoration
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) checkSession();
+    });
+  </script>
 </body>
+
 </html>
