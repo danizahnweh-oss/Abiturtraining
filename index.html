@@ -7,6 +7,8 @@
   <meta name="description"
     content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
   <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -759,14 +761,69 @@
     }
 
     /* ====== SUBJECT FILTER ====== */
-    .subject-filter-bar{max-width:1000px;width:100%;margin:0 auto;padding:0 1.5rem;display:flex;justify-content:flex-end}
-    .subject-filter-btn{background:none;border:none;color:var(--ink-muted);font-size:.78rem;cursor:pointer;padding:.3rem .6rem;border-radius:var(--radius);transition:all .2s;font-family:inherit}
-    .subject-filter-btn:hover{color:var(--ink);background:var(--surface)}
-    .subject-card.subject-hidden{display:none}
-    .subject-grid.edit-mode .subject-card{position:relative;cursor:pointer}
-    .subject-grid.edit-mode .subject-card::after{content:'\2715';position:absolute;top:6px;right:6px;background:rgba(220,50,50,.85);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;z-index:5;pointer-events:none}
-    .subject-grid.edit-mode .subject-card.subject-hidden{display:flex;opacity:.35;filter:grayscale(1)}
-    .subject-grid.edit-mode .subject-card.subject-hidden::after{content:'+';background:rgba(34,120,34,.85)}
+    .subject-filter-bar {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: flex-end
+    }
+
+    .subject-filter-btn {
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      font-size: .78rem;
+      cursor: pointer;
+      padding: .3rem .6rem;
+      border-radius: var(--radius);
+      transition: all .2s;
+      font-family: inherit
+    }
+
+    .subject-filter-btn:hover {
+      color: var(--ink);
+      background: var(--surface)
+    }
+
+    .subject-card.subject-hidden {
+      display: none
+    }
+
+    .subject-grid.edit-mode .subject-card {
+      position: relative;
+      cursor: pointer
+    }
+
+    .subject-grid.edit-mode .subject-card::after {
+      content: '\2715';
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(220, 50, 50, .85);
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      z-index: 5;
+      pointer-events: none
+    }
+
+    .subject-grid.edit-mode .subject-card.subject-hidden {
+      display: flex;
+      opacity: .35;
+      filter: grayscale(1)
+    }
+
+    .subject-grid.edit-mode .subject-card.subject-hidden::after {
+      content: '+';
+      background: rgba(34, 120, 34, .85)
+    }
 
     /* ====== MODULE SCREEN ====== */
     #module-screen {
@@ -1411,7 +1468,8 @@
       </div>
     </div>
     <div class="subject-filter-bar">
-      <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer anpassen</button>
+      <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
+        anpassen</button>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" onclick="selectSubject('english', true)"
@@ -1535,8 +1593,9 @@
         <span class="subject-last-activity" data-activity="chemie"></span>
       </button>
     </div>
-    <footer>© 2026 myAbiFlow · Abitur Trainer<br><a href="dashboard.html"
-        style="opacity:.5;font-size:.75rem;">Lehrer-Dashboard →</a></footer>
+    <footer>&copy; 2026 myAbiFlow · Abitur Trainer · <a href="impressum.html">Impressum</a><br><a href="#"
+        onclick="showTeacherLogin(); return false;"
+        style="font-size:0.75rem; opacity:0.6; margin-top:0.5rem; display:inline-block;">Lehrer-Dashboard →</a></footer>
   </div>
 
   <!-- ====== ENGLISH MODULE SCREEN ====== -->
@@ -2125,7 +2184,7 @@
     /* ====== SUBJECT FILTER ====== */
     var subjectEditMode = false;
     var hiddenSubjectsCache = [];
-    var VALID_SUBJECTS = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
+    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "geographie", "latein", "mathe", "chemie"];
 
     function getSubjectKey(card) {
       var classes = card.className.split(" ");
@@ -2145,14 +2204,14 @@
         headers: { "Content-Type": "application/json", "X-Access-Token": token },
         body: JSON.stringify({ student_name: name })
       })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.success && data.preferences) {
-          hiddenSubjectsCache = data.preferences.hidden_subjects || [];
-          applySubjectFilter();
-        }
-      })
-      .catch(function() {});
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.success && data.preferences) {
+            hiddenSubjectsCache = data.preferences.hidden_subjects || [];
+            applySubjectFilter();
+          }
+        })
+        .catch(function () { });
     }
 
     function saveHiddenSubjects() {
@@ -2164,11 +2223,11 @@
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Access-Token": token },
         body: JSON.stringify({ student_name: name, hidden_subjects: hiddenSubjectsCache })
-      }).catch(function() {});
+      }).catch(function () { });
     }
 
     function applySubjectFilter() {
-      document.querySelectorAll(".subject-card").forEach(function(card) {
+      document.querySelectorAll(".subject-card").forEach(function (card) {
         var subj = getSubjectKey(card);
         if (subj && hiddenSubjectsCache.indexOf(subj) !== -1) {
           card.classList.add("subject-hidden");
@@ -2186,14 +2245,14 @@
       if (subjectEditMode) {
         grid.classList.add("edit-mode");
         btn.textContent = "✅ Fertig";
-        document.querySelectorAll(".subject-card").forEach(function(card) {
+        document.querySelectorAll(".subject-card").forEach(function (card) {
           card.setAttribute("data-orig-onclick", card.getAttribute("onclick") || "");
           card.setAttribute("onclick", "toggleSubjectVisibility(this); return false;");
         });
       } else {
         grid.classList.remove("edit-mode");
         btn.textContent = "✏️ Fächer anpassen";
-        document.querySelectorAll(".subject-card").forEach(function(card) {
+        document.querySelectorAll(".subject-card").forEach(function (card) {
           card.setAttribute("onclick", card.getAttribute("data-orig-onclick") || "");
         });
         applySubjectFilter();
@@ -2400,7 +2459,15 @@
       else greet = "Guten Abend";
 
       var greetEl = document.getElementById("greetingText");
-      if (greetEl) greetEl.innerHTML = greet + ", <span style='color:var(--accent)'>" + name + "</span>!";
+      if (greetEl) {
+        greetEl.textContent = "";
+        greetEl.appendChild(document.createTextNode(greet + ", "));
+        var accentSpan = document.createElement("span");
+        accentSpan.style.color = "var(--accent)";
+        accentSpan.textContent = name;
+        greetEl.appendChild(accentSpan);
+        greetEl.appendChild(document.createTextNode("!"));
+      }
 
       var uInfo = document.getElementById("userInfo");
       if (uInfo) uInfo.textContent = name;
