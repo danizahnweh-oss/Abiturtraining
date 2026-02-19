@@ -5,15 +5,15 @@
  * Wird automatisch beim Laden aufgerufen, prüft aber auf gültige Session.
  */
 function initAiTutor() {
-    if (document.getElementById("ai-tutor-widget")) return;
+  if (document.getElementById("ai-tutor-widget")) return;
 
-    // 1. Session Check (optional hier, aber gut für Sicherheit)
-    // Wir zeigen das Widget erst an, wenn ein Name da ist.
-    const name = sessionStorage.getItem("student_name");
+  // 1. Session Check (optional hier, aber gut für Sicherheit)
+  // Wir zeigen das Widget erst an, wenn ein Name da ist.
+  const name = sessionStorage.getItem("student_name");
 
-    // 2. Inject Styles
-    const style = document.createElement("style");
-    style.textContent = `
+  // 2. Inject Styles
+  const style = document.createElement("style");
+  style.textContent = `
     /* AI Widget Styles */
     #ai-tutor-widget {
       position: fixed;
@@ -129,12 +129,12 @@ function initAiTutor() {
       cursor: pointer;
     }
   `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 
-    // 3. Inject HTML
-    const widget = document.createElement("div");
-    widget.id = "ai-tutor-widget";
-    widget.innerHTML = `
+  // 3. Inject HTML
+  const widget = document.createElement("div");
+  widget.id = "ai-tutor-widget";
+  widget.innerHTML = `
     <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">🤖</button>
     <div id="ai-chat-window">
       <div class="ai-chat-header">
@@ -150,92 +150,107 @@ function initAiTutor() {
       </div>
     </div>
   `;
-    document.body.appendChild(widget);
+  document.body.appendChild(widget);
 
-    // 4. Initial Visibility Check
-    if (name) {
-        widget.style.display = "block";
-    }
+  // 4. Initial Visibility Check
+  if (name) {
+    widget.style.display = "block";
+  }
 }
 
 function toggleAiChat() {
-    var win = document.getElementById("ai-chat-window");
-    if (!win) return;
-    if (win.style.display === "flex") {
-        win.style.display = "none";
-    } else {
-        win.style.display = "flex";
-        setTimeout(() => {
-            const inp = document.getElementById("ai-input");
-            if (inp) inp.focus();
-        }, 100);
-    }
+  var win = document.getElementById("ai-chat-window");
+  if (!win) return;
+  if (win.style.display === "flex") {
+    win.style.display = "none";
+  } else {
+    win.style.display = "flex";
+    setTimeout(() => {
+      const inp = document.getElementById("ai-input");
+      if (inp) inp.focus();
+    }, 100);
+  }
 }
 
 function handleAiEnter(e) {
-    if (e.key === "Enter") sendAiMessage();
+  if (e.key === "Enter") sendAiMessage();
 }
 
 async function sendAiMessage() {
-    var input = document.getElementById("ai-input");
-    var text = input.value.trim();
-    if (!text) return;
+  var input = document.getElementById("ai-input");
+  var text = input.value.trim();
+  if (!text) return;
 
-    // Add user message
-    addAiMessage(text, "user");
-    input.value = "";
+  // Add user message
+  addAiMessage(text, "user");
+  input.value = "";
 
-    // Show typing indicator
-    var loadingId = addAiMessage("...", "ai");
-    var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
+  // Show typing indicator
+  var loadingId = addAiMessage("...", "ai");
+  var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
 
-    try {
-        var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: text, studentName: sName })
-        });
+  try {
+    console.log("Sending request to AI Tutor...");
+    var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: text, studentName: sName })
+    });
 
-        var data = await res.json();
-
-        // Remove loading and add AI response
-        var loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.remove();
-
-        addAiMessage(data.answer, "ai");
-
-    } catch (e) {
-        var loadingEl = document.getElementById(loadingId);
-        if (loadingEl) loadingEl.remove();
-        addAiMessage("Entschuldigung, ich habe gerade Verbindungsprobleme. 😓", "ai");
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
+
+    var data = await res.json();
+
+    // Remove loading and add AI response
+    var loadingEl = document.getElementById(loadingId);
+    if (loadingEl) loadingEl.remove();
+
+    addAiMessage(data.answer, "ai");
+
+  } catch (e) {
+    console.error("AI Tutor Error:", e);
+    var loadingEl = document.getElementById(loadingId);
+    if (loadingEl) loadingEl.remove();
+
+    // Show more specific error to user
+    let errorMsg = "Entschuldigung, ich habe gerade Verbindungsprobleme. 😓";
+    if (e.message.includes("HTTP Error")) {
+      errorMsg += ` (${e.message})`;
+    } else if (e.message.includes("Failed to fetch")) {
+      errorMsg += " (Netzwerkfehler/CORS)";
+    }
+
+    addAiMessage(errorMsg, "ai");
+  }
 }
 
 function addAiMessage(text, sender) {
-    var div = document.createElement("div");
-    div.className = "ai-message " + sender;
-    div.textContent = text;
-    var id = "msg-" + Date.now();
-    div.id = id;
+  var div = document.createElement("div");
+  div.className = "ai-message " + sender;
+  div.textContent = text;
+  var id = "msg-" + Date.now();
+  div.id = id;
 
-    var container = document.getElementById("ai-chat-messages");
-    if (container) {
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-    return id;
+  var container = document.getElementById("ai-chat-messages");
+  if (container) {
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+  return id;
 }
 
 // Auto-Init on Load if not already called
 // Use DOMContentLoaded to make sure body exists
 document.addEventListener("DOMContentLoaded", function () {
-    // If we are on a page that needs login (like tasks), we can check session
-    // Or if we are on index.html, checkSession might also call it.
-    // It is safe to call it multiple times because of the check at the top of initAiTutor.
-    initAiTutor();
+  // If we are on a page that needs login (like tasks), we can check session
+  // Or if we are on index.html, checkSession might also call it.
+  // It is safe to call it multiple times because of the check at the top of initAiTutor.
+  initAiTutor();
 });
 
 // Fallback for immediate load if deferred
 if (document.readyState === "interactive" || document.readyState === "complete") {
-    initAiTutor();
+  initAiTutor();
 }
