@@ -758,6 +758,16 @@
       opacity: .7
     }
 
+    /* ====== SUBJECT FILTER ====== */
+    .subject-filter-bar{max-width:1000px;width:100%;margin:0 auto;padding:0 1.5rem;display:flex;justify-content:flex-end}
+    .subject-filter-btn{background:none;border:none;color:var(--ink-muted);font-size:.78rem;cursor:pointer;padding:.3rem .6rem;border-radius:var(--radius);transition:all .2s;font-family:inherit}
+    .subject-filter-btn:hover{color:var(--ink);background:var(--surface)}
+    .subject-card.subject-hidden{display:none}
+    .subject-grid.edit-mode .subject-card{position:relative;cursor:pointer}
+    .subject-grid.edit-mode .subject-card::after{content:'\2715';position:absolute;top:6px;right:6px;background:rgba(220,50,50,.85);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;z-index:5;pointer-events:none}
+    .subject-grid.edit-mode .subject-card.subject-hidden{display:flex;opacity:.35;filter:grayscale(1)}
+    .subject-grid.edit-mode .subject-card.subject-hidden::after{content:'+';background:rgba(34,120,34,.85)}
+
     /* ====== MODULE SCREEN ====== */
     #module-screen {
       display: none;
@@ -1399,6 +1409,9 @@
         <div class="pstat"><span id="pStatAvg">&ndash;</span><small>&Oslash; Punkte</small></div>
         <div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>
       </div>
+    </div>
+    <div class="subject-filter-bar">
+      <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer anpassen</button>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" onclick="selectSubject('english', true)"
@@ -2074,10 +2087,12 @@
 
       var bar = document.getElementById("countdownBar");
       var toggle = document.getElementById("countdownToggle");
+      var grid = document.querySelector(".subject-grid");
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
       if (isVisible) {
         if (toggle) toggle.style.display = "none";
+        if (grid) grid.classList.add("countdown-active");
         if (allDates.length) {
           var minDays = Math.min.apply(null, allDates);
           if (minDays > 0) {
@@ -2090,6 +2105,7 @@
         }
       } else {
         bar.style.display = "none";
+        if (grid) grid.classList.remove("countdown-active");
         if (allDates.length && toggle) {
           toggle.style.display = "inline-block";
         }
@@ -2104,6 +2120,76 @@
     function disableCountdown() {
       localStorage.setItem("countdown_visible", "0");
       renderCountdowns();
+    }
+
+    /* ====== SUBJECT FILTER ====== */
+    var subjectEditMode = false;
+
+    function getHiddenSubjects() {
+      try { return JSON.parse(localStorage.getItem("hidden_subjects") || "[]"); }
+      catch(e) { return []; }
+    }
+
+    function applySubjectFilter() {
+      var hidden = getHiddenSubjects();
+      document.querySelectorAll(".subject-card").forEach(function(card) {
+        var classes = card.className.split(" ");
+        var subj = "";
+        var validSubjects = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
+        for (var i = 0; i < classes.length; i++) {
+          if (validSubjects.indexOf(classes[i]) !== -1) { subj = classes[i]; break; }
+        }
+        if (subj && hidden.indexOf(subj) !== -1) {
+          card.classList.add("subject-hidden");
+        } else {
+          card.classList.remove("subject-hidden");
+        }
+      });
+    }
+
+    function toggleSubjectEditMode() {
+      var grid = document.querySelector(".subject-grid");
+      var btn = document.getElementById("subjectFilterBtn");
+      subjectEditMode = !subjectEditMode;
+
+      if (subjectEditMode) {
+        grid.classList.add("edit-mode");
+        btn.textContent = "✅ Fertig";
+        // Temporarily override card clicks
+        document.querySelectorAll(".subject-card").forEach(function(card) {
+          card.setAttribute("data-orig-onclick", card.getAttribute("onclick") || "");
+          card.setAttribute("onclick", "toggleSubjectVisibility(this); return false;");
+        });
+      } else {
+        grid.classList.remove("edit-mode");
+        btn.textContent = "✏️ Fächer anpassen";
+        // Restore original clicks
+        document.querySelectorAll(".subject-card").forEach(function(card) {
+          card.setAttribute("onclick", card.getAttribute("data-orig-onclick") || "");
+        });
+        applySubjectFilter();
+      }
+    }
+
+    function toggleSubjectVisibility(card) {
+      var classes = card.className.split(" ");
+      var subj = "";
+      var validSubjects = ["english","german","history","pug","wr","french","italian","ethik","geographie","latein","mathe","chemie"];
+      for (var i = 0; i < classes.length; i++) {
+        if (validSubjects.indexOf(classes[i]) !== -1) { subj = classes[i]; break; }
+      }
+      if (!subj) return;
+
+      var hidden = getHiddenSubjects();
+      var idx = hidden.indexOf(subj);
+      if (idx !== -1) {
+        hidden.splice(idx, 1);
+        card.classList.remove("subject-hidden");
+      } else {
+        hidden.push(subj);
+        card.classList.add("subject-hidden");
+      }
+      localStorage.setItem("hidden_subjects", JSON.stringify(hidden));
     }
 
     /* ====== PROGRESS DASHBOARD (#8) ====== */
@@ -2295,6 +2381,7 @@
       var uInfo = document.getElementById("userInfo");
       if (uInfo) uInfo.textContent = name;
       renderCountdowns();
+      applySubjectFilter();
       if (_push) history.pushState({ screen: "subjects" }, "");
     }
 
