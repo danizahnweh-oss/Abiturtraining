@@ -2766,6 +2766,8 @@
 
   window.onload = function () {
   checkSession();
+  initTheme();
+  if(typeof initAiTutor === "function") initAiTutor();
 
   // Register Service Worker (#11 PWA)
   if ("serviceWorker" in navigator) {
