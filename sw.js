@@ -1,8 +1,8 @@
-const CACHE_NAME = 'myabiflow-v2';
+const CACHE_NAME = 'myabiflow-v4';
 const STATIC_ASSETS = [
   './',
   './index.html',
-  './shared.css',
+  './shared-v4.css',
   './shared.js',
   './logo.png',
   './wave-icon.png'
