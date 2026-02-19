@@ -142,12 +142,16 @@ function cleanupRateLimitMaps() {
 
 /* ---- CORS ---- */
 function corsHeaders(env) {
-  const origin = env?.ALLOWED_ORIGIN || "*";
+  const origin = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
   return {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": origin,
-    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token",
-    "Access-Control-Allow-Methods": "POST, OPTIONS"
+    "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains"
   };
 }
 
