@@ -550,7 +550,10 @@ async function handleCheckStudent(request, env) {
   if (mode !== "register" && mode !== "login") {
     return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
   }
-  if (!personal_password || typeof personal_password !== "string" || personal_password.length < 6) {
+  if (!personal_password || typeof personal_password !== "string") {
+    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
+  }
+  if (mode === "register" && personal_password.length < 6) {
     return jsonResponse({ success: false, error: "Passwort muss mindestens 6 Zeichen haben." }, 400, env);
   }
 

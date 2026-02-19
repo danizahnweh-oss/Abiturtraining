@@ -2382,7 +2382,8 @@
       var btn = document.getElementById("loginBtn");
 
       if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
-      if (!personalPw || personalPw.length < 6) { err.textContent = "Passwort muss mindestens 6 Zeichen haben."; err.style.display = "block"; return; }
+      if (!personalPw) { err.textContent = "Passwort erforderlich."; err.style.display = "block"; return; }
+      if (loginMode === "register" && personalPw.length < 6) { err.textContent = "Passwort muss mindestens 6 Zeichen haben."; err.style.display = "block"; return; }
 
       var level = sessionStorage.getItem("student_level") || "eA";
       var body = { student_name: name, personal_password: personalPw, mode: loginMode, level: level };
