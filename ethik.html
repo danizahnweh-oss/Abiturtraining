@@ -1,382 +1,677 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
-<title>myAbiFlow · Ethik</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js" integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared-v4.css">
-<style>
-/* Ethik accent override – indigo */
-:root {
-  --accent:#4f46e5;--accent-hover:#4338ca;--accent-soft:#e0e7ff;--accent-glow:rgba(79,70,229,.08);
-}
-[data-theme="dark"] {
-  --accent:#818cf8;--accent-hover:#a5b4fc;--accent-soft:rgba(129,140,248,.15);--accent-glow:rgba(129,140,248,.08);
-}
 
-/* Lernbereich selection */
-.hj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin:1rem 0}
-.hj-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer}
-.hj-card:hover,.hj-card.selected{border-color:var(--accent);background:var(--accent-soft)}
-.hj-icon{font-size:1.5rem;margin-bottom:.4rem}
-.hj-name{font-weight:600;font-size:.85rem}
-.hj-desc{font-size:.75rem;color:var(--ink-muted);margin-top:.3rem;line-height:1.3}
-.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
-.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
-.source-text .verse{margin-bottom:.2rem;padding:.1rem 0}
-.hl-legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;font-size:.8rem;color:var(--ink-muted)}
-.hl-legend-item{display:flex;align-items:center;gap:.3rem}
-.hl-legend-dot{width:12px;height:12px;border-radius:2px}
-.material-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem}
-.material-card h4{font-size:.9rem;margin-bottom:.5rem;color:var(--accent)}
-.material-card .material-source{font-size:.75rem;color:var(--ink-muted);margin-top:.5rem;font-style:italic}
-.material-card .material-body{font-size:.88rem;line-height:1.6;white-space:pre-wrap}
-.material-type-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.15rem .5rem;border-radius:3px;text-transform:uppercase;letter-spacing:.03em;margin-left:.5rem;background:var(--accent-soft);color:var(--accent)}
-.material-card .material-body table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.85rem}
-.material-card .material-body th,.material-card .material-body td{padding:.5rem .8rem;border:1px solid var(--border);text-align:left}
-.material-card .material-body th{background:var(--accent-glow);font-weight:700;font-size:.8rem;text-transform:uppercase}
-.material-chart{margin:1rem 0;max-height:280px}
-.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:0}
-.material-figure{margin:0;padding:0}
-.material-caption{font-size:.8rem;color:var(--ink-muted);text-align:center;margin-top:.4rem;font-style:italic;line-height:1.4}
-.material-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.2rem;opacity:.7}
-.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
-.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
-.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
-@media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
-</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
+  <title>myAbiFlow · Ethik</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js"
+    integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    /* Ethik accent override – indigo */
+    :root {
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #e0e7ff;
+      --accent-glow: rgba(79, 70, 229, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(129, 140, 248, .15);
+      --accent-glow: rgba(129, 140, 248, .08);
+    }
+
+    /* Lernbereich selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .hj-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
+
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .hj-desc {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+      line-height: 1.3
+    }
+
+    .mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem
+    }
+
+    .mode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .9rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--ink-muted)
+    }
+
+    .mode-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      color: var(--accent)
+    }
+
+    .source-text .verse {
+      margin-bottom: .2rem;
+      padding: .1rem 0
+    }
+
+    .hl-legend {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: .8rem;
+      font-size: .8rem;
+      color: var(--ink-muted)
+    }
+
+    .hl-legend-item {
+      display: flex;
+      align-items: center;
+      gap: .3rem
+    }
+
+    .hl-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px
+    }
+
+    .material-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1rem
+    }
+
+    .material-card h4 {
+      font-size: .9rem;
+      margin-bottom: .5rem;
+      color: var(--accent)
+    }
+
+    .material-card .material-source {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      margin-top: .5rem;
+      font-style: italic
+    }
+
+    .material-card .material-body {
+      font-size: .88rem;
+      line-height: 1.6;
+      white-space: pre-wrap
+    }
+
+    .material-type-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-left: .5rem;
+      background: var(--accent-soft);
+      color: var(--accent)
+    }
+
+    .material-card .material-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .8rem 0;
+      font-size: .85rem
+    }
+
+    .material-card .material-body th,
+    .material-card .material-body td {
+      padding: .5rem .8rem;
+      border: 1px solid var(--border);
+      text-align: left
+    }
+
+    .material-card .material-body th {
+      background: var(--accent-glow);
+      font-weight: 700;
+      font-size: .8rem;
+      text-transform: uppercase
+    }
+
+    .material-chart {
+      margin: 1rem 0;
+      max-height: 280px
+    }
+
+    .material-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin: 0
+    }
+
+    .material-figure {
+      margin: 0;
+      padding: 0
+    }
+
+    .material-caption {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-top: .4rem;
+      font-style: italic;
+      line-height: 1.4
+    }
+
+    .material-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .2rem;
+      opacity: .7
+    }
+
+    .material-img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 2rem;
+      color: var(--ink-muted);
+      font-size: .85rem
+    }
+
+    .material-img-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .25rem
+    }
+
+    .material-img-error {
+      padding: 1rem;
+      text-align: center;
+      color: var(--ink-muted);
+      font-style: italic
+    }
+
+    @media(max-width:650px) {
+      .hj-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .mode-toggle {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="header-left">
-    <a href="index.html?back=ethik" class="back-link">&larr; Zur&uuml;ck</a>
-    <h1>Ethik &middot; <span>Klausurtraining</span></h1>
-  </div>
-  <div class="header-right">
-    <span id="studentGreeting" class="header-meta" style="display:none"></span>
-    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
-  </div>
-</header>
-
-<nav>
-  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
-  <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
-  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
-  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
-</nav>
-
-<main>
-  <!-- STEP 1: SETUP -->
-  <section id="sec-setup" class="active">
-    <div class="card">
-      <h2 class="card-header">Aufgabe w&auml;hlen</h2>
-      <div class="mode-toggle">
-        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
-        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
-      </div>
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=ethik" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Ethik &middot; <span>Klausurtraining</span></h1>
     </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
 
-    <div class="card" id="setupGenerate">
-      <h2 class="card-header">Neue Aufgabe generieren</h2>
-      <div class="form-group">
-        <label>Lernbereich / Themenbereich</label>
-        <div class="hj-grid">
-          <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
-            <div class="hj-icon">&#x1F9ED;</div>
-            <div class="hj-name">12/1</div>
-            <div class="hj-desc">Theorie und Praxis des Handelns</div>
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI
+            generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
+        <div class="form-group">
+          <label>Lernbereich / Themenbereich</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
+              <div class="hj-icon">&#x1F9ED;</div>
+              <div class="hj-name">12/1</div>
+              <div class="hj-desc">Theorie und Praxis des Handelns</div>
+            </div>
+            <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
+              <div class="hj-icon">&#x1F9E0;</div>
+              <div class="hj-name">12/2</div>
+              <div class="hj-desc">Freiheit und Determination</div>
+            </div>
+            <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
+              <div class="hj-icon">&#x2696;&#xFE0F;</div>
+              <div class="hj-name">13/1</div>
+              <div class="hj-desc">Recht und Gerechtigkeit</div>
+            </div>
+            <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
+              <div class="hj-icon">&#x1F31F;</div>
+              <div class="hj-name">13/2</div>
+              <div class="hj-desc">Sinnorientierung und Lebensgestaltung</div>
+            </div>
           </div>
-          <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
-            <div class="hj-icon">&#x1F9E0;</div>
-            <div class="hj-name">12/2</div>
-            <div class="hj-desc">Freiheit und Determination</div>
+        </div>
+        <div class="form-group">
+          <label>Schwerpunkt (optional)</label>
+          <select id="schwerpunktSelect">
+            <option value="random">Zuf&auml;llig</option>
+          </select>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Aufgabe mit Materialien &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText"
+              style="min-height:150px"></textarea></div>
+          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction"
+            style="min-height:60px" placeholder="Stellen Sie &hellip; dar! / Diskutieren Sie &hellip;"></textarea></div>
+        <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px"
+            placeholder="Materialtext hier einf&uuml;gen &hellip;"></textarea></div>
+        <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta"
+            placeholder="z.B. Nida-R&uuml;melin, 2024"></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
+      </div>
+    </section>
+
+    <!-- STEP 2: READ MATERIALS -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabenstellung</h2>
+        <div class="task-box" id="taskInstruction">&hellip;</div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header" id="textTitle">Materialien</h2>
+
+        <!-- Highlighter Toolbar -->
+        <div class="highlighter-toolbar">
+          <span class="hl-label">&#x1F58D;&#xFE0F; Markieren:</span>
+          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')"
+            title="Gelb &ndash; z.B. Kernaussagen"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')"
+            title="Gr&uuml;n &ndash; z.B. Pro-Argumente"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')"
+            title="Blau &ndash; z.B. Fachbegriffe"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')"
+            title="Pink &ndash; z.B. Contra-Argumente"></button>
+          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')"
+            title="Orange &ndash; z.B. Zitate/Belege"></button>
+          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')"
+            title="Markierung entfernen">&#x2715;</button>
+          <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
+        </div>
+
+        <div id="materialsContainer"></div>
+
+        <div class="hl-legend">
+          <div class="hl-legend-item">
+            <div class="hl-legend-dot" style="background:#facc15"></div> Kernaussagen
           </div>
-          <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
-            <div class="hj-icon">&#x2696;&#xFE0F;</div>
-            <div class="hj-name">13/1</div>
-            <div class="hj-desc">Recht und Gerechtigkeit</div>
+          <div class="hl-legend-item">
+            <div class="hl-legend-dot" style="background:#4ade80"></div> Pro
           </div>
-          <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
-            <div class="hj-icon">&#x1F31F;</div>
-            <div class="hj-name">13/2</div>
-            <div class="hj-desc">Sinnorientierung und Lebensgestaltung</div>
+          <div class="hl-legend-item">
+            <div class="hl-legend-dot" style="background:#60a5fa"></div> Fachbegriffe
+          </div>
+          <div class="hl-legend-item">
+            <div class="hl-legend-dot" style="background:#f472b6"></div> Contra
+          </div>
+          <div class="hl-legend-item">
+            <div class="hl-legend-dot" style="background:#fb923c"></div> Zitate
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label>Schwerpunkt (optional)</label>
-        <select id="schwerpunktSelect">
-          <option value="random">Zuf&auml;llig</option>
-        </select>
-      </div>
-      <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
-      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Aufgabe mit Materialien &hellip;</div></div>
-    </div>
 
-    <div class="card" id="setupUpload" style="display:none">
-      <h2 class="card-header">Eigene Aufgabe</h2>
-      <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
-        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
-      </div>
-      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
-      <div id="taskUploadPages" class="ocr-pages"></div>
-      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
-      <div id="taskUploadResult" style="display:none;margin-top:1rem">
-        <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText" style="min-height:150px"></textarea></div>
-        <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
-        <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
-      </div>
-      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
-      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-      <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Stellen Sie &hellip; dar! / Diskutieren Sie &hellip;"></textarea></div>
-      <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px" placeholder="Materialtext hier einf&uuml;gen &hellip;"></textarea></div>
-      <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta" placeholder="z.B. Nida-R&uuml;melin, 2024"></div>
-      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
-    </div>
+      <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
+    </section>
 
-    <div class="card">
-      <label>Bearbeitungszeit (Min.)</label>
-      <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
-    </div>
-  </section>
-
-  <!-- STEP 2: READ MATERIALS -->
-  <section id="sec-task">
-    <div class="card">
-      <h2 class="card-header">Aufgabenstellung</h2>
-      <div class="task-box" id="taskInstruction">&hellip;</div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header" id="textTitle">Materialien</h2>
-
-      <!-- Highlighter Toolbar -->
-      <div class="highlighter-toolbar">
-        <span class="hl-label">&#x1F58D;&#xFE0F; Markieren:</span>
-        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb &ndash; z.B. Kernaussagen"></button>
-        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Gr&uuml;n &ndash; z.B. Pro-Argumente"></button>
-        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau &ndash; z.B. Fachbegriffe"></button>
-        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink &ndash; z.B. Contra-Argumente"></button>
-        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange &ndash; z.B. Zitate/Belege"></button>
-        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Markierung entfernen">&#x2715;</button>
-        <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
-      </div>
-
-      <div id="materialsContainer"></div>
-
-      <div class="hl-legend">
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#facc15"></div> Kernaussagen</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#4ade80"></div> Pro</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#60a5fa"></div> Fachbegriffe</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#f472b6"></div> Contra</div>
-        <div class="hl-legend-item"><div class="hl-legend-dot" style="background:#fb923c"></div> Zitate</div>
-      </div>
-    </div>
-
-    <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
-  </section>
-
-  <!-- STEP 3: WRITE -->
-  <section id="sec-write">
-    <div class="timer-bar" id="timerBar">
-      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
-      <div style="display:flex;gap:.5rem">
-        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
-        <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header">Deine Antwort</h2>
-
-      <details style="margin-bottom:1rem" open>
-        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe &amp; Materialien</summary>
-        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0;font-size:.9rem"></div>
-          <div id="writeMaterialsRef" style="font-size:.85rem"></div>
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
         </div>
-      </details>
+      </div>
 
-      <textarea id="studentText" placeholder="Beginne hier mit deiner Antwort &hellip;
+      <div class="card">
+        <h2 class="card-header">Deine Antwort</h2>
+
+        <details style="margin-bottom:1rem" open>
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe &amp; Materialien
+          </summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+            <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0;font-size:.9rem"></div>
+            <div id="writeMaterialsRef" style="font-size:.85rem"></div>
+          </div>
+        </details>
+
+        <textarea id="studentText" placeholder="Beginne hier mit deiner Antwort &hellip;
 
 Tipp: Strukturiere deinen Text:
 &bull; Einleitung mit Bezug zur Aufgabenstellung
 &bull; Hauptteil mit Fachbegriffen und Materialverweisen
 &bull; Schluss mit begr&uuml;ndetem Urteil" oninput="updateWordCount()"></textarea>
 
-      <div class="write-toolbar">
-        <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
-          <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- OCR UPLOAD -->
-    <div class="card">
-      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
-      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-        Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
-      </p>
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-        <div class="upload-icon">&#x1F4F7;</div>
-        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
-      </div>
-      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
-      <div id="ocrPages" class="ocr-pages"></div>
-      <div id="ocrLoader" class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
-      </div>
-      <div id="ocrResult" style="display:none;margin-top:1rem;">
-        <label>Erkannter Text (bearbeitbar):</label>
-        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
-        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-          <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
-          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
-          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
-  </section>
-
-  <!-- STEP 4: FEEDBACK -->
-  <section id="sec-feedback">
-    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte &hellip;</div></div>
-    <div id="feedbackContent" style="display:none">
+      <!-- OCR UPLOAD -->
       <div class="card">
-        <h2 class="card-header">Bewertung</h2>
-        <div class="scores-grid">
-          <div class="score-card"><div class="score-label">Inhalt</div><div class="score-value" id="scoreVerstehen">&ndash;</div><div class="score-max">/ 15</div></div>
-          <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">&ndash;</div><div class="score-max">/ 15</div></div>
-          <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">&ndash;</div><div class="score-max">/ 15</div></div>
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
         </div>
       </div>
-      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
-      <div class="card" id="korrekturCard" style="display:none">
-        <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
-        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
-        <div class="korrektur-body" id="korrekturBody"></div>
-      </div>
-      <div class="card" id="aspekteCard" style="display:none">
-        <h2 class="card-header">Fehlende Aspekte</h2>
-        <div id="aspekteBody"></div>
-      </div>
-      <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterl&ouml;sung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
-        <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
-        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
-      </div>
-    </div>
-  </section>
 
-  <!-- STEP 5: PROGRESS -->
-  <section id="sec-progress">
-    <div class="card">
-      <h2 class="card-header">Fortschritt</h2>
-      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">&#x1F4CA;</div><p>Noch keine Daten.</p></div>
-      <div id="progressContent" style="display:none">
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
-          <div class="stat-card"><div class="stat-value" id="statAverage">&ndash;</div><div class="stat-label">&Oslash;</div></div>
-          <div class="stat-card"><div class="stat-value" id="statBest">&ndash;</div><div class="stat-label">Best</div></div>
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Inhalt</div>
+              <div class="score-value" id="scoreVerstehen">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Darstellung</div>
+              <div class="score-value" id="scoreDarstellung">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Gesamt</div>
+              <div class="score-value" id="scoreTotal">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
         </div>
-        <div class="chart-container"><canvas id="progressChart"></canvas></div>
-        <table class="history-table"><thead><tr><th>Datum</th><th></th><th>I</th><th>D</th><th>&Sigma;</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
       </div>
-      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">&#x1F5D1;</button>
-    </div>
-  </section>
-</main>
+    </section>
 
-<footer>&copy; 2026 myAbiFlow &middot; Ethik Trainer</footer>
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th></th>
+                <th>I</th>
+                <th>D</th>
+                <th>&Sigma;</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
 
-<!-- MODULE CONFIG -->
-<script>
-const MODULE_CONFIG = {
-  sectionPrefix: "sec-",
-  steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "ethik",
-  historyKey: "ethik_history",
-  historyType: "ethik",
-  pdfFilename: "Ethik_Klausur",
-  chartColor: "#4f46e5",
-  minWords: 80,
-  afterHL: function() { saveHL(); }
-};
-</script>
-<script src="shared.js"></script>
+  <footer>&copy; 2026 myAbiFlow &middot; Ethik Trainer</footer>
 
-<!-- MODULE-SPECIFIC CODE -->
-<script>
-CONFIG.lernbereich = "12_1";
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "ethik",
+      historyKey: "ethik_history",
+      historyType: "ethik",
+      pdfFilename: "Ethik_Klausur",
+      chartColor: "#4f46e5",
+      minWords: 80,
+      afterHL: function () { saveHL(); }
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
 
-const LB_LABELS = {
-  "12_1": "12/1 – Theorie und Praxis des Handelns",
-  "12_2": "12/2 – Freiheit und Determination",
-  "13_1": "13/1 – Recht und Gerechtigkeit",
-  "13_2": "13/2 – Sinnorientierung und Lebensgestaltung"
-};
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    CONFIG.lernbereich = "12_1";
 
-const LB_ICONS = { "12_1": "\u{1F9ED}", "12_2": "\u{1F9E0}", "13_1": "\u2696\uFE0F", "13_2": "\u{1F31F}" };
+    const LB_LABELS = {
+      "12_1": "12/1 – Theorie und Praxis des Handelns",
+      "12_2": "12/2 – Freiheit und Determination",
+      "13_1": "13/1 – Recht und Gerechtigkeit",
+      "13_2": "13/2 – Sinnorientierung und Lebensgestaltung"
+    };
 
-const SCHWERPUNKTE = {
-  "12_1": [
-    { value: "random", label: "Zuf\u00e4llig" },
-    { value: "kant", label: "Kants Pflichtethik" },
-    { value: "utilitarismus", label: "Utilitarismus (Bentham/Mill)" },
-    { value: "tugend", label: "Tugendethik (Aristoteles)" },
-    { value: "verantwortung", label: "Verantwortungsethik (Jonas)" },
-    { value: "angewandt", label: "Angewandte Ethik" }
-  ],
-  "12_2": [
-    { value: "random", label: "Zuf\u00e4llig" },
-    { value: "willensfreiheit", label: "Willensfreiheit" },
-    { value: "neurowissenschaft", label: "Neurowissenschaft und Freiheit" },
-    { value: "sartre", label: "Sartres Existenzialismus" },
-    { value: "erkenntnis", label: "Erkenntnistheorie" },
-    { value: "freiheit_verantwortung", label: "Freiheit und Verantwortung" }
-  ],
-  "13_1": [
-    { value: "random", label: "Zuf\u00e4llig" },
-    { value: "rawls", label: "Rawls\u2019 Gerechtigkeitstheorie" },
-    { value: "naturrecht", label: "Naturrecht vs. Rechtspositivismus" },
-    { value: "menschenrechte", label: "Menschenrechte" },
-    { value: "strafe", label: "Straftheorien" },
-    { value: "vertragstheorien", label: "Vertragstheorien" },
-    { value: "global", label: "Globale Gerechtigkeit" }
-  ],
-  "13_2": [
-    { value: "random", label: "Zuf\u00e4llig" },
-    { value: "frankl", label: "Frankls Logotherapie" },
-    { value: "stoa", label: "Stoische Philosophie" },
-    { value: "epikur", label: "Epikurs Lustprinzip" },
-    { value: "existenz", label: "Existenzialismus" },
-    { value: "glueck", label: "Gl\u00fcck und gelingendes Leben" },
-    { value: "religion", label: "Religionsphilosophie" }
-  ]
-};
+    const LB_ICONS = { "12_1": "\u{1F9ED}", "12_2": "\u{1F9E0}", "13_1": "\u2696\uFE0F", "13_2": "\u{1F31F}" };
 
-const BEWERTUNG_PROMPT = `Du bewertest eine Klausur im Fach Ethik (Bayern, Abitur ab 2026).
+    const SCHWERPUNKTE = {
+      "12_1": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "kant", label: "Kants Pflichtethik" },
+        { value: "utilitarismus", label: "Utilitarismus (Bentham/Mill)" },
+        { value: "tugend", label: "Tugendethik (Aristoteles)" },
+        { value: "verantwortung", label: "Verantwortungsethik (Jonas)" },
+        { value: "angewandt", label: "Angewandte Ethik" }
+      ],
+      "12_2": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "willensfreiheit", label: "Willensfreiheit" },
+        { value: "neurowissenschaft", label: "Neurowissenschaft und Freiheit" },
+        { value: "sartre", label: "Sartres Existenzialismus" },
+        { value: "erkenntnis", label: "Erkenntnistheorie" },
+        { value: "freiheit_verantwortung", label: "Freiheit und Verantwortung" }
+      ],
+      "13_1": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "rawls", label: "Rawls\u2019 Gerechtigkeitstheorie" },
+        { value: "naturrecht", label: "Naturrecht vs. Rechtspositivismus" },
+        { value: "menschenrechte", label: "Menschenrechte" },
+        { value: "strafe", label: "Straftheorien" },
+        { value: "vertragstheorien", label: "Vertragstheorien" },
+        { value: "global", label: "Globale Gerechtigkeit" }
+      ],
+      "13_2": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "frankl", label: "Frankls Logotherapie" },
+        { value: "stoa", label: "Stoische Philosophie" },
+        { value: "epikur", label: "Epikurs Lustprinzip" },
+        { value: "existenz", label: "Existenzialismus" },
+        { value: "glueck", label: "Gl\u00fcck und gelingendes Leben" },
+        { value: "religion", label: "Religionsphilosophie" }
+      ]
+    };
+
+    const BEWERTUNG_PROMPT = `Du bewertest eine Klausur im Fach Ethik (Bayern, Abitur ab 2026).
 
 BEWERTUNGSKRITERIEN:
 INHALT (70%):
@@ -402,283 +697,284 @@ WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT: Antworten M\u00dcSSEN in zusammenh\u00e4n
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
-function selectLernbereich(lb) {
-  CONFIG.lernbereich = lb;
-  document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === lb));
-  updateSchwerpunkte();
-}
-
-function updateSchwerpunkte() {
-  const sel = document.getElementById("schwerpunktSelect");
-  const opts = SCHWERPUNKTE[CONFIG.lernbereich] || [{ value: "random", label: "Zuf\u00e4llig" }];
-  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
-}
-
-function setSetupMode(m) {
-  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
-  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
-  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
-  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
-}
-
-function saveHL() {
-  localStorage.setItem("hl_ethik_" + getStudentKey(), JSON.stringify({
-    materials: document.getElementById("materialsContainer")?.innerHTML || ""
-  }));
-}
-
-function saveSession() {
-  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-  localStorage.setItem(key, JSON.stringify({
-    studentText: document.getElementById("studentText").value,
-    storedData: CONFIG.storedData,
-    lernbereich: CONFIG.lernbereich,
-    hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
-  }));
-}
-
-function restoreSession() {
-  try {
-    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-    const s = JSON.parse(localStorage.getItem(key));
-    if (s) {
-      if (s.studentText) document.getElementById("studentText").value = s.studentText;
-      if (s.storedData) {
-        CONFIG.storedData = s.storedData;
-        renderTask(s.storedData);
-        if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
-        syncHL();
-      }
-      if (s.lernbereich) selectLernbereich(s.lernbereich);
-      updateWordCount();
-      initHL();
+    function selectLernbereich(lb) {
+      CONFIG.lernbereich = lb;
+      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === lb));
+      updateSchwerpunkte();
     }
-  } catch {}
-}
 
-async function generateTask() {
-  const btn = document.getElementById("generateBtn");
-  btn.disabled = true;
-  document.getElementById("setupLoader").style.display = "block";
-  try {
-    const level = sessionStorage.getItem("student_level") || "eA";
-    const d = await apiCall("/api/generate-ethik", {
-      lernbereich: CONFIG.lernbereich,
-      schwerpunkt: document.getElementById("schwerpunktSelect").value,
-      level: level
-    });
-    CONFIG.storedData = d;
-    renderTask(d);
-    nav("task");
-  } catch (e) { showToast("Fehler: " + e.message); }
-  btn.disabled = false;
-  document.getElementById("setupLoader").style.display = "none";
-}
+    function updateSchwerpunkte() {
+      const sel = document.getElementById("schwerpunktSelect");
+      const opts = SCHWERPUNKTE[CONFIG.lernbereich] || [{ value: "random", label: "Zuf\u00e4llig" }];
+      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    }
 
-const taskUploadImages = [];
-async function handleTaskUpload(files) {
-  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
-    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
-  }
-  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
-  document.getElementById("taskUploadLoader").style.display = "block";
-  try {
-    const base64s = await Promise.all(taskUploadImages.map(async p => {
-      const r = new FileReader();
-      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
-    }));
-    const d = await apiCall("/api/parse-task-ethik", { images: base64s });
-    document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
-    document.getElementById("parsedPrimaryText").value = d.primary_text || "";
-    document.getElementById("parsedMeta").value = d.primary_meta || "";
-    document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) { showToast("Fehler: " + e.message); }
-  document.getElementById("taskUploadLoader").style.display = "none";
-}
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
 
-function useUploadedTask() {
-  const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value, lernbereich: CONFIG.lernbereich };
-  if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function saveHL() {
+      localStorage.setItem("hl_ethik_" + getStudentKey(), JSON.stringify({
+        materials: document.getElementById("materialsContainer")?.innerHTML || ""
+      }));
+    }
 
-function useManualTask() {
-  const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Bearbeiten Sie die folgende Aufgabe.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value, lernbereich: CONFIG.lernbereich };
-  if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      localStorage.setItem(key, JSON.stringify({
+        studentText: document.getElementById("studentText").value,
+        storedData: CONFIG.storedData,
+        lernbereich: CONFIG.lernbereich,
+        hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
+      }));
+    }
 
-function renderTask(d) {
-  document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.studentText) document.getElementById("studentText").value = s.studentText;
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+            if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
+            syncHL();
+          }
+          if (s.lernbereich) selectLernbereich(s.lernbereich);
+          updateWordCount();
+          initHL();
+        }
+      } catch { }
+    }
 
-  const lbLabel = LB_LABELS[d.lernbereich || CONFIG.lernbereich] || "";
-  document.getElementById("textTitle").textContent = "Materialien \u2013 " + lbLabel;
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const level = sessionStorage.getItem("student_level") || "eA";
+        const d = await apiCall("/api/generate-ethik", {
+          lernbereich: CONFIG.lernbereich,
+          schwerpunkt: document.getElementById("schwerpunktSelect").value,
+          level: level
+        });
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
 
-  const container = document.getElementById("materialsContainer");
-
-  // Handle materials array (from AI generation)
-  if (d.materials && d.materials.length) {
-    container.innerHTML = d.materials.map((m, i) => {
-      const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
-      const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
-      let body;
-      if (m.type === "statistik" && (m.content || "").includes("|")) {
-        body = DOMPurify.sanitize(marked.parse(m.content || ""));
-        body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
-      } else if (m.type === "bild") {
-        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-      } else if (m.type === "foto") {
-        body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-      } else {
-        body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
       }
-      return `<div class="material-card">
-        <h4>M ${i+1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const base64s = await Promise.all(taskUploadImages.map(async p => {
+          const r = new FileReader();
+          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+        }));
+        const d = await apiCall("/api/parse-task-ethik", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+        document.getElementById("parsedMeta").value = d.primary_meta || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, primary_text: document.getElementById("parsedPrimaryText").value, primary_meta: document.getElementById("parsedMeta").value, lernbereich: CONFIG.lernbereich };
+      if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
+
+    function useManualTask() {
+      const c = { task_instruction: document.getElementById("manualTaskInstruction").value || "Bearbeiten Sie die folgende Aufgabe.", primary_text: document.getElementById("manualPrimaryText").value, primary_meta: document.getElementById("manualMeta").value, lernbereich: CONFIG.lernbereich };
+      if (!c.task_instruction) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
+
+    function renderTask(d) {
+      document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+
+      const lbLabel = LB_LABELS[d.lernbereich || CONFIG.lernbereich] || "";
+      document.getElementById("textTitle").textContent = "Materialien \u2013 " + lbLabel;
+
+      const container = document.getElementById("materialsContainer");
+
+      // Handle materials array (from AI generation)
+      if (d.materials && d.materials.length) {
+        container.innerHTML = d.materials.map((m, i) => {
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+          let body;
+          if (m.type === "statistik" && (m.content || "").includes("|")) {
+            body = DOMPurify.sanitize(marked.parse(m.content || ""));
+            body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
+          } else if (m.type === "bild") {
+            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+          } else if (m.type === "foto") {
+            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+          } else {
+            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+          }
+          return `<div class="material-card">
+        <h4>M ${i + 1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
         <div class="source-text material-body">${body}</div>
         ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
       </div>`;
-    }).join("");
-    // Render charts and load images after DOM update
-    d.materials.forEach((m, i) => {
-      if (m.type === "statistik" && (m.content || "").includes("|")) {
-        renderStatistikChart(m.content, `chart-m-${i}`);
-      } else if (m.type === "bild") {
-        loadDallEImage(m.content, `img-m-${i}`);
-      } else if (m.type === "foto") {
-        loadUnsplashImage(m.content, `img-m-${i}`);
+        }).join("");
+        // Render charts and load images after DOM update
+        d.materials.forEach((m, i) => {
+          if (m.type === "statistik" && (m.content || "").includes("|")) {
+            renderStatistikChart(m.content, `chart-m-${i}`);
+          } else if (m.type === "bild") {
+            loadDallEImage(m.content, `img-m-${i}`);
+          } else if (m.type === "foto") {
+            loadUnsplashImage(m.content, `img-m-${i}`);
+          }
+        });
       }
-    });
-  }
-  // Handle single text (from upload/manual)
-  else if (d.primary_text) {
-    const html = escapeHtml(d.primary_text).replace(/\n/g, "<br>");
-    container.innerHTML = `<div class="material-card">
+      // Handle single text (from upload/manual)
+      else if (d.primary_text) {
+        const html = escapeHtml(d.primary_text).replace(/\n/g, "<br>");
+        container.innerHTML = `<div class="material-card">
       <h4>Material</h4>
       <div class="source-text material-body">${html}</div>
       ${d.primary_meta ? `<div class="material-source">${escapeHtml(d.primary_meta)}</div>` : ""}
     </div>`;
-  } else {
-    container.innerHTML = '<p style="color:var(--ink-muted)">Keine Materialien verf\u00fcgbar.</p>';
-  }
+      } else {
+        container.innerHTML = '<p style="color:var(--ink-muted)">Keine Materialien verf\u00fcgbar.</p>';
+      }
 
-  // Write step references
-  document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-  const refContainer = document.getElementById("writeMaterialsRef");
-  if (d.materials && d.materials.length) {
-    refContainer.innerHTML = d.materials.map((m, i) =>
-      `<div style="margin-bottom:.8rem"><strong>M ${i+1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}\u2026</span></div>`
-    ).join("");
-  } else if (d.primary_text) {
-    refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}\u2026</span>`;
-  }
+      // Write step references
+      document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+      const refContainer = document.getElementById("writeMaterialsRef");
+      if (d.materials && d.materials.length) {
+        refContainer.innerHTML = d.materials.map((m, i) =>
+          `<div style="margin-bottom:.8rem"><strong>M ${i + 1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}\u2026</span></div>`
+        ).join("");
+      } else if (d.primary_text) {
+        refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}\u2026</span>`;
+      }
 
-  initHL();
-}
+      initHL();
+    }
 
-async function submitForGrading() {
-  const t = document.getElementById("studentText").value;
-  if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter"); return; }
-  if (!CONFIG.storedData?.task_instruction) { showToast("Erst Aufgabe erstellen"); return; }
-  document.getElementById("submitBtn").disabled = true;
-  nav("feedback");
-  document.getElementById("feedbackLoader").style.display = "block";
-  document.getElementById("feedbackContent").style.display = "none";
-  try {
-    const payload = {
-      task_instruction: CONFIG.storedData.task_instruction,
-      primary_text: CONFIG.storedData.primary_text || "",
-      student_text: t,
-      rubric_prompt: BEWERTUNG_PROMPT,
-      type: "ethik"
-    };
-    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
+    async function submitForGrading() {
+      const t = document.getElementById("studentText").value;
+      if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter"); return; }
+      if (!CONFIG.storedData?.task_instruction) { showToast("Erst Aufgabe erstellen"); return; }
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+      try {
+        const payload = {
+          task_instruction: CONFIG.storedData.task_instruction,
+          primary_text: CONFIG.storedData.primary_text || "",
+          student_text: t,
+          rubric_prompt: BEWERTUNG_PROMPT,
+          type: "ethik"
+        };
+        if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-    const d = await apiCall("/api/grade-ethik", payload);
-    document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "\u2013";
-    document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
-    document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";
-    saveToHistory({ lernbereich: CONFIG.storedData.lernbereich || CONFIG.lernbereich, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
-    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "ethik", topic: LB_LABELS[CONFIG.storedData.lernbereich || CONFIG.lernbereich] || "Ethik", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
-    stopTimer();
-    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
-    renderKorrekturFeedback(d);
-    document.getElementById("feedbackContent").style.display = "block";
-  } catch (e) {
-    document.getElementById("feedbackContent").style.display = "block";
-    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">${escapeHtml(e.message)}</p>`;
-  }
-  document.getElementById("feedbackLoader").style.display = "none";
-  document.getElementById("submitBtn").disabled = false;
-}
+        const d = await apiCall("/api/grade-ethik", payload);
+        document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "\u2013";
+        document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
+        document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";
+        saveToHistory({ lernbereich: CONFIG.storedData.lernbereich || CONFIG.lernbereich, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
+        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "ethik", topic: LB_LABELS[CONFIG.storedData.lernbereich || CONFIG.lernbereich] || "Ethik", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => { });
+        stopTimer();
+        document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+        renderKorrekturFeedback(d);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">${escapeHtml(e.message)}</p>`;
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
 
-async function showModelAnswer() {
-  const card = document.getElementById("modelAnswerCard");
-  if (card.style.display === "block") { card.style.display = "none"; return; }
-  document.getElementById("showModelBtn").disabled = true;
-  try {
-    const payload = {
-      task_instruction: CONFIG.storedData.task_instruction,
-      primary_text: CONFIG.storedData.primary_text || "",
-      type: "ethik"
-    };
-    if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
+    async function showModelAnswer() {
+      const card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        const payload = {
+          task_instruction: CONFIG.storedData.task_instruction,
+          primary_text: CONFIG.storedData.primary_text || "",
+          type: "ethik"
+        };
+        if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-    const d = await apiCall("/api/model-answer-ethik", payload);
-    document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
-    card.style.display = "block";
-  } catch (e) { showToast(e.message); }
-  document.getElementById("showModelBtn").disabled = false;
-}
+        const d = await apiCall("/api/model-answer-ethik", payload);
+        document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
 
-function renderHistoryTable(history) {
-  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
-    const ic = LB_ICONS[x.lernbereich] || "\u2696\uFE0F";
-    return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.verstehen ?? "\u2013"}</td><td class="history-score">${x.darstellung ?? "\u2013"}</td><td class="history-score" style="font-weight:700">${x.total ?? "\u2013"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>`;
-  }).join("");
-}
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+        const ic = LB_ICONS[x.lernbereich] || "\u2696\uFE0F";
+        return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.verstehen ?? "\u2013"}</td><td class="history-score">${x.darstellung ?? "\u2013"}</td><td class="history-score" style="font-weight:700">${x.total ?? "\u2013"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>`;
+      }).join("");
+    }
 
-// === Shared: Chart & Image helpers ===
-const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
-function renderStatistikChart(markdown, canvasId) {
-  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
-  if (lines.length < 2) return;
-  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
-  const headers = parse(lines[0]);
-  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
-  if (dataLines.length < 2) return;
-  const rows = dataLines.slice(1).map(parse);
-  const labels = rows.map(r => r[0]);
-  const datasets = headers.slice(1).map((h, i) => ({
-    label: h,
-    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
-    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-  }));
-  new Chart(document.getElementById(canvasId), {
-    type: "bar", data: { labels, datasets },
-    options: { responsive: true, plugins: { legend: { position: "top" } } }
-  });
-}
-async function loadDallEImage(prompt, containerId) {
-  try {
-    const d = await apiCall("/api/generate-image", { prompt });
-    const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-    const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-    document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-  } catch(e) {
-    console.error("Bild-Fehler:", e);
-    document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
-  }
-}
-async function loadUnsplashImage(keywords, containerId) {
-  loadDallEImage(keywords, containerId);
-}
+    // === Shared: Chart & Image helpers ===
+    const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
+    function renderStatistikChart(markdown, canvasId) {
+      const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+      if (lines.length < 2) return;
+      const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+      const headers = parse(lines[0]);
+      const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+      if (dataLines.length < 2) return;
+      const rows = dataLines.slice(1).map(parse);
+      const labels = rows.map(r => r[0]);
+      const datasets = headers.slice(1).map((h, i) => ({
+        label: h,
+        data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
+        backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+      }));
+      new Chart(document.getElementById(canvasId), {
+        type: "bar", data: { labels, datasets },
+        options: { responsive: true, plugins: { legend: { position: "top" } } }
+      });
+    }
+    async function loadDallEImage(prompt, containerId) {
+      try {
+        const d = await apiCall("/api/generate-image", { prompt });
+        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
+        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
+        document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
+      } catch (e) {
+        console.error("Bild-Fehler:", e);
+        document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
+      }
+    }
+    async function loadUnsplashImage(keywords, containerId) {
+      loadDallEImage(keywords, containerId);
+    }
 
-// Init
-updateSchwerpunkte();
-</script>
+    // Init
+    updateSchwerpunkte();
+  </script>
 </body>
+
 </html>

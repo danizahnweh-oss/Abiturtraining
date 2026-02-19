@@ -1,985 +1,1207 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
-<title>myAbiFlow · Mathematik</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js" integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<!-- KaTeX -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared-v4.css">
-<style>
-/* Emerald accent override */
-:root {
-  --accent:#10b981;--accent-hover:#059669;--accent-soft:#d1fae5;--accent-glow:rgba(16,185,129,.08);
-}
-[data-theme="dark"] {
-  --accent:#34d399;--accent-hover:#6ee7b7;--accent-soft:rgba(52,211,153,.15);--accent-glow:rgba(52,211,153,.08);
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
+  <title>myAbiFlow · Mathematik</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js"
+    integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    /* Emerald accent override */
+    :root {
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-soft: #d1fae5;
+      --accent-glow: rgba(16, 185, 129, .08);
+    }
 
-/* Sachgebiet selection */
-.hj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
-.hj-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer}
-.hj-card:hover,.hj-card.selected{border-color:var(--accent);background:var(--accent-soft)}
-.hj-icon{font-size:1.5rem;margin-bottom:.4rem}
-.hj-name{font-weight:600;font-size:.85rem}
-.hj-desc{font-size:.75rem;color:var(--ink-muted);margin-top:.3rem;line-height:1.3}
-.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
-.mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+    [data-theme="dark"] {
+      --accent: #34d399;
+      --accent-hover: #6ee7b7;
+      --accent-soft: rgba(52, 211, 153, .15);
+      --accent-glow: rgba(52, 211, 153, .08);
+    }
 
-/* Aufgabentyp toggle */
-.type-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1rem 0}
-.type-btn{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:1rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.85rem;color:var(--ink-muted);transition:all .2s}
-.type-btn:hover{border-color:var(--accent);color:var(--ink)}
-.type-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
-.type-btn .type-meta{font-size:.75rem;font-weight:400;color:var(--ink-muted)}
+    /* Sachgebiet selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0
+    }
 
-/* Teilaufgaben in task display */
-.teilaufgabe-item{padding:.6rem 0;border-bottom:1px solid var(--border)}
-.teilaufgabe-item:last-child{border-bottom:none}
-.teilaufgabe-nr{font-weight:700;color:var(--accent);margin-right:.3rem}
-.teilaufgabe-be{font-size:.8rem;color:var(--ink-muted);font-weight:600}
+    .hj-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
 
-/* BE scores grid */
-.be-scores-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-bottom:1.5rem}
-.be-score-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
-.be-score-card.total{grid-column:1/-1;background:var(--accent-glow);border-color:var(--accent)}
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
 
-@media(max-width:650px){.hj-grid{grid-template-columns:1fr}.mode-toggle,.type-toggle{grid-template-columns:1fr}}
-</style>
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .hj-desc {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+      line-height: 1.3
+    }
+
+    .mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem
+    }
+
+    .mode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .9rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--ink-muted)
+    }
+
+    .mode-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      color: var(--accent)
+    }
+
+    /* Aufgabentyp toggle */
+    .type-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin: 1rem 0
+    }
+
+    .type-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .3rem;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .85rem;
+      color: var(--ink-muted);
+      transition: all .2s
+    }
+
+    .type-btn:hover {
+      border-color: var(--accent);
+      color: var(--ink)
+    }
+
+    .type-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      color: var(--accent)
+    }
+
+    .type-btn .type-meta {
+      font-size: .75rem;
+      font-weight: 400;
+      color: var(--ink-muted)
+    }
+
+    /* Teilaufgaben in task display */
+    .teilaufgabe-item {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .teilaufgabe-item:last-child {
+      border-bottom: none
+    }
+
+    .teilaufgabe-nr {
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: .3rem
+    }
+
+    .teilaufgabe-be {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-weight: 600
+    }
+
+    /* BE scores grid */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent)
+    }
+
+    @media(max-width:650px) {
+      .hj-grid {
+        grid-template-columns: 1fr
+      }
+
+      .mode-toggle,
+      .type-toggle {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header>
-  <div class="header-left">
-    <a href="index.html?back=mathe" class="back-link">&larr; Zur&uuml;ck</a>
-    <h1>Mathematik &middot; <span>Klausurtraining</span></h1>
-  </div>
-  <div class="header-right">
-    <span id="studentGreeting" class="header-meta" style="display:none"></span>
-    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
-  </div>
-</header>
-
-<nav>
-  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
-  <button onclick="nav('task')"><span class="step-num">2</span> Aufgabe</button>
-  <button onclick="nav('write')"><span class="step-num">3</span> Abgabe</button>
-  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
-</nav>
-
-<main>
-  <!-- STEP 1: SETUP -->
-  <section id="sec-setup" class="active">
-    <div class="card">
-      <h2 class="card-header">Aufgabe w&auml;hlen</h2>
-      <div class="mode-toggle">
-        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
-        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
-      </div>
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=mathe" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Mathematik &middot; <span>Klausurtraining</span></h1>
     </div>
-
-    <div class="card" id="setupGenerate">
-      <h2 class="card-header">Neue Aufgabe generieren</h2>
-      <div class="form-group">
-        <label>Sachgebiet</label>
-        <div class="hj-grid">
-          <div class="hj-card selected" data-hj="analysis" onclick="selectSachgebiet('analysis')">
-            <div class="hj-icon">&#x1F4C8;</div>
-            <div class="hj-name">Analysis</div>
-            <div class="hj-desc">Ableitungen, Integrale, Kurvendiskussion</div>
-          </div>
-          <div class="hj-card" data-hj="stochastik" onclick="selectSachgebiet('stochastik')">
-            <div class="hj-icon">&#x1F3B2;</div>
-            <div class="hj-name">Stochastik</div>
-            <div class="hj-desc">Wahrscheinlichkeit, Binomialverteilung, Tests</div>
-          </div>
-          <div class="hj-card" data-hj="geometrie" onclick="selectSachgebiet('geometrie')">
-            <div class="hj-icon">&#x1F4D0;</div>
-            <div class="hj-name">Geometrie</div>
-            <div class="hj-desc">Vektoren, Geraden, Ebenen, Abst&auml;nde</div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Aufgabentyp</label>
-        <div class="type-toggle">
-          <button class="type-btn active" id="typeKurz" onclick="setAufgabentyp('kurzaufgabe')">
-            Kurzaufgabe
-            <span class="type-meta">5 BE &middot; ~10 min &middot; ohne CAS</span>
-          </button>
-          <button class="type-btn" id="typeLang" onclick="setAufgabentyp('langaufgabe')">
-            Langaufgabe
-            <span class="type-meta">20&ndash;30 BE &middot; ~45 min &middot; mit CAS</span>
-          </button>
-        </div>
-      </div>
-      <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
-      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Mathe-Aufgabe &hellip;</div></div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
     </div>
+  </header>
 
-    <div class="card" id="setupUpload" style="display:none">
-      <h2 class="card-header">Eigene Aufgabe</h2>
-      <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
-        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabenblatt)</div>
-      </div>
-      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
-      <div id="taskUploadPages" class="ocr-pages"></div>
-      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
-      <div id="taskUploadResult" style="display:none;margin-top:1rem">
-        <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
-        <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
-      </div>
-      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
-      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-      <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:100px" placeholder="Gegeben ist die Funktion f(x) = &hellip;"></textarea></div>
-      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
-    </div>
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Aufgabe</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Abgabe</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
 
-    <div class="card">
-      <label>Bearbeitungszeit (Min.)</label>
-      <input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px">
-    </div>
-  </section>
-
-  <!-- STEP 2: TASK DISPLAY -->
-  <section id="sec-task">
-    <div class="card">
-      <h2 class="card-header">Aufgabe</h2>
-      <div class="task-box" id="taskInstruction">&hellip;</div>
-      <div id="teilaufgabenContainer" style="margin-top:1rem"></div>
-      <div style="margin-top:.8rem;font-size:.85rem;color:var(--ink-muted)" id="taskMeta"></div>
-    </div>
-    <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
-  </section>
-
-  <!-- STEP 3: WRITE -->
-  <section id="sec-write">
-    <div class="timer-bar" id="timerBar">
-      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
-      <div style="display:flex;gap:.5rem">
-        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
-        <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header">Deine Abgabe</h2>
-
-      <details style="margin-bottom:1rem" open>
-        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe</summary>
-        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-          <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
-        </div>
-      </details>
-
-      <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
-        Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>f'(x) = 4x + 3</code>, <code>int_0^1 x^2 dx = 1/3</code>, <code>sqrt(x)</code>
-      </p>
-
-      <div id="studentTextareas"></div>
-
-      <div class="write-toolbar">
-        <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
-          <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- OCR UPLOAD -->
-    <div class="card">
-      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
-      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-        Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
-      </p>
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-        <div class="upload-icon">&#x1F4F7;</div>
-        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
-      </div>
-      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
-      <div id="ocrPages" class="ocr-pages"></div>
-      <div id="ocrLoader" class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
-      </div>
-      <div id="ocrResult" style="display:none;margin-top:1rem;">
-        <label>Erkannter Text (bearbeitbar):</label>
-        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
-        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-          <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
-          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
-          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
-  </section>
-
-  <!-- STEP 4: FEEDBACK -->
-  <section id="sec-feedback">
-    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte &hellip;</div></div>
-    <div id="feedbackContent" style="display:none">
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
       <div class="card">
-        <h2 class="card-header">Bewertung</h2>
-        <div class="be-scores-grid" id="beScoresGrid"></div>
-        <div class="scores-grid">
-          <div class="score-card"><div class="score-label">Erreichte BE</div><div class="score-value" id="scoreBE">&ndash;</div><div class="score-max" id="scoreBEMax">/ ?</div></div>
-          <div class="score-card"><div class="score-label">Prozent</div><div class="score-value" id="scoreProzent">&ndash;</div><div class="score-max">%</div></div>
-          <div class="score-card total"><div class="score-label">Notenpunkte</div><div class="score-value" id="scoreTotal">&ndash;</div><div class="score-max">/ 15</div></div>
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI
+            generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
         </div>
       </div>
-      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
-      <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterl&ouml;sung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
-        <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
-        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
-      </div>
-    </div>
-  </section>
 
-  <!-- STEP 5: PROGRESS -->
-  <section id="sec-progress">
-    <div class="card">
-      <h2 class="card-header">Fortschritt</h2>
-      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">&#x1F4CA;</div><p>Noch keine Daten.</p></div>
-      <div id="progressContent" style="display:none">
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
-          <div class="stat-card"><div class="stat-value" id="statAverage">&ndash;</div><div class="stat-label">&Oslash;</div></div>
-          <div class="stat-card"><div class="stat-value" id="statBest">&ndash;</div><div class="stat-label">Best</div></div>
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
+        <div class="form-group">
+          <label>Sachgebiet</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="analysis" onclick="selectSachgebiet('analysis')">
+              <div class="hj-icon">&#x1F4C8;</div>
+              <div class="hj-name">Analysis</div>
+              <div class="hj-desc">Ableitungen, Integrale, Kurvendiskussion</div>
+            </div>
+            <div class="hj-card" data-hj="stochastik" onclick="selectSachgebiet('stochastik')">
+              <div class="hj-icon">&#x1F3B2;</div>
+              <div class="hj-name">Stochastik</div>
+              <div class="hj-desc">Wahrscheinlichkeit, Binomialverteilung, Tests</div>
+            </div>
+            <div class="hj-card" data-hj="geometrie" onclick="selectSachgebiet('geometrie')">
+              <div class="hj-icon">&#x1F4D0;</div>
+              <div class="hj-name">Geometrie</div>
+              <div class="hj-desc">Vektoren, Geraden, Ebenen, Abst&auml;nde</div>
+            </div>
+          </div>
         </div>
-        <div class="chart-container"><canvas id="progressChart"></canvas></div>
-        <table class="history-table"><thead><tr><th>Datum</th><th>Gebiet</th><th>Typ</th><th>BE</th><th>NP</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+        <div class="form-group">
+          <label>Aufgabentyp</label>
+          <div class="type-toggle">
+            <button class="type-btn active" id="typeKurz" onclick="setAufgabentyp('kurzaufgabe')">
+              Kurzaufgabe
+              <span class="type-meta">5 BE &middot; ~10 min &middot; ohne CAS</span>
+            </button>
+            <button class="type-btn" id="typeLang" onclick="setAufgabentyp('langaufgabe')">
+              Langaufgabe
+              <span class="type-meta">20&ndash;30 BE &middot; ~45 min &middot; mit CAS</span>
+            </button>
+          </div>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Mathe-Aufgabe &hellip;</div>
+        </div>
       </div>
-      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">&#x1F5D1;</button>
-    </div>
-  </section>
-</main>
 
-<footer>&copy; 2026 myAbiFlow &middot; Mathematik Trainer</footer>
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabenblatt)</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction"
+            style="min-height:100px" placeholder="Gegeben ist die Funktion f(x) = &hellip;"></textarea></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
 
-<!-- MODULE CONFIG -->
-<script>
-const MODULE_CONFIG = {
-  sectionPrefix: "sec-",
-  steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "mathe",
-  historyKey: "mathe_history_",
-  historyType: "mathe",
-  pdfFilename: "Mathe_Klausur",
-  chartColor: "#10b981",
-  minWords: 10
-};
-</script>
-<script src="shared.js"></script>
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px">
+      </div>
+    </section>
 
-<!-- MODULE-SPECIFIC CODE -->
-<script>
-CONFIG.sachgebiet = "analysis";
-CONFIG.aufgabentyp = "kurzaufgabe";
+    <!-- STEP 2: TASK DISPLAY -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabe</h2>
+        <div class="task-box" id="taskInstruction">&hellip;</div>
+        <div id="teilaufgabenContainer" style="margin-top:1rem"></div>
+        <div style="margin-top:.8rem;font-size:.85rem;color:var(--ink-muted)" id="taskMeta"></div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
 
-/* ====== GeoGebra lazy loader ====== */
-let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
-function loadGeoGebraScript() {
-  return new Promise(function(resolve) {
-    if (ggbScriptLoaded) { resolve(); return; }
-    ggbLoadCbs.push(resolve);
-    if (ggbScriptLoading) return;
-    ggbScriptLoading = true;
-    const s = document.createElement("script");
-    s.src = "https://www.geogebra.org/apps/deployggb.js";
-    const t = setTimeout(function() { s.onerror(); }, 15000);
-    s.onload = function() { clearTimeout(t); ggbScriptLoaded = true; ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
-    s.onerror = function() { ggbScriptLoading = false; ggbLoadCbs.forEach(function(c){c();}); ggbLoadCbs = []; };
-    document.head.appendChild(s);
-  });
-}
-function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function(c){c.remove();}); }
-function autoFitGeoGebra(api, type) {
-  var names = api.getAllObjectNames();
-  if (!names || !names.length) return;
-  // Make everything black
-  for (var n = 0; n < names.length; n++) { api.setColor(names[n], 0, 0, 0); }
-  if (type === "3d" || type === "probability") return;
-  // Collect bounds from all objects
-  var ax = [], ay = [];
-  for (var n = 0; n < names.length; n++) {
-    var t = api.getObjectType(names[n]);
-    if (t === "point") {
-      var px = api.getXcoord(names[n]), py = api.getYcoord(names[n]);
-      if (isFinite(px) && isFinite(py)) { ax.push(px); ay.push(py); }
-    } else if (t === "function") {
-      // Coarse scan: find peak
-      var peak = 0;
-      for (var x = -30; x <= 50; x += 0.5) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y)) peak = Math.max(peak, Math.abs(y)); }
-      // Fine scan: include x where |f(x)| > 1% of peak
-      var th = Math.max(peak * 0.01, 0.001);
-      for (var x = -30; x <= 50; x += 0.25) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y) && Math.abs(y) >= th) { ax.push(x); ay.push(y); } }
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem" open>
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+            <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
+          Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>f'(x) = 4x + 3</code>,
+          <code>int_0^1 x^2 dx = 1/3</code>, <code>sqrt(x)</code>
+        </p>
+
+        <div id="studentTextareas"></div>
+
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="be-scores-grid" id="beScoresGrid"></div>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Erreichte BE</div>
+              <div class="score-value" id="scoreBE">&ndash;</div>
+              <div class="score-max" id="scoreBEMax">/ ?</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Prozent</div>
+              <div class="score-value" id="scoreProzent">&ndash;</div>
+              <div class="score-max">%</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreTotal">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Gebiet</th>
+                <th>Typ</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow &middot; Mathematik Trainer</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "mathe",
+      historyKey: "mathe_history_",
+      historyType: "mathe",
+      pdfFilename: "Mathe_Klausur",
+      chartColor: "#10b981",
+      minWords: 10
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    CONFIG.sachgebiet = "analysis";
+    CONFIG.aufgabentyp = "kurzaufgabe";
+
+    /* ====== GeoGebra lazy loader ====== */
+    let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
+    function loadGeoGebraScript() {
+      return new Promise(function (resolve) {
+        if (ggbScriptLoaded) { resolve(); return; }
+        ggbLoadCbs.push(resolve);
+        if (ggbScriptLoading) return;
+        ggbScriptLoading = true;
+        const s = document.createElement("script");
+        s.src = "https://www.geogebra.org/apps/deployggb.js";
+        const t = setTimeout(function () { s.onerror(); }, 15000);
+        s.onload = function () { clearTimeout(t); ggbScriptLoaded = true; ggbScriptLoading = false; ggbLoadCbs.forEach(function (c) { c(); }); ggbLoadCbs = []; };
+        s.onerror = function () { ggbScriptLoading = false; ggbLoadCbs.forEach(function (c) { c(); }); ggbLoadCbs = []; };
+        document.head.appendChild(s);
+      });
     }
-  }
-  if (ax.length < 2) return;
-  var xlo = Math.min.apply(null, ax), xhi = Math.max.apply(null, ax);
-  var ylo = Math.min.apply(null, ay), yhi = Math.max.apply(null, ay);
-  // Always include origin region
-  if (xlo > -2) xlo = -1;
-  if (ylo > -1) ylo = Math.min(ylo, -0.5);
-  var xp = Math.max((xhi - xlo) * 0.1, 1), yp = Math.max((yhi - ylo) * 0.12, 0.5);
-  api.setCoordSystem(xlo - xp, xhi + xp, ylo - yp, yhi + yp);
-}
-async function renderGeoGebra(containerEl, grafik, idPrefix) {
-  if (!grafik || !grafik.commands || !grafik.commands.length) return;
-  const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
-  const appletId = "ggb_" + idPrefix + "_" + (ggbCounter++);
-  const appletDiv = document.createElement("div"); appletDiv.id = appletId;
-  wrapper.appendChild(appletDiv);
-  const loader = document.createElement("div"); loader.className = "ggb-loader"; loader.textContent = "Grafik wird geladen\u2026";
-  wrapper.appendChild(loader);
-  containerEl.appendChild(wrapper);
-  await loadGeoGebraScript();
-  if (typeof GGBApplet === "undefined") { loader.textContent = "Grafik konnte nicht geladen werden."; loader.className = "ggb-error"; return; }
-  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  const appName = ({"graphing":"graphing","3d":"3d","probability":"probability"})[grafik.type] || "graphing";
-  const params = {
-    appName: appName, width: wrapper.clientWidth || 700, height: grafik.type === "3d" ? 450 : 350,
-    showToolBar: false, showAlgebraInput: false, showMenuBar: false, enableRightClick: false,
-    enableShiftDragZoom: true, enableLabelDrags: false, showResetIcon: false, showZoomButtons: true,
-    scaleContainerClass: "ggb-container", allowUpscale: true, language: "de",
-    borderColor: isDark ? "#2e2e42" : "#e2e8f0",
-    appletOnLoad: function(api) {
-      loader.remove();
-      window[appletId + "_api"] = api;
+    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function (c) { c.remove(); }); }
+    function autoFitGeoGebra(api, type) {
+      var names = api.getAllObjectNames();
+      if (!names || !names.length) return;
+      // Make everything black
+      for (var n = 0; n < names.length; n++) { api.setColor(names[n], 0, 0, 0); }
+      if (type === "3d" || type === "probability") return;
+      // Collect bounds from all objects
+      var ax = [], ay = [];
+      for (var n = 0; n < names.length; n++) {
+        var t = api.getObjectType(names[n]);
+        if (t === "point") {
+          var px = api.getXcoord(names[n]), py = api.getYcoord(names[n]);
+          if (isFinite(px) && isFinite(py)) { ax.push(px); ay.push(py); }
+        } else if (t === "function") {
+          // Coarse scan: find peak
+          var peak = 0;
+          for (var x = -30; x <= 50; x += 0.5) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y)) peak = Math.max(peak, Math.abs(y)); }
+          // Fine scan: include x where |f(x)| > 1% of peak
+          var th = Math.max(peak * 0.01, 0.001);
+          for (var x = -30; x <= 50; x += 0.25) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y) && Math.abs(y) >= th) { ax.push(x); ay.push(y); } }
+        }
+      }
+      if (ax.length < 2) return;
+      var xlo = Math.min.apply(null, ax), xhi = Math.max.apply(null, ax);
+      var ylo = Math.min.apply(null, ay), yhi = Math.max.apply(null, ay);
+      // Always include origin region
+      if (xlo > -2) xlo = -1;
+      if (ylo > -1) ylo = Math.min(ylo, -0.5);
+      var xp = Math.max((xhi - xlo) * 0.1, 1), yp = Math.max((yhi - ylo) * 0.12, 0.5);
+      api.setCoordSystem(xlo - xp, xhi + xp, ylo - yp, yhi + yp);
+    }
+    async function renderGeoGebra(containerEl, grafik, idPrefix) {
+      if (!grafik || !grafik.commands || !grafik.commands.length) return;
+      const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
+      const appletId = "ggb_" + idPrefix + "_" + (ggbCounter++);
+      const appletDiv = document.createElement("div"); appletDiv.id = appletId;
+      wrapper.appendChild(appletDiv);
+      const loader = document.createElement("div"); loader.className = "ggb-loader"; loader.textContent = "Grafik wird geladen\u2026";
+      wrapper.appendChild(loader);
+      containerEl.appendChild(wrapper);
+      await loadGeoGebraScript();
+      if (typeof GGBApplet === "undefined") { loader.textContent = "Grafik konnte nicht geladen werden."; loader.className = "ggb-error"; return; }
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const appName = ({ "graphing": "graphing", "3d": "3d", "probability": "probability" })[grafik.type] || "graphing";
+      const params = {
+        appName: appName, width: wrapper.clientWidth || 700, height: grafik.type === "3d" ? 450 : 350,
+        showToolBar: false, showAlgebraInput: false, showMenuBar: false, enableRightClick: false,
+        enableShiftDragZoom: true, enableLabelDrags: false, showResetIcon: false, showZoomButtons: true,
+        scaleContainerClass: "ggb-container", allowUpscale: true, language: "de",
+        borderColor: isDark ? "#2e2e42" : "#e2e8f0",
+        appletOnLoad: function (api) {
+          loader.remove();
+          window[appletId + "_api"] = api;
+          try {
+            if (api.setErrorDialogsActive) api.setErrorDialogsActive(false);
+            for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
+            autoFitGeoGebra(api, grafik.type);
+            if (isDark) { api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)"); }
+          } catch (e) { console.warn("GeoGebra cmd error:", e); }
+        }
+      };
+      new GGBApplet(params, true).inject(appletId);
+    }
+    /* Dark mode observer for GeoGebra */
+    new MutationObserver(function () {
+      var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.querySelectorAll(".ggb-container div[id^='ggb_']").forEach(function (el) {
+        var api = window[el.id + "_api"];
+        if (api) { try { api.evalCommand(isDark ? "SetBackgroundColor(0.11, 0.11, 0.16)" : "SetBackgroundColor(1, 1, 1)"); } catch (e) { } }
+      });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    const SG_LABELS = {
+      analysis: "Analysis",
+      stochastik: "Stochastik",
+      geometrie: "Geometrie"
+    };
+    const SG_ICONS = { analysis: "\u{1F4C8}", stochastik: "\u{1F3B2}", geometrie: "\u{1F4D0}" };
+
+    // BE -> NP conversion table (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    function selectSachgebiet(sg) {
+      CONFIG.sachgebiet = sg;
+      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      // Adjust timer default
+      document.getElementById("timerMinutes").value = CONFIG.aufgabentyp === "kurzaufgabe" ? 15 : 45;
+    }
+
+    function setAufgabentyp(typ) {
+      CONFIG.aufgabentyp = typ;
+      document.getElementById("typeKurz").classList.toggle("active", typ === "kurzaufgabe");
+      document.getElementById("typeLang").classList.toggle("active", typ === "langaufgabe");
+      document.getElementById("timerMinutes").value = typ === "kurzaufgabe" ? 15 : 45;
+    }
+
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      const studentTexts = {};
+      document.querySelectorAll('#studentTextareas textarea').forEach(function (ta, i) {
+        studentTexts[i] = ta.value;
+      });
+      localStorage.setItem(key, JSON.stringify({
+        studentTexts: studentTexts,
+        storedData: CONFIG.storedData,
+        sachgebiet: CONFIG.sachgebiet,
+        aufgabentyp: CONFIG.aufgabentyp
+      }));
+    }
+
+    function restoreSession() {
       try {
-        if (api.setErrorDialogsActive) api.setErrorDialogsActive(false);
-        for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
-        autoFitGeoGebra(api, grafik.type);
-        if (isDark) { api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)"); }
-      } catch(e) { console.warn("GeoGebra cmd error:", e); }
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          // Restore per-textarea values
+          if (s.studentTexts) {
+            Object.keys(s.studentTexts).forEach(function (i) {
+              var ta = document.getElementById("studentText_" + i);
+              if (ta) ta.value = s.studentTexts[i];
+            });
+          } else if (s.studentText) {
+            // Migration: old single-textarea format → load into first textarea
+            var first = document.getElementById("studentText_0");
+            if (first) first.value = s.studentText;
+          }
+          if (s.sachgebiet) selectSachgebiet(s.sachgebiet);
+          if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
+          updateWordCount();
+        }
+      } catch { }
     }
-  };
-  new GGBApplet(params, true).inject(appletId);
-}
-/* Dark mode observer for GeoGebra */
-new MutationObserver(function() {
-  var isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  document.querySelectorAll(".ggb-container div[id^='ggb_']").forEach(function(el) {
-    var api = window[el.id + "_api"];
-    if (api) { try { api.evalCommand(isDark ? "SetBackgroundColor(0.11, 0.11, 0.16)" : "SetBackgroundColor(1, 1, 1)"); } catch(e){} }
-  });
-}).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
-const SG_LABELS = {
-  analysis: "Analysis",
-  stochastik: "Stochastik",
-  geometrie: "Geometrie"
-};
-const SG_ICONS = { analysis: "\u{1F4C8}", stochastik: "\u{1F3B2}", geometrie: "\u{1F4D0}" };
+    /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
+    function protectMath(text) {
+      var blocks = [];
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\$([^$]+?)\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      return { text: text, blocks: blocks };
+    }
+    function restoreMath(html, blocks) {
+      return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
+    }
+    function safeMathParse(text) {
+      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+    }
+    function safeMathParseInline(text) {
+      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+    }
 
-// BE -> NP conversion table (ISB)
-const BE_NP_TABLE = [
-  [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
-  [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
-  [33, 3], [27, 2], [20, 1], [0, 0]
-];
-
-function beToNP(erreicht, max) {
-  if (max <= 0 || erreicht == null) return null;
-  const pct = (erreicht / max) * 100;
-  for (const [threshold, np] of BE_NP_TABLE) {
-    if (pct >= threshold) return np;
-  }
-  return 0;
-}
-
-function selectSachgebiet(sg) {
-  CONFIG.sachgebiet = sg;
-  document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
-  // Adjust timer default
-  document.getElementById("timerMinutes").value = CONFIG.aufgabentyp === "kurzaufgabe" ? 15 : 45;
-}
-
-function setAufgabentyp(typ) {
-  CONFIG.aufgabentyp = typ;
-  document.getElementById("typeKurz").classList.toggle("active", typ === "kurzaufgabe");
-  document.getElementById("typeLang").classList.toggle("active", typ === "langaufgabe");
-  document.getElementById("timerMinutes").value = typ === "kurzaufgabe" ? 15 : 45;
-}
-
-function setSetupMode(m) {
-  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
-  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
-  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
-  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
-}
-
-function saveSession() {
-  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-  const studentTexts = {};
-  document.querySelectorAll('#studentTextareas textarea').forEach(function(ta, i) {
-    studentTexts[i] = ta.value;
-  });
-  localStorage.setItem(key, JSON.stringify({
-    studentTexts: studentTexts,
-    storedData: CONFIG.storedData,
-    sachgebiet: CONFIG.sachgebiet,
-    aufgabentyp: CONFIG.aufgabentyp
-  }));
-}
-
-function restoreSession() {
-  try {
-    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-    const s = JSON.parse(localStorage.getItem(key));
-    if (s) {
-      if (s.storedData) {
-        CONFIG.storedData = s.storedData;
-        renderTask(s.storedData);
-      }
-      // Restore per-textarea values
-      if (s.studentTexts) {
-        Object.keys(s.studentTexts).forEach(function(i) {
-          var ta = document.getElementById("studentText_" + i);
-          if (ta) ta.value = s.studentTexts[i];
+    function renderMath(el) {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(el || document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
         });
-      } else if (s.studentText) {
-        // Migration: old single-textarea format → load into first textarea
-        var first = document.getElementById("studentText_0");
-        if (first) first.value = s.studentText;
       }
-      if (s.sachgebiet) selectSachgebiet(s.sachgebiet);
-      if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
-      updateWordCount();
     }
-  } catch {}
-}
 
-/* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
-function protectMath(text) {
-  var blocks = [];
-  text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-  text = text.replace(/\$([^$]+?)\$/g, function(m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-  return { text: text, blocks: blocks };
-}
-function restoreMath(html, blocks) {
-  return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; });
-}
-function safeMathParse(text) {
-  var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
-}
-function safeMathParseInline(text) {
-  var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
-}
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/generate-mathe", {
+          sachgebiet: CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.aufgabentyp
+        });
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
 
-function renderMath(el) {
-  if (typeof renderMathInElement === "function") {
-    renderMathInElement(el || document.body, {
-      delimiters: [
-        {left: "$$", right: "$$", display: true},
-        {left: "$", right: "$", display: false}
-      ],
-      throwOnError: false
-    });
-  }
-}
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+      }
+      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const base64s = await Promise.all(taskUploadImages.map(async p => {
+          const r = new FileReader();
+          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+        }));
+        const d = await apiCall("/api/parse-task-mathe", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMeta").value = d.primary_meta || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
 
-async function generateTask() {
-  const btn = document.getElementById("generateBtn");
-  btn.disabled = true;
-  document.getElementById("setupLoader").style.display = "block";
-  try {
-    const d = await apiCall("/api/generate-mathe", {
-      sachgebiet: CONFIG.sachgebiet,
-      aufgabentyp: CONFIG.aufgabentyp
-    });
-    CONFIG.storedData = d;
-    renderTask(d);
-    nav("task");
-  } catch (e) { showToast("Fehler: " + e.message); }
-  btn.disabled = false;
-  document.getElementById("setupLoader").style.display = "none";
-}
+    function useUploadedTask() {
+      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-const taskUploadImages = [];
-async function handleTaskUpload(files) {
-  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
-    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
-  }
-  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
-  document.getElementById("taskUploadLoader").style.display = "block";
-  try {
-    const base64s = await Promise.all(taskUploadImages.map(async p => {
-      const r = new FileReader();
-      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
-    }));
-    const d = await apiCall("/api/parse-task-mathe", { images: base64s });
-    document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
-    document.getElementById("parsedMeta").value = d.primary_meta || "";
-    document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) { showToast("Fehler: " + e.message); }
-  document.getElementById("taskUploadLoader").style.display = "none";
-}
+    function useManualTask() {
+      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-function useUploadedTask() {
-  const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
-  if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function renderTask(d) {
+      const instrEl = document.getElementById("taskInstruction");
+      instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
+      renderMath(instrEl);
 
-function useManualTask() {
-  const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
-  if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+      // GeoGebra: clean up old, render new
+      const taskCard = instrEl.closest(".card");
+      cleanupGeoGebra(taskCard);
 
-function renderTask(d) {
-  const instrEl = document.getElementById("taskInstruction");
-  instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
-  renderMath(instrEl);
+      const container = document.getElementById("teilaufgabenContainer");
+      if (d.teilaufgaben && d.teilaufgaben.length) {
+        container.innerHTML = d.teilaufgaben.map(t =>
+          '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+          DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+          ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>'
+        ).join("");
+        renderMath(container);
+      } else {
+        container.innerHTML = "";
+      }
 
-  // GeoGebra: clean up old, render new
-  const taskCard = instrEl.closest(".card");
-  cleanupGeoGebra(taskCard);
+      const meta = document.getElementById("taskMeta");
+      meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
 
-  const container = document.getElementById("teilaufgabenContainer");
-  if (d.teilaufgaben && d.teilaufgaben.length) {
-    container.innerHTML = d.teilaufgaben.map(t =>
-      '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-      DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
-      ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>'
-    ).join("");
-    renderMath(container);
-  } else {
-    container.innerHTML = "";
-  }
+      // Render GeoGebra graph between task text and teilaufgaben
+      if (d.grafik && d.grafik.commands && d.grafik.commands.length) {
+        var ggbTarget = document.createElement("div");
+        container.parentNode.insertBefore(ggbTarget, container);
+        renderGeoGebra(ggbTarget, d.grafik, "task");
+      }
 
-  const meta = document.getElementById("taskMeta");
-  meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
+      // Write step reference
+      const writeRef = document.getElementById("writeTaskRef");
+      writeRef.innerHTML = instrEl.innerHTML;
+      if (d.teilaufgaben && d.teilaufgaben.length) {
+        writeRef.innerHTML += container.innerHTML;
+      }
+      renderMath(writeRef);
 
-  // Render GeoGebra graph between task text and teilaufgaben
-  if (d.grafik && d.grafik.commands && d.grafik.commands.length) {
-    var ggbTarget = document.createElement("div");
-    container.parentNode.insertBefore(ggbTarget, container);
-    renderGeoGebra(ggbTarget, d.grafik, "task");
-  }
+      // Render per-Teilaufgabe textareas
+      renderStudentTextareas(d);
+    }
 
-  // Write step reference
-  const writeRef = document.getElementById("writeTaskRef");
-  writeRef.innerHTML = instrEl.innerHTML;
-  if (d.teilaufgaben && d.teilaufgaben.length) {
-    writeRef.innerHTML += container.innerHTML;
-  }
-  renderMath(writeRef);
+    /* ====== PER-TEILAUFGABE TEXTAREAS ====== */
+    let activeStudentTaId = "studentText_0";
 
-  // Render per-Teilaufgabe textareas
-  renderStudentTextareas(d);
-}
+    /* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
+    function renderInlineKatex(text) {
+      if (!text) return "";
+      if (typeof katex === "undefined") return escapeHtml(text);
+      var parts = [];
+      var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
+      var lastIndex = 0;
+      var match;
+      while ((match = re.exec(text)) !== null) {
+        if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
+        var math = match[1] !== undefined ? match[1] : match[2];
+        var isDisplay = match[1] !== undefined;
+        try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false })); }
+        catch (e) { parts.push(escapeHtml(match[0])); }
+        lastIndex = re.lastIndex;
+      }
+      if (lastIndex < text.length) parts.push(escapeHtml(text.slice(lastIndex)));
+      return parts.join("");
+    }
 
-/* ====== PER-TEILAUFGABE TEXTAREAS ====== */
-let activeStudentTaId = "studentText_0";
-
-/* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
-function renderInlineKatex(text) {
-  if (!text) return "";
-  if (typeof katex === "undefined") return escapeHtml(text);
-  var parts = [];
-  var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
-  var lastIndex = 0;
-  var match;
-  while ((match = re.exec(text)) !== null) {
-    if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
-    var math = match[1] !== undefined ? match[1] : match[2];
-    var isDisplay = match[1] !== undefined;
-    try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false })); }
-    catch(e) { parts.push(escapeHtml(match[0])); }
-    lastIndex = re.lastIndex;
-  }
-  if (lastIndex < text.length) parts.push(escapeHtml(text.slice(lastIndex)));
-  return parts.join("");
-}
-
-function formelEditorHTML(idx) {
-  return '<details class="formel-editor" data-fe-idx="' + idx + '">' +
-    '<summary>\u{1F9EE} Formel-Editor</summary>' +
-    '<div class="formel-editor-body">' +
-      '<div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div>' +
-      '<div class="formel-tabs" id="formelTabs_' + idx + '"></div>' +
-      '<div class="formel-btns" id="formelBtns_' + idx + '"></div>' +
-      '<div class="formel-actions">' +
+    function formelEditorHTML(idx) {
+      return '<details class="formel-editor" data-fe-idx="' + idx + '">' +
+        '<summary>\u{1F9EE} Formel-Editor</summary>' +
+        '<div class="formel-editor-body">' +
+        '<div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div>' +
+        '<div class="formel-tabs" id="formelTabs_' + idx + '"></div>' +
+        '<div class="formel-btns" id="formelBtns_' + idx + '"></div>' +
+        '<div class="formel-actions">' +
         '<button class="btn btn-small" onclick="insertFormulaFor(' + idx + ')">\u2713 Einf\u00fcgen</button>' +
         '<button class="btn btn-small btn-secondary" onclick="clearMathFieldFor(' + idx + ')">L\u00f6schen</button>' +
         '<span class="formel-preview" id="formelPreview_' + idx + '"></span>' +
-      '</div>' +
-    '</div>' +
-  '</details>';
-}
+        '</div>' +
+        '</div>' +
+        '</details>';
+    }
 
-function renderStudentTextareas(d) {
-  const wrap = document.getElementById("studentTextareas");
-  if (!wrap) return;
-  wrap.innerHTML = "";
+    function renderStudentTextareas(d) {
+      const wrap = document.getElementById("studentTextareas");
+      if (!wrap) return;
+      wrap.innerHTML = "";
 
-  const ta_list = (d.teilaufgaben && d.teilaufgaben.length) ? d.teilaufgaben : null;
+      const ta_list = (d.teilaufgaben && d.teilaufgaben.length) ? d.teilaufgaben : null;
 
-  if (ta_list) {
-    ta_list.forEach(function(t, i) {
-      const id = "studentText_" + i;
-      const nr = escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")");
-      const labelText = nr + " " + renderInlineKatex(t.text || "") + " (" + (t.be || "?") + " BE)";
-      const div = document.createElement("div");
-      div.className = "student-ta-group";
-      div.innerHTML =
-        '<label for="' + id + '">' + labelText + '</label>' +
-        formelEditorHTML(i) +
-        '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea>' +
-        '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
-      wrap.appendChild(div);
-      document.getElementById(id).addEventListener("focus", function() { activeStudentTaId = id; });
-    });
-  } else {
-    // Fallback: single textarea for upload/manual tasks without teilaufgaben
-    wrap.innerHTML =
-      '<div class="student-ta-group">' +
-      formelEditorHTML(0) +
-      '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Plain-Text-Mathe:\n\u2022 f(x) = 2x^2 + 3x - 1\n\u2022 f\'(x) = 4x + 3\n\u2022 int_0^1 x^2 dx = 1/3\n\u2022 P(X >= 3) = 1 - P(X <= 2)\n\u2022 vec(a) = (1, 2, 3)" oninput="updateWordCount()"></textarea>' +
-      '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
-      '</div>';
-    document.getElementById("studentText_0").addEventListener("focus", function() { activeStudentTaId = "studentText_0"; });
-  }
-
-  // Set up lazy-load toggle listeners for each formula editor
-  wrap.querySelectorAll('.formel-editor').forEach(function(details) {
-    var idx = parseInt(details.getAttribute('data-fe-idx'));
-    details.addEventListener('toggle', function() {
-      if (!this.open) return;
-      if (!mathLiveLoaded) {
-        loadMathLive().then(function() {
-          initFormelEditor(idx);
-        }).catch(function(err) { showToast(err.message); });
+      if (ta_list) {
+        ta_list.forEach(function (t, i) {
+          const id = "studentText_" + i;
+          const nr = escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")");
+          const labelText = nr + " " + renderInlineKatex(t.text || "") + " (" + (t.be || "?") + " BE)";
+          const div = document.createElement("div");
+          div.className = "student-ta-group";
+          div.innerHTML =
+            '<label for="' + id + '">' + labelText + '</label>' +
+            formelEditorHTML(i) +
+            '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea>' +
+            '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
+          wrap.appendChild(div);
+          document.getElementById(id).addEventListener("focus", function () { activeStudentTaId = id; });
+        });
       } else {
-        initFormelEditor(idx);
+        // Fallback: single textarea for upload/manual tasks without teilaufgaben
+        wrap.innerHTML =
+          '<div class="student-ta-group">' +
+          formelEditorHTML(0) +
+          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Plain-Text-Mathe:\n\u2022 f(x) = 2x^2 + 3x - 1\n\u2022 f\'(x) = 4x + 3\n\u2022 int_0^1 x^2 dx = 1/3\n\u2022 P(X >= 3) = 1 - P(X <= 2)\n\u2022 vec(a) = (1, 2, 3)" oninput="updateWordCount()"></textarea>' +
+          '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
+          '</div>';
+        document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });
       }
-    });
-  });
 
-  activeStudentTaId = "studentText_0";
-  updateWordCount();
-}
+      // Set up lazy-load toggle listeners for each formula editor
+      wrap.querySelectorAll('.formel-editor').forEach(function (details) {
+        var idx = parseInt(details.getAttribute('data-fe-idx'));
+        details.addEventListener('toggle', function () {
+          if (!this.open) return;
+          if (!mathLiveLoaded) {
+            loadMathLive().then(function () {
+              initFormelEditor(idx);
+            }).catch(function (err) { showToast(err.message); });
+          } else {
+            initFormelEditor(idx);
+          }
+        });
+      });
 
-function initFormelEditor(idx) {
-  var mf = document.getElementById('formelMF_' + idx);
-  if (mf && !mf._feInit) {
-    mf.addEventListener('input', function() { updateFormelPreviewFor(idx); });
-    mf._feInit = true;
-  }
-  renderFormelTabsFor(idx);
-  renderFormelButtonsFor(idx);
-}
-
-async function submitForGrading() {
-  // Collect per-textarea texts
-  const textareas = document.querySelectorAll('#studentTextareas textarea');
-  const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];
-  const student_texts = {};
-  let allText = "";
-  textareas.forEach(function(ta, i) {
-    const taData = teilaufgaben[i];
-    const key = taData ? (taData.id || taData.nr || String.fromCharCode(97 + i) + ")") : "Lösung";
-    student_texts[key] = ta.value;
-    if (ta.value.trim()) {
-      allText += (allText ? "\n\n" : "") + key + "\n" + ta.value;
-    }
-  });
-  if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
-  if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
-  document.getElementById("submitBtn").disabled = true;
-  nav("feedback");
-  document.getElementById("feedbackLoader").style.display = "block";
-  document.getElementById("feedbackContent").style.display = "none";
-  try {
-    const d = await apiCall("/api/grade-mathe", {
-      aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
-      teilaufgaben: CONFIG.storedData.teilaufgaben || [],
-      gesamt_be: CONFIG.storedData.gesamt_be || 0,
-      sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
-      aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
-      student_text: allText,
-      student_texts: student_texts
-    });
-
-    // Render per-Teilaufgabe BE scores
-    const grid = document.getElementById("beScoresGrid");
-    if (d.teilbewertungen && d.teilbewertungen.length) {
-      grid.innerHTML = d.teilbewertungen.map(t =>
-        '<div class="be-score-card"><div class="score-label">' + escapeHtml(t.id || "") + '</div>' +
-        '<div class="score-value">' + (t.erreichte_be ?? "?") + '</div>' +
-        '<div class="score-max">/ ' + (t.max_be ?? "?") + ' BE</div></div>'
-      ).join("");
-    } else {
-      grid.innerHTML = "";
+      activeStudentTaId = "studentText_0";
+      updateWordCount();
     }
 
-    const beErreicht = d.gesamt_be ?? d.scores?.be_erreicht ?? null;
-    const beMax = d.max_be ?? d.scores?.be_max ?? CONFIG.storedData.gesamt_be ?? 0;
-    const np = d.note ?? d.scores?.notenpunkte ?? beToNP(beErreicht, beMax);
-    const pct = beMax > 0 ? Math.round((beErreicht / beMax) * 100) : null;
-
-    document.getElementById("scoreBE").textContent = beErreicht ?? "\u2013";
-    document.getElementById("scoreBEMax").textContent = "/ " + beMax;
-    document.getElementById("scoreProzent").textContent = pct != null ? pct : "\u2013";
-    document.getElementById("scoreTotal").textContent = np ?? "\u2013";
-
-    saveToHistory({
-      sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
-      aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
-      be_erreicht: beErreicht,
-      be_max: beMax,
-      total: np
-    });
-    apiCall("/api/submit-result", {
-      student_name: sessionStorage.getItem("student_name") || "Unbekannt",
-      type: "mathe",
-      topic: SG_LABELS[CONFIG.storedData.sachgebiet || CONFIG.sachgebiet] || "Mathe",
-      content: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
-      language: np,
-      total: np,
-      date: new Date().toISOString()
-    }).catch(() => {});
-    stopTimer();
-    const fb = document.getElementById("feedbackBody");
-    fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
-    renderMath(fb);
-    document.getElementById("feedbackContent").style.display = "block";
-  } catch (e) {
-    document.getElementById("feedbackContent").style.display = "block";
-    document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
-  }
-  document.getElementById("feedbackLoader").style.display = "none";
-  document.getElementById("submitBtn").disabled = false;
-}
-
-async function showModelAnswer() {
-  const card = document.getElementById("modelAnswerCard");
-  if (card.style.display === "block") { card.style.display = "none"; return; }
-  document.getElementById("showModelBtn").disabled = true;
-  try {
-    const d = await apiCall("/api/model-answer-mathe", {
-      aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
-      teilaufgaben: CONFIG.storedData.teilaufgaben || [],
-      gesamt_be: CONFIG.storedData.gesamt_be || 0,
-      sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet
-    });
-    const body = document.getElementById("modelAnswerBody");
-    body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
-    renderMath(body);
-    card.style.display = "block";
-  } catch (e) { showToast(e.message); }
-  document.getElementById("showModelBtn").disabled = false;
-}
-
-function renderHistoryTable(history) {
-  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
-    const ic = SG_ICONS[x.sachgebiet] || "\u{1F4D0}";
-    return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td>' + (x.aufgabentyp || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
-  }).join("");
-}
-
-/* ====== FORMEL-EDITOR (MathLive) ====== */
-let mathLiveLoaded = false, mathLiveLoading = false;
-function loadMathLive() {
-  return new Promise(function(resolve, reject) {
-    if (mathLiveLoaded) { resolve(); return; }
-    if (mathLiveLoading) {
-      var check = setInterval(function() { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100);
-      return;
+    function initFormelEditor(idx) {
+      var mf = document.getElementById('formelMF_' + idx);
+      if (mf && !mf._feInit) {
+        mf.addEventListener('input', function () { updateFormelPreviewFor(idx); });
+        mf._feInit = true;
+      }
+      renderFormelTabsFor(idx);
+      renderFormelButtonsFor(idx);
     }
-    mathLiveLoading = true;
-    var s = document.createElement("script");
-    s.type = "module";
-    s.src = "https://unpkg.com/mathlive?module";
-    s.onload = function() { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
-    s.onerror = function() { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
-    document.head.appendChild(s);
-  });
-}
 
-const FORMEL_BUTTONS = {
-  grundlagen: {
-    label: "Grundlagen",
-    buttons: [
-      { label: "x^n", latex: "x^{#0}" },
-      { label: "a/b", latex: "\\frac{#0}{#0}" },
-      { label: "\u221A", latex: "\\sqrt{#0}" },
-      { label: "|x|", latex: "\\left|#0\\right|" },
-      { label: "\u2264", latex: "\\leq" },
-      { label: "\u2265", latex: "\\geq" },
-      { label: "\u2260", latex: "\\neq" },
-      { label: "\u00B7", latex: "\\cdot" },
-      { label: "\u03C0", latex: "\\pi" },
-      { label: "e", latex: "e" },
-      { label: "\u221E", latex: "\\infty" }
-    ]
-  },
-  analysis: {
-    label: "Analysis",
-    buttons: [
-      { label: "f'(x)", latex: "f'(x)" },
-      { label: "f''(x)", latex: "f''(x)" },
-      { label: "lim", latex: "\\lim_{x\\to #0}" },
-      { label: "\u222B", latex: "\\int_{#0}^{#0} #0 \\, dx" },
-      { label: "\u03A3", latex: "\\sum_{#0}^{#0}" },
-      { label: "e^x", latex: "e^{#0}" },
-      { label: "ln", latex: "\\ln\\left(#0\\right)" },
-      { label: "sin", latex: "\\sin\\left(#0\\right)" },
-      { label: "cos", latex: "\\cos\\left(#0\\right)" },
-      { label: "tan", latex: "\\tan\\left(#0\\right)" },
-      { label: "dy/dx", latex: "\\frac{dy}{dx}" }
-    ]
-  },
-  stochastik: {
-    label: "Stochastik",
-    buttons: [
-      { label: "P(A)", latex: "P(A)" },
-      { label: "P(A|B)", latex: "P(A \\mid B)" },
-      { label: "P(X=k)", latex: "P(X = #0)" },
-      { label: "n\u00FCr k", latex: "\\binom{n}{k}" },
-      { label: "\u03BC", latex: "\\mu" },
-      { label: "\u03C3", latex: "\\sigma" },
-      { label: "E(X)", latex: "E(X)" },
-      { label: "Var(X)", latex: "\\mathrm{Var}(X)" }
-    ]
-  },
-  geometrie: {
-    label: "Geometrie",
-    buttons: [
-      { label: "Vektor", latex: "\\vec{#0}" },
-      { label: "3D-Vektor", latex: "\\begin{pmatrix} #0 \\\\ #0 \\\\ #0 \\end{pmatrix}" },
-      { label: "\u00D7", latex: "\\times" },
-      { label: "\u2218", latex: "\\circ" },
-      { label: "Matrix", latex: "\\begin{pmatrix} #0 & #0 \\\\ #0 & #0 \\end{pmatrix}" }
-    ]
-  }
-};
+    async function submitForGrading() {
+      // Collect per-textarea texts
+      const textareas = document.querySelectorAll('#studentTextareas textarea');
+      const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];
+      const student_texts = {};
+      let allText = "";
+      textareas.forEach(function (ta, i) {
+        const taData = teilaufgaben[i];
+        const key = taData ? (taData.id || taData.nr || String.fromCharCode(97 + i) + ")") : "Lösung";
+        student_texts[key] = ta.value;
+        if (ta.value.trim()) {
+          allText += (allText ? "\n\n" : "") + key + "\n" + ta.value;
+        }
+      });
+      if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+      try {
+        const d = await apiCall("/api/grade-mathe", {
+          aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
+          teilaufgaben: CONFIG.storedData.teilaufgaben || [],
+          gesamt_be: CONFIG.storedData.gesamt_be || 0,
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          student_text: allText,
+          student_texts: student_texts
+        });
 
-let activeFormelTab = "grundlagen";
+        // Render per-Teilaufgabe BE scores
+        const grid = document.getElementById("beScoresGrid");
+        if (d.teilbewertungen && d.teilbewertungen.length) {
+          grid.innerHTML = d.teilbewertungen.map(t =>
+            '<div class="be-score-card"><div class="score-label">' + escapeHtml(t.id || "") + '</div>' +
+            '<div class="score-value">' + (t.erreichte_be ?? "?") + '</div>' +
+            '<div class="score-max">/ ' + (t.max_be ?? "?") + ' BE</div></div>'
+          ).join("");
+        } else {
+          grid.innerHTML = "";
+        }
 
-function renderFormelTabsFor(feIdx) {
-  var tabsEl = document.getElementById("formelTabs_" + feIdx);
-  if (!tabsEl) return;
-  tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function(key) {
-    return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>';
-  }).join("");
-}
+        const beErreicht = d.gesamt_be ?? d.scores?.be_erreicht ?? null;
+        const beMax = d.max_be ?? d.scores?.be_max ?? CONFIG.storedData.gesamt_be ?? 0;
+        const np = d.note ?? d.scores?.notenpunkte ?? beToNP(beErreicht, beMax);
+        const pct = beMax > 0 ? Math.round((beErreicht / beMax) * 100) : null;
 
-function switchFormelTabFor(cat, feIdx) {
-  activeFormelTab = cat;
-  // Update tabs in all open editors
-  document.querySelectorAll('.formel-editor[open]').forEach(function(d) {
-    renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx')));
-    renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx')));
-  });
-}
+        document.getElementById("scoreBE").textContent = beErreicht ?? "\u2013";
+        document.getElementById("scoreBEMax").textContent = "/ " + beMax;
+        document.getElementById("scoreProzent").textContent = pct != null ? pct : "\u2013";
+        document.getElementById("scoreTotal").textContent = np ?? "\u2013";
 
-function renderFormelButtonsFor(feIdx) {
-  var btnsEl = document.getElementById("formelBtns_" + feIdx);
-  if (!btnsEl) return;
-  var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
-  btnsEl.innerHTML = buttons.map(function(b, i) {
-    return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
-  }).join("");
-}
+        saveToHistory({
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          be_erreicht: beErreicht,
+          be_max: beMax,
+          total: np
+        });
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "mathe",
+          topic: SG_LABELS[CONFIG.storedData.sachgebiet || CONFIG.sachgebiet] || "Mathe",
+          content: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          language: np,
+          total: np,
+          date: new Date().toISOString()
+        }).catch(() => { });
+        stopTimer();
+        const fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
+        renderMath(fb);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
 
-function insertQuickLatexFor(btnIdx, feIdx) {
-  var mf = document.getElementById("formelMF_" + feIdx);
-  if (!mf) return;
-  var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
-  var b = buttons[btnIdx];
-  if (!b) return;
-  mf.executeCommand(["insert", b.latex]);
-  mf.focus();
-  updateFormelPreviewFor(feIdx);
-}
+    async function showModelAnswer() {
+      const card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        const d = await apiCall("/api/model-answer-mathe", {
+          aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
+          teilaufgaben: CONFIG.storedData.teilaufgaben || [],
+          gesamt_be: CONFIG.storedData.gesamt_be || 0,
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet
+        });
+        const body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
+        renderMath(body);
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
 
-function updateFormelPreviewFor(feIdx) {
-  var mf = document.getElementById("formelMF_" + feIdx);
-  var preview = document.getElementById("formelPreview_" + feIdx);
-  if (mf && preview) { preview.textContent = mf.value || ""; }
-}
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+        const ic = SG_ICONS[x.sachgebiet] || "\u{1F4D0}";
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td>' + (x.aufgabentyp || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
 
-function insertFormulaFor(feIdx) {
-  var mf = document.getElementById("formelMF_" + feIdx);
-  if (!mf || !mf.value) return;
-  var latex = "$" + mf.value + "$";
-  var ta = document.getElementById("studentText_" + feIdx);
-  if (!ta) return;
-  var start = ta.selectionStart, end = ta.selectionEnd;
-  var before = ta.value.substring(0, start);
-  var after = ta.value.substring(end);
-  var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : "";
-  var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : "";
-  ta.value = before + spaceBefore + latex + spaceAfter + after;
-  var newPos = start + spaceBefore.length + latex.length + spaceAfter.length;
-  ta.selectionStart = ta.selectionEnd = newPos;
-  ta.focus();
-  updateWordCount();
-  mf.value = "";
-  updateFormelPreviewFor(feIdx);
-}
+    /* ====== FORMEL-EDITOR (MathLive) ====== */
+    let mathLiveLoaded = false, mathLiveLoading = false;
+    function loadMathLive() {
+      return new Promise(function (resolve, reject) {
+        if (mathLiveLoaded) { resolve(); return; }
+        if (mathLiveLoading) {
+          var check = setInterval(function () { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100);
+          return;
+        }
+        mathLiveLoading = true;
+        var s = document.createElement("script");
+        s.type = "module";
+        s.src = "https://unpkg.com/mathlive?module";
+        s.onload = function () { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
+        s.onerror = function () { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
+        document.head.appendChild(s);
+      });
+    }
 
-function clearMathFieldFor(feIdx) {
-  var mf = document.getElementById("formelMF_" + feIdx);
-  if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
-}
+    const FORMEL_BUTTONS = {
+      grundlagen: {
+        label: "Grundlagen",
+        buttons: [
+          { label: "x^n", latex: "x^{#0}" },
+          { label: "a/b", latex: "\\frac{#0}{#0}" },
+          { label: "\u221A", latex: "\\sqrt{#0}" },
+          { label: "|x|", latex: "\\left|#0\\right|" },
+          { label: "\u2264", latex: "\\leq" },
+          { label: "\u2265", latex: "\\geq" },
+          { label: "\u2260", latex: "\\neq" },
+          { label: "\u00B7", latex: "\\cdot" },
+          { label: "\u03C0", latex: "\\pi" },
+          { label: "e", latex: "e" },
+          { label: "\u221E", latex: "\\infty" }
+        ]
+      },
+      analysis: {
+        label: "Analysis",
+        buttons: [
+          { label: "f'(x)", latex: "f'(x)" },
+          { label: "f''(x)", latex: "f''(x)" },
+          { label: "lim", latex: "\\lim_{x\\to #0}" },
+          { label: "\u222B", latex: "\\int_{#0}^{#0} #0 \\, dx" },
+          { label: "\u03A3", latex: "\\sum_{#0}^{#0}" },
+          { label: "e^x", latex: "e^{#0}" },
+          { label: "ln", latex: "\\ln\\left(#0\\right)" },
+          { label: "sin", latex: "\\sin\\left(#0\\right)" },
+          { label: "cos", latex: "\\cos\\left(#0\\right)" },
+          { label: "tan", latex: "\\tan\\left(#0\\right)" },
+          { label: "dy/dx", latex: "\\frac{dy}{dx}" }
+        ]
+      },
+      stochastik: {
+        label: "Stochastik",
+        buttons: [
+          { label: "P(A)", latex: "P(A)" },
+          { label: "P(A|B)", latex: "P(A \\mid B)" },
+          { label: "P(X=k)", latex: "P(X = #0)" },
+          { label: "n\u00FCr k", latex: "\\binom{n}{k}" },
+          { label: "\u03BC", latex: "\\mu" },
+          { label: "\u03C3", latex: "\\sigma" },
+          { label: "E(X)", latex: "E(X)" },
+          { label: "Var(X)", latex: "\\mathrm{Var}(X)" }
+        ]
+      },
+      geometrie: {
+        label: "Geometrie",
+        buttons: [
+          { label: "Vektor", latex: "\\vec{#0}" },
+          { label: "3D-Vektor", latex: "\\begin{pmatrix} #0 \\\\ #0 \\\\ #0 \\end{pmatrix}" },
+          { label: "\u00D7", latex: "\\times" },
+          { label: "\u2218", latex: "\\circ" },
+          { label: "Matrix", latex: "\\begin{pmatrix} #0 & #0 \\\\ #0 & #0 \\end{pmatrix}" }
+        ]
+      }
+    };
 
-/* ====== OVERRIDE: updateWordCount — per-Textarea + Gesamtsumme ====== */
-function updateWordCount() {
-  var total = 0;
-  document.querySelectorAll('#studentTextareas textarea').forEach(function(ta) {
-    var c = countWords(ta.value);
-    total += c;
-    var wcEl = document.getElementById("wc_" + ta.id);
-    if (wcEl) wcEl.textContent = c + " W\u00f6rter";
-  });
-  document.getElementById("wordCount").textContent = total;
-}
+    let activeFormelTab = "grundlagen";
 
-/* ====== OVERRIDE: useOCRText — insert into last-focused textarea ====== */
-function useOCRText() {
-  var t = document.getElementById("ocrText").value;
-  if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
-  var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
-  var ta = document.getElementById(activeStudentTaId || "studentText_0");
-  if (ta) {
-    ta.value = clean;
-    ta.scrollIntoView({ behavior: "smooth" });
-  }
-  updateWordCount();
-  showToast("Text \u00fcbernommen in " + (activeStudentTaId || "studentText_0").replace("studentText_", "Feld ") + "!", "success");
-}
+    function renderFormelTabsFor(feIdx) {
+      var tabsEl = document.getElementById("formelTabs_" + feIdx);
+      if (!tabsEl) return;
+      tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function (key) {
+        return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>';
+      }).join("");
+    }
 
-// Render default fallback textarea on page load (before any task is generated)
-renderStudentTextareas({ teilaufgaben: [] });
-</script>
+    function switchFormelTabFor(cat, feIdx) {
+      activeFormelTab = cat;
+      // Update tabs in all open editors
+      document.querySelectorAll('.formel-editor[open]').forEach(function (d) {
+        renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx')));
+        renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx')));
+      });
+    }
+
+    function renderFormelButtonsFor(feIdx) {
+      var btnsEl = document.getElementById("formelBtns_" + feIdx);
+      if (!btnsEl) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      btnsEl.innerHTML = buttons.map(function (b, i) {
+        return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
+      }).join("");
+    }
+
+    function insertQuickLatexFor(btnIdx, feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      var b = buttons[btnIdx];
+      if (!b) return;
+      mf.executeCommand(["insert", b.latex]);
+      mf.focus();
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function updateFormelPreviewFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      var preview = document.getElementById("formelPreview_" + feIdx);
+      if (mf && preview) { preview.textContent = mf.value || ""; }
+    }
+
+    function insertFormulaFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf || !mf.value) return;
+      var latex = "$" + mf.value + "$";
+      var ta = document.getElementById("studentText_" + feIdx);
+      if (!ta) return;
+      var start = ta.selectionStart, end = ta.selectionEnd;
+      var before = ta.value.substring(0, start);
+      var after = ta.value.substring(end);
+      var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : "";
+      var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : "";
+      ta.value = before + spaceBefore + latex + spaceAfter + after;
+      var newPos = start + spaceBefore.length + latex.length + spaceAfter.length;
+      ta.selectionStart = ta.selectionEnd = newPos;
+      ta.focus();
+      updateWordCount();
+      mf.value = "";
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function clearMathFieldFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
+    }
+
+    /* ====== OVERRIDE: updateWordCount — per-Textarea + Gesamtsumme ====== */
+    function updateWordCount() {
+      var total = 0;
+      document.querySelectorAll('#studentTextareas textarea').forEach(function (ta) {
+        var c = countWords(ta.value);
+        total += c;
+        var wcEl = document.getElementById("wc_" + ta.id);
+        if (wcEl) wcEl.textContent = c + " W\u00f6rter";
+      });
+      document.getElementById("wordCount").textContent = total;
+    }
+
+    /* ====== OVERRIDE: useOCRText — insert into last-focused textarea ====== */
+    function useOCRText() {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      var ta = document.getElementById(activeStudentTaId || "studentText_0");
+      if (ta) {
+        ta.value = clean;
+        ta.scrollIntoView({ behavior: "smooth" });
+      }
+      updateWordCount();
+      showToast("Text \u00fcbernommen in " + (activeStudentTaId || "studentText_0").replace("studentText_", "Feld ") + "!", "success");
+    }
+
+    // Render default fallback textarea on page load (before any task is generated)
+    renderStudentTextareas({ teilaufgaben: [] });
+  </script>
 </body>
+
 </html>

@@ -1,344 +1,568 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
-<title>myAbiFlow · Materialgestütztes Schreiben</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📑</text></svg>">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js" integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js" integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared-v4.css">
-<style>
-/* Module-specific styles */
-.material-box{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;margin:.8rem 0;line-height:1.7;cursor:text}
-.material-label{font-size:.75rem;font-weight:700;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
-.material-content{font-size:.9rem;max-height:300px;overflow-y:auto}
-.stat-table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.85rem}
-.stat-table th{background:var(--accent-soft);color:var(--accent);padding:.5rem .7rem;text-align:left;font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;border-bottom:2px solid var(--accent)}
-.stat-table td{padding:.45rem .7rem;border-bottom:1px solid var(--border)}
-.stat-table tr:hover td{background:var(--accent-glow)}
-.stat-table td:last-child,.stat-table th:last-child{text-align:right}
-.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
-.type-card{background:var(--bg-warm);border:2px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer;transition:all .2s}
-.type-card:hover{border-color:var(--accent)}
-.type-card.selected{border-color:var(--accent);background:var(--accent-soft)}
-.type-icon{font-size:2rem;margin-bottom:.5rem}
-.type-name{font-weight:600}
-.type-desc{font-size:.8rem;color:var(--ink-muted);margin-top:.3rem}
-/* Chart & image styles */
-.material-chart{margin:1rem 0;max-height:280px}
-.material-img{width:100%;max-height:400px;object-fit:contain;border-radius:var(--radius-sm);margin:0}
-.material-figure{margin:0;padding:0}
-.material-caption{font-size:.8rem;color:var(--ink-muted);text-align:center;margin-top:.4rem;font-style:italic;line-height:1.4}
-.material-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.2rem;opacity:.7}
-.material-img-loading{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:2rem;color:var(--ink-muted);font-size:.85rem}
-.material-img-credit{font-size:.7rem;color:var(--ink-muted);text-align:right;margin-top:.25rem}
-.material-img-error{padding:1rem;text-align:center;color:var(--ink-muted);font-style:italic}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://sag-abi-mediation-api.sanktannagymnasium.workers.dev; frame-ancestors 'none';">
+  <title>myAbiFlow · Materialgestütztes Schreiben</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📑</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@17.0.3/marked.min.js"
+    integrity="sha384-tkjnnf9Tzhv5ZFrDroGvUExw9C3EVFo0RFRkzKR8ZX4b5Psoec4yb1PlD8Jh4j4H"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    /* Module-specific styles */
+    .material-box {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin: .8rem 0;
+      line-height: 1.7;
+      cursor: text
+    }
 
-@media(max-width:650px){.type-grid{grid-template-columns:1fr}}
-</style>
+    .material-label {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    .material-content {
+      font-size: .9rem;
+      max-height: 300px;
+      overflow-y: auto
+    }
+
+    .stat-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .5rem 0;
+      font-size: .85rem
+    }
+
+    .stat-table th {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: .5rem .7rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      border-bottom: 2px solid var(--accent)
+    }
+
+    .stat-table td {
+      padding: .45rem .7rem;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .stat-table tr:hover td {
+      background: var(--accent-glow)
+    }
+
+    .stat-table td:last-child,
+    .stat-table th:last-child {
+      text-align: right
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .type-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .type-card:hover {
+      border-color: var(--accent)
+    }
+
+    .type-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .type-icon {
+      font-size: 2rem;
+      margin-bottom: .5rem
+    }
+
+    .type-name {
+      font-weight: 600
+    }
+
+    .type-desc {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .3rem
+    }
+
+    /* Chart & image styles */
+    .material-chart {
+      margin: 1rem 0;
+      max-height: 280px
+    }
+
+    .material-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin: 0
+    }
+
+    .material-figure {
+      margin: 0;
+      padding: 0
+    }
+
+    .material-caption {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-top: .4rem;
+      font-style: italic;
+      line-height: 1.4
+    }
+
+    .material-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .2rem;
+      opacity: .7
+    }
+
+    .material-img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 2rem;
+      color: var(--ink-muted);
+      font-size: .85rem
+    }
+
+    .material-img-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .25rem
+    }
+
+    .material-img-error {
+      padding: 1rem;
+      text-align: center;
+      color: var(--ink-muted);
+      font-style: italic
+    }
+
+    @media(max-width:650px) {
+      .type-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header>
-  <div class="header-left">
-    <a href="index.html?back=german" class="back-link">← Zurück</a>
-    <h1>Deutsch · <span>Materialgestützt</span></h1>
-  </div>
-  <div class="header-right">
-    <span id="studentGreeting" class="header-meta" style="display:none"></span>
-    <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
-  </div>
-</header>
-<nav>
-  <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
-  <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
-  <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
-  <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-  <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span> Fortschritt</button>
-</nav>
-<main>
-  <section id="sec-setup" class="active">
-    <div class="card">
-      <h2 class="card-header">Aufgabe wählen</h2>
-      <div class="mode-toggle">
-        <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
-        <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
-      </div>
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=german" class="back-link">← Zurück</a>
+      <h1>Deutsch · <span>Materialgestützt</span></h1>
     </div>
-
-    <div class="card" id="setupGenerate">
-      <h2 class="card-header">Aufgabe konfigurieren</h2>
-      <div class="form-group">
-        <label>Aufgabentyp</label>
-        <div class="type-grid">
-          <div class="type-card selected" data-type="argumentieren" onclick="selectType('argumentieren')">
-            <div class="type-icon">💬</div>
-            <div class="type-name">Argumentierender Beitrag</div>
-            <div class="type-desc">Kommentar, Rede, Leserbrief, Essay</div>
-          </div>
-          <div class="type-card" data-type="informieren" onclick="selectType('informieren')">
-            <div class="type-icon">📰</div>
-            <div class="type-name">Informierender Text</div>
-            <div class="type-desc">Zeitungsartikel, Blogbeitrag, Sachtext</div>
-          </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+    </div>
+  </header>
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span>
+      Fortschritt</button>
+  </nav>
+  <main>
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe wählen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
         </div>
       </div>
 
-      <div class="form-row">
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Aufgabe konfigurieren</h2>
         <div class="form-group">
-          <label>Themenbereich</label>
-          <select id="themaSelect">
-            <option value="random">Zufällig</option>
-            <option value="sprache_politik">Sprache in der Politik</option>
-            <option value="medien">Medien und Digitalisierung</option>
-            <option value="gesellschaft">Gesellschaftliche Fragen</option>
-            <option value="bildung">Bildung und Wissenschaft</option>
-            <option value="umwelt">Umwelt und Nachhaltigkeit</option>
-          </select>
+          <label>Aufgabentyp</label>
+          <div class="type-grid">
+            <div class="type-card selected" data-type="argumentieren" onclick="selectType('argumentieren')">
+              <div class="type-icon">💬</div>
+              <div class="type-name">Argumentierender Beitrag</div>
+              <div class="type-desc">Kommentar, Rede, Leserbrief, Essay</div>
+            </div>
+            <div class="type-card" data-type="informieren" onclick="selectType('informieren')">
+              <div class="type-icon">📰</div>
+              <div class="type-name">Informierender Text</div>
+              <div class="type-desc">Zeitungsartikel, Blogbeitrag, Sachtext</div>
+            </div>
+          </div>
         </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Themenbereich</label>
+            <select id="themaSelect">
+              <option value="random">Zufällig</option>
+              <option value="sprache_politik">Sprache in der Politik</option>
+              <option value="medien">Medien und Digitalisierung</option>
+              <option value="gesellschaft">Gesellschaftliche Fragen</option>
+              <option value="bildung">Bildung und Wissenschaft</option>
+              <option value="umwelt">Umwelt und Nachhaltigkeit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Zieltextsorte</label>
+            <select id="textsorteSelect">
+            </select>
+          </div>
+        </div>
+
         <div class="form-group">
-          <label>Zieltextsorte</label>
-          <select id="textsorteSelect">
-          </select>
+          <label>Bearbeitungszeit (Minuten)</label>
+          <input type="number" id="timerMinutes" value="315" min="30" max="315" style="max-width:150px">
+        </div>
+
+        <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Aufgabe mit Materialien …</div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>Bearbeitungszeit (Minuten)</label>
-        <input type="number" id="timerMinutes" value="315" min="30" max="315" style="max-width:150px">
-      </div>
-
-      <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
-      <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Aufgabe mit Materialien …</div></div>
-    </div>
-
-    <div class="card" id="setupUpload" style="display:none">
-      <h2 class="card-header">Eigene Aufgabe</h2>
-      <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
-      </div>
-      <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none" onchange="handleTaskUpload(this.files)">
-      <div id="taskUploadPages" class="ocr-pages"></div>
-      <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div><div class="loader-text">Text wird erkannt …</div></div>
-      <div id="taskUploadResult" style="display:none;margin-top:1rem">
-        <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-        <div class="form-group"><label>Materialien (gesamter Text)</label><textarea id="parsedPrimaryText" style="min-height:200px"></textarea></div>
-        <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
-      </div>
-      <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
-      <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-      <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px" placeholder="Verfassen Sie einen argumentierenden Beitrag …"></textarea></div>
-      <div class="form-group"><label>Materialien</label><textarea id="manualPrimaryText" style="min-height:200px" placeholder="Materialien hier einfügen …"></textarea></div>
-      <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
-    </div>
-
-    <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
-      <h3 style="font-size:1rem;margin-bottom:.5rem">📑 Was ist materialgestütztes Schreiben?</h3>
-      <p style="font-size:.9rem;color:var(--ink-light)">Du erhältst mehrere Materialien (Texte, Grafiken, Statistiken) zu einem Thema und verfasst auf dieser Grundlage einen eigenen <strong>adressatenorientierten</strong> Text. Wichtig: Du musst die Materialien <strong>auswerten und einbeziehen</strong>, aber auch eigenes Wissen ergänzen.</p>
-      <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem"><strong>Gewichtung:</strong> Verstehen 60% · Darstellung 40%</p>
-    </div>
-  </section>
-
-  <section id="sec-task">
-    <div class="card">
-      <h2 class="card-header">Aufgabenstellung</h2>
-      <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
-      <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem">
-        <strong>Zieltext:</strong> <span id="zieltextInfo">–</span> · <strong>Zielgruppe:</strong> <span id="zielgruppeInfo">–</span>
-      </p>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header">Materialien</h2>
-
-      <!-- Highlighter Toolbar -->
-      <div class="highlighter-toolbar">
-        <span class="hl-label">🖍️ Markieren:</span>
-        <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
-        <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
-        <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
-        <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
-        <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
-        <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
-        <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
-      </div>
-
-      <div id="materialsContainer"></div>
-    </div>
-
-    <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
-  </section>
-
-  <section id="sec-write">
-    <div class="timer-bar" id="timerBar">
-      <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
-      <div style="display:flex;gap:.5rem">
-        <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
-        <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="card-header">Dein Text</h2>
-      <details style="margin-bottom:1rem">
-        <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📖 Aufgabe & Materialien anzeigen</summary>
-        <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:400px;overflow-y:auto">
-          <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
-          <div id="writeMaterialsRef"></div>
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
+            Seiten möglich</div>
         </div>
-      </details>
-      <textarea id="studentText" placeholder="Verfasse hier deinen Text …
+        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Text wird erkannt …</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Materialien (gesamter Text)</label><textarea id="parsedPrimaryText"
+              style="min-height:200px"></textarea></div>
+          <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px"
+            placeholder="Verfassen Sie einen argumentierenden Beitrag …"></textarea></div>
+        <div class="form-group"><label>Materialien</label><textarea id="manualPrimaryText" style="min-height:200px"
+            placeholder="Materialien hier einfügen …"></textarea></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
+
+      <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
+        <h3 style="font-size:1rem;margin-bottom:.5rem">📑 Was ist materialgestütztes Schreiben?</h3>
+        <p style="font-size:.9rem;color:var(--ink-light)">Du erhältst mehrere Materialien (Texte, Grafiken, Statistiken)
+          zu einem Thema und verfasst auf dieser Grundlage einen eigenen <strong>adressatenorientierten</strong> Text.
+          Wichtig: Du musst die Materialien <strong>auswerten und einbeziehen</strong>, aber auch eigenes Wissen
+          ergänzen.</p>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem"><strong>Gewichtung:</strong> Verstehen 60% ·
+          Darstellung 40%</p>
+      </div>
+    </section>
+
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabenstellung</h2>
+        <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung …</div>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem">
+          <strong>Zieltext:</strong> <span id="zieltextInfo">–</span> · <strong>Zielgruppe:</strong> <span
+            id="zielgruppeInfo">–</span>
+        </p>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Materialien</h2>
+
+        <!-- Highlighter Toolbar -->
+        <div class="highlighter-toolbar">
+          <span class="hl-label">🖍️ Markieren:</span>
+          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">✕</button>
+          <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+        </div>
+
+        <div id="materialsContainer"></div>
+      </div>
+
+      <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+    </section>
+
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸ Pause</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹ Stopp</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Dein Text</h2>
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📖 Aufgabe & Materialien anzeigen
+          </summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:400px;overflow-y:auto">
+            <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
+            <div id="writeMaterialsRef"></div>
+          </div>
+        </details>
+        <textarea id="studentText" placeholder="Verfasse hier deinen Text …
 
 Denke an:
 • Adressatenorientierung (Wer liest den Text?)
 • Materialauswertung (Beziehe dich auf die Quellen!)
 • Eigenes Wissen (Ergänze sinnvoll!)
 • Textsortenmerkmale (Aufbau, Stil)" oninput="updateWordCount()"></textarea>
-      <div class="write-toolbar">
-        <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
-        <div style="display:flex;gap:.5rem">
-          <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
-          <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Abgeben</button>
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> Wörter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">💾 Speichern</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Abgeben</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- OCR UPLOAD -->
-    <div class="card">
-      <h2 class="card-header">Handschrift hochladen (OCR)</h2>
-      <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-        Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
-        Du kannst mehrere Seiten nacheinander hinzufügen.
-      </p>
-      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-        <div class="upload-icon">📷</div>
-        <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-        <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere Seiten möglich</div>
-      </div>
-      <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none" onchange="handleOCRFiles(this.files)">
-      <div id="ocrPages" class="ocr-pages"></div>
-      <div id="ocrLoader" class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
-      </div>
-      <div id="ocrResult" style="display:none;margin-top:1rem;">
-        <label>Erkannter Text (bearbeitbar):</label>
-        <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …" oninput="updateOCRWordCount()"></textarea>
-        <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-          <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
-          <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
-          <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
-        </div>
-      </div>
-    </div>
-
-    <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
-  </section>
-
-  <section id="sec-feedback">
-    <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte …</div></div>
-    <div id="feedbackContent" style="display:none">
+      <!-- OCR UPLOAD -->
       <div class="card">
-        <h2 class="card-header">Bewertung</h2>
-        <div class="scores-grid">
-          <div class="score-card"><div class="score-label">Verstehen</div><div class="score-value" id="scoreVerstehen">–</div><div class="score-max">/ 15</div></div>
-          <div class="score-card"><div class="score-label">Darstellung</div><div class="score-value" id="scoreDarstellung">–</div><div class="score-max">/ 15</div></div>
-          <div class="score-card total"><div class="score-label">Gesamt</div><div class="score-value" id="scoreTotal">–</div><div class="score-max">/ 15</div></div>
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
+          Du kannst mehrere Seiten nacheinander hinzufügen.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
+            Seiten möglich</div>
         </div>
-        <p style="font-size:.85rem;color:var(--ink-muted);text-align:center">Gewichtung: Verstehen 60% · Darstellung 40%</p>
-      </div>
-      <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
-      <div class="card" id="korrekturCard" style="display:none">
-        <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
-        <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span class="fehler-gr-demo">Grammatik</span></div>
-        <div class="korrektur-body" id="korrekturBody"></div>
-      </div>
-      <div class="card" id="aspekteCard" style="display:none">
-        <h2 class="card-header">Fehlende Aspekte</h2>
-        <div id="aspekteBody"></div>
-      </div>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-        <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
-        <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="sec-progress">
-    <div class="card">
-      <h2 class="card-header">Fortschritt</h2>
-      <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">📊</div><p>Noch keine Ergebnisse.</p></div>
-      <div id="progressContent" style="display:none">
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
-          <div class="stat-card"><div class="stat-value" id="statAverage">–</div><div class="stat-label">Ø Punkte</div></div>
-          <div class="stat-card"><div class="stat-value" id="statBest">–</div><div class="stat-label">Best</div></div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
         </div>
-        <div class="chart-container"><canvas id="progressChart"></canvas></div>
-        <table class="history-table"><thead><tr><th>Datum</th><th>Typ</th><th>V</th><th>D</th><th>Ges.</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">🗑 Löschen</button>
-    </div>
-  </section>
-</main>
-<footer>© 2026 myAbiFlow · Deutsch Trainer · Materialgestütztes Schreiben</footer>
 
-<!-- MODULE CONFIG -->
-<script>
-const MODULE_CONFIG = {
-  sectionPrefix: "sec-",
-  steps: ["setup","task","write","feedback","progress"],
-  storagePrefix: "deutsch_material",
-  historyKey: "deutsch_material_history_",
-  historyType: "deutsch-materialgestuetzt",
-  pdfFilename: "Materialgestuetzt",
-  chartColor: "#059669",
-  minWords: 150,
-  hlSelector: ".material-box",
-  syncHL: function() {
-    const c = document.getElementById("materialsContainer");
-    const w = document.getElementById("writeMaterialsRef");
-    if (c && w) w.innerHTML = c.innerHTML;
-  }
-};
-</script>
-<script src="shared.js"></script>
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+    </section>
 
-<!-- MODULE-SPECIFIC CODE -->
-<script>
-CONFIG.aufgabentyp = "argumentieren";
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte …</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Verstehen</div>
+              <div class="score-value" id="scoreVerstehen">–</div>
+              <div class="score-max">/ 15</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Darstellung</div>
+              <div class="score-value" id="scoreDarstellung">–</div>
+              <div class="score-max">/ 15</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Gesamt</div>
+              <div class="score-value" id="scoreTotal">–</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+          <p style="font-size:.85rem;color:var(--ink-muted);text-align:center">Gewichtung: Verstehen 60% · Darstellung
+            40%</p>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
+      </div>
+    </section>
 
-const TEXTSORTEN = {
-  argumentieren: [
-    { value: "kommentar", label: "Kommentar" },
-    { value: "rede", label: "Rede" },
-    { value: "leserbrief", label: "Leserbrief" },
-    { value: "essay", label: "Essay" }
-  ],
-  informieren: [
-    { value: "artikel", label: "Zeitungsartikel" },
-    { value: "blogbeitrag", label: "Blogbeitrag" },
-    { value: "sachtext", label: "Sachtext" },
-    { value: "lexikonartikel", label: "Lexikonartikel" }
-  ]
-};
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">📊</div>
+          <p>Noch keine Ergebnisse.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">–</div>
+              <div class="stat-label">Ø Punkte</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">–</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Typ</th>
+                <th>V</th>
+                <th>D</th>
+                <th>Ges.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">🗑 Löschen</button>
+      </div>
+    </section>
+  </main>
+  <footer>© 2026 myAbiFlow · Deutsch Trainer · Materialgestütztes Schreiben</footer>
 
-function updateTextsorten() {
-  const sel = document.getElementById("textsorteSelect");
-  const opts = TEXTSORTEN[CONFIG.aufgabentyp] || TEXTSORTEN.argumentieren;
-  sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
-}
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "deutsch_material",
+      historyKey: "deutsch_material_history_",
+      historyType: "deutsch-materialgestuetzt",
+      pdfFilename: "Materialgestuetzt",
+      chartColor: "#059669",
+      minWords: 150,
+      hlSelector: ".material-box",
+      syncHL: function () {
+        const c = document.getElementById("materialsContainer");
+        const w = document.getElementById("writeMaterialsRef");
+        if (c && w) w.innerHTML = c.innerHTML;
+      }
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
 
-const BEWERTUNG_PROMPT = `Du bewertest einen materialgestützten Text nach ISB-Kriterien.
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    CONFIG.aufgabentyp = "argumentieren";
+
+    const TEXTSORTEN = {
+      argumentieren: [
+        { value: "kommentar", label: "Kommentar" },
+        { value: "rede", label: "Rede" },
+        { value: "leserbrief", label: "Leserbrief" },
+        { value: "essay", label: "Essay" }
+      ],
+      informieren: [
+        { value: "artikel", label: "Zeitungsartikel" },
+        { value: "blogbeitrag", label: "Blogbeitrag" },
+        { value: "sachtext", label: "Sachtext" },
+        { value: "lexikonartikel", label: "Lexikonartikel" }
+      ]
+    };
+
+    function updateTextsorten() {
+      const sel = document.getElementById("textsorteSelect");
+      const opts = TEXTSORTEN[CONFIG.aufgabentyp] || TEXTSORTEN.argumentieren;
+      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    }
+
+    const BEWERTUNG_PROMPT = `Du bewertest einen materialgestützten Text nach ISB-Kriterien.
 
 VERSTEHENSLEISTUNG (60%):
 - Materialauswertung: Werden die Materialien verstanden und sinnvoll einbezogen?
@@ -357,118 +581,118 @@ WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließt
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
 
-function selectType(t) {
-  CONFIG.aufgabentyp = t;
-  document.querySelectorAll(".type-card").forEach(c => c.classList.remove("selected"));
-  document.querySelector(`[data-type="${t}"]`).classList.add("selected");
-  updateTextsorten();
-}
-
-function renderMaterialContent(content, type, idx) {
-  if (type === "statistik" && content && content.includes("|")) {
-    const lines = content.split("\n");
-    let tableHtml = "";
-    let afterTable = [];
-    let inTable = false;
-    for (const line of lines) {
-      const trimmed = line.trim();
-      if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
-        if (trimmed.replace(/[\|\-\s:]/g, "") === "") continue;
-        inTable = true;
-        const cells = trimmed.split("|").filter(c => c.trim() !== "").map(c => c.trim());
-        if (!tableHtml) {
-          tableHtml += "<table class='stat-table'><thead><tr>" + cells.map(c => `<th>${escapeHtml(c)}</th>`).join("") + "</tr></thead><tbody>";
-        } else {
-          tableHtml += "<tr>" + cells.map(c => `<td>${escapeHtml(c)}</td>`).join("") + "</tr>";
-        }
-      } else {
-        if (inTable) { inTable = false; tableHtml += "</tbody></table>"; }
-        if (trimmed) afterTable.push(trimmed);
-      }
+    function selectType(t) {
+      CONFIG.aufgabentyp = t;
+      document.querySelectorAll(".type-card").forEach(c => c.classList.remove("selected"));
+      document.querySelector(`[data-type="${t}"]`).classList.add("selected");
+      updateTextsorten();
     }
-    if (inTable) tableHtml += "</tbody></table>";
-    const desc = afterTable.length ? `<p style="margin-top:.5rem;font-size:.85rem;color:var(--ink-light)">${escapeHtml(afterTable.join(" "))}</p>` : "";
-    return tableHtml + desc + `<div class="material-chart"><canvas id="chart-mg-${idx}"></canvas></div>`;
-  }
-  if (type === "bild") {
-    return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-  }
-  if (type === "foto") {
-    return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-  }
-  return escapeHtml(content || "").replace(/\n/g, "<br>");
-}
 
-function setSetupMode(m) {
-  document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
-  document.getElementById("modeUpload").classList.toggle("active", m === "upload");
-  document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
-  document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
-}
+    function renderMaterialContent(content, type, idx) {
+      if (type === "statistik" && content && content.includes("|")) {
+        const lines = content.split("\n");
+        let tableHtml = "";
+        let afterTable = [];
+        let inTable = false;
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+            if (trimmed.replace(/[\|\-\s:]/g, "") === "") continue;
+            inTable = true;
+            const cells = trimmed.split("|").filter(c => c.trim() !== "").map(c => c.trim());
+            if (!tableHtml) {
+              tableHtml += "<table class='stat-table'><thead><tr>" + cells.map(c => `<th>${escapeHtml(c)}</th>`).join("") + "</tr></thead><tbody>";
+            } else {
+              tableHtml += "<tr>" + cells.map(c => `<td>${escapeHtml(c)}</td>`).join("") + "</tr>";
+            }
+          } else {
+            if (inTable) { inTable = false; tableHtml += "</tbody></table>"; }
+            if (trimmed) afterTable.push(trimmed);
+          }
+        }
+        if (inTable) tableHtml += "</tbody></table>";
+        const desc = afterTable.length ? `<p style="margin-top:.5rem;font-size:.85rem;color:var(--ink-light)">${escapeHtml(afterTable.join(" "))}</p>` : "";
+        return tableHtml + desc + `<div class="material-chart"><canvas id="chart-mg-${idx}"></canvas></div>`;
+      }
+      if (type === "bild") {
+        return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+      }
+      if (type === "foto") {
+        return `<div class="material-img-loading" id="img-mg-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+      }
+      return escapeHtml(content || "").replace(/\n/g, "<br>");
+    }
 
-const taskUploadImages = [];
-async function handleTaskUpload(files) {
-  for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
-    taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
-  }
-  document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p,i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
-  document.getElementById("taskUploadLoader").style.display = "block";
-  try {
-    const base64s = await Promise.all(taskUploadImages.map(async p => {
-      const r = new FileReader();
-      return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
-    }));
-    const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
-    document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
-    document.getElementById("parsedPrimaryText").value = d.primary_text || "";
-    document.getElementById("taskUploadResult").style.display = "block";
-  } catch (e) { showToast("Fehler: " + e.message); }
-  document.getElementById("taskUploadLoader").style.display = "none";
-}
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
 
-function useUploadedTask() {
-  const task = document.getElementById("parsedTaskInstruction").value;
-  const text = document.getElementById("parsedPrimaryText").value;
-  if (!text) { showToast("Kein Text"); return; }
-  const c = { task_instruction: task, materials: [{ title: "Eigenes Material", content: text, type: "text", source: "" }], zieltext: "", zielgruppe: "" };
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+      }
+      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const base64s = await Promise.all(taskUploadImages.map(async p => {
+          const r = new FileReader();
+          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+        }));
+        const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
 
-function useManualTask() {
-  const task = document.getElementById("manualTaskInstruction").value || "Verfassen Sie einen argumentierenden Beitrag.";
-  const text = document.getElementById("manualPrimaryText").value;
-  if (!text) { showToast("Kein Text"); return; }
-  const c = { task_instruction: task, materials: [{ title: "Eigenes Material", content: text, type: "text", source: "" }], zieltext: "", zielgruppe: "" };
-  CONFIG.storedData = c;
-  renderTask(c);
-  nav("task");
-}
+    function useUploadedTask() {
+      const task = document.getElementById("parsedTaskInstruction").value;
+      const text = document.getElementById("parsedPrimaryText").value;
+      if (!text) { showToast("Kein Text"); return; }
+      const c = { task_instruction: task, materials: [{ title: "Eigenes Material", content: text, type: "text", source: "" }], zieltext: "", zielgruppe: "" };
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-async function generateTask() {
-  const b = document.getElementById("generateBtn");
-  b.disabled = true;
-  document.getElementById("setupLoader").style.display = "block";
-  try {
-    const d = await apiCall("/api/generate-deutsch", { aufgabentyp: CONFIG.aufgabentyp, thema: document.getElementById("themaSelect").value, textsorte: document.getElementById("textsorteSelect").value, type: "materialgestuetzt" });
-    CONFIG.storedData = d;
-    renderTask(d);
-    nav("task");
-  } catch (e) { showToast("Fehler: " + e.message); }
-  b.disabled = false;
-  document.getElementById("setupLoader").style.display = "none";
-}
+    function useManualTask() {
+      const task = document.getElementById("manualTaskInstruction").value || "Verfassen Sie einen argumentierenden Beitrag.";
+      const text = document.getElementById("manualPrimaryText").value;
+      if (!text) { showToast("Kein Text"); return; }
+      const c = { task_instruction: task, materials: [{ title: "Eigenes Material", content: text, type: "text", source: "" }], zieltext: "", zielgruppe: "" };
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
 
-function renderTask(d) {
-  document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("zieltextInfo").textContent = d.zieltext || "–";
-  document.getElementById("zielgruppeInfo").textContent = d.zielgruppe || "–";
+    async function generateTask() {
+      const b = document.getElementById("generateBtn");
+      b.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/generate-deutsch", { aufgabentyp: CONFIG.aufgabentyp, thema: document.getElementById("themaSelect").value, textsorte: document.getElementById("textsorteSelect").value, type: "materialgestuetzt" });
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      b.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
 
-  const container = document.getElementById("materialsContainer");
-  const materials = d.materials || [];
-  const typeIcons = { statistik: "📊", bild: "🖼️", foto: "📷" };
-  container.innerHTML = materials.map((m, i) => `
+    function renderTask(d) {
+      document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+      document.getElementById("zieltextInfo").textContent = d.zieltext || "–";
+      document.getElementById("zielgruppeInfo").textContent = d.zielgruppe || "–";
+
+      const container = document.getElementById("materialsContainer");
+      const materials = d.materials || [];
+      const typeIcons = { statistik: "📊", bild: "🖼️", foto: "📷" };
+      container.innerHTML = materials.map((m, i) => `
     <div class="material-box">
       <div class="material-label">${typeIcons[m.type] || "📄"} Material ${i + 1}: ${escapeHtml(m.title || "")}</div>
       <div class="material-content">${renderMaterialContent(m.content, m.type, i)}</div>
@@ -476,129 +700,130 @@ function renderTask(d) {
     </div>
   `).join("");
 
-  // Load charts and images after DOM update
-  materials.forEach((m, i) => {
-    if (m.type === "statistik" && (m.content || "").includes("|")) {
-      renderStatistikChart(m.content, `chart-mg-${i}`);
-    } else if (m.type === "bild") {
-      loadDallEImage(m.content, `img-mg-${i}`);
-    } else if (m.type === "foto") {
-      loadUnsplashImage(m.content, `img-mg-${i}`);
-    }
-  });
+      // Load charts and images after DOM update
+      materials.forEach((m, i) => {
+        if (m.type === "statistik" && (m.content || "").includes("|")) {
+          renderStatistikChart(m.content, `chart-mg-${i}`);
+        } else if (m.type === "bild") {
+          loadDallEImage(m.content, `img-mg-${i}`);
+        } else if (m.type === "foto") {
+          loadUnsplashImage(m.content, `img-mg-${i}`);
+        }
+      });
 
-  document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
-  document.getElementById("writeMaterialsRef").innerHTML = materials.map((m, i) => `
+      document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+      document.getElementById("writeMaterialsRef").innerHTML = materials.map((m, i) => `
     <div class="material-box" style="margin-bottom:.5rem">
       <div class="material-label" style="font-size:.7rem">Material ${i + 1}: ${escapeHtml(m.title || "")}</div>
-      <div class="material-content" style="font-size:.85rem;max-height:150px;overflow-y:auto">${renderMaterialContent(m.content, m.type, 'ref-'+i)}</div>
+      <div class="material-content" style="font-size:.85rem;max-height:150px;overflow-y:auto">${renderMaterialContent(m.content, m.type, 'ref-' + i)}</div>
     </div>
   `).join("");
 
-  initHL();
-}
-
-async function submitForGrading() {
-  const t = document.getElementById("studentText").value;
-  if (countWords(t) < 150) { showToast("Bitte mindestens 150 Wörter schreiben."); return; }
-  if (!CONFIG.storedData) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }
-  document.getElementById("submitBtn").disabled = true;
-  nav("feedback");
-  document.getElementById("feedbackLoader").style.display = "block";
-  document.getElementById("feedbackContent").style.display = "none";
-  try {
-    const d = await apiCall("/api/grade-deutsch", {
-      task_instruction: CONFIG.storedData.task_instruction,
-      materials: CONFIG.storedData.materials,
-      zieltext: CONFIG.storedData.zieltext,
-      zielgruppe: CONFIG.storedData.zielgruppe,
-      student_text: t,
-      rubric_prompt: BEWERTUNG_PROMPT,
-      type: "materialgestuetzt"
-    });
-    document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "–";
-    document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
-    document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
-    saveToHistory({ aufgabentyp: CONFIG.aufgabentyp, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
-    apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-materialgestuetzt", topic: CONFIG.aufgabentyp || "Materialgestützt", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => {});
-    stopTimer();
-    document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
-    renderKorrekturFeedback(d);
-    document.getElementById("feedbackContent").style.display = "block";
-  } catch (e) {
-    document.getElementById("feedbackContent").style.display = "block";
-    document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`;
-  }
-  document.getElementById("feedbackLoader").style.display = "none";
-  document.getElementById("submitBtn").disabled = false;
-}
-
-/* Override saveSession/restoreSession to include aufgabentyp */
-function saveSession() {
-  const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-  localStorage.setItem(key, JSON.stringify({
-    studentText: document.getElementById("studentText").value,
-    storedData: CONFIG.storedData,
-    aufgabentyp: CONFIG.aufgabentyp
-  }));
-}
-
-function restoreSession() {
-  try {
-    const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
-    const s = JSON.parse(localStorage.getItem(key));
-    if (s) {
-      if (s.studentText) document.getElementById("studentText").value = s.studentText;
-      if (s.storedData) { CONFIG.storedData = s.storedData; renderTask(s.storedData); }
-      if (s.aufgabentyp) { CONFIG.aufgabentyp = s.aufgabentyp; selectType(s.aufgabentyp); }
-      updateWordCount();
+      initHL();
     }
-  } catch {}
-}
 
-const CHART_COLORS = ['#3b82f6','#ef4444','#22c55e','#f59e0b','#8b5cf6','#ec4899','#06b6d4','#f97316'];
-function renderStatistikChart(markdown, canvasId) {
-  const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
-  if (lines.length < 2) return;
-  const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
-  const headers = parse(lines[0]);
-  const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
-  if (dataLines.length < 2) return;
-  const rows = dataLines.slice(1).map(parse);
-  const labels = rows.map(r => r[0]);
-  const datasets = headers.slice(1).map((h, i) => ({
-    label: h,
-    data: rows.map(r => parseFloat((r[i+1]||"").replace(/[^0-9.,\-]/g,"").replace(",","."))),
-    backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-  }));
-  new Chart(document.getElementById(canvasId), {
-    type: "bar", data: { labels, datasets },
-    options: { responsive: true, plugins: { legend: { position: "top" } } }
-  });
-}
-async function loadDallEImage(prompt, containerId) {
-  try {
-    const d = await apiCall("/api/generate-image", { prompt });
-    const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-    const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-    document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-  } catch(e) {
-    console.error("Bild-Fehler:", e);
-    document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
-  }
-}
-async function loadUnsplashImage(keywords, containerId) {
-  loadDallEImage(keywords, containerId);
-}
+    async function submitForGrading() {
+      const t = document.getElementById("studentText").value;
+      if (countWords(t) < 150) { showToast("Bitte mindestens 150 Wörter schreiben."); return; }
+      if (!CONFIG.storedData) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+      try {
+        const d = await apiCall("/api/grade-deutsch", {
+          task_instruction: CONFIG.storedData.task_instruction,
+          materials: CONFIG.storedData.materials,
+          zieltext: CONFIG.storedData.zieltext,
+          zielgruppe: CONFIG.storedData.zielgruppe,
+          student_text: t,
+          rubric_prompt: BEWERTUNG_PROMPT,
+          type: "materialgestuetzt"
+        });
+        document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "–";
+        document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
+        document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
+        saveToHistory({ aufgabentyp: CONFIG.aufgabentyp, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
+        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-materialgestuetzt", topic: CONFIG.aufgabentyp || "Materialgestützt", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => { });
+        stopTimer();
+        document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+        renderKorrekturFeedback(d);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`;
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
 
-function renderHistoryTable(history) {
-  document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
-    `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${x.aufgabentyp === "argumentieren" ? "💬" : "📰"}</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
-  ).join("");
-}
+    /* Override saveSession/restoreSession to include aufgabentyp */
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      localStorage.setItem(key, JSON.stringify({
+        studentText: document.getElementById("studentText").value,
+        storedData: CONFIG.storedData,
+        aufgabentyp: CONFIG.aufgabentyp
+      }));
+    }
 
-// Init
-updateTextsorten();
-</script>
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.studentText) document.getElementById("studentText").value = s.studentText;
+          if (s.storedData) { CONFIG.storedData = s.storedData; renderTask(s.storedData); }
+          if (s.aufgabentyp) { CONFIG.aufgabentyp = s.aufgabentyp; selectType(s.aufgabentyp); }
+          updateWordCount();
+        }
+      } catch { }
+    }
+
+    const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
+    function renderStatistikChart(markdown, canvasId) {
+      const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+      if (lines.length < 2) return;
+      const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+      const headers = parse(lines[0]);
+      const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+      if (dataLines.length < 2) return;
+      const rows = dataLines.slice(1).map(parse);
+      const labels = rows.map(r => r[0]);
+      const datasets = headers.slice(1).map((h, i) => ({
+        label: h,
+        data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
+        backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+      }));
+      new Chart(document.getElementById(canvasId), {
+        type: "bar", data: { labels, datasets },
+        options: { responsive: true, plugins: { legend: { position: "top" } } }
+      });
+    }
+    async function loadDallEImage(prompt, containerId) {
+      try {
+        const d = await apiCall("/api/generate-image", { prompt });
+        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
+        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
+        document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
+      } catch (e) {
+        console.error("Bild-Fehler:", e);
+        document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
+      }
+    }
+    async function loadUnsplashImage(keywords, containerId) {
+      loadDallEImage(keywords, containerId);
+    }
+
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
+        `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${x.aufgabentyp === "argumentieren" ? "💬" : "📰"}</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
+      ).join("");
+    }
+
+    // Init
+    updateTextsorten();
+  </script>
 </body>
+
 </html>
