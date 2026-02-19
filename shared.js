@@ -415,8 +415,15 @@ function renderProgressChart() {
 /* ================= PDF EXPORT ================= */
 
 function exportPDF() {
+  const el = document.getElementById("feedbackContent");
+  if (!el) return;
   const filename = (MODULE_CONFIG.pdfFilename || "Export") + "_" + new Date().toISOString().slice(0, 10) + ".pdf";
-  html2pdf().set({ margin: 10, filename: filename }).from(document.getElementById("feedbackContent")).save();
+  html2pdf().set({
+    margin: 10,
+    filename: filename,
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollY: -window.scrollY },
+    jsPDF: { format: "a4", orientation: "portrait" }
+  }).from(el).save();
 }
 
 /* ================= TASK/MATERIAL PDF EXPORT ================= */
@@ -471,60 +478,76 @@ function exportTaskPDF(mode) {
   var prevTheme = root.getAttribute("data-theme");
   root.setAttribute("data-theme", "light");
 
-  // Clone section into a clean off-screen container
-  var wrap = sec.cloneNode(true);
-  wrap.removeAttribute("id");
-  // Use fixed positioning off-screen (NOT z-index:-9999 which browsers may skip rendering)
-  wrap.style.cssText = "display:block;position:fixed;left:-10000px;top:0;width:800px;padding:10px 20px;margin:0;background:#fff;color:#1a1a2e;animation:none;";
+  // Temporarily hide UI elements on the ORIGINAL section (no manual cloning —
+  // html2pdf clones internally via outerHTML, so manual clones cause issues)
+  var hidden = [];
+  function hideEl(el) {
+    if (el && el.style.display !== "none") {
+      hidden.push({ el: el, prev: el.style.cssText });
+      el.style.setProperty("display", "none", "important");
+    }
+  }
+  sec.querySelectorAll("button, .highlighter-toolbar, .ggb-container, .wahl-hint").forEach(hideEl);
 
-  // Remove UI elements from clone
-  wrap.querySelectorAll("button, .highlighter-toolbar, .ggb-container, .wahl-hint").forEach(function(el) { el.remove(); });
-
-  // Mode-specific: remove material or task elements from clone
+  // Mode-specific: temporarily hide material or task elements
   var materialIds = ["materialsContainer", "sourceText", "sourceMeta", "textTitle", "zusatzMaterialien", "articleBody", "articleTitle"];
   var taskIds = ["taskInstruction", "taskMeta", "teilaufgabenContainer", "teilAPflichtContainer", "teilAWahlContainer", "teilBContainer"];
   if (mode === "task") {
-    materialIds.forEach(function(id) { var el = wrap.querySelector("#" + id); if (el) el.remove(); });
+    materialIds.forEach(function(id) { hideEl(sec.querySelector("#" + id)); });
   } else if (mode === "material") {
-    taskIds.forEach(function(id) { var el = wrap.querySelector("#" + id); if (el) el.remove(); });
+    taskIds.forEach(function(id) { hideEl(sec.querySelector("#" + id)); });
   }
 
-  document.body.appendChild(wrap);
-
-  // Copy canvas content (Chart.js etc.) from original to clone
-  var origCanvases = sec.querySelectorAll("canvas");
-  var cloneCanvases = wrap.querySelectorAll("canvas");
-  for (var i = 0; i < origCanvases.length && i < cloneCanvases.length; i++) {
-    try {
-      var ctx = cloneCanvases[i].getContext("2d");
-      cloneCanvases[i].width = origCanvases[i].width;
-      cloneCanvases[i].height = origCanvases[i].height;
-      ctx.drawImage(origCanvases[i], 0, 0);
-    } catch (e) { /* ignore cross-origin canvas errors */ }
-  }
+  // Save original styles and temporarily set PDF-friendly styles on section
+  var prevSecStyle = sec.style.cssText;
+  sec.style.background = "#fff";
+  sec.style.color = "#1a1a2e";
 
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
 
   function cleanup() {
-    wrap.remove();
+    hidden.forEach(function(item) { item.el.style.cssText = item.prev; });
+    sec.style.cssText = prevSecStyle;
     root.setAttribute("data-theme", prevTheme);
   }
 
-  // Wait for browser to fully layout and paint the clone before capturing
+  // Let the theme change and element hiding take effect before capturing
   requestAnimationFrame(function() {
-    setTimeout(function() {
-      html2pdf().set({
-        margin: [10, 10, 10, 10],
-        filename: filename,
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
-        jsPDF: { format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
-      }).from(wrap).save().then(cleanup).catch(function(err) {
-        console.error("PDF export error:", err);
-        cleanup();
-      });
-    }, 200);
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: filename,
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        allowTaint: false,
+        backgroundColor: "#ffffff",
+        scrollX: 0,
+        scrollY: -window.scrollY,
+        windowWidth: Math.max(sec.scrollWidth, 800),
+        onclone: function(clonedDoc) {
+          // Copy canvas content (Chart.js etc.) from original to html2pdf's internal clone
+          var origCanvases = sec.querySelectorAll("canvas");
+          var clonedSec = clonedDoc.getElementById(prefix + "task");
+          if (clonedSec) {
+            var cloneCanvases = clonedSec.querySelectorAll("canvas");
+            for (var i = 0; i < origCanvases.length && i < cloneCanvases.length; i++) {
+              try {
+                var ctx = cloneCanvases[i].getContext("2d");
+                cloneCanvases[i].width = origCanvases[i].width;
+                cloneCanvases[i].height = origCanvases[i].height;
+                ctx.drawImage(origCanvases[i], 0, 0);
+              } catch (e) { /* ignore cross-origin canvas errors */ }
+            }
+          }
+        }
+      },
+      jsPDF: { format: "a4", orientation: "portrait" },
+      pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
+    }).from(sec).save().then(cleanup).catch(function(err) {
+      console.error("PDF export error:", err);
+      cleanup();
+    });
   });
 }
 
