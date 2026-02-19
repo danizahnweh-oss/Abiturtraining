@@ -228,7 +228,7 @@ function restoreSession() {
       }
       updateWordCount();
     }
-  } catch {}
+  } catch { }
 }
 
 /* ================= PROGRESS ================= */
@@ -248,7 +248,7 @@ function saveToHistory(entry) {
   // Save to localStorage (immediate cache)
   const localKey = MODULE_CONFIG.historyKey + getStudentKey();
   let history = [];
-  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch {}
+  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch { }
   history.push({ date: new Date().toISOString(), ...entry });
   localStorage.setItem(localKey, JSON.stringify(history));
   // Invalidate server cache so next renderProgress fetches fresh data
@@ -259,7 +259,7 @@ function deleteHistoryEntry(index) {
   // Only works on localStorage entries (server entries are permanent)
   const localKey = MODULE_CONFIG.historyKey + getStudentKey();
   let history = [];
-  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch {}
+  try { history = JSON.parse(localStorage.getItem(localKey) || "[]"); } catch { }
   history.splice(index, 1);
   localStorage.setItem(localKey, JSON.stringify(history));
   serverHistory = null;
@@ -333,7 +333,7 @@ async function fetchServerHistory() {
         .filter(r => r.type === MODULE_CONFIG.historyType)
         .map(serverEntryToLocal);
     }
-  } catch {}
+  } catch { }
   return null;
 }
 
@@ -448,16 +448,16 @@ function showPdfExportModal() {
   var overlay = document.createElement("div");
   overlay.className = "pdf-modal-overlay";
   overlay.id = "pdfModal";
-  overlay.onclick = function(e) { if (e.target === overlay) closePdfModal(); };
+  overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
   overlay.innerHTML =
     '<div class="pdf-modal">' +
-      '<h3>Als PDF speichern</h3>' +
-      '<div class="pdf-modal-buttons">' +
-        '<button class="btn" onclick="exportTaskPDF(\'task\')">Nur Aufgaben</button>' +
-        '<button class="btn" onclick="exportTaskPDF(\'material\')">Nur Material</button>' +
-        '<button class="btn" onclick="exportTaskPDF(\'both\')">Aufgaben + Material</button>' +
-        '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
-      '</div>' +
+    '<h3>Als PDF speichern</h3>' +
+    '<div class="pdf-modal-buttons">' +
+    '<button class="btn" onclick="exportTaskPDF(\'task\')">Nur Aufgaben</button>' +
+    '<button class="btn" onclick="exportTaskPDF(\'material\')">Nur Material</button>' +
+    '<button class="btn" onclick="exportTaskPDF(\'both\')">Aufgaben + Material</button>' +
+    '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
+    '</div>' +
     '</div>';
   document.body.appendChild(overlay);
 }
@@ -493,9 +493,9 @@ function exportTaskPDF(mode) {
   var materialIds = ["materialsContainer", "sourceText", "sourceMeta", "textTitle", "zusatzMaterialien", "articleBody", "articleTitle"];
   var taskIds = ["taskInstruction", "taskMeta", "teilaufgabenContainer", "teilAPflichtContainer", "teilAWahlContainer", "teilBContainer"];
   if (mode === "task") {
-    materialIds.forEach(function(id) { hideEl(sec.querySelector("#" + id)); });
+    materialIds.forEach(function (id) { hideEl(sec.querySelector("#" + id)); });
   } else if (mode === "material") {
-    taskIds.forEach(function(id) { hideEl(sec.querySelector("#" + id)); });
+    taskIds.forEach(function (id) { hideEl(sec.querySelector("#" + id)); });
   }
 
   // Save original styles and temporarily set PDF-friendly styles on section
@@ -507,13 +507,13 @@ function exportTaskPDF(mode) {
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
 
   function cleanup() {
-    hidden.forEach(function(item) { item.el.style.cssText = item.prev; });
+    hidden.forEach(function (item) { item.el.style.cssText = item.prev; });
     sec.style.cssText = prevSecStyle;
     root.setAttribute("data-theme", prevTheme);
   }
 
   // Let the theme change and element hiding take effect before capturing
-  requestAnimationFrame(function() {
+  requestAnimationFrame(function () {
     html2pdf().set({
       margin: [10, 10, 10, 10],
       filename: filename,
@@ -525,7 +525,7 @@ function exportTaskPDF(mode) {
         scrollX: 0,
         scrollY: -window.scrollY,
         windowWidth: Math.max(sec.scrollWidth, 800),
-        onclone: function(clonedDoc) {
+        onclone: function (clonedDoc) {
           // Copy canvas content (Chart.js etc.) from original to html2pdf's internal clone
           var origCanvases = sec.querySelectorAll("canvas");
           var clonedSec = clonedDoc.getElementById(prefix + "task");
@@ -544,7 +544,7 @@ function exportTaskPDF(mode) {
       },
       jsPDF: { format: "a4", orientation: "portrait" },
       pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
-    }).from(sec).save().then(cleanup).catch(function(err) {
+    }).from(sec).save().then(cleanup).catch(function (err) {
       console.error("PDF export error:", err);
       cleanup();
     });
@@ -631,7 +631,7 @@ function applyHL(container) {
       hlRange.setEnd(textNode, endOffset);
       const span = document.createElement("span");
       span.className = "hl-" + currentHL;
-      try { hlRange.surroundContents(span); } catch {}
+      try { hlRange.surroundContents(span); } catch { }
     });
   }
   sel.removeAllRanges();
@@ -773,7 +773,7 @@ function clearOCR() {
 /* ================= INIT ================= */
 
 // Drag & Drop for OCR upload zone
-;(function () {
+; (function () {
   const z = document.getElementById("uploadZone");
   if (!z) return;
   z.addEventListener("dragover", e => { e.preventDefault(); z.classList.add("dragover"); });
@@ -871,238 +871,4 @@ window.onload = function () {
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 };
 
-/* ================= AI TUTOR ================= */
 
-function initAiTutor() {
-  if (document.getElementById("ai-tutor-widget")) return;
-
-  // 1. Inject Styles
-  const style = document.createElement("style");
-  style.textContent = `
-    /* AI Widget Styles */
-    #ai-tutor-widget {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 10000;
-      font-family: var(--font-body, system-ui, sans-serif);
-      display: none; /* Hidden by default until login check */
-    }
-
-    #ai-tutor-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--accent, #3b82f6);
-      color: white;
-      border: none;
-      font-size: 2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #ai-tutor-btn:hover {
-      transform: scale(1.1);
-    }
-
-    #ai-chat-window {
-      display: none;
-      position: absolute;
-      bottom: 80px;
-      right: 0;
-      width: 350px;
-      height: 500px;
-      background: var(--surface, #fff);
-      border: 1px solid var(--border, #e5e7eb);
-      border-radius: 16px;
-      box-shadow: 0 5px 30px rgba(0,0,0,0.15);
-      flex-direction: column;
-      overflow: hidden;
-      animation: slideUp 0.3s ease-out;
-    }
-
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .ai-chat-header {
-      background: var(--accent, #3b82f6);
-      color: white;
-      padding: 1rem;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .ai-chat-header button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    #ai-chat-messages {
-      flex: 1;
-      padding: 1rem;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      background: var(--bg, #f9fafb);
-      color: var(--ink, #1f2937);
-    }
-
-    .ai-message {
-      max-width: 85%;
-      padding: 0.8rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-
-    .ai-message.ai {
-      align-self: flex-start;
-      background: var(--surface, #fff);
-      border: 1px solid var(--border, #e5e7eb);
-      border-bottom-left-radius: 2px;
-    }
-
-    .ai-message.user {
-      align-self: flex-end;
-      background: var(--accent, #3b82f6);
-      color: white;
-      border-bottom-right-radius: 2px;
-    }
-
-    .ai-chat-input {
-      border-top: 1px solid var(--border, #e5e7eb);
-      padding: 0.8rem;
-      display: flex;
-      gap: 0.5rem;
-      background: var(--surface, #fff);
-    }
-
-    #ai-input {
-      flex: 1;
-      padding: 0.6rem;
-      border: 1px solid var(--border, #e5e7eb);
-      border-radius: 20px;
-      outline: none;
-      background: var(--bg, #fff);
-      color: var(--ink, #000);
-    }
-
-    .ai-chat-input button {
-      background: var(--accent, #3b82f6);
-      color: white;
-      border: none;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-  `;
-  document.head.appendChild(style);
-
-  // 2. Inject HTML
-  const widget = document.createElement("div");
-  widget.id = "ai-tutor-widget";
-  widget.innerHTML = `
-    <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">🤖</button>
-    <div id="ai-chat-window">
-      <div class="ai-chat-header">
-        <span>🤖 Abi-Coach</span>
-        <button id="ai-close-btn" onclick="toggleAiChat()">×</button>
-      </div>
-      <div id="ai-chat-messages">
-        <div class="ai-message ai">Hallo! 👋 Ich bin dein persönlicher Abi-Coach. Frag mich etwas zu den Fächern oder Aufgaben!</div>
-      </div>
-      <div class="ai-chat-input">
-        <input type="text" id="ai-input" placeholder="Deine Frage..." onkeypress="handleAiEnter(event)">
-        <button id="ai-send-btn" onclick="sendAiMessage()">➤</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(widget);
-
-  // 3. Attach Event Listeners
-  // Note: inline onclicks in innerHTML handle most, but ensures context
-  // document.getElementById("ai-tutor-btn").onclick = toggleAiChat;
-  
-  // 4. Initial Check
-  const name = sessionStorage.getItem("student_name");
-  if (name) {
-      widget.style.display = "block";
-  }
-}
-
-function toggleAiChat() {
-  var win = document.getElementById("ai-chat-window");
-  if (!win) return;
-  if (win.style.display === "flex") {
-    win.style.display = "none";
-  } else {
-    win.style.display = "flex";
-    setTimeout(() => {
-        const inp = document.getElementById("ai-input");
-        if(inp) inp.focus();
-    }, 100);
-  }
-}
-
-function handleAiEnter(e) {
-    if (e.key === "Enter") sendAiMessage();
-}
-
-async function sendAiMessage() {
-  var input = document.getElementById("ai-input");
-  var text = input.value.trim();
-  if (!text) return;
-
-  addAiMessage(text, "user");
-  input.value = "";
-
-  var loadingId = addAiMessage("...", "ai");
-  var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
-
-  try {
-    var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text, studentName: sName })
-    });
-    
-    var data = await res.json();
-    var loadingEl = document.getElementById(loadingId);
-    if(loadingEl) loadingEl.remove();
-
-    addAiMessage(data.answer, "ai");
-
-  } catch (e) {
-    var loadingEl = document.getElementById(loadingId);
-    if(loadingEl) loadingEl.remove();
-    addAiMessage("Entschuldigung, ich habe gerade Verbindungsprobleme. 😓", "ai");
-  }
-}
-
-function addAiMessage(text, sender) {
-  var div = document.createElement("div");
-  div.className = "ai-message " + sender;
-  div.textContent = text;
-  var id = "msg-" + Date.now();
-  div.id = id;
-  
-  var container = document.getElementById("ai-chat-messages");
-  if (container) {
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-  }
-  return id;
-}
