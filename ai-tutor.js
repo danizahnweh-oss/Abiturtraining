@@ -176,6 +176,83 @@ function handleAiEnter(e) {
   if (e.key === "Enter") sendAiMessage();
 }
 
+/**
+ * Erkennt das aktuelle Fach anhand des Seitentitels oder der URL.
+ */
+function detectSubject() {
+  var title = document.title || "";
+  var path = location.pathname || "";
+  // Aus Titel extrahieren: "myAbiFlow · Chemie Abiturtraining" → "Chemie"
+  var match = title.match(/·\s*(.+?)(?:\s+Abitur|\s*$)/i);
+  if (match) return match[1].trim();
+  // Fallback: aus Dateiname
+  var file = path.split("/").pop().replace(".html", "").replace(/-/g, " ");
+  return file || "Unbekannt";
+}
+
+/**
+ * Liest den aktuellen Aufgabentext von der Seite — funktioniert für alle Seitentypen.
+ */
+function getCurrentTaskContext() {
+  var parts = [];
+  var subject = detectSubject();
+  parts.push("Fach: " + subject);
+
+  // 1. Abitur-Seiten: Aufgabengruppen-Container
+  var gruppenContainer = document.getElementById("aufgabengruppenContainer");
+  if (gruppenContainer && gruppenContainer.textContent.trim()) {
+    var cards = gruppenContainer.querySelectorAll(".aufgabengruppe-card");
+    if (cards.length) {
+      cards.forEach(function (card, i) {
+        var selected = card.classList.contains("selected");
+        var heading = card.querySelector("h4, h3, .aufgabengruppe-title");
+        var title = heading ? heading.textContent.trim() : "Aufgabengruppe " + (i + 1);
+        var text = card.textContent.trim();
+        // Kürzen auf max 800 Zeichen pro Gruppe
+        if (text.length > 800) text = text.substring(0, 800) + "...";
+        parts.push((selected ? "[AUSGEWÄHLT] " : "") + title + ":\n" + text);
+      });
+    } else {
+      var text = gruppenContainer.textContent.trim();
+      if (text.length > 2000) text = text.substring(0, 2000) + "...";
+      parts.push("Aufgaben:\n" + text);
+    }
+  }
+
+  // 2. Übungs-Seiten: taskInstruction
+  var taskInstr = document.getElementById("taskInstruction");
+  if (taskInstr && taskInstr.textContent.trim()) {
+    var text = taskInstr.textContent.trim();
+    if (text.length > 2000) text = text.substring(0, 2000) + "...";
+    parts.push("Aufgabenstellung:\n" + text);
+  }
+
+  // 3. Schülertext (einzelnes Textarea oder mehrere)
+  var studentTexts = [];
+  var singleTA = document.getElementById("studentText");
+  if (singleTA && singleTA.value.trim()) {
+    studentTexts.push(singleTA.value.trim());
+  }
+  // Mathe-Abitur: Teil A + B
+  ["studentTextA", "studentTextB"].forEach(function (id) {
+    var ta = document.getElementById(id);
+    if (ta && ta.value.trim()) studentTexts.push(ta.value.trim());
+  });
+  // Abitur-Seiten: mehrere nummerierte Textareas
+  document.querySelectorAll("#studentTextareas textarea").forEach(function (ta) {
+    if (ta.value.trim()) studentTexts.push(ta.value.trim());
+  });
+
+  if (studentTexts.length) {
+    var combined = studentTexts.join("\n---\n");
+    if (combined.length > 2000) combined = combined.substring(0, 2000) + "...";
+    parts.push("Bisherige Antwort des Schülers:\n" + combined);
+  }
+
+  // Nur zurückgeben wenn es mehr als nur das Fach gibt
+  return parts.length > 1 ? parts.join("\n\n") : "";
+}
+
 async function sendAiMessage() {
   var input = document.getElementById("ai-input");
   var text = input.value.trim();
@@ -188,13 +265,14 @@ async function sendAiMessage() {
   // Show typing indicator
   var loadingId = addAiMessage("...", "ai");
   var sName = sessionStorage.getItem("student_name") ? sessionStorage.getItem("student_name").split(" ")[0] : "";
+  var taskContext = getCurrentTaskContext();
 
   try {
     console.log("Sending request to AI Tutor...");
     var res = await fetch("https://backend-tutor.sanktannagymnasium.workers.dev/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text, studentName: sName })
+      body: JSON.stringify({ prompt: text, studentName: sName, taskContext: taskContext })
     });
 
     if (!res.ok) {

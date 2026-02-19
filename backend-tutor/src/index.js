@@ -16,7 +16,7 @@ export default {
         }
 
         if (url.pathname === '/query' && request.method === 'POST') {
-            const { prompt, studentName } = await request.json();
+            const { prompt, studentName, taskContext } = await request.json();
             const ai = new Ai(env.AI);
 
             // 1. Generate Embedding for Question
@@ -32,25 +32,39 @@ export default {
             });
 
             // 3. Build Context
-            let context = "";
+            let ragContext = "";
             if (matches.matches && matches.matches.length > 0) {
-                context = matches.matches.map(m => m.metadata.text).join("\n\n---\n\n");
+                ragContext = matches.matches.map(m => m.metadata.text).join("\n\n---\n\n");
             }
 
-            // 4. Generate Answer with Context
+            // 4. Build task context block
+            let taskBlock = "";
+            if (taskContext) {
+                taskBlock = `
+      Der Schüler arbeitet gerade an folgender Aufgabe:
+      --- AKTUELLE AUFGABE ---
+      ${taskContext}
+      --- AUFGABE ENDE ---
+
+      Beziehe dich konkret auf diese Aufgabe, wenn die Frage dazu passt.
+      Gib keine fertigen Lösungen, sondern hilf dem Schüler Schritt für Schritt.
+      Wenn der Schüler bereits eine Antwort geschrieben hat, gib konstruktives Feedback dazu.`;
+            }
+
+            // 5. Generate Answer with Context
             const systemPrompt = `Du bist ein freundlicher und hilfreicher Abi-Coach für ${studentName || 'den Schüler'}.
       Sprich den Schüler mit Vornamen an, wenn möglich.
       Dein Tonfall:
       - Begrüßung und Smalltalk: Locker, motivierend, umgangssprachlich ("Hey", "Cool", "Kein Stress").
       - Fachliche Erklärungen: Präzise, verständlich, aber nicht steif.
-      
-      Nutze NUR die folgenden Informationen, um die Frage zu beantworten.
+      ${taskBlock}
+      Nutze auch die folgenden Hintergrundinformationen, falls sie relevant sind.
       Wenn die Informationen nicht ausreichen, sage ehrlich, dass du es nicht weißt, aber versuche hilfreich zu sein.
       Antworte auf Deutsch.
 
-      --- KONTEXT ANFANG ---
-      ${context}
-      --- KONTEXT ENDE ---
+      --- WISSENSKONTEXT ANFANG ---
+      ${ragContext}
+      --- WISSENSKONTEXT ENDE ---
       `;
 
             const response = await ai.run('@cf/meta/llama-3-8b-instruct', {
