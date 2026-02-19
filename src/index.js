@@ -141,8 +141,10 @@ function cleanupRateLimitMaps() {
 }
 
 /* ---- CORS ---- */
-function corsHeaders(env) {
-  const origin = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
+function corsHeaders(env, requestOrigin) {
+  const allowed = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
+  const allowedOrigins = [allowed, allowed.replace("://", "://www.")];
+  const origin = (requestOrigin && allowedOrigins.includes(requestOrigin)) ? requestOrigin : allowed;
   return {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": origin,
@@ -155,8 +157,9 @@ function corsHeaders(env) {
   };
 }
 
+let _requestOrigin = null;
 function jsonResponse(data, status = 200, env = null) {
-  return new Response(JSON.stringify(data), { status, headers: corsHeaders(env) });
+  return new Response(JSON.stringify(data), { status, headers: corsHeaders(env, _requestOrigin) });
 }
 
 /* ---- Input-Validierung ---- */
@@ -178,14 +181,18 @@ export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
 
+    _requestOrigin = request.headers.get("Origin");
+
     if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders(env) });
+      return new Response(null, { headers: corsHeaders(env, _requestOrigin) });
     }
 
     try {
       // Origin-Validierung (CSRF-Schutz)
-      const origin = request.headers.get("Origin");
-      if (origin && origin !== (env.ALLOWED_ORIGIN || "https://myabiflow.de")) {
+      const origin = _requestOrigin;
+      const allowed = env.ALLOWED_ORIGIN || "https://myabiflow.de";
+      const allowedOrigins = [allowed, allowed.replace("://", "://www.")];
+      if (origin && !allowedOrigins.includes(origin)) {
         return jsonResponse({ error: "Forbidden" }, 403, env);
       }
 
