@@ -1385,6 +1385,12 @@
     </div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
+      <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
+        <button onclick="enableCountdown()"
+          style="background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:var(--ink-muted); transition:all 0.2s;">
+          📅 Prüfungs-Countdown anzeigen
+        </button>
+      </div>
       <div id="countdownBar" class="countdown-bar" style="margin-top:1rem;"></div>
     </div>
     <div id="progressBar" class="progress-bar">
@@ -2067,20 +2073,26 @@
       });
 
       var bar = document.getElementById("countdownBar");
-      var grid = document.querySelector(".subject-grid");
+      var toggle = document.getElementById("countdownToggle");
+      var isVisible = localStorage.getItem("countdown_visible") === "1";
 
-      // Always show if dates exist (new Hero design)
-      if (allDates.length) {
-        var minDays = Math.min.apply(null, allDates);
-        if (minDays > 0) {
-          // Simplified HTML for Hero context
-          bar.innerHTML = '<div class="countdown-pill" style="background:var(--bg); border:none; box-shadow:none;">Noch <strong>' + minDays + ' Tage</strong> bis zur nächsten Prüfung 🎓</div>';
-          bar.style.display = "block";
-        } else {
-          bar.style.display = "none";
+      if (isVisible) {
+        if (toggle) toggle.style.display = "none";
+        if (allDates.length) {
+          var minDays = Math.min.apply(null, allDates);
+          if (minDays > 0) {
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; font-size:1.2rem; cursor:pointer;">&times;</button>' +
+              '<div class="countdown-pill" style="background:var(--bg); border:none; box-shadow:none; padding-right:2rem; position:relative;">Noch <strong>' + minDays + ' Tage</strong> bis zur nächsten Prüfung 🎓</div>';
+            bar.style.display = "block";
+          } else {
+            bar.style.display = "none";
+          }
         }
       } else {
         bar.style.display = "none";
+        if (allDates.length && toggle) {
+          toggle.style.display = "inline-block";
+        }
       }
     }
 
