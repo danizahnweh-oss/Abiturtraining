@@ -2556,6 +2556,7 @@
       document.documentElement.setAttribute("data-theme", t);
       document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = t === "dark" ? "\u2600\uFE0F" : "\uD83C\uDF19"; });
     }
+  </script>
 
   <!-- ====== AI TUTOR WIDGET ====== -->
   <div id="ai-tutor-widget">
@@ -2568,7 +2569,8 @@
         <button onclick="toggleAiChat()">×</button>
       </div>
       <div id="ai-chat-messages">
-        <div class="ai-message ai">Hallo! 👋 Ich bin dein persönlicher Abi-Coach. Frag mich etwas zu den Fächern oder Aufgaben!</div>
+        <div class="ai-message ai">Hallo! 👋 Ich bin dein persönlicher Abi-Coach. Frag mich etwas zu den Fächern oder
+          Aufgaben!</div>
       </div>
       <div class="ai-chat-input">
         <input type="text" id="ai-input" placeholder="Deine Frage..." onkeypress="handleAiEnter(event)">
@@ -2596,7 +2598,7 @@
       border: none;
       font-size: 2rem;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       transition: transform 0.2s;
       display: flex;
       align-items: center;
@@ -2617,15 +2619,22 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
-      box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
       flex-direction: column;
       overflow: hidden;
       animation: slideUp 0.3s ease-out;
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .ai-chat-header {
@@ -2738,18 +2747,18 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ prompt: text })
         });
-        
+
         var data = await res.json();
-        
+
         // Remove loading and add AI response
         var loadingEl = document.getElementById(loadingId);
-        if(loadingEl) loadingEl.remove();
+        if (loadingEl) loadingEl.remove();
 
         addAiMessage(data.answer, "ai");
 
       } catch (e) {
         var loadingEl = document.getElementById(loadingId);
-        if(loadingEl) loadingEl.remove();
+        if (loadingEl) loadingEl.remove();
         addAiMessage("Entschuldigung, ich habe gerade Verbindungsprobleme. 😓", "ai");
       }
     }
@@ -2760,7 +2769,7 @@
       div.textContent = text;
       var id = "msg-" + Date.now();
       div.id = id;
-      
+
       var container = document.getElementById("ai-chat-messages");
       container.appendChild(div);
       container.scrollTop = container.scrollHeight;
