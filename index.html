@@ -72,6 +72,10 @@
       --accent-phy-hover: #1d4ed8;
       --accent-phy-soft: #dbeafe;
       --accent-phy-glow: rgba(37, 99, 235, .08);
+      --accent-bio: #16a34a;
+      --accent-bio-hover: #15803d;
+      --accent-bio-soft: #dcfce7;
+      --accent-bio-glow: rgba(22, 163, 74, .08);
     }
 
     [data-theme="dark"] {
@@ -123,6 +127,10 @@
       --accent-phy-hover: #93c5fd;
       --accent-phy-soft: rgba(96, 165, 250, .15);
       --accent-phy-glow: rgba(96, 165, 250, .08);
+      --accent-bio: #4ade80;
+      --accent-bio-hover: #86efac;
+      --accent-bio-soft: rgba(74, 222, 128, .15);
+      --accent-bio-glow: rgba(74, 222, 128, .08);
     }
 
     /* School badge gradient (both accent colors) */
@@ -173,8 +181,17 @@
       color: var(--accent-phy)
     }
 
+    .module-card.biologie:hover {
+      border-color: var(--accent-bio)
+    }
+
+    .module-card.biologie .module-badge {
+      background: var(--accent-bio-soft);
+      color: var(--accent-bio)
+    }
+
     .school-badge {
-      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft), var(--accent-phy-soft));
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft), var(--accent-phy-soft), var(--accent-bio-soft));
       color: var(--ink)
     }
 
@@ -525,6 +542,10 @@
       animation-delay: .65s
     }
 
+    .subject-card:nth-child(14) {
+      animation-delay: .7s
+    }
+
     @keyframes staggerFadeIn {
       from {
         opacity: 0;
@@ -609,6 +630,10 @@
       background: linear-gradient(135deg, var(--accent-phy-glow), transparent)
     }
 
+    .subject-card.biologie::before {
+      background: linear-gradient(135deg, var(--accent-bio-glow), transparent)
+    }
+
     .subject-card:hover,
     .subject-card:focus-visible {
       transform: translateY(-3px);
@@ -685,6 +710,11 @@
       border-color: var(--accent-phy)
     }
 
+    .subject-card.biologie:hover,
+    .subject-card.biologie:focus-visible {
+      border-color: var(--accent-bio)
+    }
+
     .subject-icon {
       font-size: 4.4rem;
       margin-bottom: .4rem;
@@ -750,6 +780,10 @@
 
     .subject-card.physik .subject-title {
       color: var(--accent-phy)
+    }
+
+    .subject-card.biologie .subject-title {
+      color: var(--accent-bio)
     }
 
     .subject-desc {
@@ -1635,6 +1669,16 @@
         <span class="subject-countdown" data-subject="physik"></span>
         <span class="subject-last-activity" data-activity="physik"></span>
       </button>
+      <button class="subject-card biologie" type="button" role="listitem" onclick="selectSubject('biologie', true)"
+        aria-label="Biologie">
+        <div class="subject-icon" aria-hidden="true">🧬</div>
+        <div class="subject-title">Biologie</div>
+        <div class="subject-desc">Genetik, Neurobiologie, Stoffwechsel, Ökologie, Evolution — mit KaTeX-Formeln und
+          BE-Bewertung.</div>
+        <div class="subject-badge">1 Modul · gA + eA</div>
+        <span class="subject-countdown" data-subject="biologie"></span>
+        <span class="subject-last-activity" data-activity="biologie"></span>
+      </button>
     </div>
     <footer>&copy; 2026 myAbiFlow · Abitur Trainer · <a href="impressum.html">Impressum</a><br><a href="#"
         onclick="showTeacherLogin(); return false;"
@@ -2148,6 +2192,39 @@
     <footer>© 2026 myAbiFlow · Physik Trainer</footer>
   </div>
 
+  <!-- ====== BIOLOGIE MODULE SCREEN ====== -->
+  <div id="module-screen-biologie" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Biologie <span style="color:var(--accent-bio)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoBio" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnBio"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card biologie" href="biologie.html">
+        <div class="module-icon">🧬</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Kurz- und Langaufgaben aus Genetik, Neurobiologie, Stoffwechsel, Ökologie und mehr — mit
+          BE-Bewertung.</div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+    </div>
+    <footer>© 2026 myAbiFlow · Biologie Trainer</footer>
+  </div>
+
   <script>
     const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
     let loginMode = "login";
@@ -2166,7 +2243,8 @@
       ethik: { gA: "2026-05-11", eA: "2026-05-13" },
       geographie: { gA: "2026-05-11", eA: "2026-05-13" },
       latein: { gA: "2026-05-11", eA: "2026-05-13" },
-      physik: { gA: "2026-05-11", eA: "2026-05-13" }
+      physik: { gA: "2026-05-11", eA: "2026-05-13" },
+      biologie: { gA: "2026-05-11", eA: "2026-05-13" }
     };
 
     const SUBJECT_TYPES = {
@@ -2182,7 +2260,8 @@
       latein: ["latein", "latein-abitur"],
       mathe: ["mathe", "mathe-abitur"],
       chemie: ["chemie", "chemie-abitur"],
-      physik: ["physik"]
+      physik: ["physik"],
+      biologie: ["biologie"]
     };
 
     /* ====== COUNTDOWN (#14) ====== */
@@ -2528,6 +2607,7 @@
       document.getElementById("module-screen-mathe").style.display = "none";
       document.getElementById("module-screen-chemie").style.display = "none";
       document.getElementById("module-screen-physik").style.display = "none";
+      document.getElementById("module-screen-biologie").style.display = "none";
       sessionStorage.removeItem("current_subject");
 
       var name = sessionStorage.getItem("student_name") || "";
@@ -2571,14 +2651,14 @@
         ethik: "module-screen-ethik", geographie: "module-screen-geographie",
         latein: "module-screen-latein", mathe: "module-screen-mathe",
         chemie: "module-screen-chemie", physik: "module-screen-physik",
-        german: "module-screen-german"
+        biologie: "module-screen-biologie", german: "module-screen-german"
       };
       var infoMap = {
         english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
         wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
         ethik: "userInfoEth", geographie: "userInfoGeo", latein: "userInfoLat",
         mathe: "userInfoMat", chemie: "userInfoChe", physik: "userInfoPhy",
-        german: "userInfoDe"
+        biologie: "userInfoBio", german: "userInfoDe"
       };
 
       var screenId = screenMap[subject] || screenMap.german;
@@ -2664,7 +2744,7 @@
         document.getElementById("login-screen").style.display = "none";
 
         var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
-          "latein", "mathe", "chemie", "physik"];
+          "latein", "mathe", "chemie", "physik", "biologie"];
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
           selectSubject(backTo);
         } else if (backTo === "subjects") {
