@@ -6680,6 +6680,291 @@ WICHTIG:
   return jsonResponse({ model_answer: answer }, 200, env);
 }
 
+/* ================= PHYSIK ABITUR: GENERATE ================= */
+async function handleGenerateAbiturPhysik(request, env) {
+  const body = await request.json();
+  const { level } = body;
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+
+  const pruefungsdauer = isEA ? 300 : 255;
+  const beProAufgabe = isEA ? 40 : 30;
+  const gesamtBE = isEA ? 120 : 90;
+  const anzahlAufgaben = 4;
+  const wahlAnzahl = 3;
+
+  const systemPrompt = `Du bist ein Physik-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE Physik-Abiturprüfung.
+
+PRÜFUNGSSTRUKTUR (${lvl}):
+- Prüfungsdauer: ${pruefungsdauer} Minuten
+- ${anzahlAufgaben} Aufgabengruppen, der Schüler wählt ${wahlAnzahl} davon
+- Jede Aufgabengruppe: ${beProAufgabe} BE
+- Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
+- Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+SACHGEBIETE (wähle 4 verschiedene aus diesen 6, Lehrplan G9 Bayern ab 2026):
+1. Elektrostatik & Magnetostatik (Ph12 LB1): Elektrische Feldlinien, homogenes Feld, Radialfeld, Dipolfeld. Definition der elektrischen Feldstärke über Kraft auf Probeladung. Coulombkraft, Feldstärke radialsymmetrisches Feld. Superposition von Feldern. Kapazität, Abhängigkeit der Kapazität eines Plattenkondensators von geometrischen Daten, Energieinhalt des E-Feldes. Materie im elektrischen Feld, Dielektrikum, Dielektrizitätszahl. Auf-/Entladevorgang RC-Glied. Potentielle Energie, Potential, Spannung als Potentialdifferenz, Zusammenhang U und E. Geladene Teilchen in homogenen elektrischen Längs-/Querfeldern. Relativistischer Impuls, relativistische Energie, Energie-Impuls-Beziehung. Definition magnetische Flussdichte, B-Feld einer langgestreckten Spule, Energieinhalt des B-Feldes. Lorentzkraft, Kreisbahnen geladener Teilchen in homogenen Magnetfeldern. Hall-Effekt, Massenspektrometer, Geschwindigkeitsfilter, Teilchenbeschleuniger.
+2. EM-Induktion & Schwingungen (Ph12 LB2): Magnetischer Fluss, Induktionsgesetz, Erzeugung sinusförmiger Wechselspannung. Selbstinduktion: Ein-/Ausschaltvorgang bei Spule, Induktivität, Energieinhalt des B-Feldes. Schaltvorgänge in RL-Glied, Zeitkonstante. Technische Anwendungen der Induktion. Differentialgleichung der EM-Schwingung in LC-Kreis, Thomson-Gleichung, periodischer Energieaustausch Spule-Kondensator, Analogie mechanische/EM-Schwingung. Gedämpfte mechanische und EM-Schwingungen, Abklingverhalten. Resonanzphänomene bei mechanischen und EM-Schwingungen. Zeigerdiagramme. Spule und Kondensator in Wechselstromkreisen, Wechselstromwiderstand, Frequenzfilter.
+3. Elektromagnetische Wellen (Ph12 LB3): Ladung und Stromstärke bei Grundschwingung eines EM-Dipols, E- und B-Feld im Nahbereich. Maxwellgleichungen, Ausbreitung EM-Wellen. Struktur des EM-Wechselfeldes im Fernbereich, Eigenschaften: Ausbreitungsgeschwindigkeit, Polarisation, Brechung, Beugung, Reflexion. Mathematische Beschreibung einer eindimensionalen Welle. Superposition von Wellen, Interferenz am Doppelspalt, Intensität einer EM-Welle, konstruktive/destruktive Interferenz, Kohärenz, stehende Welle. Mehrfachspalt und optisches Gitter. Wellenlängenbestimmung bei mono-/polychromatischem Licht. Einfachspalt. Bragg-Reflexion, Bragg-Bedingung. Aufbau Röntgenröhre, Röntgenbremsspektrum. Elektromagnetisches Spektrum.
+4. Quantenphysik (Ph13 LB1): Elektronenbeugungsröhre, Hypothesen zur Interpretation. Simulation Doppelspaltexperiment: wellenartiges, teilchenartiges, stochastisches Verhalten des Quantenobjekts Elektron, Interpretation durch Wellenfunktion. De-Broglie-Beziehung für Elektron. Wellenartiges, teilchenartiges, stochastisches Verhalten des Quantenobjekts Photon. Energie und Impuls des Photons. Äußerer Photoeffekt, Bestimmung des Planck'schen Wirkungsquantums. Grenzfrequenz Röntgenbremsspektrum. Wellenfunktion: Betragsquadrat als Nachweiswahrscheinlichkeit, Superposition, Determiniertheit. Komplementarität. Quantenphysikalischer Messprozess, Kausalität, Realität, Nicht-Lokalität. Heisenberg'sche Unbestimmtheitsrelation.
+5. Atommodell der Quantenphysik (Ph13 LB2): Eindimensionaler Potentialtopf mit unendlich hohen Wänden: stehende Wellen, diskrete Energiewerte, Wellenfunktionen und Nachweiswahrscheinlichkeiten. Wellenfunktionen für weitere Potentiale: Potentialtopf mit endlich hohen Wänden, Coulomb-Potential, Tunneleffekt. Darstellung von Aufenthaltswahrscheinlichkeiten durch Orbitale, Struktur der Orbitale des Wasserstoffatoms, Quantenzahlen, Energiewerte für Wasserstoff. Emission und Absorption von Licht atomarer Gase, Energieniveauschema der Atomhülle, charakteristisches Röntgenspektrum. Energieübertrag durch Stoßanregung, Franck-Hertz-Versuch. Bestimmung der Rydberg-Konstante.
+6. Kernphysik (Ph13 LB4): Massendefekt und mittlere Bindungsenergie je Nukleon in Abhängigkeit von Nukleonenzahl. Potentialtopfmodell des Kerns, Pauli-Prinzip. Entstehung von α-, β⁻-, β⁺- und γ-Strahlung, Tunneleffekt beim α-Zerfall, β-Zerfälle im Standardmodell, Stabilität von Atomkernen. Energiebilanzen bei Zerfällen und Kernreaktionen, Energiespektren. Ionisierende Wirkung und Nachweis von α-, β-, γ-Strahlung. Aktivität, Zerfallsgesetz, Halbwertszeit. C14-Methode zur Altersbestimmung. Strahlenbelastung, Energiedosis, Äquivalentdosis, Strahlenschutz. Kernspaltung, Kettenreaktion, prinzipieller Aufbau Kernreaktor. Kernfusion. Standardmodell, Quarks, Teilchenfamilien, fundamentale Wechselwirkungen und Austauschteilchen, Erhaltung der Leptonen-/Baryonenzahl.
+
+JEDE AUFGABENGRUPPE hat:
+- Einen Titel (z.B. "Aufgabe 1: Geladene Teilchen im Magnetfeld")
+- Ein Sachgebiet
+- Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten
+- 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Gesamt: ${beProAufgabe} BE
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
+- Materialien müssen realistisch und aussagekräftig sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+
+LATEX-FORMATIERUNG (schreibe echte Physik/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
+- Brüche: $\\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\ne$, $\\approx$ (NICHT <=, >=)
+
+PHYSIK-SPEZIFISCHE LATEX-REGELN:
+- Vektoren: $\\vec{F}$, $\\vec{E}$, $\\vec{B}$, $\\vec{v}$
+- Einheiten: $\\text{m/s}$, $\\text{N}$, $\\text{V}$, $\\text{T}$, $\\text{eV}$, $\\text{J}$
+- Physikalische Konstanten: $h = 6{,}626 \\cdot 10^{-34}\\,\\text{J}\\cdot\\text{s}$, $e = 1{,}602 \\cdot 10^{-19}\\,\\text{C}$
+- Kreuzprodukt: $\\vec{F} = q \\cdot \\vec{v} \\times \\vec{B}$
+- Wellenfunktion: $\\psi(x)$, $|\\psi(x)|^2$
+- Energie: $E = h \\cdot f$, $E_{\\text{kin}} = \\frac{1}{2}mv^2$, $E = mc^2$
+- De Broglie: $\\lambda = \\frac{h}{p}$
+- Zerfallsgesetz: $N(t) = N_0 \\cdot e^{-\\lambda t}$
+
+KEINE GeoGebra-Visualisierung.
+KEINE Strukturformeln oder \\ce{}-Notation (das ist Physik, nicht Chemie).
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgaben": [
+    {
+      "id": "Aufgabe 1",
+      "titel": "Titel der Aufgabe",
+      "sachgebiet": "elektrostatik",
+      "material": [
+        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
+      ],
+      "teilaufgaben": [
+        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 5},
+        {"id": "1.2", "text": "...", "be": 8}
+      ],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 2",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 3",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 4",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    }
+  ],
+  "level": "${lvl}",
+  "pruefungsdauer": ${pruefungsdauer},
+  "gesamt_be": ${gesamtBE}
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Physik-Abiturprüfung (${lvl}, ${gesamtBE} BE).
+${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
+Prüfungsdauer: ${pruefungsdauer} Minuten.
+Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
+KRITISCH: Alle Formeln in LaTeX-Notation. KEINE \\ce{}-Notation (Physik, nicht Chemie).`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= PHYSIK ABITUR: GRADE ================= */
+async function handleGradeAbiturPhysik(request, env) {
+  const body = await request.json();
+  const { aufgaben, student_texts, level } = body;
+
+  if (!student_texts || !Object.keys(student_texts).length) {
+    return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
+  }
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+  const beProAufgabe = isEA ? 40 : 30;
+  const maxBE = 3 * beProAufgabe;
+
+  let aufgabenInfo = "";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      aufgabenInfo += `\n${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          aufgabenInfo += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 500)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  let studentTexts = "";
+  if (typeof student_texts === "object") {
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        studentTexts += `\nSchülerlösung ${key}:\n${truncate(text, 8000)}\n`;
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Physik-Abiturprüfung (Bayern, ${lvl}, G9, ab 2026).
+Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
+
+BEWERTUNGSREGELN:
+- Bewerte jede Aufgabe und jede Teilaufgabe einzeln
+- Bewertungskriterien: Fachsprache, physikalische Formeln, korrekte Einheiten, Lösungswege, Skizzen/Diagramme, quantitative Berechnungen
+- Ansatz korrekt aber Rechenfehler → Teilpunkte
+- Folgefehler berücksichtigen
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Physik und LaTeX-Notation. Interpretiere beides großzügig.
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) im Feedback. KEINE \\ce{}-Notation.
+
+Antworte NUR mit validem JSON:
+{
+  "aufgaben_be": [
+    {"id": "Aufgabe 1", "erreichte_be": <Zahl>, "max_be": ${beProAufgabe}, "bewertung": "Markdown-Feedback"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && parsed.aufgaben_be && parsed.aufgaben_be.length) {
+      gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      aufgaben_be: parsed.aufgaben_be || [],
+      gesamt_be: gesamtBE,
+      max_be: maxBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      aufgaben_be: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= PHYSIK ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturPhysik(request, env) {
+  const { aufgaben, level } = await request.json();
+
+  const lvl = level || "gA";
+
+  const systemPrompt = `Du bist ein sehr guter Physik-Oberstufenschüler am bayerischen Gymnasium (${lvl}).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für alle gewählten Aufgaben.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- KEINE \\ce{}-Notation (das ist Physik, nicht Chemie)
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
+- PHYSIK-REGELN: Vektoren $\\vec{F}$, Einheiten $\\text{m/s}$, Konstanten mit korrekten Werten
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Aufgabe 1: [Titel]
+  ### Teilaufgabe 1.1
+  ...
+  ## Aufgabe 2: [Titel]
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
+
+  let userContent = "GEWÄHLTE AUFGABEN:\n\n";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          userContent += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+      userContent += "\n";
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
 /* ================= OPENAI CALL ================= */
 async function callOpenAI(env, messages, maxTokens = 4000) {
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
