@@ -68,6 +68,10 @@
       --accent-che-hover: #c2410c;
       --accent-che-soft: #ffedd5;
       --accent-che-glow: rgba(234, 88, 12, .08);
+      --accent-phy: #2563eb;
+      --accent-phy-hover: #1d4ed8;
+      --accent-phy-soft: #dbeafe;
+      --accent-phy-glow: rgba(37, 99, 235, .08);
     }
 
     [data-theme="dark"] {
@@ -115,6 +119,10 @@
       --accent-che-hover: #fdba74;
       --accent-che-soft: rgba(251, 146, 60, .15);
       --accent-che-glow: rgba(251, 146, 60, .08);
+      --accent-phy: #60a5fa;
+      --accent-phy-hover: #93c5fd;
+      --accent-phy-soft: rgba(96, 165, 250, .15);
+      --accent-phy-glow: rgba(96, 165, 250, .08);
     }
 
     /* School badge gradient (both accent colors) */
@@ -156,8 +164,17 @@
       color: var(--accent-che)
     }
 
+    .module-card.physik:hover {
+      border-color: var(--accent-phy)
+    }
+
+    .module-card.physik .module-badge {
+      background: var(--accent-phy-soft);
+      color: var(--accent-phy)
+    }
+
     .school-badge {
-      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft));
+      background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft), var(--accent-phy-soft));
       color: var(--ink)
     }
 
@@ -504,6 +521,10 @@
       animation-delay: .6s
     }
 
+    .subject-card:nth-child(13) {
+      animation-delay: .65s
+    }
+
     @keyframes staggerFadeIn {
       from {
         opacity: 0;
@@ -584,6 +605,10 @@
       background: linear-gradient(135deg, var(--accent-che-glow), transparent)
     }
 
+    .subject-card.physik::before {
+      background: linear-gradient(135deg, var(--accent-phy-glow), transparent)
+    }
+
     .subject-card:hover,
     .subject-card:focus-visible {
       transform: translateY(-3px);
@@ -655,6 +680,11 @@
       border-color: var(--accent-che)
     }
 
+    .subject-card.physik:hover,
+    .subject-card.physik:focus-visible {
+      border-color: var(--accent-phy)
+    }
+
     .subject-icon {
       font-size: 4.4rem;
       margin-bottom: .4rem;
@@ -716,6 +746,10 @@
 
     .subject-card.chemie .subject-title {
       color: var(--accent-che)
+    }
+
+    .subject-card.physik .subject-title {
+      color: var(--accent-phy)
     }
 
     .subject-desc {
@@ -1591,6 +1625,16 @@
         <span class="subject-countdown" data-subject="chemie"></span>
         <span class="subject-last-activity" data-activity="chemie"></span>
       </button>
+      <button class="subject-card physik" type="button" role="listitem" onclick="selectSubject('physik', true)"
+        aria-label="Physik">
+        <div class="subject-icon" aria-hidden="true">⚛️</div>
+        <div class="subject-title">Physik</div>
+        <div class="subject-desc">Elektrostatik, EM-Wellen, Quantenphysik, Kernphysik — mit KaTeX-Formeln und
+          BE-Bewertung.</div>
+        <div class="subject-badge">1 Modul · gA + eA</div>
+        <span class="subject-countdown" data-subject="physik"></span>
+        <span class="subject-last-activity" data-activity="physik"></span>
+      </button>
     </div>
     <footer>&copy; 2026 myAbiFlow · Abitur Trainer · <a href="impressum.html">Impressum</a><br><a href="#"
         onclick="showTeacherLogin(); return false;"
@@ -2071,6 +2115,39 @@
     <footer>© 2026 myAbiFlow · Chemie Trainer</footer>
   </div>
 
+  <!-- ====== PHYSIK MODULE SCREEN ====== -->
+  <div id="module-screen-physik" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Physik <span style="color:var(--accent-phy)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoPhy" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnPhy"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card physik" href="physik.html">
+        <div class="module-icon">⚛️</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Kurz- und Langaufgaben aus Elektrostatik, EM-Wellen, Quantenphysik und mehr — mit
+          BE-Bewertung.</div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+    </div>
+    <footer>© 2026 myAbiFlow · Physik Trainer</footer>
+  </div>
+
   <script>
     const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
     let loginMode = "login";
@@ -2088,7 +2165,8 @@
       italian: { gA: "2026-05-11", eA: "2026-05-13" },
       ethik: { gA: "2026-05-11", eA: "2026-05-13" },
       geographie: { gA: "2026-05-11", eA: "2026-05-13" },
-      latein: { gA: "2026-05-11", eA: "2026-05-13" }
+      latein: { gA: "2026-05-11", eA: "2026-05-13" },
+      physik: { gA: "2026-05-11", eA: "2026-05-13" }
     };
 
     const SUBJECT_TYPES = {
@@ -2103,7 +2181,8 @@
       geographie: ["geographie", "geographie-abitur"],
       latein: ["latein", "latein-abitur"],
       mathe: ["mathe", "mathe-abitur"],
-      chemie: ["chemie", "chemie-abitur"]
+      chemie: ["chemie", "chemie-abitur"],
+      physik: ["physik"]
     };
 
     /* ====== COUNTDOWN (#14) ====== */
@@ -2448,6 +2527,7 @@
       document.getElementById("module-screen-latein").style.display = "none";
       document.getElementById("module-screen-mathe").style.display = "none";
       document.getElementById("module-screen-chemie").style.display = "none";
+      document.getElementById("module-screen-physik").style.display = "none";
       sessionStorage.removeItem("current_subject");
 
       var name = sessionStorage.getItem("student_name") || "";
@@ -2490,13 +2570,15 @@
         french: "module-screen-french", italian: "module-screen-italian",
         ethik: "module-screen-ethik", geographie: "module-screen-geographie",
         latein: "module-screen-latein", mathe: "module-screen-mathe",
-        chemie: "module-screen-chemie", german: "module-screen-german"
+        chemie: "module-screen-chemie", physik: "module-screen-physik",
+        german: "module-screen-german"
       };
       var infoMap = {
         english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
         wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
         ethik: "userInfoEth", geographie: "userInfoGeo", latein: "userInfoLat",
-        mathe: "userInfoMat", chemie: "userInfoChe", german: "userInfoDe"
+        mathe: "userInfoMat", chemie: "userInfoChe", physik: "userInfoPhy",
+        german: "userInfoDe"
       };
 
       var screenId = screenMap[subject] || screenMap.german;
@@ -2582,7 +2664,7 @@
         document.getElementById("login-screen").style.display = "none";
 
         var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
-          "latein", "mathe", "chemie"];
+          "latein", "mathe", "chemie", "physik"];
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
           selectSubject(backTo);
         } else if (backTo === "subjects") {

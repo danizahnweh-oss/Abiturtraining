@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow &middot; Physik</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/mhchem.min.js"
+    integrity="sha384-ifpG+NlgMq0kvOSGqGQxW1mJKpjjMDmZdpKGq3tbvD3WPhyshCEEYClriK/wRVU0"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    /* Blue accent override */
+    :root {
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-soft: #dbeafe;
+      --accent-glow: rgba(37, 99, 235, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #60a5fa;
+      --accent-hover: #93c5fd;
+      --accent-soft: rgba(96, 165, 250, .15);
+      --accent-glow: rgba(96, 165, 250, .08);
+    }
+
+    /* Sachgebiet selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .hj-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
+
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .hj-desc {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+      line-height: 1.3
+    }
+
+    .mode-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem
+    }
+
+    .mode-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .9rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--ink-muted)
+    }
+
+    .mode-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      color: var(--accent)
+    }
+
+    /* Aufgabentyp toggle */
+    .type-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin: 1rem 0
+    }
+
+    .type-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .3rem;
+      padding: 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-warm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .85rem;
+      color: var(--ink-muted);
+      transition: all .2s
+    }
+
+    .type-btn:hover {
+      border-color: var(--accent);
+      color: var(--ink)
+    }
+
+    .type-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+      color: var(--accent)
+    }
+
+    .type-btn .type-meta {
+      font-size: .75rem;
+      font-weight: 400;
+      color: var(--ink-muted)
+    }
+
+    /* Teilaufgaben in task display */
+    .teilaufgabe-item {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .teilaufgabe-item:last-child {
+      border-bottom: none
+    }
+
+    .teilaufgabe-nr {
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: .3rem
+    }
+
+    .teilaufgabe-be {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-weight: 600
+    }
+
+    /* BE scores grid */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent)
+    }
+
+    /* Material body list indentation */
+    details ol,
+    details ul {
+      padding-left: 1.8rem;
+      margin: .4rem 0
+    }
+
+    details li {
+      margin-bottom: .3rem
+    }
+
+    @media(max-width:650px) {
+      .hj-grid {
+        grid-template-columns: 1fr
+      }
+
+      .mode-toggle,
+      .type-toggle {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=physik" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Physik &middot; <span>Klausurtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Aufgabe</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Abgabe</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI
+            generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
+        <div class="form-group">
+          <label>Sachgebiet</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="elektrostatik" onclick="selectSachgebiet('elektrostatik')">
+              <div class="hj-icon">&#x26A1;</div>
+              <div class="hj-name">Elektrostatik &amp; Magnetostatik</div>
+              <div class="hj-desc">E-Felder, B-Felder, Kondensator, Lorentz</div>
+            </div>
+            <div class="hj-card" data-hj="induktion" onclick="selectSachgebiet('induktion')">
+              <div class="hj-icon">&#x1F504;</div>
+              <div class="hj-name">EM-Induktion &amp; Schwingungen</div>
+              <div class="hj-desc">Induktion, LC-Schwingkreis, Wechselstrom</div>
+            </div>
+            <div class="hj-card" data-hj="emwellen" onclick="selectSachgebiet('emwellen')">
+              <div class="hj-icon">&#x1F4E1;</div>
+              <div class="hj-name">Elektromagn. Wellen</div>
+              <div class="hj-desc">Interferenz, Beugung, Gitter, R&ouml;ntgen</div>
+            </div>
+            <div class="hj-card" data-hj="quantenphysik" onclick="selectSachgebiet('quantenphysik')">
+              <div class="hj-icon">&#x1F52C;</div>
+              <div class="hj-name">Quantenphysik</div>
+              <div class="hj-desc">De Broglie, Doppelspalt, Photonen</div>
+            </div>
+            <div class="hj-card" data-hj="atommodell" onclick="selectSachgebiet('atommodell')">
+              <div class="hj-icon">&#x269B;&#xFE0F;</div>
+              <div class="hj-name">Atommodell der Quantenphysik</div>
+              <div class="hj-desc">Potentialtopf, Orbitale, Spektren</div>
+            </div>
+            <div class="hj-card" data-hj="kernphysik" onclick="selectSachgebiet('kernphysik')">
+              <div class="hj-icon">&#x2622;&#xFE0F;</div>
+              <div class="hj-name">Kernphysik</div>
+              <div class="hj-desc">Zerfall, Halbwertszeit, Kernspaltung</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Aufgabentyp</label>
+          <div class="type-toggle">
+            <button class="type-btn active" id="typeKurz" onclick="setAufgabentyp('kurzaufgabe')">
+              Kurzaufgabe
+              <span class="type-meta">10 BE &middot; ~20 min</span>
+            </button>
+            <button class="type-btn" id="typeLang" onclick="setAufgabentyp('langaufgabe')">
+              Langaufgabe
+              <span class="type-meta">30 BE &middot; ~60 min &middot; mit Material</span>
+            </button>
+          </div>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Physik-Aufgabe &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabenblatt)</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction"
+            style="min-height:100px" placeholder="Berechne die Kraft auf eine Ladung q im homogenen elektrischen Feld &hellip;"></textarea></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="20" min="5" max="120" style="max-width:120px">
+      </div>
+    </section>
+
+    <!-- STEP 2: TASK DISPLAY -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabe</h2>
+        <div class="task-box" id="taskInstruction">&hellip;</div>
+        <div id="teilaufgabenContainer" style="margin-top:1rem"></div>
+        <div style="margin-top:.8rem;font-size:.85rem;color:var(--ink-muted)" id="taskMeta"></div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem" open>
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+            <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
+          Tippe deine L&ouml;sung in Plain-Text: z.B. <code>E = mc²</code>, <code>F = q · v × B</code>,
+          <code>λ = h/p</code>
+        </p>
+
+        <div id="studentTextareas"></div>
+
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="be-scores-grid" id="beScoresGrid"></div>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Erreichte BE</div>
+              <div class="score-value" id="scoreBE">&ndash;</div>
+              <div class="score-max" id="scoreBEMax">/ ?</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Prozent</div>
+              <div class="score-value" id="scoreProzent">&ndash;</div>
+              <div class="score-max">%</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreTotal">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Gebiet</th>
+                <th>Typ</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow &middot; Physik Trainer</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "physik_klausur",
+      historyKey: "physik_klausur_history_",
+      historyType: "physik",
+      pdfFilename: "Physik_Klausur",
+      chartColor: "#2563eb",
+      minWords: 10
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    CONFIG.sachgebiet = "elektrostatik";
+    CONFIG.aufgabentyp = "kurzaufgabe";
+
+    const SG_LABELS = {
+      elektrostatik: "Elektrostatik & Magnetostatik",
+      induktion: "EM-Induktion & Schwingungen",
+      emwellen: "Elektromagnetische Wellen",
+      quantenphysik: "Quantenphysik",
+      atommodell: "Atommodell der Quantenphysik",
+      kernphysik: "Kernphysik"
+    };
+    const SG_ICONS = { elektrostatik: "\u26A1", induktion: "\uD83D\uDD04", emwellen: "\uD83D\uDCE1", quantenphysik: "\uD83D\uDD2C", atommodell: "\u269B\uFE0F", kernphysik: "\u2622\uFE0F" };
+
+    // BE -> NP conversion table (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    function selectSachgebiet(sg) {
+      CONFIG.sachgebiet = sg;
+      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      // Adjust timer default
+      document.getElementById("timerMinutes").value = CONFIG.aufgabentyp === "kurzaufgabe" ? 20 : 60;
+    }
+
+    function setAufgabentyp(typ) {
+      CONFIG.aufgabentyp = typ;
+      document.getElementById("typeKurz").classList.toggle("active", typ === "kurzaufgabe");
+      document.getElementById("typeLang").classList.toggle("active", typ === "langaufgabe");
+      document.getElementById("timerMinutes").value = typ === "kurzaufgabe" ? 20 : 60;
+    }
+
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      const studentTexts = {};
+      document.querySelectorAll('#studentTextareas textarea').forEach(function (ta, i) {
+        studentTexts[i] = ta.value;
+      });
+      localStorage.setItem(key, JSON.stringify({
+        studentTexts: studentTexts,
+        storedData: CONFIG.storedData,
+        sachgebiet: CONFIG.sachgebiet,
+        aufgabentyp: CONFIG.aufgabentyp
+      }));
+    }
+
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          // Restore per-textarea values
+          if (s.studentTexts) {
+            Object.keys(s.studentTexts).forEach(function (i) {
+              var ta = document.getElementById("studentText_" + i);
+              if (ta) ta.value = s.studentTexts[i];
+            });
+          } else if (s.studentText) {
+            // Migration: old single-textarea format -> load into first textarea
+            var first = document.getElementById("studentText_0");
+            if (first) first.value = s.studentText;
+          }
+          if (s.sachgebiet) selectSachgebiet(s.sachgebiet);
+          if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
+          updateWordCount();
+        }
+      } catch { }
+    }
+
+    /* Protect LaTeX blocks from marked's Markdown processing (* -> em, etc.) */
+    function protectMath(text) {
+      var blocks = [];
+      if (!text || typeof text !== "string") return { text: text || "", blocks: blocks };
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\$([^$]+?)\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      return { text: text, blocks: blocks };
+    }
+    function restoreMath(html, blocks) {
+      if (!html || typeof html !== "string") return html || "";
+      return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
+    }
+    function safeMathParse(text) {
+      if (!text || typeof text !== "string") return "";
+      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+    }
+    function safeMathParseInline(text) {
+      if (!text || typeof text !== "string") return "";
+      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+    }
+
+    function renderMath(el) {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(el || document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false,
+          strict: false
+        });
+      }
+    }
+
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/generate-physik", {
+          sachgebiet: CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.aufgabentyp
+        });
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
+        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
+      }
+      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const base64s = await Promise.all(taskUploadImages.map(async p => {
+          const r = new FileReader();
+          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
+        }));
+        const d = await apiCall("/api/parse-task-physik", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMeta").value = d.primary_meta || "";
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
+
+    function useManualTask() {
+      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c;
+      renderTask(c);
+      nav("task");
+    }
+
+    function renderTask(d) {
+      const instrEl = document.getElementById("taskInstruction");
+      instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
+      renderMath(instrEl);
+
+      const container = document.getElementById("teilaufgabenContainer");
+      if (d.teilaufgaben && d.teilaufgaben.length) {
+        container.innerHTML = d.teilaufgaben.map(t =>
+          '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+          DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+          ' <span class="teilaufgabe-be">(' + (t.be || "?") + ' BE)</span></div>'
+        ).join("");
+        renderMath(container);
+      } else {
+        container.innerHTML = "";
+      }
+
+      const meta = document.getElementById("taskMeta");
+      meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
+
+      // Render material (for Langaufgaben)
+      if (d.material && d.material.length) {
+        var matContainer = document.createElement("div");
+        matContainer.style.cssText = "margin:1rem 0";
+        d.material.forEach(function (m) {
+          var details = document.createElement("details");
+          details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
+          var summary = document.createElement("summary");
+          summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
+          summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
+          var body = document.createElement("div");
+          body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
+          body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
+          renderMath(body);
+          details.appendChild(summary);
+          details.appendChild(body);
+          matContainer.appendChild(details);
+        });
+        instrEl.closest(".card").insertBefore(matContainer, container);
+      }
+
+      // Write step reference
+      const writeRef = document.getElementById("writeTaskRef");
+      writeRef.innerHTML = instrEl.innerHTML;
+      if (d.teilaufgaben && d.teilaufgaben.length) {
+        writeRef.innerHTML += container.innerHTML;
+      }
+      renderMath(writeRef);
+
+      // Render per-Teilaufgabe textareas
+      renderStudentTextareas(d);
+    }
+
+    /* ====== PER-TEILAUFGABE TEXTAREAS ====== */
+    let activeStudentTaId = "studentText_0";
+
+    /* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
+    function renderInlineKatex(text) {
+      if (!text || typeof text !== "string") return "";
+      if (typeof katex === "undefined") return escapeHtml(text);
+      var parts = [];
+      var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
+      var lastIndex = 0;
+      var match;
+      while ((match = re.exec(text)) !== null) {
+        if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
+        var math = match[1] !== undefined ? match[1] : match[2];
+        var isDisplay = match[1] !== undefined;
+        try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false, strict: false })); }
+        catch (e) { parts.push(escapeHtml(match[0])); }
+        lastIndex = re.lastIndex;
+      }
+      if (lastIndex < text.length) parts.push(escapeHtml(text.slice(lastIndex)));
+      return parts.join("");
+    }
+
+    function formelEditorHTML(idx) {
+      return '<details class="formel-editor" data-fe-idx="' + idx + '">' +
+        '<summary>\u{1F9EE} Formel-Editor</summary>' +
+        '<div class="formel-editor-body">' +
+        '<div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div>' +
+        '<div class="formel-tabs" id="formelTabs_' + idx + '"></div>' +
+        '<div class="formel-btns" id="formelBtns_' + idx + '"></div>' +
+        '<div class="formel-actions">' +
+        '<button class="btn btn-small" onclick="insertFormulaFor(' + idx + ')">\u2713 Einf\u00fcgen</button>' +
+        '<button class="btn btn-small btn-secondary" onclick="clearMathFieldFor(' + idx + ')">L\u00f6schen</button>' +
+        '<span class="formel-preview" id="formelPreview_' + idx + '"></span>' +
+        '</div>' +
+        '</div>' +
+        '</details>';
+    }
+
+    function renderStudentTextareas(d) {
+      const wrap = document.getElementById("studentTextareas");
+      if (!wrap) return;
+      wrap.innerHTML = "";
+
+      const ta_list = (d.teilaufgaben && d.teilaufgaben.length) ? d.teilaufgaben : null;
+
+      if (ta_list) {
+        ta_list.forEach(function (t, i) {
+          const id = "studentText_" + i;
+          const nr = escapeHtml(t.id || t.nr || String.fromCharCode(97 + i) + ")");
+          const labelText = nr + " " + renderInlineKatex(t.text || "") + " (" + (t.be || "?") + " BE)";
+          const div = document.createElement("div");
+          div.className = "student-ta-group";
+          div.innerHTML =
+            '<label for="' + id + '">' + labelText + '</label>' +
+            formelEditorHTML(i) +
+            '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea>' +
+            '<div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
+          wrap.appendChild(div);
+          document.getElementById(id).addEventListener("focus", function () { activeStudentTaId = id; });
+        });
+      } else {
+        // Fallback: single textarea for upload/manual tasks without teilaufgaben
+        wrap.innerHTML =
+          '<div class="student-ta-group">' +
+          formelEditorHTML(0) +
+          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Physik-Notation:\n\u2022 $F = m \\cdot a$\n\u2022 $E = \\frac{U}{d}$\n\u2022 $\\lambda = \\frac{h}{p}$\n\u2022 $E = h \\cdot f$\n\u2022 $F = q \\cdot v \\times B$" oninput="updateWordCount()"></textarea>' +
+          '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
+          '</div>';
+        document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });
+      }
+
+      // Set up lazy-load toggle listeners for each formula editor
+      wrap.querySelectorAll('.formel-editor').forEach(function (details) {
+        var idx = parseInt(details.getAttribute('data-fe-idx'));
+        details.addEventListener('toggle', function () {
+          if (!this.open) return;
+          if (!mathLiveLoaded) {
+            loadMathLive().then(function () {
+              initFormelEditor(idx);
+            }).catch(function (err) { showToast(err.message); });
+          } else {
+            initFormelEditor(idx);
+          }
+        });
+      });
+
+      activeStudentTaId = "studentText_0";
+      updateWordCount();
+    }
+
+    function initFormelEditor(idx) {
+      var mf = document.getElementById('formelMF_' + idx);
+      if (mf && !mf._feInit) {
+        mf.addEventListener('input', function () { updateFormelPreviewFor(idx); });
+        mf._feInit = true;
+      }
+      renderFormelTabsFor(idx);
+      renderFormelButtonsFor(idx);
+    }
+
+    async function submitForGrading() {
+      // Collect per-textarea texts
+      const textareas = document.querySelectorAll('#studentTextareas textarea');
+      const teilaufgaben = CONFIG.storedData?.teilaufgaben || [];
+      const student_texts = {};
+      let allText = "";
+      textareas.forEach(function (ta, i) {
+        const taData = teilaufgaben[i];
+        const key = taData ? (taData.id || taData.nr || String.fromCharCode(97 + i) + ")") : "L\u00f6sung";
+        student_texts[key] = ta.value;
+        if (ta.value.trim()) {
+          allText += (allText ? "\n\n" : "") + key + "\n" + ta.value;
+        }
+      });
+      if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+      try {
+        const d = await apiCall("/api/grade-physik", {
+          aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
+          teilaufgaben: CONFIG.storedData.teilaufgaben || [],
+          gesamt_be: CONFIG.storedData.gesamt_be || 0,
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          student_text: allText,
+          student_texts: student_texts
+        });
+
+        // Render per-Teilaufgabe BE scores
+        const grid = document.getElementById("beScoresGrid");
+        if (d.teilbewertungen && d.teilbewertungen.length) {
+          grid.innerHTML = d.teilbewertungen.map(t =>
+            '<div class="be-score-card"><div class="score-label">' + escapeHtml(t.id || "") + '</div>' +
+            '<div class="score-value">' + (t.erreichte_be ?? "?") + '</div>' +
+            '<div class="score-max">/ ' + (t.max_be ?? "?") + ' BE</div></div>'
+          ).join("");
+        } else {
+          grid.innerHTML = "";
+        }
+
+        const beErreicht = d.gesamt_be ?? d.scores?.be_erreicht ?? null;
+        const beMax = d.max_be ?? d.scores?.be_max ?? CONFIG.storedData.gesamt_be ?? 0;
+        const np = d.note ?? d.scores?.notenpunkte ?? beToNP(beErreicht, beMax);
+        const pct = beMax > 0 ? Math.round((beErreicht / beMax) * 100) : null;
+
+        document.getElementById("scoreBE").textContent = beErreicht ?? "\u2013";
+        document.getElementById("scoreBEMax").textContent = "/ " + beMax;
+        document.getElementById("scoreProzent").textContent = pct != null ? pct : "\u2013";
+        document.getElementById("scoreTotal").textContent = np ?? "\u2013";
+
+        saveToHistory({
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
+          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          be_erreicht: beErreicht,
+          be_max: beMax,
+          total: np
+        });
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "physik",
+          topic: SG_LABELS[CONFIG.storedData.sachgebiet || CONFIG.sachgebiet] || "Physik",
+          content: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          language: np,
+          total: np,
+          date: new Date().toISOString()
+        }).catch(() => { });
+        stopTimer();
+        const fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
+        renderMath(fb);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    async function showModelAnswer() {
+      const card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        const d = await apiCall("/api/model-answer-physik", {
+          aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
+          teilaufgaben: CONFIG.storedData.teilaufgaben || [],
+          gesamt_be: CONFIG.storedData.gesamt_be || 0,
+          sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet
+        });
+        const body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
+        renderMath(body);
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+        const ic = SG_ICONS[x.sachgebiet] || "\u269B\uFE0F";
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td>' + (x.aufgabentyp || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    /* ====== FORMEL-EDITOR (MathLive) ====== */
+    let mathLiveLoaded = false, mathLiveLoading = false;
+    function loadMathLive() {
+      return new Promise(function (resolve, reject) {
+        if (mathLiveLoaded) { resolve(); return; }
+        if (mathLiveLoading) {
+          var check = setInterval(function () { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100);
+          return;
+        }
+        mathLiveLoading = true;
+        var s = document.createElement("script");
+        s.type = "module";
+        s.src = "https://unpkg.com/mathlive?module";
+        s.onload = function () { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
+        s.onerror = function () { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
+        document.head.appendChild(s);
+      });
+    }
+
+    const FORMEL_BUTTONS = {
+      grundlagen: {
+        label: "Grundlagen",
+        buttons: [
+          { label: "F", latex: "F" },
+          { label: "E", latex: "E" },
+          { label: "B", latex: "B" },
+          { label: "v", latex: "v" },
+          { label: "a", latex: "a" },
+          { label: "m", latex: "m" },
+          { label: "q", latex: "q" },
+          { label: "a/b", latex: "\\frac{#0}{#0}" },
+          { label: "\u221A", latex: "\\sqrt{#0}" },
+          { label: "x^n", latex: "x^{#0}" }
+        ]
+      },
+      felder: {
+        label: "Felder",
+        buttons: [
+          { label: "F=ma", latex: "F = m \\cdot a" },
+          { label: "F=qE", latex: "F = q \\cdot E" },
+          { label: "F=qvB", latex: "F = q \\cdot v \\cdot B" },
+          { label: "E=U/d", latex: "E = \\frac{U}{d}" },
+          { label: "C=\u03B5A/d", latex: "C = \\varepsilon_0 \\cdot \\varepsilon_r \\cdot \\frac{A}{d}" },
+          { label: "\u0394U", latex: "\\Delta U" },
+          { label: "\u03B5\u2080", latex: "\\varepsilon_0" },
+          { label: "\u03BC\u2080", latex: "\\mu_0" },
+          { label: "\u00B7", latex: "\\cdot" },
+          { label: "\u00D7", latex: "\\times" }
+        ]
+      },
+      wellen: {
+        label: "Wellen",
+        buttons: [
+          { label: "\u03BB", latex: "\\lambda" },
+          { label: "f", latex: "f" },
+          { label: "c", latex: "c" },
+          { label: "n", latex: "n" },
+          { label: "\u0394s", latex: "\\Delta s" },
+          { label: "sin", latex: "\\sin" },
+          { label: "cos", latex: "\\cos" },
+          { label: "\u03B1", latex: "\\alpha" },
+          { label: "\u03B8", latex: "\\theta" },
+          { label: "c=\u03BBf", latex: "c = \\lambda \\cdot f" }
+        ]
+      },
+      quanten: {
+        label: "Quanten",
+        buttons: [
+          { label: "h", latex: "h" },
+          { label: "\u210F", latex: "\\hbar" },
+          { label: "\u03BB_dB", latex: "\\lambda_{\\text{dB}}" },
+          { label: "E=hf", latex: "E = h \\cdot f" },
+          { label: "\u0394E", latex: "\\Delta E" },
+          { label: "T\u00BD", latex: "T_{1/2}" },
+          { label: "N(t)", latex: "N(t)" },
+          { label: "e\u207B", latex: "e^-" },
+          { label: "\u03B3", latex: "\\gamma" },
+          { label: "\u03B1", latex: "\\alpha" }
+        ]
+      }
+    };
+
+    let activeFormelTab = "grundlagen";
+
+    function renderFormelTabsFor(feIdx) {
+      var tabsEl = document.getElementById("formelTabs_" + feIdx);
+      if (!tabsEl) return;
+      tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function (key) {
+        return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>';
+      }).join("");
+    }
+
+    function switchFormelTabFor(cat, feIdx) {
+      activeFormelTab = cat;
+      // Update tabs in all open editors
+      document.querySelectorAll('.formel-editor[open]').forEach(function (d) {
+        renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx')));
+        renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx')));
+      });
+    }
+
+    function renderFormelButtonsFor(feIdx) {
+      var btnsEl = document.getElementById("formelBtns_" + feIdx);
+      if (!btnsEl) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      btnsEl.innerHTML = buttons.map(function (b, i) {
+        return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
+      }).join("");
+    }
+
+    function insertQuickLatexFor(btnIdx, feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      var b = buttons[btnIdx];
+      if (!b) return;
+      mf.executeCommand(["insert", b.latex]);
+      mf.focus();
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function updateFormelPreviewFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      var preview = document.getElementById("formelPreview_" + feIdx);
+      if (mf && preview) { preview.textContent = mf.value || ""; }
+    }
+
+    function insertFormulaFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf || !mf.value) return;
+      var latex = "$" + mf.value + "$";
+      var ta = document.getElementById("studentText_" + feIdx);
+      if (!ta) return;
+      var start = ta.selectionStart, end = ta.selectionEnd;
+      var before = ta.value.substring(0, start);
+      var after = ta.value.substring(end);
+      var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : "";
+      var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : "";
+      ta.value = before + spaceBefore + latex + spaceAfter + after;
+      var newPos = start + spaceBefore.length + latex.length + spaceAfter.length;
+      ta.selectionStart = ta.selectionEnd = newPos;
+      ta.focus();
+      updateWordCount();
+      mf.value = "";
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function clearMathFieldFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
+    }
+
+    /* ====== OVERRIDE: updateWordCount -- per-Textarea + Gesamtsumme ====== */
+    function updateWordCount() {
+      var total = 0;
+      document.querySelectorAll('#studentTextareas textarea').forEach(function (ta) {
+        var c = countWords(ta.value);
+        total += c;
+        var wcEl = document.getElementById("wc_" + ta.id);
+        if (wcEl) wcEl.textContent = c + " W\u00f6rter";
+      });
+      document.getElementById("wordCount").textContent = total;
+    }
+
+    /* ====== OVERRIDE: useOCRText -- insert into last-focused textarea ====== */
+    function useOCRText() {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      var ta = document.getElementById(activeStudentTaId || "studentText_0");
+      if (ta) {
+        ta.value = clean;
+        ta.scrollIntoView({ behavior: "smooth" });
+      }
+      updateWordCount();
+      showToast("Text \u00fcbernommen in " + (activeStudentTaId || "studentText_0").replace("studentText_", "Feld ") + "!", "success");
+    }
+
+    // Render default fallback textarea on page load (before any task is generated)
+    renderStudentTextareas({ teilaufgaben: [] });
+  </script>
+</body>
+
+</html>

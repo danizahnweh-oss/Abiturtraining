@@ -481,6 +481,20 @@ export default {
         return await handleParseTaskChemie(request, env);
       }
 
+      // ===== PHYSIK ENDPOINTS =====
+      if (pathname === "/api/generate-physik" && request.method === "POST") {
+        return await handleGeneratePhysik(request, env);
+      }
+      if (pathname === "/api/grade-physik" && request.method === "POST") {
+        return await handleGradePhysik(request, env);
+      }
+      if (pathname === "/api/model-answer-physik" && request.method === "POST") {
+        return await handleModelAnswerPhysik(request, env);
+      }
+      if (pathname === "/api/parse-task-physik" && request.method === "POST") {
+        return await handleParseTaskPhysik(request, env);
+      }
+
       // ===== CHEMIE ABITUR ENDPOINTS =====
       if (pathname === "/api/generate-abitur-chemie" && request.method === "POST") {
         return await handleGenerateAbiturChemie(request, env);
@@ -5743,6 +5757,301 @@ async function handleParseTaskChemie(request, env) {
       role: "user",
       content: [
         { type: "text", text: "Extrahiere die Chemie-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln, Reaktionsgleichungen, Strukturformeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$) und $\\ce{}$ für chemische Formeln und Reaktionsgleichungen (mhchem-Erweiterung). CHEMIE-REGELN: $\\ce{H2O}$ für Formeln, $\\ce{2H2 + O2 -> 2H2O}$ für Reaktionen, $\\ce{<=>}$ für Gleichgewichte. LATEX-REGELN: \\cdot statt *, \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000);
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= PHYSIK: GENERATE ================= */
+async function handleGeneratePhysik(request, env) {
+  const body = await request.json();
+  const { sachgebiet, aufgabentyp } = body;
+
+  const sg = sachgebiet || "elektrostatik";
+  const typ = aufgabentyp || "kurzaufgabe";
+  const isKurz = typ === "kurzaufgabe";
+
+  const sgThemen = {
+    elektrostatik: {
+      title: "Elektrostatik & Magnetostatik",
+      inhalte: "Ph12 LB1: Elektrische Feldlinien, homogenes Feld, Radialfeld, Dipolfeld. Definition der elektrischen Feldstärke über Kraft auf Probeladung. Coulombkraft, Feldstärke radialsymmetrisches Feld. Superposition von Feldern. Kapazität, Abhängigkeit der Kapazität eines Plattenkondensators von geometrischen Daten, Energieinhalt des E-Feldes. Materie im elektrischen Feld, Dielektrikum, Dielektrizitätszahl. Auf-/Entladevorgang RC-Glied. Potentielle Energie, Potential, Spannung als Potentialdifferenz, Zusammenhang U und E. Geladene Teilchen in homogenen elektrischen Längs-/Querfeldern. Relativistischer Impuls, relativistische Energie, Energie-Impuls-Beziehung. Definition magnetische Flussdichte, B-Feld einer langgestreckten Spule, Energieinhalt des B-Feldes. Lorentzkraft, Kreisbahnen geladener Teilchen in homogenen Magnetfeldern. Hall-Effekt, Massenspektrometer, Geschwindigkeitsfilter, Teilchenbeschleuniger."
+    },
+    induktion: {
+      title: "EM-Induktion & Schwingungen",
+      inhalte: "Ph12 LB2: Magnetischer Fluss, Induktionsgesetz, Erzeugung sinusförmiger Wechselspannung. Selbstinduktion: Ein-/Ausschaltvorgang bei Spule, Induktivität, Energieinhalt des B-Feldes. Schaltvorgänge in RL-Glied, Zeitkonstante. Technische Anwendungen der Induktion. Differentialgleichung der EM-Schwingung in LC-Kreis, Thomson-Gleichung, periodischer Energieaustausch Spule-Kondensator, Analogie mechanische/EM-Schwingung. Gedämpfte mechanische und EM-Schwingungen, Abklingverhalten. Resonanzphänomene bei mechanischen und EM-Schwingungen. Zeigerdiagramme. Spule und Kondensator in Wechselstromkreisen, Wechselstromwiderstand, Frequenzfilter."
+    },
+    emwellen: {
+      title: "Elektromagnetische Wellen",
+      inhalte: "Ph12 LB3: Ladung und Stromstärke bei Grundschwingung eines EM-Dipols, E- und B-Feld im Nahbereich. Maxwellgleichungen, Ausbreitung EM-Wellen. Struktur des EM-Wechselfeldes im Fernbereich, Eigenschaften: Ausbreitungsgeschwindigkeit, Polarisation, Brechung, Beugung, Reflexion. Mathematische Beschreibung einer eindimensionalen Welle. Superposition von Wellen, Interferenz am Doppelspalt, Intensität einer EM-Welle, konstruktive/destruktive Interferenz, Kohärenz, stehende Welle. Mehrfachspalt und optisches Gitter. Wellenlängenbestimmung bei mono-/polychromatischem Licht. Einfachspalt. Bragg-Reflexion, Bragg-Bedingung. Aufbau Röntgenröhre, Röntgenbremsspektrum. Elektromagnetisches Spektrum."
+    },
+    quantenphysik: {
+      title: "Quantenphysik",
+      inhalte: "Ph13 LB1: Elektronenbeugungsröhre, Hypothesen zur Interpretation. Simulation Doppelspaltexperiment: wellenartiges, teilchenartiges, stochastisches Verhalten des Quantenobjekts Elektron, Interpretation durch Wellenfunktion. De-Broglie-Beziehung für Elektron. Wellenartiges, teilchenartiges, stochastisches Verhalten des Quantenobjekts Photon. Energie und Impuls des Photons. Äußerer Photoeffekt, Bestimmung des Planck'schen Wirkungsquantums. Grenzfrequenz Röntgenbremsspektrum. Wellenfunktion: Betragsquadrat als Nachweiswahrscheinlichkeit, Superposition, Determiniertheit. Komplementarität. Quantenphysikalischer Messprozess, Kausalität, Realität, Nicht-Lokalität. Heisenberg'sche Unbestimmtheitsrelation."
+    },
+    atommodell: {
+      title: "Atommodell der Quantenphysik",
+      inhalte: "Ph13 LB2: Eindimensionaler Potentialtopf mit unendlich hohen Wänden: stehende Wellen, diskrete Energiewerte, Wellenfunktionen und Nachweiswahrscheinlichkeiten. Wellenfunktionen für weitere Potentiale: Potentialtopf mit endlich hohen Wänden, Coulomb-Potential, Tunneleffekt. Darstellung von Aufenthaltswahrscheinlichkeiten durch Orbitale, Struktur der Orbitale des Wasserstoffatoms, Quantenzahlen, Energiewerte für Wasserstoff. Emission und Absorption von Licht atomarer Gase, Energieniveauschema der Atomhülle, charakteristisches Röntgenspektrum. Energieübertrag durch Stoßanregung, Franck-Hertz-Versuch. Bestimmung der Rydberg-Konstante."
+    },
+    kernphysik: {
+      title: "Kernphysik",
+      inhalte: "Ph13 LB4: Massendefekt und mittlere Bindungsenergie je Nukleon in Abhängigkeit von Nukleonenzahl. Potentialtopfmodell des Kerns, Pauli-Prinzip. Entstehung von α-, β⁻-, β⁺- und γ-Strahlung, Tunneleffekt beim α-Zerfall, β-Zerfälle im Standardmodell, Stabilität von Atomkernen. Energiebilanzen bei Zerfällen und Kernreaktionen, Energiespektren. Ionisierende Wirkung und Nachweis von α-, β-, γ-Strahlung. Aktivität, Zerfallsgesetz, Halbwertszeit. C14-Methode zur Altersbestimmung. Strahlenbelastung, Energiedosis, Äquivalentdosis, Strahlenschutz. Kernspaltung, Kettenreaktion, prinzipieller Aufbau Kernreaktor, Chancen und Risiken. Kernfusion. Ph13 LB3: Standardmodell, Quarks, Teilchenfamilien, fundamentale Wechselwirkungen und Austauschteilchen, Erhaltung der Leptonen-/Baryonenzahl."
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.elektrostatik;
+
+  const systemPrompt = `Du bist ein Physik-Experte für das bayerische Abitur (gA/eA, G9, ab 2026).
+Erstelle eine authentische Physik-Aufgabe.
+
+${isKurz ? `KURZAUFGABE:
+- 1 Aufgabe mit 2-3 Teilaufgaben
+- Gesamt: 10 BE
+- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Klare, fachlich korrekte Aufgaben` :
+`LANGAUFGABE (mit Material):
+- 1 große Aufgabe mit 4-6 Teilaufgaben
+- Gesamt: 30 BE
+- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
+- Steigendes Anforderungsniveau`}
+
+SACHGEBIET: ${sgInfo.title}
+Relevante Inhalte:
+${sgInfo.inhalte}
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Gib bei jeder Teilaufgabe die BE an
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
+
+LATEX-FORMATIERUNG (schreibe echte Physik/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
+- Brüche: $\\frac{1}{2}$ (NICHT $1/2$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\ne$, $\\approx$ (NICHT <=, >=)
+
+PHYSIK-SPEZIFISCHE LATEX-REGELN:
+- Vektoren: $\\vec{F}$, $\\vec{E}$, $\\vec{B}$, $\\vec{v}$
+- Einheiten: $\\text{m/s}$, $\\text{N}$, $\\text{V}$, $\\text{T}$, $\\text{eV}$, $\\text{J}$
+- Physikalische Konstanten: $h = 6{,}626 \\cdot 10^{-34}\\,\\text{J}\\cdot\\text{s}$, $e = 1{,}602 \\cdot 10^{-19}\\,\\text{C}$
+- Kreuzprodukt: $\\vec{F} = q \\cdot \\vec{v} \\times \\vec{B}$
+- Wellenfunktion: $\\psi(x)$, $|\\psi(x)|^2$
+- Energie: $E = h \\cdot f$, $E_{\\text{kin}} = \\frac{1}{2}mv^2$, $E = mc^2$
+- De Broglie: $\\lambda = \\frac{h}{p}$
+- Zerfallsgesetz: $N(t) = N_0 \\cdot e^{-\\lambda t}$
+
+KEINE GeoGebra-Visualisierung.
+KEINE Strukturformeln oder \\ce{}-Notation (das ist Chemie, nicht Physik).
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "teilaufgaben": [
+    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 3},
+    {"id": "b)", "text": "...", "be": 4}
+  ],
+  "gesamt_be": ${isKurz ? 10 : 30},
+  "sachgebiet": "${sg}",
+  "aufgabentyp": "${typ}",
+  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
+}
+Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
+
+  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 6000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= PHYSIK: GRADE ================= */
+async function handleGradePhysik(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+
+  if (!student_text && !student_texts) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 10;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    aufgabenInfo += "Materialien:\n";
+    for (const m of material) {
+      aufgabenInfo += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    aufgabenInfo += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
+  }
+
+  const rubricPrompt = `Du bewertest eine Physik-Klausur (Bayern, gA/eA, Abitur ab 2026) nach dem BE-System (Bewertungseinheiten).
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Fachsprache, physikalische Gesetze, Herleitungen, quantitative Berechnungen, Einheiten, Diagramme
+- Ansatz korrekt aber Rechenfehler → trotzdem Teilpunkte für Ansatz
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Der Schüler schreibt in einer Mischung aus Plain-Text und LaTeX-Notation. Interpretiere beides großzügig.
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für physikalische und mathematische Ausdrücke.
+LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
+PHYSIK-REGELN: Vektoren $\\vec{F}$, Einheiten $\\text{m/s}$, Konstanten korrekt angeben.
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 3, "bewertung": "Markdown-Bewertung mit $LaTeX$"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= PHYSIK: MODEL ANSWER ================= */
+async function handleModelAnswerPhysik(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, material } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Physik-Oberstufenschüler am bayerischen Gymnasium (gA/eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "Anwendung des Induktionsgesetzes")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE
+
+LATEX-FORMATIERUNG (echte Physik/Mathematik, NICHT Code-Syntax!):
+- Multiplikation: $\\cdot$ (NIEMALS $*$)
+- Brüche: $\\frac{a}{b}$ (NICHT a/b)
+- Dezimalkomma: $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\approx$
+
+PHYSIK-SPEZIFISCHE LATEX-REGELN:
+- Vektoren: $\\vec{F}$, $\\vec{E}$, $\\vec{B}$, $\\vec{v}$
+- Einheiten: $\\text{m/s}$, $\\text{N}$, $\\text{V}$, $\\text{T}$, $\\text{eV}$
+- Konstanten: $h$, $e$, $c$, $\\varepsilon_0$, $\\mu_0$
+- Wellenfunktion: $\\psi(x)$, $|\\psi(x)|^2$
+- Zerfallsgesetz: $N(t) = N_0 \\cdot e^{-\\lambda t}$, $T_{1/2} = \\frac{\\ln 2}{\\lambda}$`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    userContent += "MATERIALIEN:\n";
+    for (const m of material) {
+      userContent += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    userContent += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= PHYSIK: PARSE TASK ================= */
+async function handleParseTaskPhysik(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Physik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln, Diagramme, Tabellen und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$). PHYSIK-REGELN: Vektoren $\\vec{F}$, Einheiten $\\text{m/s}$, Konstanten korrekt. LATEX-REGELN: \\cdot statt *, \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
         ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
       ]
     }
