@@ -495,6 +495,20 @@ export default {
         return await handleParseTaskPhysik(request, env);
       }
 
+      // ===== BIO ENDPOINTS =====
+      if (pathname === "/api/generate-bio" && request.method === "POST") {
+        return await handleGenerateBio(request, env);
+      }
+      if (pathname === "/api/grade-bio" && request.method === "POST") {
+        return await handleGradeBio(request, env);
+      }
+      if (pathname === "/api/model-answer-bio" && request.method === "POST") {
+        return await handleModelAnswerBio(request, env);
+      }
+      if (pathname === "/api/parse-task-bio" && request.method === "POST") {
+        return await handleParseTaskBio(request, env);
+      }
+
       // ===== CHEMIE ABITUR ENDPOINTS =====
       if (pathname === "/api/generate-abitur-chemie" && request.method === "POST") {
         return await handleGenerateAbiturChemie(request, env);
@@ -6052,6 +6066,299 @@ async function handleParseTaskPhysik(request, env) {
       role: "user",
       content: [
         { type: "text", text: "Extrahiere die Physik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln, Diagramme, Tabellen und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$). PHYSIK-REGELN: Vektoren $\\vec{F}$, Einheiten $\\text{m/s}$, Konstanten korrekt. LATEX-REGELN: \\cdot statt *, \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000);
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= BIO: GENERATE ================= */
+async function handleGenerateBio(request, env) {
+  const body = await request.json();
+  const { sachgebiet, aufgabentyp } = body;
+
+  const sg = sachgebiet || "genetik";
+  const typ = aufgabentyp || "kurzaufgabe";
+  const isKurz = typ === "kurzaufgabe";
+
+  const sgThemen = {
+    genetik: {
+      title: "Genetik & Gentechnik",
+      inhalte: "Genetik & Gentechnik — DNA-Bau, genetischer Code, Proteinbiosynthese (Transkription, Prozessierung, Translation), Genwirkketten, Regulation der Genaktivität (Transkriptionsfaktoren, Enhancer, Silencer), Epigenetik (DNA-Methylierung, X-Inaktivierung), Stammzellen, DNA-Replikation, PCR, Zellzyklus, Meiose, Neukombination, Genommutationen (Trisomie 21), Genmutationen, CRISPR/Cas, Gentechnik-Anwendungen, Mendelsche Regeln (mono-/dihybrid), Erbgänge (autosomal dominant/rezessiv, X-chromosomal), Stammbaumanalyse, Gelelektrophorese, genetischer Fingerabdruck"
+    },
+    neurobiologie: {
+      title: "Neurobiologie",
+      inhalte: "Neurobiologie — Bau der Nervenzelle, Biomembran (Flüssig-Mosaik-Modell), Ruhepotential (Ionenverteilung, Na⁺/K⁺-ATPase), Aktionspotential (Ionenkanäle, Refraktärphasen, Alles-oder-Nichts), Erregungsleitung (myelinisiert/nicht-myelinisiert, saltatorisch/kontinuierlich), erregende chemische Synapse, Stoffeinwirkung an Synapsen, Depression (Monoamin-Hypothese, Vulnerabilitäts-Stress-Modell, SSRI)"
+    },
+    stoffwechsel: {
+      title: "Stoffwechselphysiologie",
+      inhalte: "Stoffwechselphysiologie — Photosynthese (Gesamtgleichung, Abhängigkeit von abiotischen Faktoren, Absorptions-/Wirkungsspektrum, Chromatographie, Angepasstheiten, lichtabhängige Reaktionen, Calvin-Zyklus), Enzyme (Regulation, kompetitive/nicht-kompetitive Hemmung), Zellatmung (Glykolyse, oxidative Decarboxylierung, Tricarbonsäurezyklus, Atmungskette, Chemiosmose), Gärung (Milchsäure-, alkoholische Gärung), Vergleich Photosynthese/Zellatmung"
+    },
+    oekologie: {
+      title: "Ökologie & Biodiversität",
+      inhalte: "Ökologie & Biodiversität — abiotische/biotische Faktoren, Toleranzkurven, ökologische Potenz, Nahrungsnetz, Kohlenstoffkreislauf, Energiefluss, intra-/interspezifische Konkurrenz, Symbiose, Prädation, ökologische Nische, Populationsdynamik (exponentielles/logistisches Wachstum, Umweltkapazität), Ökosystemleistungen, Biodiversität, Nachhaltigkeit, anthropogener Treibhauseffekt"
+    },
+    evolution: {
+      title: "Evolution",
+      inhalte: "Evolution — molekularbiologische Homologien, Stammbaum/Kladogramm, synthetische Evolutionstheorie (Mutation, Rekombination, Selektion, Alleldrift), Selektionsformen (stabilisierend, transformierend, disruptiv), Artbildung (geographische/ökologische Isolation), Koevolution, Darwin vs. Lamarck"
+    },
+    verhalten: {
+      title: "Verhaltensökologie",
+      inhalte: "Verhaltensökologie — adaptiver Wert von Verhalten, direkte/indirekte Fitness, Kosten-Nutzen-Analyse, Optimalitätsmodell, Kooperation, Altruismus, Kommunikation (Sender-Empfänger), Aggression (Drohen, Kommentkampf), Fortpflanzung (Handicap-Prinzip, Paarungssysteme), Elternaufwand"
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.genetik;
+
+  const systemPrompt = `Du bist ein Biologielehrer am bayerischen Gymnasium und erstellst Aufgaben für das Abitur (gA/eA, G9, ab 2026).
+Erstelle eine authentische Biologie-Aufgabe.
+
+${isKurz ? `KURZAUFGABE:
+- 1 Aufgabe mit 2-3 Teilaufgaben
+- Gesamt: 10 BE
+- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Klare, fachlich korrekte Aufgaben` :
+`LANGAUFGABE (mit Material):
+- 1 große Aufgabe mit 4-6 Teilaufgaben
+- Gesamt: 30 BE
+- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte, Abbildungen)
+- Steigendes Anforderungsniveau`}
+
+SACHGEBIET: ${sgInfo.title}
+Relevante Inhalte:
+${sgInfo.inhalte}
+
+WICHTIG:
+- Verwende LaTeX-Notation für biologische Formeln und Gleichungen: $...$ für inline, $$...$$ für Display
+- Gib bei jeder Teilaufgabe die BE an
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
+
+LATEX-FORMATIERUNG:
+- Verwende $...$ für biologische Notation wie Genotypen ($Aa$, $BB$), Kreuzungsschemata, Reaktionsgleichungen
+- Brüche für Wahrscheinlichkeiten: $\\frac{1}{4}$, $\\frac{3}{16}$
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Chemische Summenformeln in normalem Text: CO₂, H₂O, ATP, NADPH, O₂ (NICHT \\ce{})
+
+BIOLOGIE-SPEZIFISCHE REGELN:
+- Genotypen kursiv: $Aa \\times aa$
+- Phänotypenverhältnisse: $3:1$, $9:3:3:1$
+- Reaktionsgleichungen der Photosynthese/Zellatmung als Text oder LaTeX
+- Fachbegriffe korrekt verwenden (Allel, homozygot, heterozygot, Enzym, Substrat, etc.)
+- Stammbäume als Textbeschreibung mit klarer Legende
+
+KEINE GeoGebra-Visualisierung.
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "teilaufgaben": [
+    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 3},
+    {"id": "b)", "text": "...", "be": 4}
+  ],
+  "gesamt_be": ${isKurz ? 10 : 30},
+  "sachgebiet": "${sg}",
+  "aufgabentyp": "${typ}",
+  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
+}
+Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
+
+  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 6000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= BIO: GRADE ================= */
+async function handleGradeBio(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+
+  if (!student_text && !student_texts) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 10;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    aufgabenInfo += "Materialien:\n";
+    for (const m of material) {
+      aufgabenInfo += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    aufgabenInfo += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
+  }
+
+  const rubricPrompt = `Du bewertest eine Biologie-Klausur (Bayern, gA/eA, Abitur ab 2026) nach dem BE-System (Bewertungseinheiten).
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Fachsprache, wissenschaftliche Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung biologischer Zusammenhänge
+- Korrekte Fachsprache (z.B. "homozygot" statt "reinerbig") wird positiv bewertet
+- Korrekte Anwendung biologischer Konzepte und Modelle
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Der Schüler schreibt in einer Mischung aus Plain-Text und LaTeX-Notation. Interpretiere beides großzügig.
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für biologische Formeln und Notation.
+LATEX-REGELN: Brüche $\\frac{a}{b}$, Dezimalkomma $3{,}6$ statt $3.6$.
+BIOLOGIE-REGELN: Genotypen $Aa$, Phänotypenverhältnisse $3:1$, Fachbegriffe korrekt verwenden.
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 3, "bewertung": "Markdown-Bewertung mit $LaTeX$"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= BIO: MODEL ANSWER ================= */
+async function handleModelAnswerBio(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, material } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Biologie-Oberstufenschüler am bayerischen Gymnasium (gA/eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende LaTeX-Notation für Formeln und biologische Notation: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "Anwendung der Mendelschen Regeln")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE
+
+LATEX-FORMATIERUNG:
+- Brüche: $\\frac{a}{b}$ (NICHT a/b)
+- Dezimalkomma: $3{,}6$ (NICHT $3.6$)
+- Vergleiche: $\\le$, $\\ge$, $\\approx$
+
+BIOLOGIE-SPEZIFISCHE REGELN:
+- Genotypen: $Aa$, $BB$, $X^a X^A$
+- Kreuzungsschemata klar darstellen
+- Phänotypenverhältnisse: $3:1$, $9:3:3:1$
+- Fachbegriffe korrekt verwenden (homozygot, heterozygot, Allel, dominant, rezessiv)
+- Chemische Summenformeln: CO₂, H₂O, ATP, NADPH, O₂
+- Biologische Prozesse Schritt für Schritt erklären (z.B. Transkription, Translation)
+- Ökologische Modelle und Kurven beschreiben`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    userContent += "MATERIALIEN:\n";
+    for (const m of material) {
+      userContent += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    userContent += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= BIO: PARSE TASK ================= */
+async function handleParseTaskBio(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Biologie-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Abbildungen (beschrieben), Diagramme, Tabellen, Stammbäume und Teilaufgaben. Verwende LaTeX-Notation für Formeln und biologische Notation ($...$, $$...$$). BIOLOGIE-REGELN: Genotypen $Aa$, Phänotypenverhältnisse $3:1$, Fachbegriffe korrekt. LATEX-REGELN: \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
         ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
       ]
     }
