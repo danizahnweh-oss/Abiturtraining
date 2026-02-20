@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#16a34a">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow &middot; Biologie Abiturtraining</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg"
+    crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    /* Green accent override */
+    :root {
+      --accent: #16a34a;
+      --accent-hover: #15803d;
+      --accent-soft: #dcfce7;
+      --accent-glow: rgba(22, 163, 74, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #4ade80;
+      --accent-hover: #86efac;
+      --accent-soft: rgba(74, 222, 128, .15);
+      --accent-glow: rgba(74, 222, 128, .08);
+    }
+
+    /* Teil-Trenner */
+    .teil-header {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin: 1.5rem 0 .8rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--accent);
+      color: var(--accent)
+    }
+
+    .teil-header:first-child {
+      margin-top: 0
+    }
+
+    .teil-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: .5rem
+    }
+
+    /* Write-Parts */
+    .write-part {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem
+    }
+
+    .write-part h3 {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      color: var(--accent)
+    }
+
+    .write-part textarea {
+      min-height: 250px
+    }
+
+    .write-part .word-counter {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .4rem
+    }
+
+    /* Aufgaben-Items */
+    .aufgabe-item {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .aufgabe-item:last-child {
+      border-bottom: none
+    }
+
+    .aufgabe-nr {
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: .3rem
+    }
+
+    .aufgabe-be {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-weight: 600
+    }
+
+    .aufgaben-liste {
+      margin-top: .5rem
+    }
+
+    /* Selectable Aufgabengruppen */
+    .aufgabengruppe-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      transition: all .2s
+    }
+
+    .aufgabengruppe-card h4 {
+      font-size: .9rem;
+      margin-bottom: .5rem;
+      color: var(--accent)
+    }
+
+    .aufgabengruppe-card.selectable {
+      cursor: pointer
+    }
+
+    .aufgabengruppe-card.selectable:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow)
+    }
+
+    .aufgabengruppe-card.selectable.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .aufgabengruppe-card.selectable:not(.selected) {
+      opacity: .65
+    }
+
+    .aufgabe-context {
+      padding: .4rem 0 .2rem;
+      line-height: 1.6;
+      font-size: .92rem
+    }
+
+    /* Wahl hint */
+    .wahl-hint {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      padding: .4rem 0;
+      font-style: italic
+    }
+
+    .wahl-hint.complete {
+      color: var(--accent);
+      font-weight: 600;
+      font-style: normal
+    }
+
+    /* BE scores */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent)
+    }
+
+    /* Material details */
+    .material-details {
+      margin: .5rem 0;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border)
+    }
+
+    .material-details summary {
+      cursor: pointer;
+      padding: .5rem .8rem;
+      font-weight: 600;
+      font-size: .88rem;
+      color: var(--accent)
+    }
+
+    .material-details .material-body {
+      padding: .5rem .8rem .8rem .8rem;
+      font-size: .9rem;
+      line-height: 1.6
+    }
+
+    .material-details .material-body ol,
+    .material-details .material-body ul {
+      padding-left: 1.8rem;
+      margin: .4rem 0
+    }
+
+    .material-details .material-body li {
+      margin-bottom: .3rem
+    }
+
+    .material-details .material-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .5rem 0;
+      font-size: .85rem
+    }
+
+    .material-details .material-body th,
+    .material-details .material-body td {
+      border: 1px solid var(--border);
+      padding: .3rem .5rem;
+      text-align: left
+    }
+
+    .material-details .material-body th {
+      background: var(--accent-glow);
+      font-weight: 600
+    }
+
+    /* Sachgebiet badge */
+    .sachgebiet-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 600;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      margin-left: .4rem
+    }
+
+    @media(max-width:650px) {
+      .be-scores-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a href="index.html?back=biologie" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Biologie &middot; <span>Abiturtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Pr&uuml;fung</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> L&ouml;sung</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Biologie-Abiturpr&uuml;fung generieren</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem" id="examDesc">
+          <!-- filled by JS based on level -->
+        </p>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Abiturpr&uuml;fung generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Biologie-Abiturpr&uuml;fung &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="300" min="60" max="360" style="max-width:120px">
+        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem" id="timerHint">eA: 300 Min.</div>
+      </div>
+    </section>
+
+    <!-- STEP 2: TASK DISPLAY -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabengruppen <span class="teil-badge" id="totalBEBadge">120 BE</span></h2>
+        <div class="wahl-hint" id="wahlHint">W&auml;hle <strong>3</strong> von 4 Aufgabengruppen</div>
+        <div id="aufgabengruppenContainer"></div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgaben anzeigen</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:400px;overflow-y:auto">
+            <div id="writeTaskRef" style="font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
+          Tippe deine L&ouml;sung in Plain-Text-Biologie: z.B. <code>$Aa \times aa$</code>,
+          <code>$\frac{dN}{dt}$</code>, <code>$\text{ATP}$</code>
+        </p>
+
+        <div id="studentTextareas"></div>
+
+        <div class="write-toolbar">
+          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; In aktive Aufgabe</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte Biologie-Abiturpr&uuml;fung &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))" id="scoresGrid">
+            <div class="score-card" id="scoreAufg1">
+              <div class="score-label">Aufgabe 1</div>
+              <div class="score-value">&ndash;</div>
+              <div class="score-max"></div>
+            </div>
+            <div class="score-card" id="scoreAufg2">
+              <div class="score-label">Aufgabe 2</div>
+              <div class="score-value">&ndash;</div>
+              <div class="score-max"></div>
+            </div>
+            <div class="score-card" id="scoreAufg3">
+              <div class="score-label">Aufgabe 3</div>
+              <div class="score-value">&ndash;</div>
+              <div class="score-max"></div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Gesamt</div>
+              <div class="score-value" id="scoreBE">&ndash;</div>
+              <div class="score-max" id="scoreBEMax">/ 120 BE</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreTotal">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Pr&uuml;fung</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Level</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow &middot; Biologie Abitur Trainer</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "bio_abitur",
+      historyKey: "bio_abitur_history_",
+      historyType: "biologie-abitur",
+      pdfFilename: "Biologie_Abitur",
+      chartColor: "#16a34a",
+      minWords: 10
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    /* ====== LEVEL CONFIG ====== */
+    const LEVEL_CONFIG = {
+      eA: { bePerAufgabe: 40, totalBE: 120, pruefungsdauer: 300 },
+      gA: { bePerAufgabe: 30, totalBE: 90, pruefungsdauer: 255 }
+    };
+
+    function getLevel() { return sessionStorage.getItem("student_level") || "eA"; }
+    function getLevelConfig() { return LEVEL_CONFIG[getLevel()] || LEVEL_CONFIG.eA; }
+
+    function updateLevelDisplay() {
+      var lc = getLevelConfig();
+      var lvl = getLevel();
+      document.getElementById("examDesc").innerHTML =
+        "Vollst\u00e4ndige Biologie-Abiturpr\u00fcfung (" + lvl + ", " + lc.totalBE + " BE, " + lc.pruefungsdauer + " min):<br>" +
+        "<strong>4 Aufgabengruppen</strong> (je " + lc.bePerAufgabe + " BE) \u2014 w\u00e4hle 3 aus";
+      document.getElementById("timerMinutes").value = lc.pruefungsdauer;
+      document.getElementById("timerHint").textContent = lvl + ": " + lc.pruefungsdauer + " Min.";
+      document.getElementById("totalBEBadge").textContent = lc.totalBE + " BE";
+      document.getElementById("scoreBEMax").textContent = "/ " + lc.totalBE + " BE";
+    }
+
+    /* ====== SELECTION STATE ====== */
+    CONFIG.selectedAufgaben = new Set();
+    const AUFGABEN_NEEDED = 3;
+
+    // BE -> NP conversion table (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    /* ====== Protect LaTeX blocks from marked's Markdown processing ====== */
+    function protectMath(text) {
+      var blocks = [];
+      if (!text || typeof text !== "string") return { text: text || "", blocks: blocks };
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\$([^$]+?)\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      return { text: text, blocks: blocks };
+    }
+    function restoreMath(html, blocks) {
+      if (!html || typeof html !== "string") return html || "";
+      return html.replace(/KATEXPH(\d+)ENDPH/g, function (_, i) { return blocks[parseInt(i)]; });
+    }
+    function safeMathParse(text) {
+      if (!text || typeof text !== "string") return "";
+      var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks);
+    }
+    function safeMathParseInline(text) {
+      if (!text || typeof text !== "string") return "";
+      var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
+    }
+
+    function renderMath(el) {
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(el || document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false,
+          strict: false
+        });
+      }
+    }
+
+    /* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
+    function renderInlineKatex(text) {
+      if (!text || typeof text !== "string") return "";
+      if (typeof katex === "undefined") return escapeHtml(text);
+      var parts = [];
+      var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
+      var lastIndex = 0;
+      var match;
+      while ((match = re.exec(text)) !== null) {
+        if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
+        var math = match[1] !== undefined ? match[1] : match[2];
+        var isDisplay = match[1] !== undefined;
+        try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false, strict: false })); }
+        catch (e) { parts.push(escapeHtml(match[0])); }
+        lastIndex = re.lastIndex;
+      }
+      if (lastIndex < text.length) parts.push(escapeHtml(text.slice(lastIndex)));
+      return parts.join("");
+    }
+
+    /* ====== SESSION ====== */
+    function saveSession() {
+      var key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      // Collect textarea values
+      var texts = {};
+      document.querySelectorAll("#studentTextareas textarea").forEach(function (ta) {
+        texts[ta.id] = ta.value;
+      });
+      localStorage.setItem(key, JSON.stringify({
+        storedData: CONFIG.storedData,
+        selectedAufgaben: Array.from(CONFIG.selectedAufgaben),
+        texts: texts
+      }));
+    }
+
+    function restoreSession() {
+      try {
+        var key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        var s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          if (s.selectedAufgaben) {
+            CONFIG.selectedAufgaben = new Set(s.selectedAufgaben);
+            updateWahlUI();
+          }
+          // Restore textarea values after rendering
+          if (s.texts) {
+            CONFIG._pendingTexts = s.texts;
+          }
+        }
+      } catch (e) { console.warn("restoreSession error:", e); }
+    }
+
+    /* ====== WORD COUNTS ====== */
+    function updateWordCounts() {
+      var total = 0;
+      document.querySelectorAll("#studentTextareas textarea").forEach(function (ta) {
+        var c = countWords(ta.value);
+        total += c;
+        var wcEl = document.getElementById("wc_" + ta.id);
+        if (wcEl) wcEl.textContent = c + " W\u00f6rter";
+      });
+      document.getElementById("wordCountTotal").textContent = total;
+    }
+    function updateWordCount() { updateWordCounts(); }
+
+    /* ====== GENERATE TASK ====== */
+    async function generateTask() {
+      var btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        var d = await apiCall("/api/generate-abitur-biologie", { level: getLevel() });
+        CONFIG.storedData = d;
+        CONFIG.selectedAufgaben = new Set();
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    /* ====== RENDER TASK ====== */
+    function renderTask(d) {
+      var container = document.getElementById("aufgabengruppenContainer");
+      var aufgaben = d.aufgaben || d.aufgabengruppen || [];
+      var lc = getLevelConfig();
+
+      container.innerHTML = aufgaben.map(function (a, idx) {
+        var isSelected = CONFIG.selectedAufgaben.has(idx);
+        var html = '<div class="aufgabengruppe-card selectable' + (isSelected ? ' selected' : '') + '" data-idx="' + idx + '" onclick="toggleAufgabe(' + idx + ')">';
+        html += '<h4>Aufgabe ' + (idx + 1) + ': ' + escapeHtml(a.titel || a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.gesamt_be || lc.bePerAufgabe) + ' BE)</span>';
+        if (a.sachgebiet) html += ' <span class="sachgebiet-badge">' + escapeHtml(a.sachgebiet) + '</span>';
+        html += '</h4>';
+
+        // Material sections
+        var mats = a.materialien || (Array.isArray(a.material) ? a.material : (a.material && typeof a.material === "string" ? [{ text: a.material }] : []));
+        if (mats.length) {
+          mats.forEach(function (m, mi) {
+            if (!m || typeof m !== "object") return;
+            html += '<details class="material-details"><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            html += '<div class="material-body">';
+            if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+            if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
+            html += '</div></details>';
+          });
+        }
+
+        // Teilaufgaben
+        if (a.teilaufgaben && a.teilaufgaben.length) {
+          html += '<div class="aufgaben-liste">';
+          a.teilaufgaben.forEach(function (t) {
+            html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+              DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+              ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+          });
+          html += '</div>';
+        }
+
+        // Context text if present
+        if (a.text && (!a.teilaufgaben || !a.teilaufgaben.length)) {
+          html += '<div class="aufgabe-context">' + DOMPurify.sanitize(safeMathParse(a.text)) + '</div>';
+        }
+
+        html += '</div>';
+        return html;
+      }).join("");
+
+      renderMath(container);
+      updateWahlUI();
+    }
+
+    /* ====== SELECTION: CHOOSE 3 OF 4 ====== */
+    function toggleAufgabe(idx) {
+      if (CONFIG.selectedAufgaben.has(idx)) {
+        CONFIG.selectedAufgaben.delete(idx);
+      } else {
+        if (CONFIG.selectedAufgaben.size >= AUFGABEN_NEEDED) {
+          showToast("Max. " + AUFGABEN_NEEDED + " Aufgaben");
+          return;
+        }
+        CONFIG.selectedAufgaben.add(idx);
+      }
+      updateWahlUI();
+    }
+
+    function updateWahlUI() {
+      var hint = document.getElementById("wahlHint");
+      if (!hint) return;
+      var remaining = AUFGABEN_NEEDED - CONFIG.selectedAufgaben.size;
+      if (remaining > 0) {
+        hint.innerHTML = "Noch <strong>" + remaining + "</strong> Aufgabengruppe" + (remaining > 1 ? "n" : "") + " ausw\u00e4hlen";
+        hint.classList.remove("complete");
+      } else {
+        hint.innerHTML = AUFGABEN_NEEDED + " Aufgabengruppen ausgew\u00e4hlt \u2713";
+        hint.classList.add("complete");
+      }
+      // Update card selection styling
+      document.querySelectorAll("#aufgabengruppenContainer .aufgabengruppe-card.selectable").forEach(function (el) {
+        var i = parseInt(el.dataset.idx);
+        el.classList.toggle("selected", CONFIG.selectedAufgaben.has(i));
+      });
+    }
+
+    function getSelectedAufgaben() {
+      var aufgaben = CONFIG.storedData?.aufgaben || CONFIG.storedData?.aufgabengruppen || [];
+      return aufgaben.filter(function (_, i) { return CONFIG.selectedAufgaben.has(i); });
+    }
+
+    /* ====== PER-AUFGABE TEXTAREAS ====== */
+    let activeStudentTaId = "studentText_0";
+
+    function formelEditorHTML(idx) {
+      return '<details class="formel-editor" data-fe-idx="' + idx + '">' +
+        '<summary>\u{1F9EE} Formel-Editor</summary>' +
+        '<div class="formel-editor-body">' +
+        '<div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div>' +
+        '<div class="formel-tabs" id="formelTabs_' + idx + '"></div>' +
+        '<div class="formel-btns" id="formelBtns_' + idx + '"></div>' +
+        '<div class="formel-actions">' +
+        '<button class="btn btn-small" onclick="insertFormulaFor(' + idx + ')">\u2713 Einf\u00fcgen</button>' +
+        '<button class="btn btn-small btn-secondary" onclick="clearMathFieldFor(' + idx + ')">L\u00f6schen</button>' +
+        '<span class="formel-preview" id="formelPreview_' + idx + '"></span>' +
+        '</div>' +
+        '</div>' +
+        '</details>';
+    }
+
+    function renderStudentTextareas() {
+      var wrap = document.getElementById("studentTextareas");
+      wrap.innerHTML = "";
+      var aufgaben = CONFIG.storedData?.aufgaben || CONFIG.storedData?.aufgabengruppen || [];
+      var sorted = Array.from(CONFIG.selectedAufgaben).sort();
+
+      if (sorted.length === 0) {
+        wrap.innerHTML = '<p style="color:var(--ink-muted);text-align:center;padding:2rem">Bitte w\u00e4hle erst 3 Aufgabengruppen im vorherigen Schritt aus.</p>';
+        return;
+      }
+
+      sorted.forEach(function (idx, i) {
+        var a = aufgaben[idx];
+        if (!a) return;
+        var id = "studentText_" + i;
+        var lc = getLevelConfig();
+        var div = document.createElement("div");
+        div.className = "write-part";
+        div.innerHTML = '<h3>Aufgabe ' + (idx + 1) + ': ' + escapeHtml(a.titel || a.sachgebiet || "") + ' (' + (a.gesamt_be || lc.bePerAufgabe) + ' BE)</h3>' +
+          formelEditorHTML(i) +
+          '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr Aufgabe ' + (idx + 1) + ' \u2026" oninput="updateWordCounts()"></textarea>' +
+          '<div class="word-counter"><span id="wc_' + id + '">0</span> W\u00f6rter</div>';
+        wrap.appendChild(div);
+        document.getElementById(id).addEventListener("focus", function () { activeStudentTaId = id; });
+      });
+
+      // Restore pending texts if available
+      if (CONFIG._pendingTexts) {
+        Object.keys(CONFIG._pendingTexts).forEach(function (taId) {
+          var ta = document.getElementById(taId);
+          if (ta) ta.value = CONFIG._pendingTexts[taId];
+        });
+        CONFIG._pendingTexts = null;
+        updateWordCounts();
+      }
+
+      // Set up lazy-load toggle listeners for each formula editor
+      wrap.querySelectorAll('.formel-editor').forEach(function (details) {
+        var idx = parseInt(details.getAttribute('data-fe-idx'));
+        details.addEventListener('toggle', function () {
+          if (!this.open) return;
+          if (!mathLiveLoaded) {
+            loadMathLive().then(function () {
+              initFormelEditor(idx);
+            }).catch(function (err) { showToast(err.message); });
+          } else {
+            initFormelEditor(idx);
+          }
+        });
+      });
+
+      // Write task reference
+      var refHtml = "";
+      sorted.forEach(function (idx) {
+        var a = aufgaben[idx];
+        if (!a) return;
+        var lc = getLevelConfig();
+        refHtml += '<div style="margin-bottom:1rem"><strong>Aufgabe ' + (idx + 1) + ': ' + escapeHtml(a.titel || "") + ' (' + (a.gesamt_be || lc.bePerAufgabe) + ' BE)</strong>';
+        if (a.teilaufgaben && a.teilaufgaben.length) {
+          refHtml += '<div class="aufgaben-liste">';
+          a.teilaufgaben.forEach(function (t) {
+            refHtml += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+              DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+              ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+          });
+          refHtml += '</div>';
+        }
+        refHtml += '</div>';
+      });
+      document.getElementById("writeTaskRef").innerHTML = refHtml;
+      renderMath(document.getElementById("writeTaskRef"));
+
+      activeStudentTaId = "studentText_0";
+      updateWordCounts();
+    }
+
+    /* Override nav to render textareas when entering write step */
+    var _originalNav = nav;
+    nav = function (step, _pushHistory) {
+      if (step === "write") {
+        if (CONFIG.selectedAufgaben.size < AUFGABEN_NEEDED) {
+          showToast("Bitte " + AUFGABEN_NEEDED + " Aufgabengruppen ausw\u00e4hlen");
+          return;
+        }
+        renderStudentTextareas();
+      }
+      _originalNav(step, _pushHistory);
+    };
+
+    /* ====== OCR ====== */
+    function useOCRText() {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      var ta = document.getElementById(activeStudentTaId);
+      if (!ta) {
+        var first = document.querySelector("#studentTextareas textarea");
+        if (first) ta = first;
+      }
+      if (ta) {
+        ta.value = clean;
+        updateWordCounts();
+        showToast("Text \u00fcbernommen!", "success");
+      }
+    }
+
+    /* ====== SUBMIT FOR GRADING ====== */
+    async function submitForGrading() {
+      var textareas = document.querySelectorAll("#studentTextareas textarea");
+      var allText = "";
+      var studentTexts = {};
+      var sorted = Array.from(CONFIG.selectedAufgaben).sort();
+      var aufgaben = CONFIG.storedData?.aufgaben || CONFIG.storedData?.aufgabengruppen || [];
+
+      textareas.forEach(function (ta, i) {
+        var aufgIdx = sorted[i];
+        var a = aufgaben[aufgIdx];
+        var key = "Aufgabe " + (aufgIdx + 1) + (a ? ": " + (a.titel || "") : "");
+        studentTexts[key] = ta.value;
+        if (ta.value.trim()) {
+          allText += (allText ? "\n\n" : "") + key + "\n" + ta.value;
+        }
+      });
+
+      var totalWords = countWords(allText);
+      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+      if (CONFIG.selectedAufgaben.size < AUFGABEN_NEEDED) {
+        showToast("Bitte " + AUFGABEN_NEEDED + " Aufgabengruppen ausw\u00e4hlen"); return;
+      }
+
+      document.getElementById("submitBtn").disabled = true;
+      _originalNav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      var lc = getLevelConfig();
+
+      try {
+        var d = await apiCall("/api/grade-abitur-biologie", {
+          aufgaben: getSelectedAufgaben(),
+          student_texts: studentTexts,
+          student_text: allText,
+          level: getLevel(),
+          total_be: lc.totalBE
+        });
+
+        // Render per-Aufgabe scores
+        var grid = document.getElementById("scoresGrid");
+        var scoreCards = "";
+        if (d.aufgabenbewertungen && d.aufgabenbewertungen.length) {
+          d.aufgabenbewertungen.forEach(function (ab, i) {
+            scoreCards += '<div class="score-card" id="scoreAufg' + (i + 1) + '">' +
+              '<div class="score-label">' + escapeHtml(ab.titel || ("Aufgabe " + (i + 1))) + '</div>' +
+              '<div class="score-value">' + (ab.erreichte_be ?? "\u2013") + '</div>' +
+              '<div class="score-max">/ ' + (ab.max_be ?? lc.bePerAufgabe) + ' BE</div></div>';
+          });
+        } else {
+          sorted.forEach(function (aufgIdx, i) {
+            var a = aufgaben[aufgIdx];
+            scoreCards += '<div class="score-card" id="scoreAufg' + (i + 1) + '">' +
+              '<div class="score-label">Aufgabe ' + (aufgIdx + 1) + '</div>' +
+              '<div class="score-value">\u2013</div>' +
+              '<div class="score-max">/ ' + (a?.gesamt_be || lc.bePerAufgabe) + ' BE</div></div>';
+          });
+        }
+        scoreCards += '<div class="score-card"><div class="score-label">Gesamt</div><div class="score-value" id="scoreBE">\u2013</div><div class="score-max" id="scoreBEMax">/ ' + lc.totalBE + ' BE</div></div>';
+        scoreCards += '<div class="score-card total"><div class="score-label">Notenpunkte</div><div class="score-value" id="scoreTotal">\u2013</div><div class="score-max">/ 15</div></div>';
+        grid.innerHTML = scoreCards;
+
+        var gesamtBE = d.gesamt_be ?? null;
+        var np = d.note ?? beToNP(gesamtBE, lc.totalBE);
+
+        document.getElementById("scoreBE").textContent = gesamtBE != null ? gesamtBE : "\u2013";
+        document.getElementById("scoreTotal").textContent = np != null ? np : "\u2013";
+
+        saveToHistory({
+          level: getLevel(),
+          gesamt_be: gesamtBE,
+          total: np
+        });
+
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "biologie-abitur",
+          topic: getLevel(),
+          content: gesamtBE,
+          language: np,
+          total: np,
+          date: new Date().toISOString()
+        }).catch(function () { });
+
+        stopTimer();
+        var fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
+        renderMath(fb);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    /* ====== MODEL ANSWER ====== */
+    async function showModelAnswer() {
+      var card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        var d = await apiCall("/api/model-answer-abitur-biologie", {
+          aufgaben: getSelectedAufgaben(),
+          level: getLevel()
+        });
+        var body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || ""));
+        renderMath(body);
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+
+    /* ====== HISTORY TABLE ====== */
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map(function (x, i) {
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td>' +
+          '<td>' + escapeHtml(x.level || "\u2013") + '</td>' +
+          '<td class="history-score">' + (x.gesamt_be ?? x.be ?? "\u2013") + ' BE</td>' +
+          '<td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td>' +
+          '<td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    /* ====== FORMEL-EDITOR (MathLive) ====== */
+    let mathLiveLoaded = false, mathLiveLoading = false;
+
+    function loadMathLive() {
+      return new Promise(function (resolve, reject) {
+        if (mathLiveLoaded) { resolve(); return; }
+        if (mathLiveLoading) {
+          var check = setInterval(function () { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100);
+          return;
+        }
+        mathLiveLoading = true;
+        var s = document.createElement("script");
+        s.type = "module";
+        s.src = "https://unpkg.com/mathlive?module";
+        s.onload = function () { mathLiveLoaded = true; mathLiveLoading = false; resolve(); };
+        s.onerror = function () { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); };
+        document.head.appendChild(s);
+      });
+    }
+
+    const FORMEL_BUTTONS = {
+      grundlagen: {
+        label: "Grundlagen",
+        buttons: [
+          { label: "a/b", latex: "\\frac{#0}{#0}" },
+          { label: "\u221A", latex: "\\sqrt{#0}" },
+          { label: "x^n", latex: "x^{#0}" },
+          { label: "\u2192", latex: "\\rightarrow" },
+          { label: "\u21CC", latex: "\\rightleftharpoons" },
+          { label: "\u00B7", latex: "\\cdot" },
+          { label: "\u0394", latex: "\\Delta" },
+          { label: "\u221E", latex: "\\infty" },
+          { label: "\u2248", latex: "\\approx" },
+          { label: "\u00B1", latex: "\\pm" }
+        ]
+      },
+      genetik: {
+        label: "Genetik",
+        buttons: [
+          { label: "AA", latex: "AA" },
+          { label: "Aa", latex: "Aa" },
+          { label: "aa", latex: "aa" },
+          { label: "\u00D7", latex: "\\times" },
+          { label: "\u2640", latex: "\\female" },
+          { label: "\u2642", latex: "\\male" },
+          { label: "P", latex: "P" },
+          { label: "F\u2081", latex: "F_1" },
+          { label: "F\u2082", latex: "F_2" },
+          { label: "3:1", latex: "3:1" }
+        ]
+      },
+      stoffwechsel: {
+        label: "Stoffwechsel",
+        buttons: [
+          { label: "CO\u2082", latex: "\\text{CO}_2" },
+          { label: "H\u2082O", latex: "\\text{H}_2\\text{O}" },
+          { label: "O\u2082", latex: "\\text{O}_2" },
+          { label: "ATP", latex: "\\text{ATP}" },
+          { label: "ADP", latex: "\\text{ADP}" },
+          { label: "NADH", latex: "\\text{NADH}" },
+          { label: "NADPH", latex: "\\text{NADPH}" },
+          { label: "C\u2086H\u2081\u2082O\u2086", latex: "\\text{C}_6\\text{H}_{12}\\text{O}_6" },
+          { label: "H\u207A", latex: "\\text{H}^+" },
+          { label: "e\u207B", latex: "e^-" }
+        ]
+      },
+      oekologie: {
+        label: "\u00d6kologie",
+        buttons: [
+          { label: "N(t)", latex: "N(t)" },
+          { label: "K", latex: "K" },
+          { label: "r", latex: "r" },
+          { label: "dN/dt", latex: "\\frac{dN}{dt}" },
+          { label: "e^rt", latex: "e^{rt}" },
+          { label: "\u03BB", latex: "\\lambda" },
+          { label: "\u03A3", latex: "\\sum" },
+          { label: "T_opt", latex: "T_{\\text{opt}}" },
+          { label: "mV", latex: "\\text{mV}" },
+          { label: "\u03BCmol", latex: "\\mu\\text{mol}" }
+        ]
+      }
+    };
+
+    let activeFormelTab = "grundlagen";
+
+    function initFormelEditor(idx) {
+      var mf = document.getElementById('formelMF_' + idx);
+      if (mf && !mf._feInit) {
+        mf.addEventListener('input', function () { updateFormelPreviewFor(idx); });
+        mf._feInit = true;
+      }
+      renderFormelTabsFor(idx);
+      renderFormelButtonsFor(idx);
+    }
+
+    function renderFormelTabsFor(feIdx) {
+      var tabsEl = document.getElementById("formelTabs_" + feIdx);
+      if (!tabsEl) return;
+      tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function (key) {
+        return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>';
+      }).join("");
+    }
+
+    function switchFormelTabFor(cat, feIdx) {
+      activeFormelTab = cat;
+      document.querySelectorAll('.formel-editor[open]').forEach(function (d) {
+        renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx')));
+        renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx')));
+      });
+    }
+
+    function renderFormelButtonsFor(feIdx) {
+      var btnsEl = document.getElementById("formelBtns_" + feIdx);
+      if (!btnsEl) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      btnsEl.innerHTML = buttons.map(function (b, i) {
+        return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>';
+      }).join("");
+    }
+
+    function insertQuickLatexFor(btnIdx, feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf) return;
+      var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || [];
+      var b = buttons[btnIdx];
+      if (!b) return;
+      mf.executeCommand(["insert", b.latex]);
+      mf.focus();
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function updateFormelPreviewFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      var preview = document.getElementById("formelPreview_" + feIdx);
+      if (mf && preview) { preview.textContent = mf.value || ""; }
+    }
+
+    function insertFormulaFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (!mf || !mf.value) return;
+      var latex = "$" + mf.value + "$";
+      var ta = document.getElementById("studentText_" + feIdx);
+      if (!ta) return;
+      var start = ta.selectionStart, end = ta.selectionEnd;
+      var before = ta.value.substring(0, start);
+      var after = ta.value.substring(end);
+      var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : "";
+      var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : "";
+      ta.value = before + spaceBefore + latex + spaceAfter + after;
+      var newPos = start + spaceBefore.length + latex.length + spaceAfter.length;
+      ta.selectionStart = ta.selectionEnd = newPos;
+      ta.focus();
+      updateWordCounts();
+      mf.value = "";
+      updateFormelPreviewFor(feIdx);
+    }
+
+    function clearMathFieldFor(feIdx) {
+      var mf = document.getElementById("formelMF_" + feIdx);
+      if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
+    }
+
+    /* ====== INIT LEVEL DISPLAY ====== */
+    ; (function () {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", updateLevelDisplay);
+      } else {
+        updateLevelDisplay();
+      }
+    })();
+  </script>
+</body>
+
+</html>

@@ -531,6 +531,17 @@ export default {
         return await handleModelAnswerAbiturPhysik(request, env);
       }
 
+      // ===== BIOLOGIE ABITUR =====
+      if (pathname === "/api/generate-abitur-biologie" && request.method === "POST") {
+        return await handleGenerateAbiturBiologie(request, env);
+      }
+      if (pathname === "/api/grade-abitur-biologie" && request.method === "POST") {
+        return await handleGradeAbiturBiologie(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-biologie" && request.method === "POST") {
+        return await handleModelAnswerAbiturBiologie(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -6931,6 +6942,281 @@ WICHTIG:
 - Begründe Ansätze kurz
 - LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
 - PHYSIK-REGELN: Vektoren $\\vec{F}$, Einheiten $\\text{m/s}$, Konstanten mit korrekten Werten
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Aufgabe 1: [Titel]
+  ### Teilaufgabe 1.1
+  ...
+  ## Aufgabe 2: [Titel]
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
+
+  let userContent = "GEWÄHLTE AUFGABEN:\n\n";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          userContent += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+      userContent += "\n";
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= BIOLOGIE ABITUR: GENERATE ================= */
+async function handleGenerateAbiturBiologie(request, env) {
+  const body = await request.json();
+  const { level } = body;
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+
+  const pruefungsdauer = isEA ? 300 : 255;
+  const beProAufgabe = isEA ? 40 : 30;
+  const gesamtBE = isEA ? 120 : 90;
+  const anzahlAufgaben = 4;
+  const wahlAnzahl = 3;
+
+  const systemPrompt = `Du bist ein Biologie-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE Biologie-Abiturprüfung.
+
+PRÜFUNGSSTRUKTUR (${lvl}):
+- Prüfungsdauer: ${pruefungsdauer} Minuten
+- ${anzahlAufgaben} Aufgabengruppen, der Schüler wählt ${wahlAnzahl} davon
+- Jede Aufgabengruppe: ${beProAufgabe} BE
+- Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
+- Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+SACHGEBIETE (wähle 4 verschiedene aus diesen 6, Lehrplan G9 Bayern ab 2026):
+1. Genetik & Gentechnik (B12 LB1): Aufbau und Struktur der DNA (Doppelhelix, Basenpaarung, antiparallele Stränge). Semikonservative Replikation. Proteinbiosynthese: Transkription, RNA-Processing (Spleißen), Translation am Ribosom, genetischer Code (Codon, Anticodon, Redundanz). Genregulation bei Prokaryoten (Operon-Modell) und Eukaryoten (Transkriptionsfaktoren, Enhancer, Methylierung). Genmutationen (Punkt-, Rastermutationen), Mutagene, Reparaturmechanismen. Chromosomenmutationen und Genommutationen. Klassische Genetik: Mendel-Regeln (Uniformität, Spaltung, Unabhängigkeit), Rückkreuzung, Dihybrider Erbgang, Kopplung und Rekombination. Humangenetik: Stammbaumanalyse (autosomal/gonosomal, dominant/rezessiv). Gentechnik: Restriktionsenzyme, Vektoren, PCR, Gelelektrophorese, genetischer Fingerabdruck, Klonierung, CRISPR-Cas. Bioethische Bewertung gentechnischer Verfahren.
+2. Neurobiologie (B12 LB2): Bau und Funktion von Nervenzellen (Soma, Axon, Dendriten, Myelinscheide, Ranvier-Schnürringe). Ruhepotential (Natrium-Kalium-Pumpe, Kalium-Leckkanäle, Nernst-Gleichung). Aktionspotential (Depolarisation, Repolarisation, Hyperpolarisation, Refraktärzeit, Alles-oder-Nichts-Prinzip). Erregungsleitung: kontinuierlich und saltatorisch, Geschwindigkeit. Synapse: erregende und hemmende postsynaptische Potentiale (EPSP, IPSP), räumliche und zeitliche Summation. Verrechnung an Nervenzellen. Neuroaktive Substanzen und Synapsengifte (Wirkungsmechanismen). Sinnesphysiologie: Bau des Auges, Fotorezeptoren (Stäbchen, Zapfen), Signaltransduktion. Informationsverarbeitung im ZNS, Reflexbogen.
+3. Stoffwechselphysiologie (B12 LB3): Enzyme: Aufbau (Proteine, aktives Zentrum), Substrat- und Wirkungsspezifität, Schlüssel-Schloss-Prinzip und Induced-Fit-Modell. Abhängigkeit der Enzymaktivität von Temperatur, pH-Wert und Substratkonzentration. Enzymhemmung (kompetitiv, nicht-kompetitiv, allosterisch), Regulation. Energetik: ATP als universeller Energieträger, exergonische/endergonische Reaktionen, Redoxreaktionen, Elektronentransportketten. Zellatmung: Glykolyse, oxidative Decarboxylierung, Citratzyklus, Atmungskette (Chemiosmose, ATP-Synthase), Energiebilanz. Gärung (alkoholische Gärung, Milchsäuregärung). Photosynthese: Lichtreaktion (Fotosystem I und II, Elektronentransportkette, Fotophosphorylierung), Calvin-Zyklus (CO₂-Fixierung, Reduktion, Regeneration). Abhängigkeit der Fotosyntheserate von Lichtintensität, CO₂-Konzentration, Temperatur. C4- und CAM-Pflanzen.
+4. Ökologie & Biodiversität (B12 LB4): Abiotische und biotische Umweltfaktoren. Ökologische Potenz, Toleranzkurve, Minimum-Gesetz, stenök/euryök. Populationsökologie: Wachstumsmodelle (exponentiell, logistisch), Kapazitätsgrenze K, r- und K-Strategen. Intra- und interspezifische Konkurrenz, Konkurrenzvermeidung, ökologische Nische (Fundamental- vs. Realnische). Räuber-Beute-Beziehungen (Lotka-Volterra-Regeln). Symbiose, Parasitismus, Kommensalismus. Ökosystem See/Wald: Trophieebenen, Nahrungsketten/-netze, Energiefluss, Stoffkreisläufe (C, N). Sukzession, Klimaxgesellschaft. Biodiversität: Artenschutz, nachhaltige Nutzung, Biodiversitätsverlust.
+5. Evolution (B13 LB1): Evolutionstheorien (Darwin, Lamarck, synthetische Evolutionstheorie). Evolutionsfaktoren: Mutation, Rekombination, Selektion (gerichtet, stabilisierend, disruptiv), Gendrift (Flaschenhalseffekt, Gründereffekt), Genfluss, Isolation. Artbegriffe (biologischer, morphologischer Artbegriff). Artbildung: allopatrisch, sympatrisch, adaptive Radiation. Homologie und Analogie, Rudimente, Atavismen. Molekulare Phylogenetik: DNA-Sequenzvergleich, molekulare Uhr. Stammbaum-Analyse (Kladogramm, Synapomorphien). Koevolution. Humanevolution: fossile Funde, Merkmalsvergleich Menschenaffen/Mensch, kulturelle Evolution, Out-of-Africa-Hypothese.
+6. Verhaltensökologie (B13 LB2): Verhalten als Anpassung (Proximate und ultimate Ursachen). Verhaltensökologie: Kosten-Nutzen-Analyse von Verhaltensweisen. Fitness (direkte und indirekte Fitness, Gesamtfitness/Inclusive Fitness). Fortpflanzungsstrategien: sexuelle Selektion (intra- und intersexuell), Partnerwahl, Brutpflege. Altruismus und Verwandtenselektion (Hamilton-Regel: rB > C). Kooperation: reziproker Altruismus, Tit-for-Tat. Sozialverhalten: Gruppenbildung (Vor- und Nachteile), Dominanzhierarchien. Kommunikation im Tierreich (optisch, akustisch, chemisch, taktil). Konflikte: Eltern-Kind-Konflikt, Geschwisterkonkurrenz.
+
+JEDE AUFGABENGRUPPE hat:
+- Einen Titel (z.B. "Aufgabe 1: Genetischer Fingerabdruck")
+- Ein Sachgebiet
+- Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten, Stammbäume, Versuchsbeschreibungen
+- 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Gesamt: ${beProAufgabe} BE
+
+WICHTIG:
+- Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
+- Materialien müssen realistisch und aussagekräftig sein
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+
+BIOLOGIE-SPEZIFISCHE NOTATION:
+- Genotypen: $Aa \\times aa$, $F_1$, $F_2$
+- Stoffwechsel: $\\text{ATP}$, $\\text{NADH}$, $\\text{CO}_2$, $\\text{C}_6\\text{H}_{12}\\text{O}_6$
+- Populationsökologie: $\\frac{dN}{dt} = r \\cdot N$, $K$ (Kapazität), $N(t)$
+- Neurobiologie: Membranpotential in $\\text{mV}$, Ionenkonzentrationen
+- Evolution: Allelfrequenzen $p$, $q$, Hardy-Weinberg: $p^2 + 2pq + q^2 = 1$
+
+KEINE GeoGebra-Visualisierung.
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgaben": [
+    {
+      "id": "Aufgabe 1",
+      "titel": "Titel der Aufgabe",
+      "sachgebiet": "genetik",
+      "material": [
+        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
+      ],
+      "teilaufgaben": [
+        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 5},
+        {"id": "1.2", "text": "...", "be": 8}
+      ],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 2",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 3",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    },
+    {
+      "id": "Aufgabe 4",
+      "titel": "...",
+      "sachgebiet": "...",
+      "material": [...],
+      "teilaufgaben": [...],
+      "gesamt_be": ${beProAufgabe}
+    }
+  ],
+  "level": "${lvl}",
+  "pruefungsdauer": ${pruefungsdauer},
+  "gesamt_be": ${gesamtBE}
+}`;
+
+  const userPrompt = `Erstelle eine vollständige Biologie-Abiturprüfung (${lvl}, ${gesamtBE} BE).
+${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
+Prüfungsdauer: ${pruefungsdauer} Minuten.
+Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
+KRITISCH: Alle Formeln in LaTeX-Notation.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= BIOLOGIE ABITUR: GRADE ================= */
+async function handleGradeAbiturBiologie(request, env) {
+  const body = await request.json();
+  const { aufgaben, student_texts, level } = body;
+
+  if (!student_texts || !Object.keys(student_texts).length) {
+    return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
+  }
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+  const beProAufgabe = isEA ? 40 : 30;
+  const maxBE = 3 * beProAufgabe;
+
+  let aufgabenInfo = "";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      aufgabenInfo += `\n${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          aufgabenInfo += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 500)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  let studentTexts = "";
+  if (typeof student_texts === "object") {
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        studentTexts += `\nSchülerlösung ${key}:\n${truncate(text, 8000)}\n`;
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Biologie-Abiturprüfung (Bayern, ${lvl}, G9, ab 2026).
+Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
+
+BEWERTUNGSREGELN:
+- Bewerte jede Aufgabe und jede Teilaufgabe einzeln
+- Bewertungskriterien: Fachsprache (biologische Fachbegriffe), korrekte Verwendung von Fachkonzepten, Materialauswertung, logische Argumentation, Darstellungsleistung
+- Korrekte Fachbegriffe und Zusammenhänge → volle Punkte
+- Teilweise korrekte Antworten → Teilpunkte
+- Folgefehler berücksichtigen
+- Der Schüler schreibt in einer Mischung aus Fachsprache und LaTeX-Notation. Interpretiere beides großzügig.
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Verwende LaTeX-Notation ($...$, $$...$$) im Feedback.
+
+Antworte NUR mit validem JSON:
+{
+  "aufgaben_be": [
+    {"id": "Aufgabe 1", "erreichte_be": <Zahl>, "max_be": ${beProAufgabe}, "bewertung": "Markdown-Feedback"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && parsed.aufgaben_be && parsed.aufgaben_be.length) {
+      gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      aufgaben_be: parsed.aufgaben_be || [],
+      gesamt_be: gesamtBE,
+      max_be: maxBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      aufgaben_be: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= BIOLOGIE ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturBiologie(request, env) {
+  const { aufgaben, level } = await request.json();
+
+  const lvl = level || "gA";
+
+  const systemPrompt = `Du bist ein sehr guter Biologie-Oberstufenschüler am bayerischen Gymnasium (${lvl}).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für alle gewählten Aufgaben.
+
+WICHTIG:
+- Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
+- Verwende korrekte biologische Fachsprache
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- BIOLOGIE-NOTATION: Genotypen $Aa \\times aa$, Stoffwechsel $\\text{ATP}$, $\\text{CO}_2$, Populationsökologie $\\frac{dN}{dt}$
 - Formatiere als Markdown mit klaren Überschriften:
   ## Aufgabe 1: [Titel]
   ### Teilaufgabe 1.1
