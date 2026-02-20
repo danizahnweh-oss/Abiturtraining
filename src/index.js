@@ -520,6 +520,17 @@ export default {
         return await handleModelAnswerAbiturChemie(request, env);
       }
 
+      // ===== PHYSIK ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-physik" && request.method === "POST") {
+        return await handleGenerateAbiturPhysik(request, env);
+      }
+      if (pathname === "/api/grade-abitur-physik" && request.method === "POST") {
+        return await handleGradeAbiturPhysik(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-physik" && request.method === "POST") {
+        return await handleModelAnswerAbiturPhysik(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
