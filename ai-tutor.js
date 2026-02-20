@@ -194,18 +194,33 @@ function initAiTutor() {
       box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
     }
     .ai-chat-input button:hover { transform: scale(1.1); }
+    /* Drag styles */
+    #ai-tutor-widget.dragging {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #ai-tutor-widget.dragging #ai-tutor-btn {
+      animation: none;
+      cursor: grabbing;
+    }
+    .ai-chat-header {
+      cursor: grab;
+    }
+    .ai-chat-header.dragging {
+      cursor: grabbing;
+    }
   `;
   document.head.appendChild(style);
 
   // 3. Build greeting based on current page
   var pageInfo = detectPageInfo();
-  var greeting = "Hallo! Ich bin dein Abi-Coach.";
+  var greeting = "Hallo! Ich bin Flowie, dein Abi-Coach.";
   if (pageInfo.isIndex) {
-    greeting = "Hey! Ich bin dein Abi-Coach. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
+    greeting = "Hey! Ich bin Flowie, dein Abi-Coach. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
   } else if (pageInfo.isAbitur) {
-    greeting = "Hey! Ich bin dein " + pageInfo.subject + "-Coach. Generiere eine Pruefung und ich helfe dir bei den Aufgaben — ohne die Loesung zu verraten!";
+    greeting = "Hey! Ich bin Flowie, dein " + pageInfo.subject + "-Coach. Generiere eine Pruefung und ich helfe dir bei den Aufgaben — ohne die Loesung zu verraten!";
   } else {
-    greeting = "Hey! Ich bin dein " + pageInfo.subject + "-Coach. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
+    greeting = "Hey! Ich bin Flowie, dein " + pageInfo.subject + "-Coach. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
   }
 
   // 4. Inject HTML
@@ -214,11 +229,11 @@ function initAiTutor() {
   widget.innerHTML = `
     <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">
       🤖
-      <span class="ai-hover-hint">Frag mich was!</span>
+      <span class="ai-hover-hint">Frag Flowie!</span>
     </button>
     <div id="ai-chat-window">
       <div class="ai-chat-header">
-        <span>🤖 ${pageInfo.isIndex ? "Abi-Coach" : pageInfo.subject + "-Coach"}</span>
+        <span>🤖 Flowie</span>
         <button id="ai-close-btn" onclick="toggleAiChat()">×</button>
       </div>
       <div id="ai-chat-messages">
@@ -232,18 +247,162 @@ function initAiTutor() {
   `;
   document.body.appendChild(widget);
 
-  // 4. Initial Visibility Check
+  // 5. Init drag-and-drop
+  initWidgetDrag(widget);
+
+  // 6. Initial Visibility Check
   if (name) {
     widget.style.display = "block";
   }
 }
 
+/* ====== DRAG-AND-DROP ====== */
+function initWidgetDrag(widget) {
+  var isDragging = false;
+  var wasDragged = false;
+  var startX, startY, origX, origY;
+  var DRAG_THRESHOLD = 5;
+
+  function getHandles() {
+    var handles = [];
+    var btn = document.getElementById("ai-tutor-btn");
+    if (btn) handles.push(btn);
+    var header = widget.querySelector(".ai-chat-header");
+    if (header) handles.push(header);
+    return handles;
+  }
+
+  function getWidgetPos() {
+    var rect = widget.getBoundingClientRect();
+    return { x: rect.left, y: rect.top };
+  }
+
+  function switchToAbsolutePos() {
+    // Convert from bottom/right positioning to top/left
+    if (widget.style.top) return; // already switched
+    var pos = getWidgetPos();
+    widget.style.bottom = "auto";
+    widget.style.right = "auto";
+    widget.style.left = pos.x + "px";
+    widget.style.top = pos.y + "px";
+  }
+
+  function clampPosition() {
+    // Use button size for clamping (chat window overflows and repositions itself)
+    var btn = document.getElementById("ai-tutor-btn");
+    var btnSize = btn ? btn.offsetWidth : 64;
+    var maxX = window.innerWidth - btnSize;
+    var maxY = window.innerHeight - btnSize;
+    var x = Math.max(0, Math.min(parseFloat(widget.style.left) || 0, maxX));
+    var y = Math.max(0, Math.min(parseFloat(widget.style.top) || 0, maxY));
+    widget.style.left = x + "px";
+    widget.style.top = y + "px";
+  }
+
+  function onStart(e) {
+    // Don't drag from close button, input, or send button
+    var target = e.target;
+    if (target.id === "ai-close-btn" || target.id === "ai-input" || target.id === "ai-send-btn") return;
+    // Only drag from button or header
+    var handles = getHandles();
+    var fromHandle = handles.some(function (h) { return h === target || h.contains(target); });
+    if (!fromHandle) return;
+
+    var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    switchToAbsolutePos();
+    startX = clientX;
+    startY = clientY;
+    origX = parseFloat(widget.style.left) || 0;
+    origY = parseFloat(widget.style.top) || 0;
+    isDragging = true;
+    wasDragged = false;
+
+    widget.classList.add("dragging");
+    var header = widget.querySelector(".ai-chat-header");
+    if (header) header.classList.add("dragging");
+
+    e.preventDefault();
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+    var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    var dx = clientX - startX;
+    var dy = clientY - startY;
+
+    if (!wasDragged && Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
+    wasDragged = true;
+
+    widget.style.left = (origX + dx) + "px";
+    widget.style.top = (origY + dy) + "px";
+  }
+
+  function onEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    widget.classList.remove("dragging");
+    var header = widget.querySelector(".ai-chat-header");
+    if (header) header.classList.remove("dragging");
+
+    if (wasDragged) {
+      clampPosition();
+      // Prevent the click from toggling chat after drag
+      widget._justDragged = true;
+      setTimeout(function () { widget._justDragged = false; }, 50);
+    }
+  }
+
+  document.addEventListener("mousedown", onStart);
+  document.addEventListener("mousemove", onMove);
+  document.addEventListener("mouseup", onEnd);
+  document.addEventListener("touchstart", onStart, { passive: false });
+  document.addEventListener("touchmove", onMove, { passive: false });
+  document.addEventListener("touchend", onEnd);
+
+  // Re-clamp on window resize
+  window.addEventListener("resize", function () {
+    if (widget.style.top && widget.style.top !== "auto") {
+      clampPosition();
+    }
+  });
+}
+
 function toggleAiChat() {
+  var widget = document.getElementById("ai-tutor-widget");
+  if (widget && widget._justDragged) return;
   var win = document.getElementById("ai-chat-window");
   if (!win) return;
   if (win.style.display === "flex") {
     win.style.display = "none";
   } else {
+    // Smart positioning: open upward or downward depending on space
+    var rect = widget.getBoundingClientRect();
+    var chatHeight = 550;
+    var chatWidth = 380;
+    var spaceAbove = rect.top;
+    var spaceBelow = window.innerHeight - rect.bottom;
+    if (spaceAbove >= chatHeight + 20) {
+      win.style.bottom = "85px";
+      win.style.top = "auto";
+    } else if (spaceBelow >= chatHeight + 20) {
+      win.style.top = "85px";
+      win.style.bottom = "auto";
+    } else {
+      win.style.bottom = "85px";
+      win.style.top = "auto";
+    }
+    // Horizontal: if not enough space to the left, open to the right
+    var spaceRight = window.innerWidth - rect.left;
+    if (spaceRight < chatWidth + 20) {
+      win.style.right = "auto";
+      win.style.left = "0";
+    } else {
+      win.style.right = "0";
+      win.style.left = "auto";
+    }
     win.style.display = "flex";
     setTimeout(() => {
       const inp = document.getElementById("ai-input");
