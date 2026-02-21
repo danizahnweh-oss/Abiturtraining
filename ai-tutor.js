@@ -215,15 +215,15 @@ function initAiTutor() {
   // 3. Build greeting based on current page and login status
   var pageInfo = detectPageInfo();
   var isLoggedIn = !!name;
-  var greeting = "Hallo! Ich bin Flowie, deine Abi-Coachin.";
+  var greeting = "Hallo! Ich bin Flowie, deine Abi-Coach.";
   if (!isLoggedIn) {
-    greeting = "Hey! Ich bin Flowie, deine Abi-Coachin. \uD83D\uDC4B Melde dich an, damit ich dir bei deinen Aufgaben helfen kann!";
+    greeting = "Hey! Ich bin Flowie, deine Abi-Coach. \uD83D\uDC4B Melde dich an, damit ich dir bei deinen Aufgaben helfen kann!";
   } else if (pageInfo.isIndex) {
-    greeting = "Hey! Ich bin Flowie, deine Abi-Coachin. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
+    greeting = "Hey! Ich bin Flowie, deine Abi-Coach. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
   } else if (pageInfo.isAbitur) {
-    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coachin. Generiere eine Pruefung und ich helfe dir bei den Aufgaben \u2014 ohne die Loesung zu verraten!";
+    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coach. Generiere eine Pruefung und ich helfe dir bei den Aufgaben \u2014 ohne die Loesung zu verraten!";
   } else {
-    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coachin. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
+    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coach. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
   }
 
   // 4. Inject HTML
