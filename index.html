@@ -285,7 +285,7 @@
 
     /* ====== SUBJECT SELECTION SCREEN ====== */
     #subject-screen {
-      display: none;
+      display: flex;
       min-height: 100vh;
       flex-direction: column
     }
@@ -1515,10 +1515,12 @@
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
+        <button class="logout-btn" id="guestLoginBtn" onclick="document.getElementById('login-screen').style.display='flex';document.getElementById('subject-screen').style.display='none'" style="display:none; background:var(--accent); color:#fff;" aria-label="Anmelden">Anmelden</button>
       </div>
     </div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
+      <p id="guestHint" style="display:none; color:var(--ink-muted); font-size:0.95rem; margin-top:0.3rem;">Wähle ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
         <button onclick="enableCountdown()"
           style="background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:var(--ink-muted); transition:all 0.2s;">
@@ -2582,10 +2584,27 @@
           sessionStorage.setItem("access_token", data.token);
           sessionStorage.setItem("student_name", name);
           if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
-          showSubjectSelection();
+
+          // Show/hide auth-dependent UI elements
+          var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+          var guestLoginBtn = document.getElementById("guestLoginBtn");
+          var userInfoEl = document.getElementById("userInfo");
+          if (logoutBtn) logoutBtn.style.display = "";
+          if (guestLoginBtn) guestLoginBtn.style.display = "none";
+          if (userInfoEl) userInfoEl.style.display = "";
+
+          // If user clicked a subject before login, go there directly
+          var pendingSubject = sessionStorage.getItem("pending_subject");
+          if (pendingSubject) {
+            sessionStorage.removeItem("pending_subject");
+            showSubjectSelection();
+            selectSubject(pendingSubject, true);
+          } else {
+            showSubjectSelection();
+          }
           loadStudentProgress();
           loadHiddenSubjects();
-          history.replaceState({ screen: "subjects" }, "");
+          history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
           // Start onboarding if first time
           if (!localStorage.getItem("onboarding_done")) {
             setTimeout(startOnboarding, 600);
@@ -2623,6 +2642,7 @@
       sessionStorage.removeItem("current_subject");
 
       var name = sessionStorage.getItem("student_name") || "";
+      var isLoggedIn = sessionStorage.getItem("access") === "1" && name;
       var now = new Date();
       var hrs = now.getHours();
       var greet = "Hallo";
@@ -2633,22 +2653,33 @@
       var greetEl = document.getElementById("greetingText");
       if (greetEl) {
         greetEl.textContent = "";
-        greetEl.appendChild(document.createTextNode(greet + ", "));
-        var accentSpan = document.createElement("span");
-        accentSpan.style.color = "var(--accent)";
-        accentSpan.textContent = name;
-        greetEl.appendChild(accentSpan);
-        greetEl.appendChild(document.createTextNode("!"));
+        if (isLoggedIn) {
+          greetEl.appendChild(document.createTextNode(greet + ", "));
+          var accentSpan = document.createElement("span");
+          accentSpan.style.color = "var(--accent)";
+          accentSpan.textContent = name;
+          greetEl.appendChild(accentSpan);
+          greetEl.appendChild(document.createTextNode("!"));
+        } else {
+          greetEl.textContent = "Willkommen bei myAbiFlow!";
+        }
       }
 
       var uInfo = document.getElementById("userInfo");
-      if (uInfo) uInfo.textContent = name;
+      if (uInfo) uInfo.textContent = isLoggedIn ? name : "";
       renderCountdowns();
       applySubjectFilter();
       if (_push) history.pushState({ screen: "subjects" }, "");
     }
 
     function selectSubject(subject, _push) {
+      // If not logged in, redirect to login and remember chosen subject
+      if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
+        sessionStorage.setItem("pending_subject", subject);
+        document.getElementById("subject-screen").style.display = "none";
+        document.getElementById("login-screen").style.display = "flex";
+        return;
+      }
       sessionStorage.setItem("current_subject", subject);
       document.getElementById("subject-screen").style.display = "none";
 
@@ -2706,13 +2737,20 @@
 
     function logout() {
       sessionStorage.clear();
-      document.getElementById("subject-screen").style.display = "none";
       document.querySelectorAll("[id^='module-screen-']").forEach(function (el) { el.style.display = "none"; });
-      document.getElementById("login-screen").style.display = "flex";
       document.getElementById("studentName").value = "";
       document.getElementById("personalPassword").value = "";
       studentResults = null;
       document.getElementById("progressBar").style.display = "none";
+      // Hide auth-dependent UI
+      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+      var guestLoginBtn = document.getElementById("guestLoginBtn");
+      var userInfoEl = document.getElementById("userInfo");
+      if (logoutBtn) logoutBtn.style.display = "none";
+      if (guestLoginBtn) guestLoginBtn.style.display = "";
+      if (userInfoEl) userInfoEl.style.display = "none";
+      // Show subject selection with guest greeting
+      showSubjectSelection();
     }
 
     function toggleDark() {
@@ -2751,10 +2789,22 @@
 
       var urlParams = new URLSearchParams(window.location.search);
       var backTo = urlParams.get("back");
+      var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
 
-      if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-        document.getElementById("login-screen").style.display = "none";
+      // Always hide login screen initially, show subject selection
+      document.getElementById("login-screen").style.display = "none";
 
+      // Show/hide auth-dependent UI elements
+      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+      var guestLoginBtn = document.getElementById("guestLoginBtn");
+      var userInfoEl = document.getElementById("userInfo");
+      var guestHint = document.getElementById("guestHint");
+      if (logoutBtn) logoutBtn.style.display = isLoggedIn ? "" : "none";
+      if (guestLoginBtn) guestLoginBtn.style.display = isLoggedIn ? "none" : "";
+      if (userInfoEl) userInfoEl.style.display = isLoggedIn ? "" : "none";
+      if (guestHint) guestHint.style.display = isLoggedIn ? "none" : "";
+
+      if (isLoggedIn) {
         var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
           "latein", "mathe", "chemie", "physik", "biologie"];
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
@@ -2777,6 +2827,10 @@
 
         loadStudentProgress();
         loadHiddenSubjects();
+      } else {
+        // Not logged in: show subject selection with guest greeting
+        showSubjectSelection();
+        history.replaceState({ screen: "subjects" }, "");
       }
     }
 
