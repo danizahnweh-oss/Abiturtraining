@@ -212,15 +212,18 @@ function initAiTutor() {
   `;
   document.head.appendChild(style);
 
-  // 3. Build greeting based on current page
+  // 3. Build greeting based on current page and login status
   var pageInfo = detectPageInfo();
-  var greeting = "Hallo! Ich bin Flowie, dein Abi-Coach.";
-  if (pageInfo.isIndex) {
-    greeting = "Hey! Ich bin Flowie, dein Abi-Coach. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
+  var isLoggedIn = !!name;
+  var greeting = "Hallo! Ich bin Flowie, deine Abi-Coachin.";
+  if (!isLoggedIn) {
+    greeting = "Hey! Ich bin Flowie, deine Abi-Coachin. \uD83D\uDC4B Melde dich an, damit ich dir bei deinen Aufgaben helfen kann!";
+  } else if (pageInfo.isIndex) {
+    greeting = "Hey! Ich bin Flowie, deine Abi-Coachin. Waehle ein Fach aus und ich helfe dir bei den Aufgaben!";
   } else if (pageInfo.isAbitur) {
-    greeting = "Hey! Ich bin Flowie, dein " + pageInfo.subject + "-Coach. Generiere eine Pruefung und ich helfe dir bei den Aufgaben — ohne die Loesung zu verraten!";
+    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coachin. Generiere eine Pruefung und ich helfe dir bei den Aufgaben \u2014 ohne die Loesung zu verraten!";
   } else {
-    greeting = "Hey! Ich bin Flowie, dein " + pageInfo.subject + "-Coach. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
+    greeting = "Hey! Ich bin Flowie, deine " + pageInfo.subject + "-Coachin. Starte eine Aufgabe und ich unterstuetze dich Schritt fuer Schritt!";
   }
 
   // 4. Inject HTML
@@ -229,7 +232,7 @@ function initAiTutor() {
   widget.innerHTML = `
     <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">
       🤖
-      <span class="ai-hover-hint">Frag Flowie!</span>
+      <span class="ai-hover-hint">Frag mich!</span>
     </button>
     <div id="ai-chat-window">
       <div class="ai-chat-header">
@@ -250,10 +253,8 @@ function initAiTutor() {
   // 5. Init drag-and-drop
   initWidgetDrag(widget);
 
-  // 6. Initial Visibility Check
-  if (name) {
-    widget.style.display = "block";
-  }
+  // 6. Always show widget (even for guests)
+  widget.style.display = "block";
 }
 
 /* ====== DRAG-AND-DROP ====== */
@@ -530,6 +531,14 @@ async function sendAiMessage() {
   var input = document.getElementById("ai-input");
   var text = input.value.trim();
   if (!text) return;
+
+  // Check if user is logged in
+  if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
+    addAiMessage(text, "user");
+    input.value = "";
+    addAiMessage("Ich w\u00fcrde dir super gerne helfen! \uD83D\uDC9C Aber du musst dich erst anmelden, damit ich mit dir arbeiten kann. Klick oben rechts auf 'Anmelden' oder w\u00e4hle einfach ein Fach aus.", "ai");
+    return;
+  }
 
   // Add user message
   addAiMessage(text, "user");
