@@ -1042,6 +1042,7 @@ ABSOLUTE PFLICHT:
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
   - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
@@ -1063,6 +1064,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 
 Schwerpunkt: ${sp.titel} ${sp.zeitraum}
 Anforderungsniveau: ${level || "gA"}
+${level !== "eA" ? `WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-Vertiefungsmodule oder eA-exklusive Themen!` : ""}
 
 KRITISCH:
 - Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle mit MEHR Informationen als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
@@ -1355,41 +1357,44 @@ async function handleStudentResults(request, env) {
   return jsonResponse({ results: filtered }, 200, env);
 }
 
-/* ================= IMAGE GENERATION: DALL-E ================= */
+/* ================= IMAGE GENERATION: GOOGLE IMAGEN ================= */
 async function handleGenerateImage(request, env) {
   const { prompt } = await request.json();
   if (!prompt) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Extract short search keywords from the prompt via GPT
-  let keywords = prompt;
   try {
-    const kwRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: `Extrahiere 2-4 englische Suchbegriffe für ein Stockfoto zu folgendem Thema. Nur die Begriffe, kommagetrennt, keine Erklärung.\n\nThema: ${prompt}` }],
-        max_tokens: 30,
-        temperature: 0.3
-      })
-    });
-    const kwData = await kwRes.json();
-    keywords = kwData.choices?.[0]?.message?.content?.trim() || prompt;
-  } catch {}
-
-  try {
-    const response = await fetch(
-      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keywords)}&orientation=landscape`,
-      { headers: { "Authorization": `Client-ID ${env.UNSPLASH_ACCESS_KEY}` } }
+    // Generate image via Google Imagen 4
+    const imagenRes = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": env.GOOGLE_AI_API_KEY
+        },
+        body: JSON.stringify({
+          instances: [{ prompt }],
+          parameters: { sampleCount: 1, aspectRatio: "16:9" }
+        })
+      }
     );
-    const data = await response.json();
-    if (data.errors) {
-      return jsonResponse({ error: data.errors[0] || "Unsplash Fehler" }, 500, env);
+    const imagenData = await imagenRes.json();
+
+    if (!imagenRes.ok) {
+      return jsonResponse({ error: imagenData.error?.message || "Imagen Fehler" }, imagenRes.status, env);
     }
 
-    // Generate a short German caption
+    const prediction = imagenData.predictions?.[0];
+    if (!prediction?.bytesBase64Encoded) {
+      return jsonResponse({ error: "Kein Bild generiert (evtl. Sicherheitsfilter)." }, 500, env);
+    }
+
+    const mimeType = prediction.mimeType || "image/png";
+    const dataUrl = `data:${mimeType};base64,${prediction.bytesBase64Encoded}`;
+
+    // Generate a short German caption via GPT
     let caption = "";
     try {
       const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -1397,7 +1402,7 @@ async function handleGenerateImage(request, env) {
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
         body: JSON.stringify({
           model: "gpt-4o-mini",
-          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein Foto zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
+          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein generiertes Bild zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
           max_tokens: 60,
           temperature: 0.3
         })
@@ -1407,37 +1412,28 @@ async function handleGenerateImage(request, env) {
     } catch {}
 
     return jsonResponse({
-      url: data.urls.regular,
-      credit: `${data.user.name} / Unsplash`,
+      url: dataUrl,
+      credit: "Google Imagen",
       caption
     }, 200, env);
   } catch (e) {
-    return jsonResponse({ error: "Foto laden fehlgeschlagen: " + e.message }, 500, env);
+    return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
   }
 }
 
-/* ================= IMAGE FETCH: UNSPLASH ================= */
+/* ================= IMAGE FETCH: IMAGEN (legacy endpoint) ================= */
 async function handleFetchUnsplash(request, env) {
   const { keywords } = await request.json();
   if (!keywords) {
     return jsonResponse({ error: "keywords erforderlich." }, 400, env);
   }
-  try {
-    const response = await fetch(
-      `https://api.unsplash.com/photos/random?query=${encodeURIComponent(keywords)}&orientation=landscape`,
-      { headers: { "Authorization": `Client-ID ${env.UNSPLASH_ACCESS_KEY}` } }
-    );
-    const data = await response.json();
-    if (data.errors) {
-      return jsonResponse({ error: data.errors[0] || "Unsplash Fehler" }, 500, env);
-    }
-    return jsonResponse({
-      url: data.urls.regular,
-      credit: `${data.user.name} / Unsplash`
-    }, 200, env);
-  } catch (e) {
-    return jsonResponse({ error: "Foto laden fehlgeschlagen: " + e.message }, 500, env);
-  }
+  // Redirect to Imagen generation with keywords as prompt
+  const fakeReq = new Request(request.url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt: keywords })
+  });
+  return handleGenerateImage(fakeReq, env);
 }
 
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
@@ -1710,6 +1706,7 @@ SITUIERUNG:
 - Das macht die Aufgabe authentischer und prüft Adressatenorientierung
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte und Lernbereiche. Themen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Politische Theorien/Utopien, Soziologische Theorien als eigener LB, zusätzliche eA-Lernbereiche), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -1731,7 +1728,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 2-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (I → II → III).
 Erstelle 2-3 passende Materialien (Texte, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
-Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
+Summe der BE für Prüfungsteil A: ${bePruefungA}.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1983,6 +1981,7 @@ SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag)
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte und Lernbereiche. Themen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Politische Theorien/Utopien, Soziologische Theorien als eigener LB, zusätzliche eA-Lernbereiche), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 === PRÜFUNGSTEIL B – AUSWEITUNG (${bePruefungB}) ===
 - EIGENSTÄNDIGE Aufgabe, die über die Materialien hinausgeht
@@ -2015,7 +2014,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
 Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.
 
-KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.`;
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2211,6 +2211,7 @@ AUFGABENSTRUKTUR:
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - Operatoren müssen korrekt und eindeutig verwendet werden
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
+${isGA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" (z.B. Bilanzanalyse, BCG-Portfolio, Leverage-Effekt, Management/SWOT/Porter, Kapitalwertmethode, Vertragstypen/Leistungsstörungen, Moral Hazard, Spieltheorie, Gefährdungshaftung §833/§7 StVG) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 MATERIALIEN:
 - Materialien (M1, M2, …) sind der Kern der Aufgabe
@@ -2255,7 +2256,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 
 Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
 Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.`;
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.
+${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2516,6 +2518,7 @@ async function handleGenerateAbiturGeschichte(request, env) {
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
 THEMEN: ${sp.themen}
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 === TEIL B — DARSTELLUNG ===
 - Eigenständige Aufgabe OHNE eigene Quelle (oder mit kurzem Materialimpuls, max. 200 Wörter)
@@ -2542,6 +2545,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   const userPrompt = `Erstelle eine vollständige Geschichte-Abituraufgabe (Teil A + B):
 - Schwerpunkt (Teil A): ${sp.titel} ${sp.zeitraum}
 - Niveau: ${niveauLabel}
+${!isEA ? `- WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-Vertiefungsmodule oder eA-exklusive Themen!` : ""}
 
 KRITISCH:
 - Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Die Quelle soll MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
@@ -2702,6 +2706,7 @@ AUFGABENSTRUKTUR:
 - AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40%)
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Inhalten stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
+${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" (z.B. Bilanzanalyse, BCG-Portfolio, Leverage-Effekt, Management/SWOT/Porter, Kapitalwertmethode, Vertragstypen/Leistungsstörungen, Moral Hazard, Spieltheorie, Gefährdungshaftung) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 MATERIALIEN:
 - Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Fallbeispiele
@@ -2735,7 +2740,8 @@ ${isEA
 - Aufgabe 2: Transferaufgabe ohne Materialien (25 BE)`}
 
 Beide Aufgaben müssen eigenständig und thematisch verschieden sein.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild als Material.`;
+KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild als Material.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -3347,6 +3353,7 @@ SITUIERUNG:
 - Das macht die Aufgabe authentischer und prüft die Fähigkeit zum philosophischen Transfer
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte. Themen, Philosophen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Erkenntnistheorie/Wissenschaftstheorie als eigener LB, Politische Ethik als eigener LB, Religionsphilosophie als eigener LB), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -3368,7 +3375,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
 Erstelle 2-3 passende Materialien (philosophische Texte, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
-Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
+Summe der BE für Prüfungsteil A: ${bePruefungA}.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -3556,6 +3564,7 @@ Relevante Inhalte:
 ${lb.inhalte}
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte. Themen, Philosophen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Erkenntnistheorie/Wissenschaftstheorie als eigener LB, Politische Ethik als eigener LB, Religionsphilosophie als eigener LB, soziologische Theorien als eigener LB), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
 Antworte NUR mit validem JSON:
 {
@@ -3581,7 +3590,8 @@ Antworte NUR mit validem JSON:
 - Teil A: ${bePruefungA}, Teil B: ${bePruefungB}, Gesamt: ${beGesamt}
 
 KRITISCH: Jedes Textmaterial in Teil A MUSS 400-800 Wörter lang sein.
-Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.`;
+Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -3837,6 +3847,7 @@ SITUIERUNG:
 - Das macht die Aufgabe authentischer und prüft die Fähigkeit zum räumlichen Transfer
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen — weniger Vertiefung, keine eA-exklusiven Modelle oder Theorien. Halte dich strikt an den oben angegebenen Lehrplan für das gewählte Niveau.` : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -3861,7 +3872,8 @@ Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AF
 Erstelle 3-5 passende Materialien: 1 geographischer Text (400-800 Wörter), 1 Statistik, 1 Karte (mit Koordinaten-Objekt), und wenn passend 1 Klimadiagramm (mit Klimadaten-Objekt) oder 1 Foto.
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen!
 KRITISCH: Bei "karte" und "klimadiagramm" ist content ein JSON-OBJEKT, KEIN String! Klimadaten müssen realistisch sein für den jeweiligen Ort.
-Summe der BE für Prüfungsteil A: ${bePruefungA}.`;
+Summe der BE für Prüfungsteil A: ${bePruefungA}.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgabe muss dem grundlegenden Anforderungsniveau entsprechen.` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -4035,6 +4047,7 @@ Relevante Inhalte:
 ${hj.inhalte}
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen — weniger Vertiefung, keine eA-exklusiven Modelle oder Theorien. Halte dich strikt an den oben angegebenen Lehrplan für das gewählte Niveau.` : ""}
 
 Antworte NUR mit validem JSON:
 {
@@ -4063,7 +4076,8 @@ Antworte NUR mit validem JSON:
 
 Erstelle 3-5 Materialien: 1 Text (400-800 Wörter), 1 Statistik, 1 Karte (mit Koordinaten-Objekt), und wenn passend 1 Klimadiagramm (mit Klimadaten-Objekt) oder 1 Foto.
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein. Bei "karte" und "klimadiagramm" ist content ein JSON-OBJEKT, KEIN String!
-Teil B soll einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel darstellen.`;
+Teil B soll einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel darstellen.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen dem grundlegenden Anforderungsniveau entsprechen.` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -6438,6 +6452,7 @@ WICHTIG:
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - Materialien müssen realistisch und aussagekräftig sein
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.
+${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für das GRUNDLEGENDE Anforderungsniveau (gA). Die Aufgaben müssen in Tiefe, Komplexität und Umfang dem gA-Niveau entsprechen — NICHT dem eA-Niveau. Halte dich strikt an den gA-Lehrplan. Insbesondere: weniger mathematische Tiefe bei Berechnungen, keine über den gA-Lehrplan hinausgehenden Vertiefungen, zugänglichere Materialien und Aufgabenstellungen.` : ""}
 
 LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
@@ -6519,7 +6534,8 @@ ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlA
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
 KRITISCH: Alle Formeln in LaTeX-Notation, chemische Formeln mit $\\ce{}$.
-WICHTIG: Bei Organik/Kunststoffe-Aufgaben UNBEDINGT strukturformeln-Array in material angeben (englische Namen für PubChem)!`;
+WICHTIG: Bei Organik/Kunststoffe-Aufgaben UNBEDINGT strukturformeln-Array in material angeben (englische Namen für PubChem)!
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen in Tiefe und Komplexität dem grundlegenden Anforderungsniveau entsprechen — NICHT dem erhöhten Niveau.` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -6735,7 +6751,8 @@ WICHTIG:
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - Materialien müssen realistisch und aussagekräftig sein
-- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
+${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für das GRUNDLEGENDE Anforderungsniveau (gA). Die Aufgaben müssen in Tiefe, Komplexität und Umfang dem gA-Niveau entsprechen — NICHT dem eA-Niveau. Halte dich strikt an den gA-Lehrplan. Insbesondere: weniger mathematische Tiefe bei Herleitungen und Berechnungen, keine über den gA-Lehrplan hinausgehenden Vertiefungen, zugänglichere Materialien und Aufgabenstellungen.` : ""}
 
 LATEX-FORMATIERUNG (schreibe echte Physik/Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \\cdot x$ (NIEMALS $3.6 * x$)
@@ -6806,7 +6823,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
-KRITISCH: Alle Formeln in LaTeX-Notation. KEINE \\ce{}-Notation (Physik, nicht Chemie).`;
+KRITISCH: Alle Formeln in LaTeX-Notation. KEINE \\ce{}-Notation (Physik, nicht Chemie).
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen in Tiefe und Komplexität dem grundlegenden Anforderungsniveau entsprechen — NICHT dem erhöhten Niveau.` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -7040,13 +7058,14 @@ Jedes Material hat ein "type"-Feld:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
 - KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
-- KRITISCH: Für "bild": "text" MUSS ein englischer DALL-E-Prompt sein (z.B. "Scientific pedigree diagram..."). KEINE deutsche Textbeschreibung!
+- KRITISCH: Für "bild": "text" MUSS ein englischer Imagen-Prompt sein (z.B. "Scientific pedigree diagram..."). KEINE deutsche Textbeschreibung!
 - Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "text" oder "bild"
 - Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - Materialien müssen realistisch, datenreich und aussagekräftig sein — KEINE leeren Platzhalter!
-- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
+${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für das GRUNDLEGENDE Anforderungsniveau (gA). Die Aufgaben müssen in Tiefe, Komplexität und Umfang dem gA-Niveau entsprechen — NICHT dem eA-Niveau. Halte dich strikt an den gA-Lehrplan. Insbesondere: weniger Vertiefung, keine über den gA-Lehrplan hinausgehenden Themen, zugänglichere Materialien und Aufgabenstellungen.` : ""}
 - Teilaufgaben sollen sich DIREKT auf die Materialien beziehen ("Werte M1 aus", "Beschreibe den in M2 dargestellten Verlauf")
 
 BIOLOGIE-SPEZIFISCHE NOTATION:
@@ -7114,6 +7133,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen in Tiefe und Komplexität dem grundlegenden Anforderungsniveau entsprechen — NICHT dem erhöhten Niveau.` : ""}
 KRITISCH: Alle Formeln in LaTeX-Notation.
 KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
 - "statistik" (type + chart_type "bar"): Datentabellen → text ist Markdown-Tabelle mit Zahlenwerten
