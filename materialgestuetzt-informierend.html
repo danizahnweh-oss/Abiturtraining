@@ -7,9 +7,9 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2563eb">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
-  <title>myAbiFlow · Materialgestütztes Schreiben</title>
+  <title>myAbiFlow · Materialgestützt Informierend</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📑</text></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
     integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
     crossorigin="anonymous"></script>
@@ -88,47 +88,6 @@
       text-align: right
     }
 
-    .type-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 1rem 0
-    }
-
-    .type-card {
-      background: var(--bg-warm);
-      border: 2px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 1.2rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all .2s
-    }
-
-    .type-card:hover {
-      border-color: var(--accent)
-    }
-
-    .type-card.selected {
-      border-color: var(--accent);
-      background: var(--accent-soft)
-    }
-
-    .type-icon {
-      font-size: 2rem;
-      margin-bottom: .5rem
-    }
-
-    .type-name {
-      font-weight: 600
-    }
-
-    .type-desc {
-      font-size: .8rem;
-      color: var(--ink-muted);
-      margin-top: .3rem
-    }
-
     /* Chart & image styles */
     .material-chart {
       margin: 1rem 0;
@@ -188,12 +147,6 @@
       color: var(--ink-muted);
       font-style: italic
     }
-
-    @media(max-width:650px) {
-      .type-grid {
-        grid-template-columns: 1fr
-      }
-    }
   </style>
 </head>
 
@@ -201,7 +154,7 @@
   <header>
     <div class="header-left">
       <a href="index.html?back=german" class="back-link">← Zurück</a>
-      <h1>Deutsch · <span>Materialgestützt</span></h1>
+      <h1>Deutsch · <span>Materialgestützt Informierend</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
@@ -228,21 +181,6 @@
 
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Aufgabe konfigurieren</h2>
-        <div class="form-group">
-          <label>Aufgabentyp</label>
-          <div class="type-grid">
-            <div class="type-card selected" data-type="argumentieren" onclick="selectType('argumentieren')">
-              <div class="type-icon">💬</div>
-              <div class="type-name">Argumentierender Beitrag</div>
-              <div class="type-desc">Kommentar, Rede, Leserbrief, Essay</div>
-            </div>
-            <div class="type-card" data-type="informieren" onclick="selectType('informieren')">
-              <div class="type-icon">📰</div>
-              <div class="type-name">Informierender Text</div>
-              <div class="type-desc">Zeitungsartikel, Blogbeitrag, Sachtext</div>
-            </div>
-          </div>
-        </div>
 
         <div class="form-row">
           <div class="form-group">
@@ -259,6 +197,10 @@
           <div class="form-group">
             <label>Zieltextsorte</label>
             <select id="textsorteSelect">
+              <option value="artikel">Zeitungsartikel</option>
+              <option value="blogbeitrag">Blogbeitrag</option>
+              <option value="sachtext">Sachtext</option>
+              <option value="lexikonartikel">Lexikonartikel</option>
             </select>
           </div>
         </div>
@@ -300,18 +242,18 @@
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
         <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px"
-            placeholder="Verfassen Sie einen argumentierenden Beitrag …"></textarea></div>
+            placeholder="Verfassen Sie einen informierenden Text …"></textarea></div>
         <div class="form-group"><label>Materialien</label><textarea id="manualPrimaryText" style="min-height:200px"
             placeholder="Materialien hier einfügen …"></textarea></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
       <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
-        <h3 style="font-size:1rem;margin-bottom:.5rem">📑 Was ist materialgestütztes Schreiben?</h3>
+        <h3 style="font-size:1rem;margin-bottom:.5rem">📰 Materialgestütztes informierendes Schreiben</h3>
         <p style="font-size:.9rem;color:var(--ink-light)">Du erhältst mehrere Materialien (Texte, Grafiken, Statistiken)
-          zu einem Thema und verfasst auf dieser Grundlage einen eigenen <strong>adressatenorientierten</strong> Text.
-          Wichtig: Du musst die Materialien <strong>auswerten und einbeziehen</strong>, aber auch eigenes Wissen
-          ergänzen.</p>
+          zu einem Thema und verfasst auf dieser Grundlage einen eigenen <strong>informierenden</strong> Text für eine
+          bestimmte Zielgruppe. Wichtig: Du musst die Materialien <strong>auswerten und einbeziehen</strong>, aber auch
+          eigenes Wissen ergänzen – dabei sachlich und adressatenorientiert schreiben.</p>
         <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem"><strong>Gewichtung:</strong> Verstehen 60% ·
           Darstellung 40%</p>
       </div>
@@ -369,7 +311,7 @@
             <div id="writeMaterialsRef"></div>
           </div>
         </details>
-        <textarea id="studentText" placeholder="Verfasse hier deinen Text …
+        <textarea id="studentText" placeholder="Verfasse hier deinen informierenden Text …
 
 Denke an:
 • Adressatenorientierung (Wer liest den Text?)
@@ -496,7 +438,7 @@ Denke an:
             <thead>
               <tr>
                 <th>Datum</th>
-                <th>Typ</th>
+                <th>Textsorte</th>
                 <th>V</th>
                 <th>D</th>
                 <th>Ges.</th>
@@ -511,17 +453,17 @@ Denke an:
       </div>
     </section>
   </main>
-  <footer>© 2026 myAbiFlow · Deutsch Trainer · Materialgestütztes Schreiben</footer>
+  <footer>© 2026 myAbiFlow · Deutsch Trainer · Materialgestütztes Verfassen informierender Texte</footer>
 
   <!-- MODULE CONFIG -->
   <script>
     const MODULE_CONFIG = {
       sectionPrefix: "sec-",
       steps: ["setup", "task", "write", "feedback", "progress"],
-      storagePrefix: "deutsch_material",
-      historyKey: "deutsch_material_history_",
-      historyType: "deutsch-materialgestuetzt",
-      pdfFilename: "Materialgestuetzt",
+      storagePrefix: "deutsch_material_info",
+      historyKey: "deutsch_material_info_history_",
+      historyType: "deutsch-materialgestuetzt-informierend",
+      pdfFilename: "Materialgestuetzt-Informierend",
       chartColor: "#059669",
       minWords: 150,
       hlSelector: ".material-box",
@@ -537,28 +479,7 @@ Denke an:
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
-    CONFIG.aufgabentyp = "argumentieren";
-
-    const TEXTSORTEN = {
-      argumentieren: [
-        { value: "kommentar", label: "Kommentar" },
-        { value: "rede", label: "Rede" },
-        { value: "leserbrief", label: "Leserbrief" },
-        { value: "essay", label: "Essay" }
-      ],
-      informieren: [
-        { value: "artikel", label: "Zeitungsartikel" },
-        { value: "blogbeitrag", label: "Blogbeitrag" },
-        { value: "sachtext", label: "Sachtext" },
-        { value: "lexikonartikel", label: "Lexikonartikel" }
-      ]
-    };
-
-    function updateTextsorten() {
-      const sel = document.getElementById("textsorteSelect");
-      const opts = TEXTSORTEN[CONFIG.aufgabentyp] || TEXTSORTEN.argumentieren;
-      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
-    }
+    CONFIG.aufgabentyp = "informieren";
 
     const BEWERTUNG_PROMPT = `Du bewertest einen materialgestützten Text nach ISB-Kriterien.
 
@@ -578,13 +499,6 @@ WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließt
 
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
-
-    function selectType(t) {
-      CONFIG.aufgabentyp = t;
-      document.querySelectorAll(".type-card").forEach(c => c.classList.remove("selected"));
-      document.querySelector(`[data-type="${t}"]`).classList.add("selected");
-      updateTextsorten();
-    }
 
     function renderMaterialContent(content, type, idx) {
       if (type === "statistik" && content && content.includes("|")) {
@@ -659,7 +573,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
     }
 
     function useManualTask() {
-      const task = document.getElementById("manualTaskInstruction").value || "Verfassen Sie einen argumentierenden Beitrag.";
+      const task = document.getElementById("manualTaskInstruction").value || "Verfassen Sie einen informierenden Text.";
       const text = document.getElementById("manualPrimaryText").value;
       if (!text) { showToast("Kein Text"); return; }
       const c = { task_instruction: task, materials: [{ title: "Eigenes Material", content: text, type: "text", source: "" }], zieltext: "", zielgruppe: "" };
@@ -742,7 +656,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
         document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
         document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
         saveToHistory({ aufgabentyp: CONFIG.aufgabentyp, verstehen: d.scores?.verstehen, darstellung: d.scores?.darstellung, total: d.scores?.total });
-        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-materialgestuetzt", topic: CONFIG.aufgabentyp || "Materialgestützt", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => { });
+        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "deutsch-materialgestuetzt-informierend", topic: "Informierend", content: d.scores?.verstehen, language: d.scores?.darstellung, total: d.scores?.total, date: new Date().toISOString() }).catch(() => { });
         stopTimer();
         document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
         renderKorrekturFeedback(d);
@@ -755,13 +669,12 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       document.getElementById("submitBtn").disabled = false;
     }
 
-    /* Override saveSession/restoreSession to include aufgabentyp */
+    /* Override saveSession/restoreSession */
     function saveSession() {
       const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
       localStorage.setItem(key, JSON.stringify({
         studentText: document.getElementById("studentText").value,
-        storedData: CONFIG.storedData,
-        aufgabentyp: CONFIG.aufgabentyp
+        storedData: CONFIG.storedData
       }));
     }
 
@@ -772,7 +685,6 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
         if (s) {
           if (s.studentText) document.getElementById("studentText").value = s.studentText;
           if (s.storedData) { CONFIG.storedData = s.storedData; renderTask(s.storedData); }
-          if (s.aufgabentyp) { CONFIG.aufgabentyp = s.aufgabentyp; selectType(s.aufgabentyp); }
           updateWordCount();
         }
       } catch { }
@@ -815,12 +727,9 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
 
     function renderHistoryTable(history) {
       document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
-        `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${x.aufgabentyp === "argumentieren" ? "💬" : "📰"}</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
+        `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>📰</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
       ).join("");
     }
-
-    // Init
-    updateTextsorten();
   </script>
 </body>
 
