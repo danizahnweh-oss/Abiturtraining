@@ -964,7 +964,9 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE: GENERATE ================= */
 async function handleGenerateGeschichte(request, env) {
   const body = await request.json();
-  const { schwerpunkt, level } = body;
+  const { schwerpunkt, level, be, zeit } = body;
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 180;
 
   const schwerpunkte = {
     "12_1": {
@@ -995,14 +997,20 @@ async function handleGenerateGeschichte(request, env) {
   const sp = schwerpunkte[selectedSchwerpunkt];
 
   const niveauText = level === "eA"
-    ? "Erhöhtes Anforderungsniveau (eA), 120 BE gesamt. Komplexere Quellen, höherer Anteil AFB III, tiefere multiperspektivische Analyse."
-    : "Grundlegendes Anforderungsniveau (gA), 100 BE gesamt. Schwerpunkt auf AFB I und II, zugänglicherer Quellenzugang.";
+    ? "Erhöhtes Anforderungsniveau (eA). Komplexere Quellen, höherer Anteil AFB III, tiefere multiperspektivische Analyse."
+    : "Grundlegendes Anforderungsniveau (gA). Schwerpunkt auf AFB I und II, zugänglicherer Quellenzugang.";
 
   const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Abituraufgabe exakt nach dem Format der offiziellen IQB-Beispielaufgaben.
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
 MÖGLICHE THEMEN: ${sp.themen}
 ANFORDERUNGSNIVEAU: ${niveauText}
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE (Bewertungseinheiten)
+- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben
+- Die Summe aller Teilaufgaben-BE muss exakt ${totalBE} ergeben
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
 Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und 2 Teilaufgaben.
@@ -1570,13 +1578,13 @@ Antworte NUR mit validem JSON:
 /* ================= POLITIK UND GESELLSCHAFT: GENERATE ================= */
 async function handleGeneratePuG(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level } = body;
+  const { halbjahr, schwerpunkt, level, be, zeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
-  const bearbeitungszeit = isEA ? "270 Minuten" : "210 Minuten";
-  const bePruefungA = isEA ? "85 BE" : "75 BE";
-  const bePruefungB = isEA ? "35 BE" : "25 BE";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
+  const bePruefungA = totalBE + " BE";
 
   const hjThemen = {
     "12_1": {
@@ -1681,6 +1689,10 @@ async function handleGeneratePuG(request, env) {
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Politik und Gesellschaft (ab 2026, G9).
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 2-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -2140,11 +2152,12 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
 /* ================= WIRTSCHAFT UND RECHT: GENERATE ================= */
 async function handleGenerateWR(request, env) {
   const body = await request.json();
-  const { niveau, fachbereich, thema } = body;
+  const { niveau, fachbereich, thema, be, zeit } = body;
 
   const isGA = (niveau || "gA").toLowerCase() === "ga";
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
-  const gesamtBE = isGA ? 100 : 60;
+  const gesamtBE = be || (isGA ? 100 : 60);
+  const zeitMinuten = zeit || (isGA ? 210 : 135);
   const bloecke = isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
   const materialCount = isGA ? "4-5 Materialien" : "3-4 Materialien";
 
@@ -2200,7 +2213,7 @@ Erstelle eine authentische Abituraufgabe.
 
 PRÜFUNGSFORMAT:
 - ${niveauLabel}
-- Gesamt: ${gesamtBE} BE (Bewertungseinheiten)
+- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
 - ${bloecke}
 - ${materialCount}
 - Fachbereich: ${fbLabel}
@@ -3202,11 +3215,13 @@ Antworte NUR mit validem JSON:
 /* ================= ETHIK: GENERATE ================= */
 async function handleGenerateEthik(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level } = body;
+  const { lernbereich, schwerpunkt, level, be, zeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
-  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
+  const bePruefungA = totalBE + " BE";
 
   const lbThemen = {
     "12_1": {
@@ -3329,6 +3344,10 @@ async function handleGenerateEthik(request, env) {
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Ethik (ab 2026, G9).
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -3742,11 +3761,13 @@ Antworte NUR mit validem JSON:
 /* ================= GEOGRAPHIE: GENERATE ================= */
 async function handleGenerateGeographie(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level } = body;
+  const { halbjahr, schwerpunkt, level, be, zeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
-  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
+  const bePruefungA = totalBE + " BE";
 
   const hjThemen = {
     "12_1": {
@@ -3816,6 +3837,10 @@ Geo13 LB3: Segregation (soziale/ethnische/demographische), Demographischer Wande
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Geographie (ab 2026, G9).
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -4229,10 +4254,12 @@ Antworte NUR mit validem JSON:
 /* ================= LATEIN: GENERATE ================= */
 async function handleGenerateLatein(request, env) {
   const body = await request.json();
-  const { autor, aufgabentyp, schwerpunkt, level } = body;
+  const { autor, aufgabentyp, schwerpunkt, level, be, zeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
 
   const autorInhalte = {
     cicero: "Cicero: Reden, Rhetorik, Philosophie (De officiis, De re publica, Pro Murena, In Catilinam). Typisch: lange Perioden, rhetorische Fragen, Parallelismen, Klimax, Antithesen, Partizipialkonstruktionen.",
@@ -4248,10 +4275,13 @@ async function handleGenerateLatein(request, env) {
 
   if (aufgabentyp === "uebersetzung") {
     const wortanzahl = isEA ? "~170 Wörter" : "~135 Wörter";
-    const maxBE = isEA ? 60 : 45;
+    const maxBE = totalBE;
 
     const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Latein (ab 2026, G9).
 Erstelle eine Übersetzungsaufgabe auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 
 AUTOR UND STIL:
 ${autorInfo}
@@ -4301,10 +4331,14 @@ KRITISCH: Der lateinische Text muss AUTHENTISCH im Stil des Autors verfasst sein
     const beWeiterfuehrend = isEA ? "3 aus 5 × 6 = 18 BE" : "2 aus 4 × 6 = 12 BE";
     const anzahlWeiterfuehrendGesamt = isEA ? 5 : 4;
     const anzahlWeiterfuehrendWahl = isEA ? 3 : 2;
-    const beGesamt = isEA ? "60 BE" : "45 BE";
+    const beGesamt = totalBE + " BE";
 
     const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Latein (ab 2026, G9).
 Erstelle eine Interpretationsaufgabe (Aufgabenteil) auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Abschnitte (Summe muss exakt ${totalBE} ergeben)
 
 AUTOR UND STIL:
 ${autorInfo}
@@ -4887,11 +4921,13 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
 /* ================= MATHEMATIK: GENERATE ================= */
 async function handleGenerateMathe(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp } = body;
+  const { sachgebiet, aufgabentyp, be, zeit } = body;
 
   const sg = sachgebiet || "analysis";
   const typ = aufgabentyp || "kurzaufgabe";
   const isKurz = typ === "kurzaufgabe";
+  const totalBE = be || (isKurz ? 5 : 25);
+  const zeitMinuten = zeit || (isKurz ? 15 : 45);
 
   const sgThemen = {
     analysis: {
@@ -4931,14 +4967,14 @@ Erstelle eine authentische Mathematik-Aufgabe.
 
 ${isKurz ? `KURZAUFGABE (Teil-A-Stil, ohne CAS/Hilfsmittel):
 - 1 Aufgabe mit 2-3 Teilaufgaben
-- Gesamt: 5 BE
-- Schwierigkeit: ~10 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - OHNE CAS/Taschenrechner lösbar
 - Klare, rechnerisch durchführbare Aufgaben` :
 `LANGAUFGABE (Teil-B-Stil, mit CAS/Hilfsmitteln):
 - 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: 20-30 BE
-- Schwierigkeit: ~45 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - CAS/Hilfsmittel erlaubt
 - Kontextbezogene Anwendungsaufgabe mit steigendem Anforderungsniveau`}
 
@@ -5006,14 +5042,14 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 2},
     {"id": "b)", "text": "...", "be": 3}
   ],
-  "gesamt_be": ${isKurz ? 5 : "20-30"},
+  "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
   "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 }
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (5 BE, ohne CAS)" : "Langaufgabe (20-30 BE, mit CAS)"} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE, ohne CAS)` : `Langaufgabe (${totalBE} BE, mit CAS)`} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
@@ -5501,11 +5537,13 @@ WICHTIG:
 /* ================= CHEMIE: GENERATE ================= */
 async function handleGenerateChemie(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp } = body;
+  const { sachgebiet, aufgabentyp, be, zeit } = body;
 
   const sg = sachgebiet || "elektrochemie";
   const typ = aufgabentyp || "kurzaufgabe";
   const isKurz = typ === "kurzaufgabe";
+  const totalBE = be || (isKurz ? 10 : 30);
+  const zeitMinuten = zeit || (isKurz ? 20 : 60);
 
   const sgThemen = {
     elektrochemie: {
@@ -5549,13 +5587,13 @@ Erstelle eine authentische Chemie-Aufgabe.
 
 ${isKurz ? `KURZAUFGABE:
 - 1 Aufgabe mit 2-3 Teilaufgaben
-- Gesamt: 10 BE
-- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Klare, fachlich korrekte Aufgaben` :
 `LANGAUFGABE (mit Material):
 - 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: 30 BE
-- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
 - Steigendes Anforderungsniveau`}
 
@@ -5608,7 +5646,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "a)", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 3},
     {"id": "b)", "text": "...", "be": 4}
   ],
-  "gesamt_be": ${isKurz ? 10 : 30},
+  "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
@@ -5618,7 +5656,7 @@ Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
-  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.${organikHint}`;
 
@@ -5823,11 +5861,13 @@ async function handleParseTaskChemie(request, env) {
 /* ================= PHYSIK: GENERATE ================= */
 async function handleGeneratePhysik(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp } = body;
+  const { sachgebiet, aufgabentyp, be, zeit } = body;
 
   const sg = sachgebiet || "elektrostatik";
   const typ = aufgabentyp || "kurzaufgabe";
   const isKurz = typ === "kurzaufgabe";
+  const totalBE = be || (isKurz ? 10 : 30);
+  const zeitMinuten = zeit || (isKurz ? 20 : 60);
 
   const sgThemen = {
     elektrostatik: {
@@ -5863,13 +5903,13 @@ Erstelle eine authentische Physik-Aufgabe.
 
 ${isKurz ? `KURZAUFGABE:
 - 1 Aufgabe mit 2-3 Teilaufgaben
-- Gesamt: 10 BE
-- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Klare, fachlich korrekte Aufgaben` :
 `LANGAUFGABE (mit Material):
 - 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: 30 BE
-- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
 - Steigendes Anforderungsniveau`}
 
@@ -5910,14 +5950,14 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 3},
     {"id": "b)", "text": "...", "be": 4}
   ],
-  "gesamt_be": ${isKurz ? 10 : 30},
+  "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
@@ -6118,11 +6158,13 @@ async function handleParseTaskPhysik(request, env) {
 /* ================= BIO: GENERATE ================= */
 async function handleGenerateBio(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp } = body;
+  const { sachgebiet, aufgabentyp, be, zeit } = body;
 
   const sg = sachgebiet || "genetik";
   const typ = aufgabentyp || "kurzaufgabe";
   const isKurz = typ === "kurzaufgabe";
+  const totalBE = be || (isKurz ? 10 : 30);
+  const zeitMinuten = zeit || (isKurz ? 20 : 60);
 
   const sgThemen = {
     genetik: {
@@ -6158,13 +6200,13 @@ Erstelle eine authentische Biologie-Aufgabe.
 
 ${isKurz ? `KURZAUFGABE:
 - 1 Aufgabe mit 2-3 Teilaufgaben
-- Gesamt: 10 BE
-- Schwierigkeit: ~20 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Klare, fachlich korrekte Aufgaben` :
 `LANGAUFGABE (mit Material):
 - 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: 30 BE
-- Schwierigkeit: ~60 Minuten Bearbeitungszeit
+- Gesamt: ${totalBE} BE
+- Bearbeitungszeit: ${zeitMinuten} Minuten
 - Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte, Abbildungen)
 - Steigendes Anforderungsniveau`}
 
@@ -6201,14 +6243,14 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 3},
     {"id": "b)", "text": "...", "be": 4}
   ],
-  "gesamt_be": ${isKurz ? 10 : 30},
+  "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? "Kurzaufgabe (10 BE)" : "Langaufgabe (30 BE, mit Material)"} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
