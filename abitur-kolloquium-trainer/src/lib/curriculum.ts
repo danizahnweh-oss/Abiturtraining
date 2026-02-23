@@ -364,7 +364,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 /** Returns the available Halbjahre after striking one */
 export function getAvailableHalbjahre(
   subject: string,
-  gestrichenesHalbjahr: '13/1' | '13/2'
+  gestrichenesHalbjahr: '12/1' | '12/2'
 ): string[] {
   const all = ['12/1', '12/2', '13/1', '13/2'];
   return all.filter(h => h !== gestrichenesHalbjahr);
@@ -377,7 +377,7 @@ export function getSchwerpunkte(subject: string, halbjahr: string): string[] {
 
 /** Returns the two Halbjahre for Teil 2 (excluding the Schwerpunkt Halbjahr) */
 export function getWeitereHalbjahre(
-  gestrichenesHalbjahr: '13/1' | '13/2',
+  gestrichenesHalbjahr: '12/1' | '12/2',
   schwerpunktHalbjahr: string
 ): string[] {
   return getAvailableHalbjahre('', gestrichenesHalbjahr)
