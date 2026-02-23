@@ -7129,7 +7129,65 @@ Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild
   ], 16000);
 
   const content = extractJSON(openaiRes);
+  enrichBioMaterials(content);
   return jsonResponse(content, 200, env);
+}
+
+/* ================= BIOLOGIE: MATERIAL POST-PROCESSING ================= */
+function enrichBioMaterials(data) {
+  const sachgebietImages = {
+    genetik: "DNA double helix genetics laboratory",
+    gentechnik: "DNA genetics PCR laboratory",
+    neurobiologie: "neuron brain synapse fluorescence microscopy",
+    stoffwechsel: "enzyme biochemistry laboratory cells",
+    stoffwechselphysiologie: "enzyme biochemistry laboratory cells",
+    oekologie: "ecosystem biodiversity forest wildlife",
+    ökologie: "ecosystem biodiversity forest wildlife",
+    evolution: "fossils evolution paleontology museum",
+    verhaltensbiologie: "animal behavior wildlife observation",
+    verhaltensökologie: "animal behavior wildlife observation"
+  };
+
+  const aufgaben = data.aufgaben || data.aufgabengruppen || [];
+  aufgaben.forEach(a => {
+    const mats = a.materialien || a.material || [];
+    let hasBild = false;
+
+    mats.forEach(m => {
+      if (m.type === "bild") { hasBild = true; return; }
+      if (m.type && m.chart_type) return; // already complete
+
+      const text = (m.text || "").replace(/\\n/g, "\n");
+      const tableLines = text.split("\n").filter(l => l.trim().startsWith("|") && l.trim().endsWith("|"));
+      const dataLines = tableLines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+
+      if (dataLines.length >= 2) {
+        const hdr = dataLines[0].toLowerCase();
+        const isTime = /zeit|time|min\b|ms\b|sec|stunde|tag|hour|temperatur|temp\b|konzentration/.test(hdr);
+        if (!m.type) m.type = isTime ? "diagramm" : "statistik";
+        if (!m.chart_type) m.chart_type = isTime ? "line" : "bar";
+      } else if (!m.type) {
+        m.type = "text";
+      }
+    });
+
+    // Add image material if none exists
+    if (!hasBild) {
+      const sg = (a.sachgebiet || "").toLowerCase().replace(/\s+/g, "");
+      const keywords = sachgebietImages[sg] || "biology science laboratory microscope";
+      mats.push({
+        id: "M" + (mats.length + 1),
+        titel: "Abbildung: " + (a.sachgebiet || "Biologie"),
+        type: "bild",
+        text: keywords
+      });
+    }
+
+    // Ensure the material array is stored back
+    if (a.material && Array.isArray(a.material)) a.material = mats;
+    else if (a.materialien) a.materialien = mats;
+    else a.material = mats;
+  });
 }
 
 /* ================= BIOLOGIE ABITUR: GRADE ================= */
