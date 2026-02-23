@@ -17,8 +17,8 @@ function initAiTutor() {
     /* AI Widget Styles */
     #ai-tutor-widget {
       position: fixed;
-      bottom: 3rem;
-      right: 5rem;
+      bottom: 40vh;
+      right: 3rem;
       z-index: 10000;
       font-family: var(--font-body, system-ui, sans-serif);
       display: none;
