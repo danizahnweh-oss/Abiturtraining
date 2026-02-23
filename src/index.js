@@ -7011,16 +7011,29 @@ SACHGEBIETE (wähle 4 verschiedene aus diesen 6, Lehrplan G9 Bayern ab 2026):
 JEDE AUFGABENGRUPPE hat:
 - Einen Titel (z.B. "Aufgabe 1: Genetischer Fingerabdruck")
 - Ein Sachgebiet
-- Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten, Stammbäume, Versuchsbeschreibungen
+- MINDESTENS 2-3 Materialien (M1, M2, M3, ...) pro Aufgabengruppe!
 - 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Gesamt: ${beProAufgabe} BE
+
+MATERIALIEN — VIELFÄLTIG UND DATENREICH:
+Jede Aufgabengruppe MUSS mindestens 2-3 verschiedene Materialtypen enthalten:
+- **Datentabellen** mit konkreten Zahlenwerten (Messwerte, Versuchsergebnisse) als Markdown-Tabelle:
+  | Bedingung | Messwert 1 | Messwert 2 |
+  |-----------|-----------|-----------|
+  | ... | ... | ... |
+- **Diagrammbeschreibungen**: Beschreibe Kurvenverläufe, Achsenbeschriftungen und Trends so detailliert, dass der Schüler das Diagramm vor sich sieht. Z.B. "Abbildung 1 zeigt den zeitlichen Verlauf des Membranpotentials (y-Achse: Potential in mV, von -80 bis +40; x-Achse: Zeit in ms, von 0 bis 5). Bei t = 1 ms steigt das Potential steil von -70 mV auf +30 mV an, fällt bei t = 2 ms auf -80 mV ab..."
+- **Stammbäume** (bei Genetik): Beschreibe den Stammbaum als Text mit Generationen (I, II, III), Geschlechtern und Phänotypen
+- **Versuchsbeschreibungen**: Methode, Durchführung, Beobachtungen/Ergebnisse
+- **Textquellen**: Fachtexte zu Forschungsergebnissen, Zeitungsartikel, Auszüge aus Studien
+- **Gelelektrophorese-Ergebnisse**: Beschreibe Bandenmuster als Text (z.B. "Spur 1: Banden bei 500 bp, 300 bp, 200 bp; Spur 2: Banden bei 800 bp, 200 bp")
 
 WICHTIG:
 - Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
-- Materialien müssen realistisch und aussagekräftig sein
+- Materialien müssen realistisch, datenreich und aussagekräftig sein — KEINE leeren Platzhalter!
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+- Teilaufgaben sollen sich DIREKT auf die Materialien beziehen ("Werte M1 aus", "Beschreibe den in M2 dargestellten Verlauf")
 
 BIOLOGIE-SPEZIFISCHE NOTATION:
 - Genotypen: $Aa \\times aa$, $F_1$, $F_2$
@@ -7081,7 +7094,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
-KRITISCH: Alle Formeln in LaTeX-Notation.`;
+KRITISCH: Alle Formeln in LaTeX-Notation.
+KRITISCH: Jede Aufgabengruppe MUSS mindestens 2-3 reichhaltige Materialien haben (Datentabellen mit echten Zahlenwerten, detaillierte Diagrammbeschreibungen, Versuchsprotokolle, Stammbäume, Gelelektrophorese-Bandenmuster). Keine leeren oder oberflächlichen Materialien!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
