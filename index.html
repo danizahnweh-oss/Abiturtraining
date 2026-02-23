@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
     content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
-  <meta name="theme-color" content="#2563eb">
+  <meta name="theme-color" content="#4f46e5">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="shared-v4.css">
   <style>
@@ -209,12 +209,12 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, .12) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(5, 150, 105, .1) 0%, transparent 50%), radial-gradient(ellipse at 50% 90%, rgba(159, 18, 57, .06) 0%, transparent 40%);
+      background: radial-gradient(ellipse at 20% 50%, rgba(79, 70, 229, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, .06) 0%, transparent 50%);
       pointer-events: none
     }
 
     [data-theme="dark"] #login-screen::before {
-      background: radial-gradient(ellipse at 20% 50%, rgba(96, 165, 250, .1) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(52, 211, 153, .08) 0%, transparent 50%), radial-gradient(ellipse at 50% 90%, rgba(251, 113, 133, .05) 0%, transparent 40%)
+      background: radial-gradient(ellipse at 20% 50%, rgba(129, 140, 248, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, .05) 0%, transparent 50%)
     }
 
     .login-box {
@@ -306,10 +306,7 @@
     }
 
     .subject-header h1 span {
-      background: linear-gradient(135deg, var(--accent), var(--accent-de));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text
+      color: var(--accent)
     }
 
     /* ====== GREETING with animation (#5) ====== */
@@ -471,9 +468,9 @@
 
     .subject-card {
       background: var(--surface);
-      border: 2px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: .8rem .5rem;
+      padding: 1rem .5rem;
       text-align: center;
       cursor: pointer;
       transition: all .2s;
@@ -636,8 +633,8 @@
 
     .subject-card:hover,
     .subject-card:focus-visible {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-lg)
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.05)
     }
 
     .subject-card:hover::before,
@@ -933,7 +930,7 @@
 
     .module-card {
       background: var(--surface);
-      border: 2px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.8rem;
       text-align: center;
@@ -944,8 +941,8 @@
     }
 
     .module-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-md);
+      border-color: #a5b4fc;
+      box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.05);
       transform: translateY(-2px)
     }
 
@@ -1039,9 +1036,11 @@
     .login-mode-toggle {
       display: flex;
       margin-bottom: 1.5rem;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-full);
       overflow: hidden;
-      border: 1px solid var(--border)
+      border: 1px solid var(--border);
+      background: var(--bg);
+      padding: 3px
     }
 
     .login-mode-toggle button {
@@ -1049,16 +1048,19 @@
       padding: .6rem;
       border: none;
       background: transparent;
+      border-radius: var(--radius-full);
       cursor: pointer;
       font-size: .9rem;
       color: var(--ink-muted);
       transition: all .15s;
-      font-family: var(--font-body)
+      font-family: var(--font-body);
+      font-weight: 600
     }
 
     .login-mode-toggle button.active {
       background: var(--accent);
-      color: #fff
+      color: #fff;
+      box-shadow: var(--shadow-sm)
     }
 
     /* ====== LEVEL TOGGLE ====== */
@@ -1070,10 +1072,11 @@
 
     .level-pill {
       display: flex;
-      background: var(--border);
-      border-radius: 99px;
+      background: var(--bg);
+      border-radius: var(--radius-full);
       padding: 3px;
-      gap: 2px
+      gap: 3px;
+      border: 1px solid var(--border)
     }
 
     .level-pill .level-btn {
