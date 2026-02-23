@@ -76,6 +76,10 @@
       --accent-bio-hover: #15803d;
       --accent-bio-soft: #dcfce7;
       --accent-bio-glow: rgba(22, 163, 74, .08);
+      --accent-kol: #059669;
+      --accent-kol-hover: #047857;
+      --accent-kol-soft: #d1fae5;
+      --accent-kol-glow: rgba(5, 150, 105, .08);
     }
 
     [data-theme="dark"] {
@@ -131,6 +135,10 @@
       --accent-bio-hover: #86efac;
       --accent-bio-soft: rgba(74, 222, 128, .15);
       --accent-bio-glow: rgba(74, 222, 128, .08);
+      --accent-kol: #34d399;
+      --accent-kol-hover: #6ee7b7;
+      --accent-kol-soft: rgba(52, 211, 153, .15);
+      --accent-kol-glow: rgba(52, 211, 153, .08);
     }
 
     /* School badge gradient (both accent colors) */
@@ -188,6 +196,106 @@
     .module-card.biologie .module-badge {
       background: var(--accent-bio-soft);
       color: var(--accent-bio)
+    }
+
+    /* ====== KOLLOQUIUM TRAINER BANNER ====== */
+    .kolloquium-banner {
+      max-width: 1000px;
+      width: 100%;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem
+    }
+
+    .kolloquium-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--accent-kol);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      position: relative;
+      overflow: hidden;
+      transition: all .2s;
+      opacity: 0;
+      animation: staggerFadeIn .4s ease forwards;
+      animation-delay: .8s
+    }
+
+    .kolloquium-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-kol-glow), transparent);
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .kolloquium-card:hover,
+    .kolloquium-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--accent-kol-hover);
+      box-shadow: 0 20px 25px -5px rgba(5, 150, 105, .1)
+    }
+
+    .kolloquium-card:hover::before,
+    .kolloquium-card:focus-visible::before {
+      opacity: 1
+    }
+
+    .kolloquium-card .kol-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1
+    }
+
+    .kolloquium-card .kol-body {
+      flex: 1;
+      position: relative;
+      z-index: 1
+    }
+
+    .kolloquium-card .kol-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: .15rem;
+      color: var(--accent-kol)
+    }
+
+    .kolloquium-card .kol-desc {
+      font-size: .78rem;
+      opacity: .7;
+      line-height: 1.4
+    }
+
+    .kolloquium-card .kol-badge {
+      flex-shrink: 0;
+      background: var(--accent-kol-soft);
+      color: var(--accent-kol);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      position: relative;
+      z-index: 1
+    }
+
+    .kolloquium-card .kol-arrow {
+      flex-shrink: 0;
+      color: var(--accent-kol);
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 1;
+      transition: transform .2s
+    }
+
+    .kolloquium-card:hover .kol-arrow {
+      transform: translateX(4px)
     }
 
     .school-badge {
@@ -1456,6 +1564,82 @@
         padding: 1rem
       }
     }
+
+    /* ====== EXAM TYPE MODAL ====== */
+    .exam-type-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn .2s ease
+    }
+    .exam-type-overlay.open { display: flex }
+    .exam-type-modal {
+      background: var(--surface);
+      border-radius: 1.5rem;
+      max-width: 440px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,.25);
+      animation: slideUp .25s ease
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
+    .exam-type-modal h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: .35rem
+    }
+    .exam-type-modal .etm-sub {
+      font-size: .85rem;
+      opacity: .6;
+      margin-bottom: 1.5rem
+    }
+    .exam-type-choices { display: grid; gap: .75rem }
+    .exam-type-btn {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      text-align: left;
+      transition: all .15s;
+      width: 100%
+    }
+    .exam-type-btn:hover {
+      border-color: var(--accent-kol);
+      background: var(--accent-kol-glow)
+    }
+    .exam-type-btn .etb-icon { font-size: 1.6rem; flex-shrink: 0 }
+    .exam-type-btn .etb-title { font-weight: 600; font-size: .95rem }
+    .exam-type-btn .etb-desc { font-size: .78rem; opacity: .6; margin-top: .1rem }
+    .exam-type-btn .etb-arrow {
+      margin-left: auto;
+      opacity: .3;
+      font-size: 1.1rem;
+      transition: transform .15s
+    }
+    .exam-type-btn:hover .etb-arrow { transform: translateX(3px); opacity: .7 }
+    .exam-type-cancel {
+      display: block;
+      margin: 1rem auto 0;
+      padding: .5rem 1rem;
+      border: none;
+      background: none;
+      font-size: .8rem;
+      opacity: .5;
+      cursor: pointer;
+      color: var(--ink)
+    }
+    .exam-type-cancel:hover { opacity: .8 }
   </style>
 </head>
 
@@ -1685,6 +1869,44 @@
         <span class="subject-last-activity" data-activity="biologie"></span>
       </button>
     </div>
+    <div class="kolloquium-banner">
+      <a href="abitur-kolloquium-trainer/dist/" class="kolloquium-card" aria-label="Kolloquiumstrainer öffnen">
+        <div class="kol-icon" aria-hidden="true">🎤</div>
+        <div class="kol-body">
+          <div class="kol-title">Kolloquiumstrainer</div>
+          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und sofortiges Feedback.</div>
+        </div>
+        <div class="kol-badge">Live · KI-Prüfer</div>
+        <div class="kol-arrow" aria-hidden="true">→</div>
+      </a>
+    </div>
+    <!-- Exam type modal -->
+    <div class="exam-type-overlay" id="examTypeOverlay" onclick="if(event.target===this)closeExamTypeModal()">
+      <div class="exam-type-modal">
+        <h3 id="examTypeTitle">Englisch</h3>
+        <p class="etm-sub">Was möchtest du üben?</p>
+        <div class="exam-type-choices">
+          <button class="exam-type-btn" onclick="chooseExamType('schriftlich')">
+            <span class="etb-icon">📝</span>
+            <div>
+              <div class="etb-title">Schriftliches Abitur</div>
+              <div class="etb-desc">Klausurentraining mit KI-Bewertung</div>
+            </div>
+            <span class="etb-arrow">→</span>
+          </button>
+          <button class="exam-type-btn" onclick="chooseExamType('muendlich')">
+            <span class="etb-icon">🎤</span>
+            <div>
+              <div class="etb-title">Mündliches Abitur (Kolloquium)</div>
+              <div class="etb-desc">Live-Prüfungssimulation mit KI-Prüfer</div>
+            </div>
+            <span class="etb-arrow">→</span>
+          </button>
+        </div>
+        <button class="exam-type-cancel" onclick="closeExamTypeModal()">Abbrechen</button>
+      </div>
+    </div>
+
     <footer>&copy; 2026 myAbiFlow · Abitur Trainer · <a href="impressum.html">Impressum</a><br><a href="#"
         onclick="showTeacherLogin(); return false;"
         style="font-size:0.75rem; opacity:0.6; margin-top:0.5rem; display:inline-block;">Lehrer-Dashboard →</a></footer>
@@ -2681,6 +2903,23 @@
       if (_push) history.pushState({ screen: "subjects" }, "");
     }
 
+    /* ── Subject name mapping (internal ID → German name for Kolloquiumstrainer) ── */
+    var subjectNameMap = {
+      english: "Englisch", german: "Deutsch", history: "Geschichte",
+      pug: "Politik und Gesellschaft", wr: "Wirtschaft und Recht",
+      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+      chemie: "Chemie", physik: "Physik", biologie: "Biologie"
+    };
+    var subjectTitleMap = {
+      english: "Englisch", german: "Deutsch", history: "Geschichte",
+      pug: "Politik & Gesellschaft", wr: "Wirtschaft & Recht",
+      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+      chemie: "Chemie", physik: "Physik", biologie: "Biologie"
+    };
+    var _pendingSubjectForModal = null;
+
     function selectSubject(subject, _push) {
       // If not logged in, redirect to login and remember chosen subject
       if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
@@ -2689,6 +2928,34 @@
         document.getElementById("login-screen").style.display = "flex";
         return;
       }
+      // Show exam type modal
+      _pendingSubjectForModal = subject;
+      document.getElementById("examTypeTitle").textContent = subjectTitleMap[subject] || subject;
+      document.getElementById("examTypeOverlay").classList.add("open");
+    }
+
+    function closeExamTypeModal() {
+      document.getElementById("examTypeOverlay").classList.remove("open");
+      _pendingSubjectForModal = null;
+    }
+
+    function chooseExamType(type) {
+      var subject = _pendingSubjectForModal;
+      closeExamTypeModal();
+      if (!subject) return;
+
+      if (type === "muendlich") {
+        // Redirect to Kolloquiumstrainer with subject pre-filled
+        var fachName = subjectNameMap[subject] || subject;
+        window.location.href = "abitur-kolloquium-trainer/dist/?fach=" + encodeURIComponent(fachName);
+        return;
+      }
+
+      // Schriftlich → open module screen as before
+      openModuleScreen(subject, true);
+    }
+
+    function openModuleScreen(subject, _push) {
       sessionStorage.setItem("current_subject", subject);
       document.getElementById("subject-screen").style.display = "none";
 
@@ -2817,12 +3084,12 @@
         var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
           "latein", "mathe", "chemie", "physik", "biologie"];
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
-          selectSubject(backTo);
+          openModuleScreen(backTo);
         } else if (backTo === "subjects") {
           showSubjectSelection();
         } else {
           var lastSubject = sessionStorage.getItem("current_subject");
-          if (lastSubject) selectSubject(lastSubject);
+          if (lastSubject) openModuleScreen(lastSubject);
           else showSubjectSelection();
         }
 
@@ -2956,7 +3223,7 @@
     window.addEventListener("popstate", function (e) {
       if (!e.state || !e.state.screen) return;
       if (e.state.screen === "subjects") showSubjectSelection();
-      else if (e.state.screen.indexOf("module-") === 0) selectSubject(e.state.screen.replace("module-", ""));
+      else if (e.state.screen.indexOf("module-") === 0) openModuleScreen(e.state.screen.replace("module-", ""));
     });
 
     window.onload = function () {
