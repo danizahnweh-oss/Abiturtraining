@@ -267,6 +267,85 @@
       margin-left: .4rem
     }
 
+    /* Chart & image styles */
+    .material-chart {
+      margin: 1rem 0;
+      max-height: 280px
+    }
+
+    .stat-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .5rem 0;
+      font-size: .85rem
+    }
+
+    .stat-table th {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: .5rem .7rem;
+      text-align: left;
+      font-weight: 700;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      border-bottom: 2px solid var(--accent)
+    }
+
+    .stat-table td {
+      padding: .45rem .7rem;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .stat-table tr:hover td {
+      background: var(--accent-glow)
+    }
+
+    .stat-table td:last-child,
+    .stat-table th:last-child {
+      text-align: right
+    }
+
+    .material-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin: 0
+    }
+
+    .material-figure {
+      margin: 0;
+      padding: 0
+    }
+
+    .material-caption {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-top: .4rem;
+      font-style: italic;
+      line-height: 1.4
+    }
+
+    .material-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .2rem;
+      opacity: .7
+    }
+
+    .material-img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 2rem;
+      color: var(--ink-muted);
+      font-size: .85rem
+    }
+
     @media(max-width:650px) {
       .be-scores-grid {
         grid-template-columns: 1fr
@@ -695,9 +774,18 @@
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
-            html += '<details class="material-details"><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var mtype = detectMaterialType(m);
+            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : mtype === "bild" ? "\ud83d\uddbc\ufe0f " : "";
+            html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
-            if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+            if (mtype === "statistik" || mtype === "diagramm") {
+              if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+              html += '<div class="material-chart"><canvas id="chart-bio-' + idx + '-' + mi + '"></canvas></div>';
+            } else if (mtype === "bild") {
+              html += '<div class="material-img-loading" id="img-bio-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else {
+              if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+            }
             if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
             html += '</div></details>';
           });
@@ -724,6 +812,39 @@
       }).join("");
 
       renderMath(container);
+
+      // Load images immediately (they work hidden), defer charts to details toggle
+      aufgaben.forEach(function (a, idx) {
+        var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
+        mats.forEach(function (m, mi) {
+          var mtype = detectMaterialType(m);
+          if (mtype === "bild" && m.text) {
+            loadDallEImage(m.text, 'img-bio-' + idx + '-' + mi);
+          }
+        });
+      });
+
+      // Charts: render when <details> is opened (Chart.js needs visible canvas)
+      container.querySelectorAll("details.material-details").forEach(function (det) {
+        det.addEventListener("toggle", function () {
+          if (!this.open) return;
+          var canvases = this.querySelectorAll("canvas[id^='chart-bio-']");
+          canvases.forEach(function (canvas) {
+            if (canvas._chartRendered) return;
+            canvas._chartRendered = true;
+            var parts = canvas.id.replace("chart-bio-", "").split("-");
+            var aIdx = parseInt(parts[0]), mIdx = parseInt(parts[1]);
+            var aufg = aufgaben[aIdx];
+            if (!aufg) return;
+            var matsList = aufg.materialien || (Array.isArray(aufg.material) ? aufg.material : []);
+            var mat = matsList[mIdx];
+            if (!mat || !mat.text || !mat.text.includes("|")) return;
+            var mtype = detectMaterialType(mat);
+            renderBioChart(mat.text, canvas.id, detectChartType(mat, mtype));
+          });
+        });
+      });
+
       updateWahlUI();
     }
 
@@ -1177,6 +1298,73 @@
     function clearMathFieldFor(feIdx) {
       var mf = document.getElementById("formelMF_" + feIdx);
       if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
+    }
+
+    /* ====== MATERIAL TYPE AUTO-DETECTION ====== */
+    function detectMaterialType(m) {
+      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "text")) return m.type;
+      if (!m.text || typeof m.text !== "string") return "text";
+      var txt = m.text.trim();
+      // Detect markdown table (has | delimiters with data rows)
+      var tableLines = txt.split("\n").filter(function (l) { return l.trim().startsWith("|") && l.trim().endsWith("|"); });
+      var dataLines = tableLines.filter(function (l) { return !l.match(/^\|[\s\-:|]+\|$/); });
+      if (dataLines.length >= 3) {
+        // Has a substantial table — check if it looks like a time series (→ diagramm) or categories (→ statistik)
+        var headers = dataLines[0].split("|").map(function (c) { return c.trim().toLowerCase(); }).filter(Boolean);
+        var isTimeSeries = headers.some(function (h) { return /zeit|time|min\b|ms\b|sec|stunde|tag|hour/.test(h); });
+        return isTimeSeries ? "diagramm" : "statistik";
+      }
+      return "text";
+    }
+
+    function detectChartType(m, detectedType) {
+      if (m.chart_type) return m.chart_type;
+      return detectedType === "diagramm" ? "line" : "bar";
+    }
+
+    /* ====== CHART & IMAGE HELPERS ====== */
+    const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
+
+    function renderBioChart(markdown, canvasId, chartType) {
+      var canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      var lines = markdown.split("\n").filter(function (l) { return l.trim().startsWith("|"); });
+      if (lines.length < 2) return;
+      var parse = function (line) { return line.split("|").map(function (c) { return c.trim(); }).filter(Boolean); };
+      var headers = parse(lines[0]);
+      var dataLines = lines.filter(function (l) { return !l.match(/^\|[\s\-:|]+\|$/); });
+      if (dataLines.length < 2) return;
+      var rows = dataLines.slice(1).map(parse);
+      var labels = rows.map(function (r) { return r[0]; });
+      var datasets = headers.slice(1).map(function (h, i) {
+        return {
+          label: h,
+          data: rows.map(function (r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
+          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+          borderColor: CHART_COLORS[i % CHART_COLORS.length],
+          borderWidth: chartType === "line" ? 2 : 1,
+          tension: chartType === "line" ? 0.3 : 0,
+          fill: chartType === "line" ? false : undefined,
+          pointRadius: chartType === "line" ? 4 : undefined
+        };
+      });
+      new Chart(canvas, {
+        type: chartType || "bar",
+        data: { labels: labels, datasets: datasets },
+        options: { responsive: true, plugins: { legend: { position: "top" } } }
+      });
+    }
+
+    async function loadDallEImage(prompt, containerId) {
+      try {
+        var d = await apiCall("/api/generate-image", { prompt: prompt });
+        var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
+        var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
+        document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+      } catch (e) {
+        console.error("Bild-Fehler:", e);
+        document.getElementById(containerId).innerHTML = '<div style="color:var(--ink-muted);font-size:.8rem;text-align:center;padding:1rem">Bild konnte nicht geladen werden.</div>';
+      }
     }
 
     /* ====== INIT LEVEL DISPLAY ====== */

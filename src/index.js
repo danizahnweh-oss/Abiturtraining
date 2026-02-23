@@ -7016,18 +7016,32 @@ JEDE AUFGABENGRUPPE hat:
 - Gesamt: ${beProAufgabe} BE
 
 MATERIALIEN — VIELFÄLTIG UND DATENREICH:
-Jede Aufgabengruppe MUSS mindestens 2-3 verschiedene Materialtypen enthalten:
-- **Datentabellen** mit konkreten Zahlenwerten (Messwerte, Versuchsergebnisse) als Markdown-Tabelle:
-  | Bedingung | Messwert 1 | Messwert 2 |
-  |-----------|-----------|-----------|
-  | ... | ... | ... |
-- **Diagrammbeschreibungen**: Beschreibe Kurvenverläufe, Achsenbeschriftungen und Trends so detailliert, dass der Schüler das Diagramm vor sich sieht. Z.B. "Abbildung 1 zeigt den zeitlichen Verlauf des Membranpotentials (y-Achse: Potential in mV, von -80 bis +40; x-Achse: Zeit in ms, von 0 bis 5). Bei t = 1 ms steigt das Potential steil von -70 mV auf +30 mV an, fällt bei t = 2 ms auf -80 mV ab..."
-- **Stammbäume** (bei Genetik): Beschreibe den Stammbaum als Text mit Generationen (I, II, III), Geschlechtern und Phänotypen
-- **Versuchsbeschreibungen**: Methode, Durchführung, Beobachtungen/Ergebnisse
-- **Textquellen**: Fachtexte zu Forschungsergebnissen, Zeitungsartikel, Auszüge aus Studien
-- **Gelelektrophorese-Ergebnisse**: Beschreibe Bandenmuster als Text (z.B. "Spur 1: Banden bei 500 bp, 300 bp, 200 bp; Spur 2: Banden bei 800 bp, 200 bp")
+Jede Aufgabengruppe MUSS mindestens 2-3 verschiedene Materialtypen enthalten.
+Jedes Material hat ein "type"-Feld:
+
+- **"statistik"** — Datentabellen mit konkreten Zahlenwerten (Messwerte, Versuchsergebnisse). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. "chart_type": "bar". Beispiel:
+  | Temperatur (°C) | Aktivität (U/ml) |
+  |---|---|
+  | 20 | 45 |
+  | 30 | 78 |
+  | 40 | 120 |
+
+- **"diagramm"** — Kurvenverläufe mit x/y-Datenpunkten (Membranpotential über Zeit, Enzymaktivität vs. Temperatur, Populationswachstum, Fotosyntheserate). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. Achsenbeschriftungen als Tabellen-Header. "chart_type": "line". Beispiel:
+  | Zeit (ms) | Potential (mV) |
+  |---|---|
+  | 0 | -70 |
+  | 1 | +30 |
+  | 2 | -80 |
+
+- **"bild"** — Fotos von realen biologischen Objekten die als Stockfoto geladen werden (z.B. Mikroskopaufnahmen, Laboraufbauten, Ökosysteme, Organismen, DNA-Gele im Labor). "text" enthält 2-4 ENGLISCHE Suchbegriffe für ein Stockfoto (z.B. "microscope cell biology", "gel electrophoresis laboratory", "forest ecosystem biodiversity", "neuron fluorescence microscopy"). KEIN chart_type. NICHT verwenden für: Stammbäume, schematische Diagramme, Kreuzungsschemata — diese gehören als detaillierte Textbeschreibung in type "text".
+
+- **"text"** — Textquellen, Versuchsbeschreibungen, Fachtexte, Forschungsergebnisse, schematische Beschreibungen (Stammbäume als Textformat mit Generationen I/II/III, Gelelektrophorese-Bandenmuster als Textbeschreibung, Kreuzungsschemata). "text" enthält den Fließtext. KEIN chart_type.
 
 WICHTIG:
+- KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
+- KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
+- KRITISCH: Für "bild": "text" MUSS ein englischer DALL-E-Prompt sein (z.B. "Scientific pedigree diagram..."). KEINE deutsche Textbeschreibung!
+- Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "text" oder "bild"
 - Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
@@ -7049,22 +7063,28 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "aufgaben": [
     {
       "id": "Aufgabe 1",
-      "titel": "Titel der Aufgabe",
-      "sachgebiet": "genetik",
+      "titel": "Enzymaktivität bei verschiedenen Temperaturen",
+      "sachgebiet": "stoffwechsel",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
+        {"id": "M1", "titel": "Messergebnisse Enzymaktivität", "type": "statistik", "text": "| Temperatur (°C) | Aktivität (U/ml) |\\n|---|---|\\n| 20 | 45 |\\n| 30 | 78 |\\n| 40 | 120 |\\n| 50 | 95 |\\n| 60 | 25 |", "chart_type": "bar"},
+        {"id": "M2", "titel": "Verlauf der Reaktionsgeschwindigkeit", "type": "diagramm", "text": "| Zeit (min) | Produktkonzentration (mmol/l) |\\n|---|---|\\n| 0 | 0 |\\n| 2 | 12 |\\n| 4 | 22 |\\n| 6 | 28 |\\n| 8 | 31 |\\n| 10 | 32 |", "chart_type": "line"},
+        {"id": "M3", "titel": "Forschungstext", "type": "text", "text": "Ein Forscherteam untersuchte die Wirkung von Schwermetallionen auf die Enzymaktivität..."}
       ],
       "teilaufgaben": [
-        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 5},
-        {"id": "1.2", "text": "...", "be": 8}
+        {"id": "1.1", "text": "Beschreiben Sie die in M1 dargestellten Messergebnisse.", "be": 5},
+        {"id": "1.2", "text": "Erklären Sie den Kurvenverlauf in M2.", "be": 8}
       ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 2",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
+      "titel": "Stammbaumanalyse",
+      "sachgebiet": "genetik",
+      "material": [
+        {"id": "M1", "titel": "Stammbaum Familie X", "type": "text", "text": "Stammbaum über drei Generationen:\\n\\nGeneration I: Vater (gesund) × Mutter (gesund)\\nGeneration II: Tochter 1 (gesund), Tochter 2 (gesund, Konduktorin), Sohn 1 (betroffen)\\nGeneration III: ...\\n\\nDie Erkrankung tritt nur bei männlichen Nachkommen auf."},
+        {"id": "M2", "titel": "Gelelektrophorese im Labor", "type": "bild", "text": "gel electrophoresis DNA laboratory"},
+        {"id": "M3", "titel": "Bandenmuster der Gelelektrophorese", "type": "text", "text": "Die Gelelektrophorese zeigt folgende Bandenmuster:\\nSpur 1 (Marker): Banden bei 1000 bp, 500 bp, 250 bp\\nSpur 2 (Patient A): Banden bei 800 bp, 200 bp\\nSpur 3 (Patient B): Banden bei 500 bp, 300 bp, 200 bp\\n..."}
+      ],
       "teilaufgaben": [...],
       "gesamt_be": ${beProAufgabe}
     },
@@ -7072,7 +7092,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "id": "Aufgabe 3",
       "titel": "...",
       "sachgebiet": "...",
-      "material": [...],
+      "material": [{"id": "M1", "titel": "...", "type": "statistik|diagramm|bild|text", "text": "...", "chart_type": "bar|line"}],
       "teilaufgaben": [...],
       "gesamt_be": ${beProAufgabe}
     },
@@ -7080,7 +7100,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "id": "Aufgabe 4",
       "titel": "...",
       "sachgebiet": "...",
-      "material": [...],
+      "material": [{"id": "M1", "titel": "...", "type": "statistik|diagramm|bild|text", "text": "...", "chart_type": "bar|line"}],
       "teilaufgaben": [...],
       "gesamt_be": ${beProAufgabe}
     }
@@ -7095,7 +7115,13 @@ ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlA
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
 KRITISCH: Alle Formeln in LaTeX-Notation.
-KRITISCH: Jede Aufgabengruppe MUSS mindestens 2-3 reichhaltige Materialien haben (Datentabellen mit echten Zahlenwerten, detaillierte Diagrammbeschreibungen, Versuchsprotokolle, Stammbäume, Gelelektrophorese-Bandenmuster). Keine leeren oder oberflächlichen Materialien!`;
+KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
+- "statistik" (type + chart_type "bar"): Datentabellen → text ist Markdown-Tabelle mit Zahlenwerten
+- "diagramm" (type + chart_type "line"): Kurvenverläufe → text ist Markdown-Tabelle mit x/y-Datenpunkten
+- "bild" (type): Fotos realer Objekte → text sind 2-4 englische Suchbegriffe (z.B. "neuron fluorescence microscopy")
+- "text" (type): Fachtexte, Versuchsbeschreibungen, Stammbäume, Schemata → text ist Fließtext
+KEINE Textbeschreibungen von Diagrammen! Stattdessen echte Datenpunkte als Markdown-Tabelle.
+Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild für Fotos.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
