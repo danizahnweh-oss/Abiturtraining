@@ -111,7 +111,7 @@ export default function App() {
   const [step, setStep] = useState<Step>('setup');
   const [subject, setSubject] = useState(fachFromUrl);
   const [examLevel, setExamLevel] = useState<ExamLevel>('gA');
-  const [gestrichen, setGestrichen] = useState<'12/1' | '12/2' | ''>('');
+  const [gestrichen, setGestrichen] = useState<'13/1' | '13/2' | ''>('');
   const [spHalbjahr, setSpHalbjahr] = useState('');
   const [schwerpunkt, setSchwerpunkt] = useState('');
 
@@ -333,11 +333,11 @@ export default function App() {
                       <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Halbjahr streichen</label>
                       <p className="text-xs opacity-50 ml-1 -mt-1">Welches Halbjahr möchtest du von der Prüfung ausschließen?</p>
                       <div className="flex gap-3">
-                        <Pill active={gestrichen === '12/1'} onClick={() => { setGestrichen('12/1'); resetSpHalbjahr(); }} className="flex-1 text-center">
-                          <span className="font-medium">12/1</span>
+                        <Pill active={gestrichen === '13/1'} onClick={() => { setGestrichen('13/1'); resetSpHalbjahr(); }} className="flex-1 text-center">
+                          <span className="font-medium">13/1</span>
                         </Pill>
-                        <Pill active={gestrichen === '12/2'} onClick={() => { setGestrichen('12/2'); resetSpHalbjahr(); }} className="flex-1 text-center">
-                          <span className="font-medium">12/2</span>
+                        <Pill active={gestrichen === '13/2'} onClick={() => { setGestrichen('13/2'); resetSpHalbjahr(); }} className="flex-1 text-center">
+                          <span className="font-medium">13/2</span>
                         </Pill>
                       </div>
                     </div>
