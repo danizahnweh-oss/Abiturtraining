@@ -118,47 +118,6 @@
       color: var(--accent)
     }
 
-    /* Aufgabentyp toggle */
-    .type-toggle {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: .6rem;
-      margin: 1rem 0
-    }
-
-    .type-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .3rem;
-      padding: 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      background: var(--bg-warm);
-      cursor: pointer;
-      font-weight: 600;
-      font-size: .85rem;
-      color: var(--ink-muted);
-      transition: all .2s
-    }
-
-    .type-btn:hover {
-      border-color: var(--accent);
-      color: var(--ink)
-    }
-
-    .type-btn.active {
-      border-color: var(--accent);
-      background: var(--accent-glow);
-      color: var(--accent)
-    }
-
-    .type-btn .type-meta {
-      font-size: .75rem;
-      font-weight: 400;
-      color: var(--ink-muted)
-    }
-
     /* Teilaufgaben in task display */
     .teilaufgabe-item {
       padding: .6rem 0;
@@ -208,8 +167,7 @@
         grid-template-columns: 1fr
       }
 
-      .mode-toggle,
-      .type-toggle {
+      .mode-toggle {
         grid-template-columns: 1fr
       }
     }
@@ -270,19 +228,6 @@
               <div class="hj-name">Geometrie</div>
               <div class="hj-desc">Vektoren, Geraden, Ebenen, Abst&auml;nde</div>
             </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Aufgabentyp</label>
-          <div class="type-toggle">
-            <button class="type-btn active" id="typeKurz" onclick="setAufgabentyp('kurzaufgabe')">
-              Kurzaufgabe
-              <span class="type-meta">5 BE &middot; ~10 min &middot; ohne CAS</span>
-            </button>
-            <button class="type-btn" id="typeLang" onclick="setAufgabentyp('langaufgabe')">
-              Langaufgabe
-              <span class="type-meta">20&ndash;30 BE &middot; ~45 min &middot; mit CAS</span>
-            </button>
           </div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
@@ -486,7 +431,6 @@
               <tr>
                 <th>Datum</th>
                 <th>Gebiet</th>
-                <th>Typ</th>
                 <th>BE</th>
                 <th>NP</th>
                 <th></th>
@@ -522,7 +466,6 @@
   <!-- MODULE-SPECIFIC CODE -->
   <script>
     CONFIG.sachgebiet = "analysis";
-    CONFIG.aufgabentyp = "kurzaufgabe";
 
     /* ====== GeoGebra lazy loader ====== */
     let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
@@ -639,16 +582,6 @@
     function selectSachgebiet(sg) {
       CONFIG.sachgebiet = sg;
       document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
-      // Adjust timer default
-      document.getElementById("timerMinutes").value = CONFIG.aufgabentyp === "kurzaufgabe" ? 15 : 45;
-    }
-
-    function setAufgabentyp(typ) {
-      CONFIG.aufgabentyp = typ;
-      document.getElementById("typeKurz").classList.toggle("active", typ === "kurzaufgabe");
-      document.getElementById("typeLang").classList.toggle("active", typ === "langaufgabe");
-      document.getElementById("timerMinutes").value = typ === "kurzaufgabe" ? 15 : 45;
-      document.getElementById("totalBE").value = typ === "kurzaufgabe" ? 5 : 25;
     }
 
     function setSetupMode(m) {
@@ -667,8 +600,7 @@
       localStorage.setItem(key, JSON.stringify({
         studentTexts: studentTexts,
         storedData: CONFIG.storedData,
-        sachgebiet: CONFIG.sachgebiet,
-        aufgabentyp: CONFIG.aufgabentyp
+        sachgebiet: CONFIG.sachgebiet
       }));
     }
 
@@ -693,7 +625,6 @@
             if (first) first.value = s.studentText;
           }
           if (s.sachgebiet) selectSachgebiet(s.sachgebiet);
-          if (s.aufgabentyp) setAufgabentyp(s.aufgabentyp);
           updateWordCount();
         }
       } catch { }
@@ -735,7 +666,6 @@
       try {
         const d = await apiCall("/api/generate-mathe", {
           sachgebiet: CONFIG.sachgebiet,
-          aufgabentyp: CONFIG.aufgabentyp,
           be: parseInt(document.getElementById("totalBE").value) || 25,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45
         });
@@ -768,7 +698,7 @@
     }
 
     function useUploadedTask() {
-      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
       renderTask(c);
@@ -776,7 +706,7 @@
     }
 
     function useManualTask() {
-      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet, aufgabentyp: CONFIG.aufgabentyp };
+      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
       renderTask(c);
@@ -953,7 +883,6 @@
           teilaufgaben: CONFIG.storedData.teilaufgaben || [],
           gesamt_be: CONFIG.storedData.gesamt_be || 0,
           sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
-          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
           student_text: allText,
           student_texts: student_texts
         });
@@ -982,7 +911,6 @@
 
         saveToHistory({
           sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
-          aufgabentyp: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
           be_erreicht: beErreicht,
           be_max: beMax,
           total: np
@@ -991,7 +919,7 @@
           student_name: sessionStorage.getItem("student_name") || "Unbekannt",
           type: "mathe",
           topic: SG_LABELS[CONFIG.storedData.sachgebiet || CONFIG.sachgebiet] || "Mathe",
-          content: CONFIG.storedData.aufgabentyp || CONFIG.aufgabentyp,
+          content: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet,
           language: np,
           total: np,
           date: new Date().toISOString()
@@ -1031,7 +959,7 @@
     function renderHistoryTable(history) {
       document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
         const ic = SG_ICONS[x.sachgebiet] || "\u{1F4D0}";
-        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td>' + (x.aufgabentyp || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet] || "") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
       }).join("");
     }
 
