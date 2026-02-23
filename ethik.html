@@ -372,8 +372,16 @@
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
-        <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div class="form-group" style="margin:0">
+            <label>Bewertungseinheiten (BE)</label>
+            <input type="number" id="totalBE" value="60" min="10" max="150" style="max-width:120px">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Bearbeitungszeit (Min.)</label>
+            <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
+          </div>
+        </div>
       </div>
     </section>
 
@@ -758,7 +766,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         const d = await apiCall("/api/generate-ethik", {
           lernbereich: CONFIG.lernbereich,
           schwerpunkt: document.getElementById("schwerpunktSelect").value,
-          level: level
+          level: level,
+          be: parseInt(document.getElementById("totalBE").value) || 60,
+          zeit: parseInt(document.getElementById("timerMinutes").value) || 90
         });
         CONFIG.storedData = d;
         renderTask(d);

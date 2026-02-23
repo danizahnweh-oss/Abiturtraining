@@ -318,9 +318,15 @@
             <option value="random">Zufällig</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Bearbeitungszeit (Minuten)</label>
-          <input type="number" id="timerMinutes" value="135" min="30" max="315" style="max-width:150px">
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div class="form-group" style="margin:0">
+            <label>Bewertungseinheiten (BE)</label>
+            <input type="number" id="totalBE" value="60" min="10" max="150" style="max-width:120px">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Bearbeitungszeit (Min.)</label>
+            <input type="number" id="timerMinutes" value="135" min="30" max="315" style="max-width:120px">
+          </div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
         <div class="loader" id="setupLoader">
@@ -608,8 +614,9 @@ Struktur:
       const niveau = document.getElementById("niveauSelect").value;
       const fbGroup = document.getElementById("fachbereichGroup");
       fbGroup.style.display = niveau === "gA" ? "none" : "block";
-      // Update timer default
+      // Update timer and BE defaults
       document.getElementById("timerMinutes").value = niveau === "gA" ? "210" : "135";
+      document.getElementById("totalBE").value = niveau === "gA" ? "100" : "60";
       updateThemenDropdown();
     }
 
@@ -705,7 +712,9 @@ Struktur:
         const d = await apiCall("/api/generate-wr", {
           niveau: niveau,
           fachbereich: niveau === "gA" ? "integriert" : fb,
-          thema: document.getElementById("themaSelect").value
+          thema: document.getElementById("themaSelect").value,
+          be: parseInt(document.getElementById("totalBE").value) || 60,
+          zeit: parseInt(document.getElementById("timerMinutes").value) || 135
         });
         CONFIG.storedData = d;
         CONFIG.storedData._niveau = niveau;
