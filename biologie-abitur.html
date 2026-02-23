@@ -1378,7 +1378,7 @@
         document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = '<div style="color:var(--ink-muted);font-size:.8rem;text-align:center;padding:1rem">Bild konnte nicht geladen werden.</div>';
+        document.getElementById(containerId).innerHTML = '<div style="color:#e11d48;font-size:.8rem;text-align:center;padding:1rem">Bild-Fehler: ' + escapeHtml(e.message) + '</div>';
       }
     }
 
