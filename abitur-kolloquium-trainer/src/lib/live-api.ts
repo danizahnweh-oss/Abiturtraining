@@ -111,37 +111,54 @@ export async function generateWrittenFeedback(config: {
     if (config.modelTranscription[i]) lines.push(`Prüfer: ${config.modelTranscription[i]}`);
   }
 
-  const prompt = `Du bist ein erfahrener Abiturprüfer. Gib detailliertes, konstruktives Feedback zu dieser Kolloquiumsprüfung.
+  const prompt = `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Analysiere das folgende Prüfungstranskript einer Kolloquiumsprüfung und gib KRITISCHES, EHRLICHES Feedback.
 
 Fach: ${config.subject} (${config.examLevel === 'eA' ? 'erhöht' : 'grundlegend'})
 Schwerpunkt: ${config.schwerpunkt}
 
-Transkript:
+VOLLSTÄNDIGES TRANSKRIPT DER PRÜFUNG:
+---
 ${lines.join('\n') || '(Kein Transkript verfügbar)'}
+---
+
+WICHTIGE ANWEISUNGEN:
+- Du MUSST dich auf KONKRETE Aussagen des Prüflings im Transkript beziehen. Zitiere wörtlich, was der Prüfling gesagt hat.
+- Benenne KONKRET, was fachlich falsch, ungenau oder oberflächlich war. Nenne die korrekte Antwort.
+- Bewerte EHRLICH und KRITISCH. Vergib KEINE Gefälligkeitsnoten. Wenn die Leistung schwach war, sage das klar.
+- Unterscheide zwischen auswendig Gelerntem (AB I) und eigenständigem Denken (AB II/III).
+- Bewerte auch die Ausdrucksweise: Fachsprache, Argumentationsstruktur, Präsentationsfähigkeit.
 
 Strukturiere dein Feedback so:
 
 ## Gesamteindruck
-(2–3 Sätze)
+(2–3 Sätze, ehrliche Einschätzung der Gesamtleistung)
+
+## Fachliche Analyse
+- Was hat der Prüfling KONKRET gesagt? (mit Zitaten aus dem Transkript)
+- Was war fachlich korrekt?
+- Was war fachlich FALSCH oder UNGENAU? (mit Richtigstellung)
+- Was wurde NICHT erwähnt, obwohl es wichtig gewesen wäre?
 
 ## Stärken
-- …
+- Konkrete Beispiele aus dem Gespräch nennen
 
-## Verbesserungspotential
-- …
+## Schwächen und Fehler
+- Konkrete Beispiele aus dem Gespräch nennen
+- Fachliche Fehler benennen und korrigieren
 
 ## Bewertung nach Anforderungsbereichen
-- AB I (Reproduktion): …
-- AB II (Transfer): …
-- AB III (Reflexion): …
+- AB I (Reproduktion): Wurde Grundwissen korrekt wiedergegeben? Konkrete Beispiele.
+- AB II (Transfer): Konnte der Prüfling Wissen anwenden und Zusammenhänge herstellen? Konkrete Beispiele.
+- AB III (Reflexion): Gab es eigenständige Urteile, kritische Bewertungen? Konkrete Beispiele.
 
-## Empfohlene Punktzahl
-(0–15 Punkte mit Begründung)
+## Punkteeinschätzung
+(0–15 Punkte mit DETAILLIERTER Begründung, orientiert an den Notenstufen: 15-13 sehr gut, 12-10 gut, 9-7 befriedigend, 6-4 ausreichend, 3-1 mangelhaft, 0 ungenügend)
 
-## Tipps für die nächste Prüfung
-- …
+## Konkrete Verbesserungstipps
+- Was genau sollte der Prüfling beim nächsten Mal anders machen?
+- Welche Themen sollte er/sie nochmal lernen?
 
-Sei ehrlich aber ermutigend. Schreibe auf Deutsch.`;
+Schreibe auf Deutsch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
@@ -164,23 +181,32 @@ function getLanguageInstruction(subject: string): string {
 }
 
 function buildFeedbackInstruction(config: LiveSessionConfig): string {
-  return `Du bist ein erfahrener bayerischer Abiturprüfer und gibst jetzt MÜNDLICHES FEEDBACK zu einer gerade absolvierten Kolloquiumsprüfung.
+  return `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Du gibst jetzt MÜNDLICHES FEEDBACK zu der gerade absolvierten Kolloquiumsprüfung.
 
 Fach: ${config.subject} (${config.examLevel === 'eA' ? 'erhöht' : 'grundlegend'})
 Schwerpunkt: ${config.schwerpunkt}
 
-Bisheriges Prüfungstranskript:
+TRANSKRIPT DER PRÜFUNG:
+---
 ${config.examTranscript || '(Nicht verfügbar)'}
+---
 
-AUFGABE:
-1. Gib dem Prüfling ein strukturiertes, mündliches Feedback.
-2. Beginne mit einem positiven Gesamteindruck.
-3. Nenne konkrete Stärken.
-4. Nenne Verbesserungspotential mit konkreten Tipps.
-5. Gib eine Einschätzung der Punktzahl (0–15) mit Begründung.
-6. Beantworte Rückfragen des Prüflings.
+DEINE AUFGABE – KRITISCHES, EHRLICHES FEEDBACK:
 
-Sprich ermutigend, aber ehrlich. Sprich Deutsch.`;
+1. Beginne mit einem EHRLICHEN Gesamteindruck (nicht beschönigen!).
+2. Gehe auf KONKRETE Aussagen des Prüflings ein. Zitiere, was er/sie gesagt hat.
+3. Benenne KLAR, was fachlich FALSCH oder UNGENAU war, und nenne die richtige Antwort.
+4. Benenne, was GEFEHLT hat – welche wichtigen Aspekte wurden nicht erwähnt?
+5. Nenne konkrete Stärken mit Beispielen aus dem Gespräch.
+6. Bewerte die Anforderungsbereiche:
+   - AB I (Reproduktion): Wurde Grundwissen korrekt wiedergegeben?
+   - AB II (Transfer): Konnte Wissen angewendet und Zusammenhänge hergestellt werden?
+   - AB III (Reflexion): Gab es eigenständige Urteile und kritische Bewertungen?
+7. Gib eine Punkteeinschätzung (0–15) mit klarer Begründung. Vergib KEINE Gefälligkeitsnoten!
+8. Gib 2–3 KONKRETE Tipps, was beim nächsten Mal besser gemacht werden sollte.
+9. Beantworte Rückfragen des Prüflings ehrlich.
+
+WICHTIG: Schönreden hilft dem Prüfling nicht! Wenn die Leistung mittelmäßig oder schwach war, sage das klar und begründe es. Sprich Deutsch.`;
 }
 
 function buildExamInstruction(config: LiveSessionConfig): string {

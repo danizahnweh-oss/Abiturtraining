@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
-  RotateCcw, PenLine, Volume2,
+  RotateCcw, PenLine, Volume2, ArrowLeft,
 } from 'lucide-react';
 import {
   LiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
@@ -256,6 +256,14 @@ export default function App() {
       {/* Header */}
       <header className="max-w-4xl mx-auto pt-10 px-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
+          <a
+            href="/"
+            onClick={(e) => { e.preventDefault(); sessionRef.current?.stop(); window.location.href = '/'; }}
+            className="w-10 h-10 bg-white rounded-xl flex items-center justify-center border border-black/5 hover:bg-gray-50 transition-colors shadow-sm"
+            title="Zurück zur Startseite"
+          >
+            <ArrowLeft size={20} className="opacity-60" />
+          </a>
           <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200">
             <GraduationCap size={24} />
           </div>
