@@ -774,7 +774,10 @@
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
+            // Normalize escaped newlines in material text
+            if (m.text && typeof m.text === "string") m.text = normalizeMaterialText(m.text);
             var mtype = detectMaterialType(m);
+            console.log("[Bio-Material] Aufgabe " + (idx+1) + " M" + (mi+1) + ": type=" + (m.type||"NONE") + " detected=" + mtype + " hasTable=" + (m.text && m.text.includes("|")) + " chart_type=" + (m.chart_type||"NONE"));
             var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : mtype === "bild" ? "\ud83d\uddbc\ufe0f " : "";
             html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
@@ -819,6 +822,7 @@
         mats.forEach(function (m, mi) {
           var mtype = detectMaterialType(m);
           if (mtype === "bild" && m.text) {
+            console.log("[Bio-Bild] Loading image for Aufgabe " + (idx+1) + " M" + (mi+1) + ": " + m.text.substring(0, 80));
             loadDallEImage(m.text, 'img-bio-' + idx + '-' + mi);
           }
         });
@@ -838,9 +842,12 @@
             if (!aufg) return;
             var matsList = aufg.materialien || (Array.isArray(aufg.material) ? aufg.material : []);
             var mat = matsList[mIdx];
-            if (!mat || !mat.text || !mat.text.includes("|")) return;
+            if (!mat || !mat.text) return;
+            var normalizedText = normalizeMaterialText(mat.text);
+            if (!normalizedText.includes("|")) return;
             var mtype = detectMaterialType(mat);
-            renderBioChart(mat.text, canvas.id, detectChartType(mat, mtype));
+            console.log("[Bio-Chart] Rendering chart for Aufgabe " + aIdx + " M" + mIdx + " type=" + mtype);
+            renderBioChart(normalizedText, canvas.id, detectChartType(mat, mtype));
           });
         });
       });
@@ -1300,16 +1307,23 @@
       if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); }
     }
 
+    /* ====== MATERIAL TEXT NORMALIZATION ====== */
+    function normalizeMaterialText(text) {
+      if (!text || typeof text !== "string") return text;
+      // Replace literal \n (backslash + n) with actual newlines
+      return text.replace(/\\n/g, "\n");
+    }
+
     /* ====== MATERIAL TYPE AUTO-DETECTION ====== */
     function detectMaterialType(m) {
       if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "text")) return m.type;
       if (!m.text || typeof m.text !== "string") return "text";
-      var txt = m.text.trim();
+      var txt = normalizeMaterialText(m.text);
       // Detect markdown table (has | delimiters with data rows)
       var tableLines = txt.split("\n").filter(function (l) { return l.trim().startsWith("|") && l.trim().endsWith("|"); });
       var dataLines = tableLines.filter(function (l) { return !l.match(/^\|[\s\-:|]+\|$/); });
-      if (dataLines.length >= 3) {
-        // Has a substantial table — check if it looks like a time series (→ diagramm) or categories (→ statistik)
+      if (dataLines.length >= 2) {
+        // Has a table with header + at least 1 data row → chart
         var headers = dataLines[0].split("|").map(function (c) { return c.trim().toLowerCase(); }).filter(Boolean);
         var isTimeSeries = headers.some(function (h) { return /zeit|time|min\b|ms\b|sec|stunde|tag|hour/.test(h); });
         return isTimeSeries ? "diagramm" : "statistik";
@@ -1328,6 +1342,7 @@
     function renderBioChart(markdown, canvasId, chartType) {
       var canvas = document.getElementById(canvasId);
       if (!canvas) return;
+      markdown = normalizeMaterialText(markdown);
       var lines = markdown.split("\n").filter(function (l) { return l.trim().startsWith("|"); });
       if (lines.length < 2) return;
       var parse = function (line) { return line.split("|").map(function (c) { return c.trim(); }).filter(Boolean); };
