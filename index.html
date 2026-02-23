@@ -1523,10 +1523,10 @@
     </div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
-      <p id="guestHint" style="display:none; color:var(--ink-muted); font-size:0.95rem; margin-top:0.3rem;">Wähle ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
+      <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
         <button onclick="enableCountdown()"
-          style="background:var(--surface); border:1px solid var(--border); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:var(--ink-muted); transition:all 0.2s;">
+          style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:all 0.2s;">
           📅 Prüfungs-Countdown anzeigen
         </button>
       </div>
@@ -2665,7 +2665,8 @@
         if (isLoggedIn) {
           greetEl.appendChild(document.createTextNode(greet + ", "));
           var accentSpan = document.createElement("span");
-          accentSpan.style.color = "var(--accent)";
+          accentSpan.style.color = "rgba(255,255,255,0.85)";
+          accentSpan.style.fontWeight = "800";
           accentSpan.textContent = name;
           greetEl.appendChild(accentSpan);
           greetEl.appendChild(document.createTextNode("!"));
