@@ -24,28 +24,28 @@ function initAiTutor() {
       display: none;
     }
     #ai-tutor-btn {
-      width: 70px;
-      height: 70px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: white url('flowie-icon.png') no-repeat center center;
-      background-size: 90%;
-      border: 3px solid #fff;
+      background-size: 85%;
+      border: none;
       cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25);
+      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      animation: ai-pulse 2.5s infinite;
+      animation: ai-pulse 3s infinite;
     }
     @keyframes ai-pulse {
-      0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
-      50% { transform: scale(1.05); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); }
-      100% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+      0% { transform: scale(1); box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25); }
+      50% { transform: scale(1.03); box-shadow: 0 12px 35px rgba(79, 70, 229, 0.3); }
+      100% { transform: scale(1); box-shadow: 0 8px 25px rgba(79, 70, 229, 0.25); }
     }
-    #ai-tutor-btn:hover { 
-      transform: scale(1.1) rotate(2deg);
+    #ai-tutor-btn:hover {
+      transform: scale(1.1);
     }
     #ai-tutor-btn:hover .ai-hover-hint {
       opacity: 1;
@@ -84,26 +84,25 @@ function initAiTutor() {
       bottom: 85px;
       right: 0;
       width: 380px;
-      height: 550px;
-      background: var(--surface-glass, rgba(255, 255, 255, 0.85));
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      height: 500px;
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
       flex-direction: column;
       overflow: hidden;
-      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: slideUp 0.3s ease-out;
     }
     @keyframes slideUp {
       from { opacity: 0; transform: translateY(30px) scale(0.95); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .ai-chat-header {
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      background: var(--accent, #4f46e5);
       color: white;
-      padding: 1.25rem;
+      padding: 1rem 1.25rem;
       font-weight: 700;
+      font-size: 0.875rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -147,51 +146,52 @@ function initAiTutor() {
     }
     .ai-message.ai {
       align-self: flex-start;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.05);
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
       border-bottom-left-radius: 4px;
-      color: #1f2937;
+      color: var(--ink-light, #475569);
+      box-shadow: 0 1px 3px rgba(79, 70, 229, 0.04);
     }
     .ai-message.user {
       align-self: flex-end;
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      background: var(--accent, #4f46e5);
       color: white;
       border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 8px rgba(79, 70, 229, 0.15);
     }
     .ai-chat-input {
-      border-top: 1px solid rgba(0,0,0,0.08);
-      padding: 1.1rem;
+      border-top: 1px solid var(--border-light, #f1f5f9);
+      padding: 1rem;
       display: flex;
-      gap: 0.75rem;
-      background: rgba(255, 255, 255, 0.5);
+      gap: 0.5rem;
+      background: var(--surface, #ffffff);
     }
     #ai-input {
       flex: 1;
-      padding: 0.75rem 1.1rem;
-      border: 1px solid rgba(0,0,0,0.1);
-      border-radius: 24px;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 12px;
       outline: none;
-      background: white;
-      color: #1f2937;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
+      background: #f1f5f9;
+      color: var(--ink, #0f172a);
+      font-size: 0.875rem;
+      transition: box-shadow 0.2s;
     }
-    #ai-input:focus { border-color: #3b82f6; }
+    #ai-input:focus { box-shadow: 0 0 0 2px var(--accent, #4f46e5); }
     .ai-chat-input button {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: var(--accent, #4f46e5);
       color: white;
       border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: transform 0.2s;
-      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+      transition: background 0.2s;
     }
-    .ai-chat-input button:hover { transform: scale(1.1); }
+    .ai-chat-input button:hover { background: var(--accent-hover, #4338ca); }
     /* Drag styles */
     #ai-tutor-widget.dragging {
       user-select: none;
