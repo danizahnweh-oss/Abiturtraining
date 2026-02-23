@@ -1,0 +1,11 @@
+name = "gemini-proxy"
+main = "worker/src/index.ts"
+compatibility_date = "2024-12-01"
+
+# Secret: GEMINI_API_KEY
+# Set via: npx wrangler secret put GEMINI_API_KEY
+# (wird NICHT im Code oder in Dateien gespeichert)
+
+# Optional: restrict CORS to your domain
+# [vars]
+# ALLOWED_ORIGIN = "https://your-domain.com"
