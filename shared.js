@@ -718,6 +718,59 @@ function fileToBase64(file) {
   });
 }
 
+/* PDF.js lazy loader (v3.x legacy build for non-module usage) */
+let _pdfjsLoaded = false, _pdfjsLoading = false, _pdfjsCbs = [];
+function loadPdfJs() {
+  return new Promise(function (resolve) {
+    if (_pdfjsLoaded && window.pdfjsLib) { resolve(); return; }
+    _pdfjsCbs.push(resolve);
+    if (_pdfjsLoading) return;
+    _pdfjsLoading = true;
+    const s = document.createElement("script");
+    s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    s.onload = function () {
+      _pdfjsLoaded = true; _pdfjsLoading = false;
+      if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = [];
+    };
+    s.onerror = function () { _pdfjsLoading = false; _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = []; };
+    document.head.appendChild(s);
+  });
+}
+
+/**
+ * Convert uploaded files (images + PDFs) to an array of { url, base64 } objects.
+ * PDF pages are rendered to canvas at 2x scale and converted to JPEG.
+ */
+async function processUploadFiles(files) {
+  const results = [];
+  for (const f of Array.from(files)) {
+    if (f.type === "application/pdf") {
+      await loadPdfJs();
+      if (!window.pdfjsLib) { console.error("PDF.js not loaded"); continue; }
+      try {
+        const arrayBuf = await f.arrayBuffer();
+        const pdf = await window.pdfjsLib.getDocument({ data: arrayBuf }).promise;
+        for (let p = 1; p <= pdf.numPages; p++) {
+          const page = await pdf.getPage(p);
+          const vp = page.getViewport({ scale: 2 });
+          const canvas = document.createElement("canvas");
+          canvas.width = vp.width;
+          canvas.height = vp.height;
+          await page.render({ canvasContext: canvas.getContext("2d"), viewport: vp }).promise;
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+          results.push({ url: dataUrl, base64: dataUrl.split(",")[1] });
+        }
+      } catch (e) { console.error("PDF error:", e); }
+    } else if (f.type.startsWith("image/")) {
+      const url = URL.createObjectURL(f);
+      const base64 = await fileToBase64(f);
+      results.push({ url: url, base64: base64 });
+    }
+  }
+  return results;
+}
+
 function renderOCRPages() {
   const c = document.getElementById("ocrPages");
   if (!ocrPages.length) { c.innerHTML = ""; return; }

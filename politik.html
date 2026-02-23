@@ -343,9 +343,9 @@
       <div class="card" id="setupUpload" style="display:none">
         <h2 class="card-header">Eigene Aufgabe</h2>
         <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
-          <div class="upload-text"><strong>Bilder hochladen</strong> (Aufgabe + Materialien)</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabe + Materialien)</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -486,7 +486,7 @@ Tipp: Strukturiere deinen Text:
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -773,16 +773,12 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
     const taskUploadImages = [];
     async function handleTaskUpload(files) {
-      for (const f of Array.from(files).filter(f => f.type.startsWith("image/"))) {
-        taskUploadImages.push({ url: URL.createObjectURL(f), file: f });
-      }
-      document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => `<div class="ocr-page-thumb"><img src="${p.url}"></div>`).join("");
       document.getElementById("taskUploadLoader").style.display = "block";
       try {
-        const base64s = await Promise.all(taskUploadImages.map(async p => {
-          const r = new FileReader();
-          return new Promise(res => { r.onload = () => res(r.result.split(",")[1]); r.readAsDataURL(p.file); });
-        }));
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+        const base64s = taskUploadImages.map(p => p.base64);
         const d = await apiCall("/api/parse-task-pug", { images: base64s });
         document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
         document.getElementById("parsedPrimaryText").value = d.primary_text || "";
