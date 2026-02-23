@@ -1045,7 +1045,7 @@ ABSOLUTE PFLICHT:
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
+  - type "bild": content = SEHR AUSFÜHRLICHER englischer Imagen-Prompt. REGELN: (1) Alle Texte im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Bevölkerungsentwicklung 2010-2024' centered at the top in bold black font"). (2) KEINE Rechtschreibfehler in Texten — jedes Wort muss korrekt geschrieben sein! (3) Layout, Farben, Stil, Proportionen und alle visuellen Elemente detailliert beschreiben. (4) Mindestens 3-5 Sätze lang. KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1054,7 +1054,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -1071,7 +1071,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). KEINE Karikaturen oder Darstellungen von Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). Der Bild-Prompt MUSS auf Englisch, sehr ausführlich (mind. 3-5 Sätze) sein. Alle Texte im Bild in "" angeben mit exakter Positionsbeschreibung. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1197,7 +1197,7 @@ Erstelle genau 6-8 verschiedene Materialien:
 - Mindestens 4 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
 - 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 100-200 Wörter)
 - Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
+  - type "bild": content = SEHR AUSFÜHRLICHER englischer Imagen-Prompt (mind. 3-5 Sätze). REGELN: (1) Alle Texte im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Wirtschaftswachstum in Deutschland' centered at top in bold"). (2) KEINE Rechtschreibfehler — jedes Wort im Bild muss korrekt sein! (3) Layout, Farben, Stil und alle visuellen Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -1207,7 +1207,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
@@ -1695,7 +1695,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm), title = Bildtitel. KEINE politischen Karikaturen oder Personen!
+  - type "bild": content = SEHR AUSFÜHRLICHER englischer Imagen-Prompt (mind. 3-5 Sätze). REGELN: (1) Alle Texte im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Soziale Marktwirtschaft' centered at top in bold"). (2) KEINE Rechtschreibfehler — jedes Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1715,7 +1715,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -1971,7 +1971,7 @@ MATERIALIEN (nur für Teil A):
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Infografik, Schaubild, Plakat, Diagramm — KEINE Karikaturen oder Personen!), title = Bildtitel
+  - type "bild": content = SEHR AUSFÜHRLICHER englischer Imagen-Prompt (mind. 3-5 Sätze). REGELN: (1) Alle Texte im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -1999,7 +1999,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",
@@ -2242,7 +2242,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien": [
     {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
     {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
-    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Detaillierte Bildbeschreibung für KI-Generierung", "quelle": ""}
+    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
@@ -2534,7 +2534,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben",
   "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
@@ -2553,7 +2553,7 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor
 - Teil A: 3 Teilaufgaben mit steigendem AFB
 - Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). KEINE Karikaturen oder Darstellungen von Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). Der Bild-Prompt MUSS auf Englisch, sehr ausführlich (mind. 3-5 Sätze) sein. Alle Texte im Bild in "" angeben mit exakter Positionsbeschreibung. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -2724,7 +2724,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien_1": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Bildbeschreibung","quelle":""}],
   "task_instruction_2": "Situationstext / Rahmenhandlung Aufgabe 2",
   "aufgabenbloecke_2": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"II"}],"be_gesamt":15}],
-  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Detaillierte Bildbeschreibung","quelle":""}],
+  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!","quelle":""}],
   "gesamt_be": ${isEA ? 120 : 100},
   "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
   "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",
@@ -3342,7 +3342,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
-  - type "bild": content = detaillierte Bildbeschreibung für KI-Generierung (z.B. Gedankenexperiment-Illustration, Schaubild, Diagramm). KEINE Personen!
+  - type "bild": content = SEHR AUSFÜHRLICHER englischer Imagen-Prompt (mind. 3-5 Sätze). REGELN: (1) Alle Texte im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Personen!
 
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
@@ -3362,7 +3362,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierte Bildbeschreibung für KI-Generierung", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -3574,7 +3574,7 @@ Antworte NUR mit validem JSON:
     "materials": [
       {"title": "Titel", "type": "text", "content": "Philosophischer Quelltext (400-800 Wörter)", "source": "Autor, Werk, Jahr"},
       {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
-      {"title": "Schaubild: ...", "type": "bild", "content": "Bildbeschreibung für KI-Generierung", "source": ""}
+      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr ausführlicher englischer Imagen-Prompt (3-5 Sätze). Alle Texte im Bild in Anführungszeichen mit Positionsangabe. Keine Rechtschreibfehler!", "source": ""}
     ]
   },
   "teil_b": {
@@ -7059,7 +7059,7 @@ Jedes Material hat ein "type"-Feld:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
 - KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
-- KRITISCH: Für "bild": "text" MUSS ein englischer Imagen-Prompt sein (z.B. "Scientific pedigree diagram..."). KEINE deutsche Textbeschreibung!
+- KRITISCH: Für "bild": "text" MUSS ein SEHR AUSFÜHRLICHER englischer Imagen-Prompt sein (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen im Bild in Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Enzymatic Activity at Different pH Levels' centered at the top in bold, x-axis labeled 'pH Value', y-axis labeled 'Reaction Rate (µmol/min)'"). (2) KEINE Rechtschreibfehler — jedes Wort muss korrekt geschrieben sein! (3) Layout, Farben, Stil, Proportionen und alle visuellen Elemente detailliert beschreiben. KEINE deutsche Textbeschreibung, KEINE kurzen Stichworte!
 - Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "text" oder "bild"
 - Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
@@ -7102,7 +7102,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "sachgebiet": "genetik",
       "material": [
         {"id": "M1", "titel": "Stammbaum Familie X", "type": "text", "text": "Stammbaum über drei Generationen:\\n\\nGeneration I: Vater (gesund) × Mutter (gesund)\\nGeneration II: Tochter 1 (gesund), Tochter 2 (gesund, Konduktorin), Sohn 1 (betroffen)\\nGeneration III: ...\\n\\nDie Erkrankung tritt nur bei männlichen Nachkommen auf."},
-        {"id": "M2", "titel": "Gelelektrophorese im Labor", "type": "bild", "text": "gel electrophoresis DNA laboratory"},
+        {"id": "M2", "titel": "Gelelektrophorese im Labor", "type": "bild", "text": "Scientific laboratory photograph showing a gel electrophoresis setup. A horizontal agarose gel is visible under UV light, glowing bright blue-green. The gel shows 5 clearly labeled lanes with distinct DNA band patterns. Lane labels at the top read 'Marker', 'Patient A', 'Patient B', 'Control+', 'Control-' in small white text. A title 'Gel Electrophoresis Results' is displayed at the top center in bold white font. The background shows a dark laboratory setting with the UV transilluminator as the main light source. The bands are sharp, well-separated, and vary in intensity."},
         {"id": "M3", "titel": "Bandenmuster der Gelelektrophorese", "type": "text", "text": "Die Gelelektrophorese zeigt folgende Bandenmuster:\\nSpur 1 (Marker): Banden bei 1000 bp, 500 bp, 250 bp\\nSpur 2 (Patient A): Banden bei 800 bp, 200 bp\\nSpur 3 (Patient B): Banden bei 500 bp, 300 bp, 200 bp\\n..."}
       ],
       "teilaufgaben": [...],
