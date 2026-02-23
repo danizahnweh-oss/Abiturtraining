@@ -5,12 +5,12 @@
 
 interface Env {
   GEMINI_API_KEY: string;
-  ALLOWED_ORIGIN?: string; // optional: restrict CORS
+  ALLOWED_ORIGIN?: string;
 }
 
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
 
-function corsHeaders(origin: string | null, env: Env): Record<string, string> {
+function corsHeaders(env: Env): Record<string, string> {
   const allowed = env.ALLOWED_ORIGIN || '*';
   return {
     'Access-Control-Allow-Origin': allowed,
@@ -20,8 +20,8 @@ function corsHeaders(origin: string | null, env: Env): Record<string, string> {
   };
 }
 
-function replaceKey(url: URL, realKey: string): URL {
-  const out = new URL(url.toString());
+function buildUpstreamUrl(requestUrl: URL, realKey: string): URL {
+  const out = new URL(requestUrl.toString());
   // Replace any dummy key with the real one
   if (out.searchParams.has('key')) {
     out.searchParams.set('key', realKey);
@@ -34,7 +34,7 @@ function replaceKey(url: URL, realKey: string): URL {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const cors = corsHeaders(request.headers.get('Origin'), env);
+    const cors = corsHeaders(env);
 
     // CORS preflight
     if (request.method === 'OPTIONS') {
@@ -42,26 +42,65 @@ export default {
     }
 
     const url = new URL(request.url);
-    const targetUrl = replaceKey(url, env.GEMINI_API_KEY);
+    const targetUrl = buildUpstreamUrl(url, env.GEMINI_API_KEY);
 
     // ── WebSocket proxy (for Live API) ──
     if (request.headers.get('Upgrade')?.toLowerCase() === 'websocket') {
-      const wsTarget = new URL(targetUrl.toString());
-      wsTarget.protocol = 'wss:';
+      // Build upstream headers – copy originals but fix host
+      const upstreamHeaders = new Headers(request.headers);
+      upstreamHeaders.set('Host', GEMINI_HOST);
 
-      // Forward the WebSocket upgrade to Gemini
-      const upstreamResponse = await fetch(wsTarget.toString(), {
-        method: request.method,
-        headers: request.headers,
+      // Cloudflare fetch() with Upgrade: websocket returns a response with .webSocket
+      const upstreamResp = await fetch(targetUrl.toString(), {
+        headers: upstreamHeaders,
       });
 
-      return upstreamResponse;
+      const upstream = (upstreamResp as any).webSocket as WebSocket | null;
+      if (!upstream) {
+        return new Response('WebSocket upgrade to upstream failed', { status: 502 });
+      }
+
+      // Create a pair: client ↔ server
+      const pair = new WebSocketPair();
+      const [client, server] = Object.values(pair);
+
+      // Accept both sides
+      upstream.accept();
+      server.accept();
+
+      // Bidirectional message forwarding
+      server.addEventListener('message', (event) => {
+        try { upstream.send(event.data); } catch { server.close(); }
+      });
+      upstream.addEventListener('message', (event) => {
+        try { server.send(event.data); } catch { upstream.close(); }
+      });
+
+      // Close forwarding
+      server.addEventListener('close', (event) => {
+        try { upstream.close(event.code, event.reason); } catch {}
+      });
+      upstream.addEventListener('close', (event) => {
+        try { server.close(event.code, event.reason); } catch {}
+      });
+
+      // Error handling
+      server.addEventListener('error', () => {
+        try { upstream.close(); } catch {}
+      });
+      upstream.addEventListener('error', () => {
+        try { server.close(); } catch {}
+      });
+
+      return new Response(null, {
+        status: 101,
+        webSocket: client,
+      });
     }
 
     // ── Regular HTTP proxy (for text generation, feedback etc.) ──
     const headers = new Headers(request.headers);
     headers.set('x-goog-api-key', env.GEMINI_API_KEY);
-    // Remove host header to avoid conflicts
     headers.delete('host');
 
     const proxyResponse = await fetch(targetUrl.toString(), {
