@@ -291,7 +291,7 @@
             <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – Mehrere Seiten möglich</div>
           </div>
 
-          <input type="file" id="taskFileInput" accept="image/*" multiple style="display:none"
+          <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
             onchange="handleTaskUpload(this.files)">
 
           <div id="taskUploadPages" class="ocr-pages"></div>
@@ -517,7 +517,7 @@
               Seiten möglich</div>
           </div>
 
-          <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
+          <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
             onchange="handleOCRFiles(this.files)">
 
           <!-- Thumbnail gallery for uploaded pages -->
@@ -941,25 +941,17 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
     async function handleTaskUpload(fileList) {
       const files = Array.from(fileList).filter(f => {
-        if (!f.type.startsWith("image/")) return false;
+        if (!f.type.startsWith("image/") && f.type !== "application/pdf") return false;
         if (f.size > 10 * 1024 * 1024) { showToast(`${f.name} zu groß (max. 10 MB).`); return false; }
         return true;
       });
       if (!files.length) return;
 
-      for (const file of files) {
-        const url = URL.createObjectURL(file);
-        taskUploadImages.push({ file, url, base64: null, status: "pending" });
+      const processed = await processUploadFiles(files);
+      for (const p of processed) {
+        taskUploadImages.push({ file: null, url: p.url, base64: p.base64, status: "done" });
       }
       renderTaskUploadPages();
-
-      // Convert all to base64
-      const startIdx = taskUploadImages.length - files.length;
-      for (let i = startIdx; i < taskUploadImages.length; i++) {
-        taskUploadImages[i].base64 = await fileToBase64(taskUploadImages[i].file);
-        taskUploadImages[i].status = "done";
-        renderTaskUploadPages();
-      }
 
       // Now parse all images via API
       document.getElementById("taskUploadLoader").style.display = "block";
@@ -1061,7 +1053,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       zone.addEventListener("drop", e => {
         e.preventDefault();
         zone.classList.remove("dragover");
-        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/"));
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/") || f.type === "application/pdf");
         if (files.length) handleTaskUpload(files);
       });
     });
