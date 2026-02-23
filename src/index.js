@@ -1383,12 +1383,13 @@ async function handleGenerateImage(request, env) {
     const imagenData = await imagenRes.json();
 
     if (!imagenRes.ok) {
-      return jsonResponse({ error: imagenData.error?.message || "Imagen Fehler" }, imagenRes.status, env);
+      const errMsg = imagenData.error?.message || JSON.stringify(imagenData).substring(0, 200) || "Imagen Fehler";
+      return jsonResponse({ error: `Imagen API ${imagenRes.status}: ${errMsg}` }, imagenRes.status, env);
     }
 
     const prediction = imagenData.predictions?.[0];
     if (!prediction?.bytesBase64Encoded) {
-      return jsonResponse({ error: "Kein Bild generiert (evtl. Sicherheitsfilter)." }, 500, env);
+      return jsonResponse({ error: "Kein Bild generiert. Response: " + JSON.stringify(imagenData).substring(0, 300) }, 500, env);
     }
 
     const mimeType = prediction.mimeType || "image/png";
