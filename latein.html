@@ -426,6 +426,10 @@
             <label>Bearbeitungszeit (Min.)</label>
             <input type="number" id="timerMinutes" value="90" min="30" max="315" style="max-width:120px">
           </div>
+          <div class="form-group" style="margin:0">
+            <label>Anzahl Aufgaben</label>
+            <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
+          </div>
         </div>
       </div>
     </section>
@@ -834,7 +838,8 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           schwerpunkt: document.getElementById("schwerpunktSelect").value,
           level: level,
           be: parseInt(document.getElementById("totalBE").value) || 60,
-          zeit: parseInt(document.getElementById("timerMinutes").value) || 90
+          zeit: parseInt(document.getElementById("timerMinutes").value) || 90,
+          anzahl: parseInt(document.getElementById("taskCount").value) || 1
         });
         CONFIG.storedData = d;
         renderTask(d);

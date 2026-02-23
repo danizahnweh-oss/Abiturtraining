@@ -964,9 +964,10 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE: GENERATE ================= */
 async function handleGenerateGeschichte(request, env) {
   const body = await request.json();
-  const { schwerpunkt, level, be, zeit } = body;
+  const { schwerpunkt, level, be, zeit, anzahl } = body;
   const totalBE = be || 60;
   const zeitMinuten = zeit || 180;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const schwerpunkte = {
     "12_1": {
@@ -1011,6 +1012,9 @@ KLAUSUR-PARAMETER:
 - Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben
 - Die Summe aller Teilaufgaben-BE muss exakt ${totalBE} ergeben
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im task_instruction-Feld
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
 Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und 2 Teilaufgaben.
@@ -1578,12 +1582,13 @@ Antworte NUR mit validem JSON:
 /* ================= POLITIK UND GESELLSCHAFT: GENERATE ================= */
 async function handleGeneratePuG(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level, be, zeit } = body;
+  const { halbjahr, schwerpunkt, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
 
   const hjThemen = {
@@ -1693,6 +1698,9 @@ Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLab
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 2-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -2152,12 +2160,13 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
 /* ================= WIRTSCHAFT UND RECHT: GENERATE ================= */
 async function handleGenerateWR(request, env) {
   const body = await request.json();
-  const { niveau, fachbereich, thema, be, zeit } = body;
+  const { niveau, fachbereich, thema, be, zeit, anzahl } = body;
 
   const isGA = (niveau || "gA").toLowerCase() === "ga";
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
   const gesamtBE = be || (isGA ? 100 : 60);
   const zeitMinuten = zeit || (isGA ? 210 : 135);
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bloecke = isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
   const materialCount = isGA ? "4-5 Materialien" : "3-4 Materialien";
 
@@ -2217,6 +2226,8 @@ PRÜFUNGSFORMAT:
 - ${bloecke}
 - ${materialCount}
 - Fachbereich: ${fbLabel}
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (je ca. ${Math.round(gesamtBE / aufgabenAnzahl)} BE)
+- Jeder Block kompakt und kleinschrittiger` : ''}
 
 AUFGABENSTRUKTUR:
 - Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -3215,12 +3226,13 @@ Antworte NUR mit validem JSON:
 /* ================= ETHIK: GENERATE ================= */
 async function handleGenerateEthik(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level, be, zeit } = body;
+  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
 
   const lbThemen = {
@@ -3348,6 +3360,9 @@ Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLab
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -3761,12 +3776,13 @@ Antworte NUR mit validem JSON:
 /* ================= GEOGRAPHIE: GENERATE ================= */
 async function handleGenerateGeographie(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level, be, zeit } = body;
+  const { halbjahr, schwerpunkt, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
 
   const hjThemen = {
@@ -3841,6 +3857,9 @@ Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLab
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -4254,12 +4273,13 @@ Antworte NUR mit validem JSON:
 /* ================= LATEIN: GENERATE ================= */
 async function handleGenerateLatein(request, env) {
   const body = await request.json();
-  const { autor, aufgabentyp, schwerpunkt, level, be, zeit } = body;
+  const { autor, aufgabentyp, schwerpunkt, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const autorInhalte = {
     cicero: "Cicero: Reden, Rhetorik, Philosophie (De officiis, De re publica, Pro Murena, In Catilinam). Typisch: lange Perioden, rhetorische Fragen, Parallelismen, Klimax, Antithesen, Partizipialkonstruktionen.",
@@ -4282,6 +4302,8 @@ Erstelle eine Übersetzungsaufgabe auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Übersetzungstexte (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Jeder Text kürzer und kompakter` : ''}
 
 AUTOR UND STIL:
 ${autorInfo}
@@ -4339,6 +4361,8 @@ Erstelle eine Interpretationsaufgabe (Aufgabenteil) auf ${niveauLabel}.
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Abschnitte (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Interpretationsaufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
 
 AUTOR UND STIL:
 ${autorInfo}
@@ -4921,11 +4945,12 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
 /* ================= MATHEMATIK: GENERATE ================= */
 async function handleGenerateMathe(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit } = body;
+  const { sachgebiet, be, zeit, anzahl } = body;
 
   const sg = sachgebiet || "analysis";
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
     analysis: {
@@ -4966,7 +4991,10 @@ Erstelle eine authentische Mathematik-Aufgabe.
 AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
+- Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Hilfsmittel/CAS erlaubt
 - Bei umfangreichen Aufgaben (≥20 BE): Kontextbezogene Anwendungsaufgabe
@@ -5041,8 +5069,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 }
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
-  const userPrompt = `Erstelle eine Mathematik-Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
-Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
   const openaiRes = await callOpenAI(env, [
@@ -5529,11 +5557,12 @@ WICHTIG:
 /* ================= CHEMIE: GENERATE ================= */
 async function handleGenerateChemie(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit } = body;
+  const { sachgebiet, be, zeit, anzahl } = body;
 
   const sg = sachgebiet || "elektrochemie";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
     elektrochemie: {
@@ -5578,7 +5607,10 @@ Erstelle eine authentische Chemie-Aufgabe.
 AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
+- Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
 
@@ -5639,8 +5671,8 @@ Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
-  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
-Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.${organikHint}`;
 
   const openaiRes = await callOpenAI(env, [
@@ -5844,11 +5876,12 @@ async function handleParseTaskChemie(request, env) {
 /* ================= PHYSIK: GENERATE ================= */
 async function handleGeneratePhysik(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit } = body;
+  const { sachgebiet, be, zeit, anzahl } = body;
 
   const sg = sachgebiet || "elektrostatik";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
     elektrostatik: {
@@ -5885,7 +5918,10 @@ Erstelle eine authentische Physik-Aufgabe.
 AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
+- Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
 
@@ -5931,8 +5967,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
-Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
   const openaiRes = await callOpenAI(env, [
@@ -6132,11 +6168,12 @@ async function handleParseTaskPhysik(request, env) {
 /* ================= BIO: GENERATE ================= */
 async function handleGenerateBio(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit } = body;
+  const { sachgebiet, be, zeit, anzahl } = body;
 
   const sg = sachgebiet || "genetik";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
     genetik: {
@@ -6173,7 +6210,10 @@ Erstelle eine authentische Biologie-Aufgabe.
 AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
+- Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte, Abbildungen) erstellen
 
@@ -6216,8 +6256,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
-Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
   const openaiRes = await callOpenAI(env, [
