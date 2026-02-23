@@ -4921,13 +4921,11 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
 /* ================= MATHEMATIK: GENERATE ================= */
 async function handleGenerateMathe(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp, be, zeit } = body;
+  const { sachgebiet, be, zeit } = body;
 
   const sg = sachgebiet || "analysis";
-  const typ = aufgabentyp || "kurzaufgabe";
-  const isKurz = typ === "kurzaufgabe";
-  const totalBE = be || (isKurz ? 5 : 25);
-  const zeitMinuten = zeit || (isKurz ? 15 : 45);
+  const totalBE = be || 25;
+  const zeitMinuten = zeit || 45;
 
   const sgThemen = {
     analysis: {
@@ -4965,18 +4963,13 @@ Lehrplan-Inhalte Jgst. 13:
   const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
 Erstelle eine authentische Mathematik-Aufgabe.
 
-${isKurz ? `KURZAUFGABE (Teil-A-Stil, ohne CAS/Hilfsmittel):
-- 1 Aufgabe mit 2-3 Teilaufgaben
+AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- OHNE CAS/Taschenrechner lösbar
-- Klare, rechnerisch durchführbare Aufgaben` :
-`LANGAUFGABE (Teil-B-Stil, mit CAS/Hilfsmitteln):
-- 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-- CAS/Hilfsmittel erlaubt
-- Kontextbezogene Anwendungsaufgabe mit steigendem Anforderungsniveau`}
+- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Hilfsmittel/CAS erlaubt
+- Bei umfangreichen Aufgaben (≥20 BE): Kontextbezogene Anwendungsaufgabe
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -5044,12 +5037,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "aufgabentyp": "${typ}",
   "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 }
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE, ohne CAS)` : `Langaufgabe (${totalBE} BE, mit CAS)`} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine Mathematik-Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
@@ -5537,13 +5529,11 @@ WICHTIG:
 /* ================= CHEMIE: GENERATE ================= */
 async function handleGenerateChemie(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp, be, zeit } = body;
+  const { sachgebiet, be, zeit } = body;
 
   const sg = sachgebiet || "elektrochemie";
-  const typ = aufgabentyp || "kurzaufgabe";
-  const isKurz = typ === "kurzaufgabe";
-  const totalBE = be || (isKurz ? 10 : 30);
-  const zeitMinuten = zeit || (isKurz ? 20 : 60);
+  const totalBE = be || 20;
+  const zeitMinuten = zeit || 45;
 
   const sgThemen = {
     elektrochemie: {
@@ -5585,17 +5575,12 @@ async function handleGenerateChemie(request, env) {
   const systemPrompt = `Du bist ein Chemie-Experte für das bayerische Abitur (gA/eA, G9, ab 2026).
 Erstelle eine authentische Chemie-Aufgabe.
 
-${isKurz ? `KURZAUFGABE:
-- 1 Aufgabe mit 2-3 Teilaufgaben
+AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Klare, fachlich korrekte Aufgaben` :
-`LANGAUFGABE (mit Material):
-- 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
-- Steigendes Anforderungsniveau`}
+- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -5604,7 +5589,6 @@ ${sgInfo.inhalte}
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
 - Gib bei jeder Teilaufgabe die BE an
-- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.
 
@@ -5648,7 +5632,6 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
   "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}, {"name": "acetic acid", "caption": "Essigsäure"}]
 }
@@ -5656,7 +5639,7 @@ Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
-  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit $\\ce{}$.${organikHint}`;
 
@@ -5861,13 +5844,11 @@ async function handleParseTaskChemie(request, env) {
 /* ================= PHYSIK: GENERATE ================= */
 async function handleGeneratePhysik(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp, be, zeit } = body;
+  const { sachgebiet, be, zeit } = body;
 
   const sg = sachgebiet || "elektrostatik";
-  const typ = aufgabentyp || "kurzaufgabe";
-  const isKurz = typ === "kurzaufgabe";
-  const totalBE = be || (isKurz ? 10 : 30);
-  const zeitMinuten = zeit || (isKurz ? 20 : 60);
+  const totalBE = be || 20;
+  const zeitMinuten = zeit || 45;
 
   const sgThemen = {
     elektrostatik: {
@@ -5901,17 +5882,12 @@ async function handleGeneratePhysik(request, env) {
   const systemPrompt = `Du bist ein Physik-Experte für das bayerische Abitur (gA/eA, G9, ab 2026).
 Erstelle eine authentische Physik-Aufgabe.
 
-${isKurz ? `KURZAUFGABE:
-- 1 Aufgabe mit 2-3 Teilaufgaben
+AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Klare, fachlich korrekte Aufgaben` :
-`LANGAUFGABE (mit Material):
-- 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte)
-- Steigendes Anforderungsniveau`}
+- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -5920,7 +5896,6 @@ ${sgInfo.inhalte}
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
 - Gib bei jeder Teilaufgabe die BE an
-- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
 
@@ -5952,12 +5927,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
@@ -6158,13 +6132,11 @@ async function handleParseTaskPhysik(request, env) {
 /* ================= BIO: GENERATE ================= */
 async function handleGenerateBio(request, env) {
   const body = await request.json();
-  const { sachgebiet, aufgabentyp, be, zeit } = body;
+  const { sachgebiet, be, zeit } = body;
 
   const sg = sachgebiet || "genetik";
-  const typ = aufgabentyp || "kurzaufgabe";
-  const isKurz = typ === "kurzaufgabe";
-  const totalBE = be || (isKurz ? 10 : 30);
-  const zeitMinuten = zeit || (isKurz ? 20 : 60);
+  const totalBE = be || 20;
+  const zeitMinuten = zeit || 45;
 
   const sgThemen = {
     genetik: {
@@ -6198,17 +6170,12 @@ async function handleGenerateBio(request, env) {
   const systemPrompt = `Du bist ein Biologielehrer am bayerischen Gymnasium und erstellst Aufgaben für das Abitur (gA/eA, G9, ab 2026).
 Erstelle eine authentische Biologie-Aufgabe.
 
-${isKurz ? `KURZAUFGABE:
-- 1 Aufgabe mit 2-3 Teilaufgaben
+AUFGABE:
 - Gesamt: ${totalBE} BE
 - Bearbeitungszeit: ${zeitMinuten} Minuten
-- Klare, fachlich korrekte Aufgaben` :
-`LANGAUFGABE (mit Material):
-- 1 große Aufgabe mit 4-6 Teilaufgaben
-- Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-- Kontextbezogene Aufgabe mit Materialien (Diagramme, Tabellen, Texte, Abbildungen)
-- Steigendes Anforderungsniveau`}
+- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte, Abbildungen) erstellen
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -6245,12 +6212,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "aufgabentyp": "${typ}",
   "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
 }
 Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 
-  const userPrompt = `Erstelle eine ${isKurz ? `Kurzaufgabe (${totalBE} BE)` : `Langaufgabe (${totalBE} BE, mit Material)`} im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle eine Aufgabe (${totalBE} BE) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe soll abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
