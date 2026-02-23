@@ -24,15 +24,14 @@ function initAiTutor() {
       display: none;
     }
     #ai-tutor-btn {
-      width: 64px;
-      height: 64px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: white;
-      border: none;
-      font-size: 2.2rem;
+      background: white url('flowie-icon.png') no-repeat center center;
+      background-size: 90%;
+      border: 3px solid #fff;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
       display: flex;
       align-items: center;
@@ -41,13 +40,12 @@ function initAiTutor() {
       animation: ai-pulse 2.5s infinite;
     }
     @keyframes ai-pulse {
-      0% { transform: scale(1); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4); }
-      50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.6); }
-      100% { transform: scale(1); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4); }
+      0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+      50% { transform: scale(1.05); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2); }
+      100% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
     }
     #ai-tutor-btn:hover { 
-      transform: scale(1.1) rotate(5deg);
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      transform: scale(1.1) rotate(2deg);
     }
     #ai-tutor-btn:hover .ai-hover-hint {
       opacity: 1;
@@ -231,7 +229,6 @@ function initAiTutor() {
   widget.id = "ai-tutor-widget";
   widget.innerHTML = `
     <button id="ai-tutor-btn" onclick="toggleAiChat()" aria-label="KI-Tutor öffnen">
-      🤖
       <span class="ai-hover-hint">Frag mich!</span>
     </button>
     <div id="ai-chat-window">
