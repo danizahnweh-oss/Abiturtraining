@@ -320,6 +320,10 @@
             <label>Bearbeitungszeit (Min.)</label>
             <input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px">
           </div>
+          <div class="form-group" style="margin:0">
+            <label>Anzahl Aufgaben</label>
+            <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
+          </div>
         </div>
       </div>
     </section>
@@ -636,7 +640,8 @@
         const d = await apiCall("/api/generate-chemie", {
           sachgebiet: CONFIG.sachgebiet,
           be: parseInt(document.getElementById("totalBE").value) || 20,
-          zeit: parseInt(document.getElementById("timerMinutes").value) || 45
+          zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
+          anzahl: parseInt(document.getElementById("taskCount").value) || 1
         });
         CONFIG.storedData = d;
         renderTask(d);
