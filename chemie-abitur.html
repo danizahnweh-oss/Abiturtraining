@@ -960,10 +960,10 @@
         // Render per-Aufgabe scores
         var grid = document.getElementById("scoresGrid");
         var scoreCards = "";
-        if (d.aufgabenbewertungen && d.aufgabenbewertungen.length) {
-          d.aufgabenbewertungen.forEach(function (ab, i) {
+        if (d.aufgaben_be && d.aufgaben_be.length) {
+          d.aufgaben_be.forEach(function (ab, i) {
             scoreCards += '<div class="score-card" id="scoreAufg' + (i + 1) + '">' +
-              '<div class="score-label">' + escapeHtml(ab.titel || ("Aufgabe " + (i + 1))) + '</div>' +
+              '<div class="score-label">' + escapeHtml(ab.id || ab.titel || ("Aufgabe " + (i + 1))) + '</div>' +
               '<div class="score-value">' + (ab.erreichte_be ?? "\u2013") + '</div>' +
               '<div class="score-max">/ ' + (ab.max_be ?? lc.bePerAufgabe) + ' BE</div></div>';
           });
