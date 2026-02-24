@@ -152,7 +152,8 @@ function toggleDarkMode() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
   localStorage.setItem("theme", isDark ? "light" : "dark");
-  document.getElementById("themeToggleBtn").textContent = isDark ? "🌙" : "☀️";
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) btn.textContent = isDark ? "🌙" : "☀️";
   if (progressChartInstance) renderProgressChart();
 }
 
@@ -161,7 +162,8 @@ function initTheme() {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const theme = saved || (prefersDark ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
-  document.getElementById("themeToggleBtn").textContent = theme === "dark" ? "☀️" : "🌙";
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
 /* ================= TIMER ================= */
