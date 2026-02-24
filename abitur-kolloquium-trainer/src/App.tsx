@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import {
   LiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
-  type ExamLevel, type ExamMaterial,
+  type ExamLevel, type ExamMode, type ExamMaterial,
 } from './lib/live-api';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
 import { clsx, type ClassValue } from 'clsx';
@@ -118,6 +118,7 @@ export default function App() {
   const [step, setStep] = useState<Step>('setup');
   const [subject, setSubject] = useState(fachFromUrl);
   const [examLevel, setExamLevel] = useState<ExamLevel>('gA');
+  const [examMode, setExamMode] = useState<ExamMode>('gesamt');
   const [gestrichen, setGestrichen] = useState<'12/1' | '12/2' | ''>('');
   const [spHalbjahr, setSpHalbjahr] = useState('');
   const [schwerpunkt, setSchwerpunkt] = useState('');
@@ -154,6 +155,27 @@ export default function App() {
   /* ── Actions ── */
   const handleGenerate = async () => {
     if (!canGenerate) return;
+
+    // "Fragen" mode: skip material generation + prep, go straight to exam
+    if (examMode === 'fragen') {
+      setMaterial({ aufgabenstellung: '', material: '', hinweise: '' });
+      setStep('exam');
+      setModelTx([]);
+      setUserTx([]);
+
+      const session = new LiveSession({
+        subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
+        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode,
+        onStatusChange: s => setStatus(s),
+        onModelTranscription: t => setModelTx(prev => [...prev, t]),
+        onUserTranscription: t => setUserTx(prev => [...prev, t]),
+      });
+      sessionRef.current = session;
+      exam.start();
+      await session.start();
+      return;
+    }
+
     setStep('generating');
     try {
       const m = await generateExamMaterial({
@@ -182,6 +204,7 @@ export default function App() {
     const session = new LiveSession({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
+      examMode,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -253,6 +276,7 @@ export default function App() {
     setMaterial(null);
     setFbType(null);
     setFbText('');
+    setExamMode('gesamt');
     prep.reset(30 * 60);
   };
 
@@ -386,6 +410,28 @@ export default function App() {
                       </div>
                     </div>
                   )}
+
+                  {/* Prüfungsmodus */}
+                  {schwerpunkt && (
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfungsmodus</label>
+                      <p className="text-xs opacity-50 ml-1 -mt-1">Was möchtest du üben?</p>
+                      <div className="grid gap-2">
+                        <Pill active={examMode === 'gesamt'} onClick={() => setExamMode('gesamt')} className="w-full">
+                          <span className="font-medium">Gesamte Prüfung</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Kurzreferat + Fragen zum Schwerpunkt + Fragen zu weiteren Halbjahren (ca. 30 Min)</span>
+                        </Pill>
+                        <Pill active={examMode === 'referat'} onClick={() => setExamMode('referat')} className="w-full">
+                          <span className="font-medium">Nur Kurzreferat</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Vorbereitung + Kurzreferat mit Feedback (ca. 10 Min)</span>
+                        </Pill>
+                        <Pill active={examMode === 'fragen'} onClick={() => setExamMode('fragen')} className="w-full">
+                          <span className="font-medium">Nur Fragenteil</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Fragen zum Schwerpunkt + weitere Halbjahre, ohne Referat (ca. 20 Min)</span>
+                        </Pill>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Summary + Start */}
@@ -393,7 +439,7 @@ export default function App() {
                   <div className="mt-6 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-sm">
                     <p className="font-medium text-emerald-800 mb-1">Zusammenfassung:</p>
                     <p className="text-emerald-700 opacity-80">
-                      {subject} ({level}) · Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}
+                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? 'Nur Referat' : 'Nur Fragen'} · Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}
                     </p>
                   </div>
                 )}
@@ -404,7 +450,7 @@ export default function App() {
                   className="w-full mt-6 bg-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:bg-emerald-700 disabled:opacity-30 disabled:hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-200"
                 >
                   <Play size={18} fill="currentColor" />
-                  Aufgabenstellung generieren
+                  {examMode === 'fragen' ? 'Prüfung starten' : 'Aufgabenstellung generieren'}
                 </button>
               </div>
             </motion.div>
@@ -479,14 +525,27 @@ export default function App() {
                 {/* Phase bar */}
                 <div className="px-6 py-3 bg-emerald-50 border-b border-emerald-100 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    {(['referat', 'fragen-schwerpunkt', 'fragen-weitere'] as const).map(p => (
-                      <span key={p} className={cn(
-                        "text-xs font-medium uppercase tracking-wider transition-all",
-                        exam.phase === p ? "text-emerald-700" : "opacity-30",
-                      )}>
-                        {p === 'referat' ? 'Referat' : p === 'fragen-schwerpunkt' ? 'Fragen SP' : 'Fragen HJ'}
-                      </span>
-                    ))}
+                    {examMode === 'referat' ? (
+                      <span className="text-xs font-medium uppercase tracking-wider text-emerald-700">Kurzreferat</span>
+                    ) : examMode === 'fragen' ? (
+                      (['fragen-schwerpunkt', 'fragen-weitere'] as const).map(p => (
+                        <span key={p} className={cn(
+                          "text-xs font-medium uppercase tracking-wider transition-all",
+                          exam.phase === p || (exam.phase === 'referat' && p === 'fragen-schwerpunkt') ? "text-emerald-700" : "opacity-30",
+                        )}>
+                          {p === 'fragen-schwerpunkt' ? 'Fragen SP' : 'Fragen HJ'}
+                        </span>
+                      ))
+                    ) : (
+                      (['referat', 'fragen-schwerpunkt', 'fragen-weitere'] as const).map(p => (
+                        <span key={p} className={cn(
+                          "text-xs font-medium uppercase tracking-wider transition-all",
+                          exam.phase === p ? "text-emerald-700" : "opacity-30",
+                        )}>
+                          {p === 'referat' ? 'Referat' : p === 'fragen-schwerpunkt' ? 'Fragen SP' : 'Fragen HJ'}
+                        </span>
+                      ))
+                    )}
                   </div>
                   <span className="text-sm font-mono font-bold text-emerald-600 tabular-nums">{exam.display}</span>
                 </div>
@@ -546,7 +605,13 @@ export default function App() {
               </div>
 
               <p className="mt-6 text-sm opacity-40 text-center max-w-md">
-                {exam.phase === 'referat'
+                {examMode === 'referat'
+                  ? "Halte dein Kurzreferat. Nutze deine Notizen als Stütze."
+                  : examMode === 'fragen'
+                  ? (exam.elapsed < 5 * 60
+                    ? "Der Prüfer stellt Fragen zu deinem Schwerpunktthema."
+                    : "Der Prüfer fragt jetzt zu den weiteren Halbjahren.")
+                  : exam.phase === 'referat'
                   ? "Halte dein Kurzreferat. Nutze deine Notizen als Stütze."
                   : exam.phase === 'fragen-schwerpunkt'
                   ? "Der Prüfer stellt Fragen zu deinem Schwerpunktthema."

@@ -1066,6 +1066,7 @@ ABSOLUTE PFLICHT:
 - Die Aufgabe MUSS zum Schwerpunkt passen
 - Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Arbeiten Sie die Argumentation heraus (Demokratiekritik, Verfassungsforderung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
@@ -1126,6 +1127,8 @@ Die Aufgabenstellung ist ZWEITEILIG:
 - Teil 1 (70%): Erschließung und Interpretation des Textes
 - Teil 2 (30%): Weiterführender Schreibauftrag (Vergleich, Stellungnahme, Kreativauftrag)
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Untersuchen Sie die sprachlichen Mittel (Metapher, Alliteration, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 Verwende bekannte, kanonische Texte der deutschen Literatur die du vollständig kennst.
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1167,6 +1170,8 @@ Die Aufgabenstellung ist ZWEITEILIG:
 - Teil 1: Analyse des Textes (Argumentationsstruktur, sprachliche Mittel, Intention)
 - Teil 2: Weiterführender Schreibauftrag
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Analysieren Sie die Argumentationsstruktur (These, Belege, Schlussfolgerung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 Antworte NUR mit validem JSON:
 {
   "task_instruction": "Zweiteilige Aufgabenstellung mit klaren Operatoren",
@@ -1196,6 +1201,8 @@ Die Aufgabenstellung hat ZWEI Teile:
 - Teil a) (40%): Analyse der zentralen Aussage und Argumentationsstruktur des Textes
 - Teil b) (60%): Erörterung der im Text vertretenen Position (eigene Stellungnahme mit Argumenten und Beispielen)
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erörtern Sie die Position des Autors (Digitalisierung, soziale Medien, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 Antworte NUR mit validem JSON:
 {
   "task_instruction": "Zweiteilige Aufgabenstellung: a) Analyse der Argumentation, b) Erörterung der Position",
@@ -1221,6 +1228,9 @@ Erstelle genau 6-8 verschiedene Materialien:
 - Mindestens 1-2 Materialien vom Typ "statistik" (Umfrage, Studie, Statistik als Tabelle)
 - Mindestens 4 Materialien vom Typ "text" (Zeitungsartikel, Fachtext, Essay, Interview, Rede)
 - 1 Material kann ein kürzeres Zitat/Expertenaussage sein (type "text", 100-200 Wörter)
+
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Setzen Sie sich mit dem Thema auseinander (Pro/Contra, gesellschaftliche Folgen, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 - Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Wirtschaftswachstum in Deutschland' centered at top in bold, x-axis labeled 'Jahr'"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
 
@@ -1798,6 +1808,8 @@ SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag, Leserbrief, digitale Pinnwand)
 - Das macht die Aufgabe authentischer und prüft Adressatenorientierung
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie das Sozialstaatsprinzip (Arbeitslosenversicherung, Sozialhilfe, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte und Lernbereiche. Themen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Politische Theorien/Utopien, Soziologische Theorien als eigener LB, zusätzliche eA-Lernbereiche), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -2073,6 +2085,8 @@ ${hj.inhalte}
 SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag)
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie das Sozialstaatsprinzip (Arbeitslosenversicherung, Sozialhilfe, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte und Lernbereiche. Themen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Politische Theorien/Utopien, Soziologische Theorien als eigener LB, zusätzliche eA-Lernbereiche), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -2307,6 +2321,7 @@ AUFGABENSTRUKTUR:
 - AFB III (Reflexion/Problemlösung): beurteilen, erörtern, Stellung nehmen, entwickeln (ca. 40% der BE)
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - Operatoren müssen korrekt und eindeutig verwendet werden
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Marktformen (Monopol, Oligopol, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
 ${isGA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" (z.B. Bilanzanalyse, BCG-Portfolio, Leverage-Effekt, Management/SWOT/Porter, Kapitalwertmethode, Vertragstypen/Leistungsstörungen, Moral Hazard, Spieltheorie, Gefährdungshaftung §833/§7 StVG) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -2614,6 +2629,8 @@ async function handleGenerateAbiturGeschichte(request, env) {
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
 THEMEN: ${sp.themen}
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Arbeiten Sie die Argumentation heraus (Friedenssicherung, Machtpolitik, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -2803,6 +2820,7 @@ AUFGABENSTRUKTUR:
 - AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40%)
 - AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40%)
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Marktformen (Monopol, Oligopol, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Inhalten stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
 ${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" (z.B. Bilanzanalyse, BCG-Portfolio, Leverage-Effekt, Management/SWOT/Porter, Kapitalwertmethode, Vertragstypen/Leistungsstörungen, Moral Hazard, Spieltheorie, Gefährdungshaftung) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -3460,6 +3478,8 @@ SITUIERUNG:
 - Bette die Aufgabe in einen philosophisch relevanten Kontext ein (z.B. ethische Debatte, philosophisches Gedankenexperiment, aktuelles gesellschaftliches Problem)
 - Das macht die Aufgabe authentischer und prüft die Fähigkeit zum philosophischen Transfer
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erörtern Sie die ethische Problematik (Autonomie, Würde, Gerechtigkeit, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte. Themen, Philosophen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Erkenntnistheorie/Wissenschaftstheorie als eigener LB, Politische Ethik als eigener LB, Religionsphilosophie als eigener LB), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 
@@ -3659,6 +3679,7 @@ PRÜFUNGSTEIL A (${bePruefungA}):
 - 2-3 Materialien (philosophische Texte 400-800 Wörter, Statistiken, 1 Bild)
 - Verwende offizielle Operatoren: wiedergeben, darstellen, erläutern, analysieren, vergleichen, erörtern, beurteilen, Stellung nehmen
 - Situiere die Aufgabe in einem philosophisch relevanten Kontext
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erörtern Sie die ethische Problematik (Autonomie, Würde, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 - 1-2 Teilaufgaben, die den Lernbereich erweitern oder vertiefen
@@ -3939,6 +3960,7 @@ STRUKTUR DER AUFGABE:
 - Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Bewerten Sie …", "Diskutieren Sie …"
 - Verwende die offiziellen Operatoren: beschreiben, darstellen, erläutern, erklären, herausarbeiten, bewerten, erörtern, diskutieren, zuordnen, überprüfen, belegen, entwickeln
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Ursachen der Desertifikation (Überweidung, Abholzung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 MATERIALIEN:
 - Erstelle 3-5 realistische Materialien (geographische Texte, Statistiken, Karten, Klimadiagramme, Fotos)
@@ -4150,6 +4172,7 @@ PRÜFUNGSTEIL A (${bePruefungA}):
 - 3-5 Materialien: geographische Texte (400-800 Wörter), Statistiken, Karten, Klimadiagramme, Fotos
 - Verwende offizielle Operatoren: beschreiben, darstellen, erläutern, erklären, herausarbeiten, bewerten, erörtern, diskutieren, zuordnen, überprüfen, belegen, entwickeln
 - Situiere die Aufgabe in einem konkreten Raumbeispiel
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Ursachen der Desertifikation (Überweidung, Abholzung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - IMMER mindestens 1 Material vom Typ "karte" — content ist ein OBJEKT: {"lat": ..., "lon": ..., "zoom": ..., "label": "..."}
 - Wenn thematisch passend: 1 Material vom Typ "klimadiagramm" — content ist ein OBJEKT: {"station": "...", "hoehe": ..., "temp": [12 Werte], "niederschlag": [12 Werte]}
 - Optional: 1 Material vom Typ "foto" — content ist ein ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). Alle Texte/Beschriftungen IM BILD auf DEUTSCH in "" angeben!
@@ -4457,6 +4480,8 @@ Abschnitt III – Weiterführende Aufgaben (${beWeiterfuehrend}):
 - Operatoren: vergleichen, beurteilen, erörtern, Stellung nehmen, in Beziehung setzen
 
 Gesamt-BE Aufgabenteil: ${beGesamt}
+
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Analysieren Sie die Stilmittel (Anapher, Klimax, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 LATEINISCHER TEXT:
 - Generiere einen AUTHENTISCHEN lateinischen Text im Stil des Autors (80-120 Wörter)
@@ -4798,6 +4823,8 @@ Wähle eine passende Gattung (Prosa oder Dichtung) für den zweiten Text.
 
 Thematischer Schwerpunkt: ${schwerpunktLabel}
 
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Analysieren Sie die Stilmittel (Anapher, Klimax, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "teil_a": {
@@ -5069,6 +5096,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Hilfsmittel/CAS erlaubt
 - Bei umfangreichen Aufgaben (≥20 BE): Kontextbezogene Anwendungsaufgabe
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -5363,6 +5391,7 @@ WICHTIG:
 - Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Inhalten. Keine Themen, Methoden oder Konzepte verwenden, die nicht im Lehrplan stehen.
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
@@ -5673,7 +5702,7 @@ async function handleGenerateChemie(request, env) {
   const sgInfo = sgThemen[sg] || sgThemen.elektrochemie;
 
   const systemPrompt = `Du bist ein Chemie-Experte für das bayerische Abitur (gA/eA, G9, ab 2026).
-Erstelle eine authentische Chemie-Aufgabe.
+Erstelle eine authentische Chemie-Aufgabe nach dem IQB-Aufgabenformat.
 
 AUFGABE:
 - Gesamt: ${totalBE} BE
@@ -5684,6 +5713,22 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
+IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben wie Taschenofen, Kaffeebecher, Adblue):
+- Aufgabe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. Taschenofen, Kaffeebecher, Dieselabgase, Mineraldünger, PET-Recycling) — keine abstrakten Lehrbuchtexte
+- 5-7 Teilaufgaben bei 30 BE, gemischte Aufgabentypen:
+  • Berechnungen (Stöchiometrie, Thermochemie, Nernst, Faraday) mit konkreten Zahlenwerten
+  • Erklärungen/Erläuterungen chemischer Phänomene
+  • Reaktionsgleichungen aufstellen und erklären
+  • Beurteilungen/Diskussionen (z.B. Umweltaspekte, Nachhaltigkeit)
+- Materialien M1-M7: Texte, Tabellen mit Messdaten, Diagramme (Temperatur-Zeit, Energie), Schemata, Sicherheitshinweise
+- AFB-Verteilung: ca. 30% AFB I, 50% AFB II, 20% AFB III
+- Operatoren gezielt einsetzen:
+  • AFB I: "Berechnen Sie", "Formulieren Sie", "Beschreiben Sie", "Skizzieren Sie" (4-6 BE)
+  • AFB II: "Erläutern Sie", "Zeigen Sie", "Erstellen Sie ein Fließschema" (6-13 BE)
+  • AFB III: "Beurteilen Sie", "Diskutieren Sie", "Vergleichen Sie kritisch" (4-6 BE)
+- Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -5995,6 +6040,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -6276,7 +6322,7 @@ async function handleGenerateBio(request, env) {
   const sgInfo = sgThemen[sg] || sgThemen.genetik;
 
   const systemPrompt = `Du bist ein Biologielehrer am bayerischen Gymnasium und erstellst Aufgaben für das Abitur (gA/eA, G9, ab 2026).
-Erstelle eine authentische Biologie-Aufgabe.
+Erstelle eine authentische Biologie-Aufgabe nach dem IQB-Aufgabenformat.
 
 AUFGABE:
 - Gesamt: ${totalBE} BE
@@ -6287,6 +6333,23 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte, Abbildungen) erstellen
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+
+IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben):
+- Aufgabe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. Wasserflöhe, Wölfe, Anolis-Eidechsen, Orchideen, Kakao, THC) — keine abstrakten Lehrbuchtexte
+- 4-5 Teilaufgaben bei 30 BE, die aufeinander aufbauen ("scaffolded complexity")
+- Materialien M1-M4: Vom Grundwissen (M1) zu komplexen Daten/Perspektiven (M3-M4) aufbauen
+  • M1: Grundlegende Sachinformation (Text, Karte, Bild)
+  • M2: Detailliertere Daten/Evidenz (Text + Diagramm/Abbildung)
+  • M3-M4: Forschungsergebnisse, kontroverse Perspektiven, Zeitungsartikel
+- Materialien mischen: quantitative Daten (Diagramme, Tabellen, Messwerte) UND qualitative Quellen (Fachtexte, Fotos, Karten)
+- AFB-Verteilung: ca. 25% AFB I, 55% AFB II, 20% AFB III
+- Operatoren gezielt einsetzen:
+  • AFB I: "Geben Sie an", "Beschreiben Sie", "Nennen Sie" (5-6 BE)
+  • AFB II: "Erläutern Sie", "Interpretieren Sie", "Erklären Sie", "Vergleichen Sie" (7-8 BE)
+  • AFB III: "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie" (6-8 BE)
+- Teilaufgaben beziehen sich DIREKT auf Materialien ("Werten Sie M1 aus", "Interpretieren Sie den in M2 dargestellten Verlauf")
+- Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -6542,7 +6605,7 @@ async function handleGenerateAbiturChemie(request, env) {
   const wahlAnzahl = 3;
 
   const systemPrompt = `Du bist ein Chemie-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
-Erstelle eine VOLLSTÄNDIGE Chemie-Abiturprüfung.
+Erstelle eine VOLLSTÄNDIGE Chemie-Abiturprüfung nach dem IQB-Aufgabenformat.
 
 PRÜFUNGSSTRUKTUR (${lvl}):
 - Prüfungsdauer: ${pruefungsdauer} Minuten
@@ -6550,6 +6613,25 @@ PRÜFUNGSSTRUKTUR (${lvl}):
 - Jede Aufgabengruppe: ${beProAufgabe} BE
 - Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
 - Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+IQB-REFERENZFORMAT (orientiere dich strikt an IQB-Beispielaufgaben wie Taschenofen, Kaffeebecher, Adblue):
+- Jede Aufgabengruppe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. Taschenofen, Kaffeebecher, Dieselabgase, Mineraldünger, PET-Recycling) — KEINE abstrakten Lehrbuchtexte
+- Pro Aufgabengruppe 5-7 Teilaufgaben bei 30 BE, gemischte Aufgabentypen:
+  • Berechnungen (Stöchiometrie, Thermochemie, Nernst, Faraday) mit konkreten Zahlenwerten aus den Materialien
+  • Erklärungen/Erläuterungen chemischer Phänomene im Kontext
+  • Reaktionsgleichungen aufstellen und mechanistisch erklären
+  • Beurteilungen/Diskussionen (Umweltaspekte, Nachhaltigkeit, Alltagsrelevanz)
+- Materialien M1-M5 pro Aufgabengruppe, vielfältig:
+  • Texte: Alltagsbeschreibungen, Gebrauchsanleitungen, Produktbeschreibungen
+  • Tabellen: Stoffdaten, Messwerte, thermodynamische Daten (ΔH, ΔG, ΔS)
+  • Diagramme: Temperatur-Zeit-Verläufe, Energiediagramme, Titrationskurven
+  • Schemata: Apparaturen, Versuchsaufbauten, Fließschemata
+- AFB-Verteilung: ca. 30% AFB I, 50% AFB II, 20% AFB III
+- Operatoren gezielt einsetzen:
+  • AFB I: "Berechnen Sie", "Formulieren Sie", "Beschreiben Sie", "Skizzieren Sie"
+  • AFB II: "Erläutern Sie", "Zeigen Sie", "Erstellen Sie ein Fließschema", "Vergleichen Sie"
+  • AFB III: "Beurteilen Sie", "Diskutieren Sie", "Schätzen Sie ab"
+- Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
 
 SACHGEBIETE (wähle 4 verschiedene aus, Lehrplan G9 Bayern ab 2026):
 1. Elektrochemie (C12 LB8, C13 LB5): Galvanische Zellen, Nernst-Gleichung, Spannungsreihe, Elektrolyse, Faraday-Gesetze, Korrosion (O2-/Säure-/Kontaktkorrosion), Korrosionsschutz, Sekundärzellen, Brennstoffzelle, Elektromobilität
@@ -6566,6 +6648,7 @@ JEDE AUFGABENGRUPPE hat:
 - Ein Sachgebiet
 - Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten
 - 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - Gesamt: ${beProAufgabe} BE
 
 WICHTIG:
@@ -6866,6 +6949,7 @@ JEDE AUFGABENGRUPPE hat:
 - Ein Sachgebiet
 - Material (M1, M2, ...): Texte, Tabellen, Diagramme, Messdaten
 - 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - Gesamt: ${beProAufgabe} BE
 
 WICHTIG:
@@ -7131,7 +7215,7 @@ async function handleGenerateAbiturBiologie(request, env) {
   const wahlAnzahl = 3;
 
   const systemPrompt = `Du bist ein Biologie-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
-Erstelle eine VOLLSTÄNDIGE Biologie-Abiturprüfung.
+Erstelle eine VOLLSTÄNDIGE Biologie-Abiturprüfung nach dem IQB-Aufgabenformat.
 
 PRÜFUNGSSTRUKTUR (${lvl}):
 - Prüfungsdauer: ${pruefungsdauer} Minuten
@@ -7139,6 +7223,27 @@ PRÜFUNGSSTRUKTUR (${lvl}):
 - Jede Aufgabengruppe: ${beProAufgabe} BE
 - Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE (= ${gesamtBE} BE)
 - Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+IQB-REFERENZFORMAT (orientiere dich strikt an IQB-Beispielaufgaben wie Daphnien, Wolf, Anolis):
+- Jede Aufgabengruppe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. konkrete Organismen, ökologische Phänomene, Forschungsergebnisse) — KEINE abstrakten Lehrbuchtexte
+- Pro Aufgabengruppe 4-5 Teilaufgaben bei 30 BE, aufeinander aufbauend ("scaffolded complexity"):
+  • Teilaufgabe 1: Grundwissen/Definition (5-6 BE, AFB I)
+  • Teilaufgabe 2: Beschreibung + Interpretation von Daten (7-8 BE, AFB II)
+  • Teilaufgabe 3: Analyse oder Vergleich (5-10 BE, AFB II/III)
+  • Teilaufgabe 4: Synthese, Modellkritik oder ethische Bewertung (6-8 BE, AFB III)
+  • Optional Teilaufgabe 5: Umfassende Beurteilung (6 BE, AFB III)
+- Materialien M1-M4 pro Aufgabengruppe, progressiv aufgebaut:
+  • M1: Grundlegende Sachinformation/Kontext (Text, Karte, Bild)
+  • M2: Detailliertere Daten/Evidenz (Text + Diagramm/Abbildung mit konkreten Messwerten)
+  • M3: Forschungsergebnisse, Versuchsdaten, Graphen mit Datenpunkten
+  • M4: Kontroverse Perspektiven, Zeitungsartikel, ethische Dimension
+- Materialien mischen: quantitative Daten (Diagramme, Tabellen, Messwerte) UND qualitative Quellen (Fachtexte, Fotos, Karten)
+- AFB-Verteilung: ca. 25% AFB I, 55% AFB II, 20% AFB III
+- Operatoren gezielt einsetzen:
+  • AFB I: "Geben Sie an", "Beschreiben Sie", "Nennen Sie"
+  • AFB II: "Erläutern Sie", "Interpretieren Sie", "Erklären Sie", "Vergleichen Sie"
+  • AFB III: "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie"
+- Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
 
 SACHGEBIETE (wähle 4 verschiedene aus diesen 6, Lehrplan G9 Bayern ab 2026):
 1. Genetik & Gentechnik (B12 LB1): Aufbau und Struktur der DNA (Doppelhelix, Basenpaarung, antiparallele Stränge). Semikonservative Replikation. Proteinbiosynthese: Transkription, RNA-Processing (Spleißen), Translation am Ribosom, genetischer Code (Codon, Anticodon, Redundanz). Genregulation bei Prokaryoten (Operon-Modell) und Eukaryoten (Transkriptionsfaktoren, Enhancer, Methylierung). Genmutationen (Punkt-, Rastermutationen), Mutagene, Reparaturmechanismen. Chromosomenmutationen und Genommutationen. Klassische Genetik: Mendel-Regeln (Uniformität, Spaltung, Unabhängigkeit), Rückkreuzung, Dihybrider Erbgang, Kopplung und Rekombination. Humangenetik: Stammbaumanalyse (autosomal/gonosomal, dominant/rezessiv). Gentechnik: Restriktionsenzyme, Vektoren, PCR, Gelelektrophorese, genetischer Fingerabdruck, Klonierung, CRISPR-Cas. Bioethische Bewertung gentechnischer Verfahren.
@@ -7153,6 +7258,7 @@ JEDE AUFGABENGRUPPE hat:
 - Ein Sachgebiet
 - MINDESTENS 2-3 Materialien (M1, M2, M3, ...) pro Aufgabengruppe!
 - 4-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - Gesamt: ${beProAufgabe} BE
 
 MATERIALIEN — VIELFÄLTIG UND DATENREICH:

@@ -24,6 +24,8 @@ export interface ExamConfig {
   weitereHalbjahre: string[];
 }
 
+export type ExamMode = 'gesamt' | 'referat' | 'fragen';
+
 export interface LiveSessionConfig {
   subject: string;
   examLevel: ExamLevel;
@@ -32,6 +34,7 @@ export interface LiveSessionConfig {
   weitereHalbjahre: string[];
   aufgabenstellung: string;
   material: string;
+  examMode?: ExamMode;
   feedbackMode?: boolean;
   examTranscript?: string;
   onModelTranscription?: (text: string) => void;
@@ -211,42 +214,63 @@ WICHTIG: Schönreden hilft dem Prüfling nicht! Wenn die Leistung mittelmäßig 
 
 function buildExamInstruction(config: LiveSessionConfig): string {
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau (eA)' : 'grundlegendes Anforderungsniveau (gA)';
+  const mode = config.examMode || 'gesamt';
 
-  return `Du bist ein erfahrener bayerischer Gymnasiallehrer und Prüfer für das Abitur-Kolloquium 2026.
+  const header = `Du bist ein erfahrener bayerischer Gymnasiallehrer und Prüfer für das Abitur-Kolloquium 2026.
 
 PRÜFUNGSSITUATION:
 - Fach: ${config.subject} (${levelLabel})
 - Schwerpunkt: "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr})
-- Weitere Halbjahre (Teil 2): ${config.weitereHalbjahre.join(' und ')}
+- Weitere Halbjahre (Teil 2): ${config.weitereHalbjahre.join(' und ')}`;
 
-DEM PRÜFLING GESTELLTE AUFGABE:
-${config.aufgabenstellung}
+  const aufgabeBlock = config.aufgabenstellung ? `\n\nDEM PRÜFLING GESTELLTE AUFGABE:\n${config.aufgabenstellung}\n\nBEREITGESTELLTES MATERIAL:\n${config.material}` : '';
 
-BEREITGESTELLTES MATERIAL:
-${config.material}
-
-ABLAUF (du steuerst alle Phasen):
-
+  const phase1 = `
 PHASE 1 – KURZREFERAT (ca. 10 Min):
 1. Begrüße den Prüfling kurz und professionell.
 2. Sage, dass er mit seinem Kurzreferat beginnen kann.
 3. Höre aufmerksam zu. Unterbrich NUR bei grobem Abschweifen.
-4. Nach ca. 10 Min oder wenn der Prüfling signalisiert, dass er fertig ist → Phase 2.
+4. Nach ca. 10 Min oder wenn der Prüfling signalisiert, dass er fertig ist → beende die Prüfung.`;
 
+  const phase1ToPhase2 = `
+PHASE 1 – KURZREFERAT (ca. 10 Min):
+1. Begrüße den Prüfling kurz und professionell.
+2. Sage, dass er mit seinem Kurzreferat beginnen kann.
+3. Höre aufmerksam zu. Unterbrich NUR bei grobem Abschweifen.
+4. Nach ca. 10 Min oder wenn der Prüfling signalisiert, dass er fertig ist → Phase 2.`;
+
+  const phase2 = `
 PHASE 2 – FRAGEN ZUM SCHWERPUNKT (ca. 5 Min):
 1. Bedanke dich für das Referat und leite zu den Fragen über.
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (Halbjahr ${config.schwerpunktHalbjahr}).
-3. Fokus auf AB II (Transfer) und AB III (Reflexion).
+3. Fokus auf AB II (Transfer) und AB III (Reflexion).`;
 
+  const phase2Start = `
+FRAGEN ZUM SCHWERPUNKT (ca. 5 Min):
+1. Begrüße den Prüfling kurz und professionell.
+2. Erkläre, dass du Fragen zum Schwerpunktthema stellen wirst.
+3. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (Halbjahr ${config.schwerpunktHalbjahr}).
+4. Fokus auf AB II (Transfer) und AB III (Reflexion).`;
+
+  const phase3 = `
 PHASE 3 – GESPRÄCH ZU WEITEREN HALBJAHREN (ca. 15 Min):
 1. Leite über: "Kommen wir nun zu den weiteren Themenbereichen."
 2. Stelle Fragen zu ${config.weitereHalbjahre.join(' und ')}.
 3. Wechsle zwischen beiden Halbjahren. Ca. 3–4 Fragen pro Halbjahr.
-4. Beginne mit AB I, steigere zu AB II und AB III.
+4. Beginne mit AB I, steigere zu AB II und AB III.`;
 
+  const phase3Start = `
+GESPRÄCH ZU WEITEREN HALBJAHREN (ca. 15 Min):
+1. Leite über zu den weiteren Themenbereichen.
+2. Stelle Fragen zu ${config.weitereHalbjahre.join(' und ')}.
+3. Wechsle zwischen beiden Halbjahren. Ca. 3–4 Fragen pro Halbjahr.
+4. Beginne mit AB I, steigere zu AB II und AB III.`;
+
+  const abschluss = `
 ABSCHLUSS:
-- Sage: "Die Prüfung ist damit beendet. Vielen Dank für Ihre Teilnahme."
+- Sage: "Die Prüfung ist damit beendet. Vielen Dank für Ihre Teilnahme."`;
 
+  const verhalten = `
 ANFORDERUNGSBEREICHE:
 - AB I: Reproduktion – Fachwissen wiedergeben
 - AB II: Transfer – Wissen übertragen, Zusammenhänge herstellen
@@ -257,6 +281,17 @@ VERHALTEN:
 - Fehler → gezielte Nachfrage statt sofortige Korrektur.
 - Bei Stocken → dezente Hilfestellung.
 - Natürlicher Gesprächsfluss.${getLanguageInstruction(config.subject)}`;
+
+  let ablauf: string;
+  if (mode === 'referat') {
+    ablauf = `\nABLAUF (nur Kurzreferat-Teil):\n${phase1}\n${abschluss}`;
+  } else if (mode === 'fragen') {
+    ablauf = `\nABLAUF (nur Frageteil):\n${phase2Start}\n${phase3Start}\n${abschluss}`;
+  } else {
+    ablauf = `\nABLAUF (du steuerst alle Phasen):\n${phase1ToPhase2}\n${phase2}\n${phase3}\n${abschluss}`;
+  }
+
+  return header + aufgabeBlock + ablauf + verhalten;
 }
 
 /* ───────── Live session ───────── */
