@@ -104,6 +104,13 @@ const PHASE_LABELS: Record<string, string> = {
 };
 
 export default function App() {
+  /* Auth gate — redirect to main app if not logged in */
+  const isLoggedIn = sessionStorage.getItem('access') === '1' && sessionStorage.getItem('student_name');
+  if (!isLoggedIn) {
+    window.location.href = '/';
+    return null;
+  }
+
   /* URL params */
   const fachFromUrl = new URLSearchParams(window.location.search).get('fach') || '';
 
