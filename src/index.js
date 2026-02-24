@@ -1073,6 +1073,7 @@ ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für da
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Bevölkerungsentwicklung 2010-2024' centered at the top in bold black font, x-axis labeled 'Jahr', y-axis labeled 'Einwohner in Mio.'"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt geschrieben sein! (3) Layout, Farben, Stil, Proportionen und alle visuellen Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1099,7 +1100,8 @@ KRITISCH:
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
 - ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (mind. 3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" mit exakter Positionsbeschreibung stehen. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (mind. 3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" mit exakter Positionsbeschreibung stehen. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!
+- VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1235,6 +1237,7 @@ KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiel
 
 - Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Wirtschaftswachstum in Deutschland' centered at top in bold, x-axis labeled 'Jahr'"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -1803,6 +1806,7 @@ MATERIALIEN:
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Soziale Marktwirtschaft' centered at top in bold"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -2079,6 +2083,7 @@ MATERIALIEN (nur für Teil A):
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Karikaturen oder Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
@@ -2659,7 +2664,8 @@ KRITISCH:
 - Teil A: 3 Teilaufgaben mit steigendem AFB
 - Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
 - ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (mind. 3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" mit exakter Positionsbeschreibung stehen. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (mind. 3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" mit exakter Positionsbeschreibung stehen. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!
+- VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -3433,6 +3439,7 @@ MATERIALIEN:
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
   - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
 
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
@@ -7215,15 +7222,16 @@ Jedes Material hat ein "type"-Feld:
   | 1 | +30 |
   | 2 | -80 |
 
-- **"bild"** — Fotos von realen biologischen Objekten die als Stockfoto geladen werden (z.B. Mikroskopaufnahmen, Laboraufbauten, Ökosysteme, Organismen, DNA-Gele im Labor). "text" enthält 2-4 ENGLISCHE Suchbegriffe für ein Stockfoto (z.B. "microscope cell biology", "gel electrophoresis laboratory", "forest ecosystem biodiversity", "neuron fluorescence microscopy"). KEIN chart_type. NICHT verwenden für: Stammbäume, schematische Diagramme, Kreuzungsschemata — diese gehören als detaillierte Textbeschreibung in type "text".
+- **"bild"** — Bilder werden GENERIERT (Imagen AI). Geeignet für: Mikroskopaufnahmen, Laboraufbauten, Ökosysteme, Organismen, Gelelektrophorese-Ergebnisse, Versuchsaufbauten. "text" MUSS ein ausführlicher Imagen-Prompt auf Englisch sein (mind. 3-5 Sätze) mit Layout, Farben, Stil und allen visuellen Details. KEIN chart_type. NICHT verwenden für: Stammbäume, Kreuzungsschemata — diese als type "text". WICHTIG: Bilder NIEMALS als Text beschreiben — IMMER type "bild" mit Imagen-Prompt verwenden!
 
-- **"text"** — Textquellen, Versuchsbeschreibungen, Fachtexte, Forschungsergebnisse, schematische Beschreibungen (Stammbäume als Textformat mit Generationen I/II/III, Gelelektrophorese-Bandenmuster als Textbeschreibung, Kreuzungsschemata). "text" enthält den Fließtext. KEIN chart_type.
+- **"text"** — Textquellen, Versuchsbeschreibungen, Fachtexte, Forschungsergebnisse, Stammbäume (als Textformat mit Generationen I/II/III), Kreuzungsschemata. "text" enthält den Fließtext. KEIN chart_type. NIEMALS Bilder oder visuelle Materialien als Textbeschreibung — dafür type "bild" verwenden!
 
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
 - KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
-- KRITISCH: Für "bild": "text" MUSS ein ausführlicher Imagen-Prompt auf Englisch sein (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Enzymaktivität bei verschiedenen pH-Werten' centered at the top in bold, x-axis labeled 'pH-Wert', y-axis labeled 'Reaktionsgeschwindigkeit (µmol/min)'"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt geschrieben sein! (3) Layout, Farben, Stil, Proportionen und alle visuellen Elemente detailliert beschreiben. KEINE kurzen Stichworte!
-- Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "text" oder "bild"
+- KRITISCH: Für "bild": "text" MUSS ein ausführlicher Imagen-Prompt auf Englisch sein (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden (z.B. "Title 'Enzymaktivität bei verschiedenen pH-Werten' centered at the top in bold, x-axis labeled 'pH-Wert', y-axis labeled 'Reaktionsgeschwindigkeit (µmol/min)'"). (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt geschrieben sein! (3) Layout, Farben, Stil, Proportionen und alle visuellen Elemente detailliert beschreiben. KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
+- VERBOTEN: Bilder, Fotos, Abbildungen, Schaubilder oder visuelle Materialien als Textbeschreibung in type "text" einbetten! Wenn ein Material visuell ist (Foto, Mikroskopaufnahme, Versuchsaufbau, Landschaft, Organismus), MUSS es type "bild" mit einem ausführlichen Imagen-Prompt sein. Texte wie "Die Abbildung zeigt..." oder "[Beschreibung eines Bildes]" sind NICHT erlaubt — stattdessen als type "bild" generieren!
+- Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "bild" (mit Imagen-Prompt)
 - Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
@@ -7320,16 +7328,16 @@ Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild
 /* ================= BIOLOGIE: MATERIAL POST-PROCESSING ================= */
 function enrichBioMaterials(data) {
   const sachgebietImages = {
-    genetik: "DNA double helix genetics laboratory",
-    gentechnik: "DNA genetics PCR laboratory",
-    neurobiologie: "neuron brain synapse fluorescence microscopy",
-    stoffwechsel: "enzyme biochemistry laboratory cells",
-    stoffwechselphysiologie: "enzyme biochemistry laboratory cells",
-    oekologie: "ecosystem biodiversity forest wildlife",
-    ökologie: "ecosystem biodiversity forest wildlife",
-    evolution: "fossils evolution paleontology museum",
-    verhaltensbiologie: "animal behavior wildlife observation",
-    verhaltensökologie: "animal behavior wildlife observation"
+    genetik: "A detailed scientific photograph of a gel electrophoresis result under UV light. The agarose gel glows blue-green and shows 6 clearly separated lanes with distinct DNA band patterns at different molecular weights. Lane labels at the top read 'Marker', 'Probe 1', 'Probe 2', 'Probe 3', 'Kontrolle+', 'Kontrolle-' in small white text. A title 'Ergebnisse der Gelelektrophorese' is centered at the top in bold white font. Dark laboratory background with the UV transilluminator as main light source.",
+    gentechnik: "A high-resolution photograph of a modern molecular biology laboratory workbench. In the center, a PCR thermocycler with its lid open showing sample tubes. Surrounding equipment includes micropipettes, a centrifuge, and Eppendorf tubes in a rack. A lab notebook with handwritten notes is visible. Clean, well-lit laboratory environment with white surfaces and organized equipment. Title 'PCR-Arbeitsplatz im Labor' in bold text at the top center.",
+    neurobiologie: "A detailed fluorescence microscopy image of neurons in vibrant green and blue colors against a dark background. Multiple neurons are visible with clearly defined cell bodies (soma), long axons, and branching dendrites. Synaptic connections between neurons glow brightly. A scale bar labeled '50 µm' appears in the bottom right corner. Title 'Fluoreszenzmikroskopie: Neuronales Netzwerk' centered at the top in white bold text.",
+    stoffwechsel: "A professional scientific illustration showing enzyme activity in a laboratory setting. A clear test tube rack with colorful solutions in graduated cylinders showing different reaction stages from light yellow to deep orange. A digital thermometer displays '37.0°C'. Clean white laboratory background with professional lighting. Title 'Enzymaktivität im Laborversuch' centered at the top in bold dark text.",
+    stoffwechselphysiologie: "A professional scientific illustration showing enzyme activity in a laboratory setting. A clear test tube rack with colorful solutions in graduated cylinders showing different reaction stages from light yellow to deep orange. A digital thermometer displays '37.0°C'. Clean white laboratory background with professional lighting. Title 'Enzymaktivität im Laborversuch' centered at the top in bold dark text.",
+    oekologie: "An aerial photograph of a diverse temperate forest ecosystem showing different vegetation zones. A meandering river runs through the landscape, with deciduous trees in various shades of green on one side and coniferous forest on the other. A meadow with wildflowers borders the river. Clear blue sky with scattered clouds. Title 'Ökosystem: Auenlandschaft' centered at the top in bold white text with a slight shadow for readability.",
+    "ökologie": "An aerial photograph of a diverse temperate forest ecosystem showing different vegetation zones. A meandering river runs through the landscape, with deciduous trees in various shades of green on one side and coniferous forest on the other. A meadow with wildflowers borders the river. Clear blue sky with scattered clouds. Title 'Ökosystem: Auenlandschaft' centered at the top in bold white text with a slight shadow for readability.",
+    evolution: "A museum display showing a series of hominid skulls arranged chronologically from left to right, demonstrating human evolution. Five skulls from Australopithecus to Homo sapiens are placed on a dark wooden shelf with small labels beneath each. Dramatic museum lighting highlights the bone details. Title 'Schädelvergleich: Evolution des Menschen' centered at the top in elegant white serif font.",
+    verhaltensbiologie: "A professional wildlife photograph showing a group of European grey wolves in their natural habitat. Three wolves are visible in a forest clearing — one in an alert posture, one lying down, and one approaching with tail lowered, demonstrating social hierarchy behavior. Soft natural morning light filters through birch trees. Title 'Sozialverhalten bei Wölfen' centered at the top in bold white text.",
+    "verhaltensökologie": "A professional wildlife photograph showing a group of European grey wolves in their natural habitat. Three wolves are visible in a forest clearing — one in an alert posture, one lying down, and one approaching with tail lowered, demonstrating social hierarchy behavior. Soft natural morning light filters through birch trees. Title 'Sozialverhalten bei Wölfen' centered at the top in bold white text."
   };
 
   const aufgaben = data.aufgaben || data.aufgabengruppen || [];
@@ -7358,7 +7366,7 @@ function enrichBioMaterials(data) {
     // Add image material if none exists
     if (!hasBild) {
       const sg = (a.sachgebiet || "").toLowerCase().replace(/\s+/g, "");
-      const keywords = sachgebietImages[sg] || "biology science laboratory microscope";
+      const keywords = sachgebietImages[sg] || "A professional scientific photograph of a modern biology laboratory. A high-quality microscope is centered on a clean white workbench, with prepared glass slides, Petri dishes with bacterial cultures, and a rack of test tubes nearby. Soft overhead LED lighting illuminates the workspace. Title 'Biologisches Labor' centered at the top in bold dark text.";
       mats.push({
         id: "M" + (mats.length + 1),
         titel: "Abbildung: " + (a.sachgebiet || "Biologie"),
