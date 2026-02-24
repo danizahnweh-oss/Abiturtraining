@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v9';
+const CACHE_NAME = 'myabiflow-v10';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -31,14 +31,31 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // API calls: network only (don't cache)
-  if (url.pathname.startsWith('/api/') || url.hostname !== location.hostname) {
+  // API calls: network only, return JSON error when offline
+  if (url.pathname.startsWith('/api/')) {
     event.respondWith(fetch(event.request).catch(() =>
       new Response(JSON.stringify({ error: 'Offline' }), {
         status: 503,
         headers: { 'Content-Type': 'application/json' }
       })
     ));
+    return;
+  }
+
+  // External resources (fonts, CDN scripts/CSS): cache-first with network fallback
+  if (url.hostname !== location.hostname) {
+    event.respondWith(
+      caches.match(event.request).then(cached => {
+        if (cached) return cached;
+        return fetch(event.request).then(response => {
+          if (response.ok && event.request.method === 'GET') {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return response;
+        });
+      }).catch(() => new Response('', { status: 503 }))
+    );
     return;
   }
 

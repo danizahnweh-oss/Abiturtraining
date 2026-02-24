@@ -4,8 +4,33 @@ const MAX_REQUESTS_PER_WINDOW = 10;
 const MAX_LOGIN_ATTEMPTS = 5;
 const MAX_BODY_SIZE = 5 * 1024 * 1024; // 5 MB
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
+const API_TIMEOUT = 25000; // 25s timeout for external API calls
 const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
+
+/* ================= SHARED PROMPT CONSTANTS ================= */
+const KEINE_LOESUNGSHINWEISE = `KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.`;
+
+function keineLoesungshinweise(beispiel) {
+  if (!beispiel) return KEINE_LOESUNGSHINWEISE;
+  return `KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "${beispiel}"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.`;
+}
+
+const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
+const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
+- "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+
+const LEHRPLAN_TREUE = `LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.`;
+
+const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
+- "korrektur_text_a": Markierter Schülertext Teil A. Markiere Übersetzungsfehler mit <mark class='fehler-ue' title='Korrektur: RICHTIG (Fehlertyp: S/L/H)'>FALSCH</mark>.
+- "korrektur_text_b": Markierter Schülertext Teil B. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teil/Aufgabe", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
 
 /* ---- Token-System (HMAC-SHA256) ---- */
 async function generateToken(env, secret) {
@@ -93,16 +118,16 @@ async function safeCompare(a, b) {
 async function checkAuth(request, env) {
   const token = request.headers.get("X-Access-Token") || "";
   if (!env.ACCESS_PASSWORD) {
-    return jsonResponse({ error: "Server nicht konfiguriert." }, 500);
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
   if (!token || !(await verifyToken(token, env))) {
-    return jsonResponse({ error: "Nicht autorisiert." }, 401);
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
   }
   return null;
 }
 
 /* ---- Rate Limiting ---- */
-function checkRateLimit(request, map, max) {
+function checkRateLimit(request, map, max, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const now = Date.now();
 
@@ -120,7 +145,7 @@ function checkRateLimit(request, map, max) {
 
   entry.count++;
   if (entry.count > max) {
-    return jsonResponse({ error: "Zu viele Anfragen. Bitte warte eine Minute." }, 429);
+    return jsonResponse({ error: "Zu viele Anfragen. Bitte warte eine Minute." }, 429, env);
   }
   return null;
 }
@@ -157,16 +182,15 @@ function corsHeaders(env, requestOrigin) {
   };
 }
 
-let _requestOrigin = null;
 function jsonResponse(data, status = 200, env = null) {
-  return new Response(JSON.stringify(data), { status, headers: corsHeaders(env, _requestOrigin) });
+  return new Response(JSON.stringify(data), { status, headers: corsHeaders(env, env?._origin) });
 }
 
 /* ---- Input-Validierung ---- */
-function checkBodySize(request) {
+function checkBodySize(request, env) {
   const contentLength = parseInt(request.headers.get("Content-Length") || "0", 10);
   if (contentLength > MAX_BODY_SIZE) {
-    return jsonResponse({ error: "Anfrage zu groß." }, 413);
+    return jsonResponse({ error: "Anfrage zu groß." }, 413, env);
   }
   return null;
 }
@@ -181,15 +205,16 @@ export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
 
-    _requestOrigin = request.headers.get("Origin");
+    // Store origin on env to avoid global state race condition
+    env._origin = request.headers.get("Origin");
 
     if (request.method === "OPTIONS") {
-      return new Response(null, { headers: corsHeaders(env, _requestOrigin) });
+      return new Response(null, { headers: corsHeaders(env, env._origin) });
     }
 
     try {
       // Origin-Validierung (CSRF-Schutz)
-      const origin = _requestOrigin;
+      const origin = env._origin;
       const allowed = env.ALLOWED_ORIGIN || "https://myabiflow.de";
       const allowedOrigins = [allowed, allowed.replace("://", "://www.")];
       if (origin && !allowedOrigins.includes(origin)) {
@@ -197,18 +222,18 @@ export default {
       }
 
       // Body-Größe prüfen
-      const sizeError = checkBodySize(request);
+      const sizeError = checkBodySize(request, env);
       if (sizeError) return sizeError;
 
       // ===== LOGIN ENDPOINT (Rate-Limited) =====
       if (pathname === "/api/login" && request.method === "POST") {
-        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
         if (loginLimit) return loginLimit;
         cleanupRateLimitMaps();
         return await handleLogin(request, env);
       }
       if (pathname === "/api/check-student" && request.method === "POST") {
-        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
         if (loginLimit) return loginLimit;
         cleanupRateLimitMaps();
         return await handleCheckStudent(request, env);
@@ -216,31 +241,31 @@ export default {
 
       // ===== DASHBOARD ENDPOINTS (Token-basiert) =====
       if (pathname === "/api/teacher-login" && request.method === "POST") {
-        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS);
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
         if (loginLimit) return loginLimit;
         cleanupRateLimitMaps();
         return await handleTeacherLogin(request, env);
       }
       if (pathname === "/api/results" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleGetResults(request, env);
       }
       if (pathname === "/api/delete-result" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleDeleteResult(request, env);
       }
       if (pathname === "/api/students" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleGetStudents(request, env);
       }
       if (pathname === "/api/delete-student" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleDeleteStudent(request, env);
@@ -250,7 +275,7 @@ export default {
       if (pathname.startsWith("/api/")) {
         const authError = await checkAuth(request, env);
         if (authError) return authError;
-        const rateLimitError = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        const rateLimitError = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rateLimitError) return rateLimitError;
         cleanupRateLimitMaps();
       }
@@ -853,15 +878,8 @@ async function handleOCR(request, env) {
     { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 2000, temperature: 0.1 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("OCR-Verarbeitung fehlgeschlagen.");
-  return jsonResponse({ text: data?.choices?.[0]?.message?.content || "" }, 200, env);
+  const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-4o", temperature: 0.1 });
+  return jsonResponse({ text: text || "" }, 200, env);
 }
 
 /* ================= ENGLISCH: PARSE TASK ================= */
@@ -888,15 +906,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 4000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -960,15 +970,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -1295,9 +1297,7 @@ async function handleGradeDeutsch(request, env) {
   if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
   if (zielgruppe) contextInfo += `Zielgruppe: ${truncate(zielgruppe, 200)}\n`;
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -1378,14 +1378,12 @@ async function handleStudentResults(request, env) {
     return jsonResponse({ error: "student_name required" }, 400, env);
   }
 
-  let results = [];
-  try {
-    const raw = await env.RESULTS_KV.get("all_results");
-    if (raw) results = JSON.parse(raw);
-  } catch {}
+  // Migrate legacy data if needed
+  await kvMigrateLegacyResults(env);
 
+  const allResults = await kvGetAllResults(env);
   const name = student_name.trim().toLowerCase();
-  const filtered = results
+  const filtered = allResults
     .filter(r => (r.student_name || "").trim().toLowerCase() === name)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
@@ -1472,6 +1470,35 @@ async function handleFetchUnsplash(request, env) {
   return handleGenerateImage(fakeReq, env);
 }
 
+/* ================= KV HELPERS (individual keys, no race condition) ================= */
+async function kvGetAllResults(env) {
+  const results = [];
+  let cursor = undefined;
+  do {
+    const list = await env.RESULTS_KV.list({ prefix: "result:", limit: 1000, cursor });
+    const values = await Promise.all(list.keys.map(k => env.RESULTS_KV.get(k.name, "json")));
+    results.push(...values.filter(Boolean));
+    cursor = list.list_complete ? undefined : list.cursor;
+  } while (cursor);
+  return results;
+}
+
+async function kvMigrateLegacyResults(env) {
+  // One-time migration: move "all_results" array to individual keys
+  const raw = await env.RESULTS_KV.get("all_results");
+  if (!raw) return;
+  try {
+    const results = JSON.parse(raw);
+    if (!Array.isArray(results) || results.length === 0) return;
+    await Promise.all(results.map(entry => {
+      const id = entry.id || (Date.now().toString(36) + crypto.randomUUID().slice(0, 8));
+      entry.id = id;
+      return env.RESULTS_KV.put(`result:${id}`, JSON.stringify(entry));
+    }));
+    await env.RESULTS_KV.delete("all_results");
+  } catch {}
+}
+
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
 async function handleSubmitResult(request, env) {
   const { student_name, course, type, topic, content, language, total, date } = await request.json();
@@ -1480,14 +1507,9 @@ async function handleSubmitResult(request, env) {
     return jsonResponse({ error: "student_name and total required" }, 400, env);
   }
 
-  let results = [];
-  try {
-    const raw = await env.RESULTS_KV.get("all_results");
-    if (raw) results = JSON.parse(raw);
-  } catch {}
-
-  results.push({
-    id: Date.now().toString(36) + crypto.randomUUID().slice(0, 8),
+  const id = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
+  const entry = {
+    id,
     student_name: truncate(student_name, 100),
     course: truncate(course || "", 20),
     type: truncate(type || "mediation", 50),
@@ -1496,10 +1518,10 @@ async function handleSubmitResult(request, env) {
     language: language ?? null,
     total,
     date: date || new Date().toISOString()
-  });
+  };
 
-  await env.RESULTS_KV.put("all_results", JSON.stringify(results));
-  return jsonResponse({ success: true, count: results.length }, 200, env);
+  await env.RESULTS_KV.put(`result:${id}`, JSON.stringify(entry));
+  return jsonResponse({ success: true }, 200, env);
 }
 
 /* ================= DASHBOARD: TEACHER LOGIN ================= */
@@ -1529,11 +1551,9 @@ async function handleGetResults(request, env) {
     return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
-  let results = [];
-  try {
-    const raw = await env.RESULTS_KV.get("all_results");
-    if (raw) results = JSON.parse(raw);
-  } catch {}
+  // Migrate legacy data if needed
+  await kvMigrateLegacyResults(env);
+  const results = await kvGetAllResults(env);
 
   return jsonResponse({ results }, 200, env);
 }
@@ -1553,15 +1573,8 @@ async function handleDeleteResult(request, env) {
     return jsonResponse({ error: "result_id required" }, 400, env);
   }
 
-  let results = [];
-  try {
-    const raw = await env.RESULTS_KV.get("all_results");
-    if (raw) results = JSON.parse(raw);
-  } catch {}
-
-  results = results.filter(r => r.id !== result_id);
-  await env.RESULTS_KV.put("all_results", JSON.stringify(results));
-  return jsonResponse({ success: true, count: results.length }, 200, env);
+  await env.RESULTS_KV.delete(`result:${result_id}`);
+  return jsonResponse({ success: true }, 200, env);
 }
 
 /* ================= DASHBOARD: GET REGISTERED STUDENTS ================= */
@@ -1647,15 +1660,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -1864,9 +1869,7 @@ async function handleGradePuG(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -2154,10 +2157,7 @@ async function handleGradeAbiturPuG(request, env) {
 
   contextInfo += `=== PRÜFUNGSTEIL B (Ausweitung) ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_AB;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -2557,15 +2557,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 8000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 8000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -2695,10 +2687,7 @@ async function handleGradeAbiturGeschichte(request, env) {
     contextInfo += `Materialimpuls:\n${truncate(primary_text_b, 3000)}\n\n`;
   }
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_AB;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -3084,15 +3073,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 4000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3192,15 +3173,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 4000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3299,15 +3272,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3534,9 +3499,7 @@ async function handleGradeEthik(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -3752,9 +3715,7 @@ async function handleGradeAbiturEthik(request, env) {
   if (student_text_a) studentTexts += `Schülertext Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
   if (student_text_b) studentTexts += `Schülertext Teil B:\n${truncate(student_text_b, 6000)}`;
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -3852,15 +3813,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -4043,9 +3996,7 @@ async function handleGradeGeographie(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -4250,9 +4201,7 @@ async function handleGradeAbiturGeographie(request, env) {
   if (student_text_a) studentTexts += `Schülertext Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
   if (student_text_b) studentTexts += `Schülertext Teil B:\n${truncate(student_text_b, 6000)}`;
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -4351,15 +4300,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-    body: JSON.stringify({ model: "gpt-4o", messages: [{ role: "user", content }], max_tokens: 6000, temperature: 0.2 })
-  });
-
-  const data = await openaiRes.json();
-  if (!openaiRes.ok) throw new Error("Aufgaben-Erkennung fehlgeschlagen.");
-  const text = data?.choices?.[0]?.message?.content || "";
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -4553,9 +4494,7 @@ async function handleGradeLatein(request, env) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
   }
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+  const korrekturAnweisung = KORREKTUR_SINGLE;
 
   if (aufgabentyp === "uebersetzung") {
     const isEA = (level || "eA").toLowerCase() === "ea";
@@ -4896,10 +4835,7 @@ async function handleGradeAbiturLatein(request, env) {
   if (student_text_a) studentTexts += `Schülerübersetzung (Teil A):\n${truncate(student_text_a, 12000)}\n\n`;
   if (student_text_b) studentTexts += `Schülertext (Teil B – Aufgabenteil):\n${truncate(student_text_b, 10000)}`;
 
-  const korrekturAnweisung = `\n\nZUSÄTZLICH im JSON-Output:
-- "korrektur_text_a": Markierter Schülertext Teil A. Markiere Übersetzungsfehler mit <mark class='fehler-ue' title='Korrektur: RICHTIG (Fehlertyp: S/L/H)'>FALSCH</mark>.
-- "korrektur_text_b": Markierter Schülertext Teil B. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teil/Aufgabe", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
+  const korrekturAnweisung = KORREKTUR_LATEIN;
 
   const systemPrompt = `Du bist ein erfahrener Latein-Korrektor für das bayerische Abitur.
 Bewerte die GESAMTE Abiturprüfung (Teil A + Teil B).
@@ -7598,27 +7534,35 @@ WICHTIG:
 }
 
 /* ================= OPENAI CALL ================= */
-async function callOpenAI(env, messages, maxTokens = 4000) {
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${env.OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: "gpt-5.2",
-      messages,
-      temperature: 0.7,
-      max_completion_tokens: maxTokens
-    })
-  });
+async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7 } = {}) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
 
-  const data = await response.json();
-  if (!response.ok) {
-    console.error("OpenAI error:", data?.error?.message || JSON.stringify(data));
-    throw new Error("KI-Verarbeitung fehlgeschlagen. Bitte versuche es erneut.");
+  try {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${env.OPENAI_API_KEY}`
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model,
+        messages,
+        temperature,
+        max_completion_tokens: maxTokens
+      })
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.error("OpenAI error:", data?.error?.message || JSON.stringify(data));
+      throw new Error("KI-Verarbeitung fehlgeschlagen. Bitte versuche es erneut.");
+    }
+    return data.choices[0].message.content;
+  } finally {
+    clearTimeout(timeoutId);
   }
-  return data.choices[0].message.content;
 }
 
 /* ================= HELPERS ================= */
