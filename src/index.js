@@ -6337,12 +6337,25 @@ Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userPrompt }
-  ], 6000);
+  let openaiRes;
+  try {
+    openaiRes = await callOpenAI(env, [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt }
+    ], 8000);
+  } catch (e) {
+    console.error("generate-bio callOpenAI error:", e.message);
+    throw new Error("Aufgabe konnte nicht generiert werden. Bitte versuche es erneut.");
+  }
 
-  const content = extractJSON(openaiRes);
+  let content;
+  try {
+    content = extractJSON(openaiRes);
+  } catch (e) {
+    console.error("generate-bio JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 200));
+    throw new Error("Antwort konnte nicht verarbeitet werden. Bitte versuche es erneut.");
+  }
+
   return jsonResponse(content, 200, env);
 }
 
