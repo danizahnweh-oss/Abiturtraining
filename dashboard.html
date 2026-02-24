@@ -244,6 +244,7 @@ footer a { color: var(--accent); }
               <th>Kurs</th>
               <th>Registriert am</th>
               <th>Ausgeblendete Fächer</th>
+              <th></th>
             </tr>
           </thead>
           <tbody id="studentsBody"></tbody>
@@ -769,8 +770,37 @@ function renderStudents() {
       <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(s.level || "–")}</span></td>
       <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
       <td style="font-size:.82rem;">${hidden}</td>
+      <td><button class="delete-btn" onclick="deleteStudent('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Schüler entfernen">✕</button></td>
     </tr>`;
   }).join("");
+}
+
+async function deleteStudent(name) {
+  if (!confirm(`Schüler "${name}" wirklich entfernen? Diese Aktion kann nicht rückgängig gemacht werden.`)) return;
+  try {
+    const res = await fetch(API_BASE + "/api/delete-student", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ student_name: name })
+    });
+    if (res.status === 401) {
+      teacherToken = "";
+      document.getElementById("app-wrapper").style.display = "none";
+      document.getElementById("login-screen").style.display = "flex";
+      document.getElementById("loginError").textContent = "Sitzung abgelaufen. Bitte erneut einloggen.";
+      document.getElementById("loginError").style.display = "block";
+      return;
+    }
+    if (!res.ok) {
+      const data = await res.json();
+      alert(data.error || "Fehler beim Entfernen.");
+      return;
+    }
+    allStudents = allStudents.filter(s => s.name !== name);
+    renderStudents();
+  } catch (e) {
+    alert("Fehler: " + e.message);
+  }
 }
 
 /* ====== INIT ====== */
