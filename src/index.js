@@ -239,6 +239,12 @@ export default {
         cleanupRateLimitMaps();
         return await handleGetStudents(request, env);
       }
+      if (pathname === "/api/delete-student" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleDeleteStudent(request, env);
+      }
 
       // ===== AUTH CHECK für /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
@@ -1573,6 +1579,38 @@ async function handleGetStudents(request, env) {
   }));
 
   return jsonResponse({ success: true, students: safe }, 200, env);
+}
+
+/* ================= DASHBOARD: DELETE STUDENT ================= */
+async function handleDeleteStudent(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
+  }
+
+  const { student_name } = await request.json();
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "student_name required" }, 400, env);
+  }
+
+  let students = [];
+  try {
+    const raw = await env.RESULTS_KV.get("registered_students");
+    if (raw) students = JSON.parse(raw);
+  } catch {}
+
+  const before = students.length;
+  students = students.filter(s => s.name !== student_name);
+
+  if (students.length === before) {
+    return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  }
+
+  await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+  return jsonResponse({ success: true, remaining: students.length }, 200, env);
 }
 
 /* ================= POLITIK UND GESELLSCHAFT: PARSE TASK (OCR) ================= */
