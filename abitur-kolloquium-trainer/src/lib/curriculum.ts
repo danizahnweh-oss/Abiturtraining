@@ -2,7 +2,15 @@
  * Lehrplan-Schwerpunkte für das bayerische Abitur-Kolloquium.
  * Basierend auf dem LehrplanPLUS Bayern Gymnasium Oberstufe (G9).
  * Halbjahre: 12/1, 12/2, 13/1, 13/2
- * Jedes Halbjahr hat 3 wählbare Schwerpunktthemen.
+ *
+ * Quellen:
+ * - lehrplanplus.bayern.de (Fachlehrpläne Jgst. 12/13, gA und eA)
+ * - ISB Illustrierende Prüfungsaufgaben (Halbjahr-Zuordnung Geographie)
+ * - STARK Verlag (Halbjahr-Zuordnung Mathematik)
+ *
+ * Hinweis: Für Deutsch, Englisch, Französisch und Italienisch definiert der
+ * LehrplanPLUS keine offizielle Halbjahr-Zuordnung (2-Jahres-Block 12/13).
+ * Die hier verwendete Verteilung orientiert sich an der gängigen Schulpraxis.
  */
 
 export interface SubjectCurriculum {
@@ -13,24 +21,24 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   'Biologie': {
     halbjahre: {
       '12/1': [
-        'Strukturelle und energetische Grundlagen des Lebens',
-        'Enzymatik und Stoffwechselphysiologie',
-        'Zellbiologie und Zellteilung',
+        'Genetik: Speicherung, Realisierung und Regulation genetischer Information',
+        'Neukombination und Veränderung genetischer Information (Mutation, Rekombination)',
+        'Humangenetik, genetische Erkrankungen und DNA-Analytik',
       ],
       '12/2': [
-        'Molekulargenetik und Genexpression',
-        'Humangenetik und genetische Beratung',
-        'Gentechnik und Biotechnologie',
+        'Evolutionsforschung und Belege der Evolution',
+        'Mechanismen der Evolution (Selektion, Gendrift, Artbildung)',
+        'Verhaltensökologie: Evolution und Angepasstheit von Verhalten',
       ],
       '13/1': [
-        'Evolutionstheorien und Belege der Evolution',
-        'Artbildung und Populationsgenetik',
-        'Humanevolution und Stammesgeschichte',
+        'Neuronale Informationsverarbeitung',
+        'Stoffwechselphysiologie: Assimilation (Fotosynthese)',
+        'Stoffwechselphysiologie: Dissimilation (Zellatmung, Gärung)',
       ],
       '13/2': [
-        'Ökosysteme und Stoffkreisläufe',
-        'Populationsökologie und Biodiversität',
-        'Verhaltensbiologie und Neurobiologie',
+        'Dynamische Prozesse in Ökosystemen',
+        'Anthropogene Einflüsse auf Ökosysteme und Biodiversität',
+        'Ökologie der Biosphäre und Nachhaltigkeit',
       ],
     },
   },
@@ -38,249 +46,261 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   'Chemie': {
     halbjahre: {
       '12/1': [
-        'Aromatische Kohlenwasserstoffe und Farbstoffe',
-        'Kunststoffe und Polymerchemie',
-        'Struktur-Eigenschafts-Beziehungen organischer Stoffe',
+        'Atombau und Analytik',
+        'Chemische Bindung (Ionen-, Molekül-, Metallbindung)',
+        'Kohlenwasserstoffe als Energieträger und Reaktionspartner',
       ],
       '12/2': [
-        'Reaktionskinetik und Katalyse',
+        'Reaktionsgeschwindigkeit und Katalyse',
         'Chemisches Gleichgewicht und Massenwirkungsgesetz',
-        'Protolysen, pH-Wert und Puffersysteme',
+        'Redoxgleichgewichte und Elektrochemie',
       ],
       '13/1': [
-        'Redoxreaktionen und Elektrochemie',
-        'Galvanische Zellen und Elektrolyse',
-        'Korrosion und Korrosionsschutz',
+        'Farbigkeit und Struktur-Eigenschafts-Beziehungen',
+        'Säure-Base-Gleichgewichte und quantitative Analytik',
+        'Natürliche Makromoleküle: Aminocarbonsäuren und Proteine',
       ],
       '13/2': [
-        'Naturstoffe: Kohlenhydrate und Fette',
-        'Aminosäuren und Proteine',
-        'Biomoleküle und Stoffwechselchemie',
+        'Synthetische Makromoleküle und Kunststoffe',
+        'Chemie und Nachhaltigkeit',
+        'Biomoleküle: Kohlenhydrate und Fette',
       ],
     },
   },
 
   'Deutsch': {
+    // LehrplanPLUS: D12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
+    // Verteilung nach gängiger Schulpraxis und Epochenfolge.
     halbjahre: {
       '12/1': [
-        'Aufklärung, Sturm und Drang, Klassik',
-        'Romantik und ihre Gegenbewegungen',
-        'Drama und Dramentheorie (18./19. Jh.)',
+        'Klassik und Romantik',
+        'Drama und Dramentheorie (Lessing, Schiller, Goethe, Kleist)',
+        'Lyrik der Klassik und Romantik',
       ],
       '12/2': [
-        'Realismus und Naturalismus',
-        'Expressionismus und literarische Moderne',
-        'Literatur der Weimarer Republik und des Exils',
+        'Realismus und Naturalismus im 19. Jahrhundert',
+        'Literarische Moderne und Expressionismus (Jahrhundertwende bis Mitte 20. Jh.)',
+        'Erzählen und Erzähltheorie (Novelle, Roman)',
       ],
       '13/1': [
-        'Literatur nach 1945 (Trümmer- und Nachkriegsliteratur)',
-        'Gegenwartsliteratur und aktuelle Romane',
-        'Lyrik im Wandel der Epochen',
+        'Nachkriegsliteratur und Aufarbeitung der Vergangenheit (1945–1989)',
+        'Literatur seit 1989 (Identität, Globalisierung, Migration)',
+        'Pflichtlektüren und vertiefende Textanalyse',
       ],
       '13/2': [
         'Sprachreflexion und Sprachwandel',
         'Medien, Kommunikation und Rhetorik',
-        'Sachtextanalyse und Erörterung',
+        'Sachtextanalyse und materialgestütztes Argumentieren',
       ],
     },
   },
 
   'Englisch': {
+    // LehrplanPLUS: E12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
+    // Themengebiete nach gängiger Schulpraxis gruppiert.
     halbjahre: {
       '12/1': [
-        'The Individual and Society',
-        'Growing Up and Identity',
-        'Social Issues and Diversity',
+        'Ireland: Geography, History, Society and Politics (Troubles, Brexit)',
+        'Ethnic Diversity and Immigration in the UK (Empire, Commonwealth)',
+        'Regional and Social Identities in the UK (Education, Social Classes)',
       ],
       '12/2': [
-        'National Identity: The UK',
-        'The American Dream and American Society',
-        'Postcolonialism and Cultural Change',
+        'The American Dream and Multicultural Society in the USA',
+        'Political Systems in the UK and the USA',
+        'Cultural Life in the UK and the USA (Theatre, Film, Music, Architecture)',
       ],
       '13/1': [
-        'Globalization and Global Challenges',
-        'Science, Technology and Ethics',
-        'The Media and the Digital Age',
+        'Science, Technology and the Environment (Ethical Aspects)',
+        'An Anglophone African or Asian Country',
+        'Media in the Information Society',
       ],
       '13/2': [
-        'Visions of the Future',
-        'Utopia and Dystopia in Literature',
-        'Sustainability and the Environment',
+        'Shakespeare and Elizabethan Theatre',
+        'The 20th/21st Century Novel (Ganzschrift)',
+        'Values, Religion and Social Engagement',
       ],
     },
   },
 
   'Ethik': {
+    // Explizite Zuordnung: 2 Lernbereiche pro Jahrgangsstufe = 1 pro Halbjahr
     halbjahre: {
       '12/1': [
         'Theorie und Praxis des Handelns',
-        'Grundpositionen der Ethik (Utilitarismus, Deontologie)',
-        'Freiheit und Verantwortung',
+        'Ethische Grundpositionen (Utilitarismus, Deontologie, Tugendethik)',
+        'Handlungsfreiheit und moralische Verantwortung',
       ],
       '12/2': [
-        'Recht, Gerechtigkeit und Menschenwürde',
-        'Politische Ethik und Staatsphilosophie',
-        'Strafe und Schuld',
+        'Freiheit und Determination',
+        'Willensfreiheit und Determinismus (Hirnforschung, Kompatibilismus)',
+        'Schuld, Strafe und Verantwortung',
       ],
       '13/1': [
-        'Angewandte Ethik (Medizin, Technik, Umwelt)',
-        'Bioethik und Menschenbild',
-        'Wirtschaftsethik und globale Gerechtigkeit',
+        'Recht und Gerechtigkeit',
+        'Gerechtigkeitstheorien (Rawls, Aristoteles)',
+        'Menschenwürde und Menschenrechte',
       ],
       '13/2': [
-        'Sinnfragen und Glückskonzeptionen',
+        'Sinnorientierung und Lebensgestaltung',
+        'Glückskonzeptionen und gelingendes Leben',
         'Religion, Weltanschauung und Toleranz',
-        'Identität und Lebensführung',
       ],
     },
   },
 
   'Französisch': {
+    // LehrplanPLUS: F12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
+    // Themengebiete nach gängiger Schulpraxis gruppiert.
     halbjahre: {
       '12/1': [
-        'La France d\'aujourd\'hui: société et identité',
-        'Les jeunes en France: défis et perspectives',
-        'Paris et la province: vie urbaine et rurale',
+        'La société française en mutation (multiculturalité, démographie, jeunes)',
+        'Paris et la province: urbanisation, centralisme et décentralisation',
+        'Régions à forte identité (Corse, Bretagne, Alsace) et patrimoine culturel',
       ],
       '12/2': [
-        'La France et l\'Allemagne en Europe',
-        'L\'histoire franco-allemande et la réconciliation',
-        'L\'Europe: idéal et réalité',
+        'Les relations franco-allemandes (histoire, Traité de l\'Élysée, Traité d\'Aix-la-Chapelle)',
+        'La France et l\'Europe (V° République, institutions, laïcité)',
+        'Politique et histoire: de l\'Absolutisme à la République',
       ],
       '13/1': [
-        'Un monde en mouvement: migration et intégration',
-        'La mondialisation et ses conséquences',
-        'La francophonie: diversité culturelle',
+        'La francophonie: histoire, présent et diversité culturelle',
+        'La mondialisation et ses conséquences (migration, intégration)',
+        'Économie, travail et développement durable',
       ],
       '13/2': [
-        'Littérature et engagement',
-        'Le cinéma français et la culture',
-        'Arts, médias et société en France',
+        'Littérature française (du 17° au 21° siècle)',
+        'Le cinéma français et les médias francophones',
+        'Arts, chansons et culture en France',
       ],
     },
   },
 
   'Geographie': {
+    // ISB-bestätigte Halbjahr-Zuordnung: 12/1 = LB 2–4, 12/2 = LB 5–7, 13/1 = LB 2–3, 13/2 = LB 4–5
     halbjahre: {
       '12/1': [
-        'Geomorphologie und Landschaftsgenese',
-        'Klima und Klimawandel',
-        'Vegetationszonen und Böden',
+        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse)',
+        'Mensch-Umwelt-Beziehungen in den Tropen (Vulnerabilität und Nachhaltigkeit)',
+        'Globale Bedeutung der Subpolaren und Polaren Zone',
       ],
       '12/2': [
-        'Siedlungsentwicklung und Stadtgeographie',
-        'Raumordnung und Raumplanung in Deutschland',
-        'Mobilität, Verkehr und Infrastruktur',
+        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen)',
+        'Nutzung und Vulnerabilität von Hochgebirgsräumen',
+        'Gefährdungspotenzial und Risikomanagement (tektonische Ereignisse)',
       ],
       '13/1': [
-        'Entwicklungsländer und Entwicklungstheorien',
-        'Globalisierung und Weltwirtschaft',
-        'Bevölkerungsentwicklung und Migration',
+        'Wirtschaftliche Entwicklungen in einer globalisierten Welt',
+        'Ressourcen und nachhaltige Entwicklung',
+        'Globale Disparitäten und Entwicklungsstrategien',
       ],
       '13/2': [
-        'Ressourcen und Energie',
-        'Nachhaltigkeit und Umweltschutz',
-        'Tourismus und Raumwirksamkeit',
+        'Bevölkerungsentwicklung und Migration',
+        'Stadtentwicklung und urbane Räume',
+        'Raumplanung und nachhaltige Stadtentwicklung',
       ],
     },
   },
 
   'Geschichte': {
+    // Explizite Halbjahr-Zuordnung im LehrplanPLUS (G12 1.x = 12/1, G12 2.x = 12/2 usw.)
     halbjahre: {
       '12/1': [
-        'Gesellschaft im Wandel (15.–19. Jahrhundert)',
-        'Aufklärung, Französische Revolution und Napoleon',
-        'Industrialisierung und soziale Frage',
+        'Die deutsche Revolution von 1848/49 und bürgerliche Gesellschaft',
+        'Politische und gesellschaftliche Modernisierung im Kaiserreich',
+        'Demokratisierung und Gesellschaft in der Weimarer Republik',
       ],
       '12/2': [
-        'Weimarer Republik: Chancen und Belastungen',
-        'Nationalsozialismus und Holocaust',
-        'Widerstand, Verfolgung und Alltag im NS-Staat',
+        'Scheitern der Weimarer Republik, NS-Diktatur und Völkermord',
+        'Die Bundesrepublik Deutschland und die DDR',
+        'Die Bundesrepublik Deutschland 1990–2009',
       ],
       '13/1': [
-        'Deutschland nach 1945: Teilung und Einheit',
-        'Kalter Krieg und Ost-West-Konflikt',
-        'Europäische Integration und transatlantische Beziehungen',
+        'Die historische Entwicklung des israelisch-palästinensischen Konflikts',
+        'USA im 20. und 21. Jahrhundert',
+        'Russland und China im 20. und 21. Jahrhundert',
       ],
       '13/2': [
-        'Nahostkonflikt und internationale Friedenssicherung',
-        'Globalisierung und Migration im 21. Jahrhundert',
+        'Historische Grundlagen moderner demokratischer Staatsordnungen',
+        'Von nationalistischer Konfrontation zu europäischer Integration',
         'Erinnerungskultur und Geschichtspolitik',
       ],
     },
   },
 
   'Italienisch': {
+    // LehrplanPLUS: Getrennte Jgst. 12/13, keine offizielle Halbjahr-Zuordnung innerhalb der Jahrgangsstufe.
     halbjahre: {
       '12/1': [
-        'L\'Italia di oggi: società e identità',
-        'I giovani in Italia: sfide e prospettive',
-        'Nord e Sud: contrasti regionali',
+        'L\'Italia di oggi: società, giovani e vita quotidiana',
+        'Facetten Italiens: Nord, Centro, Sud (contrasti regionali)',
+        'Made in Italy: prodotti, marchi e significato economico',
       ],
       '12/2': [
-        'L\'Italia in Europa e nel mondo',
-        'Storia e cultura italiana del Novecento',
-        'Migrazione e multiculturalità',
+        'Storia italiana recente: Fascismo, Resistenza, nascita della Repubblica',
+        'Arte e architettura italiana (Rinascimento)',
+        'Cantautori: dimensione politica e sociale della musica italiana',
       ],
       '13/1': [
-        'Il mondo del lavoro e l\'economia italiana',
-        'Ambiente, sostenibilità e futuro',
-        'La globalizzazione e le sue conseguenze',
+        'Immigrazione ed emigrazione nella storia e nel presente',
+        'La criminalità organizzata e le sue conseguenze sulla società',
+        'La problematica Nord-Sud e la questione meridionale',
       ],
       '13/2': [
-        'Letteratura e cinema italiano',
-        'Arte, musica e patrimonio culturale',
-        'Media, comunicazione e società digitale',
+        'Istituzioni politiche italiane e il ruolo dell\'Italia nell\'UE',
+        'Il cinema italiano e l\'opera lirica',
+        'Letteratura italiana del 20°/21° secolo',
       ],
     },
   },
 
   'Latein': {
+    // De facto Halbjahr-Zuordnung: 2 thematische Lernbereiche pro Jahrgangsstufe
     halbjahre: {
       '12/1': [
-        'Römische Philosophie: Seneca und die Stoa',
-        'Cicero: Staat, Rhetorik und Philosophie',
-        'Epikureismus und Lebenskunst (Lukrez, Horaz)',
+        '"Philosophandum est" – Philosophische Haltungen (Cicero, Seneca)',
+        'Stoische Ethik und Lebensführung (Seneca: Epistulae morales)',
+        'Epikureismus und Skepsis (Cicero: De finibus, De natura deorum)',
       ],
       '12/2': [
-        'Römische Dichtung: Vergils Aeneis',
-        'Ovids Metamorphosen und Liebeslyrik',
-        'Horaz: Oden und Satiren',
+        '"Difficile est saturam non scribere" – Römische Satire',
+        'Catull: Gesellschaftskritik und Liebeslyrik (Carmina)',
+        'Petron: Satirische Darstellung römischer Gesellschaft (Cena Trimalchionis)',
       ],
       '13/1': [
-        'Staat und Gesellschaft: Caesar und Sallust',
-        'Livius und die römische Geschichtsschreibung',
-        'Politische Rhetorik: Ciceros Reden',
+        '"Imperium sine fine dedi" – Literatur und Herrschaft im augusteischen Rom',
+        'Vergil: Aeneis (Staatsidee und Sendungsbewusstsein)',
+        'Augusteische Propaganda und Selbstdarstellung',
       ],
       '13/2': [
-        'Christentum und Antike: Augustinus',
-        'Humanismus und Renaissance-Latein',
-        'Rezeption der Antike in Kunst und Literatur',
+        '"Res publica res populi" – Staatsphilosophische Betrachtungen',
+        'Cicero: De re publica (Staatsformen und Mischverfassung)',
+        'Cicero: De officiis (Pflichtenlehre und politische Verantwortung)',
       ],
     },
   },
 
   'Mathematik': {
+    // STARK-Verlag bestätigte Halbjahr-Zuordnung
     halbjahre: {
       '12/1': [
-        'Analysis I: Funktionen und Ableitungen',
-        'Kurvendiskussion und Optimierung',
-        'Differenzialrechnung und Anwendungen',
+        'Analysis I: Funktionsuntersuchung (Ableitungsregeln, Stammfunktion)',
+        'Kurvendiskussion (ganzrationale, Exponential-, trigonometrische Funktionen)',
+        'Flächeninhalt und bestimmtes Integral',
       ],
       '12/2': [
-        'Analysis II: Integralrechnung',
-        'Wachstums- und Abnahmeprozesse',
-        'Flächenberechnung und Stammfunktionen',
+        'Zufallsgrößen und Binomialverteilung',
+        'Normalverteilung und einseitiger Signifikanztest',
+        'Grundlagen der Koordinatengeometrie im Raum (Vektoren, Geraden)',
       ],
       '13/1': [
-        'Stochastik: Wahrscheinlichkeitsrechnung',
-        'Binomialverteilung und Hypothesentests',
-        'Bedingte Wahrscheinlichkeit und Bayes',
+        'Analysis II: Gebrochen-rationale, Wurzel- und Logarithmusfunktionen',
+        'Geraden und Ebenen im Raum (Lagebeziehungen, Abstände)',
+        'Umkehrfunktionen und erweiterte Ableitungsregeln',
       ],
       '13/2': [
-        'Analytische Geometrie: Vektoren und Geraden',
-        'Ebenen und Lagebeziehungen',
-        'Abstände, Winkel und geometrische Anwendungen',
+        'Anwendungen der Differential- und Integralrechnung',
+        'Modellierung mit Funktionen (Wachstum, Zerfall)',
+        'Vertiefung Koordinatengeometrie (Winkel, Schnitte, Abstände)',
       ],
     },
   },
@@ -288,74 +308,76 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   'Physik': {
     halbjahre: {
       '12/1': [
-        'Elektrische und magnetische Felder',
-        'Elektromagnetische Induktion',
-        'Schwingkreise und elektromagnetische Wellen',
+        'Statische elektrische und magnetische Felder',
+        'Elektrische Feldstärke, Spannung und Kondensator',
+        'Magnetische Flussdichte und Lorentzkraft',
       ],
       '12/2': [
-        'Mechanische Schwingungen und Resonanz',
-        'Mechanische Wellen und Interferenz',
-        'Akustik und Wellenoptik',
+        'Elektromagnetische Induktion und Schwingungen',
+        'Elektromagnetische Wellen (Erzeugung, Ausbreitung, Eigenschaften)',
+        'Wellenoptik und Interferenz',
       ],
       '13/1': [
-        'Quantenphysik: Photoeffekt und Wellennatur',
-        'Atomphysik und Spektrallinien',
-        'Kernphysik und Radioaktivität',
+        'Grundideen der Quantenphysik (Photoeffekt, Welle-Teilchen-Dualismus)',
+        'Atommodell der Quantenphysik und Spektrallinien',
+        'Strukturuntersuchungen zum Aufbau der Materie',
       ],
       '13/2': [
-        'Spezielle Relativitätstheorie',
-        'Astrophysik und Kosmologie',
-        'Elementarteilchenphysik und Standardmodell',
+        'Kernphysik: Kernmodell und Kernkräfte',
+        'Radioaktivität und Zerfallsreihen',
+        'Kernenergietechnik (Kernspaltung, Kernfusion, Strahlenschutz)',
       ],
     },
   },
 
   'Politik und Gesellschaft': {
+    // Lernbereiche nach Halbjahren: 12/1 = LB 1–2, 12/2 = LB 3–4, 13/1 = LB 1–3, 13/2 = LB 4
     halbjahre: {
       '12/1': [
-        'Politisches System der Bundesrepublik Deutschland',
-        'Demokratie und Partizipation',
-        'Grundrechte und Verfassungsprinzipien',
+        'Frieden und Sicherheit als Motive deutscher Außenpolitik',
+        'Das europäische Projekt verstehen und mitgestalten',
+        'Deutschland in internationalen Organisationen (NATO, UNO)',
       ],
       '12/2': [
-        'Gesellschaftsstruktur und sozialer Wandel',
-        'Sozialstaat und soziale Sicherung',
-        'Medien, Öffentlichkeit und politische Willensbildung',
+        'Politische Systeme vergleichen und Demokratie wertschätzen',
+        'Möglichkeiten der Demokratieförderung beurteilen',
+        'Autoritäre und totalitäre Systeme im Vergleich',
       ],
       '13/1': [
-        'Internationale Politik und Sicherheitspolitik',
-        'Vereinte Nationen und internationale Organisationen',
-        'Konflikte und Friedenssicherung',
+        'Modernisierungsprozesse und Zusammenleben in Deutschland',
+        'Soziale Ungleichheit und soziale Mobilität',
+        'Bedeutung des Sozialstaats und aktuelle Herausforderungen',
       ],
       '13/2': [
-        'Europäische Union: Integration und Herausforderungen',
-        'Globalisierung und internationale Wirtschaftsordnung',
-        'Menschenrechte und humanitäres Völkerrecht',
+        'Internationale Konfliktbearbeitung und Völkerrecht',
+        'Menschenrechte und humanitäres Engagement',
+        'Globale Herausforderungen und internationale Kooperation',
       ],
     },
   },
 
   'Wirtschaft und Recht': {
+    // 12/1 = LB 1 (BWL), 12/2 = LB 2–3 (VWL + Recht), 13/1 = LB 1 (Recht), 13/2 = LB 2 (VWL)
     halbjahre: {
       '12/1': [
-        'Wirtschaftliche Grundlagen und Marktmodelle',
-        'Unternehmen und Unternehmensführung',
-        'Berufswahl und Arbeitswelt',
+        'Betriebswirtschaftslehre: Unternehmensgründung und -führung',
+        'Rechtsformen, Organisation und Unternehmenssteuerung',
+        'Marketing, Investition und Finanzierung',
       ],
       '12/2': [
-        'Wirtschaftspolitik und Konjunktur',
-        'Geld, Währung und Europäische Zentralbank',
-        'Arbeitsmarkt und Beschäftigungspolitik',
+        'VWL: Gesamtwirtschaftliche Lage, Wachstum und Beschäftigung',
+        'Einkommen und soziale Sicherung',
+        'Rechtstechnische Grundlagen und Zivilrecht (Schuldverhältnisse)',
       ],
       '13/1': [
-        'Grundlagen des Rechts und Rechtsordnung',
-        'Vertragsrecht und Verbraucherschutz',
-        'Strafrecht und Jugendstrafrecht',
+        'Zivilrecht: Interessenausgleich beim Kauf (Gewährleistung, Verbraucherschutz)',
+        'Strafrecht: Grundlagen, Tatbestandsmerkmale, Rechtsfolgen',
+        'Jugendstrafrecht und Strafzwecktheorien',
       ],
       '13/2': [
-        'Internationale Wirtschaftsbeziehungen und Handel',
-        'Entwicklungspolitik und Nachhaltigkeit',
-        'Digitalisierung und Wirtschaftsethik',
+        'VWL: Geld, Preisniveau und Geldpolitik der EZB',
+        'Außenhandel, Wechselkurse und Währungspolitik',
+        'Europäischer Binnenmarkt und internationale Wirtschaftsbeziehungen',
       ],
     },
   },
