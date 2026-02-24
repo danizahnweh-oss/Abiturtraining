@@ -105,11 +105,11 @@ const PHASE_LABELS: Record<string, string> = {
 
 export default function App() {
   /* Auth gate — redirect to main app if not logged in */
-  const isLoggedIn = sessionStorage.getItem('access') === '1' && sessionStorage.getItem('student_name');
-  if (!isLoggedIn) {
-    window.location.href = '/';
-    return null;
-  }
+  useEffect(() => {
+    if (sessionStorage.getItem('access') !== '1' || !sessionStorage.getItem('student_name')) {
+      window.location.href = '/';
+    }
+  }, []);
 
   /* URL params */
   const fachFromUrl = new URLSearchParams(window.location.search).get('fach') || '';
@@ -277,6 +277,9 @@ export default function App() {
     setFbType(null);
     setFbText('');
     setExamMode('gesamt');
+    setGestrichen('');
+    setSpHalbjahr('');
+    setSchwerpunkt('');
     prep.reset(30 * 60);
   };
 

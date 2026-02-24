@@ -230,7 +230,7 @@ function restoreSession() {
       }
       updateWordCount();
     }
-  } catch { }
+  } catch (e) { console.warn("restoreSession failed:", e); }
 }
 
 /* ================= PROGRESS ================= */

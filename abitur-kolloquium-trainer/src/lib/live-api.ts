@@ -296,9 +296,14 @@ VERHALTEN:
 
 /* ───────── Live session ───────── */
 
+interface LiveAPISession {
+  sendRealtimeInput(input: { media: { data: string; mimeType: string } }): void;
+  close(): void;
+}
+
 export class LiveSession {
   private ai: GoogleGenAI;
-  private session: any = null;
+  private session: LiveAPISession | null = null;
   private audioProcessor: AudioProcessor;
   private audioPlayer: AudioPlayer;
   private config: LiveSessionConfig;
@@ -318,7 +323,7 @@ export class LiveSession {
         ? buildFeedbackInstruction(this.config)
         : buildExamInstruction(this.config);
 
-      const sessionPromise = this.ai.live.connect({
+      this.session = await this.ai.live.connect({
         model: "gemini-2.5-flash-native-audio-preview-09-2025",
         config: {
           responseModalities: [Modality.AUDIO],
@@ -333,9 +338,9 @@ export class LiveSession {
           onopen: () => {
             this.config.onStatusChange?.('connected');
             this.audioProcessor.startRecording((base64Data) => {
-              sessionPromise.then(s => s.sendRealtimeInput({
+              this.session?.sendRealtimeInput({
                 media: { data: base64Data, mimeType: 'audio/pcm;rate=16000' }
-              }));
+              });
             });
           },
           onmessage: async (message) => {
@@ -363,9 +368,7 @@ export class LiveSession {
             this.config.onStatusChange?.('error');
           }
         }
-      });
-
-      this.session = await sessionPromise;
+      }) as unknown as LiveAPISession;
     } catch (error) {
       console.error("Failed to start session:", error);
       this.config.onStatusChange?.('error');
