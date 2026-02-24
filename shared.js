@@ -874,8 +874,8 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
-// Main init
-window.onload = function () {
+// Main init — only for module pages (deutsch.html, etc.), not index.html
+if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
 
   // Modules with their own login screen handle auth themselves
