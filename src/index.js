@@ -233,6 +233,12 @@ export default {
         cleanupRateLimitMaps();
         return await handleDeleteResult(request, env);
       }
+      if (pathname === "/api/students" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleGetStudents(request, env);
+      }
 
       // ===== AUTH CHECK für /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
@@ -1540,6 +1546,33 @@ async function handleDeleteResult(request, env) {
   results = results.filter(r => r.id !== result_id);
   await env.RESULTS_KV.put("all_results", JSON.stringify(results));
   return jsonResponse({ success: true, count: results.length }, 200, env);
+}
+
+/* ================= DASHBOARD: GET REGISTERED STUDENTS ================= */
+async function handleGetStudents(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
+  }
+
+  let students = [];
+  try {
+    const raw = await env.RESULTS_KV.get("registered_students");
+    if (raw) students = JSON.parse(raw);
+  } catch {}
+
+  // Return only safe fields (no password hashes)
+  const safe = students.map(s => ({
+    name: s.name,
+    level: s.level || "",
+    date: s.date || "",
+    hidden_subjects: s.hidden_subjects || [],
+  }));
+
+  return jsonResponse({ success: true, students: safe }, 200, env);
 }
 
 /* ================= POLITIK UND GESELLSCHAFT: PARSE TASK (OCR) ================= */

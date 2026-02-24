@@ -227,9 +227,37 @@ footer a { color: var(--accent); }
       </div>
     </div>
 
+    <!-- Registered Students -->
+    <div class="card" id="registeredStudentsCard">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
+        <h2 style="font-family:var(--font-display);">Registrierte Schüler</h2>
+        <div style="display:flex;gap:.5rem;align-items:center;">
+          <span id="regStudentCount" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
+          <button class="btn btn-small" onclick="loadStudents()">🔄 Aktualisieren</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="results-table" id="studentsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Kurs</th>
+              <th>Registriert am</th>
+              <th>Ausgeblendete Fächer</th>
+            </tr>
+          </thead>
+          <tbody id="studentsBody"></tbody>
+        </table>
+      </div>
+      <div id="noRegistered" class="empty-state" style="display:none;">
+        <div class="icon">👤</div>
+        <p>Noch keine Schüler registriert.</p>
+      </div>
+    </div>
+
     <!-- Student Overview Cards -->
     <div class="card">
-      <h2 style="font-family:var(--font-display);margin-bottom:1rem;">Schüler-Übersicht</h2>
+      <h2 style="font-family:var(--font-display);margin-bottom:1rem;">Schüler-Übersicht (Ergebnisse)</h2>
       <div id="studentGrid" class="student-grid"></div>
       <div id="noStudents" class="empty-state" style="display:none;">
         <div class="icon">📭</div>
@@ -378,6 +406,7 @@ async function loadResults() {
     document.getElementById("app-wrapper").style.display = "flex";
 
     renderAll();
+    loadStudents();
   } catch (e) {
     err.textContent = "Verbindungsfehler: " + e.message;
     err.style.display = "block";
@@ -683,6 +712,65 @@ function escapeHtml(str) {
   return String(str || "").replace(/[&<>"']/g, m => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
   }[m]));
+}
+
+/* ====== REGISTERED STUDENTS ====== */
+let allStudents = [];
+
+async function loadStudents() {
+  try {
+    const res = await fetch(API_BASE + "/api/students", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      if (res.status === 401) {
+        teacherToken = "";
+        document.getElementById("app-wrapper").style.display = "none";
+        document.getElementById("login-screen").style.display = "flex";
+        document.getElementById("loginError").textContent = "Sitzung abgelaufen. Bitte erneut einloggen.";
+        document.getElementById("loginError").style.display = "block";
+      }
+      return;
+    }
+    allStudents = data.students || [];
+    renderStudents();
+  } catch (e) {
+    console.error("Fehler beim Laden der Schüler:", e);
+  }
+}
+
+function renderStudents() {
+  const tbody = document.getElementById("studentsBody");
+  const noReg = document.getElementById("noRegistered");
+  const countEl = document.getElementById("regStudentCount");
+
+  countEl.textContent = allStudents.length + " Schüler";
+
+  if (!allStudents.length) {
+    tbody.innerHTML = "";
+    noReg.style.display = "block";
+    return;
+  }
+
+  noReg.style.display = "none";
+  const sorted = [...allStudents].sort((a, b) => a.name.localeCompare(b.name));
+
+  tbody.innerHTML = sorted.map(s => {
+    const d = s.date ? new Date(s.date) : null;
+    const dateStr = d ? `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}` : "–";
+    const timeStr = d ? `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}` : "";
+    const hidden = s.hidden_subjects && s.hidden_subjects.length
+      ? s.hidden_subjects.map(f => escapeHtml(f)).join(", ")
+      : '<span style="color:var(--ink-muted);">–</span>';
+    return `<tr>
+      <td><strong>${escapeHtml(s.name)}</strong></td>
+      <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(s.level || "–")}</span></td>
+      <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
+      <td style="font-size:.82rem;">${hidden}</td>
+    </tr>`;
+  }).join("");
 }
 
 /* ====== INIT ====== */
