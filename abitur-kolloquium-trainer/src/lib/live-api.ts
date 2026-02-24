@@ -184,114 +184,50 @@ function getLanguageInstruction(subject: string): string {
 }
 
 function buildFeedbackInstruction(config: LiveSessionConfig): string {
-  return `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Du gibst jetzt MÜNDLICHES FEEDBACK zu der gerade absolvierten Kolloquiumsprüfung.
+  // Limit transcript to ~8000 chars to reduce first-response latency
+  const transcript = (config.examTranscript || '').slice(0, 8000);
 
-Fach: ${config.subject} (${config.examLevel === 'eA' ? 'erhöht' : 'grundlegend'})
-Schwerpunkt: ${config.schwerpunkt}
+  return `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung.
+Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt}
 
-TRANSKRIPT DER PRÜFUNG:
----
-${config.examTranscript || '(Nicht verfügbar)'}
----
+TRANSKRIPT:
+${transcript || '(Nicht verfügbar)'}
 
-DEINE AUFGABE – KRITISCHES, EHRLICHES FEEDBACK:
-
-1. Beginne mit einem EHRLICHEN Gesamteindruck (nicht beschönigen!).
-2. Gehe auf KONKRETE Aussagen des Prüflings ein. Zitiere, was er/sie gesagt hat.
-3. Benenne KLAR, was fachlich FALSCH oder UNGENAU war, und nenne die richtige Antwort.
-4. Benenne, was GEFEHLT hat – welche wichtigen Aspekte wurden nicht erwähnt?
-5. Nenne konkrete Stärken mit Beispielen aus dem Gespräch.
-6. Bewerte die Anforderungsbereiche:
-   - AB I (Reproduktion): Wurde Grundwissen korrekt wiedergegeben?
-   - AB II (Transfer): Konnte Wissen angewendet und Zusammenhänge hergestellt werden?
-   - AB III (Reflexion): Gab es eigenständige Urteile und kritische Bewertungen?
-7. Gib eine Punkteeinschätzung (0–15) mit klarer Begründung. Vergib KEINE Gefälligkeitsnoten!
-8. Gib 2–3 KONKRETE Tipps, was beim nächsten Mal besser gemacht werden sollte.
-9. Beantworte Rückfragen des Prüflings ehrlich.
-
-WICHTIG: Schönreden hilft dem Prüfling nicht! Wenn die Leistung mittelmäßig oder schwach war, sage das klar und begründe es. Sprich Deutsch.`;
+AUFGABE: Ehrlicher Gesamteindruck → konkrete fachliche Fehler benennen und korrigieren → Stärken → Bewertung AB I/II/III → Punkteeinschätzung (0–15, keine Gefälligkeitsnoten!) → 2–3 Verbesserungstipps. Beantworte Rückfragen. Sprich Deutsch.`;
 }
 
 function buildExamInstruction(config: LiveSessionConfig): string {
-  const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau (eA)' : 'grundlegendes Anforderungsniveau (gA)';
+  const level = config.examLevel === 'eA' ? 'eA' : 'gA';
   const mode = config.examMode || 'gesamt';
+  const hj = config.schwerpunktHalbjahr;
+  const weitere = config.weitereHalbjahre.join(' und ');
 
-  const header = `Du bist ein erfahrener bayerischer Gymnasiallehrer und Prüfer für das Abitur-Kolloquium 2026.
+  let instruction = `Du bist Prüfer im bayerischen Abitur-Kolloquium 2026.
+Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj}), weitere HJ: ${weitere}.`;
 
-PRÜFUNGSSITUATION:
-- Fach: ${config.subject} (${levelLabel})
-- Schwerpunkt: "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr})
-- Weitere Halbjahre (Teil 2): ${config.weitereHalbjahre.join(' und ')}`;
-
-  const aufgabeBlock = config.aufgabenstellung ? `\n\nDEM PRÜFLING GESTELLTE AUFGABE:\n${config.aufgabenstellung}\n\nBEREITGESTELLTES MATERIAL:\n${config.material}` : '';
-
-  const phase1 = `
-PHASE 1 – KURZREFERAT (ca. 10 Min):
-1. Begrüße den Prüfling kurz und professionell.
-2. Sage, dass er mit seinem Kurzreferat beginnen kann.
-3. Höre aufmerksam zu. Unterbrich NUR bei grobem Abschweifen.
-4. Nach ca. 10 Min oder wenn der Prüfling signalisiert, dass er fertig ist → beende die Prüfung.`;
-
-  const phase1ToPhase2 = `
-PHASE 1 – KURZREFERAT (ca. 10 Min):
-1. Begrüße den Prüfling kurz und professionell.
-2. Sage, dass er mit seinem Kurzreferat beginnen kann.
-3. Höre aufmerksam zu. Unterbrich NUR bei grobem Abschweifen.
-4. Nach ca. 10 Min oder wenn der Prüfling signalisiert, dass er fertig ist → Phase 2.`;
-
-  const phase2 = `
-PHASE 2 – FRAGEN ZUM SCHWERPUNKT (ca. 5 Min):
-1. Bedanke dich für das Referat und leite zu den Fragen über.
-2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (Halbjahr ${config.schwerpunktHalbjahr}).
-3. Fokus auf AB II (Transfer) und AB III (Reflexion).`;
-
-  const phase2Start = `
-FRAGEN ZUM SCHWERPUNKT (ca. 5 Min):
-1. Begrüße den Prüfling kurz und professionell.
-2. Erkläre, dass du Fragen zum Schwerpunktthema stellen wirst.
-3. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (Halbjahr ${config.schwerpunktHalbjahr}).
-4. Fokus auf AB II (Transfer) und AB III (Reflexion).`;
-
-  const phase3 = `
-PHASE 3 – GESPRÄCH ZU WEITEREN HALBJAHREN (ca. 15 Min):
-1. Leite über: "Kommen wir nun zu den weiteren Themenbereichen."
-2. Stelle Fragen zu ${config.weitereHalbjahre.join(' und ')}.
-3. Wechsle zwischen beiden Halbjahren. Ca. 3–4 Fragen pro Halbjahr.
-4. Beginne mit AB I, steigere zu AB II und AB III.`;
-
-  const phase3Start = `
-GESPRÄCH ZU WEITEREN HALBJAHREN (ca. 15 Min):
-1. Leite über zu den weiteren Themenbereichen.
-2. Stelle Fragen zu ${config.weitereHalbjahre.join(' und ')}.
-3. Wechsle zwischen beiden Halbjahren. Ca. 3–4 Fragen pro Halbjahr.
-4. Beginne mit AB I, steigere zu AB II und AB III.`;
-
-  const abschluss = `
-ABSCHLUSS:
-- Sage: "Die Prüfung ist damit beendet. Vielen Dank für Ihre Teilnahme."`;
-
-  const verhalten = `
-ANFORDERUNGSBEREICHE:
-- AB I: Reproduktion – Fachwissen wiedergeben
-- AB II: Transfer – Wissen übertragen, Zusammenhänge herstellen
-- AB III: Reflexion – eigenständig urteilen, bewerten, Probleme lösen
-
-VERHALTEN:
-- Wohlwollend aber anspruchsvoll.
-- Fehler → gezielte Nachfrage statt sofortige Korrektur.
-- Bei Stocken → dezente Hilfestellung.
-- Natürlicher Gesprächsfluss.${getLanguageInstruction(config.subject)}`;
-
-  let ablauf: string;
-  if (mode === 'referat') {
-    ablauf = `\nABLAUF (nur Kurzreferat-Teil):\n${phase1}\n${abschluss}`;
-  } else if (mode === 'fragen') {
-    ablauf = `\nABLAUF (nur Frageteil):\n${phase2Start}\n${phase3Start}\n${abschluss}`;
-  } else {
-    ablauf = `\nABLAUF (du steuerst alle Phasen):\n${phase1ToPhase2}\n${phase2}\n${phase3}\n${abschluss}`;
+  if (config.aufgabenstellung) {
+    instruction += `\nAufgabe: ${config.aufgabenstellung}\nMaterial: ${config.material}`;
   }
 
-  return header + aufgabeBlock + ablauf + verhalten;
+  if (mode === 'referat') {
+    instruction += `
+ABLAUF: Begrüße den Prüfling, lass ihn sein Kurzreferat halten (~10 Min). Höre zu, unterbrich nur bei Abschweifen. Danach beende die Prüfung.`;
+  } else if (mode === 'fragen') {
+    instruction += `
+ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.`;
+  } else {
+    instruction += `
+ABLAUF:
+1. Begrüße den Prüfling, lass ihn sein Kurzreferat halten (~10 Min).
+2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
+3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
+4. Beende die Prüfung.`;
+  }
+
+  instruction += `
+VERHALTEN: Wohlwollend aber anspruchsvoll. Fehler → Nachfrage statt Korrektur. Bei Stocken → Hilfestellung. Natürlicher Gesprächsfluss.${getLanguageInstruction(config.subject)}`;
+
+  return instruction;
 }
 
 /* ───────── Live session ───────── */
@@ -301,12 +237,18 @@ interface LiveAPISession {
   close(): void;
 }
 
+const MAX_RECONNECT_ATTEMPTS = 3;
+const RECONNECT_BASE_DELAY_MS = 1000;
+
 export class LiveSession {
   private ai: GoogleGenAI;
   private session: LiveAPISession | null = null;
   private audioProcessor: AudioProcessor;
   private audioPlayer: AudioPlayer;
   private config: LiveSessionConfig;
+  private stopped = false;
+  private reconnectAttempts = 0;
+  private instruction = '';
 
   constructor(config: LiveSessionConfig) {
     this.ai = createAI();
@@ -316,26 +258,34 @@ export class LiveSession {
   }
 
   async start() {
+    this.stopped = false;
+    this.reconnectAttempts = 0;
+    this.instruction = this.config.feedbackMode
+      ? buildFeedbackInstruction(this.config)
+      : buildExamInstruction(this.config);
+    await this.connect();
+  }
+
+  private async connect() {
+    if (this.stopped) return;
+
     try {
       this.config.onStatusChange?.('connecting');
 
-      const instruction = this.config.feedbackMode
-        ? buildFeedbackInstruction(this.config)
-        : buildExamInstruction(this.config);
-
       this.session = await this.ai.live.connect({
-        model: "gemini-2.5-flash-native-audio-preview-09-2025",
+        model: "gemini-2.5-flash-preview-native-audio-dialog",
         config: {
           responseModalities: [Modality.AUDIO],
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } },
           },
-          systemInstruction: instruction,
+          systemInstruction: this.instruction,
           inputAudioTranscription: {},
           outputAudioTranscription: {},
         },
         callbacks: {
           onopen: () => {
+            this.reconnectAttempts = 0;
             this.config.onStatusChange?.('connected');
             this.audioProcessor.startRecording((base64Data) => {
               this.session?.sendRealtimeInput({
@@ -360,22 +310,48 @@ export class LiveSession {
             }
           },
           onclose: () => {
-            this.stop();
-            this.config.onStatusChange?.('disconnected');
+            this.audioProcessor.stopRecording();
+            if (!this.stopped) {
+              this.tryReconnect();
+            } else {
+              this.config.onStatusChange?.('disconnected');
+            }
           },
           onerror: (err) => {
             console.error("Live API Error:", err);
-            this.config.onStatusChange?.('error');
+            this.audioProcessor.stopRecording();
+            if (!this.stopped) {
+              this.tryReconnect();
+            } else {
+              this.config.onStatusChange?.('error');
+            }
           }
         }
       }) as unknown as LiveAPISession;
     } catch (error) {
-      console.error("Failed to start session:", error);
-      this.config.onStatusChange?.('error');
+      console.error("Failed to connect:", error);
+      if (!this.stopped) {
+        this.tryReconnect();
+      } else {
+        this.config.onStatusChange?.('error');
+      }
     }
   }
 
+  private tryReconnect() {
+    if (this.stopped || this.reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      this.config.onStatusChange?.('error');
+      return;
+    }
+    this.reconnectAttempts++;
+    const delay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
+    console.log(`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+    this.config.onStatusChange?.('connecting');
+    setTimeout(() => this.connect(), delay);
+  }
+
   stop() {
+    this.stopped = true;
     this.audioProcessor.stopRecording();
     this.audioPlayer.stop();
     this.session?.close();
