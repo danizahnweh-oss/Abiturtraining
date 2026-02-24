@@ -924,6 +924,16 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initHL();
   setInterval(saveSession, 30000);
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
+
+  // KI-Disclaimer in Feedback-Bereich einfügen
+  var fc = document.getElementById("feedbackContent");
+  if (fc && !fc.querySelector(".ki-disclaimer")) {
+    var d = document.createElement("div");
+    d.className = "ki-disclaimer";
+    d.style.cssText = "background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-top:1rem;font-size:.82rem;color:var(--ink-muted);line-height:1.5;";
+    d.innerHTML = '\u26a0\ufe0f <strong>Hinweis:</strong> Alle Aufgaben, Bewertungen und Musterl\u00f6sungen auf dieser Plattform werden mithilfe von KI (K\u00fcnstlicher Intelligenz) erstellt. Die Richtigkeit und Vollst\u00e4ndigkeit der Inhalte kann nicht garantiert werden. Besprich deine Ergebnisse im Zweifelsfall mit deiner Lehrkraft.';
+    fc.appendChild(d);
+  }
 };
 
 

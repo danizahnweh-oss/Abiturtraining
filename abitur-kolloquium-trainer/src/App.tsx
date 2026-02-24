@@ -720,8 +720,12 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      <footer className="fixed bottom-6 left-0 right-0 text-center pointer-events-none">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] opacity-15">
+      <footer className="fixed bottom-0 left-0 right-0 text-center pointer-events-none pb-3 px-4">
+        <p className="text-[11px] text-gray-400 leading-relaxed max-w-2xl mx-auto">
+          Alle Pr&uuml;fungen, Bewertungen und Feedback werden mithilfe von KI erstellt.
+          Die Richtigkeit kann nicht garantiert werden.
+        </p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] opacity-15 mt-1">
           Powered by Gemini 2.5 Live API
         </p>
       </footer>
