@@ -22,6 +22,17 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/* ───────── Markdown-Hilfsfunktion ───────── */
+
+function renderMarkdown(text: string) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) =>
+    part.startsWith('**') && part.endsWith('**')
+      ? <strong key={i}>{part.slice(2, -2)}</strong>
+      : part
+  );
+}
+
 /* ───────── Timer hooks ───────── */
 
 function useCountdown(initialSeconds: number) {
@@ -494,21 +505,21 @@ export default function App() {
                   <FileText size={18} />
                   <h3 className="font-semibold text-sm uppercase tracking-wider">Aufgabenstellung</h3>
                 </div>
-                <p className="text-lg leading-relaxed whitespace-pre-wrap">{material.aufgabenstellung}</p>
+                <p className="text-lg leading-relaxed whitespace-pre-wrap">{renderMarkdown(material.aufgabenstellung)}</p>
               </div>
 
               {/* Material */}
               <div className="bg-white rounded-3xl p-8 shadow-sm border border-black/5">
                 <h3 className="font-semibold text-sm uppercase tracking-wider opacity-50 mb-4">Material</h3>
                 <div className="prose prose-sm max-w-none whitespace-pre-wrap opacity-80 leading-relaxed">
-                  {material.material}
+                  {renderMarkdown(material.material)}
                 </div>
               </div>
 
               {/* Hinweise */}
               <div className="bg-amber-50 rounded-2xl p-5 border border-amber-100">
                 <h3 className="font-semibold text-sm uppercase tracking-wider text-amber-700 mb-2">Hinweise</h3>
-                <p className="text-sm text-amber-800 opacity-80 whitespace-pre-wrap">{material.hinweise}</p>
+                <p className="text-sm text-amber-800 opacity-80 whitespace-pre-wrap">{renderMarkdown(material.hinweise)}</p>
               </div>
 
               <button

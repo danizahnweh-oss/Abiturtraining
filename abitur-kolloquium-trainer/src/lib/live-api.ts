@@ -252,9 +252,14 @@ export class LiveSession {
   private config: LiveSessionConfig;
   private stopped = false;
   private reconnectAttempts = 0;
+  private reconnecting = false;
   private instruction = '';
   private activityTimer: number | null = null;
   private lastMessageTime = 0;
+  /** Zeitpunkt des letzten onopen – für Stabilitätsprüfung */
+  private connectionOpenedAt = 0;
+  /** Mindest-Dauer (ms) damit eine Verbindung als "stabil" gilt */
+  private static readonly STABLE_CONNECTION_MS = 10_000;
 
   constructor(config: LiveSessionConfig) {
     this.ai = createAI();
@@ -266,6 +271,7 @@ export class LiveSession {
   async start() {
     this.stopped = false;
     this.reconnectAttempts = 0;
+    this.reconnecting = false;
     this.instruction = this.config.feedbackMode
       ? buildFeedbackInstruction(this.config)
       : buildExamInstruction(this.config);
@@ -296,8 +302,12 @@ export class LiveSession {
         },
         callbacks: {
           onopen: () => {
-            this.reconnectAttempts = 0;
+            this.connectionOpenedAt = Date.now();
             this.lastMessageTime = Date.now();
+            this.reconnecting = false;
+            // reconnectAttempts wird NICHT hier zurückgesetzt –
+            // erst in onclose, wenn die Verbindung stabil war (>10s)
+            console.log(`WebSocket verbunden (Versuch ${this.reconnectAttempts} zuvor)`);
             this.config.onStatusChange?.('connected');
             this.startActivityMonitor();
 
@@ -338,8 +348,15 @@ export class LiveSession {
           },
           onclose: () => {
             this.stopActivityMonitor();
+            const duration = Date.now() - this.connectionOpenedAt;
+            console.log(`WebSocket geschlossen nach ${Math.round(duration / 1000)}s`);
+
+            // Verbindung war stabil → Zähler zurücksetzen
+            if (duration > LiveSession.STABLE_CONNECTION_MS) {
+              this.reconnectAttempts = 0;
+            }
+
             if (!this.stopped) {
-              // Mikrofon NICHT stoppen – bleibt für Reconnect aktiv
               this.tryReconnect();
             } else {
               this.audioProcessor.stopRecording();
@@ -350,7 +367,6 @@ export class LiveSession {
             console.error("Live API Fehler:", err);
             this.stopActivityMonitor();
             if (!this.stopped) {
-              // Mikrofon NICHT stoppen – bleibt für Reconnect aktiv
               this.tryReconnect();
             } else {
               this.audioProcessor.stopRecording();
@@ -392,11 +408,17 @@ export class LiveSession {
   }
 
   private tryReconnect() {
-    if (this.stopped || this.reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+    // Guard: verhindert mehrfache gleichzeitige Reconnects (z.B. onclose + onerror)
+    if (this.reconnecting || this.stopped) return;
+
+    if (this.reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      console.error(`Maximale Reconnect-Versuche (${MAX_RECONNECT_ATTEMPTS}) erreicht – aufgeben`);
       this.audioProcessor.stopRecording();
       this.config.onStatusChange?.('error');
       return;
     }
+
+    this.reconnecting = true;
     this.reconnectAttempts++;
     // Exponentielles Backoff mit Jitter
     const baseDelay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
@@ -404,11 +426,15 @@ export class LiveSession {
     const delay = baseDelay + jitter;
     console.log(`Reconnect in ${Math.round(delay)}ms (Versuch ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
     this.config.onStatusChange?.('reconnecting');
-    setTimeout(() => this.connect(), delay);
+    setTimeout(() => {
+      this.reconnecting = false;
+      this.connect();
+    }, delay);
   }
 
   stop() {
     this.stopped = true;
+    this.reconnecting = false;
     this.stopActivityMonitor();
     this.audioProcessor.stopRecording();
     this.audioPlayer.stop();
