@@ -127,7 +127,7 @@ export default function App() {
   const [material, setMaterial] = useState<ExamMaterial | null>(null);
 
   /* Session state */
-  const [status, setStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'error'>('disconnected');
+  const [status, setStatus] = useState<'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error'>('disconnected');
   const [modelTx, setModelTx] = useState<string[]>([]);
   const [userTx, setUserTx] = useState<string[]>([]);
   const sessionRef = useRef<LiveSession | null>(null);
@@ -318,7 +318,7 @@ export default function App() {
                   status === 'connected' ? "bg-emerald-500" : status === 'error' ? "bg-red-500" : "bg-amber-500",
                 )} />
                 <span className="text-xs font-medium uppercase tracking-wider opacity-60">
-                  {status === 'connected' ? 'Live' : status === 'error' ? 'Fehler' : 'Verbindet...'}
+                  {status === 'connected' ? 'Live' : status === 'error' ? 'Fehler' : status === 'reconnecting' ? 'Verbindet neu...' : 'Verbindet...'}
                 </span>
               </div>
             )}
@@ -575,7 +575,9 @@ export default function App() {
 
                   {/* Transcription */}
                   <div className="w-full max-w-lg bg-[#F9F9F9] rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5">
-                    {status === 'connecting' ? (
+                    {status === 'reconnecting' ? (
+                      <p className="text-sm text-amber-600 italic">Verbindung wird wiederhergestellt... Bitte kurz warten.</p>
+                    ) : status === 'connecting' ? (
                       <p className="text-sm opacity-40 italic">Verbindung wird hergestellt...</p>
                     ) : status === 'error' ? (
                       <p className="text-sm text-red-500 italic">Verbindungsfehler. Bitte Prüfung beenden und neu starten.</p>

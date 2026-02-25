@@ -68,28 +68,57 @@ export default {
       upstream.accept();
       server.accept();
 
-      // Bidirectional message forwarding
+      let serverClosed = false;
+      let upstreamClosed = false;
+
+      // Bidirektionale Nachrichtenweiterleitung
       server.addEventListener('message', (event) => {
-        try { upstream.send(event.data); } catch { server.close(); }
+        if (upstreamClosed) return;
+        try {
+          upstream.send(event.data);
+        } catch (err) {
+          console.error('Fehler beim Senden an Upstream:', err);
+          // Nicht sofort schließen – einzelner Sendefehler ist kein Grund aufzugeben
+        }
       });
       upstream.addEventListener('message', (event) => {
-        try { server.send(event.data); } catch { upstream.close(); }
+        if (serverClosed) return;
+        try {
+          server.send(event.data);
+        } catch (err) {
+          console.error('Fehler beim Senden an Client:', err);
+        }
       });
 
-      // Close forwarding
+      // Close-Events mit Code und Reason weiterleiten
       server.addEventListener('close', (event) => {
-        try { upstream.close(event.code, event.reason); } catch {}
+        serverClosed = true;
+        console.log(`Client WebSocket geschlossen: code=${event.code} reason=${event.reason || '(leer)'}`);
+        if (!upstreamClosed) {
+          try { upstream.close(event.code, event.reason); } catch {}
+        }
       });
       upstream.addEventListener('close', (event) => {
-        try { server.close(event.code, event.reason); } catch {}
+        upstreamClosed = true;
+        console.log(`Upstream WebSocket geschlossen: code=${event.code} reason=${event.reason || '(leer)'}`);
+        if (!serverClosed) {
+          // 1000 = normal close, damit der Client sauber reconnecten kann
+          try { server.close(event.code || 1000, event.reason || 'upstream closed'); } catch {}
+        }
       });
 
-      // Error handling
-      server.addEventListener('error', () => {
-        try { upstream.close(); } catch {}
+      // Error-Handling
+      server.addEventListener('error', (event) => {
+        console.error('Client WebSocket Fehler:', event);
+        if (!upstreamClosed) {
+          try { upstream.close(1011, 'client error'); } catch {}
+        }
       });
-      upstream.addEventListener('error', () => {
-        try { server.close(); } catch {}
+      upstream.addEventListener('error', (event) => {
+        console.error('Upstream WebSocket Fehler:', event);
+        if (!serverClosed) {
+          try { server.close(1011, 'upstream error'); } catch {}
+        }
       });
 
       return new Response(null, {
