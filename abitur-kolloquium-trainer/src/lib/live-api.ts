@@ -39,7 +39,7 @@ export interface LiveSessionConfig {
   examTranscript?: string;
   onModelTranscription?: (text: string) => void;
   onUserTranscription?: (text: string) => void;
-  onStatusChange?: (status: 'connecting' | 'connected' | 'disconnected' | 'error') => void;
+  onStatusChange?: (status: 'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error') => void;
 }
 
 const WORKER_URL = process.env.WORKER_URL;
@@ -237,8 +237,12 @@ interface LiveAPISession {
   close(): void;
 }
 
-const MAX_RECONNECT_ATTEMPTS = 3;
-const RECONNECT_BASE_DELAY_MS = 1000;
+const MAX_RECONNECT_ATTEMPTS = 5;
+const RECONNECT_BASE_DELAY_MS = 1500;
+/** Wenn vom Server 45s lang keine Nachricht kommt → proaktiver Reconnect */
+const ACTIVITY_TIMEOUT_MS = 45_000;
+/** Intervall für den Activity-Check */
+const ACTIVITY_CHECK_INTERVAL_MS = 10_000;
 
 export class LiveSession {
   private ai: GoogleGenAI;
@@ -249,6 +253,8 @@ export class LiveSession {
   private stopped = false;
   private reconnectAttempts = 0;
   private instruction = '';
+  private activityTimer: number | null = null;
+  private lastMessageTime = 0;
 
   constructor(config: LiveSessionConfig) {
     this.ai = createAI();
@@ -270,7 +276,12 @@ export class LiveSession {
     if (this.stopped) return;
 
     try {
-      this.config.onStatusChange?.('connecting');
+      const isReconnect = this.reconnectAttempts > 0;
+      this.config.onStatusChange?.(isReconnect ? 'reconnecting' : 'connecting');
+
+      // Alte Session sicher schließen
+      try { this.session?.close(); } catch { /* ignorieren */ }
+      this.session = null;
 
       this.session = await this.ai.live.connect({
         model: "gemini-2.5-flash-preview-native-audio-dialog",
@@ -286,14 +297,30 @@ export class LiveSession {
         callbacks: {
           onopen: () => {
             this.reconnectAttempts = 0;
+            this.lastMessageTime = Date.now();
             this.config.onStatusChange?.('connected');
-            this.audioProcessor.startRecording((base64Data) => {
-              this.session?.sendRealtimeInput({
-                media: { data: base64Data, mimeType: 'audio/pcm;rate=16000' }
-              });
-            });
+            this.startActivityMonitor();
+
+            const sendAudio = (base64Data: string) => {
+              try {
+                this.session?.sendRealtimeInput({
+                  media: { data: base64Data, mimeType: 'audio/pcm;rate=16000' }
+                });
+              } catch {
+                // Sendefehler ignorieren – wird beim nächsten Chunk erneut versucht
+              }
+            };
+
+            // Mikrofon läuft noch → nur Callback umhängen (kein erneutes getUserMedia)
+            if (this.audioProcessor.isRecording()) {
+              this.audioProcessor.updateCallback(sendAudio);
+            } else {
+              this.audioProcessor.startRecording(sendAudio);
+            }
           },
           onmessage: async (message) => {
+            this.lastMessageTime = Date.now();
+
             const base64Audio = message.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
             if (base64Audio) this.audioPlayer.playChunk(base64Audio);
 
@@ -310,51 +337,82 @@ export class LiveSession {
             }
           },
           onclose: () => {
-            this.audioProcessor.stopRecording();
+            this.stopActivityMonitor();
             if (!this.stopped) {
+              // Mikrofon NICHT stoppen – bleibt für Reconnect aktiv
               this.tryReconnect();
             } else {
+              this.audioProcessor.stopRecording();
               this.config.onStatusChange?.('disconnected');
             }
           },
           onerror: (err) => {
-            console.error("Live API Error:", err);
-            this.audioProcessor.stopRecording();
+            console.error("Live API Fehler:", err);
+            this.stopActivityMonitor();
             if (!this.stopped) {
+              // Mikrofon NICHT stoppen – bleibt für Reconnect aktiv
               this.tryReconnect();
             } else {
+              this.audioProcessor.stopRecording();
               this.config.onStatusChange?.('error');
             }
           }
         }
       }) as unknown as LiveAPISession;
     } catch (error) {
-      console.error("Failed to connect:", error);
+      console.error("Verbindung fehlgeschlagen:", error);
       if (!this.stopped) {
         this.tryReconnect();
       } else {
+        this.audioProcessor.stopRecording();
         this.config.onStatusChange?.('error');
       }
     }
   }
 
+  /** Erkennt "tote" Verbindungen (offen aber keine Daten) */
+  private startActivityMonitor() {
+    this.stopActivityMonitor();
+    this.activityTimer = window.setInterval(() => {
+      if (this.stopped) return;
+      const idle = Date.now() - this.lastMessageTime;
+      if (idle > ACTIVITY_TIMEOUT_MS) {
+        console.warn(`Keine Server-Aktivität seit ${Math.round(idle / 1000)}s – Reconnect wird ausgelöst`);
+        try { this.session?.close(); } catch { /* ignorieren */ }
+        // onclose löst tryReconnect() aus
+      }
+    }, ACTIVITY_CHECK_INTERVAL_MS);
+  }
+
+  private stopActivityMonitor() {
+    if (this.activityTimer) {
+      clearInterval(this.activityTimer);
+      this.activityTimer = null;
+    }
+  }
+
   private tryReconnect() {
     if (this.stopped || this.reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      this.audioProcessor.stopRecording();
       this.config.onStatusChange?.('error');
       return;
     }
     this.reconnectAttempts++;
-    const delay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
-    console.log(`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
-    this.config.onStatusChange?.('connecting');
+    // Exponentielles Backoff mit Jitter
+    const baseDelay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
+    const jitter = Math.random() * 1000;
+    const delay = baseDelay + jitter;
+    console.log(`Reconnect in ${Math.round(delay)}ms (Versuch ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+    this.config.onStatusChange?.('reconnecting');
     setTimeout(() => this.connect(), delay);
   }
 
   stop() {
     this.stopped = true;
+    this.stopActivityMonitor();
     this.audioProcessor.stopRecording();
     this.audioPlayer.stop();
-    this.session?.close();
+    try { this.session?.close(); } catch { /* ignorieren */ }
     this.session = null;
   }
 }

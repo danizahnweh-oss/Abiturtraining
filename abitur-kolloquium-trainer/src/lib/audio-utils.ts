@@ -17,6 +17,17 @@ export class AudioProcessor {
   private bufferOffset = 0;
   private sendCallback: ((base64Data: string) => void) | null = null;
   private flushTimer: number | null = null;
+  private recording = false;
+
+  /** Prüft ob gerade aufgenommen wird (Mikrofon aktiv) */
+  isRecording(): boolean {
+    return this.recording;
+  }
+
+  /** Callback austauschen ohne Aufnahme zu stoppen (für Reconnect) */
+  updateCallback(onAudioData: (base64Data: string) => void) {
+    this.sendCallback = onAudioData;
+  }
 
   async startRecording(onAudioData: (base64Data: string) => void) {
     this.sendCallback = onAudioData;
@@ -69,6 +80,7 @@ export class AudioProcessor {
 
     // Safety flush timer — ensure buffered audio is sent even if chunks stop arriving
     this.flushTimer = window.setInterval(() => this.flush(), SEND_INTERVAL_MS);
+    this.recording = true;
   }
 
   private appendToBuffer(chunk: Int16Array) {
@@ -96,6 +108,7 @@ export class AudioProcessor {
   }
 
   stopRecording() {
+    this.recording = false;
     if (this.flushTimer) { clearInterval(this.flushTimer); this.flushTimer = null; }
     this.flush(); // Send any remaining buffered audio
     this.sendCallback = null;
@@ -103,6 +116,10 @@ export class AudioProcessor {
     this.source?.disconnect();
     this.processor?.disconnect();
     this.audioContext?.close();
+    this.audioContext = null;
+    this.stream = null;
+    this.source = null;
+    this.processor = null;
   }
 }
 
