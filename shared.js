@@ -825,6 +825,20 @@ function clearOCR() {
   document.getElementById("ocrFileInput").value = "";
 }
 
+/* ================= DASHBOARD-LINK IM FOOTER ================= */
+
+;(function() {
+  var footer = document.querySelector("footer");
+  if (!footer || /dashboard/i.test(footer.innerHTML)) return;
+  var br = document.createElement("br");
+  var a = document.createElement("a");
+  a.href = "dashboard.html";
+  a.textContent = "Lehrer-Dashboard \u2192";
+  a.style.cssText = "font-size:0.75rem; opacity:0.6; margin-top:0.5rem; display:inline-block;";
+  footer.appendChild(br);
+  footer.appendChild(a);
+})();
+
 /* ================= INIT ================= */
 
 // Drag & Drop for OCR upload zone
