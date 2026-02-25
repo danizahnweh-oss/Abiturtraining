@@ -290,7 +290,7 @@ export class LiveSession {
       this.session = null;
 
       this.session = await this.ai.live.connect({
-        model: "gemini-2.5-flash-preview-native-audio-dialog",
+        model: "gemini-2.5-flash-native-audio-preview-12-2025",
         config: {
           responseModalities: [Modality.AUDIO],
           speechConfig: {
