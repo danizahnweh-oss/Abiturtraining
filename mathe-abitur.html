@@ -129,7 +129,8 @@
     }
 
     /* Wahlteil */
-    .aufgabe-item.selectable {
+    .aufgabe-item.selectable,
+    .aufgabengruppe-card.selectable {
       cursor: pointer;
       padding: .6rem .8rem;
       border-radius: .5rem;
@@ -139,17 +140,20 @@
       border-bottom: 2px solid var(--border)
     }
 
-    .aufgabe-item.selectable:hover {
+    .aufgabe-item.selectable:hover,
+    .aufgabengruppe-card.selectable:hover {
       border-color: var(--accent);
       background: var(--accent-glow)
     }
 
-    .aufgabe-item.selectable.selected {
+    .aufgabe-item.selectable.selected,
+    .aufgabengruppe-card.selectable.selected {
       border-color: var(--accent);
       background: var(--accent-soft)
     }
 
-    .aufgabe-item.selectable:not(.selected) {
+    .aufgabe-item.selectable:not(.selected),
+    .aufgabengruppe-card.selectable:not(.selected) {
       opacity: .65
     }
 
@@ -207,6 +211,32 @@
       grid-column: 1/-1;
       background: var(--accent-glow);
       border-color: var(--accent)
+    }
+
+    /* GeoGebra Toggle */
+    .ggb-toggle {
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .ggb-toggle summary {
+      padding: .7rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      user-select: none;
+    }
+
+    .ggb-toggle summary:hover {
+      background: var(--accent-soft);
+    }
+
+    .ggb-toggle[open] summary {
+      border-bottom: 1px solid var(--border);
     }
 
     @media(max-width:650px) {
@@ -534,7 +564,22 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
         document.head.appendChild(s);
       });
     }
-    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function (c) { c.remove(); }); }
+    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container, .ggb-toggle").forEach(function (c) { c.remove(); }); }
+    function createGeoGebraToggle(containerEl, grafik, idPrefix) {
+      var details = document.createElement("details");
+      details.className = "ggb-toggle";
+      var summary = document.createElement("summary");
+      summary.textContent = "\uD83D\uDCC8 Grafik anzeigen";
+      details.appendChild(summary);
+      var content = document.createElement("div");
+      details.appendChild(content);
+      containerEl.appendChild(details);
+      details.addEventListener("toggle", function () {
+        if (this.open && !content.querySelector(".ggb-container")) {
+          renderGeoGebra(content, grafik, idPrefix);
+        }
+      });
+    }
     function autoFitGeoGebra(api, type) {
       var names = api.getAllObjectNames();
       if (!names || !names.length) return;
@@ -634,11 +679,31 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       return 0;
     }
 
+    /* Fix häufige KI-Fehler bei LaTeX (besonders e-Funktion) */
+    function fixLatex(latex) {
+      if (!latex) return latex;
+      // e^-<term> → e^{-<term>} (fehlende Klammern bei negativem Exponenten)
+      latex = latex.replace(/e\^(-[0-9]*[\{,\}.]?[0-9]*[a-zA-Z][a-zA-Z0-9]*)/g, 'e^{$1}');
+      // e^-<zahl> am Ende: e^-2 → e^{-2}
+      latex = latex.replace(/e\^(-[0-9]+)(?![a-zA-Z{])/g, 'e^{$1}');
+      // e^(...) → e^{...} (runde Klammern statt geschweifte)
+      latex = latex.replace(/e\^\(([^)]+)\)/g, 'e^{$1}');
+      // \exp\left(...\right) → e^{...}
+      latex = latex.replace(/\\exp\s*\\left\s*\((.+?)\\right\s*\)/g, 'e^{$1}');
+      // \exp(...) → e^{...}
+      latex = latex.replace(/\\exp\s*\(([^)]+)\)/g, 'e^{$1}');
+      return latex;
+    }
+
     /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
     function protectMath(text) {
       var blocks = [];
-      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-      text = text.replace(/\$([^$]+?)\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      // Display: $$...$$ und \[...\]
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m, inner) { blocks.push('$$' + fixLatex(inner) + '$$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\\\[([\s\S]*?)\\\]/g, function (m, inner) { blocks.push('$$' + fixLatex(inner) + '$$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      // Inline: $...$ und \(...\)
+      text = text.replace(/\$([^$]+?)\$/g, function (m, inner) { blocks.push('$' + fixLatex(inner) + '$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\\\((.+?)\\\)/g, function (m, inner) { blocks.push('$' + fixLatex(inner) + '$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
       return { text: text, blocks: blocks };
     }
     function restoreMath(html, blocks) {
@@ -656,7 +721,9 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
         renderMathInElement(el || document.body, {
           delimiters: [
             { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false }
+            { left: "\\[", right: "\\]", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false }
           ],
           throwOnError: false
         });
@@ -745,10 +812,10 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           return content;
         }).join("");
         renderMath(pflicht);
-        // Inject GeoGebra applets into pflicht cards
+        // Inject GeoGebra toggles into pflicht cards (lazy, per Klick)
         pflichtGfx.forEach(function (g) {
           var card = pflicht.querySelectorAll(".aufgabengruppe-card")[g.idx];
-          if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); queueGeoGebra(target, g.grafik, "pflicht_" + g.id); }
+          if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); createGeoGebraToggle(target, g.grafik, "pflicht_" + g.id); }
         });
       }
 
@@ -756,11 +823,21 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       const wahl = document.getElementById("wahlaufgaben");
       if (d.teil_a_wahl && d.teil_a_wahl.length) {
         wahl.innerHTML = d.teil_a_wahl.map(function (a, i) {
-          return '<div class="aufgabe-item selectable' + (CONFIG.selectedWahl.has(i) ? ' selected' : '') + '" data-idx="' + i + '" onclick="toggleWahl(this,' + i + ')">' +
-            '<span class="aufgabe-nr">' + escapeHtml(a.id || ("A" + (i + 5))) + '</span> ' +
-            escapeHtml(a.sachgebiet || "") + ': ' +
-            DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) +
-            ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></div>';
+          let content = '<div class="aufgabengruppe-card selectable' + (CONFIG.selectedWahl.has(i) ? ' selected' : '') + '" data-idx="' + i + '" onclick="toggleWahl(this,' + i + ')">';
+          content += '<h4>' + escapeHtml(a.id || ("A" + (i + 5))) + ': ' + escapeHtml(a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.be || 5) + ' BE)</span></h4>';
+          if (a.text && a.teilaufgaben && a.teilaufgaben.length) {
+            content += '<div class="aufgabe-context">' + DOMPurify.sanitize(safeMathParse(a.text)) + '</div>';
+          }
+          content += '<div class="aufgaben-liste">';
+          if (a.teilaufgaben && a.teilaufgaben.length) {
+            a.teilaufgaben.forEach(function (t) {
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || "") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+            });
+          } else {
+            content += '<div class="aufgabe-item">' + DOMPurify.sanitize(safeMathParseInline(a.text || a.aufgabe || "")) + '</div>';
+          }
+          content += '</div></div>';
+          return content;
         }).join("");
         renderMath(wahl);
       }
@@ -788,17 +865,17 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           return content;
         }).join("");
         renderMath(teilB);
-        // Inject GeoGebra applets into Teil B cards
+        // Inject GeoGebra toggles into Teil B cards (lazy, per Klick)
         teilBGfx.forEach(function (g) {
           var card = teilB.querySelectorAll(".aufgabengruppe-card")[g.idx];
-          if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); queueGeoGebra(target, g.grafik, "teilb_" + g.id); }
+          if (card) { var liste = card.querySelector(".aufgaben-liste"); var target = document.createElement("div"); card.insertBefore(target, liste); createGeoGebraToggle(target, g.grafik, "teilb_" + g.id); }
         });
       }
 
       // Write step references (strip GeoGebra containers)
       document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil A (30 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
       document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil B (70 BE)</strong><br>' + (teilB.innerHTML || "");
-      document.querySelectorAll("#writeTaskRefA .ggb-container, #writeTaskRefB .ggb-container").forEach(function (el) { el.remove(); });
+      document.querySelectorAll("#writeTaskRefA .ggb-container, #writeTaskRefA .ggb-toggle, #writeTaskRefB .ggb-container, #writeTaskRefB .ggb-toggle").forEach(function (el) { el.remove(); });
     }
 
     function toggleWahl(el, idx) {
