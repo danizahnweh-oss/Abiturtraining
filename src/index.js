@@ -4,7 +4,7 @@ const MAX_REQUESTS_PER_WINDOW = 10;
 const MAX_LOGIN_ATTEMPTS = 5;
 const MAX_BODY_SIZE = 5 * 1024 * 1024; // 5 MB
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
-const API_TIMEOUT = 25000; // 25s timeout for external API calls
+const API_TIMEOUT = 90000; // 90s timeout for external API calls
 const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
 
@@ -878,7 +878,7 @@ async function handleOCR(request, env) {
     { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-4o", temperature: 0.1 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-5.2", temperature: 0.1 });
   return jsonResponse({ text: text || "" }, 200, env);
 }
 
@@ -906,7 +906,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -970,7 +970,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -1663,7 +1663,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -2562,7 +2562,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 8000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 8000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -2827,20 +2827,35 @@ MATERIALIEN:
 - Erstelle IMMER zusätzlich 1 Material vom typ "bild" (KI-generiertes Schaubild/Illustration) pro Aufgabe:
   - typ "bild": inhalt = detaillierte Bildbeschreibung, titel = Bildtitel
 
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Fallbeispielen und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction_1": "Situationstext / Rahmenhandlung Aufgabe 1",
-  "aufgabenbloecke_1": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"I"}],"be_gesamt":15}],
-  "materialien_1": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Bildbeschreibung","quelle":""}],
-  "task_instruction_2": "Situationstext / Rahmenhandlung Aufgabe 2",
-  "aufgabenbloecke_2": [{"nr":1,"titel":"...","teilaufgaben":[{"nr":"1.1","text":"...","be":5,"afb":"II"}],"be_gesamt":15}],
-  "materialien_2": [{"nr":"M1","titel":"...","typ":"text","inhalt":"Ausführlicher Text (300-600 Wörter!)","quelle":"..."},{"nr":"M2","titel":"Schaubild: ...","typ":"bild","inhalt":"Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in Anführungszeichen mit Positionsangabe stehen. Keine Rechtschreibfehler!","quelle":""}],
+  "task_instruction_1": "Die Metallbau Müller GmbH, ein mittelständisches Unternehmen mit 120 Mitarbeitern, plant die Erweiterung ihrer Produktionskapazitäten. Die Geschäftsführerin Frau Weber muss verschiedene betriebswirtschaftliche Entscheidungen treffen.",
+  "aufgabenbloecke_1": [
+    {"nr":1,"titel":"Investitionsrechnung","teilaufgaben":[
+      {"nr":"1.1","text":"Stellen Sie die Ziele eines Unternehmens im Überblick dar und unterscheiden Sie dabei zwischen ökonomischen und nicht-ökonomischen Zielen.","be":6,"afb":"I"},
+      {"nr":"1.2","text":"Ermitteln Sie mithilfe von M1 den Break-even-Punkt der geplanten Investition und erläutern Sie dessen Bedeutung für die Entscheidung.","be":8,"afb":"II"},
+      {"nr":"1.3","text":"Vergleichen Sie auf Grundlage von M2 zwei Investitionsalternativen mithilfe der Gewinnvergleichsrechnung und der Amortisationsrechnung.","be":10,"afb":"II"},
+      {"nr":"1.4","text":"Beurteilen Sie, ob die statischen Investitionsrechenverfahren für diese Entscheidung ausreichend sind oder ob dynamische Verfahren vorzuziehen wären.","be":6,"afb":"III"}
+    ],"be_gesamt":30},
+    {"nr":2,"titel":"EIGENEN Aufgabenblock generieren (anderes Thema, 3-4 Teilaufgaben, AFB I→II→III)","teilaufgaben":["EIGENE Teilaufgaben generieren"],"be_gesamt":30}
+  ],
+  "materialien_1": [
+    {"nr":"M1","titel":"Kostenkalkulation der Erweiterung","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter): Fallbeispiel mit konkreten Zahlen zu Fixkosten, variablen Kosten, Absatzpreis, geplanter Produktionsmenge etc.","quelle":"Unternehmensunterlagen"},
+    {"nr":"M2","titel":"Vergleich Investitionsalternativen","typ":"statistik","inhalt":"EIGENE Markdown-Tabelle mit konkreten Zahlenwerten generieren (mind. 6 Zeilen): Vergleich zweier Maschinen mit Anschaffungskosten, Nutzungsdauer, Erlösen, Kosten etc.","quelle":"Angebote der Hersteller, 2025"},
+    {"nr":"M3","titel":"Schaubild: Kostenvergleich","typ":"bild","inhalt":"Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in Anführungszeichen mit Positionsangabe stehen. Keine Rechtschreibfehler!","quelle":""}
+  ],
+  "task_instruction_2": "EIGENEN Situationstext generieren (anderes Thema/anderer Fachbereich als Aufgabe 1)",
+  "aufgabenbloecke_2": [{"nr":1,"titel":"EIGENEN Aufgabenblock generieren","teilaufgaben":["EIGENE Teilaufgaben generieren (3-4 Teilaufgaben, AFB I→II→III, mit konkreten BE-Angaben)"],"be_gesamt":"EIGENE BE-Verteilung"}],
+  "materialien_2": [{"nr":"M1","titel":"EIGENES Material generieren","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter)","quelle":"EIGENE Quelle"},{"nr":"M2","titel":"Schaubild: EIGENES Thema","typ":"bild","inhalt":"Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). Alle Texte im Bild auf DEUTSCH in Anführungszeichen.","quelle":""}],
   "gesamt_be": ${isEA ? 120 : 100},
   "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
   "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",
   "thema_1": "Konkretes Thema Aufgabe 1",
   "thema_2": "Konkretes Thema Aufgabe 2"
-}`;
+}
+WICHTIG: Generiere für BEIDE Aufgaben vollständige, ausformulierte Teilaufgaben und Materialien! MINDESTENS 3 Teilaufgaben pro Aufgabenblock. Material-Inhalte MÜSSEN ausformuliert sein (300-600 Wörter für Texte, echte Zahlenwerte für Tabellen). Verwende ANDERE Themen als im Beispiel!`;
 
   const userPrompt = `Erstelle eine vollständige WR-Abiturprüfung (2 Aufgaben):
 - Niveau: ${niveauLabel}
@@ -3079,7 +3094,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3179,7 +3194,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 4000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3278,7 +3293,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -3820,7 +3835,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -4148,25 +4163,28 @@ ${hj.inhalte}
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen — weniger Vertiefung, keine eA-exklusiven Modelle oder Theorien. Halte dich strikt an den oben angegebenen Lehrplan für das gewählte Niveau.` : ""}
 
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur. Generiere KOMPLETT EIGENE Aufgaben mit einem EIGENEN Raumbeispiel passend zum gewählten Halbjahr! Verwende EIGENE Klimadaten, Koordinaten und Statistiken — kopiere NIEMALS die Beispielwerte!
+
 Antworte NUR mit validem JSON:
 {
   "teil_a": {
-    "task_instruction": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
+    "task_instruction": "Vollständige Aufgabenstellung Teil A mit ALLEN Teilaufgaben (mind. 3-4) und BE-Angaben. Jede Teilaufgabe mit konkretem Operator und Materialbezug (z.B. 'Beschreiben Sie anhand von M1 ...', 'Erläutern Sie mithilfe von M2 und M3 ...', 'Beurteilen Sie ...'). AFB I → II → III.",
     "materials": [
-      {"title": "Titel", "type": "text", "content": "Geographischer Quelltext (400-800 Wörter)", "source": "Autor, Quelle, Jahr"},
-      {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
-      {"title": "Karte: Region X", "type": "karte", "content": {"lat": 48.1, "lon": 11.5, "zoom": 7, "label": "Süddeutschland"}, "source": "OpenStreetMap"},
-      {"title": "Klimadiagramm: Ort X", "type": "klimadiagramm", "content": {"station": "München", "hoehe": 519, "temp": [-1.5,0.2,4.1,8.2,12.8,16.1,18.0,17.4,13.5,8.4,3.2,-0.3], "niederschlag": [48,44,58,62,90,115,126,110,75,56,52,50]}, "source": "DWD Klimadaten"},
-      {"title": "Foto: ...", "type": "foto", "content": "Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). Alle Texte im Bild auf DEUTSCH in Anführungszeichen.", "source": ""}
+      {"title": "EIGENER Titel zum Raumbeispiel", "type": "text", "content": "EIGENEN geographischen Quelltext generieren (400-800 Wörter). Vollständiger, ausführlicher Fachtext mit konkreten Fakten, Daten und Zusammenhängen zum gewählten Raumbeispiel.", "source": "Autor, Quelle, Jahr"},
+      {"title": "Statistik: EIGENER Titel", "type": "statistik", "content": "EIGENE vollständige Markdown-Tabelle mit mind. 6-10 Datenzeilen und plausiblen Zahlenwerten generieren", "source": "Institut, Jahr"},
+      {"title": "Karte: EIGENE Region", "type": "karte", "content": {"lat": "EIGENE Koordinate passend zum Raumbeispiel", "lon": "EIGENE Koordinate", "zoom": "passender Zoomfaktor (3-12)", "label": "EIGENE Beschriftung"}, "source": "OpenStreetMap"},
+      {"title": "Klimadiagramm: EIGENER Ort", "type": "klimadiagramm", "content": {"station": "EIGENER Stationsname passend zum Raumbeispiel", "hoehe": "EIGENE Höhenangabe in m", "temp": "12 EIGENE monatliche Temperaturwerte in °C (Jan-Dez), passend zur Klimazone", "niederschlag": "12 EIGENE monatliche Niederschlagswerte in mm (Jan-Dez), passend zur Klimazone"}, "source": "Klimadatenbank"},
+      {"title": "Foto: EIGENER Titel", "type": "foto", "content": "Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). Alle Texte im Bild auf DEUTSCH in Anführungszeichen.", "source": ""}
     ]
   },
   "teil_b": {
-    "task_instruction": "Vollständige Aufgabenstellung Teil B (räumlicher Vergleich/Transfer) mit BE",
+    "task_instruction": "Vollständige Aufgabenstellung Teil B (räumlicher Vergleich/Transfer) mit mind. 1-2 Teilaufgaben und BE-Angaben. Bezug zu einem ANDEREN geographischen Raum.",
     "materials": []
   },
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Prüfung"
-}`;
+}
+KRITISCH: Bei "karte" und "klimadiagramm" MUSS content ein JSON-OBJEKT sein (KEIN String)! Klimadaten müssen als echte Zahlenarrays (12 Werte) angegeben werden, passend zur gewählten Klimazone. Koordinaten müssen zum Raumbeispiel passen.`;
 
   const userPrompt = `Erstelle eine vollständige Geographie-Abiturprüfung (Teil A + Teil B):
 - Halbjahr: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
@@ -4307,7 +4325,7 @@ Antworte NUR mit validem JSON:
     ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-4o", temperature: 0.2 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
   const parsed = extractJSON(text);
   return jsonResponse(parsed, 200, env);
 }
@@ -4771,27 +4789,41 @@ Thematischer Schwerpunkt: ${schwerpunktLabel}
 
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Analysieren Sie die Stilmittel (Anapher, Klimax, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE lateinische Texte und Aufgaben passend zum gewählten Autor! Kopiere NIEMALS Inhalte aus den Beispielen!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "teil_a": {
     "task_instruction": "Übersetzen Sie den folgenden lateinischen Text ins Deutsche.",
-    "latin_text": "Der vollständige lateinische Übersetzungstext (${wortanzahlA})",
-    "vokabelhilfen": [{"latein": "Wort", "deutsch": "Bedeutung"}, ...],
-    "musteruebersetzung": "Die vollständige deutsche Musterübersetzung"
+    "latin_text": "EIGENEN authentischen lateinischen Text im Stil des gewählten Autors generieren (${wortanzahlA}). Grammatisch korrektes klassisches Latein mit typischen Konstruktionen.",
+    "vokabelhilfen": [{"latein": "EIGENES schwieriges Wort", "deutsch": "EIGENE Bedeutung"}, {"latein": "...", "deutsch": "..."}, "8-15 Vokabelhilfen generieren"],
+    "musteruebersetzung": "EIGENE vollständige deutsche Musterübersetzung des lateinischen Textes generieren"
   },
   "teil_b": {
-    "task_instruction": "Aufgabenteil – [Prosa/Dichtung]",
-    "latin_text": "Der zweite lateinische Text (80-120 Wörter)",
-    "deutsche_uebersetzung": "Die deutsche Übersetzung des zweiten Textes",
+    "task_instruction": "Aufgabenteil – [Prosa/Dichtung je nach gewählter Gattung]",
+    "latin_text": "EIGENEN zweiten authentischen lateinischen Text generieren (80-120 Wörter)",
+    "deutsche_uebersetzung": "EIGENE deutsche Übersetzung des zweiten Textes generieren",
     "aufgaben": [
-      {"abschnitt": "I", "titel": "Hinführende Aufgaben", "teilaufgaben": [{"nr": "1", "text": "...", "be": 4}, ...]},
-      {"abschnitt": "II", "titel": "Interpretationsaufgabe", "teilaufgaben": [{"nr": "1", "text": "...", "be": ${isEA ? 26 : 21}}]},
-      {"abschnitt": "III", "titel": "Weiterführende Aufgaben", "teilaufgaben": [{"nr": "1", "text": "...", "be": 6}, ...]}
+      {"abschnitt": "I", "titel": "Hinführende Aufgaben", "teilaufgaben": [
+        {"nr": "1", "text": "Ordnen Sie den Text einer literarischen Gattung zu und benennen Sie typische Merkmale, die diese Zuordnung stützen.", "be": 4},
+        {"nr": "2", "text": "Arbeiten Sie die zentrale Aussage des Textes heraus und belegen Sie diese am lateinischen Original.", "be": 4},
+        {"nr": "3", "text": "Bestimmen Sie die syntaktische Funktion der markierten Satzteile und benennen Sie die verwendeten Konstruktionen.", "be": 4}
+      ]},
+      {"abschnitt": "II", "titel": "Interpretationsaufgabe", "teilaufgaben": [
+        {"nr": "1", "text": "Interpretieren Sie den Text unter Berücksichtigung der sprachlich-stilistischen Gestaltung und der historischen Einordnung. Gehen Sie dabei auf die Intention des Autors ein und belegen Sie Ihre Aussagen am lateinischen Text.", "be": ${isEA ? 26 : 21}}
+      ]},
+      {"abschnitt": "III", "titel": "Weiterführende Aufgaben", "teilaufgaben": [
+        {"nr": "1", "text": "Vergleichen Sie die im Text vertretene Position mit einer anderen Ihnen bekannten antiken Sichtweise zum selben Thema.", "be": 6},
+        {"nr": "2", "text": "Erörtern Sie die Aktualität der im Text formulierten Gedanken für die heutige Gesellschaft.", "be": 6},
+        {"nr": "3", "text": "EIGENE weiterführende Aufgabe generieren (AFB III, 6 BE)", "be": 6},
+        {"nr": "4", "text": "EIGENE weiterführende Aufgabe generieren (AFB III, 6 BE)", "be": 6}
+      ]}
     ]
   },
   "autor": "${autor || "Cicero"}",
   "thema": "Konkretes Thema der Prüfung"
-}`;
+}
+WICHTIG: Generiere ALLE Texte, Übersetzungen und Aufgaben vollständig ausformuliert! Die Aufgabentexte in Abschnitt I-III müssen konkret und auf den generierten Text bezogen sein. Verwende ANDERE Themen und Formulierungen als in den Beispielen! Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben (davon ${anzahlWeiterfuehrendWahl} zu bearbeiten).`;
 
   const userPrompt = `Erstelle eine vollständige Latein-Abiturprüfung:
 - Autor: ${autor || "Cicero"}
@@ -5005,7 +5037,8 @@ async function handleGenerateMathe(request, env) {
 - M12.4.3: Natürliche Logarithmusfunktion als Umkehrfunktion von e^x
 Lehrplan-Inhalte Jgst. 13:
 - M13.1: Bestimmtes Integral als Flächenbilanz, Hauptsatz, Stammfunktionen, Flächenberechnung, uneigentliche Integrale, Rotationsvolumen
-- M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme`
+- M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme`,
+      kontexte: `Wachstums-/Abklingmodelle (Bakterienkultur, Medikament im Blut, Bevölkerung), CO₂-/Feinstaub-Messung, Produktionskosten/-gewinn, Geschwindigkeit und zurückgelegte Strecke, Wasserstand/Pegelstand, Temperaturverlauf, Höhenprofil einer Straße/Rutsche`
     },
     stochastik: {
       title: "Stochastik",
@@ -5013,14 +5046,16 @@ Lehrplan-Inhalte Jgst. 13:
 - M12.2: Zufallsgrößen, Wahrscheinlichkeitsverteilung, Erwartungswert, Varianz, Standardabweichung, Bernoulli-Ketten, Binomialverteilung, Binomialkoeffizienten
 - M12.3: Einseitiger Signifikanztest, Nullhypothese, Fehler 1. und 2. Art, Ablehnungsbereich, Signifikanzniveau
 Lehrplan-Inhalte Jgst. 13:
-- M13.2: Normalverteilung, diskrete vs. stetige Zufallsgrößen, Dichtefunktion, kumulative Verteilungsfunktion, Sigma-Regeln`
+- M13.2: Normalverteilung, diskrete vs. stetige Zufallsgrößen, Dichtefunktion, kumulative Verteilungsfunktion, Sigma-Regeln`,
+      kontexte: `Verkehrszählung (Radfahrer, Helme, E-Bikes), Qualitätskontrolle (Produktionsfehler, fehlerhafte Verpackungen), Wahlumfragen, medizinische Tests (Schnelltest-Zuverlässigkeit), Versicherungen (Pedelecs, Schadenshäufigkeit), Schulveranstaltung (Lose, Glücksrad, CD-Verkauf)`
     },
     geometrie: {
       title: "Geometrie",
       inhalte: `Lehrplan-Inhalte Jgst. 12:
 - M12.5: Punkte/Figuren/Körper im 3D-Koordinatensystem, Vektoren (Addition, Skalarprodukt, Kreuzprodukt, Betrag), Winkel, Flächeninhalte, Volumina
 Lehrplan-Inhalte Jgst. 13:
-- M13.3: Geraden und Ebenen (Parameter-, Normalen-, Koordinatenform), Lagebeziehungen, Schnittpunkte/-geraden, Schnittwinkel, Abstände (Punkt-Gerade, Punkt-Ebene, windschiefe Geraden, Hesse'sche Normalform), Kugeln (Koordinatenform, Lage zu Geraden/Ebenen)`
+- M13.3: Geraden und Ebenen (Parameter-, Normalen-, Koordinatenform), Lagebeziehungen, Schnittpunkte/-geraden, Schnittwinkel, Abstände (Punkt-Gerade, Punkt-Ebene, windschiefe Geraden, Hesse'sche Normalform), Kugeln (Koordinatenform, Lage zu Geraden/Ebenen)`,
+      kontexte: `Theaterkulisse mit Licht/Schatten, Hügel/Berg mit Weinanbau und Burg, Dach-/Gebäudemodell, Sonnensegel/Zeltdach, Brückenkonstruktion, Aussichtsturm/Sichtlinie, Rampe/Auffahrt`
     }
   };
 
@@ -5038,12 +5073,33 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Hilfsmittel/CAS erlaubt
-- Bei umfangreichen Aufgaben (≥20 BE): Kontextbezogene Anwendungsaufgabe
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
 ${sgInfo.inhalte}
+Sachkontext-Ideen: ${sgInfo.kontexte}
+
+ISB-REFERENZFORMAT (orientiere dich an den illustrierenden Prüfungsaufgaben des ISB Bayern 2025):
+
+PFLICHT-REGELN FÜR JEDE TEILAUFGABE:
+- Jede Teilaufgabe MUSS einen klaren OPERATOR enthalten — NIEMALS nur eine Formel ohne Anweisung!
+  FALSCH: "$f(x) = x^{3} - 6x^{2}$" (Was soll der Schüler tun?!)
+  RICHTIG: "Gegeben ist die Funktion $f$ mit $f(x) = x^{3} - 6x^{2}$, $x \\in \\mathbb{R}$. Bestimmen Sie die Nullstellen von $f$."
+- Operatoren nach AFB:
+  AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie", "Skizzieren Sie"
+  AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie"
+  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist"
+- AFB-Verteilung: ca. 30% AFB I, 50% AFB II, 20% AFB III
+
+SACHKONTEXT-ANFORDERUNGEN:
+- Bei ≥15 BE: Die Aufgabe MUSS in einen KONKRETEN Sachkontext eingebettet sein (z.B. aus der obigen Sachkontext-Ideen-Liste)
+- Einleitung: 1-3 Sätze, die den Sachzusammenhang beschreiben, BEVOR die Funktion/Formel kommt
+  Beispiel: "Junge Hunde wachsen in ihren ersten Lebensmonaten sehr schnell. Die momentane Zunahme der Körpermasse eines Hundes wird durch die Funktion $f$ mit $f(t) = \\frac{1}{100} \\cdot (2t^{3} - 43t^{2} + 248t)$, $0 \\le t \\le 10$ (t in Monaten), modelliert."
+- Bei <15 BE: Sachkontext optional, aber JEDE Teilaufgabe muss trotzdem einen vollständigen Aufgabentext mit Operator haben
+
+KONTROLLWERTE:
+- Bei mehrstufigen Aufgaben (≥15 BE): Gib bei einem wichtigen Zwischenergebnis einen Kontrollwert an — "(zur Kontrolle: ...)"
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -5054,9 +5110,12 @@ WICHTIG:
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
-- Exponentialfunktion: $e^{-0{,}12x}$ (NIEMALS $\exp(-0.12*x)$)
+- e-FUNKTION KRITISCH: Exponent IMMER in geschweifte Klammern!
+  RICHTIG: $e^{-x}$, $e^{2x}$, $e^{-0{,}5x}$, $e^{-\frac{x}{2}}$
+  FALSCH: $e^-x$, $e^(-x)$, $e^{-0.5x}$, $\exp(-x)$
+  NIEMALS $e^-x$ (Klammern fehlen!), NIEMALS $\exp(...)$, NIEMALS runde Klammern $e^(...)$
 - Brüche: $\frac{1}{2}$ (NICHT $1/2$)
-- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$) — auch im Exponenten: $e^{-0{,}12x}$ (NICHT $e^{-0.12x}$)
 - Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
 - Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
 - Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
@@ -5098,21 +5157,26 @@ WANN KEINE Grafik (= NORMALFALL, meistens KEINE Grafik!):
 - Die Funktion dient nur als Kontext
 Im Zweifel: KEINE Grafik. Nur wenige Aufgaben brauchen tatsächlich eine Grafik.
 
+WICHTIG: Das folgende Beispiel zeigt NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Funktionen, Kontexten und Zahlenwerten! Kopiere NIEMALS Inhalte aus dem Beispiel!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "aufgabe": "In einer Messstation wird seit 2010 die Feinstaubkonzentration in der Luft gemessen. Die Konzentration $c$ (in $\\mu g/m^{3}$) lässt sich im Zeitraum $0 \\le t \\le 12$ ($t$ in Monaten) modellhaft durch die Funktion $c$ mit $c(t) = 8 \\cdot t \\cdot e^{-0{,}3t} + 15$ beschreiben.",
   "teilaufgaben": [
-    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 2},
-    {"id": "b)", "text": "...", "be": 3}
+    {"id": "a)", "text": "Berechnen Sie $c(0)$ und $c(5)$ und beschreiben Sie die Bedeutung der Ergebnisse im Sachzusammenhang.", "be": 3},
+    {"id": "b)", "text": "Bestimmen Sie den Zeitpunkt, zu dem die Feinstaubkonzentration maximal ist.", "be": 5},
+    {"id": "c)", "text": "Ermitteln Sie die durchschnittliche Feinstaubkonzentration in den ersten 12 Monaten.", "be": 5},
+    {"id": "d)", "text": "Beurteilen Sie, ob das Modell für große Werte von $t$ sinnvoll ist.", "be": 2}
   ],
   "gesamt_be": ${totalBE},
-  "sachgebiet": "${sg}",
-  "grafik": {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
+  "sachgebiet": "${sg}"
 }
-Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung pädagogisch sinnvoll ist.`;
+Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung zum LÖSEN der Aufgabe nötig ist. Grafik-Format: {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
+WICHTIG: Generiere EIGENE Aufgaben! Das Beispiel oben ist NUR zur Orientierung.`;
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
-Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
+${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet sein (z.B. Modellierung, Messdaten, Alltagsproblem).' : 'Die Aufgabe soll klar formuliert sein mit vollständigen Aufgabenstellungen.'}
+Jede Teilaufgabe braucht einen klaren Operator (Bestimmen Sie, Zeigen Sie, Begründen Sie, etc.) — NIEMALS nur eine Formel ohne Anweisung!
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 
   const openaiRes = await callOpenAI(env, [
@@ -5177,7 +5241,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für mathematische Ausdrücke.
-LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
+LATEX-REGELN: $\cdot$ statt *, e-Funktion IMMER $e^{...}$ mit geschweiften Klammern (z.B. $e^{-x}$, $e^{-0{,}5x}$, NIEMALS $e^-x$ oder $\exp(...)$), $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
 
 Antworte NUR mit validem JSON:
 {
@@ -5247,9 +5311,9 @@ WICHTIG:
 
 LATEX-FORMATIERUNG (echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $\cdot$ (NIEMALS $*$)
-- Exponentialfunktion: $e^{...}$ (NIEMALS $\exp(...)$)
+- e-Funktion: Exponent IMMER in geschweifte Klammern! $e^{-x}$, $e^{-0{,}5x}$ (NIEMALS $e^-x$, $e^(-x)$ oder $\exp(...)$)
 - Brüche: $\frac{a}{b}$ (NICHT a/b)
-- Dezimalkomma: $3{,}6$ (NICHT $3.6$)
+- Dezimalkomma: $3{,}6$ (NICHT $3.6$) — auch im Exponenten: $e^{-0{,}12x}$
 - Vergleiche: $\le$, $\ge$, $\approx$`;
 
   let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
@@ -5280,7 +5344,7 @@ async function handleParseTaskMathe(request, env) {
     {
       role: "user",
       content: [
-        { type: "text", text: "Extrahiere die Mathematik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$). LATEX-REGELN: \\cdot statt *, e^{...} statt \\exp(...), \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        { type: "text", text: "Extrahiere die Mathematik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Formeln und Teilaufgaben. Verwende LaTeX-Notation für Formeln ($...$, $$...$$). LATEX-REGELN: \\cdot statt *, e-Funktion IMMER mit geschweiften Klammern im Exponent: e^{-x}, e^{-0{,}5x} (NIEMALS e^-x oder \\exp(...)), \\frac{a}{b} statt a/b, Dezimalkomma 3{,}6 statt 3.6. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
         ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
       ]
     }
@@ -5316,17 +5380,52 @@ TEIL A (30 BE, ohne CAS/Hilfsmittel, max. 110 min):
   Jede Aufgabe: 2-3 Teilaufgaben, ohne CAS lösbar
 
 TEIL B (70 BE, mit CAS/Hilfsmitteln):
-  - B1 (30 BE): Analysis — eine große mehrteilige Aufgabe (6-8 Teilaufgaben)
-    Kontextbezogen (z.B. Modellierung, Optimierung), steigendes Niveau
-  - B2 (20 BE): Stochastik — eine große mehrteilige Aufgabe (4-6 Teilaufgaben)
-    Z.B. Binomialverteilung, Hypothesentest, bedingte Wahrscheinlichkeit
-  - B3 (20 BE): Geometrie — eine große mehrteilige Aufgabe (4-6 Teilaufgaben)
-    Z.B. Geraden/Ebenen im Raum, Abstände, Winkel, Anwendung
+  - B1 (30 BE): Analysis — große mehrteilige Aufgabe
+  - B2 (20 BE): Stochastik — große mehrteilige Aufgabe
+  - B3 (20 BE): Geometrie — große mehrteilige Aufgabe
 
 LEHRPLAN-INHALTE (G9, Bayern, ab 2026):
 Analysis: M12.1 Ganzrationale Funktionen (Parameterscharen, Stammfunktionen), M12.1.2 Natürliche Exponentialfunktion (Produkt-/Kettenregel, Wachstums-/Abklingmodelle), M12.1.3 Sinus-/Kosinusfunktion, M12.4 Gebrochen-rationale Funktionen (Quotientenregel), Wurzel-/Umkehrfunktionen, Logarithmusfunktion. M13.1 Bestimmtes Integral (Flächenbilanz, Hauptsatz, uneigentliche Integrale, Rotationsvolumen), M13.4 Extremwertprobleme, Parameterfunktionen.
 Stochastik: M12.2 Zufallsgrößen, Binomialverteilung (Bernoulli-Ketten, Erwartungswert, Standardabweichung), M12.3 Einseitiger Signifikanztest (Fehler 1./2. Art, Ablehnungsbereich), M13.2 Normalverteilung (Dichtefunktion, Sigma-Regeln).
 Geometrie: M12.5 Vektoren (Skalar-/Kreuzprodukt, Winkel, Flächeninhalte), M13.3 Geraden/Ebenen (Parameter-/Normalen-/Koordinatenform, Lagebeziehungen, Abstände, Hesse'sche Normalform, Kugeln).
+
+ISB-AUFGABENSTRUKTUR (basierend auf den offiziellen illustrierenden Prüfungsaufgaben Bayern 2025):
+
+TEIL A — KOMPAKTE AUFGABEN (je 5 BE, 2-3 Teilaufgaben, OHNE CAS):
+- Analysis: Funktion mit klarer Definition + Definitionsmenge, dann Operatoren wie "Zeigen Sie", "Bestimmen Sie"
+- Stochastik: Sachkontext (z.B. Gärtnerei, Würfelspiel, Verkehr), dann Berechnung + Erläuterung
+- Geometrie: Sachkontext mit Koordinatenmodell (z.B. Bühne/Lampe/Schatten, Gebäude), dann rechnerische Untersuchung
+- Teil A Aufgaben MÜSSEN ohne CAS lösbar sein → nur "schöne" Zahlen, keine komplizierten Dezimalzahlen
+
+TEIL B — GROSSE MEHRTEILIGE AUFGABEN:
+• B1 Analysis (30 BE): MUSS aus 2-3 NUMMERIERTEN ABSCHNITTEN bestehen (im "text"-Feld mit "1 ...", "2 ...", "3 ..." nummeriert), die AUFEINANDER AUFBAUEN:
+  - Abschnitt 1 (ca. 11 BE): Innermathematische Untersuchung einer konkreten Funktion (z.B. ganzrationale Funktion mit Graph). Teilaufgaben: Symmetrie, Krümmung, lokale/mittlere Änderungsrate, Tangente.
+  - Abschnitt 2 (ca. 9 BE): Weitere Funktion oder Funktionenschar (z.B. $g_k: x \\mapsto 3x \\cdot e^{kx}$ mit $k \\in \\mathbb{R} \\setminus \\{0\\}$). Teilaufgaben: Extrempunkte der Schar, Parameter bestimmen, Gleichung lösen.
+  - Abschnitt 3 (ca. 10 BE): SACHKONTEXT — die Funktionen aus 1 und 2 werden in einem realen Modell verwendet (z.B. Hundewachstum, CO₂-Konzentration, Temperaturverlauf). Teilaufgaben: "Formulieren Sie eine Aussage im Sachzusammenhang", Integration, Modellvergleich, Modellkritik.
+  KONTROLLWERTE: Bei 1-2 wichtigen Zwischenergebnissen "(zur Kontrolle: ...)" angeben!
+
+• B2 Stochastik (20 BE): MUSS 3 NUMMERIERTE ABSCHNITTE mit durchgängigem Sachkontext haben!
+  - Abschnitt 1 (ca. 6 BE): Vierfeldertafel / bedingte Wahrscheinlichkeit (konkrete Daten: "630 Radfahrer, ein Drittel mit E-Bike, 147 ohne Helm...")
+  - Abschnitt 2 (ca. 5 BE): Binomialverteilung mit konkreter Berechnung ("Auf 50 km tritt mit 1,6% Wahrscheinlichkeit eine Reifenpanne auf...")
+  - Abschnitt 3 (ca. 9 BE): Hypothesentest oder weiterführende Modellierung mit Interpretation im Sachzusammenhang
+  Beispiel-Kontexte: Verkehrszählung/Radfahrer/Helm, Pedelec-Verkauf/Versicherung, Qualitätskontrolle, Schulveranstaltung/CD/Glücksrad
+
+• B3 Geometrie (20 BE): MUSS Sachkontext mit 3D-Koordinatenmodell haben (5-6 Teilaufgaben)!
+  - Einleitung: Reales Objekt im Koordinatensystem modellieren (z.B. "Die x₁x₂-Ebene stellt die horizontale Grundfläche dar, auf der sich ein Hügel erhebt. Ein Hang wird durch das Trapez ABCD dargestellt.")
+  - Punkte mit konkreten Koordinaten angeben: A(17|−10|0), B(17|20|0), C(2|4|8), D(2|−10|8)
+  - Teilaufgaben: Nachweis (rechter Winkel, Parallelogramm), Flächeninhalt, Ebenengleichung in Koordinatenform, Neigungswinkel, Abstand/Sichtlinie, Beurteilung
+  - Tabellen/Zusatzinfo einbinden wenn sinnvoll (z.B. Neigungswinkel-Klassifizierung: Flachlage 0°-3°, Hanglage 3°-17°, Steillage ≥17°)
+  - KONTROLLWERTE bei 1-2 Zwischenergebnissen angeben
+  Beispiel-Kontexte: Hügel/Berg mit Weinanbau und Burg, Dachkonstruktion, Sonnensegel, Brückenmodell
+
+PFLICHT-REGELN FÜR ALLE AUFGABEN:
+- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben — NIEMALS nur eine Formel ohne Anweisung!
+  VERBOTEN: {"text": "$f(x) = 2x^{3} - 6x^{2}$"}
+  RICHTIG: {"text": "Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f$ mit $f(x) = 2x^{3} - 6x^{2}$. Bestimmen Sie die Nullstellen von $f$."}
+- Operatoren nach AFB:
+  AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie", "Skizzieren Sie"
+  AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie", "Weisen Sie nach"
+  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist"
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -5334,14 +5433,17 @@ WICHTIG:
 - Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
-- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
-- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Inhalten. Keine Themen, Methoden oder Konzepte verwenden, die nicht im Lehrplan stehen.
+- KEINE LÖSUNGSHINWEISE in Klammern
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Inhalten.
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
-- Exponentialfunktion: $e^{-0{,}12x}$ (NIEMALS $\exp(-0.12*x)$)
+- e-FUNKTION KRITISCH: Exponent IMMER in geschweifte Klammern!
+  RICHTIG: $e^{-x}$, $e^{2x}$, $e^{-0{,}5x}$, $e^{-\frac{x}{2}}$
+  FALSCH: $e^-x$, $e^(-x)$, $e^{-0.5x}$, $\exp(-x)$
+  NIEMALS $e^-x$ (Klammern fehlen!), NIEMALS $\exp(...)$, NIEMALS runde Klammern $e^(...)$
 - Brüche: $\frac{1}{2}$ (NICHT $1/2$)
-- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$) — auch im Exponenten: $e^{-0{,}12x}$ (NICHT $e^{-0.12x}$)
 - Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
 - Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
 - Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
@@ -5383,34 +5485,37 @@ WANN KEINE Grafik (= NORMALFALL, meistens KEINE Grafik!):
 - Die Funktion dient nur als Kontext
 Im Zweifel: KEINE Grafik. Nur wenige Aufgaben brauchen tatsächlich eine Grafik.
 
+WICHTIG: Das folgende Beispiel zeigt NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Funktionen, Kontexten und Zahlenwerten! Kopiere NIEMALS Inhalte aus dem Beispiel!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "teil_a_pflicht": [
-    {"id": "A1", "sachgebiet": "Analysis", "be": 5, "text": "Aufgabentext", "teilaufgaben": [{"id": "a)", "text": "...", "be": 2}, {"id": "b)", "text": "...", "be": 3}]},
-    {"id": "A2", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A3", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A4", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
+    {"id": "A1", "sachgebiet": "Analysis", "be": 5, "text": "Gegeben ist die in $\\mathbb{R}^{+}$ definierte Funktion $f: x \\mapsto (\\ln x)^{2}$. Der Graph von $f$ verläuft durch den Punkt $P(e|1)$.", "teilaufgaben": [{"id": "a)", "text": "Die zweite Ableitungsfunktion von $f$ besitzt an der Stelle $x = e$ eine Nullstelle mit Vorzeichenwechsel. Geben Sie die Bedeutung dieser Tatsache für den Graphen von $f$ an.", "be": 1}, {"id": "b)", "text": "Bestimmen Sie eine Gleichung der Tangente an den Graphen von $f$ im Punkt $P$.", "be": 4}]},
+    {"id": "A2", "sachgebiet": "Analysis", "be": 5, "text": "Gegeben ist eine in $\\mathbb{R}$ definierte Funktion $f$ mit $f(x) = x^{4} - kx^{2}$, wobei $k$ eine positive reelle Zahl ist.", "teilaufgaben": [{"id": "a)", "text": "Zeigen Sie, dass $f'(x) = 2x \\cdot (2x^{2} - k)$ ein Term der ersten Ableitungsfunktion von $f$ ist.", "be": 1}, {"id": "b)", "text": "Die beiden Tiefpunkte des Graphen von $f$ haben jeweils die $y$-Koordinate $-1$. Ermitteln Sie den Wert von $k$.", "be": 4}]},
+    {"id": "A3", "sachgebiet": "Stochastik", "be": 5, "text": "Eine Bäckerei verkauft Brötchen in den Sorten Weizen, Roggen und Dinkel. Aus 20 Brötchen wird eine Tüte zusammengestellt.", "teilaufgaben": [{"id": "a)", "text": "Eine Tüte soll Brötchen in genau zwei verschiedenen Sorten enthalten. Bestimmen Sie die Anzahl der Möglichkeiten, diese Tüte zusammenzustellen.", "be": 2}, {"id": "b)", "text": "In einer Tüte sollen zu jeder der drei Sorten mindestens fünf und höchstens acht Brötchen enthalten sein. Bestimmen Sie die Anzahl der Möglichkeiten.", "be": 3}]},
+    {"id": "A4", "sachgebiet": "Geometrie", "be": 5, "text": "In einem Koordinatensystem wird modellhaft ein $8\\,\\text{m}$ breiter Bühnenraum dargestellt. Die Rückwand liegt in der $x_1 x_3$-Ebene. Ein Scheinwerfer wird durch den Punkt $L(3|0|6)$ dargestellt, die Spitze einer Requisite durch den Punkt $S(1|5|2)$.", "teilaufgaben": [{"id": "a)", "text": "Untersuchen Sie rechnerisch, ob der Schatten der Spitze auf die Rückwand fällt.", "be": 5}]}
   ],
   "teil_a_wahl": [
-    {"id": "A5", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A6", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A7", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A8", "sachgebiet": "Stochastik", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A9", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]},
-    {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "...", "teilaufgaben": [...]}
+    {"id": "A5", "sachgebiet": "Analysis", "be": 5, "text": "Gegeben sind die in $\\mathbb{R}$ definierten Funktionen $f$ und $g$. Der Graph von $f$ ist symmetrisch bezüglich der $y$-Achse, der Graph von $g$ ist symmetrisch bezüglich des Koordinatenursprungs. Beide Graphen haben einen Hochpunkt im Punkt $(2|1)$.", "teilaufgaben": [{"id": "a)", "text": "Geben Sie für die Graphen von $f$ und $g$ jeweils die Koordinaten und die Art eines weiteren Extrempunkts an.", "be": 2}, {"id": "b)", "text": "Untersuchen Sie die in $\\mathbb{R}$ definierte Funktion $h$ mit $h(x) = f(x) \\cdot (g(x))^{3}$ im Hinblick auf eine mögliche Symmetrie ihres Graphen.", "be": 3}]},
+    {"id": "A6", "sachgebiet": "Analysis", "be": 5, "text": "Der Graph der in $\\mathbb{R}$ definierten Funktion $f: x \\mapsto \\frac{1}{4}x^{2}$ und die Gerade mit der Gleichung $y = 1$ schließen ein Flächenstück ein.", "teilaufgaben": [{"id": "a)", "text": "Bestimmen Sie das Volumen des Körpers, der durch Rotation dieses Flächenstücks um die $y$-Achse entsteht.", "be": 5}]},
+    {"id": "A7", "sachgebiet": "Stochastik", "be": 5, "text": "Bei einem Spiel werfen zwei Spieler abwechselnd jeweils drei Würfel. Das Spiel endet, wenn ein Spieler die Augensumme 18 erzielt oder die Augensumme des vorausgegangenen Wurfs des anderen Spielers nicht übertrifft. Beim ersten Wurf erzielt ein Spieler die Augensumme 15.", "teilaufgaben": [{"id": "a)", "text": "Berechnen Sie die Wahrscheinlichkeit dafür, dass dieser Spieler die Würfel im selben Spiel noch einmal wirft. Erläutern Sie Ihr Vorgehen.", "be": 5}]},
+    {"id": "A8", "sachgebiet": "Stochastik", "be": 5, "text": "Die Abbildung zeigt den Graphen der Dichtefunktion der normalverteilten Zufallsgröße $A$.", "teilaufgaben": [{"id": "a)", "text": "Die Wahrscheinlichkeit dafür, dass $A$ einen Wert aus dem Intervall $[6; 10]$ annimmt, beträgt etwa $68\\%$. Berechnen Sie die Wahrscheinlichkeit dafür, dass $A$ einen Wert annimmt, der größer als $10$ ist.", "be": 2}, {"id": "b)", "text": "Die Zufallsgröße $B$ ist ebenfalls normalverteilt; der Erwartungswert von $B$ ist ebenso groß wie der von $A$, die Standardabweichung von $B$ ist größer. Skizzieren Sie einen möglichen Graphen der Dichtefunktion von $B$.", "be": 3}]},
+    {"id": "A9", "sachgebiet": "Geometrie", "be": 5, "text": "Gegeben sind die Punkte $A(0|0|0)$, $B(3|4|1)$, $C(1|7|3)$ und $D(-2|3|2)$.", "teilaufgaben": [{"id": "a)", "text": "Weisen Sie nach, dass das Viereck $ABCD$ ein Parallelogramm ist.", "be": 1}, {"id": "b)", "text": "Der Punkt $T$ liegt auf der Strecke $\\overline{AC}$. Das Dreieck $ABT$ hat bei $B$ einen rechten Winkel. Ermitteln Sie das Verhältnis der Länge von $\\overline{AT}$ zur Länge von $\\overline{CT}$.", "be": 4}]},
+    {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "Die Punkte $P$ und $Q$ liegen in der Ebene $E: 5x_1 - 4x_2 + 3x_3 - 6 = 0$ und haben voneinander den Abstand $10$.", "teilaufgaben": [{"id": "a)", "text": "Ermitteln Sie mögliche Koordinaten von $P$ und $Q$.", "be": 5}]}
   ],
   "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Kontextbeschreibung", "teilaufgaben": [...], "grafik": {"type": "graphing", "commands": ["f(x) = ..."]}},
-    {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "...", "teilaufgaben": [...]},
-    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "...", "teilaufgaben": [...], "grafik": {"type": "3d", "commands": ["A = (1,2,3)"]}}
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "1 Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f: x \\mapsto \\frac{1}{100} \\cdot (2x^{3} - 43x^{2} + 248x)$. Abbildung 1 zeigt den Graphen $G_f$ von $f$ im Bereich $0 \\le x \\le 10$.", "teilaufgaben": [{"id": "1a)", "text": "Begründen Sie anhand des Terms von $f$, dass $G_f$ nicht symmetrisch bezüglich des Koordinatenursprungs ist, und zeigen Sie rechnerisch, dass $G_f$ für $x < 7\\frac{1}{6}$ rechtsgekrümmt ist.", "be": 4}, {"id": "1b)", "text": "Es gibt eine Stelle $x_0 \\in [0; 10]$, an der die lokale Änderungsrate von $f$ mit der mittleren Änderungsrate von $f$ im Intervall $[0; 10]$ übereinstimmt. Ermitteln Sie grafisch einen Näherungswert für $x_0$.", "be": 3}, {"id": "1c)", "text": "Bestimmen Sie eine Gleichung der Tangente $t$ an $G_f$ im Punkt $(10|f(10))$.\\n(zur Kontrolle: Gleichung von $t$: $y = -0{,}12x + 3$)", "be": 4}, {"id": "2a)", "text": "Betrachtet wird die Schar der in $\\mathbb{R}$ definierten Funktionen $g_k: x \\mapsto 3x \\cdot e^{kx}$ mit $k \\in \\mathbb{R} \\setminus \\{0\\}$. Der Graph jeder Funktion $g_k$ hat genau einen Extrempunkt $E_k$. Alle Extrempunkte $E_k$ liegen auf einer Geraden $h$. Bestimmen Sie rechnerisch die Steigung von $h$.", "be": 5}, {"id": "2b)", "text": "Der Graph $G$ einer Funktion dieser Schar besitzt den Hochpunkt $(4|\\frac{12}{e})$. Begründen Sie, dass $G$ der Graph der Funktion $g_k$ mit $k = -0{,}25$ ist.", "be": 2}, {"id": "2c)", "text": "Geben Sie alle Werte $a \\in \\mathbb{R}$ an, für die die Gleichung $3x \\cdot e^{-0{,}25x} = a$ genau eine Lösung besitzt.", "be": 2}, {"id": "3a)", "text": "Junge Hunde wachsen in ihren ersten Lebensmonaten sehr schnell. Zur Beschreibung der Zunahme der Körpermasse werden zwei Modelle betrachtet: Modell A verwendet für $0 \\le x \\le 10$ den Graphen $G_f$ und für $10 \\le x \\le 25$ die Tangente $t$; Modell B verwendet für $0 \\le x \\le 25$ den Graphen von $g_{-0{,}25}$. Die $y$-Koordinate steht jeweils für die momentane Änderungsrate der Körpermasse in kg pro Monat. Formulieren Sie eine Aussage im Sachzusammenhang, die für beide Modelle für $x = 4$ zutrifft.", "be": 1}, {"id": "3b)", "text": "Berechnen Sie auf der Grundlage von Modell A, wie viele Monate nach der Geburt ein Hund erstmals nicht mehr an Körpermasse zunimmt.\\n(zur Kontrolle: 25 Monate)", "be": 2}, {"id": "3c)", "text": "Begründen Sie, dass auf der Grundlage von Modell A die Masse, um die ein Hund in den ersten 25 Monaten insgesamt zunimmt, mit dem Term $\\int_0^{10} f(x)\\,dx + 13{,}5$ berechnet werden kann.", "be": 3}, {"id": "3d)", "text": "Geben Sie für zwei verschiedene in $[0; 10]$ definierte Funktionen, deren Funktionswerte für $x > 0$ zwischen denen von $f$ und $g_{-0{,}25}$ liegen, jeweils einen Funktionsterm an.", "be": 4}]},
+    {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "1 Bei einer Verkehrszählung zur Untersuchung des Sicherheitsbewusstseins im Straßenverkehr wurden 630 Radfahrer erfasst. Ein Drittel davon fuhr ein Fahrrad mit Elektromotor, 147 waren mit einem Fahrrad ohne Elektromotor unterwegs und trugen keinen Helm. Insgesamt trugen $40\\%$ der Radfahrer keinen Helm. Betrachtet werden die Ereignisse E: „Die Person fuhr ein Fahrrad mit Elektromotor" und H: „Die Person trug einen Helm".", "teilaufgaben": [{"id": "1a)", "text": "Begründen Sie anhand der vorliegenden Daten, dass $E$ und $H$ stochastisch abhängig sind.", "be": 3}, {"id": "1b)", "text": "Beschreiben Sie das Ereignis $\\bar{E} \\cap H$ im Sachzusammenhang und ermitteln Sie die Wahrscheinlichkeit dafür, dass die Person einen Helm trug, wenn bekannt ist, dass sie auf einem Fahrrad ohne Elektromotor unterwegs war.", "be": 3}, {"id": "2a)", "text": "Nach einer statistischen Erhebung tritt auf einer $50\\,\\text{km}$ langen, mit dem Fahrrad zurückgelegten Strecke mit einer Wahrscheinlichkeit von $1{,}6\\%$ eine Reifenpanne auf. Ermitteln Sie auf $50\\,\\text{km}$ genau, ab welcher Gesamtstrecke die Wahrscheinlichkeit für mindestens eine Reifenpanne mehr als $90\\%$ beträgt.", "be": 5}, {"id": "3a)", "text": "Im Jahr 2020 wurden in Deutschland rund fünf Millionen Fahrräder verkauft, davon $40\\%$ Pedelecs. Unter 200 zufällig ausgewählten Fahrrädern beschreibt $X$ die Anzahl der Pedelecs. Bestimmen Sie $P(70 \\le X \\le 90)$ und beschreiben Sie die Bedeutung im Sachzusammenhang.", "be": 3}, {"id": "3b)", "text": "Für jedes vierte verkaufte Pedelec wurde eine Versicherung abgeschlossen. $Y$ beschreibt die Anzahl der versicherten Pedelecs unter den 200 Fahrrädern. Berechnen Sie $P(Y = 0)$.", "be": 2}, {"id": "3c)", "text": "Ermitteln Sie den größtmöglichen Wert von $k$, für den $P_{0{,}1}^{200}(Y \\ge k) > 0{,}8$ gilt, und interpretieren Sie das Ergebnis im Sachzusammenhang.", "be": 4}]},
+    {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "Gegeben sind die Punkte $A(17|-10|0)$, $B(17|20|0)$, $C(2|4|8)$ und $D(2|-10|8)$. Es gilt $\\overline{AB} \\parallel \\overline{CD}$, somit ist das Viereck $ABCD$ ein Trapez. In einem Modell stellt die $x_1 x_2$-Ebene die horizontale Grundfläche dar, auf der sich ein Hügel erhebt. Ein Hang des Hügels wird durch das Trapez $ABCD$ dargestellt. Auf einem Plateau steht eine Burg, deren höchste Stelle der vorderen Fassade durch $S(-6|2|12)$ dargestellt wird. Eine Längeneinheit entspricht $10\\,\\text{m}$.", "teilaufgaben": [{"id": "a)", "text": "Zeigen Sie, dass das Trapez $ABCD$ bei $D$ einen rechten Innenwinkel hat.", "be": 2}, {"id": "b)", "text": "Bestimmen Sie den Flächeninhalt des Trapezes $ABCD$.\\n(zur Kontrolle: $374$)", "be": 3}, {"id": "c)", "text": "Das Trapez $ABCD$ liegt in der Ebene $H$. Bestimmen Sie eine Gleichung von $H$ in Koordinatenform.\\n(zur Kontrolle: $H: 8x_1 + 15x_3 - 136 = 0$)", "be": 3}, {"id": "d)", "text": "Bestimmen Sie die Höhe der vorderen Burgfassade an ihrer höchsten Stelle in Metern.", "be": 2}, {"id": "e)", "text": "Der Hang wird auf seiner gesamten Fläche für den Weinanbau genutzt. Berechnen Sie den Inhalt der Weinanbaufläche in Hektar und untersuchen Sie mithilfe der folgenden Tabelle, um welche Weinanbaulage es sich handelt: Flachlage $0°$ bis $3°$, Hanglage $3°$ bis $17°$, Steillage $17°$ oder mehr.", "be": 5}, {"id": "f)", "text": "Ein Arbeiter steht auf dem Hang an der Stelle $P(5{,}75|-2{,}5|6)$ und versucht, aus einer Blickhöhe von zwei Metern die Burg zu sehen. Beurteilen Sie, ob der Hang die freie Sicht auf die höchste Stelle der vorderen Fassade verhindert.", "be": 5}]}
   ]
 }
-Hinweis: "grafik" ist OPTIONAL pro Aufgabe.`;
+Hinweis: "grafik" ist OPTIONAL pro Aufgabe.
+WICHTIG: Generiere für ALLE Aufgaben VOLLSTÄNDIGE, AUSFORMULIERTE Teilaufgaben mit klaren Operatoren! MINDESTENS 2 Teilaufgaben pro Teil-A-Aufgabe, MINDESTENS 6 Teilaufgaben pro Teil-B-Aufgabe. Verwende KOMPLETT ANDERE Funktionen, Kontexte und Zahlenwerte als im Beispiel! B1 MUSS 2-3 nummerierte Abschnitte haben, B2 und B3 MÜSSEN Sachkontexte haben!`;
 
   const userPrompt = `Erstelle eine vollständige Mathematik-Abiturprüfung (eA, 100 BE).
-Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS
-Teil B: B1 Analysis (30 BE), B2 Stochastik (20 BE), B3 Geometrie (20 BE), mit CAS
-KRITISCH: Alle Formeln in LaTeX-Notation. Aufgaben müssen mathematisch korrekt sein.`;
+Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS lösbar
+Teil B: B1 Analysis (30 BE, 2-3 nummerierte Abschnitte mit Sachkontext), B2 Stochastik (20 BE, durchgängiger Sachkontext), B3 Geometrie (20 BE, 3D-Modell mit Sachkontext), mit CAS
+KRITISCH: Alle Formeln in LaTeX-Notation. JEDE Teilaufgabe braucht einen klaren Operator — NIEMALS nur eine Formel ohne Anweisung!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -5480,7 +5585,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Verwende LaTeX-Notation ($...$, $$...$$) im Feedback.
-LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
+LATEX-REGELN: $\cdot$ statt *, e-Funktion IMMER $e^{...}$ mit geschweiften Klammern (z.B. $e^{-x}$, $e^{-0{,}5x}$, NIEMALS $e^-x$ oder $\exp(...)$), $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
 
 Antworte NUR mit validem JSON:
 {
@@ -5549,7 +5654,7 @@ WICHTIG:
 - Zeige JEDEN Lösungsschritt ausführlich
 - Gib bei jedem Schritt die BE an
 - Begründe Ansätze kurz
-- LATEX-REGELN: $\cdot$ statt *, $e^{...}$ statt $\exp(...)$, $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
+- LATEX-REGELN: $\cdot$ statt *, e-Funktion IMMER $e^{...}$ mit geschweiften Klammern (z.B. $e^{-x}$, $e^{-0{,}5x}$, NIEMALS $e^-x$ oder $\exp(...)$), $\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
 - Formatiere als Markdown mit klaren Überschriften:
   ## Teil A – Pflichtteil
   ### A1: Analysis
@@ -5723,10 +5828,20 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}],
+  "material": [{"id": "M1", "titel": "...", "type": "statistik", "chart_type": "bar", "text": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |"}],
   "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}, {"name": "acetic acid", "caption": "Essigsäure"}]
 }
-Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.
+
+MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
+- "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
+- "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
+- "bild": "text" ist ein ausführlicher Imagen-Prompt auf ENGLISCH (3-5 Sätze), Beschriftungen auf DEUTSCH in ""
+- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+
+KRITISCH — ABSOLUT VERBOTEN:
+- NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
+- Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
+Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
@@ -6023,9 +6138,19 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
+  "material": [{"id": "M1", "titel": "...", "type": "diagramm", "chart_type": "line", "text": "| t in s | U in V |\\n|---|---|\\n| 0 | 0 |\\n| 1 | 3.2 |"}]
 }
-Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
+
+MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
+- "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Messwerten (mind. 4-6 Datenzeilen)
+- "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte, z.B. t/U, t/I, λ/Intensität)
+- "bild": "text" ist ein ausführlicher Imagen-Prompt auf ENGLISCH (3-5 Sätze), Beschriftungen auf DEUTSCH in ""
+- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+
+KRITISCH — ABSOLUT VERBOTEN:
+- NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
+- Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
+Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.`;
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
@@ -6264,74 +6389,45 @@ async function handleGenerateBio(request, env) {
 
   const sgInfo = sgThemen[sg] || sgThemen.genetik;
 
-  const systemPrompt = `Du bist ein Biologielehrer am bayerischen Gymnasium und erstellst Aufgaben für das Abitur (gA/eA, G9, ab 2026).
-Erstelle eine authentische Biologie-Aufgabe nach dem IQB-Aufgabenformat.
+  const systemPrompt = `Du bist Biologielehrer am bayerischen Gymnasium. Erstelle eine Biologie-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
-AUFGABE:
-- Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
-- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
-- Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
-- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
-- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte, Abbildungen) erstellen
-- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
 
-IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben):
-- Aufgabe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. Wasserflöhe, Wölfe, Anolis-Eidechsen, Orchideen, Kakao, THC) — keine abstrakten Lehrbuchtexte
-- 4-5 Teilaufgaben bei 30 BE, die aufeinander aufbauen ("scaffolded complexity")
-- Materialien M1-M4: Vom Grundwissen (M1) zu komplexen Daten/Perspektiven (M3-M4) aufbauen
-  • M1: Grundlegende Sachinformation (Text, Karte, Bild)
-  • M2: Detailliertere Daten/Evidenz (Text + Diagramm/Abbildung)
-  • M3-M4: Forschungsergebnisse, kontroverse Perspektiven, Zeitungsartikel
-- Materialien mischen: quantitative Daten (Diagramme, Tabellen, Messwerte) UND qualitative Quellen (Fachtexte, Fotos, Karten)
-- AFB-Verteilung: ca. 25% AFB I, 55% AFB II, 20% AFB III
-- Operatoren gezielt einsetzen:
-  • AFB I: "Geben Sie an", "Beschreiben Sie", "Nennen Sie" (5-6 BE)
-  • AFB II: "Erläutern Sie", "Interpretieren Sie", "Erklären Sie", "Vergleichen Sie" (7-8 BE)
-  • AFB III: "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie" (6-8 BE)
-- Teilaufgaben beziehen sich DIREKT auf Materialien ("Werten Sie M1 aus", "Interpretieren Sie den in M2 dargestellten Verlauf")
-- Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
+ANFORDERUNGEN:
+- Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
+- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen) → AFB III (Bewerten/Diskutieren)
+- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- KEINE Lösungshinweise in den Aufgabenstellungen
+- Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
 SACHGEBIET: ${sgInfo.title}
-Relevante Inhalte:
 ${sgInfo.inhalte}
 
-WICHTIG:
-- Verwende LaTeX-Notation für biologische Formeln und Gleichungen: $...$ für inline, $$...$$ für Display
-- Gib bei jeder Teilaufgabe die BE an
-- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- Die Aufgabe muss fachlich korrekt und eindeutig lösbar sein
-- LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
+FORMATIERUNG: LaTeX $...$ für Formeln ($Aa$, $\\frac{1}{4}$). Summenformeln als Text: CO₂, ATP.
 
-LATEX-FORMATIERUNG:
-- Verwende $...$ für biologische Notation wie Genotypen ($Aa$, $BB$), Kreuzungsschemata, Reaktionsgleichungen
-- Brüche für Wahrscheinlichkeiten: $\\frac{1}{4}$, $\\frac{3}{16}$
-- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
-- Chemische Summenformeln in normalem Text: CO₂, H₂O, ATP, NADPH, O₂ (NICHT \\ce{})
+MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
+- "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
+- "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
+- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
+- "bild" → "text" = ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze), Beschriftungen auf Deutsch
 
-BIOLOGIE-SPEZIFISCHE REGELN:
-- Genotypen kursiv: $Aa \\times aa$
-- Phänotypenverhältnisse: $3:1$, $9:3:3:1$
-- Reaktionsgleichungen der Photosynthese/Zellatmung als Text oder LaTeX
-- Fachbegriffe korrekt verwenden (Allel, homozygot, heterozygot, Enzym, Substrat, etc.)
-- Stammbäume als Textbeschreibung mit klarer Legende
+KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
-KEINE GeoGebra-Visualisierung.
-
-Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
 {
-  "aufgabe": "Aufgabentext mit LaTeX-Formeln (Kontext/Einleitung)",
+  "aufgabe": "<Kontext-Einleitung: 2-3 Sätze zum Thema/Organismus/Experiment>",
   "teilaufgaben": [
-    {"id": "a)", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 3},
-    {"id": "b)", "text": "...", "be": 4}
+    {"id": "a)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "b)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "c)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>}
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
-  "material": [{"id": "M1", "titel": "Titel des Materials", "text": "Materialtext mit Daten, Diagrammbeschreibung etc."}]
-}
-Hinweis: "material" ist OPTIONAL — vor allem bei Langaufgaben sinnvoll.`;
+  "material": [
+    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+  ]
+}`;
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
@@ -6342,18 +6438,19 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
     openaiRes = await callOpenAI(env, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
-    ], 8000);
+    ], 8000, { model: "gpt-5.2", temperature: 0.7 });
   } catch (e) {
-    console.error("generate-bio callOpenAI error:", e.message);
-    throw new Error("Aufgabe konnte nicht generiert werden. Bitte versuche es erneut.");
+    const detail = (e.name === "AbortError") ? "Zeitüberschreitung (>25s)" : (e.message || "unbekannt");
+    console.error("generate-bio error:", detail);
+    return jsonResponse({ error: "Bio-Fehler: " + detail.substring(0, 200) }, 500, env);
   }
 
   let content;
   try {
     content = extractJSON(openaiRes);
   } catch (e) {
-    console.error("generate-bio JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 200));
-    throw new Error("Antwort konnte nicht verarbeitet werden. Bitte versuche es erneut.");
+    console.error("generate-bio JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
   }
 
   return jsonResponse(content, 200, env);
@@ -6436,7 +6533,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -6519,7 +6616,7 @@ BIOLOGIE-SPEZIFISCHE REGELN:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 6000);
+  ], 6000, { model: "gpt-5.2", temperature: 0.4 });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -6541,7 +6638,7 @@ async function handleParseTaskBio(request, env) {
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 4000);
+  const openaiRes = await callOpenAI(env, messages, 4000, { model: "gpt-5.2", temperature: 0.2 });
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
 }
@@ -6644,51 +6741,80 @@ Format: [{"name": "ethanol", "caption": "Ethanol (Edukt)"}, {"name": "acetic aci
 - "caption": deutsche Beschriftung für die Anzeige
 - KEIN SMILES, KEIN InChI — nur englische Namen!
 
+MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
+- "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Zahlenwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
+- "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
+- "bild": "text" ist ein Imagen-Prompt auf ENGLISCH (3-5 Sätze), Beschriftungen auf DEUTSCH in ""
+- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+
+KRITISCH — ABSOLUT VERBOTEN:
+- NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
+- Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
+Pro Aufgabengruppe: mind. 1x statistik/diagramm + 1x text.
+
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Sachgebieten, Daten und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "aufgaben": [
     {
       "id": "Aufgabe 1",
-      "titel": "Titel der Aufgabe",
+      "titel": "Galvanische Zelle und Korrosion",
       "sachgebiet": "elektrochemie",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten...", "strukturformeln": [{"name": "ethanol", "caption": "Ethanol"}]}
+        {"id": "M1", "titel": "Taschenofen als galvanische Zelle", "type": "text", "text": "Ein handelsüblicher Taschenofen nutzt die exotherme Oxidation von Eisenpulver zur Wärmeerzeugung. In einer Salzlösung werden Eisenpulver ($\\\\ce{Fe}$), Aktivkohle und Natriumchlorid ($\\\\ce{NaCl}$) gemischt. An der Oberfläche des Eisenpulvers bilden sich Lokalelement: Eisen wird oxidiert ($\\\\ce{Fe -> Fe^{2+} + 2e-}$, $E^0 = -0{,}44\\\\,\\\\text{V}$), während an der Aktivkohle Sauerstoff reduziert wird ($\\\\ce{O2 + 2H2O + 4e- -> 4OH-}$, $E^0 = +0{,}40\\\\,\\\\text{V}$). Durch die große Oberfläche des Eisenpulvers läuft die Reaktion schnell ab und erzeugt Temperaturen bis zu $70\\\\,°\\\\text{C}$."},
+        {"id": "M2", "titel": "Standardpotentiale", "type": "statistik", "chart_type": "bar", "text": "| Halbzelle | $E^0$ / V |\\n|---|---|\\n| $\\\\ce{Li/Li+}$ | $-3{,}04$ |\\n| $\\\\ce{Zn/Zn^{2+}}$ | $-0{,}76$ |\\n| $\\\\ce{Fe/Fe^{2+}}$ | $-0{,}44$ |\\n| $\\\\ce{Cu/Cu^{2+}}$ | $+0{,}34$ |\\n| $\\\\ce{Ag/Ag+}$ | $+0{,}80$ |\\n| $\\\\ce{Au/Au^{3+}}$ | $+1{,}50$ |"},
+        {"id": "M3", "titel": "Temperaturverlauf Taschenofen", "type": "diagramm", "chart_type": "line", "text": "| Zeit / min | Temperatur / °C |\\n|---|---|\\n| 0 | 22 |\\n| 5 | 48 |\\n| 10 | 62 |\\n| 20 | 68 |\\n| 30 | 70 |\\n| 45 | 65 |\\n| 60 | 55 |\\n| 90 | 38 |"}
       ],
       "teilaufgaben": [
-        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$/$\\\\ce{}$-Formeln", "be": 5},
-        {"id": "1.2", "text": "...", "be": 8}
+        {"id": "1.1", "text": "Formulieren Sie die Gesamtreaktionsgleichung für die Oxidation von Eisen im Taschenofen.", "be": 4},
+        {"id": "1.2", "text": "Berechnen Sie die Standardzellspannung $\\\\Delta E^0$ und die freie Reaktionsenthalpie $\\\\Delta G^0$ der Reaktion.", "be": 6},
+        {"id": "1.3", "text": "Beschreiben Sie den in M3 dargestellten Temperaturverlauf und erklären Sie, warum die Temperatur nach einem Maximum wieder sinkt.", "be": 6},
+        {"id": "1.4", "text": "Erläutern Sie anhand des Taschenwärmers das Prinzip der Sauerstoffkorrosion und vergleichen Sie es mit der Säurekorrosion.", "be": 8},
+        {"id": "1.5", "text": "Beurteilen Sie, ob der Taschenofen aus ökologischer Sicht eine sinnvolle Alternative zu elektrischen Handwärmern darstellt.", "be": 6}
       ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 2",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "Titration einer Essigsäurelösung",
+      "sachgebiet": "gleichgewicht_saeure_base",
+      "material": [
+        {"id": "M1", "titel": "Versuchsbeschreibung", "type": "text", "text": "In einem Lebensmittellabor wird der Essigsäuregehalt einer Probe Weinessig bestimmt. Dazu werden $25{,}0\\\\,\\\\text{ml}$ der Essigprobe mit Natronlauge ($c = 0{,}1\\\\,\\\\text{mol/l}$) titriert. Als Indikator wird Phenolphthalein (Umschlagbereich pH 8,2–10,0) verwendet. Der pKs-Wert der Essigsäure beträgt 4,75."},
+        {"id": "M2", "titel": "Titrationskurve", "type": "diagramm", "chart_type": "line", "text": "| V(NaOH) / ml | pH-Wert |\\n|---|---|\\n| 0 | 2,9 |\\n| 5 | 4,2 |\\n| 10 | 4,6 |\\n| 15 | 4,9 |\\n| 18 | 5,3 |\\n| 19,5 | 6,1 |\\n| 20 | 8,7 |\\n| 20,5 | 11,3 |\\n| 22 | 12,1 |\\n| 25 | 12,5 |"}
+      ],
+      "teilaufgaben": [
+        {"id": "2.1", "text": "Formulieren Sie die Reaktionsgleichung der Titration und berechnen Sie die Stoffmengenkonzentration der Essigsäure in der Probe.", "be": 5},
+        {"id": "2.2", "text": "Erklären Sie mithilfe von M2, warum der pH-Wert am Äquivalenzpunkt nicht bei 7,0 liegt.", "be": 6},
+        {"id": "2.3", "text": "Bestimmen Sie aus der Titrationskurve den Halbäquivalenzpunkt und erklären Sie dessen Bedeutung für die Bestimmung des pKs-Wertes.", "be": 7},
+        {"id": "2.4", "text": "Erläutern Sie die Pufferwirkung der Essigsäure/Acetat-Lösung im Bereich um den Halbäquivalenzpunkt unter Verwendung der Henderson-Hasselbalch-Gleichung.", "be": 8},
+        {"id": "2.5", "text": "Beurteilen Sie, ob Methylorange (Umschlagbereich pH 3,1–4,4) als alternativer Indikator für diese Titration geeignet wäre.", "be": 4}
+      ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 3",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen",
+      "sachgebiet": "EIGENES Sachgebiet wählen (verschieden von Aufgabe 1+2)",
+      "material": ["EIGENE Materialien mit EIGENEN Daten generieren (mind. 2-3 Materialien, verschiedene Typen, mit type-Feld)"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 5-6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE)"],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 4",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen",
+      "sachgebiet": "EIGENES Sachgebiet wählen (verschieden von Aufgabe 1-3)",
+      "material": ["EIGENE Materialien mit EIGENEN Daten generieren (mind. 2-3 Materialien, verschiedene Typen, mit type-Feld)"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 5-6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE)"],
       "gesamt_be": ${beProAufgabe}
     }
   ],
   "level": "${lvl}",
   "pruefungsdauer": ${pruefungsdauer},
   "gesamt_be": ${gesamtBE}
-}`;
+}
+WICHTIG: Generiere für ALLE 4 Aufgaben vollständige, ausformulierte Teilaufgaben und Materialien! Aufgabe 3 und 4 müssen genauso detailliert sein wie Aufgabe 1 und 2. MINDESTENS 5 Teilaufgaben pro Aufgabengruppe.
+Erstelle 4 Aufgabengruppen mit KOMPLETT ANDEREN Themen und Sachgebieten als in den Beispielen.`;
 
   const userPrompt = `Erstelle eine vollständige Chemie-Abiturprüfung (${lvl}, ${gesamtBE} BE).
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
@@ -6935,51 +7061,80 @@ PHYSIK-SPEZIFISCHE LATEX-REGELN:
 KEINE GeoGebra-Visualisierung.
 KEINE Strukturformeln oder \\ce{}-Notation (das ist Physik, nicht Chemie).
 
+MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
+- "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Messwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
+- "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
+- "bild": "text" ist ein Imagen-Prompt auf ENGLISCH (3-5 Sätze), Beschriftungen auf DEUTSCH in ""
+- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+
+KRITISCH — ABSOLUT VERBOTEN:
+- NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
+- Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
+Pro Aufgabengruppe: mind. 1x statistik/diagramm + 1x text.
+
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Sachgebieten, Daten und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "aufgaben": [
     {
       "id": "Aufgabe 1",
-      "titel": "Titel der Aufgabe",
+      "titel": "Aufladung eines Kondensators",
       "sachgebiet": "elektrostatik",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "text": "Materialtext mit Daten..."}
+        {"id": "M1", "titel": "Versuchsaufbau RC-Glied", "type": "text", "text": "Ein Plattenkondensator mit der Kapazität $C = 470\\,\\\\text{µF}$ wird über einen Widerstand $R = 10\\,\\\\text{k}\\\\Omega$ an eine Gleichspannungsquelle mit $U_0 = 12\\,\\\\text{V}$ angeschlossen. Mit einem Spannungsmessgerät wird die Spannung $U_C(t)$ am Kondensator in regelmäßigen Zeitabständen gemessen. Die Zeitkonstante des RC-Gliedes beträgt $\\\\tau = R \\\\cdot C$."},
+        {"id": "M2", "titel": "Messwerte Aufladekurve", "type": "diagramm", "chart_type": "line", "text": "| t / s | $U_C$ / V |\\n|---|---|\\n| 0 | 0,0 |\\n| 1 | 2,4 |\\n| 2 | 4,3 |\\n| 3 | 5,7 |\\n| 5 | 7,9 |\\n| 8 | 10,1 |\\n| 10 | 10,9 |\\n| 15 | 11,8 |"},
+        {"id": "M3", "titel": "Energiebetrachtung", "type": "text", "text": "Bei der Aufladung eines Kondensators wird nicht die gesamte von der Spannungsquelle bereitgestellte Energie im Kondensator gespeichert. Ein Teil der Energie wird im Widerstand in Wärme umgewandelt. Die im Kondensator gespeicherte Energie beträgt $W_C = \\\\frac{1}{2} C U^2$, während die Spannungsquelle insgesamt die Energie $W_{ges} = C U_0^2$ liefert."}
       ],
       "teilaufgaben": [
-        {"id": "1.1", "text": "Teilaufgabe mit $LaTeX$-Formeln", "be": 5},
-        {"id": "1.2", "text": "...", "be": 8}
+        {"id": "1.1", "text": "Beschreiben Sie den in M2 dargestellten zeitlichen Verlauf der Kondensatorspannung $U_C(t)$.", "be": 4},
+        {"id": "1.2", "text": "Berechnen Sie die Zeitkonstante $\\\\tau$ des RC-Gliedes und ermitteln Sie aus M2 den Spannungswert bei $t = \\\\tau$. Vergleichen Sie mit dem theoretischen Wert.", "be": 6},
+        {"id": "1.3", "text": "Erläutern Sie mithilfe der Exponentialfunktion $U_C(t) = U_0 \\\\cdot (1 - e^{-\\\\frac{t}{\\\\tau}})$, warum der Kondensator theoretisch nie vollständig aufgeladen wird.", "be": 6},
+        {"id": "1.4", "text": "Berechnen Sie die im Kondensator gespeicherte Energie nach vollständiger Aufladung und den Wirkungsgrad des Aufladevorgangs. Erklären Sie das Ergebnis physikalisch.", "be": 8},
+        {"id": "1.5", "text": "Beurteilen Sie, wie sich eine Verdopplung des Widerstands $R$ auf den zeitlichen Verlauf der Aufladung und auf den Wirkungsgrad auswirkt.", "be": 6}
       ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 2",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "Interferenz am Doppelspalt",
+      "sachgebiet": "em_wellen",
+      "material": [
+        {"id": "M1", "titel": "Versuchsbeschreibung", "type": "text", "text": "Monochromatisches Laserlicht der Wellenlänge $\\\\lambda$ fällt auf einen Doppelspalt mit dem Spaltabstand $d = 0{,}25\\,\\\\text{mm}$. Auf einem Schirm im Abstand $a = 3{,}0\\,\\\\text{m}$ hinter dem Doppelspalt wird ein Interferenzmuster beobachtet. Die Abstände der Interferenzmaxima vom Maximum nullter Ordnung werden gemessen."},
+        {"id": "M2", "titel": "Messwerte Interferenzmaxima", "type": "statistik", "chart_type": "bar", "text": "| Ordnung $k$ | Abstand $x_k$ / mm |\\n|---|---|\\n| 1 | 7,6 |\\n| 2 | 15,1 |\\n| 3 | 22,8 |\\n| 4 | 30,3 |\\n| 5 | 37,9 |"}
+      ],
+      "teilaufgaben": [
+        {"id": "2.1", "text": "Beschreiben Sie die Bedingung für konstruktive Interferenz am Doppelspalt und leiten Sie die Gleichung für die Lage der Maxima her.", "be": 5},
+        {"id": "2.2", "text": "Bestimmen Sie mithilfe der Messwerte aus M2 die Wellenlänge $\\\\lambda$ des verwendeten Laserlichts.", "be": 6},
+        {"id": "2.3", "text": "Erklären Sie, wie sich das Interferenzmuster verändert, wenn der Spaltabstand $d$ halbiert wird.", "be": 5},
+        {"id": "2.4", "text": "Der Doppelspalt wird durch ein optisches Gitter mit 600 Linien pro mm ersetzt. Berechnen Sie den Winkel $\\\\alpha$ für das Maximum erster Ordnung.", "be": 8},
+        {"id": "2.5", "text": "Beurteilen Sie, ob mit diesem Gitter weißes Licht in seine Spektralfarben zerlegt werden kann. Begründen Sie Ihre Antwort.", "be": 6}
+      ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 3",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen",
+      "sachgebiet": "EIGENES Sachgebiet wählen (verschieden von Aufgabe 1+2)",
+      "material": ["EIGENE Materialien mit EIGENEN Daten generieren (mind. 2-3 Materialien, verschiedene Typen)"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 4-6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE)"],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 4",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [...],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen",
+      "sachgebiet": "EIGENES Sachgebiet wählen (verschieden von Aufgabe 1-3)",
+      "material": ["EIGENE Materialien mit EIGENEN Daten generieren (mind. 2-3 Materialien, verschiedene Typen)"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 4-6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE)"],
       "gesamt_be": ${beProAufgabe}
     }
   ],
   "level": "${lvl}",
   "pruefungsdauer": ${pruefungsdauer},
   "gesamt_be": ${gesamtBE}
-}`;
+}
+WICHTIG: Generiere für ALLE 4 Aufgaben vollständige, ausformulierte Teilaufgaben und Materialien! Aufgabe 3 und 4 müssen genauso detailliert sein wie Aufgabe 1 und 2. MINDESTENS 4 Teilaufgaben pro Aufgabengruppe.
+Erstelle 4 Aufgabengruppen mit dem gleichen Schema aber KOMPLETT ANDEREN Themen als in den Beispielen.`;
 
   const userPrompt = `Erstelle eine vollständige Physik-Abiturprüfung (${lvl}, ${gesamtBE} BE).
 ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
@@ -7262,50 +7417,61 @@ BIOLOGIE-SPEZIFISCHE NOTATION:
 
 KEINE GeoGebra-Visualisierung.
 
+WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, ANDEREN Materialien und ANDEREN Teilaufgaben — kopiere NICHT die Beispiele!
+MINDESTENS 4 Teilaufgaben pro Aufgabengruppe, mit steigendem Anforderungsniveau (AFB I → II → III).
+
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "aufgaben": [
     {
       "id": "Aufgabe 1",
-      "titel": "Enzymaktivität bei verschiedenen Temperaturen",
+      "titel": "Einfluss der Temperatur auf die Fotosyntheserate",
       "sachgebiet": "stoffwechsel",
       "material": [
-        {"id": "M1", "titel": "Messergebnisse Enzymaktivität", "type": "statistik", "text": "| Temperatur (°C) | Aktivität (U/ml) |\\n|---|---|\\n| 20 | 45 |\\n| 30 | 78 |\\n| 40 | 120 |\\n| 50 | 95 |\\n| 60 | 25 |", "chart_type": "bar"},
-        {"id": "M2", "titel": "Verlauf der Reaktionsgeschwindigkeit", "type": "diagramm", "text": "| Zeit (min) | Produktkonzentration (mmol/l) |\\n|---|---|\\n| 0 | 0 |\\n| 2 | 12 |\\n| 4 | 22 |\\n| 6 | 28 |\\n| 8 | 31 |\\n| 10 | 32 |", "chart_type": "line"},
-        {"id": "M3", "titel": "Forschungstext", "type": "text", "text": "Ein Forscherteam untersuchte die Wirkung von Schwermetallionen auf die Enzymaktivität..."}
+        {"id": "M1", "titel": "Messergebnisse zur Fotosyntheserate", "type": "statistik", "text": "| Temperatur (°C) | O₂-Entwicklung (µmol/h) |\\n|---|---|\\n| 5 | EIGENER WERT |\\n| 10 | EIGENER WERT |\\n| 15 | EIGENER WERT |\\n| 20 | EIGENER WERT |\\n| 25 | EIGENER WERT |\\n| 30 | EIGENER WERT |\\n| 35 | EIGENER WERT |\\n| 40 | EIGENER WERT |", "chart_type": "bar"},
+        {"id": "M2", "titel": "Zeitlicher Verlauf der O₂-Entwicklung bei 25 °C", "type": "diagramm", "text": "| Zeit (min) | O₂-Konzentration (µmol/l) |\\n|---|---|\\n| 0 | EIGENER WERT |\\n| 5 | EIGENER WERT |\\n| 10 | EIGENER WERT |\\n| 15 | EIGENER WERT |\\n| 20 | EIGENER WERT |\\n| 25 | EIGENER WERT |\\n| 30 | EIGENER WERT |", "chart_type": "line"},
+        {"id": "M3", "titel": "Forschungstext zur Temperaturabhängigkeit", "type": "text", "text": "EIGENER vollständig ausformulierter Fachtext (mind. 150–300 Wörter) über den Zusammenhang zwischen Temperatur, Enzymaktivität und Fotosyntheserate. Der Text muss konkrete Fachbegriffe enthalten und auf Forschungsergebnisse Bezug nehmen."}
       ],
       "teilaufgaben": [
-        {"id": "1.1", "text": "Beschreiben Sie die in M1 dargestellten Messergebnisse.", "be": 5},
-        {"id": "1.2", "text": "Erklären Sie den Kurvenverlauf in M2.", "be": 8}
+        {"id": "1.1", "text": "Beschreiben Sie die in M1 dargestellten Messergebnisse und benennen Sie den Temperaturbereich des Optimums.", "be": 5},
+        {"id": "1.2", "text": "Erklären Sie mithilfe von M2 und M3 den Kurvenverlauf der O₂-Entwicklung unter Berücksichtigung der Enzymkinetik.", "be": 8},
+        {"id": "1.3", "text": "Erläutern Sie, warum die Fotosyntheserate oberhalb des Temperaturoptimums stark absinkt. Gehen Sie dabei auf molekulare Vorgänge ein.", "be": 8},
+        {"id": "1.4", "text": "Beurteilen Sie die Bedeutung der RGT-Regel für die Vorhersage der Fotosyntheserate bei Kulturpflanzen im Kontext des Klimawandels.", "be": 9}
       ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 2",
-      "titel": "Stammbaumanalyse",
+      "titel": "Erbgang einer Stoffwechselerkrankung",
       "sachgebiet": "genetik",
       "material": [
-        {"id": "M1", "titel": "Stammbaum Familie X", "type": "text", "text": "Stammbaum über drei Generationen:\\n\\nGeneration I: Vater (gesund) × Mutter (gesund)\\nGeneration II: Tochter 1 (gesund), Tochter 2 (gesund, Konduktorin), Sohn 1 (betroffen)\\nGeneration III: ...\\n\\nDie Erkrankung tritt nur bei männlichen Nachkommen auf."},
-        {"id": "M2", "titel": "Gelelektrophorese im Labor", "type": "bild", "text": "Scientific laboratory photograph showing a gel electrophoresis setup. A horizontal agarose gel is visible under UV light, glowing bright blue-green. The gel shows 5 clearly labeled lanes with distinct DNA band patterns. Lane labels at the top read 'Marker', 'Patient A', 'Patient B', 'Kontrolle+', 'Kontrolle-' in small white text. A title 'Ergebnisse der Gelelektrophorese' is displayed at the top center in bold white font. The background shows a dark laboratory setting with the UV transilluminator as the main light source. The bands are sharp, well-separated, and vary in intensity."},
-        {"id": "M3", "titel": "Bandenmuster der Gelelektrophorese", "type": "text", "text": "Die Gelelektrophorese zeigt folgende Bandenmuster:\\nSpur 1 (Marker): Banden bei 1000 bp, 500 bp, 250 bp\\nSpur 2 (Patient A): Banden bei 800 bp, 200 bp\\nSpur 3 (Patient B): Banden bei 500 bp, 300 bp, 200 bp\\n..."}
+        {"id": "M1", "titel": "Stammbaum einer betroffenen Familie", "type": "text", "text": "EIGENER vollständig ausformulierter Stammbaum über drei Generationen (mind. 8 Personen) mit Phänotyp-Angaben. Der Stammbaum muss als Textbeschreibung formuliert werden und eindeutige Rückschlüsse auf den Erbgang ermöglichen."},
+        {"id": "M2", "titel": "Gelelektrophorese-Ergebnisse", "type": "bild", "text": "Scientific laboratory photograph showing a gel electrophoresis result under UV light. A horizontal agarose gel glows blue-green with 6 clearly labeled lanes showing distinct DNA band patterns at different molecular weights. Lane labels read 'Marker', 'Person 1', 'Person 2', 'Person 3', 'Person 4', 'Kontrolle' in small white text. Title 'Ergebnisse der Gelelektrophorese' centered at top in bold white font. Dark laboratory background."},
+        {"id": "M3", "titel": "Bandenmuster und Restriktionsanalyse", "type": "text", "text": "EIGENE vollständige Beschreibung der Bandenmuster (mind. 100 Wörter): Für jede Spur die genauen Bandengrößen in bp angeben und Bezug zum RFLP-Muster nehmen."}
       ],
-      "teilaufgaben": [...],
+      "teilaufgaben": [
+        {"id": "2.1", "text": "Ermitteln Sie anhand des Stammbaums in M1 den zugrunde liegenden Erbgang. Begründen Sie Ihre Entscheidung.", "be": 6},
+        {"id": "2.2", "text": "Bestimmen Sie die Genotypen aller Personen im Stammbaum. Verwenden Sie geeignete Symbole.", "be": 6},
+        {"id": "2.3", "text": "Werten Sie die Gelelektrophorese-Ergebnisse (M2, M3) aus und ordnen Sie die Bandenmuster den Genotypen der Familienmitglieder zu.", "be": 8},
+        {"id": "2.4", "text": "Berechnen Sie die Wahrscheinlichkeit, dass ein weiteres Kind des Paares aus Generation II von der Erkrankung betroffen ist.", "be": 5},
+        {"id": "2.5", "text": "Erörtern Sie Chancen und Grenzen der genetischen Diagnostik mittels RFLP-Analyse am Beispiel der dargestellten Erkrankung.", "be": 5}
+      ],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 3",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [{"id": "M1", "titel": "...", "type": "statistik|diagramm|bild|text", "text": "...", "chart_type": "bar|line"}],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen — anderes Sachgebiet als Aufgabe 1 und 2",
+      "sachgebiet": "EIGENES Sachgebiet wählen (z.B. neurobiologie, oekologie, evolution, verhaltensbiologie)",
+      "material": ["EIGENE Materialien generieren: mind. 1x statistik/diagramm + 1x text, optional 1x bild. Alle Zahlenwerte, Texte und Imagen-Prompts SELBST erstellen!"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 4–6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE). Jede Teilaufgabe mit konkretem Operator und BE-Angabe."],
       "gesamt_be": ${beProAufgabe}
     },
     {
       "id": "Aufgabe 4",
-      "titel": "...",
-      "sachgebiet": "...",
-      "material": [{"id": "M1", "titel": "...", "type": "statistik|diagramm|bild|text", "text": "...", "chart_type": "bar|line"}],
-      "teilaufgaben": [...],
+      "titel": "EIGENEN Titel wählen — anderes Sachgebiet als Aufgabe 1, 2 und 3",
+      "sachgebiet": "EIGENES Sachgebiet wählen (keines der bereits verwendeten!)",
+      "material": ["EIGENE Materialien generieren: mind. 1x statistik/diagramm + 1x text, optional 1x bild. Alle Zahlenwerte, Texte und Imagen-Prompts SELBST erstellen!"],
+      "teilaufgaben": ["EIGENE Teilaufgaben generieren (mind. 4–6 Teilaufgaben, AFB I→II→III, Summe = ${beProAufgabe} BE). Jede Teilaufgabe mit konkretem Operator und BE-Angabe."],
       "gesamt_be": ${beProAufgabe}
     }
   ],
@@ -7321,17 +7487,17 @@ Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem An
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen in Tiefe und Komplexität dem grundlegenden Anforderungsniveau entsprechen — NICHT dem erhöhten Niveau.` : ""}
 KRITISCH: Alle Formeln in LaTeX-Notation.
 KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
-- "statistik" (type + chart_type "bar"): Datentabellen → text ist Markdown-Tabelle mit Zahlenwerten
-- "diagramm" (type + chart_type "line"): Kurvenverläufe → text ist Markdown-Tabelle mit x/y-Datenpunkten
-- "bild" (type): Fotos/Illustrationen → text ist ein ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" stehen
-- "text" (type): Fachtexte, Versuchsbeschreibungen, Stammbäume, Schemata → text ist Fließtext
-KEINE Textbeschreibungen von Diagrammen! Stattdessen echte Datenpunkte als Markdown-Tabelle.
-Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild für Fotos.`;
+- "statistik" (type + chart_type "bar"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
+- "diagramm" (type + chart_type "line"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
+- "bild" (type): "text" = Imagen-Prompt auf Englisch (3-5 Sätze), Beschriftungen auf DEUTSCH in ""
+- "text" (type): "text" = VOLLSTÄNDIGER AUSFORMULIERTER Fachtext (mind. 150-300 Wörter)
+ABSOLUT VERBOTEN: Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." — das "text"-Feld MUSS den TATSÄCHLICHEN Inhalt enthalten!
+Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 16000);
+  ], 16000, { model: "gpt-5.2", temperature: 0.7 });
 
   const content = extractJSON(openaiRes);
   enrichBioMaterials(content);
@@ -7469,7 +7635,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { model: "gpt-5.2", temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -7549,16 +7715,15 @@ WICHTIG:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 10000);
+  ], 10000, { model: "gpt-5.2", temperature: 0.4 });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
 
 /* ================= OPENAI CALL ================= */
 async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7 } = {}) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
-
+  const t0 = Date.now();
+  let phase = "fetch";
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -7566,7 +7731,6 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
         "Content-Type": "application/json",
         Authorization: `Bearer ${env.OPENAI_API_KEY}`
       },
-      signal: controller.signal,
       body: JSON.stringify({
         model,
         messages,
@@ -7574,15 +7738,17 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
         max_completion_tokens: maxTokens
       })
     });
-
+    phase = "json";
     const data = await response.json();
     if (!response.ok) {
-      console.error("OpenAI error:", data?.error?.message || JSON.stringify(data));
-      throw new Error("KI-Verarbeitung fehlgeschlagen. Bitte versuche es erneut.");
+      const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
+      throw new Error("OpenAI(" + response.status + "): " + detail);
     }
+    phase = "done";
     return data.choices[0].message.content;
-  } finally {
-    clearTimeout(timeoutId);
+  } catch (err) {
+    const elapsed = Date.now() - t0;
+    throw new Error(`[${phase} ${elapsed}ms ${model}] ${err.message || err}`);
   }
 }
 
