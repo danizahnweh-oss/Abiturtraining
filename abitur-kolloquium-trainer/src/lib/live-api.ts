@@ -280,9 +280,9 @@ export class LiveSession {
   /** Mindest-Dauer (ms) damit eine Verbindung als "stabil" gilt */
   private static readonly STABLE_CONNECTION_MS = 10_000;
 
-  constructor(config: LiveSessionConfig) {
+  constructor(config: LiveSessionConfig, preWarmedProcessor?: AudioProcessor) {
     this.ai = createAI();
-    this.audioProcessor = new AudioProcessor();
+    this.audioProcessor = preWarmedProcessor || new AudioProcessor();
     this.audioPlayer = new AudioPlayer();
     this.config = config;
   }

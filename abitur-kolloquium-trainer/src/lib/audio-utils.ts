@@ -18,6 +18,7 @@ export class AudioProcessor {
   private sendCallback: ((base64Data: string) => void) | null = null;
   private flushTimer: number | null = null;
   private recording = false;
+  private warmupPromise: Promise<void> | null = null;
 
   /** Prüft ob gerade aufgenommen wird (Mikrofon aktiv) */
   isRecording(): boolean {
@@ -29,58 +30,77 @@ export class AudioProcessor {
     this.sendCallback = onAudioData;
   }
 
+  /** Mikrofon + AudioWorklet vorab initialisieren (ohne Audio zu senden).
+   *  Kann vor dem WebSocket-Aufbau aufgerufen werden, um die Wartezeit zu verkürzen. */
+  async warmup() {
+    if (this.recording) return;
+    if (this.warmupPromise) return this.warmupPromise;
+    this.warmupPromise = this.doWarmup();
+    return this.warmupPromise;
+  }
+
+  private async doWarmup() {
+    try {
+      this.audioContext = new AudioContext({ sampleRate: RECORDING_SAMPLE_RATE });
+      this.stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+          autoGainControl: true,
+        }
+      });
+      this.source = this.audioContext.createMediaStreamSource(this.stream);
+
+      await this.audioContext.audioWorklet.addModule(
+        URL.createObjectURL(
+          new Blob(
+            [
+              `
+              class RecorderProcessor extends AudioWorkletProcessor {
+                process(inputs, outputs, parameters) {
+                  const input = inputs[0];
+                  if (input.length > 0) {
+                    const channelData = input[0];
+                    const pcmData = new Int16Array(channelData.length);
+                    for (let i = 0; i < channelData.length; i++) {
+                      pcmData[i] = Math.max(-1, Math.min(1, channelData[i])) * 0x7FFF;
+                    }
+                    this.port.postMessage(pcmData.buffer, [pcmData.buffer]);
+                  }
+                  return true;
+                }
+              }
+              registerProcessor('recorder-processor', RecorderProcessor);
+              `,
+            ],
+            { type: 'application/javascript' }
+          )
+        )
+      );
+
+      this.processor = new AudioWorkletNode(this.audioContext, 'recorder-processor');
+      this.processor.port.onmessage = (e) => {
+        const chunk = new Int16Array(e.data);
+        this.appendToBuffer(chunk);
+      };
+
+      this.source.connect(this.processor);
+      this.processor.connect(this.audioContext.destination);
+
+      this.flushTimer = window.setInterval(() => this.flush(), SEND_INTERVAL_MS);
+      this.recording = true;
+    } catch (e) {
+      this.warmupPromise = null;
+      throw e;
+    }
+  }
+
   async startRecording(onAudioData: (base64Data: string) => void) {
     this.sendCallback = onAudioData;
     this.bufferOffset = 0;
-    this.audioContext = new AudioContext({ sampleRate: RECORDING_SAMPLE_RATE });
-    this.stream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        echoCancellation: true,
-        noiseSuppression: true,
-        autoGainControl: true,
-      }
-    });
-    this.source = this.audioContext.createMediaStreamSource(this.stream);
-
-    await this.audioContext.audioWorklet.addModule(
-      URL.createObjectURL(
-        new Blob(
-          [
-            `
-            class RecorderProcessor extends AudioWorkletProcessor {
-              process(inputs, outputs, parameters) {
-                const input = inputs[0];
-                if (input.length > 0) {
-                  const channelData = input[0];
-                  const pcmData = new Int16Array(channelData.length);
-                  for (let i = 0; i < channelData.length; i++) {
-                    pcmData[i] = Math.max(-1, Math.min(1, channelData[i])) * 0x7FFF;
-                  }
-                  this.port.postMessage(pcmData.buffer, [pcmData.buffer]);
-                }
-                return true;
-              }
-            }
-            registerProcessor('recorder-processor', RecorderProcessor);
-            `,
-          ],
-          { type: 'application/javascript' }
-        )
-      )
-    );
-
-    this.processor = new AudioWorkletNode(this.audioContext, 'recorder-processor');
-    this.processor.port.onmessage = (e) => {
-      const chunk = new Int16Array(e.data);
-      this.appendToBuffer(chunk);
-    };
-
-    this.source.connect(this.processor);
-    this.processor.connect(this.audioContext.destination);
-
-    // Safety flush timer — ensure buffered audio is sent even if chunks stop arriving
-    this.flushTimer = window.setInterval(() => this.flush(), SEND_INTERVAL_MS);
-    this.recording = true;
+    if (!this.recording) {
+      await this.warmup();
+    }
   }
 
   private appendToBuffer(chunk: Int16Array) {
@@ -99,16 +119,19 @@ export class AudioProcessor {
   }
 
   private flush() {
-    if (this.bufferOffset === 0 || !this.sendCallback) return;
-    const toSend = this.buffer.slice(0, this.bufferOffset);
-    const bytes = new Uint8Array(toSend.buffer, toSend.byteOffset, toSend.byteLength);
-    const base64 = btoa(String.fromCharCode(...bytes));
-    this.sendCallback(base64);
+    if (this.bufferOffset === 0) return;
+    if (this.sendCallback) {
+      const toSend = this.buffer.slice(0, this.bufferOffset);
+      const bytes = new Uint8Array(toSend.buffer, toSend.byteOffset, toSend.byteLength);
+      const base64 = btoa(String.fromCharCode(...bytes));
+      this.sendCallback(base64);
+    }
     this.bufferOffset = 0;
   }
 
   stopRecording() {
     this.recording = false;
+    this.warmupPromise = null;
     if (this.flushTimer) { clearInterval(this.flushTimer); this.flushTimer = null; }
     this.flush(); // Send any remaining buffered audio
     this.sendCallback = null;
