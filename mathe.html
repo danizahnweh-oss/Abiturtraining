@@ -162,6 +162,32 @@
       border-color: var(--accent)
     }
 
+    /* GeoGebra Toggle */
+    .ggb-toggle {
+      margin: 1rem 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .ggb-toggle summary {
+      padding: .7rem 1rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--accent);
+      background: var(--accent-glow);
+      user-select: none;
+    }
+
+    .ggb-toggle summary:hover {
+      background: var(--accent-soft);
+    }
+
+    .ggb-toggle[open] summary {
+      border-bottom: 1px solid var(--border);
+    }
+
     @media(max-width:650px) {
       .hj-grid {
         grid-template-columns: 1fr
@@ -487,7 +513,22 @@
         document.head.appendChild(s);
       });
     }
-    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container").forEach(function (c) { c.remove(); }); }
+    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container, .ggb-toggle").forEach(function (c) { c.remove(); }); }
+    function createGeoGebraToggle(containerEl, grafik, idPrefix) {
+      var details = document.createElement("details");
+      details.className = "ggb-toggle";
+      var summary = document.createElement("summary");
+      summary.textContent = "\uD83D\uDCC8 Grafik anzeigen";
+      details.appendChild(summary);
+      var content = document.createElement("div");
+      details.appendChild(content);
+      containerEl.appendChild(details);
+      details.addEventListener("toggle", function () {
+        if (this.open && !content.querySelector(".ggb-container")) {
+          renderGeoGebra(content, grafik, idPrefix);
+        }
+      });
+    }
     function autoFitGeoGebra(api, type) {
       var names = api.getAllObjectNames();
       if (!names || !names.length) return;
@@ -634,11 +675,32 @@
       } catch { }
     }
 
+    /* Fix häufige KI-Fehler bei LaTeX (besonders e-Funktion) */
+    function fixLatex(latex) {
+      if (!latex) return latex;
+      // e^-<term> → e^{-<term>} (fehlende Klammern bei negativem Exponenten)
+      // e^-x → e^{-x}, e^-2x → e^{-2x}, e^-0,5x → e^{-0,5x}
+      latex = latex.replace(/e\^(-[0-9]*[\{,\}.]?[0-9]*[a-zA-Z][a-zA-Z0-9]*)/g, 'e^{$1}');
+      // e^-<zahl> am Ende: e^-2 → e^{-2}
+      latex = latex.replace(/e\^(-[0-9]+)(?![a-zA-Z{])/g, 'e^{$1}');
+      // e^(...) → e^{...} (runde Klammern statt geschweifte)
+      latex = latex.replace(/e\^\(([^)]+)\)/g, 'e^{$1}');
+      // \exp\left(...\right) → e^{...}
+      latex = latex.replace(/\\exp\s*\\left\s*\((.+?)\\right\s*\)/g, 'e^{$1}');
+      // \exp(...) → e^{...}
+      latex = latex.replace(/\\exp\s*\(([^)]+)\)/g, 'e^{$1}');
+      return latex;
+    }
+
     /* Protect LaTeX blocks from marked's Markdown processing (* → em, etc.) */
     function protectMath(text) {
       var blocks = [];
-      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
-      text = text.replace(/\$([^$]+?)\$/g, function (m) { blocks.push(m); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      // Display: $$...$$ und \[...\]
+      text = text.replace(/\$\$([\s\S]*?)\$\$/g, function (m, inner) { blocks.push('$$' + fixLatex(inner) + '$$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\\\[([\s\S]*?)\\\]/g, function (m, inner) { blocks.push('$$' + fixLatex(inner) + '$$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      // Inline: $...$ und \(...\)
+      text = text.replace(/\$([^$]+?)\$/g, function (m, inner) { blocks.push('$' + fixLatex(inner) + '$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
+      text = text.replace(/\\\((.+?)\\\)/g, function (m, inner) { blocks.push('$' + fixLatex(inner) + '$'); return "KATEXPH" + (blocks.length - 1) + "ENDPH"; });
       return { text: text, blocks: blocks };
     }
     function restoreMath(html, blocks) {
@@ -656,7 +718,9 @@
         renderMathInElement(el || document.body, {
           delimiters: [
             { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false }
+            { left: "\\[", right: "\\]", display: true },
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false }
           ],
           throwOnError: false
         });
@@ -738,11 +802,11 @@
       const meta = document.getElementById("taskMeta");
       meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
 
-      // Render GeoGebra graph between task text and teilaufgaben
+      // Render GeoGebra graph between task text and teilaufgaben (lazy, per Klick)
       if (d.grafik && d.grafik.commands && d.grafik.commands.length) {
         var ggbTarget = document.createElement("div");
         container.parentNode.insertBefore(ggbTarget, container);
-        renderGeoGebra(ggbTarget, d.grafik, "task");
+        createGeoGebraToggle(ggbTarget, d.grafik, "task");
       }
 
       // Write step reference
@@ -760,18 +824,19 @@
     /* ====== PER-TEILAUFGABE TEXTAREAS ====== */
     let activeStudentTaId = "studentText_0";
 
-    /* Render $...$ and $$...$$ directly to KaTeX HTML (no post-processing needed) */
+    /* Render $...$ / $$...$$ / \(...\) / \[...\] directly to KaTeX HTML */
     function renderInlineKatex(text) {
       if (!text) return "";
       if (typeof katex === "undefined") return escapeHtml(text);
       var parts = [];
-      var re = /\$\$([\s\S]*?)\$\$|\$([^$]+?)\$/g;
+      var re = /\$\$([\s\S]*?)\$\$|\\\[([\s\S]*?)\\\]|\$([^$]+?)\$|\\\((.+?)\\\)/g;
       var lastIndex = 0;
       var match;
       while ((match = re.exec(text)) !== null) {
         if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
-        var math = match[1] !== undefined ? match[1] : match[2];
-        var isDisplay = match[1] !== undefined;
+        var math = match[1] !== undefined ? match[1] : match[2] !== undefined ? match[2] : match[3] !== undefined ? match[3] : match[4];
+        var isDisplay = match[1] !== undefined || match[2] !== undefined;
+        math = fixLatex(math);
         try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false })); }
         catch (e) { parts.push(escapeHtml(match[0])); }
         lastIndex = re.lastIndex;
