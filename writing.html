@@ -1174,18 +1174,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       btn.disabled = false;
     }
 
-    /* ================= PDF EXPORT (override shared.js with custom options) ================= */
-    function exportPDF() {
-      const content = document.getElementById("feedbackContent");
-      if (!content) return;
-      html2pdf().set({
-        margin: [10, 10, 10, 10],
-        filename: "Textproduktion_Bewertung.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollY: -window.scrollY },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-      }).from(content).save();
-    }
+    /* PDF Export: nutzt die robuste Version aus shared.js (MODULE_CONFIG.pdfFilename) */
 
     /* ================= RESET ================= */
     function resetAll() {

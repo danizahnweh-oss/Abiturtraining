@@ -1,6 +1,17 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 import { AudioProcessor, AudioPlayer } from "./audio-utils";
 
+/** Erkennt Gemini-"Thinking"-Texte die nicht als Transkript angezeigt werden sollen */
+function isThinkingText(text: string): boolean {
+  const t = text.trim();
+  // Markdown-Bold-Headers (typisch für Gemini Thinking, z.B. "**Offering Support Now**")
+  if (/\*\*[^*]+\*\*/.test(t)) return true;
+  // Mehrere englische selbstreferentielle Phrasen = Thinking
+  const selfRef = t.match(/\b(I'm |I'll |I should |I need to |I understand |Let me |I will |I want to |I've |My approach|I can |I have )/gi);
+  if (selfRef && selfRef.length >= 2) return true;
+  return false;
+}
+
 export const SUBJECTS = [
   'Biologie', 'Chemie', 'Deutsch', 'Englisch', 'Ethik',
   'Französisch', 'Geographie', 'Geschichte', 'Italienisch',
@@ -161,7 +172,7 @@ Strukturiere dein Feedback so:
 - Was genau sollte der Prüfling beim nächsten Mal anders machen?
 - Welche Themen sollte er/sie nochmal lernen?
 
-Schreibe auf Deutsch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
+Schreibe auf Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
@@ -178,14 +189,22 @@ function getLanguageInstruction(subject: string): string {
     'Englisch': 'Englisch', 'Französisch': 'Französisch', 'Italienisch': 'Italienisch',
   };
   const lang = langMap[subject];
-  if (lang) return `\n\nSPRACHE: Führe das GESAMTE Prüfungsgespräch auf ${lang}. Bewertung: 60 % Sprache/Gesprächsfähigkeit, 40 % Inhalt.`;
-  if (subject === 'Latein') return '\n\nSPRACHE: Gespräch auf Deutsch. Lateinische Fachbegriffe und Zitate gehören zur Prüfung.';
-  return '\n\nSPRACHE: Sprich durchgehend Deutsch.';
+  if (lang) return `\n\nSPRACHE: Führe das GESAMTE Prüfungsgespräch auf ${lang}. Bewertung: 60 % Sprache/Gesprächsfähigkeit, 40 % Inhalt. Auch dein Feedback gibst du auf ${lang}.`;
+  if (subject === 'Latein') return '\n\nSPRACHE: Gespräch auf Hochdeutsch (Standarddeutsch). KEIN Dialekt, KEIN Bayerisch. Lateinische Fachbegriffe und Zitate gehören zur Prüfung.';
+  return '\n\nSPRACHE: Sprich durchgehend Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch.';
 }
 
 function buildFeedbackInstruction(config: LiveSessionConfig): string {
   // Limit transcript to ~8000 chars to reduce first-response latency
   const transcript = (config.examTranscript || '').slice(0, 8000);
+
+  const feedbackLangMap: Record<string, string> = {
+    'Englisch': 'Englisch', 'Französisch': 'Französisch', 'Italienisch': 'Italienisch',
+  };
+  const feedbackLang = feedbackLangMap[config.subject];
+  const langHint = feedbackLang
+    ? `Gib dein Feedback auf ${feedbackLang}.`
+    : 'Sprich durchgehend Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch.';
 
   return `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung.
 Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt}
@@ -193,7 +212,7 @@ Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt
 TRANSKRIPT:
 ${transcript || '(Nicht verfügbar)'}
 
-AUFGABE: Ehrlicher Gesamteindruck → konkrete fachliche Fehler benennen und korrigieren → Stärken → Bewertung AB I/II/III → Punkteeinschätzung (0–15, keine Gefälligkeitsnoten!) → 2–3 Verbesserungstipps. Beantworte Rückfragen. Sprich Deutsch.`;
+AUFGABE: Ehrlicher Gesamteindruck → konkrete fachliche Fehler benennen und korrigieren → Stärken → Bewertung AB I/II/III → Punkteeinschätzung (0–15, keine Gefälligkeitsnoten!) → 2–3 Verbesserungstipps. Beantworte Rückfragen. ${langHint}`;
 }
 
 function buildExamInstruction(config: LiveSessionConfig): string {
@@ -338,7 +357,9 @@ export class LiveSession {
 
             if (message.serverContent?.modelTurn?.parts) {
               for (const part of message.serverContent.modelTurn.parts) {
-                if (part.text) this.config.onModelTranscription?.(part.text);
+                if (part.text && !isThinkingText(part.text)) {
+                  this.config.onModelTranscription?.(part.text);
+                }
               }
             }
 

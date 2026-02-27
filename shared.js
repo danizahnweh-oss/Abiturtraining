@@ -416,16 +416,66 @@ function renderProgressChart() {
 
 /* ================= PDF EXPORT ================= */
 
+// Hilfsfunktion: PDF-freundlichen Off-Screen-Klon erstellen
+function createPdfClone(sourceEl, pdfWidth) {
+  var wrapper = document.createElement("div");
+  wrapper.id = "pdfExportWrapper";
+  wrapper.style.cssText = "position:fixed;left:-10000px;top:0;width:" + pdfWidth +
+    "px;background:#fff;color:#1a1a2e;font-family:inherit;overflow:hidden;z-index:-1;";
+  // Alle Stylesheets ins Wrapper-DOM übernehmen (damit KaTeX etc. korrekt rendern)
+  wrapper.innerHTML = sourceEl.innerHTML;
+  // Buttons, interaktive Elemente, GeoGebra aus Klon entfernen
+  wrapper.querySelectorAll("button, .highlighter-toolbar, .ggb-container, .ggb-toggle, .wahl-hint, .pdf-export-btn").forEach(function (el) { el.remove(); });
+  // KaTeX: Overflow verhindern
+  wrapper.querySelectorAll(".katex-display, .katex").forEach(function (el) {
+    el.style.overflowX = "auto";
+    el.style.maxWidth = "100%";
+  });
+  // Sicherstellen dass alle Cards weiß sind
+  wrapper.querySelectorAll(".card").forEach(function (el) {
+    el.style.background = "#fff";
+    el.style.color = "#1a1a2e";
+    el.style.border = "1px solid #e2e8f0";
+  });
+  wrapper.style.wordWrap = "break-word";
+  wrapper.style.overflowWrap = "break-word";
+  document.body.appendChild(wrapper);
+  return wrapper;
+}
+
 function exportPDF() {
-  const el = document.getElementById("feedbackContent");
+  var el = document.getElementById("feedbackContent");
   if (!el) return;
-  const filename = (MODULE_CONFIG.pdfFilename || "Export") + "_" + new Date().toISOString().slice(0, 10) + ".pdf";
+
+  var pdfWidth = 760;
+  var wrapper = createPdfClone(el, pdfWidth);
+
+  // Canvas-Inhalte (Chart.js) vom Original in den Klon kopieren
+  var origCanvases = el.querySelectorAll("canvas");
+  var cloneCanvases = wrapper.querySelectorAll("canvas");
+  for (var i = 0; i < origCanvases.length && i < cloneCanvases.length; i++) {
+    try {
+      var ctx = cloneCanvases[i].getContext("2d");
+      cloneCanvases[i].width = origCanvases[i].width;
+      cloneCanvases[i].height = origCanvases[i].height;
+      ctx.drawImage(origCanvases[i], 0, 0);
+    } catch (e) { /* cross-origin */ }
+  }
+
+  var filename = (MODULE_CONFIG.pdfFilename || "Export") + "_" + new Date().toISOString().slice(0, 10) + ".pdf";
+
   html2pdf().set({
-    margin: 10,
+    margin: [10, 10, 10, 10],
     filename: filename,
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollY: -window.scrollY },
-    jsPDF: { format: "a4", orientation: "portrait" }
-  }).from(el).save();
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    jsPDF: { format: "a4", orientation: "portrait" },
+    pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".score-card", ".be-score-card"] }
+  }).from(wrapper).save().then(function () {
+    wrapper.remove();
+  }).catch(function (err) {
+    console.error("PDF export error:", err);
+    wrapper.remove();
+  });
 }
 
 /* ================= TASK/MATERIAL PDF EXPORT ================= */
@@ -475,81 +525,44 @@ function exportTaskPDF(mode) {
   if (!sec) { closePdfModal(); return; }
   closePdfModal();
 
-  // Force light theme for PDF (dark text on white bg)
-  var root = document.documentElement;
-  var prevTheme = root.getAttribute("data-theme");
-  root.setAttribute("data-theme", "light");
+  var pdfWidth = 760;
+  var wrapper = createPdfClone(sec, pdfWidth);
 
-  // Temporarily hide UI elements on the ORIGINAL section (no manual cloning —
-  // html2pdf clones internally via outerHTML, so manual clones cause issues)
-  var hidden = [];
-  function hideEl(el) {
-    if (el && el.style.display !== "none") {
-      hidden.push({ el: el, prev: el.style.cssText });
-      el.style.setProperty("display", "none", "important");
-    }
-  }
-  sec.querySelectorAll("button, .highlighter-toolbar, .ggb-container, .wahl-hint").forEach(hideEl);
-
-  // Mode-specific: temporarily hide material or task elements
+  // Mode-spezifisch: Material- oder Aufgaben-Elemente aus dem Klon entfernen
   var materialIds = ["materialsContainer", "sourceText", "sourceMeta", "textTitle", "zusatzMaterialien", "articleBody", "articleTitle"];
   var taskIds = ["taskInstruction", "taskMeta", "teilaufgabenContainer", "teilAPflichtContainer", "teilAWahlContainer", "teilBContainer"];
   if (mode === "task") {
-    materialIds.forEach(function (id) { hideEl(sec.querySelector("#" + id)); });
+    materialIds.forEach(function (id) { var el = wrapper.querySelector("#" + id); if (el) el.remove(); });
   } else if (mode === "material") {
-    taskIds.forEach(function (id) { hideEl(sec.querySelector("#" + id)); });
+    taskIds.forEach(function (id) { var el = wrapper.querySelector("#" + id); if (el) el.remove(); });
   }
 
-  // Save original styles and temporarily set PDF-friendly styles on section
-  var prevSecStyle = sec.style.cssText;
-  sec.style.background = "#fff";
-  sec.style.color = "#1a1a2e";
+  // Canvas-Inhalte (Chart.js) kopieren
+  var origCanvases = sec.querySelectorAll("canvas");
+  var cloneCanvases = wrapper.querySelectorAll("canvas");
+  for (var i = 0; i < origCanvases.length && i < cloneCanvases.length; i++) {
+    try {
+      var ctx = cloneCanvases[i].getContext("2d");
+      cloneCanvases[i].width = origCanvases[i].width;
+      cloneCanvases[i].height = origCanvases[i].height;
+      ctx.drawImage(origCanvases[i], 0, 0);
+    } catch (e) { /* cross-origin */ }
+  }
 
   var suffix = mode === "task" ? "_Aufgabe_" : mode === "material" ? "_Material_" : "_Aufgabe+Material_";
   var filename = (MODULE_CONFIG.pdfFilename || "Export") + suffix + new Date().toISOString().slice(0, 10) + ".pdf";
 
-  function cleanup() {
-    hidden.forEach(function (item) { item.el.style.cssText = item.prev; });
-    sec.style.cssText = prevSecStyle;
-    root.setAttribute("data-theme", prevTheme);
-  }
-
-  // Let the theme change and element hiding take effect before capturing
-  requestAnimationFrame(function () {
-    html2pdf().set({
-      margin: [10, 10, 10, 10],
-      filename: filename,
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        allowTaint: false,
-        backgroundColor: "#ffffff",
-        scrollX: 0,
-        scrollY: -window.scrollY,
-        windowWidth: Math.max(sec.scrollWidth, 800),
-        onclone: function (clonedDoc) {
-          // Copy canvas content (Chart.js etc.) from original to html2pdf's internal clone
-          var origCanvases = sec.querySelectorAll("canvas");
-          var clonedSec = clonedDoc.getElementById(prefix + "task");
-          if (clonedSec) {
-            var cloneCanvases = clonedSec.querySelectorAll("canvas");
-            for (var i = 0; i < origCanvases.length && i < cloneCanvases.length; i++) {
-              try {
-                var ctx = cloneCanvases[i].getContext("2d");
-                cloneCanvases[i].width = origCanvases[i].width;
-                cloneCanvases[i].height = origCanvases[i].height;
-                ctx.drawImage(origCanvases[i], 0, 0);
-              } catch (e) { /* ignore cross-origin canvas errors */ }
-            }
-          }
-        }
-      },
-      jsPDF: { format: "a4", orientation: "portrait" },
-      pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
-    }).from(sec).save().then(cleanup).catch(function (err) {
-      console.error("PDF export error:", err);
-      cleanup();
-    });
+  html2pdf().set({
+    margin: [10, 10, 10, 10],
+    filename: filename,
+    html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
+    jsPDF: { format: "a4", orientation: "portrait" },
+    pagebreak: { mode: ["css", "legacy"], avoid: [".card", ".aufgabe-item", ".aufgabengruppe-card", ".task-box", ".teilaufgabe-item"] }
+  }).from(wrapper).save().then(function () {
+    wrapper.remove();
+  }).catch(function (err) {
+    console.error("PDF export error:", err);
+    wrapper.remove();
   });
 }
 
