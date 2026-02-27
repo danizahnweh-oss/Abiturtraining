@@ -497,12 +497,11 @@
 
     .countdown-hide-btn {
       position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
+      right: .5rem;
+      top: .5rem;
       background: none;
       border: none;
-      color: var(--ink-muted);
+      color: rgba(255,255,255,0.6);
       font-size: 1.2rem;
       cursor: pointer;
       padding: .2rem .5rem;
@@ -511,12 +510,43 @@
     }
 
     .countdown-hide-btn:hover {
-      background: var(--surface);
-      color: var(--ink)
+      background: rgba(255,255,255,0.15);
+      color: #fff
     }
 
     .countdown-done {
       color: var(--success)
+    }
+
+    .cohort-toggle {
+      display: inline-flex;
+      gap: 0;
+      margin-bottom: .5rem;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .cohort-btn {
+      padding: .3rem .8rem;
+      font-size: .8rem;
+      font-family: inherit;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+    }
+
+    .cohort-btn:hover {
+      background: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .cohort-btn.active {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
     }
 
     /* ====== PROGRESS BAR (#8) ====== */
@@ -2469,7 +2499,7 @@
     let loginMode = "login";
 
     /* ====== ABITUR DATES Bayern 2026 (#14) ====== */
-    const ABITUR_DATES = {
+    const ABITUR_DATES_Q13 = {
       chemie: "2026-04-24",
       german: "2026-04-28",
       english: "2026-04-30",
@@ -2485,6 +2515,28 @@
       physik: { gA: "2026-05-11", eA: "2026-05-13" },
       biologie: { gA: "2026-05-11", eA: "2026-05-13" }
     };
+
+    const ABITUR_DATES_Q12 = {
+      chemie: "2027-05-13",
+      german: "2027-04-27",
+      english: "2027-04-30",
+      mathe: { gA: "2027-05-07", eA: "2027-05-05" },
+      french: "2027-05-03",
+      history: { gA: "2027-05-07", eA: "2027-04-21" },
+      pug: { gA: "2027-05-07", eA: "2027-04-21" },
+      wr: { gA: "2027-05-07", eA: "2027-04-21" },
+      italian: { gA: "2027-05-07", eA: "2027-04-21" },
+      ethik: { gA: "2027-05-07", eA: "2027-04-21" },
+      geographie: { gA: "2027-05-07", eA: "2027-04-21" },
+      latein: { gA: "2027-05-07", eA: "2027-04-21" },
+      physik: "2027-05-12",
+      biologie: "2027-05-11"
+    };
+
+    function getAbiturDates() {
+      var cohort = localStorage.getItem("countdown_cohort") || "q13";
+      return cohort === "q12" ? ABITUR_DATES_Q12 : ABITUR_DATES_Q13;
+    }
 
     const SUBJECT_TYPES = {
       english: ["mediation", "writing"],
@@ -2505,7 +2557,8 @@
 
     /* ====== COUNTDOWN (#14) ====== */
     function getExamDate(subject) {
-      var d = ABITUR_DATES[subject];
+      var dates = getAbiturDates();
+      var d = dates[subject];
       if (!d) return null;
       if (typeof d === "string") return new Date(d + "T00:00:00");
       var lvl = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
@@ -2519,6 +2572,7 @@
 
     function renderCountdowns() {
       var level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+      var cohort = localStorage.getItem("countdown_cohort") || "q13";
       var allDates = [];
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
@@ -2545,17 +2599,27 @@
       var grid = document.querySelector(".subject-grid");
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
+      var cohortToggleHtml = '<div class="cohort-toggle">' +
+        '<button class="cohort-btn' + (cohort === "q12" ? " active" : "") + '" onclick="switchCohort(\'q12\')">Q12</button>' +
+        '<button class="cohort-btn' + (cohort === "q13" ? " active" : "") + '" onclick="switchCohort(\'q13\')">Q13</button>' +
+        '</div>';
+
       if (isVisible) {
         if (toggle) toggle.style.display = "none";
         if (grid) grid.classList.add("countdown-active");
         if (allDates.length) {
           var minDays = Math.min.apply(null, allDates);
           if (minDays > 0) {
-            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; font-size:1.2rem; cursor:pointer;">&times;</button>' +
-              '<div class="countdown-pill" style="background:var(--bg); border:none; box-shadow:none; padding-right:2rem; position:relative;">Noch <strong>' + minDays + ' Tage</strong> bis zur nächsten Prüfung 🎓</div>';
+            var year = cohort === "q12" ? "2027" : "2026";
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden">&times;</button>' +
+              cohortToggleHtml +
+              '<div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur nächsten Prüfung (' + year + ') 🎓</div>';
             bar.style.display = "block";
           } else {
-            bar.style.display = "none";
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden">&times;</button>' +
+              cohortToggleHtml +
+              '<div class="countdown-pill countdown-done">Alle Prüfungen abgeschlossen ✅</div>';
+            bar.style.display = "block";
           }
         }
       } else {
@@ -2574,6 +2638,11 @@
 
     function disableCountdown() {
       localStorage.setItem("countdown_visible", "0");
+      renderCountdowns();
+    }
+
+    function switchCohort(cohort) {
+      localStorage.setItem("countdown_cohort", cohort);
       renderCountdowns();
     }
 
