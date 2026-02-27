@@ -207,6 +207,29 @@ function initAiTutor() {
     .ai-chat-header.dragging {
       cursor: grabbing;
     }
+    /* Tablet & Mobile: Widget weiter nach rechts, Chat-Fenster anpassen */
+    @media (max-width: 1024px) {
+      #ai-tutor-widget {
+        right: 1.5rem !important;
+        bottom: 1.5rem !important;
+      }
+      #ai-chat-window {
+        width: min(380px, calc(100vw - 2rem));
+        height: min(500px, calc(100vh - 8rem));
+        right: 0;
+      }
+    }
+    @media (max-width: 480px) {
+      #ai-chat-window {
+        width: calc(100vw - 1.5rem);
+        height: calc(100vh - 7rem);
+        position: fixed !important;
+        bottom: 5rem !important;
+        right: 0.75rem !important;
+        left: 0.75rem !important;
+        top: auto !important;
+      }
+    }
   `;
   document.head.appendChild(style);
 
@@ -259,6 +282,7 @@ function initWidgetDrag(widget) {
   var isDragging = false;
   var wasDragged = false;
   var startX, startY, origX, origY;
+  var dragStartTarget = null;
   var DRAG_THRESHOLD = 5;
 
   function getHandles() {
@@ -316,12 +340,15 @@ function initWidgetDrag(widget) {
     origY = parseFloat(widget.style.top) || 0;
     isDragging = true;
     wasDragged = false;
+    dragStartTarget = target;
 
     widget.classList.add("dragging");
     var header = widget.querySelector(".ai-chat-header");
     if (header) header.classList.add("dragging");
 
-    e.preventDefault();
+    // Nur bei Maus preventDefault — bei Touch wird es erst in onMove aufgerufen,
+    // damit der Click-Event auf Tablets nicht blockiert wird
+    if (!e.touches) e.preventDefault();
   }
 
   function onMove(e) {
@@ -334,11 +361,14 @@ function initWidgetDrag(widget) {
     if (!wasDragged && Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return;
     wasDragged = true;
 
+    // Bei Touch: erst beim echten Drag Scroll verhindern
+    if (e.touches) e.preventDefault();
+
     widget.style.left = (origX + dx) + "px";
     widget.style.top = (origY + dy) + "px";
   }
 
-  function onEnd() {
+  function onEnd(e) {
     if (!isDragging) return;
     isDragging = false;
     widget.classList.remove("dragging");
@@ -350,7 +380,18 @@ function initWidgetDrag(widget) {
       // Prevent the click from toggling chat after drag
       widget._justDragged = true;
       setTimeout(function () { widget._justDragged = false; }, 50);
+    } else if (e.type === "touchend") {
+      // Auf Touch-Geräten wird der Click-Event durch den Drag-Handler unterdrückt.
+      // Bei einem Tap (kein Drag) manuell toggleAiChat/Close auslösen.
+      var btn = document.getElementById("ai-tutor-btn");
+      var closeBtn = document.getElementById("ai-close-btn");
+      if (dragStartTarget && (dragStartTarget === closeBtn || (closeBtn && closeBtn.contains(dragStartTarget)))) {
+        toggleAiChat();
+      } else if (dragStartTarget && (dragStartTarget === btn || (btn && btn.contains(dragStartTarget)))) {
+        toggleAiChat();
+      }
     }
+    dragStartTarget = null;
   }
 
   document.addEventListener("mousedown", onStart);
