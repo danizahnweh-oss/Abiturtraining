@@ -62,8 +62,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Farbigkeit und Struktur von Farbstoffen',
       ],
       '13/2': [
-        'Makromolekulare Stoffe: Proteine, Kohlenhydrate und Kunststoffe',
-        'Chemie und Nachhaltigkeit (Stoffkreisläufe, Recycling)',
+        'Natürliche Makromoleküle: Proteine und Kohlenhydrate',
+        'Kunststoffe: Polymerisation, Polykondensation und Recycling',
+        'Chemie und Nachhaltigkeit (Stoffkreisläufe, Green Chemistry)',
       ],
     },
   },
@@ -191,10 +192,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Wirtschaftliche Entwicklungen in einer globalisierten Welt',
         'Ressourcen und nachhaltige Entwicklung',
+        'Globale Disparitäten und Entwicklungsstrategien',
       ],
       '13/2': [
         'Bevölkerungsentwicklung und Migration',
         'Stadtentwicklung und urbane Räume',
+        'Raumplanung und nachhaltige Raumentwicklung',
       ],
     },
   },
@@ -214,10 +217,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '13/1': [
         'Die historische Entwicklung des israelisch-palästinensischen Konflikts',
-        'USA, Russland und China im 20. und 21. Jahrhundert',
+        'USA im 20. und 21. Jahrhundert (Supermacht und Weltordnung)',
+        'Russland und China im 20. und 21. Jahrhundert',
       ],
       '13/2': [
         'Historische Grundlagen moderner demokratischer Staatsordnungen',
+        'Menschenrechte und ihre historische Entwicklung',
         'Von nationalistischer Konfrontation zu europäischer Integration',
       ],
     },
@@ -285,6 +290,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '12/2': [
         'Zufallsgrößen und Binomialverteilung (Erwartungswert, Standardabweichung)',
+        'Wahrscheinlichkeitsverteilungen und Laplace-Experimente',
         'Grundlagen der Koordinatengeometrie im Raum (Vektoren, Geraden)',
       ],
       '13/1': [
@@ -331,10 +337,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/1': [
         'Frieden und Sicherheit als Motive deutscher Außenpolitik',
         'Das europäische Projekt verstehen und mitgestalten',
+        'Deutschland in internationalen Organisationen (NATO, UNO)',
       ],
       '12/2': [
         'Politische Systeme vergleichen (Demokratie, Autoritarismus, Totalitarismus)',
         'Demokratie wertschätzen und Demokratieförderung',
+        'Menschenrechte und Grundrechte im politischen System',
       ],
       '13/1': [
         'Modernisierungsprozesse und Zusammenleben in Deutschland',
@@ -343,7 +351,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '13/2': [
         'Internationale Konfliktbearbeitung und Friedenssicherung',
-        'Menschenrechte und globale Herausforderungen',
+        'Menschenrechte und humanitäres Engagement',
+        'Globalisierung und internationale Kooperation',
       ],
     },
   },
@@ -364,10 +373,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Zivilrecht: Vertragsrecht, Gewährleistung und Verbraucherschutz',
         'Strafrecht: Grundlagen, Tatbestandsmerkmale und Rechtsfolgen',
+        'Arbeitsrecht und rechtliche Ordnung im Alltag',
       ],
       '13/2': [
         'Geld, Preisniveau und Geldpolitik der EZB',
         'Außenhandel, Wechselkurse und Währungspolitik',
+        'Europäische Wirtschafts- und Währungsunion',
       ],
     },
   },
