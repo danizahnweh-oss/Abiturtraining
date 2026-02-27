@@ -6,7 +6,6 @@
  * Quellen:
  * - lehrplanplus.bayern.de (Fachlehrpläne Jgst. 12/13, gA und eA)
  * - ISB Illustrierende Prüfungsaufgaben (Halbjahr-Zuordnung Geographie)
- * - STARK Verlag (Halbjahr-Zuordnung Mathematik)
  *
  * Hinweis: Für Deutsch, Englisch, Französisch und Italienisch definiert der
  * LehrplanPLUS keine offizielle Halbjahr-Zuordnung (2-Jahres-Block 12/13).
@@ -38,32 +37,33 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/2': [
         'Dynamische Prozesse in Ökosystemen',
         'Anthropogene Einflüsse auf Ökosysteme und Biodiversität',
-        'Ökologie der Biosphäre und Nachhaltigkeit',
+        'Stoffkreisläufe und Energiefluss in Ökosystemen',
       ],
     },
   },
 
   'Chemie': {
+    // C12: LB2 Atombau, LB3 Bindung, LB4 Protonenübergänge, LB5 Elektronenübergänge
+    // C13: LB2 Organische Verbindungen, LB3 Farbstoffe, LB4 Makromoleküle, LB5 Nachhaltigkeit
     halbjahre: {
       '12/1': [
-        'Atombau und Analytik',
+        'Atombau: Energiestufen, Orbitalmodell und Periodensystem',
         'Chemische Bindung (Ionen-, Molekül-, Metallbindung)',
-        'Kohlenwasserstoffe als Energieträger und Reaktionspartner',
+        'Molekülstruktur, Polarität und zwischenmolekulare Kräfte',
       ],
       '12/2': [
-        'Reaktionsgeschwindigkeit und Katalyse',
-        'Chemisches Gleichgewicht und Massenwirkungsgesetz',
-        'Redoxgleichgewichte und Elektrochemie',
+        'Protonenübergänge: Säure-Base-Gleichgewichte und pH-Wert',
+        'Elektronenübergänge: Redoxreaktionen und Elektrochemie',
+        'Galvanische Zellen und Elektrolyse',
       ],
       '13/1': [
-        'Farbigkeit und Struktur-Eigenschafts-Beziehungen',
-        'Säure-Base-Gleichgewichte und quantitative Analytik',
-        'Natürliche Makromoleküle: Aminocarbonsäuren und Proteine',
+        'Organische Stoffklassen: Kohlenwasserstoffe und funktionelle Gruppen',
+        'Sauerstoffhaltige organische Verbindungen (Alkanole, Alkansäuren, Ester)',
+        'Farbigkeit und Struktur von Farbstoffen',
       ],
       '13/2': [
-        'Synthetische Makromoleküle und Kunststoffe',
-        'Chemie und Nachhaltigkeit',
-        'Biomoleküle: Kohlenhydrate und Fette',
+        'Makromolekulare Stoffe: Proteine, Kohlenhydrate und Kunststoffe',
+        'Chemie und Nachhaltigkeit (Stoffkreisläufe, Recycling)',
       ],
     },
   },
@@ -78,12 +78,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Lyrik der Klassik und Romantik',
       ],
       '12/2': [
-        'Realismus und Naturalismus im 19. Jahrhundert',
+        'Poetischer Realismus und Literatur des 19. Jahrhunderts',
         'Literarische Moderne und Expressionismus (Jahrhundertwende bis Mitte 20. Jh.)',
         'Erzählen und Erzähltheorie (Novelle, Roman)',
       ],
       '13/1': [
-        'Nachkriegsliteratur und Aufarbeitung der Vergangenheit (1945–1989)',
+        'Exilliteratur und Nachkriegsliteratur (1933–1989)',
         'Literatur seit 1989 (Identität, Globalisierung, Migration)',
         'Pflichtlektüren und vertiefende Textanalyse',
       ],
@@ -101,7 +101,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     halbjahre: {
       '12/1': [
         'Ireland: Geography, History, Society and Politics (Troubles, Brexit)',
-        'Ethnic Diversity and Immigration in the UK (Empire, Commonwealth)',
+        'Ethnic Diversity and Immigration in the UK and North America',
         'Regional and Social Identities in the UK (Education, Social Classes)',
       ],
       '12/2': [
@@ -115,7 +115,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Media in the Information Society',
       ],
       '13/2': [
-        'Shakespeare and Elizabethan Theatre',
+        'Shakespeare and Society',
         'The 20th/21st Century Novel (Ganzschrift)',
         'Values, Religion and Social Engagement',
       ],
@@ -123,7 +123,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Ethik': {
-    // Explizite Zuordnung: 2 Lernbereiche pro Jahrgangsstufe = 1 pro Halbjahr
+    // Eth12 LB2 = 12/1, Eth12 LB3 = 12/2, Eth13 LB2 = 13/1, Eth13 LB3 = 13/2
     halbjahre: {
       '12/1': [
         'Theorie und Praxis des Handelns',
@@ -133,17 +133,17 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/2': [
         'Freiheit und Determination',
         'Willensfreiheit und Determinismus (Hirnforschung, Kompatibilismus)',
-        'Schuld, Strafe und Verantwortung',
+        'Verantwortungsfähigkeit und autonomes Handeln',
       ],
       '13/1': [
         'Recht und Gerechtigkeit',
         'Gerechtigkeitstheorien (Rawls, Aristoteles)',
-        'Menschenwürde und Menschenrechte',
+        'Menschenwürde, Menschenrechte und Strafgerechtigkeit',
       ],
       '13/2': [
         'Sinnorientierung und Lebensgestaltung',
         'Glückskonzeptionen und gelingendes Leben',
-        'Religion, Weltanschauung und Toleranz',
+        'Philosophische und religiöse Sinnkonzepte',
       ],
     },
   },
@@ -155,7 +155,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/1': [
         'La société française en mutation (multiculturalité, démographie, jeunes)',
         'Paris et la province: urbanisation, centralisme et décentralisation',
-        'Régions à forte identité (Corse, Bretagne, Alsace) et patrimoine culturel',
+        'Régions à forte identité (Corse, Bretagne, Alsace, Pays basque) et patrimoine culturel',
       ],
       '12/2': [
         'Les relations franco-allemandes (histoire, Traité de l\'Élysée, Traité d\'Aix-la-Chapelle)',
@@ -163,7 +163,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Politique et histoire: de l\'Absolutisme à la République',
       ],
       '13/1': [
-        'La francophonie: histoire, présent et diversité culturelle',
+        'La francophonie: histoire et diversité (Afrique, Québec, Antilles)',
         'La mondialisation et ses conséquences (migration, intégration)',
         'Économie, travail et développement durable',
       ],
@@ -191,18 +191,16 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Wirtschaftliche Entwicklungen in einer globalisierten Welt',
         'Ressourcen und nachhaltige Entwicklung',
-        'Globale Disparitäten und Entwicklungsstrategien',
       ],
       '13/2': [
         'Bevölkerungsentwicklung und Migration',
         'Stadtentwicklung und urbane Räume',
-        'Raumplanung und nachhaltige Stadtentwicklung',
       ],
     },
   },
 
   'Geschichte': {
-    // Explizite Halbjahr-Zuordnung im LehrplanPLUS (G12 1.x = 12/1, G12 2.x = 12/2 usw.)
+    // G12 LB1 = 12/1, G12 LB2 = 12/2, G13 LB1 = 13/1, G13 LB2 = 13/2
     halbjahre: {
       '12/1': [
         'Die deutsche Revolution von 1848/49 und bürgerliche Gesellschaft',
@@ -212,17 +210,15 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/2': [
         'Scheitern der Weimarer Republik, NS-Diktatur und Völkermord',
         'Die Bundesrepublik Deutschland und die DDR',
-        'Die Bundesrepublik Deutschland 1990–2009',
+        'Deutsche Einheit und die Bundesrepublik 1990–2009',
       ],
       '13/1': [
         'Die historische Entwicklung des israelisch-palästinensischen Konflikts',
-        'USA im 20. und 21. Jahrhundert',
-        'Russland und China im 20. und 21. Jahrhundert',
+        'USA, Russland und China im 20. und 21. Jahrhundert',
       ],
       '13/2': [
         'Historische Grundlagen moderner demokratischer Staatsordnungen',
         'Von nationalistischer Konfrontation zu europäischer Integration',
-        'Erinnerungskultur und Geschichtspolitik',
       ],
     },
   },
@@ -232,17 +228,17 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     halbjahre: {
       '12/1': [
         'L\'Italia di oggi: società, giovani e vita quotidiana',
-        'Facetten Italiens: Nord, Centro, Sud (contrasti regionali)',
+        'Facetten Italiens: Nord, Centro, Sud (contrasti regionali, turismo)',
         'Made in Italy: prodotti, marchi e significato economico',
       ],
       '12/2': [
-        'Storia italiana recente: Fascismo, Resistenza, nascita della Repubblica',
+        'Storia italiana: dal Risorgimento alla nascita della Repubblica (Fascismo, Resistenza)',
         'Arte e architettura italiana (Rinascimento)',
         'Cantautori: dimensione politica e sociale della musica italiana',
       ],
       '13/1': [
         'Immigrazione ed emigrazione nella storia e nel presente',
-        'La criminalità organizzata e le sue conseguenze sulla società',
+        'Il miracolo economico, gli anni di piombo e la società contemporanea',
         'La problematica Nord-Sud e la questione meridionale',
       ],
       '13/2': [
@@ -254,22 +250,22 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Latein': {
-    // De facto Halbjahr-Zuordnung: 2 thematische Lernbereiche pro Jahrgangsstufe
+    // L12 LB2 = 12/1 (Philosophie), LB3 = 12/2 (Satire), L13 LB2 = 13/1 (Augustus), LB3 = 13/2 (Staatsphilosophie)
     halbjahre: {
       '12/1': [
         '"Philosophandum est" – Philosophische Haltungen (Cicero, Seneca)',
         'Stoische Ethik und Lebensführung (Seneca: Epistulae morales)',
-        'Epikureismus und Skepsis (Cicero: De finibus, De natura deorum)',
+        'Epikureismus und Skepsis (Cicero: Tusculanae disputationes, De finibus)',
       ],
       '12/2': [
-        '"Difficile est saturam non scribere" – Römische Satire',
+        '"Difficile est saturam non scribere" – Römische Satire und Lyrik',
         'Catull: Gesellschaftskritik und Liebeslyrik (Carmina)',
-        'Petron: Satirische Darstellung römischer Gesellschaft (Cena Trimalchionis)',
+        'Horaz und Petron: Satire und römische Gesellschaft',
       ],
       '13/1': [
         '"Imperium sine fine dedi" – Literatur und Herrschaft im augusteischen Rom',
         'Vergil: Aeneis (Staatsidee und Sendungsbewusstsein)',
-        'Augusteische Propaganda und Selbstdarstellung',
+        'Res gestae divi Augusti und augusteische Propaganda',
       ],
       '13/2': [
         '"Res publica res populi" – Staatsphilosophische Betrachtungen',
@@ -280,22 +276,21 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Mathematik': {
-    // STARK-Verlag bestätigte Halbjahr-Zuordnung
+    // M12: LB2 Analysis, LB3 Stochastik, LB4 Geometrie; M13: LB2 Analysis, LB3 Stochastik, LB4 Geometrie
     halbjahre: {
       '12/1': [
-        'Analysis I: Funktionsuntersuchung (Ableitungsregeln, Stammfunktion)',
-        'Kurvendiskussion (ganzrationale, Exponential-, trigonometrische Funktionen)',
-        'Flächeninhalt und bestimmtes Integral',
+        'Analysis I: Ableitungsregeln und Kurvendiskussion',
+        'Funktionstypen: ganzrationale, gebrochen-rationale und Exponentialfunktionen',
+        'Umkehrfunktionen, Logarithmus und erweiterte Ableitungsregeln',
       ],
       '12/2': [
-        'Zufallsgrößen und Binomialverteilung',
-        'Normalverteilung und einseitiger Signifikanztest',
+        'Zufallsgrößen und Binomialverteilung (Erwartungswert, Standardabweichung)',
         'Grundlagen der Koordinatengeometrie im Raum (Vektoren, Geraden)',
       ],
       '13/1': [
-        'Analysis II: Gebrochen-rationale, Wurzel- und Logarithmusfunktionen',
+        'Analysis II: Stammfunktion, bestimmtes Integral und Flächeninhalte',
+        'Normalverteilung und einseitiger Signifikanztest',
         'Geraden und Ebenen im Raum (Lagebeziehungen, Abstände)',
-        'Umkehrfunktionen und erweiterte Ableitungsregeln',
       ],
       '13/2': [
         'Anwendungen der Differential- und Integralrechnung',
@@ -323,25 +318,23 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Strukturuntersuchungen zum Aufbau der Materie',
       ],
       '13/2': [
-        'Kernphysik: Kernmodell und Kernkräfte',
-        'Radioaktivität und Zerfallsreihen',
-        'Kernenergietechnik (Kernspaltung, Kernfusion, Strahlenschutz)',
+        'Kernphysik: Aufbau des Atomkerns und Kernbindungsenergie',
+        'Radioaktiver Zerfall und Zerfallsgesetz',
+        'Kernspaltung, Kernfusion und Strahlenschutz',
       ],
     },
   },
 
   'Politik und Gesellschaft': {
-    // Lernbereiche nach Halbjahren: 12/1 = LB 1–2, 12/2 = LB 3–4, 13/1 = LB 1–3, 13/2 = LB 4
+    // PuG12: LB1+LB2 = 12/1, LB3+LB4 = 12/2; PuG13: LB1–3 = 13/1, LB4 = 13/2
     halbjahre: {
       '12/1': [
         'Frieden und Sicherheit als Motive deutscher Außenpolitik',
         'Das europäische Projekt verstehen und mitgestalten',
-        'Deutschland in internationalen Organisationen (NATO, UNO)',
       ],
       '12/2': [
-        'Politische Systeme vergleichen und Demokratie wertschätzen',
-        'Möglichkeiten der Demokratieförderung beurteilen',
-        'Autoritäre und totalitäre Systeme im Vergleich',
+        'Politische Systeme vergleichen (Demokratie, Autoritarismus, Totalitarismus)',
+        'Demokratie wertschätzen und Demokratieförderung',
       ],
       '13/1': [
         'Modernisierungsprozesse und Zusammenleben in Deutschland',
@@ -349,35 +342,32 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Bedeutung des Sozialstaats und aktuelle Herausforderungen',
       ],
       '13/2': [
-        'Internationale Konfliktbearbeitung und Völkerrecht',
-        'Menschenrechte und humanitäres Engagement',
-        'Globale Herausforderungen und internationale Kooperation',
+        'Internationale Konfliktbearbeitung und Friedenssicherung',
+        'Menschenrechte und globale Herausforderungen',
       ],
     },
   },
 
   'Wirtschaft und Recht': {
-    // 12/1 = LB 1 (BWL), 12/2 = LB 2–3 (VWL + Recht), 13/1 = LB 1 (Recht), 13/2 = LB 2 (VWL)
+    // WR12 LB2 (BWL) = 12/1, LB3 (VWL) = 12/2; WR13 LB2 (Recht) = 13/1, LB3 (VWL international) = 13/2
     halbjahre: {
       '12/1': [
-        'Betriebswirtschaftslehre: Unternehmensgründung und -führung',
-        'Rechtsformen, Organisation und Unternehmenssteuerung',
+        'Betriebswirtschaftslehre: Unternehmen gründen und führen',
+        'Organisation, Rechtsformen und Personalmanagement',
         'Marketing, Investition und Finanzierung',
       ],
       '12/2': [
-        'VWL: Gesamtwirtschaftliche Lage, Wachstum und Beschäftigung',
+        'Volkswirtschaftliche Gesamtrechnung und Wirtschaftskreislauf',
+        'Konjunktur, Wachstum und Beschäftigung',
         'Einkommen und soziale Sicherung',
-        'Rechtstechnische Grundlagen und Zivilrecht (Schuldverhältnisse)',
       ],
       '13/1': [
-        'Zivilrecht: Interessenausgleich beim Kauf (Gewährleistung, Verbraucherschutz)',
-        'Strafrecht: Grundlagen, Tatbestandsmerkmale, Rechtsfolgen',
-        'Jugendstrafrecht und Strafzwecktheorien',
+        'Zivilrecht: Vertragsrecht, Gewährleistung und Verbraucherschutz',
+        'Strafrecht: Grundlagen, Tatbestandsmerkmale und Rechtsfolgen',
       ],
       '13/2': [
-        'VWL: Geld, Preisniveau und Geldpolitik der EZB',
+        'Geld, Preisniveau und Geldpolitik der EZB',
         'Außenhandel, Wechselkurse und Währungspolitik',
-        'Europäischer Binnenmarkt und internationale Wirtschaftsbeziehungen',
       ],
     },
   },
