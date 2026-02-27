@@ -8,12 +8,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
-  RotateCcw, PenLine, Volume2, ArrowLeft,
+  RotateCcw, PenLine, Volume2, ArrowLeft, Download,
 } from 'lucide-react';
 import {
   LiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
   type ExamLevel, type ExamMode, type ExamMaterial,
 } from './lib/live-api';
+import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
 import { clsx, type ClassValue } from 'clsx';
@@ -718,7 +719,18 @@ export default function App() {
                       <p className="opacity-50">Feedback wird erstellt...</p>
                     </div>
                   ) : (
-                    <div className="prose prose-sm max-w-none whitespace-pre-wrap leading-relaxed">{fbText}</div>
+                    <>
+                      <div className="prose prose-sm max-w-none whitespace-pre-wrap leading-relaxed">{fbText}</div>
+                      <div className="mt-6 pt-5 border-t border-black/5 flex justify-end">
+                        <button
+                          onClick={() => downloadFeedbackPdf({ subject, schwerpunkt, level, feedbackText: fbText })}
+                          className="bg-white text-emerald-700 border border-emerald-200 px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 hover:bg-emerald-50 transition-all hover:shadow-sm active:scale-95 text-sm"
+                        >
+                          <Download size={16} />
+                          Als PDF herunterladen
+                        </button>
+                      </div>
+                    </>
                   )}
                 </div>
               )}
