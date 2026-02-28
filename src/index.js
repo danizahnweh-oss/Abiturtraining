@@ -27,6 +27,39 @@ const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
 
 const LEHRPLAN_TREUE = `LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.`;
 
+/* ---- Zeitanpassung: Materialumfang an Prüfungsdauer anpassen ---- */
+function zeitanpassung(bearbeitungszeit, referenzzeit, referenzBE) {
+  if (!bearbeitungszeit || bearbeitungszeit >= referenzzeit * 0.8) return '';
+
+  const faktor = bearbeitungszeit / referenzzeit;
+
+  const textMin = Math.max(100, Math.round(400 * faktor));
+  const textMax = Math.max(200, Math.round(800 * faktor));
+  const maxMaterialien = Math.max(1, Math.round(3 * faktor));
+  const maxTeilaufgaben = Math.max(2, Math.round(4 * faktor));
+  const skalBE = Math.max(20, Math.round(referenzBE * faktor));
+
+  let teilB = '';
+  if (bearbeitungszeit < 90) {
+    teilB = '\n- Teil B ENTFÄLLT komplett — generiere NUR Teil A';
+  } else if (bearbeitungszeit < 150) {
+    teilB = '\n- Teil B: maximal 1 kurze Teilaufgabe';
+  }
+
+  return `\n\nWICHTIG – ZEITANPASSUNG: Diese Prüfung dauert nur ${bearbeitungszeit} Minuten (statt der üblichen ${referenzzeit} Min.). Passe den Umfang STRIKT an:
+- Textmaterialien: ${textMin}–${textMax} Wörter pro Text (statt 400–800)
+- Anzahl Materialien: maximal ${maxMaterialien}
+- Teilaufgaben: maximal ${maxTeilaufgaben}
+- Bewertungseinheiten: insgesamt ca. ${skalBE} BE${teilB}
+Die Aufgabenqualität und Anforderungsniveaus (AFB I–III) bleiben gleich — nur der UMFANG wird reduziert.`;
+}
+
+function skaliereTokens(basisTokens, bearbeitungszeit, referenzzeit) {
+  if (!bearbeitungszeit || bearbeitungszeit >= referenzzeit * 0.8) return basisTokens;
+  const faktor = Math.max(0.3, bearbeitungszeit / referenzzeit);
+  return Math.max(4000, Math.round(basisTokens * faktor));
+}
+
 const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
 - "korrektur_text_a": Markierter Schülertext Teil A. Markiere Übersetzungsfehler mit <mark class='fehler-ue' title='Korrektur: RICHTIG (Fehlertyp: S/L/H)'>FALSCH</mark>.
 - "korrektur_text_b": Markierter Schülertext Teil B. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
@@ -1115,7 +1148,10 @@ KRITISCH:
 /* ================= DEUTSCH: GENERATE ================= */
 async function handleGenerateDeutsch(request, env) {
   const body = await request.json();
-  const { type, gattung, epoche, schreibauftrag, thema, textsorte, typ, aufgabentyp } = body;
+  const { type, gattung, epoche, schreibauftrag, thema, textsorte, typ, aufgabentyp, bearbeitungszeit } = body;
+  const refZeit = 315;
+  const refBE = 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
 
   let systemPrompt, userPrompt;
 
@@ -1270,9 +1306,9 @@ KRITISCH - Längen wie im echten Abitur:
   const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 16000 };
   const maxTokens = tokenMap[type] || 8000;
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], maxTokens);
+  ], skaliereTokens(maxTokens, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -1961,10 +1997,13 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
 /* ================= PUG ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturPuG(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level } = body;
+  const { halbjahr, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
   const bePruefungA = isEA ? "85 BE" : "75 BE";
   const bePruefungB = isEA ? "35 BE" : "25 BE";
   const beGesamt = isEA ? "120 BE" : "100 BE";
@@ -2144,9 +2183,9 @@ KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quell
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 14000);
+  ], skaliereTokens(14000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -2581,10 +2620,13 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturGeschichte(request, env) {
   const body = await request.json();
-  const { schwerpunkt, level } = body;
+  const { schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
 
   const schwerpunkte = {
     "12_1": {
@@ -2679,9 +2721,9 @@ KRITISCH:
 - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 14000);
+  ], skaliereTokens(14000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -2787,10 +2829,13 @@ Formatiere als Markdown mit klaren Überschriften. Am Ende unter "---" eine kurz
 /* ================= WR ABITUR: GENERATE (2 Aufgaben) ================= */
 async function handleGenerateAbiturWR(request, env) {
   const body = await request.json();
-  const { niveau, fachbereich_1, fachbereich_2 } = body;
+  const { niveau, fachbereich_1, fachbereich_2, bearbeitungszeit } = body;
 
   const isEA = (niveau || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
 
   const fbLabels = { bwl: "Betriebswirtschaftslehre", vwl: "Volkswirtschaftslehre", recht: "Recht" };
 
@@ -2881,9 +2926,9 @@ KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 16000);
+  ], skaliereTokens(16000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -3610,10 +3655,13 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
 /* ================= ETHIK ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturEthik(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level } = body;
+  const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
   const bePruefungA = isEA ? "85 BE" : "75 BE";
   const bePruefungB = isEA ? "35 BE" : "25 BE";
   const beGesamt = isEA ? "120 BE" : "100 BE";
@@ -3719,9 +3767,9 @@ Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 16000);
+  ], skaliereTokens(16000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -4107,10 +4155,13 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
 /* ================= GEOGRAPHIE ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturGeographie(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level } = body;
+  const { halbjahr, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
   const bePruefungA = isEA ? "85 BE" : "75 BE";
   const bePruefungB = isEA ? "35 BE" : "25 BE";
   const beGesamt = isEA ? "120 BE" : "100 BE";
@@ -4208,9 +4259,9 @@ Teil B soll einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeisp
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen dem grundlegenden Anforderungsniveau entsprechen.` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 16000);
+  ], skaliereTokens(16000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
@@ -4746,10 +4797,13 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe/jeden Ab
 /* ================= LATEIN ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturLatein(request, env) {
   const body = await request.json();
-  const { autor, schwerpunkt, level } = body;
+  const { autor, schwerpunkt, level, bearbeitungszeit } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 300 : 240;
+  const refBE = isEA ? 120 : 90;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
   const wortanzahlA = isEA ? "~170 Wörter" : "~135 Wörter";
   const beA = isEA ? "60 BE" : "45 BE";
   const beB = isEA ? "60 BE" : "45 BE";
@@ -4847,9 +4901,9 @@ KRITISCH: Beide lateinischen Texte müssen AUTHENTISCH im Stil des Autors verfas
 Teil B Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben, von denen ${anzahlWeiterfuehrendWahl} zu bearbeiten sind.`;
 
   const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], 16000);
+  ], skaliereTokens(16000, bearbeitungszeit, refZeit));
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);

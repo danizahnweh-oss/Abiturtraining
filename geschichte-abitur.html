@@ -824,7 +824,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         const level = sessionStorage.getItem("student_level") || "eA";
         const d = await apiCall("/api/generate-abitur-geschichte", {
           schwerpunkt: CONFIG.halbjahr,
-          level: level
+          level: level,
+          bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
         });
         CONFIG.storedData = d;
         renderTask(d);

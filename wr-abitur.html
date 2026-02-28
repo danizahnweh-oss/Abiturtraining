@@ -777,7 +777,7 @@ Tipp: Beachte den Fachbereich:
       document.getElementById("setupLoader").style.display = "block";
       try {
         const niveau = document.getElementById("niveauSelect").value;
-        const payload = { niveau: niveau };
+        const payload = { niveau: niveau, bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270 };
         if (niveau === "eA") {
           payload.fachbereich_1 = document.getElementById("fachbereich1Select").value;
           payload.fachbereich_2 = document.getElementById("fachbereich2Select").value;
