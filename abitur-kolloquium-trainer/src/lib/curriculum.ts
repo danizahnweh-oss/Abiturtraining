@@ -149,6 +149,32 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     },
   },
 
+  'Evangelische Religionslehre': {
+    // EvR12 LB2 = 12/1, LB3 = 12/2; EvR13 LB2 = 13/1, LB3 = 13/2
+    halbjahre: {
+      '12/1': [
+        'Sinnfrage und Gottesfrage (Theodizee, Trinität)',
+        'Religionskritik (Feuerbach, Projektionsthese)',
+        'Menschenbild: Identität, Fragmentarität, Sünde und Rechtfertigung',
+      ],
+      '12/2': [
+        'Homo faber: Arbeit und Beruf (Luther, Marx)',
+        'Schöpfungsglaube und Freiheit eines Christenmenschen (Luther)',
+        'Kirche in der Gesellschaft und Zwei-Reiche-Lehre',
+      ],
+      '13/1': [
+        'Ethische Grundmodelle (Kant, Utilitarismus, Verantwortungsethik)',
+        'Christliche Ethik: Dekalog und Bergpredigt',
+        'Angewandte Ethik (Medizinethik, Friedensethik)',
+      ],
+      '13/2': [
+        'Eschatologie und Reich Gottes',
+        'Tod, Endlichkeit und Auferstehungshoffnung',
+        'Christliche Zukunftsvisionen und Lebenssinn',
+      ],
+    },
+  },
+
   'Französisch': {
     // LehrplanPLUS: F12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
     // Themengebiete nach gängiger Schulpraxis gruppiert.
@@ -353,6 +379,33 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Internationale Konfliktbearbeitung und Friedenssicherung',
         'Menschenrechte und humanitäres Engagement',
         'Globalisierung und internationale Kooperation',
+      ],
+    },
+  },
+
+  'Sport': {
+    // LehrplanPLUS Sporttheorie (Leistungsfach): LB 1 Trainingslehre = 12/1, LB 2 Bewegungslehre = 12/2,
+    // LB 3 Sport und Gesundheit = 13/1, LB 4 Psychologische, soziale und gesellschaftspolitische Aspekte = 13/2
+    halbjahre: {
+      '12/1': [
+        'Trainingslehre: Trainingsprinzipien, Superkompensation und Periodisierung',
+        'Sportbiologische Grundlagen: Bewegungsapparat, Muskelfasertypen und Kontraktionsformen',
+        'Konditionelle Fähigkeiten: Kraft-, Ausdauer-, Schnelligkeits- und Beweglichkeitstraining',
+      ],
+      '12/2': [
+        'Biomechanik: Körperschwerpunkt, Körperachsen und biomechanische Prinzipien',
+        'Motorisches Lernen: Dreiphasenmodell (Grob-, Feinkoordination, variable Verfügbarkeit)',
+        'Koordinative Fähigkeiten und deren Training, Technik- und Taktiktraining',
+      ],
+      '13/1': [
+        'Gesundheitsmodelle: Salutogenese, Risikofaktoren und gesundheitsorientierter Sport',
+        'Ernährung im Sport: Energiebilanz, Makro-/Mikronährstoffe und Sporternährung',
+        'Doping: Substanzen, Methoden, gesundheitliche Risiken und ethische Bewertung',
+      ],
+      '13/2': [
+        'Sportpsychologie: Motivation, Emotion und Aggression im Sport',
+        'Soziale Aspekte: Fairness, Kooperation und Gruppenprozesse im Sport',
+        'Gesellschaftspolitische Aspekte: Kommerzialisierung, Medien und Sport als Bildungsfaktor',
       ],
     },
   },
