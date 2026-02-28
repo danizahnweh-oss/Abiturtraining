@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="de" data-accent="amber">
+<html lang="de">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#4f46e5">
+  <meta name="theme-color" content="#d97706">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
-  <title>myAbiFlow · Geschichte Abiturtraining</title>
+  <title>myAbiFlow &middot; Ev. Religionslehre Abiturtraining</title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
@@ -24,12 +24,12 @@
     rel="stylesheet">
   <link rel="stylesheet" href="shared-v4.css">
   <style>
-    /* Geschichte accent override */
+    /* Ev. Religion accent override (amber/gold) */
     :root {
-      --accent: #b45309;
-      --accent-hover: #92400e;
+      --accent: #d97706;
+      --accent-hover: #b45309;
       --accent-soft: #fef3c7;
-      --accent-glow: rgba(180, 83, 9, .08);
+      --accent-glow: rgba(217, 119, 6, .08);
     }
 
     [data-theme="dark"] {
@@ -39,7 +39,7 @@
       --accent-glow: rgba(251, 191, 36, .08);
     }
 
-    /* Halbjahr selection */
+    /* Lernbereich selection */
     .hj-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -159,45 +159,19 @@
       white-space: pre-wrap
     }
 
-    /* Teil-Trenner */
-    .teil-header {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      margin: 1.5rem 0 .8rem;
-      padding-bottom: .5rem;
-      border-bottom: 2px solid var(--accent);
+    .material-type-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-left: .5rem;
+      background: var(--accent-soft);
       color: var(--accent)
     }
 
-    .teil-header:first-child {
-      margin-top: 0
-    }
-
-    /* Zwei Textareas */
-    .write-part {
-      margin-bottom: 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 1rem
-    }
-
-    .write-part h3 {
-      font-size: .95rem;
-      margin-bottom: .6rem;
-      color: var(--accent)
-    }
-
-    .write-part textarea {
-      min-height: 250px
-    }
-
-    .write-part .word-counter {
-      font-size: .8rem;
-      color: var(--ink-muted);
-      margin-top: .4rem
-    }
-
-    /* Chart & image styles */
     .material-card .material-body table {
       width: 100%;
       border-collapse: collapse;
@@ -217,18 +191,6 @@
       font-weight: 700;
       font-size: .8rem;
       text-transform: uppercase
-    }
-
-    .material-type-badge {
-      display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: .65rem;
-      font-weight: 700;
-      padding: .15rem .5rem;
-      border-radius: 4px;
-      text-transform: uppercase;
-      margin-left: .3rem
     }
 
     .material-chart {
@@ -290,6 +252,57 @@
       font-style: italic
     }
 
+    /* Teil-Trenner */
+    .teil-header {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin: 1.5rem 0 .8rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--accent);
+      color: var(--accent)
+    }
+
+    .teil-header:first-child {
+      margin-top: 0
+    }
+
+    .teil-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: .5rem
+    }
+
+    /* Zwei Textareas */
+    .write-part {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem
+    }
+
+    .write-part h3 {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      color: var(--accent)
+    }
+
+    .write-part textarea {
+      min-height: 250px
+    }
+
+    .write-part .word-counter {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .4rem
+    }
+
     @media(max-width:650px) {
       .hj-grid {
         grid-template-columns: 1fr 1fr
@@ -307,12 +320,12 @@
   <header>
     <div class="header-left">
       <a href="index.html" class="header-logo-link"><img src="logo-v2.png" alt="myAbiFlow" class="header-logo"></a>
-      <a href="index.html?back=history" class="back-link">← Zurück</a>
-      <h1>Geschichte · <span>Abiturtraining</span></h1>
+      <a href="index.html?back=religion" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Ev. Religion &middot; <span>Abiturtraining</span></h1>
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
     </div>
   </header>
 
@@ -321,7 +334,7 @@
     <button onclick="nav('task')"><span class="step-num">2</span> Material</button>
     <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
     <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
-    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span>
       Fortschritt</button>
   </nav>
 
@@ -329,51 +342,57 @@
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
-        <h2 class="card-header">Aufgabe wählen</h2>
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
         <div class="mode-toggle">
-          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">✨ KI generieren</button>
-          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">📄 Eigene Aufgabe</button>
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
         </div>
       </div>
 
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Neue Abituraufgabe generieren</h2>
         <div class="form-group">
-          <label>Schwerpunkt (Halbjahr)</label>
+          <label>Lernbereich / Themenbereich (f&uuml;r Pr&uuml;fungsteil A)</label>
           <div class="hj-grid">
-            <div class="hj-card selected" data-hj="12_1" onclick="selectHalbjahr('12_1')">
-              <div class="hj-icon">🏛️</div>
+            <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
+              <div class="hj-icon">✝️</div>
               <div class="hj-name">12/1</div>
-              <div class="hj-desc">Partizipation (19. Jh. – Weimar)</div>
+              <div class="hj-desc">Sinnfrage &amp; Gottesfrage / Der im-perfekte Mensch</div>
             </div>
-            <div class="hj-card" data-hj="12_2" onclick="selectHalbjahr('12_2')">
-              <div class="hj-icon">⚡</div>
+            <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
+              <div class="hj-icon">&#x1F3D7;&#xFE0F;</div>
               <div class="hj-name">12/2</div>
-              <div class="hj-desc">Demokratie & Diktatur</div>
+              <div class="hj-desc">Homo faber / Christsein in der Gesellschaft</div>
             </div>
-            <div class="hj-card" data-hj="13_1" onclick="selectHalbjahr('13_1')">
-              <div class="hj-icon">🌍</div>
+            <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
+              <div class="hj-icon">&#x2696;&#xFE0F;</div>
               <div class="hj-name">13/1</div>
-              <div class="hj-desc">Internationale Politik</div>
+              <div class="hj-desc">Ethik: Gutes Leben &amp; richtiges Handeln</div>
             </div>
-            <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
-              <div class="hj-icon">🇪🇺</div>
+            <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
+              <div class="hj-icon">&#x1F54A;&#xFE0F;</div>
               <div class="hj-name">13/2</div>
-              <div class="hj-desc">Ordnungsformen & Europa</div>
+              <div class="hj-desc">Christliche Hoffnungsbilder</div>
             </div>
           </div>
         </div>
-        <button class="btn" id="generateBtn" onclick="generateTask()">✨ Abituraufgabe generieren</button>
+        <div class="form-group">
+          <label>Schwerpunkt (optional)</label>
+          <select id="schwerpunktSelect">
+            <option value="random">Zuf&auml;llig</option>
+          </select>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Abituraufgabe generieren</button>
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Generiere Abituraufgabe (Teil A + B) …</div>
+          <div class="loader-text">Generiere Abituraufgabe (Teil A + B) &hellip;</div>
         </div>
       </div>
 
       <div class="card" id="setupUpload" style="display:none">
         <h2 class="card-header">Eigene Aufgabe</h2>
         <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
-          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabe + Quellen)</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabe + Materialien)</div>
         </div>
         <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
@@ -382,29 +401,26 @@
           <div class="loader-spinner"></div>
         </div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
-          <div class="form-group"><label>Aufgabenstellung Teil A (Quellenanalyse)</label><textarea
-              id="parsedTaskInstruction" style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Quellenmaterial</label><textarea id="parsedPrimaryText"
-              style="min-height:150px"></textarea></div>
-          <div class="form-group"><label>Aufgabenstellung Teil B (Darstellung)</label><textarea
-              id="parsedTaskInstructionB" style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Materialimpuls Teil B</label><textarea id="parsedPrimaryTextB"
+          <div class="form-group"><label>Aufgabenstellung Pr&uuml;fungsteil A</label><textarea id="parsedTaskInstruction"
               style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Quellenangabe</label><input type="text" id="parsedMeta"></div>
-          <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+          <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText"
+              style="min-height:150px"></textarea></div>
+          <div class="form-group"><label>Aufgabenstellung Pr&uuml;fungsteil B</label><textarea id="parsedTaskInstructionB"
+              style="min-height:80px"></textarea></div>
+          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label>Aufgabenstellung Teil A</label><textarea id="manualTaskInstruction"
-            style="min-height:60px" placeholder="Arbeiten Sie aus M 1 heraus …"></textarea></div>
-        <div class="form-group"><label>Quellenmaterial</label><textarea id="manualPrimaryText" style="min-height:120px"
-            placeholder="Historische Quelle hier einfügen …"></textarea></div>
-        <div class="form-group"><label>Aufgabenstellung Teil B</label><textarea id="manualTaskInstructionB"
-            style="min-height:60px" placeholder="Stellen Sie dar … / Beurteilen Sie …"></textarea></div>
-        <div class="form-group"><label>Materialimpuls Teil B (optional)</label><textarea id="manualPrimaryTextB"
-            style="min-height:60px" placeholder="Kurzer Impulstext oder Zitat …"></textarea></div>
-        <div class="form-group"><label>Quellenangabe</label><input type="text" id="manualMeta"
-            placeholder="z.B. Bismarck, Rede, 6.2.1888"></div>
+        <div class="form-group"><label>Aufgabenstellung Pr&uuml;fungsteil A</label><textarea id="manualTaskInstruction"
+            style="min-height:60px" placeholder="Stellen Sie &hellip; dar! / Er&ouml;rtern Sie &hellip;"></textarea></div>
+        <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px"
+            placeholder="Materialtext hier einf&uuml;gen &hellip;"></textarea></div>
+        <div class="form-group"><label>Aufgabenstellung Pr&uuml;fungsteil B (Ausweitung)</label><textarea
+            id="manualTaskInstructionB" style="min-height:60px"
+            placeholder="Pr&uuml;fungsteil B: Transfer-/Ausweitungsaufgabe &hellip;"></textarea></div>
+        <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta"
+            placeholder="z.B. Bonhoeffer, Nachfolge, 1937"></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
@@ -418,44 +434,46 @@
     <!-- STEP 2: READ MATERIALS -->
     <section id="sec-task">
       <div class="card">
-        <h3 class="teil-header">Teil A — Quellenanalyse</h3>
+        <h3 class="teil-header">Pr&uuml;fungsteil A <span class="teil-badge" id="teilABadge">85 BE</span></h3>
         <h2 class="card-header">Aufgabenstellung</h2>
-        <div class="task-box" id="taskInstructionA">…</div>
+        <div class="task-box" id="taskInstructionA">&hellip;</div>
       </div>
 
       <div class="card">
-        <h2 class="card-header" id="textTitle">Quellenmaterial</h2>
+        <h2 class="card-header" id="textTitle">Materialien</h2>
 
         <!-- Highlighter Toolbar -->
         <div class="highlighter-toolbar">
-          <span class="hl-label">🖍️ Markieren:</span>
+          <span class="hl-label">&#x1F58D;&#xFE0F; Markieren:</span>
           <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')"
-            title="Gelb – Kernaussagen"></button>
-          <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Grün – Argumente"></button>
-          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau – Fachbegriffe"></button>
-          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink – Wertungen"></button>
+            title="Gelb &ndash; z.B. Kernaussagen"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')"
+            title="Gr&uuml;n &ndash; z.B. Pro-Argumente"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')"
+            title="Blau &ndash; z.B. Fachbegriffe"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')"
+            title="Pink &ndash; z.B. Contra-Argumente"></button>
           <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')"
-            title="Orange – Zitate/Belege"></button>
+            title="Orange &ndash; z.B. Zitate/Belege"></button>
           <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')"
-            title="Markierung entfernen">✕</button>
-          <button class="hl-clear" onclick="clearAllHL()">Alle löschen</button>
+            title="Markierung entfernen">&#x2715;</button>
+          <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
         </div>
 
-        <div class="source-text" id="sourceText">Hier erscheint das Quellenmaterial …</div>
-        <div class="source-meta" id="sourceMeta"></div>
+        <div id="materialsContainer"></div>
 
         <div class="hl-legend">
           <div class="hl-legend-item">
             <div class="hl-legend-dot" style="background:#facc15"></div> Kernaussagen
           </div>
           <div class="hl-legend-item">
-            <div class="hl-legend-dot" style="background:#4ade80"></div> Argumente
+            <div class="hl-legend-dot" style="background:#4ade80"></div> Pro
           </div>
           <div class="hl-legend-item">
             <div class="hl-legend-dot" style="background:#60a5fa"></div> Fachbegriffe
           </div>
           <div class="hl-legend-item">
-            <div class="hl-legend-dot" style="background:#f472b6"></div> Wertungen
+            <div class="hl-legend-dot" style="background:#f472b6"></div> Contra
           </div>
           <div class="hl-legend-item">
             <div class="hl-legend-dot" style="background:#fb923c"></div> Zitate
@@ -464,21 +482,13 @@
       </div>
 
       <div class="card">
-        <h3 class="teil-header">Teil B — Darstellung</h3>
-        <div class="task-box" id="taskInstructionB" style="font-size:.95rem">…</div>
-        <div id="materialImpulsB" style="margin-top:.8rem;display:none">
-          <div class="material-card">
-            <h4>Materialimpuls</h4>
-            <div class="source-text material-body" id="materialImpulsText"></div>
-          </div>
-        </div>
-        <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Teil B erfordert eine eigenständige
-          historische Darstellung. Nutze dein Fachwissen über die Quelle hinaus.</p>
+        <h3 class="teil-header">Pr&uuml;fungsteil B &ndash; Ausweitung <span class="teil-badge" id="teilBBadge">35 BE</span></h3>
+        <div class="task-box" id="taskInstructionB" style="font-size:.95rem">&hellip;</div>
+        <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Pr&uuml;fungsteil B geht &uuml;ber die Materialien
+          hinaus. Nutze dein Fachwissen.</p>
       </div>
 
-      <div id="zusatzMaterialien"></div>
-
-      <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
+      <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
     </section>
 
     <!-- STEP 3: WRITE -->
@@ -487,8 +497,8 @@
         <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
             id="timerDisplay">00:00</span></div>
         <div style="display:flex;gap:.5rem">
-          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">⏸</button>
-          <button class="btn btn-small btn-secondary" onclick="stopTimer()">⏹</button>
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
         </div>
       </div>
 
@@ -496,48 +506,47 @@
         <h2 class="card-header">Deine Antwort</h2>
 
         <details style="margin-bottom:1rem" open>
-          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgabe & Material</summary>
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe &amp; Materialien</summary>
           <div
             style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil A — Quellenanalyse</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Pr&uuml;fungsteil A</div>
             <div class="task-box" id="writeTaskRefA" style="margin:0 0 1rem 0;font-size:.9rem"></div>
-            <div class="source-text" id="writeSourceRef" style="font-size:.85rem;max-height:200px;overflow-y:auto">
-            </div>
+            <div id="writeMaterialsRef" style="font-size:.85rem"></div>
             <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Teil B — Darstellung</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Pr&uuml;fungsteil B &ndash; Ausweitung</div>
             <div class="task-box" id="writeTaskRefB" style="margin:0;font-size:.9rem"></div>
           </div>
         </details>
 
         <!-- Teil A Textarea -->
         <div class="write-part">
-          <h3>Teil A: Quellenanalyse</h3>
-          <textarea id="studentTextA" placeholder="Beginne hier mit der Quellenanalyse …
+          <h3>Pr&uuml;fungsteil A</h3>
+          <textarea id="studentTextA" placeholder="Beginne hier mit Pr&uuml;fungsteil A &hellip;
 
 Tipp: Strukturiere deinen Text:
-• Einleitung mit Quelleneinordnung (Autor, Textsorte, Datum, Kontext)
-• Hauptteil: Herausarbeitung der Kernaussagen mit Textbelegen
-• Schluss: Historische Einordnung und Beurteilung" oninput="updateWordCounts()"></textarea>
-          <div class="word-counter"><span id="wordCountA">0</span> Wörter</div>
+&bull; Einleitung mit Bezug zur Aufgabenstellung
+&bull; Hauptteil mit theologischen Fachbegriffen und Materialverweisen
+&bull; Schluss mit begr&uuml;ndetem Urteil" oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCountA">0</span> W&ouml;rter</div>
         </div>
 
         <!-- Teil B Textarea -->
         <div class="write-part">
-          <h3>Teil B: Darstellung</h3>
-          <textarea id="studentTextB" placeholder="Beginne hier mit der Darstellung …
+          <h3>Pr&uuml;fungsteil B &ndash; Ausweitung</h3>
+          <textarea id="studentTextB" placeholder="Beginne hier mit Pr&uuml;fungsteil B (Ausweitung) &hellip;
 
-Tipp: Teil B geht über die Quelle hinaus.
-• Eigenständige historische Darstellung
-• Einbeziehung von Fachwissen
-• Multiperspektivische Beurteilung" oninput="updateWordCounts()"></textarea>
-          <div class="word-counter"><span id="wordCountB">0</span> Wörter</div>
+Tipp: Teil B geht &uuml;ber die Materialien hinaus.
+&bull; Beziehe dein theologisches Fachwissen ein
+&bull; Transfer zu anderen Lernbereichen/Themen
+&bull; Eigenst&auml;ndige theologische Reflexion" oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCountB">0</span> W&ouml;rter</div>
         </div>
 
         <div class="write-toolbar">
-          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> Wörter</span>
+          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
           <div style="display:flex;gap:.5rem">
-            <button class="btn btn-secondary btn-small" onclick="saveSession()">💾</button>
-            <button class="btn" id="submitBtn" onclick="submitForGrading()">📤 Abgeben</button>
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
           </div>
         </div>
       </div>
@@ -546,64 +555,64 @@ Tipp: Teil B geht über die Quelle hinaus.
       <div class="card">
         <h2 class="card-header">Handschrift hochladen (OCR)</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-          Fotos deiner handschriftlichen Arbeit hochladen – der Text wird automatisch erkannt.
+          Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
         </p>
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
-          <div class="upload-icon">📷</div>
+          <div class="upload-icon">&#x1F4F7;</div>
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
         </div>
         <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Handschrift wird erkannt … <span id="ocrProgress"></span></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRTextA()">✓ In Teil A übernehmen</button>
-            <button class="btn btn-small" onclick="useOCRTextB()">✓ In Teil B übernehmen</button>
+            <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil A &uuml;bernehmen</button>
+            <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil B &uuml;bernehmen</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
             <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
           </div>
         </div>
       </div>
 
-      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">⏱ Timer starten</button>
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
     </section>
 
     <!-- STEP 4: FEEDBACK -->
     <section id="sec-feedback">
       <div class="loader" id="feedbackLoader">
         <div class="loader-spinner"></div>
-        <div class="loader-text">Bewerte Abiturprüfung …</div>
+        <div class="loader-text">Bewerte Abiturpr&uuml;fung &hellip;</div>
       </div>
       <div id="feedbackContent" style="display:none">
         <div class="card">
           <h2 class="card-header">Bewertung</h2>
           <div class="scores-grid">
             <div class="score-card">
-              <div class="score-label">Sachkomp. A</div>
-              <div class="score-value" id="scoreSachA">–</div>
+              <div class="score-label">Teil A (Inhalt)</div>
+              <div class="score-value" id="scoreTeilA">&ndash;</div>
               <div class="score-max">/ 15</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Sachkomp. B</div>
-              <div class="score-value" id="scoreSachB">–</div>
+              <div class="score-label">Teil B (Inhalt)</div>
+              <div class="score-value" id="scoreTeilB">&ndash;</div>
               <div class="score-max">/ 15</div>
             </div>
             <div class="score-card">
               <div class="score-label">Darstellung</div>
-              <div class="score-value" id="scoreDarstellung">–</div>
+              <div class="score-value" id="scoreDarstellung">&ndash;</div>
               <div class="score-max">/ 15</div>
             </div>
             <div class="score-card total">
               <div class="score-label">Gesamt</div>
-              <div class="score-value" id="scoreTotal">–</div>
+              <div class="score-value" id="scoreTotal">&ndash;</div>
               <div class="score-max">/ 15</div>
             </div>
           </div>
@@ -613,15 +622,15 @@ Tipp: Teil B geht über die Quelle hinaus.
           <div class="feedback-body" id="feedbackBody"></div>
         </div>
         <div class="card" id="korrekturCard" style="display:none">
-          <h2 class="card-header">Dein Text — Fehlerkorrektur</h2>
+          <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
           <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
               class="fehler-gr-demo">Grammatik</span></div>
           <div class="korrektur-teil">
-            <h3>Teil A — Quellenanalyse</h3>
+            <h3>Teil A</h3>
             <div class="korrektur-body" id="korrekturBodyA"></div>
           </div>
           <div class="korrektur-teil">
-            <h3>Teil B — Darstellung</h3>
+            <h3>Teil B</h3>
             <div class="korrektur-body" id="korrekturBodyB"></div>
           </div>
         </div>
@@ -630,12 +639,12 @@ Tipp: Teil B geht über die Quelle hinaus.
           <div id="aspekteBody"></div>
         </div>
         <div class="card" id="modelAnswerCard" style="display:none">
-          <h2 class="card-header">Musterlösung</h2>
+          <h2 class="card-header">Musterl&ouml;sung</h2>
           <div class="feedback-body" id="modelAnswerBody"></div>
         </div>
         <div style="display:flex;gap:.8rem;flex-wrap:wrap">
-          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">📄 Musterlösung</button>
-          <button class="btn btn-secondary" onclick="exportPDF()">📑 PDF</button>
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
           <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
         </div>
       </div>
@@ -646,7 +655,7 @@ Tipp: Teil B geht über die Quelle hinaus.
       <div class="card">
         <h2 class="card-header">Fortschritt</h2>
         <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
-          <div style="font-size:3rem">📊</div>
+          <div style="font-size:3rem">&#x1F4CA;</div>
           <p>Noch keine Daten.</p>
         </div>
         <div id="progressContent" style="display:none">
@@ -656,11 +665,11 @@ Tipp: Teil B geht über die Quelle hinaus.
               <div class="stat-label">Versuche</div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="statAverage">–</div>
-              <div class="stat-label">Ø</div>
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
             </div>
             <div class="stat-card">
-              <div class="stat-value" id="statBest">–</div>
+              <div class="stat-value" id="statBest">&ndash;</div>
               <div class="stat-label">Best</div>
             </div>
           </div>
@@ -673,7 +682,7 @@ Tipp: Teil B geht über die Quelle hinaus.
                 <th>A</th>
                 <th>B</th>
                 <th>D</th>
-                <th>Σ</th>
+                <th>&Sigma;</th>
                 <th></th>
               </tr>
             </thead>
@@ -681,24 +690,24 @@ Tipp: Teil B geht über die Quelle hinaus.
           </table>
         </div>
         <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
-          style="margin-top:1rem;display:none">🗑</button>
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
       </div>
     </section>
   </main>
 
-  <footer>© 2026 myAbiFlow · Geschichte Abiturtraining</footer>
+  <footer>&copy; 2026 myAbiFlow &middot; Ev. Religion Abiturtraining</footer>
 
   <!-- MODULE CONFIG -->
   <script>
     const MODULE_CONFIG = {
       sectionPrefix: "sec-",
       steps: ["setup", "task", "write", "feedback", "progress"],
-      storagePrefix: "geschichte_abitur",
-      historyKey: "geschichte_abitur_history_",
-      historyType: "geschichte-abitur",
-      pdfFilename: "Geschichte_Abitur",
-      chartColor: "#b45309",
-      minWords: 200,
+      storagePrefix: "religion_abitur",
+      historyKey: "religion_abitur_history_",
+      historyType: "religion-abitur",
+      pdfFilename: "EvReligion_Abitur",
+      chartColor: "#d97706",
+      minWords: 80,
       afterHL: function () { saveHL(); }
     };
   </script>
@@ -707,60 +716,104 @@ Tipp: Teil B geht über die Quelle hinaus.
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
-    CONFIG.halbjahr = "12_1";
+    CONFIG.lernbereich = "12_1";
 
     const HJ_LABELS = {
-      "12_1": "12/1 – Partizipation (19. Jh. – Weimar)",
-      "12_2": "12/2 – Demokratie & Diktatur",
-      "13_1": "13/1 – Internationale Politik",
-      "13_2": "13/2 – Ordnungsformen & Europa"
+      "12_1": "12/1 \u2013 Sinnfrage & Gottesfrage / Der im-perfekte Mensch",
+      "12_2": "12/2 \u2013 Homo faber / Christsein in der Gesellschaft",
+      "13_1": "13/1 \u2013 Ethik: Gutes Leben & richtiges Handeln",
+      "13_2": "13/2 \u2013 Christliche Hoffnungsbilder"
     };
 
-    const HJ_ICONS = { "12_1": "🏛️", "12_2": "⚡", "13_1": "🌍", "13_2": "🇪🇺" };
+    const HJ_ICONS = { "12_1": "\u271D\uFE0F", "12_2": "\u{1F3D7}\uFE0F", "13_1": "\u2696\uFE0F", "13_2": "\u{1F54A}\uFE0F" };
 
-    const BEWERTUNG_PROMPT = `Du bewertest eine vollständige Abiturprüfung im Fach Geschichte (Bayern, G9, ab 2026).
-Die Prüfung besteht aus Teil A (Quellenanalyse) und Teil B (Darstellung).
+    const SCHWERPUNKTE = {
+      "12_1": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "gottesfrage", label: "Sinnfrage und Gottesfrage" },
+        { value: "theodizee", label: "Theodizeefrage (Hiob, Leibniz)" },
+        { value: "religionskritik", label: "Religionskritik (Feuerbach)" },
+        { value: "anthropologie", label: "Menschenbild und Fragmentarit\u00e4t" }
+      ],
+      "12_2": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "homo_faber", label: "Homo faber: Arbeit und Beruf" },
+        { value: "schoepfung", label: "Sch\u00f6pfungsglaube" },
+        { value: "kirche", label: "Kirche in der Gesellschaft" },
+        { value: "sozialethik", label: "Sozialethik und Zwei-Reiche-Lehre" }
+      ],
+      "13_1": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "ethische_modelle", label: "Ethische Grundmodelle" },
+        { value: "christliche_ethik", label: "Christliche Ethik (Dekalog, Bergpredigt)" },
+        { value: "angewandte_ethik", label: "Angewandte Ethik" },
+        { value: "argumentation", label: "Ethische Argumentation" }
+      ],
+      "13_2": [
+        { value: "random", label: "Zuf\u00e4llig" },
+        { value: "eschatologie", label: "Eschatologie und Reich Gottes" },
+        { value: "tod", label: "Tod, Endlichkeit und Auferstehung" },
+        { value: "hoffnung", label: "Christliche Hoffnungsbilder" }
+      ]
+    };
+
+    const BEWERTUNG_PROMPT = `Du bewertest eine vollst\u00e4ndige Abiturpr\u00fcfung im Fach Evangelische Religionslehre (Bayern, Abitur ab 2026).
+Die Pr\u00fcfung besteht aus Pr\u00fcfungsteil A und Pr\u00fcfungsteil B (Ausweitung).
 
 BEWERTUNGSKRITERIEN:
 
-TEIL A — SACHKOMPETENZ (Quellenanalyse):
-- Korrekte Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
-- Herausarbeitung der zentralen Aussagen und Argumentationsstruktur der Quelle
-- Korrekte Textbelege und Zitate
-- Historische Einordnung und Kontextualisierung
-- Operatorengerechte Bearbeitung aller Teilaufgaben
+PR\u00dcFUNGSTEIL A \u2013 INHALT:
+- Pr\u00e4zise Themaerschlie\u00dfung und korrekte Verwendung theologischer Fachbegriffe (z.\u202fB. Theodizee, Trinit\u00e4t, Rechtfertigung, S\u00fcnde, Gnade, Dekalog, Bergpredigt, Eschatologie, Zwei-Reiche-Lehre, K\u00f6nigsherrschaft Christi)
+- Sinnvoller Aufbau und schl\u00fcssige Argumentation
+- Angemessener Grad der Reflexion und eigenst\u00e4ndiges begr\u00fcndetes Urteil
+- Korrekte Anwendung der Operatoren (darstellen, beschreiben, erl\u00e4utern, vergleichen, herausarbeiten, er\u00f6rtern, beurteilen, bewerten, Stellung nehmen, gestalten)
+- Angemessene Ber\u00fccksichtigung des beigef\u00fcgten Materials mit Textbelegen
+- Bezug auf biblische Texte und theologische Positionen
 
-TEIL B — SACHKOMPETENZ (Darstellung):
-- Eigenständige historische Darstellung über die Quelle hinaus
-- Korrekte Verwendung historischer Fakten und Zusammenhänge
-- Multiperspektivität und differenziertes historisches Urteil
-- Transferleistung und eigenständige Reflexion
+PR\u00dcFUNGSTEIL B \u2013 INHALT (Ausweitung):
+- Eigenst\u00e4ndiger Transfer \u00fcber die Materialien hinaus
+- Verkn\u00fcpfung mit anderen Lernbereichen/Themenbereichen oder breitere theologische Reflexion
+- Korrekte Anwendung der Operatoren
+- Eigenst\u00e4ndiges, differenziertes Urteil
 
-DARSTELLUNG (für beide Teile zusammen):
+DARSTELLUNG (f\u00fcr beide Teile zusammen):
 - Klarer Aufbau und logische Gliederung
-- Angemessene historische Fachsprache
+- Angemessene Fachterminologie
 - Sprachliche Gewandtheit und Korrektheit
-- Argumentative Stringenz
 
-ANFORDERUNGSBEREICHE:
-- I (Reproduktion): Beschreiben, Nennen, Wiedergeben
-- II (Reorganisation/Transfer): Analysieren, Herausarbeiten, Einordnen, Vergleichen
-- III (Reflexion/Urteil): Beurteilen, Erörtern, Stellung nehmen, Bewerten
+ANFORDERUNGSEBENEN:
+- I (Reproduktion): Darstellen, Beschreiben, Zusammenfassen, Wiedergeben
+- II (Reorganisation und Transfer): Erl\u00e4utern, Analysieren, Vergleichen, Herausarbeiten, Einordnen
+- III (Reflexion und Probleml\u00f6sung): Er\u00f6rtern, Beurteilen, Bewerten, Stellung nehmen, Gestalten
 
-WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen (insbesondere bei der Darstellung). Erwähne dies explizit im Feedback.
+WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT: Antworten M\u00dcSSEN in zusammenh\u00e4ngendem Flie\u00dftext verfasst sein. Wenn der Sch\u00fcler in Stichpunkten oder Aufz\u00e4hlungen antwortet statt in Flie\u00dftext, muss dies zu deutlichem Punktabzug f\u00fchren (insbesondere bei der Darstellung). Erw\u00e4hne dies explizit im Feedback.
 
-Antworte NUR JSON: {"sach_a_np":<0-15>,"sach_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
-gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
+Antworte NUR JSON: {"teil_a_np":<0-15>,"teil_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
+gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
 
-    function selectHalbjahr(hj) {
-      CONFIG.halbjahr = hj;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === hj));
+    function selectLernbereich(lb) {
+      CONFIG.lernbereich = lb;
+      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === lb));
+      updateSchwerpunkte();
       updateTimerDefault();
     }
 
     function updateTimerDefault() {
       const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
       document.getElementById("timerMinutes").value = level === "ea" ? 270 : 210;
+    }
+
+    function updateSchwerpunkte() {
+      const sel = document.getElementById("schwerpunktSelect");
+      const opts = SCHWERPUNKTE[CONFIG.lernbereich] || [{ value: "random", label: "Zuf\u00e4llig" }];
+      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    }
+
+    function updateBEBadges() {
+      const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+      const isEA = level === "ea";
+      document.getElementById("teilABadge").textContent = isEA ? "85 BE" : "75 BE";
+      document.getElementById("teilBBadge").textContent = isEA ? "35 BE" : "25 BE";
     }
 
     function setSetupMode(m) {
@@ -771,8 +824,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     }
 
     function saveHL() {
-      localStorage.setItem("hl_geschichte_abitur_" + getStudentKey(), JSON.stringify({
-        source: document.getElementById("sourceText")?.innerHTML || ""
+      localStorage.setItem("hl_religion_abitur_" + getStudentKey(), JSON.stringify({
+        materials: document.getElementById("materialsContainer")?.innerHTML || ""
       }));
     }
 
@@ -782,8 +835,8 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         studentTextA: document.getElementById("studentTextA").value,
         studentTextB: document.getElementById("studentTextB").value,
         storedData: CONFIG.storedData,
-        halbjahr: CONFIG.halbjahr,
-        hlSource: document.getElementById("sourceText")?.innerHTML || ""
+        lernbereich: CONFIG.lernbereich,
+        hlMaterials: document.getElementById("materialsContainer")?.innerHTML || ""
       }));
     }
 
@@ -797,10 +850,10 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
           if (s.storedData) {
             CONFIG.storedData = s.storedData;
             renderTask(s.storedData);
-            if (s.hlSource) document.getElementById("sourceText").innerHTML = s.hlSource;
+            if (s.hlMaterials) document.getElementById("materialsContainer").innerHTML = s.hlMaterials;
             syncHL();
           }
-          if (s.halbjahr) selectHalbjahr(s.halbjahr);
+          if (s.lernbereich) selectLernbereich(s.lernbereich);
           updateWordCounts();
           initHL();
         }
@@ -823,11 +876,19 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       document.getElementById("setupLoader").style.display = "block";
       try {
         const level = sessionStorage.getItem("student_level") || "eA";
-        const d = await apiCall("/api/generate-abitur-geschichte", {
-          schwerpunkt: CONFIG.halbjahr,
+        const raw = await apiCall("/api/generate-abitur-religion", {
+          lernbereich: CONFIG.lernbereich,
+          schwerpunkt: document.getElementById("schwerpunktSelect").value,
           level: level,
           bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
         });
+        const d = {
+          task_instruction_a: raw.teil_a?.task_instruction || raw.task_instruction_a || "",
+          materials: raw.teil_a?.materials || raw.materials || [],
+          task_instruction_b: raw.teil_b?.task_instruction || raw.task_instruction_b || "",
+          lernbereich: raw.lernbereich || CONFIG.lernbereich,
+          thema: raw.thema || ""
+        };
         CONFIG.storedData = d;
         renderTask(d);
         nav("task");
@@ -844,9 +905,10 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         taskUploadImages.push(...processed);
         document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
         const base64s = taskUploadImages.map(p => p.base64);
-        const d = await apiCall("/api/parse-task-deutsch", { images: base64s });
+        const d = await apiCall("/api/parse-task-religion", { images: base64s });
         document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
         document.getElementById("parsedPrimaryText").value = d.primary_text || "";
+        document.getElementById("parsedTaskInstructionB").value = d.task_instruction_b || "";
         document.getElementById("parsedMeta").value = d.primary_meta || "";
         document.getElementById("taskUploadResult").style.display = "block";
       } catch (e) { showToast("Fehler: " + e.message); }
@@ -856,11 +918,10 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     function useUploadedTask() {
       const c = {
         task_instruction_a: document.getElementById("parsedTaskInstruction").value,
-        primary_text_a: document.getElementById("parsedPrimaryText").value,
-        primary_meta_a: document.getElementById("parsedMeta").value,
+        primary_text: document.getElementById("parsedPrimaryText").value,
         task_instruction_b: document.getElementById("parsedTaskInstructionB").value,
-        primary_text_b: document.getElementById("parsedPrimaryTextB").value,
-        schwerpunkt: CONFIG.halbjahr
+        primary_meta: document.getElementById("parsedMeta").value,
+        lernbereich: CONFIG.lernbereich
       };
       if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
@@ -870,12 +931,11 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
 
     function useManualTask() {
       const c = {
-        task_instruction_a: document.getElementById("manualTaskInstruction").value || "Analysieren Sie die Quelle.",
-        primary_text_a: document.getElementById("manualPrimaryText").value,
-        primary_meta_a: document.getElementById("manualMeta").value,
+        task_instruction_a: document.getElementById("manualTaskInstruction").value || "Bearbeiten Sie die folgende Aufgabe.",
+        primary_text: document.getElementById("manualPrimaryText").value,
         task_instruction_b: document.getElementById("manualTaskInstructionB").value || "",
-        primary_text_b: document.getElementById("manualPrimaryTextB").value || "",
-        schwerpunkt: CONFIG.halbjahr
+        primary_meta: document.getElementById("manualMeta").value,
+        lernbereich: CONFIG.lernbereich
       };
       if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
@@ -884,79 +944,76 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
-      // Teil A
       const taskA = d.task_instruction_a || d.task_instruction || "";
       document.getElementById("taskInstructionA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
 
-      // Teil B
       const taskB = d.task_instruction_b || "";
       document.getElementById("taskInstructionB").innerHTML = taskB
         ? escapeHtml(taskB).replace(/\n/g, "<br>")
-        : '<span style="color:var(--ink-muted)">Kein Teil B vorhanden.</span>';
+        : '<span style="color:var(--ink-muted)">Kein Pr\u00fcfungsteil B vorhanden.</span>';
 
-      // Quellenmaterial
-      const sourceText = d.primary_text_a || d.primary_text || "";
-      const sourceHtml = sourceText.split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-      document.getElementById("sourceText").innerHTML = sourceHtml;
-      document.getElementById("sourceMeta").textContent = d.primary_meta_a || d.primary_meta || "";
+      const lbLabel = HJ_LABELS[d.lernbereich || CONFIG.lernbereich] || "";
+      document.getElementById("textTitle").textContent = "Materialien \u2013 " + lbLabel;
 
-      const hjLabel = HJ_LABELS[d.schwerpunkt || CONFIG.halbjahr] || "";
-      document.getElementById("textTitle").textContent = "Material M 1 – " + hjLabel;
+      const container = document.getElementById("materialsContainer");
 
-      // Material impuls for Teil B
-      const impulsB = d.primary_text_b || "";
-      const impulsContainer = document.getElementById("materialImpulsB");
-      if (impulsB) {
-        document.getElementById("materialImpulsText").innerHTML = escapeHtml(impulsB).replace(/\n/g, "<br>");
-        impulsContainer.style.display = "block";
-      } else {
-        impulsContainer.style.display = "none";
-      }
-
-      // Write step references
-      document.getElementById("writeTaskRefA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
-      document.getElementById("writeTaskRefB").innerHTML = taskB
-        ? escapeHtml(taskB).replace(/\n/g, "<br>")
-        : '<span style="color:var(--ink-muted)">Kein Teil B</span>';
-      document.getElementById("writeSourceRef").innerHTML = sourceHtml;
-
-      // Zusatz-Materialien (Bilder, Fotos, Statistiken)
-      const zm = [].concat(d.zusatz_materialien || [], d.zusatz_materialien_a || [], d.zusatz_materialien_b || []);
-      const zmContainer = document.getElementById("zusatzMaterialien");
-      if (zm.length) {
-        zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
+      if (d.materials && d.materials.length) {
+        container.innerHTML = d.materials.map((m, i) => {
           const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             body = DOMPurify.sanitize(marked.parse(m.content || ""));
-            body += `<div class="material-chart"><canvas id="chart-ga-${i}"></canvas></div>`;
+            body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
           } else if (m.type === "bild") {
-            body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
-            body = `<div class="material-img-loading" id="img-ga-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
           } else {
             body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
           }
           return `<div class="material-card">
-        <h4>M ${i + 2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
-        <div class="material-body">${body}</div>
+        <h4>M ${i + 1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+        <div class="source-text material-body">${body}</div>
         ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
       </div>`;
-        }).join("") + '</div>';
-        zm.forEach((m, i) => {
+        }).join("");
+        d.materials.forEach((m, i) => {
           if (m.type === "statistik" && (m.content || "").includes("|")) {
-            renderStatistikChart(m.content, `chart-ga-${i}`);
+            renderStatistikChart(m.content, `chart-m-${i}`);
           } else if (m.type === "bild") {
-            loadDallEImage(m.content, `img-ga-${i}`);
+            loadDallEImage(m.content, `img-m-${i}`);
           } else if (m.type === "foto") {
-            loadUnsplashImage(m.content, `img-ga-${i}`);
+            loadUnsplashImage(m.content, `img-m-${i}`);
           }
         });
+      }
+      else if (d.primary_text) {
+        const html = escapeHtml(d.primary_text).replace(/\n/g, "<br>");
+        container.innerHTML = `<div class="material-card">
+      <h4>Material</h4>
+      <div class="source-text material-body">${html}</div>
+      ${d.primary_meta ? `<div class="material-source">${escapeHtml(d.primary_meta)}</div>` : ""}
+    </div>`;
       } else {
-        zmContainer.innerHTML = "";
+        container.innerHTML = '<p style="color:var(--ink-muted)">Keine Materialien verf\u00fcgbar.</p>';
       }
 
+      document.getElementById("writeTaskRefA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
+      document.getElementById("writeTaskRefB").innerHTML = taskB
+        ? escapeHtml(taskB).replace(/\n/g, "<br>")
+        : '<span style="color:var(--ink-muted)">Kein Pr\u00fcfungsteil B</span>';
+
+      const refContainer = document.getElementById("writeMaterialsRef");
+      if (d.materials && d.materials.length) {
+        refContainer.innerHTML = d.materials.map((m, i) =>
+          `<div style="margin-bottom:.8rem"><strong>M ${i + 1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml((m.content || "").substring(0, 150))}\u2026</span></div>`
+        ).join("");
+      } else if (d.primary_text) {
+        refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}\u2026</span>`;
+      }
+
+      updateBEBadges();
       initHL();
     }
 
@@ -966,7 +1023,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextA").value = clean;
       updateWordCounts();
-      showToast("Text in Teil A übernommen!", "success");
+      showToast("Text in Teil A \u00fcbernommen!", "success");
     }
 
     function useOCRTextB() {
@@ -975,14 +1032,14 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       const clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextB").value = clean;
       updateWordCounts();
-      showToast("Text in Teil B übernommen!", "success");
+      showToast("Text in Teil B \u00fcbernommen!", "success");
     }
 
     async function submitForGrading() {
       const tA = document.getElementById("studentTextA").value;
       const tB = document.getElementById("studentTextB").value;
       const totalWords = countWords(tA) + countWords(tB);
-      if (totalWords < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " Wörter insgesamt"); return; }
+      if (totalWords < MODULE_CONFIG.minWords) { showToast("Min. " + MODULE_CONFIG.minWords + " W\u00f6rter insgesamt"); return; }
       if (!CONFIG.storedData?.task_instruction_a && !CONFIG.storedData?.task_instruction) { showToast("Erst Aufgabe erstellen"); return; }
       document.getElementById("submitBtn").disabled = true;
       nav("feedback");
@@ -995,31 +1052,31 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         const payload = {
           task_instruction_a: taskA,
           task_instruction_b: taskB,
-          primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
-          primary_text_b: CONFIG.storedData.primary_text_b || "",
+          primary_text: CONFIG.storedData.primary_text || "",
           student_text_a: tA,
           student_text_b: tB,
           rubric_prompt: BEWERTUNG_PROMPT,
-          type: "geschichte-abitur"
+          type: "religion-abitur"
         };
+        if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-        const d = await apiCall("/api/grade-abitur-geschichte", payload);
-        document.getElementById("scoreSachA").textContent = d.scores?.sach_a ?? "–";
-        document.getElementById("scoreSachB").textContent = d.scores?.sach_b ?? "–";
-        document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
-        document.getElementById("scoreTotal").textContent = d.scores?.total ?? "–";
+        const d = await apiCall("/api/grade-abitur-religion", payload);
+        document.getElementById("scoreTeilA").textContent = d.scores?.teil_a ?? "\u2013";
+        document.getElementById("scoreTeilB").textContent = d.scores?.teil_b ?? "\u2013";
+        document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
+        document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";
         saveToHistory({
-          thema: CONFIG.storedData.thema || HJ_LABELS[CONFIG.storedData.schwerpunkt || CONFIG.halbjahr] || "Geschichte",
-          sach_a: d.scores?.sach_a,
-          sach_b: d.scores?.sach_b,
+          lernbereich: CONFIG.storedData.lernbereich || CONFIG.lernbereich,
+          teil_a: d.scores?.teil_a,
+          teil_b: d.scores?.teil_b,
           darstellung: d.scores?.darstellung,
           total: d.scores?.total
         });
         apiCall("/api/submit-result", {
           student_name: sessionStorage.getItem("student_name") || "Unbekannt",
-          type: "geschichte-abitur",
-          topic: CONFIG.storedData.thema || HJ_LABELS[CONFIG.storedData.schwerpunkt || CONFIG.halbjahr] || "Geschichte Abitur",
-          content: d.scores?.sach_a,
+          type: "religion-abitur",
+          topic: HJ_LABELS[CONFIG.storedData.lernbereich || CONFIG.lernbereich] || "Ev. Religion Abitur",
+          content: d.scores?.teil_a,
           language: d.scores?.darstellung,
           total: d.scores?.total,
           date: new Date().toISOString()
@@ -1047,18 +1104,26 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         const payload = {
           task_instruction_a: taskA,
           task_instruction_b: taskB,
-          primary_text_a: CONFIG.storedData.primary_text_a || CONFIG.storedData.primary_text || "",
-          primary_text_b: CONFIG.storedData.primary_text_b || "",
-          type: "geschichte-abitur"
+          primary_text: CONFIG.storedData.primary_text || "",
+          type: "religion-abitur"
         };
+        if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-        const d = await apiCall("/api/model-answer-abitur-geschichte", payload);
+        const d = await apiCall("/api/model-answer-abitur-religion", payload);
         document.getElementById("modelAnswerBody").innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
         card.style.display = "block";
       } catch (e) { showToast(e.message); }
       document.getElementById("showModelBtn").disabled = false;
     }
 
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
+        const ic = HJ_ICONS[x.lernbereich] || "\u271D\uFE0F";
+        return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.teil_a ?? "\u2013"}</td><td class="history-score">${x.teil_b ?? "\u2013"}</td><td class="history-score">${x.darstellung ?? "\u2013"}</td><td class="history-score" style="font-weight:700">${x.total ?? "\u2013"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>`;
+      }).join("");
+    }
+
+    // === Shared: Chart & Image helpers ===
     const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
     function renderStatistikChart(markdown, canvasId) {
       const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
@@ -1094,15 +1159,10 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       loadDallEImage(keywords, containerId);
     }
 
-    function renderHistoryTable(history) {
-      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) => {
-        const ic = HJ_ICONS[x.halbjahr] || "📝";
-        return `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${ic}</td><td class="history-score">${x.sach_a ?? "–"}</td><td class="history-score">${x.sach_b ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`;
-      }).join("");
-    }
-
     // Init
+    updateSchwerpunkte();
     updateTimerDefault();
+    updateBEBadges();
   </script>
 </body>
 
