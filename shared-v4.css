@@ -1843,3 +1843,123 @@ footer a:hover {
     padding: 1rem;
   }
 }
+
+/* ================= PRINT STYLES ================= */
+/* Wird aktiviert wenn body[data-print] gesetzt ist */
+
+@media print {
+  /* Alles ausblenden was nicht gedruckt werden soll */
+  header, nav, footer,
+  #ai-tutor-widget,
+  .pdf-export-btn,
+  .highlighter-toolbar,
+  .ggb-container,
+  .ggb-toggle,
+  .btn,
+  .wahl-hint,
+  .ki-disclaimer,
+  .pdf-modal-overlay,
+  .nav-scroll-arrow {
+    display: none !important;
+  }
+
+  /* Alle Sektionen ausblenden — Print-Target wird per JS sichtbar gemacht */
+  body[data-print] section {
+    display: none !important;
+  }
+  body[data-print="feedback"] #sec-feedback,
+  body[data-print="feedback"] [id$="-feedback"] {
+    display: block !important;
+  }
+  body[data-print="task"] #sec-task,
+  body[data-print="task"] [id$="-task"] {
+    display: block !important;
+  }
+
+  /* Layout-Reset */
+  body {
+    background: white !important;
+    color: #1a1a2e !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Cards druckfreundlich */
+  .card {
+    background: white !important;
+    color: #1a1a2e !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .aufgabengruppe-card,
+  .aufgabe-item,
+  .teilaufgabe-item,
+  .score-card,
+  .be-score-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Farben beibehalten (Score-Cards etc.) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* KaTeX korrekt drucken */
+  .katex-display, .katex {
+    overflow-x: visible !important;
+    max-width: 100% !important;
+  }
+
+  /* Charts (Canvas) drucken */
+  canvas {
+    max-width: 100% !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Textareas als Text anzeigen */
+  textarea {
+    border: 1px solid #d1d5db !important;
+    background: #f8fafc !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+  }
+
+  /* Material-spezifische Ausblendung */
+  body[data-print="task"][data-print-mode="task"] #materialsContainer,
+  body[data-print="task"][data-print-mode="task"] #sourceText,
+  body[data-print="task"][data-print-mode="task"] #sourceMeta,
+  body[data-print="task"][data-print-mode="task"] #textTitle,
+  body[data-print="task"][data-print-mode="task"] #zusatzMaterialien,
+  body[data-print="task"][data-print-mode="task"] #articleBody,
+  body[data-print="task"][data-print-mode="task"] #articleTitle {
+    display: none !important;
+  }
+
+  body[data-print="task"][data-print-mode="material"] #taskInstruction,
+  body[data-print="task"][data-print-mode="material"] #taskMeta,
+  body[data-print="task"][data-print-mode="material"] #teilaufgabenContainer,
+  body[data-print="task"][data-print-mode="material"] #teilAPflichtContainer,
+  body[data-print="task"][data-print-mode="material"] #teilAWahlContainer,
+  body[data-print="task"][data-print-mode="material"] #teilBContainer {
+    display: none !important;
+  }
+
+  /* Seitenränder */
+  @page {
+    margin: 15mm;
+  }
+}
