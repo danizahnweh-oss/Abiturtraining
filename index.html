@@ -1307,23 +1307,46 @@
 
     .splash-wave {
       position: absolute;
-      width: 320px;
+      width: 480px;
+      /* Larger for 'breaking' effect */
       height: auto;
       opacity: 0;
+      filter: drop-shadow(0 0 20px rgba(0, 102, 204, 0.4));
       animation:
-        wave-pulse 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-        wave-float 3s ease-in-out 1.2s infinite,
-        wave-shrink 0.8s ease-in 3.8s forwards;
+        wave-pulse 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        wave-float 3s ease-in-out 1.5s infinite,
+        wave-shrink 0.8s ease-in 4.5s forwards;
     }
 
     .splash-logo {
       position: absolute;
-      max-width: 300px;
+      max-width: 900px;
+      /* ~3x larger than original */
       height: auto;
       opacity: 0;
       visibility: hidden;
-      animation: logo-fade-in 1s cubic-bezier(0.4, 0, 0.2, 1) 4.2s forwards;
+      filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+      animation: logo-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) 5s forwards;
       transform-origin: center;
+    }
+
+    @keyframes wave-break {
+      0% {
+        transform: scale(.4) translateX(-50px) rotate(-10deg);
+        opacity: 0;
+        filter: blur(10px);
+      }
+
+      70% {
+        transform: scale(1.1) translateX(10px) rotate(5deg);
+        opacity: 1;
+        filter: blur(0);
+      }
+
+      100% {
+        transform: scale(1) translateX(0) rotate(0);
+        opacity: 1;
+      }
     }
 
     @keyframes wave-pulse {
@@ -1735,7 +1758,7 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <img src="wave-icon-v6.png" class="splash-wave" alt="">
+      <img src="wave-icon-v7.png" class="splash-wave" alt="">
       <img src="logo-v2.png" class="splash-logo" alt="myAbiFlow Logo">
     </div>
   </div>
