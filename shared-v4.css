@@ -1845,17 +1845,15 @@ footer a:hover {
 }
 
 /* ================= PRINT STYLES ================= */
-/* Wird aktiviert wenn body[data-print] gesetzt ist */
 
 @media print {
-  /* Alles ausblenden was nicht gedruckt werden soll */
+  /* UI-Chrome ausblenden */
   header, nav, footer,
   #ai-tutor-widget,
   .pdf-export-btn,
   .highlighter-toolbar,
   .ggb-container,
   .ggb-toggle,
-  .btn,
   .wahl-hint,
   .ki-disclaimer,
   .pdf-modal-overlay,
@@ -1863,17 +1861,10 @@ footer a:hover {
     display: none !important;
   }
 
-  /* Alle Sektionen ausblenden — Print-Target wird per JS sichtbar gemacht */
-  body[data-print] section {
+  /* Alle Buttons in Sektionen ausblenden */
+  section .btn,
+  section button {
     display: none !important;
-  }
-  body[data-print="feedback"] #sec-feedback,
-  body[data-print="feedback"] [id$="-feedback"] {
-    display: block !important;
-  }
-  body[data-print="task"] #sec-task,
-  body[data-print="task"] [id$="-task"] {
-    display: block !important;
   }
 
   /* Layout-Reset */
@@ -1936,26 +1927,6 @@ footer a:hover {
     min-height: auto !important;
     overflow: visible !important;
     white-space: pre-wrap !important;
-  }
-
-  /* Material-spezifische Ausblendung */
-  body[data-print="task"][data-print-mode="task"] #materialsContainer,
-  body[data-print="task"][data-print-mode="task"] #sourceText,
-  body[data-print="task"][data-print-mode="task"] #sourceMeta,
-  body[data-print="task"][data-print-mode="task"] #textTitle,
-  body[data-print="task"][data-print-mode="task"] #zusatzMaterialien,
-  body[data-print="task"][data-print-mode="task"] #articleBody,
-  body[data-print="task"][data-print-mode="task"] #articleTitle {
-    display: none !important;
-  }
-
-  body[data-print="task"][data-print-mode="material"] #taskInstruction,
-  body[data-print="task"][data-print-mode="material"] #taskMeta,
-  body[data-print="task"][data-print-mode="material"] #teilaufgabenContainer,
-  body[data-print="task"][data-print-mode="material"] #teilAPflichtContainer,
-  body[data-print="task"][data-print-mode="material"] #teilAWahlContainer,
-  body[data-print="task"][data-print-mode="material"] #teilBContainer {
-    display: none !important;
   }
 
   /* Seitenränder */
