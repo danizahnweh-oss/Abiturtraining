@@ -1416,7 +1416,7 @@ async function handleGenerateImage(request, env) {
           }],
           generationConfig: {
             responseModalities: ["IMAGE", "TEXT"],
-            imageSizeOptions: { aspectRatio: "16:9" }
+            imageConfig: { aspectRatio: "16:9" }
           }
         })
       }
