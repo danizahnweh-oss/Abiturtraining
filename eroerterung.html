@@ -382,7 +382,8 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         const d = await apiCall("/api/generate-deutsch", {
           thema: document.getElementById("themaSelect").value,
           typ: document.getElementById("typSelect").value,
-          type: "eroerterung"
+          type: "eroerterung",
+          bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 315
         });
         CONFIG.storedData = d;
         renderTask(d);
