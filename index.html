@@ -7,7 +7,8 @@
   <meta name="description"
     content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
@@ -501,7 +502,7 @@
       top: .5rem;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 1.2rem;
       cursor: pointer;
       padding: .2rem .5rem;
@@ -510,7 +511,7 @@
     }
 
     .countdown-hide-btn:hover {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       color: #fff
     }
 
@@ -524,7 +525,7 @@
       margin-bottom: .5rem;
       border-radius: 99px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.25);
     }
 
     .cohort-btn {
@@ -535,17 +536,17 @@
       border: none;
       cursor: pointer;
       transition: all .2s;
-      background: rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.6);
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .cohort-btn:hover {
-      background: rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .cohort-btn.active {
-      background: rgba(255,255,255,0.25);
+      background: rgba(255, 255, 255, 0.25);
       color: #fff;
     }
 
@@ -1306,53 +1307,67 @@
 
     .splash-wave {
       position: absolute;
-      width: 400px;
+      width: 320px;
       height: auto;
-      opacity: 1;
-      animation: wave-pulse 1s ease-in-out, wave-shrink .8s ease-in-out 2s forwards
+      opacity: 0;
+      animation:
+        wave-pulse 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+        wave-float 3s ease-in-out 1.2s infinite,
+        wave-shrink 0.8s ease-in 3.8s forwards;
     }
 
     .splash-logo {
       position: absolute;
+      max-width: 300px;
+      height: auto;
       opacity: 0;
       visibility: hidden;
-      animation: logo-fade-in .8s ease-in-out 2s forwards;
+      animation: logo-fade-in 1s cubic-bezier(0.4, 0, 0.2, 1) 4.2s forwards;
       transform-origin: center;
-    }
-
-    .logo-brand.splash-logo .logo-text {
-      font-size: 3.5rem;
-    }
-
-    .logo-brand.splash-logo .logo-icon {
-      height: 80px;
     }
 
     @keyframes wave-pulse {
       0% {
         transform: scale(.6);
-        opacity: 0
+        opacity: 0;
+        filter: blur(10px);
       }
 
       50% {
-        transform: scale(1.1)
+        transform: scale(1.05);
+        opacity: 1;
+        filter: blur(0);
       }
 
       100% {
         transform: scale(1);
-        opacity: 1
+        opacity: 1;
+      }
+    }
+
+    @keyframes wave-float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(2deg);
       }
     }
 
     @keyframes wave-shrink {
       0% {
         transform: scale(1);
-        opacity: 1
+        opacity: 1;
+        filter: blur(0);
       }
 
       100% {
-        transform: scale(.3);
-        opacity: 0
+        transform: scale(.4);
+        opacity: 0;
+        filter: blur(15px);
       }
     }
 
@@ -1598,7 +1613,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(0,0,0,.45);
+      background: rgba(0, 0, 0, .45);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       align-items: center;
@@ -1606,28 +1621,50 @@
       padding: 1.5rem;
       animation: fadeIn .2s ease
     }
-    .exam-type-overlay.open { display: flex }
+
+    .exam-type-overlay.open {
+      display: flex
+    }
+
     .exam-type-modal {
       background: var(--surface);
       border-radius: 1.5rem;
       max-width: 440px;
       width: 100%;
       padding: 2rem;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,.25);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25);
       animation: slideUp .25s ease
     }
-    @keyframes slideUp { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:translateY(0) } }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
     .exam-type-modal h3 {
       font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: .35rem
     }
+
     .exam-type-modal .etm-sub {
       font-size: .85rem;
       opacity: .6;
       margin-bottom: 1.5rem
     }
-    .exam-type-choices { display: grid; gap: .75rem }
+
+    .exam-type-choices {
+      display: grid;
+      gap: .75rem
+    }
+
     .exam-type-btn {
       display: flex;
       align-items: center;
@@ -1641,20 +1678,40 @@
       transition: all .15s;
       width: 100%
     }
+
     .exam-type-btn:hover {
       border-color: var(--accent-kol);
       background: var(--accent-kol-glow)
     }
-    .exam-type-btn .etb-icon { font-size: 1.6rem; flex-shrink: 0 }
-    .exam-type-btn .etb-title { font-weight: 600; font-size: .95rem }
-    .exam-type-btn .etb-desc { font-size: .78rem; opacity: .6; margin-top: .1rem }
+
+    .exam-type-btn .etb-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0
+    }
+
+    .exam-type-btn .etb-title {
+      font-weight: 600;
+      font-size: .95rem
+    }
+
+    .exam-type-btn .etb-desc {
+      font-size: .78rem;
+      opacity: .6;
+      margin-top: .1rem
+    }
+
     .exam-type-btn .etb-arrow {
       margin-left: auto;
       opacity: .3;
       font-size: 1.1rem;
       transition: transform .15s
     }
-    .exam-type-btn:hover .etb-arrow { transform: translateX(3px); opacity: .7 }
+
+    .exam-type-btn:hover .etb-arrow {
+      transform: translateX(3px);
+      opacity: .7
+    }
+
     .exam-type-cancel {
       display: block;
       margin: 1rem auto 0;
@@ -1666,7 +1723,10 @@
       cursor: pointer;
       color: var(--ink)
     }
-    .exam-type-cancel:hover { opacity: .8 }
+
+    .exam-type-cancel:hover {
+      opacity: .8
+    }
   </style>
 </head>
 
@@ -1675,20 +1735,16 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <img src="wave-icon.png" class="splash-wave" alt="">
-      <div class="logo-brand splash-logo">
-        <img src="wave-icon.png" class="logo-icon" alt="">
-        <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
-      </div>
+      <img src="wave-icon-v6.png" class="splash-wave" alt="">
+      <img src="logo-v2.png" class="splash-logo" alt="myAbiFlow Logo">
     </div>
   </div>
 
   <!-- ====== LOGIN SCREEN ====== -->
   <div id="login-screen">
     <div class="login-box" role="main">
-      <div class="logo-brand" style="justify-content:center; margin-bottom:1.5rem; transform: scale(1.2);">
-        <img src="wave-icon.png" class="logo-icon" alt="">
-        <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
+      <div style="text-align:center; margin-bottom:1.5rem;">
+        <img src="logo-v2.png" alt="myAbiFlow Logo" style="height: 100px; width: auto;">
       </div>
       <div class="abitur-badge">Abitur 2026</div>
       <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
@@ -1719,22 +1775,20 @@
   <!-- ====== SUBJECT SELECTION SCREEN ====== -->
   <div id="subject-screen">
     <div class="subject-header">
-      <h1>
-        <div class="logo-brand">
-          <img src="wave-icon.png" class="logo-icon" alt="">
-          <span class="logo-text">myAbi<span class="logo-flow">Flow</span></span>
-        </div>
-      </h1>
+      <img src="logo-v2.png" alt="myAbiFlow Logo" style="height: 48px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
-        <button class="logout-btn" id="guestLoginBtn" onclick="document.getElementById('login-screen').style.display='flex';document.getElementById('subject-screen').style.display='none'" style="display:none; background:var(--accent); color:#fff;" aria-label="Anmelden">Anmelden</button>
+        <button class="logout-btn" id="guestLoginBtn"
+          onclick="document.getElementById('login-screen').style.display='flex';document.getElementById('subject-screen').style.display='none'"
+          style="display:none; background:var(--accent); color:#fff;" aria-label="Anmelden">Anmelden</button>
       </div>
     </div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
-      <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
+      <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
+        ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
         <button onclick="enableCountdown()"
           style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:all 0.2s;">
@@ -1901,7 +1955,8 @@
         <div class="kol-icon" aria-hidden="true">🎤</div>
         <div class="kol-body">
           <div class="kol-title">Kolloquiumstrainer</div>
-          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und sofortiges Feedback.</div>
+          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und
+            sofortiges Feedback.</div>
         </div>
         <div class="kol-badge">Live · KI-Prüfer</div>
         <div class="kol-arrow" aria-hidden="true">→</div>
@@ -2016,13 +2071,15 @@
       <a class="module-card german" href="materialgestuetzt-informierend.html">
         <div class="module-icon">📰</div>
         <div class="module-title">Materialgestützt Informierend</div>
-        <div class="module-desc">Informierende Texte auf Materialbasis verfassen – Zeitungsartikel, Blogbeitrag, Sachtext.</div>
+        <div class="module-desc">Informierende Texte auf Materialbasis verfassen – Zeitungsartikel, Blogbeitrag,
+          Sachtext.</div>
         <div class="module-badge">Aufgabe IV</div>
       </a>
       <a class="module-card german" href="materialgestuetzt-argumentierend.html">
         <div class="module-icon">💬</div>
         <div class="module-title">Materialgestützt Argumentierend</div>
-        <div class="module-desc">Argumentierende Beiträge auf Materialbasis verfassen – Kommentar, Rede, Leserbrief, Essay.</div>
+        <div class="module-desc">Argumentierende Beiträge auf Materialbasis verfassen – Kommentar, Rede, Leserbrief,
+          Essay.</div>
         <div class="module-badge">Aufgabe V</div>
       </a>
     </div>
@@ -2054,7 +2111,8 @@
       <a class="module-card history" href="geschichte.html">
         <div class="module-icon">📜</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Klausuren üben mit KI-generierten Aufgaben – mit konfigurierbarer BE und Bearbeitungszeit.</div>
+        <div class="module-desc">Klausuren üben mit KI-generierten Aufgaben – mit konfigurierbarer BE und
+          Bearbeitungszeit.</div>
         <div class="module-badge">Klausurtraining Geschichte</div>
       </a>
       <a class="module-card history" href="geschichte-abitur.html">
@@ -2481,7 +2539,8 @@
       <a class="module-card biologie" href="biologie.html">
         <div class="module-icon">🧬</div>
         <div class="module-title">Klausurtraining</div>
-        <div class="module-desc">Kurz- und Langaufgaben aus Genetik, Neurobiologie, Stoffwechsel, Ökologie und mehr — mit
+        <div class="module-desc">Kurz- und Langaufgaben aus Genetik, Neurobiologie, Stoffwechsel, Ökologie und mehr —
+          mit
           BE-Bewertung.</div>
         <div class="module-badge">Einzelaufgabe</div>
       </a>
