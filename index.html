@@ -50,6 +50,10 @@
       --accent-eth-hover: #4338ca;
       --accent-eth-soft: #e0e7ff;
       --accent-eth-glow: rgba(79, 70, 229, .08);
+      --accent-rel: #d97706;
+      --accent-rel-hover: #b45309;
+      --accent-rel-soft: #fef3c7;
+      --accent-rel-glow: rgba(217, 119, 6, .08);
       --accent-geo: #0891b2;
       --accent-geo-hover: #0e7490;
       --accent-geo-soft: #cffafe;
@@ -74,6 +78,10 @@
       --accent-bio-hover: #15803d;
       --accent-bio-soft: #dcfce7;
       --accent-bio-glow: rgba(22, 163, 74, .08);
+      --accent-spo: #e11d48;
+      --accent-spo-hover: #be123c;
+      --accent-spo-soft: #ffe4e6;
+      --accent-spo-glow: rgba(225, 29, 72, .08);
       --accent-kol: #059669;
       --accent-kol-hover: #047857;
       --accent-kol-soft: #d1fae5;
@@ -109,6 +117,10 @@
       --accent-eth-hover: #a5b4fc;
       --accent-eth-soft: rgba(129, 140, 248, .15);
       --accent-eth-glow: rgba(129, 140, 248, .08);
+      --accent-rel: #fbbf24;
+      --accent-rel-hover: #fcd34d;
+      --accent-rel-soft: rgba(251, 191, 36, .15);
+      --accent-rel-glow: rgba(251, 191, 36, .08);
       --accent-geo: #22d3ee;
       --accent-geo-hover: #67e8f9;
       --accent-geo-soft: rgba(34, 211, 238, .15);
@@ -133,6 +145,10 @@
       --accent-bio-hover: #86efac;
       --accent-bio-soft: rgba(74, 222, 128, .15);
       --accent-bio-glow: rgba(74, 222, 128, .08);
+      --accent-spo: #fb7185;
+      --accent-spo-hover: #fda4af;
+      --accent-spo-soft: rgba(251, 113, 133, .15);
+      --accent-spo-glow: rgba(251, 113, 133, .08);
       --accent-kol: #34d399;
       --accent-kol-hover: #6ee7b7;
       --accent-kol-soft: rgba(52, 211, 153, .15);
@@ -148,6 +164,11 @@
     .module-card.ethik .module-badge {
       background: var(--accent-eth-soft);
       color: var(--accent-eth)
+    }
+
+    .module-card.religion .module-badge {
+      background: var(--accent-rel-soft);
+      color: var(--accent-rel)
     }
 
     .module-card.geographie .module-badge {
@@ -194,6 +215,15 @@
     .module-card.biologie .module-badge {
       background: var(--accent-bio-soft);
       color: var(--accent-bio)
+    }
+
+    .module-card.sport:hover {
+      border-color: var(--accent-spo)
+    }
+
+    .module-card.sport .module-badge {
+      background: var(--accent-spo-soft);
+      color: var(--accent-spo)
     }
 
     /* ====== KOLLOQUIUM TRAINER BANNER ====== */
@@ -679,6 +709,10 @@
       animation-delay: .7s
     }
 
+    .subject-card:nth-child(15) {
+      animation-delay: .75s
+    }
+
     @keyframes staggerFadeIn {
       from {
         opacity: 0;
@@ -743,6 +777,10 @@
       background: linear-gradient(135deg, var(--accent-eth-glow), transparent)
     }
 
+    .subject-card.religion::before {
+      background: linear-gradient(135deg, var(--accent-rel-glow), transparent)
+    }
+
     .subject-card.geographie::before {
       background: linear-gradient(135deg, var(--accent-geo-glow), transparent)
     }
@@ -765,6 +803,10 @@
 
     .subject-card.biologie::before {
       background: linear-gradient(135deg, var(--accent-bio-glow), transparent)
+    }
+
+    .subject-card.sport::before {
+      background: linear-gradient(135deg, var(--accent-spo-glow), transparent)
     }
 
     .subject-card:hover,
@@ -818,6 +860,11 @@
       border-color: var(--accent-eth)
     }
 
+    .subject-card.religion:hover,
+    .subject-card.religion:focus-visible {
+      border-color: var(--accent-rel)
+    }
+
     .subject-card.geographie:hover,
     .subject-card.geographie:focus-visible {
       border-color: var(--accent-geo)
@@ -846,6 +893,11 @@
     .subject-card.biologie:hover,
     .subject-card.biologie:focus-visible {
       border-color: var(--accent-bio)
+    }
+
+    .subject-card.sport:hover,
+    .subject-card.sport:focus-visible {
+      border-color: var(--accent-spo)
     }
 
     .subject-icon {
@@ -895,6 +947,10 @@
       color: var(--accent-eth)
     }
 
+    .subject-card.religion .subject-title {
+      color: var(--accent-rel)
+    }
+
     .subject-card.geographie .subject-title {
       color: var(--accent-geo)
     }
@@ -917,6 +973,10 @@
 
     .subject-card.biologie .subject-title {
       color: var(--accent-bio)
+    }
+
+    .subject-card.sport .subject-title {
+      color: var(--accent-spo)
     }
 
     .subject-desc {
@@ -1310,7 +1370,6 @@
       width: 500px;
       height: auto;
       opacity: 0;
-      mix-blend-mode: screen;
       animation: wave-video-in 1s ease-out forwards;
     }
 
@@ -1773,7 +1832,8 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <video class="splash-wave-video" autoplay muted playsinline preload="auto" id="splashVideo">
+      <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
+      <video id="splashVideo" autoplay muted playsinline preload="auto" style="display:none">
         <source src="wave-breaking.mp4" type="video/mp4">
       </video>
       <img src="logo-v2.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
@@ -1781,47 +1841,70 @@
     <script>
       (function () {
         var vid = document.getElementById('splashVideo');
+        var canvas = document.getElementById('splashCanvas');
+        var ctx = canvas.getContext('2d', { willReadFrequently: true });
         var logo = document.getElementById('splashLogo');
         var logoShown = false;
+        var animId;
 
         function showLogo() {
           if (logoShown) return;
           logoShown = true;
-          vid.classList.add('fade-out');
+          cancelAnimationFrame(animId);
+          canvas.classList.add('fade-out');
           setTimeout(function () {
             logo.classList.add('show');
           }, 600);
         }
 
+        function renderFrame() {
+          if (vid.paused || vid.ended) {
+            if (vid.ended) showLogo();
+            return;
+          }
+          ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+          var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          var data = imageData.data;
+          for (var i = 0; i < data.length; i += 4) {
+            var r = data[i], g = data[i + 1], b = data[i + 2];
+            // Detect gray checkerboard pixels: R≈G≈B and within gray range
+            var maxC = Math.max(r, g, b);
+            var minC = Math.min(r, g, b);
+            var saturation = maxC - minC;
+            // Gray pixels with low saturation (checkerboard is neutral gray)
+            if (saturation < 30 && r > 50 && r < 220) {
+              data[i + 3] = 0; // Make transparent
+            }
+          }
+          ctx.putImageData(imageData, 0, 0);
+          animId = requestAnimationFrame(renderFrame);
+        }
+
         if (vid) {
-          // Force muted (some browsers need this set via JS)
           vid.muted = true;
-          vid.setAttribute('muted', '');
 
           vid.addEventListener('ended', showLogo);
 
-          // Fallback if video fails to load
           vid.addEventListener('error', function () {
-            vid.style.display = 'none';
+            canvas.style.display = 'none';
             if (!logoShown) { logoShown = true; logo.classList.add('show'); }
           });
 
-          // Try to force play
-          vid.addEventListener('loadeddata', function () {
-            var playPromise = vid.play();
-            if (playPromise !== undefined) {
-              playPromise.catch(function () {
-                // Autoplay blocked – show logo directly
-                vid.style.display = 'none';
-                if (!logoShown) { logoShown = true; logo.classList.add('show'); }
-              });
-            }
+          vid.addEventListener('play', function () {
+            canvas.width = vid.videoWidth || 500;
+            canvas.height = vid.videoHeight || 500;
+            renderFrame();
           });
 
-          // Ultimate fallback: if nothing happens after 8s, show logo
-          setTimeout(function () {
-            if (!logoShown) { showLogo(); }
-          }, 8000);
+          vid.addEventListener('loadeddata', function () {
+            var p = vid.play();
+            if (p) p.catch(function () {
+              canvas.style.display = 'none';
+              if (!logoShown) { logoShown = true; logo.classList.add('show'); }
+            });
+          });
+
+          setTimeout(function () { if (!logoShown) showLogo(); }, 12000);
         }
       })();
     </script>
@@ -1976,6 +2059,17 @@
         <span class="subject-countdown" data-subject="ethik"></span>
         <span class="subject-last-activity" data-activity="ethik"></span>
       </button>
+      <button class="subject-card religion" type="button" role="listitem" onclick="selectSubject('religion', true)"
+        aria-label="Evangelische Religionslehre">
+        <div class="subject-icon" aria-hidden="true">✝️</div>
+        <div class="subject-title">Ev. Religion</div>
+        <div class="subject-desc">Theologische Texte analysieren und reflektieren &ndash; mit KI-Bewertung nach
+          ISB-Kriterien
+          f&uuml;r das Abitur.</div>
+        <div class="subject-badge">2 Module</div>
+        <span class="subject-countdown" data-subject="religion"></span>
+        <span class="subject-last-activity" data-activity="religion"></span>
+      </button>
       <button class="subject-card geographie" type="button" role="listitem" onclick="selectSubject('geographie', true)"
         aria-label="Geographie">
         <div class="subject-icon" aria-hidden="true">🌍</div>
@@ -2035,6 +2129,16 @@
         <div class="subject-badge">2 Module · gA + eA</div>
         <span class="subject-countdown" data-subject="biologie"></span>
         <span class="subject-last-activity" data-activity="biologie"></span>
+      </button>
+      <button class="subject-card sport" type="button" role="listitem" onclick="selectSubject('sport', true)"
+        aria-label="Sport">
+        <div class="subject-icon" aria-hidden="true">⚽</div>
+        <div class="subject-title">Sport</div>
+        <div class="subject-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie — mit BE-Bewertung.
+        </div>
+        <div class="subject-badge">1 Modul</div>
+        <span class="subject-countdown" data-subject="sport"></span>
+        <span class="subject-last-activity" data-activity="sport"></span>
       </button>
     </div>
     <div class="kolloquium-banner">
@@ -2407,7 +2511,47 @@
         <div class="module-badge">Komplette Prüfung</div>
       </a>
     </div>
-    <footer>© 2026 myAbiFlow · Ethik Trainer</footer>
+    <footer>&copy; 2026 myAbiFlow &middot; Ethik Trainer</footer>
+  </div>
+
+  <!-- ====== RELIGION MODULE SCREEN ====== -->
+  <div id="module-screen-religion" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">&larr; Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Ev. Religion <span style="color:var(--accent-rel)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoRel" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnRel"
+          aria-label="Dark Mode umschalten">&#x1F319;</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was m&ouml;chtest du &uuml;ben?</div>
+    <div class="module-grid">
+      <a class="module-card religion" href="religion.html">
+        <div class="module-icon">✝️</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Aufgaben zu allen Lernbereichen (12/1&ndash;13/2) mit theologischen Texten und
+          Materialien.</div>
+        <div class="module-badge">Schriftliche Pr&uuml;fung</div>
+      </a>
+      <a class="module-card religion" href="religion-abitur.html">
+        <div class="module-icon">&#x1F4DD;</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Ev. Religion-Pr&uuml;fung simulieren &ndash; alle Teilaufgaben mit
+          Gesamtbewertung.</div>
+        <div class="module-badge">Komplette Pr&uuml;fung</div>
+      </a>
+    </div>
+    <footer>&copy; 2026 myAbiFlow &middot; Ev. Religion Trainer</footer>
   </div>
 
   <!-- ====== GEOGRAPHIE MODULE SCREEN ====== -->
@@ -2641,6 +2785,40 @@
     <footer>© 2026 myAbiFlow · Biologie Trainer</footer>
   </div>
 
+  <!-- ====== SPORT MODULE SCREEN ====== -->
+  <div id="module-screen-sport" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Sport <span style="color:var(--accent-spo)">Trainer</span></h1>
+      </div>
+      <div class="header-right">
+        <span id="userInfoSpo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnSpo"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <a class="module-card sport" href="sport.html">
+        <div class="module-icon">⚽</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie und mehr — mit
+          BE-Bewertung.</div>
+        <div class="module-badge">Einzelaufgabe</div>
+      </a>
+    </div>
+    <footer>© 2026 myAbiFlow · Sport Trainer</footer>
+  </div>
+
+
   <script>
     let loginMode = "login";
 
@@ -2656,6 +2834,7 @@
       wr: { gA: "2026-05-11", eA: "2026-05-13" },
       italian: { gA: "2026-05-11", eA: "2026-05-13" },
       ethik: { gA: "2026-05-11", eA: "2026-05-13" },
+      religion: { gA: "2026-05-11", eA: "2026-05-13" },
       geographie: { gA: "2026-05-11", eA: "2026-05-13" },
       latein: { gA: "2026-05-11", eA: "2026-05-13" },
       physik: { gA: "2026-05-11", eA: "2026-05-13" },
@@ -2673,6 +2852,7 @@
       wr: { gA: "2027-05-07", eA: "2027-04-21" },
       italian: { gA: "2027-05-07", eA: "2027-04-21" },
       ethik: { gA: "2027-05-07", eA: "2027-04-21" },
+      religion: { gA: "2027-05-07", eA: "2027-04-21" },
       geographie: { gA: "2027-05-07", eA: "2027-04-21" },
       latein: { gA: "2027-05-07", eA: "2027-04-21" },
       physik: "2027-05-12",
@@ -2693,6 +2873,7 @@
       french: ["french-mediation", "french-writing"],
       italian: ["italian-mediation", "italian-writing"],
       ethik: ["ethik", "ethik-abitur"],
+      religion: ["religion", "religion-abitur"],
       geographie: ["geographie", "geographie-abitur"],
       latein: ["latein", "latein-abitur"],
       mathe: ["mathe", "mathe-abitur"],
@@ -2795,7 +2976,7 @@
     /* ====== SUBJECT FILTER ====== */
     var subjectEditMode = false;
     var hiddenSubjectsCache = [];
-    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "geographie", "latein", "mathe", "chemie"];
+    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "religion", "geographie", "latein", "mathe", "chemie"];
 
     function getSubjectKey(card) {
       var classes = card.className.split(" ");
@@ -3073,12 +3254,14 @@
       document.getElementById("module-screen-french").style.display = "none";
       document.getElementById("module-screen-italian").style.display = "none";
       document.getElementById("module-screen-ethik").style.display = "none";
+      document.getElementById("module-screen-religion").style.display = "none";
       document.getElementById("module-screen-geographie").style.display = "none";
       document.getElementById("module-screen-latein").style.display = "none";
       document.getElementById("module-screen-mathe").style.display = "none";
       document.getElementById("module-screen-chemie").style.display = "none";
       document.getElementById("module-screen-physik").style.display = "none";
       document.getElementById("module-screen-biologie").style.display = "none";
+      document.getElementById("module-screen-sport").style.display = "none";
       sessionStorage.removeItem("current_subject");
 
       var name = sessionStorage.getItem("student_name") || "";
@@ -3118,15 +3301,19 @@
       english: "Englisch", german: "Deutsch", history: "Geschichte",
       pug: "Politik und Gesellschaft", wr: "Wirtschaft und Recht",
       french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      religion: "Evangelische Religionslehre",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
-      chemie: "Chemie", physik: "Physik", biologie: "Biologie"
+      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      sport: "Sport"
     };
     var subjectTitleMap = {
       english: "Englisch", german: "Deutsch", history: "Geschichte",
       pug: "Politik & Gesellschaft", wr: "Wirtschaft & Recht",
       french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      religion: "Ev. Religion",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
-      chemie: "Chemie", physik: "Physik", biologie: "Biologie"
+      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      sport: "Sport"
     };
     var _pendingSubjectForModal = null;
 
@@ -3177,17 +3364,19 @@
         english: "module-screen-english", history: "module-screen-history",
         pug: "module-screen-pug", wr: "module-screen-wr",
         french: "module-screen-french", italian: "module-screen-italian",
-        ethik: "module-screen-ethik", geographie: "module-screen-geographie",
+        ethik: "module-screen-ethik", religion: "module-screen-religion", geographie: "module-screen-geographie",
         latein: "module-screen-latein", mathe: "module-screen-mathe",
         chemie: "module-screen-chemie", physik: "module-screen-physik",
-        biologie: "module-screen-biologie", german: "module-screen-german"
+        biologie: "module-screen-biologie", sport: "module-screen-sport",
+        german: "module-screen-german"
       };
       var infoMap = {
         english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
         wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
-        ethik: "userInfoEth", geographie: "userInfoGeo", latein: "userInfoLat",
+        ethik: "userInfoEth", religion: "userInfoRel", geographie: "userInfoGeo", latein: "userInfoLat",
         mathe: "userInfoMat", chemie: "userInfoChe", physik: "userInfoPhy",
-        biologie: "userInfoBio", german: "userInfoDe"
+        biologie: "userInfoBio", sport: "userInfoSpo",
+        german: "userInfoDe"
       };
 
       var screenId = screenMap[subject] || screenMap.german;
@@ -3291,7 +3480,7 @@
       if (guestHint) guestHint.style.display = isLoggedIn ? "none" : "";
 
       if (isLoggedIn) {
-        var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "geographie",
+        var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "religion", "geographie",
           "latein", "mathe", "chemie", "physik", "biologie"];
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
           openModuleScreen(backTo);
