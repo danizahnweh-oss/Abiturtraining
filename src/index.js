@@ -1393,7 +1393,7 @@ async function handleStudentResults(request, env) {
   return jsonResponse({ results: filtered }, 200, env);
 }
 
-/* ================= IMAGE GENERATION: GOOGLE IMAGEN ================= */
+/* ================= IMAGE GENERATION: GEMINI FLASH ================= */
 async function handleGenerateImage(request, env) {
   const { prompt } = await request.json();
   if (!prompt) {
@@ -1401,9 +1401,9 @@ async function handleGenerateImage(request, env) {
   }
 
   try {
-    // Generate image via Google Imagen 4
-    const imagenRes = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict",
+    // Bild generieren via Gemini 3.1 Flash Image Preview
+    const geminiRes = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent",
       {
         method: "POST",
         headers: {
@@ -1411,46 +1411,57 @@ async function handleGenerateImage(request, env) {
           "x-goog-api-key": env.GOOGLE_AI_API_KEY
         },
         body: JSON.stringify({
-          instances: [{ prompt }],
-          parameters: { sampleCount: 1, aspectRatio: "16:9" }
+          contents: [{
+            parts: [{ text: `Generate an image: ${prompt}` }]
+          }],
+          generationConfig: {
+            responseModalities: ["IMAGE", "TEXT"],
+            imageSizeOptions: { aspectRatio: "16:9" }
+          }
         })
       }
     );
-    const imagenData = await imagenRes.json();
+    const geminiData = await geminiRes.json();
 
-    if (!imagenRes.ok) {
-      const errMsg = imagenData.error?.message || JSON.stringify(imagenData).substring(0, 200) || "Imagen Fehler";
-      return jsonResponse({ error: `Imagen API ${imagenRes.status}: ${errMsg}` }, imagenRes.status, env);
+    if (!geminiRes.ok) {
+      const errMsg = geminiData.error?.message || JSON.stringify(geminiData).substring(0, 200) || "Gemini Fehler";
+      return jsonResponse({ error: `Gemini API ${geminiRes.status}: ${errMsg}` }, geminiRes.status, env);
     }
 
-    const prediction = imagenData.predictions?.[0];
-    if (!prediction?.bytesBase64Encoded) {
-      return jsonResponse({ error: "Kein Bild generiert. Response: " + JSON.stringify(imagenData).substring(0, 300) }, 500, env);
+    // Bild- und Text-Parts aus der Antwort extrahieren
+    const parts = geminiData.candidates?.[0]?.content?.parts || [];
+    const imagePart = parts.find(p => p.inlineData?.mimeType?.startsWith("image/"));
+    if (!imagePart) {
+      return jsonResponse({ error: "Kein Bild generiert. Response: " + JSON.stringify(geminiData).substring(0, 300) }, 500, env);
     }
 
-    const mimeType = prediction.mimeType || "image/png";
-    const dataUrl = `data:${mimeType};base64,${prediction.bytesBase64Encoded}`;
+    const mimeType = imagePart.inlineData.mimeType || "image/png";
+    const dataUrl = `data:${mimeType};base64,${imagePart.inlineData.data}`;
 
-    // Generate a short German caption via GPT
-    let caption = "";
-    try {
-      const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein generiertes Bild zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
-          max_tokens: 60,
-          temperature: 0.3
-        })
-      });
-      const captionData = await captionRes.json();
-      caption = captionData.choices?.[0]?.message?.content?.trim() || "";
-    } catch {}
+    // Caption aus der Gemini-Antwort extrahieren (falls vorhanden), sonst via GPT
+    const textPart = parts.find(p => p.text);
+    let caption = textPart?.text?.trim() || "";
+
+    if (!caption) {
+      try {
+        const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+          body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein generiertes Bild zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
+            max_tokens: 60,
+            temperature: 0.3
+          })
+        });
+        const captionData = await captionRes.json();
+        caption = captionData.choices?.[0]?.message?.content?.trim() || "";
+      } catch {}
+    }
 
     return jsonResponse({
       url: dataUrl,
-      credit: "Google Imagen",
+      credit: "Google Gemini",
       caption
     }, 200, env);
   } catch (e) {
@@ -1458,7 +1469,7 @@ async function handleGenerateImage(request, env) {
   }
 }
 
-/* ================= IMAGE FETCH: IMAGEN (legacy endpoint) ================= */
+/* ================= IMAGE FETCH: LEGACY ENDPOINT ================= */
 async function handleFetchUnsplash(request, env) {
   const { keywords } = await request.json();
   if (!keywords) {
