@@ -1349,7 +1349,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: splash-fade-out .6s ease 6.5s forwards
     }
 
     [data-theme="dark"] #splash {
@@ -1847,6 +1846,17 @@
         var logoShown = false;
         var animId;
 
+        function hideSplash() {
+          var splash = document.getElementById('splash');
+          if (splash) {
+            splash.style.animation = 'splash-fade-out .6s ease forwards';
+            setTimeout(function () {
+              splash.style.display = 'none';
+              sessionStorage.setItem('splash_shown', '1');
+            }, 700);
+          }
+        }
+
         function showLogo() {
           if (logoShown) return;
           logoShown = true;
@@ -1854,6 +1864,8 @@
           canvas.classList.add('fade-out');
           setTimeout(function () {
             logo.classList.add('show');
+            // Logo 2 Sekunden anzeigen, dann Splash ausblenden
+            setTimeout(hideSplash, 2000);
           }, 600);
         }
 
@@ -3649,10 +3661,13 @@
         splash.style.display = "none";
         return;
       }
+      // Fallback: Falls Video/Logo-Logik nicht greift, Splash nach 15s entfernen
       setTimeout(function () {
-        splash.style.display = "none";
-        sessionStorage.setItem("splash_shown", "1");
-      }, 5500);
+        if (splash.style.display !== "none") {
+          splash.style.display = "none";
+          sessionStorage.setItem("splash_shown", "1");
+        }
+      }, 15000);
     };
 
     // Handle bfcache restoration
