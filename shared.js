@@ -417,12 +417,65 @@ function renderProgressChart() {
 /* ================= PDF EXPORT ================= */
 
 // Hilfsfunktion: PDF-freundlichen Off-Screen-Klon erstellen
-/* Nutzt window.print() mit Print-CSS statt html2canvas — keine weißen/verschobenen Seiten */
+/* ================= PDF EXPORT (via window.print()) ================= */
+/* Blendet alles außer dem Ziel-Element aus, druckt, stellt alles wieder her */
+
+var _printHidden = [];
+
+function printElement(targetEl) {
+  if (!targetEl) return;
+  _printHidden = [];
+
+  // Alle direkten Kinder von body ausblenden, außer dem Eltern-Pfad des Ziels
+  var ancestors = [];
+  var node = targetEl;
+  while (node && node !== document.body) {
+    ancestors.push(node);
+    node = node.parentElement;
+  }
+
+  // Auf jeder Ebene: Geschwister ausblenden
+  ancestors.forEach(function (el) {
+    var parent = el.parentElement;
+    if (!parent) return;
+    Array.from(parent.children).forEach(function (sibling) {
+      if (sibling === el) return;
+      if (sibling.style.display === "none") return; // bereits versteckt
+      var prev = sibling.style.display;
+      sibling.style.setProperty("display", "none", "important");
+      _printHidden.push({ el: sibling, prev: prev });
+    });
+  });
+
+  // Ziel-Element sichtbar machen (falls es display:none hat)
+  var targetPrev = targetEl.style.display;
+  if (getComputedStyle(targetEl).display === "none") {
+    targetEl.style.setProperty("display", "block", "important");
+    _printHidden.push({ el: targetEl, prev: targetPrev, restore: true });
+  }
+
+  window.print();
+}
+
+window.addEventListener("afterprint", function () {
+  _printHidden.forEach(function (item) {
+    if (item.restore) {
+      item.el.style.display = item.prev;
+    } else {
+      if (item.prev) {
+        item.el.style.display = item.prev;
+      } else {
+        item.el.style.removeProperty("display");
+      }
+    }
+  });
+  _printHidden = [];
+});
+
 function exportPDF() {
   var el = document.getElementById("feedbackContent");
   if (!el) return;
-  document.body.setAttribute("data-print", "feedback");
-  window.print();
+  printElement(el);
 }
 
 /* ================= TASK/MATERIAL PDF EXPORT ================= */
@@ -472,18 +525,46 @@ function exportTaskPDF(mode) {
   if (!sec) { closePdfModal(); return; }
   closePdfModal();
 
-  document.body.setAttribute("data-print", "task");
-  if (mode === "task" || mode === "material") {
-    document.body.setAttribute("data-print-mode", mode);
-  }
-  window.print();
-}
+  // Mode-spezifisch: Material- oder Aufgaben-Elemente temporär ausblenden
+  var tempHidden = [];
+  var materialIds = ["materialsContainer", "sourceText", "sourceMeta", "textTitle", "zusatzMaterialien", "articleBody", "articleTitle"];
+  var taskIds = ["taskInstruction", "taskMeta", "teilaufgabenContainer", "teilAPflichtContainer", "teilAWahlContainer", "teilBContainer"];
 
-/* Aufräumen nach dem Drucken */
-window.addEventListener("afterprint", function () {
-  document.body.removeAttribute("data-print");
-  document.body.removeAttribute("data-print-mode");
-});
+  if (mode === "task") {
+    materialIds.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.style.display !== "none") {
+        tempHidden.push({ el: el, prev: el.style.display });
+        el.style.display = "none";
+      }
+    });
+  } else if (mode === "material") {
+    taskIds.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.style.display !== "none") {
+        tempHidden.push({ el: el, prev: el.style.display });
+        el.style.display = "none";
+      }
+    });
+  }
+
+  // afterprint-Listener für mode-spezifische Elemente
+  var restoreMode = function () {
+    tempHidden.forEach(function (item) {
+      if (item.prev) {
+        item.el.style.display = item.prev;
+      } else {
+        item.el.style.removeProperty("display");
+      }
+    });
+    window.removeEventListener("afterprint", restoreMode);
+  };
+  if (tempHidden.length) {
+    window.addEventListener("afterprint", restoreMode);
+  }
+
+  printElement(sec);
+}
 
 function injectPdfButton() {
   var prefix = MODULE_CONFIG.sectionPrefix || "";
