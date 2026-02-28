@@ -1,12 +1,11 @@
-const CACHE_NAME = 'myabiflow-v19';
+const CACHE_NAME = 'myabiflow-v20';
 const STATIC_ASSETS = [
   './',
   './index.html',
   './impressum.html',
   './shared-v4.css',
   './shared.js',
-  './logo.png',
-  './wave-icon.png'
+  './logo-v2.png'
 ];
 
 // Install: cache static assets
