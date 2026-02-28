@@ -1845,8 +1845,6 @@
         var logo = document.getElementById('splashLogo');
         var logoShown = false;
         var animId;
-        var initialSeekDone = false;
-
         function hideSplash() {
           var splash = document.getElementById('splash');
           if (splash) {
@@ -1913,13 +1911,6 @@
           });
 
           vid.addEventListener('loadeddata', function () {
-            vid.currentTime = 1;
-          });
-
-          vid.addEventListener('seeked', function () {
-            // Nur beim ersten Seek (Start ab Sekunde 1) abspielen
-            if (initialSeekDone) return;
-            initialSeekDone = true;
             var p = vid.play();
             if (p) p.catch(function () {
               canvas.style.display = 'none';
