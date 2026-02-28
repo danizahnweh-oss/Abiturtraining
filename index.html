@@ -1832,14 +1832,20 @@
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
-      <video id="splashVideo" autoplay muted playsinline preload="auto" style="display:none">
-        <source src="weiß.mp4" type="video/mp4">
+      <video id="splashVideo" muted playsinline preload="auto" style="display:none">
       </video>
       <img src="logo-v2.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
     <script>
       (function () {
+        // Theme erkennen und passendes Video laden
+        var s = localStorage.getItem('theme');
+        var p = window.matchMedia('(prefers-color-scheme:dark)').matches;
+        var isDark = (s || (p ? 'dark' : 'light')) === 'dark';
+
         var vid = document.getElementById('splashVideo');
+        vid.src = isDark ? 'schwarz.mp4' : 'weiß.mp4';
+
         var canvas = document.getElementById('splashCanvas');
         var ctx = canvas.getContext('2d', { willReadFrequently: true });
         var logo = document.getElementById('splashLogo');
