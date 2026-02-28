@@ -1845,6 +1845,7 @@
         var logo = document.getElementById('splashLogo');
         var logoShown = false;
         var animId;
+        var initialSeekDone = false;
 
         function hideSplash() {
           var splash = document.getElementById('splash');
@@ -1861,12 +1862,15 @@
           if (logoShown) return;
           logoShown = true;
           cancelAnimationFrame(animId);
-          canvas.classList.add('fade-out');
-          setTimeout(function () {
-            logo.classList.add('show');
-            // Logo 2 Sekunden anzeigen, dann Splash ausblenden
-            setTimeout(hideSplash, 2000);
-          }, 600);
+          // Canvas sofort ausblenden
+          canvas.style.display = 'none';
+          // Logo sofort sichtbar machen
+          logo.style.visibility = 'visible';
+          logo.style.opacity = '1';
+          logo.style.transform = 'scale(1)';
+          logo.style.transition = 'opacity 0.5s ease';
+          // Logo 2 Sekunden anzeigen, dann Splash ausblenden
+          setTimeout(hideSplash, 2000);
         }
 
         function renderFrame() {
@@ -1879,13 +1883,11 @@
           var data = imageData.data;
           for (var i = 0; i < data.length; i += 4) {
             var r = data[i], g = data[i + 1], b = data[i + 2];
-            // Detect gray checkerboard pixels: R≈G≈B and within gray range
             var maxC = Math.max(r, g, b);
             var minC = Math.min(r, g, b);
             var saturation = maxC - minC;
-            // Gray pixels with low saturation (checkerboard is neutral gray)
             if (saturation < 30 && r > 50 && r < 220) {
-              data[i + 3] = 0; // Make transparent
+              data[i + 3] = 0;
             }
           }
           ctx.putImageData(imageData, 0, 0);
@@ -1903,9 +1905,11 @@
           });
 
           vid.addEventListener('play', function () {
-            canvas.width = vid.videoWidth || 500;
-            canvas.height = vid.videoHeight || 500;
-            renderFrame();
+            if (!logoShown) {
+              canvas.width = vid.videoWidth || 500;
+              canvas.height = vid.videoHeight || 500;
+              renderFrame();
+            }
           });
 
           vid.addEventListener('loadeddata', function () {
@@ -1913,6 +1917,9 @@
           });
 
           vid.addEventListener('seeked', function () {
+            // Nur beim ersten Seek (Start ab Sekunde 1) abspielen
+            if (initialSeekDone) return;
+            initialSeekDone = true;
             var p = vid.play();
             if (p) p.catch(function () {
               canvas.style.display = 'none';
