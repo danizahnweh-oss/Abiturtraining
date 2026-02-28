@@ -1773,7 +1773,7 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <video class="splash-wave-video" autoplay muted playsinline id="splashVideo">
+      <video class="splash-wave-video" autoplay muted playsinline preload="auto" id="splashVideo">
         <source src="wave-breaking.mp4" type="video/mp4">
       </video>
       <img src="logo-v2.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
@@ -1782,18 +1782,46 @@
       (function () {
         var vid = document.getElementById('splashVideo');
         var logo = document.getElementById('splashLogo');
+        var logoShown = false;
+
+        function showLogo() {
+          if (logoShown) return;
+          logoShown = true;
+          vid.classList.add('fade-out');
+          setTimeout(function () {
+            logo.classList.add('show');
+          }, 600);
+        }
+
         if (vid) {
-          vid.addEventListener('ended', function () {
-            vid.classList.add('fade-out');
-            setTimeout(function () {
-              logo.classList.add('show');
-            }, 600);
-          });
+          // Force muted (some browsers need this set via JS)
+          vid.muted = true;
+          vid.setAttribute('muted', '');
+
+          vid.addEventListener('ended', showLogo);
+
           // Fallback if video fails to load
           vid.addEventListener('error', function () {
             vid.style.display = 'none';
-            logo.classList.add('show');
+            if (!logoShown) { logoShown = true; logo.classList.add('show'); }
           });
+
+          // Try to force play
+          vid.addEventListener('loadeddata', function () {
+            var playPromise = vid.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(function () {
+                // Autoplay blocked – show logo directly
+                vid.style.display = 'none';
+                if (!logoShown) { logoShown = true; logo.classList.add('show'); }
+              });
+            }
+          });
+
+          // Ultimate fallback: if nothing happens after 8s, show logo
+          setTimeout(function () {
+            if (!logoShown) { showLogo(); }
+          }, 8000);
         }
       })();
     </script>
