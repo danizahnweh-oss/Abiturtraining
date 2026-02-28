@@ -14,9 +14,8 @@ function isThinkingText(text: string): boolean {
 
 export const SUBJECTS = [
   'Biologie', 'Chemie', 'Deutsch', 'Englisch', 'Ethik',
-  'Evangelische Religionslehre',
-  'Französisch', 'Geographie', 'Geschichte', 'Informatik',
-  'Italienisch', 'Latein', 'Mathematik', 'Physik',
+  'Evangelische Religionslehre', 'Französisch', 'Geographie', 'Geschichte', 'Informatik',
+  'Italienisch', 'Katholische Religionslehre', 'Latein', 'Mathematik', 'Physik',
   'Politik und Gesellschaft', 'Sport', 'Wirtschaft und Recht'
 ] as const;
 

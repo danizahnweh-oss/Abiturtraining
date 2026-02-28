@@ -175,6 +175,32 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     },
   },
 
+  'Katholische Religionslehre': {
+    // KR12 LB2 = 12/1, LB3 = 12/2; KR13 LB2 = 13/1, LB3 = 13/2
+    halbjahre: {
+      '12/1': [
+        'Schöpfungstheologie: biblische Schöpfungserzählungen, Imago Dei',
+        'Gottesfrage: Gottesbeweise (Thomas v. Aquin), Theodizee',
+        'Religionskritik (Feuerbach, Marx, Nietzsche) und Verhältnis Naturwissenschaft/Glaube',
+      ],
+      '12/2': [
+        'Jesus Christus: historischer Jesus, Reich-Gottes-Botschaft, Gleichnisse',
+        'Christologie: Konzilien (Nizäa, Chalcedon), Inkarnation, Kreuz und Auferstehung',
+        'Nachfolge Jesu und Bedeutung für heutiges Leben',
+      ],
+      '13/1': [
+        'Gewissen und Gewissensbildung, Naturrecht (Thomas v. Aquin)',
+        'Katholische Soziallehre: Subsidiarität, Solidarität, Gemeinwohl, Sozialenzykliken',
+        'Angewandte Ethik: Bioethik (Lebensschutz), Friedensethik, Umweltethik (Laudato si\')',
+      ],
+      '13/2': [
+        'Kirchenverständnis: Vaticanum II (Lumen Gentium, Gaudium et Spes)',
+        'Sakramente, Ökumene (Unitatis Redintegratio) und interreligiöser Dialog (Nostra Aetate)',
+        'Kirche und Staat, Religionsfreiheit (Dignitatis Humanae), Sendungsauftrag',
+      ],
+    },
+  },
+
   'Französisch': {
     // LehrplanPLUS: F12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
     // Themengebiete nach gängiger Schulpraxis gruppiert.

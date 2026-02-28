@@ -487,6 +487,31 @@ export default {
         return await handleModelAnswerAbiturReligion(request, env);
       }
 
+      // ===== KATH. RELIGION ENDPOINTS =====
+      if (pathname === "/api/generate-katholisch" && request.method === "POST") {
+        return await handleGenerateKatholisch(request, env);
+      }
+      if (pathname === "/api/grade-katholisch" && request.method === "POST") {
+        return await handleGradeKatholisch(request, env);
+      }
+      if (pathname === "/api/model-answer-katholisch" && request.method === "POST") {
+        return await handleModelAnswerKatholisch(request, env);
+      }
+      if (pathname === "/api/parse-task-katholisch" && request.method === "POST") {
+        return await handleParseTaskKatholisch(request, env);
+      }
+
+      // ===== KATH. RELIGION ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-katholisch" && request.method === "POST") {
+        return await handleGenerateAbiturKatholisch(request, env);
+      }
+      if (pathname === "/api/grade-abitur-katholisch" && request.method === "POST") {
+        return await handleGradeAbiturKatholisch(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-katholisch" && request.method === "POST") {
+        return await handleModelAnswerAbiturKatholisch(request, env);
+      }
+
       // ===== GEOGRAPHIE ENDPOINTS =====
       if (pathname === "/api/generate-geographie" && request.method === "POST") {
         return await handleGenerateGeographie(request, env);
@@ -4362,6 +4387,468 @@ async function handleModelAnswerAbiturReligion(request, env) {
   const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
+Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben beider Prüfungsteile
+- Verwende theologische Fachbegriffe korrekt
+- Beziehe biblische Texte und theologische Positionen ein
+- Beziehe die Materialien ein und zitiere daraus
+- Formuliere eigenständige, theologisch begründete Urteile
+- Zielumfang: 1200-1800 Wörter insgesamt
+
+Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = "";
+  if (task_instruction_a) userContent += `TEIL A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 8000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= KATH. RELIGION: PARSE TASK (OCR) ================= */
+async function handleParseTaskKatholisch(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Katholische Religionslehre (Bayern). Extrahiere:
+1. Die Aufgabenstellung (task_instruction) - vollständig mit allen Teilaufgaben und BE-Angaben
+2. Den/die Materialtext(e) (primary_text) - vollständig mit allen theologischen Texten, biblischen Quellen, Statistiken
+3. Quellenangaben (primary_meta) - Autor, Quelle, Datum
+
+Antworte NUR mit validem JSON:
+{"task_instruction": "...", "primary_text": "...", "primary_meta": "..."}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
+}
+
+/* ================= KATH. RELIGION: GENERATE ================= */
+async function handleGenerateKatholisch(request, env) {
+  const body = await request.json();
+  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  const bePruefungA = totalBE + " BE";
+
+  const lbThemen = {
+    "12_1": {
+      title: "Mensch und Welt als Schöpfung Gottes",
+      lernbereiche: "LB 12.1 (Mensch und Welt als Schöpfung Gottes) und LB 12.2 (Gottesfrage)",
+      inhalte: `- Schöpfungstheologie: biblische Schöpfungserzählungen (Gen 1-3), Schöpfungsauftrag (dominium terrae)
+- Gottesbild: Gott als Schöpfer, Erhalter und Befreier; Trinität
+- Gottesbeweise: Thomas von Aquin (quinque viae), Anselm von Canterbury (ontologischer Gottesbeweis)${isEA ? '; Pascal (Wette), Rahner (transzendentale Erfahrung)' : ''}
+- Theodizee: Hiob, Leibniz (beste aller Welten), moderne Ansätze (Metz, Sölle)
+- Verhältnis Naturwissenschaft und Glaube: Galilei, Evolutionstheorie, komplementäre Betrachtung
+- Menschenbild: Imago Dei (Gen 1,27), Menschenwürde, Personalität
+- Philosophische Religionskritik: Feuerbach (Projektionsthese)${isEA ? '; Marx (Opium des Volkes), Nietzsche (Tod Gottes), Freud (Vaterfigur)' : '; ggf. weitere Position'}
+- Biblische Anthropologie: Mensch als Geschöpf, Sünde und Erlösung`,
+      schwerpunkte: {
+        schoepfung: "Schöpfungstheologie und Schöpfungsauftrag",
+        gottesbild: "Gottesbild und Gottesbeweise (Thomas v. Aquin)",
+        theodizee: "Theodizee und Leidfrage",
+        naturwissenschaft: "Naturwissenschaft und Glaube",
+        menschenbild: "Menschenbild: Imago Dei und Menschenwürde",
+        religionskritik: "Religionskritik (Feuerbach und weitere Positionen)"
+      }
+    },
+    "12_2": {
+      title: "Jesus Christus – Herausforderung und Orientierung",
+      lernbereiche: "LB 12.3 (Jesus Christus) und LB 12.4 (Nachfolge und Kirche)",
+      inhalte: `- Der historische Jesus: Leben, Wirken, Botschaft vom Reich Gottes
+- Gleichnisse und Bergpredigt: ethische Forderungen, Seligpreisungen
+- Wundererzählungen: Deutung und theologische Bedeutung
+- Kreuzestod und Auferstehung: Heilsbedeutung, soteriologische Modelle
+- Christologie: Konzilien von Nizäa (325) und Chalcedon (451), wahrer Gott und wahrer Mensch
+- Inkarnation: Bedeutung der Menschwerdung Gottes
+${isEA ? '- Christologische Hoheitstitel: Messias, Sohn Gottes, Kyrios, Menschensohn' : ''}
+- Nachfolge Jesu: Bedeutung für heutiges Leben und Handeln
+- Jesusbilder in Kunst, Literatur und Medien`,
+      schwerpunkte: {
+        historischer_jesus: "Der historische Jesus und seine Botschaft",
+        christologie: "Christologie: Nizäa und Chalcedon",
+        kreuz: "Kreuzestheologie und Erlösung",
+        auferstehung: "Auferstehung und Osterglaube",
+        nachfolge: "Nachfolge und Reich Gottes",
+        gleichnisse: "Gleichnisse und Bergpredigt"
+      }
+    },
+    "13_1": {
+      title: "Verantwortlich handeln – Orientierung an der christlichen Ethik",
+      lernbereiche: "LB 13.1 (Christliche Ethik) und LB 13.2 (Angewandte Ethik)",
+      inhalte: `- Gewissen: Gewissensbildung, Gewissensfreiheit, Gewissensentscheidung
+- Naturrecht: Thomas von Aquin (lex naturalis), Vernunft und Sittlichkeit
+- Katholische Soziallehre: Subsidiarität, Solidarität, Gemeinwohl, Personalität
+- Sozialenzykliken: Rerum novarum, Quadragesimo anno, Laudato si'
+- Ethische Modelle: Kant (Kategorischer Imperativ), Utilitarismus${isEA ? ', Diskursethik (Habermas), Tugendethik (Aristoteles)' : ''}
+- Christliche Ethik: Dekalog, Doppelgebot der Liebe, Bergpredigt
+- Bioethik: Lebensschutz, Schwangerschaftsabbruch, Sterbehilfe, Organspende
+- Friedensethik: bellum iustum, gewaltfreie Alternativen, Friedensenzykliken
+${isEA ? '- Umweltethik: Bewahrung der Schöpfung, Laudato si, ökologische Verantwortung' : ''}`,
+      schwerpunkte: {
+        gewissen: "Gewissen und Gewissensbildung",
+        naturrecht: "Naturrecht und Kath. Soziallehre",
+        sozialprinzipien: "Sozialprinzipien (Subsidiarität, Solidarität, Gemeinwohl)",
+        bioethik: "Bioethik (Lebensschutz, Sterbehilfe)",
+        friedensethik: "Friedensethik und gerechter Krieg"
+      }
+    },
+    "13_2": {
+      title: "Kirche in der Welt von heute",
+      lernbereiche: "LB 13.3 (Kirche in der Welt von heute) und LB 13.4 (Interreligiöser Dialog)",
+      inhalte: `- Kirchenverständnis: Volk Gottes, Leib Christi, Sakrament des Heils (Lumen Gentium)
+- Zweites Vatikanisches Konzil (1962-1965): Erneuerung und Öffnung, Gaudium et Spes
+- Sakramente: Taufe, Eucharistie, Firmung und ihre theologische Bedeutung
+- Kirche und Staat: Religionsfreiheit (Dignitatis Humanae), Verhältnis zu weltlicher Ordnung
+- Ökumene: Dialog mit anderen christlichen Konfessionen, Unitatis Redintegratio
+- Interreligiöser Dialog: Nostra Aetate, Verhältnis zu Judentum, Islam und Weltreligionen
+${isEA ? '- Kirchengeschichte: Reformation, Gegenreformation, Aufklärung, Modernismuskrise' : ''}
+- Kirche und aktuelle Herausforderungen: Glaubwürdigkeit, Missbrauchsaufarbeitung, Synodalität
+- Sendungsauftrag: Mission, Caritas, Weltverantwortung`,
+      schwerpunkte: {
+        kirchenbild: "Kirchenverständnis (Vaticanum II, Lumen Gentium)",
+        sakramente: "Sakramente und Liturgie",
+        oekumene: "Ökumene und interreligiöser Dialog",
+        kirche_staat: "Kirche und Staat, Religionsfreiheit"
+      }
+    }
+  };
+
+  const lb = lbThemen[lernbereich] || lbThemen["12_1"];
+  const schwerpunktLabel = (schwerpunkt && schwerpunkt !== "random" && lb.schwerpunkte[schwerpunkt])
+    ? lb.schwerpunkte[schwerpunkt]
+    : "frei wählbar innerhalb des Lernbereichs";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Katholische Religionslehre (ab 2026, G9).
+Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+
+STRUKTUR DER AUFGABE:
+- Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
+- Teilaufgabe 1: Anforderungsbereich I (Reproduktion) – z.B. "Stellen Sie … dar!", "Beschreiben Sie …"
+- Teilaufgaben 2-3: Anforderungsbereich II (Transfer/Reorganisation) – z.B. "Erläutern Sie …", "Vergleichen Sie …", "Herausarbeiten Sie …"
+- Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Beurteilen Sie …", "Nehmen Sie Stellung …", "Gestalten Sie …"
+- Verwende die offiziellen Operatoren: darstellen, beschreiben, zusammenfassen, wiedergeben, erläutern, analysieren, vergleichen, herausarbeiten, einordnen, erörtern, beurteilen, bewerten, Stellung nehmen, gestalten
+- Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
+
+MATERIALIEN:
+- Erstelle 2-3 realistische Materialien (theologische Texte, biblische Quellen, kirchliche Dokumente (Konzilstexte, Enzykliken), philosophische Auszüge, Zeitungsartikel zu religiösen/ethischen Themen)
+- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
+- Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
+  - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
+
+LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
+Lernbereiche: ${lb.lernbereiche}
+Relevante Inhalte:
+${lb.inhalte}
+
+SITUIERUNG:
+- Bette die Aufgabe in einen theologisch relevanten Kontext ein (z.B. ethische Debatte, gesellschaftliche Frage mit religiöser Dimension, biblische Thematik, kirchengeschichtliches Ereignis)
+
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern.
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Konzepten, die in den oben angegebenen Lernbereichen stehen.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte.` : ""}
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
+  "materials": [
+    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
+    {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
+    {"title": "Schaubild: ...", "type": "bild", "content": "Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Alle Texte IM BILD auf DEUTSCH!", "source": ""}
+  ],
+  "lernbereich": "${lernbereich || "12_1"}",
+  "thema": "Konkretes Thema der Aufgabe"
+}`;
+
+  const userPrompt = `Erstelle eine Prüfungsaufgabe (Prüfungsteil A) für Katholische Religionslehre:
+- Lernbereich: ${lernbereich?.replace("_", "/") || "12/1"}
+- Schwerpunkt: ${schwerpunktLabel}
+- Niveau: ${niveauLabel}
+
+Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
+Erstelle 2-3 passende Materialien (theologische Texte, biblische Quellen, Statistiken, plus 1 Bild).
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein!
+Summe der BE für Prüfungsteil A: ${bePruefungA}.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= KATH. RELIGION: GRADE ================= */
+async function handleGradeKatholisch(request, env) {
+  const body = await request.json();
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+
+  if (primary_text) {
+    contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  }
+
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = KORREKTUR_SINGLE;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const verstehen = parsed.verstehen_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && verstehen != null && darstellung != null) {
+      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
+      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { verstehen, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { verstehen: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= KATH. RELIGION: MODEL ANSWER ================= */
+async function handleModelAnswerKatholisch(request, env) {
+  const { task_instruction, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Katholische Religionslehre (Leistungsfach).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben der Aufgabenstellung
+- Verwende theologische Fachbegriffe korrekt (z.B. Theodizee, Trinität, Rechtfertigung, Sünde, Gnade, Zwei-Reiche-Lehre, Eschatologie, Königsherrschaft Christi)
+- Beziehe biblische Texte und theologische Positionen ein
+- Beziehe das Material ein und zitiere daraus
+- Beachte die Operatoren und Anforderungsbereiche
+- Formuliere bei Reflexionsaufgaben ein eigenständiges, theologisch begründetes Urteil
+- Zielumfang: 800-1200 Wörter
+
+Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
+  if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
+  if (materials && materials.length) {
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 5000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= KATH. RELIGION ABITUR: GENERATE (Teil A + B) ================= */
+async function handleGenerateAbiturKatholisch(request, env) {
+  const body = await request.json();
+  const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
+  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const bePruefungB = isEA ? "35 BE" : "25 BE";
+  const beGesamt = isEA ? "120 BE" : "100 BE";
+
+  const lbThemen = {
+    "12_1": { title: "Mensch und Welt als Schöpfung Gottes", lernbereiche: "LB 12.1 und LB 12.2",
+      inhalte: `- Schöpfungstheologie, Gottesbild (Trinität), Gottesbeweise (Thomas v. Aquin)
+- Theodizee, Naturwissenschaft und Glaube, Menschenbild (Imago Dei), Religionskritik` },
+    "12_2": { title: "Jesus Christus – Herausforderung und Orientierung", lernbereiche: "LB 12.3 und LB 12.4",
+      inhalte: `- Historischer Jesus, Gleichnisse und Bergpredigt, Christologie (Nizäa, Chalcedon)
+- Kreuzestod und Auferstehung, Nachfolge Jesu` },
+    "13_1": { title: "Verantwortlich handeln – Orientierung an der christlichen Ethik", lernbereiche: "LB 13.1 und LB 13.2",
+      inhalte: `- Gewissen, Naturrecht (Thomas v. Aquin), Kath. Soziallehre (Subsidiarität, Solidarität)
+- Ethische Modelle (Kant, Utilitarismus), Bioethik, Friedensethik` },
+    "13_2": { title: "Kirche in der Welt von heute", lernbereiche: "LB 13.3 und LB 13.4",
+      inhalte: `- Kirchenverständnis (Vaticanum II, Lumen Gentium), Sakramente
+- Ökumene, interreligiöser Dialog (Nostra Aetate), Kirche und Staat` }
+  };
+
+  const lb = lbThemen[lernbereich] || lbThemen["12_1"];
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Katholische Religionslehre (ab 2026, G9).
+Erstelle eine vollständige Abiturprüfung (Teil A + Teil B) auf ${niveauLabel}.
+${zeitHinweis}
+
+PRÜFUNGSSTRUKTUR:
+- Prüfungsteil A: ${bePruefungA} – 3-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau (AFB I → II → III)
+- Prüfungsteil B (Ausweitung): ${bePruefungB} – 1-2 Transferaufgaben OHNE zusätzliche Materialien, die über den Lernbereich von Teil A hinausgehen
+- Gesamt: ${beGesamt}
+
+TEIL A – LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
+${lb.inhalte}
+
+MATERIALIEN für Teil A:
+- 2-3 Materialien (theologische/biblische Texte, kirchliche Dokumente, Statistiken, plus 1 Bild)
+- Textmaterialien MINDESTENS 400-800 Wörter
+
+TEIL B – AUSWEITUNG:
+- Geht thematisch ÜBER den Lernbereich von Teil A hinaus
+- Verknüpft mit einem ANDEREN Lernbereich der Kath. Religionslehre
+- Erfordert Transfer und eigenständige theologische Reflexion
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a": {
+    "task_instruction": "Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
+    "materials": [
+      {"title": "...", "type": "text", "content": "400-800 Wörter", "source": "..."},
+      {"title": "Schaubild: ...", "type": "bild", "content": "Imagen-Prompt auf Englisch, Texte im Bild auf Deutsch!", "source": ""}
+    ]
+  },
+  "teil_b": {
+    "task_instruction": "Aufgabenstellung Teil B (Ausweitung) mit BE"
+  },
+  "lernbereich": "${lernbereich || "12_1"}",
+  "thema": "Thema"
+}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: `Erstelle eine vollständige Abiturprüfung für Kath. Religionslehre, Lernbereich ${lernbereich?.replace("_", "/") || "12/1"}, ${niveauLabel}.` }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= KATH. RELIGION ABITUR: GRADE ================= */
+async function handleGradeAbiturKatholisch(request, env) {
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+
+  if ((!student_text_a && !student_text_b) || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = "";
+  if (task_instruction_a) contextInfo += `Aufgabenstellung Teil A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = KORREKTUR_ABITUR;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const teil_a = parsed.teil_a_np ?? null;
+    const teil_b = parsed.teil_b_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
+      gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);
+    }
+
+    return jsonResponse({
+      scores: { teil_a, teil_b, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text_a: parsed.korrektur_text_a || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text_a: "", korrektur_text_b: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= KATH. RELIGION ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturKatholisch(request, env) {
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Katholische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
 
 WICHTIG – FLIEẞTEXT-PFLICHT:
