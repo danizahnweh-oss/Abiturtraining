@@ -1289,7 +1289,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: splash-fade-out .5s ease 4.8s forwards
+      animation: splash-fade-out .6s ease 6.5s forwards
     }
 
     [data-theme="dark"] #splash {
@@ -1299,35 +1299,50 @@
     .splash-content {
       position: relative;
       width: 600px;
-      height: 300px;
+      height: 400px;
       display: flex;
       align-items: center;
       justify-content: center
     }
 
-    .splash-wave {
+    .splash-wave-video {
       position: absolute;
-      width: 480px;
-      /* Larger for 'breaking' effect */
+      width: 500px;
       height: auto;
       opacity: 0;
-      filter: drop-shadow(0 0 20px rgba(0, 102, 204, 0.4));
-      animation:
-        wave-pulse 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
-        wave-float 3s ease-in-out 1.5s infinite,
-        wave-shrink 0.8s ease-in 4.5s forwards;
+      filter: drop-shadow(0 0 25px rgba(0, 102, 204, 0.4));
+      animation: wave-video-in 1s ease-out forwards;
+    }
+
+    .splash-wave-video.fade-out {
+      animation: wave-shrink 0.8s ease-in forwards;
     }
 
     .splash-logo {
       position: absolute;
       max-width: 900px;
-      /* ~3x larger than original */
       height: auto;
       opacity: 0;
       visibility: hidden;
       filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
-      animation: logo-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) 5s forwards;
       transform-origin: center;
+      /* Triggered by JS after video ends */
+    }
+
+    .splash-logo.show {
+      animation: logo-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes wave-video-in {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     @keyframes wave-break {
@@ -1758,9 +1773,30 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <img src="wave-icon-v7.png" class="splash-wave" alt="">
-      <img src="logo-v2.png" class="splash-logo" alt="myAbiFlow Logo">
+      <video class="splash-wave-video" autoplay muted playsinline id="splashVideo">
+        <source src="wave-breaking.mp4" type="video/mp4">
+      </video>
+      <img src="logo-v2.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
+    <script>
+      (function () {
+        var vid = document.getElementById('splashVideo');
+        var logo = document.getElementById('splashLogo');
+        if (vid) {
+          vid.addEventListener('ended', function () {
+            vid.classList.add('fade-out');
+            setTimeout(function () {
+              logo.classList.add('show');
+            }, 600);
+          });
+          // Fallback if video fails to load
+          vid.addEventListener('error', function () {
+            vid.style.display = 'none';
+            logo.classList.add('show');
+          });
+        }
+      })();
+    </script>
   </div>
 
   <!-- ====== LOGIN SCREEN ====== -->
