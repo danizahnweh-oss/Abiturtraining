@@ -1834,7 +1834,7 @@
     <div class="splash-content">
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
       <video id="splashVideo" autoplay muted playsinline preload="auto" style="display:none">
-        <source src="wave-breaking.mp4" type="video/mp4">
+        <source src="weiß.mp4" type="video/mp4">
       </video>
       <img src="logo-v2.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
@@ -1897,6 +1897,10 @@
           });
 
           vid.addEventListener('loadeddata', function () {
+            vid.currentTime = 1;
+          });
+
+          vid.addEventListener('seeked', function () {
             var p = vid.play();
             if (p) p.catch(function () {
               canvas.style.display = 'none';
