@@ -14,9 +14,10 @@ function isThinkingText(text: string): boolean {
 
 export const SUBJECTS = [
   'Biologie', 'Chemie', 'Deutsch', 'Englisch', 'Ethik',
-  'Französisch', 'Geographie', 'Geschichte', 'Italienisch',
-  'Latein', 'Mathematik', 'Physik', 'Politik und Gesellschaft',
-  'Wirtschaft und Recht'
+  'Evangelische Religionslehre',
+  'Französisch', 'Geographie', 'Geschichte', 'Informatik',
+  'Italienisch', 'Latein', 'Mathematik', 'Physik',
+  'Politik und Gesellschaft', 'Sport', 'Wirtschaft und Recht'
 ] as const;
 
 export type ExamLevel = 'gA' | 'eA';

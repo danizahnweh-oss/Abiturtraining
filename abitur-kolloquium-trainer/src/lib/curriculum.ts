@@ -435,6 +435,33 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
     },
   },
+
+  'Informatik': {
+    // LehrplanPLUS Informatik (G9): LB 1 Algorithmen/Datenstrukturen = 12/1, LB 2 OOP = 12/2,
+    // LB 3 Datenbanken/Rechnernetze = 13/1, LB 4 Formale Sprachen/Softwareentwicklung = 13/2
+    halbjahre: {
+      '12/1': [
+        'Algorithmen und Datenstrukturen: Sortier- und Suchalgorithmen, Laufzeitanalyse (O-Notation)',
+        'Abstrakte Datentypen: Liste, Stapel, Schlange und deren Implementierung',
+        'Rekursion und rekursive Datenstrukturen (Bäume, Graphen)',
+      ],
+      '12/2': [
+        'Objektorientierte Modellierung: Klassen, Objekte, Kapselung und UML-Klassendiagramme',
+        'Vererbung, Polymorphie und abstrakte Klassen/Interfaces',
+        'Softwareentwurf: Entwurfsmuster und Modellierung mit UML',
+      ],
+      '13/1': [
+        'Datenbanksysteme: ER-Modell, relationales Modell und Normalisierung',
+        'SQL: Datenabfrage, Datenmanipulation und Aggregation',
+        'Rechnernetze: Schichtenmodelle, Protokolle und IT-Sicherheit (Verschlüsselung)',
+      ],
+      '13/2': [
+        'Formale Sprachen: Reguläre Ausdrücke und Grammatiken (Chomsky-Hierarchie)',
+        'Endliche Automaten und Kellerautomaten',
+        'Softwareentwicklung: Vorgehensmodelle, Testen und Softwarequalität',
+      ],
+    },
+  },
 };
 
 /** Returns the available Halbjahre after striking one */

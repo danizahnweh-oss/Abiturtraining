@@ -462,6 +462,31 @@ export default {
         return await handleModelAnswerAbiturEthik(request, env);
       }
 
+      // ===== EV. RELIGION ENDPOINTS =====
+      if (pathname === "/api/generate-religion" && request.method === "POST") {
+        return await handleGenerateReligion(request, env);
+      }
+      if (pathname === "/api/grade-religion" && request.method === "POST") {
+        return await handleGradeReligion(request, env);
+      }
+      if (pathname === "/api/model-answer-religion" && request.method === "POST") {
+        return await handleModelAnswerReligion(request, env);
+      }
+      if (pathname === "/api/parse-task-religion" && request.method === "POST") {
+        return await handleParseTaskReligion(request, env);
+      }
+
+      // ===== EV. RELIGION ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-religion" && request.method === "POST") {
+        return await handleGenerateAbiturReligion(request, env);
+      }
+      if (pathname === "/api/grade-abitur-religion" && request.method === "POST") {
+        return await handleGradeAbiturReligion(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-religion" && request.method === "POST") {
+        return await handleModelAnswerAbiturReligion(request, env);
+      }
+
       // ===== GEOGRAPHIE ENDPOINTS =====
       if (pathname === "/api/generate-geographie" && request.method === "POST") {
         return await handleGenerateGeographie(request, env);
@@ -577,6 +602,45 @@ export default {
       }
       if (pathname === "/api/parse-task-bio" && request.method === "POST") {
         return await handleParseTaskBio(request, env);
+      }
+
+      // ===== SPORT ENDPOINTS =====
+      if (pathname === "/api/generate-sport" && request.method === "POST") {
+        return await handleGenerateSport(request, env);
+      }
+      if (pathname === "/api/grade-sport" && request.method === "POST") {
+        return await handleGradeSport(request, env);
+      }
+      if (pathname === "/api/model-answer-sport" && request.method === "POST") {
+        return await handleModelAnswerSport(request, env);
+      }
+      if (pathname === "/api/parse-task-sport" && request.method === "POST") {
+        return await handleParseTaskSport(request, env);
+      }
+
+      // ===== SPORT ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-sport" && request.method === "POST") {
+        return await handleGenerateAbiturSport(request, env);
+      }
+      if (pathname === "/api/grade-abitur-sport" && request.method === "POST") {
+        return await handleGradeAbiturSport(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-sport" && request.method === "POST") {
+        return await handleModelAnswerAbiturSport(request, env);
+      }
+
+      // ===== INFORMATIK ENDPOINTS =====
+      if (pathname === "/api/generate-informatik" && request.method === "POST") {
+        return await handleGenerateInformatik(request, env);
+      }
+      if (pathname === "/api/grade-informatik" && request.method === "POST") {
+        return await handleGradeInformatik(request, env);
+      }
+      if (pathname === "/api/model-answer-informatik" && request.method === "POST") {
+        return await handleModelAnswerInformatik(request, env);
+      }
+      if (pathname === "/api/parse-task-informatik" && request.method === "POST") {
+        return await handleParseTaskInformatik(request, env);
       }
 
       // ===== CHEMIE ABITUR ENDPOINTS =====
@@ -3870,6 +3934,467 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   return jsonResponse({ model_answer: answer }, 200, env);
 }
 
+/* ================= EV. RELIGION: PARSE TASK (OCR) ================= */
+async function handleParseTaskReligion(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Evangelische Religionslehre (Bayern). Extrahiere:
+1. Die Aufgabenstellung (task_instruction) - vollständig mit allen Teilaufgaben und BE-Angaben
+2. Den/die Materialtext(e) (primary_text) - vollständig mit allen theologischen Texten, biblischen Quellen, Statistiken
+3. Quellenangaben (primary_meta) - Autor, Quelle, Datum
+
+Antworte NUR mit validem JSON:
+{"task_instruction": "...", "primary_text": "...", "primary_meta": "..."}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
+}
+
+/* ================= EV. RELIGION: GENERATE ================= */
+async function handleGenerateReligion(request, env) {
+  const body = await request.json();
+  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const totalBE = be || 60;
+  const zeitMinuten = zeit || 90;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  const bePruefungA = totalBE + " BE";
+
+  const lbThemen = {
+    "12_1": {
+      title: "Sinnfrage und Gottesfrage / Der im-perfekte Mensch",
+      lernbereiche: "LB 12.1 (Sinnfrage und Gottesfrage) und LB 12.2 (Der im-perfekte Mensch)",
+      inhalte: `- Sinnfragen in Kultur und Gesellschaft, Zusammenhang Sinn- und Transzendenzvorstellungen
+- Gottesfrage als existenzielle Frage: Luther (Deus absconditus), Schleiermacher (Gefühl schlechthinniger Abhängigkeit), Tillich (Gott als Grund des Seins)${isEA ? '; ggf. Barth (Offenbarungstheologie)' : ''}
+- Beziehung Gottes zu den Menschen in der Bibel: Schöpfer, Befreier, Unverfügbarkeit, Menschwerdung, Passion, Auferstehung
+- Verhältnis von Allmacht und Liebe Gottes: Luther (Kreuzestheologie), Bonhoeffer (ohnmächtiger Gott), Dalferth
+- Theodizeefrage: Hiob, Leibniz (beste aller möglichen Welten), zeitgenössische Theologie
+- Trinitätsvorstellung (Apostolisches Glaubensbekenntnis)
+- Philosophische Religionskritik: Feuerbachs Projektionstheorie${isEA ? '; Marx (Opium des Volkes), Nietzsche (Tod Gottes), Freud (Illusion)' : '; ggf. weitere Position'}
+- Menschenbild: Perfektion vs. Fragmentarität, Identität und Selbstkonzept
+- Sünde und Gnade: Gen 1-11, Lk 15, Röm 3,21ff., Röm 7
+- Rechtfertigung als Befreiung vom Perfektionszwang`,
+      schwerpunkte: {
+        gottesfrage: "Sinnfrage und Gottesfrage (Luther, Schleiermacher, Tillich)",
+        theodizee: "Theodizee: Hiob, Leibniz und moderne Theologie",
+        religionskritik: "Religionskritik: Feuerbach und weitere Positionen",
+        trinitaet: "Trinität und christliches Gottesverständnis",
+        anthropologie: "Menschenbild: Identität, Perfektion und Fragmentarität",
+        suende: "Sünde, Vergebung und Rechtfertigung"
+      }
+    },
+    "12_2": {
+      title: "Homo faber / Christsein in der Gesellschaft",
+      lernbereiche: "LB 12.3 (Homo faber) und LB 12.4 (Christsein in der Gesellschaft)",
+      inhalte: `- Mensch als gestaltendes Wesen: philosophische Anthropologie
+- Schöpfungsglaube: Mensch als Ebenbild Gottes, Weltgestaltungsauftrag, Sabbatruhe
+- Luthers Auslegung zum 1. Artikel, Freiheit eines Christenmenschen
+- Arbeit und Beruf: Luther (Berufung), Marx (Entfremdung), moderne Deutungen
+- Aktuelle Arbeitswelt: Digitalisierung, Globalisierung, Gerechtigkeit
+- Mensch als zoon politikon: Hobbes, Rousseau${isEA ? ', Arendt' : ''}
+- Kirche in der Gesellschaft: Wahrnehmungen, Erwartungen, konziliarer Prozess
+- Sozialethik: Schöpfungsbegründete Menschenwürde, Gerechtigkeit (AT-Prophetie)
+- Theologische Modelle: Luthers Zwei-Reiche-Lehre, Barths Königsherrschaft Christi
+${isEA ? '- Bonhoeffer (Kirche vor der Judenfrage), Befreiungstheologie, Öffentliche Theologie' : ''}`,
+      schwerpunkte: {
+        homo_faber: "Homo faber: Arbeit und Beruf (Luther, Marx)",
+        schoepfung: "Schöpfungsglaube und Weltgestaltungsauftrag",
+        freiheit: "Freiheit eines Christenmenschen (Luther)",
+        kirche: "Kirche in der Gesellschaft",
+        sozialethik: "Sozialethik: Zwei-Reiche-Lehre und Königsherrschaft Christi",
+        politikon: "Mensch als zoon politikon"
+      }
+    },
+    "13_1": {
+      title: "Ethik: Gutes Leben und richtiges Handeln",
+      lernbereiche: "LB 13.1 (Gutes Leben und richtiges Handeln) und LB 13.2 (Ethische Problemstellungen)",
+      inhalte: `- Vorstellungen von gutem Leben, ethische Grundbegriffe
+- Argumentationsmodelle: Situations-, Gesinnungs-, Verantwortungs-, Tugendethik
+- Ethik Kants (Kategorischer Imperativ), Utilitarismus (Bentham, Mill)${isEA ? ', Diskursethik (Habermas), Theorie der Gerechtigkeit (Rawls)' : ''}
+- Christliche Ethik: Rechtfertigungsglaube, Dekalog, Bergpredigt, Doppelgebot der Liebe
+- Angewandte Ethik: Medizin-, Friedens-, Tier-, Wirtschafts-, Umwelt-, Medienethik
+- Differenziertes ethisches Argumentieren: Konflikte, Perspektiven
+- Theologische und nicht-theologische Beiträge im Gespräch`,
+      schwerpunkte: {
+        ethische_modelle: "Ethische Grundmodelle (Kant, Utilitarismus)",
+        christliche_ethik: "Christliche Ethik: Dekalog, Bergpredigt, Doppelgebot der Liebe",
+        angewandte_ethik: "Angewandte Ethik (Medizin-/Friedens-/Umweltethik)",
+        argumentation: "Ethische Argumentationsmodelle",
+        gutes_leben: "Vorstellungen vom guten Leben"
+      }
+    },
+    "13_2": {
+      title: "Christliche Hoffnungsbilder",
+      lernbereiche: "LB 13.3 (Christliche Hoffnungsbilder – Eschatologie)",
+      inhalte: `- Übergangssituation: Erwartungen, Hoffnungen, Ängste
+- Zukunftsvisionen: Fortschrittsoptimismus vs. apokalyptische Szenarien
+- Begrenztheit und Endlichkeit des Lebens, Tod und Trauer
+- Vorstellungen vom Überwinden des Todes: Reinkarnation, Transhumanismus
+- Christliche Hoffnungsbilder: Prophetische Visionen, Reich Gottes, Auferweckung Jesu
+- Gericht als Durchsetzung von Gottes Gerechtigkeit, ewiges Leben
+- Biblische Texte: 1 Kor 15, Offb 21f., Apostolisches Glaubensbekenntnis${isEA ? ', Jes 65, Reich-Gottes-Gleichnisse' : ''}`,
+      schwerpunkte: {
+        eschatologie: "Eschatologie und Reich Gottes",
+        tod: "Tod, Endlichkeit und Auferstehung",
+        hoffnung: "Christliche Hoffnungsbilder (prophetische Visionen, 1 Kor 15)",
+        zukunft: "Zukunftsvisionen und Lebenssinn"
+      }
+    }
+  };
+
+  const lb = lbThemen[lernbereich] || lbThemen["12_1"];
+  const schwerpunktLabel = (schwerpunkt && schwerpunkt !== "random" && lb.schwerpunkte[schwerpunkt])
+    ? lb.schwerpunkte[schwerpunkt]
+    : "frei wählbar innerhalb des Lernbereichs";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Evangelische Religionslehre (ab 2026, G9).
+Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
+
+KLAUSUR-PARAMETER:
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
+- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
+- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+
+STRUKTUR DER AUFGABE:
+- Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
+- Teilaufgabe 1: Anforderungsbereich I (Reproduktion) – z.B. "Stellen Sie … dar!", "Beschreiben Sie …"
+- Teilaufgaben 2-3: Anforderungsbereich II (Transfer/Reorganisation) – z.B. "Erläutern Sie …", "Vergleichen Sie …", "Herausarbeiten Sie …"
+- Letzte Teilaufgabe: Anforderungsbereich III (Reflexion/Problemlösung) – z.B. "Erörtern Sie …", "Beurteilen Sie …", "Nehmen Sie Stellung …", "Gestalten Sie …"
+- Verwende die offiziellen Operatoren: darstellen, beschreiben, zusammenfassen, wiedergeben, erläutern, analysieren, vergleichen, herausarbeiten, einordnen, erörtern, beurteilen, bewerten, Stellung nehmen, gestalten
+- Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
+
+MATERIALIEN:
+- Erstelle 2-3 realistische Materialien (theologische Texte, biblische Quellen, philosophische Auszüge, Zeitungsartikel zu religiösen/ethischen Themen)
+- Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
+- Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
+- Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
+- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
+  - type "bild": content = Ausführlicher Imagen-Prompt auf Englisch (mind. 3-5 Sätze). REGELN: (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein! In Anführungszeichen "" angeben und EXAKT beschreiben wo sie platziert werden. (2) KEINE Rechtschreibfehler — jedes deutsche Wort muss korrekt sein! (3) Layout, Farben, Stil und visuelle Elemente detailliert beschreiben. KEINE Personen!
+  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
+
+LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
+Lernbereiche: ${lb.lernbereiche}
+Relevante Inhalte:
+${lb.inhalte}
+
+SITUIERUNG:
+- Bette die Aufgabe in einen theologisch relevanten Kontext ein (z.B. ethische Debatte, gesellschaftliche Frage mit religiöser Dimension, biblische Thematik, kirchengeschichtliches Ereignis)
+
+KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern.
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Konzepten, die in den oben angegebenen Lernbereichen stehen.
+${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte.` : ""}
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "task_instruction": "Vollständige Aufgabenstellung mit allen Teilaufgaben, BE-Angaben und Materialverweisen",
+  "materials": [
+    {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
+    {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
+    {"title": "Schaubild: ...", "type": "bild", "content": "Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Alle Texte IM BILD auf DEUTSCH!", "source": ""}
+  ],
+  "lernbereich": "${lernbereich || "12_1"}",
+  "thema": "Konkretes Thema der Aufgabe"
+}`;
+
+  const userPrompt = `Erstelle eine Prüfungsaufgabe (Prüfungsteil A) für Evangelische Religionslehre:
+- Lernbereich: ${lernbereich?.replace("_", "/") || "12/1"}
+- Schwerpunkt: ${schwerpunktLabel}
+- Niveau: ${niveauLabel}
+
+Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
+Erstelle 2-3 passende Materialien (theologische Texte, biblische Quellen, Statistiken, plus 1 Bild).
+KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein!
+Summe der BE für Prüfungsteil A: ${bePruefungA}.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= EV. RELIGION: GRADE ================= */
+async function handleGradeReligion(request, env) {
+  const body = await request.json();
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+
+  if (primary_text) {
+    contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  }
+
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = KORREKTUR_SINGLE;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const verstehen = parsed.verstehen_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && verstehen != null && darstellung != null) {
+      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
+      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { verstehen, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { verstehen: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= EV. RELIGION: MODEL ANSWER ================= */
+async function handleModelAnswerReligion(request, env) {
+  const { task_instruction, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
+Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben der Aufgabenstellung
+- Verwende theologische Fachbegriffe korrekt (z.B. Theodizee, Trinität, Rechtfertigung, Sünde, Gnade, Zwei-Reiche-Lehre, Eschatologie, Königsherrschaft Christi)
+- Beziehe biblische Texte und theologische Positionen ein
+- Beziehe das Material ein und zitiere daraus
+- Beachte die Operatoren und Anforderungsbereiche
+- Formuliere bei Reflexionsaufgaben ein eigenständiges, theologisch begründetes Urteil
+- Zielumfang: 800-1200 Wörter
+
+Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
+  if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
+  if (materials && materials.length) {
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 5000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= EV. RELIGION ABITUR: GENERATE (Teil A + B) ================= */
+async function handleGenerateAbiturReligion(request, env) {
+  const body = await request.json();
+  const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
+
+  const isEA = (level || "eA").toLowerCase() === "ea";
+  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+  const refZeit = isEA ? 270 : 210;
+  const refBE = isEA ? 120 : 100;
+  const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
+  const bePruefungA = isEA ? "85 BE" : "75 BE";
+  const bePruefungB = isEA ? "35 BE" : "25 BE";
+  const beGesamt = isEA ? "120 BE" : "100 BE";
+
+  const lbThemen = {
+    "12_1": { title: "Sinnfrage und Gottesfrage / Der im-perfekte Mensch", lernbereiche: "LB 12.1 und LB 12.2",
+      inhalte: `- Gottesfrage, Theodizee, Trinität, Religionskritik (Feuerbach)
+- Menschenbild: Identität, Fragmentarität, Sünde und Rechtfertigung` },
+    "12_2": { title: "Homo faber / Christsein in der Gesellschaft", lernbereiche: "LB 12.3 und LB 12.4",
+      inhalte: `- Schöpfungsglaube, Arbeit und Beruf (Luther, Marx), Freiheit eines Christenmenschen
+- Kirche in der Gesellschaft, Sozialethik, Zwei-Reiche-Lehre` },
+    "13_1": { title: "Ethik: Gutes Leben und richtiges Handeln", lernbereiche: "LB 13.1 und LB 13.2",
+      inhalte: `- Ethische Grundmodelle (Kant, Utilitarismus), christliche Ethik (Dekalog, Bergpredigt)
+- Angewandte Ethik, ethische Argumentationsmodelle` },
+    "13_2": { title: "Christliche Hoffnungsbilder", lernbereiche: "LB 13.3",
+      inhalte: `- Eschatologie, Reich Gottes, Tod und Auferstehung
+- Zukunftsvisionen, christliche Hoffnungsbilder (1 Kor 15, Offb 21f.)` }
+  };
+
+  const lb = lbThemen[lernbereich] || lbThemen["12_1"];
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Evangelische Religionslehre (ab 2026, G9).
+Erstelle eine vollständige Abiturprüfung (Teil A + Teil B) auf ${niveauLabel}.
+${zeitHinweis}
+
+PRÜFUNGSSTRUKTUR:
+- Prüfungsteil A: ${bePruefungA} – 3-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau (AFB I → II → III)
+- Prüfungsteil B (Ausweitung): ${bePruefungB} – 1-2 Transferaufgaben OHNE zusätzliche Materialien, die über den Lernbereich von Teil A hinausgehen
+- Gesamt: ${beGesamt}
+
+TEIL A – LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
+${lb.inhalte}
+
+MATERIALIEN für Teil A:
+- 2-3 Materialien (theologische/biblische Texte, Statistiken, plus 1 Bild)
+- Textmaterialien MINDESTENS 400-800 Wörter
+
+TEIL B – AUSWEITUNG:
+- Geht thematisch ÜBER den Lernbereich von Teil A hinaus
+- Verknüpft mit einem ANDEREN Lernbereich der Ev. Religionslehre
+- Erfordert Transfer und eigenständige theologische Reflexion
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a": {
+    "task_instruction": "Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
+    "materials": [
+      {"title": "...", "type": "text", "content": "400-800 Wörter", "source": "..."},
+      {"title": "Schaubild: ...", "type": "bild", "content": "Imagen-Prompt auf Englisch, Texte im Bild auf Deutsch!", "source": ""}
+    ]
+  },
+  "teil_b": {
+    "task_instruction": "Aufgabenstellung Teil B (Ausweitung) mit BE"
+  },
+  "lernbereich": "${lernbereich || "12_1"}",
+  "thema": "Thema"
+}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: `Erstelle eine vollständige Abiturprüfung für Ev. Religionslehre, Lernbereich ${lernbereich?.replace("_", "/") || "12/1"}, ${niveauLabel}.` }
+  ], 14000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= EV. RELIGION ABITUR: GRADE ================= */
+async function handleGradeAbiturReligion(request, env) {
+  const body = await request.json();
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+
+  if ((!student_text_a && !student_text_b) || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = "";
+  if (task_instruction_a) contextInfo += `Aufgabenstellung Teil A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = KORREKTUR_ABITUR;
+
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
+    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const teil_a = parsed.teil_a_np ?? null;
+    const teil_b = parsed.teil_b_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
+      gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);
+    }
+
+    return jsonResponse({
+      scores: { teil_a, teil_b, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      korrektur_text_a: parsed.korrektur_text_a || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      korrektur_text_a: "", korrektur_text_b: "",
+      fehlende_aspekte: []
+    }, 200, env);
+  }
+}
+
+/* ================= EV. RELIGION ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturReligion(request, env) {
+  const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
+Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+
+WICHTIG – FLIEẞTEXT-PFLICHT:
+- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
+- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
+- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+
+Inhaltlich:
+- Bearbeite ALLE Teilaufgaben beider Prüfungsteile
+- Verwende theologische Fachbegriffe korrekt
+- Beziehe biblische Texte und theologische Positionen ein
+- Beziehe die Materialien ein und zitiere daraus
+- Formuliere eigenständige, theologisch begründete Urteile
+- Zielumfang: 1200-1800 Wörter insgesamt
+
+Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
+
+  let userContent = "";
+  if (task_instruction_a) userContent += `TEIL A:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 8000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
 /* ================= GEOGRAPHIE: PARSE TASK (OCR) ================= */
 async function handleParseTaskGeographie(request, env) {
   const { images } = await request.json();
@@ -6708,6 +7233,573 @@ async function handleParseTaskBio(request, env) {
   return jsonResponse(content, 200, env);
 }
 
+/* ================= SPORT: GENERATE ================= */
+async function handleGenerateSport(request, env) {
+  const body = await request.json();
+  const { sachgebiet, be, zeit, anzahl } = body;
+
+  const sg = sachgebiet || "gesundheit";
+  const totalBE = be || 20;
+  const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+
+  const sgThemen = {
+    gesundheit: {
+      title: "Gesundheit & Fitness",
+      inhalte: "Gesundheit & Fitness — Gesundheitsmodelle (Salutogenese, biopsychosoziales Modell, Risikofaktorenmodell), gesundheitsorientiertes Training (Ausdauer, Kraft, Beweglichkeit, Koordination), Fitness-Konzepte, Belastungsnormative (Intensität, Dauer, Umfang, Dichte, Häufigkeit), Sportverletzungen (Prävention, PECH-Regel), Ernährung im Sport (Energiebilanz, Makronährstoffe, Sporternährung vor/während/nach Belastung)"
+    },
+    trainingslehre: {
+      title: "Trainingslehre",
+      inhalte: "Trainingslehre — Trainingsprinzipien (Belastung-Erholung, progressive Belastungssteigerung, Variation, Individualisierung, Periodisierung), Superkompensation, Reizstufenregel, Trainingsplanung (Makro-/Meso-/Mikrozyklus), Trainingsmethoden für Kraft (IK-Training, Hypertrophie, Kraftausdauer), Ausdauer (Dauermethode, Intervallmethode, Wiederholungsmethode), Schnelligkeit (Reaktions-, Aktions-, Frequenzschnelligkeit), Beweglichkeit (statisch, dynamisch), Leistungsdiagnostik und Trainingssteuerung"
+    },
+    sportbiologie: {
+      title: "Sportbiologie",
+      inhalte: "Sportbiologie — Bewegungsapparat (Knochen, Gelenke, Wirbelsäule, aktiver und passiver Bewegungsapparat), Skelettmuskulatur (Aufbau, Muskelfasertypen ST/FT, Kontraktionsformen: konzentrisch, exzentrisch, isometrisch), Energiebereitstellung (anaerob-alaktazid/ATP-CP, anaerob-laktazid/Glykolyse, aerob/oxidative Phosphorylierung), Herz-Kreislauf-System (Herzfrequenz, Schlagvolumen, Herzzeitvolumen, Blutdruck), Atmungssystem (Ventilation, Gasaustausch, VO₂max), Adaptation des Körpers an Training"
+    },
+    bewegungslehre: {
+      title: "Bewegungslehre",
+      inhalte: "Bewegungslehre — Biomechanische Prinzipien (Prinzip der Anfangskraft, der optimalen Beschleunigungswege, der Impulserhaltung, der Gegenwirkung, der zeitlichen Koordination von Teilimpulsen), Körperschwerpunkt und Körperachsen (Breitenachse, Längsachse, Tiefenachse), Bewegungsanalyse (Phasenmodell nach Meinel/Schnabel: Vorbereitungs-, Haupt-, Endphase), motorisches Lernen (Dreiphasenmodell: Grobkoordination, Feinkoordination, variable Verfügbarkeit), koordinative Fähigkeiten (Gleichgewicht, Orientierung, Differenzierung, Reaktion, Rhythmus, Kopplung, Umstellung), Technik- und Taktiktraining"
+    },
+    sportpsychologie: {
+      title: "Sportpsychologie",
+      inhalte: "Sportpsychologie — Motivation (intrinsisch/extrinsisch, Leistungsmotivation, Risikowahl-Modell nach Atkinson), Sinnperspektiven des Sports (Leistung, Gesundheit, Spannung, Ästhetik, Gemeinschaft), Emotion im Sport (Angst, Flow-Erleben, Yerkes-Dodson-Gesetz/Aktivierungsniveau), Aggression (Instinkttheorie, Frustrations-Aggressions-Hypothese, Lerntheorien), mentales Training (Visualisierung, Selbstgespräche, Zielsetzung), Konzentration und Aufmerksamkeit, Stressmanagement und Entspannungsverfahren"
+    },
+    sportgesellschaft: {
+      title: "Sport & Gesellschaft",
+      inhalte: "Sport & Gesellschaft — Sport und Medien (Medialisierung, Sportberichterstattung, Inszenierung), Kommerzialisierung des Sports (Sponsoring, Vermarktung, Professionalisierung), Doping (Substanzen: anabole Steroide, EPO, Stimulanzien; Methoden: Blutdoping, Gendoping; gesundheitliche Risiken; ethische Bewertung; Anti-Doping-Kampf/WADA/NADA), Fairness und Fair Play (regelkonformes Verhalten, sportliche Integrität), Inklusion und Integration im Sport, Sport und Bildung, Sport und Umwelt, historische Entwicklung des Sports"
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.gesundheit;
+
+  const systemPrompt = `Du bist Sportlehrer am bayerischen Gymnasium (Leistungsfach Sport). Erstelle eine Sporttheorie-Klausuraufgabe im IQB-Format (Abitur eA, G9 ab 2026).
+
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
+
+ANFORDERUNGEN:
+- Bette die Aufgabe in einen KONKRETEN, PRAXISNAHEN Kontext ein (z.B. ein bestimmter Sportler, ein Trainingsplan, eine Wettkampfsituation, ein Gesundheitsproblem)
+- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Beurteilen)
+- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- KEINE Lösungshinweise in den Aufgabenstellungen
+- Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
+
+SACHGEBIET: ${sgInfo.title}
+${sgInfo.inhalte}
+
+FORMATIERUNG: Fachbegriffe klar verwenden. Einheiten korrekt angeben (z.B. Herzfrequenz in min⁻¹, VO₂max in ml/min/kg, Kraft in N).
+
+MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
+- "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
+- "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
+- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
+- "bild" → "text" = ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze), Beschriftungen auf Deutsch
+
+KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
+
+Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
+{
+  "aufgabe": "<Kontext-Einleitung: 2-3 Sätze zum Thema/Sportler/Situation>",
+  "teilaufgaben": [
+    {"id": "a)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "b)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "c)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>}
+  ],
+  "gesamt_be": ${totalBE},
+  "sachgebiet": "${sg}",
+  "material": [
+    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+  ]
+}`;
+
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.`;
+
+  let openaiRes;
+  try {
+    openaiRes = await callOpenAI(env, [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt }
+    ], 8000, { model: "gpt-5.2", temperature: 0.7 });
+  } catch (e) {
+    const detail = (e.name === "AbortError") ? "Zeitüberschreitung (>25s)" : (e.message || "unbekannt");
+    console.error("generate-sport error:", detail);
+    return jsonResponse({ error: "Sport-Fehler: " + detail.substring(0, 200) }, 500, env);
+  }
+
+  let content;
+  try {
+    content = extractJSON(openaiRes);
+  } catch (e) {
+    console.error("generate-sport JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
+  }
+
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= SPORT: GRADE ================= */
+async function handleGradeSport(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+
+  if (!student_text && !student_texts) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 10;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    aufgabenInfo += "Materialien:\n";
+    for (const m of material) {
+      aufgabenInfo += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    aufgabenInfo += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
+  }
+
+  const rubricPrompt = `Du bewertest eine Sporttheorie-Klausur (Bayern, Leistungsfach Sport eA, Abitur ab 2026) nach dem BE-System.
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Fachsprache, sportwissenschaftliche Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung sporttheoretischer Zusammenhänge
+- Korrekte Fachsprache (z.B. "Superkompensation", "anaerobe Schwelle", "biomechanisches Prinzip") wird positiv bewertet
+- Korrekte Anwendung sportwissenschaftlicher Konzepte und Modelle
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 3, "bewertung": "Markdown-Bewertung"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= SPORT: MODEL ANSWER ================= */
+async function handleModelAnswerSport(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, material } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Sport-Oberstufenschüler am bayerischen Gymnasium (Leistungsfach Sport, eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende korrekte sportwissenschaftliche Fachsprache
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "nach dem Prinzip der progressiven Belastungssteigerung")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE
+
+SPORT-SPEZIFISCHE REGELN:
+- Fachbegriffe korrekt verwenden (Superkompensation, anaerobe Schwelle, Biomechanik, Salutogenese etc.)
+- Trainingsmethoden und -prinzipien korrekt benennen und erklären
+- Sportwissenschaftliche Modelle richtig darstellen
+- Einheiten korrekt verwenden (HF in min⁻¹, VO₂max in ml/min/kg)`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    userContent += "MATERIALIEN:\n";
+    for (const m of material) {
+      userContent += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    userContent += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000, { model: "gpt-5.2", temperature: 0.4 });
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= SPORT: PARSE TASK ================= */
+async function handleParseTaskSport(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Sporttheorie-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Abbildungen (beschrieben), Diagramme, Tabellen und Teilaufgaben. Verwende korrekte sportwissenschaftliche Fachbegriffe. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000, { model: "gpt-5.2", temperature: 0.2 });
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= INFORMATIK: GENERATE ================= */
+async function handleGenerateInformatik(request, env) {
+  const body = await request.json();
+  const { sachgebiet, be, zeit, anzahl } = body;
+
+  const sg = sachgebiet || "algorithmen";
+  const totalBE = be || 20;
+  const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+
+  const sgThemen = {
+    algorithmen: {
+      title: "Algorithmen & Datenstrukturen",
+      inhalte: "Algorithmen & Datenstrukturen — Sortieralgorithmen (BubbleSort, SelectionSort, InsertionSort, MergeSort, QuickSort), Suchalgorithmen (lineare Suche, binäre Suche), Laufzeitanalyse (O-Notation: O(1), O(log n), O(n), O(n log n), O(n²)), abstrakte Datentypen (Liste, Stapel/Stack, Schlange/Queue), verkettete Listen (einfach/doppelt), Bäume (Binärbaum, Suchbaum, Traversierung: Preorder/Inorder/Postorder), Graphen (gerichtet/ungerichtet, gewichtet, Adjazenzmatrix/Adjazenzliste, Breitensuche/BFS, Tiefensuche/DFS, Dijkstra-Algorithmus), Rekursion, Hashing"
+    },
+    oop: {
+      title: "Objektorientierte Programmierung",
+      inhalte: "Objektorientierte Programmierung — Klassen und Objekte (Attribute, Methoden, Konstruktor), Kapselung (private/public/protected, Getter/Setter), Vererbung (Ober-/Unterklasse, extends, Überschreiben von Methoden), Polymorphie (dynamisches Binden, abstrakte Klassen, Interfaces), UML-Klassendiagramme (Assoziation, Aggregation, Komposition, Vererbung, Multiplizität), Entwurfsmuster (Observer, Singleton, Strategy), Generics/Templates, Fehlerbehandlung (try-catch, Exceptions)"
+    },
+    datenbanken: {
+      title: "Datenbanken",
+      inhalte: "Datenbanken — Entity-Relationship-Modell (Entitäten, Attribute, Beziehungen: 1:1, 1:n, m:n, Kardinalitäten), Relationales Modell (Tabellen, Primärschlüssel, Fremdschlüssel, Referenzielle Integrität), Normalisierung (1NF, 2NF, 3NF, funktionale Abhängigkeiten, Anomalien), SQL (SELECT, FROM, WHERE, JOIN/INNER JOIN/LEFT JOIN, GROUP BY, HAVING, ORDER BY, INSERT, UPDATE, DELETE, Unterabfragen, Aggregatfunktionen: COUNT, SUM, AVG, MIN, MAX), Datenschutz (DSGVO, informationelle Selbstbestimmung, Datensparsamkeit, Zweckbindung), Transaktionen (ACID-Prinzip)"
+    },
+    rechnernetze: {
+      title: "Rechnernetze & IT-Sicherheit",
+      inhalte: "Rechnernetze & IT-Sicherheit — Schichtenmodelle (OSI-Modell, TCP/IP-Modell), Protokolle (HTTP/HTTPS, TCP, UDP, IP, DNS, DHCP, ARP), Client-Server-Modell, Peer-to-Peer, IP-Adressierung (IPv4, Subnetzmaske, IPv6), Routing, Netzwerktopologien (Stern, Ring, Bus, Mesh), symmetrische Verschlüsselung (AES, DES), asymmetrische Verschlüsselung (RSA, Diffie-Hellman), digitale Signaturen, Zertifikate (CA, PKI), Hashfunktionen (SHA-256), Angriffe (Man-in-the-Middle, Phishing, SQL-Injection, XSS), Firewalls, VPN"
+    },
+    automaten: {
+      title: "Formale Sprachen & Automaten",
+      inhalte: "Formale Sprachen & Automaten — Alphabete, Wörter, Sprachen, reguläre Ausdrücke (Konkatenation, Vereinigung, Kleene-Stern), endliche Automaten (DEA/deterministisch, NEA/nichtdeterministisch, Zustandsdiagramm, Übergangstabelle, Akzeptanz), Grammatiken (Chomsky-Hierarchie: Typ 0–3, regulär/kontextfrei/kontextsensitiv/allgemein), kontextfreie Grammatiken (BNF, Ableitungsbäume, Syntaxdiagramme), Kellerautomaten (Stack-basierte Verarbeitung), Berechenbarkeit (Turingmaschine, Halteproblem, Entscheidbarkeit)"
+    },
+    softwareentwicklung: {
+      title: "Softwareentwicklung",
+      inhalte: "Softwareentwicklung — Softwarelebenszyklus (Anforderungsanalyse, Entwurf, Implementierung, Test, Wartung), Vorgehensmodelle (Wasserfallmodell, V-Modell, Spiralmodell, agile Methoden/Scrum), UML-Diagramme (Klassendiagramm, Sequenzdiagramm, Aktivitätsdiagramm, Use-Case-Diagramm, Zustandsdiagramm), Testen (Unittest, Integrationstest, Systemtest, Black-Box/White-Box, Testfälle, Äquivalenzklassen, Grenzwertanalyse), Versionskontrolle (Git: commit, branch, merge), Softwarequalität (Korrektheit, Zuverlässigkeit, Wartbarkeit, Effizienz), Dokumentation"
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.algorithmen;
+
+  const systemPrompt = `Du bist Informatiklehrer am bayerischen Gymnasium. Erstelle eine Informatik-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
+
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
+
+ANFORDERUNGEN:
+- Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein Softwareprojekt, eine Datenbankanwendung, ein Netzwerkproblem, ein konkretes System)
+- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Entwerfen)
+- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- KEINE Lösungshinweise in den Aufgabenstellungen
+- Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
+- Bei Algorithmen: Pseudocode oder Java-ähnlicher Code ist erlaubt
+- Bei Datenbanken: SQL-Abfragen oder ER-Diagramme können verlangt werden
+- Bei OOP: UML-Klassendiagramme oder Code-Entwürfe können verlangt werden
+
+SACHGEBIET: ${sgInfo.title}
+${sgInfo.inhalte}
+
+FORMATIERUNG: Fachbegriffe klar verwenden. Code in Markdown-Codeblöcken. Pseudocode klar strukturiert.
+
+MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
+- "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
+- "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
+- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter) oder Code-Listing, KEIN Platzhalter
+- "bild" → "text" = ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze), Beschriftungen auf Deutsch
+
+KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
+
+Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
+{
+  "aufgabe": "<Kontext-Einleitung: 2-3 Sätze zum Thema/Projekt/System>",
+  "teilaufgaben": [
+    {"id": "a)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "b)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>},
+    {"id": "c)", "text": "<Konkrete Aufgabenstellung mit Operator>", "be": <Zahl>}
+  ],
+  "gesamt_be": ${totalBE},
+  "sachgebiet": "${sg}",
+  "material": [
+    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+  ]
+}`;
+
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.`;
+
+  let openaiRes;
+  try {
+    openaiRes = await callOpenAI(env, [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt }
+    ], 8000, { model: "gpt-5.2", temperature: 0.7 });
+  } catch (e) {
+    const detail = (e.name === "AbortError") ? "Zeitüberschreitung (>25s)" : (e.message || "unbekannt");
+    console.error("generate-informatik error:", detail);
+    return jsonResponse({ error: "Informatik-Fehler: " + detail.substring(0, 200) }, 500, env);
+  }
+
+  let content;
+  try {
+    content = extractJSON(openaiRes);
+  } catch (e) {
+    console.error("generate-informatik JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
+  }
+
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= INFORMATIK: GRADE ================= */
+async function handleGradeInformatik(request, env) {
+  const body = await request.json();
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+
+  if (!student_text && !student_texts) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 10;
+
+  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    aufgabenInfo += "Materialien:\n";
+    for (const m of material) {
+      aufgabenInfo += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    aufgabenInfo += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    aufgabenInfo += "Teilaufgaben:\n";
+    for (const ta of teilaufgaben) {
+      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+
+  let studentSolutionText;
+  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
+    const parts = [];
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
+        const beInfo = ta ? ` (${ta.be} BE)` : "";
+        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
+      }
+    }
+    studentSolutionText = parts.join("\n\n");
+  } else {
+    studentSolutionText = truncate(student_text, 15000);
+  }
+
+  const rubricPrompt = `Du bewertest eine Informatik-Klausur (Bayern, gA/eA, Abitur ab 2026) nach dem BE-System.
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Pro Teilaufgabe bewerte: Fachsprache, informatische Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung informatischer Zusammenhänge
+- Korrekte Fachsprache (z.B. "Laufzeitkomplexität O(n log n)", "Polymorphie", "Normalisierung", "Kellerautomat") wird positiv bewertet
+- Bei Code/Pseudocode: Korrektheit des Algorithmus, Effizienz, Lesbarkeit
+- Bei SQL: Syntaktische und semantische Korrektheit der Abfragen
+- Bei UML: Korrekte Notation und vollständige Darstellung
+- Bei ER-Modellen: Korrekte Entitäten, Beziehungen, Kardinalitäten
+- Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
+- Max BE gesamt: ${maxBE}
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Antworte NUR mit validem JSON:
+{
+  "teilbewertungen": [
+    {"id": "a)", "erreichte_be": 2, "max_be": 3, "bewertung": "Markdown-Bewertung"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.gesamt_be ?? null;
+    const beMax = parsed.max_be ?? maxBE;
+    let np = parsed.note ?? null;
+
+    if (np == null && beErreicht != null) {
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teilbewertungen: parsed.teilbewertungen || [],
+      gesamt_be: beErreicht,
+      max_be: beMax,
+      note: np,
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teilbewertungen: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= INFORMATIK: MODEL ANSWER ================= */
+async function handleModelAnswerInformatik(request, env) {
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, material } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Informatik-Oberstufenschüler am bayerischen Gymnasium (gA/eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
+
+WICHTIG:
+- Verwende korrekte informatische Fachsprache
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an, die dafür vergeben werden
+- Begründe Ansätze kurz (z.B. "Anwendung des Divide-and-Conquer-Prinzips")
+- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
+- Am Ende: Zusammenfassung der erreichten BE
+
+INFORMATIK-SPEZIFISCHE REGELN:
+- Code/Pseudocode in Markdown-Codeblöcken (\`\`\`java oder \`\`\`pseudo)
+- SQL-Abfragen in \`\`\`sql Codeblöcken
+- UML-Diagramme als strukturierte Textdarstellung
+- ER-Modelle als strukturierte Textdarstellung
+- O-Notation korrekt verwenden: O(n), O(n²), O(log n), O(n log n)
+- Fachbegriffe korrekt verwenden (Kapselung, Vererbung, Polymorphie, Normalform, Determinismus etc.)
+- Algorithmen Schritt für Schritt erklären und Trace/Durchlauf zeigen`;
+
+  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
+  if (material && material.length) {
+    userContent += "MATERIALIEN:\n";
+    for (const m of material) {
+      userContent += `${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+    }
+    userContent += "\n";
+  }
+  if (teilaufgaben && teilaufgaben.length) {
+    userContent += "TEILAUFGABEN:\n";
+    for (const ta of teilaufgaben) {
+      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
+    }
+  }
+  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 6000, { model: "gpt-5.2", temperature: 0.4 });
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= INFORMATIK: PARSE TASK ================= */
+async function handleParseTaskInformatik(request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "Keine Bilder." }, 400, env);
+  }
+
+  const messages = [
+    {
+      role: "user",
+      content: [
+        { type: "text", text: "Extrahiere die Informatik-Aufgabe aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder, einschließlich aller Abbildungen (beschrieben), Diagramme (UML, ER, Automaten), Tabellen, Code-Listings und Teilaufgaben. Verwende korrekte informatische Fachbegriffe. Code in Markdown-Codeblöcken. Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
+        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
+      ]
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 4000, { model: "gpt-5.2", temperature: 0.2 });
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
 /* ================= CHEMIE ABITUR: GENERATE ================= */
 async function handleGenerateAbiturChemie(request, env) {
   const body = await request.json();
@@ -7760,6 +8852,261 @@ WICHTIG:
 - Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
 
   let userContent = "GEWÄHLTE AUFGABEN:\n\n";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          userContent += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+      userContent += "\n";
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000, { model: "gpt-5.2", temperature: 0.4 });
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= SPORT ABITUR: GENERATE ================= */
+async function handleGenerateAbiturSport(request, env) {
+  const body = await request.json();
+
+  // Sport Abitur: nur eA (Leistungsfach), 3 Aufgaben (1 wählen), 100 BE, 180 min
+  const beProAufgabe = 100;
+  const gesamtBE = 100;
+  const pruefungsdauer = 180;
+  const anzahlAufgaben = 3;
+  const wahlAnzahl = 1;
+
+  const systemPrompt = `Du bist ein Sport-Experte für das bayerische Abitur (eA, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE schriftliche Sport-Abiturprüfung (Leistungsfach Sport, Sporttheorie) nach dem IQB-Aufgabenformat.
+
+PRÜFUNGSSTRUKTUR (eA Leistungsfach Sport):
+- Prüfungsdauer: ${pruefungsdauer} Minuten
+- ${anzahlAufgaben} Aufgaben zur Auswahl, der Schüler wählt ${wahlAnzahl} davon
+- Jede Aufgabe: ${beProAufgabe} BE
+- Jede Aufgabe behandelt ein anderes Sachgebiet der Sporttheorie
+
+SACHGEBIETE (wähle 3 verschiedene aus diesen 4, LehrplanPLUS Sporttheorie G9 Bayern ab 2026):
+1. Trainingslehre (Sp12 LB1): Trainingsprinzipien (Belastung-Erholung, progressive Belastungssteigerung, Variation, Individualisierung, Periodisierung), Superkompensation, Reizstufenregel. Sportbiologische Grundlagen: Bewegungsapparat (Knochen, Gelenke, Wirbelsäule), Skelettmuskulatur (Aufbau, Muskelfasertypen ST/FT, Kontraktionsformen). Krafttraining (Maximalkraft, Schnellkraft, Kraftausdauer, Methoden). Energiebereitstellung (anaerob-alaktazid, anaerob-laktazid, aerob). Herz-Kreislauf-System (HF, Schlagvolumen, HZV). Ausdauertraining (aerobe/anaerobe Schwelle, Dauermethode, Intervallmethode). Schnelligkeitstraining (Reaktions-, Aktions-, Frequenzschnelligkeit). Beweglichkeitstraining. Trainingsplanung und -steuerung (Makro-/Meso-/Mikrozyklus).
+2. Bewegungslehre (Sp12 LB2): Biomechanische Prinzipien (Anfangskraft, optimale Beschleunigungswege, Impulserhaltung, Gegenwirkung, zeitliche Koordination von Teilimpulsen). Körperschwerpunkt, Körperachsen. Bewegungsanalyse (Phasenmodell: Vorbereitungs-, Haupt-, Endphase). Motorisches Lernen (Dreiphasenmodell: Grobkoordination, Feinkoordination, variable Verfügbarkeit). Koordinative Fähigkeiten (Gleichgewicht, Orientierung, Differenzierung, Reaktion, Rhythmus, Kopplung, Umstellung). Informationsverarbeitung und Nervensystem. Technik- und Taktiktraining.
+3. Sport und Gesundheit (Sp13 LB3): Gesundheitsmodelle (Salutogenese nach Antonovsky, biopsychosoziales Modell, Risikofaktorenmodell). Gesundheitsorientierter Sport (Belastungsnormative, Fitness-Konzepte). Sportverletzungen (Prävention, Erste Hilfe, PECH-Regel). Ernährung (Energiebilanz, Makro-/Mikronährstoffe, Sporternährung). Doping (Substanzen: anabole Steroide, EPO, Stimulanzien; Methoden: Blutdoping; Risiken; ethische Bewertung; WADA/NADA).
+4. Psychologische, soziale und gesellschaftspolitische Aspekte (Sp13 LB4): Motivation (intrinsisch/extrinsisch, Leistungsmotivation, Risikowahl-Modell). Emotion im Sport (Angst, Flow, Aktivierungsniveau/Yerkes-Dodson). Aggression (Instinkttheorie, Frustrations-Aggressions-Hypothese, Lerntheorien). Fairness und Fair Play. Sport und Medien (Medialisierung, Kommerzialisierung). Inklusion und Integration im Sport. Sport als Bildungsfaktor.
+
+IQB-REFERENZFORMAT:
+- Jede Aufgabe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. konkreter Sportler/Mannschaft, Trainingsplanung für Wettkampf, Gesundheitsprojekt in der Schule, aktuelle Dopingdebatte)
+- Pro Aufgabe 6-8 Teilaufgaben bei 100 BE, mit steigendem Anforderungsniveau:
+  • AFB I (ca. 25%): "Nennen Sie", "Beschreiben Sie", "Geben Sie an" (Grundwissen)
+  • AFB II (ca. 55%): "Erläutern Sie", "Erklären Sie", "Vergleichen Sie", "Analysieren Sie" (Anwendung/Transfer)
+  • AFB III (ca. 20%): "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie", "Erörtern Sie" (Reflexion/Beurteilung)
+- Materialien M1-M4 pro Aufgabe:
+  • M1: Grundlegende Sachinformation/Kontext (Text, Bild)
+  • M2: Detailliertere Daten (Tabelle, Diagramm, Trainingsplan)
+  • M3: Weitere Evidenz (Forschungsergebnisse, Statistiken)
+  • M4: Kontroverse Perspektive, Zeitungsartikel, ethische Dimension
+- Teilaufgaben sollen sich DIREKT auf die Materialien beziehen
+
+JEDE AUFGABE hat:
+- Einen Titel (z.B. "Aufgabe 1: Trainingsplanung für einen Marathonläufer")
+- Ein Sachgebiet
+- MINDESTENS 3-4 Materialien (M1, M2, M3, M4)
+- 6-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
+- Gesamt: ${beProAufgabe} BE
+
+MATERIALIEN — VIELFÄLTIG UND DATENREICH:
+Jede Aufgabe MUSS mindestens 2-3 verschiedene Materialtypen enthalten.
+Jedes Material hat ein "type"-Feld:
+
+- **"statistik"** — Datentabellen (Trainingsdaten, Leistungswerte, Messergebnisse). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. "chart_type": "bar".
+- **"diagramm"** — Kurvenverläufe (Herzfrequenz über Zeit, Laktatwerte, Leistungsentwicklung). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. "chart_type": "line".
+- **"bild"** — Bilder werden GENERIERT (Imagen AI). Geeignet für: Sportszenen, Bewegungsabläufe, anatomische Darstellungen, Trainingsgeräte. "text" MUSS ein ausführlicher Imagen-Prompt auf Englisch sein (mind. 3-5 Sätze). Beschriftungen IM BILD auf DEUTSCH in Anführungszeichen.
+- **"text"** — Textquellen, Fachtexte, Zeitungsartikel, Trainingsplandetails, Forschungsergebnisse. "text" enthält den vollständigen Fließtext (mind. 150-300 Wörter). KEIN Platzhalter!
+
+WICHTIG:
+- KRITISCH: Jedes Material MUSS ein "type"-Feld haben!
+- KRITISCH: Für "statistik" und "diagramm": "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten
+- KRITISCH: Für "bild": "text" = ausführlicher Imagen-Prompt auf Englisch, Beschriftungen auf DEUTSCH
+- VERBOTEN: Bilder als Textbeschreibung in type "text"!
+- Pro Aufgabe: MINDESTENS 1x "statistik"/"diagramm" + 1x "text". Optional 1x "bild"
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
+- Materialien müssen realistisch, datenreich und aussagekräftig sein
+
+SPORT-SPEZIFISCHE NOTATION:
+- Einheiten korrekt: HF in min⁻¹, VO₂max in ml/min/kg, Kraft in N, Laktat in mmol/l
+- Energiebereitstellung: ATP, CP, Glykogen, aerob/anaerob
+- Trainingszonen: GA1, GA2, WSA, Schwellenbereich
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgaben": [
+    {
+      "id": "Aufgabe 1",
+      "titel": "Trainingsplanung für einen Marathonläufer",
+      "sachgebiet": "trainingslehre",
+      "material": [
+        {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+      ],
+      "teilaufgaben": [
+        {"id": "1.1", "text": "<Aufgabenstellung mit Operator>", "be": <Zahl>}
+      ],
+      "gesamt_be": ${beProAufgabe}
+    }
+  ],
+  "level": "eA",
+  "pruefungsdauer": ${pruefungsdauer},
+  "gesamt_be": ${gesamtBE}
+}`;
+
+  const userPrompt = `Erstelle eine vollständige schriftliche Sport-Abiturprüfung (Leistungsfach, eA, ${gesamtBE} BE).
+${anzahlAufgaben} Aufgaben à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
+Prüfungsdauer: ${pruefungsdauer} Minuten.
+Verwende 3 verschiedene Sachgebiete der Sporttheorie. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
+KRITISCH: Jedes Material MUSS ein "type"-Feld haben!`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000, { model: "gpt-5.2", temperature: 0.7 });
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= SPORT ABITUR: GRADE ================= */
+async function handleGradeAbiturSport(request, env) {
+  const body = await request.json();
+  const { aufgaben, student_texts, level } = body;
+
+  if (!student_texts || !Object.keys(student_texts).length) {
+    return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
+  }
+
+  const maxBE = 100;
+
+  let aufgabenInfo = "";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      aufgabenInfo += `\n${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          aufgabenInfo += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 500)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  let studentTexts = "";
+  if (typeof student_texts === "object") {
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        studentTexts += `\nSchülerlösung ${key}:\n${truncate(text, 8000)}\n`;
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine schriftliche Sport-Abiturprüfung (Bayern, Leistungsfach Sport eA, G9, ab 2026).
+Der Schüler hat 1 von 3 Aufgaben gewählt. Gesamt: ${maxBE} BE.
+
+BEWERTUNGSREGELN:
+- Bewerte jede Teilaufgabe einzeln
+- Bewertungskriterien: sportwissenschaftliche Fachsprache, Korrektheit, Materialauswertung, logische Argumentation, Darstellungsleistung
+- Korrekte Fachbegriffe und Zusammenhänge → volle Punkte
+- Teilweise korrekte Antworten → Teilpunkte
+- Folgefehler berücksichtigen
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Antworte NUR mit validem JSON:
+{
+  "aufgaben_be": [
+    {"id": "Aufgabe 1", "erreichte_be": <Zahl>, "max_be": ${maxBE}, "bewertung": "Markdown-Feedback"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach Teilaufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000, { model: "gpt-5.2", temperature: 0.3 });
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && parsed.aufgaben_be && parsed.aufgaben_be.length) {
+      gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      aufgaben_be: parsed.aufgaben_be || [],
+      gesamt_be: gesamtBE,
+      max_be: maxBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      aufgaben_be: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= SPORT ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturSport(request, env) {
+  const { aufgaben } = await request.json();
+
+  const systemPrompt = `Du bist ein sehr guter Sport-Oberstufenschüler am bayerischen Gymnasium (Leistungsfach Sport, eA).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für die gewählte Aufgabe.
+
+WICHTIG:
+- Verwende korrekte sportwissenschaftliche Fachsprache
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- Einheiten korrekt: HF in min⁻¹, VO₂max in ml/min/kg, Laktat in mmol/l
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Aufgabe: [Titel]
+  ### Teilaufgabe 1.1
+  ...
+- Am Ende: Zusammenfassung der BE und Gesamtergebnis`;
+
+  let userContent = "GEWÄHLTE AUFGABE:\n\n";
   if (aufgaben && aufgaben.length) {
     for (const a of aufgaben) {
       userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
