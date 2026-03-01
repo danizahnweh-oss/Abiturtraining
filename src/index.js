@@ -4463,83 +4463,69 @@ async function handleGenerateKatholisch(request, env) {
 
   const lbThemen = {
     "12_1": {
-      title: "Mensch und Welt als Schöpfung Gottes",
-      lernbereiche: "LB 12.1 (Mensch und Welt als Schöpfung Gottes) und LB 12.2 (Gottesfrage)",
-      inhalte: `- Schöpfungstheologie: biblische Schöpfungserzählungen (Gen 1-3), Schöpfungsauftrag (dominium terrae)
-- Gottesbild: Gott als Schöpfer, Erhalter und Befreier; Trinität
-- Gottesbeweise: Thomas von Aquin (quinque viae), Anselm von Canterbury (ontologischer Gottesbeweis)${isEA ? '; Pascal (Wette), Rahner (transzendentale Erfahrung)' : ''}
-- Theodizee: Hiob, Leibniz (beste aller Welten), moderne Ansätze (Metz, Sölle)
-- Verhältnis Naturwissenschaft und Glaube: Galilei, Evolutionstheorie, komplementäre Betrachtung
-- Menschenbild: Imago Dei (Gen 1,27), Menschenwürde, Personalität
-- Philosophische Religionskritik: Feuerbach (Projektionsthese)${isEA ? '; Marx (Opium des Volkes), Nietzsche (Tod Gottes), Freud (Vaterfigur)' : '; ggf. weitere Position'}
-- Biblische Anthropologie: Mensch als Geschöpf, Sünde und Erlösung`,
+      title: "Personalität: Der Mensch und die Frage \u201eWer bin ich?\u201c",
+      lernbereiche: "KR 12 LB 1 (Personalität)",
+      inhalte: `- Philosophische Anthropologie: Identitätsfrage, Menschenbilder in Philosophie und Wissenschaft
+- Biblisch-christliches Menschenbild: Gottebenbildlichkeit (Gen 1-3), Personalität, Sozialität, Transzendentalität
+- Menschenwürde und Menschenrechte: theologische Begründung, Art. 1 GG
+- Vorstellungen vom Menschsein in Wirtschaft, Politik, Wissenschaft (KI, Transhumanismus)
+${isEA ? '- Vertiefung: Personbegriff (Boethius), relationale Anthropologie, Leib-Seele-Problem' : ''}
+- Freiheit und Verantwortung als Wesensmerkmale des Menschen`,
       schwerpunkte: {
-        schoepfung: "Schöpfungstheologie und Schöpfungsauftrag",
-        gottesbild: "Gottesbild und Gottesbeweise (Thomas v. Aquin)",
-        theodizee: "Theodizee und Leidfrage",
-        naturwissenschaft: "Naturwissenschaft und Glaube",
-        menschenbild: "Menschenbild: Imago Dei und Menschenwürde",
-        religionskritik: "Religionskritik (Feuerbach und weitere Positionen)"
+        anthropologie: "Philosophische Anthropologie und Identitätsfrage",
+        menschenbild: "Biblisch-christliches Menschenbild (Gottebenbildlichkeit)",
+        menschenwuerde: "Menschenwürde und Menschenrechte",
+        personalitaet: "Personalität, Sozialität und Transzendentalität",
+        freiheit: "Freiheit und Verantwortung"
       }
     },
     "12_2": {
-      title: "Jesus Christus – Herausforderung und Orientierung",
-      lernbereiche: "LB 12.3 (Jesus Christus) und LB 12.4 (Nachfolge und Kirche)",
-      inhalte: `- Der historische Jesus: Leben, Wirken, Botschaft vom Reich Gottes
-- Gleichnisse und Bergpredigt: ethische Forderungen, Seligpreisungen
-- Wundererzählungen: Deutung und theologische Bedeutung
-- Kreuzestod und Auferstehung: Heilsbedeutung, soteriologische Modelle
-- Christologie: Konzilien von Nizäa (325) und Chalcedon (451), wahrer Gott und wahrer Mensch
-- Inkarnation: Bedeutung der Menschwerdung Gottes
-${isEA ? '- Christologische Hoheitstitel: Messias, Sohn Gottes, Kyrios, Menschensohn' : ''}
-- Nachfolge Jesu: Bedeutung für heutiges Leben und Handeln
-- Jesusbilder in Kunst, Literatur und Medien`,
+      title: "Transzendentalität: Gottessuche und Gottesbild",
+      lernbereiche: "KR 12 LB 2 (Transzendentalität)",
+      inhalte: `- Gottesbeweise: Anselm v. Canterbury (ontologisch), Thomas v. Aquin (quinque viae), Pascal (Wette)${isEA ? ', Rahner (transzendentale Erfahrung)' : ''}
+- Religionskritik: Feuerbach (Projektionsthese), Marx (Opium des Volkes), Nietzsche (Tod Gottes)${isEA ? ', Freud (Illusion)' : ''}
+- Bibel als Gotteswort in Menschenwort: Offenbarungsverständnis, Auslegungsmethoden (historisch-kritisch, kanonisch)
+- Trinitarisches Gottesbild: Credo, Vater – Sohn – Heiliger Geist
+- Verhältnis Glaube und Naturwissenschaft: komplementäre Betrachtung, Schöpfung vs. Evolution
+- Interreligiöser Vergleich: christliches und islamisches Gottesbild`,
       schwerpunkte: {
-        historischer_jesus: "Der historische Jesus und seine Botschaft",
-        christologie: "Christologie: Nizäa und Chalcedon",
-        kreuz: "Kreuzestheologie und Erlösung",
-        auferstehung: "Auferstehung und Osterglaube",
-        nachfolge: "Nachfolge und Reich Gottes",
-        gleichnisse: "Gleichnisse und Bergpredigt"
+        gottesbeweise: "Gottesbeweise (Anselm, Thomas, Pascal)",
+        religionskritik: "Religionskritik (Feuerbach, Marx, Nietzsche)",
+        bibelauslegung: "Bibel als Gotteswort (Auslegungsmethoden)",
+        trinitaet: "Trinitarisches Gottesbild",
+        islam: "Christentum und Islam im Vergleich"
       }
     },
     "13_1": {
-      title: "Verantwortlich handeln – Orientierung an der christlichen Ethik",
-      lernbereiche: "LB 13.1 (Christliche Ethik) und LB 13.2 (Angewandte Ethik)",
-      inhalte: `- Gewissen: Gewissensbildung, Gewissensfreiheit, Gewissensentscheidung
-- Naturrecht: Thomas von Aquin (lex naturalis), Vernunft und Sittlichkeit
-- Katholische Soziallehre: Subsidiarität, Solidarität, Gemeinwohl, Personalität
+      title: "Sozialität: Ethik und Kath. Soziallehre",
+      lernbereiche: "KR 13 LB 1 (Sozialität)",
+      inhalte: `- Normenbegründungsmodelle: Naturrecht (Thomas v. Aquin), Pflichtethik (Kant), Utilitarismus (Bentham/Mill), Verantwortungsethik (Jonas)${isEA ? ', Diskursethik (Habermas), Tugendethik (Aristoteles)' : ''}
+- Biblische Ethik: Dekalog, Bergpredigt (Seligpreisungen, Antithesen), Doppelgebot der Liebe
+- Gewissensbildung: Gewissensfreiheit, Gewissensentscheidung, kath. Moraltheologie
+- Katholische Soziallehre: Sozialprinzipien (Personalität, Solidarität, Subsidiarität, Gemeinwohl, Nachhaltigkeit)
 - Sozialenzykliken: Rerum novarum, Quadragesimo anno, Laudato si'
-- Ethische Modelle: Kant (Kategorischer Imperativ), Utilitarismus${isEA ? ', Diskursethik (Habermas), Tugendethik (Aristoteles)' : ''}
-- Christliche Ethik: Dekalog, Doppelgebot der Liebe, Bergpredigt
-- Bioethik: Lebensschutz, Schwangerschaftsabbruch, Sterbehilfe, Organspende
-- Friedensethik: bellum iustum, gewaltfreie Alternativen, Friedensenzykliken
-${isEA ? '- Umweltethik: Bewahrung der Schöpfung, Laudato si, ökologische Verantwortung' : ''}`,
+- Ethik der Lebensbereiche: Ehe und Familie, Bioethik${isEA ? ', Wirtschaftsethik, Medienethik' : ''}`,
       schwerpunkte: {
-        gewissen: "Gewissen und Gewissensbildung",
-        naturrecht: "Naturrecht und Kath. Soziallehre",
-        sozialprinzipien: "Sozialprinzipien (Subsidiarität, Solidarität, Gemeinwohl)",
-        bioethik: "Bioethik (Lebensschutz, Sterbehilfe)",
-        friedensethik: "Friedensethik und gerechter Krieg"
+        normenbegruendung: "Normenbegründung (Naturrecht, Pflichtethik, Utilitarismus)",
+        bibl_ethik: "Dekalog, Bergpredigt und Gewissensbildung",
+        soziallehre: "Kath. Soziallehre und Sozialprinzipien",
+        nachhaltigkeit: "Nachhaltigkeit und Laudato si'",
+        ehe_familie: "Ehe und Familie"
       }
     },
     "13_2": {
-      title: "Kirche in der Welt von heute",
-      lernbereiche: "LB 13.3 (Kirche in der Welt von heute) und LB 13.4 (Interreligiöser Dialog)",
-      inhalte: `- Kirchenverständnis: Volk Gottes, Leib Christi, Sakrament des Heils (Lumen Gentium)
-- Zweites Vatikanisches Konzil (1962-1965): Erneuerung und Öffnung, Gaudium et Spes
-- Sakramente: Taufe, Eucharistie, Firmung und ihre theologische Bedeutung
-- Kirche und Staat: Religionsfreiheit (Dignitatis Humanae), Verhältnis zu weltlicher Ordnung
-- Ökumene: Dialog mit anderen christlichen Konfessionen, Unitatis Redintegratio
-- Interreligiöser Dialog: Nostra Aetate, Verhältnis zu Judentum, Islam und Weltreligionen
-${isEA ? '- Kirchengeschichte: Reformation, Gegenreformation, Aufklärung, Modernismuskrise' : ''}
-- Kirche und aktuelle Herausforderungen: Glaubwürdigkeit, Missbrauchsaufarbeitung, Synodalität
-- Sendungsauftrag: Mission, Caritas, Weltverantwortung`,
+      title: "Existentielle Fragen und christliche Antwortangebote",
+      lernbereiche: "KR 13 LB 2 (Existentielle Fragen)",
+      inhalte: `- Wahrheitsansprüche: Exklusivismus, Inklusivismus, Pluralismus, interreligiöser Dialog
+- Christliche Ethik als Letztbegründung: Verhältnis von Glaube und Vernunft
+- Eschatologie: Auferstehungshoffnung, Reich-Gottes-Botschaft Jesu, christliche Zukunftshoffnung
+- Lebensentwürfe: Rückblick auf die vier Kantischen Fragen (Was kann ich wissen? Was soll ich tun? Was darf ich hoffen? Was ist der Mensch?)
+${isEA ? '- Vertiefung: Theodizee als existentielle Frage, Religionsphilosophie, Dialog mit Atheismus/Agnostizismus' : ''}`,
       schwerpunkte: {
-        kirchenbild: "Kirchenverständnis (Vaticanum II, Lumen Gentium)",
-        sakramente: "Sakramente und Liturgie",
-        oekumene: "Ökumene und interreligiöser Dialog",
-        kirche_staat: "Kirche und Staat, Religionsfreiheit"
+        wahrheit: "Wahrheitsansprüche (Exklusivismus, Inklusivismus, Pluralismus)",
+        letztbegruendung: "Christliche Ethik als Letztbegründung",
+        eschatologie: "Eschatologie und Reich-Gottes-Botschaft",
+        lebensentwuerfe: "Lebensentwürfe (Vier Kantische Fragen)"
       }
     }
   };
@@ -4728,18 +4714,18 @@ async function handleGenerateAbiturKatholisch(request, env) {
   const beGesamt = isEA ? "120 BE" : "100 BE";
 
   const lbThemen = {
-    "12_1": { title: "Mensch und Welt als Schöpfung Gottes", lernbereiche: "LB 12.1 und LB 12.2",
-      inhalte: `- Schöpfungstheologie, Gottesbild (Trinität), Gottesbeweise (Thomas v. Aquin)
-- Theodizee, Naturwissenschaft und Glaube, Menschenbild (Imago Dei), Religionskritik` },
-    "12_2": { title: "Jesus Christus – Herausforderung und Orientierung", lernbereiche: "LB 12.3 und LB 12.4",
-      inhalte: `- Historischer Jesus, Gleichnisse und Bergpredigt, Christologie (Nizäa, Chalcedon)
-- Kreuzestod und Auferstehung, Nachfolge Jesu` },
-    "13_1": { title: "Verantwortlich handeln – Orientierung an der christlichen Ethik", lernbereiche: "LB 13.1 und LB 13.2",
-      inhalte: `- Gewissen, Naturrecht (Thomas v. Aquin), Kath. Soziallehre (Subsidiarität, Solidarität)
-- Ethische Modelle (Kant, Utilitarismus), Bioethik, Friedensethik` },
-    "13_2": { title: "Kirche in der Welt von heute", lernbereiche: "LB 13.3 und LB 13.4",
-      inhalte: `- Kirchenverständnis (Vaticanum II, Lumen Gentium), Sakramente
-- Ökumene, interreligiöser Dialog (Nostra Aetate), Kirche und Staat` }
+    "12_1": { title: "Personalität: Der Mensch und die Frage \u201eWer bin ich?\u201c", lernbereiche: "KR 12 LB 1",
+      inhalte: `- Philosophische Anthropologie, Identitätsfrage, christliches Menschenbild (Gottebenbildlichkeit)
+- Personalität, Sozialität, Transzendentalität, Menschenwürde, Menschenrechte, Freiheit und Verantwortung` },
+    "12_2": { title: "Transzendentalität: Gottessuche und Gottesbild", lernbereiche: "KR 12 LB 2",
+      inhalte: `- Gottesbeweise (Anselm, Thomas, Pascal), Religionskritik (Feuerbach, Marx, Nietzsche)
+- Bibel als Gotteswort, trinitarisches Gottesbild, Glaube und Naturwissenschaft, Christentum und Islam` },
+    "13_1": { title: "Sozialität: Ethik und Kath. Soziallehre", lernbereiche: "KR 13 LB 1",
+      inhalte: `- Normenbegründung (Naturrecht, Pflichtethik, Utilitarismus, Verantwortungsethik)
+- Dekalog, Bergpredigt, Gewissensbildung, Kath. Soziallehre (Sozialprinzipien), Ehe/Familie, Nachhaltigkeit` },
+    "13_2": { title: "Existentielle Fragen und christliche Antwortangebote", lernbereiche: "KR 13 LB 2",
+      inhalte: `- Wahrheitsansprüche (Exklusivismus, Inklusivismus, Pluralismus), christliche Ethik als Letztbegründung
+- Eschatologie, Reich-Gottes-Botschaft, Lebensentwürfe (Vier Kantische Fragen)` }
   };
 
   const lb = lbThemen[lernbereich] || lbThemen["12_1"];
