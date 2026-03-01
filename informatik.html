@@ -213,35 +213,45 @@
         <div class="form-group">
           <label>Sachgebiet</label>
           <div class="hj-grid">
-            <div class="hj-card selected" data-hj="algorithmen" onclick="selectSachgebiet('algorithmen')">
-              <div class="hj-icon">&#x1F9E9;</div>
-              <div class="hj-name">Algorithmen &amp; Datenstrukturen</div>
-              <div class="hj-desc">Sortier-/Suchalgorithmen, Laufzeit, Listen, B&auml;ume, Graphen</div>
+            <div class="hj-card selected" data-hj="rekursion-listen" onclick="selectSachgebiet('rekursion-listen')">
+              <div class="hj-icon">&#x1F501;</div>
+              <div class="hj-name">Rekursion &amp; Listen</div>
+              <div class="hj-desc">Lineare/verzweigte Rekursion, verkettete Liste, Stapel, Warteschlange, Kompositum</div>
             </div>
-            <div class="hj-card" data-hj="oop" onclick="selectSachgebiet('oop')">
-              <div class="hj-icon">&#x1F3D7;</div>
-              <div class="hj-name">Objektorientierung</div>
-              <div class="hj-desc">Klassen, Vererbung, Polymorphie, Entwurfsmuster, UML</div>
+            <div class="hj-card" data-hj="baeume" onclick="selectSachgebiet('baeume')">
+              <div class="hj-icon">&#x1F333;</div>
+              <div class="hj-name">Bin&auml;rb&auml;ume</div>
+              <div class="hj-desc">Geordneter Bin&auml;rbaum, Einf&uuml;gen, Suchen, Traversierung (Pre-/In-/Postorder)</div>
             </div>
-            <div class="hj-card" data-hj="datenbanken" onclick="selectSachgebiet('datenbanken')">
-              <div class="hj-icon">&#x1F5C4;</div>
-              <div class="hj-name">Datenbanken</div>
-              <div class="hj-desc">ER-Modelle, Normalisierung, SQL, Datenschutz</div>
-            </div>
-            <div class="hj-card" data-hj="rechnernetze" onclick="selectSachgebiet('rechnernetze')">
-              <div class="hj-icon">&#x1F310;</div>
-              <div class="hj-name">Rechnernetze</div>
-              <div class="hj-desc">Protokolle, Schichtenmodell, IT-Sicherheit, Verschl&uuml;sselung</div>
+            <div class="hj-card" data-hj="nebenlaeufigkeit" onclick="selectSachgebiet('nebenlaeufigkeit')">
+              <div class="hj-icon">&#x1F504;</div>
+              <div class="hj-name">Nebenl&auml;ufigkeit</div>
+              <div class="hj-desc">Synchronisation, Deadlock, Coffman-Bedingungen, Monitorkonzept</div>
             </div>
             <div class="hj-card" data-hj="automaten" onclick="selectSachgebiet('automaten')">
               <div class="hj-icon">&#x2699;</div>
               <div class="hj-name">Formale Sprachen</div>
-              <div class="hj-desc">Grammatiken, endliche Automaten, Kellerautomaten, regul&auml;re Ausdr&uuml;cke</div>
+              <div class="hj-desc">EBNF, Syntaxdiagramme, DEA/NEA, regul&auml;re Sprachen</div>
             </div>
-            <div class="hj-card" data-hj="softwareentwicklung" onclick="selectSachgebiet('softwareentwicklung')">
-              <div class="hj-icon">&#x1F6E0;</div>
-              <div class="hj-name">Softwareentwicklung</div>
-              <div class="hj-desc">Modellierung, Softwarelebenszyklus, Testen, Projektmanagement</div>
+            <div class="hj-card" data-hj="rechner" onclick="selectSachgebiet('rechner')">
+              <div class="hj-icon">&#x1F5A5;</div>
+              <div class="hj-name">Rechnerarchitektur</div>
+              <div class="hj-desc">Von-Neumann-Architektur, Registermaschine, Assembler, Befehlszyklus</div>
+            </div>
+            <div class="hj-card" data-hj="berechenbarkeit" onclick="selectSachgebiet('berechenbarkeit')">
+              <div class="hj-icon">&#x221E;</div>
+              <div class="hj-name">Berechenbarkeit</div>
+              <div class="hj-desc">Laufzeitaufwand, O-Notation, Brute-Force, Halteproblem</div>
+            </div>
+            <div class="hj-card" data-hj="ki" onclick="selectSachgebiet('ki')">
+              <div class="hj-icon">&#x1F9E0;</div>
+              <div class="hj-name">K&uuml;nstliche Intelligenz</div>
+              <div class="hj-desc">Neuronale Netze, Backpropagation, k-Means, supervised/unsupervised Learning</div>
+            </div>
+            <div class="hj-card" data-hj="sicherheit" onclick="selectSachgebiet('sicherheit')">
+              <div class="hj-icon">&#x1F512;</div>
+              <div class="hj-name">Informationssicherheit</div>
+              <div class="hj-desc">Vertraulichkeit, Integrit&auml;t, Verf&uuml;gbarkeit, Authentizit&auml;t</div>
             </div>
           </div>
         </div>
@@ -272,7 +282,7 @@
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
         <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction"
-            style="min-height:100px" placeholder="Entwerfen Sie ein ER-Modell f&uuml;r eine Bibliotheksverwaltung &hellip;"></textarea></div>
+            style="min-height:100px" placeholder="Implementieren Sie eine Methode zum Einf&uuml;gen in einen geordneten Bin&auml;rbaum &hellip;"></textarea></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
@@ -484,17 +494,19 @@
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
-    CONFIG.sachgebiet = "algorithmen";
+    CONFIG.sachgebiet = "rekursion-listen";
 
     const SG_LABELS = {
-      algorithmen: "Algorithmen & Datenstrukturen",
-      oop: "Objektorientierung",
-      datenbanken: "Datenbanken",
-      rechnernetze: "Rechnernetze",
+      "rekursion-listen": "Rekursion & Listen",
+      baeume: "Binärbäume",
+      nebenlaeufigkeit: "Nebenläufigkeit",
       automaten: "Formale Sprachen & Automaten",
-      softwareentwicklung: "Softwareentwicklung"
+      rechner: "Rechnerarchitektur",
+      berechenbarkeit: "Berechenbarkeit",
+      ki: "Künstliche Intelligenz",
+      sicherheit: "Informationssicherheit"
     };
-    const SG_ICONS = { algorithmen: "\uD83E\uDDE9", oop: "\uD83C\uDFD7", datenbanken: "\uD83D\uDDC4", rechnernetze: "\uD83C\uDF10", automaten: "\u2699", softwareentwicklung: "\uD83D\uDEE0" };
+    const SG_ICONS = { "rekursion-listen": "\uD83D\uDD01", baeume: "\uD83C\uDF33", nebenlaeufigkeit: "\uD83D\uDD04", automaten: "\u2699", rechner: "\uD83D\uDDA5", berechenbarkeit: "\u221E", ki: "\uD83E\uDDE0", sicherheit: "\uD83D\uDD12" };
 
     // BE -> NP conversion table (ISB)
     const BE_NP_TABLE = [
@@ -637,7 +649,7 @@
       } else {
         wrap.innerHTML =
           '<div class="student-ta-group">' +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Informatik:\n\u2022 Algorithmus, Komplexit\u00e4t, O-Notation\n\u2022 Klasse, Objekt, Vererbung\n\u2022 SELECT, JOIN, Normalisierung" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Informatik:\n\u2022 Rekursion, Stapel, Warteschlange, Bin\u00e4rbaum\n\u2022 DEA, EBNF, Von-Neumann-Architektur\n\u2022 O-Notation, Halteproblem, Neuronales Netz" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });
