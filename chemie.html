@@ -242,54 +242,41 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="elektrochemie" onclick="selectSachgebiet('elektrochemie')">
               <div class="hj-icon">&#x26A1;</div>
-              <div class="hj-name">Elektrochemie <span class="subtopic-badge" id="badge-elektrochemie"></span></div>
+              <div class="hj-name">Elektrochemie</div>
               <div class="hj-desc">Galvanische Zellen, Elektrolyse, Nernst</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="gleichgewicht" onclick="selectSachgebiet('gleichgewicht')">
               <div class="hj-icon">&#x2696;&#xFE0F;</div>
-              <div class="hj-name">Chem. Gleichgewicht <span class="subtopic-badge" id="badge-gleichgewicht"></span></div>
+              <div class="hj-name">Chem. Gleichgewicht</div>
               <div class="hj-desc">MWG, Le Chatelier, Puffer, pH</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="thermochemie" onclick="selectSachgebiet('thermochemie')">
               <div class="hj-icon">&#x1F525;</div>
-              <div class="hj-name">Thermochemie <span class="subtopic-badge" id="badge-thermochemie"></span></div>
+              <div class="hj-name">Thermochemie</div>
               <div class="hj-desc">Enthalpie, Entropie, Gibbs, Hess</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="organik" onclick="selectSachgebiet('organik')">
               <div class="hj-icon">&#x1F9EC;</div>
-              <div class="hj-name">Organische Chemie <span class="subtopic-badge" id="badge-organik"></span></div>
+              <div class="hj-name">Organische Chemie</div>
               <div class="hj-desc">Stoffklassen, Reaktionsmechanismen</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="kunststoffe" onclick="selectSachgebiet('kunststoffe')">
               <div class="hj-icon">&#x1F9F4;</div>
-              <div class="hj-name">Kunststoffe <span class="subtopic-badge" id="badge-kunststoffe"></span></div>
+              <div class="hj-name">Kunststoffe</div>
               <div class="hj-desc">Polymerisation, Polykondensation</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="spektroskopie" onclick="selectSachgebiet('spektroskopie')">
               <div class="hj-icon">&#x1F52C;</div>
-              <div class="hj-name">Spektroskopie <span class="subtopic-badge" id="badge-spektroskopie"></span></div>
+              <div class="hj-name">Spektroskopie</div>
               <div class="hj-desc">IR, NMR, MS, Strukturaufkl&auml;rung</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="enzymkatalyse" onclick="selectSachgebiet('enzymkatalyse')">
               <div class="hj-icon">&#x1F9EB;</div>
-              <div class="hj-name">Enzymkatalyse <span class="subtopic-badge" id="badge-enzymkatalyse"></span></div>
+              <div class="hj-name">Enzymkatalyse</div>
               <div class="hj-desc">Michaelis-Menten, Inhibition</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -606,9 +593,8 @@
       ]
     };
 
-    function renderSubtopics(cardEl, key) {
-      var container = cardEl.querySelector('.subtopics');
-      if (container.children.length > 0) return;
+    function renderSubtopics(key) {
+      var panel = document.getElementById('subtopics-panel');
       var items = UNTERPUNKTE[key] || [];
       var html = '<div class="subtopic-item subtopic-all">' +
         '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
@@ -616,51 +602,33 @@
       items.forEach(function(item, i) {
         var id = 'st-' + key + '-' + i;
         html += '<div class="subtopic-item">' +
-          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
           '<label for="' + id + '">' + item + '</label></div>';
       });
-      container.innerHTML = html;
+      panel.innerHTML = html;
+      panel.classList.add('open');
     }
 
     function toggleAll(key, checked) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
-      updateBadge(key);
-    }
-
-    function updateBadge(key) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
-      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
-      var badge = document.getElementById('badge-' + key);
-      badge.textContent = checked > 0 ? checked + '/' + total : '';
-      var allCb = document.getElementById('st-all-' + key);
-      if (allCb) allCb.checked = checked === total && total > 0;
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
     }
 
     function getSelectedSubtopics() {
-      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
-      if (!card) return [];
+      var panel = document.getElementById('subtopics-panel');
       var result = [];
-      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
         result.push(cb.dataset.subtopic);
       });
       return result;
     }
 
     function selectSachgebiet(sg) {
-      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
       document.querySelectorAll(".hj-card").forEach(function(c) {
-        var isTarget = c.dataset.hj === sg;
-        c.classList.toggle("selected", isTarget);
-        if (!isTarget) c.classList.remove("expanded");
+        c.classList.toggle("selected", c.dataset.hj === sg);
       });
-      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
-      if (card) {
-        renderSubtopics(card, sg);
-        card.classList.toggle("expanded");
-      }
+      renderSubtopics(sg);
     }
 
     function setSetupMode(m) {
