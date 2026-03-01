@@ -1100,10 +1100,13 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE: GENERATE ================= */
 async function handleGenerateGeschichte(request, env) {
   const body = await request.json();
-  const { schwerpunkt, level, be, zeit, anzahl } = body;
+  const { schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
   const totalBE = be || 60;
   const zeitMinuten = zeit || 180;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const schwerpunkte = {
     "12_1": {
@@ -1140,7 +1143,7 @@ async function handleGenerateGeschichte(request, env) {
   const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Abituraufgabe exakt nach dem Format der offiziellen IQB-Beispielaufgaben.
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
-MÖGLICHE THEMEN: ${sp.themen}
+MÖGLICHE THEMEN: ${sp.themen}${schwerpunktZusatz}
 ANFORDERUNGSNIVEAU: ${niveauText}
 
 KLAUSUR-PARAMETER:
@@ -1807,7 +1810,7 @@ Antworte NUR mit validem JSON:
 /* ================= POLITIK UND GESELLSCHAFT: GENERATE ================= */
 async function handleGeneratePuG(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { halbjahr, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -1815,6 +1818,9 @@ async function handleGeneratePuG(request, env) {
   const zeitMinuten = zeit || 90;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const hjThemen = {
     "12_1": {
@@ -1947,7 +1953,7 @@ MATERIALIEN:
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
-${hj.inhalte}
+${hj.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag, Leserbrief, digitale Pinnwand)
@@ -2227,7 +2233,7 @@ MATERIALIEN (nur für Teil A):
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
-${hj.inhalte}
+${hj.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen lebensweltnahen Kontext ein (z.B. Schulprojekt, Forumsbeitrag, Vortrag)
@@ -3446,7 +3452,7 @@ Antworte NUR mit validem JSON:
 /* ================= ETHIK: GENERATE ================= */
 async function handleGenerateEthik(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { lernbereich, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -3454,6 +3460,9 @@ async function handleGenerateEthik(request, env) {
   const zeitMinuten = zeit || 90;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const lbThemen = {
     "12_1": {
@@ -3604,7 +3613,7 @@ MATERIALIEN:
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen philosophisch relevanten Kontext ein (z.B. ethische Debatte, philosophisches Gedankenexperiment, aktuelles gesellschaftliches Problem)
@@ -3823,7 +3832,7 @@ PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 ${lb.lernbereiche}
 Relevante Inhalte:
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Philosophen und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte. Themen, Philosophen und Konzepte, die NUR im eA-Lehrplan stehen (z.B. Erkenntnistheorie/Wissenschaftstheorie als eigener LB, Politische Ethik als eigener LB, Religionsphilosophie als eigener LB, soziologische Theorien als eigener LB), dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
@@ -3991,7 +4000,7 @@ Antworte NUR mit validem JSON:
 /* ================= EV. RELIGION: GENERATE ================= */
 async function handleGenerateReligion(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { lernbereich, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -3999,6 +4008,9 @@ async function handleGenerateReligion(request, env) {
   const zeitMinuten = zeit || 90;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const lbThemen = {
     "12_1": {
@@ -4117,7 +4129,7 @@ MATERIALIEN:
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen theologisch relevanten Kontext ein (z.B. ethische Debatte, gesellschaftliche Frage mit religiöser Dimension, biblische Thematik, kirchengeschichtliches Ereignis)
@@ -4292,7 +4304,7 @@ PRÜFUNGSSTRUKTUR:
 - Gesamt: ${beGesamt}
 
 TEIL A – LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 MATERIALIEN für Teil A:
 - 2-3 Materialien (theologische/biblische Texte, Statistiken, plus 1 Bild)
@@ -4452,7 +4464,7 @@ Antworte NUR mit validem JSON:
 /* ================= KATH. RELIGION: GENERATE ================= */
 async function handleGenerateKatholisch(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { lernbereich, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -4460,6 +4472,9 @@ async function handleGenerateKatholisch(request, env) {
   const zeitMinuten = zeit || 90;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const lbThemen = {
     "12_1": {
@@ -4565,7 +4580,7 @@ MATERIALIEN:
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen theologisch relevanten Kontext ein (z.B. ethische Debatte, gesellschaftliche Frage mit religiöser Dimension, biblische Thematik, kirchengeschichtliches Ereignis)
@@ -4740,7 +4755,7 @@ PRÜFUNGSSTRUKTUR:
 - Gesamt: ${beGesamt}
 
 TEIL A – LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
-${lb.inhalte}
+${lb.inhalte}${schwerpunktZusatz}
 
 MATERIALIEN für Teil A:
 - 2-3 Materialien (theologische/biblische Texte, kirchliche Dokumente, Statistiken, plus 1 Bild)
@@ -4900,7 +4915,7 @@ Antworte NUR mit validem JSON:
 /* ================= GEOGRAPHIE: GENERATE ================= */
 async function handleGenerateGeographie(request, env) {
   const body = await request.json();
-  const { halbjahr, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { halbjahr, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -4908,6 +4923,9 @@ async function handleGenerateGeographie(request, env) {
   const zeitMinuten = zeit || 90;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const hjThemen = {
     "12_1": {
@@ -5012,7 +5030,7 @@ MATERIALIEN:
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Relevante Inhalte:
-${hj.inhalte}
+${hj.inhalte}${schwerpunktZusatz}
 
 SITUIERUNG:
 - Bette die Aufgabe in einen geographisch relevanten Kontext ein (z.B. konkreter Raumbeispiel, aktuelle Umweltdebatte, Nachhaltigkeitsproblem)
@@ -5218,7 +5236,7 @@ PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Relevante Inhalte:
-${hj.inhalte}
+${hj.inhalte}${schwerpunktZusatz}
 
 LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen — weniger Vertiefung, keine eA-exklusiven Modelle oder Theorien. Halte dich strikt an den oben angegebenen Lehrplan für das gewählte Niveau.` : ""}
@@ -5393,7 +5411,10 @@ Antworte NUR mit validem JSON:
 /* ================= LATEIN: GENERATE ================= */
 async function handleGenerateLatein(request, env) {
   const body = await request.json();
-  const { autor, aufgabentyp, schwerpunkt, level, be, zeit, anzahl } = body;
+  const { autor, aufgabentyp, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const isEA = (level || "eA").toLowerCase() === "ea";
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
@@ -5437,7 +5458,7 @@ ANFORDERUNGEN:
 - Erstelle Vokabelhilfen (Vokabelhilfen) für schwierige oder seltene Wörter (8-15 Hilfen)
 - Erstelle eine versteckte Musterübersetzung ins Deutsche
 
-Thematischer Schwerpunkt: ${schwerpunktLabel}
+Thematischer Schwerpunkt: ${schwerpunktLabel}${schwerpunktZusatz}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5514,7 +5535,7 @@ LATEINISCHER TEXT:
 - Der Text muss grammatisch korrektes klassisches Latein sein
 - Erstelle eine genaue deutsche Übersetzung dazu
 
-Thematischer Schwerpunkt: ${schwerpunktLabel}
+Thematischer Schwerpunkt: ${schwerpunktLabel}${schwerpunktZusatz}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -5848,7 +5869,7 @@ Wähle eine passende Gattung (Prosa oder Dichtung) für den zweiten Text.
   Abschnitt III – Weiterführende Aufgaben (${beWeiterfuehrend}):
     ${anzahlWeiterfuehrendGesamt} Aufgaben zur Auswahl, davon ${anzahlWeiterfuehrendWahl} zu bearbeiten, je 6 BE, AFB III
 
-Thematischer Schwerpunkt: ${schwerpunktLabel}
+Thematischer Schwerpunkt: ${schwerpunktLabel}${schwerpunktZusatz}
 
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Analysieren Sie die Stilmittel (Anapher, Klimax, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
@@ -6081,7 +6102,10 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
 /* ================= MATHEMATIK: GENERATE ================= */
 async function handleGenerateMathe(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "analysis";
   const totalBE = be || 25;
@@ -6140,7 +6164,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 Sachkontext-Ideen: ${sgInfo.kontexte}
 
 ISB-REFERENZFORMAT (orientiere dich an den illustrierenden Prüfungsaufgaben des ISB Bayern 2025):
@@ -6768,7 +6792,10 @@ WICHTIG:
 /* ================= CHEMIE: GENERATE ================= */
 async function handleGenerateChemie(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "elektrochemie";
   const totalBE = be || 20;
@@ -6843,7 +6870,7 @@ IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben wie Taschenofen,
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -7113,7 +7140,10 @@ async function handleParseTaskChemie(request, env) {
 /* ================= PHYSIK: GENERATE ================= */
 async function handleGeneratePhysik(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "elektrostatik";
   const totalBE = be || 20;
@@ -7165,7 +7195,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -7416,7 +7446,10 @@ async function handleParseTaskPhysik(request, env) {
 /* ================= BIO: GENERATE ================= */
 async function handleGenerateBio(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "genetik";
   const totalBE = be || 20;
@@ -7465,7 +7498,7 @@ ANFORDERUNGEN:
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
 SACHGEBIET: ${sgInfo.title}
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 
 FORMATIERUNG: LaTeX $...$ für Formeln ($Aa$, $\\frac{1}{4}$). Summenformeln als Text: CO₂, ATP.
 
@@ -7709,7 +7742,10 @@ async function handleParseTaskBio(request, env) {
 /* ================= SPORT: GENERATE ================= */
 async function handleGenerateSport(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "gesundheit";
   const totalBE = be || 20;
@@ -7758,7 +7794,7 @@ ANFORDERUNGEN:
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
 SACHGEBIET: ${sgInfo.title}
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 
 FORMATIERUNG: Fachbegriffe klar verwenden. Einheiten korrekt angeben (z.B. Herzfrequenz in min⁻¹, VO₂max in ml/min/kg, Kraft in N).
 
@@ -7988,7 +8024,10 @@ async function handleParseTaskSport(request, env) {
 /* ================= INFORMATIK: GENERATE ================= */
 async function handleGenerateInformatik(request, env) {
   const body = await request.json();
-  const { sachgebiet, be, zeit, anzahl } = body;
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const sg = sachgebiet || "rekursion-listen";
   const totalBE = be || 20;
@@ -8050,7 +8089,7 @@ ANFORDERUNGEN:
 - Bei KI: Berechnungen zu Neuronalen Netzen (Forward Propagation) oder k-Means können verlangt werden
 
 SACHGEBIET: ${sgInfo.title}
-${sgInfo.inhalte}
+${sgInfo.inhalte}${schwerpunktZusatz}
 
 FORMATIERUNG: Fachbegriffe klar verwenden. Code in Markdown-Codeblöcken. Pseudocode klar strukturiert.
 

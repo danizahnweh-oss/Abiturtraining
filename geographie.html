@@ -318,31 +318,33 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="12_1" onclick="selectHalbjahr('12_1')">
               <div class="hj-icon">&#x1F3D4;&#xFE0F;</div>
-              <div class="hj-name">Physische Geographie</div>
+              <div class="hj-name">Physische Geographie <span class="subtopic-badge" id="badge-12_1"></span></div>
               <div class="hj-desc">Subpolare/Polare Zone, Klima, Naturraum</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectHalbjahr('12_2')">
               <div class="hj-icon">&#x1F33E;</div>
-              <div class="hj-name">Humangeographie I</div>
+              <div class="hj-name">Humangeographie I <span class="subtopic-badge" id="badge-12_2"></span></div>
               <div class="hj-desc">Ressource Fl&auml;che, Wasser, Gebirgsregionen</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectHalbjahr('13_1')">
               <div class="hj-icon">&#x1F30D;</div>
-              <div class="hj-name">Entwicklungsgeographie</div>
+              <div class="hj-name">Entwicklungsgeographie <span class="subtopic-badge" id="badge-13_1"></span></div>
               <div class="hj-desc">Globalisierung, Entwicklung, Nachhaltigkeit</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
               <div class="hj-icon">&#x1F3D9;&#xFE0F;</div>
-              <div class="hj-name">Stadtgeographie</div>
+              <div class="hj-name">Stadtgeographie <span class="subtopic-badge" id="badge-13_2"></span></div>
               <div class="hj-desc">Migration, Bev&ouml;lkerung, Smart Cities</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Schwerpunkt (optional)</label>
-          <select id="schwerpunktSelect">
-            <option value="random">Zuf&auml;llig</option>
-          </select>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -654,36 +656,37 @@ Tipp: Strukturiere deinen Text:
 
     const HJ_ICONS = { "12_1": "\u{1F3D4}\uFE0F", "12_2": "\u{1F33E}", "13_1": "\u{1F30D}", "13_2": "\u{1F3D9}\uFE0F" };
 
-    const SCHWERPUNKTE = {
+    const UNTERPUNKTE = {
       "12_1": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "klimazonen", label: "Klimazonen" },
-        { value: "permafrost", label: "Permafrost/Boden" },
-        { value: "vegetationszonen", label: "Vegetationszonen" },
-        { value: "polare_zone", label: "Polare Zone/Arktis" }
+        "Klima und Klimawandel (Strahlungshaushalt, Zirkulation)",
+        "Tropen und Desertifikation",
+        "Subpolare/Polare Zone und Permafrost",
+        "Ressourcenkonflikte (Wasser, Wald, Boden, Fl\u00e4che)",
+        "Hochgebirge und Tourismus (Alpen)",
+        "Tektonische Naturgefahren (Plattentektonik, Vulkanismus)"
       ],
       "12_2": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "ressource_flaeche", label: "Ressource Fl\u00e4che" },
-        { value: "wasser", label: "Wasser/Wasserkreislauf" },
-        { value: "gebirgsregionen", label: "Gebirgsregionen" },
-        { value: "tourismus", label: "Tourismus" },
-        { value: "erneuerbare_energien", label: "Erneuerbare Energien" }
+        "Wasser als Ressource und Wasserkonflikte",
+        "Ressource Fl\u00e4che und Fl\u00e4chennutzungskonflikte",
+        "Landwirtschaft und Weltern\u00e4hrung",
+        "Erneuerbare Energien und Energiewende",
+        "Tourismus in Hochgebirgsr\u00e4umen"
       ],
       "13_1": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "fragmentierende_entwicklung", label: "Fragmentierende Entwicklung" },
-        { value: "globalisierung", label: "Globalisierung" },
-        { value: "nachhaltigkeit", label: "Nachhaltigkeit" },
-        { value: "megacities", label: "Megacities" },
-        { value: "amazonas", label: "Amazonas/Tropischer Regenwald" }
+        "Entwicklungsindikatoren und Disparit\u00e4ten (HDI, Gini)",
+        "Globalisierung und Wertsch\u00f6pfungsketten",
+        "Bev\u00f6lkerungsentwicklung und Migration",
+        "Megacities und Urbanisierung",
+        "Nachhaltigkeit und SDGs",
+        "Tropischer Regenwald und Desertifikation"
       ],
       "13_2": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "stadtentwicklung", label: "Stadtentwicklung" },
-        { value: "migration", label: "Migration/Bev\u00f6lkerung" },
-        { value: "smart_cities", label: "Smart Cities" },
-        { value: "klimawandel_staedte", label: "Klimawandel in St\u00e4dten" }
+        "Stadtentwicklung und historische Stadttypen",
+        "Gentrifizierung und soziale Folgen",
+        "Suburbanisierung und Reurbanisierung",
+        "Smart Cities und nachhaltige Stadtplanung",
+        "Segregation und demographischer Wandel",
+        "Migration und Integration"
       ]
     };
 
@@ -713,16 +716,60 @@ WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT: Antworten M\u00dcSSEN in zusammenh\u00e4n
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
-    function selectHalbjahr(hj) {
-      CONFIG.halbjahr = hj;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === hj));
-      updateSchwerpunkte();
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
     }
 
-    function updateSchwerpunkte() {
-      const sel = document.getElementById("schwerpunktSelect");
-      const opts = SCHWERPUNKTE[CONFIG.halbjahr] || [{ value: "random", label: "Zuf\u00e4llig" }];
-      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.halbjahr + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
+    function selectHalbjahr(hj) {
+      CONFIG.halbjahr = hj;
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === hj;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + hj + '"]');
+      if (card) {
+        renderSubtopics(card, hj);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -775,7 +822,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         const level = sessionStorage.getItem("student_level") || "eA";
         const d = await apiCall("/api/generate-geographie", {
           halbjahr: CONFIG.halbjahr,
-          schwerpunkt: document.getElementById("schwerpunktSelect").value,
+          unterpunkte: getSelectedSubtopics(),
           level: level,
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 90,

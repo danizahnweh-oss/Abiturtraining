@@ -24,6 +24,46 @@
     rel="stylesheet">
   <link rel="stylesheet" href="shared-v4.css">
   <style>
+    /* Halbjahr selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .hj-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
+
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .hj-desc {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+      line-height: 1.3
+    }
+
     /* Material cards & image styles */
     .material-card {
       background: var(--bg-warm);
@@ -142,6 +182,12 @@
       color: var(--ink-muted);
       font-style: italic
     }
+
+    @media(max-width:650px) {
+      .hj-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
   </style>
 </head>
 
@@ -179,14 +225,37 @@
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Schwerpunkt & Aufgabe wählen</h2>
         <div class="form-group">
-          <label>Schwerpunkt (Halbjahr)</label>
-          <select id="schwerpunktSelect">
-            <option value="random">Zufällig</option>
-            <option value="12_1">12/1 – Gesellschaft und Politik (19. Jh. bis Weimarer Republik)</option>
-            <option value="12_2">12/2 – Deutschland zwischen Demokratie und Diktatur</option>
-            <option value="13_1">13/1 – Akteure internationaler Politik</option>
-            <option value="13_2">13/2 – Politische Ordnungsformen und Identität in Europa</option>
-          </select>
+          <label>Halbjahr / Themenbereich</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="12_1" onclick="selectHalbjahr('12_1')">
+              <div class="hj-icon">&#x1F3DB;&#xFE0F;</div>
+              <div class="hj-name">12/1 <span class="subtopic-badge" id="badge-12_1"></span></div>
+              <div class="hj-desc">Gesellschaft und Politik im 19./20. Jh.</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
+            </div>
+            <div class="hj-card" data-hj="12_2" onclick="selectHalbjahr('12_2')">
+              <div class="hj-icon">&#x1F1E9;&#x1F1EA;</div>
+              <div class="hj-name">12/2 <span class="subtopic-badge" id="badge-12_2"></span></div>
+              <div class="hj-desc">Demokratie und Diktatur</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
+            </div>
+            <div class="hj-card" data-hj="13_1" onclick="selectHalbjahr('13_1')">
+              <div class="hj-icon">&#x1F30D;</div>
+              <div class="hj-name">13/1 <span class="subtopic-badge" id="badge-13_1"></span></div>
+              <div class="hj-desc">Akteure internationaler Politik</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
+            </div>
+            <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
+              <div class="hj-icon">&#x1F3DB;</div>
+              <div class="hj-name">13/2 <span class="subtopic-badge" id="badge-13_2"></span></div>
+              <div class="hj-desc">Politische Ordnungsformen in Europa</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
+            </div>
+          </div>
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
@@ -475,6 +544,83 @@ Antworte NUR mit validem JSON:
 {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown-Feedback>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
+    CONFIG.halbjahr = "12_1";
+
+    const UNTERPUNKTE = {
+      "12_1": [
+        "Französische Revolution und Vormärz",
+        "Revolution 1848/49 und Paulskirche",
+        "Kaiserreich und Industrialisierung",
+        "Erster Weltkrieg und Weimarer Republik"
+      ],
+      "12_2": [
+        "Scheitern der Weimarer Republik",
+        "NS-Machtübernahme und Gleichschaltung",
+        "Holocaust und Widerstand",
+        "Zwei deutsche Staaten (BRD und DDR)",
+        "Wiedervereinigung und Transformationsprozess"
+      ],
+      "13_1": [
+        "Israelisch-palästinensischer Konflikt",
+        "USA als Supermacht",
+        "Russland/Sowjetunion im 20./21. Jahrhundert",
+        "Chinas Aufstieg zur Weltmacht"
+      ],
+      "13_2": [
+        "Attische Demokratie",
+        "Aufklärung und Menschenrechte",
+        "Nationalismus im 19. Jahrhundert",
+        "Europäische Integration"
+      ]
+    };
+
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all"><input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)"><label for="st-all-' + key + '">Alle auswählen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item"><input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')"><label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.halbjahr + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) { result.push(cb.dataset.subtopic); });
+      return result;
+    }
+
+    function selectHalbjahr(hj) {
+      CONFIG.halbjahr = hj;
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === hj;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + hj + '"]');
+      if (card) { renderSubtopics(card, hj); card.classList.toggle("expanded"); }
+    }
+
     function setSetupMode(m) {
       document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
       document.getElementById("modeUpload").classList.toggle("active", m === "upload");
@@ -521,7 +667,8 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("setupLoader").style.display = "block";
       try {
         const d = await apiCall("/api/generate-geschichte", {
-          schwerpunkt: document.getElementById("schwerpunktSelect").value,
+          halbjahr: CONFIG.halbjahr,
+          unterpunkte: getSelectedSubtopics(),
           level: sessionStorage.getItem("student_level") || "gA",
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 180,

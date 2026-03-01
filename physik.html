@@ -227,33 +227,45 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="elektrostatik" onclick="selectSachgebiet('elektrostatik')">
               <div class="hj-icon">&#x26A1;</div>
-              <div class="hj-name">Elektrostatik &amp; Magnetostatik</div>
+              <div class="hj-name">Elektrostatik &amp; Magnetostatik <span class="subtopic-badge" id="badge-elektrostatik"></span></div>
               <div class="hj-desc">E-Felder, B-Felder, Kondensator, Lorentz</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="induktion" onclick="selectSachgebiet('induktion')">
               <div class="hj-icon">&#x1F504;</div>
-              <div class="hj-name">EM-Induktion &amp; Schwingungen</div>
+              <div class="hj-name">EM-Induktion &amp; Schwingungen <span class="subtopic-badge" id="badge-induktion"></span></div>
               <div class="hj-desc">Induktion, LC-Schwingkreis, Wechselstrom</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="emwellen" onclick="selectSachgebiet('emwellen')">
               <div class="hj-icon">&#x1F4E1;</div>
-              <div class="hj-name">Elektromagn. Wellen</div>
+              <div class="hj-name">Elektromagn. Wellen <span class="subtopic-badge" id="badge-emwellen"></span></div>
               <div class="hj-desc">Interferenz, Beugung, Gitter, R&ouml;ntgen</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="quantenphysik" onclick="selectSachgebiet('quantenphysik')">
               <div class="hj-icon">&#x1F52C;</div>
-              <div class="hj-name">Quantenphysik</div>
+              <div class="hj-name">Quantenphysik <span class="subtopic-badge" id="badge-quantenphysik"></span></div>
               <div class="hj-desc">De Broglie, Doppelspalt, Photonen</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="atommodell" onclick="selectSachgebiet('atommodell')">
               <div class="hj-icon">&#x269B;&#xFE0F;</div>
-              <div class="hj-name">Atommodell der Quantenphysik</div>
+              <div class="hj-name">Atommodell der Quantenphysik <span class="subtopic-badge" id="badge-atommodell"></span></div>
               <div class="hj-desc">Potentialtopf, Orbitale, Spektren</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="kernphysik" onclick="selectSachgebiet('kernphysik')">
               <div class="hj-icon">&#x2622;&#xFE0F;</div>
-              <div class="hj-name">Kernphysik</div>
+              <div class="hj-name">Kernphysik <span class="subtopic-badge" id="badge-kernphysik"></span></div>
               <div class="hj-desc">Zerfall, Halbwertszeit, Kernspaltung</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
         </div>
@@ -524,9 +536,100 @@
       return 0;
     }
 
+    const UNTERPUNKTE = {
+      elektrostatik: [
+        "Elektrisches Feld (Feldlinien, Feldst\u00e4rke)",
+        "Kondensator (Kapazit\u00e4t, Energie, Dielektrikum)",
+        "Magnetisches Feld (Lorentzkraft, Hall-Effekt)",
+        "Geladene Teilchen in Feldern (Massenspektrometer)"
+      ],
+      induktion: [
+        "Elektromagnetische Induktion (Faraday, Lenz)",
+        "Selbstinduktion und Induktivit\u00e4t",
+        "Elektromagnetischer Schwingkreis (LC)",
+        "Wechselstrom und Transformator"
+      ],
+      emwellen: [
+        "Interferenz und Beugung am Gitter",
+        "Elektromagnetisches Spektrum",
+        "Polarisation und R\u00f6ntgenstrahlung",
+        "Wellenoptik (Huygens, Doppelspalt)"
+      ],
+      quantenphysik: [
+        "Photoeffekt und Photonen",
+        "De-Broglie-Wellenl\u00e4nge",
+        "Doppelspaltversuch mit Elektronen",
+        "Welle-Teilchen-Dualismus und Komplementarit\u00e4t"
+      ],
+      atommodell: [
+        "Potentialtopfmodell und Energiequantisierung",
+        "Orbitale und Quantenzahlen",
+        "Franck-Hertz-Versuch",
+        "Spektrallinien und Emissionsspektren"
+      ],
+      kernphysik: [
+        "Radioaktiver Zerfall (\u03b1, \u03b2, \u03b3)",
+        "Halbwertszeit und Zerfallsgesetz",
+        "Kernspaltung und Kernfusion",
+        "Masse-Energie-\u00c4quivalenz (E=mc\u00b2)"
+      ]
+    };
+
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
     function selectSachgebiet(sg) {
+      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === sg;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
+      if (card) {
+        renderSubtopics(card, sg);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -616,6 +719,7 @@
       try {
         const d = await apiCall("/api/generate-physik", {
           sachgebiet: CONFIG.sachgebiet,
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 20,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1

@@ -227,33 +227,45 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="genetik" onclick="selectSachgebiet('genetik')">
               <div class="hj-icon">&#x1F9EC;</div>
-              <div class="hj-name">Genetik &amp; Gentechnik</div>
+              <div class="hj-name">Genetik &amp; Gentechnik <span class="subtopic-badge" id="badge-genetik"></span></div>
               <div class="hj-desc">DNA, Proteinbiosynthese, Mutation, Vererbung</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="neurobiologie" onclick="selectSachgebiet('neurobiologie')">
               <div class="hj-icon">&#x1F9E0;</div>
-              <div class="hj-name">Neurobiologie</div>
+              <div class="hj-name">Neurobiologie <span class="subtopic-badge" id="badge-neurobiologie"></span></div>
               <div class="hj-desc">Nervenzelle, Ruhepotential, Aktionspotential, Synapse</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="stoffwechsel" onclick="selectSachgebiet('stoffwechsel')">
               <div class="hj-icon">&#x1F52C;</div>
-              <div class="hj-name">Stoffwechselphysiologie</div>
+              <div class="hj-name">Stoffwechselphysiologie <span class="subtopic-badge" id="badge-stoffwechsel"></span></div>
               <div class="hj-desc">Photosynthese, Zellatmung, Enzyme</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="oekologie" onclick="selectSachgebiet('oekologie')">
               <div class="hj-icon">&#x1F33F;</div>
-              <div class="hj-name">&Ouml;kologie &amp; Biodiversit&auml;t</div>
+              <div class="hj-name">&Ouml;kologie &amp; Biodiversit&auml;t <span class="subtopic-badge" id="badge-oekologie"></span></div>
               <div class="hj-desc">Populationen, &Ouml;kosysteme, Nachhaltigkeit</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="evolution" onclick="selectSachgebiet('evolution')">
               <div class="hj-icon">&#x1F98E;</div>
-              <div class="hj-name">Evolution</div>
+              <div class="hj-name">Evolution <span class="subtopic-badge" id="badge-evolution"></span></div>
               <div class="hj-desc">Selektion, Artbildung, Stammesgeschichte</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="verhalten" onclick="selectSachgebiet('verhalten')">
               <div class="hj-icon">&#x1F43E;</div>
-              <div class="hj-name">Verhaltens&ouml;kologie</div>
+              <div class="hj-name">Verhaltens&ouml;kologie <span class="subtopic-badge" id="badge-verhalten"></span></div>
               <div class="hj-desc">Fitness, Kooperation, Fortpflanzung</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
         </div>
@@ -523,9 +535,109 @@
       return 0;
     }
 
+    const UNTERPUNKTE = {
+      genetik: [
+        "DNA-Bau und genetischer Code",
+        "Proteinbiosynthese (Transkription, Translation)",
+        "Genregulation und Epigenetik",
+        "Zellzyklus, Meiose und Neukombination",
+        "Mutation (Gen- und Genommutationen)",
+        "Gentechnik (CRISPR/Cas, PCR, Gelelektrophorese)",
+        "Stammbaumanalyse und Erbg\u00e4nge (Mendelsche Regeln)"
+      ],
+      neurobiologie: [
+        "Nervenzelle und Biomembran",
+        "Ruhepotential (Ionenverteilung, Na\u207a/K\u207a-ATPase)",
+        "Aktionspotential und Erregungsleitung",
+        "Synapse und synaptische \u00dcbertragung",
+        "Stoffeinwirkung an Synapsen",
+        "Depression (Monoamin-Hypothese, SSRI)"
+      ],
+      stoffwechsel: [
+        "Enzyme und Enzymregulation",
+        "Photosynthese (Lichtreaktionen, Calvin-Zyklus)",
+        "Zellatmung (Glykolyse, Citratzyklus, Atmungskette)",
+        "G\u00e4rung (Milchs\u00e4ure-, alkoholische G\u00e4rung)",
+        "Vergleich Photosynthese und Zellatmung"
+      ],
+      oekologie: [
+        "Abiotische und biotische Umweltfaktoren",
+        "\u00d6kologische Nische und Konkurrenz",
+        "Populationsdynamik (Wachstum, Umweltkapazit\u00e4t)",
+        "Stoffkreisl\u00e4ufe und Energiefluss",
+        "Biodiversit\u00e4t und Nachhaltigkeit"
+      ],
+      evolution: [
+        "Belege der Evolution (Homologien, Fossilien)",
+        "Synthetische Evolutionstheorie (Mutation, Selektion, Drift)",
+        "Selektionsformen und Artbildung",
+        "Koevolution und adaptive Radiation",
+        "Stammbaum und Kladogramm"
+      ],
+      verhalten: [
+        "Adaptiver Wert von Verhalten und Fitness",
+        "Kosten-Nutzen-Analyse und Optimalit\u00e4tsmodell",
+        "Kooperation und Altruismus",
+        "Kommunikation und Aggression",
+        "Fortpflanzung und Paarungssysteme"
+      ]
+    };
+
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
     function selectSachgebiet(sg) {
+      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === sg;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
+      if (card) {
+        renderSubtopics(card, sg);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -615,6 +727,7 @@
       try {
         const d = await apiCall("/api/generate-bio", {
           sachgebiet: CONFIG.sachgebiet,
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 20,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1
