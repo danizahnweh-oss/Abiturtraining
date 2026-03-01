@@ -18,12 +18,14 @@ function keineLoesungshinweise(beispiel) {
 
 const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
 - "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
+- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
 - "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
 - "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.`;
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
+- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 const LEHRPLAN_TREUE = `LEHRPLAN-TREUE: Verwende NUR Inhalte aus dem oben angegebenen Lehrplan. Keine Themen, Konzepte oder Reaktionsmechanismen verwenden, die nicht im Lehrplan stehen.`;
 
@@ -63,7 +65,10 @@ function skaliereTokens(basisTokens, bearbeitungszeit, referenzzeit) {
 const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
 - "korrektur_text_a": Markierter Schülertext Teil A. Markiere Übersetzungsfehler mit <mark class='fehler-ue' title='Korrektur: RICHTIG (Fehlertyp: S/L/H)'>FALSCH</mark>.
 - "korrektur_text_b": Markierter Schülertext Teil B. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
-- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teil/Aufgabe", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.`;
+- "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teil/Aufgabe", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.
+- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
+
+const UEBUNGSAUFGABEN_ANWEISUNG = `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 /* ---- Token-System (HMAC-SHA256) ---- */
 async function generateToken(env, secret) {
@@ -915,7 +920,7 @@ Return your evaluation in JSON format ONLY:
 }
 CALCULATION: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
 SPERRKLAUSEL: If inhalt_np OR sprache_np is 0, gesamt_np must be at most 3.
-IMPORTANT: Return ONLY valid JSON. No markdown fences.`
+IMPORTANT: Return ONLY valid JSON. No markdown fences.` + UEBUNGSAUFGABEN_ANWEISUNG
     },
     {
       role: "user",
@@ -945,7 +950,8 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
       feedback: parsed.feedback || "",
       corrections: parsed.corrections || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     const contentMatch = openaiRes.match(/inhalt_np["\s:]*(\d{1,2})/i);
@@ -966,7 +972,8 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.`
       feedback: openaiRes,
       corrections: "",
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -1436,14 +1443,16 @@ async function handleGradeDeutsch(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -1991,14 +2000,16 @@ async function handleGradePuG(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -2285,7 +2296,8 @@ async function handleGradeAbiturPuG(request, env) {
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -2293,7 +2305,8 @@ async function handleGradeAbiturPuG(request, env) {
       feedback: openaiRes,
       korrektur_text_a: "",
       korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -2547,7 +2560,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
@@ -2568,7 +2581,8 @@ Antworte NUR mit validem JSON:
       bewertung_bloecke: parsed.bewertung_bloecke || [],
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -2576,7 +2590,8 @@ Antworte NUR mit validem JSON:
       bewertung_bloecke: [],
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -2823,7 +2838,8 @@ async function handleGradeAbiturGeschichte(request, env) {
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -2831,7 +2847,8 @@ async function handleGradeAbiturGeschichte(request, env) {
       feedback: openaiRes,
       korrektur_text_a: "",
       korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -3069,7 +3086,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}` }
   ];
 
@@ -3091,7 +3108,8 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -3099,7 +3117,8 @@ Antworte NUR mit validem JSON:
       feedback: openaiRes,
       korrektur_text_a: "",
       korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -3655,14 +3674,16 @@ async function handleGradeEthik(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -3874,14 +3895,16 @@ async function handleGradeAbiturEthik(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -4170,14 +4193,16 @@ async function handleGradeReligion(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -4313,7 +4338,7 @@ async function handleGradeAbiturReligion(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
-  const korrekturAnweisung = KORREKTUR_ABITUR;
+  const korrekturAnweisung = KORREKTUR_AB;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -4338,14 +4363,16 @@ async function handleGradeAbiturReligion(request, env) {
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text_a: "", korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -4621,14 +4648,16 @@ async function handleGradeKatholisch(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -4764,7 +4793,7 @@ async function handleGradeAbiturKatholisch(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
-  const korrekturAnweisung = KORREKTUR_ABITUR;
+  const korrekturAnweisung = KORREKTUR_AB;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -4789,14 +4818,16 @@ async function handleGradeAbiturKatholisch(request, env) {
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text_a: "", korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -5073,14 +5104,16 @@ async function handleGradeGeographie(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -5284,14 +5317,16 @@ async function handleGradeAbiturGeographie(request, env) {
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
       korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
       korrektur_text: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -5982,7 +6017,8 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || []
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -5990,7 +6026,8 @@ Antworte NUR mit validem JSON:
       feedback: openaiRes,
       korrektur_text_a: "",
       korrektur_text_b: "",
-      fehlende_aspekte: []
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -6067,6 +6104,8 @@ async function handleGenerateMathe(request, env) {
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
+  const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
 
   const sgThemen = {
     analysis: {
@@ -6108,13 +6147,15 @@ Lehrplan-Inhalte Jgst. 13:
 Erstelle eine authentische Mathematik-Aufgabe.
 
 AUFGABE:
-- Gesamt: ${totalBE} BE
+- Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
 - Bearbeitungszeit: ${zeitMinuten} Minuten
+- Erstelle mindestens ${minTeilaufgaben} und höchstens ${maxTeilaufgaben} Teilaufgaben
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
-- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe und verteile die ' + totalBE + ' BE sinnvoll auf die Teilaufgaben'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- VALIDIERUNG: Zähle am Ende nach — die Summe aller "be"-Werte MUSS EXAKT ${totalBE} ergeben!
 - Hilfsmittel/CAS erlaubt
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
 
@@ -6217,17 +6258,29 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung zum LÖSEN der Aufgabe nötig ist. Grafik-Format: {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 WICHTIG: Generiere EIGENE Aufgaben! Das Beispiel oben ist NUR zur Orientierung.`;
 
-  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (EXAKT ${totalBE} BE gesamt, mindestens ${minTeilaufgaben} Teilaufgaben) im Sachgebiet ${sgInfo.title}.
 ${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet sein (z.B. Modellierung, Messdaten, Alltagsproblem).' : 'Die Aufgabe soll klar formuliert sein mit vollständigen Aufgabenstellungen.'}
 Jede Teilaufgabe braucht einen klaren Operator (Bestimmen Sie, Zeigen Sie, Begründen Sie, etc.) — NIEMALS nur eine Formel ohne Anweisung!
-KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
+KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).
+PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben. Erstelle genügend Teilaufgaben!`;
 
+  const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 6000);
+  ], Math.min(maxTokens, 16000));
 
   const content = extractJSON(openaiRes);
+
+  // Validierung: BE-Summe prüfen und ggf. korrigieren
+  if (content.teilaufgaben && content.teilaufgaben.length > 0) {
+    const beSum = content.teilaufgaben.reduce((sum, t) => sum + (parseInt(t.be) || 0), 0);
+    if (beSum !== totalBE) {
+      content.gesamt_be = beSum;
+    }
+  }
+  if (!content.gesamt_be) content.gesamt_be = totalBE;
+
   return jsonResponse(content, 200, env);
 }
 
@@ -6298,7 +6351,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -6323,7 +6376,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -6332,7 +6386,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -6644,7 +6699,7 @@ Antworte NUR mit validem JSON:
   if (student_text_b) studentTexts += `Schülerlösung Teil B:\n${truncate(student_text_b, 12000)}`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n\n${studentTexts}` }
   ];
 
@@ -6672,7 +6727,8 @@ Antworte NUR mit validem JSON:
       teil_b_be: teilBBE,
       gesamt_be: gesamtBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -6680,7 +6736,8 @@ Antworte NUR mit validem JSON:
       teil_b_be: null,
       gesamt_be: null,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -6979,7 +7036,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -7004,7 +7061,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -7013,7 +7071,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -7286,7 +7345,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -7311,7 +7370,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -7320,7 +7380,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -7581,7 +7642,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -7606,7 +7667,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -7615,7 +7677,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -7871,7 +7934,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -7896,7 +7959,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -7905,7 +7969,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -8169,7 +8234,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
   ];
 
@@ -8194,7 +8259,8 @@ Antworte NUR mit validem JSON:
       max_be: beMax,
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -8203,7 +8269,8 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -8538,7 +8605,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
@@ -8564,7 +8631,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       max_be: maxBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -8572,7 +8640,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       max_be: maxBE,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -8856,7 +8925,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
@@ -8882,7 +8951,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       max_be: maxBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -8890,7 +8960,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       max_be: maxBE,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -9266,7 +9337,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
@@ -9292,7 +9363,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       max_be: maxBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -9300,7 +9372,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       max_be: maxBE,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -9538,7 +9611,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
@@ -9564,7 +9637,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       max_be: maxBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -9572,7 +9646,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       max_be: maxBE,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
@@ -9798,7 +9873,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const messages = [
-    { role: "system", content: rubricPrompt },
+    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
   ];
 
@@ -9824,7 +9899,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       max_be: maxBE,
       note: np,
-      feedback: parsed.feedback || ""
+      feedback: parsed.feedback || "",
+      uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
@@ -9832,7 +9908,8 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       max_be: maxBE,
       note: null,
-      feedback: openaiRes
+      feedback: openaiRes,
+      uebungsaufgaben: []
     }, 200, env);
   }
 }
