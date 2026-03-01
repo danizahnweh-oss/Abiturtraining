@@ -1509,57 +1509,6 @@
       animation: logo-fade-in 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
-    /* CSS-Wellen-Fallback wenn Video nicht abspielbar */
-    .splash-css-wave {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 42% 58% 65% 35% / 38% 42% 58% 62%;
-      background: linear-gradient(135deg, var(--accent, #6366f1) 0%, #a855f7 50%, #ec4899 100%);
-      opacity: 0;
-      animation: cssWaveIn .8s ease-out forwards, cssWaveFloat 4s ease-in-out .8s infinite;
-    }
-
-    .splash-css-wave::before {
-      content: '';
-      position: absolute;
-      inset: -15%;
-      border-radius: 45% 55% 60% 40% / 40% 45% 55% 60%;
-      background: inherit;
-      opacity: .3;
-      animation: cssWavePulse 3s ease-in-out infinite;
-    }
-
-    [data-theme="dark"] .splash-css-wave {
-      background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
-    }
-
-    .splash-css-wave.fade-out {
-      animation: cssWaveOut .6s ease-in forwards;
-    }
-
-    @keyframes cssWaveIn {
-      from { opacity: 0; transform: scale(.5); }
-      to { opacity: .85; transform: scale(1); }
-    }
-
-    @keyframes cssWaveFloat {
-      0%, 100% { transform: scale(1) rotate(0deg); border-radius: 42% 58% 65% 35% / 38% 42% 58% 62%; }
-      25% { transform: scale(1.03) rotate(3deg); border-radius: 50% 50% 45% 55% / 55% 40% 60% 45%; }
-      50% { transform: scale(.97) rotate(-2deg); border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%; }
-      75% { transform: scale(1.02) rotate(1deg); border-radius: 45% 55% 50% 50% / 50% 45% 55% 50%; }
-    }
-
-    @keyframes cssWavePulse {
-      0%, 100% { transform: scale(1); opacity: .3; }
-      50% { transform: scale(1.08); opacity: .15; }
-    }
-
-    @keyframes cssWaveOut {
-      from { opacity: .85; transform: scale(1); }
-      to { opacity: 0; transform: scale(.4); filter: blur(15px); }
-    }
-
     @keyframes wave-video-in {
       0% {
         opacity: 0;
@@ -1873,8 +1822,7 @@
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
-      <div id="splashCssWave" class="splash-css-wave" style="display:none"></div>
-      <video id="splashVideo" muted playsinline preload="auto" autoplay style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+      <video id="splashVideo" muted playsinline preload="auto" style="display:none">
       </video>
       <img src="logo.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
@@ -1891,9 +1839,7 @@
         var canvas = document.getElementById('splashCanvas');
         var ctx = canvas.getContext('2d', { willReadFrequently: true });
         var logo = document.getElementById('splashLogo');
-        var cssWave = document.getElementById('splashCssWave');
         var logoShown = false;
-        var videoPlaying = false;
         var animId;
 
         function hideSplash() {
@@ -1911,26 +1857,15 @@
           if (logoShown) return;
           logoShown = true;
           cancelAnimationFrame(animId);
+          // Canvas sofort ausblenden
           canvas.style.display = 'none';
-          // CSS-Welle ausblenden falls aktiv
-          if (cssWave.style.display !== 'none') {
-            cssWave.classList.add('fade-out');
-            setTimeout(function () { cssWave.style.display = 'none'; }, 600);
-          }
+          // Logo sofort sichtbar machen
           logo.style.visibility = 'visible';
           logo.style.opacity = '1';
           logo.style.transform = 'scale(1)';
           logo.style.transition = 'opacity 0.5s ease';
+          // Logo 2 Sekunden anzeigen, dann Splash ausblenden
           setTimeout(hideSplash, 2000);
-        }
-
-        // CSS-Wellen-Fallback wenn Video nicht abgespielt werden kann
-        function showCssWaveFallback() {
-          if (videoPlaying || logoShown) return;
-          canvas.style.display = 'none';
-          cssWave.style.display = 'block';
-          // Nach 3 Sekunden CSS-Welle → Logo → Splash ausblenden
-          setTimeout(showLogo, 3000);
         }
 
         function renderFrame() {
@@ -1960,12 +1895,12 @@
           vid.addEventListener('ended', showLogo);
 
           vid.addEventListener('error', function () {
-            showCssWaveFallback();
+            canvas.style.display = 'none';
+            if (!logoShown) { logoShown = true; logo.classList.add('show'); }
           });
 
           vid.addEventListener('play', function () {
             if (!logoShown) {
-              videoPlaying = true;
               canvas.width = vid.videoWidth || 500;
               canvas.height = vid.videoHeight || 500;
               renderFrame();
@@ -1973,17 +1908,14 @@
           });
 
           vid.addEventListener('loadeddata', function () {
-            var playPromise = vid.play();
-            if (playPromise) playPromise.catch(function () {
-              // Autoplay blockiert → CSS-Wellen-Fallback
-              showCssWaveFallback();
+            var p = vid.play();
+            if (p) p.catch(function () {
+              canvas.style.display = 'none';
+              if (!logoShown) { logoShown = true; logo.classList.add('show'); }
             });
           });
 
-          // Letzter Fallback: nach 5s sicherstellen dass irgendwas passiert
-          setTimeout(function () {
-            if (!videoPlaying && !logoShown) showCssWaveFallback();
-          }, 5000);
+          setTimeout(function () { if (!logoShown) showLogo(); }, 12000);
         }
       })();
     </script>
