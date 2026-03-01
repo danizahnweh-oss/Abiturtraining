@@ -1128,6 +1128,75 @@ textarea:focus {
   color: var(--ink-muted);
 }
 
+/* ====== GEZIELTE ÜBUNGSAUFGABEN ====== */
+.uebung-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.uebung-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+.uebung-nr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+
+.uebung-titel {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.uebung-schwerpunkt {
+  font-size: .8rem;
+  color: var(--ink-muted);
+  margin-top: .2rem;
+}
+
+.uebung-aufgabe {
+  padding: 1rem 1.2rem;
+  font-size: .95rem;
+  line-height: 1.6;
+}
+
+.uebung-aufgabe p { margin-bottom: .6rem; }
+.uebung-aufgabe p:last-child { margin-bottom: 0; }
+
+.uebung-hinweis {
+  margin: 0 1.2rem 1rem;
+  padding: .6rem 1rem;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
+  color: var(--ink-light);
+}
+
+@media (max-width: 768px) {
+  .uebung-header { padding: .8rem 1rem; }
+  .uebung-aufgabe { padding: .8rem 1rem; }
+  .uebung-nr { min-width: 44px; height: 44px; font-size: .9rem; }
+}
+
 /* ====== LOADER ====== */
 .loader {
   display: none;

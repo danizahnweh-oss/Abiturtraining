@@ -101,6 +101,43 @@ function renderKorrekturFeedback(d) {
     ).join("");
     if (aspekteCard) aspekteCard.style.display = "";
   }
+
+  // Übungsaufgaben bei schwachem Ergebnis
+  renderUebungsaufgaben(d);
+}
+
+/* ================= ÜBUNGSAUFGABEN ================= */
+
+function renderUebungsaufgaben(d) {
+  var card = document.getElementById("uebungsCard");
+  if (!card) return;
+
+  var aufgaben = d.uebungsaufgaben;
+  if (!aufgaben || !aufgaben.length) {
+    card.style.display = "none";
+    return;
+  }
+
+  var body = document.getElementById("uebungsBody");
+  if (!body) return;
+
+  body.innerHTML = aufgaben.map(function(a, i) {
+    var hinweis = a.hinweis ? '<div class="uebung-hinweis">\ud83d\udca1 ' + escapeHtml(a.hinweis) + '</div>' : '';
+    return '<div class="uebung-item">' +
+      '<div class="uebung-header">' +
+        '<span class="uebung-nr">' + (i + 1) + '</span>' +
+        '<div>' +
+          '<div class="uebung-titel">' + escapeHtml(a.titel || ('Übung ' + (i + 1))) + '</div>' +
+          '<div class="uebung-schwerpunkt">' + escapeHtml(a.schwerpunkt || '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="uebung-aufgabe">' + DOMPurify.sanitize(marked.parse(a.aufgabe || '')) + '</div>' +
+      hinweis +
+    '</div>';
+  }).join('');
+
+  if (typeof renderMath === "function") renderMath(body);
+  card.style.display = "";
 }
 
 /* ================= NAVIGATION ================= */
@@ -960,6 +997,24 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     d.style.cssText = "background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.8rem 1.2rem;margin-top:1rem;font-size:.82rem;color:var(--ink-muted);line-height:1.5;";
     d.innerHTML = '\u26a0\ufe0f <strong>Hinweis:</strong> Alle Aufgaben, Bewertungen und Musterl\u00f6sungen auf dieser Plattform werden mithilfe von KI (K\u00fcnstlicher Intelligenz) erstellt. Die Richtigkeit und Vollst\u00e4ndigkeit der Inhalte kann nicht garantiert werden. Besprich deine Ergebnisse im Zweifelsfall mit deiner Lehrkraft.';
     fc.appendChild(d);
+  }
+
+  // Übungsaufgaben-Card dynamisch einfügen
+  if (fc && !fc.querySelector("#uebungsCard")) {
+    var uc = document.createElement("div");
+    uc.className = "card";
+    uc.id = "uebungsCard";
+    uc.style.display = "none";
+    uc.innerHTML = '<h2 class="card-header">Gezielte \u00dcbungsaufgaben</h2>' +
+      '<p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">Basierend auf deinen h\u00e4ufigsten Fehlern hat die KI diese \u00dcbungen f\u00fcr dich zusammengestellt:</p>' +
+      '<div id="uebungsBody"></div>';
+    // Vor dem KI-Disclaimer einfügen, damit die Card direkt nach dem Feedback erscheint
+    var disclaimer = fc.querySelector(".ki-disclaimer");
+    if (disclaimer) {
+      fc.insertBefore(uc, disclaimer);
+    } else {
+      fc.appendChild(uc);
+    }
   }
 };
 
