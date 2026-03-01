@@ -1978,6 +1978,10 @@ footer a:hover {
   letter-spacing: .01em;
 }
 
+.hj-card.expanded {
+  grid-column: 1 / -1;
+}
+
 .hj-card.expanded .expand-chevron {
   background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
@@ -1997,6 +2001,13 @@ footer a:hover {
 .hj-card.expanded .subtopics {
   max-height: 600px;
   padding: .6rem .4rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 1rem;
+}
+
+.hj-card.expanded .subtopics .subtopic-all {
+  grid-column: 1 / -1;
 }
 
 .subtopic-item {
@@ -2081,6 +2092,9 @@ footer a:hover {
 @media (max-width: 1024px) {
   .subtopic-item {
     padding: .4rem .5rem;
+  }
+  .hj-card.expanded .subtopics {
+    grid-template-columns: 1fr;
   }
 }
 
