@@ -346,40 +346,31 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="cicero" onclick="selectAutor('cicero')">
               <div class="hj-icon">&#x1F3DB;&#xFE0F;</div>
-              <div class="hj-name">Cicero <span class="subtopic-badge" id="badge-cicero"></span></div>
+              <div class="hj-name">Cicero</div>
               <div class="hj-desc">Reden, Rhetorik, Philosophie</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="seneca" onclick="selectAutor('seneca')">
               <div class="hj-icon">&#x1F4DC;</div>
-              <div class="hj-name">Seneca <span class="subtopic-badge" id="badge-seneca"></span></div>
+              <div class="hj-name">Seneca</div>
               <div class="hj-desc">Moralphilosophie, Epistulae</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="livius" onclick="selectAutor('livius')">
               <div class="hj-icon">&#x2694;&#xFE0F;</div>
-              <div class="hj-name">Livius <span class="subtopic-badge" id="badge-livius"></span></div>
+              <div class="hj-name">Livius</div>
               <div class="hj-desc">Geschichtsschreibung</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="vergil" onclick="selectAutor('vergil')">
               <div class="hj-icon">&#x1F33F;</div>
-              <div class="hj-name">Vergil <span class="subtopic-badge" id="badge-vergil"></span></div>
+              <div class="hj-name">Vergil</div>
               <div class="hj-desc">Aeneis, Epos</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="lyrik" onclick="selectAutor('lyrik')">
               <div class="hj-icon">&#x1F3B5;</div>
-              <div class="hj-name">Lyrik <span class="subtopic-badge" id="badge-lyrik"></span></div>
+              <div class="hj-name">Lyrik</div>
               <div class="hj-desc">Catull, Horaz</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -767,51 +758,42 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("modeInterpretation").classList.toggle("active", typ === "interpretation");
     }
 
-    function renderSubtopics(cardEl, key) {
-      var container = cardEl.querySelector('.subtopics');
-      if (container.children.length > 0) return;
+    function renderSubtopics(key) {
+      var panel = document.getElementById('subtopics-panel');
       var items = UNTERPUNKTE[key] || [];
-      var html = '<div class="subtopic-item subtopic-all"><input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)"><label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
       items.forEach(function(item, i) {
         var id = 'st-' + key + '-' + i;
-        html += '<div class="subtopic-item"><input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')"><label for="' + id + '">' + item + '</label></div>';
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+          '<label for="' + id + '">' + item + '</label></div>';
       });
-      container.innerHTML = html;
+      panel.innerHTML = html;
+      panel.classList.add('open');
     }
 
     function toggleAll(key, checked) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
-      updateBadge(key);
-    }
-
-    function updateBadge(key) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
-      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
-      var badge = document.getElementById('badge-' + key);
-      badge.textContent = checked > 0 ? checked + '/' + total : '';
-      var allCb = document.getElementById('st-all-' + key);
-      if (allCb) allCb.checked = checked === total && total > 0;
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
     }
 
     function getSelectedSubtopics() {
-      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.autor + '"]');
-      if (!card) return [];
+      var panel = document.getElementById('subtopics-panel');
       var result = [];
-      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) { result.push(cb.dataset.subtopic); });
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
       return result;
     }
 
     function selectAutor(autor) {
       CONFIG.autor = autor;
       document.querySelectorAll(".hj-card").forEach(function(c) {
-        var isTarget = c.dataset.hj === autor;
-        c.classList.toggle("selected", isTarget);
-        if (!isTarget) c.classList.remove("expanded");
+        c.classList.toggle("selected", c.dataset.hj === autor);
       });
-      var card = document.querySelector('.hj-card[data-hj="' + autor + '"]');
-      if (card) { renderSubtopics(card, autor); card.classList.toggle("expanded"); }
+      renderSubtopics(autor);
     }
 
     function setSetupMode(m) {

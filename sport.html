@@ -215,47 +215,36 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="gesundheit" onclick="selectSachgebiet('gesundheit')">
               <div class="hj-icon">&#x1F3CB;</div>
-              <div class="hj-name">Gesundheit &amp; Fitness <span class="subtopic-badge" id="badge-gesundheit"></span></div>
+              <div class="hj-name">Gesundheit &amp; Fitness</div>
               <div class="hj-desc">Gesundheitsmodelle, Fitness, Ern&auml;hrung, Pr&auml;vention</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="trainingslehre" onclick="selectSachgebiet('trainingslehre')">
               <div class="hj-icon">&#x1F4C8;</div>
-              <div class="hj-name">Trainingslehre <span class="subtopic-badge" id="badge-trainingslehre"></span></div>
+              <div class="hj-name">Trainingslehre</div>
               <div class="hj-desc">Trainingsmethoden, Periodisierung, Leistungsdiagnostik, Superkompensation</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="sportbiologie" onclick="selectSachgebiet('sportbiologie')">
               <div class="hj-icon">&#x1F9EC;</div>
-              <div class="hj-name">Sportbiologie <span class="subtopic-badge" id="badge-sportbiologie"></span></div>
+              <div class="hj-name">Sportbiologie</div>
               <div class="hj-desc">Energiebereitstellung, Muskelphysiologie, Herz-Kreislauf, Atmung</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="bewegungslehre" onclick="selectSachgebiet('bewegungslehre')">
               <div class="hj-icon">&#x1F3C3;</div>
-              <div class="hj-name">Bewegungslehre <span class="subtopic-badge" id="badge-bewegungslehre"></span></div>
+              <div class="hj-name">Bewegungslehre</div>
               <div class="hj-desc">Bewegungsanalyse, motorisches Lernen, Koordination, Biomechanik</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="sportpsychologie" onclick="selectSachgebiet('sportpsychologie')">
               <div class="hj-icon">&#x1F9E0;</div>
-              <div class="hj-name">Sportpsychologie <span class="subtopic-badge" id="badge-sportpsychologie"></span></div>
+              <div class="hj-name">Sportpsychologie</div>
               <div class="hj-desc">Motivation, Emotion, mentales Training, Teamdynamik</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="sportgesellschaft" onclick="selectSachgebiet('sportgesellschaft')">
               <div class="hj-icon">&#x1F3DF;</div>
-              <div class="hj-name">Sport &amp; Gesellschaft <span class="subtopic-badge" id="badge-sportgesellschaft"></span></div>
+              <div class="hj-name">Sport &amp; Gesellschaft</div>
               <div class="hj-desc">Doping, Fairness, Kommerzialisierung, Inklusion, Sportethik</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -562,9 +551,8 @@
       ]
     };
 
-    function renderSubtopics(cardEl, key) {
-      var container = cardEl.querySelector('.subtopics');
-      if (container.children.length > 0) return;
+    function renderSubtopics(key) {
+      var panel = document.getElementById('subtopics-panel');
       var items = UNTERPUNKTE[key] || [];
       var html = '<div class="subtopic-item subtopic-all">' +
         '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
@@ -572,51 +560,34 @@
       items.forEach(function(item, i) {
         var id = 'st-' + key + '-' + i;
         html += '<div class="subtopic-item">' +
-          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
           '<label for="' + id + '">' + item + '</label></div>';
       });
-      container.innerHTML = html;
+      panel.innerHTML = html;
+      panel.classList.add('open');
     }
 
     function toggleAll(key, checked) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
-      updateBadge(key);
-    }
-
-    function updateBadge(key) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
-      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
-      var badge = document.getElementById('badge-' + key);
-      badge.textContent = checked > 0 ? checked + '/' + total : '';
-      var allCb = document.getElementById('st-all-' + key);
-      if (allCb) allCb.checked = checked === total && total > 0;
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
     }
 
     function getSelectedSubtopics() {
-      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
-      if (!card) return [];
+      var panel = document.getElementById('subtopics-panel');
       var result = [];
-      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
         result.push(cb.dataset.subtopic);
       });
       return result;
     }
 
     function selectSachgebiet(sg) {
-      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
       document.querySelectorAll(".hj-card").forEach(function(c) {
         var isTarget = c.dataset.hj === sg;
         c.classList.toggle("selected", isTarget);
-        if (!isTarget) c.classList.remove("expanded");
       });
-      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
-      if (card) {
-        renderSubtopics(card, sg);
-        card.classList.toggle("expanded");
-      }
+      renderSubtopics(sg);
     }
 
     function setSetupMode(m) {

@@ -306,33 +306,26 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
               <div class="hj-icon">&#x1F9ED;</div>
-              <div class="hj-name">12/1 <span class="subtopic-badge" id="badge-12_1"></span></div>
+              <div class="hj-name">12/1</div>
               <div class="hj-desc">Theorie und Praxis des Handelns</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
               <div class="hj-icon">&#x1F9E0;</div>
-              <div class="hj-name">12/2 <span class="subtopic-badge" id="badge-12_2"></span></div>
+              <div class="hj-name">12/2</div>
               <div class="hj-desc">Freiheit und Determination</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
               <div class="hj-icon">&#x2696;&#xFE0F;</div>
-              <div class="hj-name">13/1 <span class="subtopic-badge" id="badge-13_1"></span></div>
+              <div class="hj-name">13/1</div>
               <div class="hj-desc">Recht und Gerechtigkeit</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
               <div class="hj-icon">&#x1F31F;</div>
-              <div class="hj-name">13/2 <span class="subtopic-badge" id="badge-13_2"></span></div>
+              <div class="hj-name">13/2</div>
               <div class="hj-desc">Sinnorientierung und Lebensgestaltung</div>
-              <div class="expand-chevron">&#x25BE;</div>
-              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -703,47 +696,39 @@ WICHTIG \u2013 FLIE\u00dfTEXT-PFLICHT: Antworten M\u00dcSSEN in zusammenh\u00e4n
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
-    function renderSubtopics(cardEl, key) {
-      var container = cardEl.querySelector('.subtopics');
-      if (container.children.length > 0) return;
+    function renderSubtopics(key) {
+      var panel = document.getElementById('subtopics-panel');
       var items = UNTERPUNKTE[key] || [];
-      var html = '<div class="subtopic-item subtopic-all"><input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)"><label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
       items.forEach(function(item, i) {
         var id = 'st-' + key + '-' + i;
-        html += '<div class="subtopic-item"><input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')"><label for="' + id + '">' + item + '</label></div>';
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+          '<label for="' + id + '">' + item + '</label></div>';
       });
-      container.innerHTML = html;
+      panel.innerHTML = html;
+      panel.classList.add('open');
     }
     function toggleAll(key, checked) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
-      updateBadge(key);
-    }
-    function updateBadge(key) {
-      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
-      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
-      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
-      var badge = document.getElementById('badge-' + key);
-      badge.textContent = checked > 0 ? checked + '/' + total : '';
-      var allCb = document.getElementById('st-all-' + key);
-      if (allCb) allCb.checked = checked === total && total > 0;
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
     }
     function getSelectedSubtopics() {
-      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.lernbereich + '"]');
-      if (!card) return [];
+      var panel = document.getElementById('subtopics-panel');
       var result = [];
-      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) { result.push(cb.dataset.subtopic); });
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
       return result;
     }
     function selectLernbereich(lb) {
       CONFIG.lernbereich = lb;
       document.querySelectorAll(".hj-card").forEach(function(c) {
-        var isTarget = c.dataset.hj === lb;
-        c.classList.toggle("selected", isTarget);
-        if (!isTarget) c.classList.remove("expanded");
+        c.classList.toggle("selected", c.dataset.hj === lb);
       });
-      var card = document.querySelector('.hj-card[data-hj="' + lb + '"]');
-      if (card) { renderSubtopics(card, lb); card.classList.toggle("expanded"); }
+      renderSubtopics(lb);
     }
 
     function setSetupMode(m) {
