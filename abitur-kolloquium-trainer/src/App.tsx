@@ -19,6 +19,7 @@ import { AudioProcessor } from './lib/audio-utils';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { TutorialOverlay, KOLLOQUIUM_TOUR_STEPS, KOLLOQUIUM_STORAGE_KEY } from './TutorialOverlay';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -364,6 +365,7 @@ export default function App() {
           {/* ════════ SETUP ════════ */}
           {step === 'setup' && (
             <motion.div key="setup" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="grid gap-8">
+              <TutorialOverlay steps={KOLLOQUIUM_TOUR_STEPS} storageKey={KOLLOQUIUM_STORAGE_KEY} />
               <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl shadow-emerald-50/50 border border-emerald-100/50 ring-1 ring-white">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">

@@ -489,6 +489,7 @@
       minWords: 10
     };
   </script>
+  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js"></script>
 
@@ -1272,6 +1273,46 @@
 
     // Render default fallback textarea on page load (before any task is generated)
     renderStudentTextareas({ teilaufgaben: [] });
+
+    // Onboarding-Tour für Mathematik
+    if (typeof startTour === "function" && !isTourDone("mathe_tour_done")) {
+      setTimeout(function () {
+        startTour({
+          steps: [
+            {
+              type: "welcome",
+              title: "Mathematik-Trainer",
+              text: "Hier übst du Mathe-Aufgaben — entweder KI-generiert oder eigene Aufgaben hochgeladen."
+            },
+            {
+              target: ".hj-grid",
+              title: "Sachgebiet wählen",
+              text: "Wähle zwischen Analysis, Stochastik und Geometrie. Du kannst auch mehrere kombinieren.",
+              pos: "bottom"
+            },
+            {
+              target: ".mode-toggle",
+              title: "Aufgabe wählen",
+              text: "Lass die KI eine neue Aufgabe generieren oder lade dein eigenes Aufgabenblatt als Bild/PDF hoch.",
+              pos: "bottom"
+            },
+            {
+              target: "nav",
+              title: "Dein Workflow",
+              text: "Folge den Schritten: Aufgabe wählen, ansehen, Lösung schreiben, KI-Feedback erhalten und Fortschritt tracken.",
+              pos: "bottom"
+            },
+            {
+              target: "#nav-progress",
+              title: "Fortschritt",
+              text: "Hier findest du deine bisherigen Ergebnisse und Statistiken für Mathematik.",
+              pos: "bottom"
+            }
+          ],
+          storageKey: "mathe_tour_done"
+        });
+      }, 500);
+    }
   </script>
 </body>
 
