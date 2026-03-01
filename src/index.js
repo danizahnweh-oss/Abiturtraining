@@ -773,18 +773,12 @@ async function handleCheckStudent(request, env) {
     return jsonResponse({ success: false, error: "Passwort muss mindestens 6 Zeichen haben." }, 400, env);
   }
 
-  // Load registered students
-  let students = [];
-  try {
-    const raw = await env.RESULTS_KV.get("registered_students");
-    if (raw) students = JSON.parse(raw);
-  } catch {}
-
   const nameLower = student_name.trim().toLowerCase();
-  const existingIdx = students.findIndex(s => (s.name || "").trim().toLowerCase() === nameLower);
+  const existing = await env.DB.prepare(
+    "SELECT id, name, level, salt, hash FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
 
   if (mode === "register") {
-    // Registration requires class password
     if (!password || typeof password !== "string") {
       return jsonResponse({ success: false, error: "Klassenpasswort erforderlich." }, 400, env);
     }
@@ -792,38 +786,27 @@ async function handleCheckStudent(request, env) {
     if (!validClass) {
       return jsonResponse({ success: false, error: "Falsches Klassenpasswort." }, 401, env);
     }
-    if (existingIdx >= 0) {
+    if (existing) {
       return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
     }
 
-    // Hash personal password with PBKDF2
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
-
-    students.push({
-      name: student_name.trim(),
-      level: level || "",
-      salt: salt,
-      hash: hash,
-      date: new Date().toISOString()
-    });
-    await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+    await env.DB.prepare(
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?)"
+    ).bind(student_name.trim(), nameLower, level || "", salt, hash, new Date().toISOString()).run();
   } else {
-    // Login: verify personal password
-    if (existingIdx < 0) {
+    if (!existing) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
     }
-
-    const student = students[existingIdx];
-    if (!student.hash || !student.salt) {
-      // Legacy student (registered before password feature) — migrate: set their password now
+    if (!existing.hash || !existing.salt) {
       const salt = crypto.randomUUID();
       const hash = await hashPassword(personal_password, salt);
-      students[existingIdx].salt = salt;
-      students[existingIdx].hash = hash;
-      await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
+      await env.DB.prepare(
+        "UPDATE students SET salt = ?, hash = ? WHERE id = ?"
+      ).bind(salt, hash, existing.id).run();
     } else {
-      const match = await verifyPassword(personal_password, student.salt, student.hash);
+      const match = await verifyPassword(personal_password, existing.salt, existing.hash);
       if (!match) {
         return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
       }
@@ -839,20 +822,16 @@ async function handleGetPreferences(request, env) {
   const { student_name } = await request.json();
   if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
 
-  let students = [];
-  try {
-    const raw = await env.RESULTS_KV.get("registered_students");
-    if (raw) students = JSON.parse(raw);
-  } catch {}
-
   const nameLower = student_name.trim().toLowerCase();
-  const student = students.find(s => (s.name || "").trim().toLowerCase() === nameLower);
+  const student = await env.DB.prepare(
+    "SELECT hidden_subjects FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
   return jsonResponse({
     success: true,
     preferences: {
-      hidden_subjects: student.hidden_subjects || []
+      hidden_subjects: JSON.parse(student.hidden_subjects || "[]")
     }
   }, 200, env);
 }
@@ -862,19 +841,12 @@ async function handleSavePreferences(request, env) {
   if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
   if (!Array.isArray(hidden_subjects)) return jsonResponse({ error: "hidden_subjects muss ein Array sein." }, 400, env);
 
-  let students = [];
-  try {
-    const raw = await env.RESULTS_KV.get("registered_students");
-    if (raw) students = JSON.parse(raw);
-  } catch {}
-
   const nameLower = student_name.trim().toLowerCase();
-  const idx = students.findIndex(s => (s.name || "").trim().toLowerCase() === nameLower);
-  if (idx < 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  const result = await env.DB.prepare(
+    "UPDATE students SET hidden_subjects = ? WHERE name_lower = ?"
+  ).bind(JSON.stringify(hidden_subjects), nameLower).run();
 
-  students[idx].hidden_subjects = hidden_subjects;
-  await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
-
+  if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   return jsonResponse({ success: true }, 200, env);
 }
 
@@ -1509,16 +1481,12 @@ async function handleStudentResults(request, env) {
     return jsonResponse({ error: "student_name required" }, 400, env);
   }
 
-  // Migrate legacy data if needed
-  await kvMigrateLegacyResults(env);
+  const nameLower = student_name.trim().toLowerCase();
+  const { results } = await env.DB.prepare(
+    "SELECT id, student_name, course, type, topic, content, language, total, created_at AS date FROM results WHERE LOWER(TRIM(student_name)) = ? ORDER BY created_at ASC"
+  ).bind(nameLower).all();
 
-  const allResults = await kvGetAllResults(env);
-  const name = student_name.trim().toLowerCase();
-  const filtered = allResults
-    .filter(r => (r.student_name || "").trim().toLowerCase() === name)
-    .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  return jsonResponse({ results: filtered }, 200, env);
+  return jsonResponse({ results: results || [] }, 200, env);
 }
 
 /* ================= IMAGE GENERATION: GEMINI FLASH ================= */
@@ -1612,7 +1580,7 @@ async function handleFetchUnsplash(request, env) {
   return handleGenerateImage(fakeReq, env);
 }
 
-/* ================= KV HELPERS (individual keys, no race condition) ================= */
+/* ================= KV HELPERS (fuer einmalige Migration KV -> D1) ================= */
 async function kvGetAllResults(env) {
   const results = [];
   let cursor = undefined;
@@ -1626,7 +1594,6 @@ async function kvGetAllResults(env) {
 }
 
 async function kvMigrateLegacyResults(env) {
-  // One-time migration: move "all_results" array to individual keys
   const raw = await env.RESULTS_KV.get("all_results");
   if (!raw) return;
   try {
@@ -1641,6 +1608,85 @@ async function kvMigrateLegacyResults(env) {
   } catch {}
 }
 
+/* ================= EINMALIGE MIGRATION: KV -> D1 ================= */
+let kvMigrationDone = false;
+async function migrateKvToD1(env) {
+  if (kvMigrationDone) return;
+  try {
+    const count = await env.DB.prepare("SELECT COUNT(*) as cnt FROM students").first();
+    if (count.cnt > 0) { kvMigrationDone = true; return; }
+
+    // 1. Schueler migrieren
+    const rawStudents = await env.RESULTS_KV.get("registered_students");
+    if (rawStudents) {
+      const students = JSON.parse(rawStudents);
+      if (students.length > 0) {
+        const stmts = students.map(s =>
+          env.DB.prepare(
+            "INSERT OR IGNORE INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+          ).bind(
+            (s.name || "").trim(),
+            (s.name || "").trim().toLowerCase(),
+            s.level || "",
+            s.salt || null,
+            s.hash || null,
+            JSON.stringify(s.hidden_subjects || []),
+            s.date || new Date().toISOString()
+          )
+        );
+        // D1 batch max ~100 pro Aufruf
+        for (let i = 0; i < stmts.length; i += 50) {
+          await env.DB.batch(stmts.slice(i, i + 50));
+        }
+      }
+    }
+
+    // 2. Legacy "all_results" zuerst migrieren
+    await kvMigrateLegacyResults(env);
+
+    // 3. Alle Results migrieren
+    const allResults = await kvGetAllResults(env);
+    if (allResults.length > 0) {
+      const { results: dbStudents } = await env.DB.prepare("SELECT id, name_lower FROM students").all();
+      const nameToId = {};
+      for (const s of dbStudents) nameToId[s.name_lower] = s.id;
+
+      for (let i = 0; i < allResults.length; i += 50) {
+        const batch = allResults.slice(i, i + 50);
+        const stmts = batch.map(r =>
+          env.DB.prepare(
+            "INSERT OR IGNORE INTO results (id, student_id, student_name, course, type, topic, content, language, total, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+          ).bind(
+            r.id,
+            nameToId[(r.student_name || "").trim().toLowerCase()] || null,
+            r.student_name || "",
+            r.course || "",
+            r.type || "mediation",
+            r.topic || "—",
+            r.content ?? null,
+            r.language ?? null,
+            r.total ?? null,
+            r.date || new Date().toISOString()
+          )
+        );
+        await env.DB.batch(stmts);
+      }
+    }
+
+    kvMigrationDone = true;
+  } catch (e) {
+    console.error("KV->D1 Migration Fehler:", e);
+  }
+}
+
+/* ================= D1 HELPER ================= */
+async function d1GetAllResults(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT id, student_name, course, type, topic, content, language, total, created_at AS date FROM results ORDER BY created_at ASC"
+  ).all();
+  return results || [];
+}
+
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
 async function handleSubmitResult(request, env) {
   const { student_name, course, type, topic, content, language, total, date } = await request.json();
@@ -1650,19 +1696,25 @@ async function handleSubmitResult(request, env) {
   }
 
   const id = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
-  const entry = {
-    id,
-    student_name: truncate(student_name, 100),
-    course: truncate(course || "", 20),
-    type: truncate(type || "mediation", 50),
-    topic: truncate(topic || "—", 500),
-    content: content ?? null,
-    language: language ?? null,
-    total,
-    date: date || new Date().toISOString()
-  };
+  const sName = truncate(student_name, 100);
+  const nameLower = sName.trim().toLowerCase();
+  const studentRow = await env.DB.prepare("SELECT id FROM students WHERE name_lower = ?").bind(nameLower).first();
 
-  await env.RESULTS_KV.put(`result:${id}`, JSON.stringify(entry));
+  await env.DB.prepare(
+    "INSERT INTO results (id, student_id, student_name, course, type, topic, content, language, total, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  ).bind(
+    id,
+    studentRow ? studentRow.id : null,
+    sName,
+    truncate(course || "", 20),
+    truncate(type || "mediation", 50),
+    truncate(topic || "—", 500),
+    content ?? null,
+    language ?? null,
+    total,
+    date || new Date().toISOString()
+  ).run();
+
   return jsonResponse({ success: true }, 200, env);
 }
 
@@ -1693,9 +1745,9 @@ async function handleGetResults(request, env) {
     return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
-  // Migrate legacy data if needed
-  await kvMigrateLegacyResults(env);
-  const results = await kvGetAllResults(env);
+  // Einmalige KV -> D1 Migration (beim ersten Aufruf)
+  await migrateKvToD1(env);
+  const results = await d1GetAllResults(env);
 
   return jsonResponse({ results }, 200, env);
 }
@@ -1715,7 +1767,7 @@ async function handleDeleteResult(request, env) {
     return jsonResponse({ error: "result_id required" }, 400, env);
   }
 
-  await env.RESULTS_KV.delete(`result:${result_id}`);
+  await env.DB.prepare("DELETE FROM results WHERE id = ?").bind(result_id).run();
   return jsonResponse({ success: true }, 200, env);
 }
 
@@ -1729,18 +1781,15 @@ async function handleGetStudents(request, env) {
     return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
-  let students = [];
-  try {
-    const raw = await env.RESULTS_KV.get("registered_students");
-    if (raw) students = JSON.parse(raw);
-  } catch {}
+  const { results: students } = await env.DB.prepare(
+    "SELECT name, level, hidden_subjects, created_at AS date FROM students ORDER BY name ASC"
+  ).all();
 
-  // Return only safe fields (no password hashes)
-  const safe = students.map(s => ({
+  const safe = (students || []).map(s => ({
     name: s.name,
     level: s.level || "",
     date: s.date || "",
-    hidden_subjects: s.hidden_subjects || [],
+    hidden_subjects: JSON.parse(s.hidden_subjects || "[]"),
   }));
 
   return jsonResponse({ success: true, students: safe }, 200, env);
@@ -1761,21 +1810,14 @@ async function handleDeleteStudent(request, env) {
     return jsonResponse({ error: "student_name required" }, 400, env);
   }
 
-  let students = [];
-  try {
-    const raw = await env.RESULTS_KV.get("registered_students");
-    if (raw) students = JSON.parse(raw);
-  } catch {}
-
-  const before = students.length;
-  students = students.filter(s => s.name !== student_name);
-
-  if (students.length === before) {
+  const result = await env.DB.prepare("DELETE FROM students WHERE name = ?").bind(student_name).run();
+  if (result.meta.changes === 0) {
     return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   }
+  // CASCADE loescht automatisch zugehoerige Results
 
-  await env.RESULTS_KV.put("registered_students", JSON.stringify(students));
-  return jsonResponse({ success: true, remaining: students.length }, 200, env);
+  const countResult = await env.DB.prepare("SELECT COUNT(*) as cnt FROM students").first();
+  return jsonResponse({ success: true, remaining: countResult.cnt }, 200, env);
 }
 
 /* ================= POLITIK UND GESELLSCHAFT: PARSE TASK (OCR) ================= */
