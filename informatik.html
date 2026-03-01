@@ -496,6 +496,7 @@
   <!-- MODULE-SPECIFIC CODE -->
   <script>
     CONFIG.sachgebiet = "rekursion-listen";
+    CONFIG.selectedSachgebiete = ["rekursion-listen"];
 
     const SG_LABELS = {
       "rekursion-listen": "Rekursion & Listen",
@@ -575,25 +576,32 @@
       ]
     };
 
-    function renderSubtopics(key) {
+    function renderSubtopics() {
       var panel = document.getElementById('subtopics-panel');
-      var items = UNTERPUNKTE[key] || [];
-      var html = '<div class="subtopic-item subtopic-all">' +
-        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
-        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
-      items.forEach(function(item, i) {
-        var id = 'st-' + key + '-' + i;
-        html += '<div class="subtopic-item">' +
-          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
-          '<label for="' + id + '">' + item + '</label></div>';
+      var html = '';
+      CONFIG.selectedSachgebiete.forEach(function(key) {
+        var items = UNTERPUNKTE[key] || [];
+        if (!items.length) return;
+        var label = key.charAt(0).toUpperCase() + key.slice(1);
+        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
+        html += '<div class="subtopic-item subtopic-all">' +
+          '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)">' +
+          '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+        items.forEach(function(item, i) {
+          var id = 'st-' + key + '-' + i;
+          html += '<div class="subtopic-item">' +
+            '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+            '<label for="' + id + '">' + item + '</label></div>';
+        });
+        html += '</div>';
       });
       panel.innerHTML = html;
-      panel.classList.add('open');
+      panel.classList.toggle('open', html.length > 0);
     }
 
-    function toggleAll(key, checked) {
-      var panel = document.getElementById('subtopics-panel');
-      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+    function toggleAllGroup(key, checked) {
+      var el = document.getElementById('st-all-' + key);
+      if (el) { var group = el.closest('.subtopic-group'); if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; }); }
     }
 
     function getSelectedSubtopics() {
@@ -606,11 +614,14 @@
     }
 
     function selectSachgebiet(sg) {
-      CONFIG.sachgebiet = sg;
+      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
+      if (idx !== -1) { if (CONFIG.selectedSachgebiete.length > 1) CONFIG.selectedSachgebiete.splice(idx, 1); }
+      else { CONFIG.selectedSachgebiete.push(sg); }
+      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
       document.querySelectorAll(".hj-card").forEach(function(c) {
-        c.classList.toggle("selected", c.dataset.hj === sg);
+        c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
       });
-      renderSubtopics(sg);
+      renderSubtopics();
     }
 
     function setSetupMode(m) {
@@ -629,7 +640,7 @@
       localStorage.setItem(key, JSON.stringify({
         studentTexts: studentTexts,
         storedData: CONFIG.storedData,
-        sachgebiet: CONFIG.sachgebiet
+        sachgebiet: CONFIG.selectedSachgebiete.join(", ")
       }));
     }
 
@@ -749,7 +760,7 @@
       document.getElementById("setupLoader").style.display = "block";
       try {
         const d = await apiCall("/api/generate-informatik", {
-          sachgebiet: CONFIG.sachgebiet,
+          sachgebiet: CONFIG.selectedSachgebiete.join(", "),
           unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 20,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
@@ -780,7 +791,7 @@
     }
 
     function useUploadedTask() {
-      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet };
+      const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
       renderTask(c);
@@ -788,7 +799,7 @@
     }
 
     function useManualTask() {
-      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.sachgebiet };
+      const c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
       renderTask(c);

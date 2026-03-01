@@ -624,6 +624,7 @@ Struktur:
   <!-- MODULE-SPECIFIC CODE -->
   <script>
     CONFIG.sachgebiet = "bwl";
+    CONFIG.selectedSachgebiete = ["bwl"];
 
     /* ====== UNTERPUNKTE DATA ====== */
     const UNTERPUNKTE = {
@@ -659,25 +660,35 @@ Struktur:
       ]
     };
 
-    function renderSubtopics(key) {
+    function renderSubtopics() {
       var panel = document.getElementById('subtopics-panel');
-      var items = UNTERPUNKTE[key] || [];
-      var html = '<div class="subtopic-item subtopic-all">' +
-        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
-        '<label for="st-all-' + key + '">Alle auswählen</label></div>';
-      items.forEach(function(item, i) {
-        var id = 'st-' + key + '-' + i;
-        html += '<div class="subtopic-item">' +
-          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
-          '<label for="' + id + '">' + item + '</label></div>';
+      var html = '';
+      CONFIG.selectedSachgebiete.forEach(function(key) {
+        var items = UNTERPUNKTE[key] || [];
+        if (!items.length) return;
+        var label = key.charAt(0).toUpperCase() + key.slice(1);
+        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
+        html += '<div class="subtopic-item subtopic-all">' +
+          '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)">' +
+          '<label for="st-all-' + key + '">Alle auswählen</label></div>';
+        items.forEach(function(item, i) {
+          var id = 'st-' + key + '-' + i;
+          html += '<div class="subtopic-item">' +
+            '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+            '<label for="' + id + '">' + item + '</label></div>';
+        });
+        html += '</div>';
       });
       panel.innerHTML = html;
-      panel.classList.add('open');
+      panel.classList.toggle('open', html.length > 0);
     }
 
-    function toggleAll(key, checked) {
+    function toggleAllGroup(key, checked) {
       var panel = document.getElementById('subtopics-panel');
-      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      panel.querySelectorAll('#st-all-' + key).forEach(function(el) {
+        var group = el.closest('.subtopic-group');
+        if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      });
     }
 
     function getSelectedSubtopics() {
@@ -690,11 +701,19 @@ Struktur:
     }
 
     function selectSachgebiet(sg) {
-      CONFIG.sachgebiet = sg;
+      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
+      if (idx !== -1) {
+        if (CONFIG.selectedSachgebiete.length > 1) {
+          CONFIG.selectedSachgebiete.splice(idx, 1);
+        }
+      } else {
+        CONFIG.selectedSachgebiete.push(sg);
+      }
+      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
       document.querySelectorAll(".hj-card").forEach(function(c) {
-        c.classList.toggle("selected", c.dataset.hj === sg);
+        c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
       });
-      renderSubtopics(sg);
+      renderSubtopics();
     }
 
     function updateNiveau() {
@@ -762,8 +781,8 @@ Struktur:
         const isGA = niveau === "gA";
         const d = await apiCall("/api/generate-wr", {
           niveau: niveau,
-          fachbereich: isGA ? "integriert" : CONFIG.sachgebiet,
-          sachgebiet: isGA ? "integriert" : CONFIG.sachgebiet,
+          fachbereich: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
+          sachgebiet: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
           unterpunkte: isGA ? [] : getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 135,
@@ -771,7 +790,7 @@ Struktur:
         });
         CONFIG.storedData = d;
         CONFIG.storedData._niveau = niveau;
-        CONFIG.storedData._fachbereich = isGA ? "integriert" : CONFIG.sachgebiet;
+        CONFIG.storedData._fachbereich = isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", ");
         renderTask(d);
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }

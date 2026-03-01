@@ -708,6 +708,7 @@ Tipp: Teil B geht über die Quelle hinaus.
   <!-- MODULE-SPECIFIC CODE -->
   <script>
     CONFIG.halbjahr = "12_1";
+    CONFIG.selectedHalbjahre = ["12_1"];
 
     const HJ_LABELS = {
       "12_1": "12/1 – Partizipation (19. Jh. – Weimar)",
@@ -753,8 +754,13 @@ Antworte NUR JSON: {"sach_a_np":<0-15>,"sach_b_np":<0-15>,"darstellung_np":<0-15
 gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
 
     function selectHalbjahr(hj) {
-      CONFIG.halbjahr = hj;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === hj));
+      var idx = CONFIG.selectedHalbjahre.indexOf(hj);
+      if (idx !== -1) { if (CONFIG.selectedHalbjahre.length > 1) CONFIG.selectedHalbjahre.splice(idx, 1); }
+      else { CONFIG.selectedHalbjahre.push(hj); }
+      CONFIG.halbjahr = CONFIG.selectedHalbjahre[0];
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        c.classList.toggle("selected", CONFIG.selectedHalbjahre.indexOf(c.dataset.hj) !== -1);
+      });
       updateTimerDefault();
     }
 
@@ -782,7 +788,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         studentTextA: document.getElementById("studentTextA").value,
         studentTextB: document.getElementById("studentTextB").value,
         storedData: CONFIG.storedData,
-        halbjahr: CONFIG.halbjahr,
+        halbjahr: CONFIG.selectedHalbjahre.join(", "),
         hlSource: document.getElementById("sourceText")?.innerHTML || ""
       }));
     }
@@ -824,7 +830,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
       try {
         const level = sessionStorage.getItem("student_level") || "eA";
         const d = await apiCall("/api/generate-abitur-geschichte", {
-          schwerpunkt: CONFIG.halbjahr,
+          schwerpunkt: CONFIG.selectedHalbjahre.join(", "),
           level: level,
           bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
         });
@@ -860,7 +866,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         primary_meta_a: document.getElementById("parsedMeta").value,
         task_instruction_b: document.getElementById("parsedTaskInstructionB").value,
         primary_text_b: document.getElementById("parsedPrimaryTextB").value,
-        schwerpunkt: CONFIG.halbjahr
+        schwerpunkt: CONFIG.selectedHalbjahre.join(", ")
       };
       if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
@@ -875,7 +881,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
         primary_meta_a: document.getElementById("manualMeta").value,
         task_instruction_b: document.getElementById("manualTaskInstructionB").value || "",
         primary_text_b: document.getElementById("manualPrimaryTextB").value || "",
-        schwerpunkt: CONFIG.halbjahr
+        schwerpunkt: CONFIG.selectedHalbjahre.join(", ")
       };
       if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
       CONFIG.storedData = c;
