@@ -1004,6 +1004,7 @@
         var fb = document.getElementById("feedbackBody");
         fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || ""));
         renderMath(fb);
+        renderKorrekturFeedback(d);
         document.getElementById("feedbackContent").style.display = "block";
       } catch (e) {
         document.getElementById("feedbackContent").style.display = "block";

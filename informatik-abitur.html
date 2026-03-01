@@ -916,6 +916,7 @@
         stopTimer();
         var fb = document.getElementById("feedbackBody");
         fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+        renderKorrekturFeedback(d);
         document.getElementById("feedbackContent").style.display = "block";
       } catch (e) {
         document.getElementById("feedbackContent").style.display = "block";
