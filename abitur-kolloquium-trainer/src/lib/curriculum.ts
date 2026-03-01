@@ -176,27 +176,27 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Katholische Religionslehre': {
-    // KR12 LB2 = 12/1, LB3 = 12/2; KR13 LB2 = 13/1, LB3 = 13/2
+    // KR12 LB1 = 12/1 (Personalität), LB2 = 12/2 (Transzendentalität); KR13 LB1 = 13/1 (Sozialität), LB2 = 13/2 (Existentielle Fragen)
     halbjahre: {
       '12/1': [
-        'Schöpfungstheologie: biblische Schöpfungserzählungen, Imago Dei',
-        'Gottesfrage: Gottesbeweise (Thomas v. Aquin), Theodizee',
-        'Religionskritik (Feuerbach, Marx, Nietzsche) und Verhältnis Naturwissenschaft/Glaube',
+        'Personalität: Der Mensch und die Frage „Wer bin ich?" (Philosophische Anthropologie, Identität, Menschenwürde)',
+        'Das christliche Menschenbild als Leitlinie: Personbegriff, Gottebenbildlichkeit (Gen 1-3), Menschenrechte',
+        'Vorstellungen vom Menschsein in Wirtschaft, Politik und Wissenschaft (KI, Transhumanismus)',
       ],
       '12/2': [
-        'Jesus Christus: historischer Jesus, Reich-Gottes-Botschaft, Gleichnisse',
-        'Christologie: Konzilien (Nizäa, Chalcedon), Inkarnation, Kreuz und Auferstehung',
-        'Nachfolge Jesu und Bedeutung für heutiges Leben',
+        'Transzendentalität: Gottesfrage, Gottesbeweise (Anselm, Thomas v. Aquin, Pascal), Religionskritik (Feuerbach, Marx, Nietzsche)',
+        'Bibel als Offenbarung, trinitarisches Gottesbild (Credo), Verhältnis Glaube und Naturwissenschaft',
+        'Interreligiöser Vergleich: christliches Offenbarungsverständnis und Gottesbild des Islam',
       ],
       '13/1': [
-        'Gewissen und Gewissensbildung, Naturrecht (Thomas v. Aquin)',
-        'Katholische Soziallehre: Subsidiarität, Solidarität, Gemeinwohl, Sozialenzykliken',
-        'Angewandte Ethik: Bioethik (Lebensschutz), Friedensethik, Umweltethik (Laudato si\')',
+        'Sozialität – Ethische Grundlegung: deontologische/teleologische Argumentation, Naturrecht, Pflichtethik, Utilitarismus, Verantwortungsethik',
+        'Biblische Ethik: Dekalog und Bergpredigt, Gewissensbildung, katholische Moraltheologie',
+        'Ethik der Lebensbereiche: Ehe/Familie, Katholische Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Sozialenzykliken, Nachhaltigkeit',
       ],
       '13/2': [
-        'Kirchenverständnis: Vaticanum II (Lumen Gentium, Gaudium et Spes)',
-        'Sakramente, Ökumene (Unitatis Redintegratio) und interreligiöser Dialog (Nostra Aetate)',
-        'Kirche und Staat, Religionsfreiheit (Dignitatis Humanae), Sendungsauftrag',
+        'Existentielle Fragen: Umgang mit Wahrheitsansprüchen (Exklusivismus, Inklusivismus, Pluralismus, interreligiöser Dialog)',
+        'Christliche Ethik als Begründungsoption, Auferstehungshoffnung und Eschatologie (Reich-Gottes-Botschaft Jesu)',
+        'Entwicklung eigener Lebensentwürfe: Rückblick auf die vier Kantischen Fragen (Wissen, Tun, Hoffen, Menschsein)',
       ],
     },
   },
@@ -463,28 +463,25 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Informatik': {
-    // LehrplanPLUS Informatik (G9): LB 1 Algorithmen/Datenstrukturen = 12/1, LB 2 OOP = 12/2,
-    // LB 3 Datenbanken/Rechnernetze = 13/1, LB 4 Formale Sprachen/Softwareentwicklung = 13/2
+    // LehrplanPLUS Informatik (G9) gA – verifiziert anhand LIS_PDF_28-02-2026-10/11
     halbjahre: {
       '12/1': [
-        'Algorithmen und Datenstrukturen: Sortier- und Suchalgorithmen, Laufzeitanalyse (O-Notation)',
-        'Abstrakte Datentypen: Liste, Stapel, Schlange und deren Implementierung',
-        'Rekursion und rekursive Datenstrukturen (Bäume, Graphen)',
+        'Rekursion: lineare und verzweigte Rekursion, Tiefensuche, rekursive Problemlösung',
+        'Listen: einfach verkettete Liste, Stapel (LIFO), Warteschlange (FIFO), Kompositum-Entwurfsmuster',
+        'Binärbäume: geordneter Binärbaum, Einfügen/Suchen, Traversierung (Preorder, Inorder, Postorder)',
       ],
       '12/2': [
-        'Objektorientierte Modellierung: Klassen, Objekte, Kapselung und UML-Klassendiagramme',
-        'Vererbung, Polymorphie und abstrakte Klassen/Interfaces',
-        'Softwareentwurf: Entwurfsmuster und Modellierung mit UML',
+        'Nebenläufige Prozesse: Synchronisation, Deadlock, Coffman-Bedingungen, Monitorkonzept, Erzeuger-Verbraucher-Problem',
+        'Informationssicherheit: Schutzziele (Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität), Gefährdungen und Maßnahmen',
+        'Praktische Softwareentwicklung: MVC-Architektur, Wasserfallmodell, agile Methoden, Testen, Refaktorierung',
       ],
       '13/1': [
-        'Datenbanksysteme: ER-Modell, relationales Modell und Normalisierung',
-        'SQL: Datenabfrage, Datenmanipulation und Aggregation',
-        'Rechnernetze: Schichtenmodelle, Protokolle und IT-Sicherheit (Verschlüsselung)',
+        'Formale Sprachen und Automaten: EBNF, Syntaxdiagramme, DEA/NEA, reguläre Sprachen, Äquivalenz DEA/NEA',
+        'Funktionsweise eines Rechners: Von-Neumann-Architektur, Registermaschine, Assemblersprache, Befehlszyklus',
       ],
       '13/2': [
-        'Formale Sprachen: Reguläre Ausdrücke und Grammatiken (Chomsky-Hierarchie)',
-        'Endliche Automaten und Kellerautomaten',
-        'Softwareentwicklung: Vorgehensmodelle, Testen und Softwarequalität',
+        'Grenzen der Berechenbarkeit: Laufzeitaufwand (linear, quadratisch, exponentiell, logarithmisch), O-Notation, Brute-Force, Halteproblem',
+        'Künstliche Intelligenz: Neuronale Netze (Forward Propagation, Backpropagation), k-Means-Algorithmus, supervised/unsupervised/reinforcement learning',
       ],
     },
   },
