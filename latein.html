@@ -346,36 +346,40 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="cicero" onclick="selectAutor('cicero')">
               <div class="hj-icon">&#x1F3DB;&#xFE0F;</div>
-              <div class="hj-name">Cicero</div>
+              <div class="hj-name">Cicero <span class="subtopic-badge" id="badge-cicero"></span></div>
               <div class="hj-desc">Reden, Rhetorik, Philosophie</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="seneca" onclick="selectAutor('seneca')">
               <div class="hj-icon">&#x1F4DC;</div>
-              <div class="hj-name">Seneca</div>
+              <div class="hj-name">Seneca <span class="subtopic-badge" id="badge-seneca"></span></div>
               <div class="hj-desc">Moralphilosophie, Epistulae</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="livius" onclick="selectAutor('livius')">
               <div class="hj-icon">&#x2694;&#xFE0F;</div>
-              <div class="hj-name">Livius</div>
+              <div class="hj-name">Livius <span class="subtopic-badge" id="badge-livius"></span></div>
               <div class="hj-desc">Geschichtsschreibung</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="vergil" onclick="selectAutor('vergil')">
               <div class="hj-icon">&#x1F33F;</div>
-              <div class="hj-name">Vergil</div>
+              <div class="hj-name">Vergil <span class="subtopic-badge" id="badge-vergil"></span></div>
               <div class="hj-desc">Aeneis, Epos</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="lyrik" onclick="selectAutor('lyrik')">
               <div class="hj-icon">&#x1F3B5;</div>
-              <div class="hj-name">Lyrik</div>
+              <div class="hj-name">Lyrik <span class="subtopic-badge" id="badge-lyrik"></span></div>
               <div class="hj-desc">Catull, Horaz</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Schwerpunkt (optional)</label>
-          <select id="schwerpunktSelect">
-            <option value="random">Zuf&auml;llig</option>
-          </select>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
         <div class="loader" id="setupLoader">
@@ -688,37 +692,32 @@ Tipp: Strukturiere deinen Text sorgf&auml;ltig:
 
     const AUTOR_ICONS = { "cicero": "\u{1F3DB}\uFE0F", "seneca": "\u{1F4DC}", "livius": "\u2694\uFE0F", "vergil": "\u{1F33F}", "lyrik": "\u{1F3B5}" };
 
-    const SCHWERPUNKTE = {
+    const UNTERPUNKTE = {
       "cicero": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "reden", label: "Reden (In Catilinam, Pro Murena)" },
-        { value: "philosophie", label: "Philosophie (De officiis, De re publica)" },
-        { value: "briefe", label: "Briefe (Ad familiares)" }
+        "Reden (In Catilinam, Pro Murena)",
+        "Philosophie (De officiis, De re publica)",
+        "Briefe (Ad familiares)"
       ],
       "seneca": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "epistulae", label: "Epistulae morales" },
-        { value: "dialogi", label: "De brevitate vitae, De vita beata" },
-        { value: "consolationes", label: "Trostschriften" }
+        "Epistulae morales",
+        "De brevitate vitae, De vita beata",
+        "Trostschriften"
       ],
       "livius": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "fruehzeit", label: "Fr\u00fchzeit Roms (Buch I\u2013V)" },
-        { value: "punisch", label: "Punische Kriege (Buch XXI\u2013XXX)" },
-        { value: "exempla", label: "Exempla und Moralvorstellungen" }
+        "Fr\u00fchzeit Roms (Buch I\u2013V)",
+        "Punische Kriege (Buch XXI\u2013XXX)",
+        "Exempla und Moralvorstellungen"
       ],
       "vergil": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "aeneis_1_6", label: "Aeneis I\u2013VI (Irrfahrten)" },
-        { value: "aeneis_7_12", label: "Aeneis VII\u2013XII (K\u00e4mpfe in Latium)" },
-        { value: "georgica", label: "Georgica" }
+        "Aeneis I\u2013VI (Irrfahrten)",
+        "Aeneis VII\u2013XII (K\u00e4mpfe in Latium)",
+        "Georgica"
       ],
       "lyrik": [
-        { value: "random", label: "Zuf\u00e4llig" },
-        { value: "catull_liebe", label: "Catull \u2013 Liebeslyrik (Lesbia)" },
-        { value: "catull_spott", label: "Catull \u2013 Spottgedichte" },
-        { value: "horaz_oden", label: "Horaz \u2013 Oden (carpe diem)" },
-        { value: "horaz_satiren", label: "Horaz \u2013 Satiren & Episteln" }
+        "Catull \u2013 Liebeslyrik (Lesbia)",
+        "Catull \u2013 Spottgedichte",
+        "Horaz \u2013 Oden (carpe diem)",
+        "Horaz \u2013 Satiren & Episteln"
       ]
     };
 
@@ -768,16 +767,51 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("modeInterpretation").classList.toggle("active", typ === "interpretation");
     }
 
-    function selectAutor(autor) {
-      CONFIG.autor = autor;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === autor));
-      updateSchwerpunkte();
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all"><input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)"><label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item"><input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')"><label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
     }
 
-    function updateSchwerpunkte() {
-      const sel = document.getElementById("schwerpunktSelect");
-      const opts = SCHWERPUNKTE[CONFIG.autor] || [{ value: "random", label: "Zuf\u00e4llig" }];
-      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.autor + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) { result.push(cb.dataset.subtopic); });
+      return result;
+    }
+
+    function selectAutor(autor) {
+      CONFIG.autor = autor;
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === autor;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + autor + '"]');
+      if (card) { renderSubtopics(card, autor); card.classList.toggle("expanded"); }
     }
 
     function setSetupMode(m) {
@@ -833,7 +867,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         const d = await apiCall("/api/generate-latein", {
           autor: CONFIG.autor,
           aufgabentyp: CONFIG.aufgabentyp,
-          schwerpunkt: document.getElementById("schwerpunktSelect").value,
+          unterpunkte: getSelectedSubtopics(),
           level: level,
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 90,
@@ -1124,7 +1158,6 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     // Init
-    updateSchwerpunkte();
   </script>
 </body>
 

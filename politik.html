@@ -305,31 +305,33 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="12_1" onclick="selectHalbjahr('12_1')">
               <div class="hj-icon">🕊️</div>
-              <div class="hj-name">12/1</div>
+              <div class="hj-name">12/1 <span class="subtopic-badge" id="badge-12_1"></span></div>
               <div class="hj-desc">Frieden & Sicherheit, EU</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectHalbjahr('12_2')">
               <div class="hj-icon">⚖️</div>
-              <div class="hj-name">12/2</div>
+              <div class="hj-name">12/2 <span class="subtopic-badge" id="badge-12_2"></span></div>
               <div class="hj-desc">Pol. Systeme & Demokratie</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectHalbjahr('13_1')">
               <div class="hj-icon">🔄</div>
-              <div class="hj-name">13/1</div>
+              <div class="hj-name">13/1 <span class="subtopic-badge" id="badge-13_1"></span></div>
               <div class="hj-desc">Modernisierung & Gesellschaft</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectHalbjahr('13_2')">
               <div class="hj-icon">🌍</div>
-              <div class="hj-name">13/2</div>
+              <div class="hj-name">13/2 <span class="subtopic-badge" id="badge-13_2"></span></div>
               <div class="hj-desc">Soziale Ungleichheit & Völkerrecht</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Schwerpunkt (optional)</label>
-          <select id="schwerpunktSelect">
-            <option value="random">Zufällig</option>
-          </select>
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Generieren</button>
         <div class="loader" id="setupLoader">
@@ -639,36 +641,32 @@ Tipp: Strukturiere deinen Text:
 
     const HJ_ICONS = { "12_1": "🕊️", "12_2": "⚖️", "13_1": "🔄", "13_2": "🌍" };
 
-    const SCHWERPUNKTE = {
+    const UNTERPUNKTE = {
       "12_1": [
-        { value: "random", label: "Zufällig" },
-        { value: "aussenpolitik", label: "Deutsche Außenpolitik" },
-        { value: "sicherheit", label: "Umfassender Sicherheitsbegriff" },
-        { value: "eu_erweiterung", label: "EU-Erweiterung & Zukunft" },
-        { value: "gasp", label: "Gemeinsame Außen- und Sicherheitspolitik" }
+        "Deutsche Au\u00dfenpolitik",
+        "Umfassender Sicherheitsbegriff",
+        "EU-Erweiterung und Zukunft der EU",
+        "Gemeinsame Au\u00dfen- und Sicherheitspolitik (GASP)"
       ],
       "12_2": [
-        { value: "random", label: "Zufällig" },
-        { value: "liberalismus", label: "Liberalismus / Konservativismus / Sozialismus" },
-        { value: "politische_systeme", label: "Politische Systeme vergleichen" },
-        { value: "demokratiefoerderung", label: "Demokratieförderung" },
-        { value: "digitalisierung_politik", label: "Digitalisierung & pol. Willensbildung" }
+        "Politische Ideologien (Liberalismus, Konservativismus, Sozialismus)",
+        "Politische Systeme im Vergleich",
+        "Demokratief\u00f6rderung",
+        "Digitalisierung und politische Willensbildung"
       ],
       "13_1": [
-        { value: "random", label: "Zufällig" },
-        { value: "modernisierung", label: "Dimensionen der Modernisierung" },
-        { value: "arbeitswelt", label: "Digitalisierung der Arbeitswelt" },
-        { value: "geschlechter", label: "Geschlechterrollen & Gleichstellung" },
-        { value: "gewerkschaften", label: "Gewerkschaften & Mitbestimmung" }
+        "Dimensionen der Modernisierung",
+        "Digitalisierung der Arbeitswelt",
+        "Geschlechterrollen und Gleichstellung",
+        "Gewerkschaften und Mitbestimmung"
       ],
       "13_2": [
-        { value: "random", label: "Zufällig" },
-        { value: "soziale_ungleichheit", label: "Soziale Ungleichheit & Gerechtigkeit" },
-        { value: "sozialstaat", label: "Sozialstaatlichkeit & Sozialpolitik" },
-        { value: "voelkerrecht", label: "Kennzeichen des Völkerrechts" },
-        { value: "igos_ngos", label: "IGOs & NGOs" },
-        { value: "istgh", label: "Internationaler Strafgerichtshof" },
-        { value: "medien", label: "Medien als Akteure" }
+        "Soziale Ungleichheit und Gerechtigkeit",
+        "Sozialstaatlichkeit und Sozialpolitik",
+        "Kennzeichen des V\u00f6lkerrechts",
+        "IGOs und NGOs",
+        "Internationaler Strafgerichtshof",
+        "Medien als politische Akteure"
       ]
     };
 
@@ -698,16 +696,60 @@ WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließt
 Antworte NUR JSON: {"verstehen_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
-    function selectHalbjahr(hj) {
-      CONFIG.halbjahr = hj;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === hj));
-      updateSchwerpunkte();
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
     }
 
-    function updateSchwerpunkte() {
-      const sel = document.getElementById("schwerpunktSelect");
-      const opts = SCHWERPUNKTE[CONFIG.halbjahr] || [{ value: "random", label: "Zufällig" }];
-      sel.innerHTML = opts.map(o => `<option value="${o.value}">${o.label}</option>`).join("");
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.halbjahr + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
+    function selectHalbjahr(hj) {
+      CONFIG.halbjahr = hj;
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === hj;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + hj + '"]');
+      if (card) {
+        renderSubtopics(card, hj);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -760,7 +802,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         const level = sessionStorage.getItem("student_level") || "eA";
         const d = await apiCall("/api/generate-pug", {
           halbjahr: CONFIG.halbjahr,
-          schwerpunkt: document.getElementById("schwerpunktSelect").value,
+          unterpunkte: getSelectedSubtopics(),
           level: level,
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 90,

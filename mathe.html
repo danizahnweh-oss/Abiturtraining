@@ -239,18 +239,24 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="analysis" onclick="selectSachgebiet('analysis')">
               <div class="hj-icon">&#x1F4C8;</div>
-              <div class="hj-name">Analysis</div>
+              <div class="hj-name">Analysis <span class="subtopic-badge" id="badge-analysis"></span></div>
               <div class="hj-desc">Ableitungen, Integrale, Kurvendiskussion</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="stochastik" onclick="selectSachgebiet('stochastik')">
               <div class="hj-icon">&#x1F3B2;</div>
-              <div class="hj-name">Stochastik</div>
+              <div class="hj-name">Stochastik <span class="subtopic-badge" id="badge-stochastik"></span></div>
               <div class="hj-desc">Wahrscheinlichkeit, Binomialverteilung, Tests</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="geometrie" onclick="selectSachgebiet('geometrie')">
               <div class="hj-icon">&#x1F4D0;</div>
-              <div class="hj-name">Geometrie</div>
+              <div class="hj-name">Geometrie <span class="subtopic-badge" id="badge-geometrie"></span></div>
               <div class="hj-desc">Vektoren, Geraden, Ebenen, Abst&auml;nde</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
         </div>
@@ -622,9 +628,84 @@
       return 0;
     }
 
+    const UNTERPUNKTE = {
+      analysis: [
+        "Ableitungsregeln und Ableitungsfunktion",
+        "Kurvendiskussion (Extrema, Wendepunkte, Monotonie)",
+        "Integralrechnung (Stammfunktion, Fl\u00e4chenberechnung)",
+        "Funktionsscharen und Parameter",
+        "Wachstums- und Abnahmeprozesse (e-Funktion, ln)"
+      ],
+      stochastik: [
+        "Wahrscheinlichkeitsrechnung (Kombinatorik, Baumdiagramm)",
+        "Binomialverteilung und Erwartungswert",
+        "Hypothesentests (Signifikanztest)",
+        "Bedingte Wahrscheinlichkeit und Unabh\u00e4ngigkeit"
+      ],
+      geometrie: [
+        "Vektoren und Vektoroperationen",
+        "Geraden und Ebenen im Raum",
+        "Lagebeziehungen und Schnittmengen",
+        "Abstandsberechnungen (Punkt-Gerade, Punkt-Ebene)",
+        "Kreise und Kugeln"
+      ]
+    };
+
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
     function selectSachgebiet(sg) {
+      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === sg;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
+      if (card) {
+        renderSubtopics(card, sg);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -732,6 +813,7 @@
       try {
         const d = await apiCall("/api/generate-mathe", {
           sachgebiet: CONFIG.sachgebiet,
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 25,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1

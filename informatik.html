@@ -215,43 +215,59 @@
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="rekursion-listen" onclick="selectSachgebiet('rekursion-listen')">
               <div class="hj-icon">&#x1F501;</div>
-              <div class="hj-name">Rekursion &amp; Listen</div>
+              <div class="hj-name">Rekursion &amp; Listen <span class="subtopic-badge" id="badge-rekursion-listen"></span></div>
               <div class="hj-desc">Lineare/verzweigte Rekursion, verkettete Liste, Stapel, Warteschlange, Kompositum</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="baeume" onclick="selectSachgebiet('baeume')">
               <div class="hj-icon">&#x1F333;</div>
-              <div class="hj-name">Bin&auml;rb&auml;ume</div>
+              <div class="hj-name">Bin&auml;rb&auml;ume <span class="subtopic-badge" id="badge-baeume"></span></div>
               <div class="hj-desc">Geordneter Bin&auml;rbaum, Einf&uuml;gen, Suchen, Traversierung (Pre-/In-/Postorder)</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="nebenlaeufigkeit" onclick="selectSachgebiet('nebenlaeufigkeit')">
               <div class="hj-icon">&#x1F504;</div>
-              <div class="hj-name">Nebenl&auml;ufigkeit</div>
+              <div class="hj-name">Nebenl&auml;ufigkeit <span class="subtopic-badge" id="badge-nebenlaeufigkeit"></span></div>
               <div class="hj-desc">Synchronisation, Deadlock, Coffman-Bedingungen, Monitorkonzept</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="automaten" onclick="selectSachgebiet('automaten')">
               <div class="hj-icon">&#x2699;</div>
-              <div class="hj-name">Formale Sprachen</div>
+              <div class="hj-name">Formale Sprachen <span class="subtopic-badge" id="badge-automaten"></span></div>
               <div class="hj-desc">EBNF, Syntaxdiagramme, DEA/NEA, regul&auml;re Sprachen</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="rechner" onclick="selectSachgebiet('rechner')">
               <div class="hj-icon">&#x1F5A5;</div>
-              <div class="hj-name">Rechnerarchitektur</div>
+              <div class="hj-name">Rechnerarchitektur <span class="subtopic-badge" id="badge-rechner"></span></div>
               <div class="hj-desc">Von-Neumann-Architektur, Registermaschine, Assembler, Befehlszyklus</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="berechenbarkeit" onclick="selectSachgebiet('berechenbarkeit')">
               <div class="hj-icon">&#x221E;</div>
-              <div class="hj-name">Berechenbarkeit</div>
+              <div class="hj-name">Berechenbarkeit <span class="subtopic-badge" id="badge-berechenbarkeit"></span></div>
               <div class="hj-desc">Laufzeitaufwand, O-Notation, Brute-Force, Halteproblem</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="ki" onclick="selectSachgebiet('ki')">
               <div class="hj-icon">&#x1F9E0;</div>
-              <div class="hj-name">K&uuml;nstliche Intelligenz</div>
+              <div class="hj-name">K&uuml;nstliche Intelligenz <span class="subtopic-badge" id="badge-ki"></span></div>
               <div class="hj-desc">Neuronale Netze, Backpropagation, k-Means, supervised/unsupervised Learning</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
             <div class="hj-card" data-hj="sicherheit" onclick="selectSachgebiet('sicherheit')">
               <div class="hj-icon">&#x1F512;</div>
-              <div class="hj-name">Informationssicherheit</div>
+              <div class="hj-name">Informationssicherheit <span class="subtopic-badge" id="badge-sicherheit"></span></div>
               <div class="hj-desc">Vertraulichkeit, Integrit&auml;t, Verf&uuml;gbarkeit, Authentizit&auml;t</div>
+              <div class="expand-chevron">&#x25BE;</div>
+              <div class="subtopics" onclick="event.stopPropagation()"></div>
             </div>
           </div>
         </div>
@@ -524,9 +540,111 @@
       return 0;
     }
 
+    const UNTERPUNKTE = {
+      "rekursion-listen": [
+        "Lineare und verzweigte Rekursion",
+        "Verkettete Liste (einfach/doppelt)",
+        "Stapel (Stack) und Warteschlange (Queue)",
+        "Kompositum-Entwurfsmuster"
+      ],
+      baeume: [
+        "Geordneter Bin\u00e4rbaum (Einf\u00fcgen, Suchen, L\u00f6schen)",
+        "Traversierung (Preorder, Inorder, Postorder)",
+        "Laufzeitanalyse von Baumoperationen"
+      ],
+      nebenlaeufigkeit: [
+        "Prozesse und Threads",
+        "Synchronisation (Semaphor, Monitor)",
+        "Deadlock und Coffman-Bedingungen",
+        "Erzeuger-Verbraucher-Problem"
+      ],
+      automaten: [
+        "EBNF und Syntaxdiagramme",
+        "DEA und NEA (Zustandsdiagramme)",
+        "Regul\u00e4re Sprachen und Ausdr\u00fccke",
+        "Kellerautomat und kontextfreie Grammatik"
+      ],
+      rechner: [
+        "Von-Neumann-Architektur",
+        "Registermaschine und Befehlszyklus",
+        "Assembler-Programmierung",
+        "Bin\u00e4rdarstellung und Rechnerarithmetik"
+      ],
+      berechenbarkeit: [
+        "Laufzeitaufwand und O-Notation",
+        "Sortieralgorithmen (Bubble, Merge, Quick)",
+        "Brute-Force vs. Heuristiken",
+        "Halteproblem und Grenzen der Berechenbarkeit"
+      ],
+      ki: [
+        "Neuronale Netze und Perzeptron",
+        "Backpropagation und Gradientenabstieg",
+        "Supervised vs. Unsupervised Learning",
+        "k-Means-Clustering"
+      ],
+      sicherheit: [
+        "Schutzziele (Vertraulichkeit, Integrit\u00e4t, Verf\u00fcgbarkeit)",
+        "Symmetrische und asymmetrische Verschl\u00fcsselung",
+        "Digitale Signaturen und Zertifikate",
+        "IT-Sicherheitskonzepte und Datenschutz"
+      ]
+    };
+
+    function renderSubtopics(cardEl, key) {
+      var container = cardEl.querySelector('.subtopics');
+      if (container.children.length > 0) return;
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '" onchange="updateBadge(\'' + key + '\')">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleAll(key, checked) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      card.querySelectorAll('.subtopics input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      updateBadge(key);
+    }
+
+    function updateBadge(key) {
+      var card = document.querySelector('.hj-card[data-hj="' + key + '"]');
+      var checked = card.querySelectorAll('.subtopics input[data-subtopic]:checked').length;
+      var total = card.querySelectorAll('.subtopics input[data-subtopic]').length;
+      var badge = document.getElementById('badge-' + key);
+      badge.textContent = checked > 0 ? checked + '/' + total : '';
+      var allCb = document.getElementById('st-all-' + key);
+      if (allCb) allCb.checked = checked === total && total > 0;
+    }
+
+    function getSelectedSubtopics() {
+      var card = document.querySelector('.hj-card[data-hj="' + CONFIG.sachgebiet + '"]');
+      if (!card) return [];
+      var result = [];
+      card.querySelectorAll('.subtopics input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
     function selectSachgebiet(sg) {
+      var prev = CONFIG.sachgebiet;
       CONFIG.sachgebiet = sg;
-      document.querySelectorAll(".hj-card").forEach(c => c.classList.toggle("selected", c.dataset.hj === sg));
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        var isTarget = c.dataset.hj === sg;
+        c.classList.toggle("selected", isTarget);
+        if (!isTarget) c.classList.remove("expanded");
+      });
+      var card = document.querySelector('.hj-card[data-hj="' + sg + '"]');
+      if (card) {
+        renderSubtopics(card, sg);
+        card.classList.toggle("expanded");
+      }
     }
 
     function setSetupMode(m) {
@@ -666,6 +784,7 @@
       try {
         const d = await apiCall("/api/generate-informatik", {
           sachgebiet: CONFIG.sachgebiet,
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 20,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1

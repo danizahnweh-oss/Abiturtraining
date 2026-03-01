@@ -1946,3 +1946,117 @@ footer a:hover {
     margin: 15mm;
   }
 }
+
+/* ====== SUBTOPICS ACCORDION (Unterpunkte in Schwerpunkt-Cards) ====== */
+
+.hj-card {
+  position: relative;
+}
+
+.hj-card .expand-chevron {
+  display: inline-block;
+  font-size: .7rem;
+  color: var(--ink-muted);
+  transition: transform 0.25s ease;
+  margin-top: .4rem;
+}
+
+.hj-card.expanded .expand-chevron {
+  transform: rotate(180deg);
+}
+
+.hj-card .subtopics {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  text-align: left;
+  padding: 0 .4rem;
+}
+
+.hj-card.expanded .subtopics {
+  max-height: 600px;
+  padding: .6rem .4rem 0;
+}
+
+.subtopic-item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  min-height: 44px;
+  padding: .3rem .4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s ease;
+}
+
+.subtopic-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] .subtopic-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.subtopic-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  accent-color: var(--accent);
+  cursor: pointer;
+  margin: 0;
+}
+
+.subtopic-item label {
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--ink);
+  cursor: pointer;
+  flex: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.subtopic-all {
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: .3rem;
+  padding-bottom: .3rem;
+}
+
+.subtopic-all label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink-light);
+}
+
+.subtopic-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  margin-left: .3rem;
+  vertical-align: middle;
+}
+
+.subtopic-badge:empty {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .subtopic-item {
+    padding: .4rem .5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .subtopic-item label {
+    font-size: 15px;
+  }
+}
