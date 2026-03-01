@@ -1619,124 +1619,6 @@
       transition: opacity .3s
     }
 
-    .tour-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .55);
-      z-index: 10000
-    }
-
-    .tour-spotlight {
-      position: absolute;
-      z-index: 10001;
-      border-radius: var(--radius);
-      box-shadow: 0 0 0 9999px rgba(0, 0, 0, .55);
-      pointer-events: none;
-      transition: all .4s ease
-    }
-
-    .tour-tooltip {
-      position: absolute;
-      z-index: 10002;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem 1.5rem;
-      max-width: 320px;
-      box-shadow: var(--shadow-lg);
-      animation: fadeUp .3s ease
-    }
-
-    .tour-tooltip h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      margin-bottom: .4rem;
-      color: var(--ink)
-    }
-
-    .tour-tooltip p {
-      font-size: .88rem;
-      color: var(--ink-muted);
-      line-height: 1.5;
-      margin-bottom: 1rem
-    }
-
-    .tour-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: .5rem
-    }
-
-    .tour-actions .btn {
-      padding: .5rem 1rem;
-      font-size: .85rem
-    }
-
-    .tour-skip {
-      background: none;
-      border: none;
-      color: var(--ink-muted);
-      font-size: .8rem;
-      cursor: pointer;
-      padding: .3rem .5rem
-    }
-
-    .tour-skip:hover {
-      color: var(--ink)
-    }
-
-    .tour-dots {
-      display: flex;
-      gap: .3rem;
-      justify-content: center;
-      margin-bottom: .8rem
-    }
-
-    .tour-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--border)
-    }
-
-    .tour-dot.active {
-      background: var(--accent)
-    }
-
-    .tour-welcome {
-      position: fixed;
-      inset: 0;
-      z-index: 10002;
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
-
-    .tour-welcome-box {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-      animation: fadeUp .4s ease
-    }
-
-    .tour-welcome-box h2 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      margin-bottom: .6rem
-    }
-
-    .tour-welcome-box p {
-      color: var(--ink-muted);
-      font-size: .92rem;
-      line-height: 1.5;
-      margin-bottom: 1.5rem
-    }
-
     @media(prefers-reduced-motion:reduce) {
       #splash {
         animation: none;
@@ -1761,11 +1643,6 @@
         opacity: 1
       }
 
-      .tour-spotlight,
-      .tour-tooltip {
-        transition: none;
-        animation: none
-      }
     }
 
     /* ====== MOBILE (#4) ====== */
@@ -1813,11 +1690,6 @@
       .countdown-ask-btn {
         font-size: .78rem;
         padding: .5rem .8rem
-      }
-
-      .tour-tooltip {
-        max-width: 280px;
-        padding: 1rem
       }
     }
 
@@ -2086,6 +1958,7 @@
       <img src="logo.png" alt="myAbiFlow Logo" style="height: 101px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
         <button class="logout-btn" id="guestLoginBtn"
@@ -3676,8 +3549,10 @@
           loadHiddenSubjects();
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
           // Start onboarding if first time
-          if (!localStorage.getItem("onboarding_done")) {
-            setTimeout(startOnboarding, 600);
+          if (!isTourDone("onboarding_done")) {
+            setTimeout(function () {
+              startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
+            }, 600);
           }
         } else {
           err.textContent = data.error || "Fehler bei der Anmeldung.";
@@ -3905,9 +3780,71 @@
     /* ================= AI TUTOR EXTERN ================= */
     /* Logic moved to ai-tutor.js */
 
-    /* Restored toggleTour - originally here */
+    /* ====== ONBOARDING TOUR (#10) ====== */
+    var indexTourSteps = [
+      {
+        type: "welcome",
+        title: "Willkommen bei myAbiFlow!",
+        text: "Dein persönlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert."
+      },
+      {
+        target: ".subject-grid",
+        title: "Deine Fächer",
+        text: "Wähle ein Fach, um mit dem Üben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
+        pos: "top"
+      },
+      {
+        target: ".category-filters",
+        title: "Fächer filtern",
+        text: "Filtere nach Kategorie: Sprachen, Naturwissenschaften oder Geisteswissenschaften.",
+        pos: "bottom"
+      },
+      {
+        target: "#subjectFilterBtn",
+        title: "Fächer anpassen",
+        text: "Blende Fächer ein oder aus, die du nicht brauchst. So bleibt dein Dashboard übersichtlich.",
+        pos: "bottom"
+      },
+      {
+        target: ".subject-grid",
+        title: "Fächer sortieren",
+        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position — so schiebst du wichtige Fächer nach oben.",
+        pos: "top"
+      },
+      {
+        target: "#progressBar",
+        title: "Dein Fortschritt",
+        text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen Übungs-Streak.",
+        pos: "bottom"
+      },
+      {
+        target: ".kolloquium-card",
+        title: "Kolloquiumstrainer",
+        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback — wie im echten Kolloquium.",
+        pos: "top",
+        scrollTo: true
+      },
+      {
+        target: "#countdownToggle",
+        title: "Abi-Countdown",
+        text: "Aktiviere den Countdown, um zu sehen wie viele Tage noch bis zu deinen Prüfungen bleiben.",
+        pos: "bottom",
+        condition: function () {
+          var el = document.getElementById("countdownToggle");
+          return el && el.style.display !== "none";
+        }
+      },
+      {
+        target: "#themeBtn",
+        title: "Dark Mode",
+        text: "Hier kannst du zwischen hellem und dunklem Design wechseln.",
+        pos: "left"
+      }
+    ];
+
     function toggleTour() {
-      // Intentionally empty for now - restored from original
+      resetTour("onboarding_done");
+      startTour({ steps: indexTourSteps, storageKey: "onboarding_done", force: true });
     }
 
     function checkSession() {
@@ -3961,115 +3898,6 @@
       }
     }
 
-    /* ====== ONBOARDING TOUR (#10) ====== */
-    var tourSteps = [
-      {
-        type: "welcome",
-        title: "Willkommen bei myAbiFlow!",
-        text: "Dein pers\u00f6nlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert."
-      },
-      {
-        target: ".subject-grid",
-        title: "Deine F\u00e4cher",
-        text: "W\u00e4hle ein Fach, um mit dem \u00dcben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
-        pos: "top"
-      },
-      {
-        target: "#progressBar",
-        title: "Dein Fortschritt",
-        text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen \u00dcbungs-Streak.",
-        pos: "bottom"
-      },
-      {
-        target: "#themeBtn", title: "Dark Mode", text: "Hier kannst du zwischen hellem und dunklem Design wechseln.", pos:
-          "left"
-      }
-    ];
-    var tourIndex = 0;
-
-    function startOnboarding() {
-      if (localStorage.getItem("onboarding_done")) return;
-      tourIndex = 0;
-      showTourStep();
-    }
-
-    function showTourStep() {
-      // Remove existing tour elements
-      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
-        (el) { el.remove(); });
-
-      if (tourIndex >= tourSteps.length) {
-        localStorage.setItem("onboarding_done", "1");
-        return;
-      }
-
-      var step = tourSteps[tourIndex];
-      var dotsHtml = '<div class="tour-dots">';
-      for (var i = 0; i < tourSteps.length; i++) {
-        dotsHtml += '<span class="tour-dot' + (i === tourIndex ? ' active' : '')
-          + '"></span>';
-      } dotsHtml += '</div>'; if (step.type === "welcome") {
-        var backdrop = document.createElement("div");
-        backdrop.className = "tour-backdrop"; document.body.appendChild(backdrop); var
-          welcome = document.createElement("div"); welcome.className = "tour-welcome";
-        welcome.innerHTML = '<div class="tour-welcome-box">' + dotsHtml + '<h2>' + step.title + '</h2><p>' + step.text + '</p>' +
-          '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">Tour \u00fcberspringen</button>' +
-          '<button class="btn" onclick="nextTourStep()">Los geht\'s</button></div></div>';
-        document.body.appendChild(welcome);
-        return;
-      }
-
-      var target = document.querySelector(step.target);
-      if (!target || target.offsetParent === null) { tourIndex++; showTourStep(); return; }
-
-      var rect = target.getBoundingClientRect();
-      var pad = 8;
-
-      // Spotlight
-      var spotlight = document.createElement("div");
-      spotlight.className = "tour-spotlight";
-      spotlight.style.top = (rect.top + window.scrollY - pad) + "px";
-      spotlight.style.left = (rect.left - pad) + "px";
-      spotlight.style.width = (rect.width + pad * 2) + "px";
-      spotlight.style.height = (rect.height + pad * 2) + "px";
-      document.body.appendChild(spotlight);
-
-      // Tooltip
-      var tooltip = document.createElement("div");
-      tooltip.className = "tour-tooltip";
-      tooltip.innerHTML = dotsHtml + '<h3>' + step.title + '</h3><p>' + step.text + '</p>' +
-        '<div class="tour-actions"><button class="tour-skip" onclick="endTour()">\u00dcberspringen</button>' +
-        '<button class="btn btn-small" onclick="nextTourStep()">' +
-        (tourIndex === tourSteps.length - 1 ? 'Fertig' : 'Weiter') + '</button></div>';
-
-      document.body.appendChild(tooltip);
-
-      // Position tooltip
-      var pos = step.pos || "bottom";
-      var tRect = tooltip.getBoundingClientRect();
-      if (pos === "bottom") {
-        tooltip.style.top = (rect.bottom + window.scrollY + pad + 8) + "px";
-        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-      } else if (pos === "top") {
-        tooltip.style.top = (rect.top + window.scrollY - tRect.height - pad - 8) + "px";
-        tooltip.style.left = Math.max(8, rect.left + rect.width / 2 - tRect.width / 2) + "px";
-      } else if (pos === "left") {
-        tooltip.style.top = (rect.top + window.scrollY + rect.height / 2 - tRect.height / 2) + "px";
-        tooltip.style.left = Math.max(8, rect.left - tRect.width - pad - 8) + "px";
-      }
-    }
-
-    function nextTourStep() {
-      tourIndex++;
-      showTourStep();
-    }
-
-    function endTour() {
-      document.querySelectorAll(".tour-overlay,.tour-backdrop,.tour-spotlight,.tour-tooltip,.tour-welcome").forEach(function
-        (el) { el.remove(); });
-      localStorage.setItem("onboarding_done", "1");
-    }
-
     // Browser back/forward between screens
     window.addEventListener("popstate", function (e) {
       if (!e.state || !e.state.screen) return;
@@ -4112,6 +3940,7 @@
       if (e.persisted) checkSession();
     });
   </script>
+  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js"></script>
 </body>

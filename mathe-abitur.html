@@ -538,6 +538,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       minWords: 20
     };
   </script>
+  <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js"></script>
 
@@ -1189,6 +1190,40 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
         renderFormelButtons();
       }
     });
+
+    // Onboarding-Tour für Mathe-Abiturtraining
+    if (typeof startTour === "function" && !isTourDone("mathe_abi_tour_done")) {
+      setTimeout(function () {
+        startTour({
+          steps: [
+            {
+              type: "welcome",
+              title: "Mathe-Abiturtraining",
+              text: "Simuliere eine vollständige Mathematik-Abiturprüfung mit Teil A (ohne CAS) und Teil B (mit CAS)."
+            },
+            {
+              target: "#generateBtn",
+              title: "Prüfung generieren",
+              text: "Klicke hier, um eine komplette Abiturprüfung zu generieren — inklusive aller Teilaufgaben und Bewertungseinheiten.",
+              pos: "bottom"
+            },
+            {
+              target: "#timerMinutes",
+              title: "Bearbeitungszeit",
+              text: "Stelle die Zeit ein. Standard sind 300 Minuten (5 Stunden) für die erhöhte Anforderung (eA).",
+              pos: "right"
+            },
+            {
+              target: "nav",
+              title: "Prüfungsablauf",
+              text: "Nach dem Generieren folgst du dem Ablauf: Prüfung ansehen, Lösung schreiben und KI-Feedback erhalten.",
+              pos: "bottom"
+            }
+          ],
+          storageKey: "mathe_abi_tour_done"
+        });
+      }, 500);
+    }
   </script>
 </body>
 
