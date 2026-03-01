@@ -117,109 +117,80 @@
             E-Mail: info@myabiflow.de
         </p>
 
-        <h2>2. Überblick über die Datenverarbeitung</h2>
-        <p>myAbiFlow ist eine Abitur-Trainingsplattform für Schülerinnen und Schüler des Sankt-Anna-Gymnasiums.
+        <h2>2. Überblick</h2>
+        <p>myAbiFlow ist eine Abitur-Trainingsplattform für Schülerinnen und Schüler.
             Wir verarbeiten personenbezogene Daten nur, soweit dies für die Bereitstellung der Plattform erforderlich ist.
-            Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) bzw. Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
+            Rechtsgrundlagen sind Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
 
-        <h2>3. Hosting und Infrastruktur</h2>
-        <p><strong>Cloudflare Pages (Statische Webseite)</strong><br>
-            Die statischen Seiten werden über Cloudflare Pages ausgeliefert. Dabei werden technisch notwendige Verbindungsdaten
-            (IP-Adresse, Browser-Typ, Zeitpunkt des Zugriffs) kurzzeitig von Cloudflare verarbeitet.<br>
+        <h2>3. Hosting</h2>
+        <p>Diese Webseite wird über <strong>Cloudflare, Inc.</strong> gehostet. Dabei werden technisch notwendige
+            Verbindungsdaten (IP-Adresse, Browser-Typ, Zeitpunkt des Zugriffs) kurzzeitig verarbeitet.
+            Alle gespeicherten Nutzerdaten liegen auf Servern in der <strong>Europäischen Union</strong>.
+            Mit Cloudflare besteht ein Auftragsverarbeitungsvertrag (DPA) gemäß Art. 28 DSGVO.<br>
             Anbieter: Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA.<br>
-            Ein Auftragsverarbeitungsvertrag (DPA) mit Cloudflare ist abgeschlossen.</p>
-
-        <p><strong>Cloudflare Workers (Backend-API)</strong><br>
-            Die Anwendungslogik (Registrierung, Login, Ergebnisspeicherung) läuft auf Cloudflare Workers.</p>
-
-        <p><strong>Cloudflare D1 (Datenbank)</strong><br>
-            Alle Schülerdaten werden in einer Cloudflare D1-Datenbank mit Standort <strong>Westeuropa (WEUR)</strong> gespeichert.
-            Die Daten verlassen die EU nicht.</p>
+            Datenschutzerklärung: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a></p>
 
         <h2>4. Welche Daten wir speichern</h2>
         <p><strong>Bei der Registrierung:</strong></p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
             <li>Benutzername (Vorname)</li>
-            <li>Passwort (wird nur als kryptographischer Hash mit individuellem Salt gespeichert – PBKDF2-SHA256, das Klartext-Passwort wird nicht gespeichert)</li>
-            <li>Kursbezeichnung (z.B. „11a")</li>
+            <li>Passwort (wird nur verschlüsselt gespeichert – das Klartext-Passwort ist zu keinem Zeitpunkt einsehbar)</li>
+            <li>Kursbezeichnung</li>
             <li>Zeitpunkt der Registrierung</li>
         </ul>
 
         <p><strong>Bei der Nutzung der Übungsaufgaben:</strong></p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
             <li>Fach und Aufgabentyp</li>
-            <li>Eingereichte Texte/Antworten</li>
-            <li>KI-generierte Bewertung und Punktzahl</li>
+            <li>Eingereichte Texte und Antworten</li>
+            <li>Bewertung und Punktzahl</li>
             <li>Zeitpunkt der Abgabe</li>
         </ul>
 
-        <p><strong>Im Session Storage (Browser):</strong></p>
+        <h2>5. Künstliche Intelligenz (Google Gemini)</h2>
+        <p>Für die Aufgabenerstellung, Bewertung und den Kolloquiumstrainer nutzt myAbiFlow die Google Gemini API.
+            Dabei werden eingegebene Texte und beim Kolloquiumstrainer auch Audiodaten an Google übermittelt.</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Login-Status und Benutzername (wird beim Schließen des Browsers automatisch gelöscht)</li>
-        </ul>
-
-        <h2>5. KI-Dienste (Google Gemini)</h2>
-        <p>Für die Aufgabengenerierung und -bewertung sowie den Kolloquiumstrainer nutzt myAbiFlow die Google Gemini API.
-            Dabei werden eingegebene Texte und beim Kolloquiumstrainer auch <strong>Audio-Daten</strong> an Google übermittelt.</p>
-        <p>Wichtige Hinweise zur Gemini API:</p>
-        <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Für EU-Nutzer gelten automatisch die stärkeren Datenschutzregeln der Paid Services</li>
             <li>Google nutzt die übermittelten Daten <strong>nicht</strong> zum Trainieren seiner KI-Modelle</li>
-            <li>Audio-Daten werden nur flüchtig verarbeitet und nicht dauerhaft gespeichert</li>
-            <li>Es werden keine Namen oder Noten an Google übermittelt – nur der Aufgabentext bzw. das Audio</li>
+            <li>Es werden keine Namen oder Noten an Google übermittelt</li>
         </ul>
         <p>Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.<br>
             Datenschutzerklärung: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
 
         <h2>6. Google Fonts</h2>
-        <p>Diese Seite nutzt Google Fonts zur einheitlichen Schriftdarstellung. Beim Seitenaufruf wird eine Verbindung
-            zu Google-Servern hergestellt, wobei Ihre IP-Adresse an Google übertragen wird.<br>
+        <p>Diese Seite nutzt Google Fonts zur Schriftdarstellung. Beim Seitenaufruf wird eine Verbindung
+            zu Google-Servern hergestellt, wobei Ihre IP-Adresse übertragen wird.<br>
             Anbieter: Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
 
-        <h2>7. Cookies und Local Storage</h2>
+        <h2>7. Cookies und Speicherung im Browser</h2>
         <p>myAbiFlow verwendet <strong>keine Tracking-Cookies</strong> und keine Analyse-Tools.
-            Wir nutzen ausschließlich den Session Storage des Browsers für den Login-Status.
-            Dieser wird automatisch gelöscht, wenn der Browser geschlossen wird.</p>
-        <p>Für die Darstellung (Hell-/Dunkelmodus) wird eine Einstellung im Local Storage gespeichert.
+            Im Browser werden ausschließlich der Login-Status (wird beim Schließen automatisch gelöscht)
+            sowie die Darstellungseinstellung (Hell-/Dunkelmodus) gespeichert.
             Dies ist technisch notwendig und erfordert keine Einwilligung.</p>
 
         <h2>8. Datenweitergabe an Lehrkräfte</h2>
-        <p>Registrierte Lehrkräfte des Sankt-Anna-Gymnasiums haben über ein geschütztes Dashboard Zugriff auf die
-            eingereichten Ergebnisse der Schülerinnen und Schüler. Dies dient der pädagogischen Begleitung und ist
-            durch das berechtigte Interesse (Art. 6 Abs. 1 lit. f DSGVO) gerechtfertigt.</p>
+        <p>Lehrkräfte haben über ein geschütztes Dashboard Zugriff auf die eingereichten Ergebnisse
+            der Schülerinnen und Schüler. Dies dient der pädagogischen Begleitung (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
         <h2>9. Ihre Rechte</h2>
-        <p>Sie haben folgende Rechte bezüglich Ihrer personenbezogenen Daten:</p>
-        <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li><strong>Auskunft</strong> (Art. 15 DSGVO) – Welche Daten über Sie gespeichert sind</li>
-            <li><strong>Berichtigung</strong> (Art. 16 DSGVO) – Korrektur unrichtiger Daten</li>
-            <li><strong>Löschung</strong> (Art. 17 DSGVO) – Löschung Ihrer Daten</li>
-            <li><strong>Einschränkung</strong> (Art. 18 DSGVO) – Einschränkung der Verarbeitung</li>
-            <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO) – Ihre Daten in einem gängigen Format erhalten</li>
-            <li><strong>Widerspruch</strong> (Art. 21 DSGVO) – Der Verarbeitung widersprechen</li>
-        </ul>
-        <p>Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <strong>info@myabiflow.de</strong></p>
+        <p>Sie haben jederzeit das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16),
+            Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+            Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO).</p>
+        <p>Kontakt: <strong>info@myabiflow.de</strong></p>
 
-        <h2>10. Löschung der Daten</h2>
-        <p>Schülerkonten und zugehörige Ergebnisse können jederzeit durch die Lehrkraft über das Dashboard gelöscht werden.
-            Bei der Löschung eines Kontos werden automatisch alle zugehörigen Ergebnisse mitgelöscht.
-            Sie können auch per E-Mail die Löschung Ihrer Daten beantragen.</p>
+        <h2>10. Löschung</h2>
+        <p>Konten und zugehörige Ergebnisse können jederzeit durch die Lehrkraft oder per E-Mail-Anfrage gelöscht werden.
+            Bei der Löschung eines Kontos werden automatisch alle zugehörigen Daten entfernt.</p>
 
         <h2>11. Datensicherheit</h2>
-        <p>Wir setzen technische und organisatorische Maßnahmen ein, um Ihre Daten zu schützen:</p>
-        <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Verschlüsselte Übertragung (HTTPS/TLS)</li>
-            <li>Passwort-Hashing mit PBKDF2-SHA256 und individuellem Salt</li>
-            <li>Datenspeicherung in der EU (Cloudflare D1, Westeuropa)</li>
-            <li>Zugangskontrolle für das Lehrer-Dashboard (Token-Authentifizierung)</li>
-        </ul>
+        <p>Wir schützen Ihre Daten durch verschlüsselte Übertragung (HTTPS),
+            sichere Passwortspeicherung (kein Klartext), Datenhaltung in der EU
+            sowie Zugangskontrolle für den Lehrkräfte-Bereich.</p>
 
         <h2>12. Beschwerderecht</h2>
-        <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren.
-            Die zuständige Aufsichtsbehörde ist:<br><br>
+        <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren:<br><br>
             Bayerisches Landesamt für Datenschutzaufsicht (BayLDA)<br>
-            Promenade 18<br>
-            91522 Ansbach<br>
+            Promenade 18, 91522 Ansbach<br>
             <a href="https://www.lda.bayern.de" target="_blank" rel="noopener">www.lda.bayern.de</a></p>
 
         <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--ink-lighter);">Stand: März 2026</p>
