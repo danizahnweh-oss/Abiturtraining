@@ -1949,6 +1949,10 @@ footer a:hover {
 
 /* ====== SUBTOPICS ACCORDION (Unterpunkte in Schwerpunkt-Cards) ====== */
 
+.hj-grid {
+  align-items: start;
+}
+
 .hj-card {
   position: relative;
 }
@@ -2025,9 +2029,14 @@ footer a:hover {
 }
 
 .subtopic-item label {
-  font-size: 16px;
+  display: inline;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 1.35;
   color: var(--ink);
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 0;
   cursor: pointer;
   flex: 1;
   -webkit-user-select: none;
@@ -2042,8 +2051,11 @@ footer a:hover {
 
 .subtopic-all label {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--ink-light);
+  text-transform: none;
+  letter-spacing: normal;
+  margin-bottom: 0;
 }
 
 .subtopic-badge {
