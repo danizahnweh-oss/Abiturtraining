@@ -1580,105 +1580,6 @@ async function handleFetchUnsplash(request, env) {
   return handleGenerateImage(fakeReq, env);
 }
 
-/* ================= KV HELPERS (fuer einmalige Migration KV -> D1) ================= */
-async function kvGetAllResults(env) {
-  const results = [];
-  let cursor = undefined;
-  do {
-    const list = await env.RESULTS_KV.list({ prefix: "result:", limit: 1000, cursor });
-    const values = await Promise.all(list.keys.map(k => env.RESULTS_KV.get(k.name, "json")));
-    results.push(...values.filter(Boolean));
-    cursor = list.list_complete ? undefined : list.cursor;
-  } while (cursor);
-  return results;
-}
-
-async function kvMigrateLegacyResults(env) {
-  const raw = await env.RESULTS_KV.get("all_results");
-  if (!raw) return;
-  try {
-    const results = JSON.parse(raw);
-    if (!Array.isArray(results) || results.length === 0) return;
-    await Promise.all(results.map(entry => {
-      const id = entry.id || (Date.now().toString(36) + crypto.randomUUID().slice(0, 8));
-      entry.id = id;
-      return env.RESULTS_KV.put(`result:${id}`, JSON.stringify(entry));
-    }));
-    await env.RESULTS_KV.delete("all_results");
-  } catch {}
-}
-
-/* ================= EINMALIGE MIGRATION: KV -> D1 ================= */
-let kvMigrationDone = false;
-async function migrateKvToD1(env) {
-  if (kvMigrationDone) return;
-  try {
-    const count = await env.DB.prepare("SELECT COUNT(*) as cnt FROM students").first();
-    if (count.cnt > 0) { kvMigrationDone = true; return; }
-
-    // 1. Schueler migrieren
-    const rawStudents = await env.RESULTS_KV.get("registered_students");
-    if (rawStudents) {
-      const students = JSON.parse(rawStudents);
-      if (students.length > 0) {
-        const stmts = students.map(s =>
-          env.DB.prepare(
-            "INSERT OR IGNORE INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
-          ).bind(
-            (s.name || "").trim(),
-            (s.name || "").trim().toLowerCase(),
-            s.level || "",
-            s.salt || null,
-            s.hash || null,
-            JSON.stringify(s.hidden_subjects || []),
-            s.date || new Date().toISOString()
-          )
-        );
-        // D1 batch max ~100 pro Aufruf
-        for (let i = 0; i < stmts.length; i += 50) {
-          await env.DB.batch(stmts.slice(i, i + 50));
-        }
-      }
-    }
-
-    // 2. Legacy "all_results" zuerst migrieren
-    await kvMigrateLegacyResults(env);
-
-    // 3. Alle Results migrieren
-    const allResults = await kvGetAllResults(env);
-    if (allResults.length > 0) {
-      const { results: dbStudents } = await env.DB.prepare("SELECT id, name_lower FROM students").all();
-      const nameToId = {};
-      for (const s of dbStudents) nameToId[s.name_lower] = s.id;
-
-      for (let i = 0; i < allResults.length; i += 50) {
-        const batch = allResults.slice(i, i + 50);
-        const stmts = batch.map(r =>
-          env.DB.prepare(
-            "INSERT OR IGNORE INTO results (id, student_id, student_name, course, type, topic, content, language, total, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-          ).bind(
-            r.id,
-            nameToId[(r.student_name || "").trim().toLowerCase()] || null,
-            r.student_name || "",
-            r.course || "",
-            r.type || "mediation",
-            r.topic || "—",
-            r.content ?? null,
-            r.language ?? null,
-            r.total ?? null,
-            r.date || new Date().toISOString()
-          )
-        );
-        await env.DB.batch(stmts);
-      }
-    }
-
-    kvMigrationDone = true;
-  } catch (e) {
-    console.error("KV->D1 Migration Fehler:", e);
-  }
-}
-
 /* ================= D1 HELPER ================= */
 async function d1GetAllResults(env) {
   const { results } = await env.DB.prepare(
@@ -1745,8 +1646,6 @@ async function handleGetResults(request, env) {
     return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
   }
 
-  // Einmalige KV -> D1 Migration (beim ersten Aufruf)
-  await migrateKvToD1(env);
   const results = await d1GetAllResults(env);
 
   return jsonResponse({ results }, 200, env);
