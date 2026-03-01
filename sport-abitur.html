@@ -252,7 +252,7 @@
       font-weight: 600
     }
 
-    /* Sachgebiet badge */
+    /* Sachgebiet / Lernbereiche badge */
     .sachgebiet-badge {
       display: inline-block;
       font-size: .7rem;
@@ -261,7 +261,31 @@
       border-radius: 3px;
       background: var(--accent-glow);
       color: var(--accent);
-      margin-left: .4rem
+      margin-right: .3rem
+    }
+
+    .lernbereiche-subtitle {
+      margin: -.2rem 0 .5rem 0;
+      line-height: 1.8
+    }
+
+    /* Block-Einleitungen (ISB thematische Blöcke) */
+    .aufgabe-block-intro {
+      padding: .8rem 0 .3rem 0;
+      font-weight: 600;
+      color: var(--ink);
+      border-top: 2px solid var(--border);
+      margin-top: .5rem
+    }
+
+    .aufgabe-block-intro:first-child {
+      border-top: none;
+      margin-top: 0
+    }
+
+    .block-nr {
+      font-size: 1rem;
+      font-weight: 800
     }
 
     /* Chart & image styles */
@@ -584,18 +608,19 @@
     const PRUEFUNGSDAUER = 180;
     const AUFGABEN_NEEDED = 1;
 
-    // BE -> NP conversion table (ISB)
+    // BE -> NP conversion table (ISB, absolute BE bei 100 BE Basis)
     const BE_NP_TABLE = [
-      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
-      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
-      [33, 3], [27, 2], [20, 1], [0, 0]
+      [96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10],
+      [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4],
+      [34, 3], [27, 2], [20, 1], [0, 0]
     ];
 
     function beToNP(erreicht, max) {
       if (max <= 0 || erreicht == null) return null;
-      const pct = (erreicht / max) * 100;
+      // Bei 100 BE Basis direkt absolute Werte verwenden
+      var be = (max === 100) ? erreicht : Math.round((erreicht / max) * 100);
       for (const [threshold, np] of BE_NP_TABLE) {
-        if (pct >= threshold) return np;
+        if (be >= threshold) return np;
       }
       return 0;
     }
@@ -727,9 +752,12 @@
       container.innerHTML = aufgaben.map(function (a, idx) {
         var isSelected = CONFIG.selectedAufgaben.has(idx);
         var html = '<div class="aufgabengruppe-card selectable' + (isSelected ? ' selected' : '') + '" data-idx="' + idx + '" onclick="toggleAufgabe(' + idx + ')">';
-        html += '<h4>Aufgabe ' + (idx + 1) + ': ' + escapeHtml(a.titel || a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.gesamt_be || BE_PRO_AUFGABE) + ' BE)</span>';
-        if (a.sachgebiet) html += ' <span class="sachgebiet-badge">' + escapeHtml(a.sachgebiet) + '</span>';
-        html += '</h4>';
+        html += '<h4>Aufgabe ' + (idx + 1) + ': ' + escapeHtml(a.titel || a.sachgebiet || "") + ' <span class="aufgabe-be">(' + (a.gesamt_be || BE_PRO_AUFGABE) + ' BE)</span></h4>';
+        // Lernbereiche als Untertitel (ISB-Format)
+        var lbs = a.lernbereiche || (a.sachgebiet ? [a.sachgebiet] : []);
+        if (lbs.length) {
+          html += '<div class="lernbereiche-subtitle">' + lbs.map(function(lb) { return '<span class="sachgebiet-badge">' + escapeHtml(lb) + '</span>'; }).join(' ') + '</div>';
+        }
 
         // Material sections
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : (a.material && typeof a.material === "string" ? [{ text: a.material }] : []));
@@ -739,7 +767,7 @@
             if (m.text && typeof m.text === "string") m.text = normalizeMaterialText(m.text);
             var mtype = detectMaterialType(m);
             var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : mtype === "bild" ? "\ud83d\uddbc\ufe0f " : "";
-            html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("Abb. " + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
             if (mtype === "statistik" || mtype === "diagramm") {
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
@@ -754,13 +782,20 @@
           });
         }
 
-        // Teilaufgaben
+        // Teilaufgaben (ISB-Format: Block-Einleitungen + Teilaufgaben)
         if (a.teilaufgaben && a.teilaufgaben.length) {
           html += '<div class="aufgaben-liste">';
           a.teilaufgaben.forEach(function (t) {
-            html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-              DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
-              ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+            var isBlock = (t.typ === "block" || (t.be === 0 && t.id && t.id.indexOf(".") === -1));
+            if (isBlock) {
+              // Block-Einleitung: fett, ohne BE, als Kontexttext
+              html += '<div class="aufgabe-block-intro"><span class="aufgabe-nr block-nr">' + escapeHtml(t.id || "") + '</span> ' +
+                DOMPurify.sanitize(safeMathParseInline(t.text || "")) + '</div>';
+            } else {
+              html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+                DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+                ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+            }
           });
           html += '</div>';
         }
@@ -891,9 +926,15 @@
         if (a.teilaufgaben && a.teilaufgaben.length) {
           refHtml += '<div class="aufgaben-liste">';
           a.teilaufgaben.forEach(function (t) {
-            refHtml += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
-              DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
-              ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+            var isBlock = (t.typ === "block" || (t.be === 0 && t.id && t.id.indexOf(".") === -1));
+            if (isBlock) {
+              refHtml += '<div class="aufgabe-block-intro"><span class="aufgabe-nr block-nr">' + escapeHtml(t.id || "") + '</span> ' +
+                DOMPurify.sanitize(safeMathParseInline(t.text || "")) + '</div>';
+            } else {
+              refHtml += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.id || t.nr || "") + '</span> ' +
+                DOMPurify.sanitize(safeMathParseInline(t.text || "")) +
+                ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+            }
           });
           refHtml += '</div>';
         }
