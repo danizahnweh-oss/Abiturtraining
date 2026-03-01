@@ -1822,7 +1822,7 @@
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
-      <video id="splashVideo" muted playsinline preload="auto" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
+      <video id="splashVideo" muted playsinline preload="auto" autoplay style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none">
       </video>
       <img src="logo.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
@@ -1891,14 +1891,19 @@
         if (vid) {
           vid.muted = true;
 
-          vid.addEventListener('ended', showLogo);
+          vid.addEventListener('ended', function () {
+            console.log('[Splash] Video ended');
+            showLogo();
+          });
 
-          vid.addEventListener('error', function () {
+          vid.addEventListener('error', function (e) {
+            console.error('[Splash] Video error:', vid.error);
             canvas.style.display = 'none';
-            if (!logoShown) { logoShown = true; logo.classList.add('show'); }
+            if (!logoShown) { logoShown = true; logo.classList.add('show'); setTimeout(hideSplash, 2000); }
           });
 
           vid.addEventListener('play', function () {
+            console.log('[Splash] Video playing, size:', vid.videoWidth, 'x', vid.videoHeight);
             if (!logoShown) {
               canvas.width = vid.videoWidth || 500;
               canvas.height = vid.videoHeight || 500;
@@ -1906,15 +1911,40 @@
             }
           });
 
-          vid.addEventListener('loadeddata', function () {
+          function tryPlay(attempt) {
+            if (logoShown) return;
+            vid.muted = true;
             var p = vid.play();
-            if (p) p.catch(function () {
-              canvas.style.display = 'none';
-              if (!logoShown) { logoShown = true; logo.classList.add('show'); }
+            if (p) p.then(function () {
+              console.log('[Splash] play() erfolgreich, Versuch', attempt);
+            }).catch(function (err) {
+              console.warn('[Splash] play() rejected Versuch', attempt, err.name);
+              if (attempt < 3) {
+                setTimeout(function () { tryPlay(attempt + 1); }, 300);
+              } else {
+                console.error('[Splash] play() endgültig fehlgeschlagen');
+                canvas.style.display = 'none';
+                if (!logoShown) { logoShown = true; logo.classList.add('show'); setTimeout(hideSplash, 2000); }
+              }
             });
+          }
+
+          vid.addEventListener('loadeddata', function () {
+            console.log('[Splash] Video loadeddata, readyState:', vid.readyState);
+            tryPlay(1);
           });
 
-          setTimeout(function () { if (!logoShown) showLogo(); }, 12000);
+          vid.addEventListener('canplay', function () {
+            console.log('[Splash] Video canplay');
+            if (vid.paused && !logoShown) tryPlay(1);
+          });
+
+          setTimeout(function () {
+            if (!logoShown) {
+              console.warn('[Splash] 12s timeout, video state:', vid.readyState, 'paused:', vid.paused, 'error:', vid.error);
+              showLogo();
+            }
+          }, 12000);
         }
       })();
     </script>
