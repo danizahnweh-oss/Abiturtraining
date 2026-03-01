@@ -8004,39 +8004,48 @@ async function handleGenerateInformatik(request, env) {
   const body = await request.json();
   const { sachgebiet, be, zeit, anzahl } = body;
 
-  const sg = sachgebiet || "algorithmen";
+  const sg = sachgebiet || "rekursion-listen";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
+  // LehrplanPLUS Informatik G9 gA – verifiziert anhand LIS_PDF_28-02-2026-10/11
   const sgThemen = {
-    algorithmen: {
-      title: "Algorithmen & Datenstrukturen",
-      inhalte: "Algorithmen & Datenstrukturen — Sortieralgorithmen (BubbleSort, SelectionSort, InsertionSort, MergeSort, QuickSort), Suchalgorithmen (lineare Suche, binäre Suche), Laufzeitanalyse (O-Notation: O(1), O(log n), O(n), O(n log n), O(n²)), abstrakte Datentypen (Liste, Stapel/Stack, Schlange/Queue), verkettete Listen (einfach/doppelt), Bäume (Binärbaum, Suchbaum, Traversierung: Preorder/Inorder/Postorder), Graphen (gerichtet/ungerichtet, gewichtet, Adjazenzmatrix/Adjazenzliste, Breitensuche/BFS, Tiefensuche/DFS, Dijkstra-Algorithmus), Rekursion, Hashing"
+    "rekursion-listen": {
+      title: "Rekursion & Listen",
+      inhalte: "Rekursion & Listen (LB 1+2, Jgst. 12) — Rekursion (lineare Rekursion, verzweigte Rekursion, Tiefensuche, rekursive Problemlösung, Rekursion vs. Iteration), einfach verkettete Liste (Einfügen, Löschen, Suchen, Durchlaufen), Stapel/Stack (LIFO-Prinzip, Push/Pop), Warteschlange/Queue (FIFO-Prinzip, Enqueue/Dequeue), Kompositum-Entwurfsmuster (Knoten/Blatt-Struktur), Generalisierung/Spezialisierung bei Datenstrukturen. Programmiersprache: Java oder Python."
     },
-    oop: {
-      title: "Objektorientierte Programmierung",
-      inhalte: "Objektorientierte Programmierung — Klassen und Objekte (Attribute, Methoden, Konstruktor), Kapselung (private/public/protected, Getter/Setter), Vererbung (Ober-/Unterklasse, extends, Überschreiben von Methoden), Polymorphie (dynamisches Binden, abstrakte Klassen, Interfaces), UML-Klassendiagramme (Assoziation, Aggregation, Komposition, Vererbung, Multiplizität), Entwurfsmuster (Observer, Singleton, Strategy), Generics/Templates, Fehlerbehandlung (try-catch, Exceptions)"
+    baeume: {
+      title: "Binärbäume",
+      inhalte: "Binärbäume (LB 3, Jgst. 12) — Geordneter Binärbaum (Suchbaum-Eigenschaft), Einfügen in geordneten Binärbaum, Suchen im Binärbaum, Löschen aus Binärbaum, Traversierung (Preorder, Inorder, Postorder), Anwendungen (z.B. Sortieren durch Inorder-Traversierung), rekursive Baumoperationen, Blatt/innerer Knoten/Wurzel, Tiefe und Höhe eines Baumes. Programmiersprache: Java oder Python."
     },
-    datenbanken: {
-      title: "Datenbanken",
-      inhalte: "Datenbanken — Entity-Relationship-Modell (Entitäten, Attribute, Beziehungen: 1:1, 1:n, m:n, Kardinalitäten), Relationales Modell (Tabellen, Primärschlüssel, Fremdschlüssel, Referenzielle Integrität), Normalisierung (1NF, 2NF, 3NF, funktionale Abhängigkeiten, Anomalien), SQL (SELECT, FROM, WHERE, JOIN/INNER JOIN/LEFT JOIN, GROUP BY, HAVING, ORDER BY, INSERT, UPDATE, DELETE, Unterabfragen, Aggregatfunktionen: COUNT, SUM, AVG, MIN, MAX), Datenschutz (DSGVO, informationelle Selbstbestimmung, Datensparsamkeit, Zweckbindung), Transaktionen (ACID-Prinzip)"
-    },
-    rechnernetze: {
-      title: "Rechnernetze & IT-Sicherheit",
-      inhalte: "Rechnernetze & IT-Sicherheit — Schichtenmodelle (OSI-Modell, TCP/IP-Modell), Protokolle (HTTP/HTTPS, TCP, UDP, IP, DNS, DHCP, ARP), Client-Server-Modell, Peer-to-Peer, IP-Adressierung (IPv4, Subnetzmaske, IPv6), Routing, Netzwerktopologien (Stern, Ring, Bus, Mesh), symmetrische Verschlüsselung (AES, DES), asymmetrische Verschlüsselung (RSA, Diffie-Hellman), digitale Signaturen, Zertifikate (CA, PKI), Hashfunktionen (SHA-256), Angriffe (Man-in-the-Middle, Phishing, SQL-Injection, XSS), Firewalls, VPN"
+    nebenlaeufigkeit: {
+      title: "Nebenläufige Prozesse",
+      inhalte: "Nebenläufige Prozesse (LB 4, Jgst. 12) — Nebenläufigkeit (Threads, parallele Ausführung), Synchronisation (kritischer Abschnitt, wechselseitiger Ausschluss), Deadlock (Verklemmung, zirkuläres Warten), Coffman-Bedingungen (mutual exclusion, hold and wait, no preemption, circular wait), Monitorkonzept (synchronized, wait/notify), Erzeuger-Verbraucher-Problem, Semaphore (grundlegend), Zustandsdiagramme nebenläufiger Prozesse."
     },
     automaten: {
       title: "Formale Sprachen & Automaten",
-      inhalte: "Formale Sprachen & Automaten — Alphabete, Wörter, Sprachen, reguläre Ausdrücke (Konkatenation, Vereinigung, Kleene-Stern), endliche Automaten (DEA/deterministisch, NEA/nichtdeterministisch, Zustandsdiagramm, Übergangstabelle, Akzeptanz), Grammatiken (Chomsky-Hierarchie: Typ 0–3, regulär/kontextfrei/kontextsensitiv/allgemein), kontextfreie Grammatiken (BNF, Ableitungsbäume, Syntaxdiagramme), Kellerautomaten (Stack-basierte Verarbeitung), Berechenbarkeit (Turingmaschine, Halteproblem, Entscheidbarkeit)"
+      inhalte: "Formale Sprachen & Automaten (LB 1, Jgst. 13) — Formale Sprache (Alphabet, Wort, Sprache), EBNF (Erweiterte Backus-Naur-Form, Produktionsregeln), Syntaxdiagramme (grafische Darstellung von EBNF), deterministischer endlicher Automat DEA (Zustände, Übergänge, Startzustand, Endzustände, Zustandsdiagramm, Übergangstabelle), nichtdeterministischer endlicher Automat NEA, Äquivalenz DEA/NEA (Potenzmengenkonstruktion), reguläre Sprachen, Scanner/Parser-Prinzip."
     },
-    softwareentwicklung: {
-      title: "Softwareentwicklung",
-      inhalte: "Softwareentwicklung — Softwarelebenszyklus (Anforderungsanalyse, Entwurf, Implementierung, Test, Wartung), Vorgehensmodelle (Wasserfallmodell, V-Modell, Spiralmodell, agile Methoden/Scrum), UML-Diagramme (Klassendiagramm, Sequenzdiagramm, Aktivitätsdiagramm, Use-Case-Diagramm, Zustandsdiagramm), Testen (Unittest, Integrationstest, Systemtest, Black-Box/White-Box, Testfälle, Äquivalenzklassen, Grenzwertanalyse), Versionskontrolle (Git: commit, branch, merge), Softwarequalität (Korrektheit, Zuverlässigkeit, Wartbarkeit, Effizienz), Dokumentation"
+    rechner: {
+      title: "Rechnerarchitektur",
+      inhalte: "Funktionsweise eines Rechners (LB 2, Jgst. 13) — Von-Neumann-Architektur (Steuerwerk, Rechenwerk/ALU, Speicher, Ein-/Ausgabe, Bus), Registermaschine (Akkumulator, Befehlszähler, Befehlsregister), Assemblersprache (LOAD, STORE, ADD, SUB, MUL, DIV, JMP, JEQ, JGT, HALT), Befehlszyklus (Fetch-Decode-Execute), Darstellung von Zahlen im Rechner, Maschinenprogramm erstellen und nachvollziehen."
+    },
+    berechenbarkeit: {
+      title: "Grenzen der Berechenbarkeit",
+      inhalte: "Grenzen der Berechenbarkeit (LB 3, Jgst. 13) — Laufzeitaufwand von Algorithmen (linear O(n), quadratisch O(n²), exponentiell O(2^n), logarithmisch O(log n)), O-Notation (Best-/Worst-/Average-Case), Brute-Force-Algorithmen (vollständige Suche), praktisch unlösbare Probleme (z.B. Traveling Salesman), Halteproblem (Beweis der Unentscheidbarkeit, Diagonalisierungsargument), Berechenbarkeit vs. praktische Lösbarkeit."
+    },
+    ki: {
+      title: "Künstliche Intelligenz",
+      inhalte: "Künstliche Intelligenz (LB 4, Jgst. 13) — Neuronale Netze (Neuron/Perzeptron, Gewichte, Bias, Aktivierungsfunktion, Schichten: Eingabe-/versteckte/Ausgabeschicht), Forward Propagation (Vorwärtsberechnung), Backpropagation (Fehlerrückführung, Gradientenabstieg, Lernrate), k-Means-Algorithmus (Clustering, Zentroide, iterative Zuordnung), überwachtes Lernen (supervised: Klassifikation, Regression), unüberwachtes Lernen (unsupervised: Clustering), bestärkendes Lernen (reinforcement: Belohnung/Bestrafung), ethische Aspekte von KI."
+    },
+    sicherheit: {
+      title: "Informationssicherheit",
+      inhalte: "Informationssicherheit (LB 5, Jgst. 12) — Schutzziele (Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität), Gefährdungen (Social Engineering, Malware, Phishing, Man-in-the-Middle), technische Maßnahmen (Verschlüsselung, Firewall, Backup), organisatorische Maßnahmen (Passwortrichtlinien, Zugriffsrechte, Schulung), symmetrische vs. asymmetrische Verschlüsselung (Grundprinzip), Hashfunktionen (Einweg-Eigenschaft), digitale Signatur (Grundprinzip)."
     }
   };
 
-  const sgInfo = sgThemen[sg] || sgThemen.algorithmen;
+  const sgInfo = sgThemen[sg] || sgThemen["rekursion-listen"];
 
   const systemPrompt = `Du bist Informatiklehrer am bayerischen Gymnasium. Erstelle eine Informatik-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
@@ -8044,14 +8053,15 @@ AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
 ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
 
 ANFORDERUNGEN:
-- Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein Softwareprojekt, eine Datenbankanwendung, ein Netzwerkproblem, ein konkretes System)
+- Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein Softwareprojekt, eine Anwendung, ein konkretes System)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Entwerfen)
 - Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
 - KEINE Lösungshinweise in den Aufgabenstellungen
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
-- Bei Algorithmen: Pseudocode oder Java-ähnlicher Code ist erlaubt
-- Bei Datenbanken: SQL-Abfragen oder ER-Diagramme können verlangt werden
-- Bei OOP: UML-Klassendiagramme oder Code-Entwürfe können verlangt werden
+- Bei Algorithmen/Datenstrukturen: Java- oder Python-Code bzw. Pseudocode ist erlaubt
+- Bei Automaten: Zustandsdiagramme, Übergangstabellen, EBNF-Regeln oder Syntaxdiagramme können verlangt werden
+- Bei Rechnerarchitektur: Assembler-Programme für die Registermaschine können verlangt werden
+- Bei KI: Berechnungen zu Neuronalen Netzen (Forward Propagation) oder k-Means können verlangt werden
 
 SACHGEBIET: ${sgInfo.title}
 ${sgInfo.inhalte}
@@ -8153,11 +8163,11 @@ async function handleGradeInformatik(request, env) {
 BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
 - Pro Teilaufgabe bewerte: Fachsprache, informatische Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung informatischer Zusammenhänge
-- Korrekte Fachsprache (z.B. "Laufzeitkomplexität O(n log n)", "Polymorphie", "Normalisierung", "Kellerautomat") wird positiv bewertet
-- Bei Code/Pseudocode: Korrektheit des Algorithmus, Effizienz, Lesbarkeit
-- Bei SQL: Syntaktische und semantische Korrektheit der Abfragen
-- Bei UML: Korrekte Notation und vollständige Darstellung
-- Bei ER-Modellen: Korrekte Entitäten, Beziehungen, Kardinalitäten
+- Korrekte Fachsprache (z.B. "Laufzeitkomplexität O(n log n)", "Kompositum-Entwurfsmuster", "Coffman-Bedingungen", "DEA", "Von-Neumann-Architektur", "Backpropagation") wird positiv bewertet
+- Bei Code/Pseudocode: Korrektheit des Algorithmus, Effizienz, Lesbarkeit (Java oder Python)
+- Bei Automaten: Korrekte Zustandsdiagramme, Übergangstabellen, EBNF-Regeln
+- Bei Registermaschine: Korrekte Assembler-Programme, Befehlszyklus-Nachvollziehung
+- Bei KI: Korrekte Berechnungen (Forward Propagation, k-Means-Schritte)
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
 - Max BE gesamt: ${maxBE}
 
@@ -8233,12 +8243,12 @@ WICHTIG:
 - Am Ende: Zusammenfassung der erreichten BE
 
 INFORMATIK-SPEZIFISCHE REGELN:
-- Code/Pseudocode in Markdown-Codeblöcken (\`\`\`java oder \`\`\`pseudo)
-- SQL-Abfragen in \`\`\`sql Codeblöcken
-- UML-Diagramme als strukturierte Textdarstellung
-- ER-Modelle als strukturierte Textdarstellung
-- O-Notation korrekt verwenden: O(n), O(n²), O(log n), O(n log n)
-- Fachbegriffe korrekt verwenden (Kapselung, Vererbung, Polymorphie, Normalform, Determinismus etc.)
+- Code/Pseudocode in Markdown-Codeblöcken (\`\`\`java oder \`\`\`python)
+- Automaten-Definitionen als strukturierte Textdarstellung (Zustandsdiagramm, Übergangstabelle)
+- EBNF-Regeln und Syntaxdiagramme klar formatiert
+- Assembler-Programme für Registermaschine in Codeblöcken
+- O-Notation korrekt verwenden: O(n), O(n²), O(log n), O(2^n)
+- Fachbegriffe korrekt verwenden (Kompositum, Stapel/LIFO, Warteschlange/FIFO, Deadlock, Coffman-Bedingungen, DEA/NEA, Von-Neumann, Backpropagation, Halteproblem etc.)
 - Algorithmen Schritt für Schritt erklären und Trace/Durchlauf zeigen`;
 
   let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
@@ -9376,59 +9386,59 @@ async function handleGenerateAbiturSport(request, env) {
   const wahlAnzahl = 1;
 
   const systemPrompt = `Du bist ein Sport-Experte für das bayerische Abitur (eA, G9, ab 2026).
-Erstelle eine VOLLSTÄNDIGE schriftliche Sport-Abiturprüfung (Leistungsfach Sport, Sporttheorie) nach dem IQB-Aufgabenformat.
+Erstelle eine VOLLSTÄNDIGE schriftliche Sport-Abiturprüfung (Leistungsfach Sport, Sporttheorie) exakt im Stil der ISB-Beispielaufgaben.
 
 PRÜFUNGSSTRUKTUR (eA Leistungsfach Sport):
 - Prüfungsdauer: ${pruefungsdauer} Minuten
 - ${anzahlAufgaben} Aufgaben zur Auswahl, der Schüler wählt ${wahlAnzahl} davon
 - Jede Aufgabe: ${beProAufgabe} BE
-- Jede Aufgabe behandelt ein anderes Sachgebiet der Sporttheorie
 
-SACHGEBIETE (wähle 3 verschiedene aus diesen 4, LehrplanPLUS Sporttheorie G9 Bayern ab 2026):
-1. Trainingslehre (Sp12 LB1): Trainingsprinzipien (Belastung-Erholung, progressive Belastungssteigerung, Variation, Individualisierung, Periodisierung), Superkompensation, Reizstufenregel. Sportbiologische Grundlagen: Bewegungsapparat (Knochen, Gelenke, Wirbelsäule), Skelettmuskulatur (Aufbau, Muskelfasertypen ST/FT, Kontraktionsformen). Krafttraining (Maximalkraft, Schnellkraft, Kraftausdauer, Methoden). Energiebereitstellung (anaerob-alaktazid, anaerob-laktazid, aerob). Herz-Kreislauf-System (HF, Schlagvolumen, HZV). Ausdauertraining (aerobe/anaerobe Schwelle, Dauermethode, Intervallmethode). Schnelligkeitstraining (Reaktions-, Aktions-, Frequenzschnelligkeit). Beweglichkeitstraining. Trainingsplanung und -steuerung (Makro-/Meso-/Mikrozyklus).
-2. Bewegungslehre (Sp12 LB2): Biomechanische Prinzipien (Anfangskraft, optimale Beschleunigungswege, Impulserhaltung, Gegenwirkung, zeitliche Koordination von Teilimpulsen). Körperschwerpunkt, Körperachsen. Bewegungsanalyse (Phasenmodell: Vorbereitungs-, Haupt-, Endphase). Motorisches Lernen (Dreiphasenmodell: Grobkoordination, Feinkoordination, variable Verfügbarkeit). Koordinative Fähigkeiten (Gleichgewicht, Orientierung, Differenzierung, Reaktion, Rhythmus, Kopplung, Umstellung). Informationsverarbeitung und Nervensystem. Technik- und Taktiktraining.
-3. Sport und Gesundheit (Sp13 LB3): Gesundheitsmodelle (Salutogenese nach Antonovsky, biopsychosoziales Modell, Risikofaktorenmodell). Gesundheitsorientierter Sport (Belastungsnormative, Fitness-Konzepte). Sportverletzungen (Prävention, Erste Hilfe, PECH-Regel). Ernährung (Energiebilanz, Makro-/Mikronährstoffe, Sporternährung). Doping (Substanzen: anabole Steroide, EPO, Stimulanzien; Methoden: Blutdoping; Risiken; ethische Bewertung; WADA/NADA).
-4. Psychologische, soziale und gesellschaftspolitische Aspekte (Sp13 LB4): Motivation (intrinsisch/extrinsisch, Leistungsmotivation, Risikowahl-Modell). Emotion im Sport (Angst, Flow, Aktivierungsniveau/Yerkes-Dodson). Aggression (Instinkttheorie, Frustrations-Aggressions-Hypothese, Lerntheorien). Fairness und Fair Play. Sport und Medien (Medialisierung, Kommerzialisierung). Inklusion und Integration im Sport. Sport als Bildungsfaktor.
+LERNBEREICHE (LehrplanPLUS Sporttheorie G9 Bayern ab 2026):
+LB1 – Sportbiologie/Trainingslehre (Sp12 LB1): Trainingsprinzipien, Superkompensation, Reizstufenregel. Sportbiologische Grundlagen: Bewegungsapparat, Skelettmuskulatur (Muskelfasertypen ST/FT, Kontraktionsformen). Krafttraining (Maximalkraft, Schnellkraft, Kraftausdauer). Energiebereitstellung (anaerob-alaktazid, anaerob-laktazid, aerob). Herz-Kreislauf-System. Ausdauertraining (aerobe/anaerobe Schwelle, Dauer-/Intervallmethode). Schnelligkeitstraining. Beweglichkeitstraining. Trainingsplanung (Makro-/Meso-/Mikrozyklus). Ernährung.
+LB2 – Bewegungslehre (Sp12 LB2): Biomechanische Prinzipien (Anfangskraft, Beschleunigungswege, Impulserhaltung, Gegenwirkung, Koordination von Teilimpulsen). Körperschwerpunkt, Körperachsen. Phasenmodell (Vorbereitungs-, Haupt-, Endphase). Motorisches Lernen (Grobkoordination, Feinkoordination, variable Verfügbarkeit). Koordinative Fähigkeiten. Technik-/Taktiktraining.
+LB3 – Sport und Gesundheit (Sp13 LB3): Gesundheitsmodelle (Salutogenese, biopsychosoziales Modell). Sportverletzungen (Prävention, PECH-Regel). Ernährung. Doping (Substanzen, Methoden, ethische Bewertung, WADA/NADA).
+LB4 – Psychologische, soziale und gesellschaftspolitische Aspekte (Sp13 LB4): Motivation (intrinsisch/extrinsisch, Risikowahl-Modell). Emotion (Angst, Flow, Yerkes-Dodson). Aggression. Fairness. Sport und Medien. Inklusion. Sport als Bildungsfaktor.
 
-IQB-REFERENZFORMAT:
-- Jede Aufgabe in einen ALLTAGSNAHEN, REALEN KONTEXT einbetten (z.B. konkreter Sportler/Mannschaft, Trainingsplanung für Wettkampf, Gesundheitsprojekt in der Schule, aktuelle Dopingdebatte)
-- Pro Aufgabe 6-8 Teilaufgaben bei 100 BE, mit steigendem Anforderungsniveau:
-  • AFB I (ca. 25%): "Nennen Sie", "Beschreiben Sie", "Geben Sie an" (Grundwissen)
-  • AFB II (ca. 55%): "Erläutern Sie", "Erklären Sie", "Vergleichen Sie", "Analysieren Sie" (Anwendung/Transfer)
-  • AFB III (ca. 20%): "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie", "Erörtern Sie" (Reflexion/Beurteilung)
-- Materialien M1-M4 pro Aufgabe:
-  • M1: Grundlegende Sachinformation/Kontext (Text, Bild)
-  • M2: Detailliertere Daten (Tabelle, Diagramm, Trainingsplan)
-  • M3: Weitere Evidenz (Forschungsergebnisse, Statistiken)
-  • M4: Kontroverse Perspektive, Zeitungsartikel, ethische Dimension
-- Teilaufgaben sollen sich DIREKT auf die Materialien beziehen
+AUFGABENSTRUKTUR — EXAKT WIE ISB-BEISPIELAUFGABEN:
+Jede Aufgabe ist um einen SPORTPRAKTISCHEN KONTEXT aufgebaut (z.B. Zehnkampf, Mountainbiken, Volleyball, Schwimmen, Fußball, Turnen, Basketball, Klettern, Triathlon).
+Jede Aufgabe integriert MEHRERE Lernbereiche — typischerweise:
+- "Sportbiologie/Trainingslehre und Bewegungslehre" (LB1+LB2)
+- Optional zusätzlich: "Psychologische, soziale und gesellschaftspolitische Bedeutung des Sports" (LB4)
+- Oder: "Sport und Gesundheit" (LB3)
 
-JEDE AUFGABE hat:
-- Einen Titel (z.B. "Aufgabe 1: Trainingsplanung für einen Marathonläufer")
-- Ein Sachgebiet
-- MINDESTENS 3-4 Materialien (M1, M2, M3, M4)
-- 6-8 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
-- Gesamt: ${beProAufgabe} BE
+THEMATISCHE BLÖCKE (ISB-Struktur):
+Jede Aufgabe hat 3-5 thematische Blöcke (nummeriert 1, 2, 3, 4, ggf. 5).
+Jeder Block hat einen EINLEITUNGSTEXT, der den thematischen Kontext setzt.
+Unter jedem Block folgen Teilaufgaben (1.1, 1.2, 2.1, 2.2, 3.1, 3.2 usw.).
+Ein Block kann auch nur aus einer einzelnen Teilaufgabe bestehen (z.B. Block 4 mit nur Aufgabe 4, ohne 4.1).
 
-MATERIALIEN — VIELFÄLTIG UND DATENREICH:
-Jede Aufgabe MUSS mindestens 2-3 verschiedene Materialtypen enthalten.
-Jedes Material hat ein "type"-Feld:
+Beispiel-Blockstruktur einer ISB-Aufgabe zum Zehnkampf:
+- Block 1 (Bewegungslehre, ~25 BE): Einleitung über Wurfdisziplinen → 1.1 Phasenstruktur vergleichen (16 BE), 1.2 Koordinative Fähigkeiten (9 BE)
+- Block 2 (Energiebereitstellung/Ernährung, ~24 BE): Einleitung über energetische Anforderungen → 2.1 Energieliefernde Prozesse (12 BE), 2.2 Ernährung (12 BE)
+- Block 3 (Trainingslehre/Technik, ~39 BE): Einleitung über Trainingsgestaltung → 3.1 Schnelligkeit (12 BE), 3.2 Einflussgrößen (8 BE), 3.3 Techniktraining (11 BE), 3.4 Übungsreihe (8 BE)
+- Block 4 (Gesellschaft, ~12 BE): Zitat + Bewertungsaufgabe (12 BE)
 
-- **"statistik"** — Datentabellen (Trainingsdaten, Leistungswerte, Messergebnisse). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. "chart_type": "bar".
-- **"diagramm"** — Kurvenverläufe (Herzfrequenz über Zeit, Laktatwerte, Leistungsentwicklung). "text" MUSS eine Markdown-Tabelle mit echten Zahlenwerten sein. "chart_type": "line".
-- **"bild"** — Bilder werden GENERIERT (Imagen AI). Geeignet für: Sportszenen, Bewegungsabläufe, anatomische Darstellungen, Trainingsgeräte. "text" MUSS ein ausführlicher Imagen-Prompt auf Englisch sein (mind. 3-5 Sätze). Beschriftungen IM BILD auf DEUTSCH in Anführungszeichen.
-- **"text"** — Textquellen, Fachtexte, Zeitungsartikel, Trainingsplandetails, Forschungsergebnisse. "text" enthält den vollständigen Fließtext (mind. 150-300 Wörter). KEIN Platzhalter!
+ANFORDERUNGSBEREICHE:
+- AFB I (ca. 25%): "Nennen Sie", "Beschreiben Sie", "Geben Sie an", "Stellen Sie dar"
+- AFB II (ca. 55%): "Erläutern Sie", "Erklären Sie", "Vergleichen Sie", "Analysieren Sie", "Ordnen Sie zu"
+- AFB III (ca. 20%): "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie", "Erörtern Sie"
+
+MATERIALIEN — ISB-STIL:
+Materialien heißen "Abb. 1", "Abb. 2", "Abb. 3" (für Bilder, Diagramme, Schaubilder) oder "Blogauszug – Teil 1", "Textquelle 1", "Tabelle 1" etc. NICHT "M1", "M2"!
+Sie sind thematisch in die Aufgabe eingebettet und werden in den Teilaufgaben direkt referenziert ("vgl. Abb. 1", "unter Berücksichtigung von Abb. 2").
+Pro Aufgabe 2-4 Materialien. Typen:
+- **"bild"** — Bewegungsabläufe, Bildreihen, anatomische Darstellungen. "text" = ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). Beschriftungen auf DEUTSCH in Anführungszeichen. "titel" = z.B. "Abb. 1: Speerwurf"
+- **"diagramm"** — Kurvenverläufe (Laktat, HF, Streckenprofil). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "line". "titel" = z.B. "Abb. 2: Laktatleistungskurve"
+- **"statistik"** — Datentabellen (Leistungswerte, Testergebnisse). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "bar". "titel" = z.B. "Tabelle 1: Testergebnisse"
+- **"text"** — Blogauszüge, Zitate, Fachtexte, Quellenangaben. "text" = vollständiger Fließtext (mind. 80-200 Wörter). "titel" = z.B. "Blogauszug – Teil 1" oder "Textquelle 1"
 
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben!
 - KRITISCH: Für "statistik" und "diagramm": "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten
 - KRITISCH: Für "bild": "text" = ausführlicher Imagen-Prompt auf Englisch, Beschriftungen auf DEUTSCH
-- VERBOTEN: Bilder als Textbeschreibung in type "text"!
-- Pro Aufgabe: MINDESTENS 1x "statistik"/"diagramm" + 1x "text". Optional 1x "bild"
-- Jede Teilaufgabe hat BE-Angabe
+- Pro Aufgabe: MINDESTENS 1x "bild" oder "diagramm" + 1x "text"
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
-- Materialien müssen realistisch, datenreich und aussagekräftig sein
+- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
 
 SPORT-SPEZIFISCHE NOTATION:
 - Einheiten korrekt: HF in min⁻¹, VO₂max in ml/min/kg, Kraft in N, Laktat in mmol/l
@@ -9440,13 +9450,19 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "aufgaben": [
     {
       "id": "Aufgabe 1",
-      "titel": "Trainingsplanung für einen Marathonläufer",
-      "sachgebiet": "trainingslehre",
+      "titel": "Zehnkampf",
+      "lernbereiche": ["Sportbiologie/Trainingslehre und Bewegungslehre", "Psychologische, soziale und gesellschaftspolitische Bedeutung des Sports"],
       "material": [
-        {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+        {"id": "Abb. 1", "titel": "Abb. 1: Speerwurf", "type": "bild", "text": "<Imagen-Prompt>"},
+        {"id": "Abb. 2", "titel": "Abb. 2: Diskuswurf", "type": "bild", "text": "<Imagen-Prompt>"}
       ],
       "teilaufgaben": [
-        {"id": "1.1", "text": "<Aufgabenstellung mit Operator>", "be": <Zahl>}
+        {"id": "1", "text": "Mehrkämpferinnen und Mehrkämpfer gelten als die Königinnen bzw. die Könige der Leichtathletik...", "be": 0, "typ": "block"},
+        {"id": "1.1", "text": "Stellen Sie Gemeinsamkeiten und Unterschiede hinsichtlich der Bewegungsstruktur... (vgl. Abb. 1 und 2) gegenüber!", "be": 16},
+        {"id": "1.2", "text": "Beschreiben Sie drei koordinative Fähigkeiten...", "be": 9},
+        {"id": "2", "text": "Die zwei Wettkampftage sind für die Athleten insbesondere aus energetischer Sicht sehr kräftezehrend.", "be": 0, "typ": "block"},
+        {"id": "2.1", "text": "Beschreiben Sie die unterschiedlichen energieliefernden Prozesse...", "be": 12},
+        {"id": "4", "text": "Bewerten Sie diese Aussage!", "be": 12}
       ],
       "gesamt_be": ${beProAufgabe}
     }
@@ -9456,11 +9472,16 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${gesamtBE}
 }`;
 
-  const userPrompt = `Erstelle eine vollständige schriftliche Sport-Abiturprüfung (Leistungsfach, eA, ${gesamtBE} BE).
+  const userPrompt = `Erstelle eine vollständige schriftliche Sport-Abiturprüfung (Leistungsfach, eA, ${gesamtBE} BE) im exakten ISB-Stil.
 ${anzahlAufgaben} Aufgaben à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
 Prüfungsdauer: ${pruefungsdauer} Minuten.
-Verwende 3 verschiedene Sachgebiete der Sporttheorie. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
-KRITISCH: Jedes Material MUSS ein "type"-Feld haben!`;
+WICHTIG:
+- Jede Aufgabe um einen konkreten sportpraktischen Kontext (z.B. Zehnkampf, Mountainbiken, Volleyball, Schwimmen, Fußball)
+- Jede Aufgabe integriert MEHRERE Lernbereiche (typisch: Sportbiologie/Trainingslehre + Bewegungslehre + ggf. Psychologie/Gesellschaft)
+- Thematische Blöcke (1, 2, 3, 4) mit Einleitungstext + Teilaufgaben (1.1, 1.2, 2.1 usw.)
+- Block-Einleitungen als Teilaufgaben mit "be": 0 und "typ": "block"
+- Materialien als "Abb. 1", "Abb. 2", "Blogauszug – Teil 1" etc. (NICHT M1/M2!)
+- KRITISCH: Jedes Material MUSS ein "type"-Feld haben!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -9508,20 +9529,21 @@ async function handleGradeAbiturSport(request, env) {
     }
   }
 
-  const rubricPrompt = `Du bewertest eine schriftliche Sport-Abiturprüfung (Bayern, Leistungsfach Sport eA, G9, ab 2026).
+  const rubricPrompt = `Du bewertest eine schriftliche Sport-Abiturprüfung (Bayern, Leistungsfach Sport eA, G9, ab 2026) im ISB-Format.
 Der Schüler hat 1 von 3 Aufgaben gewählt. Gesamt: ${maxBE} BE.
+Die Aufgabe ist in thematische Blöcke gegliedert (1, 2, 3, 4) mit Teilaufgaben (1.1, 1.2, 2.1 usw.).
 
 BEWERTUNGSREGELN:
-- Bewerte jede Teilaufgabe einzeln
-- Bewertungskriterien: sportwissenschaftliche Fachsprache, Korrektheit, Materialauswertung, logische Argumentation, Darstellungsleistung
+- Bewerte jede Teilaufgabe einzeln (ignoriere Block-Einleitungen mit 0 BE)
+- Bewertungskriterien: sportwissenschaftliche Fachsprache, Korrektheit, Materialauswertung (Abb., Blogauszüge, Tabellen), logische Argumentation, Darstellungsleistung
 - Korrekte Fachbegriffe und Zusammenhänge → volle Punkte
 - Teilweise korrekte Antworten → Teilpunkte
 - Folgefehler berücksichtigen
 
-BE → NOTENPUNKTE (ISB-Tabelle):
-95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
-65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
-33% → 3, 27% → 2, 20% → 1, <20% → 0
+BE → NOTENPUNKTE (ISB-Tabelle, 100 BE Basis):
+100-96 → 15, 95-91 → 14, 90-86 → 13, 85-81 → 12, 80-76 → 11, 75-71 → 10
+70-66 → 9, 65-61 → 8, 60-56 → 7, 55-51 → 6, 50-46 → 5, 45-41 → 4
+40-34 → 3, 33-27 → 2, 26-20 → 1, 19-0 → 0
 
 Antworte NUR mit validem JSON:
 {
@@ -9531,7 +9553,7 @@ Antworte NUR mit validem JSON:
   "gesamt_be": <Zahl>,
   "max_be": ${maxBE},
   "note": <0-15>,
-  "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach Teilaufgaben, Stärken, Fehler, korrekte Lösungswege>"
+  "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach thematischen Blöcken und Teilaufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
   const messages = [
@@ -9550,10 +9572,10 @@ Antworte NUR mit validem JSON:
       gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
     }
     if (np == null && gesamtBE != null) {
-      const pct = (gesamtBE / maxBE) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      // ISB-Tabelle: absolute BE-Grenzen bei 100 BE Basis
+      const table = [[96,15],[91,14],[86,13],[81,12],[76,11],[71,10],[66,9],[61,8],[56,7],[51,6],[46,5],[41,4],[34,3],[27,2],[20,1],[0,0]];
       np = 0;
-      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+      for (const [th, n] of table) { if (gesamtBE >= th) { np = n; break; } }
     }
 
     return jsonResponse({
@@ -9579,17 +9601,27 @@ async function handleModelAnswerAbiturSport(request, env) {
   const { aufgaben } = await request.json();
 
   const systemPrompt = `Du bist ein sehr guter Sport-Oberstufenschüler am bayerischen Gymnasium (Leistungsfach Sport, eA).
-Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für die gewählte Aufgabe.
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für die gewählte Aufgabe im ISB-Format.
+
+Die Aufgabe ist in thematische Blöcke gegliedert (1, 2, 3, 4) mit Teilaufgaben (1.1, 1.2, 2.1, 2.2 usw.).
+Block-Einleitungen (mit 0 BE) geben den Kontext – beantworte nur die eigentlichen Teilaufgaben.
+Materialien heißen "Abb. 1", "Abb. 2", "Blogauszug – Teil 1" etc.
 
 WICHTIG:
 - Verwende korrekte sportwissenschaftliche Fachsprache
 - Zeige JEDEN Lösungsschritt ausführlich
 - Gib bei jedem Schritt die BE an
 - Begründe Ansätze kurz
+- Beziehe dich konkret auf die Materialien (Abb., Blogauszüge, Tabellen)
 - Einheiten korrekt: HF in min⁻¹, VO₂max in ml/min/kg, Laktat in mmol/l
-- Formatiere als Markdown mit klaren Überschriften:
+- Formatiere als Markdown mit klaren Überschriften nach thematischen Blöcken:
   ## Aufgabe: [Titel]
-  ### Teilaufgabe 1.1
+  ### Block 1: [Thema]
+  #### Teilaufgabe 1.1 (X BE)
+  ...
+  #### Teilaufgabe 1.2 (X BE)
+  ...
+  ### Block 2: [Thema]
   ...
 - Am Ende: Zusammenfassung der BE und Gesamtergebnis`;
 
