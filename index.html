@@ -1868,11 +1868,8 @@
           setTimeout(hideSplash, 2000);
         }
 
-        function renderFrame() {
-          if (vid.paused || vid.ended) {
-            if (vid.ended) showLogo();
-            return;
-          }
+        // Chroma-Key auf Canvas zeichnen
+        function drawChromaFrame() {
           ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
           var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           var data = imageData.data;
@@ -1886,7 +1883,44 @@
             }
           }
           ctx.putImageData(imageData, 0, 0);
+        }
+
+        // Normaler Playback-Loop (wenn play() klappt)
+        function renderFrame() {
+          if (vid.paused || vid.ended) {
+            if (vid.ended) showLogo();
+            return;
+          }
+          drawChromaFrame();
           animId = requestAnimationFrame(renderFrame);
+        }
+
+        // Manueller Frame-Stepper: Video Frame für Frame per currentTime abspielen
+        // Funktioniert ohne play() — umgeht Autoplay-Blockade
+        function startManualPlayback() {
+          canvas.width = vid.videoWidth || 500;
+          canvas.height = vid.videoHeight || 500;
+          var duration = vid.duration;
+          var startWall = performance.now();
+
+          function stepFrame() {
+            if (logoShown) return;
+            var elapsed = (performance.now() - startWall) / 1000;
+            if (elapsed >= duration) {
+              showLogo();
+              return;
+            }
+            vid.currentTime = elapsed;
+          }
+
+          vid.addEventListener('seeked', function () {
+            if (logoShown) return;
+            drawChromaFrame();
+            animId = requestAnimationFrame(stepFrame);
+          });
+
+          // Ersten Frame anstoßen
+          stepFrame();
         }
 
         if (vid) {
@@ -1910,8 +1944,8 @@
           vid.addEventListener('loadeddata', function () {
             var p = vid.play();
             if (p) p.catch(function () {
-              canvas.style.display = 'none';
-              if (!logoShown) { logoShown = true; logo.classList.add('show'); }
+              // Autoplay blockiert — manuell Frame für Frame abspielen
+              startManualPlayback();
             });
           });
 
