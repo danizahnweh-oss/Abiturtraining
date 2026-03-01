@@ -234,7 +234,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/1': [
         'Klima und Klimawandel (atmosphärische und ozeanische Prozesse)',
         'Mensch-Umwelt-Beziehungen in den Tropen (Vulnerabilität und Nachhaltigkeit)',
-        'Globale Bedeutung der Subpolaren und Polaren Zone',
+        'Kalte Zonen (polare und subpolare Zone, Permafrost, Arktis und Antarktis)',
+        'Tropen (tropische Ökozonen, Regenwald und Savanne)',
       ],
       '12/2': [
         'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen)',
