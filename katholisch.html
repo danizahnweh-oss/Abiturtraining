@@ -307,22 +307,22 @@
             <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
               <div class="hj-icon">&#x26EA;</div>
               <div class="hj-name">12/1</div>
-              <div class="hj-desc">Mensch und Welt als Sch&ouml;pfung Gottes</div>
+              <div class="hj-desc">Personalit&auml;t: Der Mensch und die Frage &bdquo;Wer bin ich?&ldquo;</div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
               <div class="hj-icon">&#x271D;&#xFE0F;</div>
               <div class="hj-name">12/2</div>
-              <div class="hj-desc">Jesus Christus &ndash; Herausforderung und Orientierung</div>
+              <div class="hj-desc">Transzendentalit&auml;t: Gottessuche und Gottesbild</div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
               <div class="hj-icon">&#x2696;&#xFE0F;</div>
               <div class="hj-name">13/1</div>
-              <div class="hj-desc">Verantwortlich handeln &ndash; christliche Ethik</div>
+              <div class="hj-desc">Sozialit&auml;t: Ethik und Kath. Soziallehre</div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
               <div class="hj-icon">&#x1F54A;&#xFE0F;</div>
               <div class="hj-name">13/2</div>
-              <div class="hj-desc">Kirche in der Welt von heute</div>
+              <div class="hj-desc">Existentielle Fragen und christliche Antwortangebote</div>
             </div>
           </div>
         </div>
@@ -634,10 +634,10 @@ Tipp: Strukturiere deinen Text:
     CONFIG.lernbereich = "12_1";
 
     const LB_LABELS = {
-      "12_1": "12/1 \u2013 Mensch und Welt als Sch\u00f6pfung Gottes",
-      "12_2": "12/2 \u2013 Jesus Christus \u2013 Herausforderung und Orientierung",
-      "13_1": "13/1 \u2013 Verantwortlich handeln \u2013 christliche Ethik",
-      "13_2": "13/2 \u2013 Kirche in der Welt von heute"
+      "12_1": "12/1 \u2013 Personalit\u00e4t: Der Mensch und die Frage \u201eWer bin ich?\u201c",
+      "12_2": "12/2 \u2013 Transzendentalit\u00e4t: Gottessuche und Gottesbild",
+      "13_1": "13/1 \u2013 Sozialit\u00e4t: Ethik und Kath. Soziallehre",
+      "13_2": "13/2 \u2013 Existentielle Fragen und christliche Antwortangebote"
     };
 
     const LB_ICONS = { "12_1": "\u26EA", "12_2": "\u271D\uFE0F", "13_1": "\u2696\uFE0F", "13_2": "\u{1F54A}\uFE0F" };
@@ -645,36 +645,36 @@ Tipp: Strukturiere deinen Text:
     const SCHWERPUNKTE = {
       "12_1": [
         { value: "random", label: "Zuf\u00e4llig" },
-        { value: "schoepfung", label: "Sch\u00f6pfungstheologie und Sch\u00f6pfungsauftrag" },
-        { value: "gottesbild", label: "Gottesbild und Gottesbeweise (Thomas v. Aquin)" },
-        { value: "theodizee", label: "Theodizee und Leidfrage" },
-        { value: "naturwissenschaft", label: "Naturwissenschaft und Glaube" },
-        { value: "menschenbild", label: "Menschenbild: Imago Dei und Menschenw\u00fcrde" },
-        { value: "religionskritik", label: "Religionskritik (Feuerbach, Marx, Nietzsche)" }
+        { value: "anthropologie", label: "Philosophische Anthropologie (Wer bin ich?)" },
+        { value: "menschenbild", label: "Biblisch-christliches Menschenbild (Gottebenbildlichkeit)" },
+        { value: "menschenwuerde", label: "Menschenw\u00fcrde und Menschenrechte" },
+        { value: "personalitaet", label: "Personalit\u00e4t, Sozialit\u00e4t, Transzendentalit\u00e4t" },
+        { value: "freiheit", label: "Freiheit, Verantwortung und Identit\u00e4t" }
       ],
       "12_2": [
         { value: "random", label: "Zuf\u00e4llig" },
-        { value: "historischer_jesus", label: "Der historische Jesus und seine Botschaft" },
-        { value: "christologie", label: "Christologie (Niz\u00e4a, Chalcedon)" },
-        { value: "kreuz", label: "Kreuzestheologie und Erl\u00f6sung" },
-        { value: "auferstehung", label: "Auferstehung und Osterglaube" },
-        { value: "nachfolge", label: "Nachfolge und Reich Gottes" },
-        { value: "gleichnisse", label: "Gleichnisse und Bergpredigt" }
+        { value: "gottesbeweise", label: "Gottesbeweise (Anselm, Thomas v. Aquin, Pascal)" },
+        { value: "religionskritik", label: "Religionskritik (Feuerbach, Marx, Nietzsche)" },
+        { value: "bibelauslegung", label: "Bibel als Gotteswort \u2013 Auslegungsmethoden" },
+        { value: "trinitaet", label: "Trinitarisches Gottesbild (Credo, Nicaenum)" },
+        { value: "christentum_islam", label: "Gottesbild: Christentum und Islam" },
+        { value: "glaube_wissenschaft", label: "Glaube und Naturwissenschaft" }
       ],
       "13_1": [
         { value: "random", label: "Zuf\u00e4llig" },
-        { value: "gewissen", label: "Gewissen und Gewissensbildung" },
-        { value: "naturrecht", label: "Naturrecht und Kath. Soziallehre" },
-        { value: "sozialprinzipien", label: "Sozialprinzipien (Subsidiarit\u00e4t, Solidarit\u00e4t, Gemeinwohl)" },
-        { value: "bioethik", label: "Bioethik (Lebensschutz, Sterbehilfe)" },
-        { value: "friedensethik", label: "Friedensethik und gerechter Krieg" }
+        { value: "normenbegruendung", label: "Normenbe\u00adgr\u00fcndung (Naturrecht, Pflichtethik, Utilitarismus)" },
+        { value: "dekalog_bergpredigt", label: "Dekalog und Bergpredigt" },
+        { value: "gewissen", label: "Gewissensbildung und Gewissensentscheidung" },
+        { value: "sozialprinzipien", label: "Kath. Soziallehre (Personalit\u00e4t, Solidarit\u00e4t, Subsidiarit\u00e4t, Gemeinwohl)" },
+        { value: "nachhaltigkeit", label: "Nachhaltige Entwicklung und Ethik der Lebensbereiche" },
+        { value: "ehe_familie", label: "Ehe und Familie (Amoris laetitia)" }
       ],
       "13_2": [
         { value: "random", label: "Zuf\u00e4llig" },
-        { value: "kirchenbild", label: "Kirchenverst\u00e4ndnis (Vaticanum II, Lumen Gentium)" },
-        { value: "sakramente", label: "Sakramente und Liturgie" },
-        { value: "oekumene", label: "\u00d6kumene und interreligi\u00f6ser Dialog" },
-        { value: "kirche_staat", label: "Kirche und Staat, Religionsfreiheit" }
+        { value: "wahrheit", label: "Wahrheitsanspr\u00fcche (Exklusivismus, Inklusivismus, Pluralismus)" },
+        { value: "letztbegruendung", label: "Christliche Ethik als Letztbegr\u00fcndung" },
+        { value: "eschatologie", label: "Eschatologie und Reich-Gottes-Botschaft" },
+        { value: "lebensentwuerfe", label: "Lebensentw\u00fcrfe und gelingendes Menschsein" }
       ]
     };
 
@@ -682,7 +682,7 @@ Tipp: Strukturiere deinen Text:
 
 BEWERTUNGSKRITERIEN:
 INHALT (70%):
-- Pr\u00e4zise Themaerschlie\u00dfung und korrekte Verwendung theologischer Fachbegriffe (z.\u202fB. Imago Dei, Trinit\u00e4t, Inkarnation, Erl\u00f6sung, Sakrament, Lehramt, Naturrecht, Gewissen, Subsidiarit\u00e4t, Solidarit\u00e4t, Gemeinwohl, Konzil, Lumen Gentium, Gaudium et Spes, Theodizee, Christologie)
+- Pr\u00e4zise Themaerschlie\u00dfung und korrekte Verwendung theologischer Fachbegriffe (z.\u202fB. Imago Dei, Gottebenbildlichkeit, Personalit\u00e4t, Sozialit\u00e4t, Transzendentalit\u00e4t, Trinit\u00e4t, Religionskritik, Theodizee, Dekalog, Bergpredigt, Gewissen, Naturrecht, Pflichtethik, Utilitarismus, Verantwortungsethik, Subsidiarit\u00e4t, Solidarit\u00e4t, Gemeinwohl, Eschatologie, Reich Gottes, Exklusivismus, Inklusivismus, Pluralismus)
 - Sinnvoller Aufbau und schl\u00fcssige Argumentation
 - Angemessener Grad der Reflexion und eigenst\u00e4ndiges begr\u00fcndetes Urteil
 - Korrekte Anwendung der Operatoren (darstellen, beschreiben, erl\u00e4utern, vergleichen, herausarbeiten, er\u00f6rtern, beurteilen, bewerten, Stellung nehmen, gestalten)
