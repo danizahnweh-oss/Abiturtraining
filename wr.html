@@ -257,6 +257,45 @@
       color: var(--ink-light);
       margin-left: .3rem
     }
+
+    /* Halbjahr/Sachgebiet selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .hj-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
+
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: .2rem
+    }
+
+    .hj-desc {
+      font-size: .8rem;
+      color: var(--ink-muted)
+    }
   </style>
 </head>
 
@@ -292,29 +331,37 @@
       </div>
 
       <div class="card" id="setupGenerate">
-        <h2 class="card-header">Aufgabe konfigurieren</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Niveau</label>
-            <select id="niveauSelect" onchange="updateFachbereichVisibility()">
-              <option value="eA">Erhöhtes Anforderungsniveau (eA)</option>
-              <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
-            </select>
-          </div>
-          <div class="form-group" id="fachbereichGroup">
-            <label>Fachbereich</label>
-            <select id="fachbereichSelect" onchange="updateThemenDropdown()">
-              <option value="bwl">BWL</option>
-              <option value="vwl">VWL</option>
-              <option value="recht">Recht</option>
-            </select>
-          </div>
-        </div>
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
         <div class="form-group">
-          <label>Themenbereich</label>
-          <select id="themaSelect">
-            <option value="random">Zufällig</option>
+          <label>Niveau</label>
+          <select id="niveauSelect" onchange="updateNiveau()">
+            <option value="eA">Erhöhtes Anforderungsniveau (eA)</option>
+            <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
           </select>
+        </div>
+        <div class="form-group" id="fachbereichSection">
+          <label>Fachbereich</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="bwl" onclick="selectSachgebiet('bwl')">
+              <div class="hj-icon">📊</div>
+              <div class="hj-name">BWL</div>
+              <div class="hj-desc">Unternehmen, Investition, Bilanz, Marketing</div>
+            </div>
+            <div class="hj-card" data-hj="vwl" onclick="selectSachgebiet('vwl')">
+              <div class="hj-icon">🏛️</div>
+              <div class="hj-name">VWL</div>
+              <div class="hj-desc">Konjunktur, Geldpolitik, Außenhandel</div>
+            </div>
+            <div class="hj-card" data-hj="recht" onclick="selectSachgebiet('recht')">
+              <div class="hj-icon">⚖️</div>
+              <div class="hj-name">Recht</div>
+              <div class="hj-desc">BGB, Kaufrecht, Strafrecht</div>
+            </div>
+          </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
+        </div>
+        <div id="gaHint" style="display:none;padding:.8rem 1rem;background:var(--accent-glow);border-radius:var(--radius-sm);margin-bottom:1rem;font-size:.9rem">
+          <strong>gA – Integriert:</strong> Die Aufgabe deckt alle drei Fachbereiche (BWL, VWL, Recht) ab.
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
@@ -330,7 +377,7 @@
             <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
           </div>
         </div>
-        <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>
+        <button class="btn" id="generateBtn" onclick="generateTask()">✨ Generieren</button>
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
           <div class="loader-text">Generiere WR-Aufgabe …</div>
@@ -576,81 +623,87 @@ Struktur:
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
-    /* ====== THEMEN DATA ====== */
-    const THEMEN = {
+    CONFIG.sachgebiet = "bwl";
+
+    /* ====== UNTERPUNKTE DATA ====== */
+    const UNTERPUNKTE = {
       bwl: [
-        { value: "random", label: "Zufällig" },
-        { value: "unternehmensziele", label: "Unternehmensziele und Zielkonflikte" },
-        { value: "swot", label: "SWOT-Analyse und strategische Planung" },
-        { value: "investition", label: "Investitionsrechnung" },
-        { value: "finanzierung", label: "Finanzierung" },
-        { value: "bilanz", label: "Bilanzkennzahlen und Jahresabschluss" },
-        { value: "organisation", label: "Organisationsstruktur" },
-        { value: "marketing", label: "Marketing-Mix und Marktanalyse" },
-        { value: "rechtsformen", label: "Rechtsformen von Unternehmen" }
+        "Unternehmensziele und Zielkonflikte",
+        "SWOT-Analyse und strategische Planung",
+        "Investitionsrechnung (Gewinnvergleich, Amortisation, Kapitalwert)",
+        "Finanzierung (Eigen-/Fremdfinanzierung, Leverage-Effekt)",
+        "Bilanzkennzahlen und Jahresabschluss",
+        "Organisationsstruktur (Aufbau-/Ablauforganisation)",
+        "Marketing-Mix und Marktanalyse",
+        "Rechtsformen von Unternehmen"
       ],
       vwl: [
-        { value: "random", label: "Zufällig" },
-        { value: "konjunktur", label: "Konjunktur und Konjunkturpolitik" },
-        { value: "geldpolitik", label: "Geldpolitik der EZB" },
-        { value: "tarifpolitik", label: "Tarifpolitik und Arbeitsmarkt" },
-        { value: "wirtschaftspolitik", label: "Wirtschaftspolitik" },
-        { value: "spieltheorie", label: "Spieltheorie und Marktverhalten" },
-        { value: "aussenhandel", label: "Außenhandel und Globalisierung" },
-        { value: "preisbildung", label: "Preisbildung auf Märkten" },
-        { value: "soziale_marktwirtschaft", label: "Soziale Marktwirtschaft" }
+        "Konjunktur und magisches Viereck",
+        "Wirtschaftspolitik (Fiskal-/Geldpolitik)",
+        "Soziale Sicherung und demographischer Wandel",
+        "Geldpolitik der EZB (Instrumente, Transmissionsmechanismus)",
+        "Außenhandel und Wechselkurse",
+        "BIP und Arbeitsmarkt",
+        "Preisbildung auf Märkten",
+        "Soziale Marktwirtschaft"
       ],
       recht: [
-        { value: "random", label: "Zufällig" },
-        { value: "vertragsrecht", label: "Vertragsrecht" },
-        { value: "kaufrecht", label: "Kaufrecht und Gewährleistung" },
-        { value: "schuldrecht", label: "Schuldrecht (Leistungsstörungen)" },
-        { value: "sachenrecht", label: "Sachenrecht" },
-        { value: "deliktsrecht", label: "Deliktsrecht (§ 823 BGB)" },
-        { value: "arbeitsrecht", label: "Arbeitsrecht" },
-        { value: "handelsrecht", label: "Handelsrecht" }
+        "BGB-Grundlagen und Rechtsgeschäfte (Subsumtionstechnik)",
+        "Herausgabeansprüche und Eigentum (§ 985 BGB)",
+        "Schadensersatzrecht (§ 823 BGB, Gefährdungshaftung)",
+        "Kaufrecht und Gewährleistung (Mängelrechte)",
+        "Verbraucherschutz und AGB",
+        "Werk- und Dienstvertrag (Leistungsstörungen)",
+        "Strafrecht (Aufbau einer Straftat, Tatbestand)",
+        "Strafzwecktheorien und Strafzumessung"
       ]
     };
 
-    function updateFachbereichVisibility() {
-      const niveau = document.getElementById("niveauSelect").value;
-      const fbGroup = document.getElementById("fachbereichGroup");
-      fbGroup.style.display = niveau === "gA" ? "none" : "block";
-      // Update timer and BE defaults
-      document.getElementById("timerMinutes").value = niveau === "gA" ? "210" : "135";
-      document.getElementById("totalBE").value = niveau === "gA" ? "100" : "60";
-      updateThemenDropdown();
+    function renderSubtopics(key) {
+      var panel = document.getElementById('subtopics-panel');
+      var items = UNTERPUNKTE[key] || [];
+      var html = '<div class="subtopic-item subtopic-all">' +
+        '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAll(\'' + key + '\', this.checked)">' +
+        '<label for="st-all-' + key + '">Alle auswählen</label></div>';
+      items.forEach(function(item, i) {
+        var id = 'st-' + key + '-' + i;
+        html += '<div class="subtopic-item">' +
+          '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+          '<label for="' + id + '">' + item + '</label></div>';
+      });
+      panel.innerHTML = html;
+      panel.classList.add('open');
     }
 
-    function updateThemenDropdown() {
-      const niveau = document.getElementById("niveauSelect").value;
-      const fb = document.getElementById("fachbereichSelect").value;
-      const sel = document.getElementById("themaSelect");
-      sel.innerHTML = "";
+    function toggleAll(key, checked) {
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+    }
 
-      if (niveau === "gA") {
-        // gA is integrated, show all themes
-        sel.innerHTML = '<option value="random">Zufällig</option>';
-        for (const [key, items] of Object.entries(THEMEN)) {
-          const group = document.createElement("optgroup");
-          group.label = key.toUpperCase();
-          items.filter(t => t.value !== "random").forEach(t => {
-            const o = document.createElement("option");
-            o.value = t.value;
-            o.textContent = t.label;
-            group.appendChild(o);
-          });
-          sel.appendChild(group);
-        }
-      } else {
-        const items = THEMEN[fb] || THEMEN.bwl;
-        items.forEach(t => {
-          const o = document.createElement("option");
-          o.value = t.value;
-          o.textContent = t.label;
-          sel.appendChild(o);
-        });
-      }
+    function getSelectedSubtopics() {
+      var panel = document.getElementById('subtopics-panel');
+      var result = [];
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
+    function selectSachgebiet(sg) {
+      CONFIG.sachgebiet = sg;
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        c.classList.toggle("selected", c.dataset.hj === sg);
+      });
+      renderSubtopics(sg);
+    }
+
+    function updateNiveau() {
+      var niveau = document.getElementById("niveauSelect").value;
+      var isGA = niveau === "gA";
+      document.getElementById("fachbereichSection").style.display = isGA ? "none" : "block";
+      document.getElementById("gaHint").style.display = isGA ? "block" : "none";
+      document.getElementById("timerMinutes").value = isGA ? "210" : "135";
+      document.getElementById("totalBE").value = isGA ? "100" : "60";
     }
 
     /* ====== SETUP MODE ====== */
@@ -706,18 +759,19 @@ Struktur:
       document.getElementById("setupLoader").style.display = "block";
       try {
         const niveau = document.getElementById("niveauSelect").value;
-        const fb = document.getElementById("fachbereichSelect").value;
+        const isGA = niveau === "gA";
         const d = await apiCall("/api/generate-wr", {
           niveau: niveau,
-          fachbereich: niveau === "gA" ? "integriert" : fb,
-          thema: document.getElementById("themaSelect").value,
+          fachbereich: isGA ? "integriert" : CONFIG.sachgebiet,
+          sachgebiet: isGA ? "integriert" : CONFIG.sachgebiet,
+          unterpunkte: isGA ? [] : getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 135,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1
         });
         CONFIG.storedData = d;
         CONFIG.storedData._niveau = niveau;
-        CONFIG.storedData._fachbereich = niveau === "gA" ? "integriert" : fb;
+        CONFIG.storedData._fachbereich = isGA ? "integriert" : CONFIG.sachgebiet;
         renderTask(d);
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }

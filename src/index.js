@@ -701,6 +701,17 @@ export default {
         return await handleModelAnswerAbiturBiologie(request, env);
       }
 
+      // ===== INFORMATIK ABITUR ENDPOINTS =====
+      if (pathname === "/api/generate-abitur-informatik" && request.method === "POST") {
+        return await handleGenerateAbiturInformatik(request, env);
+      }
+      if (pathname === "/api/grade-abitur-informatik" && request.method === "POST") {
+        return await handleGradeAbiturInformatik(request, env);
+      }
+      if (pathname === "/api/model-answer-abitur-informatik" && request.method === "POST") {
+        return await handleModelAnswerAbiturInformatik(request, env);
+      }
+
       // ===== IMAGE GENERATION =====
       if (pathname === "/api/generate-image" && request.method === "POST") {
         return await handleGenerateImage(request, env);
@@ -2336,7 +2347,10 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
 /* ================= WIRTSCHAFT UND RECHT: GENERATE ================= */
 async function handleGenerateWR(request, env) {
   const body = await request.json();
-  const { niveau, fachbereich, thema, be, zeit, anzahl } = body;
+  const { niveau, fachbereich, sachgebiet, unterpunkte, thema, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    : '';
 
   const isGA = (niveau || "gA").toLowerCase() === "ga";
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
@@ -2380,11 +2394,12 @@ async function handleGenerateWR(request, env) {
   };
 
   let fbLabel, fbThemen;
+  const fbKey = sachgebiet || fachbereich || "bwl";
   if (isGA) {
     fbLabel = "Integriert (BWL + VWL + Recht)";
     fbThemen = "Integrierte Aufgabe über alle drei Fachbereiche";
   } else {
-    const fb = fachbereiche[fachbereich] || fachbereiche.bwl;
+    const fb = fachbereiche[fbKey] || fachbereiche.bwl;
     fbLabel = fb.label;
     fbThemen = Object.values(fb.themen).join(", ");
   }
@@ -2401,7 +2416,7 @@ PRÜFUNGSFORMAT:
 - Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
 - ${bloecke}
 - ${materialCount}
-- Fachbereich: ${fbLabel}
+- Fachbereich: ${fbLabel}${schwerpunktZusatz}
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (je ca. ${Math.round(gesamtBE / aufgabenAnzahl)} BE)
 - Jeder Block kompakt und kleinschrittiger` : ''}
 
@@ -9613,6 +9628,258 @@ WICHTIG:
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
   ], 10000, { model: "gpt-5.2", temperature: 0.4 });
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= INFORMATIK ABITUR: GENERATE ================= */
+async function handleGenerateAbiturInformatik(request, env) {
+  const body = await request.json();
+  const { level } = body;
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+
+  const pruefungsdauer = isEA ? 300 : 255;
+  const beProAufgabe = isEA ? 30 : 22;
+  const gesamtBE = isEA ? 120 : 88;
+  const anzahlAufgaben = 4;
+  const wahlAnzahl = 3;
+
+  const systemPrompt = `Du bist ein Informatik-Experte für das bayerische Abitur (${lvl}, G9, ab 2026).
+Erstelle eine VOLLSTÄNDIGE Informatik-Abiturprüfung.
+
+PRÜFUNGSSTRUKTUR (${lvl}):
+- Prüfungsdauer: ${pruefungsdauer} Minuten
+- ${anzahlAufgaben} Aufgabengruppen, der Schüler wählt ${wahlAnzahl} davon
+- Jede Aufgabengruppe: ${beProAufgabe} BE
+- Gesamt (bei ${wahlAnzahl} gewählten): ${wahlAnzahl * beProAufgabe} BE
+- Jede Aufgabengruppe behandelt ein anderes Sachgebiet
+
+SACHGEBIETE (wähle 4 verschiedene, Lehrplan G9 Bayern Informatik ab 2026):
+1. Rekursion & Listen (Inf12 LB1): Lineare und verzweigte Rekursion, Abbruchbedingung, rekursive Datenstrukturen. Verkettete Liste (einfach/doppelt verkettet), Einfügen, Löschen, Durchlaufen, Suchen. Stapel (Stack) und Warteschlange (Queue), LIFO/FIFO-Prinzip. Kompositum-Entwurfsmuster. Laufzeitbetrachtung O(n).
+2. Binärbäume (Inf12 LB2): Geordneter Binärbaum (Suchbaum), Einfügen, Suchen, Löschen (mit Nachfolger). Traversierung: Preorder, Inorder, Postorder. Laufzeitanalyse O(log n) vs. O(n). Darstellung als Knoten-Kanten-Diagramm. Anwendungen: Huffman-Codierung, Entscheidungsbäume.
+3. Nebenläufigkeit (Inf12 LB3): Prozesse und Threads, parallele Ausführung. Kritischer Abschnitt, Race Condition. Synchronisation: Semaphor, Monitor, Mutex. Deadlock (Bedingungen, Vermeidung, Erkennung). Erzeuger-Verbraucher-Problem. Petri-Netze (Stellen, Transitionen, Marken, Schaltregeln).
+4. Formale Sprachen & Automaten (Inf13 LB1): Endliche Automaten (DEA/NEA), Zustandsdiagramm, Zustandstabelle. Reguläre Ausdrücke und reguläre Sprachen. Grammatiken (Typ 2/3), Ableitungsbaum. Kellerautomat (PDA). Chomsky-Hierarchie. Zusammenhang Automaten-Grammatiken-Sprachen.
+5. Rechnerarchitektur (Inf13 LB2): Von-Neumann-Architektur, Befehlszyklus (Fetch-Decode-Execute). Maschinensprache, Assembler (Befehlssatz, Register). Speicherhierarchie (Register, Cache, RAM, Festplatte). Zahlendarstellung (Zweierkomplement, Gleitkomma IEEE 754). Logische Schaltungen (AND, OR, NOT, XOR), Addierer, Multiplexer.
+6. Berechenbarkeit (Inf13 LB3): Turingmaschine (Definition, Arbeitsweise, Übergangstabelle). Berechenbare und nicht-berechenbare Funktionen, Halteproblem. Churchsche These. Komplexitätsklassen P und NP, NP-Vollständigkeit. Entscheidbarkeit.
+7. Künstliche Intelligenz (Inf13 LB4): Maschinelles Lernen (überwacht/unüberwacht), Trainings-/Testdaten. Entscheidungsbaum, k-Nearest-Neighbors. Neuronale Netze (Perzeptron, Schichten, Aktivierungsfunktion). Bias und Fairness in KI-Systemen. Ethische Aspekte von KI.
+8. Informationssicherheit (Inf13 LB5): Symmetrische Verschlüsselung (AES, One-Time-Pad). Asymmetrische Verschlüsselung (RSA-Prinzip, Public/Private Key). Digitale Signatur, Zertifikate. Hashfunktionen (Einwegeigenschaft, Kollisionsresistenz). Authentifizierung (Passwort, 2FA, biometrisch). Datenschutz (DSGVO, Grundprinzipien).
+
+JEDE AUFGABENGRUPPE hat:
+- Einen Titel (z.B. "Aufgabe 1: Verwaltung einer Bibliothek")
+- Ein Sachgebiet
+- Material (M1, M2, ...): Pseudocode, UML-Diagramme, Tabellen, Textbeschreibungen, Zustandsdiagramme
+- 4-6 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
+- Gesamt: ${beProAufgabe} BE
+
+WICHTIG:
+- Pseudocode in Markdown-Codeblöcken (\`\`\`pseudocode ... \`\`\`)
+- UML/Zustandsdiagramme als ASCII-Art oder textuelle Beschreibung
+- Jede Teilaufgabe hat BE-Angabe
+- Aufgaben müssen praxisnah sein (z.B. Schulverwaltung, App, Netzwerk, Datenbank)
+- LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten
+${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für gA. Weniger mathematische Tiefe, keine über den gA-Lehrplan hinausgehenden Vertiefungen, zugänglichere Aufgaben.` : ""}
+
+MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
+- "text": Vollständige Textbeschreibung einer Situation/eines Systems (150-300 Wörter)
+- "statistik" + "chart_type":"bar": Markdown-Tabelle mit Daten (mind. 4-6 Zeilen)
+- "diagramm" + "chart_type":"line": Markdown-Tabelle mit x/y-Werten (mind. 5-8 Werte)
+- "bild": Imagen-Prompt auf ENGLISCH (3-5 Sätze) für UML/Zustandsdiagramm, Beschriftungen auf DEUTSCH
+
+KRITISCH — ABSOLUT VERBOTEN:
+- NIEMALS Platzhalter wie "Ein Pseudocode, der..." oder "Eine Tabelle mit..." schreiben!
+- Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
+Pro Aufgabengruppe: mind. 2-3 Materialien verschiedener Typen.
+
+Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
+{
+  "aufgaben": [
+    {
+      "id": "Aufgabe 1",
+      "titel": "Titel der Aufgabe",
+      "sachgebiet": "sachgebiet_key",
+      "material": [
+        {"id": "M1", "titel": "Materialtitel", "type": "text", "text": "Vollständiger Materialtext..."}
+      ],
+      "teilaufgaben": [
+        {"id": "1.1", "text": "Aufgabentext", "be": 4}
+      ],
+      "gesamt_be": ${beProAufgabe}
+    }
+  ],
+  "level": "${lvl}",
+  "pruefungsdauer": ${pruefungsdauer},
+  "gesamt_be": ${gesamtBE}
+}
+WICHTIG: Generiere für ALLE 4 Aufgaben vollständige, ausformulierte Teilaufgaben und Materialien!
+Erstelle 4 Aufgabengruppen mit verschiedenen Sachgebieten.`;
+
+  const userPrompt = `Erstelle eine vollständige Informatik-Abiturprüfung (${lvl}, ${gesamtBE} BE).
+${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlAnzahl}).
+Prüfungsdauer: ${pruefungsdauer} Minuten.
+Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit praxisnahem Kontext, Material und steigendem Anforderungsniveau.
+Pseudocode in Codeblöcken. KEIN LaTeX nötig.
+${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan.` : ""}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= INFORMATIK ABITUR: GRADE ================= */
+async function handleGradeAbiturInformatik(request, env) {
+  const body = await request.json();
+  const { aufgaben, student_texts, level } = body;
+
+  if (!student_texts || !Object.keys(student_texts).length) {
+    return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
+  }
+
+  const lvl = level || "gA";
+  const isEA = lvl === "eA";
+  const beProAufgabe = isEA ? 30 : 22;
+  const maxBE = 3 * beProAufgabe;
+
+  let aufgabenInfo = "";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      aufgabenInfo += `\n${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          aufgabenInfo += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 500)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  let studentTexts = "";
+  if (typeof student_texts === "object") {
+    for (const [key, text] of Object.entries(student_texts)) {
+      if (text && text.trim()) {
+        studentTexts += `\nSchülerlösung ${key}:\n${truncate(text, 8000)}\n`;
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine Informatik-Abiturprüfung (Bayern, ${lvl}, G9, ab 2026).
+Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
+
+BEWERTUNGSREGELN:
+- Bewerte jede Aufgabe und jede Teilaufgabe einzeln
+- Bewertungskriterien: Fachsprache, korrekter Algorithmus/Pseudocode, logische Argumentation, Vollständigkeit
+- Ansatz korrekt aber Folgefehler → Teilpunkte
+- Pseudocode/Code muss nicht compilierbar sein, aber logisch korrekt
+
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
+
+Antworte NUR mit validem JSON:
+{
+  "aufgaben_be": [
+    {"id": "Aufgabe 1", "erreichte_be": <Zahl>, "max_be": ${beProAufgabe}, "bewertung": "Markdown-Feedback"}
+  ],
+  "gesamt_be": <Zahl>,
+  "max_be": ${maxBE},
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  const messages = [
+    { role: "system", content: rubricPrompt },
+    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && parsed.aufgaben_be && parsed.aufgaben_be.length) {
+      gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
+    }
+    if (np == null && gesamtBE != null) {
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      aufgaben_be: parsed.aufgaben_be || [],
+      gesamt_be: gesamtBE,
+      max_be: maxBE,
+      note: np,
+      feedback: parsed.feedback || ""
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      aufgaben_be: [],
+      gesamt_be: null,
+      max_be: maxBE,
+      note: null,
+      feedback: openaiRes
+    }, 200, env);
+  }
+}
+
+/* ================= INFORMATIK ABITUR: MODEL ANSWER ================= */
+async function handleModelAnswerAbiturInformatik(request, env) {
+  const { aufgaben, level } = await request.json();
+
+  const lvl = level || "gA";
+
+  const systemPrompt = `Du bist ein sehr guter Informatik-Oberstufenschüler am bayerischen Gymnasium (${lvl}).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für alle gewählten Aufgaben.
+
+WICHTIG:
+- Pseudocode in Markdown-Codeblöcken
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- Verwende korrekte Fachsprache (Datenstrukturen, Algorithmen, Automatentheorie)
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Aufgabe 1: [Titel]
+  ### Teilaufgabe 1.1
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis`;
+
+  let userContent = "GEWÄHLTE AUFGABEN:\n\n";
+  if (aufgaben && aufgaben.length) {
+    for (const a of aufgaben) {
+      userContent += `${a.id || a.titel} – ${a.sachgebiet} (${a.gesamt_be} BE):\n`;
+      if (a.material && a.material.length) {
+        for (const m of a.material) {
+          userContent += `  Material ${m.id} – ${m.titel}: ${truncate(m.text, 1000)}\n`;
+        }
+      }
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+      userContent += "\n";
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
