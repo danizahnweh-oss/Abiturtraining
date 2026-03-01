@@ -1960,17 +1960,35 @@ footer a:hover {
 }
 
 .subtopics-panel.open {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.subtopic-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0 1.5rem;
 }
 
-.subtopics-panel .subtopic-all {
+.subtopic-group-title {
+  grid-column: 1 / -1;
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: .2rem;
+  padding-bottom: .2rem;
+  border-bottom: 2px solid var(--accent-soft);
+}
+
+.subtopics-panel .subtopic-all,
+.subtopic-group .subtopic-all {
   grid-column: 1 / -1;
 }
 
 @media (max-width: 600px) {
-  .subtopics-panel.open {
+  .subtopic-group {
     grid-template-columns: 1fr;
   }
 }
