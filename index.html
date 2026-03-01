@@ -1087,7 +1087,10 @@
       margin: 0 auto;
       padding: 0 1.5rem;
       display: flex;
-      justify-content: flex-end
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem
     }
 
     .subject-filter-btn {
@@ -1105,6 +1108,61 @@
     .subject-filter-btn:hover {
       color: var(--ink);
       background: var(--surface)
+    }
+
+    /* ====== CATEGORY FILTERS ====== */
+    .category-filters {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap
+    }
+
+    .cat-filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+      font-size: .78rem;
+      cursor: pointer;
+      padding: .35rem .8rem;
+      border-radius: 20px;
+      transition: all .2s;
+      font-family: inherit;
+      min-height: 44px;
+      display: flex;
+      align-items: center
+    }
+
+    .cat-filter-btn:hover,
+    .cat-filter-btn:focus-visible {
+      color: var(--ink);
+      border-color: var(--accent)
+    }
+
+    .cat-filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent)
+    }
+
+    .subject-card[data-filtered="true"] {
+      display: none !important
+    }
+
+    /* ====== DRAG & DROP ====== */
+    .subject-card.dragging {
+      opacity: .4;
+      border: 2px dashed var(--accent);
+      transform: scale(.95)
+    }
+
+    .subject-card.drag-over {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft);
+      transform: translateY(-2px)
+    }
+
+    .subject-grid.drag-active .subject-card {
+      transition: transform .15s ease, opacity .15s ease
     }
 
     .subject-card.subject-hidden {
@@ -2055,11 +2113,17 @@
       </div>
     </div>
     <div class="subject-filter-bar">
+      <div class="category-filters">
+        <button class="cat-filter-btn active" data-filter="alle" onclick="filterByCategory('alle')">Alle</button>
+        <button class="cat-filter-btn" data-filter="sprachen" onclick="filterByCategory('sprachen')">Sprachen</button>
+        <button class="cat-filter-btn" data-filter="nawi" onclick="filterByCategory('nawi')">Naturwiss.</button>
+        <button class="cat-filter-btn" data-filter="gewi" onclick="filterByCategory('gewi')">Geisteswiss.</button>
+      </div>
       <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
         anpassen</button>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
-      <button class="subject-card english" type="button" role="listitem" onclick="selectSubject('english', true)"
+      <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
         aria-label="Englisch">
         <div class="subject-icon" aria-hidden="true">🇬🇧</div>
         <div class="subject-title">Englisch</div>
@@ -2069,7 +2133,7 @@
         <span class="subject-countdown" data-subject="english"></span>
         <span class="subject-last-activity" data-activity="english"></span>
       </button>
-      <button class="subject-card german" type="button" role="listitem" onclick="selectSubject('german', true)"
+      <button class="subject-card german" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('german', true)"
         aria-label="Deutsch">
         <div class="subject-icon" aria-hidden="true">📖</div>
         <div class="subject-title">Deutsch</div>
@@ -2079,7 +2143,7 @@
         <span class="subject-countdown" data-subject="german"></span>
         <span class="subject-last-activity" data-activity="german"></span>
       </button>
-      <button class="subject-card history" type="button" role="listitem" onclick="selectSubject('history', true)"
+      <button class="subject-card history" type="button" role="listitem" data-category="gewi" onclick="selectSubject('history', true)"
         aria-label="Geschichte">
         <div class="subject-icon" aria-hidden="true">📜</div>
         <div class="subject-title">Geschichte</div>
@@ -2089,7 +2153,7 @@
         <span class="subject-countdown" data-subject="history"></span>
         <span class="subject-last-activity" data-activity="history"></span>
       </button>
-      <button class="subject-card pug" type="button" role="listitem" onclick="selectSubject('pug', true)"
+      <button class="subject-card pug" type="button" role="listitem" data-category="gewi" onclick="selectSubject('pug', true)"
         aria-label="Politik und Gesellschaft">
         <div class="subject-icon" aria-hidden="true">🏛️</div>
         <div class="subject-title">Politik und Gesellschaft</div>
@@ -2099,7 +2163,7 @@
         <span class="subject-countdown" data-subject="pug"></span>
         <span class="subject-last-activity" data-activity="pug"></span>
       </button>
-      <button class="subject-card wr" type="button" role="listitem" onclick="selectSubject('wr', true)"
+      <button class="subject-card wr" type="button" role="listitem" data-category="gewi" onclick="selectSubject('wr', true)"
         aria-label="Wirtschaft und Recht">
         <div class="subject-icon" aria-hidden="true">⚖️</div>
         <div class="subject-title">Wirtschaft & Recht</div>
@@ -2109,7 +2173,7 @@
         <span class="subject-countdown" data-subject="wr"></span>
         <span class="subject-last-activity" data-activity="wr"></span>
       </button>
-      <button class="subject-card french" type="button" role="listitem" onclick="selectSubject('french', true)"
+      <button class="subject-card french" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('french', true)"
         aria-label="Französisch">
         <div class="subject-icon" aria-hidden="true">🇫🇷</div>
         <div class="subject-title">Französisch</div>
@@ -2119,7 +2183,7 @@
         <span class="subject-countdown" data-subject="french"></span>
         <span class="subject-last-activity" data-activity="french"></span>
       </button>
-      <button class="subject-card italian" type="button" role="listitem" onclick="selectSubject('italian', true)"
+      <button class="subject-card italian" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('italian', true)"
         aria-label="Italienisch">
         <div class="subject-icon" aria-hidden="true">🇮🇹</div>
         <div class="subject-title">Italienisch</div>
@@ -2129,7 +2193,7 @@
         <span class="subject-countdown" data-subject="italian"></span>
         <span class="subject-last-activity" data-activity="italian"></span>
       </button>
-      <button class="subject-card ethik" type="button" role="listitem" onclick="selectSubject('ethik', true)"
+      <button class="subject-card ethik" type="button" role="listitem" data-category="gewi" onclick="selectSubject('ethik', true)"
         aria-label="Ethik">
         <div class="subject-icon" aria-hidden="true">🧠</div>
         <div class="subject-title">Ethik</div>
@@ -2139,7 +2203,7 @@
         <span class="subject-countdown" data-subject="ethik"></span>
         <span class="subject-last-activity" data-activity="ethik"></span>
       </button>
-      <button class="subject-card religion" type="button" role="listitem" onclick="selectSubject('religion', true)"
+      <button class="subject-card religion" type="button" role="listitem" data-category="gewi" onclick="selectSubject('religion', true)"
         aria-label="Evangelische Religionslehre">
         <div class="subject-icon" aria-hidden="true">✝️</div>
         <div class="subject-title">Ev. Religion</div>
@@ -2150,7 +2214,7 @@
         <span class="subject-countdown" data-subject="religion"></span>
         <span class="subject-last-activity" data-activity="religion"></span>
       </button>
-      <button class="subject-card katholisch" type="button" role="listitem" onclick="selectSubject('katholisch', true)"
+      <button class="subject-card katholisch" type="button" role="listitem" data-category="gewi" onclick="selectSubject('katholisch', true)"
         aria-label="Katholische Religionslehre">
         <div class="subject-icon" aria-hidden="true">⛪</div>
         <div class="subject-title">Kath. Religion</div>
@@ -2161,7 +2225,7 @@
         <span class="subject-countdown" data-subject="katholisch"></span>
         <span class="subject-last-activity" data-activity="katholisch"></span>
       </button>
-      <button class="subject-card geographie" type="button" role="listitem" onclick="selectSubject('geographie', true)"
+      <button class="subject-card geographie" type="button" role="listitem" data-category="gewi" onclick="selectSubject('geographie', true)"
         aria-label="Geographie">
         <div class="subject-icon" aria-hidden="true">🌍</div>
         <div class="subject-title">Geographie</div>
@@ -2171,7 +2235,7 @@
         <span class="subject-countdown" data-subject="geographie"></span>
         <span class="subject-last-activity" data-activity="geographie"></span>
       </button>
-      <button class="subject-card latein" type="button" role="listitem" onclick="selectSubject('latein', true)"
+      <button class="subject-card latein" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('latein', true)"
         aria-label="Latein">
         <div class="subject-icon" aria-hidden="true">🏺</div>
         <div class="subject-title">Latein</div>
@@ -2181,7 +2245,7 @@
         <span class="subject-countdown" data-subject="latein"></span>
         <span class="subject-last-activity" data-activity="latein"></span>
       </button>
-      <button class="subject-card mathe" type="button" role="listitem" onclick="selectSubject('mathe', true)"
+      <button class="subject-card mathe" type="button" role="listitem" data-category="nawi" onclick="selectSubject('mathe', true)"
         aria-label="Mathematik">
         <div class="subject-icon" aria-hidden="true">📐</div>
         <div class="subject-title">Mathematik</div>
@@ -2191,7 +2255,7 @@
         <span class="subject-countdown" data-subject="mathe"></span>
         <span class="subject-last-activity" data-activity="mathe"></span>
       </button>
-      <button class="subject-card chemie" type="button" role="listitem" onclick="selectSubject('chemie', true)"
+      <button class="subject-card chemie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('chemie', true)"
         aria-label="Chemie">
         <div class="subject-icon" aria-hidden="true">🧪</div>
         <div class="subject-title">Chemie</div>
@@ -2201,7 +2265,7 @@
         <span class="subject-countdown" data-subject="chemie"></span>
         <span class="subject-last-activity" data-activity="chemie"></span>
       </button>
-      <button class="subject-card physik" type="button" role="listitem" onclick="selectSubject('physik', true)"
+      <button class="subject-card physik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('physik', true)"
         aria-label="Physik">
         <div class="subject-icon" aria-hidden="true">⚛️</div>
         <div class="subject-title">Physik</div>
@@ -2211,7 +2275,7 @@
         <span class="subject-countdown" data-subject="physik"></span>
         <span class="subject-last-activity" data-activity="physik"></span>
       </button>
-      <button class="subject-card biologie" type="button" role="listitem" onclick="selectSubject('biologie', true)"
+      <button class="subject-card biologie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('biologie', true)"
         aria-label="Biologie">
         <div class="subject-icon" aria-hidden="true">🧬</div>
         <div class="subject-title">Biologie</div>
@@ -2221,7 +2285,7 @@
         <span class="subject-countdown" data-subject="biologie"></span>
         <span class="subject-last-activity" data-activity="biologie"></span>
       </button>
-      <button class="subject-card sport" type="button" role="listitem" onclick="selectSubject('sport', true)"
+      <button class="subject-card sport" type="button" role="listitem" data-category="sonstiges" onclick="selectSubject('sport', true)"
         aria-label="Sport">
         <div class="subject-icon" aria-hidden="true">⚽</div>
         <div class="subject-title">Sport</div>
@@ -2231,7 +2295,7 @@
         <span class="subject-countdown" data-subject="sport"></span>
         <span class="subject-last-activity" data-activity="sport"></span>
       </button>
-      <button class="subject-card informatik" type="button" role="listitem" onclick="selectSubject('informatik', true)"
+      <button class="subject-card informatik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('informatik', true)"
         aria-label="Informatik">
         <div class="subject-icon" aria-hidden="true">💻</div>
         <div class="subject-title">Informatik</div>
@@ -3148,7 +3212,7 @@
     /* ====== SUBJECT FILTER ====== */
     var subjectEditMode = false;
     var hiddenSubjectsCache = [];
-    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie"];
+    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "biologie", "sport", "informatik"];
 
     function getSubjectKey(card) {
       var classes = card.className.split(" ");
@@ -3236,6 +3300,219 @@
         hiddenSubjectsCache.push(subj);
         card.classList.add("subject-hidden");
       }
+    }
+
+    /* ====== CATEGORY FILTER ====== */
+    var activeCategory = 'alle';
+
+    function filterByCategory(category) {
+      activeCategory = category;
+      document.querySelectorAll('.cat-filter-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.filter === category);
+      });
+      document.querySelectorAll('.subject-card').forEach(function (card) {
+        var cat = card.dataset.category;
+        if (category === 'alle') {
+          card.setAttribute('data-filtered', 'false');
+        } else {
+          card.setAttribute('data-filtered', cat !== category ? 'true' : 'false');
+        }
+      });
+    }
+
+    /* ====== DRAG & DROP ====== */
+    var dragSrcEl = null;
+
+    function initDragAndDrop() {
+      var grid = document.querySelector('.subject-grid');
+      if (!grid) return;
+      var cards = grid.querySelectorAll('.subject-card');
+
+      // Gespeicherte Reihenfolge anwenden
+      var savedOrder = localStorage.getItem('subject_order');
+      if (savedOrder) {
+        try {
+          var order = JSON.parse(savedOrder);
+          order.forEach(function (subj) {
+            var card = grid.querySelector('.subject-card.' + subj);
+            if (card) grid.appendChild(card);
+          });
+        } catch (e) { }
+      }
+
+      // Desktop Drag & Drop
+      cards = grid.querySelectorAll('.subject-card');
+      cards.forEach(function (card) {
+        card.setAttribute('draggable', 'true');
+
+        card.addEventListener('dragstart', function (e) {
+          if (subjectEditMode) { e.preventDefault(); return; }
+          dragSrcEl = this;
+          this.classList.add('dragging');
+          grid.classList.add('drag-active');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', '');
+        });
+
+        card.addEventListener('dragover', function (e) {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          if (this !== dragSrcEl && !this.classList.contains('dragging')) {
+            this.classList.add('drag-over');
+          }
+        });
+
+        card.addEventListener('dragenter', function (e) {
+          e.preventDefault();
+        });
+
+        card.addEventListener('dragleave', function () {
+          this.classList.remove('drag-over');
+        });
+
+        card.addEventListener('drop', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (dragSrcEl && dragSrcEl !== this) {
+            // Position bestimmen und einfügen
+            var allCards = Array.from(grid.querySelectorAll('.subject-card'));
+            var fromIdx = allCards.indexOf(dragSrcEl);
+            var toIdx = allCards.indexOf(this);
+            if (fromIdx < toIdx) {
+              grid.insertBefore(dragSrcEl, this.nextSibling);
+            } else {
+              grid.insertBefore(dragSrcEl, this);
+            }
+            saveSubjectOrder();
+          }
+          this.classList.remove('drag-over');
+        });
+
+        card.addEventListener('dragend', function () {
+          this.classList.remove('dragging');
+          grid.classList.remove('drag-active');
+          grid.querySelectorAll('.subject-card').forEach(function (c) {
+            c.classList.remove('drag-over');
+          });
+        });
+      });
+
+      // Touch Drag & Drop (Tablets/Handys)
+      var touchDragEl = null;
+      var touchClone = null;
+      var touchTimer = null;
+      var touchStartX = 0, touchStartY = 0;
+      var isDragging = false;
+
+      cards.forEach(function (card) {
+        card.addEventListener('touchstart', function (e) {
+          if (subjectEditMode) return;
+          var touch = e.touches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+          var self = this;
+          touchTimer = setTimeout(function () {
+            isDragging = true;
+            touchDragEl = self;
+            self.classList.add('dragging');
+            grid.classList.add('drag-active');
+            // Klon erstellen für visuelles Feedback
+            touchClone = self.cloneNode(true);
+            touchClone.style.cssText = 'position:fixed;z-index:9999;pointer-events:none;opacity:.8;width:' + self.offsetWidth + 'px;transform:scale(1.05);box-shadow:0 10px 30px rgba(0,0,0,.2);';
+            touchClone.style.left = (touch.clientX - self.offsetWidth / 2) + 'px';
+            touchClone.style.top = (touch.clientY - 40) + 'px';
+            document.body.appendChild(touchClone);
+            // Haptic Feedback (wenn verfügbar)
+            if (navigator.vibrate) navigator.vibrate(30);
+          }, 400);
+        }, { passive: true });
+
+        card.addEventListener('touchmove', function (e) {
+          if (!isDragging) {
+            // Bewegung erkennen → kein Drag starten
+            var touch = e.touches[0];
+            var dx = Math.abs(touch.clientX - touchStartX);
+            var dy = Math.abs(touch.clientY - touchStartY);
+            if (dx > 10 || dy > 10) {
+              clearTimeout(touchTimer);
+            }
+            return;
+          }
+          e.preventDefault();
+          var touch = e.touches[0];
+          if (touchClone) {
+            touchClone.style.left = (touch.clientX - touchDragEl.offsetWidth / 2) + 'px';
+            touchClone.style.top = (touch.clientY - 40) + 'px';
+          }
+          // Ziel-Element finden
+          if (touchClone) touchClone.style.display = 'none';
+          var target = document.elementFromPoint(touch.clientX, touch.clientY);
+          if (touchClone) touchClone.style.display = '';
+          // drag-over Klasse setzen
+          grid.querySelectorAll('.subject-card').forEach(function (c) {
+            c.classList.remove('drag-over');
+          });
+          var targetCard = target ? target.closest('.subject-card') : null;
+          if (targetCard && targetCard !== touchDragEl) {
+            targetCard.classList.add('drag-over');
+          }
+        }, { passive: false });
+
+        card.addEventListener('touchend', function () {
+          clearTimeout(touchTimer);
+          if (!isDragging) return;
+          isDragging = false;
+          // Drop-Ziel finden
+          var overCard = grid.querySelector('.subject-card.drag-over');
+          if (overCard && touchDragEl && overCard !== touchDragEl) {
+            var allCards = Array.from(grid.querySelectorAll('.subject-card'));
+            var fromIdx = allCards.indexOf(touchDragEl);
+            var toIdx = allCards.indexOf(overCard);
+            if (fromIdx < toIdx) {
+              grid.insertBefore(touchDragEl, overCard.nextSibling);
+            } else {
+              grid.insertBefore(touchDragEl, overCard);
+            }
+            saveSubjectOrder();
+          }
+          // Aufräumen
+          if (touchDragEl) touchDragEl.classList.remove('dragging');
+          grid.classList.remove('drag-active');
+          grid.querySelectorAll('.subject-card').forEach(function (c) {
+            c.classList.remove('drag-over');
+          });
+          if (touchClone && touchClone.parentNode) {
+            touchClone.parentNode.removeChild(touchClone);
+          }
+          touchDragEl = null;
+          touchClone = null;
+        }, { passive: true });
+
+        card.addEventListener('touchcancel', function () {
+          clearTimeout(touchTimer);
+          isDragging = false;
+          if (touchDragEl) touchDragEl.classList.remove('dragging');
+          grid.classList.remove('drag-active');
+          grid.querySelectorAll('.subject-card').forEach(function (c) {
+            c.classList.remove('drag-over');
+          });
+          if (touchClone && touchClone.parentNode) {
+            touchClone.parentNode.removeChild(touchClone);
+          }
+          touchDragEl = null;
+          touchClone = null;
+        }, { passive: true });
+      });
+    }
+
+    function saveSubjectOrder() {
+      var grid = document.querySelector('.subject-grid');
+      var order = [];
+      grid.querySelectorAll('.subject-card').forEach(function (card) {
+        var subj = getSubjectKey(card);
+        if (subj) order.push(subj);
+      });
+      localStorage.setItem('subject_order', JSON.stringify(order));
     }
 
     /* ====== PROGRESS DASHBOARD (#8) ====== */
@@ -3803,6 +4080,7 @@
     window.onload = function () {
       checkSession();
       initTheme();
+      initDragAndDrop();
       if (typeof initAiTutor === "function") initAiTutor();
 
       // Register Service Worker (#11 PWA)
