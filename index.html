@@ -1203,6 +1203,247 @@
       background: rgba(34, 120, 34, .85)
     }
 
+    /* ====== ABIFÄCHER ====== */
+    .subject-filter-actions {
+      display: flex;
+      gap: .4rem;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .subject-card.exam-written {
+      border: 2px solid #2563eb;
+      box-shadow: 0 0 0 1px #2563eb33
+    }
+
+    .subject-card.exam-oral {
+      border: 2px solid #16a34a;
+      box-shadow: 0 0 0 1px #16a34a33
+    }
+
+    .exam-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      font-size: .65rem;
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+      pointer-events: none;
+      z-index: 5;
+      line-height: 1.3
+    }
+
+    .exam-badge-written {
+      background: #2563eb;
+      color: #fff
+    }
+
+    .exam-badge-oral {
+      background: #16a34a;
+      color: #fff
+    }
+
+    .subject-grid.exam-edit-mode .subject-card {
+      position: relative;
+      cursor: pointer
+    }
+
+    .subject-grid.exam-edit-mode .subject-card:not(.exam-written):not(.exam-oral) {
+      opacity: .6
+    }
+
+    .subject-grid.exam-edit-mode .subject-card:hover {
+      opacity: 1;
+      transform: translateY(-2px)
+    }
+
+    .exam-settings {
+      max-width: 1000px;
+      width: 100%;
+      margin: .5rem auto;
+      padding: .75rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      gap: .6rem
+    }
+
+    .exam-settings-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      flex-wrap: wrap
+    }
+
+    .exam-settings-row label {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      flex-shrink: 0
+    }
+
+    .exam-settings-row select,
+    .exam-settings-row input[type="email"] {
+      padding: .4rem .6rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      font-family: inherit;
+      min-height: 44px
+    }
+
+    .exam-settings-row input[type="email"] {
+      flex: 1;
+      min-width: 200px
+    }
+
+    .exam-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .5rem;
+      font-size: .8rem;
+      color: var(--ink-muted)
+    }
+
+    .exam-legend {
+      display: flex;
+      align-items: center;
+      gap: .6rem
+    }
+
+    .exam-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 2px
+    }
+
+    .exam-dot.written {
+      background: #2563eb
+    }
+
+    .exam-dot.oral {
+      background: #16a34a
+    }
+
+    /* ====== ERINNERUNGS-BANNER ====== */
+    .reminder-banner {
+      max-width: 1000px;
+      width: 100%;
+      margin: .75rem auto;
+      padding: 0;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 1px solid #f59e0b;
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    [data-theme="dark"] .reminder-banner {
+      background: linear-gradient(135deg, #451a03, #78350f);
+      border-color: #b45309
+    }
+
+    .reminder-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .6rem 1rem;
+      border-bottom: 1px solid rgba(245, 158, 11, .3)
+    }
+
+    .reminder-banner-title {
+      font-size: .85rem;
+      font-weight: 600;
+      color: #92400e
+    }
+
+    [data-theme="dark"] .reminder-banner-title {
+      color: #fbbf24
+    }
+
+    .reminder-banner-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #92400e;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    [data-theme="dark"] .reminder-banner-close {
+      color: #fbbf24
+    }
+
+    .reminder-items {
+      display: flex;
+      flex-direction: column
+    }
+
+    .reminder-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .6rem 1rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      width: 100%;
+      min-height: 48px;
+      transition: background .15s;
+      color: inherit
+    }
+
+    .reminder-item:hover {
+      background: rgba(245, 158, 11, .15)
+    }
+
+    .reminder-item + .reminder-item {
+      border-top: 1px solid rgba(245, 158, 11, .15)
+    }
+
+    .reminder-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0
+    }
+
+    .reminder-text {
+      flex: 1;
+      font-size: .85rem
+    }
+
+    .reminder-days {
+      color: #92400e;
+      font-size: .78rem
+    }
+
+    [data-theme="dark"] .reminder-days {
+      color: #fbbf24
+    }
+
+    .reminder-arrow {
+      color: #92400e;
+      font-weight: 600;
+      font-size: 1.1rem;
+      flex-shrink: 0
+    }
+
+    [data-theme="dark"] .reminder-arrow {
+      color: #fbbf24
+    }
+
     /* ====== MODULE SCREEN ====== */
     #module-screen {
       display: none;
@@ -2020,6 +2261,14 @@
         <div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>
       </div>
     </div>
+    <!-- Erinnerungs-Banner -->
+    <div id="reminderBanner" class="reminder-banner" style="display:none;">
+      <div class="reminder-banner-header">
+        <span class="reminder-banner-title">Deine Abifächer brauchen Aufmerksamkeit</span>
+        <button class="reminder-banner-close" onclick="dismissReminders()" aria-label="Schließen">&times;</button>
+      </div>
+      <div id="reminderItems" class="reminder-items"></div>
+    </div>
     <div class="subject-filter-bar">
       <div class="category-filters">
         <button class="cat-filter-btn active" data-filter="alle" onclick="filterByCategory('alle')">Alle</button>
@@ -2027,8 +2276,33 @@
         <button class="cat-filter-btn" data-filter="nawi" onclick="filterByCategory('nawi')">Naturwiss.</button>
         <button class="cat-filter-btn" data-filter="gewi" onclick="filterByCategory('gewi')">Geisteswiss.</button>
       </div>
-      <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
-        anpassen</button>
+      <div class="subject-filter-actions">
+        <button class="subject-filter-btn" id="examSubjectBtn" onclick="toggleExamEditMode()" style="display:none">🎓 Abifächer wählen</button>
+        <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
+          anpassen</button>
+      </div>
+    </div>
+    <!-- Abifächer-Einstellungen (Frequenz + Email) -->
+    <div id="examSettings" class="exam-settings" style="display:none;">
+      <div class="exam-settings-row">
+        <label for="reminderInterval">Erinnere mich, wenn ich ein Abifach nicht geübt habe seit:</label>
+        <select id="reminderInterval" onchange="saveExamPreferences()">
+          <option value="1">1 Tag</option>
+          <option value="2">2 Tage</option>
+          <option value="3" selected>3 Tage</option>
+          <option value="5">5 Tage</option>
+          <option value="7">1 Woche</option>
+          <option value="0">Nie</option>
+        </select>
+      </div>
+      <div class="exam-settings-row">
+        <label for="reminderEmail">Email für Erinnerungen (optional):</label>
+        <input type="email" id="reminderEmail" placeholder="deine@email.de" onchange="saveExamPreferences()" style="font-size:16px;">
+      </div>
+      <div class="exam-info">
+        <span id="examCounter">0/5 Fächer gewählt</span>
+        <span class="exam-legend"><span class="exam-dot written"></span> Schriftlich (max. 3) <span class="exam-dot oral"></span> Mündlich (max. 2)</span>
+      </div>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
@@ -3511,6 +3785,237 @@
       });
     }
 
+    /* ====== ABIFÄCHER-AUSWAHL ====== */
+    var examEditMode = false;
+    var examSubjectsCache = { written: [], oral: [] };
+    var reminderIntervalCache = 3;
+    var reminderEmailCache = "";
+
+    var SUBJECT_DISPLAY = {
+      english: "Englisch", german: "Deutsch", history: "Geschichte",
+      pug: "Politik & Gesellschaft", wr: "Wirtschaft & Recht",
+      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      religion: "Ev. Religion", katholisch: "Kath. Religion",
+      geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+      chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+      sport: "Sport", informatik: "Informatik"
+    };
+
+    var SUBJECT_EMOJI = {
+      english: "🇬🇧", german: "📖", history: "📜", pug: "🏛️", wr: "⚖️",
+      french: "🇫🇷", italian: "🇮🇹", ethik: "🧠", religion: "✝️",
+      katholisch: "⛪", geographie: "🌍", latein: "🏺", mathe: "📐",
+      chemie: "🧪", physik: "⚛️", biologie: "🧬", sport: "⚽", informatik: "💻"
+    };
+
+    function loadExamSubjects() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      fetch(API_BASE + "/api/get-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.success && data.preferences) {
+            examSubjectsCache = data.preferences.exam_subjects || { written: [], oral: [] };
+            if (!examSubjectsCache.written) examSubjectsCache.written = [];
+            if (!examSubjectsCache.oral) examSubjectsCache.oral = [];
+            reminderIntervalCache = data.preferences.reminder_interval ?? 3;
+            reminderEmailCache = data.preferences.email || "";
+
+            document.getElementById("reminderInterval").value = String(reminderIntervalCache);
+            document.getElementById("reminderEmail").value = reminderEmailCache;
+            applyExamBadges();
+            updateExamCounter();
+            loadReminders();
+          }
+        })
+        .catch(function () { });
+    }
+
+    function applyExamBadges() {
+      // Erst alle Badges entfernen
+      document.querySelectorAll(".subject-card").forEach(function (card) {
+        card.classList.remove("exam-written", "exam-oral");
+        var badge = card.querySelector(".exam-badge");
+        if (badge) badge.remove();
+      });
+
+      // Schriftliche Fächer markieren
+      examSubjectsCache.written.forEach(function (subj) {
+        var card = document.querySelector(".subject-card." + subj);
+        if (card) {
+          card.classList.add("exam-written");
+          var badge = document.createElement("span");
+          badge.className = "exam-badge exam-badge-written";
+          badge.textContent = "✍️ schriftlich";
+          card.appendChild(badge);
+        }
+      });
+
+      // Mündliche Fächer markieren
+      examSubjectsCache.oral.forEach(function (subj) {
+        var card = document.querySelector(".subject-card." + subj);
+        if (card) {
+          card.classList.add("exam-oral");
+          var badge = document.createElement("span");
+          badge.className = "exam-badge exam-badge-oral";
+          badge.textContent = "🗣️ mündlich";
+          card.appendChild(badge);
+        }
+      });
+    }
+
+    function updateExamCounter() {
+      var total = examSubjectsCache.written.length + examSubjectsCache.oral.length;
+      var el = document.getElementById("examCounter");
+      if (el) el.textContent = total + "/5 Fächer gewählt";
+    }
+
+    function toggleExamEditMode() {
+      var grid = document.querySelector(".subject-grid");
+      var btn = document.getElementById("examSubjectBtn");
+      var settings = document.getElementById("examSettings");
+      examEditMode = !examEditMode;
+
+      if (examEditMode) {
+        grid.classList.add("exam-edit-mode");
+        btn.textContent = "✅ Fertig";
+        settings.style.display = "";
+        document.querySelectorAll(".subject-card").forEach(function (card) {
+          card.setAttribute("data-orig-onclick-exam", card.getAttribute("onclick") || "");
+          card.setAttribute("onclick", "toggleExamSubject(this); return false;");
+        });
+      } else {
+        grid.classList.remove("exam-edit-mode");
+        btn.textContent = "🎓 Abifächer wählen";
+        settings.style.display = "none";
+        document.querySelectorAll(".subject-card").forEach(function (card) {
+          card.setAttribute("onclick", card.getAttribute("data-orig-onclick-exam") || "");
+        });
+        applyExamBadges();
+        saveExamPreferences();
+      }
+    }
+
+    function toggleExamSubject(card) {
+      var subj = getSubjectKey(card);
+      if (!subj) return;
+
+      var wIdx = examSubjectsCache.written.indexOf(subj);
+      var oIdx = examSubjectsCache.oral.indexOf(subj);
+
+      if (wIdx !== -1) {
+        // Schriftlich → entfernen
+        examSubjectsCache.written.splice(wIdx, 1);
+        card.classList.remove("exam-written");
+        var badge = card.querySelector(".exam-badge");
+        if (badge) badge.remove();
+      } else if (oIdx !== -1) {
+        // Mündlich → entfernen
+        examSubjectsCache.oral.splice(oIdx, 1);
+        card.classList.remove("exam-oral");
+        var badge2 = card.querySelector(".exam-badge");
+        if (badge2) badge2.remove();
+      } else if (examSubjectsCache.written.length < 3) {
+        // Als schriftlich hinzufügen
+        examSubjectsCache.written.push(subj);
+        card.classList.add("exam-written");
+        var b1 = document.createElement("span");
+        b1.className = "exam-badge exam-badge-written";
+        b1.textContent = "✍️ schriftlich";
+        card.appendChild(b1);
+      } else if (examSubjectsCache.oral.length < 2) {
+        // Als mündlich hinzufügen
+        examSubjectsCache.oral.push(subj);
+        card.classList.add("exam-oral");
+        var b2 = document.createElement("span");
+        b2.className = "exam-badge exam-badge-oral";
+        b2.textContent = "🗣️ mündlich";
+        card.appendChild(b2);
+      }
+
+      updateExamCounter();
+    }
+
+    function saveExamPreferences() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      var interval = parseInt(document.getElementById("reminderInterval").value, 10);
+      var email = document.getElementById("reminderEmail").value.trim();
+
+      fetch(API_BASE + "/api/save-preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({
+          student_name: name,
+          exam_subjects: examSubjectsCache,
+          reminder_interval: interval,
+          email: email
+        })
+      }).catch(function () { });
+    }
+
+    /* ====== ERINNERUNGS-BANNER ====== */
+    function loadReminders() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+      if (sessionStorage.getItem("reminders_dismissed") === "1") return;
+
+      fetch(API_BASE + "/api/check-reminders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.success || !data.reminders || data.reminders.length === 0) {
+            document.getElementById("reminderBanner").style.display = "none";
+            return;
+          }
+          renderReminders(data.reminders);
+        })
+        .catch(function () { });
+    }
+
+    function renderReminders(reminders) {
+      var container = document.getElementById("reminderItems");
+      container.innerHTML = "";
+
+      reminders.forEach(function (r) {
+        var icon = SUBJECT_EMOJI[r.subject] || "📚";
+        var name = SUBJECT_DISPLAY[r.subject] || r.subject;
+        var days = r.daysSince === null ? "noch nie geübt" : "zuletzt vor " + r.daysSince + " Tagen";
+        var type = r.isWritten ? "schriftlich" : "mündlich";
+
+        var item = document.createElement("button");
+        item.className = "reminder-item";
+        item.setAttribute("type", "button");
+        item.onclick = function () {
+          dismissReminders();
+          selectSubject(r.subject, true);
+        };
+        item.innerHTML = '<span class="reminder-icon">' + icon + '</span>' +
+          '<span class="reminder-text"><strong>' + name + '</strong> <small>(' + type + ')</small><br><span class="reminder-days">' + days + '</span></span>' +
+          '<span class="reminder-arrow">→</span>';
+        container.appendChild(item);
+      });
+
+      document.getElementById("reminderBanner").style.display = "";
+    }
+
+    function dismissReminders() {
+      document.getElementById("reminderBanner").style.display = "none";
+      sessionStorage.setItem("reminders_dismissed", "1");
+    }
+
     /* ====== LOGIN ====== */
     function setLoginMode(mode) {
       loginMode = mode;
@@ -3582,6 +4087,8 @@
           }
           loadStudentProgress();
           loadHiddenSubjects();
+          loadExamSubjects();
+          document.getElementById("examSubjectBtn").style.display = "";
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
           // Start onboarding if first time
           if (!isTourDone("onboarding_done")) {
@@ -3778,7 +4285,17 @@
       document.getElementById("studentName").value = "";
       document.getElementById("personalPassword").value = "";
       studentResults = null;
+      examSubjectsCache = { written: [], oral: [] };
       document.getElementById("progressBar").style.display = "none";
+      document.getElementById("reminderBanner").style.display = "none";
+      document.getElementById("examSubjectBtn").style.display = "none";
+      document.getElementById("examSettings").style.display = "none";
+      // Exam badges entfernen
+      document.querySelectorAll(".subject-card").forEach(function (card) {
+        card.classList.remove("exam-written", "exam-oral");
+        var badge = card.querySelector(".exam-badge");
+        if (badge) badge.remove();
+      });
       // Hide auth-dependent UI
       var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
@@ -3926,8 +4443,11 @@
 
         loadStudentProgress();
         loadHiddenSubjects();
+        loadExamSubjects();
+        document.getElementById("examSubjectBtn").style.display = "";
       } else {
         // Not logged in: show subject selection with guest greeting
+        document.getElementById("examSubjectBtn").style.display = "none";
         showSubjectSelection();
         history.replaceState({ screen: "subjects" }, "");
       }

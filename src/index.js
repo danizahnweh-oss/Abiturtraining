@@ -737,6 +737,14 @@ export default {
       if (pathname === "/api/save-preferences" && request.method === "POST") {
         return await handleSavePreferences(request, env);
       }
+      if (pathname === "/api/check-reminders" && request.method === "POST") {
+        return await handleCheckReminders(request, env);
+      }
+
+      // ===== UNSUBSCRIBE (GET mit signiertem Token) =====
+      if (pathname === "/api/unsubscribe" && request.method === "GET") {
+        return await handleUnsubscribe(request, env);
+      }
 
       return new Response("Not Found", { status: 404 });
     } catch (err) {
@@ -745,6 +753,11 @@ export default {
       const isUnsafe = msg.length > 200 || /api[_-]?key|token|secret|stack|\.js:/i.test(msg);
       return jsonResponse({ error: isUnsafe ? "Interner Fehler." : msg }, 500, env);
     }
+  },
+
+  // Täglicher Cron-Job für Email-Erinnerungen
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(sendReminderEmails(env));
   }
 };
 
@@ -840,30 +853,335 @@ async function handleGetPreferences(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const student = await env.DB.prepare(
-    "SELECT hidden_subjects FROM students WHERE name_lower = ?"
+    "SELECT hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
   return jsonResponse({
     success: true,
     preferences: {
-      hidden_subjects: JSON.parse(student.hidden_subjects || "[]")
+      hidden_subjects: JSON.parse(student.hidden_subjects || "[]"),
+      exam_subjects: JSON.parse(student.exam_subjects || "{}"),
+      reminder_interval: student.reminder_interval ?? 3,
+      email: student.email || ""
     }
   }, 200, env);
 }
 
 async function handleSavePreferences(request, env) {
-  const { student_name, hidden_subjects } = await request.json();
+  const { student_name, hidden_subjects, exam_subjects, reminder_interval, email } = await request.json();
   if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
-  if (!Array.isArray(hidden_subjects)) return jsonResponse({ error: "hidden_subjects muss ein Array sein." }, 400, env);
 
   const nameLower = student_name.trim().toLowerCase();
+
+  // Dynamisch nur die übergebenen Felder updaten
+  const updates = [];
+  const binds = [];
+
+  if (Array.isArray(hidden_subjects)) {
+    updates.push("hidden_subjects = ?");
+    binds.push(JSON.stringify(hidden_subjects));
+  }
+  if (exam_subjects && typeof exam_subjects === "object") {
+    const es = exam_subjects;
+    if (!Array.isArray(es.written) || !Array.isArray(es.oral)) {
+      return jsonResponse({ error: "exam_subjects braucht written[] und oral[]." }, 400, env);
+    }
+    if (es.written.length > 3 || es.oral.length > 3) {
+      return jsonResponse({ error: "Maximal 3 schriftliche und 3 mündliche Fächer." }, 400, env);
+    }
+    updates.push("exam_subjects = ?");
+    binds.push(JSON.stringify(es));
+  }
+  if (reminder_interval !== undefined) {
+    const ri = parseInt(reminder_interval, 10);
+    if (isNaN(ri) || ri < 0 || ri > 30) {
+      return jsonResponse({ error: "reminder_interval muss zwischen 0 und 30 liegen." }, 400, env);
+    }
+    updates.push("reminder_interval = ?");
+    binds.push(ri);
+  }
+  if (email !== undefined) {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+    }
+    updates.push("email = ?");
+    binds.push(email || null);
+  }
+
+  if (updates.length === 0) {
+    return jsonResponse({ error: "Keine Felder zum Speichern." }, 400, env);
+  }
+
+  binds.push(nameLower);
   const result = await env.DB.prepare(
-    "UPDATE students SET hidden_subjects = ? WHERE name_lower = ?"
-  ).bind(JSON.stringify(hidden_subjects), nameLower).run();
+    `UPDATE students SET ${updates.join(", ")} WHERE name_lower = ?`
+  ).bind(...binds).run();
 
   if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= CHECK REMINDERS ================= */
+const SUBJECT_TYPES_MAP = {
+  english: ["mediation", "writing"],
+  german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend"],
+  history: ["geschichte", "geschichte-abitur"],
+  pug: ["pug-klausur", "pug-abitur"],
+  wr: ["wr", "wr-abitur"],
+  french: ["french-mediation", "french-writing"],
+  italian: ["italian-mediation", "italian-writing"],
+  ethik: ["ethik", "ethik-abitur"],
+  religion: ["religion", "religion-abitur"],
+  katholisch: ["katholisch", "katholisch-abitur"],
+  geographie: ["geographie", "geographie-abitur"],
+  latein: ["latein", "latein-abitur"],
+  mathe: ["mathe", "mathe-abitur"],
+  chemie: ["chemie", "chemie-abitur"],
+  physik: ["physik", "physik-abitur"],
+  biologie: ["biologie", "biologie-abitur"],
+  sport: ["sport", "sport-abitur"],
+  informatik: ["informatik", "informatik-abitur"]
+};
+
+// Anzeige-Namen für Emails
+const SUBJECT_NAMES = {
+  english: "Englisch", german: "Deutsch", history: "Geschichte",
+  pug: "Politik und Gesellschaft", wr: "Wirtschaft & Recht",
+  french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+  religion: "Ev. Religion", katholisch: "Kath. Religion",
+  geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+  chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+  sport: "Sport", informatik: "Informatik"
+};
+
+const SUBJECT_ICONS = {
+  english: "🇬🇧", german: "📖", history: "📜", pug: "🏛️", wr: "⚖️",
+  french: "🇫🇷", italian: "🇮🇹", ethik: "🧠", religion: "✝️",
+  katholisch: "⛪", geographie: "🌍", latein: "🏺", mathe: "📐",
+  chemie: "🧪", physik: "⚛️", biologie: "🧬", sport: "⚽", informatik: "💻"
+};
+
+async function handleCheckReminders(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+
+  const nameLower = student_name.trim().toLowerCase();
+  const student = await env.DB.prepare(
+    "SELECT exam_subjects, reminder_interval FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  const examSubjects = JSON.parse(student.exam_subjects || "{}");
+  const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
+  if (allExam.length === 0) {
+    return jsonResponse({ success: true, reminders: [] }, 200, env);
+  }
+
+  const interval = student.reminder_interval ?? 3;
+  if (interval === 0) {
+    return jsonResponse({ success: true, reminders: [] }, 200, env);
+  }
+
+  // Letzte Aktivität pro Fach ermitteln
+  const results = await env.DB.prepare(
+    "SELECT type, MAX(created_at) as last_date FROM results WHERE LOWER(TRIM(student_name)) = ? GROUP BY type"
+  ).bind(nameLower).all();
+
+  const lastByType = {};
+  for (const r of (results.results || [])) {
+    lastByType[r.type] = r.last_date;
+  }
+
+  const now = Date.now();
+  const reminders = [];
+
+  for (const subj of allExam) {
+    const types = SUBJECT_TYPES_MAP[subj] || [];
+    let lastDate = null;
+    for (const t of types) {
+      if (lastByType[t]) {
+        const d = new Date(lastByType[t]).getTime();
+        if (!lastDate || d > lastDate) lastDate = d;
+      }
+    }
+
+    const daysSince = lastDate ? Math.floor((now - lastDate) / 86400000) : null;
+    if (daysSince === null || daysSince >= interval) {
+      reminders.push({
+        subject: subj,
+        daysSince: daysSince,
+        isWritten: (examSubjects.written || []).includes(subj)
+      });
+    }
+  }
+
+  return jsonResponse({ success: true, reminders }, 200, env);
+}
+
+/* ================= UNSUBSCRIBE ================= */
+async function handleUnsubscribe(request, env) {
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+  if (!token) {
+    return new Response(unsubscribePage("Ungültiger Link."), { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } });
+  }
+
+  try {
+    // Token = base64(name_lower:timestamp:hmac)
+    const decoded = atob(token);
+    const parts = decoded.split(":");
+    if (parts.length < 3) throw new Error("Ungültig");
+    const hmac = parts.pop();
+    const ts = parseInt(parts.pop(), 10);
+    const nameLower = parts.join(":");
+
+    // Token max 7 Tage gültig
+    if (Date.now() - ts > 7 * 86400000) {
+      return new Response(unsubscribePage("Dieser Link ist abgelaufen."), { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } });
+    }
+
+    // HMAC verifizieren
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(env.ACCESS_PASSWORD), { name: "HMAC", hash: "SHA-256" }, false, ["verify"]);
+    const payload = `${nameLower}:${ts}`;
+    const sigBytes = new Uint8Array(hmac.match(/.{2}/g).map(b => parseInt(b, 16)));
+    const valid = await crypto.subtle.verify("HMAC", key, sigBytes, new TextEncoder().encode(payload));
+    if (!valid) throw new Error("Ungültig");
+
+    await env.DB.prepare("UPDATE students SET reminder_interval = 0 WHERE name_lower = ?").bind(nameLower).run();
+
+    return new Response(unsubscribePage("Du erhältst ab sofort keine Erinnerungs-Emails mehr. Du kannst die Erinnerungen jederzeit in der App wieder aktivieren."), {
+      status: 200, headers: { "Content-Type": "text/html; charset=utf-8" }
+    });
+  } catch {
+    return new Response(unsubscribePage("Ungültiger oder abgelaufener Link."), { status: 400, headers: { "Content-Type": "text/html; charset=utf-8" } });
+  }
+}
+
+function unsubscribePage(message) {
+  return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>myAbiFlow – Abmeldung</title><style>body{font-family:system-ui,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f0f0f5;color:#333}div{background:#fff;padding:2rem;border-radius:12px;max-width:400px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.1)}h2{margin-top:0}a{color:#2563eb}</style></head><body><div><h2>myAbiFlow</h2><p>${message}</p><a href="https://myabiflow.de">Zurück zur App</a></div></body></html>`;
+}
+
+/* ================= EMAIL-ERINNERUNGEN (CRON) ================= */
+async function generateUnsubscribeToken(nameLower, env) {
+  const ts = Date.now();
+  const payload = `${nameLower}:${ts}`;
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(env.ACCESS_PASSWORD), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(payload));
+  const hmac = [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, "0")).join("");
+  return btoa(`${nameLower}:${ts}:${hmac}`);
+}
+
+function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl) {
+  const rows = overdueSubjects.map(s => {
+    const icon = SUBJECT_ICONS[s.subject] || "📚";
+    const name = SUBJECT_NAMES[s.subject] || s.subject;
+    const days = s.daysSince === null ? "noch nie geübt" : `zuletzt vor ${s.daysSince} Tagen`;
+    return `<tr><td style="padding:8px 12px;font-size:16px">${icon} <strong>${name}</strong></td><td style="padding:8px 12px;color:#666;font-size:14px">${days}</td></tr>`;
+  }).join("");
+
+  return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
+<div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
+<h2 style="color:#2563eb;margin-top:0">myAbiFlow – Erinnerung</h2>
+<p>Hallo ${studentName},</p>
+<p>du hast folgende Abifächer seit einiger Zeit nicht mehr geübt:</p>
+<table style="width:100%;border-collapse:collapse;margin:16px 0">${rows}</table>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Jetzt üben →</a>
+</p>
+<p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:12px">
+Du kannst die Erinnerungsfrequenz jederzeit in der App ändern.<br>
+<a href="${unsubscribeUrl}" style="color:#999">Erinnerungen abbestellen</a>
+</p>
+</div></body></html>`;
+}
+
+async function sendReminderEmails(env) {
+  if (!env.RESEND_API_KEY) return;
+
+  // Alle Schüler mit Email + aktiver Erinnerung laden
+  const { results: students } = await env.DB.prepare(
+    "SELECT name, name_lower, email, exam_subjects, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
+  ).all();
+
+  if (!students || students.length === 0) return;
+
+  const now = Date.now();
+
+  for (const student of students) {
+    // Nicht öfter als reminder_interval senden
+    if (student.last_reminder_sent) {
+      const lastSent = new Date(student.last_reminder_sent).getTime();
+      const daysSinceSent = Math.floor((now - lastSent) / 86400000);
+      if (daysSinceSent < student.reminder_interval) continue;
+    }
+
+    const examSubjects = JSON.parse(student.exam_subjects || "{}");
+    const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
+    if (allExam.length === 0) continue;
+
+    // Letzte Aktivität pro Typ
+    const { results: activityRows } = await env.DB.prepare(
+      "SELECT type, MAX(created_at) as last_date FROM results WHERE LOWER(TRIM(student_name)) = ? GROUP BY type"
+    ).bind(student.name_lower).all();
+
+    const lastByType = {};
+    for (const r of (activityRows || [])) {
+      lastByType[r.type] = r.last_date;
+    }
+
+    // Überfällige Fächer ermitteln
+    const overdue = [];
+    for (const subj of allExam) {
+      const types = SUBJECT_TYPES_MAP[subj] || [];
+      let lastDate = null;
+      for (const t of types) {
+        if (lastByType[t]) {
+          const d = new Date(lastByType[t]).getTime();
+          if (!lastDate || d > lastDate) lastDate = d;
+        }
+      }
+      const daysSince = lastDate ? Math.floor((now - lastDate) / 86400000) : null;
+      if (daysSince === null || daysSince >= student.reminder_interval) {
+        overdue.push({ subject: subj, daysSince });
+      }
+    }
+
+    if (overdue.length === 0) continue;
+
+    // Unsubscribe-Token + Email bauen
+    const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
+    const unsubUrl = `https://sag-abi-mediation-api.sanktannagymnasium.workers.dev/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
+    const html = buildReminderEmail(student.name, overdue, unsubUrl);
+
+    const count = overdue.length;
+    const subject = count === 1
+      ? `myAbiFlow – ${SUBJECT_NAMES[overdue[0].subject] || overdue[0].subject} wartet auf dich`
+      : `myAbiFlow – ${count} Abifächer warten auf dich`;
+
+    // Via Resend senden
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "myAbiFlow <erinnerung@myabiflow.de>",
+          to: [student.email],
+          subject,
+          html
+        })
+      });
+
+      await env.DB.prepare(
+        "UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?"
+      ).bind(new Date().toISOString(), student.name_lower).run();
+    } catch (err) {
+      console.error(`Email-Fehler für ${student.name_lower}:`, err.message);
+    }
+  }
 }
 
 /* ================= ENGLISCH: GENERATE ================= */
