@@ -1095,7 +1095,7 @@ async function handleGenerateGeschichte(request, env) {
   const zeitMinuten = zeit || 180;
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const schwerpunkte = {
@@ -1143,7 +1143,7 @@ KLAUSUR-PARAMETER:
 - Die Summe aller Teilaufgaben-BE muss exakt ${totalBE} ergeben
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im task_instruction-Feld
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
 Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und 2 Teilaufgaben.
@@ -1780,7 +1780,7 @@ async function handleGeneratePuG(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const hjThemen = {
@@ -1892,7 +1892,7 @@ KLAUSUR-PARAMETER:
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 2-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -1903,7 +1903,7 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 2-3 realistische Materialien (Texte, Statistiken, Bilder)
+- Materialien: ${totalBE < 20 ? '1 Material (Text ODER Statistik)' : totalBE < 40 ? '1-2 Materialien (Texte, Statistiken)' : '2-3 Materialien (Texte, Statistiken, Bilder)'}
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -2362,7 +2362,7 @@ async function handleGenerateWR(request, env) {
   const body = await request.json();
   const { niveau, fachbereich, sachgebiet, unterpunkte, thema, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const isGA = (niveau || "gA").toLowerCase() === "ga";
@@ -3436,7 +3436,7 @@ async function handleGenerateEthik(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const lbThemen = {
@@ -3566,7 +3566,7 @@ KLAUSUR-PARAMETER:
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -3577,7 +3577,7 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 2-3 realistische Materialien (philosophische Texte, literarische Auszüge, Statistiken)
+- Materialien: ${totalBE < 20 ? '1 Material (philosophischer Text ODER Statistik)' : totalBE < 40 ? '1-2 Materialien (philosophische Texte, Statistiken)' : '2-3 Materialien (philosophische Texte, literarische Auszüge, Statistiken)'}
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche philosophische Quellentexte (Essays, Fachtexte, Zeitungsartikel zu ethischen Themen, Auszüge aus philosophischen Werken). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -3790,7 +3790,7 @@ async function handleGenerateAbiturEthik(request, env) {
   const lb = lbThemen[lernbereich] || lbThemen["12_1"];
 
   const schwerpunktZusatz = schwerpunkt && schwerpunkt !== "random"
-    ? '\nGEWÄHLTER SCHWERPUNKT (Aufgabe MUSS sich auf dieses Thema konzentrieren): ' + schwerpunkt
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESEN SCHWERPUNKT VERWENDEN:\n' + schwerpunkt + '\nALLE Teilaufgaben müssen sich direkt auf diesen Schwerpunkt beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans!'
     : '';
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Ethik (ab 2026, G9).
@@ -3992,7 +3992,7 @@ async function handleGenerateReligion(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const lbThemen = {
@@ -4090,7 +4090,7 @@ KLAUSUR-PARAMETER:
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -4101,7 +4101,7 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 2-3 realistische Materialien (theologische Texte, biblische Quellen, philosophische Auszüge, Zeitungsartikel zu religiösen/ethischen Themen)
+- Materialien: ${totalBE < 20 ? '1 Material (theologischer Text ODER biblische Quelle)' : totalBE < 40 ? '1-2 Materialien (theologische Texte, biblische Quellen)' : '2-3 Materialien (theologische Texte, biblische Quellen, philosophische Auszüge, Zeitungsartikel)'}
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -4460,7 +4460,7 @@ async function handleGenerateKatholisch(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const lbThemen = {
@@ -4545,7 +4545,7 @@ KLAUSUR-PARAMETER:
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -4556,7 +4556,7 @@ STRUKTUR DER AUFGABE:
 - Gib bei jeder Teilaufgabe die BE (Bewertungseinheiten) an, Summe = ${bePruefungA}
 
 MATERIALIEN:
-- Erstelle 2-3 realistische Materialien (theologische Texte, biblische Quellen, kirchliche Dokumente (Konzilstexte, Enzykliken), philosophische Auszüge, Zeitungsartikel zu religiösen/ethischen Themen)
+- Materialien: ${totalBE < 20 ? '1 Material (theologischer Text ODER biblische Quelle)' : totalBE < 40 ? '1-2 Materialien (theologische Texte, biblische Quellen)' : '2-3 Materialien (theologische Texte, biblische Quellen, kirchliche Dokumente, Zeitungsartikel)'}
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -4915,7 +4915,7 @@ async function handleGenerateGeographie(request, env) {
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const hjThemen = {
@@ -4992,7 +4992,7 @@ KLAUSUR-PARAMETER:
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 STRUKTUR DER AUFGABE:
 - Die Aufgabe besteht aus 3-4 Teilaufgaben mit steigendem Anforderungsniveau
@@ -5004,7 +5004,7 @@ STRUKTUR DER AUFGABE:
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Ursachen der Desertifikation (Überweidung, Abholzung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 MATERIALIEN:
-- Erstelle 3-5 realistische Materialien (geographische Texte, Statistiken, Karten, Klimadiagramme, Fotos)
+- Materialien: ${totalBE < 20 ? '1-2 Materialien (1 Text + 1 Karte)' : totalBE < 40 ? '2-3 Materialien (Text, Statistik, Karte)' : '3-5 Materialien (geographische Texte, Statistiken, Karten, Klimadiagramme, Fotos)'}
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche geographische Quellentexte (Fachartikel, Zeitungsartikel, Auszüge aus geographischen Werken). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -5408,7 +5408,7 @@ async function handleGenerateLatein(request, env) {
   const body = await request.json();
   const { autor, aufgabentyp, schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const isEA = (level || "eA").toLowerCase() === "ea";
@@ -5498,7 +5498,7 @@ KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
 - Verteile die ${totalBE} BE sinnvoll auf die Abschnitte (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Interpretationsaufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
-- Jede Aufgabe kompakt und kleinschrittiger` : ''}
+- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 AUTOR UND STIL:
 ${autorInfo}
@@ -6101,7 +6101,7 @@ async function handleGenerateMathe(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "analysis";
@@ -6157,7 +6157,7 @@ AUFGABE:
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
-- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe und verteile die ' + totalBE + ' BE sinnvoll auf die Teilaufgaben'}
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen ' + totalBE + ' BE ergeben.'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - VALIDIERUNG: Zähle am Ende nach — die Summe aller "be"-Werte MUSS EXAKT ${totalBE} ergeben!
 - Hilfsmittel/CAS erlaubt
@@ -6819,7 +6819,7 @@ async function handleGenerateChemie(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "elektrochemie";
@@ -6873,9 +6873,9 @@ AUFGABE:
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
-- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen ' + totalBE + ' BE ergeben.'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
+- Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (Tabelle ODER Diagramm)' : totalBE < 40 ? '1-2 Materialien' : '2-3 Materialien (Diagramme, Tabellen, Texte)'}
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben wie Taschenofen, Kaffeebecher, Adblue):
@@ -6956,7 +6956,7 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
-Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.
+${totalBE >= 25 ? 'Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.' : totalBE >= 15 ? 'Maximal 1 Material pro Aufgabe.' : 'Keine Materialien bei dieser Aufgabengröße.'}
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
@@ -7177,7 +7177,7 @@ async function handleGeneratePhysik(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "elektrostatik";
@@ -7223,9 +7223,9 @@ AUFGABE:
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
-- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle 1 Aufgabe mit passender Anzahl Teilaufgaben (BE sinnvoll verteilen)'}
+- Jede einzelne Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen ' + totalBE + ' BE ergeben.'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- Bei umfangreichen Aufgaben (≥20 BE): Materialien (Diagramme, Tabellen, Texte) erstellen
+- Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (Tabelle ODER Diagramm)' : totalBE < 40 ? '1-2 Materialien' : '2-3 Materialien (Diagramme, Tabellen, Texte)'}
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 SACHGEBIET: ${sgInfo.title}
@@ -7278,7 +7278,7 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
-Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.`;
+${totalBE >= 25 ? 'Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.' : totalBE >= 15 ? 'Maximal 1 Material pro Aufgabe.' : 'Keine Materialien bei dieser Aufgabengröße.'}`;
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
@@ -7559,7 +7559,7 @@ async function handleGenerateBio(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "genetik";
@@ -7599,12 +7599,12 @@ async function handleGenerateBio(request, env) {
   const systemPrompt = `Du bist Biologielehrer am bayerischen Gymnasium. Erstelle eine Biologie-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
 AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
-${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen) → AFB III (Bewerten/Diskutieren)
-- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
 - KEINE Lösungshinweise in den Aufgabenstellungen
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
@@ -7870,7 +7870,7 @@ async function handleGenerateSport(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "gesundheit";
@@ -7910,12 +7910,12 @@ async function handleGenerateSport(request, env) {
   const systemPrompt = `Du bist Sportlehrer am bayerischen Gymnasium (Leistungsfach Sport). Erstelle eine Sporttheorie-Klausuraufgabe im IQB-Format (Abitur eA, G9 ab 2026).
 
 AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
-${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, PRAXISNAHEN Kontext ein (z.B. ein bestimmter Sportler, ein Trainingsplan, eine Wettkampfsituation, ein Gesundheitsproblem)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Beurteilen)
-- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
 - KEINE Lösungshinweise in den Aufgabenstellungen
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
@@ -8162,7 +8162,7 @@ async function handleGenerateInformatik(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\nGEWÄHLTE UNTERPUNKTE (Aufgabe MUSS sich auf diese Themen konzentrieren): ' + unterpunkte.join(', ')
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
 
   const sg = sachgebiet || "rekursion-listen";
@@ -8211,12 +8211,12 @@ async function handleGenerateInformatik(request, env) {
   const systemPrompt = `Du bist Informatiklehrer am bayerischen Gymnasium. Erstelle eine Informatik-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
 AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
-${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle 1 Aufgabe. Verteile die BE sinnvoll auf 3-6 Teilaufgaben (a, b, c, ...).'}
+${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein Softwareprojekt, eine Anwendung, ein konkretes System)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Entwerfen)
-- Bei ≥20 BE: Erstelle 2-3 Materialien (M1, M2, M3), auf die sich die Teilaufgaben beziehen
+- Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
 - KEINE Lösungshinweise in den Aufgabenstellungen
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 - Bei Algorithmen/Datenstrukturen: Java- oder Python-Code bzw. Pseudocode ist erlaubt
