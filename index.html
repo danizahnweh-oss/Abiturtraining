@@ -11,7 +11,7 @@
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m16 6 4 14'/><path d='M12 6v14'/><path d='M8 8v12'/><path d='M4 4v16'/></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -953,20 +953,10 @@
     }
 
     .subject-icon {
-      width: 4.4rem;
-      height: 4.4rem;
+      font-size: 4.4rem;
       margin-bottom: .4rem;
       position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--ink)
-    }
-
-    .subject-icon svg {
-      width: 100%;
-      height: 100%
+      z-index: 1
     }
 
     .subject-title {
@@ -1569,20 +1559,8 @@
     }
 
     .module-icon {
-      width: 2.5rem;
-      height: 2.5rem;
-      margin-bottom: .8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-left: auto;
-      margin-right: auto;
-      color: var(--ink)
-    }
-
-    .module-icon svg {
-      width: 100%;
-      height: 100%
+      font-size: 2.5rem;
+      margin-bottom: .8rem
     }
 
     .module-title {
@@ -1751,7 +1729,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     [data-theme="dark"] #splash {
@@ -1760,8 +1737,8 @@
 
     .splash-content {
       position: relative;
-      width: min(600px, 90vw);
-      height: min(400px, 80vh);
+      width: 600px;
+      height: 400px;
       display: flex;
       align-items: center;
       justify-content: center
@@ -1769,7 +1746,7 @@
 
     .splash-wave-video {
       position: absolute;
-      width: min(500px, 85vw);
+      width: 500px;
       height: auto;
       opacity: 0;
       animation: wave-video-in 1s ease-out forwards;
@@ -1781,7 +1758,7 @@
 
     .splash-logo {
       position: absolute;
-      max-width: min(900px, 85vw);
+      max-width: 900px;
       height: auto;
       opacity: 0;
       visibility: hidden;
@@ -1943,8 +1920,7 @@
       }
 
       .subject-icon {
-        width: 3.2rem;
-        height: 3.2rem
+        font-size: 3.2rem
       }
 
       .subject-title {
@@ -2107,7 +2083,7 @@
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
     <div class="splash-content">
-      <canvas id="splashCanvas" class="splash-wave-video" width="300" height="300"></canvas>
+      <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
       <video id="splashVideo" muted playsinline preload="auto" style="display:none">
       </video>
       <img src="logo.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
@@ -2127,8 +2103,6 @@
         var logo = document.getElementById('splashLogo');
         var logoShown = false;
         var animId;
-        var isMobile = window.innerWidth < 768;
-        var maxCanvasSize = isMobile ? 300 : 500;
 
         function hideSplash() {
           var splash = document.getElementById('splash');
@@ -2186,37 +2160,22 @@
         // Manueller Frame-Stepper: Video Frame für Frame per currentTime abspielen
         // Funktioniert ohne play() — umgeht Autoplay-Blockade
         function startManualPlayback() {
-          var vw = vid.videoWidth || 500;
-          var vh = vid.videoHeight || 500;
-          var scale = Math.min(1, maxCanvasSize / Math.max(vw, vh));
-          canvas.width = Math.round(vw * scale);
-          canvas.height = Math.round(vh * scale);
+          canvas.width = vid.videoWidth || 500;
+          canvas.height = vid.videoHeight || 500;
           var duration = vid.duration;
           var startWall = performance.now();
-          var seeking = false;
-          // ~15fps Throttling für schwache Geräte (66ms zwischen Seeks)
-          var minInterval = 66;
-          var lastSeekTime = 0;
 
           function stepFrame() {
-            if (logoShown || seeking) return;
-            var now = performance.now();
-            if (now - lastSeekTime < minInterval) {
-              animId = requestAnimationFrame(stepFrame);
-              return;
-            }
-            var elapsed = (now - startWall) / 1000;
+            if (logoShown) return;
+            var elapsed = (performance.now() - startWall) / 1000;
             if (elapsed >= duration) {
               showLogo();
               return;
             }
-            seeking = true;
-            lastSeekTime = now;
             vid.currentTime = elapsed;
           }
 
           vid.addEventListener('seeked', function () {
-            seeking = false;
             if (logoShown) return;
             drawChromaFrame();
             animId = requestAnimationFrame(stepFrame);
@@ -2232,21 +2191,14 @@
           vid.addEventListener('ended', showLogo);
 
           vid.addEventListener('error', function () {
-            showLogo();
-          });
-
-          // Video-Laden stockt auf langsamer Verbindung
-          vid.addEventListener('stalled', function () {
-            setTimeout(function () { if (!logoShown) showLogo(); }, 3000);
+            canvas.style.display = 'none';
+            if (!logoShown) { logoShown = true; logo.classList.add('show'); }
           });
 
           vid.addEventListener('play', function () {
             if (!logoShown) {
-              var vw = vid.videoWidth || 500;
-              var vh = vid.videoHeight || 500;
-              var scale = Math.min(1, maxCanvasSize / Math.max(vw, vh));
-              canvas.width = Math.round(vw * scale);
-              canvas.height = Math.round(vh * scale);
+              canvas.width = vid.videoWidth || 500;
+              canvas.height = vid.videoHeight || 500;
               renderFrame();
             }
           });
@@ -2259,7 +2211,7 @@
             });
           });
 
-          setTimeout(function () { if (!logoShown) showLogo(); }, 8000);
+          setTimeout(function () { if (!logoShown) showLogo(); }, 12000);
         }
       })();
     </script>
@@ -2377,7 +2329,7 @@
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
         aria-label="Englisch">
-        <div class="subject-icon" aria-hidden="true" data-icon="flag-gb"></div>
+        <div class="subject-icon" aria-hidden="true">🇬🇧</div>
         <div class="subject-title">Englisch</div>
         <div class="subject-desc">Sprachmittlung (Mediation) und Textproduktion – mit KI-Bewertung nach ISB-Raster.
         </div>
@@ -2387,7 +2339,7 @@
       </button>
       <button class="subject-card german" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('german', true)"
         aria-label="Deutsch">
-        <div class="subject-icon" aria-hidden="true" data-icon="book-open"></div>
+        <div class="subject-icon" aria-hidden="true">📖</div>
         <div class="subject-title">Deutsch</div>
         <div class="subject-desc">Interpretation, Analyse, Erörterung und materialgestütztes Schreiben – bewertet nach
           KMS-Kriterien.</div>
@@ -2397,7 +2349,7 @@
       </button>
       <button class="subject-card history" type="button" role="listitem" data-category="gewi" onclick="selectSubject('history', true)"
         aria-label="Geschichte">
-        <div class="subject-icon" aria-hidden="true" data-icon="scroll"></div>
+        <div class="subject-icon" aria-hidden="true">📜</div>
         <div class="subject-title">Geschichte</div>
         <div class="subject-desc">Quellenanalyse und historische Darstellung – mit KI-Bewertung nach ISB-Kriterien für
           das G9-Abitur.</div>
@@ -2407,7 +2359,7 @@
       </button>
       <button class="subject-card pug" type="button" role="listitem" data-category="gewi" onclick="selectSubject('pug', true)"
         aria-label="Politik und Gesellschaft">
-        <div class="subject-icon" aria-hidden="true" data-icon="landmark"></div>
+        <div class="subject-icon" aria-hidden="true">🏛️</div>
         <div class="subject-title">Politik und Gesellschaft</div>
         <div class="subject-desc">Aufgaben zu allen vier Halbjahren mit Materialanalyse und Erörterung – bewertet nach
           ISB-Kriterien.</div>
@@ -2417,7 +2369,7 @@
       </button>
       <button class="subject-card wr" type="button" role="listitem" data-category="gewi" onclick="selectSubject('wr', true)"
         aria-label="Wirtschaft und Recht">
-        <div class="subject-icon" aria-hidden="true" data-icon="scale"></div>
+        <div class="subject-icon" aria-hidden="true">⚖️</div>
         <div class="subject-title">Wirtschaft & Recht</div>
         <div class="subject-desc">Materialgestützte Aufgaben zu BWL, VWL und Recht – mit BE-Bewertung nach
           Abiturstandard.</div>
@@ -2427,7 +2379,7 @@
       </button>
       <button class="subject-card french" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('french', true)"
         aria-label="Französisch">
-        <div class="subject-icon" aria-hidden="true" data-icon="flag-fr"></div>
+        <div class="subject-icon" aria-hidden="true">🇫🇷</div>
         <div class="subject-title">Französisch</div>
         <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.
         </div>
@@ -2437,7 +2389,7 @@
       </button>
       <button class="subject-card italian" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('italian', true)"
         aria-label="Italienisch">
-        <div class="subject-icon" aria-hidden="true" data-icon="flag-it"></div>
+        <div class="subject-icon" aria-hidden="true">🇮🇹</div>
         <div class="subject-title">Italienisch</div>
         <div class="subject-desc">Sprachmittlung und Textproduktion – mit KI-Bewertung nach ISB-Raster für das Abitur.
         </div>
@@ -2447,7 +2399,7 @@
       </button>
       <button class="subject-card ethik" type="button" role="listitem" data-category="gewi" onclick="selectSubject('ethik', true)"
         aria-label="Ethik">
-        <div class="subject-icon" aria-hidden="true" data-icon="brain"></div>
+        <div class="subject-icon" aria-hidden="true">🧠</div>
         <div class="subject-title">Ethik</div>
         <div class="subject-desc">Philosophische Texte analysieren und erörtern – mit KI-Bewertung nach ISB-Kriterien
           für das Abitur.</div>
@@ -2457,7 +2409,7 @@
       </button>
       <button class="subject-card religion" type="button" role="listitem" data-category="gewi" onclick="selectSubject('religion', true)"
         aria-label="Evangelische Religionslehre">
-        <div class="subject-icon" aria-hidden="true" data-icon="cross"></div>
+        <div class="subject-icon" aria-hidden="true">✝️</div>
         <div class="subject-title">Ev. Religion</div>
         <div class="subject-desc">Theologische Texte analysieren und reflektieren &ndash; mit KI-Bewertung nach
           ISB-Kriterien
@@ -2468,7 +2420,7 @@
       </button>
       <button class="subject-card katholisch" type="button" role="listitem" data-category="gewi" onclick="selectSubject('katholisch', true)"
         aria-label="Katholische Religionslehre">
-        <div class="subject-icon" aria-hidden="true" data-icon="church"></div>
+        <div class="subject-icon" aria-hidden="true">⛪</div>
         <div class="subject-title">Kath. Religion</div>
         <div class="subject-desc">Theologische Texte analysieren und reflektieren &ndash; mit KI-Bewertung nach
           ISB-Kriterien
@@ -2479,7 +2431,7 @@
       </button>
       <button class="subject-card geographie" type="button" role="listitem" data-category="gewi" onclick="selectSubject('geographie', true)"
         aria-label="Geographie">
-        <div class="subject-icon" aria-hidden="true" data-icon="globe"></div>
+        <div class="subject-icon" aria-hidden="true">🌍</div>
         <div class="subject-title">Geographie</div>
         <div class="subject-desc">Materialgestützte Aufgaben zu Klima, Ressourcen, Entwicklung und Stadtgeographie –
           bewertet nach ISB-Kriterien.</div>
@@ -2489,7 +2441,7 @@
       </button>
       <button class="subject-card latein" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('latein', true)"
         aria-label="Latein">
-        <div class="subject-icon" aria-hidden="true" data-icon="amphora"></div>
+        <div class="subject-icon" aria-hidden="true">🏺</div>
         <div class="subject-title">Latein</div>
         <div class="subject-desc">Übersetzung und Interpretation lateinischer Texte – Cicero, Seneca, Vergil und mehr
           nach ISB-Kriterien.</div>
@@ -2499,7 +2451,7 @@
       </button>
       <button class="subject-card mathe" type="button" role="listitem" data-category="nawi" onclick="selectSubject('mathe', true)"
         aria-label="Mathematik">
-        <div class="subject-icon" aria-hidden="true" data-icon="ruler"></div>
+        <div class="subject-icon" aria-hidden="true">📐</div>
         <div class="subject-title">Mathematik</div>
         <div class="subject-desc">Analysis, Stochastik und Geometrie – mit KaTeX-Formeln, BE-Bewertung und
           Schritt-für-Schritt-Lösungen.</div>
@@ -2509,7 +2461,7 @@
       </button>
       <button class="subject-card chemie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('chemie', true)"
         aria-label="Chemie">
-        <div class="subject-icon" aria-hidden="true" data-icon="flask-conical"></div>
+        <div class="subject-icon" aria-hidden="true">🧪</div>
         <div class="subject-title">Chemie</div>
         <div class="subject-desc">Elektrochemie, Organik, Thermochemie, Gleichgewichte — materialgestützte Aufgaben nach
           ISB-Format.</div>
@@ -2519,7 +2471,7 @@
       </button>
       <button class="subject-card physik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('physik', true)"
         aria-label="Physik">
-        <div class="subject-icon" aria-hidden="true" data-icon="atom"></div>
+        <div class="subject-icon" aria-hidden="true">⚛️</div>
         <div class="subject-title">Physik</div>
         <div class="subject-desc">Elektrostatik, EM-Wellen, Quantenphysik, Kernphysik — mit KaTeX-Formeln und
           BE-Bewertung.</div>
@@ -2529,7 +2481,7 @@
       </button>
       <button class="subject-card biologie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('biologie', true)"
         aria-label="Biologie">
-        <div class="subject-icon" aria-hidden="true" data-icon="dna"></div>
+        <div class="subject-icon" aria-hidden="true">🧬</div>
         <div class="subject-title">Biologie</div>
         <div class="subject-desc">Genetik, Neurobiologie, Stoffwechsel, Ökologie, Evolution — mit KaTeX-Formeln und
           BE-Bewertung.</div>
@@ -2539,7 +2491,7 @@
       </button>
       <button class="subject-card sport" type="button" role="listitem" data-category="sonstiges" onclick="selectSubject('sport', true)"
         aria-label="Sport">
-        <div class="subject-icon" aria-hidden="true" data-icon="trophy"></div>
+        <div class="subject-icon" aria-hidden="true">⚽</div>
         <div class="subject-title">Sport</div>
         <div class="subject-desc">Trainingslehre, Sportbiologie, Bewegungslehre, Sportpsychologie — mit BE-Bewertung.
         </div>
@@ -2549,7 +2501,7 @@
       </button>
       <button class="subject-card informatik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('informatik', true)"
         aria-label="Informatik">
-        <div class="subject-icon" aria-hidden="true" data-icon="laptop"></div>
+        <div class="subject-icon" aria-hidden="true">💻</div>
         <div class="subject-title">Informatik</div>
         <div class="subject-desc">Algorithmen, OOP, Datenbanken, Rechnernetze, Automaten — mit BE-Bewertung.</div>
         <div class="subject-badge">1 Modul</div>
@@ -3871,7 +3823,12 @@
       sport: "Sport", informatik: "Informatik"
     };
 
-    // SUBJECT_EMOJI wird jetzt über icons.js bereitgestellt (SUBJECT_ICONS + getSubjectIcon)
+    var SUBJECT_EMOJI = {
+      english: "🇬🇧", german: "📖", history: "📜", pug: "🏛️", wr: "⚖️",
+      french: "🇫🇷", italian: "🇮🇹", ethik: "🧠", religion: "✝️",
+      katholisch: "⛪", geographie: "🌍", latein: "🏺", mathe: "📐",
+      chemie: "🧪", physik: "⚛️", biologie: "🧬", sport: "⚽", informatik: "💻"
+    };
 
     function loadExamSubjects() {
       var name = sessionStorage.getItem("student_name");
@@ -4056,7 +4013,7 @@
       container.innerHTML = "";
 
       reminders.forEach(function (r) {
-        var icon = getSubjectIcon(r.subject, 20);
+        var icon = SUBJECT_EMOJI[r.subject] || "📚";
         var name = SUBJECT_DISPLAY[r.subject] || r.subject;
         var days = r.daysSince === null ? "noch nie geübt" : "zuletzt vor " + r.daysSince + " Tagen";
         var type = r.isWritten ? "schriftlich" : "mündlich";
@@ -4547,13 +4504,13 @@
         splash.style.display = "none";
         return;
       }
-      // Fallback: Falls Video/Logo-Logik nicht greift, Splash nach 10s entfernen
+      // Fallback: Falls Video/Logo-Logik nicht greift, Splash nach 15s entfernen
       setTimeout(function () {
         if (splash.style.display !== "none") {
           splash.style.display = "none";
           sessionStorage.setItem("splash_shown", "1");
         }
-      }, 10000);
+      }, 15000);
     };
 
     // Handle bfcache restoration
@@ -4561,7 +4518,6 @@
       if (e.persisted) checkSession();
     });
   </script>
-  <script src="icons.js"></script>
   <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
   <script src="shared.js"></script>
