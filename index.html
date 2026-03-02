@@ -1216,6 +1216,11 @@
       box-shadow: 0 0 0 1px #2563eb33
     }
 
+    .subject-card.exam-ea {
+      border: 2px solid #d97706;
+      box-shadow: 0 0 0 2px #d9770633
+    }
+
     .subject-card.exam-oral {
       border: 2px solid #16a34a;
       box-shadow: 0 0 0 1px #16a34a33
@@ -1236,6 +1241,11 @@
 
     .exam-badge-written {
       background: #2563eb;
+      color: #fff
+    }
+
+    .exam-badge-ea {
+      background: #d97706;
       color: #fff
     }
 
@@ -1323,6 +1333,17 @@
       height: 10px;
       border-radius: 50%;
       margin-right: 2px
+    }
+
+    .exam-hint {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      margin: .25rem 0 0;
+      font-style: italic
+    }
+
+    .exam-dot.ea {
+      background: #d97706
     }
 
     .exam-dot.written {
@@ -2301,8 +2322,9 @@
       </div>
       <div class="exam-info">
         <span id="examCounter">0/5 Fächer gewählt</span>
-        <span class="exam-legend"><span class="exam-dot written"></span> Schriftlich (max. 3) <span class="exam-dot oral"></span> Mündlich (max. 2)</span>
+        <span class="exam-legend"><span class="exam-dot ea"></span> eA <span class="exam-dot written"></span> Schriftlich gA <span class="exam-dot oral"></span> Mündlich gA</span>
       </div>
+      <p class="exam-hint">1. Klick = schriftlich gA · 2. Klick auf schriftliches Fach = eA · nochmal klicken = entfernen</p>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
@@ -3787,7 +3809,7 @@
 
     /* ====== ABIFÄCHER-AUSWAHL ====== */
     var examEditMode = false;
-    var examSubjectsCache = { written: [], oral: [] };
+    var examSubjectsCache = { written: [], oral: [], ea: "" };
     var reminderIntervalCache = 3;
     var reminderEmailCache = "";
 
@@ -3821,9 +3843,14 @@
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (data.success && data.preferences) {
-            examSubjectsCache = data.preferences.exam_subjects || { written: [], oral: [] };
+            examSubjectsCache = data.preferences.exam_subjects || { written: [], oral: [], ea: "" };
             if (!examSubjectsCache.written) examSubjectsCache.written = [];
             if (!examSubjectsCache.oral) examSubjectsCache.oral = [];
+            if (!examSubjectsCache.ea) examSubjectsCache.ea = "";
+            // eA-Fach setzt das globale Level für den Countdown
+            if (examSubjectsCache.ea) {
+              sessionStorage.setItem("student_level", "gA");
+            }
             reminderIntervalCache = data.preferences.reminder_interval ?? 3;
             reminderEmailCache = data.preferences.email || "";
 
@@ -3840,7 +3867,7 @@
     function applyExamBadges() {
       // Erst alle Badges entfernen
       document.querySelectorAll(".subject-card").forEach(function (card) {
-        card.classList.remove("exam-written", "exam-oral");
+        card.classList.remove("exam-written", "exam-oral", "exam-ea");
         var badge = card.querySelector(".exam-badge");
         if (badge) badge.remove();
       });
@@ -3849,10 +3876,11 @@
       examSubjectsCache.written.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          card.classList.add("exam-written");
+          var isEa = examSubjectsCache.ea === subj;
+          card.classList.add(isEa ? "exam-ea" : "exam-written");
           var badge = document.createElement("span");
-          badge.className = "exam-badge exam-badge-written";
-          badge.textContent = "✍️ schriftlich";
+          badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-written");
+          badge.textContent = isEa ? "⭐ schriftlich eA" : "✍️ schriftlich gA";
           card.appendChild(badge);
         }
       });
@@ -3864,7 +3892,7 @@
           card.classList.add("exam-oral");
           var badge = document.createElement("span");
           badge.className = "exam-badge exam-badge-oral";
-          badge.textContent = "🗣️ mündlich";
+          badge.textContent = "🗣️ mündlich gA";
           card.appendChild(badge);
         }
       });
@@ -3872,8 +3900,9 @@
 
     function updateExamCounter() {
       var total = examSubjectsCache.written.length + examSubjectsCache.oral.length;
+      var eaText = examSubjectsCache.ea ? " · eA: " + (SUBJECT_DISPLAY[examSubjectsCache.ea] || examSubjectsCache.ea) : " · kein eA-Fach";
       var el = document.getElementById("examCounter");
-      if (el) el.textContent = total + "/5 Fächer gewählt";
+      if (el) el.textContent = total + "/5 Fächer gewählt" + (total > 0 ? eaText : "");
     }
 
     function toggleExamEditMode() {
@@ -3908,37 +3937,31 @@
 
       var wIdx = examSubjectsCache.written.indexOf(subj);
       var oIdx = examSubjectsCache.oral.indexOf(subj);
+      var isEa = examSubjectsCache.ea === subj;
 
-      if (wIdx !== -1) {
+      if (isEa) {
+        // eA → zurück zu normalem schriftlichen Fach (gA)
+        examSubjectsCache.ea = "";
+      } else if (wIdx !== -1 && !examSubjectsCache.ea) {
+        // Schriftlich gA → zu eA hochstufen (wenn noch kein eA gewählt)
+        examSubjectsCache.ea = subj;
+      } else if (wIdx !== -1) {
         // Schriftlich → entfernen
         examSubjectsCache.written.splice(wIdx, 1);
-        card.classList.remove("exam-written");
-        var badge = card.querySelector(".exam-badge");
-        if (badge) badge.remove();
+        if (examSubjectsCache.ea === subj) examSubjectsCache.ea = "";
       } else if (oIdx !== -1) {
         // Mündlich → entfernen
         examSubjectsCache.oral.splice(oIdx, 1);
-        card.classList.remove("exam-oral");
-        var badge2 = card.querySelector(".exam-badge");
-        if (badge2) badge2.remove();
       } else if (examSubjectsCache.written.length < 3) {
-        // Als schriftlich hinzufügen
+        // Als schriftlich hinzufügen (gA)
         examSubjectsCache.written.push(subj);
-        card.classList.add("exam-written");
-        var b1 = document.createElement("span");
-        b1.className = "exam-badge exam-badge-written";
-        b1.textContent = "✍️ schriftlich";
-        card.appendChild(b1);
       } else if (examSubjectsCache.oral.length < 2) {
-        // Als mündlich hinzufügen
+        // Als mündlich hinzufügen (gA)
         examSubjectsCache.oral.push(subj);
-        card.classList.add("exam-oral");
-        var b2 = document.createElement("span");
-        b2.className = "exam-badge exam-badge-oral";
-        b2.textContent = "🗣️ mündlich";
-        card.appendChild(b2);
       }
 
+      // Alle Badges neu rendern
+      applyExamBadges();
       updateExamCounter();
     }
 
@@ -4285,14 +4308,14 @@
       document.getElementById("studentName").value = "";
       document.getElementById("personalPassword").value = "";
       studentResults = null;
-      examSubjectsCache = { written: [], oral: [] };
+      examSubjectsCache = { written: [], oral: [], ea: "" };
       document.getElementById("progressBar").style.display = "none";
       document.getElementById("reminderBanner").style.display = "none";
       document.getElementById("examSubjectBtn").style.display = "none";
       document.getElementById("examSettings").style.display = "none";
       // Exam badges entfernen
       document.querySelectorAll(".subject-card").forEach(function (card) {
-        card.classList.remove("exam-written", "exam-oral");
+        card.classList.remove("exam-written", "exam-oral", "exam-ea");
         var badge = card.querySelector(".exam-badge");
         if (badge) badge.remove();
       });

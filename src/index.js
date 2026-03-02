@@ -1072,12 +1072,53 @@ async function generateUnsubscribeToken(nameLower, env) {
   return btoa(`${nameLower}:${ts}:${hmac}`);
 }
 
-function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl) {
+// Prüfungstermine (synchron mit index.html)
+const ABITUR_DATES_Q13 = {
+  chemie: "2026-04-24", german: "2026-04-28", english: "2026-04-30",
+  mathe: "2026-05-06", french: "2026-05-08",
+  history: { gA: "2026-05-11", eA: "2026-05-13" },
+  pug: { gA: "2026-05-11", eA: "2026-05-13" },
+  wr: { gA: "2026-05-11", eA: "2026-05-13" },
+  italian: { gA: "2026-05-11", eA: "2026-05-13" },
+  ethik: { gA: "2026-05-11", eA: "2026-05-13" },
+  religion: { gA: "2026-05-11", eA: "2026-05-13" },
+  katholisch: { gA: "2026-05-11", eA: "2026-05-13" },
+  geographie: { gA: "2026-05-11", eA: "2026-05-13" },
+  latein: { gA: "2026-05-11", eA: "2026-05-13" },
+  physik: { gA: "2026-05-11", eA: "2026-05-13" },
+  biologie: { gA: "2026-05-11", eA: "2026-05-13" }
+};
+
+function getExamDateStr(subject, isEa) {
+  const d = ABITUR_DATES_Q13[subject];
+  if (!d) return null;
+  if (typeof d === "string") return d;
+  return isEa ? d.eA : d.gA;
+}
+
+function daysUntilExam(subject, isEa) {
+  const dateStr = getExamDateStr(subject, isEa);
+  if (!dateStr) return null;
+  const exam = new Date(dateStr + "T00:00:00");
+  const now = new Date(); now.setHours(0, 0, 0, 0);
+  return Math.ceil((exam - now) / 86400000);
+}
+
+function buildReminderEmail(studentName, overdueSubjects, unsubscribeUrl, eaSubject) {
   const rows = overdueSubjects.map(s => {
     const icon = SUBJECT_ICONS[s.subject] || "📚";
     const name = SUBJECT_NAMES[s.subject] || s.subject;
     const days = s.daysSince === null ? "noch nie geübt" : `zuletzt vor ${s.daysSince} Tagen`;
-    return `<tr><td style="padding:8px 12px;font-size:16px">${icon} <strong>${name}</strong></td><td style="padding:8px 12px;color:#666;font-size:14px">${days}</td></tr>`;
+    const isEa = s.subject === eaSubject;
+    const level = isEa ? "eA" : "gA";
+    const daysLeft = daysUntilExam(s.subject, isEa);
+    const countdown = daysLeft !== null && daysLeft > 0
+      ? `<span style="color:#dc2626;font-weight:600">noch ${daysLeft} Tage bis zur Prüfung</span>`
+      : daysLeft === 0 ? `<span style="color:#dc2626;font-weight:600">Prüfung HEUTE!</span>` : "";
+    return `<tr>
+<td style="padding:8px 12px;font-size:16px">${icon} <strong>${name}</strong> <span style="color:#888;font-size:12px">(${level})</span></td>
+<td style="padding:8px 12px;font-size:14px"><span style="color:#666">${days}</span>${countdown ? "<br>" + countdown : ""}</td>
+</tr>`;
   }).join("");
 
   return `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
@@ -1152,7 +1193,8 @@ async function sendReminderEmails(env) {
     // Unsubscribe-Token + Email bauen
     const unsubToken = await generateUnsubscribeToken(student.name_lower, env);
     const unsubUrl = `https://sag-abi-mediation-api.sanktannagymnasium.workers.dev/api/unsubscribe?token=${encodeURIComponent(unsubToken)}`;
-    const html = buildReminderEmail(student.name, overdue, unsubUrl);
+    const eaSubject = examSubjects.ea || null;
+    const html = buildReminderEmail(student.name, overdue, unsubUrl, eaSubject);
 
     const count = overdue.length;
     const subject = count === 1
