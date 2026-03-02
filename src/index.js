@@ -7488,6 +7488,72 @@ async function handleParseTaskPhysik(request, env) {
   return jsonResponse(content, 200, env);
 }
 
+/* ================= MATERIAL-PLATZHALTER REPARATUR ================= */
+const PLACEHOLDER_PATTERNS = [
+  /^ein\s+(text|fachtext|auszug|artikel|bericht)/i,
+  /^(hier\s+(ist|steht|folgt)|im\s+folgenden)/i,
+  /^\(.*?(text|inhalt|platzhalter|einfügen|ergänzen).*?\)$/i,
+  /^beschreib(e|ung)/i,
+  /^erstell(e|ung)/i,
+  /^\[.*?\]$/,
+  /^<.*?>$/
+];
+
+function isMaterialPlaceholder(material) {
+  if (!material || !material.text) return true;
+  const text = material.text.trim();
+  // Zu kurz für echten Inhalt (Tabellen dürfen kürzer sein)
+  const minLen = (material.type === "statistik" || material.type === "diagramm") ? 30 : 80;
+  if (text.length < minLen) return true;
+  // Bekannte Platzhalter-Muster
+  for (const pat of PLACEHOLDER_PATTERNS) {
+    if (pat.test(text)) return true;
+  }
+  return false;
+}
+
+async function repairPlaceholderMaterials(env, materials, sachgebietTitle) {
+  const toRepair = materials.filter(m => isMaterialPlaceholder(m));
+  if (!toRepair.length) return materials;
+
+  console.warn(`[repairMaterials] ${toRepair.length}/${materials.length} Materialien sind Platzhalter, generiere nach...`);
+
+  // Alle Platzhalter parallel nachgenerieren
+  const repairs = await Promise.allSettled(toRepair.map(async (m) => {
+    const typeInstr = {
+      text: `Schreibe einen vollständigen, ausformulierten Fachtext (mind. 150 Wörter) für Biologie-Oberstufenschüler. Der Text soll als Material in einer Klausuraufgabe dienen. Thema: "${m.titel || "Fachtext"}". Sachgebiet: ${sachgebietTitle}. Gib NUR den reinen Fachtext aus, keine Überschrift, kein JSON.`,
+      statistik: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen Zahlenwerten (mind. 4 Datenzeilen) zum Thema "${m.titel || "Daten"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
+      diagramm: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen x/y-Messwerten (mind. 6 Datenpunkte) zum Thema "${m.titel || "Messwerte"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
+      bild: `Schreibe einen ausführlichen Imagen-Prompt auf Englisch (3-5 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". Beschriftungen auf Deutsch. Gib NUR den Prompt aus.`
+    };
+    const prompt = typeInstr[m.type] || typeInstr.text;
+    try {
+      const result = await callOpenAI(env, [
+        { role: "user", content: prompt }
+      ], 3000, { model: "gpt-5.2", temperature: 0.5 });
+      return { id: m.id, text: result.trim() };
+    } catch (e) {
+      console.error(`[repairMaterials] Fehler bei ${m.id}:`, e.message);
+      return null;
+    }
+  }));
+
+  // Reparierte Texte einsetzen
+  const repairMap = {};
+  for (const r of repairs) {
+    if (r.status === "fulfilled" && r.value && r.value.text) {
+      repairMap[r.value.id] = r.value.text;
+    }
+  }
+
+  return materials.map(m => {
+    if (repairMap[m.id]) {
+      return { ...m, text: repairMap[m.id] };
+    }
+    return m;
+  });
+}
+
 /* ================= BIO: GENERATE ================= */
 async function handleGenerateBio(request, env) {
   const body = await request.json();
@@ -7579,7 +7645,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
     openaiRes = await callOpenAI(env, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
-    ], 8000, { model: "gpt-5.2", temperature: 0.7 });
+    ], 12000, { model: "gpt-5.2", temperature: 0.7 });
   } catch (e) {
     const detail = (e.name === "AbortError") ? "Zeitüberschreitung (>25s)" : (e.message || "unbekannt");
     console.error("generate-bio error:", detail);
@@ -7592,6 +7658,11 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
   } catch (e) {
     console.error("generate-bio JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
     return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
+  }
+
+  // Materialien auf Platzhalter prüfen und ggf. nachgenerieren
+  if (content.material && content.material.length) {
+    content.material = await repairPlaceholderMaterials(env, content.material, sgInfo.title);
   }
 
   return jsonResponse(content, 200, env);
@@ -9259,6 +9330,18 @@ Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild
 
   const content = extractJSON(openaiRes);
   enrichBioMaterials(content);
+
+  // Materialien aller Aufgabengruppen auf Platzhalter prüfen und nachgenerieren
+  const aufgaben = content.aufgaben || content.aufgabengruppen || [];
+  for (const a of aufgaben) {
+    const mats = a.materialien || a.material || [];
+    if (mats.length) {
+      const repaired = await repairPlaceholderMaterials(env, mats, a.sachgebiet || "Biologie");
+      if (a.materialien) a.materialien = repaired;
+      else if (a.material) a.material = repaired;
+    }
+  }
+
   return jsonResponse(content, 200, env);
 }
 
