@@ -628,7 +628,12 @@ export default function App() {
                     {status === 'reconnecting' ? (
                       <p className="text-sm text-amber-600 italic">Verbindung wird wiederhergestellt... Bitte kurz warten.</p>
                     ) : status === 'connecting' ? (
-                      <p className="text-sm opacity-40 italic">Verbindung wird hergestellt...</p>
+                      <div className="text-center">
+                        <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
+                        <p className="text-sm opacity-50 italic">Verbindung zum Prüfer wird hergestellt...</p>
+                        <p className="text-xs opacity-35 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
+                        <p className="text-xs text-emerald-600/60 mt-2 font-medium">Tipp: Begrüße den Prüfer – das hilft manchmal, das Gespräch zu starten!</p>
+                      </div>
                     ) : status === 'error' ? (
                       <p className="text-sm text-red-500 italic">Verbindungsfehler. Bitte Prüfung beenden und neu starten.</p>
                     ) : modelTx.length > 0 ? (
@@ -759,7 +764,13 @@ export default function App() {
 
                     <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5 relative overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
-                      {modelTx.length > 0 ? (
+                      {status === 'connecting' ? (
+                        <div className="text-center">
+                          <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
+                          <p className="text-sm opacity-50 italic">Verbindung wird hergestellt...</p>
+                          <p className="text-xs opacity-35 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
+                        </div>
+                      ) : modelTx.length > 0 ? (
                         <p className="text-base leading-relaxed text-slate-800">{modelTx[modelTx.length - 1]}</p>
                       ) : (
                         <p className="text-sm opacity-40 italic">Feedback wird gleich beginnen...</p>
