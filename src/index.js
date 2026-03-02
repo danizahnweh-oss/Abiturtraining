@@ -6383,14 +6383,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -7068,14 +7076,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -7377,14 +7393,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -7567,7 +7591,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
     content = extractJSON(openaiRes);
   } catch (e) {
     console.error("generate-bio JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
-    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
+    return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
   }
 
   return jsonResponse(content, 200, env);
@@ -7674,14 +7698,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -7864,7 +7896,7 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
     content = extractJSON(openaiRes);
   } catch (e) {
     console.error("generate-sport JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
-    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
+    return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
   }
 
   return jsonResponse(content, 200, env);
@@ -7966,14 +7998,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -8161,7 +8201,7 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
     content = extractJSON(openaiRes);
   } catch (e) {
     console.error("generate-informatik JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
-    return jsonResponse({ error: "JSON-Fehler: " + (openaiRes || "").substring(0, 120) }, 500, env);
+    return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
   }
 
   return jsonResponse(content, 200, env);
@@ -8266,14 +8306,22 @@ Antworte NUR mit validem JSON:
       feedback: parsed.feedback || "",
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
-  } catch {
+  } catch (e) {
+    console.error("grade JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    let fallbackFeedback = "Die Bewertung konnte leider nicht korrekt verarbeitet werden. Bitte versuche es erneut.";
+    if (openaiRes && typeof openaiRes === "string") {
+      const trimmed = openaiRes.trim();
+      if (trimmed.length > 50 && !trimmed.startsWith("{") && !trimmed.startsWith("Du bist") && !trimmed.startsWith("Hier ist") && !trimmed.startsWith("Du bewertest")) {
+        fallbackFeedback = trimmed;
+      }
+    }
     return jsonResponse({
       teilbewertungen: [],
       gesamt_be: null,
       max_be: maxBE,
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes,
+      feedback: fallbackFeedback,
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -9990,7 +10038,12 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
       throw new Error("OpenAI(" + response.status + "): " + detail);
     }
     phase = "done";
-    return data.choices[0].message.content;
+    const content = data.choices[0].message.content;
+    const finishReason = data.choices[0].finish_reason;
+    if (finishReason === "length") {
+      console.warn(`[callOpenAI] Antwort abgeschnitten (finish_reason=length, model=${model}, tokens=${maxTokens})`);
+    }
+    return content;
   } catch (err) {
     const elapsed = Date.now() - t0;
     throw new Error(`[${phase} ${elapsed}ms ${model}] ${err.message || err}`);
@@ -9999,6 +10052,8 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
 
 /* ================= HELPERS ================= */
 function extractJSON(text) {
+  if (!text || typeof text !== "string") throw new Error("Model did not return valid JSON (empty response).");
+
   let clean = text.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
 
   try { return JSON.parse(clean); } catch {}
@@ -10013,6 +10068,32 @@ function extractJSON(text) {
       return ': "' + fixed + '"' + end;
     });
     try { return JSON.parse(repaired); } catch {}
+  }
+
+  // Abgeschnittenes JSON reparieren: fehlende Klammern ergänzen
+  const jsonStart = clean.indexOf("{");
+  if (jsonStart !== -1) {
+    let truncated = clean.substring(jsonStart);
+    // Abgeschnittenen String-Wert schließen
+    const quoteCount = (truncated.match(/(?<!\\)"/g) || []).length;
+    if (quoteCount % 2 !== 0) truncated += '"';
+    // Fehlende Klammern zählen und ergänzen
+    let braces = 0, brackets = 0;
+    let inString = false;
+    for (let i = 0; i < truncated.length; i++) {
+      const c = truncated[i];
+      if (c === '"' && (i === 0 || truncated[i - 1] !== '\\')) { inString = !inString; continue; }
+      if (inString) continue;
+      if (c === '{') braces++;
+      else if (c === '}') braces--;
+      else if (c === '[') brackets++;
+      else if (c === ']') brackets--;
+    }
+    // Trailing comma entfernen
+    truncated = truncated.replace(/,\s*$/, "");
+    for (let i = 0; i < brackets; i++) truncated += "]";
+    for (let i = 0; i < braces; i++) truncated += "}";
+    try { return JSON.parse(truncated); } catch {}
   }
 
   throw new Error("Model did not return valid JSON.");
