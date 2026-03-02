@@ -278,6 +278,52 @@
       font-size: .85rem
     }
 
+    /* Material-Bilder & Charts */
+    .material-chart {
+      margin: .5rem 0;
+      max-height: 300px
+    }
+
+    .material-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin: 0
+    }
+
+    .material-figure {
+      margin: 0;
+      padding: 0
+    }
+
+    .material-caption {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-top: .4rem;
+      font-style: italic;
+      line-height: 1.4
+    }
+
+    .material-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .2rem;
+      opacity: .7
+    }
+
+    .material-img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 2rem;
+      color: var(--ink-muted);
+      font-size: .85rem
+    }
+
     @media(max-width:650px) {
       .be-scores-grid {
         grid-template-columns: 1fr
@@ -661,15 +707,23 @@
         if (a.sachgebiet) html += ' <span class="sachgebiet-badge">' + escapeHtml(sachgebietLabel) + '</span>';
         html += '</h4>';
 
-        // Material-Abschnitte
+        // Material-Abschnitte (mit Typ-Erkennung: statistik, diagramm, bild, text)
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : (a.material && typeof a.material === "string" ? [{ text: a.material }] : []));
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
-            html += '<details class="material-details"><summary>' + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var typeIcon = m.type === "statistik" ? "\uD83D\uDCCA " : m.type === "diagramm" ? "\uD83D\uDCC8 " : m.type === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
+            html += '<details class="material-details"><summary>' + typeIcon + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
-            if (m.text) html += DOMPurify.sanitize(marked.parse(m.text));
-            if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
+            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+              html += DOMPurify.sanitize(marked.parse(m.text));
+              html += '<div class="material-chart"><canvas id="chart-abi-' + idx + '-' + mi + '"></canvas></div>';
+            } else if (m.type === "bild") {
+              html += '<div class="material-img-loading" id="img-abi-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else {
+              if (m.text) html += DOMPurify.sanitize(marked.parse(m.text));
+              if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
+            }
             html += '</div></details>';
           });
         }
@@ -695,6 +749,20 @@
       }).join("");
 
       updateWahlUI();
+
+      // Charts und Bilder nach DOM-Einf\u00fcgung rendern
+      aufgaben.forEach(function (a, idx) {
+        var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
+        mats.forEach(function (m, mi) {
+          if (!m || typeof m !== "object") return;
+          if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+            var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+            renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
+          } else if (m.type === "bild" && m.text) {
+            loadMaterialImage(m.text, "img-abi-" + idx + "-" + mi);
+          }
+        });
+      });
     }
 
     /* ====== SELECTION: CHOOSE 3 OF 4 ====== */
@@ -952,6 +1020,46 @@
           '<td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td>' +
           '<td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
       }).join("");
+    }
+
+    // === Chart & Bild-Hilfsfunktionen ===
+    const CHART_COLORS = ['#0284c7', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
+
+    function renderMaterialChart(markdown, canvasId, chartType) {
+      var lines = markdown.split("\n").filter(function(l) { return l.trim().startsWith("|"); });
+      if (lines.length < 2) return;
+      var parse = function(line) { return line.split("|").map(function(c) { return c.trim(); }).filter(Boolean); };
+      var headers = parse(lines[0]);
+      var dataLines = lines.filter(function(l) { return !l.match(/^\|[\s\-:|]+\|$/); });
+      if (dataLines.length < 2) return;
+      var rows = dataLines.slice(1).map(parse);
+      var labels = rows.map(function(r) { return r[0]; });
+      var datasets = headers.slice(1).map(function(h, i) {
+        return {
+          label: h,
+          data: rows.map(function(r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
+          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+          borderColor: CHART_COLORS[i % CHART_COLORS.length],
+          fill: false
+        };
+      });
+      new Chart(document.getElementById(canvasId), {
+        type: chartType || "bar",
+        data: { labels: labels, datasets: datasets },
+        options: { responsive: true, plugins: { legend: { position: "top" } } }
+      });
+    }
+
+    async function loadMaterialImage(prompt, containerId) {
+      try {
+        var d = await apiCall("/api/generate-image", { prompt: prompt });
+        var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
+        var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
+        document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+      } catch (e) {
+        console.error("Bild-Fehler:", e);
+        document.getElementById(containerId).innerHTML = '<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>';
+      }
     }
 
     /* ====== INIT LEVEL DISPLAY ====== */
