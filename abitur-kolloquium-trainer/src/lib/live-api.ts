@@ -46,6 +46,7 @@ export interface LiveSessionConfig {
   aufgabenstellung: string;
   material: string;
   examMode?: ExamMode;
+  gender?: 'male' | 'female';
   feedbackMode?: boolean;
   examTranscript?: string;
   onModelTranscription?: (text: string) => void;
@@ -206,7 +207,11 @@ function buildFeedbackInstruction(config: LiveSessionConfig): string {
     ? `Gib dein Feedback auf ${feedbackLang}.`
     : 'Sprich durchgehend Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch.';
 
-  return `Du bist ein strenger aber fairer bayerischer Abiturprüfer. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung.
+  const prüferRolle = config.gender === 'female'
+    ? 'eine strenge aber faire bayerische Abiturprüferin'
+    : 'ein strenger aber fairer bayerischer Abiturprüfer';
+
+  return `Du bist ${prüferRolle}. Gib MÜNDLICHES FEEDBACK zur Kolloquiumsprüfung.
 Fach: ${config.subject} (${config.examLevel}), Schwerpunkt: ${config.schwerpunkt}
 
 TRANSKRIPT:
@@ -221,7 +226,9 @@ function buildExamInstruction(config: LiveSessionConfig): string {
   const hj = config.schwerpunktHalbjahr;
   const weitere = config.weitereHalbjahre.join(' und ');
 
-  let instruction = `Du bist Prüfer im bayerischen Abitur-Kolloquium 2026.
+  const prüferLabel = config.gender === 'female' ? 'Prüferin' : 'Prüfer';
+
+  let instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
 Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj}), weitere HJ: ${weitere}.`;
 
   if (config.aufgabenstellung) {
@@ -313,7 +320,7 @@ export class LiveSession {
         config: {
           responseModalities: [Modality.AUDIO],
           speechConfig: {
-            voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } },
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: this.config.gender === 'female' ? 'Kore' : 'Puck' } },
           },
           systemInstruction: this.instruction,
           inputAudioTranscription: {},

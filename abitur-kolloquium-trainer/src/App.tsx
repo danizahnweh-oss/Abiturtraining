@@ -147,6 +147,10 @@ export default function App() {
   const sessionRef = useRef<LiveSession | null>(null);
   const micRef = useRef<AudioProcessor | null>(null);
 
+  /* Prüfer-Geschlecht (zufällig gewählt) */
+  const [examinerGender, setExaminerGender] = useState<'male' | 'female'>('male');
+  const prüferLabel = examinerGender === 'female' ? 'Prüferin' : 'Prüfer';
+
   /* Feedback */
   const [fbType, setFbType] = useState<'written' | 'oral' | null>(null);
   const [fbText, setFbText] = useState('');
@@ -171,6 +175,10 @@ export default function App() {
   const handleGenerate = async () => {
     if (!canGenerate) return;
 
+    // Geschlecht zufällig wählen
+    const gender = Math.random() < 0.5 ? 'male' : 'female' as const;
+    setExaminerGender(gender);
+
     // "Fragen" mode: skip material generation + prep, go straight to exam
     if (examMode === 'fragen') {
       setMaterial({ aufgabenstellung: '', material: '', hinweise: '' });
@@ -185,7 +193,7 @@ export default function App() {
 
       const session = new LiveSession({
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
-        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode,
+        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode, gender,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => setModelTx(prev => [...prev, t]),
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -233,7 +241,7 @@ export default function App() {
     const session = new LiveSession({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
-      examMode,
+      examMode, gender: examinerGender,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -280,7 +288,7 @@ export default function App() {
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
       material: material?.material || '',
-      feedbackMode: true, examTranscript: transcript,
+      gender: examinerGender, feedbackMode: true, examTranscript: transcript,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -630,19 +638,26 @@ export default function App() {
                     ) : status === 'connecting' ? (
                       <div className="text-center">
                         <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
-                        <p className="text-sm opacity-50 italic">Verbindung zum Prüfer wird hergestellt...</p>
+                        <p className="text-sm opacity-50 italic">Verbindung {examinerGender === 'female' ? 'zur' : 'zum'} {prüferLabel} wird hergestellt...</p>
                         <p className="text-xs opacity-35 mt-2">Dies kann bis zu 2 Minuten dauern. Bitte hab Geduld.</p>
-                        <p className="text-xs text-emerald-600/60 mt-2 font-medium">Tipp: Begrüße den Prüfer – das hilft manchmal, das Gespräch zu starten!</p>
+                        <div className="mt-3 px-4 py-2.5 bg-emerald-50 rounded-xl border border-emerald-200">
+                          <p className="text-sm text-emerald-700 font-medium">Tipp: Begrüße {examinerGender === 'female' ? 'die' : 'den'} {prüferLabel} – das hilft, das Gespräch zu starten!</p>
+                        </div>
                       </div>
                     ) : status === 'error' ? (
                       <p className="text-sm text-red-500 italic">Verbindungsfehler. Bitte Prüfung beenden und neu starten.</p>
                     ) : modelTx.length > 0 ? (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest opacity-30 mb-2">Prüfer</p>
+                        <p className="text-xs font-semibold uppercase tracking-widest opacity-30 mb-2">{prüferLabel}</p>
                         <p className="text-base leading-relaxed text-slate-800">{modelTx[modelTx.length - 1]}</p>
                       </div>
                     ) : (
-                      <p className="text-sm opacity-40 italic">Der Prüfer wird gleich beginnen...</p>
+                      <div className="text-center">
+                        <p className="text-sm opacity-40 italic mb-3">{examinerGender === 'female' ? 'Die' : 'Der'} {prüferLabel} wird gleich beginnen...</p>
+                        <div className="px-4 py-2.5 bg-emerald-50 rounded-xl border border-emerald-200">
+                          <p className="text-sm text-emerald-700 font-medium">Tipp: Begrüße {examinerGender === 'female' ? 'die' : 'den'} {prüferLabel} – das hilft, das Gespräch zu starten!</p>
+                        </div>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -669,13 +684,13 @@ export default function App() {
                   ? "Halte dein Kurzreferat. Nutze deine Notizen als Stütze."
                   : examMode === 'fragen'
                     ? (exam.elapsed < 5 * 60
-                      ? "Der Prüfer stellt Fragen zu deinem Schwerpunktthema."
-                      : "Der Prüfer fragt jetzt zu den weiteren Halbjahren.")
+                      ? `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} stellt Fragen zu deinem Schwerpunktthema.`
+                      : `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} fragt jetzt zu den weiteren Halbjahren.`)
                     : exam.phase === 'referat'
                       ? "Halte dein Kurzreferat. Nutze deine Notizen als Stütze."
                       : exam.phase === 'fragen-schwerpunkt'
-                        ? "Der Prüfer stellt Fragen zu deinem Schwerpunktthema."
-                        : "Der Prüfer fragt jetzt zu den weiteren Halbjahren."}
+                        ? `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} stellt Fragen zu deinem Schwerpunktthema.`
+                        : `${examinerGender === 'female' ? 'Die' : 'Der'} ${prüferLabel} fragt jetzt zu den weiteren Halbjahren.`}
               </p>
             </motion.div>
           )}
@@ -703,7 +718,7 @@ export default function App() {
                   >
                     <Volume2 size={28} className="text-emerald-600 mb-3 group-hover:scale-110 transition-transform" />
                     <p className="font-semibold mb-1 text-slate-800">Mündlich</p>
-                    <p className="text-xs opacity-60">Der KI-Prüfer bespricht dein Ergebnis live mit dir.</p>
+                    <p className="text-xs opacity-60">{examinerGender === 'female' ? 'Die KI-Prüferin' : 'Der KI-Prüfer'} bespricht dein Ergebnis live mit dir.</p>
                   </button>
                 </div>
               </div>
@@ -760,7 +775,7 @@ export default function App() {
                       </motion.div>
                     </div>
                     <h2 className="text-xl font-semibold mb-1 text-slate-800">Mündliches Feedback</h2>
-                    <p className="text-sm opacity-50 mb-6 text-slate-500">Der Prüfer bespricht dein Ergebnis mit dir.</p>
+                    <p className="text-sm opacity-50 mb-6 text-slate-500">{examinerGender === 'female' ? 'Die' : 'Der'} {prüferLabel} bespricht dein Ergebnis mit dir.</p>
 
                     <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5 relative overflow-hidden">
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
