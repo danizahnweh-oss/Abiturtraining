@@ -766,24 +766,63 @@
       meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
 
       // Render material (for Langaufgaben)
+      destroyMaterialCharts();
       if (d.material && d.material.length) {
         var matContainer = document.createElement("div");
         matContainer.style.cssText = "margin:1rem 0";
-        d.material.forEach(function (m) {
-          var details = document.createElement("details");
-          details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-          var summary = document.createElement("summary");
-          summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-          summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
-          var body = document.createElement("div");
-          body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
-          body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
-          renderMath(body);
-          details.appendChild(summary);
-          details.appendChild(body);
-          matContainer.appendChild(details);
+        d.material.forEach(function (m, mIdx) {
+          var isChartMaterial = (m.type === "statistik" || m.type === "diagramm") && m.text;
+
+          if (isChartMaterial) {
+            // Chart-Material: Grafik prominent, Rohdaten einklappbar
+            var wrapper = document.createElement("div");
+            wrapper.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;padding:1rem";
+            var title = document.createElement("div");
+            title.style.cssText = "font-weight:600;color:var(--accent);margin-bottom:.8rem";
+            title.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
+            wrapper.appendChild(title);
+
+            var chartWrap = document.createElement("div");
+            chartWrap.style.cssText = "position:relative;height:280px;margin-bottom:.5rem";
+            var canvas = document.createElement("canvas");
+            canvas.id = "materialChart_" + mIdx;
+            chartWrap.appendChild(canvas);
+            wrapper.appendChild(chartWrap);
+
+            // Rohdaten einklappbar
+            var rawDetails = document.createElement("details");
+            rawDetails.style.cssText = "margin-top:.5rem";
+            var rawSummary = document.createElement("summary");
+            rawSummary.style.cssText = "cursor:pointer;font-size:.8rem;color:var(--ink-muted)";
+            rawSummary.textContent = "Rohdaten anzeigen";
+            var rawBody = document.createElement("div");
+            rawBody.style.cssText = "padding:.5rem 0;font-size:.85rem;line-height:1.6;overflow-x:auto";
+            rawBody.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
+            renderMath(rawBody);
+            rawDetails.appendChild(rawSummary);
+            rawDetails.appendChild(rawBody);
+            wrapper.appendChild(rawDetails);
+
+            matContainer.appendChild(wrapper);
+          } else {
+            // Normales Material (Text, Bild): wie bisher als <details>
+            var details = document.createElement("details");
+            details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
+            var summary = document.createElement("summary");
+            summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
+            summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
+            var body = document.createElement("div");
+            body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
+            body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
+            renderMath(body);
+            details.appendChild(summary);
+            details.appendChild(body);
+            matContainer.appendChild(details);
+          }
         });
         instrEl.closest(".card").insertBefore(matContainer, container);
+        // Charts rendern nachdem Canvas-Elemente im DOM sind
+        renderMaterialCharts(d.material);
       }
 
       // Write step reference
@@ -1186,6 +1225,102 @@
 
     // Render default fallback textarea on page load (before any task is generated)
     renderStudentTextareas({ teilaufgaben: [] });
+
+    /* ====== MATERIAL-TABELLEN → CHART.JS GRAFIKEN ====== */
+    var _materialCharts = [];
+
+    function destroyMaterialCharts() {
+      _materialCharts.forEach(function(c) { try { c.destroy(); } catch(e) {} });
+      _materialCharts = [];
+    }
+
+    function parseMarkdownTable(mdText) {
+      if (!mdText || typeof mdText !== "string") return null;
+      var lines = mdText.split("\n").filter(function(l) { return l.trim().indexOf("|") === 0; });
+      if (lines.length < 3) return null;
+      var headers = lines[0].split("|").map(function(c) { return c.trim(); }).filter(Boolean);
+      var rows = [];
+      for (var i = 2; i < lines.length; i++) {
+        var cells = lines[i].split("|").map(function(c) { return c.trim(); }).filter(Boolean);
+        if (cells.length >= 2) rows.push(cells);
+      }
+      if (rows.length < 2) return null;
+      return { headers: headers, rows: rows };
+    }
+
+    function stripMathLabel(text) {
+      return text.replace(/\$([^$]+)\$/g, "$1")
+                 .replace(/\\text\{([^}]+)\}/g, "$1")
+                 .replace(/\\\\/g, "")
+                 .replace(/\\,/g, " ")
+                 .trim();
+    }
+
+    function parseGermanNum(str) {
+      var s = str.replace(/\$([^$]+)\$/g, "$1")
+                 .replace(/\\text\{[^}]*\}/g, "")
+                 .replace(/[^\d,.\-\u2212]/g, "")
+                 .replace("\u2212", "-")
+                 .replace(",", ".");
+      var n = parseFloat(s);
+      return isNaN(n) ? null : n;
+    }
+
+    function renderMaterialCharts(materials) {
+      if (!materials || !materials.length) return;
+      var COLORS = ["#2563eb", "#7c3aed", "#059669", "#d97706", "#dc2626", "#0891b2"];
+
+      materials.forEach(function(m, idx) {
+        if (!m || typeof m !== "object") return;
+        if (m.type !== "statistik" && m.type !== "diagramm") return;
+        var parsed = parseMarkdownTable(m.text);
+        if (!parsed || parsed.rows.length < 2) return;
+
+        var canvas = document.getElementById("materialChart_" + idx);
+        if (!canvas) return;
+
+        var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+        var xHeader = stripMathLabel(parsed.headers[0]);
+        var labels = parsed.rows.map(function(r) { return r[0].replace(/\$/g, ""); });
+        var datasets = [];
+
+        for (var col = 1; col < parsed.headers.length; col++) {
+          var yHeader = stripMathLabel(parsed.headers[col]);
+          var data = parsed.rows.map(function(r) { return parseGermanNum(r[col] || ""); });
+          var c = COLORS[(col - 1) % COLORS.length];
+          datasets.push({
+            label: yHeader,
+            data: data,
+            borderColor: c,
+            backgroundColor: chartType === "bar" ? c + "99" : c + "1a",
+            fill: chartType === "line",
+            tension: chartType === "line" ? 0.3 : 0,
+            borderWidth: 2.5,
+            borderRadius: chartType === "bar" ? 4 : 0,
+            pointRadius: chartType === "line" ? 4 : 0,
+            pointBackgroundColor: c
+          });
+        }
+
+        var chart = new Chart(canvas, {
+          type: chartType,
+          data: { labels: labels, datasets: datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { title: { display: true, text: xHeader, font: { size: 12 } } },
+              y: { title: { display: datasets.length === 1, text: datasets[0] ? datasets[0].label : "", font: { size: 12 } }, beginAtZero: false }
+            },
+            plugins: {
+              title: { display: !!(m.titel), text: m.titel || "", font: { size: 13, weight: "bold" } },
+              legend: { display: datasets.length > 1, position: "bottom" }
+            }
+          }
+        });
+        _materialCharts.push(chart);
+      });
+    }
   </script>
 </body>
 
