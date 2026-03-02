@@ -3789,6 +3789,10 @@ async function handleGenerateAbiturEthik(request, env) {
 
   const lb = lbThemen[lernbereich] || lbThemen["12_1"];
 
+  const schwerpunktZusatz = schwerpunkt && schwerpunkt !== "random"
+    ? '\nGEWÄHLTER SCHWERPUNKT (Aufgabe MUSS sich auf dieses Thema konzentrieren): ' + schwerpunkt
+    : '';
+
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Ethik (ab 2026, G9).
 Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit Prüfungsteil A (${bePruefungA}) und Prüfungsteil B (${bePruefungB}) auf ${niveauLabel}.
 Gesamtumfang: ${beGesamt}.
