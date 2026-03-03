@@ -442,9 +442,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // WR12 LB2 (BWL) = 12/1, LB3 (VWL) = 12/2; WR13 LB2 (Recht) = 13/1, LB3 (VWL international) = 13/2
     halbjahre: {
       '12/1': [
-        'Betriebswirtschaftslehre: Unternehmen gründen und führen',
-        'Organisation, Rechtsformen und Personalmanagement',
-        'Marketing, Investition und Finanzierung',
+        'Unternehmerische Zielsetzungen, Stakeholder und Zielkonflikte',
+        'Beschaffung, Absatz und Break-even-Analyse',
+        'Investitionsrechnung, Finanzierung und Erfolgskennzahlen',
       ],
       '12/2': [
         'Volkswirtschaftliche Gesamtrechnung und Wirtschaftskreislauf',
