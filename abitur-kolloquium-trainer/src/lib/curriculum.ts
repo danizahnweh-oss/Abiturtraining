@@ -154,21 +154,21 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     halbjahre: {
       '12/1': [
         'Sinnfrage und Gottesfrage (Theodizee, Trinität)',
-        'Religionskritik (Feuerbach, Projektionsthese)',
-        'Menschenbild: Identität, Fragmentarität, Sünde und Rechtfertigung',
+        'Religionskritik: Projektionstheorie (Feuerbach)',
+        'Der im-perfekte Mensch: Identität, Fragmentarität, Sünde und Rechtfertigung',
       ],
       '12/2': [
         'Homo faber: Arbeit und Beruf (Luther, Marx)',
         'Schöpfungsglaube und Freiheit eines Christenmenschen (Luther)',
-        'Kirche in der Gesellschaft und Zwei-Reiche-Lehre',
+        'Christsein in der Gesellschaft: Zwei-Reiche-Lehre und Königsherrschaft Christi (Luther, Barth)',
       ],
       '13/1': [
-        'Ethische Grundmodelle (Kant, Utilitarismus, Verantwortungsethik)',
-        'Christliche Ethik: Dekalog und Bergpredigt',
+        'Ethische Grundmodelle (Kant, Utilitarismus, ggf. Diskursethik)',
+        'Christliche Ethik: Dekalog, Bergpredigt und Doppelgebot der Liebe',
         'Angewandte Ethik (Medizinethik, Friedensethik)',
       ],
       '13/2': [
-        'Eschatologie und Reich Gottes',
+        'Eschatologie: Reich Gottes, „schon und noch nicht"',
         'Tod, Endlichkeit und Auferstehungshoffnung',
         'Christliche Zukunftsvisionen und Lebenssinn',
       ],
