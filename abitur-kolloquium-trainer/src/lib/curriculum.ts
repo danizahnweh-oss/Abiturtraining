@@ -294,27 +294,52 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 
   'Geschichte': {
     // G12 LB1 = 12/1, G12 LB2 = 12/2, G13 LB1 = 13/1, G13 LB2 = 13/2
+    // LehrplanPLUS Geschichte gA. eA-Schwerpunkte separat in halbjahreEA.
     halbjahre: {
       '12/1': [
-        'Die deutsche Revolution von 1848/49 und bürgerliche Gesellschaft',
-        'Politische und gesellschaftliche Modernisierung im Kaiserreich',
-        'Demokratisierung und Gesellschaft in der Weimarer Republik',
+        'Die deutsche Revolution von 1848/49 und bürgerliche Gesellschaft (Vormärz, Hambacher Fest, Paulskirchenparlament)',
+        'Politische und gesellschaftliche Modernisierung im Kaiserreich (Verfassung, Soziale Frage, Arbeiterbewegung, Sozialgesetzgebung)',
+        'Demokratisierung und Gesellschaft in der Weimarer Republik (Novemberrevolution, Weimarer Reichsverfassung, Frauenbewegung)',
       ],
       '12/2': [
-        'Scheitern der Weimarer Republik',
-        'NS-Diktatur und Völkermord',
-        'Die Bundesrepublik Deutschland und die DDR',
-        'Deutsche Einheit und die Bundesrepublik 1990–2009',
+        'Scheitern der Weimarer Republik (Präsidialkabinette, Aufbau des NS-Staats)',
+        'NS-Diktatur und Völkermord (NS-Ideologie, Volksgemeinschaft, Holocaust/Shoa, Vernichtungskrieg)',
+        'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Systemvergleich, Wiedervereinigung)',
+        'Deutsche Einheit und die Bundesrepublik 1990–2009 (Aufarbeitung SED-Diktatur, Agenda 2010, Extremismus)',
       ],
       '13/1': [
-        'Die historische Entwicklung des israelisch-palästinensischen Konflikts',
-        'USA im 20. und 21. Jahrhundert (Supermacht und Weltordnung)',
-        'Russland und China im 20. und 21. Jahrhundert',
+        'Die historische Entwicklung des israelisch-palästinensischen Konflikts (Diaspora, Zionismus, Gründung Israels, Friedensbemühungen)',
+        'USA im 20. und 21. Jahrhundert (Führungsmacht, Kalter Krieg, Weltordnung)',
+        'Russland und China im 20. und 21. Jahrhundert (Zerfall der Sowjetunion, Transformation Chinas, UNO-Agieren)',
       ],
       '13/2': [
-        'Historische Grundlagen moderner demokratischer Staatsordnungen',
-        'Menschenrechte und ihre historische Entwicklung',
-        'Von nationalistischer Konfrontation zu europäischer Integration',
+        'Historische Grundlagen moderner demokratischer Staatsordnungen (attische Demokratie, Heiliges Römisches Reich, Aufklärung: Menschenrechte, Volkssouveränität, Gewaltenteilung)',
+        'Von nationalistischer Konfrontation zu europäischer Integration (Nationsvorstellungen um 1800, deutsch-französisches Verhältnis, europäische Einigung nach 1945)',
+      ],
+    },
+    // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Geschichte 12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Die Herausbildung einer bürgerlichen Gesellschaft (Französische Revolution 1789, Vormärz, Revolution 1848/49 als europäisches Revolutionsjahr, Paulskirchenparlament)',
+        'Modernisierung im Kaiserreich und Weimarer Republik (Verfassung, Soziale Frage, Novemberrevolution 1918, Weimarer Reichsverfassung, Großstädte als moderne Lebenserfahrungen)',
+        'Vertiefungsmodul: Jüdisches Leben zwischen Emanzipation und Ausgrenzung (Haskala, Landjudentum, jüdische Selbstzeugnisse, Beitrag zu Modernisierungsprozessen)',
+      ],
+      '12/2': [
+        'Scheitern der Weimarer Republik – NS-Diktatur und Völkermord (Faschismus im Kontext der Moderne, NS-Ideologie, Zweiter Weltkrieg als Weltanschauungs- und totaler Krieg, Widerstand gegen NS)',
+        'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Protest in West und Ost – Friedens-/Umweltbewegung, Grundgesetz im Wiedervereinigungsprozess)',
+        'Die Bundesrepublik Deutschland 1990–2013 (Aufarbeitung SED-Diktatur, Agenda 2010, Atomausstieg, Extremismus, internationale Konflikte – Kosovo, ISAF-Afghanistan)',
+        'Vertiefungsmodul: Deutsche Demokratiegeschichte in der öffentlichen Erinnerung (Erinnerungskultur, Geschichtspolitik, Nationalfeiertage und Gedenktage)',
+      ],
+      '13/1': [
+        'Die historische Entwicklung des israelisch-palästinensischen Konflikts (Diaspora, Zionismus, Gründung Israels, Friedensbemühungen)',
+        'USA im 20./21. Jh. (Führungsmacht, Kalter Krieg, geopolitische Neuausrichtung seit 2000, NATO-Osterweiterung, Pazifikraum)',
+        'Russland im 20./21. Jh. (Stalinismus, Sowjetunion als sozialistische Führungsmacht, Reformpolitik Gorbatschows, Neuausrichtung seit 1990er-Jahren)',
+        'China im 20./21. Jh. (Maoismus, wirtschaftliche Transformation, geopolitische und ökonomische Interessenpolitik)',
+        'Vertiefungsmodul: Internationale Konfliktfelder im Nahen und Mittleren Osten (Osmanisches Reich, Imperialismus, Kalter Krieg in der Region, Regionalmächte Israel/Saudi-Arabien/Türkei/Iran, Chinas Neue Seidenstraße)',
+      ],
+      '13/2': [
+        'Historische Grundlagen moderner demokratischer Staatsordnungen (attische Demokratie, Imperium Romanum – Verwaltung und römisches Recht, Heiliges Römisches Reich – Goldene Bulle, Föderalismus, Aufklärung)',
+        'Von nationalistischer Konfrontation zu europäischer Integration (Nationsvorstellungen in Deutschland, Frankreich und Polen, deutsch-französisches und deutsch-polnisches Verhältnis, Besatzung Polens im WWII, europäische Einigung)',
       ],
     },
   },
