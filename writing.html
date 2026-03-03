@@ -1123,17 +1123,20 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
     async function loadCartoonImage(prompt, containerId) {
       try {
+        const el = document.getElementById(containerId);
+        if (!el) return;
         const d = await apiCall("/api/generate-image", { prompt: prompt });
         const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
         const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        document.getElementById(containerId).innerHTML =
+        el.innerHTML =
           '<figure style="margin:0;text-align:center;">' +
           '<img src="' + d.url + '" alt="Cartoon" style="max-width:100%;border-radius:var(--radius-sm);border:1px solid var(--border);">' +
           caption + credit + '</figure>';
         CONFIG.cartoonUrl = d.url;
       } catch (e) {
         console.error("Cartoon-Fehler:", e);
-        document.getElementById(containerId).innerHTML =
+        const el = document.getElementById(containerId);
+        if (el) el.innerHTML =
           '<div style="color:var(--warning);font-size:.85rem;padding:.5rem;">Cartoon konnte nicht geladen werden.</div>';
       }
     }
