@@ -70,6 +70,58 @@ const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
 
 const UEBUNGSAUFGABEN_ANWEISUNG = `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
+/* ================= KORREKTURHILFE GEWÄHRLEISTUNGSRECHT ================= */
+const KORREKTURHILFE_GEWAEHRLEISTUNG = `
+KORREKTURHILFE GEWÄHRLEISTUNGSRECHT (bei Rechtsaufgaben zum Thema Mängelrecht/Gewährleistung anwenden):
+
+1. MANGELBEGRIFF – Was Schüler können müssen:
+- Mangel identifizieren unter Rückgriff auf die Systematik
+- Fachsprache verwenden: subjektive Anforderungen, objektive Anforderungen, Montage-/Installations-/Integrationsanforderungen, Aliud-Lieferung
+- Mangelfreiheit erfordert Erfüllung ALLER Anforderungskategorien gleichrangig (kein Vorrang der vereinbarten Beschaffenheit!)
+- Subjektive Anforderungen: vereinbarte Beschaffenheit, vereinbarte Verwendung, vereinbartes Zubehör/Anleitungen/Aktualisierungen
+- Objektive Anforderungen: gewöhnliche Verwendung, übliche Beschaffenheit (Haltbarkeit, Funktionalität, Kompatibilität, Sicherheit), erwartbares Zubehör/Verpackung/Anleitungen, erwartbare Aktualisierungen
+- Montage-/Installationsanforderungen: sachgemäße Durchführung ODER unsachgemäß, aber nicht bedingt durch Verkäufer/mangelhafte Anleitung
+- Aliud-Lieferung = Lieferung einer anderen als der geschuldeten Sache steht einem Mangel gleich
+- KEINE aktive Zuordnung zu den vier Regelkreisen (§ 434, § 475b, § 475c, §§ 327e/f) erforderlich
+- Paragrafen sind NUR Merkhilfe, nicht zu fordern
+
+2. STUFENSTRUKTUR (Kernwissen!):
+Stufe 1 – Vorrang der Nacherfüllung:
+- Nacherfüllung hat Vorrang (pacta sunt servanda)
+- Käufer hat Wahlrecht: Nachbesserung (Reparatur) ODER Neulieferung (Ersatzlieferung)
+- Verkäufer trägt Kosten
+- Frist: angemessene Frist ab Information über Mangel – KEINE aktive Fristsetzung durch Verbraucher beim Verbrauchsgüterkauf mehr nötig!
+- Verkäufer kann bei unverhältnismäßigen Kosten verweigern
+
+Stufe 2 – Nachrangige Rechte (Rücktritt/Vertragsbeendigung, Minderung, SE statt der Leistung):
+Übergang möglich wenn EINE der folgenden Voraussetzungen erfüllt:
+(1) Fristablauf: Nacherfüllung nicht innerhalb angemessener Frist nach Unterrichtung über Mangel
+(2) Fehlgeschlagene Nacherfüllung (grundsätzlich nach 1. Fehlversuch beim Verbrauchsgüterkauf)
+(3) Schwerwiegender Mangel: sofortiges Lösen gerechtfertigt
+(4) Verweigerung: Verkäufer verweigert Nacherfüllung (muss NICHT "ernsthaft und endgültig" sein!)
+(5) Offensichtlichkeit: offensichtlich keine ordnungsgemäße Nacherfüllung
+(6) Unmöglichkeit (nur eA)
+
+Zusätzliche Voraussetzung für Rücktritt + SE statt Leistung: Mangel muss ERHEBLICH sein
+Minderung: gleiche Voraussetzungen wie Rücktritt, aber OHNE Erheblichkeit
+
+3. SCHADENSERSATZ – Wichtige Unterscheidung:
+- SE NEBEN der Leistung (Mangelfolgeschaden): steht NEBEN Nacherfüllung, ist KEIN nachrangiges Recht! Voraussetzung: Pflichtverletzung + Vertretenmüssen. Betrifft Integritätsinteresse (Schäden an anderen Rechtsgütern).
+- SE STATT der Leistung: nachrangiges Recht (gleiche Voraussetzungen wie Rücktritt) + Vertretenmüssen + erheblicher Mangel + kausaler Schaden
+
+4. VERBRAUCHERSCHUTZ:
+- Beweislastumkehr: 1 Jahr ab Gefahrübergang (Tiere: 6 Monate)
+- Keine aktive Fristsetzung mehr nötig (§ 475 V BGB)
+- Aktualisierungspflicht: Mangel wegen fehlender Aktualisierung kann auch NACH Gefahrübergang entstehen
+
+5. HÄUFIGE SCHÜLERFEHLER (besonders beachten bei Bewertung!):
+- Sofort Rücktritt fordern ohne Nacherfüllung zu berücksichtigen → Punktabzug
+- SE neben der Leistung als nachrangiges Recht behandeln → Punktabzug
+- Minderung mit Rücktritt gleichsetzen (Minderung braucht KEINE Erheblichkeit) → Punktabzug
+- "Frist setzen" als Voraussetzung nennen (beim Verbrauchsgüterkauf nicht mehr nötig) → Hinweis im Feedback
+- Bei Aktualisierungspflicht vergessen, dass Gefahrübergang nicht allein maßgeblich ist → Hinweis
+`;
+
 /* ---- Token-System (HMAC-SHA256) ---- */
 async function generateToken(env, secret) {
   const secretKey = secret || env.ACCESS_PASSWORD;
@@ -2928,8 +2980,13 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "Teilaufgabe 1.1", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}]
 }`;
 
+  // Korrekturhilfe Gewährleistungsrecht bei Rechtsaufgaben einfügen
+  const aufgabenText = (aufgabenInfo + (task_instruction || '')).toLowerCase();
+  const istRechtsaufgabe = aufgabenText.includes('recht') || aufgabenText.includes('mangel') || aufgabenText.includes('gewährleist') || aufgabenText.includes('nacherfüllung') || aufgabenText.includes('verbrauchsgüterkauf') || aufgabenText.includes('bgb') || aufgabenText.includes('schadensersatz') || aufgabenText.includes('rücktritt') || aufgabenText.includes('kaufvertrag');
+  const rechtsKorrektur = istRechtsaufgabe ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
+
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "system", content: rubricPrompt + rechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
   ];
 
@@ -3010,8 +3067,13 @@ Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
     }
   }
 
+  // Bei Rechtsaufgaben Gewährleistungs-Systematik als Referenz einfügen
+  const maText = (userContent + (task_instruction || '')).toLowerCase();
+  const maIstRecht = maText.includes('recht') || maText.includes('mangel') || maText.includes('gewährleist') || maText.includes('nacherfüllung') || maText.includes('verbrauchsgüterkauf') || maText.includes('bgb') || maText.includes('schadensersatz') || maText.includes('rücktritt') || maText.includes('kaufvertrag');
+  const maRechtsRef = maIstRecht ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
+
   const answer = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + maRechtsRef },
     { role: "user", content: userContent }
   ], 6000);
 
@@ -3454,8 +3516,13 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "Teilaufgabe 1.1", "aspekte": ["fehlender Punkt 1"]}]
 }`;
 
+  // Korrekturhilfe Gewährleistungsrecht bei Rechtsaufgaben einfügen
+  const abiWrText = contextInfo.toLowerCase();
+  const abiIstRecht = abiWrText.includes('recht') || abiWrText.includes('mangel') || abiWrText.includes('gewährleist') || abiWrText.includes('nacherfüllung') || abiWrText.includes('verbrauchsgüterkauf') || abiWrText.includes('bgb') || abiWrText.includes('schadensersatz') || abiWrText.includes('rücktritt') || abiWrText.includes('kaufvertrag');
+  const abiRechtsKorrektur = abiIstRecht ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
+
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "system", content: rubricPrompt + abiRechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
     { role: "user", content: `${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}` }
   ];
 
@@ -3556,8 +3623,13 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Bl
     }
   }
 
+  // Bei Rechtsaufgaben Gewährleistungs-Systematik als Referenz einfügen
+  const abiMaText = userContent.toLowerCase();
+  const abiMaIstRecht = abiMaText.includes('recht') || abiMaText.includes('mangel') || abiMaText.includes('gewährleist') || abiMaText.includes('nacherfüllung') || abiMaText.includes('verbrauchsgüterkauf') || abiMaText.includes('bgb') || abiMaText.includes('schadensersatz') || abiMaText.includes('rücktritt') || abiMaText.includes('kaufvertrag');
+  const abiMaRechtsRef = abiMaIstRecht ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
+
   const answer = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
+    { role: "system", content: systemPrompt + abiMaRechtsRef },
     { role: "user", content: userContent }
   ], 10000);
 
