@@ -180,21 +180,20 @@
             <label>Epoche</label>
             <select id="epocheSelect">
               <option value="random">Zufällig</option>
-              <option value="sturm_und_drang">Sturm und Drang</option>
-              <option value="klassik">Weimarer Klassik</option>
-              <option value="romantik">Romantik</option>
-              <option value="realismus">Realismus</option>
-              <option value="um1900">Umbrüche um 1900</option>
-              <option value="expressionismus">Expressionismus</option>
-              <option value="moderne">Moderne</option>
+              <option value="klassik_romantik">Klassik und Romantik</option>
+              <option value="realismus">Realismus (19. Jh.)</option>
+              <option value="moderne">Moderne (Jahrhundertwende – Mitte 20. Jh.)</option>
+              <option value="nachkrieg">Nachkriegszeit bis Mauerfall</option>
+              <option value="gegenwart">Literatur seit 1989</option>
             </select>
           </div>
           <div class="form-group">
             <label>Schreibauftrag</label>
             <select id="schreibauftragSelect">
               <option value="motivvergleich">Motivvergleich</option>
-              <option value="poetologisch">Poetologisch</option>
-              <option value="lektuere">Lektürebezug</option>
+              <option value="poetologisch">Poetologische Ausrichtung</option>
+              <option value="lektuere">Lektürebezug (Pflichtlektüre)</option>
+              <option value="themenfeld">Themenfeldbezug</option>
             </select>
           </div>
         </div>
@@ -503,9 +502,22 @@ Tipp: Strukturiere deinen Text:
   <script>
     CONFIG.gattung = "lyrik";
 
-    const BEWERTUNG_PROMPT = `Du bewertest eine Interpretation nach ISB-Kriterien.
-VERSTEHEN (70%): Textverständnis, Deutungshypothese, Analyse, Textbelege, Kontext
-DARSTELLUNG (30%): Aufbau, Fachsprache, Ausdruck, Sprachrichtigkeit
+    const BEWERTUNG_PROMPT = `Du bewertest eine Interpretation eines literarischen Textes (Aufgabe 1/2, IL) nach ISB-Kriterien für das bayerische Abitur G9.
+
+VERSTEHENSLEISTUNG (70%):
+- Differenzierte Erschließung und Deutung des Textes
+- Schlüssige Deutungshypothese und deren konsequente Verfolgung
+- Analyse formaler und sprachlicher Gestaltungsmittel in ihrer Funktion
+- Qualität und Passgenauigkeit der Textbelege (Zitate)
+- Einordnung in den literarischen/epochalen Kontext
+- Bearbeitung des weiterführenden Schreibauftrags (Teil 2)
+
+DARSTELLUNGSLEISTUNG (30%):
+1. Aufgabenbezug und Textsortenpassung: Interpretationsaufbau, Kohärenz
+2. Fachsprache: Korrekte Verwendung literaturwissenschaftlicher Fachbegriffe
+3. Umgang mit Bezugstexten: Zitiertechnik, Paraphrase, Textverweise
+4. Ausdruck und Stil: Differenzierter, analytischer Sprachstil
+5. Sprachrichtigkeit: Rechtschreibung, Grammatik, Zeichensetzung
 
 WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen (insbesondere bei der Darstellungsleistung). Erwähne dies explizit im Feedback.
 

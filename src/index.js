@@ -1637,7 +1637,10 @@ KRITISCH - Textlängen wie im echten bayerischen Abitur:
 - Drama: 100-150 Zeilen zusammenhängender Dialog mit Sprecherangaben und Regieanweisungen (800-1200 Wörter)
 - Epik: Geschlossener Prosatext von 1000-1500 Wörtern
 
-Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist, Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, Eichendorff, Droste-Hülshoff, etc.`;
+Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist (Der zerbrochne Krug – G9-Pflichtlektüre!), Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, Eichendorff, Droste-Hülshoff, Erpenbeck (Heimsuchung – G9-Pflichtlektüre!), Borchert, Bachmann, Bernhard, Herta Müller, etc.
+
+LehrplanPLUS-Epochen (G9): Klassik und Romantik, Realismus (19. Jh.), Moderne (Jahrhundertwende – Mitte 20. Jh.), Nachkriegszeit bis Mauerfall, Literatur seit 1989.
+Ländergemeinsames Themenfeld 2026: "Umbrüche in der deutschsprachigen Literatur um 1900".`;
 
   } else if (type === "analyse") {
     systemPrompt = `Du erstellst Analyseaufgaben für pragmatische Texte (Deutsch-Abitur Bayern, ab 2026).
@@ -1671,7 +1674,9 @@ Antworte NUR mit validem JSON:
 KRITISCH: Der Text MUSS 1000-1500 Wörter lang sein! Das ist die Länge eines vollständigen Zeitungsartikels oder Essays. Keine Zusammenfassung, sondern ein ausführlicher, durchargumentierter Text mit Einleitung, Hauptteil und Schluss.`;
 
   } else if (type === "eroerterung") {
-    systemPrompt = `Du erstellst Erörterungsaufgaben für das Deutsch-Abitur Bayern (ab 2026).
+    systemPrompt = `Du erstellst textbezogene Erörterungsaufgaben (Aufgabe 4, EP) für das Deutsch-Abitur Bayern G9 (ab 2026).
+
+Bei der Erörterung pragmatischer Texte erhalten die Schüler einen heuristischen Zieltext und verfassen eine textbezogene Erörterung.
 
 WICHTIG - TEXTLÄNGE WIE IM ECHTEN ABITUR:
 - Der Ausgangstext muss 1000-1500 Wörter lang sein (ca. 2-3 Druckseiten)
@@ -1680,8 +1685,8 @@ WICHTIG - TEXTLÄNGE WIE IM ECHTEN ABITUR:
 - Typische Quellen: Zeitungskommentare, Kolumnen, Essays, Reden (FAZ, Die Zeit, SZ, Spiegel)
 
 Die Aufgabenstellung hat ZWEI Teile:
-- Teil a) (40%): Analyse der zentralen Aussage und Argumentationsstruktur des Textes
-- Teil b) (60%): Erörterung der im Text vertretenen Position (eigene Stellungnahme mit Argumenten und Beispielen)
+- Teil a) (~40%): Analyse der zentralen Aussage und Argumentationsstruktur des Textes
+- Teil b) (~60%): Erörterung der im Text vertretenen Position (eigene Stellungnahme mit Argumenten und Beispielen)
 
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erörtern Sie die Position des Autors (Digitalisierung, soziale Medien, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
@@ -1692,11 +1697,11 @@ Antworte NUR mit validem JSON:
   "primary_meta": "Autor, Quelle, Erscheinungsdatum",
   "thema": "Themenbereich"
 }`;
-    userPrompt = `Erstelle eine Erörterungsaufgabe:
+    userPrompt = `Erstelle eine textbezogene Erörterungsaufgabe (Aufgabe 4, EP):
 - Thema: ${thema === "random" ? "frei wählbar (aktuell, kontrovers, gesellschaftlich relevant)" : truncate(thema, 200)}
-- Typ: ${truncate(typ, 100)}
 
-KRITISCH: Der Ausgangstext MUSS 1000-1500 Wörter lang sein! Ein vollständiger Meinungsartikel mit These, Argumenten, Belegen und Schlussfolgerung. Keine Kurzfassung!`;
+KRITISCH: Der Ausgangstext MUSS 1000-1500 Wörter lang sein! Ein vollständiger Meinungsartikel mit These, Argumenten, Belegen und Schlussfolgerung. Keine Kurzfassung!
+Die Aufgabe muss zweiteilig sein: a) Analyse der Argumentation (~40%) + b) Erörterung der Position (~60%).`;
 
   } else if (type === "materialgestuetzt") {
     systemPrompt = `Du erstellst materialgestützte Schreibaufgaben für das Deutsch-Abitur Bayern (ab 2026).
