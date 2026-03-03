@@ -2527,6 +2527,10 @@ async function handleGenerateAbiturPuG(request, env) {
     ? hj.schwerpunkte[schwerpunkt]
     : "frei wählbar innerhalb des Halbjahres";
 
+  const schwerpunktZusatz = (schwerpunkt && schwerpunkt !== "random" && hj.schwerpunkte[schwerpunkt])
+    ? `\n\n⚠️ THEMATISCHER SCHWERPUNKT: ${hj.schwerpunkte[schwerpunkt]}\nDie Aufgabe muss sich schwerpunktmäßig auf dieses Thema beziehen.`
+    : '';
+
   // Determine a different Halbjahr for Teil B transfer
   const allHJ = ["12_1", "12_2", "13_1", "13_2"];
   const otherHJ = allHJ.filter(h => h !== halbjahr);
@@ -5566,6 +5570,10 @@ Geo13 LB3: Segregation, Migration, demographischer Wandel`
   };
 
   const hj = hjThemen[halbjahr] || hjThemen["12_1"];
+
+  const schwerpunktZusatz = (schwerpunkt && schwerpunkt !== "random")
+    ? `\n\n⚠️ THEMATISCHER SCHWERPUNKT: ${schwerpunkt.replace(/_/g, ' ')}\nDie Aufgabe muss sich schwerpunktmäßig auf dieses Thema beziehen.`
+    : '';
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Geographie (ab 2026, G9).
 Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit Prüfungsteil A (${bePruefungA}) und Prüfungsteil B (${bePruefungB}) auf ${niveauLabel}.
