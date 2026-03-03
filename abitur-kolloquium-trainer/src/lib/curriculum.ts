@@ -97,28 +97,28 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Englisch': {
-    // LehrplanPLUS: E12/13 als 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
-    // Themengebiete nach gängiger Schulpraxis gruppiert.
+    // LehrplanPLUS: E12/13 als 2-Jahres-Block (gA + eA), keine offizielle Halbjahr-Zuordnung.
+    // Themengebiete nach gängiger Schulpraxis gruppiert. eA-Vertiefungen in Klammern.
     halbjahre: {
       '12/1': [
         'Ireland: Geography, History, Society and Politics (Troubles, Brexit)',
-        'Ethnic Diversity and Immigration in the UK and North America',
-        'Regional and Social Identities in the UK (Education, Social Classes)',
+        'Ethnic Diversity and Immigration in the UK and North America (British Empire, Commonwealth, Black Britain, Hispanics, Canadian Mosaic)',
+        'Regional and Social Identities in the UK and the USA (Education, Social Classes, Devolution)',
       ],
       '12/2': [
         'The American Dream and Multicultural Society in the USA',
-        'Political Systems in the UK and the USA',
-        'Cultural Life in the UK and the USA (Theatre, Film, Music, Architecture)',
+        'Political Systems in the UK and the USA (Magna Carta, Bill of Rights, Declaration of Independence, Constitution)',
+        'International Relations: USA – UK – EU, Global Role of the USA, Supranational Organisations, Brexit',
       ],
       '13/1': [
         'Science, Technology and the Environment (Ethical Aspects)',
-        'An Anglophone African or Asian Country',
-        'Media in the Information Society',
+        'An Anglophone African or Asian Country (Geography, Society, Politics)',
+        'Media in the Information Society (Media Literacy, Media Landscape)',
       ],
       '13/2': [
-        'Shakespeare and Society',
-        'The 20th/21st Century Novel (Ganzschrift)',
-        'Values, Religion and Social Engagement',
+        'Shakespeare: Elizabethan Theatre and Society; Shakespeare Today',
+        'Literature and Media: The Novel (Ganzschrift), Drama, Poetry, Short Stories, Film',
+        'Values, Religion and Social Engagement (Volunteering, Charity)',
       ],
     },
   },
