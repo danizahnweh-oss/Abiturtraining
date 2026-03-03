@@ -732,25 +732,39 @@
       const meta = document.getElementById("taskMeta");
       meta.textContent = (SG_LABELS[d.sachgebiet || CONFIG.sachgebiet] || "") + " \u00b7 " + (d.gesamt_be || "?") + " BE";
 
+      // Typ-Erkennung: Erkennt englische Bild-Prompts, die fälschlich als "text" typisiert wurden
+      function fixMaterialType(m) {
+        var t = (m.type || "").toLowerCase().trim();
+        if (t === "image" || t === "foto" || t === "photo") return "bild";
+        if (t === "bild" || t === "statistik" || t === "diagramm") return t;
+        var txt = (m.text || m.content || "").trim();
+        if (txt && txt.length > 20 && txt.length < 800 && !/[äöüßÄÖÜ]/.test(txt) && /\b(detailed|showing|depicting|illustration|diagram|image|visual|scene|background|style|color|layout|depicting|arrows?|labels?|boxes?|flowchart|architecture|network)\b/i.test(txt)) {
+          return "bild";
+        }
+        return t || "text";
+      }
+
       // Render material (mit Typ-Erkennung: statistik, diagramm, bild, text)
       if (d.material && d.material.length) {
         var matContainer = document.createElement("div");
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m, idx) {
           try {
+            var mType = fixMaterialType(m);
             var details = document.createElement("details");
             details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
+            if (mType === "bild") details.open = true;
             var summary = document.createElement("summary");
             summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-            var typeIcon = m.type === "statistik" ? "\uD83D\uDCCA " : m.type === "diagramm" ? "\uD83D\uDCC8 " : m.type === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
+            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : mType === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
             summary.textContent = typeIcon + (m.id || "") + " " + (m.titel || "");
             var body = document.createElement("div");
             body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
 
-            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+            if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
               body.innerHTML += '<div class="material-chart"><canvas id="chart-inf-' + idx + '"></canvas></div>';
-            } else if (m.type === "bild") {
+            } else if (mType === "bild") {
               body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else {
               body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
@@ -768,10 +782,11 @@
         // Charts und Bilder nach DOM-Einfügung rendern
         d.material.forEach(function (m, idx) {
           try {
-            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
-              var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+            var mType = fixMaterialType(m);
+            if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
+              var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
-            } else if (m.type === "bild" && (m.text || m.content)) {
+            } else if (mType === "bild" && (m.text || m.content)) {
               loadMaterialImage(m.text || m.content, "img-inf-" + idx);
             }
           } catch (err) {
