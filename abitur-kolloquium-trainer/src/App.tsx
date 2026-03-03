@@ -169,7 +169,7 @@ export default function App() {
   const spOptions = spHalbjahr
     ? (customSp
         ? (customSchwerpunkte[spHalbjahr] || []).filter(s => s.trim())
-        : getSchwerpunkte(subject, spHalbjahr))
+        : getSchwerpunkte(subject, spHalbjahr, level))
     : [];
   const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
@@ -431,8 +431,8 @@ export default function App() {
                         {isMathe && <span className="normal-case tracking-normal ml-2 opacity-70">(Mathe nur eA)</span>}
                       </label>
                       <div className="flex gap-3">
-                        <Pill active={level === 'gA'} disabled={isMathe} onClick={() => !isMathe && setExamLevel('gA')} className="flex-1 text-center">gA – grundlegend</Pill>
-                        <Pill active={level === 'eA'} onClick={() => setExamLevel('eA')} className="flex-1 text-center">eA – erhöht</Pill>
+                        <Pill active={level === 'gA'} disabled={isMathe} onClick={() => { if (!isMathe) { setExamLevel('gA'); setSchwerpunkt(''); } }} className="flex-1 text-center">gA – grundlegend</Pill>
+                        <Pill active={level === 'eA'} onClick={() => { setExamLevel('eA'); setSchwerpunkt(''); }} className="flex-1 text-center">eA – erhöht</Pill>
                       </div>
                     </div>
                   )}
