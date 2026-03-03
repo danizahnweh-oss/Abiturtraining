@@ -237,47 +237,56 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 
   'Geographie': {
     // ISB-bestätigte Halbjahr-Zuordnung: 12/1 = LB 2–4, 12/2 = LB 5–7, 13/1 = LB 2–3, 13/2 = LB 4–5
-    // LehrplanPLUS Geo gA + eA. eA-Vertiefungen in Klammern.
+    // LehrplanPLUS Geo gA. eA-Schwerpunkte separat in halbjahreEA.
     halbjahre: {
       '12/1': [
-        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse, Drei-Zellen-Modell, ENSO; eA: Polarfrontjetstream, Klima-/Vegetationszonen, Klimamodelle und Emissionsszenarien)',
-        'Mensch-Umwelt-Beziehungen in den Tropen (Immerfeuchte/Wechselfeuchte Tropen, Desertifikation, Nachhaltigkeit; eA: Wüstentypen, geopolitische Interessen in den Tropen)',
-        'Subpolare und Polare Zone (Permafrost, Geopolitik, Arktis und Antarktis; eA: Kippelemente des Klimasystems, Klimarekonstruktion – Eisbohrkerne, Tiefseesedimente)',
+        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse, Drei-Zellen-Modell, ENSO)',
+        'Mensch-Umwelt-Beziehungen in den Tropen (Immerfeuchte/Wechselfeuchte Tropen, Desertifikation, Nachhaltigkeit)',
+        'Subpolare und Polare Zone (Permafrost, geopolitische Bedeutung, Arktis und Antarktis)',
       ],
       '12/2': [
-        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen, Wasser, Hochwasser, Wald; eA: Trinkwasserschutz in Deutschland, Bodenprofil/-schutz, Landwirtschaft und Klimaschutz, Flächenmanagement)',
-        'Nutzung und Vulnerabilität von Hochgebirgsräumen (Gebirgsbildung, Massenbewegungen, Gletscherrückzug; eA: nachhaltige Nutzung sensibler Gebirgsräume)',
-        'Gefährdungspotenzial und Risikomanagement (tektonische Ereignisse, Plattentektonik; eA: tropische Wirbelstürme, Vulkanismus/Erdbeben/Tsunamis differenziert)',
+        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen, Wasser, Hochwasser, Wald)',
+        'Nutzung und Vulnerabilität von Hochgebirgsräumen (Gebirgsbildung, Massenbewegungen, Gletscherrückzug)',
+        'Gefährdungspotenzial und Risikomanagement (tektonische Ereignisse, Plattentektonik)',
       ],
       '13/1': [
-        'Globalisierung und Entwicklung (Indikatoren, Disparitäten, fragmentierende Entwicklung; eA: Globalisierung und Deutschland – Standortfaktoren, wirtschaftsräumliche Disparitäten, verschiedene Entwicklungstheorien)',
+        'Globalisierung und Entwicklung (Indikatoren, Disparitäten, fragmentierende Entwicklung)',
         'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland)',
-        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze; eA: Rohstoffabbau in Extremräumen, geopolitische Bedeutung)',
-        'Regenerative Energien und nachhaltiges Ressourcenmanagement (eA: nachhaltige Mobilitätskonzepte)',
+        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze)',
+        'Regenerative Energien und nachhaltiges Ressourcenmanagement',
       ],
       '13/2': [
-        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung; eA: Tragfähigkeit der Erde, sozialgeographische Aspekte – Familienstruktur, Stellung der Frau, Generationenvertrag)',
-        'Bevölkerungsentwicklung in Deutschland (Zu- und Abwanderung, demographischer Wandel; eA: Steuerungsmöglichkeiten und geopolitische Dimension von Migration)',
+        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung)',
+        'Bevölkerungsentwicklung in Deutschland (Zu- und Abwanderung, demographischer Wandel)',
         'Verstädterung, Megastädte und Global Cities',
         'Nachhaltige Stadtentwicklung (Stadtklima, Smart Cities, Bürgerbeteiligung)',
       ],
     },
-    // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Geo13 eA (höhere Stundenzahlen, zusätzliche Themen)
-    // 12/1 und 12/2: Keine eA-Daten vorhanden → Fallback auf gA
+    // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Geo12/13 eA
     halbjahreEA: {
+      '12/1': [
+        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse, Drei-Zellen-Modell, Polarfrontjetstream, ENSO, Klima-/Vegetationszonen, Klimamodelle und Emissionsszenarien)',
+        'Mensch-Umwelt-Beziehungen in den Tropen (Immerfeuchte/Wechselfeuchte/Trockene Tropen, Wüstentypen, Desertifikation, geopolitische Interessen in den Tropen)',
+        'Subpolare und Polare Zone (Permafrost, Kippelemente des Klimasystems, Klimarekonstruktion – Eisbohrkerne/Tiefseesedimente, Geopolitik, Nahrungsmittelproduktion)',
+      ],
+      '12/2': [
+        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen, Wasser und Trinkwasserschutz in Deutschland, Hochwasser, Wald, Bodenprofil/-schutz, Landwirtschaft und Klimaschutz, Flächenmanagement)',
+        'Nutzung und Vulnerabilität von Hochgebirgsräumen (Gebirgsbildung, Massenbewegungen, Gletscherrückzug, Großbauprojekte, Transitverkehr, nachhaltige Nutzung sensibler Gebirgsräume)',
+        'Naturkatastrophen und Risikoforschung (Vulkanismus, Erdbeben, Tsunamis, Plattentektonik, tropische Wirbelstürme, Risikoforschung und Risikomanagement)',
+      ],
       '13/1': [
-        'Globalisierung, Entwicklung und Disparitäten (Indikatoren, fragmentierende Entwicklung, Entwicklungsstrategien)',
+        'Globalisierung, Entwicklung und Disparitäten (Indikatoren, verschiedene Entwicklungstheorien, fragmentierende Entwicklung, Entwicklungsstrategien)',
         'Globalisierung und Standort Deutschland (Standortfaktoren, Wirtschaftsdynamik, wirtschaftsräumliche Disparitäten)',
         'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland, Digitalisierung und Raumwahrnehmung)',
-        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze, Extremräume)',
+        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze, Extremräume, geopolitische Bedeutung)',
         'Regenerative Energien, nachhaltige Mobilitätskonzepte und lokales Ressourcenmanagement',
       ],
       '13/2': [
         'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung, Steuerung und Geopolitik)',
-        'Sozialgeographische Aspekte der Demographie (Familienstruktur, Arbeitswelt, Generationenvertrag)',
+        'Sozialgeographische Aspekte der Demographie (Familienstruktur, Stellung der Frau, Arbeitswelt, Generationenvertrag)',
         'Bevölkerungsentwicklung in Deutschland, Tragfähigkeit der Erde und Bevölkerungsprognosen',
-        'Verstädterung, Megastädte und Global Cities',
-        'Nachhaltige Stadtentwicklung, Ökosystem Stadt und Stadtklima',
+        'Verstädterung, Megastädte und Global Cities (Lösungsansätze)',
+        'Nachhaltige Stadtentwicklung, Ökosystem Stadt, Stadtklima und Urban Gardening',
         'Imageorientierung von Städten (Prestigebauten, Stadtmarketing, Megaevents)',
       ],
     },
