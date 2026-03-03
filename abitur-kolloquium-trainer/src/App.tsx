@@ -136,6 +136,7 @@ export default function App() {
   const [gestrichen, setGestrichen] = useState<'12/1' | '12/2' | ''>('');
   const [spHalbjahr, setSpHalbjahr] = useState('');
   const [schwerpunkt, setSchwerpunkt] = useState('');
+  const [customSp, setCustomSp] = useState(false);
 
   /* Material */
   const [material, setMaterial] = useState<ExamMaterial | null>(null);
@@ -169,7 +170,7 @@ export default function App() {
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
 
   /* ── Reset helpers ── */
-  const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); };
+  const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); };
 
   /* ── Actions ── */
   const handleGenerate = async () => {
@@ -436,7 +437,7 @@ export default function App() {
                       <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Halbjahr kommt dein Schwerpunktthema?</p>
                       <div className="flex gap-3">
                         {availHJ.map(hj => (
-                          <Pill key={hj} active={spHalbjahr === hj} onClick={() => { setSpHalbjahr(hj); setSchwerpunkt(''); }} className="flex-1 text-center">
+                          <Pill key={hj} active={spHalbjahr === hj} onClick={() => { setSpHalbjahr(hj); setSchwerpunkt(''); setCustomSp(false); }} className="flex-1 text-center">
                             <span className="font-medium">{hj}</span>
                           </Pill>
                         ))}
@@ -450,10 +451,23 @@ export default function App() {
                       <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunktthema</label>
                       <div className="grid gap-2">
                         {spOptions.map(opt => (
-                          <Pill key={opt} active={schwerpunkt === opt} onClick={() => setSchwerpunkt(opt)} className="w-full">
+                          <Pill key={opt} active={!customSp && schwerpunkt === opt} onClick={() => { setCustomSp(false); setSchwerpunkt(opt); }} className="w-full">
                             {opt}
                           </Pill>
                         ))}
+                        <Pill active={customSp} onClick={() => { setCustomSp(true); setSchwerpunkt(''); }} className="w-full border-dashed">
+                          <span className="opacity-70">Eigenen Schwerpunkt eingeben…</span>
+                        </Pill>
+                        {customSp && (
+                          <input
+                            type="text"
+                            value={schwerpunkt}
+                            onChange={e => setSchwerpunkt(e.target.value)}
+                            placeholder="z.B. Expressionismus in der Lyrik"
+                            autoFocus
+                            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
+                          />
+                        )}
                       </div>
                     </div>
                   )}
