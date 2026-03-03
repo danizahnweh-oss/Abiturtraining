@@ -8628,6 +8628,9 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter) oder Code-Listing, KEIN Platzhalter
 - "bild" → "text" = ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze), Beschriftungen auf Deutsch
+- Erstelle IMMER mindestens 1 Material vom Typ "bild" (z.B. Architekturdiagramm, Netzwerkdiagramm, Flussdiagramm, UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Schaubild o.Ä.)
+  REGELN für "bild": (1) Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein, in Anführungszeichen angeben und Positionsangabe machen (2) Layout, Farben und visuelle Elemente detailliert beschreiben (3) KEINE Personen!
+  VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
@@ -8642,7 +8645,8 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "material": [
-    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"},
+    {"id": "M2", "titel": "Schaubild: ...", "type": "bild", "text": "<Englischer Imagen-Prompt, Beschriftungen auf Deutsch>"}
   ]
 }`;
 
@@ -10287,15 +10291,18 @@ WICHTIG:
 ${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für gA. Weniger mathematische Tiefe, keine über den gA-Lehrplan hinausgehenden Vertiefungen, zugänglichere Aufgaben.` : ""}
 
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
-- "text": Vollständige Textbeschreibung einer Situation/eines Systems (150-300 Wörter)
+- "text": Vollständige Textbeschreibung einer Situation/eines Systems (150-300 Wörter) oder Code-Listing
 - "statistik" + "chart_type":"bar": Markdown-Tabelle mit Daten (mind. 4-6 Zeilen)
 - "diagramm" + "chart_type":"line": Markdown-Tabelle mit x/y-Werten (mind. 5-8 Werte)
 - "bild": Imagen-Prompt auf ENGLISCH (3-5 Sätze) für UML/Zustandsdiagramm, Beschriftungen auf DEUTSCH
+- Erstelle pro Aufgabengruppe IMMER mindestens 1 Material vom Typ "bild" (z.B. UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Netzwerkdiagramm, Architekturschaubild, Flussdiagramm o.Ä.)
+  REGELN für "bild": (1) Alle Texte/Beschriftungen IM BILD auf DEUTSCH, in Anführungszeichen mit Positionsangabe (2) Layout, Farben, Stil detailliert beschreiben (3) KEINE Personen!
+  VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Pseudocode, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
-Pro Aufgabengruppe: mind. 2-3 Materialien verschiedener Typen.
+Pro Aufgabengruppe: mind. 2-3 Materialien verschiedener Typen (davon mindestens 1x "bild").
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
@@ -10305,7 +10312,8 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "titel": "Titel der Aufgabe",
       "sachgebiet": "sachgebiet_key",
       "material": [
-        {"id": "M1", "titel": "Materialtitel", "type": "text", "text": "Vollständiger Materialtext..."}
+        {"id": "M1", "titel": "Materialtitel", "type": "text", "text": "Vollständiger Materialtext..."},
+        {"id": "M2", "titel": "Diagramm: ...", "type": "bild", "text": "Englischer Imagen-Prompt, Beschriftungen auf Deutsch"}
       ],
       "teilaufgaben": [
         {"id": "1.1", "text": "Aufgabentext", "be": 4}
@@ -10318,6 +10326,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "gesamt_be": ${gesamtBE}
 }
 WICHTIG: Generiere für ALLE 4 Aufgaben vollständige, ausformulierte Teilaufgaben und Materialien!
+Jede Aufgabengruppe MUSS mindestens 1 Material vom Typ "bild" enthalten!
 Erstelle 4 Aufgabengruppen mit verschiedenen Sachgebieten.`;
 
   const userPrompt = `Erstelle eine vollständige Informatik-Abiturprüfung (${lvl}, ${gesamtBE} BE).

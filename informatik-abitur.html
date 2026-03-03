@@ -693,6 +693,18 @@
       document.getElementById("setupLoader").style.display = "none";
     }
 
+    // Typ-Erkennung: Erkennt englische Bild-Prompts, die fälschlich als "text" typisiert wurden
+    function fixMaterialType(m) {
+      var t = (m.type || "").toLowerCase().trim();
+      if (t === "image" || t === "foto" || t === "photo") return "bild";
+      if (t === "bild" || t === "statistik" || t === "diagramm") return t;
+      var txt = (m.text || m.content || "").trim();
+      if (txt && txt.length > 20 && txt.length < 800 && !/[äöüßÄÖÜ]/.test(txt) && /\b(detailed|showing|depicting|illustration|diagram|image|visual|scene|background|style|color|layout|arrows?|labels?|boxes?|flowchart|architecture|network)\b/i.test(txt)) {
+        return "bild";
+      }
+      return t || "text";
+    }
+
     /* ====== RENDER TASK ====== */
     function renderTask(d) {
       var container = document.getElementById("aufgabengruppenContainer");
@@ -712,13 +724,14 @@
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
-            var typeIcon = m.type === "statistik" ? "\uD83D\uDCCA " : m.type === "diagramm" ? "\uD83D\uDCC8 " : m.type === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
-            html += '<details class="material-details"><summary>' + typeIcon + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var mType = fixMaterialType(m);
+            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : mType === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
+            html += '<details class="material-details"' + (mType === "bild" ? ' open' : '') + '><summary>' + typeIcon + escapeHtml(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
-            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+            if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               html += DOMPurify.sanitize(marked.parse(m.text));
               html += '<div class="material-chart"><canvas id="chart-abi-' + idx + '-' + mi + '"></canvas></div>';
-            } else if (m.type === "bild") {
+            } else if (mType === "bild") {
               html += '<div class="material-img-loading" id="img-abi-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
             } else {
               if (m.text) html += DOMPurify.sanitize(marked.parse(m.text));
@@ -756,10 +769,11 @@
         mats.forEach(function (m, mi) {
           try {
             if (!m || typeof m !== "object") return;
-            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
-              var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+            var mType = fixMaterialType(m);
+            if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
+              var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
-            } else if (m.type === "bild" && (m.text || m.content)) {
+            } else if (mType === "bild" && (m.text || m.content)) {
               loadMaterialImage(m.text || m.content, "img-abi-" + idx + "-" + mi);
             }
           } catch (err) {
