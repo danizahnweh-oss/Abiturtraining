@@ -57,26 +57,17 @@
 
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Aufgabe konfigurieren</h2>
-        <div class="form-row">
-          <div class="form-group">
-            <label>Themenbereich</label>
-            <select id="themaSelect">
-              <option value="random">Zufällig</option>
-              <option value="sprache_politik">Sprache in politischen Zusammenhängen</option>
-              <option value="medien">Medien und Kommunikation</option>
-              <option value="gesellschaft">Gesellschaft und Ethik</option>
-              <option value="bildung">Bildung und Wissenschaft</option>
-              <option value="digitalisierung">Digitalisierung</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Erörterungstyp</label>
-            <select id="typSelect">
-              <option value="linear">Lineare Erörterung</option>
-              <option value="dialektisch">Dialektische Erörterung</option>
-              <option value="textgebunden">Textgebundene Erörterung</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label>Themenbereich</label>
+          <select id="themaSelect">
+            <option value="random">Zufällig</option>
+            <option value="sprache_politik">Sprache in politisch-gesellschaftlichen Zusammenhängen</option>
+            <option value="medien">Medien und Kommunikation</option>
+            <option value="gesellschaft">Gesellschaft und Ethik</option>
+            <option value="bildung">Bildung und Wissenschaft</option>
+            <option value="digitalisierung">Digitalisierung und Künstliche Intelligenz</option>
+            <option value="umwelt">Umwelt und Nachhaltigkeit</option>
+          </select>
         </div>
         <div class="form-group">
           <label>Bearbeitungszeit (Minuten)</label>
@@ -123,10 +114,14 @@
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
       <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
-        <h3 style="font-size:1rem;margin-bottom:.5rem">⚖️ Was ist eine Erörterung (EP)?</h3>
-        <p style="font-size:.9rem;color:var(--ink-light)">Bei der Erörterung pragmatischer Texte analysierst du die
-          Position des Autors und nimmst dann <strong>selbst argumentativ Stellung</strong>. Du wägst Pro- und
-          Contra-Argumente ab und entwickelst ein begründetes eigenes Urteil.</p>
+        <h3 style="font-size:1rem;margin-bottom:.5rem">⚖️ Erörterung pragmatischer Texte (EP) – Aufgabe 4</h3>
+        <p style="font-size:.9rem;color:var(--ink-light)">Die textbezogene Erörterung besteht aus zwei Teilen:<br>
+          <strong>Teil a) Analyse (~40%):</strong> Erfasse die zentrale Aussage und analysiere die
+          Argumentationsstruktur des Textes.<br>
+          <strong>Teil b) Erörterung (~60%):</strong> Nimm argumentativ Stellung zur Position des Autors – wäge
+          Pro- und Contra-Argumente ab und entwickle ein begründetes eigenes Urteil.</p>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.5rem"><strong>Gewichtung:</strong> Verstehen 70% ·
+          Darstellung 30%</p>
       </div>
     </section>
 
@@ -326,9 +321,25 @@ Struktur:
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
-    const BEWERTUNG_PROMPT = `Du bewertest eine Erörterung nach ISB-Kriterien.
-VERSTEHEN (70%): Textverständnis, Argumentationsanalyse, eigene Argumentation, Abwägung, Schlussfolgerung
-DARSTELLUNG (30%): Aufbau, Fachsprache, Ausdruck, Sprachrichtigkeit
+    const BEWERTUNG_PROMPT = `Du bewertest eine textbezogene Erörterung eines pragmatischen Textes (Aufgabe 4, EP) nach ISB-Kriterien für das bayerische Abitur G9.
+
+Die Aufgabe besteht aus zwei Teilen:
+- Teil a) Analyse (~40%): Erfassen der zentralen Aussage und Analyse der Argumentationsstruktur
+- Teil b) Erörterung (~60%): Eigene argumentative Stellungnahme zur Position des Autors
+
+VERSTEHENSLEISTUNG (70%):
+- Textverständnis: Erfassung der zentralen Aussage und Position des Autors
+- Argumentationsanalyse: Erkennen und Beurteilen der Argumentationsstruktur und -strategie
+- Eigene Argumentation: Qualität, Vielfalt und Überzeugungskraft der eigenen Argumente
+- Abwägung: Differenzierte Betrachtung von Pro und Contra
+- Schlussfolgerung: Begründetes eigenes Urteil
+
+DARSTELLUNGSLEISTUNG (30%):
+1. Aufgabenbezug und Textsortenpassung: Zweiteiliger Aufbau (Analyse + Erörterung), Kohärenz
+2. Fachsprache: Korrekte Verwendung argumentationsanalytischer Fachbegriffe
+3. Umgang mit Bezugstexten: Angemessenes Zitieren und Verweisen
+4. Ausdruck und Stil: Differenzierter, sachlicher Sprachstil
+5. Sprachrichtigkeit: Rechtschreibung, Grammatik, Zeichensetzung
 
 WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen (insbesondere bei der Darstellungsleistung). Erwähne dies explizit im Feedback.
 
@@ -382,7 +393,6 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       try {
         const d = await apiCall("/api/generate-deutsch", {
           thema: document.getElementById("themaSelect").value,
-          typ: document.getElementById("typSelect").value,
           type: "eroerterung",
           bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 315
         });
