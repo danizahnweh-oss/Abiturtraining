@@ -758,8 +758,8 @@
           if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
             var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
             renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
-          } else if (m.type === "bild" && m.text) {
-            loadMaterialImage(m.text, "img-abi-" + idx + "-" + mi);
+          } else if (m.type === "bild" && (m.text || m.content)) {
+            loadMaterialImage(m.text || m.content, "img-abi-" + idx + "-" + mi);
           }
         });
       });

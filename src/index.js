@@ -4643,6 +4643,10 @@ async function handleGenerateAbiturReligion(request, env) {
 
   const lb = lbThemen[lernbereich] || lbThemen["12_1"];
 
+  const schwerpunktZusatz = schwerpunkt && schwerpunkt !== "random"
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESEN SCHWERPUNKT VERWENDEN:\n' + schwerpunkt + '\nALLE Teilaufgaben müssen sich direkt auf diesen Schwerpunkt beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans!'
+    : '';
+
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Evangelische Religionslehre (ab 2026, G9).
 Erstelle eine vollständige Abiturprüfung (Teil A + Teil B) auf ${niveauLabel}.
 ${zeitHinweis}
@@ -5097,6 +5101,10 @@ async function handleGenerateAbiturKatholisch(request, env) {
   };
 
   const lb = lbThemen[lernbereich] || lbThemen["12_1"];
+
+  const schwerpunktZusatz = schwerpunkt && schwerpunkt !== "random"
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESEN SCHWERPUNKT VERWENDEN:\n' + schwerpunkt + '\nALLE Teilaufgaben müssen sich direkt auf diesen Schwerpunkt beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans!'
+    : '';
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Katholische Religionslehre (ab 2026, G9).
 Erstelle eine vollständige Abiturprüfung (Teil A + Teil B) auf ${niveauLabel}.
@@ -6207,6 +6215,10 @@ async function handleGenerateAbiturLatein(request, env) {
   const autorKey = (autor || "cicero").toLowerCase();
   const autorInfo = autorInhalte[autorKey] || autorInhalte.cicero;
   const schwerpunktLabel = schwerpunkt ? truncate(schwerpunkt, 200) : "frei wählbar";
+
+  const schwerpunktZusatz = schwerpunkt && schwerpunkt !== "random"
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESEN SCHWERPUNKT VERWENDEN:\n' + schwerpunkt + '\nALLE Teilaufgaben müssen sich direkt auf diesen Schwerpunkt beziehen.'
+    : '';
 
   const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Latein (ab 2026, G9).
 Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit Teil A (Übersetzung, ${beA}) und Teil B (Aufgabenteil, ${beB}) auf ${niveauLabel}.
