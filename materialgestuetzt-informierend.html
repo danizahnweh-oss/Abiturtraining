@@ -686,33 +686,43 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
 
     const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
     function renderStatistikChart(markdown, canvasId) {
-      const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
-      if (lines.length < 2) return;
-      const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
-      const headers = parse(lines[0]);
-      const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
-      if (dataLines.length < 2) return;
-      const rows = dataLines.slice(1).map(parse);
-      const labels = rows.map(r => r[0]);
-      const datasets = headers.slice(1).map((h, i) => ({
-        label: h,
-        data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
-        backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-      }));
-      new Chart(document.getElementById(canvasId), {
-        type: "bar", data: { labels, datasets },
-        options: { responsive: true, plugins: { legend: { position: "top" } } }
-      });
+      try {
+        if (typeof markdown !== "string") return;
+        const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+        if (lines.length < 2) return;
+        const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+        const headers = parse(lines[0]);
+        const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+        if (dataLines.length < 2) return;
+        const rows = dataLines.slice(1).map(parse);
+        const labels = rows.map(r => r[0]);
+        const datasets = headers.slice(1).map((h, i) => ({
+          label: h,
+          data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
+          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+        }));
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
+          type: "bar", data: { labels, datasets },
+          options: { responsive: true, plugins: { legend: { position: "top" } } }
+        });
+      } catch (err) {
+        console.error("Chart-Rendering-Fehler:", err);
+      }
     }
     async function loadDallEImage(prompt, containerId) {
       try {
+        const el = document.getElementById(containerId);
+        if (!el) return;
         const d = await apiCall("/api/generate-image", { prompt });
         const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
         const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
+        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
+        const el = document.getElementById(containerId);
+        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
       }
     }
     async function loadUnsplashImage(keywords, containerId) {

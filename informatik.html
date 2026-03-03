@@ -737,37 +737,45 @@
         var matContainer = document.createElement("div");
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m, idx) {
-          var details = document.createElement("details");
-          details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-          var summary = document.createElement("summary");
-          summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-          var typeIcon = m.type === "statistik" ? "\uD83D\uDCCA " : m.type === "diagramm" ? "\uD83D\uDCC8 " : m.type === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
-          summary.textContent = typeIcon + (m.id || "") + " " + (m.titel || "");
-          var body = document.createElement("div");
-          body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
+          try {
+            var details = document.createElement("details");
+            details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
+            var summary = document.createElement("summary");
+            summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
+            var typeIcon = m.type === "statistik" ? "\uD83D\uDCCA " : m.type === "diagramm" ? "\uD83D\uDCC8 " : m.type === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
+            summary.textContent = typeIcon + (m.id || "") + " " + (m.titel || "");
+            var body = document.createElement("div");
+            body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
 
-          if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
-            body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
-            body.innerHTML += '<div class="material-chart"><canvas id="chart-inf-' + idx + '"></canvas></div>';
-          } else if (m.type === "bild") {
-            body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
-          } else {
-            body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
+            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+              body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
+              body.innerHTML += '<div class="material-chart"><canvas id="chart-inf-' + idx + '"></canvas></div>';
+            } else if (m.type === "bild") {
+              body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else {
+              body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
+            }
+
+            details.appendChild(summary);
+            details.appendChild(body);
+            matContainer.appendChild(details);
+          } catch (err) {
+            console.error("Material-Rendering-Fehler M" + (idx + 1) + ":", err);
           }
-
-          details.appendChild(summary);
-          details.appendChild(body);
-          matContainer.appendChild(details);
         });
         instrEl.closest(".card").insertBefore(matContainer, container);
 
-        // Charts und Bilder nach DOM-Einf\u00fcgung rendern
+        // Charts und Bilder nach DOM-Einfügung rendern
         d.material.forEach(function (m, idx) {
-          if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
-            var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
-            renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
-          } else if (m.type === "bild" && (m.text || m.content)) {
-            loadMaterialImage(m.text || m.content, "img-inf-" + idx);
+          try {
+            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+              var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+              renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
+            } else if (m.type === "bild" && (m.text || m.content)) {
+              loadMaterialImage(m.text || m.content, "img-inf-" + idx);
+            }
+          } catch (err) {
+            console.error("Material-Render-Fehler M" + (idx + 1) + ":", err);
           }
         });
       }
@@ -1005,39 +1013,50 @@
     const CHART_COLORS = ['#0284c7', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
 
     function renderMaterialChart(markdown, canvasId, chartType) {
-      var lines = markdown.split("\n").filter(function(l) { return l.trim().startsWith("|"); });
-      if (lines.length < 2) return;
-      var parse = function(line) { return line.split("|").map(function(c) { return c.trim(); }).filter(Boolean); };
-      var headers = parse(lines[0]);
-      var dataLines = lines.filter(function(l) { return !l.match(/^\|[\s\-:|]+\|$/); });
-      if (dataLines.length < 2) return;
-      var rows = dataLines.slice(1).map(parse);
-      var labels = rows.map(function(r) { return r[0]; });
-      var datasets = headers.slice(1).map(function(h, i) {
-        return {
-          label: h,
-          data: rows.map(function(r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
-          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-          borderColor: CHART_COLORS[i % CHART_COLORS.length],
-          fill: false
-        };
-      });
-      new Chart(document.getElementById(canvasId), {
-        type: chartType || "bar",
-        data: { labels: labels, datasets: datasets },
-        options: { responsive: true, plugins: { legend: { position: "top" } } }
-      });
+      try {
+        if (typeof markdown !== "string") return;
+        var lines = markdown.split("\n").filter(function(l) { return l.trim().startsWith("|"); });
+        if (lines.length < 2) return;
+        var parse = function(line) { return line.split("|").map(function(c) { return c.trim(); }).filter(Boolean); };
+        var headers = parse(lines[0]);
+        var dataLines = lines.filter(function(l) { return !l.match(/^\|[\s\-:|]+\|$/); });
+        if (dataLines.length < 2) return;
+        var rows = dataLines.slice(1).map(parse);
+        var labels = rows.map(function(r) { return r[0]; });
+        var type = chartType || "bar";
+        var datasets = headers.slice(1).map(function(h, i) {
+          return {
+            label: h,
+            data: rows.map(function(r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
+            backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+            borderColor: type === "line" ? CHART_COLORS[i % CHART_COLORS.length] : undefined,
+            borderWidth: type === "line" ? 2 : undefined,
+            fill: type === "line" ? false : undefined
+          };
+        });
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
+          type: type, data: { labels: labels, datasets: datasets },
+          options: { responsive: true, plugins: { legend: { position: "top" } } }
+        });
+      } catch (err) {
+        console.error("Chart-Rendering-Fehler:", err);
+      }
     }
 
     async function loadMaterialImage(prompt, containerId) {
       try {
+        var el = document.getElementById(containerId);
+        if (!el) return;
         var d = await apiCall("/api/generate-image", { prompt: prompt });
         var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
         var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = '<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>';
+        var el = document.getElementById(containerId);
+        if (el) el.innerHTML = '<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>';
       }
     }
 

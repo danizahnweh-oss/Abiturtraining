@@ -750,16 +750,20 @@
 
       updateWahlUI();
 
-      // Charts und Bilder nach DOM-Einf\u00fcgung rendern
+      // Charts und Bilder nach DOM-Einfügung rendern
       aufgaben.forEach(function (a, idx) {
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
-          if (!m || typeof m !== "object") return;
-          if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
-            var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
-            renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
-          } else if (m.type === "bild" && (m.text || m.content)) {
-            loadMaterialImage(m.text || m.content, "img-abi-" + idx + "-" + mi);
+          try {
+            if (!m || typeof m !== "object") return;
+            if ((m.type === "statistik" || m.type === "diagramm") && (m.text || "").includes("|")) {
+              var chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+              renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
+            } else if (m.type === "bild" && (m.text || m.content)) {
+              loadMaterialImage(m.text || m.content, "img-abi-" + idx + "-" + mi);
+            }
+          } catch (err) {
+            console.error("Material-Render-Fehler:", err);
           }
         });
       });
@@ -1026,39 +1030,50 @@
     const CHART_COLORS = ['#0284c7', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
 
     function renderMaterialChart(markdown, canvasId, chartType) {
-      var lines = markdown.split("\n").filter(function(l) { return l.trim().startsWith("|"); });
-      if (lines.length < 2) return;
-      var parse = function(line) { return line.split("|").map(function(c) { return c.trim(); }).filter(Boolean); };
-      var headers = parse(lines[0]);
-      var dataLines = lines.filter(function(l) { return !l.match(/^\|[\s\-:|]+\|$/); });
-      if (dataLines.length < 2) return;
-      var rows = dataLines.slice(1).map(parse);
-      var labels = rows.map(function(r) { return r[0]; });
-      var datasets = headers.slice(1).map(function(h, i) {
-        return {
-          label: h,
-          data: rows.map(function(r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
-          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-          borderColor: CHART_COLORS[i % CHART_COLORS.length],
-          fill: false
-        };
-      });
-      new Chart(document.getElementById(canvasId), {
-        type: chartType || "bar",
-        data: { labels: labels, datasets: datasets },
-        options: { responsive: true, plugins: { legend: { position: "top" } } }
-      });
+      try {
+        if (typeof markdown !== "string") return;
+        var lines = markdown.split("\n").filter(function(l) { return l.trim().startsWith("|"); });
+        if (lines.length < 2) return;
+        var parse = function(line) { return line.split("|").map(function(c) { return c.trim(); }).filter(Boolean); };
+        var headers = parse(lines[0]);
+        var dataLines = lines.filter(function(l) { return !l.match(/^\|[\s\-:|]+\|$/); });
+        if (dataLines.length < 2) return;
+        var rows = dataLines.slice(1).map(parse);
+        var labels = rows.map(function(r) { return r[0]; });
+        var type = chartType || "bar";
+        var datasets = headers.slice(1).map(function(h, i) {
+          return {
+            label: h,
+            data: rows.map(function(r) { return parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", ".")); }),
+            backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+            borderColor: type === "line" ? CHART_COLORS[i % CHART_COLORS.length] : undefined,
+            borderWidth: type === "line" ? 2 : undefined,
+            fill: type === "line" ? false : undefined
+          };
+        });
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
+          type: type, data: { labels: labels, datasets: datasets },
+          options: { responsive: true, plugins: { legend: { position: "top" } } }
+        });
+      } catch (err) {
+        console.error("Chart-Rendering-Fehler:", err);
+      }
     }
 
     async function loadMaterialImage(prompt, containerId) {
       try {
+        var el = document.getElementById(containerId);
+        if (!el) return;
         var d = await apiCall("/api/generate-image", { prompt: prompt });
         var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
         var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = '<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>';
+        var el = document.getElementById(containerId);
+        if (el) el.innerHTML = '<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>';
       }
     }
 

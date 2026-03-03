@@ -1214,13 +1214,16 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
     async function loadDallEImage(prompt, containerId) {
       try {
+        const el = document.getElementById(containerId);
+        if (!el) return;
         const d = await apiCall("/api/generate-image", { prompt });
         const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
         const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        document.getElementById(containerId).innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
+        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
+        const el = document.getElementById(containerId);
+        if (el) el.innerHTML = `<div style="color:red;font-size:.8rem">Bild-Fehler: ${escapeHtml(e.message)}</div>`;
       }
     }
     async function loadUnsplashImage(keywords, containerId) {
@@ -1256,7 +1259,9 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         const avgTemp = temp.length ? (temp.reduce((a, b) => a + b, 0) / temp.length).toFixed(1) : "\u2013";
         const sumNied = niederschlag.length ? niederschlag.reduce((a, b) => a + b, 0).toFixed(0) : "\u2013";
 
-        new Chart(document.getElementById(canvasId), {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
           type: "bar",
           data: {
             labels: monate,

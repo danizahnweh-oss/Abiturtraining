@@ -1371,13 +1371,16 @@
 
     async function loadDallEImage(prompt, containerId) {
       try {
+        var el = document.getElementById(containerId);
+        if (!el) return;
         var d = await apiCall("/api/generate-image", { prompt: prompt });
         var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
         var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        document.getElementById(containerId).innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        document.getElementById(containerId).innerHTML = '<div style="color:#e11d48;font-size:.8rem;text-align:center;padding:1rem">Bild-Fehler: ' + escapeHtml(e.message) + '</div>';
+        var el2 = document.getElementById(containerId);
+        if (el2) el2.innerHTML = '<div style="color:#e11d48;font-size:.8rem;text-align:center;padding:1rem">Bild-Fehler: ' + escapeHtml(e.message) + '</div>';
       }
     }
 
