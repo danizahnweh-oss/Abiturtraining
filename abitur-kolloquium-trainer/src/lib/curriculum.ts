@@ -124,27 +124,33 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Ethik': {
-    // Eth12 LB2 = 12/1, Eth12 LB3 = 12/2, Eth13 LB2 = 13/1, Eth13 LB3 = 13/2
+    // Eth12 gA: LB1 = 12/1 (Theorie und Praxis des Handelns), LB2 = 12/2 (Freiheit und Determination)
+    // Eth13 gA: LB1 = 13/1 (Recht und Gerechtigkeit), LB2 = 13/2 (Sinnorientierung und Lebensgestaltung)
+    // eA-Vertiefungen in Klammern
     halbjahre: {
       '12/1': [
-        'Theorie und Praxis des Handelns',
-        'Ethische Grundpositionen (Utilitarismus, Deontologie, Tugendethik)',
-        'Handlungsfreiheit und moralische Verantwortung',
+        'Theorie und Praxis des Handelns: Handlungsbegriff, Platon (Idee des Guten, Seelenlehre), Aristoteles (Tugendethik, Mesoteslehre)',
+        'Ethische Grundpositionen: Kant (kategorischer Imperativ, Pflichtethik), Utilitarismus (Handlungs-, Regel-, Präferenzutilitarismus)',
+        'Diskursethik (Habermas) und Verantwortungsethik (H. Jonas: Heuristik der Furcht, Nah-/Fernethik)',
+        'eA: Mitleidsethik (Schopenhauer), Moralkritik (Nietzsche), Sprachkritik (Wittgenstein), Bereichsethiken, Wissenschaftstheorie (Popper)',
       ],
       '12/2': [
-        'Freiheit und Determination',
-        'Willensfreiheit und Determinismus (Hirnforschung, Kompatibilismus)',
-        'Verantwortungsfähigkeit und autonomes Handeln',
+        'Freiheit und Determination: Aristoteles (freiwilliges/unfreiwilliges Handeln), Willensschwäche, positive und negative Freiheit',
+        'Philosophische Positionen zur Freiheit: Kant (Autonomie), Sartre (Existentialismus), Bieri (bedingte/unbedingte Freiheit; eA: Schopenhauer, Erkenntnistheorie Kant)',
+        'Sozialpsychologie (Konformität, Milgram-Experiment, Bystander-Effekt) und Sozialisation (Status, Rolle; eA: Nudging, Gender)',
+        'Neurobiologie und Willensfreiheit: Libet-Experiment, Roth/Singer/Prinz; philosophische Kritik (Qualia, Erklärungslücke, kausale Geschlossenheit)',
       ],
       '13/1': [
-        'Recht und Gerechtigkeit',
-        'Gerechtigkeitstheorien (Rawls, Aristoteles)',
-        'Menschenwürde, Menschenrechte und Strafgerechtigkeit',
+        'Recht und Gerechtigkeit: Aristoteles (kommutative/distributive Gerechtigkeit), Rawls (Schleier des Nichtwissens, Differenzprinzip)',
+        'Rechtspositivismus, Naturrecht und Radbruch\'sche Formel (eA: Eichmann-Prozess, Arendt)',
+        'Strafrecht: Strafzwecktheorien (absolute, relative, Mischform), Kriminalitätstheorien, Tat-/Täterstrafrecht, Strafvollzug',
+        'Menschenrechte und globale Friedensordnung (Schutzverantwortung, Völkerrecht, Migration; eA: Galtung, Singer, Pogge, Arendt: Macht und Gewalt)',
       ],
       '13/2': [
-        'Sinnorientierung und Lebensgestaltung',
-        'Glückskonzeptionen und gelingendes Leben',
-        'Philosophische und religiöse Sinnkonzepte',
+        'Sinnorientierung und Lebensgestaltung: Eudaimonie bei Aristoteles, Epikur (Ataraxie, Hedonismus) und Stoa (Apathie, logos, vita activa)',
+        'Sinnkonzepte: Frankl (Selbsttranszendenz), Camus (Absurdität, Sisyphos-Mythos; eA: Kant – Würdigkeit zum Glück, Resilienzforschung)',
+        'Empirische Glücksforschung: Flow (Csikszentmihalyi), PERMA-Modell (Seligman)',
+        'Kommunikationspsychologie (Schulz v. Thun, Berne) und Utopien/Dystopien (eA: Ganzschrift)',
       ],
     },
   },
