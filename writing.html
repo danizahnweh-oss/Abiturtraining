@@ -420,8 +420,9 @@
               style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
               onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
               <input type="radio" name="task3" id="doTask31" value="3.1" style="margin-top:.2rem;" checked>
-              <div>
-                <strong style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – Persönliche Stellungnahme
+              <div style="flex:1;">
+                <strong style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – <span id="task31TypeLabel">Persönliche Stellungnahme</span>
+                <div id="cartoonContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.5rem;"></div>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction31">–</div>
               </div>
             </label>
@@ -452,6 +453,7 @@
           </summary>
           <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
             <p style="font-weight:600;color:var(--accent);margin-bottom:.5rem;" id="writeTaskInstruction"></p>
+            <div id="writeCartoonPreview" style="display:none;margin:.5rem 0;text-align:center;"></div>
             <div
               style="max-height:300px;overflow-y:auto;font-size:.88rem;color:var(--ink-light);line-height:1.6;padding:.8rem;background:var(--bg-warm);border-radius:var(--radius-sm);"
               id="writeArticlePreview"></div>
@@ -756,7 +758,18 @@ Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe. MAXIMAL 1-2 Sätze!
 - Bei literarisch: z.B. "Analyse how the setting is used to create atmosphere. Focus on the author's use of language."
 
 Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
-- 3.1: Ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
+- 3.1: ENTWEDER ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
+  ODER (in ca. 40% der Fälle, entscheide zufällig): Eine KARIKATUR/CARTOON zum Thema des Textes. In diesem Fall:
+  - Lasse task_3_1_quote LEER ("")
+  - Schreibe die Aufgabe als Cartoon-Kommentar, z.B. "Comment on the cartoon below. In your comment, refer to the text." oder "Describe and comment on the cartoon. In your answer, also refer to the article."
+  - Erstelle einen SEHR DETAILLIERTEN englischen Prompt für die Bildgenerierung (cartoon_prompt). Der Prompt muss beschreiben:
+    * Art des Cartoons (political cartoon, editorial cartoon, satirical illustration)
+    * Alle Figuren/Personen mit Aussehen, Kleidung, Gesichtsausdruck, Haltung
+    * Symbole, Metaphern, visuelle Übertreibungen
+    * Sprechblasen oder Beschriftungen (Text in ENGLISCH, in Anführungszeichen mit genauer Position)
+    * Hintergrund, Setting, Komposition
+    * Die satirische Aussage/den Humor der Karikatur
+    Der Prompt muss mindestens 5-8 Sätze lang sein!
 - 3.2: Situationsbeschreibung (1-2 Sätze) + "Write a/an [Textsorte] in which you..." (1 Satz)
 
 Bei eA: Aufgaben sprachlich und inhaltlich anspruchsvoller, tiefere Analyse erwartet.
@@ -769,8 +782,9 @@ OUTPUT FORMAT (NUR reines JSON):
   "article_text": "Der komplette englische Text...",
   "task_1": "Outline...",
   "task_2": "Analyse... Focus on...",
-  "task_3_1_quote": "Exaktes Zitat aus dem Text (mit Zeilenangabe)",
-  "task_3_1": "Taking the quotation as a starting point, assess/discuss...",
+  "task_3_1_quote": "Exaktes Zitat aus dem Text (LEER lassen wenn Cartoon verwendet wird)",
+  "task_3_1": "Taking the quotation as a starting point... ODER Comment on the cartoon below...",
+  "cartoon_prompt": "NUR wenn Aufgabe 3.1 einen Cartoon verwendet: Sehr detaillierter englischer Imagen-Prompt (5-8 Sätze). LEER lassen wenn kein Cartoon.",
   "task_3_2_situation": "Situationsbeschreibung (1-2 Sätze)",
   "task_3_2": "Write a/an [Textsorte] in which you..."
 }`;
@@ -1062,8 +1076,24 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("taskInstruction1").innerText = d.task_1 || "–";
       document.getElementById("taskInstruction2").innerText = d.task_2 || "–";
 
-      const q31 = d.task_3_1_quote ? `"${d.task_3_1_quote}"\n\n` : "";
-      document.getElementById("taskInstruction31").innerText = q31 + (d.task_3_1 || "–");
+      const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
+      const cartoonContainer = document.getElementById("cartoonContainer");
+      const typeLabel = document.getElementById("task31TypeLabel");
+
+      if (hasCartoon) {
+        typeLabel.textContent = "Cartoon-Kommentar";
+        cartoonContainer.style.display = "block";
+        cartoonContainer.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird generiert…</span></div>';
+        loadCartoonImage(d.cartoon_prompt, "cartoonContainer");
+        document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
+      } else {
+        typeLabel.textContent = "Persönliche Stellungnahme";
+        cartoonContainer.style.display = "none";
+        cartoonContainer.innerHTML = "";
+        const q31 = d.task_3_1_quote ? `"${d.task_3_1_quote}"\n\n` : "";
+        document.getElementById("taskInstruction31").innerText = q31 + (d.task_3_1 || "–");
+      }
+
       const sit32 = d.task_3_2_situation ? `${d.task_3_2_situation}\n\n` : "";
       document.getElementById("taskInstruction32").innerText = sit32 + (d.task_3_2 || "–");
 
@@ -1073,6 +1103,39 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("writeArticlePreview").innerHTML =
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
+
+      // Cartoon auch in Schreib-Referenz anzeigen
+      const writeCartoon = document.getElementById("writeCartoonPreview");
+      if (hasCartoon && document.getElementById("doTask31")?.checked) {
+        writeCartoon.style.display = "block";
+        writeCartoon.innerHTML = '<div style="font-size:.85rem;color:var(--ink-muted);padding:.5rem;">Cartoon wird geladen…</div>';
+        const waitForCartoon = setInterval(function() {
+          if (CONFIG.cartoonUrl) {
+            clearInterval(waitForCartoon);
+            writeCartoon.innerHTML = '<img src="' + CONFIG.cartoonUrl + '" alt="Cartoon" style="max-width:100%;max-height:250px;border-radius:var(--radius-sm);border:1px solid var(--border);">';
+          }
+        }, 500);
+      } else {
+        writeCartoon.style.display = "none";
+        writeCartoon.innerHTML = "";
+      }
+    }
+
+    async function loadCartoonImage(prompt, containerId) {
+      try {
+        const d = await apiCall("/api/generate-image", { prompt: prompt });
+        const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
+        const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
+        document.getElementById(containerId).innerHTML =
+          '<figure style="margin:0;text-align:center;">' +
+          '<img src="' + d.url + '" alt="Cartoon" style="max-width:100%;border-radius:var(--radius-sm);border:1px solid var(--border);">' +
+          caption + credit + '</figure>';
+        CONFIG.cartoonUrl = d.url;
+      } catch (e) {
+        console.error("Cartoon-Fehler:", e);
+        document.getElementById(containerId).innerHTML =
+          '<div style="color:var(--warning);font-size:.85rem;padding:.5rem;">Cartoon konnte nicht geladen werden.</div>';
+      }
     }
 
     function getSelectedTasks() {
@@ -1081,8 +1144,13 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       if (document.getElementById("doTask1")?.checked) tasks.push("1. " + (d.task_1 || ""));
       if (document.getElementById("doTask2")?.checked) tasks.push("2. " + (d.task_2 || ""));
       if (document.getElementById("doTask31")?.checked) {
-        const q = d.task_3_1_quote ? `"${d.task_3_1_quote}" — ` : "";
-        tasks.push("3.1 " + q + (d.task_3_1 || ""));
+        const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
+        if (hasCartoon) {
+          tasks.push("3.1 [See cartoon above] " + (d.task_3_1 || ""));
+        } else {
+          const q = d.task_3_1_quote ? `"${d.task_3_1_quote}" — ` : "";
+          tasks.push("3.1 " + q + (d.task_3_1 || ""));
+        }
       } else if (document.getElementById("doTask32")?.checked) {
         const s = d.task_3_2_situation ? d.task_3_2_situation + " " : "";
         tasks.push("3.2 " + s + (d.task_3_2 || ""));
@@ -1188,6 +1256,12 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("taskInstruction2").innerText = "–";
       document.getElementById("taskInstruction31").innerText = "–";
       document.getElementById("taskInstruction32").innerText = "–";
+      document.getElementById("cartoonContainer").style.display = "none";
+      document.getElementById("cartoonContainer").innerHTML = "";
+      document.getElementById("writeCartoonPreview").style.display = "none";
+      document.getElementById("writeCartoonPreview").innerHTML = "";
+      document.getElementById("task31TypeLabel").textContent = "Persönliche Stellungnahme";
+      CONFIG.cartoonUrl = null;
       document.getElementById("articleTitle").innerText = "Ausgangstext";
       document.getElementById("articleBody").innerHTML = "";
       document.getElementById("wordCountLabel").innerText = "0";
