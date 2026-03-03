@@ -264,7 +264,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Demokratisierung und Gesellschaft in der Weimarer Republik',
       ],
       '12/2': [
-        'Scheitern der Weimarer Republik, NS-Diktatur und Völkermord',
+        'Scheitern der Weimarer Republik',
+        'NS-Diktatur und Völkermord',
         'Die Bundesrepublik Deutschland und die DDR',
         'Deutsche Einheit und die Bundesrepublik 1990–2009',
       ],
