@@ -14,6 +14,7 @@
 
 export interface SubjectCurriculum {
   halbjahre: Record<string, string[]>;
+  halbjahreEA?: Record<string, string[]>;
 }
 
 export const CURRICULUM: Record<string, SubjectCurriculum> = {
@@ -236,29 +237,48 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 
   'Geographie': {
     // ISB-bestätigte Halbjahr-Zuordnung: 12/1 = LB 2–4, 12/2 = LB 5–7, 13/1 = LB 2–3, 13/2 = LB 4–5
+    // LehrplanPLUS Geo gA + eA. eA-Vertiefungen in Klammern.
     halbjahre: {
       '12/1': [
-        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse)',
-        'Mensch-Umwelt-Beziehungen in den Tropen (Vulnerabilität und Nachhaltigkeit)',
-        'Kalte Zonen (polare und subpolare Zone, Permafrost, Arktis und Antarktis)',
-        'Tropen (tropische Ökozonen, Regenwald und Savanne)',
+        'Klima und Klimawandel (atmosphärische und ozeanische Prozesse, Drei-Zellen-Modell, ENSO; eA: Polarfrontjetstream, Klima-/Vegetationszonen, Klimamodelle und Emissionsszenarien)',
+        'Mensch-Umwelt-Beziehungen in den Tropen (Immerfeuchte/Wechselfeuchte Tropen, Desertifikation, Nachhaltigkeit; eA: Wüstentypen, geopolitische Interessen in den Tropen)',
+        'Subpolare und Polare Zone (Permafrost, Geopolitik, Arktis und Antarktis; eA: Kippelemente des Klimasystems, Klimarekonstruktion – Eisbohrkerne, Tiefseesedimente)',
       ],
       '12/2': [
-        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen)',
-        'Nutzung und Vulnerabilität von Hochgebirgsräumen',
-        'Gefährdungspotenzial und Risikomanagement (tektonische Ereignisse)',
+        'Ressourcenkonflikte und Ressourcenmanagement in Europa (Mittlere Breiten, Subtropen, Wasser, Hochwasser, Wald; eA: Trinkwasserschutz in Deutschland, Bodenprofil/-schutz, Landwirtschaft und Klimaschutz, Flächenmanagement)',
+        'Nutzung und Vulnerabilität von Hochgebirgsräumen (Gebirgsbildung, Massenbewegungen, Gletscherrückzug; eA: nachhaltige Nutzung sensibler Gebirgsräume)',
+        'Gefährdungspotenzial und Risikomanagement (tektonische Ereignisse, Plattentektonik; eA: tropische Wirbelstürme, Vulkanismus/Erdbeben/Tsunamis differenziert)',
       ],
       '13/1': [
-        'Globalisierung und Entwicklung (Indikatoren, Disparitäten, fragmentierende Entwicklung)',
+        'Globalisierung und Entwicklung (Indikatoren, Disparitäten, fragmentierende Entwicklung; eA: Globalisierung und Deutschland – Standortfaktoren, wirtschaftsräumliche Disparitäten, verschiedene Entwicklungstheorien)',
         'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland)',
-        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze)',
-        'Regenerative Energien und nachhaltiges Ressourcenmanagement',
+        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze; eA: Rohstoffabbau in Extremräumen, geopolitische Bedeutung)',
+        'Regenerative Energien und nachhaltiges Ressourcenmanagement (eA: nachhaltige Mobilitätskonzepte)',
       ],
       '13/2': [
-        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung)',
-        'Bevölkerungsentwicklung in Deutschland (Zu- und Abwanderung, demographischer Wandel)',
+        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung; eA: Tragfähigkeit der Erde, sozialgeographische Aspekte – Familienstruktur, Stellung der Frau, Generationenvertrag)',
+        'Bevölkerungsentwicklung in Deutschland (Zu- und Abwanderung, demographischer Wandel; eA: Steuerungsmöglichkeiten und geopolitische Dimension von Migration)',
         'Verstädterung, Megastädte und Global Cities',
         'Nachhaltige Stadtentwicklung (Stadtklima, Smart Cities, Bürgerbeteiligung)',
+      ],
+    },
+    // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Geo13 eA (höhere Stundenzahlen, zusätzliche Themen)
+    // 12/1 und 12/2: Keine eA-Daten vorhanden → Fallback auf gA
+    halbjahreEA: {
+      '13/1': [
+        'Globalisierung, Entwicklung und Disparitäten (Indikatoren, fragmentierende Entwicklung, Entwicklungsstrategien)',
+        'Globalisierung und Standort Deutschland (Standortfaktoren, Wirtschaftsdynamik, wirtschaftsräumliche Disparitäten)',
+        'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland, Digitalisierung und Raumwahrnehmung)',
+        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze, Extremräume)',
+        'Regenerative Energien, nachhaltige Mobilitätskonzepte und lokales Ressourcenmanagement',
+      ],
+      '13/2': [
+        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung, Steuerung und Geopolitik)',
+        'Sozialgeographische Aspekte der Demographie (Familienstruktur, Arbeitswelt, Generationenvertrag)',
+        'Bevölkerungsentwicklung in Deutschland, Tragfähigkeit der Erde und Bevölkerungsprognosen',
+        'Verstädterung, Megastädte und Global Cities',
+        'Nachhaltige Stadtentwicklung, Ökosystem Stadt und Stadtklima',
+        'Imageorientierung von Städten (Prestigebauten, Stadtmarketing, Megaevents)',
       ],
     },
   },
@@ -511,9 +531,14 @@ export function getAvailableHalbjahre(
   return all.filter(h => h !== gestrichenesHalbjahr);
 }
 
-/** Returns Schwerpunkte for a given subject and Halbjahr */
-export function getSchwerpunkte(subject: string, halbjahr: string): string[] {
-  return CURRICULUM[subject]?.halbjahre[halbjahr] ?? [];
+/** Returns Schwerpunkte for a given subject, Halbjahr and optional Anforderungsniveau */
+export function getSchwerpunkte(subject: string, halbjahr: string, examLevel?: 'gA' | 'eA'): string[] {
+  const entry = CURRICULUM[subject];
+  if (!entry) return [];
+  if (examLevel === 'eA' && entry.halbjahreEA?.[halbjahr]) {
+    return entry.halbjahreEA[halbjahr];
+  }
+  return entry.halbjahre[halbjahr] ?? [];
 }
 
 /** Returns the two Halbjahre for Teil 2 (excluding the Schwerpunkt Halbjahr) */
