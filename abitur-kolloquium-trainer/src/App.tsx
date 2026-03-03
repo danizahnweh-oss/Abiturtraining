@@ -137,6 +137,7 @@ export default function App() {
   const [spHalbjahr, setSpHalbjahr] = useState('');
   const [schwerpunkt, setSchwerpunkt] = useState('');
   const [customSp, setCustomSp] = useState(false);
+  const [customSchwerpunkte, setCustomSchwerpunkte] = useState<Record<string, string[]>>({});
 
   /* Material */
   const [material, setMaterial] = useState<ExamMaterial | null>(null);
@@ -165,12 +166,34 @@ export default function App() {
   const isMathe = subject === 'Mathematik';
   const level = isMathe ? 'eA' : examLevel;
   const availHJ = gestrichen ? getAvailableHalbjahre(subject, gestrichen) : [];
-  const spOptions = spHalbjahr ? getSchwerpunkte(subject, spHalbjahr) : [];
+  const spOptions = spHalbjahr
+    ? (customSp
+        ? (customSchwerpunkte[spHalbjahr] || []).filter(s => s.trim())
+        : getSchwerpunkte(subject, spHalbjahr))
+    : [];
   const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
 
   /* ── Reset helpers ── */
-  const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); };
+  const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); setCustomSchwerpunkte({}); };
+
+  const toggleCustomSp = () => {
+    if (!customSp) {
+      const init: Record<string, string[]> = {};
+      availHJ.forEach(hj => { init[hj] = ['', '', '']; });
+      setCustomSchwerpunkte(init);
+    }
+    setCustomSp(!customSp);
+    setSchwerpunkt('');
+    setSpHalbjahr('');
+  };
+
+  const updateCustomSp = (hj: string, idx: number, value: string) => {
+    setCustomSchwerpunkte(prev => ({
+      ...prev,
+      [hj]: (prev[hj] || ['', '', '']).map((s, i) => i === idx ? value : s),
+    }));
+  };
 
   /* ── Actions ── */
   const handleGenerate = async () => {
@@ -430,17 +453,58 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Schwerpunkt Halbjahr */}
+                  {/* Eigene Schwerpunkte Toggle */}
                   {gestrichen && (
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkte</label>
+                      <p className="text-xs opacity-50 ml-1 -mt-1">Hat dein Lehrer eigene Schwerpunkte festgelegt?</p>
+                      <div className="flex gap-3">
+                        <Pill active={!customSp} onClick={() => { if (customSp) { setCustomSp(false); setCustomSchwerpunkte({}); setSchwerpunkt(''); setSpHalbjahr(''); } }} className="flex-1 text-center">
+                          <span className="font-medium">LehrplanPLUS</span>
+                        </Pill>
+                        <Pill active={customSp} onClick={() => { if (!customSp) toggleCustomSp(); }} className="flex-1 text-center">
+                          <span className="font-medium">Eigene</span>
+                        </Pill>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Eigene Schwerpunkte Eingabe */}
+                  {customSp && availHJ.length > 0 && (
+                    <div className="space-y-4">
+                      <p className="text-xs opacity-50 ml-1">Gib für jedes Halbjahr 3 Schwerpunktthemen ein:</p>
+                      {availHJ.map(hj => (
+                        <div key={hj} className="space-y-2 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-60 ml-1">{hj}</label>
+                          {[0, 1, 2].map(i => (
+                            <input
+                              key={i}
+                              type="text"
+                              value={customSchwerpunkte[hj]?.[i] || ''}
+                              onChange={e => updateCustomSp(hj, i, e.target.value)}
+                              placeholder={`Schwerpunkt ${i + 1}`}
+                              className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
+                            />
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Schwerpunkt Halbjahr */}
+                  {gestrichen && (!customSp || availHJ.some(hj => (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0)) && (
                     <div className="space-y-2">
                       <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt-Halbjahr</label>
                       <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Halbjahr kommt dein Schwerpunktthema?</p>
                       <div className="flex gap-3">
-                        {availHJ.map(hj => (
-                          <Pill key={hj} active={spHalbjahr === hj} onClick={() => { setSpHalbjahr(hj); setSchwerpunkt(''); setCustomSp(false); }} className="flex-1 text-center">
-                            <span className="font-medium">{hj}</span>
-                          </Pill>
-                        ))}
+                        {availHJ.map(hj => {
+                          const hjHasTopics = !customSp || (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0;
+                          return (
+                            <Pill key={hj} active={spHalbjahr === hj} disabled={!hjHasTopics} onClick={() => { if (hjHasTopics) { setSpHalbjahr(hj); setSchwerpunkt(''); } }} className="flex-1 text-center">
+                              <span className="font-medium">{hj}</span>
+                            </Pill>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -451,23 +515,10 @@ export default function App() {
                       <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunktthema</label>
                       <div className="grid gap-2">
                         {spOptions.map(opt => (
-                          <Pill key={opt} active={!customSp && schwerpunkt === opt} onClick={() => { setCustomSp(false); setSchwerpunkt(opt); }} className="w-full">
+                          <Pill key={opt} active={schwerpunkt === opt} onClick={() => setSchwerpunkt(opt)} className="w-full">
                             {opt}
                           </Pill>
                         ))}
-                        <Pill active={customSp} onClick={() => { setCustomSp(true); setSchwerpunkt(''); }} className="w-full border-dashed">
-                          <span className="opacity-70">Eigenen Schwerpunkt eingeben…</span>
-                        </Pill>
-                        {customSp && (
-                          <input
-                            type="text"
-                            value={schwerpunkt}
-                            onChange={e => setSchwerpunkt(e.target.value)}
-                            placeholder="z.B. Expressionismus in der Lyrik"
-                            autoFocus
-                            className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
-                          />
-                        )}
                       </div>
                     </div>
                   )}
