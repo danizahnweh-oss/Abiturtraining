@@ -439,7 +439,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Wirtschaft und Recht': {
-    // WR12 LB2 (BWL) = 12/1, LB3 (VWL) = 12/2; WR13 LB2 (Recht) = 13/1, LB3 (VWL international) = 13/2
+    // WR12 LB1 (BWL) = 12/1, LB2 (VWL) = 12/2, LB3 (Recht) → 13/1; WR13 LB1 (Recht) → 13/1, LB2 (VWL) = 13/2
     halbjahre: {
       '12/1': [
         'Unternehmerische Zielsetzungen, Stakeholder und Zielkonflikte',
@@ -447,19 +447,19 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Investitionsrechnung, Finanzierung und Erfolgskennzahlen',
       ],
       '12/2': [
-        'Volkswirtschaftliche Gesamtrechnung und Wirtschaftskreislauf',
-        'Konjunktur, Wachstum und Beschäftigung',
-        'Einkommen und soziale Sicherung',
+        'Magisches Viereck, Konjunkturzyklus und Konjunkturindikatoren',
+        'Wachstum, Beschäftigung und Wirtschaftspolitik (Nachfrage-/Angebotstheorie)',
+        'Einkommen, Tarifpolitik und soziale Sicherung',
       ],
       '13/1': [
-        'Zivilrecht: Vertragsrecht, Gewährleistung und Verbraucherschutz',
-        'Strafrecht: Grundlagen, Tatbestandsmerkmale und Rechtsfolgen',
-        'Arbeitsrecht und rechtliche Ordnung im Alltag',
+        'Rechtstechnische Grundlagen, gesetzliche Schuldverhältnisse (§ 823 I BGB)',
+        'Leistungsstörungen beim Kauf und Gewährleistung beim Verbrauchsgüterkauf',
+        'Strafrecht: Aufbau einer Straftat, Strafzwecktheorien und Strafzumessung',
       ],
       '13/2': [
-        'Geld, Preisniveau und Geldpolitik der EZB',
-        'Außenhandel, Wechselkurse und Währungspolitik',
-        'Europäische Wirtschafts- und Währungsunion',
+        'Geld, Preisniveau und Preisniveaustabilität',
+        'Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit)',
+        'Leistungsbilanz, Außenhandel und Wechselkurse',
       ],
     },
   },
