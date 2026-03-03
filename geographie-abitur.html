@@ -983,43 +983,61 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
 
       const container = document.getElementById("materialsContainer");
 
+      // Hilfsfunktion: Material-Content normalisieren (KI liefert manchmal "text" statt "content")
+      function getMaterialContent(m) {
+        return m.content ?? m.text ?? "";
+      }
+      function getMaterialContentStr(m) {
+        const c = getMaterialContent(m);
+        return typeof c === "string" ? c : "";
+      }
+
       // Handle materials array (from AI generation)
       if (d.materials && d.materials.length) {
         container.innerHTML = d.materials.map((m, i) => {
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto', karte: 'Karte', klimadiagramm: 'Klimadiagramm' };
-          const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
-          let body;
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            body = DOMPurify.sanitize(marked.parse(m.content || ""));
-            body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
-          } else if (m.type === "karte") {
-            body = `<div id="map-m-${i}" style="text-align:center;color:var(--ink-muted)">Karte wird geladen...</div>`;
-          } else if (m.type === "klimadiagramm") {
-            body = `<div class="material-klimadiagramm"><canvas id="klima-m-${i}"></canvas></div>`;
-          } else if (m.type === "bild") {
-            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
-          } else if (m.type === "foto") {
-            body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
-          } else {
-            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+          try {
+            const typeBadges = { statistik: 'Statistik', diagramm: 'Diagramm', bild: 'Bild', foto: 'Foto', karte: 'Karte', klimadiagramm: 'Klimadiagramm' };
+            const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+            const contentStr = getMaterialContentStr(m);
+            let body;
+            if ((m.type === "statistik" || m.type === "diagramm") && contentStr.includes("|")) {
+              body = DOMPurify.sanitize(marked.parse(contentStr));
+              body += `<div class="material-chart"><canvas id="chart-m-${i}"></canvas></div>`;
+            } else if (m.type === "karte") {
+              body = `<div id="map-m-${i}" style="text-align:center;color:var(--ink-muted)">Karte wird geladen...</div>`;
+            } else if (m.type === "klimadiagramm") {
+              body = `<div class="material-klimadiagramm"><canvas id="klima-m-${i}"></canvas></div>`;
+            } else if (m.type === "bild" || m.type === "foto") {
+              body = `<div class="material-img-loading" id="img-m-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+            } else {
+              body = contentStr ? escapeHtml(contentStr).replace(/\n/g, "<br>") : '<span style="color:var(--ink-muted)">Kein Inhalt</span>';
+            }
+            return `<div class="material-card">
+          <h4>M ${i + 1}: ${escapeHtml(m.title || m.titel || "")} ${typeBadge}</h4>
+          <div class="source-text material-body">${body}</div>
+          ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+        </div>`;
+          } catch (err) {
+            console.error("Material-Rendering-Fehler M" + (i+1) + ":", err);
+            return `<div class="material-card"><h4>M ${i + 1}: ${escapeHtml(m.title || m.titel || "")}</h4><div class="material-body" style="color:var(--ink-muted)">Material konnte nicht dargestellt werden.</div></div>`;
           }
-          return `<div class="material-card">
-        <h4>M ${i + 1}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
-        <div class="source-text material-body">${body}</div>
-        ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
-      </div>`;
         }).join("");
         d.materials.forEach((m, i) => {
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            renderStatistikChart(m.content, `chart-m-${i}`);
-          } else if (m.type === "karte") {
-            renderKarte(m.content, `map-m-${i}`);
-          } else if (m.type === "klimadiagramm") {
-            renderKlimadiagramm(m.content, `klima-m-${i}`);
-          } else if (m.type === "bild") {
-            loadDallEImage(m.content, `img-m-${i}`);
-          } else if (m.type === "foto") {
-            loadUnsplashImage(m.content, `img-m-${i}`);
+          try {
+            const content = getMaterialContent(m);
+            const contentStr = getMaterialContentStr(m);
+            if ((m.type === "statistik" || m.type === "diagramm") && contentStr.includes("|")) {
+              const chartType = m.chart_type || (m.type === "statistik" ? "bar" : "line");
+              renderStatistikChart(contentStr, `chart-m-${i}`, chartType);
+            } else if (m.type === "karte") {
+              renderKarte(content, `map-m-${i}`);
+            } else if (m.type === "klimadiagramm") {
+              renderKlimadiagramm(content, `klima-m-${i}`);
+            } else if (m.type === "bild" || m.type === "foto") {
+              loadDallEImage(contentStr || content, `img-m-${i}`);
+            }
+          } catch (err) {
+            console.error("Material-Render-Fehler M" + (i+1) + ":", err);
           }
         });
       }
@@ -1044,8 +1062,9 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       const refContainer = document.getElementById("writeMaterialsRef");
       if (d.materials && d.materials.length) {
         refContainer.innerHTML = d.materials.map((m, i) => {
-          const preview = typeof m.content === "string" ? m.content.substring(0, 150) : (m.title || "");
-          return `<div style="margin-bottom:.8rem"><strong>M ${i + 1}: ${escapeHtml(m.title || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml(preview)}…</span></div>`;
+          const c = m.content ?? m.text ?? "";
+          const preview = typeof c === "string" ? c.substring(0, 150) : (m.title || m.titel || "");
+          return `<div style="margin-bottom:.8rem"><strong>M ${i + 1}: ${escapeHtml(m.title || m.titel || "")}</strong><br><span style="color:var(--ink-muted);font-size:.8rem">${escapeHtml(preview)}…</span></div>`;
         }).join("");
       } else if (d.primary_text) {
         refContainer.innerHTML = `<span style="color:var(--ink-muted)">${escapeHtml(d.primary_text.substring(0, 200))}…</span>`;
@@ -1163,24 +1182,35 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
 
     // === Shared: Chart & Image helpers ===
     const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
-    function renderStatistikChart(markdown, canvasId) {
-      const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
-      if (lines.length < 2) return;
-      const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
-      const headers = parse(lines[0]);
-      const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
-      if (dataLines.length < 2) return;
-      const rows = dataLines.slice(1).map(parse);
-      const labels = rows.map(r => r[0]);
-      const datasets = headers.slice(1).map((h, i) => ({
-        label: h,
-        data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
-        backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
-      }));
-      new Chart(document.getElementById(canvasId), {
-        type: "bar", data: { labels, datasets },
-        options: { responsive: true, plugins: { legend: { position: "top" } } }
-      });
+    function renderStatistikChart(markdown, canvasId, chartType) {
+      try {
+        if (typeof markdown !== "string") return;
+        const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+        if (lines.length < 2) return;
+        const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+        const headers = parse(lines[0]);
+        const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+        if (dataLines.length < 2) return;
+        const rows = dataLines.slice(1).map(parse);
+        const labels = rows.map(r => r[0]);
+        const type = chartType || "bar";
+        const datasets = headers.slice(1).map((h, i) => ({
+          label: h,
+          data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
+          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+          borderColor: type === "line" ? CHART_COLORS[i % CHART_COLORS.length] : undefined,
+          borderWidth: type === "line" ? 2 : undefined,
+          fill: type === "line" ? false : undefined,
+        }));
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
+          type: type, data: { labels, datasets },
+          options: { responsive: true, plugins: { legend: { position: "top" } } }
+        });
+      } catch (err) {
+        console.error("Chart-Rendering-Fehler:", err);
+      }
     }
     async function loadDallEImage(prompt, containerId) {
       try {
