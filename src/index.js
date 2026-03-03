@@ -5235,7 +5235,11 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => {
+      const c = m.content ?? m.text ?? "";
+      const cStr = typeof c === "string" ? c : JSON.stringify(c);
+      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+    }).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -5666,14 +5670,18 @@ async function handleGradeAbiturGeographie(request, env) {
   if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => {
+      const c = m.content ?? m.text ?? "";
+      const cStr = typeof c === "string" ? c : JSON.stringify(c);
+      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+    }).join("\n\n")}\n\n`;
   }
 
   let studentTexts = "";
   if (student_text_a) studentTexts += `Schülertext Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
   if (student_text_b) studentTexts += `Schülertext Teil B:\n${truncate(student_text_b, 6000)}`;
 
-  const korrekturAnweisung = KORREKTUR_SINGLE;
+  const korrekturAnweisung = KORREKTUR_AB;
 
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
@@ -5684,27 +5692,29 @@ async function handleGradeAbiturGeographie(request, env) {
 
   try {
     const parsed = extractJSON(openaiRes);
-    const verstehen = parsed.verstehen_np ?? null;
+    const teil_a = parsed.teil_a_np ?? null;
+    const teil_b = parsed.teil_b_np ?? null;
     const darstellung = parsed.darstellung_np ?? null;
     let gesamt = parsed.gesamt_np ?? null;
 
-    if (gesamt == null && verstehen != null && darstellung != null) {
-      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
-      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    if (gesamt == null && teil_a != null && teil_b != null && darstellung != null) {
+      gesamt = Math.round(teil_a * 0.5 + teil_b * 0.2 + darstellung * 0.3);
     }
 
     return jsonResponse({
-      scores: { verstehen, darstellung, total: gesamt },
+      scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
-      korrektur_text: parsed.korrektur_text || "",
+      korrektur_text_a: parsed.korrektur_text_a || parsed.korrektur_text || "",
+      korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
     return jsonResponse({
-      scores: { verstehen: null, darstellung: null, total: null },
+      scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
-      korrektur_text: "",
+      korrektur_text_a: "",
+      korrektur_text_b: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
     }, 200, env);
@@ -5738,7 +5748,11 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => {
+      const c = m.content ?? m.text ?? "";
+      const cStr = typeof c === "string" ? c : JSON.stringify(c);
+      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+    }).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
