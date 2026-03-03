@@ -439,27 +439,32 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Wirtschaft und Recht': {
-    // WR12 LB1 (BWL) = 12/1, LB2 (VWL) = 12/2, LB3 (Recht) → 13/1; WR13 LB1 (Recht) → 13/1, LB2 (VWL) = 13/2
+    // WR12 eA: LB1 BWL (54 Std.) = 12/1, LB2 VWL (40 Std.) = 12/2, LB3 Recht (18 Std.) → 13/1
+    // WR13 eA: LB1 Recht (48 Std.) → 13/1, LB2 VWL (36 Std.) = 13/2
     halbjahre: {
       '12/1': [
-        'Unternehmerische Zielsetzungen, Stakeholder und Zielkonflikte',
-        'Beschaffung, Absatz und Break-even-Analyse',
-        'Investitionsrechnung, Finanzierung und Erfolgskennzahlen',
+        'Unternehmensaufbau und -ziele: Stakeholder, Zielkonflikte, Aufbau-/Ablauforganisation, Wertschöpfung und Funktionsbereiche',
+        'Markt und Produktion: Beschaffungsarten, Break-even-Analyse, Marktsituation, ABC-Analyse und Marktwachstum-Marktanteils-Portfolio',
+        'Jahresabschluss und Bilanzanalyse: Bilanz, GuV, Bilanzkennzahlen (Anlageintensität, EK-Quote, Deckungsgrade, Liquiditätsgrade), Rentabilitätskennzahlen und EBIT',
+        'Investition und Finanzierung: Gewinnvergleichsrechnung, Amortisationsrechnung, Kapitalwertmethode, Leverage-Effekt',
+        'Unternehmensführung und Management: SWOT-Analyse, Wettbewerbsstrategien nach Porter, Kernkompetenzen, Managementfunktionen',
       ],
       '12/2': [
-        'Magisches Viereck, Konjunkturzyklus und Konjunkturindikatoren',
-        'Wachstum, Beschäftigung und Wirtschaftspolitik (Nachfrage-/Angebotstheorie)',
-        'Einkommen, Tarifpolitik und soziale Sicherung',
+        'Magisches Viereck, Konjunkturzyklus, Konjunkturindikatoren und Zielbeziehungen',
+        'Wachstum und Beschäftigung: Wirtschaftspolitik (Nachfrage-/Angebotstheorie), BIP (Verwendungs-/Entstehungsrechnung), Arbeitslosigkeitsarten, Staatsverschuldung, Klimaschutz',
+        'Einkommen und soziale Sicherung: Tarifpolitik, Kranken-/Rentenversicherung, demographischer Wandel, soziale Gerechtigkeit (Leistungs-, Chancen-, Bedarfs-, Generationengerechtigkeit)',
       ],
       '13/1': [
-        'Rechtstechnische Grundlagen, gesetzliche Schuldverhältnisse (§ 823 I BGB)',
-        'Leistungsstörungen beim Kauf und Gewährleistung beim Verbrauchsgüterkauf',
-        'Strafrecht: Aufbau einer Straftat, Strafzwecktheorien und Strafzumessung',
+        'Rechtstechnische Grundlagen (BGB-Systematik, Gutachtenstil), gesetzliche Schuldverhältnisse: § 823 I BGB, Gefährdungshaftung, Herausgabeanspruch und gutgläubiger Eigentumserwerb',
+        'Vertragliche Schuldverhältnisse: Vertragstypen (Werk-, Dienstvertrag), Leistungsstörungen (verspätete Leistung, Unmöglichkeit, Nebenpflichtverletzung), Gewährleistung beim Verbrauchsgüterkauf',
+        'Verbraucherschutz: Beweislastumkehr, Widerrufsrecht bei Fernabsatzverträgen, AGB, Vertragsfreiheit in der sozialen Marktwirtschaft',
+        'Strafrecht: Aufbau einer Straftat, Rechtfertigungs- und Entschuldigungsgründe, Strafzwecktheorien, Strafzumessung, Radbruchsche Formel',
       ],
       '13/2': [
-        'Geld, Preisniveau und Preisniveaustabilität',
-        'Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit)',
-        'Leistungsbilanz, Außenhandel und Wechselkurse',
+        'Geld und Preisniveau: Preisniveaustabilität, Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit), Wirkungsgrenzen',
+        'Außenhandel und Währung: Leistungs-/Kapitalbilanz, Wechselkursbildung, außenhandels- und währungspolitische Maßnahmen',
+        'Spieltheorie: Gefangenendilemma, dominante Strategie, Nash-Gleichgewicht, Pareto-Optimum',
+        'Vertiefte und vernetzende Betrachtung aktueller gesamtwirtschaftlicher Problemstellungen',
       ],
     },
   },
