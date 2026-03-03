@@ -1268,6 +1268,28 @@
       transform: translateY(-2px)
     }
 
+    .exam-reset-btn {
+      background: #ef4444;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      transition: background .2s
+    }
+
+    .exam-reset-btn:hover {
+      background: #dc2626
+    }
+
+    .exam-reset-btn:active {
+      background: #b91c1c
+    }
+
     .exam-settings {
       max-width: 1000px;
       width: 100%;
@@ -2325,6 +2347,7 @@
         <span class="exam-legend"><span class="exam-dot ea"></span> eA <span class="exam-dot written"></span> Schriftlich gA <span class="exam-dot oral"></span> Mündlich gA</span>
       </div>
       <p class="exam-hint">1. Klick = schriftlich gA · 2. Klick auf schriftliches Fach = eA · nochmal klicken = entfernen</p>
+      <button class="exam-reset-btn" onclick="resetExamSubjects()" type="button">🔄 Alle Abifächer zurücksetzen</button>
     </div>
     <div class="subject-grid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
@@ -3961,6 +3984,12 @@
       }
 
       // Alle Badges neu rendern
+      applyExamBadges();
+      updateExamCounter();
+    }
+
+    function resetExamSubjects() {
+      examSubjectsCache = { written: [], oral: [], ea: "" };
       applyExamBadges();
       updateExamCounter();
     }
