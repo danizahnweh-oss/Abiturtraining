@@ -10628,6 +10628,367 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
   }
 }
 
+/* ================= FOS ENDPOINTS (alle Fächer) ================= */
+
+// FOS-Lehrplan-Konfigurationen
+const FOS_SUBJECTS = {
+  bwr: {
+    name: "Betriebswirtschaftslehre mit Rechnungswesen (BwR)",
+    shortName: "BwR",
+    fachbereiche: {
+      rechnungswesen: {
+        label: "Rechnungswesen",
+        themen: "FOS 11 LB1-3: Finanzbuchhaltung (Bestands-/Erfolgskonten, Buchungssätze, Umsatzsteuer), Bilanz und GuV, Abschreibungen (linear/degressiv/leistungsbezogen), Rückstellungen, Rechnungsabgrenzung. FOS 11 LB4-5: Kosten-/Leistungsrechnung (Vollkostenrechnung, Zuschlagskalkulation, BAB), Deckungsbeitragsrechnung"
+      },
+      investition: {
+        label: "Investition & Finanzierung",
+        themen: "FOS 12 LB1-2: Investitionsrechnung (Kostenvergleichsrechnung, Gewinnvergleichsrechnung, Amortisationsrechnung, Kapitalwertmethode), Finanzierungsarten (Eigen-/Fremdfinanzierung, Innen-/Außenfinanzierung), Kreditarten, Leasing, Factoring"
+      },
+      jahresabschluss: {
+        label: "Jahresabschluss & Bilanzanalyse",
+        themen: "FOS 12 LB3-4: Jahresabschluss (Bilanz, GuV, Anhang), Bilanzpolitik, Bilanzanalyse (Anlageintensität, Eigenkapitalquote, Liquiditätsgrade I-III, Verschuldungsgrad), Rentabilitäten (Eigenkapital-/Gesamtkapital-/Umsatzrentabilität), Cashflow"
+      },
+      controlling: {
+        label: "Controlling & Kostenmanagement",
+        themen: "FOS 13 LB1-4: Plankostenrechnung (starre/flexible Plankostenrechnung, Beschäftigungsabweichung, Verbrauchsabweichung), Controlling (operativ/strategisch, Balanced Scorecard, Kennzahlensysteme), Target Costing, Prozesskostenrechnung, Qualitätsmanagement"
+      }
+    }
+  },
+  vwl: {
+    name: "Volkswirtschaftslehre (VWL)",
+    shortName: "VWL",
+    fachbereiche: {
+      grundlagen: {
+        label: "Grundlagen der Volkswirtschaft",
+        themen: "FOS 11 LB1-3: Bedürfnisse und Güter, Ökonomisches Prinzip, Produktionsfaktoren, Markt und Preisbildung (Angebot/Nachfrage, Gleichgewichtspreis, Elastizitäten), Wirtschaftsordnungen (Marktwirtschaft/Planwirtschaft/Soziale Marktwirtschaft), Wettbewerbspolitik"
+      },
+      geldpolitik: {
+        label: "Geld, Währung & Konjunktur",
+        themen: "FOS 12 LB1-4: Geld und Geldschöpfung, Europäische Zentralbank (Aufgaben, Instrumente: Leitzins, Mindestreserve, Offenmarktgeschäfte), Inflation/Deflation, Konjunkturzyklus und -indikatoren, BIP (Berechnung, Kritik), Wirtschaftspolitik (Fiskalpolitik, Geldpolitik), Arbeitsmarktpolitik"
+      },
+      international: {
+        label: "Internationale Wirtschaft & Nachhaltigkeit",
+        themen: "FOS 13 LB1-6: Außenhandel (komparative Kostenvorteile, Freihandel/Protektionismus), EU-Wirtschaftspolitik (Binnenmarkt, Währungsunion, Stabilitätspakt), Globalisierung (Chancen/Risiken, multinationale Unternehmen), Nachhaltigkeit (Nachhaltigkeitsdreieck, SDGs), Verteilungsgerechtigkeit, Entwicklungspolitik"
+      }
+    }
+  },
+  deutsch: {
+    name: "Deutsch",
+    shortName: "Deutsch",
+    fachbereiche: {
+      textanalyse: {
+        label: "Textanalyse & Interpretation",
+        themen: "FOS 11-13: Analyse pragmatischer Texte (Kommentar, Essay, Rede, Interview), Interpretation literarischer Texte (Lyrik, Epik, Drama), Texterschließung (Inhalt, Aufbau, Sprache, Intention), Epochen der deutschen Literatur (Aufklärung bis Gegenwart)"
+      },
+      eroerterung: {
+        label: "Erörterung & Stellungnahme",
+        themen: "FOS 11-13: Textgebundene Erörterung (Analyse + eigene Stellungnahme), Freie Erörterung (dialektisch/linear), Argumentationsstrategien, Schlüssigkeit der Argumentation, Materialbezug"
+      },
+      materialgestuetzt: {
+        label: "Materialgestütztes Schreiben",
+        themen: "FOS 13: Materialgestütztes Verfassen informierender/argumentierender Texte, Auswertung und Verknüpfung verschiedener Materialien (Texte, Statistiken, Grafiken), Adressaten- und Textsortenorientierung (Kommentar, Rede, Leserbrief, Bericht)"
+      },
+      literatur: {
+        label: "Literaturgeschichte",
+        themen: "FOS 11: Literatur des 20./21. Jahrhunderts (Kurzprosa, Jugendliteratur). FOS 12: Literatur des 19./20./21. Jahrhunderts (Epochen: Romantik, Realismus, Expressionismus, Neue Sachlichkeit, Nachkriegsliteratur). FOS 13: Literatur von der Aufklärung bis zur Gegenwart (Sturm und Drang, Klassik, Romantik, Realismus, Moderne)"
+      }
+    }
+  },
+  recht: {
+    name: "Rechtslehre",
+    shortName: "Rechtslehre",
+    fachbereiche: {
+      privatrecht: {
+        label: "Privatrecht / BGB",
+        themen: "FOS 11 LB1-3: Rechtssubjekte und Rechtsobjekte, Rechts- und Geschäftsfähigkeit, Willenserklärung (Anfechtbarkeit, Nichtigkeit), Zustandekommen von Verträgen, Vertragsfreiheit und ihre Grenzen, AGB-Recht, Formvorschriften"
+      },
+      schuldrecht: {
+        label: "Schuldrecht & Sachenrecht",
+        themen: "FOS 12 LB1-4: Kaufvertrag (Rechte/Pflichten, Mangelfreiheit, Gewährleistung: Nacherfüllung/Rücktritt/Minderung/Schadensersatz), Leistungsstörungen (Unmöglichkeit, Verzug, Schlechtleistung), Sachenrecht (Eigentum/Besitz, Eigentumsübertragung, gutgläubiger Erwerb), Verbraucherschutz (Widerrufsrecht, Fernabsatz)"
+      },
+      arbeitsrecht: {
+        label: "Arbeits- & Wirtschaftsrecht",
+        themen: "FOS 13 LB1-4: Arbeitsvertrag (Rechte/Pflichten, Kündigung, Kündigungsschutz), Tarifrecht (Tarifautonomie, Tarifvertrag, Arbeitskampf), Betriebsverfassungsrecht (Betriebsrat, Mitbestimmung), Handelsrecht (Kaufmannseigenschaft, Handelsregister), Gesellschaftsrecht (OHG, KG, GmbH, AG), Insolvenzrecht"
+      }
+    }
+  },
+  ibs: {
+    name: "International Business Studies (IBV)",
+    shortName: "IBV",
+    fachbereiche: {
+      international_trade: {
+        label: "International Trade & Commerce",
+        themen: "FOS 11-12: International trade theories (absolute/comparative advantage), INCOTERMS, international payment methods (letter of credit, documentary collection), currency and exchange rates, international logistics and supply chain management"
+      },
+      marketing: {
+        label: "International Marketing & Management",
+        themen: "FOS 12-13: International marketing strategies (standardization vs. adaptation), market entry strategies (export, licensing, joint venture, FDI), cross-cultural management (Hofstede, Trompenaars), international human resource management, corporate social responsibility"
+      },
+      economics: {
+        label: "International Economics & EU",
+        themen: "FOS 13: European Union (single market, EMU, EU institutions), globalization (opportunities/risks, multinational corporations), trade policy (free trade vs. protectionism, WTO), international financial markets, development economics, sustainability in international business"
+      }
+    }
+  }
+};
+
+async function handleFOSRoute(pathname, request, env) {
+  const body = await request.json();
+  const fakeReq = { json: async () => body };
+  const route = pathname.substring(9); // "/api/fos-" entfernen
+
+  // === ENGLISCH (delegiert an bestehende generische Handler) ===
+  if (route === "generate-englisch") return handleGenerate(fakeReq, env);
+  if (route === "grade-englisch") return handleGrade(fakeReq, env);
+  if (route === "model-answer-englisch") return handleModelAnswer(fakeReq, env);
+  if (route === "parse-task-englisch") return handleParseTask(fakeReq, env);
+
+  // === MATHE (FOS-spezifische Lehrplaninhalte) ===
+  if (route === "generate-mathe") return handleFOSGenerateMathe(body, env);
+  if (route === "grade-mathe") return handleGradeMathe(fakeReq, env);
+  if (route === "model-answer-mathe") return handleModelAnswerMathe(fakeReq, env);
+  if (route === "parse-task-mathe") return handleParseTaskMathe(fakeReq, env);
+
+  // === MATHE ABITUR (FOS-Fachabitur) ===
+  if (route === "generate-abitur-mathe") return handleFOSGenerateAbiturMathe(body, env);
+  if (route === "grade-abitur-mathe") return handleGradeAbiturMathe(fakeReq, env);
+  if (route === "model-answer-abitur-mathe") return handleModelAnswerAbiturMathe(fakeReq, env);
+
+  // === TEXT-FÄCHER (BWR, VWL, Deutsch, Recht, IBV) ===
+  const textMatch = route.match(/^(generate|grade|model-answer|parse-task)-(.+)$/);
+  if (textMatch) {
+    const [, action, subject] = textMatch;
+    const config = FOS_SUBJECTS[subject];
+    if (config) {
+      if (action === "generate") return handleFOSTextGenerate(config, body, env);
+      if (action === "grade") return handleGradeWR(fakeReq, env);
+      if (action === "model-answer") return handleModelAnswerWR(fakeReq, env);
+      if (action === "parse-task") return handleParseTaskWR(fakeReq, env);
+    }
+  }
+
+  return jsonResponse({ error: "Unbekannte FOS-Route: " + pathname }, 404, env);
+}
+
+/* ================= FOS MATHE: GENERATE ================= */
+async function handleFOSGenerateMathe(body, env) {
+  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen.'
+    : '';
+
+  const sg = sachgebiet || "analysis";
+  const totalBE = be || 25;
+  const zeitMinuten = zeit || 45;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
+  const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
+
+  const sgThemen = {
+    analysis: {
+      title: "Analysis",
+      inhalte: `FOS-Lehrplan Bayern:
+Jgst 11: Ganzrationale Funktionen (Nullstellen, Symmetrie, Grenzverhalten), Differenzialrechnung (Ableitungsregeln, Potenz-/Summen-/Faktorregel), Tangente, Extremwerte, Monotonie, Wendepunkte
+Jgst 12: Differenzialrechnung Vertiefung (Produkt-/Quotientenregel, verkettete Funktionen/Kettenregel), Exponentialfunktion und e-Funktion, Kurvendiskussion (e-Funktionen, Wachstums-/Abklingmodelle), Integralrechnung (Stammfunktion, bestimmtes Integral, Flächenberechnung)
+Jgst 13: Gebrochen-rationale Funktionen (Definitionslücken, Asymptoten), ln-Funktion als Umkehrfunktion, komplexe Kurvendiskussion, partielle Integration, uneigentliche Integrale`,
+      kontexte: `Wachstums-/Abklingmodelle (Bakterienkultur, Medikament, Bevölkerung), Produktionskosten/-gewinn, Temperaturverlauf, Wasserstand, Geschwindigkeit/Strecke, CO₂-Konzentration`
+    },
+    stochastik: {
+      title: "Stochastik",
+      inhalte: `FOS-Lehrplan Bayern:
+Jgst 11: Wahrscheinlichkeitsrechnung Grundlagen (Laplace, Baumdiagramm, Pfadregeln), bedingte Wahrscheinlichkeit, Vierfeldertafel, stochastische Unabhängigkeit
+Jgst 12: Bernoulli-Ketten und Binomialverteilung, Erwartungswert und Standardabweichung, Sigma-Regeln, Hypothesentests (einseitiger Signifikanztest, Fehler 1. und 2. Art, Ablehnungsbereich)`,
+      kontexte: `Qualitätskontrolle, Verkehrszählung, medizinische Tests, Wahlumfragen, Versicherungen, Glücksspiel, Schulveranstaltung`
+    },
+    geometrie: {
+      title: "Geometrie",
+      inhalte: `FOS-Lehrplan Bayern:
+Jgst 13: Vektoren (Addition, skalare Multiplikation, Linearkombination), Skalarprodukt und Winkelberechnung, Vektorprodukt (Kreuzprodukt, Spatprodukt), Lineare Gleichungssysteme (Gauß-Verfahren), Geraden im Raum (Parameterform, Lagebeziehungen), Ebenen (Parameter-/Normalen-/Koordinatenform), Abstände (Punkt-Ebene, Punkt-Gerade, windschiefe Geraden)`,
+      kontexte: `Dachkonstruktion, Sonnensegel, Brückenmodell, Rampe/Auffahrt, Aussichtsturm/Sichtlinie, Theaterkulisse`
+    }
+  };
+
+  const sgInfo = sgThemen[sg] || sgThemen.analysis;
+
+  // Verwende den gleichen Prompt-Aufbau wie Gymnasium-Mathe, aber mit FOS-Lehrplan
+  const systemPrompt = `Du bist ein Experte für FOS-Mathematik (Bayern, Fachabitur).
+Erstelle eine authentische Mathematik-Aufgabe für die Fachoberschule.
+
+AUFGABE:
+- Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
+- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Erstelle mindestens ${minTeilaufgaben} und höchstens ${maxTeilaufgaben} Teilaufgaben
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...), zusammen ' + totalBE + ' BE.'}
+- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Hilfsmittel/CAS erlaubt
+- KEINE LÖSUNGSHINWEISE in Klammern
+
+SACHGEBIET: ${sgInfo.title}
+Relevante Inhalte:
+${sgInfo.inhalte}${schwerpunktZusatz}
+Sachkontext-Ideen: ${sgInfo.kontexte}
+
+PFLICHT-REGELN:
+- Jede Teilaufgabe MUSS einen klaren OPERATOR enthalten
+- AFB I: "Berechnen Sie", "Bestimmen Sie", "Geben Sie an"
+- AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie"
+- AFB III: "Beurteilen Sie", "Formulieren Sie im Sachzusammenhang"
+- Bei ≥15 BE: KONKRETER Sachkontext erforderlich
+- LEHRPLAN-TREUE: NUR Inhalte aus dem FOS-Lehrplan!
+
+LATEX-FORMATIERUNG:
+- $\\cdot$ statt *, Dezimalkomma $3{,}6$, $\\frac{a}{b}$ statt a/b
+- e-Funktion: $e^{-x}$, $e^{-0{,}5x}$ (NIEMALS $e^-x$ oder $\\exp(...)$)
+
+GEOGEBRA (optional): type "graphing", Variable IMMER x, * für Multiplikation, exp(x) für e-Funktion
+
+Antworte NUR mit validem JSON:
+{"aufgabe": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}], "gesamt_be": ${totalBE}, "sachgebiet": "${sg}"}`;
+
+  const userPrompt = `Erstelle eine FOS-Mathematik-Aufgabe (EXAKT ${totalBE} BE) im Sachgebiet ${sgInfo.title}.
+${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet sein.' : ''}
+Jede Teilaufgabe braucht einen klaren Operator. Alle Formeln in LaTeX.`;
+
+  const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], Math.min(maxTokens, 16000));
+
+  const content = extractJSON(openaiRes);
+  if (content.teilaufgaben && content.teilaufgaben.length > 0) {
+    const beSum = content.teilaufgaben.reduce((sum, t) => sum + (parseInt(t.be) || 0), 0);
+    if (beSum !== totalBE) content.gesamt_be = beSum;
+  }
+  if (!content.gesamt_be) content.gesamt_be = totalBE;
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= FOS MATHE ABITUR: GENERATE (FAP) ================= */
+async function handleFOSGenerateAbiturMathe(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung Mathematik (Bayern).
+Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung mit 100 BE.
+
+PRÜFUNGSSTRUKTUR (FOS Bayern):
+
+TEIL 1 (34 BE, 60 min, OHNE Hilfsmittel/Merkhilfe/CAS):
+- Analysis (22 BE): 3-4 kompakte Aufgaben, ohne CAS lösbar, "schöne" Zahlen
+- Stochastik (12 BE): 2 kompakte Aufgaben, ohne CAS lösbar
+
+TEIL 2 (66 BE, 120 min, MIT Hilfsmittel/Merkhilfe/CAS):
+- Analysis (43 BE): 2 große mehrteilige Aufgaben mit Sachkontext
+- Stochastik (23 BE): 1 große mehrteilige Aufgabe mit durchgängigem Sachkontext
+
+WICHTIG: KEINE Geometrie im Fachabitur! Verhältnis Analysis:Stochastik = 65:35
+
+FOS-LEHRPLAN:
+Analysis: Ganzrationale Funktionen (Nullstellen, Symmetrie), Differenzialrechnung (Potenz-/Summen-/Faktor-/Produkt-/Quotienten-/Kettenregel), Exponentialfunktion, e-Funktion, Kurvendiskussion, Integralrechnung, gebrochen-rationale Funktionen, ln-Funktion, partielle Integration
+Stochastik: Wahrscheinlichkeitsrechnung (Baumdiagramm, Pfadregeln), bedingte Wahrscheinlichkeit, Vierfeldertafel, Bernoulli-Ketten, Binomialverteilung, Erwartungswert, Sigma-Regeln, Hypothesentests (Signifikanztest, Fehler 1./2. Art)
+
+PFLICHT-REGELN:
+- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben
+- Teil 1 MUSS ohne CAS lösbar sein
+- Kontrollwerte bei wichtigen Zwischenergebnissen angeben
+- LaTeX-Notation: $\\cdot$ statt *, $e^{-x}$ mit geschweiften Klammern, $\\frac{a}{b}$, Dezimalkomma $3{,}6$
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a_pflicht": [
+    {"id": "A1", "sachgebiet": "Analysis", "be": 7, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}]}
+  ],
+  "teil_a_wahl": [],
+  "teil_b": [
+    {"id": "B1", "sachgebiet": "Analysis", "be": 22, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}]}
+  ]
+}
+Hinweis: teil_a_pflicht = Teil 1 (ohne Hilfsmittel), teil_b = Teil 2 (mit Hilfsmitteln). teil_a_wahl bleibt leer (kein Wahlteil bei FOS).`;
+
+  const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung Mathematik (100 BE).
+Teil 1 (34 BE): Analysis 22 BE + Stochastik 12 BE, ohne CAS
+Teil 2 (66 BE): Analysis 43 BE + Stochastik 23 BE, mit CAS
+KEINE Geometrie! Jede Teilaufgabe braucht einen klaren Operator.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS TEXT-FÄCHER: GENERISCHER GENERATE ================= */
+async function handleFOSTextGenerate(config, body, env) {
+  const { niveau, fachbereich, sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ')
+    : '';
+
+  const gesamtBE = be || 60;
+  const zeitMinuten = zeit || 135;
+  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+
+  // Fachbereich-Inhalte zusammenstellen
+  const fbKey = sachgebiet || fachbereich || Object.keys(config.fachbereiche)[0];
+  let fbLabel, fbThemen;
+  if (config.fachbereiche[fbKey]) {
+    fbLabel = config.fachbereiche[fbKey].label;
+    fbThemen = config.fachbereiche[fbKey].themen;
+  } else {
+    fbLabel = config.shortName;
+    fbThemen = Object.values(config.fachbereiche).map(f => f.themen).join("\n\n");
+  }
+
+  const systemPrompt = `Du bist ein Experte für das Fach ${config.name} an der bayerischen Fachoberschule (FOS).
+Erstelle eine authentische Klausuraufgabe.
+
+PRÜFUNGSFORMAT:
+- Fach: ${config.name} (FOS Bayern)
+- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
+- 2-3 Aufgabenblöcke
+- 3-4 Materialien (Texte, Tabellen, Gesetzestexte, Statistiken)
+- Schwerpunkt: ${fbLabel}${schwerpunktZusatz}
+${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke` : ''}
+
+LEHRPLAN-INHALTE (FOS Bayern):
+${fbThemen}
+
+AUFGABENSTRUKTUR:
+- 2-4 Teilaufgaben pro Block mit steigendem Anforderungsniveau
+- AFB I (20%): beschreiben, nennen, darstellen, zusammenfassen
+- AFB II (40%): erläutern, analysieren, vergleichen, berechnen
+- AFB III (40%): beurteilen, erörtern, Stellung nehmen
+- KEINE LÖSUNGSHINWEISE in Klammern
+- LEHRPLAN-TREUE: NUR FOS-Lehrplan-Inhalte verwenden!
+
+MATERIALIEN:
+- Textmaterialien: 300-600 Wörter pro Material
+- Tabellen/Statistiken: Markdown-Tabelle mit plausiblen Zahlen
+- 1 Material vom Typ "bild" (KI-generiert)
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Einleitender Situationstext",
+  "aufgabenbloecke": [{"nr": 1, "titel": "...", "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 5, "afb": "I"}], "be_gesamt": 15}],
+  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}],
+  "gesamt_be": ${gesamtBE},
+  "fachbereich": "${fbLabel}",
+  "thema": "Konkretes Thema"
+}`;
+
+  const userPrompt = `Erstelle eine ${config.shortName}-Klausuraufgabe (FOS Bayern):
+- Schwerpunkt: ${fbLabel}
+- Gesamt-BE: ${gesamtBE}
+- Erstelle 3-4 Materialien (Texte 300-600 Wörter, Tabellen, 1 Bild).
+Jedes Textmaterial MUSS ausführlich sein (300-600 Wörter).`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 14000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
 /* ================= HELPERS ================= */
 // Repariert Steuerzeichen die durch fehlendes JSON-Escaping von LaTeX entstehen
 // \b (0x08) → \\b (z.B. \begin, \binom, \beta, \bar)
@@ -10693,900 +11054,3 @@ function extractJSON(text) {
   throw new Error("Model did not return valid JSON.");
 }
 
-/* =================================================================
-   FOS (Fachoberschule) – Generische Handler für alle Fächer
-   ================================================================= */
-
-// FOS Textfächer-Konfiguration (BWR, VWL, Deutsch, Englisch, Rechtslehre)
-const FOS_TEXT_SUBJECTS = {
-  bwr: {
-    label: "BwR (Betriebswirtschaftslehre mit Rechnungswesen)",
-    schulart: "Fachoberschule Bayern",
-    fachbereiche: {
-      vollkostenrechnung: {
-        label: "Vollkostenrechnung",
-        themen: "Kostenartengliederung, Kostenartenrechnung, Kostenstellenrechnung (BAB), Kostenträgerrechnung (Zuschlagskalkulation, Maschinenstundensatzrechnung), Kostenüber-/unterdeckung, Ist-/Normal-/Plankosten"
-      },
-      teilkostenrechnung: {
-        label: "Teilkostenrechnung",
-        themen: "Deckungsbeitragsrechnung (einstufig, mehrstufig), Break-even-Analyse, Engpassplanung, kurzfristige Preisuntergrenze, Make-or-Buy-Entscheidungen, Zusatzaufträge, relative Deckungsbeiträge"
-      },
-      marketing: {
-        label: "Marketing & Absatz",
-        themen: "Marktforschung (primär/sekundär), Produktpolitik (Produktlebenszyklus, BCG-Matrix), Preispolitik (Preisdifferenzierung, -strategien), Distributionspolitik, Kommunikationspolitik (Werbung, Sales Promotion, PR)"
-      },
-      jahresabschluss: {
-        label: "Jahresabschluss & Bilanzanalyse",
-        themen: "Bilanz, GuV (Gesamt-/Umsatzkostenverfahren), Abschreibungen (linear, degressiv, leistungsabhängig), Rückstellungen, Rechnungsabgrenzung, Bilanzanalyse (Anlagenintensität, EK-Quote, Liquiditätsgrade, Rentabilitäten, Cash-Flow)"
-      },
-      controlling: {
-        label: "Controlling & Investition",
-        themen: "Plankostenrechnung, Balanced Scorecard (BSC), Soll-Ist-Vergleich, Abweichungsanalyse, Investitionsrechenverfahren (Kostenvergleich, Gewinnvergleich, Amortisation, Kapitalwertmethode), Finanzierungsarten (Eigen-/Fremdfinanzierung, Innen-/Außenfinanzierung)"
-      }
-    }
-  },
-  vwl: {
-    label: "Volkswirtschaftslehre",
-    schulart: "Fachoberschule Bayern",
-    fachbereiche: {
-      preisbildung: {
-        label: "Preisbildung",
-        themen: "Angebot und Nachfrage (individuell, gesamt), Gleichgewichtspreis, Konsumenten-/Produzentenrente, Preis- und Einkommenselastizität, Unvollkommener Wettbewerb (Monopol, Oligopol), Staatliche Eingriffe in die Preisbildung"
-      },
-      wirtschaftswachstum: {
-        label: "Wirtschaftswachstum & Konjunktur",
-        themen: "Konjunkturschwankungen und Konjunkturindikatoren, BIP (Entstehung, Verwendung, Verteilung), Qualitatives Wachstum und Grenzen des Wachstums, Einkommensverteilung (Lorenz-Kurve, Gini-Koeffizient), Wirtschaftspolitische Ziele und Zielkonflikte"
-      },
-      geldpolitik: {
-        label: "Geldpolitik",
-        themen: "Geldschöpfung (EZB und Geschäftsbanken), Inflation und Deflation (Messung, Ursachen), Geldpolitische Instrumente der EZB, Wirkungskette geldpolitischer Maßnahmen"
-      },
-      aussenwirtschaft: {
-        label: "Außenwirtschaft",
-        themen: "Absolute und relative Kostenvorteile, Devisenmarkt und Wechselkursbildung, Auswirkungen von Wechselkursschwankungen, Internationale Organisationen (EWWU, WTO, IWF)"
-      },
-      arbeitsmarkt: {
-        label: "Arbeitsmarkt",
-        themen: "Ursachen der Arbeitslosigkeit (strukturell, konjunkturell, friktionell), Aktive und passive Arbeitsmarktpolitik, Angebots- und nachfrageorientierte Beschäftigungspolitik, Tarifpolitik und Lohnfindung"
-      },
-      strukturpolitik: {
-        label: "Strukturpolitik",
-        themen: "Strukturwandel und Standortwettbewerb, Regionale und sektorale Strukturpolitik, Wettbewerbspolitik (UWG, GWB), Umweltpolitik und Nachhaltigkeit, Entwicklungspolitik (HDI, Maßnahmen)"
-      }
-    }
-  },
-  deutsch: {
-    label: "Deutsch",
-    schulart: "Fachoberschule Bayern",
-    fachbereiche: {
-      eroerterung: {
-        label: "Erörterung",
-        themen: "Textgebundene Erörterung (linear/antithetisch), Materialgestützte Erörterung (mehrere Quellen), Argumentationsstrategien und Argumenttypen, These – Argument – Beispiel – Schlussfolgerung"
-      },
-      kommentar: {
-        label: "Kommentar",
-        themen: "Meinungsbildung und Stellungnahme, Aktuelle gesellschaftliche/politische Themen, Aufbau: These – Argumentation – Appell"
-      },
-      sachtextanalyse: {
-        label: "Sachtextanalyse",
-        themen: "Inhalt, Aufbau und Argumentationsstruktur, Sprachliche Mittel und Intention des Autors, Vergleich themengleicher Texte, Gesellschaftliche, politische, kulturelle Themen"
-      },
-      textanalyse: {
-        label: "Literarische Textanalyse",
-        themen: "Epische Texte (Kurzgeschichte, Romanauszug), Dramatische Texte (Dramenszene, Dialog), Lyrische Texte (Gedichtanalyse), Epochen: Barock bis 21. Jahrhundert, Figurengestaltung, Erzählperspektive, Sprache"
-      },
-      rede: {
-        label: "Rede",
-        themen: "Aufbau einer überzeugenden Rede, Rhetorische Mittel und Wirkung, Adressatenbezug und Situationsangemessenheit"
-      }
-    }
-  },
-  englisch: {
-    label: "Englisch",
-    schulart: "Fachoberschule Bayern",
-    fachbereiche: {
-      argumentative: {
-        label: "Argumentative Writing",
-        themen: "Essay, Comment, Letter to the Editor, Blog Post, Speech. Themen: Globalisation, Technology, Environment, Education, Social Issues, Work-Life-Balance. Klarer Aufbau: Introduction – Body paragraphs – Conclusion"
-      },
-      mediation: {
-        label: "Mediation (Deutsch → Englisch)",
-        themen: "Sinngemäße Übertragung deutscher Texte ins Englische (keine 1:1-Übersetzung), Adressatenbezug, Kulturelle Anpassung, Formelle und informelle Register"
-      },
-      sprachmittlung: {
-        label: "Sprachmittlung (Englisch → Deutsch)",
-        themen: "Sinngemäße Übertragung englischer Texte ins Deutsche, Kulturelle Anpassung, Berücksichtigung des Kommunikationszwecks"
-      },
-      textanalyse: {
-        label: "Text Analysis",
-        themen: "Analyse von Sachtexten und literarischen Texten auf Englisch, Stilmittel und Argumentationsstruktur, Summary, Analysis, Comment/Evaluation"
-      }
-    }
-  },
-  recht: {
-    label: "Rechtslehre",
-    schulart: "Fachoberschule Bayern",
-    fachbereiche: {
-      buergerliches_recht: {
-        label: "Bürgerliches Recht",
-        themen: "Rechts- und Geschäftsfähigkeit, Zustandekommen von Verträgen (Angebot, Annahme), Kaufvertrag und Leistungsstörungen (Schlechtleistung, Verzug, Unmöglichkeit), Gewährleistung (Nacherfüllung, Rücktritt, Minderung, Schadensersatz), Sachenrecht (Eigentum, Besitz, gutgläubiger Erwerb), Schadensersatz (§ 823 BGB, Gefährdungshaftung)"
-      },
-      strafrecht: {
-        label: "Strafrecht",
-        themen: "Aufbau einer Straftat (Tatbestandsmäßigkeit, Rechtswidrigkeit, Schuld), Strafzwecktheorien (Prävention, Vergeltung, Resozialisierung), Rechtfertigungsgründe (Notwehr, Notstand), Jugendstrafrecht, Ordnungswidrigkeit vs. Straftat"
-      },
-      oeffentliches_recht: {
-        label: "Öffentliches Recht",
-        themen: "Grundrechte und Grundrechtskollisionen, Verwaltungsakt und Verwaltungsrecht, Verfassungsorgane und Gewaltenteilung, Europarecht (EU-Verordnung, EU-Richtlinie, Vorrang des EU-Rechts), Rechtsstaatsprinzip und Sozialstaatsprinzip"
-      }
-    }
-  }
-};
-
-// FOS Mathe Sachgebiete
-const FOS_MATHE_SG = {
-  analysis: {
-    title: "Analysis",
-    inhalte: `FOS-Lehrplan Mathematik:
-Jgst. 11: Ganzrationale Funktionen (Nullstellen, Symmetrie, Grenzverhalten), einfache Ableitungsregeln (Potenz-, Faktor-, Summenregel)
-Jgst. 12: Kurvendiskussion (Extrema, Wendepunkte, Monotonie, Krümmung), Optimierungsprobleme und Steckbriefaufgaben, Exponentialfunktionen und e-Funktion (Produkt-/Kettenregel), Integralrechnung (Stammfunktion, Flächenberechnung zwischen Graphen)
-Jgst. 13: Gebrochen-rationale Funktionen und ln-Funktion, Uneigentliche Integrale und partielle Integration`,
-    kontexte: "Kosten-/Gewinnfunktionen, Wachstumsmodelle (Bevölkerung, Bakterien), Temperaturverläufe, Produktionsoptimierung, Konzentrationsverlauf eines Medikaments, Pegelstand, Geschwindigkeit und Strecke"
-  },
-  stochastik: {
-    title: "Stochastik",
-    inhalte: `FOS-Lehrplan Mathematik:
-Jgst. 11: Grundlagen der Wahrscheinlichkeitsrechnung, Baumdiagramme und Pfadregeln
-Jgst. 12: Bedingte Wahrscheinlichkeit und stochastische Unabhängigkeit, Bernoulli-Ketten und Binomialverteilung, Erwartungswert und Varianz/Standardabweichung
-Jgst. 13: Hypothesentests (einseitiger Signifikanztest, Fehler 1. und 2. Art)`,
-    kontexte: "Qualitätskontrolle, Wahlumfragen, medizinische Tests, Würfelspiele, Losbuden, Versicherungen, Verkehrszählungen"
-  },
-  geometrie: {
-    title: "Geometrie",
-    inhalte: `FOS-Lehrplan Mathematik:
-Jgst. 12: Vektoren im R³ (Addition, Skalarmultiplikation, Betrag), Skalarprodukt und Vektorprodukt/Spatprodukt, Lineare Gleichungssysteme (Gauß-Algorithmus)
-Jgst. 13: Geraden und Ebenen (Parameter-, Normalen-, Koordinatenform), Lagebeziehungen (parallel, windschief, Schnitt), Abstände (Punkt-Ebene, Punkt-Gerade)`,
-    kontexte: "Dachkonstruktionen, Brückenmodelle, Rampen, Sonnensegel, Aussichtstürme, Gebäudemodelle im 3D-Koordinatensystem"
-  }
-};
-
-// ===== FOS ROUTE DISPATCHER =====
-async function handleFOSRoute(pathname, request, env) {
-  // Pfad parsen: /api/fos-<action>-<subject>
-  const path = pathname.slice(9); // "/api/fos-" entfernen
-
-  // Mathe Abitur Endpunkte
-  if (path === "generate-abitur-mathe") return await handleFOSGenerateAbiturMathe(request, env);
-  if (path === "grade-abitur-mathe") return await handleFOSGradeAbiturMathe(request, env);
-  if (path === "model-answer-abitur-mathe") return await handleFOSModelAnswerAbiturMathe(request, env);
-
-  // Subject aus dem letzten Segment extrahieren
-  const lastDash = path.lastIndexOf("-");
-  if (lastDash === -1) return new Response("Not Found", { status: 404 });
-
-  const action = path.substring(0, lastDash);
-  const subject = path.substring(lastDash + 1);
-
-  // Mathe Endpunkte
-  if (subject === "mathe") {
-    if (action === "generate") return await handleFOSGenerateMathe(request, env);
-    if (action === "grade") return await handleFOSGradeMathe(request, env);
-    if (action === "model-answer") return await handleFOSModelAnswerMathe(request, env);
-    if (action === "parse-task") return await handleFOSParseTaskMathe(request, env);
-  }
-
-  // Textfächer Endpunkte (BWR, VWL, Deutsch, Englisch, Rechtslehre)
-  const subjectConfig = FOS_TEXT_SUBJECTS[subject];
-  if (subjectConfig) {
-    if (action === "generate") return await handleFOSGenerateText(subject, subjectConfig, request, env);
-    if (action === "grade") return await handleFOSGradeText(subject, subjectConfig, request, env);
-    if (action === "model-answer") return await handleFOSModelAnswerText(subject, subjectConfig, request, env);
-    if (action === "parse-task") return await handleFOSParseTaskText(subject, subjectConfig, request, env);
-  }
-
-  return new Response("FOS endpoint not found: " + pathname, { status: 404 });
-}
-
-/* ================= FOS TEXT-FÄCHER: GENERATE ================= */
-async function handleFOSGenerateText(subjectKey, config, request, env) {
-  const body = await request.json();
-  const { niveau, fachbereich, sachgebiet, unterpunkte, thema, be, zeit, anzahl } = body;
-  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen!'
-    : '';
-
-  const gesamtBE = be || 60;
-  const zeitMinuten = zeit || 135;
-  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
-  const bloecke = "2-3 Aufgabenblöcke";
-  const materialCount = "3-4 Materialien";
-
-  const fbKey = sachgebiet || fachbereich || Object.keys(config.fachbereiche)[0];
-  const fb = config.fachbereiche[fbKey] || config.fachbereiche[Object.keys(config.fachbereiche)[0]];
-  const fbLabel = fb.label;
-  const fbThemen = fb.themen;
-
-  const themaLabel = (thema && thema !== "random") ? truncate(thema, 200) : "frei wählbar (klausurrelevant)";
-
-  const systemPrompt = `Du bist ein Experte für Klausuren an der bayerischen ${config.schulart} im Fach ${config.label}.
-Erstelle eine authentische Klausuraufgabe.
-
-PRÜFUNGSFORMAT:
-- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
-- ${bloecke}
-- ${materialCount}
-- Sachgebiet: ${fbLabel}
-- Lehrplan-Inhalte: ${fbThemen}${schwerpunktZusatz}
-${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (je ca. ${Math.round(gesamtBE / aufgabenAnzahl)} BE)` : ''}
-
-AUFGABENSTRUKTUR:
-- Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
-- AFB I (Reproduktion): beschreiben, nennen, darstellen (ca. 20% der BE)
-- AFB II (Transfer): erläutern, analysieren, vergleichen (ca. 40% der BE)
-- AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40% der BE)
-- Jede Teilaufgabe hat eine konkrete BE-Angabe
-- Operatoren müssen korrekt und eindeutig verwendet werden
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
-- LEHRPLAN-TREUE: Stelle NUR Aufgaben zu den angegebenen Lehrplan-Inhalten
-
-MATERIALIEN:
-- Materialien (M1, M2, …) sind der Kern der Aufgabe
-- Typen: Zeitungsartikel, Tabellen/Statistiken, Gesetzestexte, Schaubilder, Fallbeispiele
-- Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige Texte!
-- Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen
-- Jedes Material hat einen Titel und eine Quellenangabe
-- Erstelle IMMER 1 Material vom typ "bild" (KI-generiertes Schaubild):
-  - typ "bild": inhalt = detaillierte Bildbeschreibung für KI-Generierung
-
-Antworte NUR mit validem JSON:
-{
-  "task_instruction": "Einleitender Situationstext",
-  "aufgabenbloecke": [
-    {"nr": 1, "titel": "Titel", "teilaufgaben": [{"nr": "1.1", "text": "Aufgabentext", "be": 5, "afb": "I"}], "be_gesamt": 15}
-  ],
-  "materialien": [
-    {"nr": "M1", "titel": "Titel", "typ": "text", "inhalt": "Ausführlicher Text (300-600 Wörter!)", "quelle": "Quelle"},
-    {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... |", "quelle": "Institut, Jahr"},
-    {"nr": "M3", "titel": "Schaubild", "typ": "bild", "inhalt": "Bild-Prompt auf Englisch, Beschriftungen auf DEUTSCH", "quelle": ""}
-  ],
-  "gesamt_be": ${gesamtBE},
-  "fachbereich": "${fbKey}",
-  "thema": "Konkretes Thema"
-}`;
-
-  const userPrompt = `Erstelle eine ${config.label}-Klausuraufgabe (FOS Bayern):
-- Sachgebiet: ${fbLabel}
-- Thema: ${themaLabel}
-- Gesamt-BE: ${gesamtBE}
-Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
-Erstelle ${materialCount} plus 1 Bild.
-KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein!`;
-
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userPrompt }
-  ], 14000);
-
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
-}
-
-/* ================= FOS TEXT-FÄCHER: GRADE ================= */
-async function handleFOSGradeText(subjectKey, config, request, env) {
-  const body = await request.json();
-  const { aufgabenbloecke, materialien, student_text, niveau, gesamt_be, task_instruction } = body;
-
-  if (!student_text) {
-    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
-  }
-
-  const maxBE = gesamt_be || 60;
-
-  let aufgabenInfo = "";
-  if (task_instruction) aufgabenInfo += `Situationstext:\n${truncate(task_instruction, 3000)}\n\n`;
-  if (aufgabenbloecke && aufgabenbloecke.length) {
-    aufgabenInfo += "Aufgabenblöcke:\n";
-    for (const block of aufgabenbloecke.slice(0, 5)) {
-      aufgabenInfo += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
-      if (block.teilaufgaben) {
-        for (const ta of block.teilaufgaben.slice(0, 8)) {
-          aufgabenInfo += `  ${ta.nr} (${ta.be} BE, AFB ${ta.afb}): ${truncate(ta.text, 500)}\n`;
-        }
-      }
-    }
-  }
-  if (materialien && materialien.length) {
-    aufgabenInfo += "\nMaterialien:\n";
-    for (const m of materialien.slice(0, 6)) {
-      aufgabenInfo += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 2000)}\n(${m.quelle || ""})\n\n`;
-    }
-  }
-
-  const rubricPrompt = `Du bewertest eine ${config.label}-Klausur an der ${config.schulart} nach dem BE-System.
-
-WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Stichpunkte → Punktabzug.
-
-BEWERTUNGSREGELN:
-- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
-- Berücksichtige: Materialbezug, Operatoren-Anforderung (AFB I/II/III), fachliche Korrektheit, Struktur
-- Max BE gesamt: ${maxBE}
-
-BE → NOTENPUNKTE (0-15):
-Formel: NP = round((erreichte_BE / ${maxBE}) * 15)
-
-Antworte NUR mit validem JSON:
-{
-  "bewertung_bloecke": [
-    {"block_nr": 1, "teilaufgaben": [{"nr": "1.1", "be_erreicht": 4, "be_max": 5, "kommentar": "..."}], "be_erreicht": 12, "be_max": 15}
-  ],
-  "be_erreicht": <Zahl>,
-  "be_max": ${maxBE},
-  "notenpunkte": <0-15>,
-  "feedback": "<Ausführliches Markdown-Feedback>",
-  "korrektur_text": "<Vollständiger Schülertext mit Fehlermarkierungen: <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> für Rechtschreibfehler, <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark> für Grammatikfehler>",
-  "fehlende_aspekte": [{"aufgabe": "1.1", "aspekte": ["fehlender Punkt"]}]
-}`;
-
-  const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
-  ];
-
-  const openaiRes = await callOpenAI(env, messages, 10000);
-
-  try {
-    const parsed = extractJSON(openaiRes);
-    const beErreicht = parsed.be_erreicht ?? null;
-    const beMax = parsed.be_max ?? maxBE;
-    let np = parsed.notenpunkte ?? null;
-
-    if (np == null && beErreicht != null) {
-      np = Math.max(0, Math.min(15, Math.round((beErreicht / beMax) * 15)));
-    }
-
-    return jsonResponse({
-      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      bewertung_bloecke: parsed.bewertung_bloecke || [],
-      feedback: parsed.feedback || "",
-      korrektur_text: parsed.korrektur_text || "",
-      fehlende_aspekte: parsed.fehlende_aspekte || [],
-      uebungsaufgaben: parsed.uebungsaufgaben || []
-    }, 200, env);
-  } catch {
-    return jsonResponse({
-      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      bewertung_bloecke: [],
-      feedback: openaiRes,
-      korrektur_text: "",
-      fehlende_aspekte: [],
-      uebungsaufgaben: []
-    }, 200, env);
-  }
-}
-
-/* ================= FOS TEXT-FÄCHER: MODEL ANSWER ================= */
-async function handleFOSModelAnswerText(subjectKey, config, request, env) {
-  const { task_instruction, aufgabenbloecke, materialien } = await request.json();
-
-  const systemPrompt = `Du bist ein sehr guter FOS-Schüler im Fach ${config.label} an der ${config.schulart}.
-Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH.
-
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen oder Listen
-- Vollständige Sätze mit Übergängen zwischen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
-
-Inhaltlich:
-- Bearbeite ALLE Teilaufgaben strukturiert
-- Verwende Fachbegriffe korrekt
-- Beziehe die Materialien ein und verweise darauf
-- Beachte die Operatoren und AFB-Stufen
-- Zielumfang: 800-1500 Wörter
-
-Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
-
-  let userContent = "";
-  if (task_instruction) userContent += `SITUATION:\n${truncate(task_instruction, 3000)}\n\n`;
-  if (aufgabenbloecke && aufgabenbloecke.length) {
-    userContent += "AUFGABEN:\n";
-    for (const block of aufgabenbloecke.slice(0, 5)) {
-      userContent += `\nBlock ${block.nr}: ${block.titel} (${block.be_gesamt} BE)\n`;
-      if (block.teilaufgaben) {
-        for (const ta of block.teilaufgaben.slice(0, 8)) {
-          userContent += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
-        }
-      }
-    }
-  }
-  if (materialien && materialien.length) {
-    userContent += "\nMATERIALIEN:\n";
-    for (const m of materialien.slice(0, 6)) {
-      userContent += `${m.nr} – ${m.titel}:\n${truncate(m.inhalt, 3000)}\n\n`;
-    }
-  }
-
-  const answer = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userContent }
-  ], 6000);
-
-  return jsonResponse({ model_answer: answer }, 200, env);
-}
-
-/* ================= FOS TEXT-FÄCHER: PARSE TASK (OCR) ================= */
-async function handleFOSParseTaskText(subjectKey, config, request, env) {
-  const { images } = await request.json();
-  if (!images || !images.length) {
-    return jsonResponse({ error: "images array required" }, 400, env);
-  }
-  if (images.length > 10) {
-    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
-  }
-
-  const content = [
-    {
-      type: "text",
-      text: `Diese Bilder zeigen eine Klausuraufgabe im Fach ${config.label} (FOS Bayern). Extrahiere:
-1. Den Situationstext / die Aufgabenstellung (task_instruction)
-2. Die Aufgabenblöcke mit Teilaufgaben und BE-Angaben
-3. Die Materialien (Texte, Tabellen, etc.)
-
-Antworte NUR mit validem JSON:
-{
-  "task_instruction": "Situationstext",
-  "aufgabenbloecke": [{"nr": 1, "titel": "...", "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 5, "afb": "I"}], "be_gesamt": 15}],
-  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}],
-  "gesamt_be": 60
-}`
-    },
-    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
-  ];
-
-  const text = await callOpenAI(env, [{ role: "user", content }], 8000, { model: "gpt-5.2", temperature: 0.2 });
-  const parsed = extractJSON(text);
-  return jsonResponse(parsed, 200, env);
-}
-
-/* ================= FOS MATHEMATIK: GENERATE ================= */
-async function handleFOSGenerateMathe(request, env) {
-  const body = await request.json();
-  const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
-  const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen!'
-    : '';
-
-  const sg = sachgebiet || "analysis";
-  const totalBE = be || 25;
-  const zeitMinuten = zeit || 45;
-  const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
-  const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
-  const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
-
-  const sgInfo = FOS_MATHE_SG[sg] || FOS_MATHE_SG.analysis;
-
-  const systemPrompt = `Du bist ein Experte für Mathematik-Klausuren an der bayerischen Fachoberschule (FOS).
-Erstelle eine authentische Mathematik-Klausuraufgabe.
-
-AUFGABE:
-- Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
-- Bearbeitungszeit: ${zeitMinuten} Minuten
-- Erstelle mindestens ${minTeilaufgaben} und höchstens ${maxTeilaufgaben} Teilaufgaben
-${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...)'}
-- Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
-
-SACHGEBIET: ${sgInfo.title}
-Relevante Inhalte:
-${sgInfo.inhalte}${schwerpunktZusatz}
-Sachkontext-Ideen: ${sgInfo.kontexte}
-
-PFLICHT-REGELN FÜR JEDE TEILAUFGABE:
-- Jede Teilaufgabe MUSS einen klaren OPERATOR enthalten
-  Operatoren nach AFB:
-  AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie"
-  AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie"
-  AFB III: "Beurteilen Sie", "Formulieren Sie im Sachzusammenhang"
-- Bei ≥15 BE: Die Aufgabe MUSS in einen KONKRETEN Sachkontext eingebettet sein
-
-LATEX-FORMATIERUNG:
-- Verwende LaTeX-Notation: $...$ für inline, $$...$$ für Display
-- Multiplikation: $\\cdot$ (NICHT *)
-- e-Funktion: $e^{-x}$ (IMMER geschweifte Klammern im Exponent)
-- Brüche: $\\frac{a}{b}$ (NICHT a/b)
-- Dezimalkomma: $3{,}6$ (NICHT 3.6)
-
-Antworte NUR mit validem JSON:
-{
-  "aufgabe": "Sachkontext-Einleitung + Funktionsdefinition",
-  "teilaufgaben": [
-    {"id": "a)", "text": "Aufgabentext mit Operator", "be": 3},
-    {"id": "b)", "text": "Aufgabentext", "be": 5}
-  ],
-  "gesamt_be": ${totalBE},
-  "sachgebiet": "${sg}"
-}`;
-
-  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (EXAKT ${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title} für die FOS Bayern.
-${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet sein.' : ''}
-Jede Teilaufgabe braucht einen klaren Operator!
-PFLICHT: Die Summe aller BE muss EXAKT ${totalBE} ergeben.`;
-
-  const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userPrompt }
-  ], Math.min(maxTokens, 16000));
-
-  const content = extractJSON(openaiRes);
-
-  if (content.teilaufgaben && content.teilaufgaben.length > 0) {
-    const beSum = content.teilaufgaben.reduce((sum, t) => sum + (parseInt(t.be) || 0), 0);
-    if (beSum !== totalBE) content.gesamt_be = beSum;
-  }
-  if (!content.gesamt_be) content.gesamt_be = totalBE;
-
-  return jsonResponse(content, 200, env);
-}
-
-/* ================= FOS MATHEMATIK: GRADE ================= */
-async function handleFOSGradeMathe(request, env) {
-  const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts } = body;
-
-  if (!student_text && !student_texts) {
-    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
-  }
-
-  const maxBE = gesamt_be || 5;
-
-  let aufgabenInfo = `Aufgabe:\n${truncate(aufgabe, 5000)}\n\n`;
-  if (teilaufgaben && teilaufgaben.length) {
-    aufgabenInfo += "Teilaufgaben:\n";
-    for (const ta of teilaufgaben) {
-      aufgabenInfo += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
-    }
-  }
-
-  let studentSolutionText;
-  if (student_texts && typeof student_texts === "object" && Object.keys(student_texts).length > 0) {
-    const parts = [];
-    for (const [key, text] of Object.entries(student_texts)) {
-      if (text && text.trim()) {
-        const ta = (teilaufgaben || []).find(t => (t.id || t.nr) === key);
-        const beInfo = ta ? ` (${ta.be} BE)` : "";
-        parts.push(`Schülerlösung ${key}${beInfo}:\n${truncate(text, 5000)}`);
-      }
-    }
-    studentSolutionText = parts.join("\n\n");
-  } else {
-    studentSolutionText = truncate(student_text, 15000);
-  }
-
-  const rubricPrompt = `Du bewertest eine Mathematik-Klausur (FOS Bayern) nach dem BE-System.
-
-BEWERTUNGSREGELN:
-- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max)
-- Pro Teilaufgabe: Ansatz, Rechnung, Ergebnis bewerten
-- Ansatz korrekt aber Rechenfehler → Teilpunkte
-- Folgefehler berücksichtigen
-- Max BE gesamt: ${maxBE}
-
-BE → NOTENPUNKTE (ISB-Tabelle):
-95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
-65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
-33% → 3, 27% → 2, 20% → 1, <20% → 0
-
-Verwende LaTeX ($...$) im Feedback. Dezimalkomma $3{,}6$.
-
-Antworte NUR mit validem JSON:
-{
-  "teilbewertungen": [{"id": "a)", "erreichte_be": 2, "max_be": 2, "bewertung": "..."}],
-  "gesamt_be": <Zahl>,
-  "max_be": ${maxBE},
-  "note": <0-15>,
-  "feedback": "<Markdown-Feedback mit $LaTeX$>"
-}`;
-
-  const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
-  ];
-
-  const openaiRes = await callOpenAI(env, messages, 8000);
-
-  try {
-    const parsed = extractJSON(openaiRes);
-    const beErreicht = parsed.gesamt_be ?? null;
-    const beMax = parsed.max_be ?? maxBE;
-    let np = parsed.note ?? null;
-
-    if (np == null && beErreicht != null) {
-      const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
-      np = 0;
-      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
-    }
-
-    return jsonResponse({
-      teilbewertungen: parsed.teilbewertungen || [],
-      gesamt_be: beErreicht,
-      max_be: beMax,
-      note: np,
-      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || "",
-      uebungsaufgaben: parsed.uebungsaufgaben || []
-    }, 200, env);
-  } catch (e) {
-    return jsonResponse({
-      teilbewertungen: [],
-      gesamt_be: null,
-      max_be: maxBE,
-      note: null,
-      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
-      feedback: openaiRes || "Die Bewertung konnte nicht verarbeitet werden.",
-      uebungsaufgaben: []
-    }, 200, env);
-  }
-}
-
-/* ================= FOS MATHEMATIK: MODEL ANSWER ================= */
-async function handleFOSModelAnswerMathe(request, env) {
-  const { aufgabe, teilaufgaben, gesamt_be } = await request.json();
-
-  const systemPrompt = `Du bist ein sehr guter FOS-Mathematik-Schüler an der bayerischen Fachoberschule.
-Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung auf DEUTSCH.
-
-WICHTIG:
-- Verwende LaTeX-Notation: $...$ für inline, $$...$$ für Display
-- Zeige JEDEN Lösungsschritt ausführlich
-- Gib bei jedem Schritt die BE an
-- Begründe Ansätze kurz
-- Formatiere als Markdown mit Überschriften für jede Teilaufgabe
-
-LATEX-FORMATIERUNG:
-- $\\cdot$ statt *
-- e-Funktion: $e^{-x}$ (geschweifte Klammern!)
-- $\\frac{a}{b}$ statt a/b
-- Dezimalkomma: $3{,}6$`;
-
-  let userContent = `AUFGABE:\n${truncate(aufgabe, 5000)}\n\n`;
-  if (teilaufgaben && teilaufgaben.length) {
-    userContent += "TEILAUFGABEN:\n";
-    for (const ta of teilaufgaben) {
-      userContent += `${ta.id} (${ta.be} BE): ${truncate(ta.text, 500)}\n`;
-    }
-  }
-  userContent += `\nGesamt: ${gesamt_be || "?"} BE`;
-
-  const answer = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userContent }
-  ], 6000);
-
-  return jsonResponse({ model_answer: answer }, 200, env);
-}
-
-/* ================= FOS MATHEMATIK: PARSE TASK ================= */
-async function handleFOSParseTaskMathe(request, env) {
-  const { images } = await request.json();
-  if (!images || !images.length) {
-    return jsonResponse({ error: "Keine Bilder." }, 400, env);
-  }
-
-  const messages = [
-    {
-      role: "user",
-      content: [
-        { type: "text", text: "Extrahiere die Mathematik-Aufgabe (FOS Bayern) aus diesen Bildern. Gib die Aufgabenstellung vollständig wieder. Verwende LaTeX-Notation ($...$). Antworte NUR JSON: {\"task_instruction\": \"...\", \"primary_meta\": \"Quelle falls erkennbar\"}" },
-        ...images.map(b64 => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${b64}` } }))
-      ]
-    }
-  ];
-
-  const openaiRes = await callOpenAI(env, messages, 4000, { jsonMode: true });
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
-}
-
-/* ================= FOS MATHEMATIK ABITUR: GENERATE ================= */
-async function handleFOSGenerateAbiturMathe(request, env) {
-  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung Mathematik (Bayern).
-Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung mit 100 BE.
-
-PRÜFUNGSSTRUKTUR (FOS Bayern):
-
-TEIL 1 (34 BE, 60 Minuten, OHNE Hilfsmittel):
-- 5-6 kompakte Aufgaben
-- Nur Analysis und Stochastik
-- Aufgaben MÜSSEN ohne Taschenrechner/CAS lösbar sein → "schöne" Zahlen
-
-TEIL 2 (66 BE, 120 Minuten, MIT Hilfsmitteln):
-- Analysis-Aufgabe (ca. 30-35 BE): Große mehrteilige Aufgabe mit Sachkontext
-- Stochastik-Aufgabe (ca. 20-25 BE): Mehrteilige Aufgabe mit Sachkontext
-- Optional: Geometrie-Aufgabe (ca. 10-15 BE) wenn Geometrie im Lehrplan
-
-FOS-LEHRPLAN MATHEMATIK:
-Analysis: Ganzrationale Funktionen, Kurvendiskussion (Extrema, Wendepunkte), Optimierung, e-Funktion (Produkt-/Kettenregel), Integralrechnung (Stammfunktionen, Flächenberechnung), Gebrochen-rationale Funktionen, ln-Funktion, Uneigentliche Integrale, partielle Integration
-Stochastik: Bedingte Wahrscheinlichkeit, Vierfeldertafel, Bernoulli-Ketten, Binomialverteilung, Erwartungswert, Varianz, Hypothesentests (einseitiger Signifikanztest)
-Geometrie (nur Jgst. 13): Vektoren, Skalar-/Vektorprodukt, Geraden und Ebenen, LGS
-
-PFLICHT-REGELN:
-- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben
-  AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie"
-  AFB II: "Zeigen Sie", "Ermitteln Sie", "Begründen Sie"
-  AFB III: "Beurteilen Sie", "Formulieren Sie im Sachzusammenhang"
-- LaTeX-Notation für alle Formeln
-- Dezimalkomma: $3{,}6$, e-Funktion: $e^{-x}$ (geschweifte Klammern!)
-- Teil 1 MUSS ohne CAS lösbar sein
-- KEINE LÖSUNGSHINWEISE
-
-Antworte NUR mit validem JSON:
-{
-  "teil_a_pflicht": [
-    {"id": "A1", "sachgebiet": "Analysis", "be": 6, "text": "Aufgabentext", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}]}
-  ],
-  "teil_a_wahl": [],
-  "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 32, "text": "Einleitung mit Sachkontext", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}]},
-    {"id": "B2", "sachgebiet": "Stochastik", "be": 22, "text": "Sachkontext", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}]}
-  ]
-}`;
-
-  const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung Mathematik (100 BE).
-Teil 1: 34 BE, ohne Hilfsmittel, 5-6 kompakte Aufgaben (Analysis + Stochastik)
-Teil 2: 66 BE, mit Hilfsmitteln: Analysis (~32 BE, Sachkontext), Stochastik (~22 BE, Sachkontext), ggf. Geometrie (~12 BE)
-KRITISCH: Alle Formeln in LaTeX. JEDE Teilaufgabe braucht einen Operator!`;
-
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userPrompt }
-  ], 16000);
-
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
-}
-
-/* ================= FOS MATHEMATIK ABITUR: GRADE ================= */
-async function handleFOSGradeAbiturMathe(request, env) {
-  const body = await request.json();
-  const { teil_a_pflicht, teil_b, student_text_a, student_text_b } = body;
-
-  if (!student_text_a && !student_text_b) {
-    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
-  }
-
-  let aufgabenInfo = "TEIL 1 (34 BE, ohne Hilfsmittel):\n";
-  if (teil_a_pflicht && teil_a_pflicht.length) {
-    for (const a of teil_a_pflicht) {
-      aufgabenInfo += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
-      if (a.teilaufgaben) {
-        for (const t of a.teilaufgaben) {
-          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
-        }
-      }
-    }
-  }
-  aufgabenInfo += "\nTEIL 2 (66 BE, mit Hilfsmitteln):\n";
-  if (teil_b && teil_b.length) {
-    for (const b of teil_b) {
-      aufgabenInfo += `${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 500)}\n`;
-      if (b.teilaufgaben) {
-        for (const t of b.teilaufgaben) {
-          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
-        }
-      }
-    }
-  }
-
-  const rubricPrompt = `Du bewertest eine FOS-Fachabiturprüfung Mathematik (Bayern) nach dem BE-System.
-Gesamt: 100 BE (Teil 1: 34 BE, Teil 2: 66 BE).
-
-BEWERTUNGSREGELN:
-- Bewerte JEDE Teilaufgabe einzeln
-- Ansatz korrekt aber Rechenfehler → Teilpunkte
-- Folgefehler berücksichtigen
-- LaTeX im Feedback verwenden
-
-BE → NOTENPUNKTE (ISB-Tabelle):
-95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
-65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
-33% → 3, 27% → 2, 20% → 1, <20% → 0
-
-Antworte NUR mit validem JSON:
-{
-  "teilbewertungen": [{"id": "A1a)", "erreichte_be": 3, "max_be": 3, "bewertung": "..."}],
-  "gesamt_be": <Zahl>,
-  "max_be": 100,
-  "note": <0-15>,
-  "feedback": "<Markdown-Feedback mit $LaTeX$>"
-}`;
-
-  let studentText = "";
-  if (student_text_a) studentText += `Schülerlösung Teil 1:\n${truncate(student_text_a, 10000)}\n\n`;
-  if (student_text_b) studentText += `Schülerlösung Teil 2:\n${truncate(student_text_b, 15000)}`;
-
-  const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentText}` }
-  ];
-
-  const openaiRes = await callOpenAI(env, messages, 10000);
-
-  try {
-    const parsed = extractJSON(openaiRes);
-    const beErreicht = parsed.gesamt_be ?? null;
-    const beMax = parsed.max_be ?? 100;
-    let np = parsed.note ?? null;
-
-    if (np == null && beErreicht != null) {
-      const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
-      np = 0;
-      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
-    }
-
-    return jsonResponse({
-      teilbewertungen: parsed.teilbewertungen || [],
-      gesamt_be: beErreicht,
-      max_be: beMax,
-      note: np,
-      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
-      feedback: parsed.feedback || "",
-      uebungsaufgaben: parsed.uebungsaufgaben || []
-    }, 200, env);
-  } catch {
-    return jsonResponse({
-      teilbewertungen: [],
-      gesamt_be: null,
-      max_be: 100,
-      note: null,
-      scores: { be_erreicht: null, be_max: 100, notenpunkte: null, total: null },
-      feedback: openaiRes || "Bewertung konnte nicht verarbeitet werden.",
-      uebungsaufgaben: []
-    }, 200, env);
-  }
-}
-
-/* ================= FOS MATHEMATIK ABITUR: MODEL ANSWER ================= */
-async function handleFOSModelAnswerAbiturMathe(request, env) {
-  const { teil_a_pflicht, teil_b } = await request.json();
-
-  const systemPrompt = `Du bist ein sehr guter FOS-Mathematik-Schüler an der bayerischen Fachoberschule.
-Schreibe eine vorbildliche Musterlösung für die gesamte Fachabiturprüfung auf DEUTSCH.
-
-- LaTeX-Notation: $...$ für inline, $$...$$ für Display
-- JEDEN Lösungsschritt zeigen
-- BE pro Schritt angeben
-- Markdown mit Überschriften (## Teil 1, ## Teil 2)
-- Dezimalkomma: $3{,}6$, e-Funktion: $e^{-x}$`;
-
-  let userContent = "TEIL 1 (34 BE, ohne Hilfsmittel):\n";
-  if (teil_a_pflicht && teil_a_pflicht.length) {
-    for (const a of teil_a_pflicht) {
-      userContent += `\n${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 800)}\n`;
-      if (a.teilaufgaben) {
-        for (const t of a.teilaufgaben) {
-          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 500)}\n`;
-        }
-      }
-    }
-  }
-  userContent += "\n\nTEIL 2 (66 BE, mit Hilfsmitteln):\n";
-  if (teil_b && teil_b.length) {
-    for (const b of teil_b) {
-      userContent += `\n${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 800)}\n`;
-      if (b.teilaufgaben) {
-        for (const t of b.teilaufgaben) {
-          userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 500)}\n`;
-        }
-      }
-    }
-  }
-
-  const answer = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userContent }
-  ], 10000);
-
-  return jsonResponse({ model_answer: answer }, 200, env);
-}
