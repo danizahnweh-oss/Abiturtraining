@@ -780,17 +780,37 @@
       var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks);
     }
 
+    var KATEX_DELIMITERS = [
+      { left: "$$", right: "$$", display: true },
+      { left: "\\[", right: "\\]", display: true },
+      { left: "$", right: "$", display: false },
+      { left: "\\(", right: "\\)", display: false }
+    ];
+
+    function doRenderMath(el) {
+      renderMathInElement(el || document.body, {
+        delimiters: KATEX_DELIMITERS,
+        throwOnError: false
+      });
+    }
+
     function renderMath(el) {
       if (typeof renderMathInElement === "function") {
-        renderMathInElement(el || document.body, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "\\[", right: "\\]", display: true },
-            { left: "$", right: "$", display: false },
-            { left: "\\(", right: "\\)", display: false }
-          ],
-          throwOnError: false
-        });
+        doRenderMath(el);
+      } else {
+        // KaTeX noch nicht geladen – warte und versuche erneut
+        var target = el;
+        var attempts = 0;
+        var timer = setInterval(function() {
+          attempts++;
+          if (typeof renderMathInElement === "function") {
+            clearInterval(timer);
+            doRenderMath(target);
+          } else if (attempts >= 20) {
+            clearInterval(timer);
+            console.warn("KaTeX auto-render konnte nicht geladen werden.");
+          }
+        }, 250);
       }
     }
 
@@ -887,6 +907,12 @@
 
       // Render per-Teilaufgabe textareas
       renderStudentTextareas(d);
+
+      // Sicherheits-Re-Render: nach Section sichtbar wird nochmal KaTeX aufrufen
+      requestAnimationFrame(function() {
+        renderMath(document.getElementById("sec-task"));
+        renderMath(document.getElementById("sec-write"));
+      });
     }
 
     /* ====== PER-TEILAUFGABE TEXTAREAS ====== */
