@@ -925,7 +925,7 @@ window.addEventListener("pageshow", function (e) {
         if (ls) ls.style.display = "flex";
         if (aw) aw.style.display = "none";
       } else {
-        window.location.href = "index.html";
+        window.location.href = (typeof MODULE_CONFIG !== 'undefined' && MODULE_CONFIG.loginPage) || "index.html";
       }
     }
   }
@@ -972,7 +972,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
 
   // Auth check for German-style modules (redirect if not logged in)
   if (sessionStorage.getItem("access") !== "1") {
-    window.location.href = "index.html";
+    window.location.href = MODULE_CONFIG.loginPage || "index.html";
     return;
   }
 
