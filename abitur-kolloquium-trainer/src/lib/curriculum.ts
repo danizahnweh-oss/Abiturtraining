@@ -566,28 +566,27 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Sport': {
-    // LehrplanPLUS Sporttheorie (Leistungsfach): LB 1 Trainingslehre = 12/1, LB 2 Bewegungslehre = 12/2,
-    // LB 3 Sport und Gesundheit = 13/1, LB 4 Psychologische, soziale und gesellschaftspolitische Aspekte = 13/2
+    // LehrplanPLUS Sporttheorie (G9) eA – verifiziert anhand LIS_PDF_04-03-2026-20
+    // LB 1 Trainingslehre = 12/1, LB 2 Bewegungslehre = 12/2, LB 3 Sport und Gesundheit = 13/1, LB 4 Psycho/Sozial/Gesellschaft = 13/2
     halbjahre: {
       '12/1': [
-        'Trainingslehre: Trainingsprinzipien, Superkompensation und Periodisierung',
-        'Sportbiologische Grundlagen: Bewegungsapparat, Muskelfasertypen und Kontraktionsformen',
-        'Konditionelle Fähigkeiten: Kraft-, Ausdauer-, Schnelligkeits- und Beweglichkeitstraining',
+        'Trainingslehre: Trainingsziele/-inhalte/-mittel/-methoden, Belastungskomponenten, Reizstufenregel, Funktionszustandsregel, Superkompensation, Adaptation, Periodisierung, Leistungsdiagnostik, Ermüdung/Erholung/Übertraining',
+        'Sportbiologische Grundlagen: Bewegungsapparat (Röhrenknochen, Wirbelsäule, Gelenkaufbau), Skelettmuskel, Muskelfasertypen, Kontraktionsformen, Gleittheorie; Energiebereitstellung (anaerob alaktazid/laktazid, aerob), Herz-Kreislauf-System (Herzfrequenz, Schlagvolumen, Minutenvolumen, Blutdruck), Atmungssystem, VO₂max',
+        'Konditionelle Fähigkeiten: Krafttraining (Maximalkraft, Schnellkraft, Kraftausdauer, IK-Training), Ausdauertraining (Dauer-/Intervall-/Wiederholungsmethode, aerobe/anaerobe Schwelle, Karvonen-Formel), Schnelligkeitstraining (Reaktions-/Aktions-/Frequenzschnelligkeit), Beweglichkeitstraining (aktiv/passiv/statisch/dynamisch), weitere Trainingsformen (Mentales Training, Höhentraining, EMS, Faszientraining)',
       ],
       '12/2': [
-        'Biomechanik: Körperschwerpunkt, Körperachsen und biomechanische Prinzipien',
-        'Motorisches Lernen: Dreiphasenmodell (Grob-, Feinkoordination, variable Verfügbarkeit)',
-        'Koordinative Fähigkeiten und deren Training, Technik- und Taktiktraining',
+        'Biomechanik: Körperschwerpunkt, Körperachsen, Gleichgewicht, Rotation/Translation, Trägheit, Reibung, biomechanische Prinzipien, morphologische und funktionale Bewegungsanalyse',
+        'Motorisches Lernen: Nervensystem (Analysatoren, afferente/efferente Bahnen, Reflexe, intra-/intermuskuläre Koordination, motorische Einheit), Dreiphasenmodell (Grob-/Feinkoordination, variable Verfügbarkeit)',
+        'Koordinative Fähigkeiten und Koordinationstraining, Technik- und Taktiktraining (Ganzheitsmethode, Vereinfachungsstrategien, differentielles Lernen, Spielbeobachtung/-analyse)',
       ],
       '13/1': [
-        'Gesundheitsmodelle: Salutogenese, Risikofaktoren und gesundheitsorientierter Sport',
-        'Ernährung im Sport: Energiebilanz, Makro-/Mikronährstoffe und Sporternährung',
-        'Doping: Substanzen, Methoden, gesundheitliche Risiken und ethische Bewertung',
+        'Gesundheitsmodelle: Gesundheitsbegriff, Risikofaktoren, Salutogenese-Modell, gesundheitsorientiertes Training, Verletzungsprophylaxe, Entspannungstechniken',
+        'Ernährung im Sport: Zusammensetzung/Energiegehalt von Nahrungsmitteln, Grund-/Leistungsumsatz, Sporternährung, Nahrungsergänzungsmittel',
+        'Doping: Dopingmittel/-methoden (anabole Substanzen, Wachstums-/Peptidhormone, Diuretika, Stimulanzien, Narkotika, Blutdoping), Wirkungsweisen und gesundheitliche Risiken',
       ],
       '13/2': [
-        'Sportpsychologie: Motivation, Emotion und Aggression im Sport',
-        'Soziale Aspekte: Fairness, Kooperation und Gruppenprozesse im Sport',
-        'Gesellschaftspolitische Aspekte: Kommerzialisierung, Medien und Sport als Bildungsfaktor',
+        'Sportpsychologie: Motivation und Sinnperspektiven, Emotion, Aggression',
+        'Soziale und gesellschaftspolitische Aspekte: Bildung/Erziehung/Sozialverhalten, organisierter und nichtorganisierter Sport, Fairness, Doping, Medien und Kommerzialisierung, Umwelt und Sport',
       ],
     },
   },
