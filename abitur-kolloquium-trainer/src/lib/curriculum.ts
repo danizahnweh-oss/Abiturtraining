@@ -19,26 +19,50 @@ export interface SubjectCurriculum {
 
 export const CURRICULUM: Record<string, SubjectCurriculum> = {
   'Biologie': {
+    // B12: LB2 Genetik/Gentechnik, LB3 Evolution, LB4 Verhaltensökologie
+    // B13: LB2 Neurobiologie, LB3 Stoffwechsel, LB4 Ökologie/Biodiversität
     halbjahre: {
       '12/1': [
-        'Genetik: Speicherung, Realisierung und Regulation genetischer Information',
-        'Neukombination und Veränderung genetischer Information (Mutation, Rekombination)',
-        'Humangenetik, genetische Erkrankungen und DNA-Analytik',
+        'Genetik: Speicherung, Realisierung und Regulation genetischer Information (Proteinbiosynthese, Epigenetik)',
+        'Vervielfältigung, Neukombination und Veränderung genetischer Information (Replikation, PCR, Meiose, Mutation, Gentechnik)',
+        'Weitergabe genetischer Information, Humangenetik und DNA-Analytik (Mendelsche Regeln, Erbgänge, Stammbaumanalyse)',
       ],
       '12/2': [
-        'Evolutionsforschung und Belege der Evolution',
-        'Mechanismen der Evolution (Selektion, Gendrift, Artbildung)',
-        'Verhaltensökologie: Evolution und Angepasstheit von Verhalten',
+        'Evolutionsforschung: molekulare Homologien, Stammbäume und Artbestimmung',
+        'Mechanismen der Evolution (Selektion, Gendrift, Artbildung, Koevolution)',
+        'Verhaltensökologie: Fitness, Kooperation, Aggression und Fortpflanzungsstrategien',
       ],
       '13/1': [
-        'Neuronale Informationsverarbeitung',
-        'Stoffwechselphysiologie: Assimilation (Fotosynthese)',
-        'Stoffwechselphysiologie: Dissimilation (Zellatmung, Gärung)',
+        'Neuronale Informationsverarbeitung (Nervenzelle, Potentiale, Synapse, Depression)',
+        'Stoffwechselphysiologie: Photosynthese (lichtabhängige und lichtunabhängige Reaktionen)',
+        'Stoffwechselphysiologie: Enzyme, Dissimilation (Zellatmung, Gärung)',
       ],
       '13/2': [
-        'Dynamische Prozesse in Ökosystemen',
-        'Anthropogene Einflüsse auf Ökosysteme und Biodiversität',
-        'Stoffkreisläufe und Energiefluss in Ökosystemen',
+        'Dynamische Prozesse in Ökosystemen (ökologische Potenz, Nische, Populationsentwicklung)',
+        'Anthropogene Einflüsse auf Ökosysteme und Wert der Biodiversität (Ökosystemleistungen)',
+        'Ökologie der Biosphäre: globale Vernetzung und nachhaltige Lebensweise',
+      ],
+    },
+    halbjahreEA: {
+      '12/1': [
+        'Genetik: Speicherung, Realisierung und Regulation (Proteinbiosynthese, alternatives Spleißen, HI-Virus, Antisense-RNA, Antibiotika, Epigenetik mit RNA-Interferenz und Histonmodifikation)',
+        'Vervielfältigung, Neukombination und Veränderung (Replikation, PCR, DNA-Reparatur, Meiose, Apoptose/Tumor, Onkogene, Genkopplung/Crossing-over, Gentechnik)',
+        'Weitergabe, Humangenetik und DNA-Analytik (Mendelsche Regeln, epigenetische Vererbung, genomische Prägung, PID, personalisierte Medizin)',
+      ],
+      '12/2': [
+        'Evolutionsforschung: molekulare Homologien, Stammbäume, Evolution des Menschen (Ursprung, Fossilgeschichte)',
+        'Mechanismen der Evolution (Selektion, Gendrift, Artbildung, Koevolution, kulturelle Evolution, Sozialdarwinismus)',
+        'Verhaltensökologie: Fitness, Kooperation, Kommunikation (Sender-Empfänger-Modell), Aggression, Fortpflanzung, Sozialverhalten von Primaten',
+      ],
+      '13/1': [
+        'Neuronale Informationsverarbeitung (Potentiale, erregende und hemmende Synapsen, EPSP/IPSP, Summation, ENG/EKG, neuronale Plastizität, MS, Parkinson, Depression)',
+        'Neuroendokrine Steuerung: Stressachsen (Sympathikus-NNM, Hypophysen-NNR), Cortisol-Regelung, Signaltransduktion im Auge (Rhodopsin)',
+        'Stoffwechselphysiologie: Photosynthese (Tracer-Methode, zyklischer Elektronentransport, C4-Pflanzen), Enzyme, Dissimilation (β-Oxidation, energetisches Modell Atmungskette)',
+      ],
+      '13/2': [
+        'Dynamische Prozesse in Ökosystemen (ökologische Potenz, Nische, K-/r-Strategie, Lotka-Volterra-Modell, Wiederfangmethode, Stickstoffatomkreislauf)',
+        'Anthropogene Einflüsse auf Ökosysteme, Biodiversität und ökologischer Fußabdruck',
+        'Ökologie der Biosphäre: Biom-Wechselwirkungen (Nietenhypothese, Passagierhypothese), Mikroplastik, hormonartig wirkende Substanzen',
       ],
     },
   },
