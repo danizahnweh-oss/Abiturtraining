@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="green">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#16a34a">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS · Biologie</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+  <style>
+    :root, [data-accent="green"] {
+      --accent: #16a34a;
+      --accent-hover: #15803d;
+      --accent-soft: #dcfce7;
+      --accent-glow: rgba(22, 163, 74, .08);
+    }
+    .dark, [data-theme="dark"] {
+      --accent: #4ade80;
+      --accent-hover: #86efac;
+      --accent-soft: rgba(74, 222, 128, .15);
+      --accent-glow: rgba(74, 222, 128, .08);
+    }
+
+    .material-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: .8rem;
+      overflow: hidden
+    }
+
+    .material-card summary {
+      padding: 1rem 1.2rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem
+    }
+
+    .material-card summary:hover {
+      background: var(--accent-glow)
+    }
+
+    .material-card .material-body {
+      padding: 0 1.2rem 1.2rem;
+      line-height: 1.7
+    }
+
+    .material-card .material-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .8rem 0;
+      font-size: .85rem
+    }
+
+    .material-card .material-body th,
+    .material-card .material-body td {
+      padding: .5rem .8rem;
+      border: 1px solid var(--border);
+      text-align: left
+    }
+
+    .material-card .material-body th {
+      background: var(--accent-glow);
+      font-weight: 700;
+      font-size: .8rem;
+      text-transform: uppercase
+    }
+
+    .material-chart {
+      margin: 1rem 0;
+      max-height: 280px
+    }
+
+    .material-img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--radius-sm);
+      margin: 0
+    }
+
+    .material-figure {
+      margin: 0;
+      padding: 0
+    }
+
+    .material-caption {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin-top: .4rem;
+      font-style: italic;
+      line-height: 1.4
+    }
+
+    .material-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .2rem;
+      opacity: .7
+    }
+
+    .material-img-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: 2rem;
+      color: var(--ink-muted);
+      font-size: .85rem
+    }
+
+    .material-img-credit {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-align: right;
+      margin-top: .25rem
+    }
+
+    .material-img-error {
+      padding: 1rem;
+      text-align: center;
+      color: var(--ink-muted);
+      font-style: italic
+    }
+
+    .material-source {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: .5rem
+    }
+
+    .material-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      text-transform: uppercase
+    }
+
+    .be-display {
+      display: flex;
+      align-items: baseline;
+      gap: .3rem;
+      font-family: var(--font-mono)
+    }
+
+    .be-big {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1
+    }
+
+    .be-max {
+      font-size: 1rem;
+      color: var(--ink-muted)
+    }
+
+    .np-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: .4rem .8rem;
+      border-radius: var(--radius-sm);
+      margin-top: .3rem
+    }
+
+    .block-score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .8rem 1rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: .5rem
+    }
+
+    .block-score .block-name {
+      font-weight: 600;
+      font-size: .9rem
+    }
+
+    .block-score .block-be {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent)
+    }
+
+    .aufgabe-block {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin-bottom: 1rem
+    }
+
+    .aufgabe-block h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: .8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .aufgabe-block h3 .be-tag {
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 700
+    }
+
+    .teilaufgabe {
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--border-light)
+    }
+
+    .teilaufgabe:last-child {
+      border-bottom: none
+    }
+
+    .teilaufgabe .ta-nr {
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 2.5rem;
+      display: inline-block
+    }
+
+    .teilaufgabe .ta-be {
+      font-family: var(--font-mono);
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-left: .5rem
+    }
+
+    .teilaufgabe .ta-afb {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      background: var(--border);
+      color: var(--ink-light);
+      margin-left: .3rem
+    }
+
+    /* Halbjahr/Sachgebiet selection */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0
+    }
+
+    .hj-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+      cursor: pointer
+    }
+
+    .hj-card:hover,
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .hj-icon {
+      font-size: 1.5rem;
+      margin-bottom: .4rem
+    }
+
+    .hj-name {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: .2rem
+    }
+
+    .hj-desc {
+      font-size: .8rem;
+      color: var(--ink-muted)
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html?back=biologie" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Biologie &middot; <span>Klausurtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1f319;</button>
+    </div>
+  </header>
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Material lesen</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1f4ca;</span>
+      Fortschritt</button>
+  </nav>
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1f4c4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
+        <div class="form-group">
+          <label>Niveau</label>
+          <select id="niveauSelect" onchange="updateNiveau()">
+            <option value="eA">Erh&ouml;htes Anforderungsniveau (eA)</option>
+            <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
+          </select>
+        </div>
+        <div class="form-group" id="fachbereichSection">
+          <label>Sachgebiet</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="zellbiologie" onclick="selectSachgebiet('zellbiologie')">
+              <div class="hj-icon">&#x1f52c;</div>
+              <div class="hj-name">Zellbiologie</div>
+              <div class="hj-desc">Zellaufbau, Organellen, Stofftransport</div>
+            </div>
+            <div class="hj-card" data-hj="genetik" onclick="selectSachgebiet('genetik')">
+              <div class="hj-icon">&#x1f9ec;</div>
+              <div class="hj-name">Genetik &amp; Gentechnik</div>
+              <div class="hj-desc">DNA, Vererbung, Gentechnologie</div>
+            </div>
+            <div class="hj-card" data-hj="oekologie" onclick="selectSachgebiet('oekologie')">
+              <div class="hj-icon">&#x1f33f;</div>
+              <div class="hj-name">&Ouml;kologie</div>
+              <div class="hj-desc">&Ouml;kosysteme, Stoffkreisl&auml;ufe, Populationen</div>
+            </div>
+            <div class="hj-card" data-hj="evolution" onclick="selectSachgebiet('evolution')">
+              <div class="hj-icon">&#x1f98e;</div>
+              <div class="hj-name">Evolution</div>
+              <div class="hj-desc">Evolutionstheorien, Artbildung, Belege</div>
+            </div>
+            <div class="hj-card" data-hj="neurobiologie" onclick="selectSachgebiet('neurobiologie')">
+              <div class="hj-icon">&#x1f9e0;</div>
+              <div class="hj-name">Neurobiologie</div>
+              <div class="hj-desc">Nervenzellen, Synapsen, Reizverarbeitung</div>
+            </div>
+          </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
+        </div>
+        <div id="gaHint" style="display:none;padding:.8rem 1rem;background:var(--accent-glow);border-radius:var(--radius-sm);margin-bottom:1rem;font-size:.9rem">
+          <strong>gA &ndash; Integriert:</strong> Die Aufgabe deckt alle Sachgebiete ab.
+        </div>
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div class="form-group" style="margin:0">
+            <label>Bewertungseinheiten (BE)</label>
+            <input type="number" id="totalBE" value="60" min="10" max="150" style="max-width:120px">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Bearbeitungszeit (Min.)</label>
+            <input type="number" id="timerMinutes" value="135" min="30" max="315" style="max-width:120px">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Anzahl Aufgaben</label>
+            <input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px">
+          </div>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Biologie-Aufgabe &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">&#x1f4f7;</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabe + Materialien)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild &middot; Mehrere
+            Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Aufgabe wird erkannt &hellip;</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
+        </div>
+      </div>
+
+      <div class="card" style="background:var(--accent-glow);border-color:var(--accent)">
+        <h3 style="font-size:1rem;margin-bottom:.5rem">&#x1f52c; Biologie an der FOS</h3>
+        <p style="font-size:.9rem;color:var(--ink-light)">In der Biologie-Klausur an der FOS bearbeitest du Aufgaben aus den Bereichen
+          <strong>Zellbiologie, Genetik &amp; Gentechnik, &Ouml;kologie, Evolution und Neurobiologie</strong>.
+          Du arbeitest mit Texten, Diagrammen, Abbildungen und Materialien. Bewertet wird nach
+          <strong>Bewertungseinheiten (BE)</strong>.</p>
+      </div>
+    </section>
+
+    <!-- STEP 2: READ MATERIALS -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabenstellung</h2>
+        <div class="task-box" id="taskInstruction">Hier erscheint die Aufgabenstellung &hellip;</div>
+        <div id="aufgabenbloeckeContainer"></div>
+      </div>
+      <div class="card">
+        <h2 class="card-header">Materialien</h2>
+        <div class="highlighter-toolbar">
+          <span class="hl-label">&#x1f58d;&#xfe0f; Markieren:</span>
+          <button class="hl-btn yellow" data-color="yellow" onclick="selectHL('yellow')" title="Gelb"></button>
+          <button class="hl-btn green" data-color="green" onclick="selectHL('green')" title="Gr&uuml;n"></button>
+          <button class="hl-btn blue" data-color="blue" onclick="selectHL('blue')" title="Blau"></button>
+          <button class="hl-btn pink" data-color="pink" onclick="selectHL('pink')" title="Pink"></button>
+          <button class="hl-btn orange" data-color="orange" onclick="selectHL('orange')" title="Orange"></button>
+          <button class="hl-btn eraser" data-color="eraser" onclick="selectHL('eraser')" title="Entfernen">&#x2715;</button>
+          <button class="hl-clear" onclick="clearAllHL()">Alle l&ouml;schen</button>
+        </div>
+        <div id="materialienContainer" class="material-box">Hier erscheinen die Materialien &hellip;</div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zum Schreiben &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23f8; Pause</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23f9; Stopp</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-header">Dein Text</h2>
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1f4d6; Aufgabe &amp; Materialien anzeigen
+          </summary>
+          <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm)">
+            <div class="task-box" id="writeTaskRef" style="margin:0 0 1rem 0"></div>
+            <div id="writeAufgabenRef"></div>
+            <div id="writeMaterialRef" class="material-box" style="max-height:300px;overflow-y:auto"></div>
+          </div>
+        </details>
+        <textarea id="studentText" placeholder="Beginne hier mit deiner Ausarbeitung &hellip;
+
+Struktur:
+&bull; Bearbeite alle Teilaufgaben der Reihe nach
+&bull; Verweise auf die Materialien (M1, M2, &hellip;)
+&bull; Bei Berechnungen: Rechenweg zeigen
+&bull; Fachbegriffe korrekt verwenden" oninput="updateWordCount()"></textarea>
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1f4be; Speichern</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1f4e4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">Fotos deiner handschriftlichen Arbeit
+          hochladen &ndash; der Text wird automatisch erkannt.</p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1f4f7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild &middot; Mehrere
+            Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23f1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte nach BE-System &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid">
+            <div class="score-card">
+              <div class="score-label">Erreichte BE</div>
+              <div class="be-display"><span class="be-big" id="scoreBE">&ndash;</span><span class="be-max">/ <span
+                    id="scoreBEMax">60</span></span></div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreNP">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+          <div id="blockScoresContainer"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Dein Text &mdash; Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" onclick="requestModelAnswer()">&#x1f4a1; Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1f4d1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
+        <div id="modelAnswerContainer" style="display:none;margin-top:1.5rem">
+          <div class="card">
+            <h2 class="card-header">Musterl&ouml;sung</h2>
+            <div class="feedback-body" id="modelAnswerBody"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1f4ca;</div>
+          <p>Noch keine Ergebnisse.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash; Punkte</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Bereich</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1f5d1; L&ouml;schen</button>
+      </div>
+    </section>
+  </main>
+  <footer>&copy; 2026 myAbiFlow FOS &middot; Biologie Trainer</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "fos_biologie",
+      historyKey: "fos_biologie_history_",
+      historyType: "fos_biologie",
+      pdfFilename: "FOS_Biologie_Klausur",
+      chartColor: "#16a34a",
+      minWords: 80,
+      loginPage: "index.html",
+      hlSelector: ".material-box",
+      hasOwnLogin: true
+    };
+  </script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    CONFIG.sachgebiet = "zellbiologie";
+    CONFIG.selectedSachgebiete = ["zellbiologie"];
+
+    /* ====== SG LABELS & ICONS ====== */
+    const SG_LABELS = { zellbiologie: "Zellbiologie", genetik: "Genetik & Gentechnik", oekologie: "Ökologie", evolution: "Evolution", neurobiologie: "Neurobiologie" };
+    const SG_ICONS = { zellbiologie: "🔬", genetik: "🧬", oekologie: "🌿", evolution: "🦎", neurobiologie: "🧠" };
+
+    /* ====== UNTERPUNKTE DATA ====== */
+    const UNTERPUNKTE = {
+      zellbiologie: [
+        "Zellaufbau und Zellorganellen",
+        "Biomembranen und Stofftransport",
+        "Zellteilung (Mitose, Meiose)",
+        "Enzymatik und Stoffwechsel",
+        "Fotosynthese und Zellatmung"
+      ],
+      genetik: [
+        "DNA-Aufbau und Replikation",
+        "Proteinbiosynthese (Transkription, Translation)",
+        "Mendelsche Regeln und Erbgänge",
+        "Mutationen und Mutagene",
+        "Gentechnik und Biotechnologie",
+        "Humangenetik und Stammbaumanalyse"
+      ],
+      oekologie: [
+        "Ökosysteme und Biozönosen",
+        "Nahrungsbeziehungen und Stoffkreisläufe",
+        "Populationsdynamik und -ökologie",
+        "Umweltfaktoren (abiotisch, biotisch)",
+        "Nachhaltigkeit und Naturschutz"
+      ],
+      evolution: [
+        "Evolutionstheorien (Darwin, Lamarck)",
+        "Selektionsmechanismen und Anpassung",
+        "Artbildung und Isolation",
+        "Belege der Evolution (Homologie, Analogie)",
+        "Stammesgeschichte und Systematik",
+        "Evolution des Menschen"
+      ],
+      neurobiologie: [
+        "Bau und Funktion von Nervenzellen",
+        "Ruhepotenzial und Aktionspotenzial",
+        "Synaptische Übertragung",
+        "Sinnesorgane und Reizverarbeitung",
+        "Nervensystem und Gehirn",
+        "Neuronale Plastizität und Lernen"
+      ]
+    };
+
+    function renderSubtopics() {
+      var panel = document.getElementById('subtopics-panel');
+      var html = '';
+      CONFIG.selectedSachgebiete.forEach(function(key) {
+        var items = UNTERPUNKTE[key] || [];
+        if (!items.length) return;
+        var label = SG_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1);
+        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
+        html += '<div class="subtopic-item subtopic-all">' +
+          '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)">' +
+          '<label for="st-all-' + key + '">Alle auswählen</label></div>';
+        items.forEach(function(item, i) {
+          var id = 'st-' + key + '-' + i;
+          html += '<div class="subtopic-item">' +
+            '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+            '<label for="' + id + '">' + item + '</label></div>';
+        });
+        html += '</div>';
+      });
+      panel.innerHTML = html;
+      panel.classList.toggle('open', html.length > 0);
+    }
+
+    function toggleAllGroup(key, checked) {
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('#st-all-' + key).forEach(function(el) {
+        var group = el.closest('.subtopic-group');
+        if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      });
+    }
+
+    function getSelectedSubtopics() {
+      var panel = document.getElementById('subtopics-panel');
+      var result = [];
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
+    function selectSachgebiet(sg) {
+      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
+      if (idx !== -1) {
+        if (CONFIG.selectedSachgebiete.length > 1) {
+          CONFIG.selectedSachgebiete.splice(idx, 1);
+        }
+      } else {
+        CONFIG.selectedSachgebiete.push(sg);
+      }
+      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
+      });
+      renderSubtopics();
+    }
+
+    function updateNiveau() {
+      var niveau = document.getElementById("niveauSelect").value;
+      var isGA = niveau === "gA";
+      document.getElementById("fachbereichSection").style.display = isGA ? "none" : "block";
+      document.getElementById("gaHint").style.display = isGA ? "block" : "none";
+      document.getElementById("timerMinutes").value = isGA ? "210" : "135";
+      document.getElementById("totalBE").value = isGA ? "100" : "60";
+    }
+
+    /* ====== SETUP MODE ====== */
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    /* ====== UPLOAD / OCR ====== */
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        const base64s = taskUploadImages.map(p => p.base64);
+        const d = await apiCall("/api/fos-parse-task-biologie", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        // Grosses Bild-Preview anzeigen
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      try {
+        const raw = document.getElementById("parsedMaterials").value;
+        const parsed = JSON.parse(raw);
+        // Hochgeladene Bilder als Data-URLs mitspeichern
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = parsed;
+        renderTask(parsed);
+        nav("task");
+      } catch (e) {
+        // Fallback: use as plain text
+        const c = {
+          task_instruction: document.getElementById("parsedTaskInstruction").value,
+          aufgabenbloecke: [],
+          materialien: [],
+          gesamt_be: 60
+        };
+        c._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = c;
+        renderTask(c);
+        nav("task");
+      }
+    }
+
+    /* ====== GENERATE ====== */
+    async function generateTask() {
+      const b = document.getElementById("generateBtn");
+      b.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const niveau = document.getElementById("niveauSelect").value;
+        const isGA = niveau === "gA";
+        const d = await apiCall("/api/fos-generate-biologie", {
+          niveau: niveau,
+          fachbereich: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
+          sachgebiet: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
+          unterpunkte: isGA ? [] : getSelectedSubtopics(),
+          be: parseInt(document.getElementById("totalBE").value) || 60,
+          zeit: parseInt(document.getElementById("timerMinutes").value) || 135,
+          anzahl: parseInt(document.getElementById("taskCount").value) || 1
+        });
+        CONFIG.storedData = d;
+        CONFIG.storedData._niveau = niveau;
+        CONFIG.storedData._fachbereich = isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", ");
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      b.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    /* ====== RENDER TASK ====== */
+    function renderTask(d) {
+      // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        var imgHtml = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskInstruction").innerHTML = imgHtml;
+        document.getElementById("writeTaskRef").innerHTML = imgHtml;
+        document.getElementById("aufgabenbloeckeContainer").innerHTML = "";
+        document.getElementById("materialienContainer").innerHTML = "";
+        document.getElementById("writeAufgabenRef").innerHTML = "";
+        document.getElementById("writeMaterialRef").innerHTML = "";
+        return;
+      }
+      // Task instruction
+      document.getElementById("taskInstruction").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+      document.getElementById("writeTaskRef").innerHTML = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+
+      // Aufgabenblöcke
+      const blocksHtml = (d.aufgabenbloecke || []).map(block => {
+        const taHtml = (block.teilaufgaben || []).map(ta =>
+          `<div class="teilaufgabe"><span class="ta-nr">${escapeHtml(String(ta.nr))}</span> ${escapeHtml(ta.text)} <span class="ta-be">${ta.be} BE</span><span class="ta-afb">AFB ${escapeHtml(ta.afb || "")}</span></div>`
+        ).join("");
+        return `<div class="aufgabe-block"><h3>${escapeHtml(block.titel || "Block " + block.nr)} <span class="be-tag">${block.be_gesamt} BE</span></h3>${taHtml}</div>`;
+      }).join("");
+      document.getElementById("aufgabenbloeckeContainer").innerHTML = blocksHtml;
+      document.getElementById("writeAufgabenRef").innerHTML = blocksHtml;
+
+      // Materialien
+      const matHtml = (d.materialien || []).map((m, idx) => {
+        let inhalt;
+        if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
+          inhalt = DOMPurify.sanitize(marked.parse(m.inhalt || ""));
+          inhalt += `<div class="material-chart"><canvas id="chart-bio-${idx}"></canvas></div>`;
+        } else if (m.typ === "bild") {
+          inhalt = `<div class="material-img-loading" id="img-bio-${idx}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+        } else if (m.typ === "foto") {
+          inhalt = `<div class="material-img-loading" id="img-bio-${idx}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+        } else {
+          inhalt = escapeHtml(m.inhalt || "").replace(/\n/g, "<br>");
+        }
+        return `<details class="material-card" open>
+      <summary><span class="material-badge">${escapeHtml(m.nr || "")}</span> ${escapeHtml(m.titel || "")} <span style="margin-left:auto;font-size:.8rem;color:var(--ink-muted)">${escapeHtml(m.typ || "")}</span></summary>
+      <div class="material-body">${inhalt}<div class="material-source">${escapeHtml(m.quelle || "")}</div></div>
+    </details>`;
+      }).join("");
+      document.getElementById("materialienContainer").innerHTML = matHtml || "<p style='color:var(--ink-muted)'>Keine Materialien vorhanden.</p>";
+      document.getElementById("writeMaterialRef").innerHTML = matHtml;
+      // Render charts and load images
+      (d.materialien || []).forEach((m, idx) => {
+        if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
+          renderStatistikChart(m.inhalt, `chart-bio-${idx}`);
+        } else if (m.typ === "bild") {
+          loadDallEImage(m.inhalt, `img-bio-${idx}`);
+        } else if (m.typ === "foto") {
+          loadUnsplashImage(m.inhalt, `img-bio-${idx}`);
+        }
+      });
+
+      // Re-init highlighter for new material cards
+      initHL();
+    }
+
+    /* ====== SUBMIT FOR GRADING ====== */
+    async function submitForGrading() {
+      const t = document.getElementById("studentText").value;
+      if (countWords(t) < 80) { showToast("Bitte mindestens 80 Wörter schreiben."); return; }
+      if (!CONFIG.storedData) { showToast("Bitte zuerst eine Aufgabe generieren."); return; }
+
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      try {
+        const niveau = CONFIG.storedData._niveau || document.getElementById("niveauSelect").value;
+        const maxBE = CONFIG.storedData.gesamt_be || (niveau === "gA" ? 100 : 60);
+
+        const d = await apiCall("/api/fos-grade-biologie", {
+          aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
+          materialien: CONFIG.storedData.materialien || [],
+          student_text: t,
+          niveau: niveau,
+          gesamt_be: maxBE,
+          task_instruction: CONFIG.storedData.task_instruction || ""
+        });
+
+        const beErreicht = d.scores?.be_erreicht ?? "–";
+        const beMax = d.scores?.be_max ?? maxBE;
+        const np = d.scores?.notenpunkte ?? d.scores?.total ?? "–";
+
+        document.getElementById("scoreBE").textContent = beErreicht;
+        document.getElementById("scoreBEMax").textContent = beMax;
+        document.getElementById("scoreNP").textContent = np;
+
+        // Block scores
+        const blockHtml = (d.bewertung_bloecke || []).map(b =>
+          `<div class="block-score"><span class="block-name">Block ${b.block_nr}</span><span class="block-be">${b.be_erreicht} / ${b.be_max} BE</span></div>`
+        ).join("");
+        document.getElementById("blockScoresContainer").innerHTML = blockHtml;
+
+        // Save to history
+        const fb = CONFIG.storedData._fachbereich || CONFIG.storedData.fachbereich || "FOS Biologie";
+        const thema = CONFIG.storedData.thema || "FOS Biologie";
+        saveToHistory({ fachbereich: fb + " – " + thema, be: beErreicht, notenpunkte: np, total: typeof np === "number" ? np : null });
+
+        // Submit to server
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "fos_biologie",
+          topic: fb + " – " + thema,
+          content: beErreicht,
+          language: np,
+          total: typeof np === "number" ? np : null,
+          date: new Date().toISOString()
+        }).catch(() => { });
+
+        stopTimer();
+        document.getElementById("feedbackBody").innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+        renderKorrekturFeedback(d);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = `<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`;
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    /* ====== MODEL ANSWER ====== */
+    async function requestModelAnswer() {
+      const container = document.getElementById("modelAnswerContainer");
+      const body = document.getElementById("modelAnswerBody");
+      if (container.style.display !== "none") { container.style.display = "none"; return; }
+
+      body.innerHTML = '<div class="loader" style="display:block"><div class="loader-spinner"></div><div class="loader-text">Musterlösung wird erstellt …</div></div>';
+      container.style.display = "block";
+
+      try {
+        const d = await apiCall("/api/fos-model-answer-biologie", {
+          task_instruction: CONFIG.storedData.task_instruction,
+          aufgabenbloecke: CONFIG.storedData.aufgabenbloecke,
+          materialien: CONFIG.storedData.materialien
+        });
+        body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || "Keine Musterlösung verfügbar."));
+      } catch (e) {
+        body.innerHTML = `<p style="color:var(--warning)">Fehler: ${escapeHtml(e.message)}</p>`;
+      }
+    }
+
+    /* ====== HISTORY TABLE ====== */
+    function renderHistoryTable(h) {
+      document.getElementById("historyTableBody").innerHTML = h.slice().reverse().map((x, i) =>
+        `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${escapeHtml(x.fachbereich || "–")}</td><td class="history-score">${x.be ?? "–"}</td><td class="history-score" style="font-weight:700">${x.notenpunkte ?? x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${h.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
+      ).join("");
+    }
+
+    /* ====== Chart & Image helpers ====== */
+    const CHART_COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316'];
+    function renderStatistikChart(markdown, canvasId) {
+      try {
+        if (typeof markdown !== "string") return;
+        const lines = markdown.split("\n").filter(l => l.trim().startsWith("|"));
+        if (lines.length < 2) return;
+        const parse = line => line.split("|").map(c => c.trim()).filter(Boolean);
+        const headers = parse(lines[0]);
+        const dataLines = lines.filter(l => !l.match(/^\|[\s\-:|]+\|$/));
+        if (dataLines.length < 2) return;
+        const rows = dataLines.slice(1).map(parse);
+        const labels = rows.map(r => r[0]);
+        const datasets = headers.slice(1).map((h, i) => ({
+          label: h,
+          data: rows.map(r => parseFloat((r[i + 1] || "").replace(/[^0-9.,\-]/g, "").replace(",", "."))),
+          backgroundColor: CHART_COLORS[i % CHART_COLORS.length],
+        }));
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        new Chart(canvas, {
+          type: "bar", data: { labels, datasets },
+          options: { responsive: true, plugins: { legend: { position: "top" } } }
+        });
+      } catch (err) {
+        console.error("Chart-Rendering-Fehler:", err);
+      }
+    }
+    async function loadDallEImage(prompt, containerId) {
+      try {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const d = await apiCall("/api/generate-image", { prompt });
+        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
+        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
+        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
+      } catch (e) {
+        console.error("Bild-Fehler:", e);
+        const el = document.getElementById(containerId);
+        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
+      }
+    }
+    async function loadUnsplashImage(keywords, containerId) {
+      loadDallEImage(keywords, containerId);
+    }
+
+    /* ====== INIT ====== */
+    // Set initial niveau from session storage
+    (function () {
+      const level = sessionStorage.getItem("student_level") || "eA";
+      const sel = document.getElementById("niveauSelect");
+      if (sel) {
+        sel.value = level;
+        updateFachbereichVisibility();
+      }
+    })();
+  </script>
+</body>
+
+</html>
