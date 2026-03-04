@@ -40,12 +40,16 @@ cp *.mp4 _site/ 2>/dev/null || true
 echo "→ Kopiere Lehrpläne..."
 cp -r lehrplaene _site/
 
-# 8. Kolloquiumstrainer dist/ an den richtigen Pfad kopieren
+# 8. FOS-Seiten kopieren
+echo "→ Kopiere FOS-Seiten..."
+cp -r fos _site/fos
+
+# 9. Kolloquiumstrainer dist/ an den richtigen Pfad kopieren
 echo "→ Kopiere Kolloquiumstrainer-Build..."
 mkdir -p _site/abitur-kolloquium-trainer
 cp -r abitur-kolloquium-trainer/dist _site/abitur-kolloquium-trainer/dist
 
-# 9. CNAME wird NICHT kopiert (Cloudflare Pages braucht kein CNAME-File)
+# 10. CNAME wird NICHT kopiert (Cloudflare Pages braucht kein CNAME-File)
 
 echo ""
 echo "=== Build fertig! ==="
