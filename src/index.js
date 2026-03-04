@@ -1842,7 +1842,7 @@ async function handleGradeDeutsch(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
@@ -1913,7 +1913,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion, welche Strate
   if (compare_text) userContent += `\n\nVERGLEICHSTEXT:\n${truncate(compare_text, 10000)}`;
   if (material_text) userContent += `\n\nMATERIAL:\n${truncate(material_text, 10000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -1946,8 +1946,27 @@ async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
+  // Strukturierter Prompt für hochwertige Bildgenerierung
+  const enhancedPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
+
+STYLE REQUIREMENTS:
+- Clean, modern infographic or diagram style with crisp lines, vivid colors, and professional typography
+- High contrast and sharp details suitable for educational materials
+- White or light neutral background for clarity
+- No watermarks, no logos, no decorative borders
+
+TEXT REQUIREMENTS:
+- ALL text, labels, titles, annotations, and captions within the image MUST be in GERMAN
+- Use correct German spelling and grammar for every word
+- Text must be clearly legible with appropriate font sizes
+
+SUBJECT TO ILLUSTRATE:
+${prompt}
+
+ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
+
   try {
-    // Bild generieren via Gemini 3.1 Flash Image Preview
+    // Bild generieren via Gemini 3.1 Flash Image Preview (2K-Auflösung)
     const geminiRes = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent",
       {
@@ -1958,11 +1977,14 @@ async function handleGenerateImage(request, env) {
         },
         body: JSON.stringify({
           contents: [{
-            parts: [{ text: `Generate an image: ${prompt}` }]
+            parts: [{ text: enhancedPrompt }]
           }],
           generationConfig: {
             responseModalities: ["IMAGE", "TEXT"],
-            imageConfig: { aspectRatio: "16:9" }
+            imageConfig: {
+              aspectRatio: "16:9",
+              outputOptions: { resolution: "2048" }
+            }
           }
         })
       }
@@ -1984,10 +2006,18 @@ async function handleGenerateImage(request, env) {
     const mimeType = imagePart.inlineData.mimeType || "image/png";
     const dataUrl = `data:${mimeType};base64,${imagePart.inlineData.data}`;
 
-    // Caption aus der Gemini-Antwort extrahieren (falls vorhanden), sonst via GPT
+    // Caption aus der Gemini-Antwort extrahieren (da wir sie explizit angefordert haben)
     const textPart = parts.find(p => p.text);
-    let caption = textPart?.text?.trim() || "";
+    let caption = "";
+    if (textPart?.text) {
+      // Erste Zeile als Caption nehmen, da der Prompt das so anfordert
+      const lines = textPart.text.trim().split("\n").filter(l => l.trim());
+      caption = lines[0]?.replace(/^["„"']|["„"']$/g, "").trim() || "";
+      // Zu lange Captions kürzen
+      if (caption.length > 120) caption = caption.substring(0, 117) + "...";
+    }
 
+    // Fallback: Nur wenn Gemini keine Caption liefert, via GPT generieren
     if (!caption) {
       try {
         const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -2002,7 +2032,7 @@ async function handleGenerateImage(request, env) {
         });
         const captionData = await captionRes.json();
         caption = captionData.choices?.[0]?.message?.content?.trim() || "";
-      } catch {}
+      } catch { }
     }
 
     return jsonResponse({
@@ -2403,7 +2433,7 @@ async function handleGradePuG(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
@@ -2471,7 +2501,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -2699,7 +2729,7 @@ async function handleGradeAbiturPuG(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   contextInfo += `=== PRÜFUNGSTEIL B (Ausweitung) ===\nAufgabenstellung:\n${truncate(task_instruction_b, 3000)}\n\n`;
@@ -2779,7 +2809,7 @@ Formatiere als Markdown mit klaren Überschriften für jeden Prüfungsteil und j
   let userContent = `PRÜFUNGSTEIL A – AUFGABE:\n${truncate(task_instruction_a, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
   userContent += `\n\nPRÜFUNGSTEIL B – AUFGABE (Ausweitung):\n${truncate(task_instruction_b, 3000)}`;
 
@@ -3428,9 +3458,9 @@ WICHTIG: Generiere für BEIDE Aufgaben vollständige, ausformulierte Teilaufgabe
   const userPrompt = `Erstelle eine vollständige WR-Abiturprüfung (2 Aufgaben):
 - Niveau: ${niveauLabel}
 ${isEA
-  ? `- Aufgabe 1: ${fbLabels[fachbereich_1] || "BWL"} (60 BE)
+      ? `- Aufgabe 1: ${fbLabels[fachbereich_1] || "BWL"} (60 BE)
 - Aufgabe 2: ${fbLabels[fachbereich_2] || "VWL"} (60 BE)`
-  : `- Aufgabe 1: Integriert BWL+VWL+Recht (75 BE)
+      : `- Aufgabe 1: Integriert BWL+VWL+Recht (75 BE)
 - Aufgabe 2: Transferaufgabe ohne Materialien (25 BE)`}
 
 Beide Aufgaben müssen eigenständig und thematisch verschieden sein.
@@ -4101,7 +4131,7 @@ async function handleGradeEthik(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
@@ -4170,7 +4200,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -4322,7 +4352,7 @@ async function handleGradeAbiturEthik(request, env) {
   if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   let studentTexts = "";
@@ -4394,7 +4424,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -4624,7 +4654,7 @@ async function handleGradeReligion(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
@@ -4691,7 +4721,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -4717,16 +4747,20 @@ async function handleGenerateAbiturReligion(request, env) {
   const beGesamt = isEA ? "120 BE" : "100 BE";
 
   const lbThemen = {
-    "12_1": { title: "Sinnfrage und Gottesfrage / Der im-perfekte Mensch", lernbereiche: "LB 12.1 und LB 12.2",
+    "12_1": {
+      title: "Sinnfrage und Gottesfrage / Der im-perfekte Mensch", lernbereiche: "LB 12.1 und LB 12.2",
       inhalte: `- Gottesfrage, Theodizee, Trinität, Religionskritik (Feuerbach)
 - Menschenbild: Identität, Fragmentarität, Sünde und Rechtfertigung` },
-    "12_2": { title: "Homo faber / Christsein in der Gesellschaft", lernbereiche: "LB 12.3 und LB 12.4",
+    "12_2": {
+      title: "Homo faber / Christsein in der Gesellschaft", lernbereiche: "LB 12.3 und LB 12.4",
       inhalte: `- Schöpfungsglaube, Arbeit und Beruf (Luther, Marx), Freiheit eines Christenmenschen
 - Kirche in der Gesellschaft, Sozialethik, Zwei-Reiche-Lehre` },
-    "13_1": { title: "Ethik: Gutes Leben und richtiges Handeln", lernbereiche: "LB 13.1 und LB 13.2",
+    "13_1": {
+      title: "Ethik: Gutes Leben und richtiges Handeln", lernbereiche: "LB 13.1 und LB 13.2",
       inhalte: `- Ethische Grundmodelle (Kant, Utilitarismus), christliche Ethik (Dekalog, Bergpredigt)
 - Angewandte Ethik, ethische Argumentationsmodelle` },
-    "13_2": { title: "Christliche Hoffnungsbilder", lernbereiche: "LB 13.3",
+    "13_2": {
+      title: "Christliche Hoffnungsbilder", lernbereiche: "LB 13.3",
       inhalte: `- Eschatologie, Reich Gottes, Tod und Auferstehung
 - Zukunftsvisionen, christliche Hoffnungsbilder (1 Kor 15, Offb 21f.)` }
   };
@@ -4797,7 +4831,7 @@ async function handleGradeAbiturReligion(request, env) {
   if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_AB;
@@ -4866,7 +4900,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -5083,7 +5117,7 @@ async function handleGradeKatholisch(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
@@ -5150,7 +5184,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -5176,16 +5210,20 @@ async function handleGenerateAbiturKatholisch(request, env) {
   const beGesamt = isEA ? "120 BE" : "100 BE";
 
   const lbThemen = {
-    "12_1": { title: "Personalität: Der Mensch und die Frage \u201eWer bin ich?\u201c", lernbereiche: "KR 12 LB 1",
+    "12_1": {
+      title: "Personalität: Der Mensch und die Frage \u201eWer bin ich?\u201c", lernbereiche: "KR 12 LB 1",
       inhalte: `- Philosophische Anthropologie, Identitätsfrage, christliches Menschenbild (Gottebenbildlichkeit)
 - Personalität, Sozialität, Transzendentalität, Menschenwürde, Menschenrechte, Freiheit und Verantwortung` },
-    "12_2": { title: "Transzendentalität: Gottessuche und Gottesbild", lernbereiche: "KR 12 LB 2",
+    "12_2": {
+      title: "Transzendentalität: Gottessuche und Gottesbild", lernbereiche: "KR 12 LB 2",
       inhalte: `- Gottesbeweise (Anselm, Thomas, Pascal), Religionskritik (Feuerbach, Marx, Nietzsche)
 - Bibel als Gotteswort, trinitarisches Gottesbild, Glaube und Naturwissenschaft, Christentum und Islam` },
-    "13_1": { title: "Sozialität: Ethik und Kath. Soziallehre", lernbereiche: "KR 13 LB 1",
+    "13_1": {
+      title: "Sozialität: Ethik und Kath. Soziallehre", lernbereiche: "KR 13 LB 1",
       inhalte: `- Normenbegründung (Naturrecht, Pflichtethik, Utilitarismus, Verantwortungsethik)
 - Dekalog, Bergpredigt, Gewissensbildung, Kath. Soziallehre (Sozialprinzipien), Ehe/Familie, Nachhaltigkeit` },
-    "13_2": { title: "Existentielle Fragen und christliche Antwortangebote", lernbereiche: "KR 13 LB 2",
+    "13_2": {
+      title: "Existentielle Fragen und christliche Antwortangebote", lernbereiche: "KR 13 LB 2",
       inhalte: `- Wahrheitsansprüche (Exklusivismus, Inklusivismus, Pluralismus), christliche Ethik als Letztbegründung
 - Eschatologie, Reich-Gottes-Botschaft, Lebensentwürfe (Vier Kantische Fragen)` }
   };
@@ -5256,7 +5294,7 @@ async function handleGradeAbiturKatholisch(request, env) {
   if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_AB;
@@ -5328,7 +5366,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
     userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => {
       const c = m.content ?? m.text ?? "";
       const cStr = typeof c === "string" ? c : JSON.stringify(c);
-      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+      return `Material ${i + 1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
     }).join("\n\n")}`;
   }
 
@@ -5547,7 +5585,7 @@ async function handleGradeGeographie(request, env) {
   }
 
   if (materials && materials.length) {
-    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
@@ -5616,7 +5654,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   let userContent = `AUFGABE:\n${truncate(task_instruction, 5000)}`;
   if (primary_text) userContent += `\n\nMATERIAL:\n${truncate(primary_text, 15000)}`;
   if (materials && materials.length) {
-    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i+1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
+    userContent += `\n\nMATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;
   }
 
   const answer = await callOpenAI(env, [
@@ -5763,7 +5801,7 @@ async function handleGradeAbiturGeographie(request, env) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => {
       const c = m.content ?? m.text ?? "";
       const cStr = typeof c === "string" ? c : JSON.stringify(c);
-      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+      return `Material ${i + 1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
     }).join("\n\n")}\n\n`;
   }
 
@@ -5841,7 +5879,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
     userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => {
       const c = m.content ?? m.text ?? "";
       const cStr = typeof c === "string" ? c : JSON.stringify(c);
-      return `Material ${i+1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
+      return `Material ${i + 1}: ${truncate(m.title || m.titel || "", 200)}\n${truncate(cStr, 3000)}`;
     }).join("\n\n")}`;
   }
 
@@ -6853,7 +6891,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -7213,7 +7251,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       const pct = (gesamtBE / 100) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -7546,7 +7584,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -7863,7 +7901,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -8239,7 +8277,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -8539,7 +8577,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -8851,7 +8889,7 @@ Antworte NUR mit validem JSON:
 
     if (np == null && beErreicht != null) {
       const pct = (beErreicht / beMax) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -9232,7 +9270,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       const pct = (gesamtBE / maxBE) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -9552,7 +9590,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       const pct = (gesamtBE / maxBE) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -9976,7 +10014,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       const pct = (gesamtBE / maxBE) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -10250,7 +10288,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       // ISB-Tabelle: absolute BE-Grenzen bei 100 BE Basis
-      const table = [[96,15],[91,14],[86,13],[81,12],[76,11],[71,10],[66,9],[61,8],[56,7],[51,6],[46,5],[41,4],[34,3],[27,2],[20,1],[0,0]];
+      const table = [[96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10], [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4], [34, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (gesamtBE >= th) { np = n; break; } }
     }
@@ -10517,7 +10555,7 @@ Antworte NUR mit validem JSON:
     }
     if (np == null && gesamtBE != null) {
       const pct = (gesamtBE / maxBE) * 100;
-      const table = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
       for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
@@ -11011,18 +11049,18 @@ function extractJSON(text) {
 
   let clean = text.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
 
-  try { return fixLatexControlChars(JSON.parse(clean)); } catch {}
+  try { return fixLatexControlChars(JSON.parse(clean)); } catch { }
 
   const match = clean.match(/\{[\s\S]*\}/);
   if (match) {
-    try { return fixLatexControlChars(JSON.parse(match[0])); } catch {}
+    try { return fixLatexControlChars(JSON.parse(match[0])); } catch { }
 
     let repaired = match[0];
     repaired = repaired.replace(/:\s*"([\s\S]*?)"\s*([,\}])/g, (m, val, end) => {
       const fixed = val.replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t");
       return ': "' + fixed + '"' + end;
     });
-    try { return fixLatexControlChars(JSON.parse(repaired)); } catch {}
+    try { return fixLatexControlChars(JSON.parse(repaired)); } catch { }
   }
 
   // Abgeschnittenes JSON reparieren: fehlende Klammern ergänzen
@@ -11048,7 +11086,7 @@ function extractJSON(text) {
     truncated = truncated.replace(/,\s*$/, "");
     for (let i = 0; i < brackets; i++) truncated += "]";
     for (let i = 0; i < braces; i++) truncated += "}";
-    try { return fixLatexControlChars(JSON.parse(truncated)); } catch {}
+    try { return fixLatexControlChars(JSON.parse(truncated)); } catch { }
   }
 
   throw new Error("Model did not return valid JSON.");
