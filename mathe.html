@@ -866,9 +866,23 @@
       nav("task");
     }
 
+    // Einfache Text→HTML Konvertierung ohne Markdown – lässt LaTeX-Delimiters intakt für KaTeX
+    function textToSafeHtml(text) {
+      if (!text) return "";
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n{2,}/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+    }
+
     function renderTask(d) {
       const instrEl = document.getElementById("taskInstruction");
-      instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
+      const raw = d.aufgabe || d.task_instruction || "";
+
+      // Für Aufgabentext: einfaches HTML ohne Markdown (schützt LaTeX-Delimiters)
+      instrEl.innerHTML = '<p>' + DOMPurify.sanitize(textToSafeHtml(raw)) + '</p>';
       renderMath(instrEl);
 
       // GeoGebra: clean up old, render new
