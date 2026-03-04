@@ -301,20 +301,22 @@
 
           <!-- Editable preview of parsed task -->
           <div id="taskUploadResult" style="display:none;margin-top:1.2rem;">
-            <div class="form-group">
-              <label>Erkannte Aufgabenstellung (Französisch) – bearbeitbar</label>
-              <textarea id="parsedTaskInstruction" style="min-height:120px;"
+            <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+            <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+            <div class="form-group" style="display:none">
+              <label></label>
+              <textarea id="parsedTaskInstruction" style="display:none"
                 placeholder="Französische Aufgabenstellung …"></textarea>
             </div>
-            <div class="form-group">
-              <label>Erkannter Quelltext (Französisch) – bearbeitbar</label>
-              <textarea id="parsedArticleText" style="min-height:200px;"
+            <div class="form-group" style="display:none">
+              <label></label>
+              <textarea id="parsedArticleText" style="display:none"
                 placeholder="Französischer Quelltext …"></textarea>
             </div>
-            <div class="form-group">
-              <label>Titel / Überschrift</label>
+            <div class="form-group" style="display:none">
+              <label></label>
               <input type="text" id="parsedHeadline" placeholder="Titel des Quelltextes …"
-                style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
+                type="hidden">
             </div>
             <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
               <button class="btn" onclick="useUploadedTask()">
@@ -961,6 +963,11 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         document.getElementById("parsedTaskInstruction").value = data.task_instruction || "";
         document.getElementById("parsedArticleText").value = data.article_text || "";
         document.getElementById("parsedHeadline").value = data.headline || "";
+        // Grosses Bild-Preview anzeigen
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+
         document.getElementById("taskUploadResult").style.display = "block";
       } catch (e) {
         showToast("Fehler bei der Erkennung: " + e.message);
@@ -1003,6 +1010,11 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
         article_text: article,
         task_instruction: task
       };
+      // Hochgeladene Bilder als Data-URLs mitspeichern
+      content._uploadImages = taskUploadImages.map(function(p) {
+        if (p.url && p.url.startsWith("data:")) return p.url;
+        return "data:image/jpeg;base64," + p.base64;
+      });
       CONFIG.storedData = content;
       localStorage.setItem("exam_data", JSON.stringify(content));
       renderExam(content);
@@ -1057,6 +1069,14 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
 
     /* ================= RENDER ================= */
     function renderExam(d) {
+      // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        document.getElementById("taskInstruction").innerHTML = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        return;
+      }
+
       document.getElementById("articleTitle").innerText = d.headline || "Ausgangstext";
       document.getElementById("articleBody").innerHTML =
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");

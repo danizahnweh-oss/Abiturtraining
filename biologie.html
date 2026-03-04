@@ -277,10 +277,11 @@
           <div class="loader-spinner"></div>
         </div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
-          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
-              style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
-          <button class="btn" onclick="useUploadedTask()">&#x2713; Verwenden</button>
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <input type="hidden" id="parsedMeta">
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
@@ -727,11 +728,15 @@
       try {
         const processed = await processUploadFiles(files);
         taskUploadImages.push(...processed);
-        document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+        document.getElementById("taskUploadPages").innerHTML = "";
         const base64s = taskUploadImages.map(p => p.base64);
         const d = await apiCall("/api/parse-task-bio", { images: base64s });
         document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
         document.getElementById("parsedMeta").value = d.primary_meta || "";
+        // Grosses Bild-Preview anzeigen
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
         document.getElementById("taskUploadResult").style.display = "block";
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
@@ -740,6 +745,11 @@
     function useUploadedTask() {
       const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      // Hochgeladene Bilder als Data-URLs mitspeichern
+      c._uploadImages = taskUploadImages.map(function(p) {
+        if (p.url.startsWith("data:")) return p.url;
+        return "data:image/jpeg;base64," + p.base64;
+      });
       CONFIG.storedData = c;
       renderTask(c);
       nav("task");
@@ -755,8 +765,17 @@
 
     function renderTask(d) {
       const instrEl = document.getElementById("taskInstruction");
-      instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(d.aufgabe || d.task_instruction || ""));
-      renderMath(instrEl);
+      const raw = d.aufgabe || d.task_instruction || "";
+
+      // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        instrEl.innerHTML = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+      } else {
+        instrEl.innerHTML = DOMPurify.sanitize(safeMathParse(raw));
+        renderMath(instrEl);
+      }
 
       const container = document.getElementById("teilaufgabenContainer");
       if (d.teilaufgaben && d.teilaufgaben.length) {
