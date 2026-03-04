@@ -436,6 +436,59 @@
       color: var(--fcd, var(--accent))
     }
 
+    /* ====== COMING SOON BADGE ====== */
+    .module-card.coming-soon {
+      opacity: .5;
+      pointer-events: none;
+      position: relative
+    }
+
+    .module-card.coming-soon::after {
+      content: 'Kommt bald';
+      position: absolute;
+      top: .6rem;
+      right: .6rem;
+      background: var(--border);
+      color: var(--ink-muted);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: .03em
+    }
+
+    /* ====== FACHRICHTUNG ZURÜCK ====== */
+    .fr-back-bar {
+      display: none;
+      max-width: 1000px;
+      width: 100%;
+      margin: 1.2rem auto .2rem;
+      padding: 0 1.5rem
+    }
+
+    .fr-back-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: .5rem 1rem;
+      cursor: pointer;
+      font-size: .85rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--ink-muted);
+      transition: all .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    .fr-back-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent)
+    }
+
     /* ====== FOOTER ====== */
     footer {
       padding: 1.5rem;
@@ -604,11 +657,16 @@
     </div>
     <div class="dashboard-hero">
       <h2 id="greetingText">Willkommen zurück!</h2>
-      <p>Wähle deine Fachrichtung, um loszulegen.</p>
+      <p id="heroSubtext">Wähle deine Fachrichtung, um loszulegen.</p>
+    </div>
+
+    <!-- Zurück zu Fachrichtungen -->
+    <div class="fr-back-bar" id="frBackBar">
+      <button class="fr-back-btn" onclick="resetFachrichtung()">← Fachrichtung ändern</button>
     </div>
 
     <!-- Fachrichtungs-Auswahl -->
-    <div class="fachrichtung-section">
+    <div class="fachrichtung-section" id="fachrichtungSection">
       <h3>Fachrichtung wählen</h3>
       <div class="fachrichtung-grid" role="list" aria-label="Fachrichtungen">
         <button class="fachrichtung-card" type="button" role="listitem" data-fr="technik" onclick="selectFachrichtung('technik')">
@@ -866,47 +924,58 @@
       }
     };
 
-    /* Modul-Links pro Fach (Klausur + Abitur) */
+    /* Modul-Links pro Fach (Klausur + Fachabitur 12 + Abitur 13)
+       coming: true = Seite existiert noch nicht → wird als "Kommt bald" angezeigt */
     var FACH_MODULE = {
       mathe: [
         { icon: "📐", title: "Klausurtraining", desc: "Klausuren üben mit KI-generierten Aufgaben.", badge: "Klausurtraining", href: "mathe.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Mathematik simulieren.", badge: "Komplette Prüfung", href: "mathe-abitur.html" }
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Mathematik simulieren.", badge: "Fachabitur", href: "mathe-abitur.html" },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Mathematik (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "mathe-abitur13.html", coming: true }
       ],
       deutsch: [
         { icon: "📖", title: "Klausurtraining", desc: "Erörterung, Textanalyse und materialgestütztes Schreiben üben.", badge: "Klausurtraining", href: "deutsch.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Deutsch simulieren.", badge: "Komplette Prüfung", href: "deutsch-abitur.html" }
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Deutsch simulieren.", badge: "Fachabitur", href: "deutsch-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Deutsch (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "deutsch-abitur13.html", coming: true }
       ],
       englisch: [
         { icon: "🇬🇧", title: "Klausurtraining", desc: "Sprachmittlung und Textproduktion üben.", badge: "Klausurtraining", href: "englisch.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Englisch simulieren.", badge: "Komplette Prüfung", href: "englisch-abitur.html" }
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Englisch simulieren.", badge: "Fachabitur", href: "englisch-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Englisch (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "englisch-abitur13.html", coming: true }
       ],
       physik: [
-        { icon: "⚛️", title: "Klausurtraining", desc: "Physik-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "physik.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Physik simulieren.", badge: "Komplette Prüfung", href: "physik-abitur.html" }
+        { icon: "⚛️", title: "Klausurtraining", desc: "Physik-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "physik.html", coming: true },
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Physik simulieren.", badge: "Fachabitur", href: "physik-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Physik (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "physik-abitur13.html", coming: true }
       ],
       bwr: [
         { icon: "📒", title: "Klausurtraining", desc: "BWR-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "bwr.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung BWR simulieren.", badge: "Komplette Prüfung", href: "bwr-abitur.html" }
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung BWR simulieren.", badge: "Fachabitur", href: "bwr-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung BWR (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "bwr-abitur13.html", coming: true }
       ],
       paedpsych: [
-        { icon: "🧩", title: "Klausurtraining", desc: "Päd./Psych.-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "paedpsych.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Päd./Psych. simulieren.", badge: "Komplette Prüfung", href: "paedpsych-abitur.html" }
+        { icon: "🧩", title: "Klausurtraining", desc: "Päd./Psych.-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "paedpsych.html", coming: true },
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Päd./Psych. simulieren.", badge: "Fachabitur", href: "paedpsych-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Päd./Psych. (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "paedpsych-abitur13.html", coming: true }
       ],
       biologie: [
-        { icon: "🧬", title: "Klausurtraining", desc: "Biologie-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "biologie.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Biologie simulieren.", badge: "Komplette Prüfung", href: "biologie-abitur.html" }
+        { icon: "🧬", title: "Klausurtraining", desc: "Biologie-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "biologie.html", coming: true },
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Biologie simulieren.", badge: "Fachabitur", href: "biologie-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Biologie (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "biologie-abitur13.html", coming: true }
       ],
       gestaltung: [
-        { icon: "🖌️", title: "Klausurtraining", desc: "Gestaltung-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "gestaltung.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Gestaltung simulieren.", badge: "Komplette Prüfung", href: "gestaltung-abitur.html" }
+        { icon: "🖌️", title: "Klausurtraining", desc: "Gestaltung-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "gestaltung.html", coming: true },
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Gestaltung simulieren.", badge: "Fachabitur", href: "gestaltung-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Gestaltung (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "gestaltung-abitur13.html", coming: true }
       ],
       gesundheit: [
-        { icon: "❤️‍🩹", title: "Klausurtraining", desc: "Gesundheitswiss.-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "gesundheit.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung Gesundheitswiss. simulieren.", badge: "Komplette Prüfung", href: "gesundheit-abitur.html" }
+        { icon: "❤️‍🩹", title: "Klausurtraining", desc: "Gesundheitswiss.-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "gesundheit.html", coming: true },
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung Gesundheitswiss. simulieren.", badge: "Fachabitur", href: "gesundheit-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung Gesundheitswiss. (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "gesundheit-abitur13.html", coming: true }
       ],
       ibs: [
         { icon: "🌐", title: "Klausurtraining", desc: "IBS-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: "ibs.html" },
-        { icon: "📝", title: "Fachabitur-Training", desc: "Komplette Fachabiturprüfung IBS simulieren.", badge: "Komplette Prüfung", href: "ibs-abitur.html" }
+        { icon: "📝", title: "Fachabitur (12. Klasse)", desc: "Komplette Fachabiturprüfung IBS simulieren.", badge: "Fachabitur", href: "ibs-abitur.html", coming: true },
+        { icon: "🎓", title: "Abitur (13. Klasse)", desc: "Abiturprüfung IBS (fachgeb./allg. Hochschulreife).", badge: "Abitur 13", href: "ibs-abitur13.html", coming: true }
       ]
     };
 
@@ -1019,10 +1088,10 @@
       var fr = FACHRICHTUNGEN[frId];
       if (!fr) return;
 
-      /* Karte highlighten */
-      document.querySelectorAll(".fachrichtung-card").forEach(function (card) {
-        card.classList.toggle("active", card.dataset.fr === frId);
-      });
+      /* Fachrichtungs-Kacheln ausblenden, Zurück-Button + Fächer einblenden */
+      document.getElementById("fachrichtungSection").style.display = "none";
+      document.getElementById("frBackBar").style.display = "block";
+      document.getElementById("heroSubtext").textContent = "Fachrichtung: " + fr.name;
 
       /* Fächer-Grids befüllen */
       var pflichtGrid = document.getElementById("pflichtGrid");
@@ -1042,6 +1111,15 @@
       document.getElementById("facherBereich").style.display = "block";
     }
 
+    function resetFachrichtung() {
+      currentFachrichtung = null;
+      sessionStorage.removeItem("fos_fachrichtung");
+      document.getElementById("fachrichtungSection").style.display = "";
+      document.getElementById("frBackBar").style.display = "none";
+      document.getElementById("facherBereich").style.display = "none";
+      document.getElementById("heroSubtext").textContent = "Wähle deine Fachrichtung, um loszulegen.";
+    }
+
     function createSubjectCard(fach) {
       var btn = document.createElement("button");
       btn.className = "subject-card";
@@ -1059,14 +1137,23 @@
       return btn;
     }
 
+    /* Existierende Klausurtraining-Seiten */
+    var AVAILABLE_PAGES = ["mathe", "deutsch", "englisch", "bwr", "vwl", "rechtslehre", "ibs"];
+
     /* ====== MODUL-SCREEN ====== */
     function openFachModules(fach) {
       var modules = FACH_MODULE[fach.id];
 
-      /* Fächer ohne eigene Module: direkt zur Seite navigieren */
+      /* Fächer ohne eigene Module: direkt zur Seite navigieren (oder Coming-Soon) */
       if (!modules) {
-        window.location.href = fach.id + ".html";
-        return;
+        if (AVAILABLE_PAGES.indexOf(fach.id) !== -1) {
+          window.location.href = fach.id + ".html";
+          return;
+        }
+        /* Seite existiert noch nicht → Modul-Screen mit "Kommt bald" */
+        modules = [
+          { icon: fach.icon, title: "Klausurtraining", desc: fach.title + "-Klausuren mit KI-Bewertung üben.", badge: "Klausurtraining", href: fach.id + ".html", coming: true }
+        ];
       }
 
       document.getElementById("subject-screen").style.display = "none";
@@ -1082,8 +1169,13 @@
 
       modules.forEach(function (mod) {
         var a = document.createElement("a");
-        a.className = "module-card";
-        a.href = mod.href;
+        a.className = "module-card" + (mod.coming ? " coming-soon" : "");
+        if (mod.coming) {
+          a.removeAttribute("href");
+          a.style.cursor = "default";
+        } else {
+          a.href = mod.href;
+        }
 
         /* Per-Fach Farben auf Modul-Cards */
         setFachColors(a, fach.id);
@@ -1129,9 +1221,11 @@
     window.addEventListener("popstate", function (e) {
       if (!e.state) return;
       if (e.state.screen === "subjects") {
-        showSubjectSelection();
+        document.getElementById("module-screen").style.display = "none";
+        document.getElementById("subject-screen").style.display = "flex";
       } else if (e.state.screen && e.state.screen.startsWith("module-")) {
-        showSubjectSelection();
+        document.getElementById("module-screen").style.display = "none";
+        document.getElementById("subject-screen").style.display = "flex";
       }
     });
 
