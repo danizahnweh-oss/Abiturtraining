@@ -799,7 +799,7 @@ Tipp: Beachte den Fachbereich:
       try {
         const processed = await processUploadFiles(files);
         taskUploadImages.push(...processed);
-        document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+        document.getElementById("taskUploadPages").innerHTML = "";
         const base64s = taskUploadImages.map(p => p.base64);
         const d = await apiCall("/api/parse-task-wr", { images: base64s });
         document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);

@@ -818,12 +818,16 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       try {
         const processed = await processUploadFiles(files);
         taskUploadImages.push(...processed);
-        document.getElementById("taskUploadPages").innerHTML = taskUploadImages.map((p, i) => '<div class="ocr-page-thumb"><img src="' + p.url + '"></div>').join("");
+        document.getElementById("taskUploadPages").innerHTML = "";
         const base64s = taskUploadImages.map(p => p.base64);
         const d = await apiCall("/api/parse-task-geographie", { images: base64s });
         document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
         document.getElementById("parsedPrimaryText").value = d.primary_text || "";
         document.getElementById("parsedMeta").value = d.primary_meta || "";
+        // Grosses Bild-Preview anzeigen
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
         document.getElementById("taskUploadResult").style.display = "block";
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
