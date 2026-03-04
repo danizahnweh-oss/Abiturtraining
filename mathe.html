@@ -853,6 +853,8 @@
     function useUploadedTask() {
       const c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
       if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      // Hochgeladene Bilder als Originale mitspeichern
+      c._uploadImages = taskUploadImages.map(function(p) { return p.url; });
       CONFIG.storedData = c;
       renderTask(c);
       nav("task");
@@ -881,9 +883,16 @@
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
-      // Für Aufgabentext: einfaches HTML ohne Markdown (schützt LaTeX-Delimiters)
-      instrEl.innerHTML = '<p>' + DOMPurify.sanitize(textToSafeHtml(raw)) + '</p>';
-      renderMath(instrEl);
+      // Hochgeladene Bilder: Original-Aufgabenblatt groß anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        instrEl.innerHTML = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+      } else {
+        // KI-generierte oder manuelle Aufgaben: Text mit LaTeX rendern
+        instrEl.innerHTML = '<p>' + DOMPurify.sanitize(textToSafeHtml(raw)) + '</p>';
+        renderMath(instrEl);
+      }
 
       // GeoGebra: clean up old, render new
       const taskCard = instrEl.closest(".card");
