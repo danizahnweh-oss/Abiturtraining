@@ -553,6 +553,28 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Künstliche Intelligenz: Neuronale Netze (Forward Propagation, Backpropagation), k-Means-Algorithmus, supervised/unsupervised/reinforcement learning',
       ],
     },
+    // LehrplanPLUS Informatik (G9) eA – verifiziert anhand LIS_PDF_04-03-2026/04-03-2026-2
+    halbjahreEA: {
+      '12/1': [
+        'Rekursion: lineare und verzweigte Rekursion, Tiefensuche in Graphen, rekursive Problemlösung (z. B. ggT, Türme von Hanoi)',
+        'Listen: einfach verkettete Liste, Stapel (LIFO), Warteschlange (FIFO), Kompositum-Entwurfsmuster, Sequenzdiagramm',
+        'Bäume: geordneter Binärbaum, Einfügen/Suchen, Traversierung (Preorder, Inorder, Postorder), Spezialfälle (vollständig, balanciert, entartet), Huffman-Baum',
+      ],
+      '12/2': [
+        'Funktionsweise eines Rechners: Von-Neumann-Architektur, Zweierkomplement, Logikgatter (AND, OR, NOT, NAND), Halb-/Volladdierer, disjunktive Normalform, Registermaschine, Assemblersprache, Befehlszyklus',
+        'Betriebssysteme und Nebenläufigkeit: Kernel-/User-Mode, Prozesszustände, Scheduling (FCFS, Round-Robin, SJF, Priorität), Synchronisation, Deadlock, Coffman-Bedingungen, Monitor-/Semaphorkonzept, Erzeuger-Verbraucher-/Leser-Schreiber-/Philosophenproblem',
+        'Informationssicherheit: Schutzziele (Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität), Gefährdungskategorien, Sicherheitsmaßnahmen',
+        'Praktische Softwareentwicklung: MVC, Observer-Pattern, Wasserfallmodell, agile Methoden, Softwareergonomie, Testen, Refaktorierung, Versionsverwaltung',
+      ],
+      '13/1': [
+        'Internet der Dinge: IoT-Systeme, Sensoren/Aktoren, Client-Server-Anwendung, Physical Computing, Sicherheitsmaßnahmen für IoT',
+        'Künstliche Intelligenz: Wissensbasierte Systeme (Fakten, Regeln, Inferenzmaschine), Neuronale Netze (Forward Propagation, Backpropagation, Kostenfunktion), k-Means-Algorithmus, supervised/unsupervised/reinforcement Learning, ethische Fragen',
+      ],
+      '13/2': [
+        'Formale Sprachen und Automaten: EBNF, Syntaxdiagramme, Ableitungsbaum, DEA/NEA, reguläre Sprachen, Turingmaschine, Turing-erkennbare Sprachen',
+        'Algorithmen und Berechenbarkeit: Turing-Berechenbarkeit, Church-Turing-These, Laufzeitaufwand (O-Notation), Best/Average/Worst Case, Sortieralgorithmen (Bubblesort, Mergesort), Lösungsstrategien (Brute-Force, Greedy, Divide and Conquer), Probleme (SAT, Handlungsreisenden, Rucksack, Clique), Komplexitätsklassen P/NP, Halteproblem',
+      ],
+    },
   },
 };
 
