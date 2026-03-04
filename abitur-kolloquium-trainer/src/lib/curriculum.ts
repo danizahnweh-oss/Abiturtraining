@@ -183,7 +183,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Katholische Religionslehre': {
-    // KR12 LB1 = 12/1 (Personalität), LB2 = 12/2 (Transzendentalität); KR13 LB1 = 13/1 (Sozialität), LB2 = 13/2 (Existentielle Fragen)
+    // LehrplanPLUS KR (G9) gA – verifiziert anhand LIS_PDF_04-03-2026-8 (KR12) / 04-03-2026-7 (KR13)
     halbjahre: {
       '12/1': [
         'Personalität: Der Mensch und die Frage „Wer bin ich?" (Philosophische Anthropologie, Identität, Menschenwürde)',
@@ -198,12 +198,36 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Sozialität – Ethische Grundlegung: deontologische/teleologische Argumentation, Naturrecht, Pflichtethik, Utilitarismus, Verantwortungsethik',
         'Biblische Ethik: Dekalog und Bergpredigt, Gewissensbildung, katholische Moraltheologie',
-        'Ethik der Lebensbereiche: Ehe/Familie, Katholische Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Sozialenzykliken, Nachhaltigkeit',
+        'Ethik der Lebensbereiche: Ehe/Familie, Katholische Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Sozialenzykliken, Nachhaltigkeit, Digitalisierung',
       ],
       '13/2': [
         'Existentielle Fragen: Umgang mit Wahrheitsansprüchen (Exklusivismus, Inklusivismus, Pluralismus, interreligiöser Dialog)',
         'Christliche Ethik als Begründungsoption, Auferstehungshoffnung und Eschatologie (Reich-Gottes-Botschaft Jesu)',
         'Entwicklung eigener Lebensentwürfe: Rückblick auf die vier Kantischen Fragen (Wissen, Tun, Hoffen, Menschsein)',
+      ],
+    },
+    // LehrplanPLUS KR (G9) eA – verifiziert anhand LIS_PDF_04-03-2026-9 (KR12) / 04-03-2026-6 (KR13)
+    halbjahreEA: {
+      '12/1': [
+        'Personalität: Philosophische Anthropologie (Frankl + z. B. Gehlen, Scheler, Kurzweil), Identität, Menschenwürde, Religionsfreiheit, Konkurrenz der Menschenrechte',
+        'Das christliche Menschenbild: Personbegriff, Gottebenbildlichkeit (Gen 1-3), Gleichstellung der Geschlechter (Gal 3,26-29, GG Art. 3), interreligiöser Menschenbild-Vergleich (z. B. Buddhismus)',
+        'Vorstellungen vom Menschsein in Wirtschaft, Politik und Wissenschaft (KI, Transhumanismus), Engagement und Entfaltungsmöglichkeiten',
+      ],
+      '12/2': [
+        'Transzendentalität: Gottesfrage, Erkenntnistheorie (Positivismus/Comte, Neopositivismus/Wittgenstein), Gottesbeweise (Anselm, Thomas v. Aquin, Pascal), Religionskritik (Feuerbach, Marx, Nietzsche, frz. Existentialismus, Neuer Atheismus)',
+        'Bibel als Offenbarung (historisch-kritische Methode, kanonische Exegese), trinitarisches Gottesbild (mind. 2 Modelle, Credo: Apostolicum + Nicäno-Konstantinopolitanum), Kreationismus/intelligent design, Verhältnis Glaube und Naturwissenschaft',
+        'Interreligiöser Vergleich: Offenbarungsverständnis und Gottesbild einer weiteren abrahamitischen Religion, populäre Gottesvorstellungen, kulturelle Ausdrucksformen des Glaubens',
+      ],
+      '13/1': [
+        'Sozialität – Ethische Grundlegung: deontologische/teleologische Argumentation, mind. 3 Modelle (Naturrecht, Pflichtethik, Utilitarismus, Diskursethik, Hedonismus), Verantwortungsethik',
+        'Biblische Ethik: Dekalog, Bergpredigt, Bundesbuch, prophetische Weisungen, Gewissensbildung (Gaudium et spes 16), kath. Moraltheologie, Rezeptionsgeschichte (z. B. „gerechter Krieg")',
+        'Ethik der Lebensbereiche: Ehe/Familie, Berufswahl/Arbeitswelt, Kath. Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Unternehmensleitbild-Analyse, Nachhaltigkeit, Digitalisierung',
+      ],
+      '13/2': [
+        'Wahrheitsansprüche: Exklusivismus, Inklusivismus, Pluralismus, Kriterien der Beurteilung, interreligiöser Dialog (z. B. Assisi 1986), Relativismus vs. verbindliche Wahrheitsdeutung',
+        'Perspektiven christlicher Ethik: Konsensbildung (Diskursethik/Habermas), Rolle der Kirche, Letztbegründung in philosophischer und christlicher Ethik',
+        'Auferstehungshoffnung und Eschatologie: säkulare und religiöse Zukunftskonzepte (z. B. Islam, Reinkarnation), Reich-Gottes-Botschaft Jesu, individuelle/universale Eschatologie',
+        'Entwicklung eigener Lebensentwürfe: Reflexion anhand einer Persönlichkeit, die vier Kantischen Fragen (Wissen, Tun, Hoffen, Menschsein)',
       ],
     },
   },
