@@ -345,27 +345,54 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Italienisch': {
-    // LehrplanPLUS: Getrennte Jgst. 12/13, keine offizielle Halbjahr-Zuordnung innerhalb der Jahrgangsstufe.
+    // LehrplanPLUS gA (spät beginnende Fremdsprache): It12 + It13 getrennt, keine offizielle Halbjahr-Zuordnung.
+    // eA (3. Fremdsprache): It12/13 als 2-Jahres-Block, ebenfalls keine offizielle Halbjahr-Zuordnung.
     halbjahre: {
       '12/1': [
-        'L\'Italia di oggi: società, giovani e vita quotidiana',
-        'Facetten Italiens: Nord, Centro, Sud (contrasti regionali, turismo)',
-        'Made in Italy: prodotti, marchi e significato economico',
+        'L\'Italia di oggi: società, giovani, famiglia, sport, volontariato e vita quotidiana',
+        'Facetten Italiens: Nord, Centro, Sud (turismo culturale, naturale, balneare)',
+        'Made in Italy: prodotti, marchi, pubblicità e significato economico',
       ],
       '12/2': [
-        'Storia italiana: dal Risorgimento alla nascita della Repubblica (Fascismo, Resistenza)',
-        'Arte e architettura italiana (Rinascimento)',
-        'Cantautori: dimensione politica e sociale della musica italiana',
+        'Storia italiana moderna: Fascismo, Resistenza e nascita della Repubblica (ggf. miracolo economico, anni di piombo)',
+        'Arte e architettura italiana (Rinascimento) e cantautori nella dimensione politico-sociale',
+        'Mondo del lavoro e studio (stage, soggiorno all\'estero, mercato del lavoro); Riflessione linguistica: la varietà dell\'italiano (dialetti, linguaggio giovanile)',
       ],
       '13/1': [
         'Immigrazione ed emigrazione nella storia e nel presente',
-        'Il miracolo economico, gli anni di piombo e la società contemporanea',
-        'La problematica Nord-Sud e la questione meridionale',
+        'Criminalità organizzata e le sue conseguenze sulla società',
+        'La problematica Nord-Sud (confronto tra due regioni, ad es. Calabria/Puglia – Lombardia/Veneto)',
+        'Turismo: aspetti positivi e negativi, patrimonio culturale',
       ],
       '13/2': [
-        'Istituzioni politiche italiane e il ruolo dell\'Italia nell\'UE',
-        'Il cinema italiano e l\'opera lirica',
-        'Letteratura italiana del 20°/21° secolo',
+        'Il Risorgimento e la nascita dello Stato nazionale italiano',
+        'Istituzioni politiche italiane e ruolo dell\'Italia nell\'UE',
+        'Cultura italiana: il cinema italiano e l\'opera lirica; Letteratura del 20°/21° secolo (ggf. Boccaccio)',
+        'Riflessione linguistica: nascita dell\'italiano e sviluppo della lingua standard',
+      ],
+    },
+    // eA-Schwerpunkte (3. Fremdsprache): Erweiterte Inhalte laut LehrplanPLUS It12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Società italiana: integrazione di minoranze, tendenze attuali, turismo',
+        'Migrazioni da, verso e in Italia (emigrazione 19° sec., migrazione lavorativa 20°/21° sec., immigrazione: Italia come paese di destinazione e transito)',
+        'Regioni autonome con forte identità (Alto Adige, ggf. enclavi: Vaticano, San Marino)',
+      ],
+      '12/2': [
+        'Sostenibilità e risorse naturali (turismo, pesca, agricoltura, Slow Food, energia)',
+        'Istituzioni politiche e struttura amministrativa; Rapporto tra Chiesa e Stato (Patti Lateranensi)',
+        'Il Risorgimento e la nascita dello Stato nazionale italiano',
+        'Bau- und Kunstgeschichte: Rinascimento, Barocco, Classicismo; patrimonio culturale',
+      ],
+      '13/1': [
+        'Fasi decisive della storia italiana del 20°/21° sec. (Fascismo, Resistenza, colonialismo, Repubblica, miracolo economico, anni di piombo, criminalità organizzata, ruolo nell\'UE)',
+        'Sviluppi attuali in scienza e tecnica (energia, intelligenza artificiale, ingegneria genetica)',
+        'Musica e cinema come specchio del tempo (opera, canzoni della Resistenza, Neorealismo, tendenze attuali)',
+      ],
+      '13/2': [
+        'Letteratura italiana: Tre Corone, lirica, romanzo del 20°/21° sec., novelle, dramma',
+        'Paesaggio mediatico in Italia e la sua rilevanza sociale',
+        'Nostalgia d\'Italia e scambio artistico, culturale ed economico tra Italia e Germania',
       ],
     },
   },
