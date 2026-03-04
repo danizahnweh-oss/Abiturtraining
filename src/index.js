@@ -6931,7 +6931,7 @@ async function handleParseTaskMathe(request, env) {
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 4000);
+  const openaiRes = await callOpenAI(env, messages, 4000, { jsonMode: true });
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
 }
@@ -10577,22 +10577,24 @@ WICHTIG:
 }
 
 /* ================= OPENAI CALL ================= */
-async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7 } = {}) {
+async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = false } = {}) {
   const t0 = Date.now();
   let phase = "fetch";
   try {
+    const reqBody = {
+      model,
+      messages,
+      temperature,
+      max_completion_tokens: maxTokens
+    };
+    if (jsonMode) reqBody.response_format = { type: "json_object" };
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${env.OPENAI_API_KEY}`
       },
-      body: JSON.stringify({
-        model,
-        messages,
-        temperature,
-        max_completion_tokens: maxTokens
-      })
+      body: JSON.stringify(reqBody)
     });
     phase = "json";
     const data = await response.json();
@@ -10614,23 +10616,39 @@ async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", 
 }
 
 /* ================= HELPERS ================= */
+// Repariert Steuerzeichen die durch fehlendes JSON-Escaping von LaTeX entstehen
+// \b (0x08) → \\b (z.B. \begin, \binom, \beta, \bar)
+// \f (0x0C) → \\f (z.B. \frac, \forall)
+function fixLatexControlChars(obj) {
+  if (typeof obj === "string") {
+    return obj.replace(/\x08/g, "\\b").replace(/\x0C/g, "\\f");
+  }
+  if (Array.isArray(obj)) return obj.map(fixLatexControlChars);
+  if (obj && typeof obj === "object") {
+    const fixed = {};
+    for (const k of Object.keys(obj)) fixed[k] = fixLatexControlChars(obj[k]);
+    return fixed;
+  }
+  return obj;
+}
+
 function extractJSON(text) {
   if (!text || typeof text !== "string") throw new Error("Model did not return valid JSON (empty response).");
 
   let clean = text.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
 
-  try { return JSON.parse(clean); } catch {}
+  try { return fixLatexControlChars(JSON.parse(clean)); } catch {}
 
   const match = clean.match(/\{[\s\S]*\}/);
   if (match) {
-    try { return JSON.parse(match[0]); } catch {}
+    try { return fixLatexControlChars(JSON.parse(match[0])); } catch {}
 
     let repaired = match[0];
     repaired = repaired.replace(/:\s*"([\s\S]*?)"\s*([,\}])/g, (m, val, end) => {
       const fixed = val.replace(/\n/g, "\\n").replace(/\r/g, "\\r").replace(/\t/g, "\\t");
       return ': "' + fixed + '"' + end;
     });
-    try { return JSON.parse(repaired); } catch {}
+    try { return fixLatexControlChars(JSON.parse(repaired)); } catch {}
   }
 
   // Abgeschnittenes JSON reparieren: fehlende Klammern ergänzen
@@ -10656,7 +10674,7 @@ function extractJSON(text) {
     truncated = truncated.replace(/,\s*$/, "");
     for (let i = 0; i < brackets; i++) truncated += "]";
     for (let i = 0; i < braces; i++) truncated += "}";
-    try { return JSON.parse(truncated); } catch {}
+    try { return fixLatexControlChars(JSON.parse(truncated)); } catch {}
   }
 
   throw new Error("Model did not return valid JSON.");
