@@ -427,48 +427,65 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '12/1': [
         '"Philosophandum est" – Philosophische Haltungen (Cicero, Seneca)',
         'Stoische Ethik und Lebensführung (Seneca: Epistulae morales)',
-        'Epikureismus und Skepsis (Cicero: Tusculanae disputationes, De finibus)',
+        'Eklektizismus und akademische Skepsis (Cicero: Tusculanae disputationes, De finibus, De natura deorum)',
       ],
       '12/2': [
-        '"Difficile est saturam non scribere" – Römische Satire und Lyrik',
-        'Catull: Gesellschaftskritik und Liebeslyrik (Carmina)',
-        'Horaz und Petron: Satire und römische Gesellschaft',
+        '"Difficile est saturam non scribere" – Römische Satire',
+        'Catull: satirische Darstellung gesellschaftlicher Missstände (Carmina)',
+        'Petron: Satyrica / Cena Trimalchionis (Gesellschaftskritik, Vulgärlatein und Sprachvarietäten)',
       ],
       '13/1': [
         '"Imperium sine fine dedi" – Literatur und Herrschaft im augusteischen Rom',
         'Vergil: Aeneis (Staatsidee und Sendungsbewusstsein)',
-        'Res gestae divi Augusti und augusteische Propaganda',
+        'Horaz: carmen 4,15 (Augusteisches Friedensideal)',
+        'Ggf. Res gestae divi Augusti (augusteische Selbstdarstellung)',
       ],
       '13/2': [
         '"Res publica res populi" – Staatsphilosophische Betrachtungen',
-        'Cicero: De re publica (Staatsformen und Mischverfassung)',
-        'Cicero: De officiis (Pflichtenlehre und politische Verantwortung)',
+        'Cicero: De re publica (Staatsdefinition, Verfassungskreislauf, Mischverfassung)',
+        'Cicero: De officiis (Pflichtenlehre, bellum iustum, politische Verantwortung)',
+      ],
+    },
+    // eA-Schwerpunkte: Zusätzliche Inhalte laut LehrplanPLUS L12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Lukrez: De rerum natura (Epikureische Naturphilosophie, Atomlehre)',
+        'Horaz: Ode 1,11 (carpe diem – epikureische Lebenshaltung)',
+      ],
+      '12/2': [
+        'Horaz: Satiren / Verssatire (Diatribensatire, Erzählsatire)',
+      ],
+      '13/1': [
+        'Livius: Ab urbe condita (Geschichtsdarstellung, exempla-Technik)',
+        'Res gestae divi Augusti (verbindlich im eA)',
+      ],
+      '13/2': [
+        'Augustinus: De civitate Dei (christliche Staatsphilosophie, Auseinandersetzung mit antikem Staatsdenken)',
       ],
     },
   },
 
   'Mathematik': {
-    // M12: LB2 Analysis, LB3 Stochastik, LB4 Geometrie; M13: LB2 Analysis, LB3 Stochastik, LB4 Geometrie
+    // LehrplanPLUS Mathematik (G9) – nur eA, verifiziert anhand LIS_PDF_04-03-2026-14 (M12) / 04-03-2026-15 (M13)
     halbjahre: {
       '12/1': [
-        'Analysis I: Ableitungsregeln und Kurvendiskussion',
-        'Funktionstypen: ganzrationale, gebrochen-rationale und Exponentialfunktionen',
-        'Umkehrfunktionen, Logarithmus und erweiterte Ableitungsregeln',
+        'Untersuchung von Funktionen: ganzrationale Funktionen, Exponentialfunktion, Sinus-/Kosinusfunktion, Stammfunktion, Produkt- und Kettenregel',
+        'Zufallsgrößen und Binomialverteilung: Erwartungswert, Standardabweichung, axiomatische Wahrscheinlichkeitsdefinition',
       ],
       '12/2': [
-        'Zufallsgrößen und Binomialverteilung (Erwartungswert, Standardabweichung)',
-        'Wahrscheinlichkeitsverteilungen und Laplace-Experimente',
-        'Grundlagen der Koordinatengeometrie im Raum (Vektoren, Geraden)',
+        'Einseitiger Signifikanztest (Hypothesentest, Fehler erster Art)',
+        'Untersuchung von Funktionen: Quotientenregel, gebrochen-rationale Funktionen, Wurzelfunktion, natürliche Logarithmusfunktion, Umkehrfunktionen',
+        'Grundlagen der Koordinatengeometrie im Raum: Vektoren, Geraden, Vektorprodukt, Normalenvektor',
       ],
       '13/1': [
-        'Analysis II: Stammfunktion, bestimmtes Integral und Flächeninhalte',
-        'Normalverteilung und einseitiger Signifikanztest',
-        'Geraden und Ebenen im Raum (Lagebeziehungen, Abstände)',
+        'Flächeninhalt und bestimmtes Integral: Hauptsatz, Integrationsregeln, uneigentliche Integrale, Rotationsvolumen',
+        'Normalverteilung: Dichtefunktion, Sigma-Regeln, Standardisierung',
+        'Geraden und Ebenen im Raum: Lagebeziehungen, Abstände, Hesse\'sche Normalform, Kugelgleichungen',
       ],
       '13/2': [
-        'Anwendungen der Differential- und Integralrechnung',
+        'Anwendungen der Differential- und Integralrechnung: Extremwertprobleme, Parameterfunktionen, verknüpfte Funktionen',
         'Modellierung mit Funktionen (Wachstum, Zerfall)',
-        'Vertiefung Koordinatengeometrie (Winkel, Schnitte, Abstände)',
+        'Vertiefung Koordinatengeometrie (Winkel, Schnitte, Abstände, Kugel-Ebene-Schnitt)',
       ],
     },
   },
