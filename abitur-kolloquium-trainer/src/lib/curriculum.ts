@@ -491,26 +491,50 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Physik': {
+    // Ph12 LB1 = 12/1 (Statische Felder), LB2+LB3 = 12/2 (Induktion/Schwingungen + EM Wellen)
+    // Ph13 LB1+LB2+LB3 = 13/1 (Quanten + Atommodell + Struktur), LB4 = 13/2 (Kernphysik)
     halbjahre: {
       '12/1': [
-        'Statische elektrische und magnetische Felder',
-        'Elektrische Feldstärke, Spannung und Kondensator',
-        'Magnetische Flussdichte und Lorentzkraft',
+        'Statische elektrische und magnetische Felder (Feldlinien, Feldstärke, Superposition)',
+        'Kondensator: Kapazität, Auf-/Entladevorgang, Energieinhalt des elektrischen Feldes',
+        'Magnetische Flussdichte und Lorentzkraft; Bewegung geladener Teilchen in E- und B-Feldern',
       ],
       '12/2': [
-        'Elektromagnetische Induktion und Schwingungen',
-        'Elektromagnetische Wellen (Erzeugung, Ausbreitung, Eigenschaften)',
-        'Wellenoptik und Interferenz',
+        'Elektromagnetische Induktion (Induktionsgesetz, Selbstinduktion) und Schwingungen (Schwingkreis, Thomson-Gleichung)',
+        'Elektromagnetische Wellen: Erzeugung, Ausbreitung, Polarisation, Eigenschaften',
+        'Interferenz am Doppelspalt und Gitter, Röntgenstrahlung, elektromagnetisches Spektrum',
       ],
       '13/1': [
-        'Grundideen der Quantenphysik (Photoeffekt, Welle-Teilchen-Dualismus)',
-        'Atommodell der Quantenphysik und Spektrallinien',
-        'Strukturuntersuchungen zum Aufbau der Materie',
+        'Quantenobjekte Elektron und Photon (de Broglie-Beziehung, Wellenfunktion, Komplementarität)',
+        'Atommodell der Quantenphysik: Potentialtopf, Orbitale, Quantenzahlen, Emission und Absorption, Franck-Hertz-Versuch',
+        'Strukturuntersuchungen zum Aufbau der Materie und Grundaussagen des Standardmodells',
       ],
       '13/2': [
-        'Kernphysik: Aufbau des Atomkerns und Kernbindungsenergie',
-        'Radioaktiver Zerfall und Zerfallsgesetz',
-        'Kernspaltung, Kernfusion und Strahlenschutz',
+        'Kernphysik: Aufbau des Atomkerns, Bindungsenergie, Potentialtopfmodell, α-/β-/γ-Strahlung',
+        'Radioaktiver Zerfall: Zerfallsgesetz, Halbwertszeit, C14-Methode, Strahlenschutz',
+        'Kernenergietechnik: Kernspaltung, Kettenreaktion, Kernreaktor (Chancen und Risiken)',
+      ],
+    },
+    // eA-Schwerpunkte: Zusätzliche Inhalte laut LehrplanPLUS Ph12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Coulombkraft und radialsymmetrisches Feld; Materie im E-Feld (Influenz, Polarisation, Dielektrikum)',
+        'DGL für Auf-/Entladevorgang des Kondensators; Analogie E-Feld und Gravitationsfeld',
+      ],
+      '12/2': [
+        'DGL der EM Schwingung; gedämpfte und erzwungene Schwingungen, Resonanz',
+        'Wechselstromwiderstände (Spule, Kondensator), Zeigerdiagramme, Frequenzfilter',
+        'Maxwellgleichungen; Einfachspalt, Mehrfachspalt, Bragg-Reflexion, Kohärenz',
+      ],
+      '13/1': [
+        'Photoeffekt (Hallwachs, Einstein-Gleichung), Mach-Zehnder-Interferometer',
+        'Heisenberg\'sche Unbestimmtheitsrelation, Quantenradierer, Delayed-Choice-Experiment, Dekohärenz',
+        'Schrödinger-Gleichung, wasserstoffähnliche Systeme, Pauli-Prinzip, Moseley-Gesetz',
+        'Strukturuntersuchung mit Röntgenstrahlung, Synchrotronstrahlung',
+      ],
+      '13/2': [
+        'Energie- und Impulsbilanzen bei Kernreaktionen; Nuklidkarte und Zerfallsreihen',
+        'Erhaltungssätze in der Kern- und Elementarteilchenphysik; mittlere Lebensdauer',
       ],
     },
   },
