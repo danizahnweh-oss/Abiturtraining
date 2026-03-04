@@ -810,10 +810,15 @@ Struktur:
     function renderTask(d) {
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
-        document.getElementById("taskInstruction").innerHTML = d._uploadImages.map(function(url) {
+        var imgHtml = d._uploadImages.map(function(url) {
           return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
-        document.getElementById("writeTaskRef").innerHTML = document.getElementById("taskInstruction").innerHTML;
+        document.getElementById("taskInstruction").innerHTML = imgHtml;
+        document.getElementById("writeTaskRef").innerHTML = imgHtml;
+        document.getElementById("aufgabenbloeckeContainer").innerHTML = "";
+        document.getElementById("materialienContainer").innerHTML = "";
+        document.getElementById("writeAufgabenRef").innerHTML = "";
+        document.getElementById("writeMaterialRef").innerHTML = "";
         return;
       }
       // Task instruction

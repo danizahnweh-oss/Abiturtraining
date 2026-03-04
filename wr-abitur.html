@@ -877,6 +877,14 @@ Tipp: Beachte den Fachbereich:
           return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
         document.getElementById("taskInstruction1").innerHTML = imgHtml;
+        document.getElementById("aufgabenbloecke1Container").innerHTML = "";
+        document.getElementById("materialien1Container").innerHTML = "";
+        var ti2 = document.getElementById("taskInstruction2");
+        if (ti2) ti2.innerHTML = "";
+        var ab2 = document.getElementById("aufgabenbloecke2Container");
+        if (ab2) ab2.innerHTML = "";
+        var mc2 = document.getElementById("materialien2Container");
+        if (mc2) mc2.innerHTML = "";
         return;
       }
 
