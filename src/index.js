@@ -10767,6 +10767,364 @@ const FOS_SUBJECTS = {
         themen: "FOS 13: European Union (single market, EMU, EU institutions), globalization (opportunities/risks, multinational corporations), trade policy (free trade vs. protectionism, WTO), international financial markets, development economics, sustainability in international business"
       }
     }
+  },
+  physik: {
+    name: "Physik",
+    shortName: "Physik",
+    fachbereiche: {
+      mechanik: {
+        label: "Mechanik",
+        themen: "FOS 11: Kinematik (gleichförmige/gleichmäßig beschleunigte Bewegung, freier Fall, waagerechter Wurf), Dynamik (Newton'sche Gesetze, Kräfte, Reibung), Energie (kinetische/potentielle Energie, Energieerhaltung, Arbeit/Leistung), Impuls und Stoßvorgänge"
+      },
+      elektrizitaet: {
+        label: "Elektrizitätslehre",
+        themen: "FOS 12: Elektrisches Feld (Feldstärke, Kondensator, Kapazität), Magnetisches Feld (Lorentzkraft, Hall-Effekt), Elektromagnetische Induktion (Induktionsgesetz, Lenz'sche Regel, Generator/Transformator), Wechselstromkreise, Schwingkreis"
+      },
+      optik: {
+        label: "Optik & Wellen",
+        themen: "FOS 12-13: Wellenoptik (Beugung, Interferenz, Gitter), Quantenoptik (Photoeffekt, Photon, Dualismus Welle-Teilchen), Atomphysik (Bohr'sches Atommodell, Spektrallinien, Energieniveaus), Kernphysik (Radioaktivität, Zerfallsgesetz, Kernspaltung/-fusion)"
+      },
+      thermodynamik: {
+        label: "Thermodynamik",
+        themen: "FOS 11: Temperatur und Wärme, Innere Energie, Hauptsätze der Thermodynamik, Wärmekapazität, Zustandsänderungen idealer Gase (isotherm/isobar/isochor/adiabatisch), Wärmekraftmaschinen, Wirkungsgrad"
+      }
+    }
+  },
+  biologie: {
+    name: "Biologie",
+    shortName: "Biologie",
+    fachbereiche: {
+      zellbiologie: {
+        label: "Zellbiologie",
+        themen: "FOS 11: Zellaufbau (Prokaryot/Eukaryot, Zellorganellen), Biomembranen (Aufbau, Transportvorgänge), Enzyme (Aufbau, Wirkungsweise, Substrat-/Wirkungsspezifität, Hemmung), Zellteilung (Mitose/Meiose), Zellstoffwechsel (Photosynthese, Zellatmung)"
+      },
+      genetik: {
+        label: "Genetik & Gentechnik",
+        themen: "FOS 12: DNA (Aufbau, Replikation), Proteinbiosynthese (Transkription, Translation), Genmutationen, Mendelsche Regeln, Humangenetik (Stammbaumanalyse, Erbkrankheiten), Gentechnik (PCR, Gelelektrophorese, Klonierung, CRISPR/Cas), Bioethik"
+      },
+      oekologie: {
+        label: "Ökologie",
+        themen: "FOS 12: Ökologische Grundbegriffe (Biotop, Biozönose, Ökosystem), Abiotische/biotische Faktoren, Populationsökologie (Wachstum, Konkurrenz, Räuber-Beute), Stoffkreisläufe (Kohlenstoff, Stickstoff), Energiefluss, Nachhaltigkeit, Klimawandel"
+      },
+      evolution: {
+        label: "Evolution",
+        themen: "FOS 13: Evolutionstheorien (Darwin, Lamarck, Synthetische Theorie), Evolutionsfaktoren (Mutation, Selektion, Gendrift, Isolation), Artbildung, Stammesgeschichte des Menschen, Belege der Evolution (Homologie, Analogie, Fossilien, molekularbiologische Verwandtschaft)"
+      },
+      neurobiologie: {
+        label: "Neurobiologie",
+        themen: "FOS 13: Nervenzelle (Aufbau, Ruhepotential, Aktionspotential), Erregungsweiterleitung, Synapse (Erregende/hemmende Synapse, Neurotransmitter), Sinnesorgane (Auge, Ohr), Nervensystem (ZNS, PNS, vegetatives NS), Lernen und Gedächtnis, Neurodegenerative Erkrankungen"
+      }
+    }
+  },
+  paedpsych: {
+    name: "Pädagogik/Psychologie",
+    shortName: "Päd./Psych.",
+    fachbereiche: {
+      entwicklung: {
+        label: "Entwicklungspsychologie",
+        themen: "FOS 11: Entwicklungsbegriff, Anlage-Umwelt-Debatte, Bindungstheorie (Bowlby, Ainsworth), Kognitive Entwicklung (Piaget: sensomotorisch/präoperational/konkret-operational/formal-operational), Moralentwicklung (Kohlberg), Identitätsentwicklung (Erikson)"
+      },
+      lernen: {
+        label: "Lerntheorien",
+        themen: "FOS 11-12: Klassische Konditionierung (Pawlow), Operante Konditionierung (Skinner: Verstärkung/Bestrafung), Lernen am Modell (Bandura), Kognitivismus (Informationsverarbeitung, Gedächtnismodelle), Konstruktivismus, Lernmotivation (intrinsisch/extrinsisch)"
+      },
+      erziehung: {
+        label: "Erziehung & Sozialisation",
+        themen: "FOS 12: Erziehungsstile (autoritär/demokratisch/laissez-faire, Lewin/Tausch&Tausch), Erziehungsziele, Sozialisation (primär/sekundär/tertiär), Sozialisationsinstanzen (Familie, Peers, Medien, Schule), Pädagogische Konzepte (Montessori, Waldorf, Reggio)"
+      },
+      persoenlichkeit: {
+        label: "Persönlichkeitspsychologie",
+        themen: "FOS 12-13: Persönlichkeitsmodelle (Big Five, Freud: Es/Ich/Über-Ich, Humanistische Psychologie: Rogers/Maslow), Selbstkonzept, Intelligenz (Intelligenzbegriff, Intelligenzmodelle, Messung), Psychische Störungen (Depression, Angststörungen, Essstörungen), Therapieansätze"
+      },
+      sozialpsychologie: {
+        label: "Sozialpsychologie",
+        themen: "FOS 13: Soziale Wahrnehmung (Stereotype, Vorurteile, Attribution), Einstellungen und Einstellungsänderung, Konformität und Gehorsam (Asch, Milgram), Gruppenphänomene (Groupthink, soziales Faulenzen), Aggression, Prosoziales Verhalten, Kommunikation (Schulz von Thun, Watzlawick)"
+      }
+    }
+  },
+  gesundheit: {
+    name: "Gesundheitswissenschaften",
+    shortName: "Gesundheitswiss.",
+    fachbereiche: {
+      anatomie: {
+        label: "Anatomie & Physiologie",
+        themen: "FOS 11: Zelle und Gewebe, Bewegungsapparat (Knochen, Gelenke, Muskulatur), Herz-Kreislauf-System (Blutkreislauf, Blutdruck, Blut), Atmungssystem (Gasaustausch, Atemregulation), Verdauungssystem (Organe, Enzyme, Resorption)"
+      },
+      krankheitslehre: {
+        label: "Krankheitslehre",
+        themen: "FOS 12: Pathologie (Entzündung, Wundheilung, Tumorentstehung), Infektionskrankheiten (Erreger, Immunsystem, Impfung), Herz-Kreislauf-Erkrankungen (Arteriosklerose, Herzinfarkt, Schlaganfall), Diabetes mellitus (Typ 1/2), Erkrankungen des Bewegungsapparats"
+      },
+      gesundheitsfoerderung: {
+        label: "Gesundheitsförderung & Prävention",
+        themen: "FOS 12-13: Gesundheitsmodelle (Salutogenese, Pathogenese, WHO-Definition), Prävention (primär/sekundär/tertiär), Gesundheitsförderung (Setting-Ansatz, Empowerment), Epidemiologie, Gesundheitssystem (GKV/PKV, Versorgungsstrukturen), Public Health"
+      },
+      pflege: {
+        label: "Pflege & Therapie",
+        themen: "FOS 13: Pflegeprozess, Pflegetheorien, Rehabilitation, Palliativmedizin, Ernährungslehre (Makro-/Mikronährstoffe, Ernährungsbedingte Erkrankungen), Psychosomatik, Sucht und Abhängigkeit"
+      }
+    }
+  },
+  gestaltung: {
+    name: "Gestaltung",
+    shortName: "Gestaltung",
+    fachbereiche: {
+      gestaltungstheorie: {
+        label: "Gestaltungstheorie",
+        themen: "FOS 11-12: Gestaltungselemente (Punkt, Linie, Fläche, Farbe, Form), Kompositionsprinzipien (Symmetrie, Rhythmus, Kontrast, Proportion), Farbenlehre (Farbsysteme, Farbkontraste nach Itten, Farbwirkung), Typografie (Schriftklassifikation, Lesbarkeit, Layout)"
+      },
+      designgeschichte: {
+        label: "Design- & Kunstgeschichte",
+        themen: "FOS 12-13: Kunstepochen (Antike, Mittelalter, Renaissance, Barock, Klassizismus, Impressionismus, Expressionismus, Bauhaus, Pop Art, Postmoderne), Designgeschichte (Arts and Crafts, Jugendstil, Art Déco, Bauhaus, Ulmer Schule), Werkanalyse (Beschreibung, Analyse, Interpretation, Bewertung)"
+      },
+      medien: {
+        label: "Mediengestaltung",
+        themen: "FOS 12-13: Printmedien (Plakat, Broschüre, Corporate Design), Digitale Medien (Webdesign, UI/UX, Interaction Design), Fotografie (Bildkomposition, Belichtung, Bildbearbeitung), Film/Animation (Storyboard, Schnitt, Montage), Werbung und Kommunikationsdesign"
+      },
+      werkanalyse: {
+        label: "Werkanalyse",
+        themen: "FOS 11-13: Systematische Werkanalyse (Beschreibung, formale Analyse, Interpretation, kunsthistorische Einordnung), Bildrhetorik, Semiotik (Zeichen, Codes, Konnotation/Denotation), Vergleichende Werkanalyse, Analyse von Architektur und Produktdesign"
+      }
+    }
+  },
+  geschichte: {
+    name: "Geschichte",
+    shortName: "Geschichte",
+    fachbereiche: {
+      weimarer_republik: {
+        label: "Weimarer Republik",
+        themen: "FOS 11: Erster Weltkrieg (Ursachen, Verlauf, Folgen), Novemberrevolution 1918, Weimarer Verfassung, Krisenjahre (Inflation, Ruhrkampf, Putschversuche), Goldene Zwanziger, Weltwirtschaftskrise, Scheitern der Demokratie"
+      },
+      nationalsozialismus: {
+        label: "Nationalsozialismus",
+        themen: "FOS 11-12: Aufstieg der NSDAP, Machtergreifung und Gleichschaltung, NS-Ideologie (Rassismus, Antisemitismus, Volksgemeinschaft), Terror und Verfolgung, Holocaust/Shoa, Zweiter Weltkrieg, Widerstand, Erinnerungskultur"
+      },
+      nachkriegszeit: {
+        label: "Nachkriegszeit & Kalter Krieg",
+        themen: "FOS 12: Potsdamer Abkommen, Besatzungszonen, Entnazifizierung, Gründung BRD/DDR, Ost-West-Konflikt (NATO/Warschauer Pakt, Mauerbau, Kubakrise, Entspannungspolitik), Wirtschaftswunder, 68er-Bewegung"
+      },
+      wiedervereinigung: {
+        label: "Deutsche Einheit & Europa",
+        themen: "FOS 12-13: Friedliche Revolution 1989, Mauerfall, Deutsche Wiedervereinigung, Europäische Integration (EWG, EG, EU, Maastricht, Lissabon), Globalisierung und neue Weltordnung, Migration, Aktuelle Herausforderungen der Demokratie"
+      },
+      demokratie: {
+        label: "Demokratie & Grundgesetz",
+        themen: "FOS 13: Demokratietheorien (antike/moderne), Grundgesetz (Grundrechte, Staatsstrukturprinzipien, Verfassungsorgane), Parteien und Wahlen, Föderalismus, Gewaltenteilung, Verfassungsgerichtsbarkeit, Herausforderungen (Populismus, Extremismus, Fake News)"
+      }
+    }
+  },
+  chemie: {
+    name: "Chemie",
+    shortName: "Chemie",
+    fachbereiche: {
+      atombau: {
+        label: "Atombau & Periodensystem",
+        themen: "FOS 11: Atommodelle (Dalton, Thomson, Rutherford, Bohr, Orbitalmodell), Elektronenkonfiguration, Periodensystem (Perioden, Gruppen, Trends: Atomradius, Ionisierungsenergie, Elektronegativität), Isotope, Radioaktivität"
+      },
+      bindungen: {
+        label: "Chemische Bindungen",
+        themen: "FOS 11: Ionenbindung (Gitterenergie, Eigenschaften), Atombindung (Lewis-Formeln, VSEPR-Modell, Molekülgeometrie), Metallbindung (Elektronengasmodell), Zwischenmolekulare Kräfte (Van-der-Waals, Dipol-Dipol, Wasserstoffbrücken), Polarität"
+      },
+      reaktionen: {
+        label: "Chemische Reaktionen",
+        themen: "FOS 12: Chemisches Gleichgewicht (Massenwirkungsgesetz, Le Chatelier), Säure-Base-Reaktionen (Brønsted, pH-Wert, Puffer, Titration), Redoxreaktionen (Oxidationszahlen, Elektrolyse, Galvanische Zelle, Korrosion), Reaktionskinetik (Reaktionsgeschwindigkeit, Katalyse, Aktivierungsenergie)"
+      },
+      organische_chemie: {
+        label: "Organische Chemie",
+        themen: "FOS 12-13: Kohlenwasserstoffe (Alkane, Alkene, Alkine, Aromaten), Funktionelle Gruppen (Alkohole, Aldehyde, Ketone, Carbonsäuren, Ester), Isomerie, Reaktionsmechanismen (Substitution, Addition, Elimination), Kunststoffe (Polymerisation, Polykondensation, Polyaddition)"
+      },
+      biochemie: {
+        label: "Biochemie",
+        themen: "FOS 13: Kohlenhydrate (Mono-/Di-/Polysaccharide), Lipide (Fette, Phospholipide), Proteine (Aminosäuren, Peptidbindung, Proteinstrukturen), Enzyme (Substratspezifität, Michaelis-Menten-Kinetik), DNA/RNA, Stoffwechsel (Glykolyse, Citratzyklus, Atmungskette)"
+      }
+    }
+  },
+  soziologie: {
+    name: "Soziologie",
+    shortName: "Soziologie",
+    fachbereiche: {
+      sozialstruktur: {
+        label: "Sozialstruktur & Ungleichheit",
+        themen: "FOS 11-12: Soziale Schichtung (Klassen, Schichten, Milieus), Soziale Ungleichheit (Einkommen, Bildung, Geschlecht), Armut und Reichtum, Soziale Mobilität, Modelle sozialer Ungleichheit (Geißler, Sinus-Milieus, Bourdieu: Kapitaltheorie)"
+      },
+      sozialisation: {
+        label: "Sozialisation",
+        themen: "FOS 11: Sozialisationsprozesse (primär/sekundär/tertiär), Sozialisationsinstanzen (Familie, Schule, Peers, Medien), Rollentheorie (Mead, Dahrendorf), Identitätsbildung, Geschlechtersozialisation, Interkulturelle Sozialisation"
+      },
+      gesellschaft: {
+        label: "Gesellschaftstheorien",
+        themen: "FOS 12-13: Gesellschaftstheorien (Marx, Weber, Durkheim, Habermas, Luhmann), Modernisierung und sozialer Wandel, Individualisierung (Beck), Risikogesellschaft, Postmoderne, Digitale Gesellschaft"
+      },
+      migration: {
+        label: "Migration & Integration",
+        themen: "FOS 13: Migrationstheorien, Push-/Pull-Faktoren, Integration (Assimilation, Multikulturalismus, Interkulturalität), Flucht und Asyl, Demographischer Wandel, Diversität und Inklusion"
+      },
+      medien: {
+        label: "Medien & Kommunikation",
+        themen: "FOS 12: Medientheorien (McLuhan, Postman, Habermas), Öffentlichkeit und Medien, Medienwirkungsforschung, Soziale Medien, Fake News und Medienkompetenz, Digitalisierung und Gesellschaft"
+      }
+    }
+  },
+  winf: {
+    name: "Wirtschaftsinformatik",
+    shortName: "WInf",
+    fachbereiche: {
+      datenbanken: {
+        label: "Datenbanken & SQL",
+        themen: "FOS 11-12: Relationale Datenbanken (Entity-Relationship-Modell, Normalisierung 1NF-3NF, Relationsmodell), SQL (SELECT, INSERT, UPDATE, DELETE, JOIN, GROUP BY, Unterabfragen), Datenintegrität (Primärschlüssel, Fremdschlüssel, Referentielle Integrität)"
+      },
+      programmierung: {
+        label: "Programmierung",
+        themen: "FOS 11-12: Algorithmen (Sequenz, Selektion, Iteration, Rekursion), Struktogramme/PAP, Objektorientierte Programmierung (Klassen, Objekte, Vererbung, Polymorphie), Datenstrukturen (Arrays, Listen, Stapel, Warteschlange), Softwareentwicklung (Phasenmodell, Agile Methoden)"
+      },
+      netzwerke: {
+        label: "Netzwerke & IT-Sicherheit",
+        themen: "FOS 12-13: Netzwerktopologien, OSI-Schichtenmodell, TCP/IP, IP-Adressierung, Routing, Client-Server-Architektur, IT-Sicherheit (Verschlüsselung: symmetrisch/asymmetrisch, Digitale Signatur, Zertifikate), Datenschutz (DSGVO), Bedrohungen (Malware, Phishing, Social Engineering)"
+      },
+      geschaeftsprozesse: {
+        label: "Geschäftsprozesse & ERP",
+        themen: "FOS 13: Geschäftsprozessmodellierung (EPK, BPMN), ERP-Systeme (SAP-Grundlagen, Module), E-Commerce (Geschäftsmodelle B2B/B2C, Online-Marketing), Industrie 4.0, Künstliche Intelligenz in der Wirtschaft, IT-Projektmanagement"
+      }
+    }
+  },
+  technologie: {
+    name: "Technologie/Informatik",
+    shortName: "Technologie",
+    fachbereiche: {
+      elektrotechnik: {
+        label: "Elektrotechnik",
+        themen: "FOS 11-12: Gleichstromkreise (Ohm'sches Gesetz, Reihen-/Parallelschaltung, Kirchhoff'sche Regeln), Elektrisches Feld, Magnetisches Feld, Wechselstrom (Effektivwerte, Blindwiderstand, Impedanz), Halbleiter (Diode, Transistor), Digitaltechnik (Logikgatter, Boolesche Algebra)"
+      },
+      informatik: {
+        label: "Informatik & Algorithmen",
+        themen: "FOS 11-13: Zahlensysteme (Dual, Hexadezimal), Codierung, Algorithmen und Datenstrukturen, Programmierung (Variablen, Schleifen, Funktionen, OOP), Rechnerarchitektur (Von-Neumann), Betriebssysteme, Datenbanken, Netzwerke (TCP/IP, Protokolle)"
+      },
+      werkstofftechnik: {
+        label: "Werkstofftechnik",
+        themen: "FOS 11-12: Werkstoffgruppen (Metalle, Kunststoffe, Keramik, Verbundwerkstoffe), Werkstoffprüfung (Zugversuch, Härteprüfung, Kerbschlagbiegeversuch), Eisen-Kohlenstoff-Diagramm, Wärmebehandlung (Härten, Anlassen, Glühen), Korrosion und Korrosionsschutz"
+      },
+      technische_mechanik: {
+        label: "Technische Mechanik",
+        themen: "FOS 12-13: Statik (Kräfte, Momente, Gleichgewicht, Freischneiden, Lager, Fachwerke), Festigkeitslehre (Normalspannung, Schubspannung, Biegung, Torsion), Kinematik und Kinetik (Geschwindigkeit, Beschleunigung, Newton'sche Gesetze), Energiemethoden"
+      }
+    }
+  },
+  ethik: {
+    name: "Ethik",
+    shortName: "Ethik",
+    fachbereiche: {
+      moralphilosophie: {
+        label: "Moralphilosophie",
+        themen: "FOS 11: Moral und Ethik (Begriffsdifferenzierung), Utilitarismus (Bentham, Mill), Pflichtethik (Kant: Kategorischer Imperativ), Tugendethik (Aristoteles), Diskursethik (Habermas), Verantwortungsethik (Jonas, Weber)"
+      },
+      menschenwuerde: {
+        label: "Menschenwürde & Grundrechte",
+        themen: "FOS 11-12: Menschenwürde (philosophische Begründungen), Menschenrechte (Geschichte, UN-Menschenrechtserklärung), Grundrechte im Grundgesetz, Freiheit und Verantwortung, Gerechtigkeit (Rawls: Schleier des Nichtwissens, Gerechtigkeitstheorien)"
+      },
+      gerechtigkeit: {
+        label: "Gerechtigkeit & Gesellschaft",
+        themen: "FOS 12-13: Soziale Gerechtigkeit (Verteilungsgerechtigkeit, Chancengerechtigkeit), Recht und Gerechtigkeit (Rechtspositivismus, Naturrecht), Wirtschaftsethik (CSR, Nachhaltigkeit), Globale Gerechtigkeit (Klimagerechtigkeit, Entwicklung), Politische Ethik (Demokratie, Populismus)"
+      },
+      medizinethik: {
+        label: "Medizin- & Bioethik",
+        themen: "FOS 13: Medizinethik (Patientenautonomie, Sterbehilfe, Organspende, Abtreibung), Bioethik (Gentechnik, Klonen, Enhancement, Reproduktionsmedizin), Tierethik (Tierwohl, Tierversuche), Technikethik (KI, Autonome Systeme, Datenschutz, Digitale Ethik)"
+      }
+    }
+  },
+  religion: {
+    name: "Religion",
+    shortName: "Religion",
+    fachbereiche: {
+      gottesfrage: {
+        label: "Gottesfrage & Glaube",
+        themen: "FOS 11: Gottesvorstellungen (biblisch, philosophisch), Gottesbeweise (Anselm, Thomas von Aquin), Religionskritik (Feuerbach, Marx, Nietzsche, Freud), Theodizee (Leid und Gott), Glaube und Vernunft, Atheismus und Agnostizismus"
+      },
+      christliche_ethik: {
+        label: "Christliche Ethik",
+        themen: "FOS 11-12: Biblische Ethik (Dekalog, Bergpredigt, Nächstenliebe), Christliche Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Gewissen und Verantwortung, Bioethik aus christlicher Perspektive, Katholische Soziallehre (Enzykliken)"
+      },
+      kirche: {
+        label: "Kirche & Gesellschaft",
+        themen: "FOS 12: Kirchengeschichte (Reformation, Aufklärung, Kirche im Nationalsozialismus, Zweites Vatikanisches Konzil), Kirche in der modernen Gesellschaft, Ökumene, Säkularisierung, Kirche und Staat, Kirchliche Sozialarbeit"
+      },
+      weltreligionen: {
+        label: "Weltreligionen & Dialog",
+        themen: "FOS 12-13: Judentum (Tora, Feste, Holocaust-Gedenken), Islam (Koran, Fünf Säulen, Scharia), Buddhismus (Vier Edle Wahrheiten, Achtfacher Pfad), Hinduismus (Karma, Dharma), Interreligiöser Dialog, Fundamentalismus, Religion und Gewalt, Religion und Naturwissenschaft"
+      }
+    }
+  },
+  kunstgeschichte: {
+    name: "Kunstgeschichte",
+    shortName: "Kunstgeschichte",
+    fachbereiche: {
+      antike: {
+        label: "Antike & Mittelalter",
+        themen: "FOS 11: Griechische Kunst (Tempelarchitektur, Skulptur: Archaik/Klassik/Hellenismus), Römische Kunst (Ingenieurbaukunst, Porträt), Frühchristliche und Byzantinische Kunst, Romanik (Kirchenbau, Bauplastik), Gotik (Kathedrale, Glasmalerei, Buchmalerei)"
+      },
+      renaissance: {
+        label: "Renaissance & Barock",
+        themen: "FOS 11-12: Renaissance (Zentralperspektive, Proportionslehre, Leonardo, Michelangelo, Dürer), Manierismus, Barock (Dynamik, Licht-Schatten: Caravaggio, Rembrandt, Bernini), Rokoko, Klassizismus (David, Canova), Romantik (Friedrich, Turner)"
+      },
+      moderne: {
+        label: "Moderne & Abstraktion",
+        themen: "FOS 12: Impressionismus (Monet, Renoir), Postimpressionismus (Cézanne, Van Gogh, Gauguin), Expressionismus (Brücke, Blauer Reiter, Kirchner, Kandinsky), Kubismus (Picasso, Braque), Abstraktion (Mondrian, Malewitsch), Bauhaus (Gropius, Klee), Surrealismus (Dalí, Magritte)"
+      },
+      zeitgenoessisch: {
+        label: "Zeitgenössische Kunst",
+        themen: "FOS 13: Abstrakter Expressionismus (Pollock, Rothko), Pop Art (Warhol, Lichtenstein), Minimalismus, Konzeptkunst, Performance Art, Installation, Land Art, Street Art (Banksy), Digitale Kunst, NFTs, Kunstmarkt, Museen und Ausstellungen"
+      },
+      architektur: {
+        label: "Architektur & Design",
+        themen: "FOS 11-13: Architekturgeschichte (griechischer Tempel bis Dekonstruktivismus), Bauhaus-Architektur, Funktionalismus (Le Corbusier, Mies van der Rohe), Postmoderne Architektur, Zeitgenössische Architektur (Hadid, Gehry), Nachhaltiges Bauen, Produktdesign, Designtheorie"
+      }
+    }
+  },
+  sozialwirtschaft: {
+    name: "Sozialwirtschaft",
+    shortName: "Sozialwirtschaft",
+    fachbereiche: {
+      sozialstaat: {
+        label: "Sozialstaatsprinzip",
+        themen: "FOS 11: Sozialstaatsprinzip im Grundgesetz, Geschichte des Sozialstaats (Bismarck, Weimar, BRD), Soziale Sicherungssysteme im Überblick, Subsidiaritätsprinzip, Wohlfahrtsstaatsmodelle (Esping-Andersen), Herausforderungen (Demographischer Wandel, Finanzierung)"
+      },
+      sozialversicherung: {
+        label: "Sozialversicherung",
+        themen: "FOS 11-12: Gesetzliche Krankenversicherung (Solidarprinzip, Leistungen), Rentenversicherung (Generationenvertrag, Drei-Säulen-Modell), Arbeitslosenversicherung (SGB III, Arbeitsförderung), Pflegeversicherung (Pflegegrade, Leistungen), Unfallversicherung"
+      },
+      sozialhilfe: {
+        label: "Sozialhilfe & Grundsicherung",
+        themen: "FOS 12: SGB II (Bürgergeld, Bedarfsgemeinschaft, Eingliederungsvereinbarung), SGB XII (Sozialhilfe, Hilfe zum Lebensunterhalt), Existenzminimum, Armutsbekämpfung, Schuldnerberatung, Wohngeld, BAföG"
+      },
+      jugendhilfe: {
+        label: "Kinder- & Jugendhilfe",
+        themen: "FOS 12-13: SGB VIII (Kinder- und Jugendhilfegesetz), Hilfen zur Erziehung (ambulant/stationär), Kinderschutz (§8a, Kindeswohl, Inobhutnahme), Jugendarbeit und Jugendsozialarbeit, Kindertagesbetreuung, Eingliederungshilfe"
+      },
+      nonprofitmanagement: {
+        label: "Nonprofit-Management",
+        themen: "FOS 13: Nonprofit-Organisationen (Vereine, Stiftungen, gGmbH, Verbände), Finanzierung (Spenden, Fördermittel, Sozialleistungsentgelte), Qualitätsmanagement im Sozialbereich, Sozialplanung, Sozialraumorientierung, Freiwilligenmanagement, Digitalisierung in der Sozialen Arbeit"
+      }
+    }
+  },
+  franzoesisch: {
+    name: "Französisch",
+    shortName: "Französisch",
+    fachbereiche: {
+      mediation: {
+        label: "Sprachmittlung (Médiation)",
+        themen: "FOS 11-13: Sinngemäßes Übertragen (Deutsch→Französisch, Französisch→Deutsch), Adressatengerechte Wiedergabe, Interkulturelle Kompetenz, Textsortenspezifik (formeller/informeller Stil), Zusammenfassen und Paraphrasieren, Registerwechsel"
+      },
+      production: {
+        label: "Textproduktion",
+        themen: "FOS 12-13: Argumentative Texte (Commentaire, Essai, Lettre), Kreative Texte, Résumé (Zusammenfassung nach Regeln), Analyse de texte (Analyse eines Sachtexts/literarischen Texts), Konnektoren und Textstruktur, Registres de langue"
+      },
+      comprehension: {
+        label: "Textverständnis (Compréhension)",
+        themen: "FOS 11-12: Leseverstehen (Sachtexte, literarische Texte, Zeitungsartikel), Hörverstehen, Globalverstehen und Detailverstehen, Texterschließungsstrategien, Worterschließung aus dem Kontext, Interkulturelle Themen (Frankreich, Frankophonie)"
+      },
+      expression: {
+        label: "Mündlicher Ausdruck",
+        themen: "FOS 12-13: Monologisches Sprechen (Präsentation, Bildbeschreibung), Dialogisches Sprechen (Diskussion, Rollenspiel), Aussprache und Intonation, Redemittel für Argumentation, Spontanes Sprechen, Interkulturelle Gesprächsführung"
+      }
+    }
   }
 };
 
