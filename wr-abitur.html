@@ -445,9 +445,10 @@
           <div class="loader-spinner"></div>
         </div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
-          <div class="form-group"><label>Erkannte Aufgabe (JSON, bearbeitbar)</label><textarea id="parsedMaterials"
-              style="min-height:150px"></textarea></div>
-          <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
@@ -803,6 +804,10 @@ Tipp: Beachte den Fachbereich:
         const base64s = taskUploadImages.map(p => p.base64);
         const d = await apiCall("/api/parse-task-wr", { images: base64s });
         document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        // Grosses Bild-Preview anzeigen
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
         document.getElementById("taskUploadResult").style.display = "block";
       } catch (e) { showToast("Fehler: " + e.message); }
       document.getElementById("taskUploadLoader").style.display = "none";
@@ -812,6 +817,11 @@ Tipp: Beachte den Fachbereich:
       try {
         const raw = document.getElementById("parsedMaterials").value;
         const parsed = JSON.parse(raw);
+        // Hochgeladene Bilder als Data-URLs mitspeichern
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
         CONFIG.storedData = parsed;
         renderTask(parsed);
         nav("task");
@@ -861,6 +871,15 @@ Tipp: Beachte den Fachbereich:
     }
 
     function renderTask(d) {
+      // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        var imgHtml = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskInstruction1").innerHTML = imgHtml;
+        return;
+      }
+
       const niveau = d._niveau || document.getElementById("niveauSelect").value;
       const isEA = niveau === "eA";
 
