@@ -413,14 +413,13 @@
           <div class="loader-spinner"></div>
         </div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
-          <div class="form-group"><label>Aufgabenstellung Prüfungsteil A</label><textarea id="parsedTaskInstruction"
-              style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Materialtext(e)</label><textarea id="parsedPrimaryText"
-              style="min-height:150px"></textarea></div>
-          <div class="form-group"><label>Aufgabenstellung Prüfungsteil B</label><textarea id="parsedTaskInstructionB"
-              style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Quellen</label><input type="text" id="parsedMeta"></div>
-          <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedPrimaryText" style="display:none"></textarea>
+          <textarea id="parsedTaskInstructionB" style="display:none"></textarea>
+          <input type="hidden" id="parsedMeta">
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
@@ -952,6 +951,11 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         halbjahr: CONFIG.selectedHalbjahre.join(", ")
       };
       if (!c.task_instruction_a) { showToast("Keine Aufgabe"); return; }
+      // Hochgeladene Bilder als Data-URLs mitspeichern
+      c._uploadImages = taskUploadImages.map(function(p) {
+        if (p.url.startsWith("data:")) return p.url;
+        return "data:image/jpeg;base64," + p.base64;
+      });
       CONFIG.storedData = c;
       renderTask(c);
       nav("task");
@@ -972,6 +976,18 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        var imgHtml = d._uploadImages.map(function(url) {
+          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskInstructionA").innerHTML = imgHtml;
+        var tib = document.getElementById("taskInstructionB");
+        if (tib) tib.innerHTML = "";
+        var mc = document.getElementById("materialsContainer");
+        if (mc) mc.innerHTML = "";
+        return;
+      }
       // Teil A Aufgabenstellung
       const taskA = d.task_instruction_a || d.task_instruction || "";
       document.getElementById("taskInstructionA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
