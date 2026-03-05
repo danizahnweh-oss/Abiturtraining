@@ -452,6 +452,8 @@
 
   <!-- MODULE-SPECIFIC CODE -->
   <script>
+    marked.use({ breaks: true });
+
     // BE -> NP Umrechnungstabelle (ISB)
     const BE_NP_TABLE = [
       [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
@@ -553,7 +555,10 @@
           if (aufgabe.teilaufgaben && aufgabe.teilaufgaben.length) {
             html += '<div class="aufgaben-liste">';
             aufgabe.teilaufgaben.forEach(function (t) {
-              html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.nr || "") + '</span> ' + DOMPurify.sanitize(marked.parseInline(t.text || "")) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
+              var txt = (t.text || "")
+                .replace(/\s*\(Operatoren?:[^)]*\)\s*/g, " ")
+                .trim();
+              html += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.nr || "") + '</span> ' + DOMPurify.sanitize(marked.parse(txt)) + ' <span class="aufgabe-be">(' + (t.be || "") + ' BE)</span></div>';
             });
             html += '</div>';
           }
