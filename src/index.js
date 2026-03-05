@@ -1983,7 +1983,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
             responseModalities: ["IMAGE", "TEXT"],
             imageConfig: {
               aspectRatio: "16:9",
-              outputOptions: { resolution: "2048" }
+              imageSize: "2K"
             }
           }
         })
