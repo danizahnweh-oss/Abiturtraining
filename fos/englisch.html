@@ -963,6 +963,63 @@
       ]
     };
 
+    /* ====== SUBTOPICS RENDERING ====== */
+    function renderSubtopics() {
+      var panel = document.getElementById('subtopics-panel');
+      var html = '';
+      CONFIG.selectedSachgebiete.forEach(function(key) {
+        var items = UNTERPUNKTE[key] || [];
+        if (!items.length) return;
+        var label = SG_LABELS[key] || key;
+        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
+        html += '<div class="subtopic-item subtopic-all">' +
+          '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)">' +
+          '<label for="st-all-' + key + '">Alle auswählen</label></div>';
+        items.forEach(function(item, i) {
+          var id = 'st-' + key + '-' + i;
+          html += '<div class="subtopic-item">' +
+            '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
+            '<label for="' + id + '">' + item + '</label></div>';
+        });
+        html += '</div>';
+      });
+      panel.innerHTML = html;
+      panel.classList.toggle('open', html.length > 0);
+    }
+
+    function toggleAllGroup(key, checked) {
+      var panel = document.getElementById('subtopics-panel');
+      panel.querySelectorAll('#st-all-' + key).forEach(function(el) {
+        var group = el.closest('.subtopic-group');
+        if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
+      });
+    }
+
+    function getSelectedSubtopics() {
+      var panel = document.getElementById('subtopics-panel');
+      var result = [];
+      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
+        result.push(cb.dataset.subtopic);
+      });
+      return result;
+    }
+
+    function selectSachgebiet(sg) {
+      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
+      if (idx !== -1) {
+        if (CONFIG.selectedSachgebiete.length > 1) {
+          CONFIG.selectedSachgebiete.splice(idx, 1);
+        }
+      } else {
+        CONFIG.selectedSachgebiete.push(sg);
+      }
+      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
+      document.querySelectorAll(".hj-card").forEach(function(c) {
+        c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
+      });
+      renderSubtopics();
+    }
+
     /* ================= PROMPTS ================= */
 
     const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben). Erstelle eine vollständige Schreiben-Prüfungsaufgabe.
