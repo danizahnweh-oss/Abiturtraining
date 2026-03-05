@@ -55,6 +55,11 @@ function getAccessToken() {
 }
 
 async function apiCall(endpoint, body) {
+  // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
+  if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
+    const imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
   const res = await fetch(API_BASE + endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
@@ -721,6 +726,36 @@ function syncHL() {
 
 const ocrPages = [];
 
+/** Bild auf max maxDim px resizen und als JPEG Base64 zurückgeben */
+function compressImage(file, maxDim) {
+  maxDim = maxDim || 2000;
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = function () {
+      var w = img.naturalWidth, h = img.naturalHeight;
+      if (w > maxDim || h > maxDim) {
+        var ratio = Math.min(maxDim / w, maxDim / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+      }
+      var canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      var dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+      resolve(dataUrl.split(",")[1]);
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = function () { reject(new Error("Bild konnte nicht geladen werden.")); };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/** Komprimierte Base64-Bilder aller erfolgreich erkannten OCR-Seiten */
+function getOCRImages() {
+  return ocrPages.filter(function (p) { return p.base64 && p.status === "done"; }).map(function (p) { return p.base64; });
+}
+
 async function handleOCRFiles(fileList) {
   const files = Array.from(fileList).filter(f => {
     if (!f.type.startsWith("image/")) { showToast(f.name + " ist kein Bild."); return false; }
@@ -742,7 +777,7 @@ async function handleOCRFiles(fileList) {
     document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length}`;
 
     try {
-      const b64 = await fileToBase64(p.file);
+      const b64 = await compressImage(p.file, 2000);
       p.base64 = b64;
       const d = await apiCall("/api/ocr", { image_base64: b64 });
       p.text = d.text || "";
