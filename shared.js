@@ -1075,39 +1075,37 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
       ? '<figcaption class="edu-img-caption">' + escapeHtml(d.caption) + '</figcaption>'
       : '';
 
-    // Label-Overlays generieren
-    var overlayHtml = '';
-    if (labels) {
-      // Titel-Overlay (zentriert oben)
-      if (labels.title) {
-        overlayHtml += '<div class="edu-label edu-label-title">' + escapeHtml(labels.title) + '</div>';
-      }
-      // Y-Achsen-Label (links, vertikal)
-      if (labels.y_axis) {
-        overlayHtml += '<div class="edu-label edu-label-y-axis">' + escapeHtml(labels.y_axis) + '</div>';
-      }
-      // X-Achsen-Label (unten zentriert)
-      if (labels.x_axis) {
-        overlayHtml += '<div class="edu-label edu-label-x-axis">' + escapeHtml(labels.x_axis) + '</div>';
-      }
-      // Positionierte Labels (3×3 Grid)
-      if (labels.labels && labels.labels.length) {
-        labels.labels.forEach(function(lbl) {
-          var validPos = ['top-left','top-center','top-right','left-center','center','right-center','bottom-left','bottom-center','bottom-right'];
-          var pos = validPos.indexOf(lbl.position) !== -1 ? lbl.position : 'center';
-          overlayHtml += '<div class="edu-label edu-label-pos ' + pos + '">' + escapeHtml(lbl.text) + '</div>';
-        });
-      }
-    }
-
-    // Legende separat (unter dem Bild als Liste)
+    // Labels unter dem Bild als Beschriftungen (nicht mehr als Overlay)
+    var titleHtml = '';
+    var labelsHtml = '';
     var legendHtml = '';
-    if (labels && labels.legend && labels.legend.length) {
-      legendHtml = '<div class="edu-img-legend">' +
-        labels.legend.map(function(l) {
-          return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
-        }).join('') +
-        '</div>';
+    if (labels) {
+      // Titel als Überschrift unter dem Bild
+      if (labels.title) {
+        titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
+      }
+      // Achsen- und positionierte Labels als Tag-Liste
+      var allLabels = [];
+      if (labels.y_axis) allLabels.push(labels.y_axis);
+      if (labels.x_axis) allLabels.push(labels.x_axis);
+      if (labels.labels && labels.labels.length) {
+        labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
+      }
+      if (allLabels.length) {
+        labelsHtml = '<div class="edu-img-labels">' +
+          allLabels.map(function(t) {
+            return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+          }).join('') +
+          '</div>';
+      }
+      // Legende
+      if (labels.legend && labels.legend.length) {
+        legendHtml = '<div class="edu-img-legend">' +
+          labels.legend.map(function(l) {
+            return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
+          }).join('') +
+          '</div>';
+      }
     }
 
     var altText = labels && labels.title ? escapeHtml(labels.title) : 'Illustration';
@@ -1115,9 +1113,8 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
       '<figure class="edu-img-figure">' +
         '<div class="edu-img-wrapper">' +
           '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
-          overlayHtml +
         '</div>' +
-        caption + legendHtml + credit +
+        titleHtml + labelsHtml + caption + legendHtml + credit +
       '</figure>';
   } catch (e) {
     console.error('Bild-Fehler:', e);
