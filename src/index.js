@@ -11417,25 +11417,78 @@ PRÜFUNGSSTRUKTUR (FOS Bayern, BwR FAP 12. Klasse):
 - Hilfsmittel: ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
 - ALLE 3 Aufgaben sind Pflicht (kein Wahlteil!)
 - Gesamt: ca. 80-85 BE
+- WICHTIG: Es dürfen NUR Themen aus BwR 11 und BwR 12 abgefragt werden! Themen aus BwR 13 sind VERBOTEN!
 
-AUFGABE I (ca. 30-35 BE) – Bilanzierung & Bewertung:
+AUFGABE I (ca. 30-35 BE) – Jahresabschluss & Bewertung:
 Durchgängiger Unternehmenskontext (AG, Industrieunternehmen).
-Teilaufgaben: Rohstoffbewertung (Durchschnitts-/LiFo-/FiFo-Verfahren, Niederstwertprinzip), Anlagenbewertung (lineare/degressive AfA, außerplanmäßige Abschreibung, GWG), Forderungsbewertung (EWB, PWB), Rückstellungen/RAP, Investitionsrechnung (Kostenvergleich, Kapitalwertmethode), Ergebnisverwendung AG
+Erlaubte Themen (aus BwR 12 LB3):
+- Anschaffungskosten, Herstellungskosten, beizulegender Wert ermitteln
+- Bewertung nicht abnutzbares Sachanlagevermögen (außerplanmäßige Abschreibung + Wertaufholung)
+- Bewertung abnutzbares Anlagevermögen (lineare Abschreibung + außerplanmäßige Abschreibung; KEINE Wertaufholung)
+- Bewertung Finanzanlagevermögen (Wertpapiere des Anlagevermögens)
+- Bewertung Forderungen (Einzelwertberichtigung EWB, Pauschalwertberichtigung PWB)
+- Bewertung Rohstoffe/Fremdbauteile (Durchschnittswertverfahren + Niederstwertprinzip)
+- Rückstellungen für Altersversorgung
+- GuV nach Gesamtkostenverfahren (§275 (2) HGB, Staffelform)
+- Ergebnisverwendungsrechnung AG (Eigenkapitalausweis vor/nach teil./vollständiger Ergebnisverwendung)
+- Vorbereitende Abschlussbuchungen und Abschlussbuchungen
 
 AUFGABE II (ca. 25 BE) – Kostenrechnung:
 Anderer Unternehmenskontext.
-Teilaufgaben: Zuschlagskalkulation/Handelskalkulation, Maschinenstundensatzrechnung, Engpassrechnung/Deckungsbeitragsrechnung, Break-Even-Analyse, Plankostenrechnung
+Erlaubte Themen (aus BwR 11 LB5 + BwR 12 LB1):
+Vollkostenrechnung (BwR 11 LB5):
+- Zuschlagskalkulation (Vorwärts-, Rückwärts-, Differenzkalkulation)
+- Maschinenstundensatz (kalkulatorische Abschreibungen vom WBW, kalk. Zinsen, Raumkosten, Energiekosten, Instandhaltung)
+- BAB (ein-/mehrstufig, max. 5 Hauptkostenstellen, einfache Kostenumlage)
+- Kostenträgerzeitrechnung (2 Kostenträger, Normalkostenbereich)
+- Bestandsveränderungen an unfertigen/fertigen Erzeugnissen
+Teilkostenrechnung (BwR 12 LB1):
+- Stück- und Gesamtdeckungsbeitrag
+- Break-even-Analyse (rechnerisch und grafisch, Einproduktunternehmen)
+- Mehrstufige Deckungsbeitragsrechnung
+- Engpassrechnung (Beschaffung, Produktion, Absatz)
+- Eigenfertigung vs. Fremdbezug (kritische Menge rechnerisch + grafisch)
+- Kurz- und langfristige Preisuntergrenzen, Zusatzaufträge
 
-AUFGABE III (ca. 25 BE) – Marketing & Beschaffung:
+AUFGABE III (ca. 25 BE) – Marketing, Finanzierung & Investition:
 Dritter Unternehmenskontext.
-Teilaufgaben: Portfolio-Analyse (BCG-Matrix), Absatz-/Marketingstrategien, Lieferantenvergleich (Nutzwertanalyse, Bezugskalkulation), Bestellpunktverfahren/optimale Bestellmenge, Produktlebenszyklus
+Erlaubte Themen (aus BwR 12 LB2 + BwR 12 LB4 + BwR 11 LB2):
+Marketing (BwR 12 LB2):
+- BCG-Matrix (Marktwachstum-Marktanteils-Portfolio), Normstrategien
+- Marketingmix: Produktpolitik, Distributionspolitik (Reisender vs. Handelsvertreter), Kontrahierungspolitik, Kommunikationspolitik
+Finanzierung (BwR 12 LB4):
+- Finanzierungsarten: Beteiligungsfinanzierung (ordentliche Kapitalerhöhung AG), Kreditfinanzierung (Annuitäten-/Abzahlungsdarlehen, Kontokorrentkredit), Selbstfinanzierung (offen + still), Finanzierung aus Rückstellungen/Abschreibung
+- Bewegungsbilanz
+Investition (BwR 12 LB4):
+- NUR statische Verfahren: Kostenvergleichs-, Gewinnvergleichs-, Rentabilitäts- und Amortisationsrechnung
+Beschaffung (BwR 11 LB2):
+- ABC-Analyse, Bestellpunktverfahren, optimale Bestellmenge (tabellarisch, rechnerisch, grafisch)
+- Lieferantenvergleich (Bezugskalkulation, Nutzwertanalyse)
+
+VERBOTENE THEMEN (BwR 13 – NICHT verwenden!):
+- Kapitalwertmethode / dynamische Investitionsrechnung
+- Plankostenrechnung (Beschäftigungs-/Verbrauchsabweichung)
+- Bilanzanalyse / Strukturbilanz / Bilanzkennzahlen (Leverage-Effekt, ROI, Cashflow etc.)
+- Balanced Scorecard (BSC)
+- Leasing, Factoring
+- Lohmann-Ruchti-Effekt (Kapazitätserweiterungseffekt)
+- Anpassungsformen (zeitlich, intensitätsmäßig, quantitativ, selektiv)
+- Produktionsfunktion Typ B, Verbrauchsfunktionen, Kostenfunktionen
+- Nutzkosten, Leerkosten, Kostenremanenz
+- Motivationstheorien, Führungsstile, Personalentwicklung
 
 PFLICHT-REGELN:
 - Jede Aufgabe hat einen EIGENEN Unternehmenskontext (Name, Branche, Situation)
 - BE-Angaben an JEDER Teilaufgabe
-- Operatoren: ermitteln, berechnen, buchen, begründen, beurteilen, prüfen, erklären
 - Realistische Zahlen (Geschäftsjahr, Bilanzstichtag etc.)
 - Tabellen und Kontoauszüge direkt in der Aufgabe
+
+FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
+- Wenn eine Teilaufgabe (z.B. 1.2) mehrere Unteraufgaben a), b), c), d) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+- Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
+- Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+- Beispiel für korrektes Format:
+  "text": "Rohstoffbewertung:\\na) Ermitteln Sie den Endbestand nach dem gleitenden Durchschnittsverfahren.\\nb) Prüfen und begründen Sie unter Anwendung des strengen Niederstwertprinzips, ob eine Abschreibung vorzunehmen ist."
 
 Antworte NUR mit validem JSON:
 {
@@ -11446,22 +11499,25 @@ Antworte NUR mit validem JSON:
   "aufgaben": [
     {
       "id": "I",
-      "titel": "Aufgabe I – Bilanzierung & Bewertung",
+      "titel": "Aufgabe I – Jahresabschluss & Bewertung",
       "kontext": "Ausführlicher Unternehmenskontext...",
       "gesamt_be": 35,
       "teilaufgaben": [
-        {"nr": "1.1", "text": "Aufgabentext mit Operator...", "be": 7},
+        {"nr": "1.1", "text": "Aufgabentext...", "be": 7},
         {"nr": "1.2", "text": "...", "be": 10}
       ]
     },
     {"id": "II", "titel": "Aufgabe II – Kostenrechnung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
-    {"id": "III", "titel": "Aufgabe III – Marketing & Beschaffung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
+    {"id": "III", "titel": "Aufgabe III – Marketing, Finanzierung & Investition", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
   ]
 }`;
 
   const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung BwR (ca. 85 BE).
-Aufgabe I: Bilanzierung & Bewertung (~35 BE), Aufgabe II: Kostenrechnung (~25 BE), Aufgabe III: Marketing & Beschaffung (~25 BE).
-Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.`;
+Aufgabe I: Jahresabschluss & Bewertung (~35 BE) – nur BwR 12 LB3-Themen.
+Aufgabe II: Kostenrechnung (~25 BE) – nur BwR 11 LB5 + BwR 12 LB1-Themen.
+Aufgabe III: Marketing, Finanzierung & Investition (~25 BE) – nur BwR 12 LB2 + LB4 + BwR 11 LB2-Themen.
+Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.
+KEINE Themen aus BwR 13 verwenden!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -11473,46 +11529,111 @@ Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und 
 
 /* ================= FOS IBV ABITUR: GENERATE (FAP 12) ================= */
 async function handleFOSGenerateAbiturIBV(body, env) {
-  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung International Business Studies (IBV) in Bayern.
-Die IBV-Prüfung ist strukturell ähnlich wie BwR, aber mit internationalem Bezug.
+  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung Internationale Betriebswirtschaftslehre und Volkswirtschaftslehre (IBV) in Bayern.
+Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung.
 
 PRÜFUNGSSTRUKTUR (FOS Bayern, IBV FAP 12. Klasse):
 - Bearbeitungszeit: 180 Minuten
 - Hilfsmittel: ISB-Merkhilfe BwR/IBV, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
 - ALLE 3 Aufgaben sind Pflicht
 - Gesamt: ca. 80-85 BE
+- WICHTIG: Es dürfen NUR Themen aus IBV 11 und IBV 12 abgefragt werden! Themen aus IBV 13 sind VERBOTEN!
 
-AUFGABE I (ca. 30-35 BE) – Bilanzierung & internationaler Geschäftsverkehr:
-Wie BwR + Wechselkurs-Aufgabe (Devisenkurse, Bilanzierung bei Fremdwährung), Export-/Importbuchungen, INCOTERMS
+AUFGABE I (ca. 30-35 BE) – Jahresabschluss & internationaler Geschäftsverkehr:
+Durchgängiger internationaler Unternehmenskontext (AG mit Auslandsgeschäft).
+Erlaubte Themen (aus IBV 12 LB1):
+- Anschaffungskosten, Herstellungskosten, beizulegender Wert
+- Bewertung nicht abnutzbares Sachanlagevermögen (außerplanmäßige Abschreibung + Wertaufholung)
+- Bewertung abnutzbares Anlagevermögen (lineare AfA + außerplanmäßige Abschreibung; KEINE Wertaufholung)
+- Bewertung Finanzanlagevermögen (Wertpapiere)
+- Bewertung Forderungen (EWB) + Fremdwährungsforderungen
+- Bewertung Fremdwährungsverbindlichkeiten
+- Bewertung Rohstoffe (Durchschnittswertverfahren)
+- Rückstellungen für Altersversorgung
+- GuV nach Gesamtkostenverfahren (§275 (2) HGB, Staffelform)
+- Ergebnisverwendung AG
+- Vergleich HGB vs. IFRS (Bestandteile der Rechnungslegung)
+Zusätzlich aus IBV 11 LB1:
+- Internationalisierungsmotive und -dimensionen (Tochtergesellschaft, Joint Venture, Lizenz, Export)
 
 AUFGABE II (ca. 25 BE) – Kostenrechnung:
-Wie BwR, evtl. mit internationalem Kontext (Standortvergleich, Transferpreise)
+Anderer internationaler Unternehmenskontext.
+Erlaubte Themen (aus IBV 11 LB2 + IBV 12 LB3):
+Vollkostenrechnung (IBV 11 LB2):
+- Zuschlagskalkulation (Vorwärts-, Rückwärts-, Differenzkalkulation)
+- Maschinenstundensatz (kalk. Abschreibungen vom WBW, kalk. Zinsen, Raum-, Energie-, Instandhaltungskosten)
+- BAB (ein-/mehrstufig, max. 5 Hauptkostenstellen, einfache Kostenumlage)
+- Kostenträgerzeitrechnung (2 Kostenträger, Normalkostenbereich)
+Teilkostenrechnung (IBV 12 LB3):
+- Stück- und Gesamtdeckungsbeitrag
+- Break-even-Analyse (rechnerisch und grafisch, Einproduktunternehmen)
+- Mehrstufige Deckungsbeitragsrechnung
+- Engpassrechnung (Beschaffung, Produktion, Absatz)
+- Eigenfertigung vs. Fremdbezug (kritische Menge)
+- Preisuntergrenzen, Zusatzaufträge
 
-AUFGABE III (ca. 25 BE) – Internationales Marketing & VWL:
-Markteintrittsstrategien, Standardisierung vs. Adaption, Lieferantenvergleich international, VWL-Aufgabe (Karikaturanalyse zu Wirtschaftsethik/Globalisierung), Wechselkursauswirkungen
+AUFGABE III (ca. 25 BE) – Internationales Marketing, Finanzierung & VWL:
+Dritter internationaler Unternehmenskontext.
+Erlaubte Themen:
+Finanzierung & Investition (IBV 12 LB2):
+- Finanzierungsarten (Beteiligungsfinanzierung, Kreditfinanzierung, Selbstfinanzierung, Finanzierung aus Rückstellungen/Abschreibung)
+- Auslandsinvestition (Direktinvestition, Portfolioinvestition)
+- NUR statische Investitionsrechenverfahren (Kostenvergleich, Gewinnvergleich, Rentabilität, Amortisation)
+Internationalisierung (IBV 11 LB1):
+- Markteintrittsstrategien (Tochtergesellschaft, Joint Venture, Vertragsfertigung, Lizenz, Export)
+- Compliancekultur
+VWL – Mikroökonomie (IBV 11 LB3):
+- Preisbildung bei vollständiger Konkurrenz, Gleichgewichtspreis
+- Konsumenten-/Produzentenrente, Gesamtwohlfahrt
+- Staatliche Eingriffe in die Preisbildung (marktkonforme/marktkonträre)
+- Wechselkurssysteme (freier/fester Wechselkurs, Interventionspunkte)
+VWL – Makroökonomie (IBV 11 LB4 + IBV 12 LB4):
+- Magisches Sechseck (wirtschaftspolitische Ziele)
+- BIP (Entstehung, Verwendung), Konjunktur
+- Arbeitslosigkeit (Arten, Ursachen), EZB/Geldpolitik (Zins-/Offenmarktpolitik)
+- Inflation/Deflation, Fiskalpolitik, Wirtschaftsordnungen
+
+VERBOTENE THEMEN (IBV 13 – NICHT verwenden!):
+- Kapitalwertmethode / dynamische Investitionsrechnung
+- Plankostenrechnung (Beschäftigungs-/Verbrauchsabweichung)
+- Bilanzanalyse / Strukturbilanz / Bilanzkennzahlen (Leverage-Effekt, ROI, Cashflow etc.)
+- Anpassungsformen, Produktionsfunktion Typ B, Nutzkosten/Leerkosten
+- Monopol/Oligopol (Cournotscher Punkt, Preiselastizität, Gefangenendilemma)
+- Wettbewerbspolitik (Kartellverbot, Fusionskontrolle)
+- Angebots-/nachfrageorientierte Wirtschaftspolitik (Keynes/Neoklassik)
+- Absolute/komparative Kostenvorteile, Terms of Trade
+- Geldschöpfungsmultiplikator, Lorenzkurve, Gini-Koeffizient
 
 PFLICHT-REGELN:
 - Jede Aufgabe hat einen eigenen internationalen Unternehmenskontext
 - BE-Angaben an jeder Teilaufgabe
 - Teilweise englische Fachbegriffe verwenden
-- Operatoren: ermitteln, berechnen, begründen, beurteilen, erklären, vergleichen
+- Aufgabentitel dürfen auf Deutsch oder Englisch sein
+
+FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
+- Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+- Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
+- Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
 
 Antworte NUR mit validem JSON (gleiches Format wie BWR):
 {
-  "titel": "Fachabiturprüfung International Business Studies 2025",
+  "titel": "Fachabiturprüfung IBV 2025",
   "gesamt_be": 85,
   "zeit": 180,
   "hilfsmittel": "ISB-Merkhilfe BwR/IBV, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
   "aufgaben": [
-    {"id": "I", "titel": "Task I – Accounting & International Trade", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 7}]},
-    {"id": "II", "titel": "Task II – Cost Accounting", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
-    {"id": "III", "titel": "Task III – International Marketing & Economics", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
+    {"id": "I", "titel": "Aufgabe I – Jahresabschluss & internationaler Geschäftsverkehr", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 7}]},
+    {"id": "II", "titel": "Aufgabe II – Kostenrechnung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
+    {"id": "III", "titel": "Aufgabe III – Internationales Marketing, Finanzierung & VWL", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
   ]
 }`;
 
   const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung IBV (ca. 85 BE).
-Task I: Bilanzierung + internationaler Handel (~35 BE), Task II: Kostenrechnung (~25 BE), Task III: Internationales Marketing + VWL (~25 BE).
-Internationaler Bezug, realistische Zahlen, BE an jeder Teilaufgabe.`;
+Aufgabe I: Jahresabschluss + internationaler Geschäftsverkehr (~35 BE) – nur IBV 12 LB1 + IBV 11 LB1-Themen.
+Aufgabe II: Kostenrechnung (~25 BE) – nur IBV 11 LB2 + IBV 12 LB3-Themen.
+Aufgabe III: Internationales Marketing, Finanzierung & VWL (~25 BE) – nur IBV 11 LB1/LB3/LB4 + IBV 12 LB2/LB4-Themen.
+Jede Aufgabe braucht einen eigenen internationalen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.
+KEINE Themen aus IBV 13 verwenden!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -11831,6 +11952,11 @@ PFLICHT-REGELN:
   AFB III (40%): beurteilen, erörtern, Stellung nehmen
 - Pro Aufgabe 4-6 Teilaufgaben
 - Materialien wo sinnvoll (Tabellen, Fallbeispiele, Abbildungen als Text)
+
+FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
+- Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+- Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: erläutern)" etc.)
+- Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Erläutern Sie..." oder "Beurteilen Sie...")
 
 Antworte NUR mit validem JSON:
 {
