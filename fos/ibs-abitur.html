@@ -138,6 +138,51 @@
       font-size: .92rem
     }
 
+    /* Markdown-Tabellen in Aufgaben (Bilanzen, Konten, BAB etc.) */
+    .aufgabengruppe-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      margin: .8rem 0;
+      font-variant-numeric: tabular-nums
+    }
+
+    .aufgabengruppe-card th,
+    .aufgabengruppe-card td {
+      padding: .4rem .6rem;
+      border: 1px solid var(--border);
+      text-align: left
+    }
+
+    .aufgabengruppe-card th {
+      background: var(--accent-soft);
+      font-weight: 600;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .02em
+    }
+
+    .aufgabengruppe-card td {
+      color: var(--ink-light)
+    }
+
+    .aufgabengruppe-card tr:nth-child(even) td {
+      background: var(--bg-warm)
+    }
+
+    .aufgabengruppe-card td:last-child,
+    .aufgabengruppe-card th:last-child {
+      text-align: right
+    }
+
+    @media (max-width: 600px) {
+      .aufgabengruppe-card table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch
+      }
+    }
+
     /* BE scores */
     .be-scores-grid {
       display: grid;
