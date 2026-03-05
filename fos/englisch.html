@@ -630,6 +630,11 @@
               <div style="flex:1;">
                 <strong style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – <span id="task31TypeLabel">Persönliche Stellungnahme</span>
                 <div id="cartoonContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.5rem;"></div>
+                <div id="statisticsContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.8rem;">
+                  <div id="statisticsTitle" style="font-weight:600;font-size:.95rem;text-align:center;margin-bottom:.5rem;"></div>
+                  <div style="height:220px;"><canvas id="statisticsChart"></canvas></div>
+                  <div id="statisticsSource" style="font-size:.75rem;color:var(--ink-muted);text-align:right;margin-top:.3rem;font-style:italic;"></div>
+                </div>
                 <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction31">–</div>
               </div>
             </label>
@@ -661,6 +666,11 @@
           <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
             <p style="font-weight:600;color:var(--accent);margin-bottom:.5rem;" id="writeTaskInstruction"></p>
             <div id="writeCartoonPreview" style="display:none;margin:.5rem 0;text-align:center;"></div>
+            <div id="writeStatisticsPreview" style="display:none;margin:.5rem 0;">
+              <div id="writeStatsTitle" style="font-weight:600;font-size:.9rem;text-align:center;margin-bottom:.3rem;"></div>
+              <div style="height:180px;"><canvas id="writeStatsChart"></canvas></div>
+              <div id="writeStatsSource" style="font-size:.7rem;color:var(--ink-muted);text-align:right;font-style:italic;"></div>
+            </div>
             <div
               style="max-height:300px;overflow-y:auto;font-size:.88rem;color:var(--ink-light);line-height:1.6;padding:.8rem;background:var(--bg-warm);border-radius:var(--radius-sm);"
               id="writeArticlePreview"></div>
@@ -1057,8 +1067,12 @@ Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe. MAXIMAL 1-2 Sätze!
 - Bei literarisch: z.B. "Analyse how the setting is used to create atmosphere. Focus on the author's use of language."
 
 Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
-- 3.1: ENTWEDER ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
-  ODER (in ca. 50% der Fälle, entscheide zufällig): Eine KARIKATUR/CARTOON zum Thema des Textes. In diesem Fall:
+- 3.1: Entscheide zufällig zwischen DREI Material-Varianten (jeweils ca. 33%):
+
+  VARIANTE A – ZITAT (ca. 33%):
+  Ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
+
+  VARIANTE B – KARIKATUR/CARTOON (ca. 33%):
   - Lasse task_3_1_quote LEER ("")
   - Schreibe die Aufgabe als Cartoon-Kommentar, z.B. "Comment on the cartoon below. In your comment, refer to the text." oder "Describe and comment on the cartoon. In your answer, also refer to the article."
   - Erstelle einen SEHR DETAILLIERTEN englischen Prompt für die Bildgenerierung (cartoon_prompt). Der Prompt muss beschreiben:
@@ -1072,6 +1086,23 @@ Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
   - Erstelle ZUSÄTZLICH ein Array "cartoon_bubbles" mit den Sprechblasen-Texten, die ÜBER dem Bild als HTML angezeigt werden.
     Jede Bubble hat: "text" (der Sprechblasentext in Englisch), "position" (eines von: "top-left", "top-right", "bottom-left", "bottom-right"), "speaker" (kurze Beschreibung wer spricht).
     Maximal 2-3 Sprechblasen. Kurze, prägnante Texte (max. 10 Wörter pro Bubble).
+
+  VARIANTE C – STATISTIK/DIAGRAMM (ca. 33%):
+  - Lasse task_3_1_quote LEER ("")
+  - Lasse cartoon_prompt LEER ("")
+  - Schreibe die Aufgabe als Statistik-Kommentar, z.B. "Comment on the statistics below. In your comment, refer to the text." oder "Analyse the data shown in the chart below. In your answer, also refer to the article."
+  - Erstelle ein Objekt "statistics_data" mit folgenden Feldern:
+    * "chart_type": "bar", "horizontalBar", "pie", "doughnut" oder "line" – wähle passend zum Thema
+    * "title": Überschrift des Diagramms (auf Englisch)
+    * "source": Quellenangabe, z.B. "Source: Statista, 2025" oder "Source: OECD Report, 2024"
+    * "labels": Array mit Beschriftungen der Datenpunkte (z.B. Länder, Jahre, Kategorien). Maximal 8 Einträge.
+    * "datasets": Array mit 1–2 Datensätzen. Jeder Datensatz hat:
+      - "label": Bezeichnung des Datensatzes (z.B. "in %", "in millions", "Number of...")
+      - "data": Array mit Zahlenwerten (gleiche Länge wie labels)
+    * "unit": Einheit für die Achsenbeschriftung (z.B. "%", "million", "per 1000")
+  - Die Statistik MUSS zum Thema des Textes passen und plausible, realistische Daten enthalten.
+  - Die Daten sollen interessant und diskussionswürdig sein (z.B. Trends, Vergleiche, Überraschungen).
+
 - 3.2: Situationsbeschreibung (1-2 Sätze) + "Write a/an [Textsorte] in which you..." (1 Satz)
 
 Bei eA: Aufgaben sprachlich und inhaltlich anspruchsvoller, tiefere Analyse erwartet.
@@ -1084,10 +1115,11 @@ OUTPUT FORMAT (NUR reines JSON):
   "article_text": "Der komplette englische Text...",
   "task_1": "Outline...",
   "task_2": "Analyse... Focus on...",
-  "task_3_1_quote": "Exaktes Zitat aus dem Text (LEER lassen wenn Cartoon verwendet wird)",
-  "task_3_1": "Taking the quotation as a starting point... ODER Comment on the cartoon below...",
-  "cartoon_prompt": "NUR wenn Aufgabe 3.1 einen Cartoon verwendet: Sehr detaillierter englischer Prompt OHNE Text/Sprechblasen (5-8 Sätze). LEER lassen wenn kein Cartoon.",
+  "task_3_1_quote": "Exaktes Zitat aus dem Text (LEER lassen wenn Cartoon oder Statistik verwendet wird)",
+  "task_3_1": "Taking the quotation as a starting point... ODER Comment on the cartoon below... ODER Comment on the statistics below...",
+  "cartoon_prompt": "NUR wenn Cartoon: Sehr detaillierter englischer Prompt OHNE Text/Sprechblasen (5-8 Sätze). LEER lassen wenn kein Cartoon.",
   "cartoon_bubbles": [{"text": "Speech bubble text", "position": "top-left oder top-right oder bottom-left oder bottom-right", "speaker": "Wer spricht"}],
+  "statistics_data": {"chart_type": "bar", "title": "Chart Title", "source": "Source: ...", "labels": ["A","B","C"], "datasets": [{"label": "in %", "data": [10,20,30]}], "unit": "%"},
   "task_3_2_situation": "Situationsbeschreibung (1-2 Sätze)",
   "task_3_2": "Write a/an [Textsorte] in which you..."
 }`;
@@ -1398,8 +1430,16 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("taskInstruction2").innerText = d.task_2 || "–";
 
       const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
+      const hasStatistics = d.statistics_data && d.statistics_data.chart_type && d.statistics_data.labels && d.statistics_data.labels.length > 0;
       const cartoonContainer = document.getElementById("cartoonContainer");
+      const statisticsContainer = document.getElementById("statisticsContainer");
       const typeLabel = document.getElementById("task31TypeLabel");
+
+      // Alle Material-Container zurücksetzen
+      cartoonContainer.style.display = "none";
+      cartoonContainer.innerHTML = "";
+      statisticsContainer.style.display = "none";
+      if (CONFIG.statisticsChartInstance) { CONFIG.statisticsChartInstance.destroy(); CONFIG.statisticsChartInstance = null; }
 
       if (hasCartoon) {
         typeLabel.textContent = "Cartoon-Kommentar";
@@ -1407,10 +1447,13 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         cartoonContainer.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird generiert…</span></div>';
         loadCartoonImage(d.cartoon_prompt, "cartoonContainer", d.cartoon_bubbles || []);
         document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
+      } else if (hasStatistics) {
+        typeLabel.textContent = "Statistik-Kommentar";
+        statisticsContainer.style.display = "block";
+        renderStatisticsMaterial(d.statistics_data, "statisticsChart", "statisticsTitle", "statisticsSource");
+        document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
       } else {
         typeLabel.textContent = "Persönliche Stellungnahme";
-        cartoonContainer.style.display = "none";
-        cartoonContainer.innerHTML = "";
         const q31 = d.task_3_1_quote ? `"${d.task_3_1_quote}"\n\n` : "";
         document.getElementById("taskInstruction31").innerText = q31 + (d.task_3_1 || "–");
       }
@@ -1425,8 +1468,11 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
 
-      // Cartoon auch in Schreib-Referenz anzeigen
+      // Material auch in Schreib-Referenz anzeigen
       const writeCartoon = document.getElementById("writeCartoonPreview");
+      const writeStats = document.getElementById("writeStatisticsPreview");
+
+      // Cartoon-Preview
       if (hasCartoon && document.getElementById("doTask31")?.checked) {
         writeCartoon.style.display = "block";
         writeCartoon.innerHTML = '<div style="font-size:.85rem;color:var(--ink-muted);padding:.5rem;">Cartoon wird geladen…</div>';
@@ -1439,6 +1485,15 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       } else {
         writeCartoon.style.display = "none";
         writeCartoon.innerHTML = "";
+      }
+
+      // Statistik-Preview im Schreib-Bereich
+      if (hasStatistics && document.getElementById("doTask31")?.checked) {
+        writeStats.style.display = "block";
+        renderStatisticsMaterial(d.statistics_data, "writeStatsChart", "writeStatsTitle", "writeStatsSource");
+      } else {
+        writeStats.style.display = "none";
+        if (CONFIG.writeStatsChartInstance) { CONFIG.writeStatsChartInstance.destroy(); CONFIG.writeStatsChartInstance = null; }
       }
     }
 
@@ -1483,8 +1538,11 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       if (document.getElementById("doTask2")?.checked) tasks.push("2. " + (d.task_2 || ""));
       if (document.getElementById("doTask31")?.checked) {
         const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
+        const hasStatistics = d.statistics_data && d.statistics_data.chart_type && d.statistics_data.labels && d.statistics_data.labels.length > 0;
         if (hasCartoon) {
           tasks.push("3.1 [See cartoon above] " + (d.task_3_1 || ""));
+        } else if (hasStatistics) {
+          tasks.push("3.1 [See statistics above] " + (d.task_3_1 || ""));
         } else {
           const q = d.task_3_1_quote ? `"${d.task_3_1_quote}" — ` : "";
           tasks.push("3.1 " + q + (d.task_3_1 || ""));
@@ -1494,6 +1552,113 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         tasks.push("3.2 " + s + (d.task_3_2 || ""));
       }
       return tasks.join("\n\n");
+    }
+
+    /* ================= STATISTIK-MATERIAL RENDERN ================= */
+    function renderStatisticsMaterial(statsData, canvasId, titleId, sourceId) {
+      const ctx = document.getElementById(canvasId);
+      if (!ctx) return;
+
+      // Titel & Quelle setzen
+      const titleEl = document.getElementById(titleId);
+      const sourceEl = document.getElementById(sourceId);
+      if (titleEl) titleEl.textContent = statsData.title || "";
+      if (sourceEl) sourceEl.textContent = statsData.source || "";
+
+      // Vorherige Instanz zerstören
+      const instanceKey = canvasId === "writeStatsChart" ? "writeStatsChartInstance" : "statisticsChartInstance";
+      if (CONFIG[instanceKey]) { CONFIG[instanceKey].destroy(); CONFIG[instanceKey] = null; }
+
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+      const textColor = isDark ? "#b0b0c8" : "#8888a4";
+
+      // Farben für Datensätze
+      const palette = ["#2563eb", "#059669", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899", "#14b8a6", "#f97316"];
+      const bgPalette = palette.map(c => c + "cc");
+
+      // Chart-Type Mapping
+      let chartType = statsData.chart_type || "bar";
+      let indexAxis = "x";
+      if (chartType === "horizontalBar") {
+        chartType = "bar";
+        indexAxis = "y";
+      }
+
+      const isPieType = chartType === "pie" || chartType === "doughnut";
+
+      // Datasets aufbauen
+      const datasets = (statsData.datasets || []).map(function(ds, i) {
+        const baseColor = palette[i % palette.length];
+        if (isPieType) {
+          return {
+            label: ds.label || "",
+            data: ds.data || [],
+            backgroundColor: (ds.data || []).map(function(_, j) { return palette[j % palette.length] + "cc"; }),
+            borderColor: (ds.data || []).map(function(_, j) { return palette[j % palette.length]; }),
+            borderWidth: 1
+          };
+        }
+        return {
+          label: ds.label || "",
+          data: ds.data || [],
+          backgroundColor: baseColor + "cc",
+          borderColor: baseColor,
+          borderWidth: chartType === "line" ? 2.5 : 1,
+          borderRadius: chartType === "bar" ? 4 : 0,
+          tension: chartType === "line" ? 0.3 : 0,
+          fill: chartType === "line" ? false : undefined,
+          pointRadius: chartType === "line" ? 4 : 0,
+          pointBackgroundColor: chartType === "line" ? baseColor : undefined
+        };
+      });
+
+      const chartConfig = {
+        type: chartType,
+        data: {
+          labels: statsData.labels || [],
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          indexAxis: indexAxis,
+          plugins: {
+            legend: {
+              display: datasets.length > 1 || isPieType,
+              labels: { color: textColor, font: { size: 11 } }
+            }
+          }
+        }
+      };
+
+      // Achsen nur bei Bar/Line
+      if (!isPieType) {
+        const unit = statsData.unit || "";
+        chartConfig.options.scales = {
+          y: {
+            beginAtZero: true,
+            grid: { color: gridColor },
+            ticks: {
+              color: textColor,
+              callback: function(v) { return indexAxis === "y" ? v : v + (unit ? " " + unit : ""); }
+            }
+          },
+          x: {
+            grid: { display: false },
+            ticks: {
+              color: textColor,
+              font: { size: 11 },
+              callback: function(v, i) {
+                if (indexAxis === "x") return this.getLabelForValue(v);
+                return v + (unit ? " " + unit : "");
+              }
+            }
+          }
+        };
+      }
+
+      CONFIG[instanceKey] = new Chart(ctx, chartConfig);
     }
 
     /* ================= SUBMIT FOR GRADING ================= */
@@ -1598,6 +1763,10 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("cartoonContainer").innerHTML = "";
       document.getElementById("writeCartoonPreview").style.display = "none";
       document.getElementById("writeCartoonPreview").innerHTML = "";
+      document.getElementById("statisticsContainer").style.display = "none";
+      if (CONFIG.statisticsChartInstance) { CONFIG.statisticsChartInstance.destroy(); CONFIG.statisticsChartInstance = null; }
+      document.getElementById("writeStatisticsPreview").style.display = "none";
+      if (CONFIG.writeStatsChartInstance) { CONFIG.writeStatsChartInstance.destroy(); CONFIG.writeStatsChartInstance = null; }
       document.getElementById("task31TypeLabel").textContent = "Persönliche Stellungnahme";
       CONFIG.cartoonUrl = null;
       document.getElementById("articleTitle").innerText = "Ausgangstext";
