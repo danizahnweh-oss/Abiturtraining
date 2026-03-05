@@ -3212,10 +3212,10 @@ async function handleGenerateAbiturGeschichte(request, env) {
    - Sprache muss dem Entstehungszeitraum entsprechen
    - Vollständige Quellenangabe
    - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Schaubilder, Infografiken, Statistiken
-3. TEILAUFGABEN (3 Stück, steigende AFB) MIT BE-ANGABEN:
+3. TEILAUFGABEN (3 Stück, steigende AFB) MIT BE-ANGABEN (inkl. Darstellungsleistung):
    - Teilaufgabe 1 (AFB I/II, ca. ${isEA ? "20" : "16"} BE): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
-   - Teilaufgabe 2 (AFB II, ca. ${isEA ? "20" : "16"} BE): "Ordnen Sie ein …" / "Erläutern Sie …"
-   - Teilaufgabe 3 (AFB III, ca. ${isEA ? "20" : "16"} BE): "Beurteilen Sie …" / "Erörtern Sie …"
+   - Teilaufgabe 2 (AFB II, ca. ${isEA ? "24" : "20"} BE): "Ordnen Sie ein …" / "Erläutern Sie …"
+   - Teilaufgabe 3 (AFB III, ca. ${isEA ? "28" : "24"} BE): "Beurteilen Sie …" / "Erörtern Sie …"
    Gib bei JEDER Teilaufgabe die BE in Klammern an, z.B. "(20 BE)"
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
@@ -3230,15 +3230,16 @@ ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGE
 - Erfordert historische Darstellung und Beurteilung
 - Kann Transfer zu einem anderen Halbjahr enthalten
 - Möglicher Transferbezug: ${transferSP.replace("_", "/")} – ${transferThema}
-- 2 Teilaufgaben auf AFB II-III mit BE-Angaben (je ca. ${isEA ? "20" : "18"} BE)
+- 2 Teilaufgaben auf AFB II-III mit BE-Angaben (inkl. Darstellungsleistung):
+  - Teilaufgabe 1 (AFB II, ca. ${isEA ? "22" : "18"} BE)
+  - Teilaufgabe 2 (AFB III, ca. ${isEA ? "26" : "22"} BE)
 
 === BE-VERTEILUNG (Bewertungseinheiten) ===
-- Gesamt: ${refBE} BE
-- Teil A: ca. ${isEA ? "60" : "48"} BE (3 Teilaufgaben)
-- Teil B: ca. ${isEA ? "40" : "36"} BE (2 Teilaufgaben)
-- Darstellungsleistung: ${isEA ? "20" : "16"} BE
+- Gesamt: ${refBE} BE (Darstellungsleistung ist bereits in den Teilaufgaben-BE enthalten)
+- Teil A: ca. ${isEA ? "72" : "60"} BE (3 Teilaufgaben)
+- Teil B: ca. ${isEA ? "48" : "40"} BE (2 Teilaufgaben)
 - Gib bei JEDER Teilaufgabe die BE in Klammern an, z.B. "1. Arbeiten Sie … heraus. (20 BE)"
-- Die Summe aller Teilaufgaben-BE + Darstellungsleistung muss ${refBE} BE ergeben
+- Die Summe aller Teilaufgaben-BE muss exakt ${refBE} BE ergeben
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
