@@ -2053,48 +2053,77 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
   }
 
   try {
-    // Bild generieren via Gemini 3.1 Flash Image Preview (2K-Auflösung)
-    const geminiRes = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": env.GOOGLE_AI_API_KEY
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [{ text: enhancedPrompt }]
-          }],
-          generationConfig: {
-            responseModalities: ["IMAGE", "TEXT"],
-            imageConfig: {
-              aspectRatio: "16:9",
-              imageSize: "2K"
-            }
-          }
-        })
-      }
-    );
-    const geminiData = await geminiRes.json();
+    // Modell-Kette: 3.1 Flash zuerst, bei Fehler Fallback auf 2.5 Flash
+    const MODELS = [
+      { id: "gemini-3.1-flash-image-preview", size: "2K" },
+      { id: "gemini-2.5-flash-image", size: "1K" }
+    ];
 
-    if (!geminiRes.ok) {
-      const errMsg = geminiData.error?.message || JSON.stringify(geminiData).substring(0, 200) || "Gemini Fehler";
-      return jsonResponse({ error: `Gemini API ${geminiRes.status}: ${errMsg}` }, geminiRes.status, env);
+    let imagePart = null;
+    let textParts = [];
+    let lastError = "";
+
+    for (const model of MODELS) {
+      try {
+        const geminiRes = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model.id}:generateContent`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": env.GOOGLE_AI_API_KEY
+            },
+            body: JSON.stringify({
+              contents: [{
+                parts: [{ text: enhancedPrompt }]
+              }],
+              generationConfig: {
+                responseModalities: ["IMAGE", "TEXT"],
+                imageConfig: {
+                  aspectRatio: "16:9",
+                  imageSize: model.size
+                }
+              }
+            })
+          }
+        );
+        const geminiData = await geminiRes.json();
+
+        if (!geminiRes.ok) {
+          lastError = geminiData.error?.message || `${model.id}: HTTP ${geminiRes.status}`;
+          console.log(`Bildgenerierung ${model.id} fehlgeschlagen: ${lastError}`);
+          continue;
+        }
+
+        const parts = geminiData.candidates?.[0]?.content?.parts || [];
+        const img = parts.find(p => p.inlineData?.mimeType?.startsWith("image/"));
+        if (!img) {
+          const reason = geminiData.candidates?.[0]?.finishReason || "unbekannt";
+          lastError = `${model.id}: Kein Bild (finishReason: ${reason})`;
+          console.log(`Bildgenerierung ${model.id}: kein Bild in Antwort (${reason})`);
+          continue;
+        }
+
+        imagePart = img;
+        textParts = parts;
+        console.log(`Bild erfolgreich generiert mit ${model.id}`);
+        break;
+      } catch (e) {
+        lastError = `${model.id}: ${e.message}`;
+        console.log(`Bildgenerierung ${model.id} Exception: ${e.message}`);
+        continue;
+      }
     }
 
-    // Bild- und Text-Parts aus der Antwort extrahieren
-    const parts = geminiData.candidates?.[0]?.content?.parts || [];
-    const imagePart = parts.find(p => p.inlineData?.mimeType?.startsWith("image/"));
     if (!imagePart) {
-      return jsonResponse({ error: "Kein Bild generiert. Response: " + JSON.stringify(geminiData).substring(0, 300) }, 500, env);
+      return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + lastError }, 500, env);
     }
 
     const mimeType = imagePart.inlineData.mimeType || "image/png";
     const dataUrl = `data:${mimeType};base64,${imagePart.inlineData.data}`;
 
     // Caption aus der Gemini-Antwort extrahieren (da wir sie explizit angefordert haben)
-    const textPart = parts.find(p => p.text);
+    const textPart = textParts.find(p => p.text);
     let caption = "";
     if (textPart?.text) {
       // Erste Zeile als Caption nehmen, da der Prompt das so anfordert
