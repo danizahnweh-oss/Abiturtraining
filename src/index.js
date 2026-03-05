@@ -2,7 +2,7 @@
 const RATE_LIMIT_WINDOW = 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 10;
 const MAX_LOGIN_ATTEMPTS = 5;
-const MAX_BODY_SIZE = 5 * 1024 * 1024; // 5 MB
+const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10 MB (Bilder + Text bei Grade-Requests)
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
 const API_TIMEOUT = 90000; // 90s timeout for external API calls
 const rateLimitMap = new Map();
@@ -69,6 +69,27 @@ const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
 - "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 const UEBUNGSAUFGABEN_ANWEISUNG = `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
+
+/* ================= BILDER-SUPPORT FÜR GRADE-HANDLER ================= */
+
+const BILDER_HINWEIS_MINT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere Handschrift, mathematische Formeln, Diagramme, Skizzen und Reaktionsgleichungen direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`;
+
+const BILDER_HINWEIS_TEXT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere die Handschrift direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`;
+
+/**
+ * Baut multimodalen User-Content für OpenAI (Text + optionale Bilder).
+ * Ohne Bilder: normaler String (rückwärtskompatibel).
+ */
+function buildUserContent(textContent, images) {
+  if (!images || !images.length) return textContent;
+  return [
+    { type: "text", text: textContent },
+    ...images.slice(0, 10).map(img => ({
+      type: "image_url",
+      image_url: { url: `data:image/jpeg;base64,${img}`, detail: "high" }
+    }))
+  ];
+}
 
 /* ================= KORREKTURHILFE GEWÄHRLEISTUNGSRECHT ================= */
 const KORREKTURHILFE_GEWAEHRLEISTUNG = `
@@ -1327,7 +1348,7 @@ CRITICAL: The JSON must be valid. All string values must properly escape special
 /* ================= ENGLISCH: GRADE ================= */
 async function handleGrade(request, env) {
   const body = await request.json();
-  const { source_text_de, task_en, student_text_en, rubric_prompt } = body;
+  const { source_text_de, task_en, student_text_en, rubric_prompt, images } = body;
 
   const messages = [
     {
@@ -1345,15 +1366,15 @@ Return your evaluation in JSON format ONLY:
 }
 CALCULATION: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
 SPERRKLAUSEL: If inhalt_np OR sprache_np is 0, gesamt_np must be at most 3.
-IMPORTANT: Return ONLY valid JSON. No markdown fences.` + UEBUNGSAUFGABEN_ANWEISUNG
+IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.length) ? BILDER_HINWEIS_TEXT : "") + UEBUNGSAUFGABEN_ANWEISUNG
     },
     {
       role: "user",
-      content:
+      content: buildUserContent(
         `Deutscher Quelltext:\n${truncate(source_text_de, 15000)}\n\n` +
         `Englische Aufgabenstellung:\n${truncate(task_en, 5000)}\n\n` +
         `Schülertext (Englisch):\n${truncate(student_text_en, 15000)}\n\n` +
-        `Bewertungsraster:\n${truncate(rubric_prompt, 5000)}`
+        `Bewertungsraster:\n${truncate(rubric_prompt, 5000)}`, images)
     }
   ];
 
@@ -1411,7 +1432,12 @@ async function handleOCR(request, env) {
   }
 
   const content = [
-    { type: "text", text: "Transcribe all handwritten English text from this image. Return ONLY the transcribed text, nothing else." },
+    { type: "text", text: `Transkribiere den gesamten handgeschriebenen Text aus diesem Bild. Regeln:
+- Mathematische Formeln als LaTeX: $\\frac{a}{b}$, $\\int_0^1 x^2\\,dx$, $\\sqrt{x}$, $e^{-x}$
+- Chemische Formeln: H₂O, NaOH, CH₃COOH, Reaktionsgleichungen mit →
+- Physikalische Einheiten beibehalten: m/s, kg, N, J
+- Unsichere/unleserliche Stellen mit [?] markieren
+- Gib NUR den transkribierten Text zurück, keine Erklärungen.` },
     { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
   ];
 
@@ -1829,7 +1855,7 @@ KRITISCH - Längen wie im echten Abitur:
 /* ================= DEUTSCH: GRADE ================= */
 async function handleGradeDeutsch(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, type, materials, zieltext, zielgruppe } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, type, materials, zieltext, zielgruppe, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -1850,9 +1876,10 @@ async function handleGradeDeutsch(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -2420,7 +2447,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem
 /* ================= POLITIK UND GESELLSCHAFT: GRADE ================= */
 async function handleGradePuG(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -2438,9 +2465,10 @@ async function handleGradePuG(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -2716,7 +2744,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem
 /* ================= PUG ABITUR: GRADE ================= */
 async function handleGradeAbiturPuG(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text_a/b und rubric_prompt erforderlich." }, 400, env);
@@ -2736,9 +2764,10 @@ async function handleGradeAbiturPuG(request, env) {
 
   const korrekturAnweisung = KORREKTUR_AB;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -2966,7 +2995,7 @@ ${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem 
 /* ================= WIRTSCHAFT UND RECHT: GRADE ================= */
 async function handleGradeWR(request, env) {
   const body = await request.json();
-  const { aufgabenbloecke, materialien, student_text, niveau, gesamt_be, task_instruction } = body;
+  const { aufgabenbloecke, materialien, student_text, niveau, gesamt_be, task_instruction, images } = body;
 
   if (!student_text) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -3028,9 +3057,10 @@ Antworte NUR mit validem JSON:
   const istRechtsaufgabe = aufgabenText.includes('recht') || aufgabenText.includes('mangel') || aufgabenText.includes('gewährleist') || aufgabenText.includes('nacherfüllung') || aufgabenText.includes('verbrauchsgüterkauf') || aufgabenText.includes('bgb') || aufgabenText.includes('schadensersatz') || aufgabenText.includes('rücktritt') || aufgabenText.includes('kaufvertrag');
   const rechtsKorrektur = istRechtsaufgabe ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + rechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: rubricPrompt + bilderHinweis + rechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -3282,7 +3312,7 @@ KRITISCH:
 /* ================= GESCHICHTE ABITUR: GRADE ================= */
 async function handleGradeAbiturGeschichte(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b, student_text_a, student_text_b, rubric_prompt } = body;
+  const { task_instruction_a, task_instruction_b, primary_text_a, primary_text_b, student_text_a, student_text_b, rubric_prompt, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text_a/b und rubric_prompt erforderlich." }, 400, env);
@@ -3298,9 +3328,10 @@ async function handleGradeAbiturGeschichte(request, env) {
 
   const korrekturAnweisung = KORREKTUR_AB;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -3489,7 +3520,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= WR ABITUR: GRADE ================= */
 async function handleGradeAbiturWR(request, env) {
   const body = await request.json();
-  const { task_instruction_1, aufgabenbloecke_1, materialien_1, task_instruction_2, aufgabenbloecke_2, materialien_2, student_text_1, student_text_2, niveau, gesamt_be } = body;
+  const { task_instruction_1, aufgabenbloecke_1, materialien_1, task_instruction_2, aufgabenbloecke_2, materialien_2, student_text_1, student_text_2, niveau, gesamt_be, images } = body;
 
   if (!student_text_1 && !student_text_2) {
     return jsonResponse({ error: "student_text_1/2 erforderlich." }, 400, env);
@@ -3574,9 +3605,10 @@ Antworte NUR mit validem JSON:
   const abiIstRecht = abiWrText.includes('recht') || abiWrText.includes('mangel') || abiWrText.includes('gewährleist') || abiWrText.includes('nacherfüllung') || abiWrText.includes('verbrauchsgüterkauf') || abiWrText.includes('bgb') || abiWrText.includes('schadensersatz') || abiWrText.includes('rücktritt') || abiWrText.includes('kaufvertrag');
   const abiRechtsKorrektur = abiIstRecht ? KORREKTURHILFE_GEWAEHRLEISTUNG : '';
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + abiRechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}` }
+    { role: "system", content: rubricPrompt + bilderHinweis + abiRechtsKorrektur + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 12000);
@@ -4128,7 +4160,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem
 /* ================= ETHIK: GRADE ================= */
 async function handleGradeEthik(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -4146,9 +4178,10 @@ async function handleGradeEthik(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -4351,7 +4384,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= ETHIK ABITUR: GRADE ================= */
 async function handleGradeAbiturEthik(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -4371,9 +4404,10 @@ async function handleGradeAbiturEthik(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\n${studentTexts}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -4651,7 +4685,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
 /* ================= EV. RELIGION: GRADE ================= */
 async function handleGradeReligion(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -4669,9 +4703,10 @@ async function handleGradeReligion(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -4830,7 +4865,7 @@ Antworte NUR mit validem JSON:
 /* ================= EV. RELIGION ABITUR: GRADE ================= */
 async function handleGradeAbiturReligion(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -4846,9 +4881,10 @@ async function handleGradeAbiturReligion(request, env) {
 
   const korrekturAnweisung = KORREKTUR_AB;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -5114,7 +5150,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
 /* ================= KATH. RELIGION: GRADE ================= */
 async function handleGradeKatholisch(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -5132,9 +5168,10 @@ async function handleGradeKatholisch(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -5293,7 +5330,7 @@ Antworte NUR mit validem JSON:
 /* ================= KATH. RELIGION ABITUR: GRADE ================= */
 async function handleGradeAbiturKatholisch(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -5309,9 +5346,10 @@ async function handleGradeAbiturKatholisch(request, env) {
 
   const korrekturAnweisung = KORREKTUR_AB;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -5582,7 +5620,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem
 /* ================= GEOGRAPHIE: GRADE ================= */
 async function handleGradeGeographie(request, env) {
   const body = await request.json();
-  const { task_instruction, primary_text, student_text, rubric_prompt, materials } = body;
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -5600,9 +5638,10 @@ async function handleGradeGeographie(request, env) {
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -5797,7 +5836,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= GEOGRAPHIE ABITUR: GRADE ================= */
 async function handleGradeAbiturGeographie(request, env) {
   const body = await request.json();
-  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials } = body;
+  const { task_instruction_a, task_instruction_b, primary_text, student_text_a, student_text_b, rubric_prompt, materials, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -5821,9 +5860,10 @@ async function handleGradeAbiturGeographie(request, env) {
 
   const korrekturAnweisung = KORREKTUR_AB;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: truncate(rubric_prompt, 5000) + korrekturAnweisung },
-    { role: "user", content: `${contextInfo}\n${studentTexts}` }
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -6117,7 +6157,7 @@ Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben, von denen ${anza
 /* ================= LATEIN: GRADE ================= */
 async function handleGradeLatein(request, env) {
   const body = await request.json();
-  const { aufgabentyp, task_instruction, latin_text, student_text, rubric_prompt, vokabelhilfen, musteruebersetzung, aufgaben, deutsche_uebersetzung, level } = body;
+  const { aufgabentyp, task_instruction, latin_text, student_text, rubric_prompt, vokabelhilfen, musteruebersetzung, aufgaben, deutsche_uebersetzung, level, images } = body;
 
   if (!student_text || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -6168,9 +6208,10 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "Übersetzung", "aspekte": ["...", "..."]}]
 }`;
 
+    const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
     const messages = [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: `${contextInfo}\nSchülerübersetzung:\n${truncate(student_text, 15000)}` }
+      { role: "system", content: systemPrompt + bilderHinweis },
+      { role: "user", content: buildUserContent(`${contextInfo}\nSchülerübersetzung:\n${truncate(student_text, 15000)}`, images) }
     ];
 
     const openaiRes = await callOpenAI(env, messages, 8000);
@@ -6230,9 +6271,10 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "Abschnitt X", "aspekte": ["...", "..."]}]
 }`;
 
+    const bilderHinweis2 = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
     const messages = [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: `${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}` }
+      { role: "system", content: systemPrompt + bilderHinweis2 },
+      { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
     ];
 
     const openaiRes = await callOpenAI(env, messages, 8000);
@@ -6458,7 +6500,7 @@ Teil B Abschnitt III: Erstelle ${anzahlWeiterfuehrendGesamt} Aufgaben, von denen
 /* ================= LATEIN ABITUR: GRADE ================= */
 async function handleGradeAbiturLatein(request, env) {
   const body = await request.json();
-  const { student_text_a, student_text_b, rubric_prompt, task_instruction_a, task_instruction_b, latin_text_a, latin_text_b, vokabelhilfen, musteruebersetzung, deutsche_uebersetzung, aufgaben, level } = body;
+  const { student_text_a, student_text_b, rubric_prompt, task_instruction_a, task_instruction_b, latin_text_a, latin_text_b, vokabelhilfen, musteruebersetzung, deutsche_uebersetzung, aufgaben, level, images } = body;
 
   if ((!student_text_a && !student_text_b) || !rubric_prompt) {
     return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
@@ -6524,9 +6566,10 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "...", "aspekte": ["...", "..."]}]
 }`;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: `${contextInfo}\n${studentTexts}` }
+    { role: "system", content: systemPrompt + bilderHinweis },
+    { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 12000);
@@ -6823,7 +6866,7 @@ PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben. Erstelle
 /* ================= MATHEMATIK: GRADE ================= */
 async function handleGradeMathe(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, aufgabentyp, student_text, student_texts } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, aufgabentyp, student_text, student_texts, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -6886,9 +6929,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
 }`;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -7171,7 +7215,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation. JEDE Teilaufgabe braucht einen klaren 
 /* ================= MATHEMATIK ABITUR: GRADE ================= */
 async function handleGradeAbiturMathe(request, env) {
   const body = await request.json();
-  const { teil_a_pflicht, teil_a_wahl, teil_b, student_text_a, student_text_b } = body;
+  const { teil_a_pflicht, teil_a_wahl, teil_b, student_text_a, student_text_b, images } = body;
 
   if (!student_text_a && !student_text_b) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -7242,9 +7286,10 @@ Antworte NUR mit validem JSON:
   if (student_text_a) studentTexts += `Schülerlösung Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
   if (student_text_b) studentTexts += `Schülerlösung Teil B:\n${truncate(student_text_b, 12000)}`;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -7508,7 +7553,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit
 /* ================= CHEMIE: GRADE ================= */
 async function handleGradeChemie(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -7579,9 +7624,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$/$\\\\ce{}$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
 }`;
 
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -7828,7 +7874,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 /* ================= PHYSIK: GRADE ================= */
 async function handleGradePhysik(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -7896,9 +7942,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
 }`;
 
+  const bilderHinweisPhysik = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweisPhysik + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
@@ -8203,7 +8250,7 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
 /* ================= BIO: GRADE ================= */
 async function handleGradeBio(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -8272,9 +8319,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$-Formeln, Stärken, Fehlern, korrekten Lösungswegen>"
 }`;
 
+  const bilderHinweisBio = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweisBio + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
@@ -8508,7 +8556,7 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
 /* ================= SPORT: GRADE ================= */
 async function handleGradeSport(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -8572,9 +8620,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisSport = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweisSport + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
@@ -8817,7 +8866,7 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
 /* ================= INFORMATIK: GRADE ================= */
 async function handleGradeInformatik(request, env) {
   const body = await request.json();
-  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material } = body;
+  const { aufgabe, teilaufgaben, gesamt_be, sachgebiet, student_text, student_texts, material, images } = body;
 
   if (!student_text && !student_texts) {
     return jsonResponse({ error: "student_text erforderlich." }, 400, env);
@@ -8884,9 +8933,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisInfo = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `${aufgabenInfo}\n${studentSolutionText}` }
+    { role: "system", content: rubricPrompt + bilderHinweisInfo + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000, { model: "gpt-5.2", temperature: 0.3 });
@@ -9197,7 +9247,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= CHEMIE ABITUR: GRADE ================= */
 async function handleGradeAbiturChemie(request, env) {
   const body = await request.json();
-  const { aufgaben, student_texts, level } = body;
+  const { aufgaben, student_texts, level, images } = body;
 
   if (!student_texts || !Object.keys(student_texts).length) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
@@ -9263,9 +9313,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$/$\\\\ce{}$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisAbiChemie = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweisAbiChemie + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -9518,7 +9569,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= PHYSIK ABITUR: GRADE ================= */
 async function handleGradeAbiturPhysik(request, env) {
   const body = await request.json();
-  const { aufgaben, student_texts, level } = body;
+  const { aufgaben, student_texts, level, images } = body;
 
   if (!student_texts || !Object.keys(student_texts).length) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
@@ -9583,9 +9634,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisAbiPhysik = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweisAbiPhysik + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
@@ -9941,7 +9993,7 @@ function enrichBioMaterials(data) {
 /* ================= BIOLOGIE ABITUR: GRADE ================= */
 async function handleGradeAbiturBiologie(request, env) {
   const body = await request.json();
-  const { aufgaben, student_texts, level } = body;
+  const { aufgaben, student_texts, level, images } = body;
 
   if (!student_texts || !Object.keys(student_texts).length) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
@@ -10007,9 +10059,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisAbiBio = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweisAbiBio + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000, { model: "gpt-5.2", temperature: 0.3 });
@@ -10220,7 +10273,7 @@ WICHTIG:
 /* ================= SPORT ABITUR: GRADE ================= */
 async function handleGradeAbiturSport(request, env) {
   const body = await request.json();
-  const { aufgaben, student_texts, level } = body;
+  const { aufgaben, student_texts, level, images } = body;
 
   if (!student_texts || !Object.keys(student_texts).length) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
@@ -10281,9 +10334,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach thematischen Blöcken und Teilaufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisAbiSport = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweisAbiSport + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000, { model: "gpt-5.2", temperature: 0.3 });
@@ -10486,7 +10540,7 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
 /* ================= INFORMATIK ABITUR: GRADE ================= */
 async function handleGradeAbiturInformatik(request, env) {
   const body = await request.json();
-  const { aufgaben, student_texts, level } = body;
+  const { aufgaben, student_texts, level, images } = body;
 
   if (!student_texts || !Object.keys(student_texts).length) {
     return jsonResponse({ error: "student_texts erforderlich." }, 400, env);
@@ -10548,9 +10602,10 @@ Antworte NUR mit validem JSON:
   "feedback": "<Ausführliches Markdown-Feedback, gegliedert nach Aufgaben, Stärken, Fehler, korrekte Lösungswege>"
 }`;
 
+  const bilderHinweisAbiInfo = (images && images.length) ? BILDER_HINWEIS_MINT : "";
   const messages = [
-    { role: "system", content: rubricPrompt + UEBUNGSAUFGABEN_ANWEISUNG },
-    { role: "user", content: `AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}` }
+    { role: "system", content: rubricPrompt + bilderHinweisAbiInfo + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 10000);
