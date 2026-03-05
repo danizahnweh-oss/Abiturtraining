@@ -346,13 +346,6 @@
 
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Neue Aufgabe generieren</h2>
-        <div class="form-group">
-          <label>Niveau</label>
-          <select id="niveauSelect" onchange="updateNiveau()">
-            <option value="eA">Erh&ouml;htes Anforderungsniveau (eA)</option>
-            <option value="gA">Grundlegendes Anforderungsniveau (gA)</option>
-          </select>
-        </div>
         <div class="form-group" id="fachbereichSection">
           <label>Sachgebiet</label>
           <div class="hj-grid">
@@ -383,9 +376,6 @@
             </div>
           </div>
           <div id="subtopics-panel" class="subtopics-panel"></div>
-        </div>
-        <div id="gaHint" style="display:none;padding:.8rem 1rem;background:var(--accent-glow);border-radius:var(--radius-sm);margin-bottom:1rem;font-size:.9rem">
-          <strong>gA &ndash; Integriert:</strong> Die Aufgabe deckt alle Sachgebiete ab.
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
@@ -754,15 +744,6 @@ Struktur:
       renderSubtopics();
     }
 
-    function updateNiveau() {
-      var niveau = document.getElementById("niveauSelect").value;
-      var isGA = niveau === "gA";
-      document.getElementById("fachbereichSection").style.display = isGA ? "none" : "block";
-      document.getElementById("gaHint").style.display = isGA ? "block" : "none";
-      document.getElementById("timerMinutes").value = isGA ? "210" : "135";
-      document.getElementById("totalBE").value = isGA ? "100" : "60";
-    }
-
     /* ====== SETUP MODE ====== */
     function setSetupMode(m) {
       document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
@@ -828,20 +809,16 @@ Struktur:
       b.disabled = true;
       document.getElementById("setupLoader").style.display = "block";
       try {
-        const niveau = document.getElementById("niveauSelect").value;
-        const isGA = niveau === "gA";
         const d = await apiCall("/api/fos-generate-biologie", {
-          niveau: niveau,
-          fachbereich: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
-          sachgebiet: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
-          unterpunkte: isGA ? [] : getSelectedSubtopics(),
+          fachbereich: CONFIG.selectedSachgebiete.join(", "),
+          sachgebiet: CONFIG.selectedSachgebiete.join(", "),
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 135,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1
         });
         CONFIG.storedData = d;
-        CONFIG.storedData._niveau = niveau;
-        CONFIG.storedData._fachbereich = isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", ");
+        CONFIG.storedData._fachbereich = CONFIG.selectedSachgebiete.join(", ");
         renderTask(d);
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }
@@ -925,14 +902,12 @@ Struktur:
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        const niveau = CONFIG.storedData._niveau || document.getElementById("niveauSelect").value;
-        const maxBE = CONFIG.storedData.gesamt_be || (niveau === "gA" ? 100 : 60);
+        const maxBE = CONFIG.storedData.gesamt_be || 60;
 
         const d = await apiCall("/api/fos-grade-biologie", {
           aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
           materialien: CONFIG.storedData.materialien || [],
           student_text: t,
-          niveau: niveau,
           gesamt_be: maxBE,
           task_instruction: CONFIG.storedData.task_instruction || ""
         });
@@ -1054,15 +1029,6 @@ Struktur:
     }
 
     /* ====== INIT ====== */
-    // Set initial niveau from session storage
-    (function () {
-      const level = sessionStorage.getItem("student_level") || "eA";
-      const sel = document.getElementById("niveauSelect");
-      if (sel) {
-        sel.value = level;
-        updateFachbereichVisibility();
-      }
-    })();
   </script>
 </body>
 
