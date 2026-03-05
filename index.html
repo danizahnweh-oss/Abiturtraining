@@ -2141,15 +2141,12 @@
           if (logoShown) return;
           logoShown = true;
           cancelAnimationFrame(animId);
-          // Canvas sofort ausblenden
+          // Canvas ausblenden
           canvas.style.display = 'none';
-          // Logo sofort sichtbar machen
-          logo.style.visibility = 'visible';
-          logo.style.opacity = '1';
-          logo.style.transform = 'scale(1)';
-          logo.style.transition = 'opacity 0.5s ease';
-          // Logo 2 Sekunden anzeigen, dann Splash ausblenden
-          setTimeout(hideSplash, 2000);
+          // Logo per CSS-Animation einblenden (logo-fade-in, 1.2s)
+          logo.classList.add('show');
+          // 1.2s Animation + 2s Anzeige, dann Splash ausblenden
+          setTimeout(hideSplash, 3200);
         }
 
         // Chroma-Key auf Canvas zeichnen
