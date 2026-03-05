@@ -146,12 +146,112 @@
       line-height: 2;
     }
 
+    /* ====== Aufgabentyp-Grid (hj-Karten) ====== */
+    .hj-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .hj-card {
+      position: relative;
+      background: var(--surface, var(--bg-warm));
+      border: 2px solid var(--border);
+      border-radius: var(--radius, 12px);
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .hj-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .hj-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .hj-icon {
+      font-size: 2rem;
+      margin-bottom: .5rem;
+      line-height: 1;
+    }
+
+    .hj-name {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--ink);
+      margin-bottom: .25rem;
+    }
+
+    .hj-desc {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    /* ====== Thema/Textart Selects ====== */
+    .setup-selects {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .setup-selects select {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      background: var(--surface, var(--bg));
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .setup-selects select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .setup-selects label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--ink-muted);
+      margin-bottom: .4rem;
+    }
+
     @media (max-width: 640px) {
       .scores-grid {
         grid-template-columns: 1fr;
       }
 
       .mode-toggle {
+        grid-template-columns: 1fr;
+      }
+
+      .hj-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .setup-selects {
         grid-template-columns: 1fr;
       }
     }
@@ -263,6 +363,29 @@
               </div>
             </div>
             <div id="subtopics-panel" class="subtopics-panel"></div>
+          </div>
+
+          <div class="setup-selects">
+            <div>
+              <label for="topicSelect">Thema</label>
+              <select id="topicSelect">
+                <option value="random">Zufallsthema</option>
+                <option value="society">Gesellschaft & Medien</option>
+                <option value="globalisation">Globalisierung</option>
+                <option value="environment">Umwelt & Nachhaltigkeit</option>
+                <option value="technology">Technologie & Digitalisierung</option>
+                <option value="education">Bildung & Beruf</option>
+                <option value="culture">Kultur & Identität</option>
+                <option value="politics">Politik & Demokratie</option>
+              </select>
+            </div>
+            <div>
+              <label for="textTypeSelect">Textart</label>
+              <select id="textTypeSelect">
+                <option value="nicht-literarisch">Sachtext</option>
+                <option value="literarisch">Literarischer Text</option>
+              </select>
+            </div>
           </div>
 
           <button class="btn" id="generateBtn" onclick="generateExam()">
