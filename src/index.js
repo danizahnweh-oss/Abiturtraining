@@ -1224,13 +1224,19 @@ Du kannst die Erinnerungsfrequenz jederzeit in der App ändern.<br>
 }
 
 async function sendReminderEmails(env) {
-  if (!env.RESEND_API_KEY) return;
+  console.log("Cron: sendReminderEmails gestartet");
+
+  if (!env.RESEND_API_KEY) {
+    console.error("Cron: RESEND_API_KEY nicht gesetzt — Abbruch!");
+    return;
+  }
 
   // Alle Schüler mit Email + aktiver Erinnerung laden
   const { results: students } = await env.DB.prepare(
     "SELECT name, name_lower, email, exam_subjects, reminder_interval, last_reminder_sent FROM students WHERE email IS NOT NULL AND email != '' AND reminder_interval > 0"
   ).all();
 
+  console.log(`Cron: ${students?.length || 0} Schüler mit aktiver Erinnerung gefunden`);
   if (!students || students.length === 0) return;
 
   const now = Date.now();
@@ -1289,7 +1295,8 @@ async function sendReminderEmails(env) {
 
     // Via Resend senden
     try {
-      await fetch("https://api.resend.com/emails", {
+      console.log(`Sende Erinnerungsmail an ${student.name_lower} (${student.email}), ${overdue.length} Fächer überfällig`);
+      const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${env.RESEND_API_KEY}`,
@@ -1303,6 +1310,13 @@ async function sendReminderEmails(env) {
         })
       });
 
+      if (!res.ok) {
+        const errBody = await res.text();
+        console.error(`Resend-Fehler für ${student.name_lower} (${res.status}):`, errBody);
+        continue; // last_reminder_sent NICHT updaten → nächster Versuch morgen
+      }
+
+      console.log(`Email erfolgreich gesendet an ${student.name_lower}`);
       await env.DB.prepare(
         "UPDATE students SET last_reminder_sent = ? WHERE name_lower = ?"
       ).bind(new Date().toISOString(), student.name_lower).run();
