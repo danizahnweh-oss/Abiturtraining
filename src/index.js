@@ -3212,10 +3212,11 @@ async function handleGenerateAbiturGeschichte(request, env) {
    - Sprache muss dem Entstehungszeitraum entsprechen
    - Vollständige Quellenangabe
    - Optional: 0-2 ergänzende Materialien (M 2, M 3) als "zusatz_materialien" Array: Schaubilder, Infografiken, Statistiken
-3. TEILAUFGABEN (3 Stück, steigende AFB):
-   - Teilaufgabe 1 (AFB I/II): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
-   - Teilaufgabe 2 (AFB II): "Ordnen Sie ein …" / "Erläutern Sie …"
-   - Teilaufgabe 3 (AFB III): "Beurteilen Sie …" / "Erörtern Sie …"
+3. TEILAUFGABEN (3 Stück, steigende AFB) MIT BE-ANGABEN:
+   - Teilaufgabe 1 (AFB I/II, ca. ${isEA ? "20" : "16"} BE): "Arbeiten Sie aus M 1 heraus …" / "Stellen Sie dar …"
+   - Teilaufgabe 2 (AFB II, ca. ${isEA ? "20" : "16"} BE): "Ordnen Sie ein …" / "Erläutern Sie …"
+   - Teilaufgabe 3 (AFB III, ca. ${isEA ? "20" : "16"} BE): "Beurteilen Sie …" / "Erörtern Sie …"
+   Gib bei JEDER Teilaufgabe die BE in Klammern an, z.B. "(20 BE)"
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
 THEMEN: ${sp.themen}
@@ -3229,17 +3230,25 @@ ${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGE
 - Erfordert historische Darstellung und Beurteilung
 - Kann Transfer zu einem anderen Halbjahr enthalten
 - Möglicher Transferbezug: ${transferSP.replace("_", "/")} – ${transferThema}
-- 2 Teilaufgaben auf AFB II-III
+- 2 Teilaufgaben auf AFB II-III mit BE-Angaben (je ca. ${isEA ? "20" : "18"} BE)
+
+=== BE-VERTEILUNG (Bewertungseinheiten) ===
+- Gesamt: ${refBE} BE
+- Teil A: ca. ${isEA ? "60" : "48"} BE (3 Teilaufgaben)
+- Teil B: ca. ${isEA ? "40" : "36"} BE (2 Teilaufgaben)
+- Darstellungsleistung: ${isEA ? "20" : "16"} BE
+- Gib bei JEDER Teilaufgabe die BE in Klammern an, z.B. "1. Arbeiten Sie … heraus. (20 BE)"
+- Die Summe aller Teilaufgaben-BE + Darstellungsleistung muss ${refBE} BE ergeben
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction_a": "Vollständige Aufgabenstellung Teil A: Einleitung + 3 nummerierte Teilaufgaben",
+  "task_instruction_a": "Vollständige Aufgabenstellung Teil A: Einleitung + 3 nummerierte Teilaufgaben mit BE-Angaben in Klammern",
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
     {"title": "Schaubild: ...", "type": "bild", "content": "Ausführlicher Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in Anführungszeichen mit Positionsangabe stehen. Keine Rechtschreibfehler!", "source": ""}
   ],
-  "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben",
+  "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben mit BE-Angaben in Klammern",
   "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
   "primary_meta_b": "Quellenangabe Impuls oder leerer String",
   "thema": "Konkretes Thema",
@@ -3254,8 +3263,8 @@ ${!isEA ? `- WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Le
 KRITISCH:
 - Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Die Quelle soll MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
 - Verwende eine REALE historische Persönlichkeit als Autor
-- Teil A: 3 Teilaufgaben mit steigendem AFB
-- Teil B: Eigenständige Darstellungsaufgabe, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
+- Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
+- Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
 - ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
 - Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein historisches Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (mind. 3-5 Sätze), aber alle Texte/Beschriftungen IM BILD müssen auf DEUTSCH sein und in "" mit exakter Positionsbeschreibung stehen. KEINE Rechtschreibfehler! KEINE Karikaturen oder Personen!
 - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
