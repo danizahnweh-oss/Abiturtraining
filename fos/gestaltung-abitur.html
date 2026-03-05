@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ec4899">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS &middot; Gestaltung Fachabiturtraining</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F3A8;</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+  <style>
+    /* Pink accent override */
+    :root {
+      --accent: #ec4899;
+      --accent-hover: #db2777;
+      --accent-soft: #fce7f3;
+      --accent-glow: rgba(236, 72, 153, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #f472b6;
+      --accent-hover: #f9a8d4;
+      --accent-soft: rgba(244, 114, 182, .15);
+      --accent-glow: rgba(244, 114, 182, .08);
+    }
+
+    /* Aufgaben-Bloecke */
+    .aufgabe-block {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .aufgabe-block h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: .8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--accent);
+    }
+
+    .aufgabe-block h3 .be-tag {
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .aufgabe-block .aufgabe-text {
+      line-height: 1.7;
+      font-size: .9rem;
+      max-height: 300px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: .8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin: .5rem 0;
+    }
+
+    .aufgabe-block .aufgabe-quelle {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: .3rem;
+    }
+
+    .teilaufgabe {
+      padding: .5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .teilaufgabe:last-child {
+      border-bottom: none;
+    }
+
+    .teilaufgabe .ta-nr {
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 2.5rem;
+      display: inline-block;
+    }
+
+    .teilaufgabe .ta-be {
+      font-family: var(--font-mono);
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-left: .5rem;
+    }
+
+    .teilaufgabe .ta-afb {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      background: var(--border);
+      color: var(--ink-light);
+      margin-left: .3rem;
+    }
+
+    /* Material-Karten inline */
+    .material-inline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin: .5rem 0;
+      overflow: hidden;
+    }
+
+    .material-inline summary {
+      padding: .6rem .8rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .material-inline summary:hover {
+      background: var(--accent-glow);
+    }
+
+    .material-inline .material-body {
+      padding: 0 .8rem .8rem;
+      line-height: 1.7;
+      font-size: .9rem;
+      max-height: 250px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .material-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .material-source {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: .3rem;
+    }
+
+    /* Write-Part (3 Textareas) */
+    .write-part {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    .write-part h3 {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      color: var(--accent);
+    }
+
+    .write-part textarea {
+      min-height: 220px;
+    }
+
+    .write-part .word-counter {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .4rem;
+    }
+
+    /* BE scores grid */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+
+    /* Block-Score in Feedback */
+    .block-score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .8rem 1rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: .5rem;
+    }
+
+    .block-score .block-name {
+      font-weight: 600;
+      font-size: .9rem;
+    }
+
+    .block-score .block-be {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* Korrektur-Legende */
+    .korrektur-legende {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: .8rem;
+      flex-wrap: wrap;
+    }
+
+    .fehler-rs-demo {
+      background: #fef2f2;
+      color: #dc2626;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .8rem;
+    }
+
+    .fehler-gr-demo {
+      background: #fefce8;
+      color: #ca8a04;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .8rem;
+    }
+
+    @media(max-width:650px) {
+      .be-scores-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html?back=gestaltung" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Gestaltung &middot; <span>Fachabiturtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Pr&uuml;fung</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> L&ouml;sung</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Fachabiturpr&uuml;fung generieren</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
+          Vollst&auml;ndige Gestaltung-Fachabiturpr&uuml;fung (80 BE, 240 min):<br>
+          <strong>3 Pflichtaufgaben</strong> &ndash; alle m&uuml;ssen bearbeitet werden.<br>
+          Gestaltungstheorie, Gestaltungspraxis, Medien &amp; Kommunikation
+        </p>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Fachabiturpr&uuml;fung generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Gestaltung-Fachabiturpr&uuml;fung &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="240" min="60" max="300" style="max-width:120px">
+        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">FAP: 240 Min. &middot; 3 Aufgaben &middot; 80 BE gesamt</div>
+      </div>
+    </section>
+
+    <!-- STEP 2: TASK DISPLAY -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Pr&uuml;fungsaufgaben</h2>
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
+          Bearbeite <strong>alle 3 Aufgaben</strong>. Die BE-Verteilung findest du bei jeder Aufgabe.
+        </p>
+        <div id="aufgabenContainer"></div>
+      </div>
+
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgaben anzeigen</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:500px;overflow-y:auto;-webkit-overflow-scrolling:touch">
+            <div id="writeTaskRef" style="font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <!-- Textarea 1 -->
+        <div class="write-part">
+          <h3 id="writeLabel1">Aufgabe 1</h3>
+          <textarea id="studentText1" placeholder="Aufgabe 1: Beginne hier mit deiner L&ouml;sung &hellip;" oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount1">0</span> W&ouml;rter</div>
+        </div>
+
+        <!-- Textarea 2 -->
+        <div class="write-part">
+          <h3 id="writeLabel2">Aufgabe 2</h3>
+          <textarea id="studentText2" placeholder="Aufgabe 2: Beginne hier mit deiner L&ouml;sung &hellip;" oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount2">0</span> W&ouml;rter</div>
+        </div>
+
+        <!-- Textarea 3 -->
+        <div class="write-part">
+          <h3 id="writeLabel3">Aufgabe 3</h3>
+          <textarea id="studentText3" placeholder="Aufgabe 3: Beginne hier mit deiner L&ouml;sung &hellip;" oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount3">0</span> W&ouml;rter</div>
+        </div>
+
+        <div class="write-toolbar">
+          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText(1)">&#x2713; In Aufgabe 1</button>
+            <button class="btn btn-small" onclick="useOCRText(2)">&#x2713; In Aufgabe 2</button>
+            <button class="btn btn-small" onclick="useOCRText(3)">&#x2713; In Aufgabe 3</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte Fachabiturpr&uuml;fung &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="be-scores-grid" id="scoresGrid">
+            <!-- Dynamisch befuellt -->
+          </div>
+          <div id="blockScoresContainer"></div>
+        </div>
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Pr&uuml;fung</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow FOS &middot; Gestaltung Fachabiturtraining</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "fos_gestaltung_abitur",
+      historyKey: "fos_gestaltung_abitur_history_",
+      historyType: "fos_gestaltung-abitur",
+      pdfFilename: "FOS_Gestaltung_Fachabitur",
+      chartColor: "#ec4899",
+      minWords: 20,
+      loginPage: "index.html"
+    };
+  </script>
+  <script src="tour.js"></script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    // BE -> NP Umrechnungstabelle (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    /* ====== SESSION SAVE/RESTORE ====== */
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      localStorage.setItem(key, JSON.stringify({
+        studentText1: document.getElementById("studentText1").value,
+        studentText2: document.getElementById("studentText2").value,
+        studentText3: document.getElementById("studentText3").value,
+        storedData: CONFIG.storedData
+      }));
+      showToast("Gespeichert!", "success");
+    }
+
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.studentText1) document.getElementById("studentText1").value = s.studentText1;
+          if (s.studentText2) document.getElementById("studentText2").value = s.studentText2;
+          if (s.studentText3) document.getElementById("studentText3").value = s.studentText3;
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          updateWordCounts();
+        }
+      } catch (e) { }
+    }
+
+    /* ====== WORD COUNTS ====== */
+    function updateWordCounts() {
+      var w1 = countWords(document.getElementById("studentText1").value);
+      var w2 = countWords(document.getElementById("studentText2").value);
+      var w3 = countWords(document.getElementById("studentText3").value);
+      document.getElementById("wordCount1").textContent = w1;
+      document.getElementById("wordCount2").textContent = w2;
+      document.getElementById("wordCount3").textContent = w3;
+      document.getElementById("wordCountTotal").textContent = w1 + w2 + w3;
+    }
+    function updateWordCount() { updateWordCounts(); }
+
+    /* ====== OCR: Text uebernehmen ====== */
+    function useOCRText(nr) {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      document.getElementById("studentText" + nr).value = clean;
+      updateWordCounts();
+      showToast("Text in Aufgabe " + nr + " \u00fcbernommen!", "success");
+    }
+
+    /* ====== GENERATE ====== */
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/fos-generate-abitur-gestaltung", {});
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    /* ====== RENDER TASK (3 Pflichtaufgaben) ====== */
+    function renderTask(d) {
+      var container = document.getElementById("aufgabenContainer");
+      if (!d.aufgaben || !d.aufgaben.length) {
+        container.innerHTML = '<p style="color:var(--ink-muted)">Keine Aufgaben generiert.</p>';
+        return;
+      }
+
+      container.innerHTML = d.aufgaben.map(function (a, idx) {
+        var html = '<div class="aufgabe-block">';
+
+        // Header
+        html += '<h3>' + escapeHtml(a.titel || ("Aufgabe " + (a.nr || (idx + 1)))) + ' <span class="be-tag">' + (a.be || "?") + ' BE</span></h3>';
+
+        // Thema
+        if (a.thema) {
+          html += '<div style="font-size:.85rem;color:var(--ink-light);margin-bottom:.5rem">Thema: ' + escapeHtml(a.thema) + '</div>';
+        }
+
+        // Kontext / Einleitungstext
+        if (a.text || a.kontext) {
+          html += '<div class="aufgabe-text">' + escapeHtml(a.text || a.kontext).replace(/\n/g, "<br>") + '</div>';
+        }
+
+        // Quelle
+        if (a.quelle) {
+          html += '<div class="aufgabe-quelle">Quelle: ' + escapeHtml(a.quelle) + '</div>';
+        }
+
+        // Materialien
+        if (a.materialien && a.materialien.length) {
+          a.materialien.forEach(function (m) {
+            var mBody = '';
+            if (m.text || m.inhalt) {
+              var txt = m.text || m.inhalt;
+              if (m.typ === 'statistik' && txt.includes('|')) {
+                mBody = DOMPurify.sanitize(marked.parse(txt));
+              } else {
+                mBody = escapeHtml(txt).replace(/\n/g, "<br>");
+              }
+            }
+            html += '<details class="material-inline">' +
+              '<summary><span class="material-badge">' + escapeHtml(m.nr || '') + '</span> ' + escapeHtml(m.quelle || m.titel || '') + '</summary>' +
+              '<div class="material-body">' + mBody + '</div>' +
+              '</details>';
+          });
+        }
+
+        // Teilaufgaben
+        if (a.teilaufgaben && a.teilaufgaben.length) {
+          a.teilaufgaben.forEach(function (t) {
+            html += '<div class="teilaufgabe"><span class="ta-nr">' + escapeHtml(String(t.nr || t.id || "")) + '</span> ' +
+              escapeHtml(t.text || "") +
+              (t.be ? ' <span class="ta-be">' + t.be + ' BE</span>' : '') +
+              (t.afb ? '<span class="ta-afb">AFB ' + escapeHtml(t.afb) + '</span>' : '') +
+              '</div>';
+          });
+        }
+
+        // Aufgabenstellung (falls kein teilaufgaben-Array)
+        if (a.aufgabenstellung && !(a.teilaufgaben && a.teilaufgaben.length)) {
+          html += '<div style="font-weight:600;margin-top:.6rem;padding:.6rem .8rem;background:var(--accent-glow);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.6">' +
+            escapeHtml(a.aufgabenstellung).replace(/\n/g, "<br>") + '</div>';
+        }
+
+        html += '</div>';
+        return html;
+      }).join("");
+
+      // Write-Labels aktualisieren
+      d.aufgaben.forEach(function (a, idx) {
+        var label = document.getElementById("writeLabel" + (idx + 1));
+        if (label) {
+          label.textContent = (a.titel || ("Aufgabe " + (a.nr || (idx + 1)))) + " (" + (a.be || "?") + " BE)";
+        }
+      });
+
+      // Write-Referenz
+      document.getElementById("writeTaskRef").innerHTML = container.innerHTML;
+    }
+
+    /* ====== SUBMIT FOR GRADING ====== */
+    async function submitForGrading() {
+      var t1 = document.getElementById("studentText1").value;
+      var t2 = document.getElementById("studentText2").value;
+      var t3 = document.getElementById("studentText3").value;
+      var totalWords = countWords(t1) + countWords(t2) + countWords(t3);
+      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      try {
+        var aufgaben = CONFIG.storedData.aufgaben || [];
+        var d = await apiCall("/api/fos-grade-abitur-gestaltung", {
+          aufgaben: aufgaben,
+          student_texts: [t1, t2, t3],
+          gesamt_be: CONFIG.storedData.gesamt_be || 80
+        });
+
+        // Score-Anzeige
+        var gesamtBE = d.gesamt_be ?? d.scores?.be_erreicht ?? null;
+        var maxBE = CONFIG.storedData.gesamt_be || 80;
+        var np = d.note ?? d.scores?.notenpunkte ?? beToNP(gesamtBE, maxBE);
+
+        // Dynamische Score-Karten
+        var scoresHtml = '';
+        if (d.aufgaben_be && d.aufgaben_be.length) {
+          d.aufgaben_be.forEach(function (ab, idx) {
+            scoresHtml += '<div class="be-score-card"><div class="score-label">' + escapeHtml(ab.titel || ("Aufgabe " + (idx + 1))) + '</div><div class="score-value">' + (ab.be_erreicht ?? "\u2013") + '</div><div class="score-max">/ ' + (ab.be_max ?? "?") + ' BE</div></div>';
+          });
+        }
+        scoresHtml += '<div class="be-score-card"><div class="score-label">Gesamt</div><div class="score-value">' + (gesamtBE ?? "\u2013") + '</div><div class="score-max">/ ' + maxBE + ' BE</div></div>';
+        scoresHtml += '<div class="be-score-card total"><div class="score-label">Notenpunkte</div><div class="score-value">' + (np ?? "\u2013") + '</div><div class="score-max">/ 15</div></div>';
+        document.getElementById("scoresGrid").innerHTML = scoresHtml;
+
+        // Block-Scores (falls vorhanden)
+        var blockHtml = (d.bewertung_bloecke || []).map(function (b) {
+          return '<div class="block-score"><span class="block-name">Block ' + b.block_nr + '</span><span class="block-be">' + b.be_erreicht + ' / ' + b.be_max + ' BE</span></div>';
+        }).join("");
+        document.getElementById("blockScoresContainer").innerHTML = blockHtml;
+
+        saveToHistory({
+          gesamt_be: gesamtBE,
+          notenpunkte: np,
+          total: typeof np === "number" ? np : null
+        });
+
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "fos_gestaltung-abitur",
+          topic: "Gestaltung Abitur",
+          content: gesamtBE,
+          language: np,
+          total: typeof np === "number" ? np : null,
+          date: new Date().toISOString()
+        }).catch(function () { });
+
+        stopTimer();
+
+        // Feedback rendern
+        var fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+
+        // Korrektur
+        renderKorrekturFeedback(d);
+
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    /* ====== MODEL ANSWER ====== */
+    async function showModelAnswer() {
+      var card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        var d = await apiCall("/api/fos-model-answer-abitur-gestaltung", {
+          aufgaben: CONFIG.storedData.aufgaben || []
+        });
+        var body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+
+    /* ====== HISTORY TABLE ====== */
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map(function (x, i) {
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td class="history-score">' + (x.gesamt_be ?? "\u2013") + '</td><td class="history-score" style="font-weight:700">' + (x.notenpunkte ?? x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    /* ====== ONBOARDING TOUR ====== */
+    if (typeof startTour === "function" && !isTourDone("fos_gestaltung_abi_tour_done")) {
+      setTimeout(function () {
+        startTour({
+          steps: [
+            {
+              type: "welcome",
+              title: "Gestaltung-Fachabiturtraining",
+              text: "Simuliere eine vollst\u00e4ndige Gestaltung-Fachabiturpr\u00fcfung mit 3 Pflichtaufgaben."
+            },
+            {
+              target: "#generateBtn",
+              title: "Pr\u00fcfung generieren",
+              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren. Du bearbeitest alle 3 Aufgaben.",
+              pos: "bottom"
+            },
+            {
+              target: "#timerMinutes",
+              title: "Bearbeitungszeit",
+              text: "Standard sind 240 Minuten (4 Stunden). Insgesamt 80 BE.",
+              pos: "right"
+            },
+            {
+              target: "nav",
+              title: "Pr\u00fcfungsablauf",
+              text: "Nach dem Generieren: Aufgaben lesen, L\u00f6sungen schreiben und KI-Feedback erhalten.",
+              pos: "bottom"
+            }
+          ],
+          storageKey: "fos_gestaltung_abi_tour_done"
+        });
+      }, 500);
+    }
+  </script>
+</body>
+
+</html>
