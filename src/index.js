@@ -8253,7 +8253,7 @@ BEWERTUNGSREGELN:
 - Max BE gesamt: ${maxBE}
 
 BE → NOTENPUNKTE (ISB-Tabelle):
-95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+95% �� 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
@@ -11483,8 +11483,13 @@ PFLICHT-REGELN:
 - Realistische Zahlen (Geschäftsjahr, Bilanzstichtag etc.)
 - Tabellen und Kontoauszüge direkt in der Aufgabe
 
-FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
-- Wenn eine Teilaufgabe (z.B. 1.2) mehrere Unteraufgaben a), b), c), d) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
+- KEINE Buchstaben a), b), c), d) verwenden! Nur Dezimalnotation!
+- Gliederung innerhalb jeder Aufgabe (I, II, III):
+  Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
+  Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
+  Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben, nur wenn nötig)
+- Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten, bevor die Teilaufgaben kommen
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
 
@@ -11506,17 +11511,27 @@ Antworte NUR mit validem JSON:
     {
       "id": "I",
       "titel": "Aufgabe I – Jahresabschluss & Bewertung",
-      "kontext": "Ausführlicher Unternehmenskontext...",
+      "kontext": "Ausführlicher Unternehmenskontext mit Unternehmensbeschreibung...",
       "gesamt_be": 35,
       "teilaufgaben": [
-        {"nr": "1.1", "text": "Aufgabentext...", "be": 7},
-        {"nr": "1.2", "text": "...", "be": 10}
+        {"nr": "1", "text": "Einleitungstext mit Daten/Tabellen für dieses Thema (Bilanzauszug etc.)...", "be": 0},
+        {"nr": "1.1", "text": "Ermitteln und begründen Sie den Bilanzansatz...", "be": 7},
+        {"nr": "1.2", "text": "Weiterer Kontexttext für nächste Teilaufgabe...", "be": 0},
+        {"nr": "1.2.1", "text": "Beschreiben und beurteilen Sie...", "be": 5},
+        {"nr": "1.2.2", "text": "Berechnen Sie...", "be": 3},
+        {"nr": "2", "text": "Neues Thema mit eigenem Kontexttext...", "be": 0},
+        {"nr": "2.1", "text": "Erstellen Sie...", "be": 10}
       ]
     },
     {"id": "II", "titel": "Aufgabe II – Kostenrechnung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
     {"id": "III", "titel": "Aufgabe III – Marketing, Finanzierung & Investition", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
   ]
-}`;
+}
+WICHTIG zur Nummerierung:
+- Hauptnummern (1, 2, 3, 4) haben be: 0 wenn sie nur Kontexttext/Daten enthalten und KEINE eigene Aufgabenstellung sind
+- Hauptnummern haben be > 0 wenn sie SELBST eine Aufgabenstellung sind (z.B. "Überprüfen Sie rechnerisch...")
+- Teilaufgaben (1.1, 1.2, 2.1) haben IMMER be > 0
+- NIEMALS a), b), c), d) verwenden!`;
 
   const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung BwR (ca. 85 BE).
 Aufgabe I: Jahresabschluss & Bewertung (~35 BE) – nur BwR 12 LB3-Themen.
@@ -11616,8 +11631,13 @@ PFLICHT-REGELN:
 - Teilweise englische Fachbegriffe verwenden
 - Aufgabentitel dürfen auf Deutsch oder Englisch sein
 
-FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
-- Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
+- KEINE Buchstaben a), b), c), d) verwenden! Nur Dezimalnotation!
+- Gliederung innerhalb jeder Aufgabe (I, II, III):
+  Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
+  Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
+  Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben, nur wenn nötig)
+- Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
 
@@ -11634,11 +11654,28 @@ Antworte NUR mit validem JSON (gleiches Format wie BWR):
   "zeit": 180,
   "hilfsmittel": "ISB-Merkhilfe BwR/IBV, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
   "aufgaben": [
-    {"id": "I", "titel": "Aufgabe I – Jahresabschluss & internationaler Geschäftsverkehr", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 7}]},
+    {
+      "id": "I",
+      "titel": "Aufgabe I – Jahresabschluss & internationaler Geschäftsverkehr",
+      "kontext": "Ausführlicher internationaler Unternehmenskontext...",
+      "gesamt_be": 35,
+      "teilaufgaben": [
+        {"nr": "1", "text": "Einleitungstext mit Daten/Tabellen...", "be": 0},
+        {"nr": "1.1", "text": "Ermitteln und begründen Sie...", "be": 7},
+        {"nr": "1.2", "text": "...", "be": 10},
+        {"nr": "2", "text": "Neues Thema...", "be": 0},
+        {"nr": "2.1", "text": "Erstellen Sie...", "be": 10}
+      ]
+    },
     {"id": "II", "titel": "Aufgabe II – Kostenrechnung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
     {"id": "III", "titel": "Aufgabe III – Internationales Marketing, Finanzierung & VWL", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
   ]
-}`;
+}
+WICHTIG zur Nummerierung:
+- Hauptnummern (1, 2, 3, 4) haben be: 0 wenn sie nur Kontexttext/Daten enthalten
+- Hauptnummern haben be > 0 wenn sie SELBST eine Aufgabenstellung sind
+- Teilaufgaben (1.1, 1.2, 2.1) haben IMMER be > 0
+- NIEMALS a), b), c), d) verwenden!`;
 
   const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung IBV (ca. 85 BE).
 Aufgabe I: Jahresabschluss + internationaler Geschäftsverkehr (~35 BE) – nur IBV 12 LB1 + IBV 11 LB1-Themen.
@@ -11965,8 +12002,13 @@ PFLICHT-REGELN:
 - Pro Aufgabe 4-6 Teilaufgaben
 - Materialien wo sinnvoll (Tabellen, Fallbeispiele, Abbildungen als Text)
 
-FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
-- Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
+NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
+- KEINE Buchstaben a), b), c), d) verwenden! Nur Dezimalnotation!
+- Gliederung innerhalb jeder Aufgabe (I, II, III):
+  Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
+  Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
+  Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben, nur wenn nötig)
+- Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: erläutern)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Erläutern Sie..." oder "Beurteilen Sie...")
 
@@ -11987,6 +12029,7 @@ Antworte NUR mit validem JSON:
       "kontext": "Ausführlicher Situationstext / Fallbeispiel...",
       "gesamt_be": ${config.aufgaben[0].be},
       "teilaufgaben": [
+        {"nr": "1", "text": "Einleitungstext mit Daten...", "be": 0, "afb": ""},
         {"nr": "1.1", "text": "...", "be": 5, "afb": "I"},
         {"nr": "1.2", "text": "...", "be": 8, "afb": "II"}
       ]
