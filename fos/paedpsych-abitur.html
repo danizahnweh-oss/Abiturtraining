@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#a855f7">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS &middot; P&auml;dagogik/Psychologie Fachabiturtraining</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F4DD;</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <!-- Kein KaTeX (rein textbasiertes Fach) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+  <style>
+    /* Purple accent override */
+    :root {
+      --accent: #a855f7;
+      --accent-hover: #9333ea;
+      --accent-soft: #f3e8ff;
+      --accent-glow: rgba(168, 85, 247, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #c084fc;
+      --accent-hover: #d8b4fe;
+      --accent-soft: rgba(192, 132, 252, .15);
+      --accent-glow: rgba(192, 132, 252, .08);
+    }
+
+    /* Aufgaben-Karten */
+    .aufgabengruppe-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin-bottom: 1rem
+    }
+
+    .aufgabengruppe-card h4 {
+      font-size: .9rem;
+      margin-bottom: .5rem;
+      color: var(--accent)
+    }
+
+    .aufgabe-context {
+      padding: .4rem 0 .2rem;
+      line-height: 1.6;
+      font-size: .92rem
+    }
+
+    .aufgabe-item {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .aufgabe-item:last-child {
+      border-bottom: none
+    }
+
+    .aufgabe-nr {
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: .3rem
+    }
+
+    .aufgabe-be {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-weight: 600
+    }
+
+    .aufgaben-liste {
+      margin-top: .5rem
+    }
+
+    /* Write-Parts (3 Textareas) */
+    .write-part {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem
+    }
+
+    .write-part h3 {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      color: var(--accent)
+    }
+
+    .write-part textarea {
+      min-height: 250px
+    }
+
+    .write-part .word-counter {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .4rem
+    }
+
+    /* BE Score-Cards */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent)
+    }
+
+    @media(max-width:650px) {
+      .be-scores-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html?back=paedpsych" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>P&auml;dagogik/Psychologie &middot; <span>Fachabiturtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Pr&uuml;fung</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> L&ouml;sung</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Fachabiturpr&uuml;fung generieren</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
+          P&auml;dagogik/Psychologie Fachabiturpr&uuml;fung (80 BE, 180 min, Sozialwesen-Zweig):<br>
+          <strong>3 Pflichtaufgaben</strong> mit Teilaufgaben und Bewertungseinheiten.
+        </p>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Fachabiturpr&uuml;fung
+          generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Fachabiturpr&uuml;fung &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="180" min="60" max="300" style="max-width:120px">
+        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">FAP: 180 Minuten</div>
+      </div>
+    </section>
+
+    <!-- STEP 2: TASK DISPLAY -->
+    <section id="sec-task">
+      <div class="card" id="taskHeader">
+        <h2 class="card-header" id="taskTitle">Fachabiturpr&uuml;fung P&auml;dagogik/Psychologie</h2>
+        <p id="taskHilfsmittel" style="color:var(--ink-muted);font-size:.85rem;margin-bottom:.5rem"></p>
+      </div>
+      <div class="card">
+        <div id="aufgabenContainer"></div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgaben anzeigen</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:400px;overflow-y:auto;-webkit-overflow-scrolling:touch">
+            <div id="writeTaskRef" style="font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
+          Tippe deine L&ouml;sung als Flie&szlig;text. Strukturiere mit Abs&auml;tzen und Fachbegriffen.
+        </p>
+
+        <!-- Aufgabe I Textarea -->
+        <div class="write-part">
+          <h3>Aufgabe I</h3>
+          <textarea id="studentText1" placeholder="Aufgabe I: Beginne hier mit deiner L&ouml;sung &hellip;"
+            oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount1">0</span> W&ouml;rter</div>
+        </div>
+
+        <!-- Aufgabe II Textarea -->
+        <div class="write-part">
+          <h3>Aufgabe II</h3>
+          <textarea id="studentText2" placeholder="Aufgabe II: Beginne hier mit deiner L&ouml;sung &hellip;"
+            oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount2">0</span> W&ouml;rter</div>
+        </div>
+
+        <!-- Aufgabe III Textarea -->
+        <div class="write-part">
+          <h3>Aufgabe III</h3>
+          <textarea id="studentText3" placeholder="Aufgabe III: Beginne hier mit deiner L&ouml;sung &hellip;"
+            oninput="updateWordCounts()"></textarea>
+          <div class="word-counter"><span id="wordCount3">0</span> W&ouml;rter</div>
+        </div>
+
+        <div class="write-toolbar">
+          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText(1)">&#x2713; In Aufgabe I</button>
+            <button class="btn btn-small" onclick="useOCRText(2)">&#x2713; In Aufgabe II</button>
+            <button class="btn btn-small" onclick="useOCRText(3)">&#x2713; In Aufgabe III</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte Fachabiturpr&uuml;fung &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="scores-grid" style="grid-template-columns:repeat(3,1fr)">
+            <div class="score-card">
+              <div class="score-label">Aufgabe I</div>
+              <div class="score-value" id="scoreI">&ndash;</div>
+              <div class="score-max" id="scoreIMax">/ &ndash; BE</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Aufgabe II</div>
+              <div class="score-value" id="scoreII">&ndash;</div>
+              <div class="score-max" id="scoreIIMax">/ &ndash; BE</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Aufgabe III</div>
+              <div class="score-value" id="scoreIII">&ndash;</div>
+              <div class="score-max" id="scoreIIIMax">/ &ndash; BE</div>
+            </div>
+          </div>
+          <div class="scores-grid" style="grid-template-columns:repeat(2,1fr);margin-top:.5rem">
+            <div class="score-card">
+              <div class="score-label">Gesamt</div>
+              <div class="score-value" id="scoreBE">&ndash;</div>
+              <div class="score-max" id="scoreBEMax">/ &ndash; BE</div>
+            </div>
+            <div class="score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreNP">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Pr&uuml;fung</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>I</th>
+                <th>II</th>
+                <th>III</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow FOS &middot; P&auml;dagogik/Psychologie Fachabiturtraining</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "fos_paedpsych_abitur",
+      historyKey: "fos_paedpsych_abitur_history_",
+      historyType: "fos_paedpsych-abitur",
+      pdfFilename: "FOS_PaedPsych_Fachabitur",
+      chartColor: "#a855f7",
+      minWords: 20,
+      loginPage: "index.html"
+    };
+  </script>
+  <script src="tour.js"></script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    // BE -> NP Umrechnungstabelle (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      localStorage.setItem(key, JSON.stringify({
+        studentText1: document.getElementById("studentText1").value,
+        studentText2: document.getElementById("studentText2").value,
+        studentText3: document.getElementById("studentText3").value,
+        storedData: CONFIG.storedData
+      }));
+    }
+
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.studentText1) document.getElementById("studentText1").value = s.studentText1;
+          if (s.studentText2) document.getElementById("studentText2").value = s.studentText2;
+          if (s.studentText3) document.getElementById("studentText3").value = s.studentText3;
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          updateWordCounts();
+        }
+      } catch { }
+    }
+
+    function updateWordCounts() {
+      const w1 = countWords(document.getElementById("studentText1").value);
+      const w2 = countWords(document.getElementById("studentText2").value);
+      const w3 = countWords(document.getElementById("studentText3").value);
+      document.getElementById("wordCount1").textContent = w1;
+      document.getElementById("wordCount2").textContent = w2;
+      document.getElementById("wordCount3").textContent = w3;
+      document.getElementById("wordCountTotal").textContent = w1 + w2 + w3;
+    }
+    function updateWordCount() { updateWordCounts(); }
+
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/fos-generate-abitur-paedpsych", {});
+        CONFIG.storedData = d;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    function renderTask(d) {
+      // Titel + Hilfsmittel
+      if (d.titel) document.getElementById("taskTitle").textContent = d.titel;
+      var hilfsmittel = d.hilfsmittel || "keine";
+      document.getElementById("taskHilfsmittel").textContent = "Hilfsmittel: " + hilfsmittel +
+        " | Gesamt: " + (d.gesamt_be || 80) + " BE | Zeit: " + (d.zeit || 180) + " min";
+
+      // 3 Aufgabenkarten
+      var container = document.getElementById("aufgabenContainer");
+      if (d.aufgaben && d.aufgaben.length) {
+        container.innerHTML = d.aufgaben.map(function (a) {
+          var content = '<div class="aufgabengruppe-card">';
+          content += '<h4>' + escapeHtml(a.titel || a.id || "") + ' <span class="aufgabe-be">(' + (a.gesamt_be || "?") + ' BE)</span></h4>';
+          if (a.kontext) {
+            content += '<div class="aufgabe-context">' + DOMPurify.sanitize(marked.parse(a.kontext)) + '</div>';
+          }
+          content += '<div class="aufgaben-liste">';
+          if (a.teilaufgaben && a.teilaufgaben.length) {
+            a.teilaufgaben.forEach(function (t) {
+              content += '<div class="aufgabe-item"><span class="aufgabe-nr">' + escapeHtml(t.nr || "") + '</span> ';
+              content += DOMPurify.sanitize(marked.parseInline(t.text || ""));
+              content += ' <span class="aufgabe-be">(' + (t.be || "") + ' BE, AFB ' + (t.afb || "") + ')</span></div>';
+            });
+          }
+          content += '</div></div>';
+          return content;
+        }).join("");
+      }
+
+      // Aufgabenreferenz im Write-Screen
+      document.getElementById("writeTaskRef").innerHTML = container.innerHTML;
+    }
+
+    function useOCRText(nr) {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      document.getElementById("studentText" + nr).value = clean;
+      updateWordCounts();
+      showToast("Text in Aufgabe " + ["I", "II", "III"][nr - 1] + " \u00fcbernommen!", "success");
+    }
+
+    async function submitForGrading() {
+      var t1 = document.getElementById("studentText1").value;
+      var t2 = document.getElementById("studentText2").value;
+      var t3 = document.getElementById("studentText3").value;
+      var totalWords = countWords(t1) + countWords(t2) + countWords(t3);
+      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+
+      var combinedText = "=== Aufgabe I ===\n" + t1 + "\n\n=== Aufgabe II ===\n" + t2 + "\n\n=== Aufgabe III ===\n" + t3;
+
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+      try {
+        var d = await apiCall("/api/fos-grade-abitur-paedpsych", {
+          aufgabenbloecke: CONFIG.storedData.aufgaben || [],
+          student_text: combinedText,
+          gesamt_be: CONFIG.storedData.gesamt_be || 80
+        });
+
+        var scores = d.scores || {};
+        var aufgaben = CONFIG.storedData.aufgaben || [];
+        var beI = scores.be_I ?? null;
+        var beII = scores.be_II ?? null;
+        var beIII = scores.be_III ?? null;
+        var gesamtBE = scores.be_erreicht ?? (beI != null && beII != null && beIII != null ? beI + beII + beIII : null);
+        var maxBE = scores.be_max ?? CONFIG.storedData.gesamt_be ?? 80;
+        var np = scores.notenpunkte ?? beToNP(gesamtBE, maxBE);
+
+        document.getElementById("scoreI").textContent = beI != null ? beI : "\u2013";
+        document.getElementById("scoreIMax").textContent = "/ " + (aufgaben[0]?.gesamt_be || "\u2013") + " BE";
+        document.getElementById("scoreII").textContent = beII != null ? beII : "\u2013";
+        document.getElementById("scoreIIMax").textContent = "/ " + (aufgaben[1]?.gesamt_be || "\u2013") + " BE";
+        document.getElementById("scoreIII").textContent = beIII != null ? beIII : "\u2013";
+        document.getElementById("scoreIIIMax").textContent = "/ " + (aufgaben[2]?.gesamt_be || "\u2013") + " BE";
+        document.getElementById("scoreBE").textContent = gesamtBE != null ? gesamtBE : "\u2013";
+        document.getElementById("scoreBEMax").textContent = "/ " + maxBE + " BE";
+        document.getElementById("scoreNP").textContent = np != null ? np : "\u2013";
+
+        saveToHistory({
+          be_I: beI,
+          be_II: beII,
+          be_III: beIII,
+          gesamt_be: gesamtBE,
+          total: np
+        });
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: MODULE_CONFIG.historyType,
+          topic: "P\u00e4dagogik/Psychologie Abitur",
+          content: gesamtBE,
+          language: np,
+          total: np,
+          date: new Date().toISOString()
+        }).catch(function () { });
+        stopTimer();
+        var fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || d.bewertung_bloecke || ""));
+        if (typeof renderKorrekturFeedback === "function") renderKorrekturFeedback(d);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    async function showModelAnswer() {
+      var card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        var d = await apiCall("/api/fos-model-answer-abitur-paedpsych", {
+          aufgabenbloecke: CONFIG.storedData.aufgaben || []
+        });
+        var body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map(function (x, i) {
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td>' +
+          '<td class="history-score">' + (x.be_I ?? "\u2013") + '</td>' +
+          '<td class="history-score">' + (x.be_II ?? "\u2013") + '</td>' +
+          '<td class="history-score">' + (x.be_III ?? "\u2013") + '</td>' +
+          '<td class="history-score">' + (x.gesamt_be ?? "\u2013") + '</td>' +
+          '<td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td>' +
+          '<td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    // Onboarding-Tour
+    if (typeof startTour === "function" && !isTourDone("fos_paedpsych_abi_tour_done")) {
+      setTimeout(function () {
+        startTour({
+          steps: [
+            {
+              type: "welcome",
+              title: "P\u00e4d/Psych-Abiturtraining",
+              text: "Simuliere eine vollst\u00e4ndige P\u00e4dagogik/Psychologie-Fachabiturpr\u00fcfung mit 3 Pflichtaufgaben (80 BE, 180 min)."
+            },
+            {
+              target: "#generateBtn",
+              title: "Pr\u00fcfung generieren",
+              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren \u2014 inklusive aller Teilaufgaben und Bewertungseinheiten.",
+              pos: "bottom"
+            },
+            {
+              target: "#timerMinutes",
+              title: "Bearbeitungszeit",
+              text: "Stelle die Zeit ein. Standard sind 180 Minuten.",
+              pos: "right"
+            },
+            {
+              target: "nav",
+              title: "Pr\u00fcfungsablauf",
+              text: "Nach dem Generieren folgst du dem Ablauf: Pr\u00fcfung ansehen, L\u00f6sung schreiben und KI-Feedback erhalten.",
+              pos: "bottom"
+            }
+          ],
+          storageKey: "fos_paedpsych_abi_tour_done"
+        });
+      }, 500);
+    }
+  </script>
+</body>
+
+</html>
