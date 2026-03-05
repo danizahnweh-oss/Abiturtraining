@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ef4444">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS &middot; Deutsch Fachabiturtraining</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F4DD;</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+  <style>
+    /* Red accent override */
+    :root {
+      --accent: #ef4444;
+      --accent-hover: #dc2626;
+      --accent-soft: #fee2e2;
+      --accent-glow: rgba(239, 68, 68, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #f87171;
+      --accent-hover: #fca5a5;
+      --accent-soft: rgba(248, 113, 113, .15);
+      --accent-glow: rgba(248, 113, 113, .08);
+    }
+
+    /* Aufgabenwahl-Karten */
+    .aufgabe-card {
+      background: var(--bg-warm);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      transition: all .2s;
+    }
+
+    .aufgabe-card.selectable {
+      cursor: pointer;
+    }
+
+    .aufgabe-card.selectable:hover {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    .aufgabe-card.selectable.selected {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .aufgabe-card.selectable:not(.selected) {
+      opacity: .55;
+    }
+
+    .aufgabe-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: .5rem;
+      color: var(--accent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .aufgabe-card .aufgabe-typ {
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .aufgabe-card .aufgabe-thema {
+      font-weight: 600;
+      margin-bottom: .5rem;
+      font-size: .95rem;
+    }
+
+    .aufgabe-card .aufgabe-text {
+      line-height: 1.7;
+      font-size: .9rem;
+      max-height: 300px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: .8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin: .5rem 0;
+    }
+
+    .aufgabe-card .aufgabe-quelle {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: .3rem;
+    }
+
+    .aufgabe-card .aufgabe-aufgabenstellung {
+      font-weight: 600;
+      margin-top: .6rem;
+      padding: .6rem .8rem;
+      background: var(--accent-glow);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.6;
+    }
+
+    .aufgabe-card .aufgabe-variante2 {
+      margin-top: .4rem;
+      padding: .4rem .8rem;
+      font-size: .85rem;
+      color: var(--ink-light);
+      border-left: 2px solid var(--border);
+    }
+
+    /* Materialien innerhalb Aufgabe 1 */
+    .material-inline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin: .5rem 0;
+      overflow: hidden;
+    }
+
+    .material-inline summary {
+      padding: .6rem .8rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .85rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .material-inline summary:hover {
+      background: var(--accent-glow);
+    }
+
+    .material-inline .material-body {
+      padding: 0 .8rem .8rem;
+      line-height: 1.7;
+      font-size: .9rem;
+      max-height: 250px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .material-inline .material-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: .5rem 0;
+      font-size: .85rem;
+    }
+
+    .material-inline .material-body th,
+    .material-inline .material-body td {
+      padding: .4rem .6rem;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .material-inline .material-body th {
+      background: var(--accent-glow);
+      font-weight: 700;
+    }
+
+    .material-source {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-top: .3rem;
+    }
+
+    .material-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: .65rem;
+      font-weight: 700;
+      padding: .1rem .4rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Wahl-Hinweis */
+    .wahl-hint {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      padding: .5rem 0;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .wahl-hint.complete {
+      color: var(--accent);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* BE scores */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .be-score-card.total {
+      grid-column: 1/-1;
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+
+    /* Korrektur-Legende */
+    .korrektur-legende {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: .8rem;
+      flex-wrap: wrap;
+    }
+
+    .fehler-rs-demo {
+      background: #fef2f2;
+      color: #dc2626;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .8rem;
+    }
+
+    .fehler-gr-demo {
+      background: #fefce8;
+      color: #ca8a04;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .8rem;
+    }
+
+    /* Write-Part */
+    .write-part {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    .write-part h3 {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      color: var(--accent);
+    }
+
+    .write-part textarea {
+      min-height: 350px;
+    }
+
+    .write-part .word-counter {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      margin-top: .4rem;
+    }
+
+    @media(max-width:650px) {
+      .be-scores-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html?back=deutsch" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>Deutsch &middot; <span>Fachabiturtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Pr&uuml;fung</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Schreiben</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span
+        class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <!-- STEP 1: SETUP -->
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Fachabiturpr&uuml;fung generieren</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
+          Vollst&auml;ndige Deutsch-Fachabiturpr&uuml;fung (60 BE, 240 min):<br>
+          <strong>3 Aufgaben</strong> zur Auswahl &ndash; du bearbeitest <strong>eine</strong> davon.<br>
+          Aufgabe 1: Materialgest&uuml;tztes Argumentieren &middot;
+          Aufgabe 2: Erschlie&szlig;ung eines pragmatischen Textes &middot;
+          Aufgabe 3: Literarische Analyse
+        </p>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Fachabiturpr&uuml;fung generieren</button>
+        <div class="loader" id="setupLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Generiere Deutsch-Fachabiturpr&uuml;fung &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <label>Bearbeitungszeit (Min.)</label>
+        <input type="number" id="timerMinutes" value="240" min="60" max="300" style="max-width:120px">
+        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">FAP: 240 Min. &middot; Hilfsmittel: Rechtschreibw&ouml;rterbuch</div>
+      </div>
+    </section>
+
+    <!-- STEP 2: TASK DISPLAY (Aufgabenwahl) -->
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgaben &ndash; w&auml;hle eine</h2>
+        <p class="wahl-hint" id="wahlHint">Klicke auf eine Aufgabe, um sie auszuw&auml;hlen</p>
+        <div id="aufgabenContainer"></div>
+      </div>
+
+      <button class="btn" id="weiterBtn" onclick="weiterZumSchreiben()" disabled>Weiter zum Schreiben &rarr;</button>
+    </section>
+
+    <!-- STEP 3: WRITE -->
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display"
+            id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+
+        <details style="margin-bottom:1rem">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Gew&auml;hlte Aufgabe anzeigen</summary>
+          <div
+            style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:500px;overflow-y:auto;-webkit-overflow-scrolling:touch">
+            <div id="writeTaskRef" style="font-size:.9rem"></div>
+          </div>
+        </details>
+
+        <!-- Textarea -->
+        <div class="write-part">
+          <h3>Dein Text</h3>
+          <textarea id="studentText" placeholder="Beginne hier mit deiner Ausarbeitung &hellip;
+
+Struktur:
+&bull; Einleitung mit Hinf&uuml;hrung zum Thema
+&bull; Hauptteil mit Argumentation / Analyse
+&bull; Schluss mit Zusammenfassung / Fazit" oninput="updateWordCount()"></textarea>
+          <div class="word-counter"><span id="wordCount">0</span> W&ouml;rter</div>
+        </div>
+
+        <div class="write-toolbar">
+          <span class="word-counter">Gesamt: <span id="wordCountTotal">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OCR UPLOAD -->
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
+          Fotos deiner handschriftlichen Arbeit hochladen &ndash; der Text wird automatisch erkannt.
+        </p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <!-- STEP 4: FEEDBACK -->
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Bewerte Fachabiturpr&uuml;fung &hellip;</div>
+      </div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="be-scores-grid">
+            <div class="be-score-card">
+              <div class="score-label">Erreichte BE</div>
+              <div class="score-value" id="scoreBE">&ndash;</div>
+              <div class="score-max">/ <span id="scoreBEMax">60</span> BE</div>
+            </div>
+            <div class="be-score-card total">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreNP">&ndash;</div>
+              <div class="score-max">/ 15</div>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="korrekturCard" style="display:none">
+          <h2 class="card-header">Dein Text &ndash; Fehlerkorrektur</h2>
+          <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
+              class="fehler-gr-demo">Grammatik</span></div>
+          <div class="korrektur-body" id="korrekturBody"></div>
+        </div>
+        <div class="card">
+          <h2 class="card-header">Feedback</h2>
+          <div class="feedback-body" id="feedbackBody"></div>
+        </div>
+        <div class="card" id="aspekteCard" style="display:none">
+          <h2 class="card-header">Fehlende Aspekte</h2>
+          <div id="aspekteBody"></div>
+        </div>
+        <div class="card" id="modelAnswerCard" style="display:none">
+          <h2 class="card-header">Musterl&ouml;sung</h2>
+          <div class="feedback-body" id="modelAnswerBody"></div>
+        </div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4;
+            Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Pr&uuml;fung</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: PROGRESS -->
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)">
+          <div style="font-size:3rem">&#x1F4CA;</div>
+          <p>Noch keine Daten.</p>
+        </div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="statAttempts">0</div>
+              <div class="stat-label">Versuche</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statAverage">&ndash;</div>
+              <div class="stat-label">&Oslash;</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statBest">&ndash;</div>
+              <div class="stat-label">Best</div>
+            </div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Aufgabe</th>
+                <th>BE</th>
+                <th>NP</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()"
+          style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow FOS &middot; Deutsch Fachabiturtraining</footer>
+
+  <!-- MODULE CONFIG -->
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "fos_deutsch_abitur",
+      historyKey: "fos_deutsch_abitur_history_",
+      historyType: "fos_deutsch-abitur",
+      pdfFilename: "FOS_Deutsch_Fachabitur",
+      chartColor: "#ef4444",
+      minWords: 100,
+      loginPage: "index.html"
+    };
+  </script>
+  <script src="tour.js"></script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <!-- MODULE-SPECIFIC CODE -->
+  <script>
+    /* Ausgewaehlte Aufgabe (Index 0-2) */
+    CONFIG.selectedAufgabe = null;
+
+    // BE -> NP Umrechnungstabelle (ISB)
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
+
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) {
+        if (pct >= threshold) return np;
+      }
+      return 0;
+    }
+
+    /* ====== SESSION SAVE/RESTORE ====== */
+    function saveSession() {
+      const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+      localStorage.setItem(key, JSON.stringify({
+        studentText: document.getElementById("studentText").value,
+        storedData: CONFIG.storedData,
+        selectedAufgabe: CONFIG.selectedAufgabe
+      }));
+      showToast("Gespeichert!", "success");
+    }
+
+    function restoreSession() {
+      try {
+        const key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey();
+        const s = JSON.parse(localStorage.getItem(key));
+        if (s) {
+          if (s.studentText) document.getElementById("studentText").value = s.studentText;
+          if (s.storedData) {
+            CONFIG.storedData = s.storedData;
+            renderTask(s.storedData);
+          }
+          if (s.selectedAufgabe != null) {
+            CONFIG.selectedAufgabe = s.selectedAufgabe;
+            updateAufgabenUI();
+          }
+          updateWordCount();
+        }
+      } catch (e) { }
+    }
+
+    /* ====== WORD COUNT ====== */
+    function updateWordCount() {
+      const w = countWords(document.getElementById("studentText").value);
+      document.getElementById("wordCount").textContent = w;
+      document.getElementById("wordCountTotal").textContent = w;
+    }
+
+    /* ====== OCR: Text uebernehmen ====== */
+    function useOCRText() {
+      var t = document.getElementById("ocrText").value;
+      if (!t.trim()) { showToast("Kein Text vorhanden."); return; }
+      var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
+      document.getElementById("studentText").value = clean;
+      updateWordCount();
+      showToast("Text \u00fcbernommen!", "success");
+    }
+
+    /* ====== GENERATE ====== */
+    async function generateTask() {
+      const btn = document.getElementById("generateBtn");
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        const d = await apiCall("/api/fos-generate-abitur-deutsch", {});
+        CONFIG.storedData = d;
+        CONFIG.selectedAufgabe = null;
+        renderTask(d);
+        nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    /* ====== RENDER TASK (Aufgabenwahl) ====== */
+    function renderTask(d) {
+      const container = document.getElementById("aufgabenContainer");
+      if (!d.aufgaben || !d.aufgaben.length) {
+        container.innerHTML = '<p style="color:var(--ink-muted)">Keine Aufgaben generiert.</p>';
+        return;
+      }
+
+      container.innerHTML = d.aufgaben.map(function (a, idx) {
+        var html = '<div class="aufgabe-card selectable' + (CONFIG.selectedAufgabe === idx ? ' selected' : '') + '" data-idx="' + idx + '" onclick="selectAufgabe(' + idx + ')">';
+
+        // Header
+        html += '<h4>Aufgabe ' + a.nr + ' <span class="aufgabe-typ">' + escapeHtml(a.typ || '') + '</span></h4>';
+        html += '<div class="aufgabe-thema">' + escapeHtml(a.titel || '') + '</div>';
+
+        // Thema
+        if (a.thema) {
+          html += '<div style="font-size:.85rem;color:var(--ink-light);margin-bottom:.5rem">Thema: ' + escapeHtml(a.thema) + '</div>';
+        }
+
+        // Text / Textauszug (Aufgabe 2 & 3)
+        if (a.text) {
+          html += '<div class="aufgabe-text">' + escapeHtml(a.text).replace(/\n/g, "<br>") + '</div>';
+        }
+
+        // Quelle
+        if (a.quelle) {
+          html += '<div class="aufgabe-quelle">Quelle: ' + escapeHtml(a.quelle) + '</div>';
+        }
+
+        // Materialien (Aufgabe 1)
+        if (a.materialien && a.materialien.length) {
+          html += '<div style="margin-top:.5rem">';
+          a.materialien.forEach(function (m) {
+            var mBody = '';
+            if (m.text) {
+              // Statistik: Markdown-Tabelle rendern
+              if (m.typ === 'statistik' && m.text.includes('|')) {
+                mBody = DOMPurify.sanitize(marked.parse(m.text));
+              } else {
+                mBody = escapeHtml(m.text).replace(/\n/g, "<br>");
+              }
+            }
+            html += '<details class="material-inline">' +
+              '<summary><span class="material-badge">' + escapeHtml(m.nr || '') + '</span> ' + escapeHtml(m.quelle || '') + '</summary>' +
+              '<div class="material-body">' + mBody + '</div>' +
+              '</details>';
+          });
+          html += '</div>';
+        }
+
+        // Aufgabenstellung
+        if (a.aufgabenstellung) {
+          html += '<div class="aufgabe-aufgabenstellung">' + escapeHtml(a.aufgabenstellung).replace(/\n/g, "<br>") + '</div>';
+        }
+
+        // Variante 2 (nur Aufgabe 1)
+        if (a.variante2) {
+          html += '<div class="aufgabe-variante2"><em>Oder:</em> ' + escapeHtml(a.variante2) + '</div>';
+        }
+
+        html += '</div>';
+        return html;
+      }).join("");
+
+      updateAufgabenUI();
+    }
+
+    /* ====== AUFGABE AUSWAEHLEN ====== */
+    function selectAufgabe(idx) {
+      if (CONFIG.selectedAufgabe === idx) {
+        // Deselektieren
+        CONFIG.selectedAufgabe = null;
+      } else {
+        CONFIG.selectedAufgabe = idx;
+      }
+      updateAufgabenUI();
+    }
+
+    function updateAufgabenUI() {
+      var hint = document.getElementById("wahlHint");
+      var weiterBtn = document.getElementById("weiterBtn");
+      var cards = document.querySelectorAll("#aufgabenContainer .aufgabe-card");
+
+      cards.forEach(function (card) {
+        var i = parseInt(card.dataset.idx);
+        card.classList.toggle("selected", CONFIG.selectedAufgabe === i);
+      });
+
+      if (CONFIG.selectedAufgabe != null) {
+        hint.innerHTML = "Aufgabe " + (CONFIG.selectedAufgabe + 1) + " ausgew\u00e4hlt \u2713";
+        hint.classList.add("complete");
+        weiterBtn.disabled = false;
+      } else {
+        hint.innerHTML = "Klicke auf eine Aufgabe, um sie auszuw\u00e4hlen";
+        hint.classList.remove("complete");
+        weiterBtn.disabled = true;
+      }
+    }
+
+    function weiterZumSchreiben() {
+      if (CONFIG.selectedAufgabe == null) {
+        showToast("Bitte w\u00e4hle zuerst eine Aufgabe aus.");
+        return;
+      }
+      // Write-Referenz: nur die gewaehlte Aufgabe
+      var a = CONFIG.storedData.aufgaben[CONFIG.selectedAufgabe];
+      var ref = document.getElementById("writeTaskRef");
+      var html = '<h4 style="color:var(--accent);margin-bottom:.5rem">Aufgabe ' + a.nr + ': ' + escapeHtml(a.titel || '') + '</h4>';
+
+      if (a.thema) {
+        html += '<div style="font-size:.85rem;color:var(--ink-light);margin-bottom:.5rem">Thema: ' + escapeHtml(a.thema) + '</div>';
+      }
+      if (a.text) {
+        html += '<div style="line-height:1.7;font-size:.9rem;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);margin:.5rem 0">' + escapeHtml(a.text).replace(/\n/g, "<br>") + '</div>';
+      }
+      if (a.quelle) {
+        html += '<div style="font-size:.8rem;color:var(--ink-muted);font-style:italic;margin-top:.3rem">Quelle: ' + escapeHtml(a.quelle) + '</div>';
+      }
+      if (a.materialien && a.materialien.length) {
+        a.materialien.forEach(function (m) {
+          var mBody = '';
+          if (m.text) {
+            if (m.typ === 'statistik' && m.text.includes('|')) {
+              mBody = DOMPurify.sanitize(marked.parse(m.text));
+            } else {
+              mBody = escapeHtml(m.text).replace(/\n/g, "<br>");
+            }
+          }
+          html += '<details class="material-inline" style="margin:.5rem 0">' +
+            '<summary><span class="material-badge">' + escapeHtml(m.nr || '') + '</span> ' + escapeHtml(m.quelle || '') + '</summary>' +
+            '<div class="material-body">' + mBody + '</div>' +
+            '</details>';
+        });
+      }
+      if (a.aufgabenstellung) {
+        html += '<div style="font-weight:600;margin-top:.6rem;padding:.6rem .8rem;background:var(--accent-glow);border-left:3px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0;line-height:1.6">' + escapeHtml(a.aufgabenstellung).replace(/\n/g, "<br>") + '</div>';
+      }
+      if (a.variante2) {
+        html += '<div style="margin-top:.4rem;padding:.4rem .8rem;font-size:.85rem;color:var(--ink-light);border-left:2px solid var(--border)"><em>Oder:</em> ' + escapeHtml(a.variante2) + '</div>';
+      }
+      ref.innerHTML = html;
+      nav("write");
+    }
+
+    /* ====== SUBMIT FOR GRADING ====== */
+    async function submitForGrading() {
+      var t = document.getElementById("studentText").value;
+      if (countWords(t) < MODULE_CONFIG.minWords) { showToast("Bitte mindestens " + MODULE_CONFIG.minWords + " W\u00f6rter schreiben."); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+      if (CONFIG.selectedAufgabe == null) { showToast("Bitte eine Aufgabe ausw\u00e4hlen"); return; }
+
+      var selectedA = CONFIG.storedData.aufgaben[CONFIG.selectedAufgabe];
+
+      document.getElementById("submitBtn").disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      try {
+        var d = await apiCall("/api/fos-grade-abitur-deutsch", {
+          aufgabenbloecke: [selectedA],
+          materialien: selectedA.materialien || [],
+          task_instruction: selectedA.aufgabenstellung || "",
+          student_text: t,
+          gesamt_be: CONFIG.storedData.gesamt_be || 60
+        });
+
+        var beErreicht = d.scores?.be_erreicht ?? "\u2013";
+        var beMax = d.scores?.be_max ?? (CONFIG.storedData.gesamt_be || 60);
+        var np = d.scores?.notenpunkte ?? d.scores?.total ?? "\u2013";
+
+        document.getElementById("scoreBE").textContent = beErreicht;
+        document.getElementById("scoreBEMax").textContent = beMax;
+        document.getElementById("scoreNP").textContent = np;
+
+        // Aufgabentyp fuer History
+        var aufgabeLabel = selectedA.titel || ("Aufgabe " + selectedA.nr);
+
+        saveToHistory({
+          aufgabe: aufgabeLabel,
+          be: beErreicht,
+          notenpunkte: np,
+          total: typeof np === "number" ? np : null
+        });
+
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          type: "fos_deutsch-abitur",
+          topic: "Deutsch Abitur \u2013 " + aufgabeLabel,
+          content: beErreicht,
+          language: np,
+          total: typeof np === "number" ? np : null,
+          date: new Date().toISOString()
+        }).catch(function () { });
+
+        stopTimer();
+
+        // Feedback rendern
+        var fb = document.getElementById("feedbackBody");
+        fb.innerHTML = DOMPurify.sanitize(marked.parse(d.feedback || ""));
+
+        // Korrektur mit Fehlermarkierungen
+        renderKorrekturFeedback(d);
+
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>';
+      }
+      document.getElementById("feedbackLoader").style.display = "none";
+      document.getElementById("submitBtn").disabled = false;
+    }
+
+    /* ====== MODEL ANSWER ====== */
+    async function showModelAnswer() {
+      var card = document.getElementById("modelAnswerCard");
+      if (card.style.display === "block") { card.style.display = "none"; return; }
+
+      var selectedA = CONFIG.storedData.aufgaben[CONFIG.selectedAufgabe];
+      document.getElementById("showModelBtn").disabled = true;
+      try {
+        var d = await apiCall("/api/fos-model-answer-abitur-deutsch", {
+          aufgabe: selectedA,
+          materialien: selectedA.materialien || [],
+          task_instruction: selectedA.aufgabenstellung || ""
+        });
+        var body = document.getElementById("modelAnswerBody");
+        body.innerHTML = DOMPurify.sanitize(marked.parse(d.model_answer || ""));
+        card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+
+    /* ====== HISTORY TABLE ====== */
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map(function (x, i) {
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + escapeHtml(x.aufgabe || "\u2013") + '</td><td class="history-score">' + (x.be ?? "\u2013") + '</td><td class="history-score" style="font-weight:700">' + (x.notenpunkte ?? x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length - 1 - i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    /* ====== ONBOARDING TOUR ====== */
+    if (typeof startTour === "function" && !isTourDone("fos_deutsch_abi_tour_done")) {
+      setTimeout(function () {
+        startTour({
+          steps: [
+            {
+              type: "welcome",
+              title: "Deutsch-Fachabiturtraining",
+              text: "Simuliere eine vollst\u00e4ndige Deutsch-Fachabiturpr\u00fcfung mit 3 Aufgaben zur Auswahl."
+            },
+            {
+              target: "#generateBtn",
+              title: "Pr\u00fcfung generieren",
+              text: "Klicke hier, um eine komplette Fachabiturpr\u00fcfung zu generieren. Du erh\u00e4ltst 3 Aufgaben und w\u00e4hlst eine davon.",
+              pos: "bottom"
+            },
+            {
+              target: "#timerMinutes",
+              title: "Bearbeitungszeit",
+              text: "Standard sind 240 Minuten (4 Stunden). Hilfsmittel: Rechtschreibw\u00f6rterbuch.",
+              pos: "right"
+            },
+            {
+              target: "nav",
+              title: "Pr\u00fcfungsablauf",
+              text: "Nach dem Generieren: Aufgabe w\u00e4hlen, Text schreiben und KI-Feedback erhalten.",
+              pos: "bottom"
+            }
+          ],
+          storageKey: "fos_deutsch_abi_tour_done"
+        });
+      }, 500);
+    }
+  </script>
+</body>
+
+</html>
