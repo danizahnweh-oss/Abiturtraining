@@ -11487,8 +11487,14 @@ FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
 - Wenn eine Teilaufgabe (z.B. 1.2) mehrere Unteraufgaben a), b), c), d) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
-- Beispiel für korrektes Format:
-  "text": "Rohstoffbewertung:\\na) Ermitteln Sie den Endbestand nach dem gleitenden Durchschnittsverfahren.\\nb) Prüfen und begründen Sie unter Anwendung des strengen Niederstwertprinzips, ob eine Abschreibung vorzunehmen ist."
+
+TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
+- Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
+  Bilanzen, Bilanzauszüge, GuV-Auszüge, Kontoauszüge, T-Konten, BAB, Offene-Posten-Listen, Lagerlisten, Anlagenspiegel, Darlehenspläne, Kalkulationsschemata, Kostenaufstellungen
+- Markdown-Tabellen-Format: | Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |
+- Beispiel Bilanzauszug: "| Aktiva | € | Passiva | € |\\n|---|---|---|---|\\n| Grundstücke | 500.000 | Gezeichnetes Kapital | 400.000 |\\n| Maschinen | 280.000 | Kapitalrücklage | 150.000 |"
+- Beispiel Offene-Posten-Liste: "| Kunde | Forderung (netto) | Bemerkung |\\n|---|---|---|\\n| Kunde K1 | 18.000 € | Zahlungsschwierigkeiten |\\n| Kunde K2 | 7.500 € | Insolvenzverfahren eröffnet |"
+- Auch Teilaufgaben dürfen Tabellen enthalten, z.B. für Kostendaten oder Produktdaten
 
 Antworte NUR mit validem JSON:
 {
@@ -11614,6 +11620,12 @@ FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
 - Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+
+TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
+- Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
+  Bilanzen, Bilanzauszüge, GuV-Auszüge, Kontoauszüge, T-Konten, BAB, Offene-Posten-Listen, Lagerlisten, Anlagenspiegel, Darlehenspläne, Kalkulationsschemata, Kostenaufstellungen, Devisenkurse
+- Markdown-Tabellen-Format: | Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |
+- Auch in Teilaufgaben-Texten dürfen Tabellen stehen, z.B. für Kostendaten oder Produktdaten
 
 Antworte NUR mit validem JSON (gleiches Format wie BWR):
 {
@@ -11957,6 +11969,10 @@ FORMATIERUNG DER TEILAUFGABEN (WICHTIG!):
 - Wenn eine Teilaufgabe mehrere Unteraufgaben a), b), c) enthält, MUSS jede Unteraufgabe auf einer EIGENEN Zeile stehen (mit Zeilenumbruch \\n davor)
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: erläutern)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Erläutern Sie..." oder "Beurteilen Sie...")
+
+TABELLEN FÜR ZAHLENMATERIAL:
+- Verwende im "kontext"-Feld Markdown-Tabellen für tabellarische Daten (Statistiken, Messwerte, Laborergebnisse, Versuchsdaten, Vergleichstabellen etc.)
+- Markdown-Tabellen-Format: | Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |
 
 Antworte NUR mit validem JSON:
 {
