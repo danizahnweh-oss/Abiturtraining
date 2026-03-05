@@ -11150,6 +11150,40 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "grade-abitur-mathe") return handleGradeAbiturMathe(fakeReq, env);
   if (route === "model-answer-abitur-mathe") return handleModelAnswerAbiturMathe(fakeReq, env);
 
+  // === MATHE ABITUR 13 (FOS-Abiturprüfung 13. Klasse) ===
+  if (route === "generate-abitur13-mathe") return handleFOSGenerateAbitur13Mathe(body, env);
+  if (route === "grade-abitur13-mathe") return handleGradeAbiturMathe(fakeReq, env);
+  if (route === "model-answer-abitur13-mathe") return handleModelAnswerAbiturMathe(fakeReq, env);
+
+  // === BWR ABITUR (FOS-Fachabitur) ===
+  if (route === "generate-abitur-bwr") return handleFOSGenerateAbiturBWR(body, env);
+  if (route === "grade-abitur-bwr") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur-bwr") return handleModelAnswerWR(fakeReq, env);
+
+  // === IBV ABITUR (FOS-Fachabitur) ===
+  if (route === "generate-abitur-ibv") return handleFOSGenerateAbiturIBV(body, env);
+  if (route === "grade-abitur-ibv") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur-ibv") return handleModelAnswerWR(fakeReq, env);
+
+  // === DEUTSCH ABITUR (FOS-Fachabitur) ===
+  if (route === "generate-abitur-deutsch") return handleFOSGenerateAbiturDeutsch(body, env);
+  if (route === "grade-abitur-deutsch") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur-deutsch") return handleModelAnswerWR(fakeReq, env);
+
+  // === ENGLISCH ABITUR (FOS-Fachabitur) ===
+  if (route === "generate-abitur-englisch") return handleFOSGenerateAbiturEnglisch(body, env);
+  if (route === "grade-abitur-englisch") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur-englisch") return handleModelAnswerWR(fakeReq, env);
+
+  // === PROFILFACH ABITUR (Physik, PädPsych, Bio, Gesundheit, Gestaltung) ===
+  const abiturProfilMatch = route.match(/^(generate|grade|model-answer)-abitur-(physik|paedpsych|biologie|gesundheit|gestaltung)$/);
+  if (abiturProfilMatch) {
+    const [, action, fach] = abiturProfilMatch;
+    if (action === "generate") return handleFOSGenerateAbiturProfilfach(fach, body, env);
+    if (action === "grade") return handleGradeWR(fakeReq, env);
+    if (action === "model-answer") return handleModelAnswerWR(fakeReq, env);
+  }
+
   // === TEXT-FÄCHER (BWR, VWL, Deutsch, Recht, IBV) ===
   const textMatch = route.match(/^(generate|grade|model-answer|parse-task)-(.+)$/);
   if (textMatch) {
@@ -11303,6 +11337,517 @@ Hinweis: teil_a_pflicht = Teil 1 (ohne Hilfsmittel), teil_b = Teil 2 (mit Hilfsm
 Teil 1 (34 BE): Analysis 22 BE + Stochastik 12 BE, ohne CAS
 Teil 2 (66 BE): Analysis 43 BE + Stochastik 23 BE, mit CAS
 KEINE Geometrie! Jede Teilaufgabe braucht einen klaren Operator.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS MATHE ABITUR 13: GENERATE (Lineare Algebra statt Stochastik) ================= */
+async function handleFOSGenerateAbitur13Mathe(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS-Abiturprüfung Mathematik 13. Klasse (Bayern).
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 100 BE.
+
+PRÜFUNGSSTRUKTUR (FOS Bayern, 13. Klasse):
+
+TEIL 1 (34 BE, 60 min, OHNE Hilfsmittel/Merkhilfe/CAS):
+- Analysis (22 BE): 3-4 kompakte Aufgaben, ohne CAS lösbar
+- Lineare Algebra / Analytische Geometrie (12 BE): 2 kompakte Aufgaben
+
+TEIL 2 (66 BE, 120 min, MIT Hilfsmittel/Merkhilfe/CAS):
+- Analysis (43 BE): 2 große mehrteilige Aufgaben mit Sachkontext
+- Lineare Algebra / Analytische Geometrie (23 BE): 1 große mehrteilige Aufgabe
+
+WICHTIG: KEINE Stochastik in der 13. Klasse! Stattdessen Lineare Algebra/Analytische Geometrie!
+
+FOS-LEHRPLAN (13. Klasse):
+Analysis: Gebrochen-rationale Funktionen (Definitionslücken, Asymptoten), ln-Funktion, komplexe Kurvendiskussion, partielle Integration, uneigentliche Integrale, Parameteraufgaben
+Lineare Algebra/Analytische Geometrie: Vektoren (Addition, skalare Multiplikation), Skalarprodukt, Winkelberechnung, Geraden im Raum (Parameterform), Lagebeziehungen, Ebenen (Parameter-/Normalen-/Koordinatenform), Abstände (Punkt-Ebene, Punkt-Gerade), Kreuzprodukt, Volumenberechnung
+
+PFLICHT-REGELN:
+- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben
+- Teil 1 MUSS ohne CAS lösbar sein
+- LaTeX-Notation: $\\cdot$ statt *, $e^{-x}$ mit geschweiften Klammern, $\\frac{a}{b}$, Dezimalkomma $3{,}6$
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a_pflicht": [
+    {"id": "A1", "sachgebiet": "Analysis", "be": 7, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}]}
+  ],
+  "teil_a_wahl": [],
+  "teil_b": [
+    {"id": "B1", "sachgebiet": "Analysis", "be": 22, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}]}
+  ]
+}
+Hinweis: teil_a_pflicht = Teil 1, teil_b = Teil 2. teil_a_wahl bleibt leer.`;
+
+  const userPrompt = `Erstelle eine vollständige FOS-Abiturprüfung Mathematik 13. Klasse (100 BE).
+Teil 1 (34 BE): Analysis 22 BE + Lineare Algebra/Analytische Geometrie 12 BE, ohne CAS
+Teil 2 (66 BE): Analysis 43 BE + Lineare Algebra/Analytische Geometrie 23 BE, mit CAS
+KEINE Stochastik! Jede Teilaufgabe braucht einen klaren Operator.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS BWR ABITUR: GENERATE (FAP 12) ================= */
+async function handleFOSGenerateAbiturBWR(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung BwR (Betriebswirtschaftslehre mit Rechnungswesen) in Bayern.
+Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung.
+
+PRÜFUNGSSTRUKTUR (FOS Bayern, BwR FAP 12. Klasse):
+- Bearbeitungszeit: 180 Minuten
+- Hilfsmittel: ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
+- ALLE 3 Aufgaben sind Pflicht (kein Wahlteil!)
+- Gesamt: ca. 80-85 BE
+
+AUFGABE I (ca. 30-35 BE) – Bilanzierung & Bewertung:
+Durchgängiger Unternehmenskontext (AG, Industrieunternehmen).
+Teilaufgaben: Rohstoffbewertung (Durchschnitts-/LiFo-/FiFo-Verfahren, Niederstwertprinzip), Anlagenbewertung (lineare/degressive AfA, außerplanmäßige Abschreibung, GWG), Forderungsbewertung (EWB, PWB), Rückstellungen/RAP, Investitionsrechnung (Kostenvergleich, Kapitalwertmethode), Ergebnisverwendung AG
+
+AUFGABE II (ca. 25 BE) – Kostenrechnung:
+Anderer Unternehmenskontext.
+Teilaufgaben: Zuschlagskalkulation/Handelskalkulation, Maschinenstundensatzrechnung, Engpassrechnung/Deckungsbeitragsrechnung, Break-Even-Analyse, Plankostenrechnung
+
+AUFGABE III (ca. 25 BE) – Marketing & Beschaffung:
+Dritter Unternehmenskontext.
+Teilaufgaben: Portfolio-Analyse (BCG-Matrix), Absatz-/Marketingstrategien, Lieferantenvergleich (Nutzwertanalyse, Bezugskalkulation), Bestellpunktverfahren/optimale Bestellmenge, Produktlebenszyklus
+
+PFLICHT-REGELN:
+- Jede Aufgabe hat einen EIGENEN Unternehmenskontext (Name, Branche, Situation)
+- BE-Angaben an JEDER Teilaufgabe
+- Operatoren: ermitteln, berechnen, buchen, begründen, beurteilen, prüfen, erklären
+- Realistische Zahlen (Geschäftsjahr, Bilanzstichtag etc.)
+- Tabellen und Kontoauszüge direkt in der Aufgabe
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Fachabiturprüfung BwR 2025",
+  "gesamt_be": 85,
+  "zeit": 180,
+  "hilfsmittel": "ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
+  "aufgaben": [
+    {
+      "id": "I",
+      "titel": "Aufgabe I – Bilanzierung & Bewertung",
+      "kontext": "Ausführlicher Unternehmenskontext...",
+      "gesamt_be": 35,
+      "teilaufgaben": [
+        {"nr": "1.1", "text": "Aufgabentext mit Operator...", "be": 7},
+        {"nr": "1.2", "text": "...", "be": 10}
+      ]
+    },
+    {"id": "II", "titel": "Aufgabe II – Kostenrechnung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
+    {"id": "III", "titel": "Aufgabe III – Marketing & Beschaffung", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
+  ]
+}`;
+
+  const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung BwR (ca. 85 BE).
+Aufgabe I: Bilanzierung & Bewertung (~35 BE), Aufgabe II: Kostenrechnung (~25 BE), Aufgabe III: Marketing & Beschaffung (~25 BE).
+Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS IBV ABITUR: GENERATE (FAP 12) ================= */
+async function handleFOSGenerateAbiturIBV(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung International Business Studies (IBV) in Bayern.
+Die IBV-Prüfung ist strukturell ähnlich wie BwR, aber mit internationalem Bezug.
+
+PRÜFUNGSSTRUKTUR (FOS Bayern, IBV FAP 12. Klasse):
+- Bearbeitungszeit: 180 Minuten
+- Hilfsmittel: ISB-Merkhilfe BwR/IBV, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
+- ALLE 3 Aufgaben sind Pflicht
+- Gesamt: ca. 80-85 BE
+
+AUFGABE I (ca. 30-35 BE) – Bilanzierung & internationaler Geschäftsverkehr:
+Wie BwR + Wechselkurs-Aufgabe (Devisenkurse, Bilanzierung bei Fremdwährung), Export-/Importbuchungen, INCOTERMS
+
+AUFGABE II (ca. 25 BE) – Kostenrechnung:
+Wie BwR, evtl. mit internationalem Kontext (Standortvergleich, Transferpreise)
+
+AUFGABE III (ca. 25 BE) – Internationales Marketing & VWL:
+Markteintrittsstrategien, Standardisierung vs. Adaption, Lieferantenvergleich international, VWL-Aufgabe (Karikaturanalyse zu Wirtschaftsethik/Globalisierung), Wechselkursauswirkungen
+
+PFLICHT-REGELN:
+- Jede Aufgabe hat einen eigenen internationalen Unternehmenskontext
+- BE-Angaben an jeder Teilaufgabe
+- Teilweise englische Fachbegriffe verwenden
+- Operatoren: ermitteln, berechnen, begründen, beurteilen, erklären, vergleichen
+
+Antworte NUR mit validem JSON (gleiches Format wie BWR):
+{
+  "titel": "Fachabiturprüfung International Business Studies 2025",
+  "gesamt_be": 85,
+  "zeit": 180,
+  "hilfsmittel": "ISB-Merkhilfe BwR/IBV, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
+  "aufgaben": [
+    {"id": "I", "titel": "Task I – Accounting & International Trade", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 7}]},
+    {"id": "II", "titel": "Task II – Cost Accounting", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]},
+    {"id": "III", "titel": "Task III – International Marketing & Economics", "kontext": "...", "gesamt_be": 25, "teilaufgaben": [...]}
+  ]
+}`;
+
+  const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung IBV (ca. 85 BE).
+Task I: Bilanzierung + internationaler Handel (~35 BE), Task II: Kostenrechnung (~25 BE), Task III: Internationales Marketing + VWL (~25 BE).
+Internationaler Bezug, realistische Zahlen, BE an jeder Teilaufgabe.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS DEUTSCH ABITUR: GENERATE (FAP 12) ================= */
+async function handleFOSGenerateAbiturDeutsch(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS-Fachabiturprüfung Deutsch in Bayern.
+Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung mit 3 Aufgaben zur WAHL.
+
+PRÜFUNGSSTRUKTUR (FOS Bayern, Deutsch FAP 12. Klasse):
+- Bearbeitungszeit: 240 Minuten
+- Hilfsmittel: Rechtschreibwörterbuch
+- Der Prüfling wählt EINE von 3 Aufgaben
+- Bewertung: 60 BE
+
+AUFGABE 1 – Materialgestütztes Verfassen eines argumentierenden Textes:
+- Erörterung ODER Kommentar (~800 Wörter)
+- 3 Materialien (Sachtexte, Statistiken, Grafiken)
+- Aktuelles, gesellschaftlich relevantes Thema
+
+AUFGABE 2 – Erschließung eines pragmatischen Textes:
+- Vollständiger Sachtext (Kommentar, Essay, Rede – ca. 600-800 Wörter)
+- Zweiteilige Aufgabe: a) Analysieren Sie den Text + b) Erörtern Sie die Position
+
+AUFGABE 3 – Analyse eines literarischen Textes:
+- Prosaauszug oder Dramenszene (ca. 500-700 Wörter)
+- Interpretationsaufgabe mit Kontext-Einordnung
+
+MATERIALIEN für Aufgabe 1:
+- Material 1: Sachtext/Zeitungsartikel (300-500 Wörter)
+- Material 2: Statistik/Grafik (als Markdown-Tabelle)
+- Material 3: Weiterer Text/Interview (200-400 Wörter)
+- Alle Materialien mit Quellenangabe (Autor, Titel. In: Medium, Datum)
+
+PFLICHT-REGELN:
+- Alle 3 Aufgaben MÜSSEN unterschiedliche Themen behandeln
+- Texte müssen vollständig und realistisch sein (keine Platzhalter!)
+- Operatoren korrekt einsetzen
+- LEHRPLAN-TREUE: FOS-Deutsch-Lehrplan Bayern
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Fachabiturprüfung Deutsch 2025",
+  "zeit": 240,
+  "gesamt_be": 60,
+  "hilfsmittel": "Rechtschreibwörterbuch",
+  "aufgaben": [
+    {
+      "nr": 1,
+      "typ": "materialgestuetztes_argumentieren",
+      "titel": "Materialgestütztes Verfassen eines argumentierenden Textes",
+      "thema": "Konkretes Thema",
+      "aufgabenstellung": "Erörtern Sie...",
+      "variante2": "Verfassen Sie einen Kommentar...",
+      "materialien": [
+        {"nr": "Material 1", "quelle": "Autor, Titel. In: Zeitung (Jahr)", "text": "Vollständiger Text (300-500 Wörter)..."},
+        {"nr": "Material 2", "quelle": "Statistisches Bundesamt (2024)", "typ": "statistik", "text": "| Kategorie | Wert |..."},
+        {"nr": "Material 3", "quelle": "...", "text": "..."}
+      ]
+    },
+    {
+      "nr": 2,
+      "typ": "texterschliessung_pragmatisch",
+      "titel": "Erschließung eines pragmatischen Textes",
+      "thema": "...",
+      "text": "Der vollständige Sachtext (600-800 Wörter)...",
+      "quelle": "Autor, Titel. In: Medium (Jahr)",
+      "aufgabenstellung": "a) Analysieren Sie... b) Erörtern Sie..."
+    },
+    {
+      "nr": 3,
+      "typ": "literarische_analyse",
+      "titel": "Analyse eines literarischen Textes",
+      "thema": "...",
+      "text": "Der vollständige Textauszug (500-700 Wörter)...",
+      "quelle": "Autor: Titel (Jahr)",
+      "aufgabenstellung": "Interpretieren Sie..."
+    }
+  ]
+}`;
+
+  const userPrompt = `Erstelle eine vollständige FOS-Fachabiturprüfung Deutsch mit 3 Aufgaben zur Wahl:
+1. Materialgestütztes Argumentieren (mit 3 vollständigen Materialien, aktuelles Thema)
+2. Erschließung eines pragmatischen Textes (vollständiger Sachtext 600-800 Wörter)
+3. Literarische Analyse (Prosaauszug 500-700 Wörter)
+Alle Texte müssen vollständig und realistisch sein!`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS ENGLISCH ABITUR: GENERATE (FAP 12) ================= */
+async function handleFOSGenerateAbiturEnglisch(body, env) {
+  const systemPrompt = `You are an expert on the Bavarian FOS Fachabiturprüfung (FAP) in English.
+Create a COMPLETE exam with Reading Comprehension + Material-Based Writing.
+
+EXAM STRUCTURE (FOS Bayern, English FAP 12th grade):
+Total: 48 BE (Reading 24 + Writing 24)
+
+PART 1 – READING COMPREHENSION (24 BE, 90 min):
+3 Texts (total ~2,400 words), 3 Task groups:
+
+Text I (~800 words): Non-fiction article on a current topic
+TASK I (8 BE):
+- Part 1: Multiple Matching (5 BE) – Match statements A-H to people/sections 1-5 (3 distractors)
+- Part 2: Short Answer Questions (3 BE) – 3 questions, brief answers from text
+
+Text II (~800 words): Non-fiction article, different topic
+TASK II (8 BE):
+- Part 1: Gapped Summary (6 BE) – Fill 6 gaps using words from text
+- Part 2: Short Answer Questions (2 BE) – 2 questions
+
+Text III (~800 words): Literary text (short story)
+TASK III (8 BE):
+- Part 1: Multiple Choice (3 BE) – 3 MC questions, 4 options each (A-D)
+- Part 2: Mediation EN→DE (5 BE) – 5 questions answered in GERMAN
+
+PART 2 – MATERIAL-BASED WRITING (24 BE):
+2 Tasks to choose from (student picks ONE), min. 300 words each.
+Each task: argumentative essay/comment with 3 materials (text excerpts, statistics, German text).
+
+IMPORTANT:
+- All texts COMPLETE and realistic, B2 level
+- MC options plausible
+- Multiple Matching: exactly 5 matches + 3 distractors
+- Gapped Summary: gaps as ______(1), ______(2) etc.
+- CORRECT ANSWERS for all Reading tasks
+- Writing materials: mix of English and German
+
+Respond ONLY with valid JSON:
+{
+  "titel": "Fachabiturprüfung Englisch 2025",
+  "gesamt_be": 48,
+  "reading": {
+    "be": 24,
+    "zeit": 90,
+    "texte": [
+      {"nr": "Text I", "titel": "Title", "text": "Full text ~800 words..."},
+      {"nr": "Text II", "titel": "...", "text": "..."},
+      {"nr": "Text III", "titel": "Short Story Title", "text": "..."}
+    ],
+    "tasks": [
+      {
+        "nr": "I", "be": 8, "referenz_text": "Text I",
+        "teile": [
+          {"typ": "multiple_matching", "be": 5,
+           "anweisung": "Match statements A-H with people/paragraphs 1-5.",
+           "items": ["1: Name/Section", "2: ...", "3: ...", "4: ...", "5: ..."],
+           "statements": ["A: ...", "B: ...", "C: ...", "D: ...", "E: ...", "F: ...", "G: ...", "H: ..."],
+           "loesung": {"1": "C", "2": "A", "3": "F", "4": "H", "5": "B"}},
+          {"typ": "short_answer", "be": 3,
+           "fragen": [
+             {"nr": "2.1", "frage": "Which expression...", "be": 1, "loesung": "answer"},
+             {"nr": "2.2", "frage": "...", "be": 1, "loesung": "..."},
+             {"nr": "2.3", "frage": "...", "be": 1, "loesung": "..."}
+           ]}
+        ]
+      },
+      {
+        "nr": "II", "be": 8, "referenz_text": "Text II",
+        "teile": [
+          {"typ": "gapped_summary", "be": 6,
+           "text": "The article discusses ______(1) and explains that ______(2)...",
+           "loesungen": {"1": "word", "2": "word", "3": "...", "4": "...", "5": "...", "6": "..."}},
+          {"typ": "short_answer", "be": 2,
+           "fragen": [
+             {"nr": "2.1", "frage": "...", "be": 1, "loesung": "..."},
+             {"nr": "2.2", "frage": "...", "be": 1, "loesung": "..."}
+           ]}
+        ]
+      },
+      {
+        "nr": "III", "be": 8, "referenz_text": "Text III",
+        "teile": [
+          {"typ": "multiple_choice", "be": 3,
+           "fragen": [
+             {"nr": 1, "frage": "Question...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "D"},
+             {"nr": 2, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"},
+             {"nr": 3, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "A"}
+           ]},
+          {"typ": "mediation_en_de", "be": 5,
+           "anweisung": "Beantworten Sie die folgenden Fragen auf DEUTSCH.",
+           "fragen": [
+             {"nr": "2.1", "frage": "Mit welcher Situation...", "be": 1, "loesung": "Deutsche Antwort..."},
+             {"nr": "2.2", "frage": "...", "be": 1, "loesung": "..."},
+             {"nr": "2.3", "frage": "...", "be": 1, "loesung": "..."},
+             {"nr": "2.4", "frage": "...", "be": 1, "loesung": "..."},
+             {"nr": "2.5", "frage": "...", "be": 1, "loesung": "..."}
+           ]}
+        ]
+      }
+    ]
+  },
+  "writing": {
+    "be": 24,
+    "tasks": [
+      {"nr": 1, "thema": "Topic", "anweisung": "Comment on...", "materialien": [
+        {"nr": 1, "typ": "text_en", "text": "English source..."},
+        {"nr": 2, "typ": "statistik", "text": "Statistics description..."},
+        {"nr": 3, "typ": "text_de", "text": "German source..."}
+      ]},
+      {"nr": 2, "thema": "Topic 2", "anweisung": "Discuss...", "materialien": [
+        {"nr": 1, "typ": "text_en", "text": "..."},
+        {"nr": 2, "typ": "text_en", "text": "..."},
+        {"nr": 3, "typ": "text_de", "text": "..."}
+      ]}
+    ]
+  }
+}`;
+
+  const userPrompt = `Create a complete FOS Fachabiturprüfung English (48 BE):
+Part 1 Reading (24 BE): 3 texts (~800 words each), Task I (Multiple Matching + Short Answer), Task II (Gapped Summary + Short Answer), Task III (MC + Mediation EN→DE).
+Part 2 Writing (24 BE): 2 tasks to choose from (essay, 300+ words, 3 materials each).
+ALL texts complete and realistic. Include correct answers for Reading.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS PROFILFACH ABITUR: GENERATE (Physik, PädPsych, Bio, Gesundheit, Gestaltung) ================= */
+const FOS_ABITUR_PROFILFAECHER = {
+  physik: {
+    name: "Physik", zeit: 180, gesamt_be: 100,
+    hilfsmittel: "ISB-Merkhilfe Physik, nicht programmierbarer Taschenrechner",
+    beschreibung: "Fachabiturprüfung Physik (Technik-Zweig)",
+    aufgaben: [
+      { titel: "Mechanik & Energie", be: 35, themen: "Kinematik (gleichförmig/gleichmäßig beschleunigte Bewegung, freier Fall, schiefer Wurf), Dynamik (Newton'sche Gesetze, Kraft, Impuls, Impulserhaltung), Energie (kinetische/potentielle Energie, Energieerhaltung, Arbeit, Leistung, Wirkungsgrad)" },
+      { titel: "Elektrische und magnetische Felder", be: 35, themen: "Elektrisches Feld (Coulomb-Kraft, Feldstärke, Spannung, Plattenkondensator, Kapazität), Magnetisches Feld (Lorentzkraft, Induktion, Lenz'sche Regel, Selbstinduktion), Wechselstromkreise (Effektivwerte)" },
+      { titel: "Wellen & Quantenphysik", be: 30, themen: "Schwingungen (harmonische Schwingung, Federschwinger, Pendel, Resonanz), Wellen (Interferenz, stehende Wellen, Beugung am Spalt/Gitter), Quantenphysik (Photoeffekt, Photon, de-Broglie-Wellenlänge)" }
+    ]
+  },
+  paedpsych: {
+    name: "Pädagogik/Psychologie", zeit: 180, gesamt_be: 80,
+    hilfsmittel: "keine",
+    beschreibung: "Fachabiturprüfung Pädagogik/Psychologie (Sozialwesen-Zweig)",
+    aufgaben: [
+      { titel: "Fallanalyse – Entwicklung & Erziehung", be: 30, themen: "Entwicklungspsychologie (Piaget, Erikson, Kohlberg), Erziehungsstile (Lewin, Baumrind), Bindungstheorie (Bowlby, Ainsworth), Resilienz, Anlage-Umwelt-Debatte" },
+      { titel: "Lern- und Verhaltenspsychologie", be: 25, themen: "Klassische Konditionierung (Pawlow), Operante Konditionierung (Skinner), Modelllernen (Bandura), Kognitive Lerntheorien, Gedächtnismodelle, Verhaltensauffälligkeiten" },
+      { titel: "Sozialpsychologie & Kommunikation", be: 25, themen: "Gruppenpsychologie (Normen, Rollen, Konformität), Kommunikationsmodelle (Schulz von Thun, Watzlawick), Konfliktlösung, Vorurteile, Prosoziales Verhalten, Aggression" }
+    ]
+  },
+  biologie: {
+    name: "Biologie", zeit: 180, gesamt_be: 80,
+    hilfsmittel: "keine",
+    beschreibung: "Fachabiturprüfung Biologie (ABU/Gesundheit-Zweig)",
+    aufgaben: [
+      { titel: "Zellbiologie & Genetik", be: 30, themen: "Zellaufbau (Prokaryoten/Eukaryoten), Zellteilung (Mitose, Meiose), Proteinbiosynthese, Genetischer Code, Mutationen, Mendel'sche Regeln, Humangenetik (Stammbaumanalyse), Gentechnik" },
+      { titel: "Stoffwechsel & Ökologie", be: 25, themen: "Enzyme, Fotosynthese, Zellatmung, Ökosystem (Nahrungsketten, Stoffkreisläufe, Energiefluss), Populationsökologie, Biodiversität" },
+      { titel: "Evolution & Neurobiologie", be: 25, themen: "Evolutionstheorien (Darwin), Evolutionsfaktoren (Mutation, Selektion, Gendrift), Artbildung, Neurobiologie (Nervenzelle, Ruhepotential, Aktionspotential, Synapse)" }
+    ]
+  },
+  gesundheit: {
+    name: "Gesundheitswissenschaften", zeit: 180, gesamt_be: 80,
+    hilfsmittel: "keine",
+    beschreibung: "Fachabiturprüfung Gesundheitswissenschaften (Gesundheit-Zweig)",
+    aufgaben: [
+      { titel: "Anatomie & Physiologie", be: 30, themen: "Herz-Kreislauf-System, Atmungssystem (Gasaustausch), Verdauungssystem, Immunsystem (angeborene/adaptive Immunabwehr, Impfung, Allergien), Hormonsystem (Regelkreis, Diabetes)" },
+      { titel: "Krankheitslehre & Prävention", be: 25, themen: "Infektionskrankheiten, Zivilisationskrankheiten, Prävention (primär/sekundär/tertiär), Gesundheitsförderung (Ottawa-Charta, Salutogenese Antonovsky), Epidemiologie" },
+      { titel: "Ernährung & Pflege", be: 25, themen: "Ernährungslehre (Makro-/Mikronährstoffe, Energiebilanz), Diätetik, Pflegemodelle, Pflegeprozess, Ethik im Gesundheitswesen (Patientenrechte, Sterbebegleitung)" }
+    ]
+  },
+  gestaltung: {
+    name: "Gestaltung", zeit: 240, gesamt_be: 80,
+    hilfsmittel: "Zeichenmaterial",
+    beschreibung: "Fachabiturprüfung Gestaltung (Gestaltung-Zweig)",
+    aufgaben: [
+      { titel: "Gestaltungstheorie & Analyse", be: 30, themen: "Gestaltungsgesetze (Nähe, Ähnlichkeit, Geschlossenheit), Farbtheorie (Farbkreis, Kontraste nach Itten), Typografie (Schriftklassifikation, Lesbarkeit), Komposition (Goldener Schnitt, Bildaufbau), Designgeschichte (Bauhaus, Swiss Design)" },
+      { titel: "Medien & Kommunikationsdesign", be: 25, themen: "Bildanalyse (Perspektive, Licht, Kontrast), Corporate Design (Logo, CI), Plakatgestaltung (AIDA), Verpackungsdesign, Interfacedesign (Usability, UX), Medienethik" },
+      { titel: "Konzeptionelle Gestaltungsaufgabe", be: 25, themen: "Entwurfskonzept (Briefing, Moodboard, Scribbles), Farbwahl begründen, Typografische Gestaltung, Layout-Entwurf. Beschreibe deinen Entwurf und begründe deine Gestaltungsentscheidungen detailliert." }
+    ]
+  }
+};
+
+async function handleFOSGenerateAbiturProfilfach(fach, body, env) {
+  const config = FOS_ABITUR_PROFILFAECHER[fach];
+  if (!config) return jsonResponse({ error: "Unbekanntes Profilfach: " + fach }, 400, env);
+
+  let aufgabenStruktur = "";
+  const roemisch = ["I", "II", "III"];
+  for (let i = 0; i < config.aufgaben.length; i++) {
+    const a = config.aufgaben[i];
+    aufgabenStruktur += `\nAUFGABE ${roemisch[i]} (${a.be} BE) – ${a.titel}:\n${a.themen}\n`;
+  }
+
+  const systemPrompt = `Du bist ein Experte für die ${config.beschreibung} in Bayern.
+Erstelle eine VOLLSTÄNDIGE Fachabiturprüfung.
+
+PRÜFUNGSFORMAT:
+- Fach: ${config.name} (FOS Bayern, 12. Klasse)
+- Bearbeitungszeit: ${config.zeit} Minuten
+- Hilfsmittel: ${config.hilfsmittel}
+- ALLE Aufgaben sind Pflicht
+- Gesamt: ${config.gesamt_be} BE
+
+AUFGABENSTRUKTUR:${aufgabenStruktur}
+
+PFLICHT-REGELN:
+- Jede Aufgabe hat einen EIGENEN Kontext (Fallbeispiel, Situation, Szenario)
+- BE-Angaben an JEDER Teilaufgabe
+- Operatoren mit steigendem Anforderungsniveau:
+  AFB I (20%): nennen, beschreiben, darstellen
+  AFB II (40%): erläutern, analysieren, vergleichen, anwenden
+  AFB III (40%): beurteilen, erörtern, Stellung nehmen
+- Pro Aufgabe 4-6 Teilaufgaben
+- Materialien wo sinnvoll (Tabellen, Fallbeispiele, Abbildungen als Text)
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Fachabiturprüfung ${config.name} 2025",
+  "gesamt_be": ${config.gesamt_be},
+  "zeit": ${config.zeit},
+  "hilfsmittel": "${config.hilfsmittel}",
+  "aufgaben": [
+    {
+      "id": "I",
+      "titel": "Aufgabe I – ${config.aufgaben[0].titel}",
+      "kontext": "Ausführlicher Situationstext / Fallbeispiel...",
+      "gesamt_be": ${config.aufgaben[0].be},
+      "teilaufgaben": [
+        {"nr": "1.1", "text": "...", "be": 5, "afb": "I"},
+        {"nr": "1.2", "text": "...", "be": 8, "afb": "II"}
+      ]
+    },
+    {"id": "II", "titel": "...", "kontext": "...", "gesamt_be": ${config.aufgaben[1].be}, "teilaufgaben": [...]},
+    {"id": "III", "titel": "...", "kontext": "...", "gesamt_be": ${config.aufgaben[2].be}, "teilaufgaben": [...]}
+  ]
+}`;
+
+  const aufgabenBeschreibung = config.aufgaben.map((a, i) => `Aufgabe ${roemisch[i]}: ${a.titel} (${a.be} BE)`).join(', ');
+  const userPrompt = `Erstelle eine vollständige ${config.beschreibung} (${config.gesamt_be} BE).
+${aufgabenBeschreibung}.
+Jede Aufgabe braucht einen eigenen Kontext, BE an jeder Teilaufgabe, steigende AFB.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
