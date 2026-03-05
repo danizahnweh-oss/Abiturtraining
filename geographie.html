@@ -892,9 +892,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           } else if (m.type === "klimadiagramm") {
             renderKlimadiagramm(m.content, `klima-m-${i}`);
           } else if (m.type === "bild") {
-            loadDallEImage(m.content, `img-m-${i}`);
+            loadEducationalImage(m.content, `img-m-${i}`, m.image_labels || null);
           } else if (m.type === "foto") {
-            loadUnsplashImage(m.content, `img-m-${i}`);
+            loadEducationalImage(m.content, `img-m-${i}`, m.image_labels || null);
           }
         });
       }
@@ -1014,23 +1014,6 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       } catch (err) {
         console.error("Chart-Rendering-Fehler:", err);
       }
-    }
-    async function loadDallEImage(prompt, containerId) {
-      try {
-        const el = document.getElementById(containerId);
-        if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt });
-        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        const el = document.getElementById(containerId);
-        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
-      }
-    }
-    async function loadUnsplashImage(keywords, containerId) {
-      loadDallEImage(keywords, containerId);
     }
 
     function renderKarte(contentStr, containerId) {

@@ -862,10 +862,8 @@ Tipp: Beachte den Fachbereich:
       (mats || []).forEach((m, idx) => {
         if ((m.typ === "statistik" || (m.inhalt || "").includes("|")) && (m.inhalt || "").includes("|")) {
           renderStatistikChart(m.inhalt, `chart-${prefix}-${idx}`);
-        } else if (m.typ === "bild") {
-          loadDallEImage(m.inhalt, `img-${prefix}-${idx}`);
-        } else if (m.typ === "foto") {
-          loadUnsplashImage(m.inhalt, `img-${prefix}-${idx}`);
+        } else if (m.typ === "bild" || m.typ === "foto") {
+          loadEducationalImage(m.inhalt, `img-${prefix}-${idx}`, m.bild_labels || null);
         }
       });
     }
@@ -1061,24 +1059,6 @@ Tipp: Beachte den Fachbereich:
         console.error("Chart-Rendering-Fehler:", err);
       }
     }
-    async function loadDallEImage(prompt, containerId) {
-      try {
-        const el = document.getElementById(containerId);
-        if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt });
-        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        const el = document.getElementById(containerId);
-        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
-      }
-    }
-    async function loadUnsplashImage(keywords, containerId) {
-      loadDallEImage(keywords, containerId);
-    }
-
     function renderHistoryTable(history) {
       document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
         `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>${escapeHtml(x.fachbereich || "–")}</td><td class="history-score">${x.be ?? "–"}</td><td class="history-score" style="font-weight:700">${x.notenpunkte ?? x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`
