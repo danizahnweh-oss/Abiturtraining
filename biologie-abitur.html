@@ -821,7 +821,7 @@
           var mtype = detectMaterialType(m);
           if (mtype === "bild" && m.text) {
             console.log("[Bio-Bild] Loading image for Aufgabe " + (idx+1) + " M" + (mi+1) + ": " + m.text.substring(0, 80));
-            loadDallEImage(m.text, 'img-bio-' + idx + '-' + mi);
+            loadEducationalImage(m.text, 'img-bio-' + idx + '-' + mi, m.image_labels || null);
           }
         });
       });
@@ -1369,20 +1369,7 @@
       });
     }
 
-    async function loadDallEImage(prompt, containerId) {
-      try {
-        var el = document.getElementById(containerId);
-        if (!el) return;
-        var d = await apiCall("/api/generate-image", { prompt: prompt });
-        var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
-        var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        var el2 = document.getElementById(containerId);
-        if (el2) el2.innerHTML = '<div style="color:#e11d48;font-size:.8rem;text-align:center;padding:1rem">Bild-Fehler: ' + escapeHtml(e.message) + '</div>';
-      }
-    }
+    // loadDallEImage entfernt – jetzt in shared.js als loadEducationalImage
 
     /* ====== INIT LEVEL DISPLAY ====== */
     ; (function () {

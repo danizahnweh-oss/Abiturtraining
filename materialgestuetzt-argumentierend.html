@@ -610,10 +610,8 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       materials.forEach((m, i) => {
         if (m.type === "statistik" && (m.content || "").includes("|")) {
           renderStatistikChart(m.content, `chart-mg-${i}`);
-        } else if (m.type === "bild") {
-          loadDallEImage(m.content, `img-mg-${i}`);
-        } else if (m.type === "foto") {
-          loadUnsplashImage(m.content, `img-mg-${i}`);
+        } else if (m.type === "bild" || m.type === "foto") {
+          loadEducationalImage(m.content, `img-mg-${i}`, m.image_labels || null);
         }
       });
 
@@ -711,24 +709,6 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
         console.error("Chart-Rendering-Fehler:", err);
       }
     }
-    async function loadDallEImage(prompt, containerId) {
-      try {
-        const el = document.getElementById(containerId);
-        if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt });
-        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        const el = document.getElementById(containerId);
-        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
-      }
-    }
-    async function loadUnsplashImage(keywords, containerId) {
-      loadDallEImage(keywords, containerId);
-    }
-
     function renderHistoryTable(history) {
       document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map((x, i) =>
         `<tr><td>${new Date(x.date).toLocaleDateString("de")}</td><td>💬</td><td class="history-score">${x.verstehen ?? "–"}</td><td class="history-score">${x.darstellung ?? "–"}</td><td class="history-score" style="font-weight:700">${x.total ?? "–"}</td><td><button onclick="deleteHistoryEntry(${history.length - 1 - i})" style="background:none;border:none;cursor:pointer">✕</button></td></tr>`

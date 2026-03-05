@@ -1053,4 +1053,83 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   }
 };
 
+/* ============================
+   Zentrale Bildlade-Funktion
+   Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
+   Generiert textfreie Bilder mit HTML-Label-Overlays.
+   ============================ */
+async function loadEducationalImage(prompt, containerId, labels, style) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  try {
+    var d = await apiCall("/api/generate-image", {
+      prompt: prompt,
+      noText: true,
+      style: style || "diagram"
+    });
+
+    var credit = d.credit
+      ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
+      : '';
+    var caption = d.caption
+      ? '<figcaption class="edu-img-caption">' + escapeHtml(d.caption) + '</figcaption>'
+      : '';
+
+    // Label-Overlays generieren
+    var overlayHtml = '';
+    if (labels) {
+      // Titel-Overlay (zentriert oben)
+      if (labels.title) {
+        overlayHtml += '<div class="edu-label edu-label-title">' + escapeHtml(labels.title) + '</div>';
+      }
+      // Y-Achsen-Label (links, vertikal)
+      if (labels.y_axis) {
+        overlayHtml += '<div class="edu-label edu-label-y-axis">' + escapeHtml(labels.y_axis) + '</div>';
+      }
+      // X-Achsen-Label (unten zentriert)
+      if (labels.x_axis) {
+        overlayHtml += '<div class="edu-label edu-label-x-axis">' + escapeHtml(labels.x_axis) + '</div>';
+      }
+      // Positionierte Labels (3×3 Grid)
+      if (labels.labels && labels.labels.length) {
+        labels.labels.forEach(function(lbl) {
+          var validPos = ['top-left','top-center','top-right','left-center','center','right-center','bottom-left','bottom-center','bottom-right'];
+          var pos = validPos.indexOf(lbl.position) !== -1 ? lbl.position : 'center';
+          overlayHtml += '<div class="edu-label edu-label-pos ' + pos + '">' + escapeHtml(lbl.text) + '</div>';
+        });
+      }
+    }
+
+    // Legende separat (unter dem Bild als Liste)
+    var legendHtml = '';
+    if (labels && labels.legend && labels.legend.length) {
+      legendHtml = '<div class="edu-img-legend">' +
+        labels.legend.map(function(l) {
+          return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
+        }).join('') +
+        '</div>';
+    }
+
+    var altText = labels && labels.title ? escapeHtml(labels.title) : 'Illustration';
+    el.innerHTML =
+      '<figure class="edu-img-figure">' +
+        '<div class="edu-img-wrapper">' +
+          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
+          overlayHtml +
+        '</div>' +
+        caption + legendHtml + credit +
+      '</figure>';
+  } catch (e) {
+    console.error('Bild-Fehler:', e);
+    var el2 = document.getElementById(containerId);
+    if (el2) el2.innerHTML =
+      '<div class="edu-img-error">Bild konnte nicht geladen werden.</div>';
+  }
+}
+
+// Rückwärtskompatibilität
+var loadDallEImage = function(prompt, containerId) {
+  loadEducationalImage(prompt, containerId, null);
+};
+var loadUnsplashImage = loadDallEImage;
 

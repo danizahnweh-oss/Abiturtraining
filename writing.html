@@ -1227,7 +1227,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       try {
         const el = document.getElementById(containerId);
         if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt: prompt, noText: true });
+        const d = await apiCall("/api/generate-image", { prompt: prompt, noText: true, style: "cartoon" });
         const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
         const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
 

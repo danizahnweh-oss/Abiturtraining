@@ -715,9 +715,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             renderStatistikChart(m.content, `chart-gz-${i}`);
           } else if (m.type === "bild") {
-            loadDallEImage(m.content, `img-gz-${i}`);
+            loadEducationalImage(m.content, `img-gz-${i}`, m.image_labels || null);
           } else if (m.type === "foto") {
-            loadUnsplashImage(m.content, `img-gz-${i}`);
+            loadEducationalImage(m.content, `img-gz-${i}`, m.image_labels || null);
           }
         });
       } else {
@@ -785,23 +785,6 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       } catch (err) {
         console.error("Chart-Rendering-Fehler:", err);
       }
-    }
-    async function loadDallEImage(prompt, containerId) {
-      try {
-        const el = document.getElementById(containerId);
-        if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt });
-        const credit = d.credit ? `<div class="material-credit">${escapeHtml(d.credit)}</div>` : "";
-        const caption = d.caption ? `<figcaption class="material-caption">${escapeHtml(d.caption)}</figcaption>` : "";
-        el.innerHTML = `<figure class="material-figure"><img src="${d.url}" alt="Foto" class="material-img">${caption}${credit}</figure>`;
-      } catch (e) {
-        console.error("Bild-Fehler:", e);
-        const el = document.getElementById(containerId);
-        if (el) el.innerHTML = `<div style="color:var(--warning);font-size:.8rem">Bild konnte nicht geladen werden.</div>`;
-      }
-    }
-    async function loadUnsplashImage(keywords, containerId) {
-      loadDallEImage(keywords, containerId);
     }
 
     function renderHistoryTable(h) {
