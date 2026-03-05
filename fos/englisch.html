@@ -238,6 +238,78 @@
       margin-bottom: .4rem;
     }
 
+    /* ====== Cartoon Sprechblasen-Overlays ====== */
+    .cartoon-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .cartoon-wrapper img {
+      display: block;
+      width: 100%;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .cartoon-bubble {
+      position: absolute;
+      background: #fff;
+      border: 2px solid #333;
+      border-radius: 14px;
+      padding: .5rem .8rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      max-width: 44%;
+      line-height: 1.35;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+      z-index: 2;
+    }
+
+    .cartoon-bubble::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 8px solid transparent;
+    }
+
+    .cartoon-bubble.top-left { top: 6%; left: 4%; }
+    .cartoon-bubble.top-left::after { bottom: -16px; left: 18px; border-top-color: #333; }
+
+    .cartoon-bubble.top-right { top: 6%; right: 4%; }
+    .cartoon-bubble.top-right::after { bottom: -16px; right: 18px; border-top-color: #333; }
+
+    .cartoon-bubble.bottom-left { bottom: 12%; left: 4%; }
+    .cartoon-bubble.bottom-left::after { top: -16px; left: 18px; border-bottom-color: #333; }
+
+    .cartoon-bubble.bottom-right { bottom: 12%; right: 4%; }
+    .cartoon-bubble.bottom-right::after { top: -16px; right: 18px; border-bottom-color: #333; }
+
+    .cartoon-bubble .bubble-speaker {
+      display: block;
+      font-size: .7rem;
+      font-weight: 400;
+      color: #888;
+      margin-bottom: .15rem;
+    }
+
+    [data-theme="dark"] .cartoon-bubble {
+      background: #2a2a3e;
+      border-color: #888;
+      color: #e8e8f0;
+    }
+
+    [data-theme="dark"] .cartoon-bubble .bubble-speaker {
+      color: #aaa;
+    }
+
+    [data-theme="dark"] .cartoon-bubble.top-left::after { border-top-color: #888; }
+    [data-theme="dark"] .cartoon-bubble.top-right::after { border-top-color: #888; }
+    [data-theme="dark"] .cartoon-bubble.bottom-left::after { border-bottom-color: #888; }
+    [data-theme="dark"] .cartoon-bubble.bottom-right::after { border-bottom-color: #888; }
+
     @media (max-width: 640px) {
       .scores-grid {
         grid-template-columns: 1fr;
@@ -253,6 +325,12 @@
 
       .setup-selects {
         grid-template-columns: 1fr;
+      }
+
+      .cartoon-bubble {
+        font-size: .75rem;
+        padding: .35rem .6rem;
+        max-width: 48%;
       }
     }
   </style>
@@ -930,10 +1008,13 @@ Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
     * Art des Cartoons (political cartoon, editorial cartoon, satirical illustration)
     * Alle Figuren/Personen mit Aussehen, Kleidung, Gesichtsausdruck, Haltung
     * Symbole, Metaphern, visuelle Übertreibungen
-    * Sprechblasen oder Beschriftungen (Text in ENGLISCH, in Anführungszeichen mit genauer Position)
+    * WICHTIG: KEIN Text, KEINE Sprechblasen, KEINE Beschriftungen im Bild! Nur visuelle Elemente beschreiben.
     * Hintergrund, Setting, Komposition
     * Die satirische Aussage/den Humor der Karikatur
     Der Prompt muss mindestens 5-8 Sätze lang sein!
+  - Erstelle ZUSÄTZLICH ein Array "cartoon_bubbles" mit den Sprechblasen-Texten, die ÜBER dem Bild als HTML angezeigt werden.
+    Jede Bubble hat: "text" (der Sprechblasentext in Englisch), "position" (eines von: "top-left", "top-right", "bottom-left", "bottom-right"), "speaker" (kurze Beschreibung wer spricht).
+    Maximal 2-3 Sprechblasen. Kurze, prägnante Texte (max. 10 Wörter pro Bubble).
 - 3.2: Situationsbeschreibung (1-2 Sätze) + "Write a/an [Textsorte] in which you..." (1 Satz)
 
 Bei eA: Aufgaben sprachlich und inhaltlich anspruchsvoller, tiefere Analyse erwartet.
@@ -948,7 +1029,8 @@ OUTPUT FORMAT (NUR reines JSON):
   "task_2": "Analyse... Focus on...",
   "task_3_1_quote": "Exaktes Zitat aus dem Text (LEER lassen wenn Cartoon verwendet wird)",
   "task_3_1": "Taking the quotation as a starting point... ODER Comment on the cartoon below...",
-  "cartoon_prompt": "NUR wenn Aufgabe 3.1 einen Cartoon verwendet: Sehr detaillierter englischer Imagen-Prompt (5-8 Sätze). LEER lassen wenn kein Cartoon.",
+  "cartoon_prompt": "NUR wenn Aufgabe 3.1 einen Cartoon verwendet: Sehr detaillierter englischer Prompt OHNE Text/Sprechblasen (5-8 Sätze). LEER lassen wenn kein Cartoon.",
+  "cartoon_bubbles": [{"text": "Speech bubble text", "position": "top-left oder top-right oder bottom-left oder bottom-right", "speaker": "Wer spricht"}],
   "task_3_2_situation": "Situationsbeschreibung (1-2 Sätze)",
   "task_3_2": "Write a/an [Textsorte] in which you..."
 }`;
@@ -1266,7 +1348,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         typeLabel.textContent = "Cartoon-Kommentar";
         cartoonContainer.style.display = "block";
         cartoonContainer.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird generiert…</span></div>';
-        loadCartoonImage(d.cartoon_prompt, "cartoonContainer");
+        loadCartoonImage(d.cartoon_prompt, "cartoonContainer", d.cartoon_bubbles || []);
         document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
       } else {
         typeLabel.textContent = "Persönliche Stellungnahme";
@@ -1303,16 +1385,30 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       }
     }
 
-    async function loadCartoonImage(prompt, containerId) {
+    async function loadCartoonImage(prompt, containerId, bubbles) {
       try {
         const el = document.getElementById(containerId);
         if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt: prompt });
+        const d = await apiCall("/api/generate-image", { prompt: prompt, noText: true });
         const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
         const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
+
+        // Sprechblasen als HTML-Overlays rendern
+        var bubblesHtml = "";
+        if (bubbles && bubbles.length) {
+          bubblesHtml = bubbles.map(function(b) {
+            var pos = ["top-left","top-right","bottom-left","bottom-right"].indexOf(b.position) !== -1 ? b.position : "top-left";
+            var speaker = b.speaker ? '<span class="bubble-speaker">' + escapeHtml(b.speaker) + '</span>' : '';
+            return '<div class="cartoon-bubble ' + pos + '">' + speaker + escapeHtml(b.text || "") + '</div>';
+          }).join("");
+        }
+
         el.innerHTML =
           '<figure style="margin:0;text-align:center;">' +
-          '<img src="' + d.url + '" alt="Cartoon" style="max-width:100%;border-radius:var(--radius-sm);border:1px solid var(--border);">' +
+          '<div class="cartoon-wrapper">' +
+          '<img src="' + d.url + '" alt="Cartoon">' +
+          bubblesHtml +
+          '</div>' +
           caption + credit + '</figure>';
         CONFIG.cartoonUrl = d.url;
       } catch (e) {

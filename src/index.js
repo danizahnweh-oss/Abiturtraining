@@ -1968,13 +1968,36 @@ async function handleStudentResults(request, env) {
 
 /* ================= IMAGE GENERATION: GEMINI FLASH ================= */
 async function handleGenerateImage(request, env) {
-  const { prompt } = await request.json();
+  const { prompt, noText } = await request.json();
   if (!prompt) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Strukturierter Prompt für hochwertige Bildgenerierung
-  const enhancedPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
+  // Zwei Prompt-Varianten: mit oder ohne Text im Bild
+  let enhancedPrompt;
+  if (noText) {
+    // Für Cartoons/Karikaturen: KEIN Text im Bild, wird als HTML-Overlay hinzugefügt
+    enhancedPrompt = `Generate a high-quality editorial cartoon / political cartoon illustration.
+
+CRITICAL RULE — NO TEXT:
+- Do NOT include ANY text, words, letters, numbers, labels, signs, speech bubbles, thought bubbles, captions, titles, annotations, or written content of any kind in the image.
+- Where speech bubbles would normally appear, leave EMPTY white speech bubbles (no text inside) or omit them entirely.
+- Where signs or labels would normally appear, leave them BLANK.
+- This is absolutely essential — the image must contain ZERO text or letterforms.
+
+STYLE REQUIREMENTS:
+- Bold, expressive editorial cartoon style with thick outlines and vivid colors
+- Exaggerated features, satirical visual metaphors, clear visual storytelling
+- High contrast, clean composition, professional quality
+- Characters should have clear facial expressions and body language that convey meaning WITHOUT text
+
+SUBJECT TO ILLUSTRATE:
+${prompt}
+
+ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the cartoon shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
+  } else {
+    // Standard: Für Diagramme, Infografiken etc. mit Text im Bild
+    enhancedPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
 
 STYLE REQUIREMENTS:
 - Clean, modern infographic or diagram style with crisp lines, vivid colors, and professional typography
@@ -1991,6 +2014,7 @@ SUBJECT TO ILLUSTRATE:
 ${prompt}
 
 ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
+  }
 
   try {
     // Bild generieren via Gemini 3.1 Flash Image Preview (2K-Auflösung)
