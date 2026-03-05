@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS &middot; Physik</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+  <style>
+    :root{--accent:#2563eb;--accent-hover:#1d4ed8;--accent-soft:#dbeafe;--accent-glow:rgba(37,99,235,.08)}
+    [data-theme="dark"]{--accent:#60a5fa;--accent-hover:#93c5fd;--accent-soft:rgba(96,165,250,.15);--accent-glow:rgba(96,165,250,.08)}
+    .hj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+    .hj-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.2rem;text-align:center;cursor:pointer}
+    .hj-card:hover,.hj-card.selected{border-color:var(--accent);background:var(--accent-soft)}
+    .hj-icon{font-size:1.5rem;margin-bottom:.4rem}.hj-name{font-weight:600;font-size:.85rem}
+    .hj-desc{font-size:.75rem;color:var(--ink-muted);margin-top:.3rem;line-height:1.3}
+    .mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+    .mode-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-warm);cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-muted)}
+    .mode-btn.active{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+    .teilaufgabe-item{padding:.6rem 0;border-bottom:1px solid var(--border)}.teilaufgabe-item:last-child{border-bottom:none}
+    .teilaufgabe-nr{font-weight:700;color:var(--accent);margin-right:.3rem}.teilaufgabe-be{font-size:.8rem;color:var(--ink-muted);font-weight:600}
+    .be-scores-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-bottom:1.5rem}
+    .be-score-card{background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+    .be-score-card.total{grid-column:1/-1;background:var(--accent-glow);border-color:var(--accent)}
+    .ggb-toggle{margin:1rem 0;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+    .ggb-toggle summary{padding:.7rem 1rem;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--accent);background:var(--accent-glow);user-select:none}
+    .ggb-toggle summary:hover{background:var(--accent-soft)}.ggb-toggle[open] summary{border-bottom:1px solid var(--border)}
+    @media(max-width:650px){.hj-grid{grid-template-columns:1fr 1fr}.mode-toggle{grid-template-columns:1fr}}
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow FOS" class="header-logo"></a>
+      <a href="index.html?back=physik" class="back-link">&larr; Zur&uuml;ck</a>
+      <h1>&#x269B;&#xFE0F; Physik &middot; <span>Klausurtraining</span></h1>
+    </div>
+    <div class="header-right">
+      <span id="studentGreeting" class="header-meta" style="display:none"></span>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+    </div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="nav('setup')"><span class="step-num">1</span> Aufgabe</button>
+    <button onclick="nav('task')"><span class="step-num">2</span> Aufgabe</button>
+    <button onclick="nav('write')"><span class="step-num">3</span> Abgabe</button>
+    <button onclick="nav('feedback')"><span class="step-num">4</span> Feedback</button>
+    <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">&#x1F4CA;</span> Fortschritt</button>
+  </nav>
+
+  <main>
+    <section id="sec-setup" class="active">
+      <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+      <div class="card" id="setupGenerate">
+        <h2 class="card-header">Neue Aufgabe generieren</h2>
+        <div class="form-group">
+          <label>Sachgebiet</label>
+          <div class="hj-grid">
+            <div class="hj-card selected" data-hj="mechanik" onclick="selectSachgebiet('mechanik')">
+              <div class="hj-icon">&#x2699;&#xFE0F;</div>
+              <div class="hj-name">Mechanik</div>
+              <div class="hj-desc">Kr&auml;fte, Bewegung, Energie, Impuls</div>
+            </div>
+            <div class="hj-card" data-hj="elektrizitaet" onclick="selectSachgebiet('elektrizitaet')">
+              <div class="hj-icon">&#x26A1;</div>
+              <div class="hj-name">Elektrizit&auml;tslehre</div>
+              <div class="hj-desc">Stromkreise, Felder, Induktion</div>
+            </div>
+            <div class="hj-card" data-hj="optik" onclick="selectSachgebiet('optik')">
+              <div class="hj-icon">&#x1F52D;</div>
+              <div class="hj-name">Optik &amp; Wellen</div>
+              <div class="hj-desc">Brechung, Interferenz, Beugung</div>
+            </div>
+            <div class="hj-card" data-hj="thermodynamik" onclick="selectSachgebiet('thermodynamik')">
+              <div class="hj-icon">&#x1F321;&#xFE0F;</div>
+              <div class="hj-name">Thermodynamik</div>
+              <div class="hj-desc">W&auml;rme, Gase, Entropie</div>
+            </div>
+          </div>
+          <div id="subtopics-panel" class="subtopics-panel"></div>
+        </div>
+        <button class="btn" id="generateBtn" onclick="generateTask()">&#x2728; Generieren</button>
+        <div class="loader" id="setupLoader"><div class="loader-spinner"></div><div class="loader-text">Generiere Physik-Aufgabe &hellip;</div></div>
+      </div>
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenblatt)</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none" onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader"><div class="loader-spinner"></div></div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <input type="hidden" id="parsedMeta">
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
+        </div>
+        <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
+        <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
+        <div class="form-group"><label>Aufgabenstellung</label><textarea id="manualTaskInstruction" style="min-height:100px" placeholder="Ein K&ouml;rper der Masse m = 2 kg wird &hellip;"></textarea></div>
+        <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
+      </div>
+      <div class="card">
+        <div style="display:flex;gap:2rem;flex-wrap:wrap">
+          <div class="form-group" style="margin:0"><label>Bewertungseinheiten (BE)</label><input type="number" id="totalBE" value="25" min="3" max="150" style="max-width:120px"></div>
+          <div class="form-group" style="margin:0"><label>Bearbeitungszeit (Min.)</label><input type="number" id="timerMinutes" value="45" min="5" max="120" style="max-width:120px"></div>
+          <div class="form-group" style="margin:0"><label>Anzahl Aufgaben</label><input type="number" id="taskCount" value="1" min="1" max="5" style="max-width:120px"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-task">
+      <div class="card">
+        <h2 class="card-header">Aufgabe</h2>
+        <div class="task-box" id="taskInstruction">&hellip;</div>
+        <div id="teilaufgabenContainer" style="margin-top:1rem"></div>
+        <div style="margin-top:.8rem;font-size:.85rem;color:var(--ink-muted)" id="taskMeta"></div>
+      </div>
+      <button class="btn" onclick="nav('write')">Weiter zur L&ouml;sung &rarr;</button>
+    </section>
+
+    <section id="sec-write">
+      <div class="timer-bar" id="timerBar">
+        <div><span style="font-size:.85rem;color:var(--ink-muted)">Zeit:</span> <span class="timer-display" id="timerDisplay">00:00</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-small btn-secondary" id="timerPauseBtn" onclick="pauseTimer()">&#x23F8;</button>
+          <button class="btn btn-small btn-secondary" onclick="stopTimer()">&#x23F9;</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-header">Deine Abgabe</h2>
+        <details style="margin-bottom:1rem" open>
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CB; Aufgabe</summary>
+          <div style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
+            <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
+          </div>
+        </details>
+        <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>F = m * a</code>, <code>E = 1/2 * m * v^2</code>, <code>U = R * I</code></p>
+        <div id="studentTextareas"></div>
+        <div class="write-toolbar">
+          <span class="word-counter"><span id="wordCount">0</span> W&ouml;rter</span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-secondary btn-small" onclick="saveSession()">&#x1F4BE;</button>
+            <button class="btn" id="submitBtn" onclick="submitForGrading()">&#x1F4E4; Abgeben</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.</p>
+        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+        </div>
+        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none" onchange="handleOCRFiles(this.files)">
+        <div id="ocrPages" class="ocr-pages"></div>
+        <div id="ocrLoader" class="loader"><div class="loader-spinner"></div><div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div></div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text (bearbeitbar):</label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;" oninput="updateOCRWordCount()"></textarea>
+          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
+    </section>
+
+    <section id="sec-feedback">
+      <div class="loader" id="feedbackLoader"><div class="loader-spinner"></div><div class="loader-text">Bewerte &hellip;</div></div>
+      <div id="feedbackContent" style="display:none">
+        <div class="card">
+          <h2 class="card-header">Bewertung</h2>
+          <div class="be-scores-grid" id="beScoresGrid"></div>
+          <div class="scores-grid">
+            <div class="score-card"><div class="score-label">Erreichte BE</div><div class="score-value" id="scoreBE">&ndash;</div><div class="score-max" id="scoreBEMax">/ ?</div></div>
+            <div class="score-card"><div class="score-label">Prozent</div><div class="score-value" id="scoreProzent">&ndash;</div><div class="score-max">%</div></div>
+            <div class="score-card total"><div class="score-label">Notenpunkte</div><div class="score-value" id="scoreTotal">&ndash;</div><div class="score-max">/ 15</div></div>
+          </div>
+        </div>
+        <div class="card"><h2 class="card-header">Feedback</h2><div class="feedback-body" id="feedbackBody"></div></div>
+        <div class="card" id="modelAnswerCard" style="display:none"><h2 class="card-header">Musterl&ouml;sung</h2><div class="feedback-body" id="modelAnswerBody"></div></div>
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap">
+          <button class="btn btn-secondary" id="showModelBtn" onclick="showModelAnswer()">&#x1F4C4; Musterl&ouml;sung</button>
+          <button class="btn btn-secondary" onclick="exportPDF()">&#x1F4D1; PDF</button>
+          <button class="btn" onclick="nav('setup')">Neue Aufgabe</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-progress">
+      <div class="card">
+        <h2 class="card-header">Fortschritt</h2>
+        <div id="progressEmpty" style="text-align:center;padding:2rem;color:var(--ink-muted)"><div style="font-size:3rem">&#x1F4CA;</div><p>Noch keine Daten.</p></div>
+        <div id="progressContent" style="display:none">
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-value" id="statAttempts">0</div><div class="stat-label">Versuche</div></div>
+            <div class="stat-card"><div class="stat-value" id="statAverage">&ndash;</div><div class="stat-label">&Oslash;</div></div>
+            <div class="stat-card"><div class="stat-value" id="statBest">&ndash;</div><div class="stat-label">Best</div></div>
+          </div>
+          <div class="chart-container"><canvas id="progressChart"></canvas></div>
+          <table class="history-table"><thead><tr><th>Datum</th><th>Gebiet</th><th>BE</th><th>NP</th><th></th></tr></thead><tbody id="historyTableBody"></tbody></table>
+        </div>
+        <button class="btn btn-secondary btn-small" id="clearHistoryBtn" onclick="clearHistory()" style="margin-top:1rem;display:none">&#x1F5D1;</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>&copy; 2026 myAbiFlow FOS &middot; Physik Trainer</footer>
+
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "sec-",
+      steps: ["setup", "task", "write", "feedback", "progress"],
+      storagePrefix: "fos_physik",
+      historyKey: "fos_physik_history_",
+      historyType: "fos_physik",
+      pdfFilename: "FOS_Physik_Klausur",
+      chartColor: "#2563eb",
+      minWords: 10,
+      hasOwnLogin: true
+    };
+  </script>
+  <script src="tour.js"></script>
+  <script src="ai-tutor.js"></script>
+  <script src="shared.js"></script>
+
+  <script>
+    CONFIG.sachgebiet = "mechanik";
+    CONFIG.selectedSachgebiete = ["mechanik"];
+
+    /* ====== GeoGebra lazy loader ====== */
+    let ggbScriptLoaded = false, ggbScriptLoading = false, ggbLoadCbs = [], ggbCounter = 0;
+    function loadGeoGebraScript() {
+      return new Promise(function (resolve) {
+        if (ggbScriptLoaded) { resolve(); return; }
+        ggbLoadCbs.push(resolve);
+        if (ggbScriptLoading) return;
+        ggbScriptLoading = true;
+        const s = document.createElement("script");
+        s.src = "https://www.geogebra.org/apps/deployggb.js";
+        const t = setTimeout(function () { s.onerror(); }, 15000);
+        s.onload = function () { clearTimeout(t); ggbScriptLoaded = true; ggbScriptLoading = false; ggbLoadCbs.forEach(function (c) { c(); }); ggbLoadCbs = []; };
+        s.onerror = function () { ggbScriptLoading = false; ggbLoadCbs.forEach(function (c) { c(); }); ggbLoadCbs = []; };
+        document.head.appendChild(s);
+      });
+    }
+    function cleanupGeoGebra(el) { if (!el) return; el.querySelectorAll(".ggb-container, .ggb-toggle").forEach(function (c) { c.remove(); }); }
+    function createGeoGebraToggle(containerEl, grafik, idPrefix) {
+      var details = document.createElement("details"); details.className = "ggb-toggle";
+      var summary = document.createElement("summary"); summary.textContent = "\uD83D\uDCC8 Grafik anzeigen";
+      details.appendChild(summary);
+      var content = document.createElement("div"); details.appendChild(content);
+      containerEl.appendChild(details);
+      details.addEventListener("toggle", function () {
+        if (this.open && !content.querySelector(".ggb-container")) renderGeoGebra(content, grafik, idPrefix);
+      });
+    }
+    function autoFitGeoGebra(api, type) {
+      var names = api.getAllObjectNames(); if (!names || !names.length) return;
+      for (var n = 0; n < names.length; n++) api.setColor(names[n], 0, 0, 0);
+      if (type === "3d" || type === "probability") return;
+      var ax = [], ay = [];
+      for (var n = 0; n < names.length; n++) {
+        var t = api.getObjectType(names[n]);
+        if (t === "point") { var px = api.getXcoord(names[n]), py = api.getYcoord(names[n]); if (isFinite(px) && isFinite(py)) { ax.push(px); ay.push(py); } }
+        else if (t === "function") {
+          var peak = 0; for (var x = -30; x <= 50; x += 0.5) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y)) peak = Math.max(peak, Math.abs(y)); }
+          var th = Math.max(peak * 0.01, 0.001);
+          for (var x = -30; x <= 50; x += 0.25) { var y = api.getValue(names[n] + "(" + x + ")"); if (isFinite(y) && Math.abs(y) >= th) { ax.push(x); ay.push(y); } }
+        }
+      }
+      if (ax.length < 2) return;
+      var xlo = Math.min.apply(null, ax), xhi = Math.max.apply(null, ax), ylo = Math.min.apply(null, ay), yhi = Math.max.apply(null, ay);
+      if (xlo > -2) xlo = -1; if (ylo > -1) ylo = Math.min(ylo, -0.5);
+      var xp = Math.max((xhi - xlo) * 0.1, 1), yp = Math.max((yhi - ylo) * 0.12, 0.5);
+      api.setCoordSystem(xlo - xp, xhi + xp, ylo - yp, yhi + yp);
+    }
+    async function renderGeoGebra(containerEl, grafik, idPrefix) {
+      if (!grafik || !grafik.commands || !grafik.commands.length) return;
+      const wrapper = document.createElement("div"); wrapper.className = "ggb-container";
+      const appletId = "ggb_" + idPrefix + "_" + (ggbCounter++);
+      const appletDiv = document.createElement("div"); appletDiv.id = appletId; wrapper.appendChild(appletDiv);
+      const loader = document.createElement("div"); loader.className = "ggb-loader"; loader.textContent = "Grafik wird geladen\u2026"; wrapper.appendChild(loader);
+      containerEl.appendChild(wrapper);
+      await loadGeoGebraScript();
+      if (typeof GGBApplet === "undefined") { loader.textContent = "Grafik konnte nicht geladen werden."; loader.className = "ggb-error"; return; }
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const appName = ({ "graphing": "graphing", "3d": "3d", "probability": "probability" })[grafik.type] || "graphing";
+      new GGBApplet({
+        appName: appName, width: wrapper.clientWidth || 700, height: grafik.type === "3d" ? 450 : 350,
+        showToolBar: false, showAlgebraInput: false, showMenuBar: false, enableRightClick: false,
+        enableShiftDragZoom: true, enableLabelDrags: false, showResetIcon: false, showZoomButtons: true,
+        scaleContainerClass: "ggb-container", allowUpscale: true, language: "de",
+        borderColor: isDark ? "#2e2e42" : "#e2e8f0",
+        appletOnLoad: function (api) {
+          loader.remove(); window[appletId + "_api"] = api;
+          try { if (api.setErrorDialogsActive) api.setErrorDialogsActive(false);
+            for (var i = 0; i < grafik.commands.length; i++) api.evalCommand(grafik.commands[i]);
+            autoFitGeoGebra(api, grafik.type);
+            if (isDark) api.evalCommand("SetBackgroundColor(0.11, 0.11, 0.16)");
+          } catch (e) { console.warn("GeoGebra cmd error:", e); }
+        }
+      }, true).inject(appletId);
+    }
+    new MutationObserver(function () {
+      var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.querySelectorAll(".ggb-container div[id^='ggb_']").forEach(function (el) {
+        var api = window[el.id + "_api"];
+        if (api) { try { api.evalCommand(isDark ? "SetBackgroundColor(0.11, 0.11, 0.16)" : "SetBackgroundColor(1, 1, 1)"); } catch (e) {} }
+      });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+    const SG_LABELS = { mechanik: "Mechanik", elektrizitaet: "Elektrizit\u00e4tslehre", optik: "Optik & Wellen", thermodynamik: "Thermodynamik" };
+    const SG_ICONS = { mechanik: "\u2699\uFE0F", elektrizitaet: "\u26A1", optik: "\uD83D\uDD2D", thermodynamik: "\uD83C\uDF21\uFE0F" };
+
+    const BE_NP_TABLE = [[95,15],[90,14],[85,13],[80,12],[75,11],[70,10],[65,9],[60,8],[55,7],[50,6],[45,5],[40,4],[33,3],[27,2],[20,1],[0,0]];
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      const pct = (erreicht / max) * 100;
+      for (const [threshold, np] of BE_NP_TABLE) { if (pct >= threshold) return np; }
+      return 0;
+    }
+
+    /* FOS-Lehrplan-Unterpunkte (Physik) */
+    const UNTERPUNKTE = {
+      mechanik: [
+        "Kinematik (gleichf\u00f6rmige und beschleunigte Bewegung)",
+        "Newtonsche Gesetze und Kr\u00e4fte",
+        "Arbeit, Energie und Energieerhaltung",
+        "Impuls und Impulserhaltung",
+        "Kreisbewegung und Zentripetalkraft",
+        "Gravitation und Planetenbewegung"
+      ],
+      elektrizitaet: [
+        "Elektrisches Feld und Coulomb-Gesetz",
+        "Spannung, Stromst\u00e4rke und Widerstand",
+        "Reihen- und Parallelschaltung",
+        "Magnetisches Feld und Lorentzkraft",
+        "Elektromagnetische Induktion",
+        "Wechselstrom und Transformator"
+      ],
+      optik: [
+        "Reflexion und Brechung (Snellius)",
+        "Linsen und optische Abbildungen",
+        "Wellenoptik (Interferenz und Beugung)",
+        "Elektromagnetisches Spektrum",
+        "Polarisation"
+      ],
+      thermodynamik: [
+        "Temperatur und W\u00e4rme",
+        "Ideales Gasgesetz und Zustandsgleichung",
+        "Haupts\u00e4tze der Thermodynamik",
+        "W\u00e4rmekraftmaschinen und Wirkungsgrad",
+        "Phasen\u00fcberg\u00e4nge und W\u00e4rmekapazit\u00e4t"
+      ]
+    };
+
+    function renderSubtopics() {
+      var panel = document.getElementById('subtopics-panel'); var html = '';
+      CONFIG.selectedSachgebiete.forEach(function(key) {
+        var items = UNTERPUNKTE[key] || []; if (!items.length) return;
+        var label = key.charAt(0).toUpperCase() + key.slice(1);
+        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
+        html += '<div class="subtopic-item subtopic-all"><input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)"><label for="st-all-' + key + '">Alle ausw\u00e4hlen</label></div>';
+        items.forEach(function(item, i) {
+          var id = 'st-' + key + '-' + i;
+          html += '<div class="subtopic-item"><input type="checkbox" id="' + id + '" data-subtopic="' + item + '"><label for="' + id + '">' + item + '</label></div>';
+        });
+        html += '</div>';
+      });
+      panel.innerHTML = html; panel.classList.toggle('open', html.length > 0);
+    }
+    function toggleAllGroup(key, checked) { var el = document.getElementById('st-all-' + key); if (el) { var group = el.closest('.subtopic-group'); if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; }); } }
+    function getSelectedSubtopics() { var r = []; document.getElementById('subtopics-panel').querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) { r.push(cb.dataset.subtopic); }); return r; }
+    function selectSachgebiet(sg) {
+      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
+      if (idx !== -1) { if (CONFIG.selectedSachgebiete.length > 1) CONFIG.selectedSachgebiete.splice(idx, 1); } else { CONFIG.selectedSachgebiete.push(sg); }
+      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
+      document.querySelectorAll(".hj-card").forEach(function(c) { c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1); });
+      renderSubtopics();
+    }
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+    function saveSession() {
+      var key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(); var st = {};
+      document.querySelectorAll('#studentTextareas textarea').forEach(function(ta, i) { st[i] = ta.value; });
+      localStorage.setItem(key, JSON.stringify({ studentTexts: st, storedData: CONFIG.storedData, sachgebiet: CONFIG.selectedSachgebiete.join(", ") }));
+    }
+    function restoreSession() {
+      try { var key = MODULE_CONFIG.storagePrefix + "_session_" + getStudentKey(); var s = JSON.parse(localStorage.getItem(key));
+        if (s) { if (s.storedData) { CONFIG.storedData = s.storedData; renderTask(s.storedData); }
+          if (s.studentTexts) { Object.keys(s.studentTexts).forEach(function(i) { var ta = document.getElementById("studentText_" + i); if (ta) ta.value = s.studentTexts[i]; }); }
+          else if (s.studentText) { var first = document.getElementById("studentText_0"); if (first) first.value = s.studentText; }
+          if (s.sachgebiet) selectSachgebiet(s.sachgebiet); updateWordCount(); }
+      } catch {}
+    }
+
+    /* LaTeX-Fix und KaTeX-Rendering */
+    function fixLatex(latex) { if (!latex) return latex; latex = latex.replace(/e\^(-[0-9]*[\{,\}.]?[0-9]*[a-zA-Z][a-zA-Z0-9]*)/g, 'e^{$1}'); latex = latex.replace(/e\^(-[0-9]+)(?![a-zA-Z{])/g, 'e^{$1}'); latex = latex.replace(/e\^\(([^)]+)\)/g, 'e^{$1}'); latex = latex.replace(/\\exp\s*\\left\s*\((.+?)\\right\s*\)/g, 'e^{$1}'); latex = latex.replace(/\\exp\s*\(([^)]+)\)/g, 'e^{$1}'); return latex; }
+    function protectMath(text) { var blocks = []; text = text.replace(/\$\$([\s\S]*?)\$\$/g, function(m,inner){ blocks.push('$$'+fixLatex(inner)+'$$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\\\[([\s\S]*?)\\\]/g, function(m,inner){ blocks.push('$$'+fixLatex(inner)+'$$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\$([^$]+?)\$/g, function(m,inner){ blocks.push('$'+fixLatex(inner)+'$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); text = text.replace(/\\\((.+?)\\\)/g, function(m,inner){ blocks.push('$'+fixLatex(inner)+'$'); return "KATEXPH"+(blocks.length-1)+"ENDPH"; }); return { text: text, blocks: blocks }; }
+    function restoreMath(html, blocks) { return html.replace(/KATEXPH(\d+)ENDPH/g, function(_, i) { return blocks[parseInt(i)]; }); }
+    function safeMathParse(text) { var p = protectMath(text); return restoreMath(marked.parse(p.text), p.blocks); }
+    function safeMathParseInline(text) { var p = protectMath(text); return restoreMath(marked.parseInline(p.text), p.blocks); }
+    var KATEX_DELIMITERS = [{ left: "$$", right: "$$", display: true },{ left: "\\[", right: "\\]", display: true },{ left: "$", right: "$", display: false },{ left: "\\(", right: "\\)", display: false }];
+    function doRenderMath(el) { renderMathInElement(el || document.body, { delimiters: KATEX_DELIMITERS, throwOnError: false }); }
+    function renderMath(el) { if (typeof renderMathInElement === "function") { doRenderMath(el); } else { var target = el; var attempts = 0; var timer = setInterval(function() { attempts++; if (typeof renderMathInElement === "function") { clearInterval(timer); doRenderMath(target); } else if (attempts >= 20) clearInterval(timer); }, 250); } }
+
+    /* Aufgabe generieren / hochladen / manuell */
+    async function generateTask() {
+      var btn = document.getElementById("generateBtn"); btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+      try {
+        var d = await apiCall("/api/fos-generate-physik", { sachgebiet: CONFIG.selectedSachgebiete.join(", "), unterpunkte: getSelectedSubtopics(), be: parseInt(document.getElementById("totalBE").value) || 25, zeit: parseInt(document.getElementById("timerMinutes").value) || 45, anzahl: parseInt(document.getElementById("taskCount").value) || 1 });
+        CONFIG.storedData = d; renderTask(d); nav("task");
+      } catch (e) { showToast("Fehler: " + e.message); }
+      btn.disabled = false; document.getElementById("setupLoader").style.display = "none";
+    }
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        var processed = await processUploadFiles(files); taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        var d = await apiCall("/api/fos-parse-task-physik", { images: taskUploadImages.map(function(p){ return p.base64; }) });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMeta").value = d.primary_meta || "";
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) { return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">'; }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+    function useUploadedTask() {
+      var c = { aufgabe: document.getElementById("parsedTaskInstruction").value, teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      c._uploadImages = taskUploadImages.map(function(p) { return p.url.startsWith("data:") ? p.url : "data:image/jpeg;base64," + p.base64; });
+      CONFIG.storedData = c; renderTask(c); nav("task");
+    }
+    function useManualTask() {
+      var c = { aufgabe: document.getElementById("manualTaskInstruction").value || "Bearbeite die folgende Aufgabe.", teilaufgaben: [], gesamt_be: 0, sachgebiet: CONFIG.selectedSachgebiete.join(", ") };
+      if (!c.aufgabe) { showToast("Keine Aufgabe"); return; }
+      CONFIG.storedData = c; renderTask(c); nav("task");
+    }
+
+    /* Aufgabe rendern */
+    function textToSafeHtml(text) { if (!text) return ""; return text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>'); }
+    function renderTask(d) {
+      var instrEl = document.getElementById("taskInstruction"); var raw = d.aufgabe || d.task_instruction || "";
+      if (d._uploadImages && d._uploadImages.length) { instrEl.innerHTML = d._uploadImages.map(function(url) { return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">'; }).join(''); }
+      else { instrEl.innerHTML = '<p>' + DOMPurify.sanitize(textToSafeHtml(raw)) + '</p>'; renderMath(instrEl); }
+      var taskCard = instrEl.closest(".card"); cleanupGeoGebra(taskCard);
+      var container = document.getElementById("teilaufgabenContainer");
+      if (d.teilaufgaben && d.teilaufgaben.length) {
+        container.innerHTML = d.teilaufgaben.map(function(t) { return '<div class="teilaufgabe-item"><span class="teilaufgabe-nr">' + escapeHtml(t.id||t.nr||"") + '</span> ' + DOMPurify.sanitize(safeMathParseInline(t.text||"")) + ' <span class="teilaufgabe-be">(' + (t.be||"?") + ' BE)</span></div>'; }).join("");
+        renderMath(container);
+      } else container.innerHTML = "";
+      document.getElementById("taskMeta").textContent = (SG_LABELS[d.sachgebiet||CONFIG.sachgebiet]||"") + " \u00b7 " + (d.gesamt_be||"?") + " BE";
+      if (d.grafik && d.grafik.commands && d.grafik.commands.length) { var ggbTarget = document.createElement("div"); container.parentNode.insertBefore(ggbTarget, container); createGeoGebraToggle(ggbTarget, d.grafik, "task"); }
+      var writeRef = document.getElementById("writeTaskRef"); writeRef.innerHTML = instrEl.innerHTML;
+      if (d.teilaufgaben && d.teilaufgaben.length) writeRef.innerHTML += container.innerHTML;
+      renderMath(writeRef); renderStudentTextareas(d);
+      requestAnimationFrame(function() { renderMath(document.getElementById("sec-task")); renderMath(document.getElementById("sec-write")); });
+    }
+
+    /* Textareas pro Teilaufgabe */
+    let activeStudentTaId = "studentText_0";
+    function renderInlineKatex(text) {
+      if (!text) return ""; if (typeof katex === "undefined") return escapeHtml(text);
+      var parts = [], re = /\$\$([\s\S]*?)\$\$|\\\[([\s\S]*?)\\\]|\$([^$]+?)\$|\\\((.+?)\\\)/g, lastIndex = 0, match;
+      while ((match = re.exec(text)) !== null) {
+        if (match.index > lastIndex) parts.push(escapeHtml(text.slice(lastIndex, match.index)));
+        var math = match[1] !== undefined ? match[1] : match[2] !== undefined ? match[2] : match[3] !== undefined ? match[3] : match[4];
+        var isDisplay = match[1] !== undefined || match[2] !== undefined; math = fixLatex(math);
+        try { parts.push(katex.renderToString(math, { displayMode: isDisplay, throwOnError: false })); } catch (e) { parts.push(escapeHtml(match[0])); }
+        lastIndex = re.lastIndex;
+      }
+      if (lastIndex < text.length) parts.push(escapeHtml(text.slice(lastIndex)));
+      return parts.join("");
+    }
+    function formelEditorHTML(idx) { return '<details class="formel-editor" data-fe-idx="' + idx + '"><summary>\u{1F9EE} Formel-Editor</summary><div class="formel-editor-body"><div class="formel-mf-wrap"><math-field id="formelMF_' + idx + '" virtual-keyboard-mode="onfocus"></math-field></div><div class="formel-tabs" id="formelTabs_' + idx + '"></div><div class="formel-btns" id="formelBtns_' + idx + '"></div><div class="formel-actions"><button class="btn btn-small" onclick="insertFormulaFor(' + idx + ')">\u2713 Einf\u00fcgen</button><button class="btn btn-small btn-secondary" onclick="clearMathFieldFor(' + idx + ')">L\u00f6schen</button><span class="formel-preview" id="formelPreview_' + idx + '"></span></div></div></details>'; }
+    function renderStudentTextareas(d) {
+      var wrap = document.getElementById("studentTextareas"); if (!wrap) return; wrap.innerHTML = "";
+      var ta_list = (d.teilaufgaben && d.teilaufgaben.length) ? d.teilaufgaben : null;
+      if (ta_list) {
+        ta_list.forEach(function(t, i) {
+          var id = "studentText_" + i, nr = escapeHtml(t.id || t.nr || String.fromCharCode(97+i)+")");
+          var labelText = nr + " " + renderInlineKatex(t.text||"") + " (" + (t.be||"?") + " BE)";
+          var div = document.createElement("div"); div.className = "student-ta-group";
+          div.innerHTML = '<label for="' + id + '">' + labelText + '</label>' + formelEditorHTML(i) + '<textarea id="' + id + '" placeholder="Deine L\u00f6sung f\u00fcr ' + nr + ' \u2026" oninput="updateWordCount()"></textarea><div class="ta-word-count" id="wc_' + id + '">0 W\u00f6rter</div>';
+          wrap.appendChild(div); document.getElementById(id).addEventListener("focus", function() { activeStudentTaId = id; });
+        });
+      } else {
+        wrap.innerHTML = '<div class="student-ta-group">' + formelEditorHTML(0) + '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026" oninput="updateWordCount()"></textarea><div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div></div>';
+        document.getElementById("studentText_0").addEventListener("focus", function() { activeStudentTaId = "studentText_0"; });
+      }
+      wrap.querySelectorAll('.formel-editor').forEach(function(details) {
+        var idx = parseInt(details.getAttribute('data-fe-idx'));
+        details.addEventListener('toggle', function() { if (!this.open) return; if (!mathLiveLoaded) loadMathLive().then(function() { initFormelEditor(idx); }).catch(function(err) { showToast(err.message); }); else initFormelEditor(idx); });
+      });
+      activeStudentTaId = "studentText_0"; updateWordCount();
+    }
+    function initFormelEditor(idx) { var mf = document.getElementById('formelMF_' + idx); if (mf && !mf._feInit) { mf.addEventListener('input', function() { updateFormelPreviewFor(idx); }); mf._feInit = true; } renderFormelTabsFor(idx); renderFormelButtonsFor(idx); }
+
+    /* Bewertung & Musterloesung */
+    async function submitForGrading() {
+      var textareas = document.querySelectorAll('#studentTextareas textarea'), teilaufgaben = CONFIG.storedData?.teilaufgaben || [], student_texts = {}, allText = "";
+      textareas.forEach(function(ta, i) { var taData = teilaufgaben[i]; var key = taData ? (taData.id || taData.nr || String.fromCharCode(97+i)+")") : "L\u00f6sung"; student_texts[key] = ta.value; if (ta.value.trim()) allText += (allText ? "\n\n" : "") + key + "\n" + ta.value; });
+      if (countWords(allText) < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
+      document.getElementById("submitBtn").disabled = true; nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block"; document.getElementById("feedbackContent").style.display = "none";
+      try {
+        var d = await apiCall("/api/fos-grade-physik", { aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "", teilaufgaben: CONFIG.storedData.teilaufgaben || [], gesamt_be: CONFIG.storedData.gesamt_be || 0, sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet, student_text: allText, student_texts: student_texts });
+        var grid = document.getElementById("beScoresGrid");
+        if (d.teilbewertungen && d.teilbewertungen.length) grid.innerHTML = d.teilbewertungen.map(function(t) { return '<div class="be-score-card"><div class="score-label">' + escapeHtml(t.id||"") + '</div><div class="score-value">' + (t.erreichte_be ?? "?") + '</div><div class="score-max">/ ' + (t.max_be ?? "?") + ' BE</div></div>'; }).join("");
+        else grid.innerHTML = "";
+        var beErreicht = d.gesamt_be ?? d.scores?.be_erreicht ?? null, beMax = d.max_be ?? d.scores?.be_max ?? CONFIG.storedData.gesamt_be ?? 0;
+        var np = d.note ?? d.scores?.notenpunkte ?? beToNP(beErreicht, beMax), pct = beMax > 0 ? Math.round((beErreicht / beMax) * 100) : null;
+        document.getElementById("scoreBE").textContent = beErreicht ?? "\u2013"; document.getElementById("scoreBEMax").textContent = "/ " + beMax;
+        document.getElementById("scoreProzent").textContent = pct != null ? pct : "\u2013"; document.getElementById("scoreTotal").textContent = np ?? "\u2013";
+        saveToHistory({ sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet, be_erreicht: beErreicht, be_max: beMax, total: np });
+        apiCall("/api/submit-result", { student_name: sessionStorage.getItem("student_name") || "Unbekannt", type: "fos_physik", topic: SG_LABELS[CONFIG.storedData.sachgebiet || CONFIG.sachgebiet] || "Physik", content: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet, language: np, total: np, date: new Date().toISOString() }).catch(function(){});
+        stopTimer(); var fb = document.getElementById("feedbackBody"); fb.innerHTML = DOMPurify.sanitize(safeMathParse(d.feedback || "")); renderMath(fb); renderKorrekturFeedback(d);
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) { document.getElementById("feedbackContent").style.display = "block"; document.getElementById("feedbackBody").innerHTML = '<p style="color:var(--warning)">' + escapeHtml(e.message) + '</p>'; }
+      document.getElementById("feedbackLoader").style.display = "none"; document.getElementById("submitBtn").disabled = false;
+    }
+    async function showModelAnswer() {
+      var card = document.getElementById("modelAnswerCard"); if (card.style.display === "block") { card.style.display = "none"; return; }
+      document.getElementById("showModelBtn").disabled = true;
+      try { var d = await apiCall("/api/fos-model-answer-physik", { aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "", teilaufgaben: CONFIG.storedData.teilaufgaben || [], gesamt_be: CONFIG.storedData.gesamt_be || 0, sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet });
+        var body = document.getElementById("modelAnswerBody"); body.innerHTML = DOMPurify.sanitize(safeMathParse(d.model_answer || "")); renderMath(body); card.style.display = "block";
+      } catch (e) { showToast(e.message); }
+      document.getElementById("showModelBtn").disabled = false;
+    }
+    function renderHistoryTable(history) {
+      document.getElementById("historyTableBody").innerHTML = history.slice().reverse().map(function(x, i) {
+        var ic = SG_ICONS[x.sachgebiet] || "\uD83D\uDD2D";
+        return '<tr><td>' + new Date(x.date).toLocaleDateString("de") + '</td><td>' + ic + ' ' + (SG_LABELS[x.sachgebiet]||"") + '</td><td class="history-score">' + (x.be_erreicht ?? "\u2013") + '/' + (x.be_max ?? "?") + '</td><td class="history-score" style="font-weight:700">' + (x.total ?? "\u2013") + '</td><td><button onclick="deleteHistoryEntry(' + (history.length-1-i) + ')" style="background:none;border:none;cursor:pointer">\u2715</button></td></tr>';
+      }).join("");
+    }
+
+    /* Formel-Editor (MathLive) */
+    let mathLiveLoaded = false, mathLiveLoading = false;
+    function loadMathLive() { return new Promise(function(resolve, reject) { if (mathLiveLoaded) { resolve(); return; } if (mathLiveLoading) { var check = setInterval(function() { if (mathLiveLoaded) { clearInterval(check); resolve(); } }, 100); return; } mathLiveLoading = true; var s = document.createElement("script"); s.type = "module"; s.src = "https://unpkg.com/mathlive?module"; s.onload = function() { mathLiveLoaded = true; mathLiveLoading = false; resolve(); }; s.onerror = function() { mathLiveLoading = false; reject(new Error("MathLive konnte nicht geladen werden.")); }; document.head.appendChild(s); }); }
+    const FORMEL_BUTTONS = {
+      grundlagen: { label: "Grundlagen", buttons: [{ label: "x^n", latex: "x^{#0}" },{ label: "a/b", latex: "\\frac{#0}{#0}" },{ label: "\u221A", latex: "\\sqrt{#0}" },{ label: "|x|", latex: "\\left|#0\\right|" },{ label: "\u2264", latex: "\\leq" },{ label: "\u2265", latex: "\\geq" },{ label: "\u2260", latex: "\\neq" },{ label: "\u00B7", latex: "\\cdot" },{ label: "\u03C0", latex: "\\pi" },{ label: "e", latex: "e" },{ label: "\u221E", latex: "\\infty" }] },
+      physik: { label: "Physik", buttons: [{ label: "F=ma", latex: "F = m \\cdot a" },{ label: "E_kin", latex: "E_{\\text{kin}} = \\frac{1}{2} m v^2" },{ label: "E_pot", latex: "E_{\\text{pot}} = m g h" },{ label: "p=mv", latex: "p = m \\cdot v" },{ label: "W=Fs", latex: "W = F \\cdot s" },{ label: "P=W/t", latex: "P = \\frac{W}{t}" },{ label: "U=RI", latex: "U = R \\cdot I" },{ label: "F_C", latex: "F_C = \\frac{m v^2}{r}" },{ label: "\u0394", latex: "\\Delta" },{ label: "\u03B1", latex: "\\alpha" },{ label: "\u03C9", latex: "\\omega" }] },
+      analysis: { label: "Analysis", buttons: [{ label: "f'(x)", latex: "f'(x)" },{ label: "f''(x)", latex: "f''(x)" },{ label: "lim", latex: "\\lim_{x\\to #0}" },{ label: "\u222B", latex: "\\int_{#0}^{#0} #0 \\, dx" },{ label: "\u03A3", latex: "\\sum_{#0}^{#0}" },{ label: "e^x", latex: "e^{#0}" },{ label: "ln", latex: "\\ln\\left(#0\\right)" },{ label: "sin", latex: "\\sin\\left(#0\\right)" },{ label: "cos", latex: "\\cos\\left(#0\\right)" },{ label: "tan", latex: "\\tan\\left(#0\\right)" },{ label: "dy/dx", latex: "\\frac{dy}{dx}" }] },
+      vektoren: { label: "Vektoren", buttons: [{ label: "Vektor", latex: "\\vec{#0}" },{ label: "3D-Vektor", latex: "\\begin{pmatrix} #0 \\\\ #0 \\\\ #0 \\end{pmatrix}" },{ label: "\u00D7", latex: "\\times" },{ label: "\u2218", latex: "\\circ" },{ label: "Matrix", latex: "\\begin{pmatrix} #0 & #0 \\\\ #0 & #0 \\end{pmatrix}" }] }
+    };
+    let activeFormelTab = "grundlagen";
+    function renderFormelTabsFor(feIdx) { var tabsEl = document.getElementById("formelTabs_" + feIdx); if (!tabsEl) return; tabsEl.innerHTML = Object.keys(FORMEL_BUTTONS).map(function(key) { return '<button class="formel-tab' + (key === activeFormelTab ? ' active' : '') + '" onclick="switchFormelTabFor(\'' + key + '\', ' + feIdx + ')">' + FORMEL_BUTTONS[key].label + '</button>'; }).join(""); }
+    function switchFormelTabFor(cat, feIdx) { activeFormelTab = cat; document.querySelectorAll('.formel-editor[open]').forEach(function(d) { renderFormelTabsFor(parseInt(d.getAttribute('data-fe-idx'))); renderFormelButtonsFor(parseInt(d.getAttribute('data-fe-idx'))); }); }
+    function renderFormelButtonsFor(feIdx) { var btnsEl = document.getElementById("formelBtns_" + feIdx); if (!btnsEl) return; var buttons = FORMEL_BUTTONS[activeFormelTab]?.buttons || []; btnsEl.innerHTML = buttons.map(function(b, i) { return '<button class="formel-btn" onclick="insertQuickLatexFor(' + i + ', ' + feIdx + ')" title="' + b.latex.replace(/"/g, '&quot;') + '">' + b.label + '</button>'; }).join(""); }
+    function insertQuickLatexFor(btnIdx, feIdx) { var mf = document.getElementById("formelMF_" + feIdx); if (!mf) return; var b = (FORMEL_BUTTONS[activeFormelTab]?.buttons || [])[btnIdx]; if (!b) return; mf.executeCommand(["insert", b.latex]); mf.focus(); updateFormelPreviewFor(feIdx); }
+    function updateFormelPreviewFor(feIdx) { var mf = document.getElementById("formelMF_" + feIdx); var preview = document.getElementById("formelPreview_" + feIdx); if (mf && preview) preview.textContent = mf.value || ""; }
+    function insertFormulaFor(feIdx) { var mf = document.getElementById("formelMF_" + feIdx); if (!mf || !mf.value) return; var latex = "$" + mf.value + "$"; var ta = document.getElementById("studentText_" + feIdx); if (!ta) return; var start = ta.selectionStart, end = ta.selectionEnd; var before = ta.value.substring(0, start), after = ta.value.substring(end); var spaceBefore = before.length > 0 && !/\s$/.test(before) ? " " : ""; var spaceAfter = after.length > 0 && !/^\s/.test(after) ? " " : ""; ta.value = before + spaceBefore + latex + spaceAfter + after; ta.selectionStart = ta.selectionEnd = start + spaceBefore.length + latex.length + spaceAfter.length; ta.focus(); updateWordCount(); mf.value = ""; updateFormelPreviewFor(feIdx); }
+    function clearMathFieldFor(feIdx) { var mf = document.getElementById("formelMF_" + feIdx); if (mf) { mf.value = ""; updateFormelPreviewFor(feIdx); mf.focus(); } }
+
+    function updateWordCount() { var total = 0; document.querySelectorAll('#studentTextareas textarea').forEach(function(ta) { var c = countWords(ta.value); total += c; var wcEl = document.getElementById("wc_" + ta.id); if (wcEl) wcEl.textContent = c + " W\u00f6rter"; }); document.getElementById("wordCount").textContent = total; }
+    function useOCRText() { var t = document.getElementById("ocrText").value; if (!t.trim()) { showToast("Kein Text vorhanden."); return; } var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim(); var ta = document.getElementById(activeStudentTaId || "studentText_0"); if (ta) { ta.value = clean; ta.scrollIntoView({ behavior: "smooth" }); } updateWordCount(); showToast("Text \u00fcbernommen!", "success"); }
+
+    renderStudentTextareas({ teilaufgaben: [] });
+  </script>
+</body>
+</html>
