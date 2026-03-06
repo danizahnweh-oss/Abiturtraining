@@ -83,9 +83,9 @@
 
 /* ====== DARK MODE ====== */
 [data-theme="dark"] {
-  --ink: #e2e8f0;
-  --ink-light: #cbd5e1;
-  --ink-muted: #94a3b8;
+  --ink: #f1f5f9;
+  --ink-light: #e2e8f0;
+  --ink-muted: #a8b8c8;
   --accent: #818cf8;
   --accent-hover: #a5b4fc;
   --accent-soft: rgba(129, 140, 248, 0.15);
@@ -474,6 +474,10 @@ header .logo-brand .logo-text {
 /* Dark mode adjustments */
 [data-theme="dark"] .logo-brand .logo-text {
   color: #e4e4ed;
+}
+
+[data-theme="dark"] .logo-brand .logo-flow {
+  color: #a5b4fc;
 }
 
 /* ====== PANELS & UTILITIES ====== */
