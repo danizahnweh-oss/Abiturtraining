@@ -56,6 +56,33 @@ function zeitanpassung(bearbeitungszeit, referenzzeit, referenzBE) {
 Die Aufgabenqualität und Anforderungsniveaus (AFB I–III) bleiben gleich — nur der UMFANG wird reduziert.`;
 }
 
+// Klausur-Generatoren: Zeit-BE-Kopplung für passende Aufgabenkomplexität
+function klausurZeitHinweis(zeitMinuten, totalBE, minProBE) {
+  if (!zeitMinuten || !totalBE || !minProBE) return '';
+  const erwarteteZeit = totalBE * minProBE;
+  const faktor = zeitMinuten / erwarteteZeit;
+
+  // Innerhalb ±25% → keine Anpassung nötig
+  if (faktor >= 0.75 && faktor <= 1.25) return '';
+
+  if (faktor < 0.75) {
+    // Weniger Zeit als für die BE üblich
+    const maxTeilaufgaben = Math.max(2, Math.round((totalBE / 5) * faktor));
+    return `\n\nWICHTIG – ZEITANPASSUNG: ${zeitMinuten} Min. für ${totalBE} BE ist knapp bemessen (üblich wären ca. ${Math.round(erwarteteZeit)} Min.).
+- Aufgaben kompakt und direkt formulieren, keine langen Einleitungstexte
+- Maximal ${maxTeilaufgaben} Teilaufgaben
+- Materialien auf das Nötigste reduzieren
+- Mehr AFB I/II, weniger AFB III (zeitaufwändig)
+- Berechnungen mit einfachen Zahlenwerten`;
+  } else {
+    // Deutlich mehr Zeit als für die BE üblich
+    return `\n\nZEIT-HINWEIS: ${zeitMinuten} Min. für ${totalBE} BE ist großzügig bemessen (üblich wären ca. ${Math.round(erwarteteZeit)} Min.).
+- Aufgaben dürfen ausführlichere Kontexte und Materialien enthalten
+- Mehr Raum für Transfer- und Diskussionsaufgaben (AFB III)
+- Komplexere Berechnungen und mehrstufige Lösungswege möglich`;
+  }
+}
+
 function skaliereTokens(basisTokens, bearbeitungszeit, referenzzeit) {
   if (!bearbeitungszeit || bearbeitungszeit >= referenzzeit * 0.8) return basisTokens;
   const faktor = Math.max(0.3, bearbeitungszeit / referenzzeit);
@@ -1558,6 +1585,7 @@ async function handleGenerateGeschichte(request, env) {
   const { schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
   const totalBE = be || 60;
   const zeitMinuten = zeit || 180;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
@@ -1603,7 +1631,7 @@ ANFORDERUNGSNIVEAU: ${niveauText}
 
 KLAUSUR-PARAMETER:
 - Gesamt: ${totalBE} BE (Bewertungseinheiten)
-- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben
 - Die Summe aller Teilaufgaben-BE muss exakt ${totalBE} ergeben
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
@@ -2353,6 +2381,7 @@ async function handleGeneratePuG(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
@@ -2464,7 +2493,7 @@ async function handleGeneratePuG(request, env) {
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
@@ -2951,6 +2980,7 @@ async function handleGenerateWR(request, env) {
   const niveauLabel = isGA ? "grundlegendes Anforderungsniveau (gA)" : "erhöhtes Anforderungsniveau (eA)";
   const gesamtBE = be || (isGA ? 100 : 60);
   const zeitMinuten = zeit || (isGA ? 210 : 135);
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bloecke = isGA ? "2-3 Aufgabenblöcke (integriert: BWL+VWL+Recht)" : "2-3 Aufgabenblöcke";
   const materialCount = isGA ? "4-5 Materialien" : "3-4 Materialien";
@@ -3008,7 +3038,7 @@ Erstelle eine authentische Abituraufgabe.
 
 PRÜFUNGSFORMAT:
 - ${niveauLabel}
-- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - ${bloecke}
 - ${materialCount}
 - Fachbereich: ${fbLabel}${schwerpunktZusatz}
@@ -4048,6 +4078,7 @@ async function handleGenerateEthik(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
@@ -4177,7 +4208,7 @@ async function handleGenerateEthik(request, env) {
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
@@ -4606,6 +4637,7 @@ async function handleGenerateReligion(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
@@ -4703,7 +4735,7 @@ ${isEA ? '- Bonhoeffer (Kirche vor der Judenfrage), Befreiungstheologie, Öffent
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
@@ -5084,6 +5116,7 @@ async function handleGenerateKatholisch(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
@@ -5168,7 +5201,7 @@ ${isEA ? '- Vertiefung: Theodizee als existentielle Frage, Religionsphilosophie,
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
@@ -5553,6 +5586,7 @@ async function handleGenerateGeographie(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const bePruefungA = totalBE + " BE";
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
@@ -5629,7 +5663,7 @@ Geo13 LB3: Segregation (soziale/ethnische/demographische), Demographischer Wande
 Erstelle eine authentische Prüfungsaufgabe für Prüfungsteil A auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc.
@@ -6072,6 +6106,7 @@ async function handleGenerateLatein(request, env) {
   const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
   const totalBE = be || 60;
   const zeitMinuten = zeit || 90;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 3);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const autorInhalte = {
@@ -6094,7 +6129,7 @@ async function handleGenerateLatein(request, env) {
 Erstelle eine Übersetzungsaufgabe auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Übersetzungstexte (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Jeder Text kürzer und kompakter` : ''}
 
@@ -6152,7 +6187,7 @@ KRITISCH: Der lateinische Text muss AUTHENTISCH im Stil des Autors verfasst sein
 Erstelle eine Interpretationsaufgabe (Aufgabenteil) auf ${niveauLabel}.
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${totalBE} BE, Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Verteile die ${totalBE} BE sinnvoll auf die Abschnitte (Summe muss exakt ${totalBE} ergeben)
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Interpretationsaufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
@@ -6771,6 +6806,7 @@ async function handleGenerateMathe(request, env) {
   const sg = sachgebiet || "analysis";
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
   const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
@@ -6816,7 +6852,7 @@ Erstelle eine authentische Mathematik-Aufgabe.
 
 AUFGABE:
 - Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
-- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Erstelle mindestens ${minTeilaufgaben} und höchstens ${maxTeilaufgaben} Teilaufgaben
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
@@ -7491,6 +7527,7 @@ async function handleGenerateChemie(request, env) {
   const sg = sachgebiet || "elektrochemie";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
@@ -7535,7 +7572,7 @@ Erstelle eine authentische Chemie-Aufgabe nach dem IQB-Aufgabenformat.
 
 AUFGABE:
 - Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
@@ -7850,6 +7887,7 @@ async function handleGeneratePhysik(request, env) {
   const sg = sachgebiet || "elektrostatik";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
@@ -7886,7 +7924,7 @@ Erstelle eine authentische Physik-Aufgabe.
 
 AUFGABE:
 - Gesamt: ${totalBE} BE
-- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
 - Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im aufgabe-Feld
 - Teilaufgaben nummerieren: "1a)", "1b)", ..., "2a)", "2b)", etc.
@@ -8233,6 +8271,7 @@ async function handleGenerateBio(request, env) {
   const sg = sachgebiet || "genetik";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
@@ -8266,7 +8305,7 @@ async function handleGenerateBio(request, env) {
 
   const systemPrompt = `Du bist Biologielehrer am bayerischen Gymnasium. Erstelle eine Biologie-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
-AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
@@ -8545,6 +8584,7 @@ async function handleGenerateSport(request, env) {
   const sg = sachgebiet || "gesundheit";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   const sgThemen = {
@@ -8578,7 +8618,7 @@ async function handleGenerateSport(request, env) {
 
   const systemPrompt = `Du bist Sportlehrer am bayerischen Gymnasium (Leistungsfach Sport). Erstelle eine Sporttheorie-Klausuraufgabe im IQB-Format (Abitur eA, G9 ab 2026).
 
-AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
@@ -8838,6 +8878,7 @@ async function handleGenerateInformatik(request, env) {
   const sg = sachgebiet || "rekursion-listen";
   const totalBE = be || 20;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   // LehrplanPLUS Informatik G9 gA – verifiziert anhand LIS_PDF_28-02-2026-10/11
@@ -8880,7 +8921,7 @@ async function handleGenerateInformatik(request, env) {
 
   const systemPrompt = `Du bist Informatiklehrer am bayerischen Gymnasium. Erstelle eine Informatik-Klausuraufgabe im IQB-Format (Abitur gA/eA, G9 ab 2026).
 
-AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.
+AUFGABE: ${totalBE} BE, ${zeitMinuten} Minuten Bearbeitungszeit.${zeitHinweis}
 ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math.round(totalBE / aufgabenAnzahl)} BE). Nummeriere die Teilaufgaben: "1a)", "1b)", ..., "2a)", "2b)" etc.` : 'Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...). KEINE separaten Aufgaben 1, 2, 3! Die eine Hauptaufgabe hat mehrere Teilaufgaben, die zusammen die BE ergeben.'}
 
 ANFORDERUNGEN:
@@ -11364,6 +11405,7 @@ async function handleFOSGenerateMathe(body, env) {
   const sg = sachgebiet || "analysis";
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
   const minTeilaufgaben = Math.max(3, Math.ceil(totalBE / 6));
   const maxTeilaufgaben = Math.max(minTeilaufgaben, Math.ceil(totalBE / 3));
@@ -11400,7 +11442,7 @@ Erstelle eine authentische Mathematik-Aufgabe für die Fachoberschule.
 
 AUFGABE:
 - Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
-- Bearbeitungszeit: ${zeitMinuten} Minuten
+- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - Erstelle mindestens ${minTeilaufgaben} und höchstens ${maxTeilaufgaben} Teilaufgaben
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...), zusammen ' + totalBE + ' BE.'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
@@ -12205,6 +12247,7 @@ async function handleFOSTextGenerate(config, body, env) {
 
   const gesamtBE = be || 60;
   const zeitMinuten = zeit || 135;
+  const zeitHinweis = klausurZeitHinweis(zeitMinuten, gesamtBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
 
   // Fachbereich-Inhalte zusammenstellen
@@ -12223,7 +12266,7 @@ Erstelle eine authentische Klausuraufgabe.
 
 PRÜFUNGSFORMAT:
 - Fach: ${config.name} (FOS Bayern)
-- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten
+- Gesamt: ${gesamtBE} BE (Bewertungseinheiten), Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
 - 2-3 Aufgabenblöcke
 - 3-4 Materialien (Texte, Tabellen, Gesetzestexte, Statistiken)
 - Schwerpunkt: ${fbLabel}${schwerpunktZusatz}
