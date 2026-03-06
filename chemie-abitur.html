@@ -682,11 +682,20 @@
       var btn = document.getElementById("generateBtn");
       btn.disabled = true;
       document.getElementById("setupLoader").style.display = "block";
+
+      // Alte Daten sofort löschen, damit keine veralteten Inhalte angezeigt werden
+      CONFIG.storedData = null;
+      CONFIG.selectedAufgaben = new Set();
+      document.getElementById("aufgabengruppenContainer").innerHTML = "";
+      document.getElementById("writeTaskRef").innerHTML = "";
+      document.getElementById("studentTextareas").innerHTML = "";
+
       try {
         var d = await apiCall("/api/generate-abitur-chemie", { level: getLevel() });
         CONFIG.storedData = d;
         CONFIG.selectedAufgaben = new Set();
         renderTask(d);
+        saveSession();
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }
       btn.disabled = false;
