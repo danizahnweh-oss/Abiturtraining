@@ -649,6 +649,9 @@
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
 
+      // Alte dynamisch eingefügte Materialien entfernen
+      document.querySelectorAll("#sec-task .dynamic-material").forEach(function (el) { el.remove(); });
+
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
         instrEl.innerHTML = d._uploadImages.map(function(url) {
@@ -674,6 +677,7 @@
       // Render material
       if (d.material && d.material.length) {
         var matContainer = document.createElement("div");
+        matContainer.className = "dynamic-material";
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m) {
           var details = document.createElement("details");
@@ -743,6 +747,15 @@
       const btn = document.getElementById("generateBtn");
       btn.disabled = true;
       document.getElementById("setupLoader").style.display = "block";
+
+      // Alte Daten sofort löschen, damit keine veralteten Inhalte angezeigt werden
+      CONFIG.storedData = null;
+      document.getElementById("taskInstruction").innerHTML = "";
+      document.getElementById("teilaufgabenContainer").innerHTML = "";
+      document.getElementById("writeTaskRef").innerHTML = "";
+      document.getElementById("studentTextareas").innerHTML = "";
+      document.querySelectorAll("#sec-task .dynamic-material").forEach(function (el) { el.remove(); });
+
       try {
         const d = await apiCall("/api/generate-sport", {
           sachgebiet: CONFIG.selectedSachgebiete.join(", "),
@@ -753,6 +766,7 @@
         });
         CONFIG.storedData = d;
         renderTask(d);
+        saveSession();
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }
       btn.disabled = false;

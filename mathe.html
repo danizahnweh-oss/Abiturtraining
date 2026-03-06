@@ -819,6 +819,16 @@
       const btn = document.getElementById("generateBtn");
       btn.disabled = true;
       document.getElementById("setupLoader").style.display = "block";
+
+      // Alte Daten sofort löschen, damit keine veralteten Inhalte angezeigt werden
+      CONFIG.storedData = null;
+      document.getElementById("taskInstruction").innerHTML = "";
+      document.getElementById("teilaufgabenContainer").innerHTML = "";
+      document.getElementById("writeTaskRef").innerHTML = "";
+      document.getElementById("studentTextareas").innerHTML = "";
+      var taskCard = document.getElementById("taskInstruction")?.closest(".card");
+      if (taskCard) cleanupGeoGebra(taskCard);
+
       try {
         const d = await apiCall("/api/generate-mathe", {
           sachgebiet: CONFIG.selectedSachgebiete.join(", "),
@@ -829,6 +839,7 @@
         });
         CONFIG.storedData = d;
         renderTask(d);
+        saveSession();
         nav("task");
       } catch (e) { showToast("Fehler: " + e.message); }
       btn.disabled = false;
