@@ -430,6 +430,9 @@ export default {
       if (pathname === "/api/student-results" && request.method === "POST") {
         return await handleStudentResults(request, env);
       }
+      if (pathname === "/api/competency-profile" && request.method === "POST") {
+        return await handleCompetencyProfile(request, env);
+      }
 
       // ===== ENGLISCH ENDPOINTS =====
       if (pathname === "/api/generate" && request.method === "POST") {
@@ -2008,6 +2011,173 @@ async function handleStudentResults(request, env) {
   return jsonResponse({ results: results || [] }, 200, env);
 }
 
+/* ================= KOMPETENZPROFIL ================= */
+async function handleCompetencyProfile(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "student_name required" }, 400, env);
+  }
+
+  const nameLower = student_name.trim().toLowerCase();
+
+  // Alle Ergebnisse laden (mit optionalen Details)
+  const { results } = await env.DB.prepare(`
+    SELECT r.id, r.type, r.topic, r.content, r.language, r.total, r.created_at,
+           d.strengths, d.weaknesses, d.error_types, d.missing_topics, d.afb_scores
+    FROM results r
+    LEFT JOIN result_details d ON d.result_id = r.id
+    WHERE LOWER(TRIM(r.student_name)) = ?
+    ORDER BY r.created_at ASC
+  `).bind(nameLower).all();
+
+  if (!results || results.length === 0) {
+    return jsonResponse({
+      profile: null,
+      message: "Noch keine Ergebnisse vorhanden. Absolviere zuerst einige Übungen!"
+    }, 200, env);
+  }
+
+  // Typ → Fach-Mapping (umgekehrt: type → subject)
+  const typeToSubject = {};
+  for (const [subj, types] of Object.entries(SUBJECT_TYPES_MAP)) {
+    for (const t of types) typeToSubject[t] = subj;
+  }
+
+  // Pro Fach aggregieren
+  const subjectData = {};
+  for (const r of results) {
+    const subj = typeToSubject[r.type] || r.type;
+    if (!subjectData[subj]) {
+      subjectData[subj] = { scores: [], types: new Set(), details: [] };
+    }
+    subjectData[subj].scores.push({
+      total: r.total,
+      content: r.content,
+      language: r.language,
+      date: r.created_at
+    });
+    subjectData[subj].types.add(r.type);
+
+    // Detail-Daten (falls vorhanden)
+    if (r.strengths || r.weaknesses) {
+      try {
+        subjectData[subj].details.push({
+          strengths: r.strengths ? JSON.parse(r.strengths) : [],
+          weaknesses: r.weaknesses ? JSON.parse(r.weaknesses) : [],
+          error_types: r.error_types ? JSON.parse(r.error_types) : {},
+          afb_scores: r.afb_scores ? JSON.parse(r.afb_scores) : {}
+        });
+      } catch { /* JSON-Parse-Fehler ignorieren */ }
+    }
+  }
+
+  // Aggregierte Statistiken pro Fach berechnen
+  const subjectStats = {};
+  for (const [subj, data] of Object.entries(subjectData)) {
+    const scores = data.scores.map(s => s.total).filter(t => t != null);
+    if (scores.length === 0) continue;
+
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const recent = scores.slice(-5);
+    const recentAvg = recent.reduce((a, b) => a + b, 0) / recent.length;
+    const older = scores.slice(0, -5);
+    const olderAvg = older.length > 0 ? older.reduce((a, b) => a + b, 0) / older.length : avg;
+    const trend = recentAvg > olderAvg + 0.5 ? "up" : recentAvg < olderAvg - 0.5 ? "down" : "stable";
+
+    const name = SUBJECT_NAMES[subj] || subj;
+
+    subjectStats[subj] = {
+      name,
+      avg: Math.round(avg * 10) / 10,
+      count: scores.length,
+      trend,
+      recent_avg: Math.round(recentAvg * 10) / 10,
+      best: Math.max(...scores),
+      worst: Math.min(...scores),
+      types: [...data.types]
+    };
+  }
+
+  // Gesamt-Durchschnitt
+  const allScores = results.map(r => r.total).filter(t => t != null);
+  const overallAvg = allScores.length > 0
+    ? Math.round((allScores.reduce((a, b) => a + b, 0) / allScores.length) * 10) / 10
+    : 0;
+
+  // KI-Analyse anfordern
+  const statsForPrompt = JSON.stringify(subjectStats, null, 2);
+  const detailSummary = Object.entries(subjectData)
+    .filter(([, d]) => d.details.length > 0)
+    .map(([subj, d]) => {
+      const allStr = d.details.flatMap(det => det.strengths);
+      const allWeak = d.details.flatMap(det => det.weaknesses);
+      return `${SUBJECT_NAMES[subj] || subj}: Stärken: ${allStr.join(", ") || "keine Daten"}, Schwächen: ${allWeak.join(", ") || "keine Daten"}`;
+    }).join("\n");
+
+  const messages = [
+    {
+      role: "system",
+      content: `Du bist ein erfahrener Lernberater für das bayerische Abitur (G9). Analysiere die Übungsergebnisse eines Schülers und erstelle ein Kompetenzprofil.
+
+Antworte ausschließlich mit validem JSON (keine Markdown-Fences):
+{
+  "top_strengths": ["Stärke 1", "Stärke 2", "Stärke 3"],
+  "critical_weaknesses": ["Schwäche 1", "Schwäche 2", "Schwäche 3"],
+  "focus_areas": [
+    {"subject": "fachkey", "area": "Konkreter Bereich", "tip": "Konkreter Übungstipp"}
+  ],
+  "summary": "2-3 Sätze Gesamteinschätzung auf Deutsch"
+}
+
+Regeln:
+- Stärken und Schwächen müssen KONKRET und FACHLICH sein (nicht generisch)
+- Focus-Areas: Die 3 wichtigsten Bereiche, in denen der Schüler sich verbessern sollte
+- Berücksichtige Trends: Verbesserung ist positiv, Verschlechterung braucht Aufmerksamkeit
+- Summary: Ermutigend aber ehrlich, mit konkreten Empfehlungen`
+    },
+    {
+      role: "user",
+      content: `Schüler hat ${results.length} Übungen in ${Object.keys(subjectStats).length} Fächern absolviert.
+Gesamtdurchschnitt: ${overallAvg} NP
+
+Fachstatistiken:
+${statsForPrompt}
+
+${detailSummary ? `\nDetailanalysen aus Einzelbewertungen:\n${detailSummary}` : ""}`
+    }
+  ];
+
+  try {
+    const aiResponse = await callOpenAI(env, messages, 2000, { temperature: 0.5 });
+    const analysis = extractJSON(aiResponse);
+
+    return jsonResponse({
+      profile: {
+        overall_avg: overallAvg,
+        total_exercises: results.length,
+        subjects: subjectStats,
+        analysis
+      }
+    }, 200, env);
+  } catch (e) {
+    // Fallback: Profil ohne KI-Analyse
+    console.error("Kompetenzprofil KI-Analyse fehlgeschlagen:", e.message);
+    return jsonResponse({
+      profile: {
+        overall_avg: overallAvg,
+        total_exercises: results.length,
+        subjects: subjectStats,
+        analysis: {
+          top_strengths: [],
+          critical_weaknesses: [],
+          focus_areas: [],
+          summary: "Die KI-Analyse konnte nicht erstellt werden. Die Fachstatistiken sind aber verfügbar."
+        }
+      }
+    }, 200, env);
+  }
+}
+
 /* ================= IMAGE GENERATION: GEMINI FLASH ================= */
 async function handleGenerateImage(request, env) {
   const { prompt, noText, style } = await request.json();
@@ -2214,7 +2384,7 @@ async function d1GetAllResults(env) {
 
 /* ================= DASHBOARD: SUBMIT RESULT ================= */
 async function handleSubmitResult(request, env) {
-  const { student_name, course, type, topic, content, language, total, date } = await request.json();
+  const { student_name, course, type, topic, content, language, total, date, details } = await request.json();
 
   if (!student_name || typeof student_name !== "string" || total == null) {
     return jsonResponse({ error: "student_name and total required" }, 400, env);
@@ -2224,6 +2394,7 @@ async function handleSubmitResult(request, env) {
   const sName = truncate(student_name, 100);
   const nameLower = sName.trim().toLowerCase();
   const studentRow = await env.DB.prepare("SELECT id FROM students WHERE name_lower = ?").bind(nameLower).first();
+  const createdAt = date || new Date().toISOString();
 
   await env.DB.prepare(
     "INSERT INTO results (id, student_id, student_name, course, type, topic, content, language, total, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -2237,8 +2408,28 @@ async function handleSubmitResult(request, env) {
     content ?? null,
     language ?? null,
     total,
-    date || new Date().toISOString()
+    createdAt
   ).run();
+
+  // Kompetenzprofil: Optionale Detail-Daten speichern
+  if (details && typeof details === "object") {
+    try {
+      await env.DB.prepare(
+        "INSERT INTO result_details (result_id, strengths, weaknesses, error_types, missing_topics, afb_scores, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+      ).bind(
+        id,
+        details.strengths ? JSON.stringify(details.strengths) : null,
+        details.weaknesses ? JSON.stringify(details.weaknesses) : null,
+        details.error_types ? JSON.stringify(details.error_types) : null,
+        details.missing_topics ? JSON.stringify(details.missing_topics) : null,
+        details.afb_scores ? JSON.stringify(details.afb_scores) : null,
+        createdAt
+      ).run();
+    } catch (e) {
+      // Detail-Speicherung darf nie das Hauptergebnis blockieren
+      console.error("result_details INSERT fehlgeschlagen:", e.message);
+    }
+  }
 
   return jsonResponse({ success: true }, 200, env);
 }
