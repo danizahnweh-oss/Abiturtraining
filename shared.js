@@ -1156,6 +1156,123 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
+/* ================= LEHRER-CODE UI ================= */
+
+function initTeacherCodeUI() {
+  var headerRight = document.querySelector(".header-right");
+  if (!headerRight || !sessionStorage.getItem("student_name")) return;
+  if (typeof MODULE_CONFIG === "undefined" || !MODULE_CONFIG.historyType) return;
+
+  var subject = MODULE_CONFIG.historyType;
+  var savedCode = localStorage.getItem("teacher_code_" + subject) || "";
+
+  var codeBtn = document.createElement("button");
+  codeBtn.className = "teacher-code-btn";
+  codeBtn.id = "teacherCodeBtn";
+  codeBtn.title = savedCode ? "Lehrer-Code: " + savedCode : "Lehrer-Code eingeben";
+  codeBtn.textContent = savedCode || "Code";
+  codeBtn.style.cssText = "background:" + (savedCode ? "var(--accent)" : "var(--accent-soft)") + ";border:1px solid " + (savedCode ? "var(--accent)" : "var(--border)") + ";border-radius:var(--radius-sm);padding:.3rem .6rem;font-size:.75rem;font-family:var(--font-mono);font-weight:700;color:" + (savedCode ? "#fff" : "var(--accent)") + ";cursor:pointer;min-height:36px;min-width:44px;transition:all .15s;";
+  codeBtn.onclick = showTeacherCodeModal;
+
+  var themeBtn = headerRight.querySelector(".theme-toggle");
+  if (themeBtn) {
+    headerRight.insertBefore(codeBtn, themeBtn);
+  } else {
+    headerRight.appendChild(codeBtn);
+  }
+}
+
+function showTeacherCodeModal() {
+  var old = document.getElementById("teacherCodeModal");
+  if (old) old.remove();
+
+  var subject = MODULE_CONFIG.historyType;
+  var savedCode = localStorage.getItem("teacher_code_" + subject) || "";
+  var savedInfo = localStorage.getItem("teacher_code_info_" + subject) || "";
+
+  var overlay = document.createElement("div");
+  overlay.id = "teacherCodeModal";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;";
+
+  var infoHtml = savedInfo ? '<p style="font-size:.82rem;color:var(--accent);margin-bottom:.8rem;font-weight:600;">' + escapeHtml(savedInfo) + '</p>' : '';
+  var removeBtn = savedCode ? '<button class="btn btn-secondary" style="flex:1" onclick="removeTeacherCode()">Entfernen</button>' : '';
+
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:var(--radius-lg);padding:2rem;max-width:400px;width:90%;box-shadow:var(--shadow-xl,0 25px 50px -12px rgba(0,0,0,.25));">' +
+      '<h3 style="margin:0 0 1rem;font-family:var(--font-display);">Lehrer-Code</h3>' +
+      '<p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">' +
+        'Gib den Code deiner Lehrkraft ein, damit sie deine Ergebnisse in diesem Fach sehen kann.' +
+      '</p>' +
+      infoHtml +
+      '<input type="text" id="teacherCodeInput" value="' + savedCode + '" placeholder="Z.B. ABC123" ' +
+        'style="width:100%;padding:.7rem;font-size:1.1rem;font-family:var(--font-mono);text-align:center;text-transform:uppercase;letter-spacing:.15em;border:2px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-sizing:border-box;" ' +
+        'maxlength="6" autocomplete="off" onkeyup="if(event.key===\'Enter\')saveTeacherCode()">' +
+      '<div id="teacherCodeError" style="color:#ef4444;font-size:.82rem;margin-top:.5rem;display:none;"></div>' +
+      '<div style="display:flex;gap:.5rem;margin-top:1rem;">' +
+        '<button class="btn" style="flex:1" onclick="saveTeacherCode()">Speichern</button>' +
+        removeBtn +
+        '<button class="btn btn-secondary" onclick="document.getElementById(\'teacherCodeModal\').remove()">Abbrechen</button>' +
+      '</div>' +
+    '</div>';
+
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+  document.getElementById("teacherCodeInput").focus();
+}
+
+async function saveTeacherCode() {
+  var input = document.getElementById("teacherCodeInput");
+  var code = input.value.toUpperCase().trim();
+  var errEl = document.getElementById("teacherCodeError");
+  var subject = MODULE_CONFIG.historyType;
+
+  if (!code || code.length < 4) {
+    errEl.textContent = "Code muss mindestens 4 Zeichen haben.";
+    errEl.style.display = "block";
+    return;
+  }
+
+  try {
+    var res = await apiCall("/api/link-student-code", {
+      student_name: sessionStorage.getItem("student_name"),
+      code: code,
+      subject: subject
+    });
+    localStorage.setItem("teacher_code_" + subject, code);
+    localStorage.setItem("teacher_code_info_" + subject, res.teacher_name + " \u00b7 " + res.label);
+    var modal = document.getElementById("teacherCodeModal");
+    if (modal) modal.remove();
+    updateTeacherCodeBtn(code);
+    if (typeof showToast === "function") showToast("Code gespeichert!", "success");
+  } catch (e) {
+    errEl.textContent = e.message || "Ungueltiger Code.";
+    errEl.style.display = "block";
+  }
+}
+
+function removeTeacherCode() {
+  var subject = MODULE_CONFIG.historyType;
+  localStorage.removeItem("teacher_code_" + subject);
+  localStorage.removeItem("teacher_code_info_" + subject);
+  var modal = document.getElementById("teacherCodeModal");
+  if (modal) modal.remove();
+  updateTeacherCodeBtn("");
+  if (typeof showToast === "function") showToast("Code entfernt.");
+}
+
+function updateTeacherCodeBtn(code) {
+  var btn = document.getElementById("teacherCodeBtn");
+  if (!btn) return;
+  btn.textContent = code || "Code";
+  btn.title = code ? "Lehrer-Code: " + code : "Lehrer-Code eingeben";
+  btn.style.background = code ? "var(--accent)" : "var(--accent-soft)";
+  btn.style.color = code ? "#fff" : "var(--accent)";
+  btn.style.borderColor = code ? "var(--accent)" : "var(--border)";
+}
+
 // Main init — only for module pages (deutsch.html, etc.), not index.html
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
@@ -1183,6 +1300,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     }
     restoreSession();
     initHL();
+    initTeacherCodeUI();
     setInterval(saveSession, 15000);
     history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
     return;
@@ -1204,6 +1322,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   // Restore & init
   restoreSession();
   initHL();
+  initTeacherCodeUI();
   setInterval(saveSession, 30000);
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 

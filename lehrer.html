@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<title>myAbiFlow · Lehrer-Bereich</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared-v4.css">
+
+<style>
+body { display: block; }
+header { position: static; z-index: auto; }
+main { max-width: 1100px; margin: 1.5rem auto; }
+.btn { gap: .4rem; padding: .65rem 1.2rem; font-size: .9rem; }
+.btn:hover { transform: none; }
+.btn-secondary { background: var(--border); color: var(--ink-light); border: none; }
+.btn-secondary:hover { background: var(--accent-soft); color: var(--accent); }
+.btn-small { padding: .45rem .8rem; font-size: .82rem; }
+.card { padding: 1.8rem; }
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  text-align: center;
+}
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat-label {
+  font-size: .78rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-top: .3rem;
+}
+
+/* Tabs */
+.tab-nav {
+  display: flex;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: .6rem 1.2rem;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink-muted);
+  font-weight: 600;
+  font-size: .9rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all .15s;
+}
+.tab-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Code Cards */
+.codes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.code-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  position: relative;
+}
+.code-card.inactive {
+  opacity: .5;
+}
+.code-value {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: .12em;
+  cursor: pointer;
+  user-select: all;
+}
+.code-value:hover {
+  color: var(--accent-darker, #3730a3);
+}
+.code-label {
+  font-size: .9rem;
+  font-weight: 600;
+  margin-top: .4rem;
+  color: var(--ink);
+}
+.code-meta {
+  font-size: .78rem;
+  color: var(--ink-muted);
+  margin-top: .3rem;
+}
+.code-actions {
+  display: flex;
+  gap: .5rem;
+  margin-top: .8rem;
+  flex-wrap: wrap;
+}
+.code-actions .btn-small {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Heatmap */
+.heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+.heatmap-table { border-collapse: collapse; width: 100%; min-width: 500px; }
+.heatmap-table th, .heatmap-table td { padding: .5rem .6rem; text-align: center; font-size: .8rem; border: 1px solid var(--border); }
+.heatmap-table th { background: var(--bg); font-weight: 700; position: sticky; top: 0; }
+.heatmap-table td:first-child { text-align: left; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.heatmap-table td:first-child:hover { color: var(--accent); }
+.hm-good { background: #d1fae5; color: #065f46; font-weight: 700; }
+.hm-ok { background: #fef3c7; color: #92400e; font-weight: 700; }
+.hm-bad { background: #fee2e2; color: #991b1b; font-weight: 700; }
+.hm-empty { background: var(--bg); color: var(--ink-muted); }
+[data-theme="dark"] .hm-good { background: #064e3b; color: #a7f3d0; }
+[data-theme="dark"] .hm-ok { background: #78350f; color: #fde68a; }
+[data-theme="dark"] .hm-bad { background: #7f1d1d; color: #fecaca; }
+
+/* Warnings */
+.warn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.warn-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
+.warn-card.red { border-left: 4px solid #ef4444; }
+.warn-card.yellow { border-left: 4px solid #f59e0b; }
+.warn-name { font-weight: 700; font-size: .95rem; }
+.warn-reason { font-size: .82rem; color: var(--ink-muted); margin-top: .3rem; }
+
+/* Student Detail Overlay */
+.detail-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 9999;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.detail-panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  width: 100%; max-width: 900px;
+  max-height: 90vh; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  animation: slideUp .25s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.detail-header {
+  position: sticky; top: 0;
+  background: var(--surface);
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 1;
+}
+.detail-body { padding: 1.2rem 1.5rem 2rem; }
+.detail-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .8rem;
+  margin-bottom: 1.5rem;
+}
+.detail-subj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: .8rem;
+  margin-top: 1.5rem;
+}
+.detail-subj-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .8rem 1rem;
+}
+.detail-subj-card h4 { margin: 0 0 .3rem; font-size: .9rem; }
+.detail-subj-stats { font-size: .82rem; color: var(--ink-muted); }
+.detail-subj-stats strong { color: var(--accent); font-family: var(--font-mono); }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  padding: .8rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: .9rem;
+  z-index: 99999;
+  animation: fadeIn .2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%); } }
+
+@media (max-width: 640px) {
+  header { padding: .8rem 1rem; }
+  main { padding: 0 1rem; }
+  .card { padding: 1.2rem; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .detail-stats { grid-template-columns: 1fr 1fr; }
+  .detail-body { padding: .8rem 1rem 2rem; }
+  .codes-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="school-badge">Lehrer-Bereich</div>
+    <h2>Lehrer-Konto</h2>
+
+    <div class="tab-nav" style="margin-bottom:1rem;justify-content:center;">
+      <button class="tab-btn active" id="modeLogin" onclick="setAuthMode('login')">Anmelden</button>
+      <button class="tab-btn" id="modeRegister" onclick="setAuthMode('register')">Registrieren</button>
+    </div>
+
+    <input type="text" id="teacherName" class="login-input" placeholder="Ihr Name ..." autocomplete="name"
+           onkeyup="if(event.key==='Enter')doAuth()">
+    <input type="password" id="teacherPw" class="login-input" placeholder="Passwort ..." autocomplete="current-password"
+           onkeyup="if(event.key==='Enter')doAuth()" style="margin-top:.5rem;">
+
+    <div id="registerFields" style="display:none;">
+      <input type="password" id="teacherPwConfirm" class="login-input" placeholder="Passwort bestaetigen ..." style="margin-top:.5rem;">
+      <input type="email" id="teacherEmail" class="login-input" placeholder="E-Mail (optional) ..." style="margin-top:.5rem;">
+      <input type="password" id="registerSecret" class="login-input" placeholder="Registrierungsschluessel ..." style="margin-top:.5rem;"
+             onkeyup="if(event.key==='Enter')doAuth()">
+    </div>
+
+    <br>
+    <button class="btn" style="width:100%" onclick="doAuth()" id="authBtn">Anmelden</button>
+    <div id="loginError" class="login-error"></div>
+    <p style="margin-top:1rem;font-size:.8rem;">
+      <a href="dashboard.html">Admin-Dashboard</a> ·
+      <a href="index.html">Zurueck zum Trainer</a>
+    </p>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app-wrapper" style="display:none;">
+  <header>
+    <a href="index.html" class="header-logo-link"><img src="logo-v2.png" alt="myAbiFlow" class="header-logo"></a>
+    <h1>Lehrer-<span>Bereich</span></h1>
+    <div class="header-right">
+      <span id="teacherGreeting" style="font-size:.85rem;font-weight:600;color:var(--ink-muted);"></span>
+      <button class="btn-small btn-secondary" onclick="logout()">Abmelden</button>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtn">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('codes')">Meine Codes</button>
+      <button class="tab-btn" onclick="switchTab('students')">Meine Schueler</button>
+      <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+    </div>
+
+    <!-- TAB: CODES -->
+    <div id="tab-codes">
+      <div class="card" style="margin-bottom:1.5rem;">
+        <h2 style="margin:0 0 1rem;">Klassen-Codes</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">
+          Erstelle Codes fuer deine Klassen. Schueler geben den Code auf der Fachseite ein, um ihre Ergebnisse mit dir zu teilen.
+        </p>
+        <div style="display:flex;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+          <input type="text" id="newCodeLabel" placeholder="Bezeichnung (z.B. 10a Deutsch)"
+                 style="flex:1;min-width:200px;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:.9rem;"
+                 onkeyup="if(event.key==='Enter')createCode()">
+          <button class="btn" onclick="createCode()">+ Neuer Code</button>
+        </div>
+        <div id="codesList" class="codes-grid"></div>
+        <div id="codesEmpty" style="display:none;text-align:center;padding:2rem;color:var(--ink-muted);font-size:.9rem;">
+          Noch keine Codes erstellt. Erstelle deinen ersten Klassen-Code oben.
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: SCHUELER -->
+    <div id="tab-students" style="display:none;">
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <!-- Warnsystem -->
+      <div class="card" style="margin-bottom:1.5rem;" id="warnCard">
+        <h2 style="margin:0 0 .5rem;">Warnsystem</h2>
+        <p style="font-size:.82rem;color:var(--ink-muted);margin-bottom:.5rem;">Schueler, die besondere Aufmerksamkeit brauchen</p>
+        <div id="warnGrid" class="warn-grid"></div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="card" style="margin-bottom:1.5rem;">
+        <h2 style="margin:0 0 1rem;">Schueler x Faecher</h2>
+        <div class="heatmap-wrap">
+          <table class="heatmap-table" id="heatmapTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: ANALYTICS -->
+    <div id="tab-analytics" style="display:none;">
+      <div class="card" style="margin-bottom:1.5rem;">
+        <h2 style="margin:0 0 1rem;">Fach-Uebersicht</h2>
+        <div style="max-height:400px;"><canvas id="subjectChart"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:1.5rem;">
+        <h2 style="margin:0 0 1rem;">Leistungsentwicklung nach Fach</h2>
+        <div style="max-height:400px;"><canvas id="trendChart"></canvas></div>
+      </div>
+    </div>
+  </main>
+
+  <footer style="text-align:center;padding:1rem;font-size:.75rem;color:var(--ink-muted);">
+    myAbiFlow · Lehrer-Bereich · <a href="index.html">Zurueck zum Trainer</a>
+  </footer>
+</div>
+
+<script>
+const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+
+let teacherAuthToken = "";
+let teacherName = "";
+let teacherId = "";
+let allResults = [];
+let allStudents = [];
+let allCodes = [];
+let authMode = "login";
+
+/* ====== THEME ====== */
+function toggleDark() {
+  const html = document.documentElement;
+  const cur = html.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : "dark";
+  html.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+  document.getElementById("themeBtn").textContent = next === "dark" ? "☀️" : "🌙";
+}
+(function() {
+  const t = localStorage.getItem("theme");
+  if (t) {
+    document.documentElement.setAttribute("data-theme", t);
+    const btn = document.getElementById("themeBtn");
+    if (btn) btn.textContent = t === "dark" ? "☀️" : "🌙";
+  }
+})();
+
+/* ====== AUTH MODE ====== */
+function setAuthMode(mode) {
+  authMode = mode;
+  document.getElementById("modeLogin").classList.toggle("active", mode === "login");
+  document.getElementById("modeRegister").classList.toggle("active", mode === "register");
+  document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
+  document.getElementById("authBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
+  document.getElementById("loginError").textContent = "";
+}
+
+/* ====== AUTH ====== */
+async function doAuth() {
+  const name = document.getElementById("teacherName").value.trim();
+  const pw = document.getElementById("teacherPw").value;
+  const errEl = document.getElementById("loginError");
+  errEl.textContent = "";
+
+  if (!name) { errEl.textContent = "Name eingeben."; return; }
+  if (!pw) { errEl.textContent = "Passwort eingeben."; return; }
+
+  if (authMode === "register") {
+    const pwConfirm = document.getElementById("teacherPwConfirm").value;
+    const email = document.getElementById("teacherEmail").value.trim();
+    const secret = document.getElementById("registerSecret").value;
+    if (pw.length < 8) { errEl.textContent = "Passwort muss mindestens 8 Zeichen haben."; return; }
+    if (pw !== pwConfirm) { errEl.textContent = "Passwoerter stimmen nicht ueberein."; return; }
+    if (!secret) { errEl.textContent = "Registrierungsschluessel eingeben."; return; }
+
+    try {
+      const res = await fetch(API_BASE + "/api/teacher-register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, password: pw, register_secret: secret, email: email || undefined })
+      });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || "Registrierung fehlgeschlagen."; return; }
+      teacherAuthToken = data.token;
+      teacherId = data.teacher_id;
+      teacherName = data.teacher_name;
+      showApp();
+    } catch (e) {
+      errEl.textContent = "Verbindungsfehler: " + e.message;
+    }
+  } else {
+    try {
+      const res = await fetch(API_BASE + "/api/teacher-auth-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, password: pw })
+      });
+      const data = await res.json();
+      if (!res.ok) { errEl.textContent = data.error || "Anmeldung fehlgeschlagen."; return; }
+      teacherAuthToken = data.token;
+      teacherId = data.teacher_id;
+      teacherName = data.teacher_name;
+      showApp();
+    } catch (e) {
+      errEl.textContent = "Verbindungsfehler: " + e.message;
+    }
+  }
+}
+
+function showApp() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("app-wrapper").style.display = "block";
+  document.getElementById("teacherGreeting").textContent = teacherName;
+  loadCodes();
+  loadResults();
+}
+
+function logout() {
+  teacherAuthToken = "";
+  teacherName = "";
+  teacherId = "";
+  allResults = [];
+  allStudents = [];
+  allCodes = [];
+  document.getElementById("app-wrapper").style.display = "none";
+  document.getElementById("login-screen").style.display = "";
+  document.getElementById("teacherPw").value = "";
+}
+
+/* ====== API HELPER ====== */
+async function teacherApi(endpoint, body = {}) {
+  const res = await fetch(API_BASE + endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Teacher-Auth-Token": teacherAuthToken
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  if (res.status === 401) {
+    alert("Sitzung abgelaufen. Bitte erneut anmelden.");
+    logout();
+    throw new Error("Unauthorized");
+  }
+  if (!res.ok) throw new Error(data.error || "Fehler " + res.status);
+  return data;
+}
+
+/* ====== CODES ====== */
+async function loadCodes() {
+  try {
+    const data = await teacherApi("/api/teacher-codes", { action: "list" });
+    allCodes = data.codes || [];
+    renderCodes();
+  } catch (e) {
+    console.error("loadCodes:", e);
+  }
+}
+
+function renderCodes() {
+  const grid = document.getElementById("codesList");
+  const empty = document.getElementById("codesEmpty");
+  if (!allCodes.length) {
+    grid.innerHTML = "";
+    empty.style.display = "block";
+    return;
+  }
+  empty.style.display = "none";
+  grid.innerHTML = allCodes.map(c => `
+    <div class="code-card ${c.active ? '' : 'inactive'}">
+      <div class="code-value" onclick="copyCode('${c.code}')" title="Klicken zum Kopieren">${c.code}</div>
+      <div class="code-label">${esc(c.label)}</div>
+      <div class="code-meta">${c.student_count} Schueler · ${c.active ? 'Aktiv' : 'Deaktiviert'} · ${new Date(c.created_at).toLocaleDateString("de-DE")}</div>
+      <div class="code-actions">
+        <button class="btn-small ${c.active ? 'btn-secondary' : 'btn'}" onclick="toggleCode('${c.id}')">${c.active ? 'Deaktivieren' : 'Aktivieren'}</button>
+        <button class="btn-small btn-secondary" style="color:#ef4444;" onclick="deleteCode('${c.id}','${esc(c.label)}')">Loeschen</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(() => showToast("Code kopiert: " + code));
+}
+
+async function createCode() {
+  const input = document.getElementById("newCodeLabel");
+  const label = input.value.trim();
+  if (!label) { showToast("Bezeichnung eingeben!", "error"); return; }
+  try {
+    const data = await teacherApi("/api/teacher-codes", { action: "create", label });
+    input.value = "";
+    showToast("Code erstellt: " + data.code);
+    loadCodes();
+  } catch (e) {
+    showToast(e.message, "error");
+  }
+}
+
+async function toggleCode(codeId) {
+  try {
+    await teacherApi("/api/teacher-codes", { action: "toggle", code_id: codeId });
+    loadCodes();
+  } catch (e) {
+    showToast(e.message, "error");
+  }
+}
+
+async function deleteCode(codeId, label) {
+  if (!confirm("Code \"" + label + "\" wirklich loeschen? Alle Schueler-Verlinkungen werden entfernt.")) return;
+  try {
+    await teacherApi("/api/teacher-codes", { action: "delete", code_id: codeId });
+    showToast("Code geloescht.");
+    loadCodes();
+    loadResults();
+  } catch (e) {
+    showToast(e.message, "error");
+  }
+}
+
+/* ====== RESULTS (gefiltert) ====== */
+async function loadResults() {
+  try {
+    const data = await teacherApi("/api/teacher-results");
+    allResults = data.results || [];
+    allStudents = data.students || [];
+  } catch (e) {
+    console.error("loadResults:", e);
+  }
+}
+
+/* ====== TABS ====== */
+function switchTab(tab) {
+  document.getElementById("tab-codes").style.display = tab === "codes" ? "block" : "none";
+  document.getElementById("tab-students").style.display = tab === "students" ? "block" : "none";
+  document.getElementById("tab-analytics").style.display = tab === "analytics" ? "block" : "none";
+  document.querySelectorAll(".tab-btn").forEach((btn, i) => {
+    btn.classList.toggle("active", (i === 0 && tab === "codes") || (i === 1 && tab === "students") || (i === 2 && tab === "analytics"));
+  });
+  if (tab === "students") renderStudentsTab();
+  if (tab === "analytics") renderAnalytics();
+}
+
+/* ====== SUBJECT MAPPING ====== */
+const SUBJECT_TYPES_MAP = {
+  english: ["mediation", "writing"],
+  german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend"],
+  history: ["geschichte", "geschichte-abitur"],
+  pug: ["pug-klausur", "pug-abitur"],
+  wr: ["wr", "wr-abitur"],
+  french: ["french-mediation", "french-writing"],
+  italian: ["italian-mediation", "italian-writing"],
+  ethik: ["ethik", "ethik-abitur"],
+  religion: ["religion", "religion-abitur"],
+  katholisch: ["katholisch", "katholisch-abitur"],
+  geographie: ["geographie", "geographie-abitur"],
+  latein: ["latein", "latein-abitur"],
+  mathe: ["mathe", "mathe-abitur"],
+  chemie: ["chemie", "chemie-abitur"],
+  physik: ["physik", "physik-abitur"],
+  biologie: ["biologie", "biologie-abitur"],
+  sport: ["sport", "sport-abitur"],
+  informatik: ["informatik", "informatik-abitur"]
+};
+const SUBJECT_NAMES = {
+  english: "Englisch", german: "Deutsch", history: "Geschichte",
+  pug: "PuG", wr: "WR", french: "Franzoesisch", italian: "Italienisch",
+  ethik: "Ethik", religion: "Ev. Reli", katholisch: "Kath. Reli",
+  geographie: "Geo", latein: "Latein", mathe: "Mathe",
+  chemie: "Chemie", physik: "Physik", biologie: "Bio",
+  sport: "Sport", informatik: "Info"
+};
+const SUBJECT_COLORS = {
+  english: "#4f46e5", german: "#059669", history: "#b45309",
+  pug: "#9f1239", wr: "#7c3aed", french: "#db2777",
+  italian: "#0d9488", ethik: "#4f46e5", religion: "#d97706",
+  katholisch: "#7c3aed", geographie: "#0891b2", latein: "#dc2626",
+  mathe: "#10b981", chemie: "#ea580c", physik: "#2563eb",
+  biologie: "#16a34a", sport: "#f59e0b", informatik: "#6366f1"
+};
+
+function typeToSubject(type) {
+  for (const [subj, types] of Object.entries(SUBJECT_TYPES_MAP)) {
+    if (types.includes(type)) return subj;
+  }
+  return null;
+}
+
+/* ====== STUDENTS TAB ====== */
+function renderStudentsTab() {
+  renderStats();
+  renderWarnSystem();
+  renderHeatmap();
+}
+
+function renderStats() {
+  const students = new Set(allResults.map(r => r.student_name));
+  const scores = allResults.filter(r => r.total != null).map(r => r.total);
+  const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : "—";
+  const best = scores.length ? Math.max(...scores).toFixed(1) : "—";
+  document.getElementById("statsGrid").innerHTML = `
+    <div class="stat-card"><div class="stat-value">${students.size}</div><div class="stat-label">Schueler</div></div>
+    <div class="stat-card"><div class="stat-value">${allResults.length}</div><div class="stat-label">Ergebnisse</div></div>
+    <div class="stat-card"><div class="stat-value">${avg}</div><div class="stat-label">Durchschnitt / 15</div></div>
+    <div class="stat-card"><div class="stat-value">${best}</div><div class="stat-label">Bestes Ergebnis</div></div>
+  `;
+}
+
+function renderWarnSystem() {
+  const studentScores = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    if (!studentScores[r.student_name]) studentScores[r.student_name] = [];
+    studentScores[r.student_name].push({ total: r.total, date: r.date });
+  });
+
+  const warnings = [];
+  Object.entries(studentScores).forEach(([name, scores]) => {
+    const avg = scores.reduce((a,b) => a + b.total, 0) / scores.length;
+    if (avg < 5) {
+      warnings.push({ name, type: "red", reason: `Durchschnitt ${avg.toFixed(1)} NP — deutlich unter Klassenziel` });
+    }
+    if (scores.length >= 4) {
+      const sorted = [...scores].sort((a,b) => new Date(a.date) - new Date(b.date));
+      const recent = sorted.slice(-3);
+      const older = sorted.slice(0, -3);
+      if (older.length >= 2) {
+        const recentAvg = recent.reduce((a,b) => a + b.total, 0) / recent.length;
+        const olderAvg = older.reduce((a,b) => a + b.total, 0) / older.length;
+        if (recentAvg < olderAvg - 2) {
+          warnings.push({ name, type: "yellow", reason: `Abfallender Trend: ${olderAvg.toFixed(1)} → ${recentAvg.toFixed(1)} NP` });
+        }
+      }
+    }
+  });
+
+  const grid = document.getElementById("warnGrid");
+  const card = document.getElementById("warnCard");
+  if (!warnings.length) {
+    card.style.display = "none";
+    return;
+  }
+  card.style.display = "";
+  grid.innerHTML = warnings.map(w => `
+    <div class="warn-card ${w.type}">
+      <div class="warn-name">${esc(w.name)}</div>
+      <div class="warn-reason">${esc(w.reason)}</div>
+    </div>
+  `).join("");
+}
+
+function renderHeatmap() {
+  const studentData = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    if (!studentData[r.student_name]) studentData[r.student_name] = {};
+    if (!studentData[r.student_name][subj]) studentData[r.student_name][subj] = [];
+    studentData[r.student_name][subj].push(r.total);
+  });
+
+  const subjects = new Set();
+  Object.values(studentData).forEach(d => Object.keys(d).forEach(s => subjects.add(s)));
+  const subjArr = [...subjects].sort((a,b) => (SUBJECT_NAMES[a] || a).localeCompare(SUBJECT_NAMES[b] || b));
+  const students = Object.keys(studentData).sort();
+
+  if (!students.length) {
+    document.getElementById("heatmapTable").innerHTML = '<tr><td style="padding:2rem;text-align:center;color:var(--ink-muted);">Noch keine Ergebnisse vorhanden.</td></tr>';
+    return;
+  }
+
+  let html = '<thead><tr><th>Schueler</th>';
+  subjArr.forEach(s => { html += `<th>${SUBJECT_NAMES[s] || s}</th>`; });
+  html += '<th>Gesamt</th></tr></thead><tbody>';
+
+  students.forEach(name => {
+    html += `<tr><td onclick="showStudentDetail('${esc(name)}')">${esc(name)}</td>`;
+    let allScores = [];
+    subjArr.forEach(subj => {
+      const scores = studentData[name][subj];
+      if (scores && scores.length) {
+        const avg = scores.reduce((a,b) => a+b,0) / scores.length;
+        allScores.push(avg);
+        const cls = avg >= 10 ? "hm-good" : avg >= 5 ? "hm-ok" : "hm-bad";
+        html += `<td class="${cls}">${avg.toFixed(1)}</td>`;
+      } else {
+        html += '<td class="hm-empty">—</td>';
+      }
+    });
+    const totalAvg = allScores.length ? (allScores.reduce((a,b) => a+b,0) / allScores.length) : 0;
+    const totalCls = totalAvg >= 10 ? "hm-good" : totalAvg >= 5 ? "hm-ok" : "hm-bad";
+    html += `<td class="${allScores.length ? totalCls : 'hm-empty'}">${allScores.length ? totalAvg.toFixed(1) : '—'}</td></tr>`;
+  });
+
+  html += '</tbody>';
+  document.getElementById("heatmapTable").innerHTML = html;
+}
+
+/* ====== ANALYTICS ====== */
+let subjectChartInstance = null;
+let trendChartInstance = null;
+let detailChartInstance = null;
+
+function renderAnalytics() {
+  renderSubjectChart();
+  renderTrendChart();
+}
+
+function renderSubjectChart() {
+  const data = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    if (!data[subj]) data[subj] = { scores: [], students: new Set() };
+    data[subj].scores.push(r.total);
+    data[subj].students.add(r.student_name);
+  });
+
+  const entries = Object.entries(data).map(([subj, d]) => ({
+    subj,
+    avg: d.scores.reduce((a,b) => a+b,0) / d.scores.length,
+    count: d.scores.length,
+    students: d.students.size
+  })).sort((a,b) => b.avg - a.avg);
+
+  if (subjectChartInstance) subjectChartInstance.destroy();
+  const ctx = document.getElementById("subjectChart").getContext("2d");
+  subjectChartInstance = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: entries.map(e => SUBJECT_NAMES[e.subj] || e.subj),
+      datasets: [{
+        data: entries.map(e => e.avg),
+        backgroundColor: entries.map(e => SUBJECT_COLORS[e.subj] || "#6b7280"),
+        borderRadius: 6
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const e = entries[ctx.dataIndex];
+              return `Durchschnitt: ${e.avg.toFixed(1)} NP (${e.count} Ergebnisse, ${e.students} Schueler)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { min: 0, max: 15, title: { display: true, text: "Notenpunkte" } }
+      }
+    }
+  });
+}
+
+function renderTrendChart() {
+  const weeklyData = {};
+  allResults.forEach(r => {
+    if (r.total == null || !r.date) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    const d = new Date(r.date);
+    const monday = new Date(d); monday.setDate(d.getDate() - d.getDay() + (d.getDay() === 0 ? -6 : 1));
+    const weekKey = monday.toISOString().slice(0, 10);
+    if (!weeklyData[subj]) weeklyData[subj] = {};
+    if (!weeklyData[subj][weekKey]) weeklyData[subj][weekKey] = [];
+    weeklyData[subj][weekKey].push(r.total);
+  });
+
+  const allWeeks = new Set();
+  Object.values(weeklyData).forEach(w => Object.keys(w).forEach(k => allWeeks.add(k)));
+  const weeks = [...allWeeks].sort();
+
+  const datasets = [];
+  Object.entries(weeklyData).forEach(([subj, weeks_data]) => {
+    const weekKeys = Object.keys(weeks_data);
+    if (weekKeys.length < 2) return;
+    datasets.push({
+      label: SUBJECT_NAMES[subj] || subj,
+      data: weeks.map(w => {
+        const scores = weeks_data[w];
+        return scores ? scores.reduce((a,b) => a+b,0) / scores.length : null;
+      }),
+      borderColor: SUBJECT_COLORS[subj] || "#6b7280",
+      backgroundColor: "transparent",
+      tension: .3,
+      spanGaps: true,
+      pointRadius: 3
+    });
+  });
+
+  if (trendChartInstance) trendChartInstance.destroy();
+  const ctx = document.getElementById("trendChart").getContext("2d");
+  trendChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: weeks.map(w => { const d = new Date(w); return d.getDate().toString().padStart(2,"0") + "." + (d.getMonth()+1).toString().padStart(2,"0"); }),
+      datasets
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom" } },
+      scales: { y: { min: 0, max: 15, title: { display: true, text: "NP" } } }
+    }
+  });
+}
+
+/* ====== STUDENT DETAIL ====== */
+function showStudentDetail(name) {
+  const results = allResults.filter(r => r.student_name === name);
+  if (!results.length) return;
+
+  const scores = results.filter(r => r.total != null).map(r => r.total);
+  const avg = scores.length ? (scores.reduce((a,b) => a+b,0) / scores.length).toFixed(1) : "—";
+  const best = scores.length ? Math.max(...scores).toFixed(1) : "—";
+
+  const subjData = {};
+  results.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    if (!subjData[subj]) subjData[subj] = [];
+    subjData[subj].push(r.total);
+  });
+
+  const overlay = document.createElement("div");
+  overlay.className = "detail-overlay";
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = `
+    <div class="detail-panel">
+      <div class="detail-header">
+        <h2 style="margin:0;">${esc(name)}</h2>
+        <button class="btn-small btn-secondary" onclick="this.closest('.detail-overlay').remove()">Schliessen</button>
+      </div>
+      <div class="detail-body">
+        <div class="detail-stats">
+          <div class="stat-card"><div class="stat-value">${avg}</div><div class="stat-label">Durchschnitt</div></div>
+          <div class="stat-card"><div class="stat-value">${results.length}</div><div class="stat-label">Ergebnisse</div></div>
+          <div class="stat-card"><div class="stat-value">${best}</div><div class="stat-label">Bestes</div></div>
+        </div>
+        <div style="max-height:300px;margin-bottom:1rem;"><canvas id="detailChartCanvas"></canvas></div>
+        <h3 style="margin:1rem 0 .5rem;">Nach Fach</h3>
+        <div class="detail-subj-grid">
+          ${Object.entries(subjData).map(([subj, scores]) => {
+            const sAvg = (scores.reduce((a,b) => a+b,0) / scores.length).toFixed(1);
+            return `<div class="detail-subj-card"><h4>${SUBJECT_NAMES[subj] || subj}</h4><div class="detail-subj-stats"><strong>${sAvg} NP</strong> · ${scores.length} Ergebnisse</div></div>`;
+          }).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // Chart
+  const sorted = results.filter(r => r.total != null).sort((a,b) => new Date(a.date) - new Date(b.date));
+  if (detailChartInstance) detailChartInstance.destroy();
+  const ctx = document.getElementById("detailChartCanvas").getContext("2d");
+  detailChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: sorted.map(r => new Date(r.date).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" })),
+      datasets: [{
+        label: "NP",
+        data: sorted.map(r => r.total),
+        borderColor: "#4f46e5",
+        backgroundColor: "transparent",
+        tension: .3,
+        pointBackgroundColor: sorted.map(r => r.total >= 10 ? "#10b981" : r.total >= 5 ? "#f59e0b" : "#ef4444"),
+        pointRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: (ctx) => {
+              const r = sorted[ctx.dataIndex];
+              const subj = typeToSubject(r.type);
+              return (subj ? SUBJECT_NAMES[subj] : r.type) + (r.topic ? ": " + r.topic : "");
+            }
+          }
+        }
+      },
+      scales: { y: { min: 0, max: 15 } }
+    }
+  });
+}
+
+/* ====== TOAST ====== */
+function showToast(msg, type) {
+  const existing = document.querySelector(".toast");
+  if (existing) existing.remove();
+  const t = document.createElement("div");
+  t.className = "toast";
+  if (type === "error") t.style.background = "#ef4444";
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+</script>
+</body>
+</html>
