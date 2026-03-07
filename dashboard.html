@@ -165,11 +165,147 @@ footer a { color: var(--accent); }
 }
 .empty-state .icon { font-size: 2.5rem; margin-bottom: .8rem; }
 
+/* ====== TAB NAV ====== */
+.tab-nav {
+  display: flex;
+  gap: .3rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .3rem;
+}
+.tab-btn {
+  flex: 1;
+  padding: .7rem 1rem;
+  font-family: var(--font-body);
+  font-size: .9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: all .15s;
+  min-height: 44px;
+}
+.tab-btn:hover { color: var(--ink); background: var(--accent-glow); }
+.tab-btn.active { background: var(--accent); color: #fff; }
+
+/* ====== HEATMAP ====== */
+.heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.heatmap-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.heatmap-table th {
+  padding: .6rem .5rem;
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--ink-muted);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  text-align: center;
+}
+.heatmap-table th:first-child { text-align: left; min-width: 120px; }
+.heatmap-table td {
+  padding: .5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: .85rem;
+  min-width: 60px;
+}
+.heatmap-table td:first-child {
+  text-align: left;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--ink);
+}
+.heatmap-table tr:hover td { background: var(--accent-glow); }
+.hm-cell { border-radius: 6px; padding: .3rem .5rem; display: inline-block; min-width: 36px; }
+.hm-good { background: rgba(16,185,129,.15); color: #059669; }
+.hm-ok { background: rgba(245,158,11,.15); color: #b45309; }
+.hm-bad { background: rgba(239,68,68,.15); color: #dc2626; }
+.hm-empty { color: var(--ink-muted); opacity: .4; }
+[data-theme="dark"] .hm-good { background: rgba(16,185,129,.2); color: #34d399; }
+[data-theme="dark"] .hm-ok { background: rgba(245,158,11,.2); color: #fbbf24; }
+[data-theme="dark"] .hm-bad { background: rgba(239,68,68,.2); color: #f87171; }
+
+/* ====== WARN CARDS ====== */
+.warn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: .8rem; }
+.warn-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid #ef4444;
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+}
+.warn-card.warn-yellow { border-left-color: #f59e0b; }
+.warn-name { font-weight: 700; font-size: .95rem; margin-bottom: .3rem; }
+.warn-reason { font-size: .82rem; color: var(--ink-muted); line-height: 1.4; }
+
+/* ====== STUDENT DETAIL OVERLAY ====== */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 9200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn .2s ease-out;
+}
+.detail-panel {
+  background: var(--surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -8px 30px rgba(0,0,0,.15);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  width: 100%;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp .25s ease-out;
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.detail-header h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; margin: 0; }
+.detail-close {
+  background: none; border: none; font-size: 1.3rem; cursor: pointer;
+  color: var(--ink-muted); min-width: 44px; min-height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: background .15s;
+}
+.detail-close:hover { background: var(--bg-warm); color: var(--ink); }
+.detail-body { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 1rem 1.5rem 2rem; flex: 1; }
+.detail-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: .8rem; margin-bottom: 1.2rem; }
+.detail-stat { text-align: center; padding: .8rem; background: var(--card, var(--surface)); border: 1px solid var(--border); border-radius: var(--radius); }
+.detail-stat .val { font-family: var(--font-mono); font-weight: 700; font-size: 1.3rem; color: var(--accent); }
+.detail-stat .lbl { font-size: .72rem; color: var(--ink-muted); text-transform: uppercase; letter-spacing: .03em; }
+.detail-chart { height: 200px; margin-bottom: 1.2rem; }
+.detail-chart canvas { width: 100% !important; height: 100% !important; }
+.detail-subjects { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: .6rem; }
+.detail-subj { padding: .8rem; border: 1px solid var(--border); border-radius: var(--radius); }
+.detail-subj-name { font-weight: 600; font-size: .85rem; margin-bottom: .3rem; }
+.detail-subj-stats { font-size: .8rem; color: var(--ink-muted); display: flex; gap: .6rem; }
+.detail-subj-stats strong { color: var(--accent); font-family: var(--font-mono); }
+
 @media (max-width: 640px) {
   header { padding: .8rem 1rem; }
   main { padding: 0 1rem; }
   .card { padding: 1.2rem; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
+  .detail-stats { grid-template-columns: 1fr 1fr; }
+  .detail-body { padding: .8rem 1rem 2rem; }
 }
 </style>
 </head>
@@ -208,6 +344,15 @@ footer a { color: var(--accent); }
   </header>
 
   <main>
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('overview')">Übersicht</button>
+      <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+    </div>
+
+    <!-- ═══════ TAB: ÜBERSICHT ═══════ -->
+    <div id="tab-overview">
+
     <!-- Stats Overview -->
     <div class="stats-grid" id="statsGrid">
       <div class="stat-card">
@@ -339,6 +484,66 @@ footer a { color: var(--accent); }
         <p>Keine Ergebnisse für diesen Filter.</p>
       </div>
     </div>
+
+    </div><!-- /tab-overview -->
+
+    <!-- ═══════ TAB: ANALYTICS ═══════ -->
+    <div id="tab-analytics" style="display:none">
+
+      <!-- Warnsystem -->
+      <div class="card" id="warnCard" style="display:none">
+        <h2 style="font-family:var(--font-display);margin-bottom:1rem;color:#ef4444;">⚠ Warnsystem</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Schüler, die besondere Aufmerksamkeit brauchen</p>
+        <div class="warn-grid" id="warnGrid"></div>
+      </div>
+
+      <!-- Fach-Übersicht Chart -->
+      <div class="card">
+        <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Fach-Übersicht</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Durchschnittliche Punktzahl pro Fach (alle Schüler)</p>
+        <div class="chart-container">
+          <canvas id="subjectChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Schüler-Heatmap -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
+          <div>
+            <h2 style="font-family:var(--font-display);">Schüler × Fächer</h2>
+            <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.2rem;">Klick auf einen Schüler für Details</p>
+          </div>
+          <select id="heatmapCourse" onchange="renderHeatmap()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.88rem;background:var(--surface);color:var(--ink);">
+            <option value="">Alle Kurse</option>
+            <option value="2e1">2e1</option>
+            <option value="2e2">2e2</option>
+            <option value="2e3">2e3</option>
+            <option value="2e4">2e4</option>
+          </select>
+        </div>
+        <div class="heatmap-wrap">
+          <table class="heatmap-table" id="heatmapTable">
+            <thead id="heatmapHead"></thead>
+            <tbody id="heatmapBody"></tbody>
+          </table>
+        </div>
+        <div id="noHeatmap" class="empty-state" style="display:none;">
+          <div class="icon">📊</div>
+          <p>Noch keine Daten für die Heatmap.</p>
+        </div>
+      </div>
+
+      <!-- Leistungsentwicklung pro Fach -->
+      <div class="card">
+        <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Leistungsentwicklung nach Fach</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Wöchentlicher Durchschnitt pro Fach</p>
+        <div class="chart-container" style="height:320px;">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+    </div><!-- /tab-analytics -->
+
   </main>
 
   <footer>
@@ -802,6 +1007,441 @@ async function deleteStudent(name) {
   } catch (e) {
     alert("Fehler: " + e.message);
   }
+}
+
+/* ====== SUBJECT MAPPING ====== */
+const SUBJECT_TYPES_MAP = {
+  english: ["mediation", "writing"],
+  german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend"],
+  history: ["geschichte", "geschichte-abitur"],
+  pug: ["pug-klausur", "pug-abitur"],
+  wr: ["wr", "wr-abitur"],
+  french: ["french-mediation", "french-writing"],
+  italian: ["italian-mediation", "italian-writing"],
+  ethik: ["ethik", "ethik-abitur"],
+  religion: ["religion", "religion-abitur"],
+  katholisch: ["katholisch", "katholisch-abitur"],
+  geographie: ["geographie", "geographie-abitur"],
+  latein: ["latein", "latein-abitur"],
+  mathe: ["mathe", "mathe-abitur"],
+  chemie: ["chemie", "chemie-abitur"],
+  physik: ["physik", "physik-abitur"],
+  biologie: ["biologie", "biologie-abitur"],
+  sport: ["sport", "sport-abitur"],
+  informatik: ["informatik", "informatik-abitur"]
+};
+const SUBJECT_NAMES = {
+  english: "Englisch", german: "Deutsch", history: "Geschichte",
+  pug: "PuG", wr: "WR", french: "Französisch", italian: "Italienisch",
+  ethik: "Ethik", religion: "Ev. Reli", katholisch: "Kath. Reli",
+  geographie: "Geo", latein: "Latein", mathe: "Mathe",
+  chemie: "Chemie", physik: "Physik", biologie: "Bio",
+  sport: "Sport", informatik: "Info"
+};
+const SUBJECT_COLORS = {
+  english: "#4f46e5", german: "#059669", history: "#b45309",
+  pug: "#9f1239", wr: "#7c3aed", french: "#db2777",
+  italian: "#0d9488", ethik: "#4f46e5", religion: "#d97706",
+  katholisch: "#7c3aed", geographie: "#0891b2", latein: "#dc2626",
+  mathe: "#10b981", chemie: "#ea580c", physik: "#2563eb",
+  biologie: "#16a34a", sport: "#f59e0b", informatik: "#6366f1"
+};
+
+function typeToSubject(type) {
+  for (const [subj, types] of Object.entries(SUBJECT_TYPES_MAP)) {
+    if (types.includes(type)) return subj;
+  }
+  return null;
+}
+
+/* ====== TAB SWITCHING ====== */
+function switchTab(tab) {
+  document.getElementById("tab-overview").style.display = tab === "overview" ? "block" : "none";
+  document.getElementById("tab-analytics").style.display = tab === "analytics" ? "block" : "none";
+  document.querySelectorAll(".tab-btn").forEach((btn, i) => {
+    btn.classList.toggle("active", (i === 0 && tab === "overview") || (i === 1 && tab === "analytics"));
+  });
+  if (tab === "analytics") renderAnalytics();
+}
+
+/* ====== ANALYTICS ====== */
+let subjectChartInstance = null;
+let trendChartInstance = null;
+let detailChartInstance = null;
+
+function getSubjectData() {
+  const data = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    if (!data[subj]) data[subj] = { scores: [], students: new Set() };
+    data[subj].scores.push(r.total);
+    data[subj].students.add(r.student_name);
+  });
+  return data;
+}
+
+function getStudentSubjectData(courseFilter) {
+  const data = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    if (courseFilter && r.course !== courseFilter) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    const key = r.student_name;
+    if (!data[key]) data[key] = { course: r.course || "" };
+    if (!data[key][subj]) data[key][subj] = [];
+    data[key][subj].push({ total: r.total, date: r.date });
+  });
+  return data;
+}
+
+function renderAnalytics() {
+  renderSubjectChart();
+  renderHeatmap();
+  renderWarnSystem();
+  renderTrendChart();
+}
+
+function renderSubjectChart() {
+  const ctx = document.getElementById("subjectChart");
+  if (!ctx) return;
+  if (subjectChartInstance) { subjectChartInstance.destroy(); subjectChartInstance = null; }
+
+  const subjData = getSubjectData();
+  const entries = Object.entries(subjData)
+    .map(([k, v]) => ({ key: k, name: SUBJECT_NAMES[k] || k, avg: +(v.scores.reduce((a,b) => a+b, 0) / v.scores.length).toFixed(1), count: v.scores.length, students: v.students.size }))
+    .sort((a, b) => b.avg - a.avg);
+
+  if (!entries.length) return;
+
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const textColor = isDark ? "#b0b0c8" : "#8888a4";
+  const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+
+  subjectChartInstance = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: entries.map(e => e.name),
+      datasets: [{
+        label: "Ø NP",
+        data: entries.map(e => e.avg),
+        backgroundColor: entries.map(e => {
+          const c = SUBJECT_COLORS[e.key] || "#6366f1";
+          return c + "99";
+        }),
+        borderColor: entries.map(e => SUBJECT_COLORS[e.key] || "#6366f1"),
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: "y",
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: function(ctx) {
+              const e = entries[ctx.dataIndex];
+              return e.count + " Übungen · " + e.students + " Schüler";
+            }
+          }
+        }
+      },
+      scales: {
+        x: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
+        y: { grid: { display: false }, ticks: { color: textColor, font: { weight: "600" } } }
+      }
+    }
+  });
+}
+
+function renderHeatmap() {
+  const courseFilter = document.getElementById("heatmapCourse")?.value || "";
+  const studentData = getStudentSubjectData(courseFilter);
+  const names = Object.keys(studentData).sort();
+  const noHeatmap = document.getElementById("noHeatmap");
+
+  if (!names.length) {
+    document.getElementById("heatmapHead").innerHTML = "";
+    document.getElementById("heatmapBody").innerHTML = "";
+    noHeatmap.style.display = "block";
+    return;
+  }
+  noHeatmap.style.display = "none";
+
+  // Faecher ermitteln, die tatsaechlich vorkommen
+  const activeSubjects = new Set();
+  names.forEach(n => {
+    Object.keys(studentData[n]).forEach(k => {
+      if (k !== "course" && SUBJECT_NAMES[k]) activeSubjects.add(k);
+    });
+  });
+  const subjects = [...activeSubjects].sort((a, b) => (SUBJECT_NAMES[a] || a).localeCompare(SUBJECT_NAMES[b] || b));
+
+  // Header
+  document.getElementById("heatmapHead").innerHTML =
+    "<tr><th>Schüler</th>" + subjects.map(s => "<th>" + (SUBJECT_NAMES[s] || s) + "</th>").join("") + "<th>Ø</th></tr>";
+
+  // Body
+  document.getElementById("heatmapBody").innerHTML = names.map(name => {
+    const d = studentData[name];
+    let allScores = [];
+    const cells = subjects.map(s => {
+      if (!d[s] || !d[s].length) return '<td><span class="hm-cell hm-empty">–</span></td>';
+      const avg = +(d[s].reduce((a, b) => a + b.total, 0) / d[s].length).toFixed(1);
+      allScores.push(avg);
+      const cls = avg >= 10 ? "hm-good" : avg >= 5 ? "hm-ok" : "hm-bad";
+      return '<td><span class="hm-cell ' + cls + '">' + avg + '</span></td>';
+    }).join("");
+    const totalAvg = allScores.length ? +(allScores.reduce((a, b) => a + b, 0) / allScores.length).toFixed(1) : "–";
+    const totalCls = typeof totalAvg === "number" ? (totalAvg >= 10 ? "hm-good" : totalAvg >= 5 ? "hm-ok" : "hm-bad") : "hm-empty";
+    const courseTag = d.course ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;font-weight:700;">' + escapeHtml(d.course) + '</span>' : '';
+    return '<tr style="cursor:pointer" onclick="showStudentDetail(\'' + escapeHtml(name).replace(/'/g, "\\'") + '\')">' +
+      '<td>' + escapeHtml(name) + courseTag + '</td>' + cells +
+      '<td><span class="hm-cell ' + totalCls + '" style="font-weight:800">' + totalAvg + '</span></td></tr>';
+  }).join("");
+}
+
+function renderWarnSystem() {
+  const card = document.getElementById("warnCard");
+  const grid = document.getElementById("warnGrid");
+  const warnings = [];
+
+  // Pro Schueler: Durchschnitt + Trend berechnen
+  const studentStats = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    if (!studentStats[r.student_name]) studentStats[r.student_name] = { scores: [], course: r.course || "" };
+    studentStats[r.student_name].scores.push({ total: r.total, date: r.date });
+  });
+
+  Object.entries(studentStats).forEach(([name, data]) => {
+    const scores = data.scores.sort((a, b) => a.date.localeCompare(b.date));
+    const avg = +(scores.reduce((a, b) => a + b.total, 0) / scores.length).toFixed(1);
+
+    // Warn: Durchschnitt < 5 NP
+    if (avg < 5) {
+      warnings.push({ name, course: data.course, reason: "Ø " + avg + " NP — deutlich unter dem Klassenziel", level: "red" });
+    }
+
+    // Warn: Abfallender Trend (letzte 3 vs. vorherige)
+    if (scores.length >= 4) {
+      const recent = scores.slice(-3).reduce((a, b) => a + b.total, 0) / 3;
+      const older = scores.slice(0, -3).reduce((a, b) => a + b.total, 0) / (scores.length - 3);
+      if (recent < older - 2) {
+        warnings.push({ name, course: data.course, reason: "Abfallender Trend: Ø " + older.toFixed(1) + " → " + recent.toFixed(1) + " NP", level: "yellow" });
+      }
+    }
+  });
+
+  if (!warnings.length) {
+    card.style.display = "none";
+    return;
+  }
+
+  card.style.display = "block";
+  grid.innerHTML = warnings.map(w => {
+    const courseTag = w.course ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;">' + escapeHtml(w.course) + '</span>' : '';
+    return '<div class="warn-card' + (w.level === "yellow" ? " warn-yellow" : "") + '">' +
+      '<div class="warn-name">' + escapeHtml(w.name) + courseTag + '</div>' +
+      '<div class="warn-reason">' + escapeHtml(w.reason) + '</div></div>';
+  }).join("");
+}
+
+function renderTrendChart() {
+  const ctx = document.getElementById("trendChart");
+  if (!ctx) return;
+  if (trendChartInstance) { trendChartInstance.destroy(); trendChartInstance = null; }
+
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const textColor = isDark ? "#b0b0c8" : "#8888a4";
+  const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+
+  // Pro Fach: woechentliche Durchschnitte
+  const weeklyBySubject = {};
+  allResults.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    // KW berechnen (Montag-basiert)
+    const d = new Date(r.date);
+    const day = d.getDay() || 7;
+    const monday = new Date(d);
+    monday.setDate(d.getDate() - day + 1);
+    const weekKey = monday.toISOString().slice(0, 10);
+    if (!weeklyBySubject[subj]) weeklyBySubject[subj] = {};
+    if (!weeklyBySubject[subj][weekKey]) weeklyBySubject[subj][weekKey] = [];
+    weeklyBySubject[subj][weekKey].push(r.total);
+  });
+
+  // Nur Faecher mit >= 3 Datenpunkten
+  const activeSubjects = Object.entries(weeklyBySubject)
+    .filter(([, weeks]) => Object.keys(weeks).length >= 2)
+    .map(([k]) => k);
+
+  if (!activeSubjects.length) return;
+
+  // Alle Wochen sammeln
+  const allWeeks = new Set();
+  activeSubjects.forEach(s => Object.keys(weeklyBySubject[s]).forEach(w => allWeeks.add(w)));
+  const weeks = [...allWeeks].sort();
+
+  const datasets = activeSubjects.map(subj => ({
+    label: SUBJECT_NAMES[subj] || subj,
+    data: weeks.map(w => {
+      const scores = weeklyBySubject[subj][w];
+      return scores ? +(scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) : null;
+    }),
+    borderColor: SUBJECT_COLORS[subj] || "#6366f1",
+    backgroundColor: "transparent",
+    borderWidth: 2,
+    pointRadius: 3,
+    tension: 0.3,
+    spanGaps: true
+  }));
+
+  const labels = weeks.map(w => {
+    const d = new Date(w);
+    return d.getDate() + "." + (d.getMonth() + 1) + ".";
+  });
+
+  trendChartInstance = new Chart(ctx, {
+    type: "line",
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: textColor, font: { size: 11 }, usePointStyle: true, pointStyle: "circle" } } },
+      scales: {
+        y: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
+        x: { grid: { display: false }, ticks: { color: textColor } }
+      }
+    }
+  });
+}
+
+/* ====== STUDENT DETAIL ====== */
+function showStudentDetail(name) {
+  // Altes Overlay entfernen
+  const old = document.getElementById("studentDetailOverlay");
+  if (old) old.remove();
+
+  const results = allResults.filter(r => r.student_name === name).sort((a, b) => a.date.localeCompare(b.date));
+  if (!results.length) return;
+
+  const totals = results.filter(r => r.total != null).map(r => r.total);
+  const avg = totals.length ? +(totals.reduce((a, b) => a + b, 0) / totals.length).toFixed(1) : "–";
+  const best = totals.length ? Math.max(...totals) : "–";
+  const course = results[results.length - 1].course || "–";
+
+  // Pro Fach
+  const subjects = {};
+  results.forEach(r => {
+    if (r.total == null) return;
+    const subj = typeToSubject(r.type);
+    if (!subj) return;
+    if (!subjects[subj]) subjects[subj] = [];
+    subjects[subj].push({ total: r.total, date: r.date });
+  });
+
+  let html = '<div class="detail-overlay" id="studentDetailOverlay" onclick="if(event.target===this)closeStudentDetail()">' +
+    '<div class="detail-panel">' +
+    '<div class="detail-header"><h3>' + escapeHtml(name) + ' <span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;margin-left:.5rem;">' + escapeHtml(course) + '</span></h3>' +
+    '<button class="detail-close" onclick="closeStudentDetail()">✕</button></div>' +
+    '<div class="detail-body">';
+
+  // Stats
+  html += '<div class="detail-stats">' +
+    '<div class="detail-stat"><div class="val">' + avg + '</div><div class="lbl">Ø NP</div></div>' +
+    '<div class="detail-stat"><div class="val">' + totals.length + '</div><div class="lbl">Übungen</div></div>' +
+    '<div class="detail-stat"><div class="val">' + best + '</div><div class="lbl">Bestes</div></div>' +
+    '</div>';
+
+  // Chart Platzhalter
+  html += '<div class="detail-chart"><canvas id="detailStudentChart"></canvas></div>';
+
+  // Fach-Karten
+  html += '<h4 style="font-size:.9rem;font-weight:700;margin-bottom:.6rem;">Fächer</h4>';
+  html += '<div class="detail-subjects">';
+  Object.entries(subjects).sort((a, b) => (SUBJECT_NAMES[a[0]] || a[0]).localeCompare(SUBJECT_NAMES[b[0]] || b[0]))).forEach(([subj, scores]) => {
+    const sAvg = +(scores.reduce((a, b) => a + b.total, 0) / scores.length).toFixed(1);
+    const sBest = Math.max(...scores.map(s => s.total));
+    html += '<div class="detail-subj" style="border-left:3px solid ' + (SUBJECT_COLORS[subj] || "#6366f1") + '">' +
+      '<div class="detail-subj-name">' + (SUBJECT_NAMES[subj] || subj) + '</div>' +
+      '<div class="detail-subj-stats"><span>Ø <strong>' + sAvg + '</strong></span><span><strong>' + scores.length + '</strong> Üb.</span><span>Best: <strong>' + sBest + '</strong></span></div></div>';
+  });
+  html += '</div>';
+
+  html += '</div></div></div>';
+
+  document.body.insertAdjacentHTML("beforeend", html);
+
+  // Chart rendern
+  setTimeout(function() { renderDetailChart(name, results); }, 50);
+}
+
+function renderDetailChart(name, results) {
+  const ctx = document.getElementById("detailStudentChart");
+  if (!ctx) return;
+  if (detailChartInstance) { detailChartInstance.destroy(); detailChartInstance = null; }
+
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const textColor = isDark ? "#b0b0c8" : "#8888a4";
+  const gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+
+  const validResults = results.filter(r => r.total != null);
+  const labels = validResults.map(r => {
+    const d = new Date(r.date);
+    return d.getDate() + "." + (d.getMonth() + 1) + ".";
+  });
+
+  detailChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "NP",
+        data: validResults.map(r => r.total),
+        borderColor: "#6366f1",
+        backgroundColor: "rgba(99,102,241,.1)",
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: validResults.map(r => r.total >= 10 ? "#10b981" : r.total >= 5 ? "#f59e0b" : "#ef4444"),
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: function(ctx) {
+              const r = validResults[ctx.dataIndex];
+              const subj = typeToSubject(r.type);
+              return (SUBJECT_NAMES[subj] || r.type) + " · " + (r.topic || "");
+            }
+          }
+        }
+      },
+      scales: {
+        y: { min: 0, max: 15, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 3 } },
+        x: { grid: { display: false }, ticks: { color: textColor } }
+      }
+    }
+  });
+}
+
+function closeStudentDetail() {
+  const overlay = document.getElementById("studentDetailOverlay");
+  if (overlay) overlay.remove();
+  if (detailChartInstance) { detailChartInstance.destroy(); detailChartInstance = null; }
 }
 
 /* ====== INIT ====== */
