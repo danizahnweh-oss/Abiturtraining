@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow FOS · Gruppendiskussion</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗣️</text></svg>">
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"
+    integrity="sha384-eEu5CTj3qGvu9PdJuS+YlkNi7d2XxQROAFYOr59zgObtlcux1ae1Il3u7jvdCSWu"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="shared-fos.css">
+
+  <style>
+    /* Page-specific overrides */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 9999;
+    }
+
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+    }
+
+    .login-box {
+      position: relative;
+      animation: fadeUp .5s ease-out;
+    }
+
+    header {
+      backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] header {
+      background: rgba(30, 30, 46, 0.92);
+    }
+
+    main {
+      max-width: 860px;
+    }
+
+    /* ====== Setup-Selects ====== */
+    .setup-selects {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .setup-selects select {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: .95rem;
+      background: var(--surface, var(--bg));
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    .setup-selects select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .setup-selects label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--ink-muted);
+      margin-bottom: .4rem;
+    }
+
+    /* ====== Rollenkarten-Grid ====== */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .role-card {
+      background: var(--surface, var(--bg-warm));
+      border: 2px solid var(--border);
+      border-radius: var(--radius, 12px);
+      padding: 1.2rem;
+      transition: all .2s ease;
+    }
+
+    .role-card.real-student {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .role-card-header {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .6rem;
+    }
+
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .2rem .6rem;
+      border-radius: var(--radius-full, 20px);
+      font-size: .7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .role-badge.student {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .role-badge.ai {
+      background: var(--border);
+      color: var(--ink-muted);
+    }
+
+    .role-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
+    .role-stance {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: var(--radius-full, 20px);
+      font-size: .75rem;
+      font-weight: 600;
+      margin-bottom: .4rem;
+    }
+
+    .role-stance.pro { background: #dcfce7; color: #16a34a; }
+    .role-stance.contra { background: #fee2e2; color: #dc2626; }
+    .role-stance.neutral { background: #e0e7ff; color: #4f46e5; }
+    .role-stance.moderate { background: #fef3c7; color: #d97706; }
+
+    [data-theme="dark"] .role-stance.pro { background: rgba(22,163,74,.2); color: #4ade80; }
+    [data-theme="dark"] .role-stance.contra { background: rgba(220,38,38,.2); color: #fca5a5; }
+    [data-theme="dark"] .role-stance.neutral { background: rgba(79,70,229,.2); color: #a5b4fc; }
+    [data-theme="dark"] .role-stance.moderate { background: rgba(217,119,6,.2); color: #fcd34d; }
+
+    .role-background {
+      font-size: .85rem;
+      color: var(--ink-light);
+      margin-bottom: .4rem;
+      line-height: 1.4;
+    }
+
+    .role-args {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    /* ====== Countdown-Timer ====== */
+    .prep-timer {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .prep-timer-display {
+      font-size: 3rem;
+      font-weight: 800;
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      color: var(--accent);
+      letter-spacing: .05em;
+    }
+
+    .prep-timer-label {
+      font-size: .9rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+    }
+
+    .prep-timer-display.warning {
+      color: #dc2626;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .5; }
+    }
+
+    /* ====== Live-Diskussion ====== */
+    .live-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .connection-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #888;
+      flex-shrink: 0;
+    }
+
+    .connection-dot.connected { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+    .connection-dot.connecting, .connection-dot.reconnecting { background: #eab308; animation: pulse 1.5s infinite; }
+    .connection-dot.error, .connection-dot.disconnected { background: #ef4444; }
+
+    .live-timer {
+      font-size: 1.6rem;
+      font-weight: 700;
+      font-family: var(--font-mono, 'JetBrains Mono', monospace);
+      color: var(--ink);
+      min-width: 80px;
+    }
+
+    .live-timer.warning {
+      color: #dc2626;
+      animation: pulse 1s infinite;
+    }
+
+    .mic-indicator {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .85rem;
+      color: var(--ink-muted);
+    }
+
+    .mic-indicator .mic-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+
+    .transcript-box {
+      background: var(--surface, var(--bg-warm));
+      border: 1px solid var(--border);
+      border-radius: var(--radius, 12px);
+      padding: 1.2rem;
+      max-height: 400px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+    }
+
+    .transcript-entry {
+      margin-bottom: .8rem;
+      padding: .6rem .8rem;
+      border-radius: var(--radius-sm, 8px);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .transcript-entry.ai {
+      background: var(--border-light, #f1f5f9);
+      border-left: 3px solid var(--accent);
+    }
+
+    .transcript-entry.student {
+      background: var(--accent-soft);
+      border-left: 3px solid #22c55e;
+    }
+
+    [data-theme="dark"] .transcript-entry.ai {
+      background: rgba(255,255,255,.05);
+    }
+
+    [data-theme="dark"] .transcript-entry.student {
+      background: rgba(34,197,94,.1);
+    }
+
+    .transcript-speaker {
+      font-weight: 700;
+      font-size: .8rem;
+      margin-bottom: .2rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .transcript-entry.ai .transcript-speaker { color: var(--accent); }
+    .transcript-entry.student .transcript-speaker { color: #22c55e; }
+
+    /* ====== Feedback ====== */
+    .feedback-body h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin: 1.5rem 0 .6rem;
+      color: var(--ink);
+    }
+
+    .feedback-body h3 {
+      font-size: 1rem;
+      margin: 1rem 0 .5rem;
+    }
+
+    .feedback-body strong {
+      color: var(--ink);
+    }
+
+    .feedback-body ul, .feedback-body ol {
+      padding-left: 1.2rem;
+      margin: .5rem 0;
+    }
+
+    .feedback-body li {
+      margin-bottom: .3rem;
+      line-height: 1.5;
+    }
+
+    /* ====== Score-Anzeige ====== */
+    .score-display {
+      text-align: center;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      background: var(--accent-soft);
+      border-radius: var(--radius, 12px);
+      border: 2px solid var(--accent);
+    }
+
+    .score-number {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .score-label {
+      font-size: .9rem;
+      color: var(--ink-muted);
+      margin-top: .3rem;
+    }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 768px) {
+      .setup-selects {
+        grid-template-columns: 1fr;
+      }
+
+      .roles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .live-header {
+        gap: .5rem;
+      }
+
+      .prep-timer-display {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .roles-grid {
+        gap: .75rem;
+      }
+
+      .role-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== LOGIN REDIRECT ====== -->
+  <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;">
+      <p style="color:var(--ink-muted);margin-bottom:1rem;">Bitte zuerst über die Startseite einloggen.</p>
+      <a href="index.html" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:1.1rem;">→ Zur
+        Startseite</a>
+    </div>
+  </div>
+
+  <!-- ====== APP ====== -->
+  <div id="app-wrapper" style="display:none">
+
+    <header>
+      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Englisch &middot;
+        <span>Gruppendiskussion</span></h1>
+      <div class="header-right">
+        <span id="studentGreeting" class="header-meta" style="display:none"></span>
+        <div class="header-meta">myAbiFlow</div>
+        <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
+          id="themeToggleBtn">🌙</button>
+      </div>
+    </header>
+
+    <nav>
+      <button id="nav-setup" class="active" onclick="nav('setup')">
+        <span class="step-num">1</span> Setup
+      </button>
+      <button id="nav-discussion" onclick="nav('discussion')" disabled>
+        <span class="step-num">2</span> Diskussion
+      </button>
+      <button id="nav-feedback" onclick="nav('feedback')" disabled>
+        <span class="step-num">3</span> Bewertung
+      </button>
+      <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;">
+        <span class="step-num">📊</span> Fortschritt
+      </button>
+    </nav>
+
+    <main>
+
+      <!-- ====== SETUP ====== -->
+      <section id="sec-setup" class="active">
+        <div class="card">
+          <h2>Gruppendiskussion starten</h2>
+          <p style="color:var(--ink-muted);margin-bottom:1rem;">Simuliere eine englische Gruppendiskussion wie in der FOS-Prüfung. Die KI übernimmt die anderen Teilnehmer – du diskutierst auf Englisch mit.</p>
+
+          <div class="setup-selects">
+            <div>
+              <label for="selTeilnehmer">Teilnehmerzahl</label>
+              <select id="selTeilnehmer">
+                <option value="4">4 Teilnehmer</option>
+                <option value="5" selected>5 Teilnehmer</option>
+              </select>
+            </div>
+            <div>
+              <label for="selSchueler">Echte Schüler</label>
+              <select id="selSchueler">
+                <option value="1" selected>1 Schüler</option>
+                <option value="2">2 Schüler</option>
+                <option value="3">3 Schüler</option>
+              </select>
+            </div>
+            <div>
+              <label for="selTopic">Thema</label>
+              <select id="selTopic">
+                <option value="random" selected>Zufällig</option>
+                <option value="Social Media and Mental Health">Social Media & Mental Health</option>
+                <option value="Artificial Intelligence in Education">AI in Education</option>
+                <option value="Climate Change and Individual Responsibility">Climate Change</option>
+                <option value="Gap Year: Pros and Cons">Gap Year</option>
+                <option value="Fast Fashion and Sustainability">Fast Fashion</option>
+                <option value="Universal Basic Income">Universal Basic Income</option>
+                <option value="Online vs. Traditional Learning">Online vs. Traditional Learning</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn-primary" onclick="generateSetup()" id="btnGenerate"
+            style="width:100%;margin-top:1.5rem;padding:1rem;font-size:1rem;">
+            Diskussion generieren
+          </button>
+        </div>
+      </section>
+
+      <!-- ====== DISKUSSION (Vorbereitung + Live) ====== -->
+      <section id="sec-discussion">
+
+        <!-- Vorbereitungsphase -->
+        <div id="prepPhase">
+          <div class="card">
+            <h2 id="topicDisplay"></h2>
+            <p id="contextDisplay" style="color:var(--ink-muted);line-height:1.5;margin-bottom:1rem;"></p>
+
+            <h3 style="margin-bottom:.5rem;">Rollenkarten</h3>
+            <div class="roles-grid" id="rolesGrid"></div>
+
+            <div class="prep-timer">
+              <div class="prep-timer-display" id="prepTimerDisplay">20:00</div>
+              <div class="prep-timer-label">Vorbereitungszeit – Studiere dein Thema und deine Rolle</div>
+            </div>
+
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+              <button class="btn-primary" onclick="skipPrep()" style="flex:1;min-width:200px;padding:.85rem;">
+                Vorbereitung überspringen
+              </button>
+              <button class="btn-secondary" onclick="backToSetup()" style="flex:1;min-width:200px;padding:.85rem;">
+                Zurück zum Setup
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live-Diskussion -->
+        <div id="livePhase" style="display:none;">
+          <div class="card">
+            <div class="live-header">
+              <div class="connection-dot" id="connectionDot"></div>
+              <span id="connectionLabel" style="font-size:.85rem;color:var(--ink-muted);">Verbinde...</span>
+              <div class="live-timer" id="liveTimer">00:00</div>
+              <div class="mic-indicator" id="micIndicator">
+                <div class="mic-dot"></div>
+                <span>Mikrofon aktiv</span>
+              </div>
+              <button class="btn-primary" onclick="endDiscussion()" style="margin-left:auto;padding:.6rem 1.2rem;background:#dc2626;border-color:#dc2626;">
+                Diskussion beenden
+              </button>
+            </div>
+
+            <div class="transcript-box" id="transcriptBox">
+              <div style="text-align:center;color:var(--ink-muted);padding:2rem;font-style:italic;">
+                Die Diskussion beginnt gleich...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== FEEDBACK ====== -->
+      <section id="sec-feedback">
+        <div class="card" id="feedbackCard">
+          <div id="feedbackLoader" style="text-align:center;padding:3rem;">
+            <div class="spinner"></div>
+            <p style="margin-top:1rem;color:var(--ink-muted);">Feedback wird generiert...</p>
+          </div>
+          <div id="feedbackContent" style="display:none;">
+            <div class="score-display" id="scoreDisplay" style="display:none;">
+              <div class="score-number" id="scoreNumber"></div>
+              <div class="score-label">von 15 Punkten</div>
+            </div>
+            <div class="feedback-body" id="feedbackBody"></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;">
+          <button class="btn-primary" onclick="newDiscussion()" style="flex:1;min-width:200px;">Neue Diskussion</button>
+          <button class="btn-secondary" onclick="nav('progress')" style="flex:1;min-width:200px;">Fortschritt ansehen</button>
+        </div>
+      </section>
+
+      <!-- ====== FORTSCHRITT ====== -->
+      <section id="sec-progress">
+        <div class="card">
+          <h2>Dein Fortschritt</h2>
+          <canvas id="progressChart" height="200"></canvas>
+          <div id="historyTable" style="margin-top:1.5rem;"></div>
+          <p id="noHistory" style="text-align:center;color:var(--ink-muted);padding:2rem;display:none;">
+            Noch keine Diskussionen absolviert. Starte deine erste Übung!
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <p>myAbiFlow FOS · Gruppendiskussion · <a href="index.html">Startseite</a></p>
+    </footer>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    /* ================= KONFIGURATION ================= */
+
+    var MODULE_CONFIG = {
+      steps: ['setup', 'discussion', 'feedback', 'progress'],
+      storagePrefix: 'fos_gruppendiskussion',
+      historyType: 'fos_gruppendiskussion',
+      loginPage: 'index.html',
+      hasOwnLogin: true
+    };
+
+    /* ================= STATE ================= */
+
+    var STATE = {
+      currentStep: 'setup',
+      setupData: null,       // { topic, context, roles }
+      totalCount: 5,
+      realStudents: 1,
+      liveSession: null,
+      audioProcessor: null,
+      modelTranscription: [],
+      userTranscription: [],
+      prepTimer: null,
+      liveTimerInterval: null,
+      liveStartTime: 0,
+      liveDurationLimit: 0    // in Sekunden
+    };
+
+    /* ================= NAVIGATION ================= */
+
+    function nav(step) {
+      MODULE_CONFIG.steps.forEach(function(s) {
+        var sec = document.getElementById('sec-' + s);
+        if (sec) sec.classList.toggle('active', s === step);
+        var btn = document.getElementById('nav-' + s);
+        if (btn) btn.classList.toggle('active', s === step);
+      });
+      STATE.currentStep = step;
+
+      if (step === 'progress') renderProgress();
+    }
+
+    /* ================= SETUP ================= */
+
+    async function generateSetup() {
+      var btn = document.getElementById('btnGenerate');
+      btn.disabled = true;
+      btn.textContent = 'Wird generiert...';
+
+      STATE.totalCount = parseInt(document.getElementById('selTeilnehmer').value);
+      STATE.realStudents = parseInt(document.getElementById('selSchueler').value);
+
+      // Echte Schüler darf nicht >= Teilnehmerzahl sein
+      if (STATE.realStudents >= STATE.totalCount) {
+        STATE.realStudents = STATE.totalCount - 1;
+      }
+
+      var topic = document.getElementById('selTopic').value;
+
+      try {
+        var mod = await import('./discussion-live.js');
+        var data = await mod.generateDiscussionSetup({
+          totalCount: STATE.totalCount,
+          realStudents: STATE.realStudents,
+          topic: topic
+        });
+
+        STATE.setupData = data;
+        renderRoleCards(data);
+        startPrepTimer();
+
+        // Mikrofon Warmup im Hintergrund
+        try {
+          var audioMod = await import('./discussion-audio.js');
+          STATE.audioProcessor = new audioMod.AudioProcessor();
+          STATE.audioProcessor.warmup().catch(function(e) {
+            console.warn('Mikrofon-Warmup fehlgeschlagen:', e);
+          });
+        } catch (e) {
+          console.warn('Audio-Modul konnte nicht geladen werden:', e);
+        }
+
+        document.getElementById('nav-discussion').disabled = false;
+        nav('discussion');
+      } catch (err) {
+        console.error('Setup-Generierung fehlgeschlagen:', err);
+        alert('Fehler beim Generieren der Diskussion. Bitte versuche es erneut.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Diskussion generieren';
+      }
+    }
+
+    function renderRoleCards(data) {
+      document.getElementById('topicDisplay').textContent = data.topic;
+      document.getElementById('contextDisplay').textContent = data.context;
+
+      var grid = document.getElementById('rolesGrid');
+      var html = '';
+      var realIndex = 0;
+
+      data.roles.forEach(function(role, i) {
+        var isReal = role.isReal;
+        var stanceClass = (role.stance || 'neutral').toLowerCase();
+        if (['pro', 'contra', 'neutral', 'moderate'].indexOf(stanceClass) === -1) stanceClass = 'neutral';
+
+        var badgeLabel = '';
+        if (isReal) {
+          realIndex++;
+          if (STATE.realStudents === 1) {
+            badgeLabel = 'DEINE ROLLE';
+          } else {
+            badgeLabel = 'SCHÜLER ' + realIndex;
+          }
+        } else {
+          badgeLabel = 'KI';
+        }
+
+        html += '<div class="role-card' + (isReal ? ' real-student' : '') + '">' +
+          '<div class="role-card-header">' +
+          '<span class="role-badge ' + (isReal ? 'student' : 'ai') + '">' + badgeLabel + '</span>' +
+          '<span class="role-name">' + role.name + '</span>' +
+          '</div>' +
+          '<span class="role-stance ' + stanceClass + '">' + role.stance + '</span>' +
+          '<div class="role-background">' + role.background + '</div>' +
+          '<div class="role-args">' + role.args + '</div>' +
+          '</div>';
+      });
+
+      grid.innerHTML = html;
+    }
+
+    /* ================= VORBEREITUNGSZEIT ================= */
+
+    function startPrepTimer() {
+      var remaining = 20 * 60; // 20 Minuten in Sekunden
+      var display = document.getElementById('prepTimerDisplay');
+
+      if (STATE.prepTimer) clearInterval(STATE.prepTimer);
+
+      updatePrepDisplay(display, remaining);
+
+      STATE.prepTimer = setInterval(function() {
+        remaining--;
+        updatePrepDisplay(display, remaining);
+
+        if (remaining <= 60) {
+          display.classList.add('warning');
+        }
+
+        if (remaining <= 0) {
+          clearInterval(STATE.prepTimer);
+          STATE.prepTimer = null;
+          startLiveDiscussion();
+        }
+      }, 1000);
+    }
+
+    function updatePrepDisplay(el, seconds) {
+      var m = Math.floor(seconds / 60);
+      var s = seconds % 60;
+      el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    }
+
+    function skipPrep() {
+      if (STATE.prepTimer) {
+        clearInterval(STATE.prepTimer);
+        STATE.prepTimer = null;
+      }
+      startLiveDiscussion();
+    }
+
+    function backToSetup() {
+      if (STATE.prepTimer) {
+        clearInterval(STATE.prepTimer);
+        STATE.prepTimer = null;
+      }
+      document.getElementById('nav-discussion').disabled = true;
+      nav('setup');
+    }
+
+    /* ================= LIVE DISKUSSION ================= */
+
+    async function startLiveDiscussion() {
+      document.getElementById('prepPhase').style.display = 'none';
+      document.getElementById('livePhase').style.display = 'block';
+
+      STATE.modelTranscription = [];
+      STATE.userTranscription = [];
+      STATE.liveDurationLimit = STATE.totalCount * 5 * 60; // 5 min pro Teilnehmer
+
+      // Transkript-Box leeren
+      document.getElementById('transcriptBox').innerHTML =
+        '<div style="text-align:center;color:var(--ink-muted);padding:1rem;font-style:italic;">Die Diskussion beginnt gleich...</div>';
+
+      // Timer starten
+      STATE.liveStartTime = Date.now();
+      startLiveTimer();
+
+      try {
+        var mod = await import('./discussion-live.js');
+
+        STATE.liveSession = new mod.DiscussionLiveSession({
+          topic: STATE.setupData.topic,
+          context: STATE.setupData.context,
+          roles: STATE.setupData.roles,
+          totalCount: STATE.totalCount,
+          onModelTranscription: function(text) {
+            STATE.modelTranscription.push(text);
+            addTranscriptEntry('ai', text);
+          },
+          onUserTranscription: function(text) {
+            STATE.userTranscription.push(text);
+            addTranscriptEntry('student', text);
+          },
+          onStatusChange: function(status) {
+            updateConnectionStatus(status);
+          }
+        }, STATE.audioProcessor);
+
+        await STATE.liveSession.start();
+      } catch (err) {
+        console.error('Live-Session fehlgeschlagen:', err);
+        updateConnectionStatus('error');
+      }
+    }
+
+    function addTranscriptEntry(type, text) {
+      var box = document.getElementById('transcriptBox');
+      // Erste Placeholder-Nachricht entfernen
+      var placeholder = box.querySelector('div[style*="font-style:italic"]');
+      if (placeholder) placeholder.remove();
+
+      var entry = document.createElement('div');
+      entry.className = 'transcript-entry ' + type;
+
+      var speaker = document.createElement('div');
+      speaker.className = 'transcript-speaker';
+      speaker.textContent = type === 'ai' ? 'KI-Teilnehmer' : 'Schüler';
+
+      var content = document.createElement('div');
+      content.textContent = text;
+
+      entry.appendChild(speaker);
+      entry.appendChild(content);
+      box.appendChild(entry);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function updateConnectionStatus(status) {
+      var dot = document.getElementById('connectionDot');
+      var label = document.getElementById('connectionLabel');
+
+      dot.className = 'connection-dot ' + status;
+
+      var labels = {
+        connecting: 'Verbinde...',
+        connected: 'Verbunden',
+        reconnecting: 'Verbindung wird wiederhergestellt...',
+        disconnected: 'Getrennt',
+        error: 'Verbindungsfehler'
+      };
+      label.textContent = labels[status] || status;
+    }
+
+    function startLiveTimer() {
+      var display = document.getElementById('liveTimer');
+
+      if (STATE.liveTimerInterval) clearInterval(STATE.liveTimerInterval);
+
+      STATE.liveTimerInterval = setInterval(function() {
+        var elapsed = Math.floor((Date.now() - STATE.liveStartTime) / 1000);
+        var m = Math.floor(elapsed / 60);
+        var s = elapsed % 60;
+        display.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+
+        // Warnung wenn 80% der Zeit vorbei
+        if (elapsed >= STATE.liveDurationLimit * 0.8) {
+          display.classList.add('warning');
+        }
+
+        // Auto-Ende bei Zeitlimit
+        if (elapsed >= STATE.liveDurationLimit) {
+          endDiscussion();
+        }
+      }, 1000);
+    }
+
+    async function endDiscussion() {
+      // Timer stoppen
+      if (STATE.liveTimerInterval) {
+        clearInterval(STATE.liveTimerInterval);
+        STATE.liveTimerInterval = null;
+      }
+
+      // Live-Session stoppen
+      if (STATE.liveSession) {
+        STATE.liveSession.stop();
+        STATE.liveSession = null;
+      }
+
+      // Zur Feedback-Sektion
+      document.getElementById('nav-feedback').disabled = false;
+      nav('feedback');
+
+      // Feedback generieren
+      try {
+        var mod = await import('./discussion-live.js');
+        var feedback = await mod.generateDiscussionFeedback({
+          topic: STATE.setupData.topic,
+          modelTranscription: STATE.modelTranscription,
+          userTranscription: STATE.userTranscription,
+          realStudents: STATE.realStudents
+        });
+
+        displayFeedback(feedback);
+      } catch (err) {
+        console.error('Feedback-Generierung fehlgeschlagen:', err);
+        document.getElementById('feedbackLoader').style.display = 'none';
+        document.getElementById('feedbackContent').style.display = 'block';
+        document.getElementById('feedbackBody').innerHTML = '<p style="color:#dc2626;">Feedback konnte nicht generiert werden. Bitte versuche es erneut.</p>';
+      }
+    }
+
+    /* ================= FEEDBACK ================= */
+
+    function displayFeedback(markdown) {
+      document.getElementById('feedbackLoader').style.display = 'none';
+      document.getElementById('feedbackContent').style.display = 'block';
+
+      var html = DOMPurify.sanitize(marked.parse(markdown));
+      document.getElementById('feedbackBody').innerHTML = html;
+
+      // Punkte extrahieren (suche nach "X/15" oder "X von 15")
+      var scoreMatch = markdown.match(/(\d{1,2})\s*(?:\/|von)\s*15/);
+      var score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+
+      if (score !== null && score >= 0 && score <= 15) {
+        document.getElementById('scoreDisplay').style.display = 'block';
+        document.getElementById('scoreNumber').textContent = score;
+
+        // In History speichern
+        saveToHistory(score, markdown);
+      }
+    }
+
+    /* ================= FORTSCHRITT ================= */
+
+    function saveToHistory(score, feedback) {
+      var key = MODULE_CONFIG.storagePrefix + '_history';
+      var history = [];
+      try { history = JSON.parse(localStorage.getItem(key)) || []; } catch (e) { /* ignorieren */ }
+
+      history.push({
+        date: new Date().toISOString(),
+        topic: STATE.setupData ? STATE.setupData.topic : 'Unbekannt',
+        score: score,
+        totalCount: STATE.totalCount,
+        realStudents: STATE.realStudents,
+        feedback: feedback
+      });
+
+      // Max 50 Einträge
+      if (history.length > 50) history = history.slice(-50);
+      localStorage.setItem(key, JSON.stringify(history));
+    }
+
+    function renderProgress() {
+      var key = MODULE_CONFIG.storagePrefix + '_history';
+      var history = [];
+      try { history = JSON.parse(localStorage.getItem(key)) || []; } catch (e) { /* ignorieren */ }
+
+      if (history.length === 0) {
+        document.getElementById('noHistory').style.display = 'block';
+        document.getElementById('historyTable').innerHTML = '';
+        return;
+      }
+
+      document.getElementById('noHistory').style.display = 'none';
+
+      // Chart rendern
+      var ctx = document.getElementById('progressChart').getContext('2d');
+      if (window._progressChart) window._progressChart.destroy();
+
+      var labels = history.map(function(h, i) { return 'Übung ' + (i + 1); });
+      var scores = history.map(function(h) { return h.score; });
+
+      window._progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Punkte',
+            data: scores,
+            borderColor: getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            fill: true,
+            tension: 0.3,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { min: 0, max: 15, ticks: { stepSize: 1 } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // History-Tabelle
+      var tableHtml = '<table style="width:100%;border-collapse:collapse;font-size:.85rem;">' +
+        '<thead><tr>' +
+        '<th style="text-align:left;padding:.5rem;border-bottom:2px solid var(--border);">Datum</th>' +
+        '<th style="text-align:left;padding:.5rem;border-bottom:2px solid var(--border);">Thema</th>' +
+        '<th style="text-align:center;padding:.5rem;border-bottom:2px solid var(--border);">Teilnehmer</th>' +
+        '<th style="text-align:center;padding:.5rem;border-bottom:2px solid var(--border);">Punkte</th>' +
+        '</tr></thead><tbody>';
+
+      history.slice().reverse().forEach(function(h) {
+        var d = new Date(h.date);
+        var dateStr = d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: '2-digit' });
+        var topicShort = h.topic.length > 40 ? h.topic.slice(0, 40) + '...' : h.topic;
+
+        tableHtml += '<tr>' +
+          '<td style="padding:.5rem;border-bottom:1px solid var(--border);">' + dateStr + '</td>' +
+          '<td style="padding:.5rem;border-bottom:1px solid var(--border);">' + topicShort + '</td>' +
+          '<td style="text-align:center;padding:.5rem;border-bottom:1px solid var(--border);">' + (h.totalCount || '-') + ' (' + (h.realStudents || 1) + ' echt)</td>' +
+          '<td style="text-align:center;padding:.5rem;border-bottom:1px solid var(--border);font-weight:700;color:var(--accent);">' + h.score + '/15</td>' +
+          '</tr>';
+      });
+
+      tableHtml += '</tbody></table>';
+      document.getElementById('historyTable').innerHTML = tableHtml;
+    }
+
+    /* ================= NEUE DISKUSSION ================= */
+
+    function newDiscussion() {
+      // Reset
+      STATE.setupData = null;
+      STATE.liveSession = null;
+      STATE.modelTranscription = [];
+      STATE.userTranscription = [];
+
+      // UI Reset
+      document.getElementById('prepPhase').style.display = 'block';
+      document.getElementById('livePhase').style.display = 'none';
+      document.getElementById('feedbackLoader').style.display = 'block';
+      document.getElementById('feedbackContent').style.display = 'none';
+      document.getElementById('scoreDisplay').style.display = 'none';
+      document.getElementById('nav-discussion').disabled = true;
+      document.getElementById('nav-feedback').disabled = true;
+
+      var prepDisplay = document.getElementById('prepTimerDisplay');
+      prepDisplay.textContent = '20:00';
+      prepDisplay.classList.remove('warning');
+
+      var liveTimer = document.getElementById('liveTimer');
+      liveTimer.textContent = '00:00';
+      liveTimer.classList.remove('warning');
+
+      nav('setup');
+    }
+
+    /* ================= INIT ================= */
+
+    window.addEventListener('load', function() {
+      // shared.js Auth-Check
+      if (typeof checkLogin === 'function') checkLogin();
+    });
+  </script>
+</body>
+
+</html>
