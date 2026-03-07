@@ -216,6 +216,54 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 }
 @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%); } }
 
+/* Insights */
+.insight-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+.insight-box h3 {
+  font-size: .9rem;
+  margin: 0 0 .6rem;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+.insight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.insight-list li {
+  font-size: .82rem;
+  padding: .35rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
+.insight-list li:last-child { border-bottom: none; }
+.insight-count {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: .75rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: .15rem .4rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.insight-count.red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+[data-theme="dark"] .insight-count.red {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
 @media (max-width: 640px) {
   header { padding: .8rem 1rem; }
   main { padding: 0 1rem; }
@@ -224,6 +272,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   .detail-stats { grid-template-columns: 1fr 1fr; }
   .detail-body { padding: .8rem 1rem 2rem; }
   .codes-grid { grid-template-columns: 1fr; }
+  #insightsGrid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -311,6 +360,13 @@ main { max-width: 1100px; margin: 1.5rem auto; }
         <h2 style="margin:0 0 .5rem;">Warnsystem</h2>
         <p style="font-size:.82rem;color:var(--ink-muted);margin-bottom:.5rem;">Schueler, die besondere Aufmerksamkeit brauchen</p>
         <div id="warnGrid" class="warn-grid"></div>
+      </div>
+
+      <!-- Staerken & Schwaechen Uebersicht -->
+      <div class="card" style="margin-bottom:1.5rem;" id="insightsCard">
+        <h2 style="margin:0 0 .5rem;">Staerken &amp; Schwaechen der Klasse</h2>
+        <p style="font-size:.82rem;color:var(--ink-muted);margin-bottom:1rem;">Basierend auf allen KI-Bewertungen deiner verlinkten Schueler</p>
+        <div id="insightsGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;"></div>
       </div>
 
       <!-- Heatmap -->
@@ -619,6 +675,7 @@ function typeToSubject(type) {
 /* ====== STUDENTS TAB ====== */
 function renderStudentsTab() {
   renderStats();
+  renderInsights();
   renderWarnSystem();
   renderHeatmap();
 }
@@ -633,6 +690,38 @@ function renderStats() {
     <div class="stat-card"><div class="stat-value">${allResults.length}</div><div class="stat-label">Ergebnisse</div></div>
     <div class="stat-card"><div class="stat-value">${avg}</div><div class="stat-label">Durchschnitt / 15</div></div>
     <div class="stat-card"><div class="stat-value">${best}</div><div class="stat-label">Bestes Ergebnis</div></div>
+  `;
+}
+
+function renderInsights() {
+  const strengths = {};
+  const weaknesses = {};
+  allResults.forEach(r => {
+    try {
+      if (r.strengths) {
+        const arr = typeof r.strengths === "string" ? JSON.parse(r.strengths) : r.strengths;
+        if (Array.isArray(arr)) arr.forEach(s => { strengths[s] = (strengths[s] || 0) + 1; });
+      }
+      if (r.weaknesses) {
+        const arr = typeof r.weaknesses === "string" ? JSON.parse(r.weaknesses) : r.weaknesses;
+        if (Array.isArray(arr)) arr.forEach(s => { weaknesses[s] = (weaknesses[s] || 0) + 1; });
+      }
+    } catch {}
+  });
+  const topStr = Object.entries(strengths).sort((a,b) => b[1] - a[1]).slice(0, 8);
+  const topWeak = Object.entries(weaknesses).sort((a,b) => b[1] - a[1]).slice(0, 8);
+  const grid = document.getElementById("insightsGrid");
+  if (!topStr.length && !topWeak.length) {
+    grid.innerHTML = '<p style="color:var(--text-secondary);grid-column:1/-1;">Noch keine Detail-Daten vorhanden.</p>';
+    return;
+  }
+  grid.innerHTML = `
+    <div class="insight-box"><h3>Haeufigste Staerken</h3>${topStr.length
+      ? '<ul class="insight-list">' + topStr.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count">${c}x</span></li>`).join("") + '</ul>'
+      : '<p style="color:var(--text-secondary);">Keine Daten</p>'}</div>
+    <div class="insight-box"><h3>Haeufigste Schwaechen</h3>${topWeak.length
+      ? '<ul class="insight-list">' + topWeak.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count red">${c}x</span></li>`).join("") + '</ul>'
+      : '<p style="color:var(--text-secondary);">Keine Daten</p>'}</div>
   `;
 }
 
@@ -860,6 +949,31 @@ function showStudentDetail(name) {
     subjData[subj].push(r.total);
   });
 
+  // Staerken & Schwaechen aus result_details sammeln
+  const studentStrengths = {};
+  const studentWeaknesses = {};
+  results.forEach(r => {
+    try {
+      if (r.strengths) {
+        const arr = typeof r.strengths === "string" ? JSON.parse(r.strengths) : r.strengths;
+        if (Array.isArray(arr)) arr.forEach(s => { studentStrengths[s] = (studentStrengths[s] || 0) + 1; });
+      }
+      if (r.weaknesses) {
+        const arr = typeof r.weaknesses === "string" ? JSON.parse(r.weaknesses) : r.weaknesses;
+        if (Array.isArray(arr)) arr.forEach(s => { studentWeaknesses[s] = (studentWeaknesses[s] || 0) + 1; });
+      }
+    } catch {}
+  });
+  const topStrengths = Object.entries(studentStrengths).sort((a,b) => b[1] - a[1]).slice(0, 5);
+  const topWeaknesses = Object.entries(studentWeaknesses).sort((a,b) => b[1] - a[1]).slice(0, 5);
+
+  const strengthsHtml = topStrengths.length
+    ? '<ul class="insight-list">' + topStrengths.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count">${c}x</span></li>`).join("") + '</ul>'
+    : '<p style="font-size:.82rem;color:var(--ink-muted);">Keine Daten vorhanden</p>';
+  const weaknessesHtml = topWeaknesses.length
+    ? '<ul class="insight-list">' + topWeaknesses.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count red">${c}x</span></li>`).join("") + '</ul>'
+    : '<p style="font-size:.82rem;color:var(--ink-muted);">Keine Daten vorhanden</p>';
+
   const overlay = document.createElement("div");
   overlay.className = "detail-overlay";
   overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
@@ -875,6 +989,10 @@ function showStudentDetail(name) {
           <div class="stat-card"><div class="stat-value">${avg}</div><div class="stat-label">Durchschnitt</div></div>
           <div class="stat-card"><div class="stat-value">${results.length}</div><div class="stat-label">Ergebnisse</div></div>
           <div class="stat-card"><div class="stat-value">${best}</div><div class="stat-label">Bestes</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+          <div class="insight-box"><h3>Staerken</h3>${strengthsHtml}</div>
+          <div class="insight-box"><h3>Schwaechen</h3>${weaknessesHtml}</div>
         </div>
         <div style="max-height:300px;margin-bottom:1rem;"><canvas id="detailChartCanvas"></canvas></div>
         <h3 style="margin:1rem 0 .5rem;">Nach Fach</h3>
