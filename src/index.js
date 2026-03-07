@@ -857,6 +857,11 @@ export default {
         return await handleCheckReminders(request, env);
       }
 
+      // ===== REWRITE FEATURE =====
+      if (pathname === "/api/rewrite" && request.method === "POST") {
+        return await handleRewrite(request, env);
+      }
+
       // ===== UNSUBSCRIBE (GET mit signiertem Token) =====
       if (pathname === "/api/unsubscribe" && request.method === "GET") {
         return await handleUnsubscribe(request, env);
@@ -1036,6 +1041,84 @@ async function handleSavePreferences(request, env) {
 
   if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= REWRITE FEATURE ================= */
+
+async function handleRewrite(request, env) {
+  const { student_text, type, feedback, topic } = await request.json();
+
+  if (!student_text || !type) {
+    return jsonResponse({ error: "student_text and type required" }, 400, env);
+  }
+
+  // Fach bestimmen
+  const typeToSubject = {};
+  for (const [subj, types] of Object.entries(SUBJECT_TYPES_MAP)) {
+    for (const t of types) typeToSubject[t] = subj;
+  }
+  const subject = SUBJECT_NAMES[typeToSubject[type]] || type;
+
+  // Sprache des Schuelers bestimmen
+  let lang = "Deutsch";
+  if (type === "mediation" || type === "writing") lang = "Englisch";
+  else if (type.startsWith("french-")) lang = "Französisch";
+  else if (type.startsWith("italian-")) lang = "Italienisch";
+  else if (type.startsWith("latein")) lang = "Latein";
+
+  const langHint = lang !== "Deutsch"
+    ? `\nDer Schülertext ist auf ${lang}. Verbesserungen in derselben Sprache, Erklärungen auf Deutsch.`
+    : "";
+
+  const messages = [
+    {
+      role: "system",
+      content: `Du bist ein erfahrener ${subject}-Lehrer am bayerischen Gymnasium (G9).
+Deine Aufgabe: Analysiere den Schülertext und zeige 3–5 konkrete Verbesserungsvorschläge.
+
+Für jeden Vorschlag:
+- Zitiere die Originalstelle (max. 1-2 Sätze)
+- Zeige die verbesserte Version
+- Erkläre kurz warum die Verbesserung wichtig ist
+- Ordne eine Kategorie zu
+
+Kategorien: "Fachsprache", "Argumentation", "Struktur", "Stil", "Grammatik", "Inhalt", "Quellenarbeit"
+${langHint}
+Antworte ausschließlich im folgenden JSON-Format:
+{
+  "suggestions": [
+    {
+      "original": "Zitat aus dem Schülertext",
+      "improved": "Verbesserte Version",
+      "reason": "Kurze Begründung auf Deutsch",
+      "category": "Kategorie"
+    }
+  ],
+  "rewritten_paragraph": "Optional: Ein besonders schwacher Absatz komplett verbessert umgeschrieben (max. 150 Wörter)"
+}`
+    },
+    {
+      role: "user",
+      content: `Fach: ${subject}
+Thema: ${topic || "Nicht angegeben"}
+Aufgabentyp: ${type}
+
+Bisheriges Feedback:
+${(feedback || "Kein Feedback vorhanden").substring(0, 3000)}
+
+--- SCHÜLERTEXT ---
+${student_text.substring(0, 8000)}`
+    }
+  ];
+
+  try {
+    const answer = await callOpenAI(env, messages, 2000, { temperature: 0.4, jsonMode: true });
+    const result = extractJSON(answer);
+    return jsonResponse({ success: true, ...result }, 200, env);
+  } catch (e) {
+    console.error("Rewrite fehlgeschlagen:", e.message);
+    return jsonResponse({ error: "Rewrite-Analyse fehlgeschlagen: " + e.message }, 500, env);
+  }
 }
 
 /* ================= CHECK REMINDERS ================= */
