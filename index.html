@@ -2571,6 +2571,17 @@
           </button>
         </div>
         <button class="exam-type-cancel" onclick="closeExamTypeModal()">Abbrechen</button>
+        <!-- Lehrer-Code Eingabe -->
+        <div id="teacherCodeSection" style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:.6rem;">
+            <span style="font-size:.85rem;color:var(--ink-muted);">Lehrer-Code:</span>
+            <input type="text" id="examTeacherCode" placeholder="z.B. ABC123"
+              style="flex:1;padding:.45rem .6rem;font-size:.9rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);min-height:44px;box-sizing:border-box;"
+              maxlength="6" autocomplete="off">
+            <button class="btn-small" id="examCodeSaveBtn" onclick="saveExamTeacherCode()" style="min-height:44px;padding:.45rem .8rem;font-size:.82rem;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600;">OK</button>
+          </div>
+          <div id="examCodeStatus" style="font-size:.78rem;margin-top:.4rem;color:var(--ink-muted);"></div>
+        </div>
       </div>
     </div>
 
@@ -4246,6 +4257,28 @@
     };
     var _pendingSubjectForModal = null;
 
+    // Fach → historyTypes Zuordnung (fuer Lehrer-Code-Verlinkung)
+    var subjectHistoryTypes = {
+      english: ["mediation", "writing"],
+      german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend"],
+      history: ["geschichte", "geschichte-abitur"],
+      pug: ["pug-klausur", "pug-abitur"],
+      wr: ["wr", "wr-abitur"],
+      french: ["french-mediation", "french-writing"],
+      italian: ["italian-mediation", "italian-writing"],
+      ethik: ["ethik", "ethik-abitur"],
+      religion: ["religion", "religion-abitur"],
+      katholisch: ["katholisch", "katholisch-abitur"],
+      geographie: ["geographie", "geographie-abitur"],
+      latein: ["latein", "latein-abitur"],
+      mathe: ["mathe", "mathe-abitur"],
+      chemie: ["chemie", "chemie-abitur"],
+      physik: ["physik", "physik-abitur"],
+      biologie: ["biologie", "biologie-abitur"],
+      sport: ["sport", "sport-abitur"],
+      informatik: ["informatik", "informatik-abitur"]
+    };
+
     function selectSubject(subject, _push) {
       // If not logged in, redirect to login and remember chosen subject
       if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
@@ -4258,11 +4291,94 @@
       _pendingSubjectForModal = subject;
       document.getElementById("examTypeTitle").textContent = subjectTitleMap[subject] || subject;
       document.getElementById("examTypeOverlay").classList.add("open");
+      // Lehrer-Code vorausfuellen
+      var types = subjectHistoryTypes[subject] || [];
+      var savedCode = "";
+      for (var i = 0; i < types.length; i++) {
+        var c = localStorage.getItem("teacher_code_" + types[i]);
+        if (c) { savedCode = c; break; }
+      }
+      var codeInput = document.getElementById("examTeacherCode");
+      var statusEl = document.getElementById("examCodeStatus");
+      if (codeInput) codeInput.value = savedCode;
+      if (statusEl) {
+        if (savedCode) {
+          var info = localStorage.getItem("teacher_code_info_" + types[0]) || "";
+          statusEl.textContent = info ? "Verlinkt: " + info : "Code aktiv: " + savedCode;
+          statusEl.style.color = "var(--accent)";
+        } else {
+          statusEl.textContent = "Noch kein Code eingegeben";
+          statusEl.style.color = "var(--ink-muted)";
+        }
+      }
     }
 
     function closeExamTypeModal() {
       document.getElementById("examTypeOverlay").classList.remove("open");
       _pendingSubjectForModal = null;
+    }
+
+    async function saveExamTeacherCode() {
+      var subject = _pendingSubjectForModal;
+      if (!subject) return;
+      var input = document.getElementById("examTeacherCode");
+      var statusEl = document.getElementById("examCodeStatus");
+      var code = (input.value || "").toUpperCase().trim();
+
+      if (!code) {
+        // Code entfernen
+        var types = subjectHistoryTypes[subject] || [];
+        for (var i = 0; i < types.length; i++) {
+          localStorage.removeItem("teacher_code_" + types[i]);
+          localStorage.removeItem("teacher_code_info_" + types[i]);
+        }
+        statusEl.textContent = "Code entfernt";
+        statusEl.style.color = "var(--ink-muted)";
+        input.value = "";
+        return;
+      }
+
+      if (code.length < 4) {
+        statusEl.textContent = "Code muss mindestens 4 Zeichen haben.";
+        statusEl.style.color = "#ef4444";
+        return;
+      }
+
+      var studentName = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token") || "";
+      var types = subjectHistoryTypes[subject] || [];
+      var API = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+
+      try {
+        statusEl.textContent = "Speichere...";
+        statusEl.style.color = "var(--ink-muted)";
+
+        // Fuer jeden Typ des Fachs verlinken
+        var teacherName = "";
+        var label = "";
+        for (var i = 0; i < types.length; i++) {
+          var res = await fetch(API + "/api/link-student-code", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-Access-Token": token },
+            body: JSON.stringify({ student_name: studentName, code: code, subject: types[i] })
+          });
+          var data = await res.json();
+          if (!res.ok) {
+            statusEl.textContent = data.error || "Fehler beim Speichern.";
+            statusEl.style.color = "#ef4444";
+            return;
+          }
+          teacherName = data.teacher_name;
+          label = data.label;
+          localStorage.setItem("teacher_code_" + types[i], code);
+          localStorage.setItem("teacher_code_info_" + types[i], teacherName + " \u00b7 " + label);
+        }
+        statusEl.textContent = "Verlinkt: " + teacherName + " \u00b7 " + label;
+        statusEl.style.color = "var(--accent)";
+      } catch (e) {
+        statusEl.textContent = "Fehler: " + e.message;
+        statusEl.style.color = "#ef4444";
+      }
     }
 
     function chooseExamType(type) {
