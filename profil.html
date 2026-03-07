@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>myAbiFlow · Kompetenzprofil</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+    integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+    crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-v4.css">
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
+      --accent-soft: #e0e7ff;
+      --accent-glow: rgba(99, 102, 241, .08);
+    }
+
+    [data-theme="dark"] {
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(129, 140, 248, .15);
+      --accent-glow: rgba(129, 140, 248, .08);
+    }
+
+    .profil-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    /* Gesamt-Uebersicht */
+    .overview-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .overview-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .overview-card .big-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+
+    .overview-card .label {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      margin-top: .25rem;
+    }
+
+    /* Fach-Karten */
+    .subject-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .subject-profile-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .subject-profile-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    }
+
+    .spc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .8rem;
+    }
+
+    .spc-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+
+    .spc-trend {
+      font-size: 1.1rem;
+    }
+
+    .spc-stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: .6rem;
+    }
+
+    .spc-stat {
+      text-align: center;
+      flex: 1;
+    }
+
+    .spc-stat .val {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .spc-stat .lbl {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .spc-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .spc-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width .5s ease;
+    }
+
+    /* Sparkline Canvas */
+    .spc-sparkline {
+      width: 100%;
+      height: 40px;
+      margin-top: .5rem;
+    }
+
+    /* Staerken/Schwaechen */
+    .analysis-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .analysis-section h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: .8rem;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .analysis-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem;
+    }
+
+    .analysis-box h4 {
+      font-size: .9rem;
+      font-weight: 700;
+      margin-bottom: .6rem;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .analysis-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .analysis-box li {
+      padding: .4rem 0;
+      font-size: .9rem;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .analysis-box li:last-child {
+      border-bottom: none;
+    }
+
+    .strength-icon {
+      color: #10b981;
+    }
+
+    .weakness-icon {
+      color: #ef4444;
+    }
+
+    /* Fokus-Bereiche */
+    .focus-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .focus-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 16px;
+      padding: 1.2rem;
+    }
+
+    .focus-card .focus-area {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--ink);
+      margin-bottom: .3rem;
+    }
+
+    .focus-card .focus-tip {
+      font-size: .85rem;
+      color: var(--ink-muted);
+    }
+
+    /* Summary */
+    .summary-box {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-size: .95rem;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    /* Loading */
+    .profil-loading {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--ink-muted);
+    }
+
+    .profil-loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Leerer Zustand */
+    .profil-empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--ink-muted);
+    }
+
+    .profil-empty .empty-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* NP-Farbe */
+    .np-good { color: #10b981; }
+    .np-ok { color: #f59e0b; }
+    .np-bad { color: #ef4444; }
+
+    /* Mobile */
+    @media (max-width: 650px) {
+      .overview-cards {
+        grid-template-columns: 1fr;
+        gap: .6rem;
+      }
+
+      .analysis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .subject-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .focus-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 651px) and (max-width: 1024px) {
+      .overview-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .subject-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper" style="min-height:100vh;display:flex;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="index.html" class="back-link">← Zur Fachauswahl</a>
+        <h1 style="margin-top:.3rem">Mein <span style="color:var(--accent)">Kompetenzprofil</span></h1>
+      </div>
+      <div class="header-right">
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+
+    <div class="profil-container">
+      <!-- Lade-Zustand -->
+      <div id="profilLoading" class="profil-loading">
+        <div class="spinner"></div>
+        <p>Dein Kompetenzprofil wird erstellt...</p>
+        <p style="font-size:.8rem;margin-top:.3rem">Die KI analysiert alle deine bisherigen Ergebnisse.</p>
+      </div>
+
+      <!-- Leerer Zustand -->
+      <div id="profilEmpty" class="profil-empty" style="display:none">
+        <div class="empty-icon">📝</div>
+        <h3>Noch keine Daten vorhanden</h3>
+        <p>Absolviere zuerst einige Aufgaben, damit die KI dein Kompetenzprofil erstellen kann.</p>
+        <a href="index.html"
+          style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:600;min-height:44px;line-height:44px;">
+          Jetzt loslegen
+        </a>
+      </div>
+
+      <!-- Profil-Inhalt -->
+      <div id="profilContent" style="display:none">
+
+        <!-- Gesamt-Uebersicht -->
+        <div class="overview-cards">
+          <div class="overview-card">
+            <div class="big-number" id="overallAvg">–</div>
+            <div class="label">Gesamtdurchschnitt (NP)</div>
+          </div>
+          <div class="overview-card">
+            <div class="big-number" id="totalExercises">0</div>
+            <div class="label">Aufgaben absolviert</div>
+          </div>
+          <div class="overview-card">
+            <div class="big-number" id="totalSubjects">0</div>
+            <div class="label">Aktive Fächer</div>
+          </div>
+        </div>
+
+        <!-- KI-Zusammenfassung -->
+        <div id="summaryBox" class="summary-box" style="display:none"></div>
+
+        <!-- Staerken & Schwaechen -->
+        <div class="analysis-section">
+          <h3>Analyse</h3>
+          <div class="analysis-grid">
+            <div class="analysis-box">
+              <h4><span class="strength-icon">▲</span> Stärken</h4>
+              <ul id="strengthsList"></ul>
+            </div>
+            <div class="analysis-box">
+              <h4><span class="weakness-icon">▼</span> Verbesserungsbereiche</h4>
+              <ul id="weaknessesList"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fokus-Bereiche -->
+        <div class="analysis-section" id="focusSection" style="display:none">
+          <h3>Empfohlene Fokus-Bereiche</h3>
+          <div class="focus-cards" id="focusCards"></div>
+        </div>
+
+        <!-- Fach-Karten -->
+        <div class="analysis-section">
+          <h3>Fächer im Detail</h3>
+          <div class="subject-cards" id="subjectCards"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ================= THEME ================= */
+    function toggleDark() {
+      var d = document.documentElement;
+      var isDark = d.getAttribute("data-theme") === "dark";
+      d.setAttribute("data-theme", isDark ? "" : "dark");
+      localStorage.setItem("theme", isDark ? "light" : "dark");
+      var btn = document.getElementById("themeBtn");
+      if (btn) btn.textContent = isDark ? "🌙" : "☀️";
+    }
+
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (t === "dark" || (!t && window.matchMedia("(prefers-color-scheme:dark)").matches)) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        var btn = document.getElementById("themeBtn");
+        if (btn) btn.textContent = "☀️";
+      }
+    })();
+
+    /* ================= AUTH ================= */
+    var API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+
+    function getAccessToken() {
+      return sessionStorage.getItem("access_token") || "";
+    }
+
+    async function apiCall(endpoint, body) {
+      var res = await fetch(API_BASE + endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Access-Token": getAccessToken()
+        },
+        body: JSON.stringify(body)
+      });
+      if (!res.ok) throw new Error("API-Fehler: " + res.status);
+      return res.json();
+    }
+
+    /* ================= PROFIL LADEN ================= */
+    var SUBJECT_COLORS = {
+      english: "#4f46e5", german: "#059669", history: "#b45309",
+      pug: "#9f1239", wr: "#7c3aed", french: "#db2777",
+      italian: "#0d9488", ethik: "#4f46e5", religion: "#d97706",
+      katholisch: "#7c3aed", geographie: "#0891b2", latein: "#dc2626",
+      mathe: "#10b981", chemie: "#ea580c", physik: "#2563eb",
+      biologie: "#16a34a", sport: "#f59e0b", informatik: "#6366f1"
+    };
+
+    function npClass(np) {
+      if (np >= 10) return "np-good";
+      if (np >= 5) return "np-ok";
+      return "np-bad";
+    }
+
+    function trendIcon(trend) {
+      if (trend === "up") return '<span style="color:#10b981" title="Aufwärtstrend">▲</span>';
+      if (trend === "down") return '<span style="color:#ef4444" title="Abwärtstrend">▼</span>';
+      return '<span style="color:#9ca3af" title="Stabil">●</span>';
+    }
+
+    function barColor(np) {
+      if (np >= 10) return "#10b981";
+      if (np >= 5) return "#f59e0b";
+      return "#ef4444";
+    }
+
+    async function loadProfile() {
+      var studentName = sessionStorage.getItem("student_name");
+      if (!studentName || sessionStorage.getItem("access") !== "1") {
+        window.location.href = "index.html";
+        return;
+      }
+
+      try {
+        var data = await apiCall("/api/competency-profile", { student_name: studentName });
+
+        document.getElementById("profilLoading").style.display = "none";
+
+        if (!data.profile) {
+          document.getElementById("profilEmpty").style.display = "block";
+          return;
+        }
+
+        var p = data.profile;
+        document.getElementById("profilContent").style.display = "block";
+
+        // Gesamt-Uebersicht
+        var avgEl = document.getElementById("overallAvg");
+        avgEl.textContent = p.overall_avg;
+        avgEl.className = "big-number " + npClass(p.overall_avg);
+        document.getElementById("totalExercises").textContent = p.total_exercises;
+        document.getElementById("totalSubjects").textContent = Object.keys(p.subjects).length;
+
+        // KI-Analyse
+        if (p.analysis) {
+          renderAnalysis(p.analysis);
+        }
+
+        // Fach-Karten
+        renderSubjectCards(p.subjects);
+
+      } catch (e) {
+        console.error("Profil laden fehlgeschlagen:", e);
+        document.getElementById("profilLoading").innerHTML =
+          '<div class="empty-icon">⚠️</div><h3>Fehler beim Laden</h3><p>' + e.message + '</p>' +
+          '<a href="index.html" style="display:inline-block;margin-top:1rem;padding:.7rem 1.5rem;background:var(--accent);color:#fff;border-radius:12px;text-decoration:none;font-weight:600;">Zurück</a>';
+      }
+    }
+
+    function renderAnalysis(analysis) {
+      // Summary
+      if (analysis.summary) {
+        var sb = document.getElementById("summaryBox");
+        sb.textContent = analysis.summary;
+        sb.style.display = "block";
+      }
+
+      // Staerken
+      var sl = document.getElementById("strengthsList");
+      if (analysis.top_strengths && analysis.top_strengths.length > 0) {
+        sl.innerHTML = analysis.top_strengths.map(function (s) {
+          return '<li>' + escapeHtml(s) + '</li>';
+        }).join("");
+      } else {
+        sl.innerHTML = '<li style="color:var(--ink-muted)">Noch keine Daten</li>';
+      }
+
+      // Schwaechen
+      var wl = document.getElementById("weaknessesList");
+      if (analysis.critical_weaknesses && analysis.critical_weaknesses.length > 0) {
+        wl.innerHTML = analysis.critical_weaknesses.map(function (w) {
+          return '<li>' + escapeHtml(w) + '</li>';
+        }).join("");
+      } else {
+        wl.innerHTML = '<li style="color:var(--ink-muted)">Noch keine Daten</li>';
+      }
+
+      // Fokus-Bereiche
+      if (analysis.focus_areas && analysis.focus_areas.length > 0) {
+        var fs = document.getElementById("focusSection");
+        fs.style.display = "block";
+        var fc = document.getElementById("focusCards");
+        fc.innerHTML = analysis.focus_areas.map(function (f) {
+          return '<div class="focus-card">' +
+            '<div class="focus-area">' + escapeHtml(f.area) + '</div>' +
+            '<div class="focus-tip">' + escapeHtml(f.tip) + '</div>' +
+            '</div>';
+        }).join("");
+      }
+    }
+
+    function renderSubjectCards(subjects) {
+      var container = document.getElementById("subjectCards");
+      var entries = Object.entries(subjects).sort(function (a, b) {
+        return b[1].count - a[1].count;
+      });
+
+      container.innerHTML = entries.map(function (entry) {
+        var key = entry[0];
+        var s = entry[1];
+        var color = SUBJECT_COLORS[key] || "#6366f1";
+        var pct = Math.round((s.avg / 15) * 100);
+
+        return '<div class="subject-profile-card">' +
+          '<div class="spc-header">' +
+          '<span class="spc-name">' + escapeHtml(s.name) + '</span>' +
+          '<span class="spc-trend">' + trendIcon(s.trend) + '</span>' +
+          '</div>' +
+          '<div class="spc-stats">' +
+          '<div class="spc-stat"><span class="val ' + npClass(s.avg) + '">' + s.avg + '</span><span class="lbl">Ø NP</span></div>' +
+          '<div class="spc-stat"><span class="val">' + s.count + '</span><span class="lbl">Übungen</span></div>' +
+          '<div class="spc-stat"><span class="val">' + s.best + '</span><span class="lbl">Bestes</span></div>' +
+          '</div>' +
+          '<div class="spc-bar"><div class="spc-bar-fill" style="width:' + pct + '%;background:' + barColor(s.avg) + '"></div></div>' +
+          '</div>';
+      }).join("");
+    }
+
+    function escapeHtml(str) {
+      var div = document.createElement("div");
+      div.textContent = str || "";
+      return div.innerHTML;
+    }
+
+    /* ================= INIT ================= */
+    window.onload = function () {
+      loadProfile();
+    };
+  </script>
+</body>
+
+</html>
