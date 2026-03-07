@@ -360,14 +360,17 @@ function toggleDark() {
   localStorage.setItem("theme", next);
   document.getElementById("themeBtn").textContent = next === "dark" ? "☀️" : "🌙";
 }
-(function() {
+window.onload = function() {
+  // Theme initialisieren
   const t = localStorage.getItem("theme");
   if (t) {
     document.documentElement.setAttribute("data-theme", t);
     const btn = document.getElementById("themeBtn");
     if (btn) btn.textContent = t === "dark" ? "☀️" : "🌙";
   }
-})();
+  // Login-Screen sichtbar machen
+  document.getElementById("login-screen").style.display = "flex";
+};
 
 /* ====== AUTH MODE ====== */
 function setAuthMode(mode) {
