@@ -1,6 +1,6 @@
 /* ================= AUTH & RATE LIMITING ================= */
 const RATE_LIMIT_WINDOW = 60 * 1000;
-const MAX_REQUESTS_PER_WINDOW = 10;
+const MAX_REQUESTS_PER_WINDOW = 25;
 const MAX_LOGIN_ATTEMPTS = 5;
 const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10 MB (Bilder + Text bei Grade-Requests)
 const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
