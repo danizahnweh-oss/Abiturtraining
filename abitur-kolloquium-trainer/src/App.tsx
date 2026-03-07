@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import {
   LiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
-  type ExamLevel, type ExamMode, type ExamMaterial,
+  type ExamLevel, type ExamMode, type ExamMaterial, type PrueferTyp,
 } from './lib/live-api';
 import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
@@ -153,6 +153,9 @@ export default function App() {
   const [examinerGender, setExaminerGender] = useState<'male' | 'female'>('male');
   const prüferLabel = examinerGender === 'female' ? 'Prüferin' : 'Prüfer';
 
+  /* Prüfertyp */
+  const [prueferTyp, setPrueferTyp] = useState<PrueferTyp>('standard');
+
   /* Feedback */
   const [fbType, setFbType] = useState<'written' | 'oral' | null>(null);
   const [fbText, setFbText] = useState('');
@@ -217,7 +220,7 @@ export default function App() {
 
       const session = new LiveSession({
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
-        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode, gender,
+        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode, gender, prueferTyp,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => setModelTx(prev => [...prev, t]),
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -265,7 +268,7 @@ export default function App() {
     const session = new LiveSession({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
-      examMode, gender: examinerGender,
+      examMode, gender: examinerGender, prueferTyp,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -340,6 +343,7 @@ export default function App() {
     setFbType(null);
     setFbText('');
     setExamMode('gesamt');
+    setPrueferTyp('standard');
     setGestrichen('');
     setSpHalbjahr('');
     setSchwerpunkt('');
@@ -544,6 +548,36 @@ export default function App() {
                       </div>
                     </div>
                   )}
+
+                  {/* Prüfertyp */}
+                  {schwerpunkt && (
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfertyp</label>
+                      <p className="text-xs opacity-50 ml-1 -mt-1">Wie soll sich der/die Prüfer/in verhalten?</p>
+                      <div className="grid gap-2">
+                        <Pill active={prueferTyp === 'standard'} onClick={() => setPrueferTyp('standard')} className="w-full">
+                          <span className="font-medium">Standard</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Wohlwollend, aber anspruchsvoll — wie in der echten Prüfung</span>
+                        </Pill>
+                        <Pill active={prueferTyp === 'streng'} onClick={() => setPrueferTyp('streng')} className="w-full">
+                          <span className="font-medium">Streng</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Fordernd, hakt bei Ungenauigkeiten sofort nach</span>
+                        </Pill>
+                        <Pill active={prueferTyp === 'freundlich'} onClick={() => setPrueferTyp('freundlich')} className="w-full">
+                          <span className="font-medium">Freundlich</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Ermutigend, gibt Hilfestellungen und lobt gute Ansätze</span>
+                        </Pill>
+                        <Pill active={prueferTyp === 'zeitdruck'} onClick={() => setPrueferTyp('zeitdruck')} className="w-full">
+                          <span className="font-medium">Zeitdruck</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Streng getaktet — geht bei langen Antworten zügig weiter</span>
+                        </Pill>
+                        <Pill active={prueferTyp === 'detailfragen'} onClick={() => setPrueferTyp('detailfragen')} className="w-full">
+                          <span className="font-medium">Detailfragen</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Geht in die Tiefe — fragt immer „Warum?" und fordert Belege</span>
+                        </Pill>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Summary + Start */}
@@ -551,7 +585,7 @@ export default function App() {
                   <div className="mt-6 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-sm">
                     <p className="font-medium text-emerald-800 mb-1">Zusammenfassung:</p>
                     <p className="text-emerald-700 opacity-80">
-                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? 'Nur Referat' : 'Nur Fragen'} · Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}
+                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? 'Nur Referat' : 'Nur Fragen'} · {prueferTyp !== 'standard' ? `Prüfertyp: ${prueferTyp} · ` : ''}Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}
                     </p>
                   </div>
                 )}

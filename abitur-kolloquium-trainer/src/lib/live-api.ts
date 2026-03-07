@@ -37,6 +37,16 @@ export interface ExamConfig {
 
 export type ExamMode = 'gesamt' | 'referat' | 'fragen';
 
+export type PrueferTyp = 'standard' | 'streng' | 'freundlich' | 'zeitdruck' | 'detailfragen';
+
+const PRUEFER_PRESETS: Record<PrueferTyp, string> = {
+  standard: 'Wohlwollend aber anspruchsvoll. Fehler → Nachfrage statt Korrektur. Bei Stocken → Hilfestellung. Natürlicher Gesprächsfluss.',
+  streng: 'Sehr sachlich und fordernd. Hake bei Ungenauigkeiten sofort nach. Akzeptiere keine vagen Antworten — verlange präzise Fachbegriffe und konkrete Beispiele. Kein Lob für Selbstverständliches. Halte den Prüfling unter Druck, bleibe aber fair.',
+  freundlich: 'Besonders ermutigend und unterstützend. Nicke zustimmend, gib positive Rückmeldung bei guten Ansätzen. Bei Schwierigkeiten gib sanfte Hinweise statt harter Nachfragen. Lobe gute Fachsprache und schlüssige Argumente.',
+  zeitdruck: 'Halte dich streng an die Zeit. Nach 10 Min Referat sofort unterbrechen. Fragen zügig stellen, bei zu langen Antworten freundlich aber bestimmt zum nächsten Punkt übergehen. Kein Abwarten — wenn der Prüfling zögert, nächste Frage.',
+  detailfragen: 'Stelle besonders tiefgehende Nachfragen. Gehe bei jedem Thema in die Tiefe — fordere Begründungen, Zusammenhänge und Transfer-Leistungen. Auf jede Antwort folgt ein "Warum?" oder "Können Sie das mit einem Beispiel belegen?".'
+};
+
 export interface LiveSessionConfig {
   subject: string;
   examLevel: ExamLevel;
@@ -47,6 +57,7 @@ export interface LiveSessionConfig {
   material: string;
   examMode?: ExamMode;
   gender?: 'male' | 'female';
+  prueferTyp?: PrueferTyp;
   feedbackMode?: boolean;
   examTranscript?: string;
   onModelTranscription?: (text: string) => void;
@@ -250,8 +261,9 @@ ABLAUF:
 4. Beende die Prüfung.`;
   }
 
+  const verhalten = PRUEFER_PRESETS[config.prueferTyp || 'standard'];
   instruction += `
-VERHALTEN: Wohlwollend aber anspruchsvoll. Fehler → Nachfrage statt Korrektur. Bei Stocken → Hilfestellung. Natürlicher Gesprächsfluss.${getLanguageInstruction(config.subject)}`;
+VERHALTEN: ${verhalten}${getLanguageInstruction(config.subject)}`;
 
   return instruction;
 }
