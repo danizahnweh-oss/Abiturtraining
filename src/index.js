@@ -1702,7 +1702,7 @@ Antworte NUR mit validem JSON:
 /* ================= GESCHICHTE: GENERATE ================= */
 async function handleGenerateGeschichte(request, env) {
   const body = await request.json();
-  const { schwerpunkt, unterpunkte, level, be, zeit, anzahl } = body;
+  const { schwerpunkt, halbjahr, unterpunkte, level, be, zeit, anzahl } = body;
   const totalBE = be || 60;
   const zeitMinuten = zeit || 180;
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
@@ -1734,9 +1734,11 @@ async function handleGenerateGeschichte(request, env) {
     }
   };
 
-  const selectedSchwerpunkt = schwerpunkt === "random"
+  const rawSchwerpunkt = schwerpunkt || halbjahr || "12_1";
+  const schwerpunktKeys = rawSchwerpunkt.split(",").map(s => s.trim()).filter(s => schwerpunkte[s]);
+  const selectedSchwerpunkt = rawSchwerpunkt === "random"
     ? Object.keys(schwerpunkte)[Math.floor(Math.random() * 4)]
-    : schwerpunkt;
+    : schwerpunktKeys[Math.floor(Math.random() * schwerpunktKeys.length)] || "12_1";
   const sp = schwerpunkte[selectedSchwerpunkt];
 
   const niveauText = level === "eA"
