@@ -42,3 +42,41 @@ CREATE TABLE IF NOT EXISTS result_details (
 );
 
 CREATE INDEX IF NOT EXISTS idx_result_details_result_id ON result_details(result_id);
+
+-- Lehrer-Code-System: Mehrere Lehrkraefte mit eigenen Klassen-Codes
+CREATE TABLE IF NOT EXISTS teachers (
+  id         TEXT PRIMARY KEY,
+  name       TEXT NOT NULL,
+  name_lower TEXT NOT NULL UNIQUE,
+  email      TEXT,
+  salt       TEXT NOT NULL,
+  hash       TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_teachers_name_lower ON teachers(name_lower);
+
+CREATE TABLE IF NOT EXISTS teacher_codes (
+  id         TEXT PRIMARY KEY,
+  teacher_id TEXT NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
+  code       TEXT NOT NULL UNIQUE COLLATE NOCASE,
+  label      TEXT NOT NULL DEFAULT '',
+  active     INTEGER NOT NULL DEFAULT 1,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_teacher_codes_teacher ON teacher_codes(teacher_id);
+
+CREATE TABLE IF NOT EXISTS student_teacher_links (
+  id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+  student_name_lower TEXT NOT NULL,
+  code               TEXT NOT NULL,
+  teacher_id         TEXT NOT NULL REFERENCES teachers(id) ON DELETE CASCADE,
+  subject            TEXT NOT NULL,
+  linked_at          TEXT NOT NULL,
+  UNIQUE(student_name_lower, code, subject)
+);
+
+CREATE INDEX IF NOT EXISTS idx_stl_student ON student_teacher_links(student_name_lower);
+CREATE INDEX IF NOT EXISTS idx_stl_teacher ON student_teacher_links(teacher_id);
+CREATE INDEX IF NOT EXISTS idx_stl_code ON student_teacher_links(code);
