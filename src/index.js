@@ -2460,7 +2460,11 @@ async function handleFetchUnsplash(request, env) {
 /* ================= D1 HELPER ================= */
 async function d1GetAllResults(env) {
   const { results } = await env.DB.prepare(
-    "SELECT id, student_name, course, type, topic, content, language, total, created_at AS date FROM results ORDER BY created_at ASC"
+    `SELECT r.id, r.student_name, r.course, r.type, r.topic, r.content, r.language, r.total, r.created_at AS date,
+            d.strengths, d.weaknesses, d.error_types
+     FROM results r
+     LEFT JOIN result_details d ON d.result_id = r.id
+     ORDER BY r.created_at ASC`
   ).all();
   return results || [];
 }
