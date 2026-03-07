@@ -80,3 +80,15 @@ CREATE TABLE IF NOT EXISTS student_teacher_links (
 CREATE INDEX IF NOT EXISTS idx_stl_student ON student_teacher_links(student_name_lower);
 CREATE INDEX IF NOT EXISTS idx_stl_teacher ON student_teacher_links(teacher_id);
 CREATE INDEX IF NOT EXISTS idx_stl_code ON student_teacher_links(code);
+
+-- KI-Lernplan: Gecachte wöchentliche Trainingsplaene
+CREATE TABLE IF NOT EXISTS learning_plans (
+  id                 TEXT PRIMARY KEY,
+  student_name_lower TEXT NOT NULL,
+  plan_json          TEXT NOT NULL,
+  profile_hash       TEXT NOT NULL,
+  created_at         TEXT NOT NULL,
+  expires_at         TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_lp_student ON learning_plans(student_name_lower);

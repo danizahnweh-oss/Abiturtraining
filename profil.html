@@ -318,6 +318,220 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* Fehlertypen & AFB in Fachkarten */
+    .spc-detail-section {
+      margin-top: .6rem;
+    }
+
+    .spc-detail-label {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      margin-bottom: .3rem;
+    }
+
+    .spc-bar-row {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      margin-bottom: .2rem;
+    }
+
+    .spc-bar-row .bar-label {
+      font-size: .75rem;
+      width: 90px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+
+    .spc-bar-row .bar-track {
+      flex: 1;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .spc-bar-row .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width .4s ease;
+    }
+
+    .spc-bar-row .bar-val {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      width: 30px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Fehlende Themen Tags */
+    .spc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .3rem;
+      margin-top: .3rem;
+    }
+
+    .spc-tag {
+      font-size: .75rem;
+      padding: .2rem .5rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 8px;
+    }
+
+    /* Lernplan */
+    .lp-motivation {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .lp-units {
+      display: grid;
+      gap: .8rem;
+      margin-bottom: 1rem;
+    }
+
+    .lp-unit {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+    }
+
+    .lp-unit-header {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .5rem;
+    }
+
+    .lp-unit-prio {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+
+    .lp-unit-title {
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .lp-unit-duration {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .lp-unit-desc {
+      font-size: .85rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      margin-bottom: .5rem;
+    }
+
+    .lp-unit-goal {
+      font-size: .8rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+
+    .lp-unit-link {
+      display: inline-flex;
+      align-items: center;
+      padding: .4rem .8rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 600;
+      min-height: 44px;
+    }
+
+    .lp-unit-link:hover {
+      background: var(--accent-hover);
+    }
+
+    .lp-weekly-goal {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      text-align: center;
+      font-size: .9rem;
+      color: var(--ink);
+    }
+
+    .lp-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: .8rem;
+      font-size: .75rem;
+      color: var(--ink-muted);
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .lp-btn {
+      padding: .5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: .85rem;
+      min-height: 44px;
+    }
+
+    .lp-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .lp-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .lp-loading {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--ink-muted);
+    }
+
+    .lp-loading .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 0 auto .8rem;
+    }
   </style>
 </head>
 
@@ -393,6 +607,26 @@
         <div class="analysis-section" id="focusSection" style="display:none">
           <h3>Empfohlene Fokus-Bereiche</h3>
           <div class="focus-cards" id="focusCards"></div>
+        </div>
+
+        <!-- KI-Lernplan -->
+        <div class="analysis-section" id="lernplanSection">
+          <h3>KI-Lernplan</h3>
+          <div id="lernplanContent">
+            <div id="lernplanEmpty" style="text-align:center;padding:1.5rem">
+              <p style="color:var(--ink-muted);margin-bottom:1rem">
+                Lass dir von der KI einen personalisierten Wochenplan erstellen — basierend auf deinem Kompetenzprofil.
+              </p>
+              <button id="btnLernplan" onclick="generateLernplan()" class="lp-btn">
+                Wochenplan erstellen
+              </button>
+            </div>
+            <div id="lernplanLoading" class="lp-loading" style="display:none">
+              <div class="spinner"></div>
+              <p>Dein Lernplan wird erstellt...</p>
+            </div>
+            <div id="lernplanResult" style="display:none"></div>
+          </div>
         </div>
 
         <!-- Fach-Karten -->
@@ -508,6 +742,12 @@
         // Fach-Karten
         renderSubjectCards(p.subjects);
 
+        // Lernplan aus Cache laden (wenn vorhanden)
+        var cachedPlan = getLernplanCache();
+        if (cachedPlan) {
+          renderLernplan(cachedPlan.plan, cachedPlan.created_at, true);
+        }
+
       } catch (e) {
         console.error("Profil laden fehlgeschlagen:", e);
         document.getElementById("profilLoading").innerHTML =
@@ -558,6 +798,59 @@
       }
     }
 
+    /* ================= FEHLERTYPEN / AFB / MISSING TOPICS ================= */
+    var ERROR_LABELS = {
+      rs: "Rechtschreibung", gr: "Grammatik", inhalt: "Inhalt",
+      stil: "Stil", aufbau: "Aufbau", vok: "Vokabular",
+      logik: "Logik", ausdruck: "Ausdruck", fachbegriffe: "Fachbegriffe",
+      analyse: "Analyse", argumentation: "Argumentation"
+    };
+
+    var AFB_LABELS = { "I": "AFB I", "II": "AFB II", "III": "AFB III" };
+    var AFB_COLORS = { "I": "#10b981", "II": "#f59e0b", "III": "#6366f1" };
+
+    function renderErrorBars(errorTypes) {
+      if (!errorTypes || Object.keys(errorTypes).length === 0) return "";
+      var sorted = Object.entries(errorTypes).sort(function (a, b) { return b[1] - a[1]; });
+      var maxVal = sorted[0][1] || 1;
+      return '<div class="spc-detail-section">' +
+        '<div class="spc-detail-label">Fehlertypen</div>' +
+        sorted.slice(0, 5).map(function (e) {
+          var pct = Math.round((e[1] / maxVal) * 100);
+          var label = ERROR_LABELS[e[0]] || e[0];
+          return '<div class="spc-bar-row">' +
+            '<span class="bar-label">' + escapeHtml(label) + '</span>' +
+            '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%;background:#ef4444"></div></div>' +
+            '<span class="bar-val">' + e[1] + '</span></div>';
+        }).join("") + '</div>';
+    }
+
+    function renderAfbBars(afbScores) {
+      if (!afbScores || Object.keys(afbScores).length === 0) return "";
+      return '<div class="spc-detail-section">' +
+        '<div class="spc-detail-label">Anforderungsbereiche</div>' +
+        ["I", "II", "III"].map(function (key) {
+          var val = afbScores[key] || 0;
+          var label = AFB_LABELS[key] || key;
+          var color = AFB_COLORS[key] || "#6366f1";
+          return '<div class="spc-bar-row">' +
+            '<span class="bar-label">' + label + '</span>' +
+            '<div class="bar-track"><div class="bar-fill" style="width:' + val + '%;background:' + color + '"></div></div>' +
+            '<span class="bar-val">' + val + '%</span></div>';
+        }).join("") + '</div>';
+    }
+
+    function renderMissingTags(missingTopics) {
+      if (!missingTopics || missingTopics.length === 0) return "";
+      return '<div class="spc-detail-section">' +
+        '<div class="spc-detail-label">Luecken-Themen</div>' +
+        '<div class="spc-tags">' +
+        missingTopics.map(function (t) {
+          return '<span class="spc-tag">' + escapeHtml(t.topic) + ' (' + t.count + 'x)</span>';
+        }).join("") + '</div></div>';
+    }
+
+    /* ================= FACH-KARTEN ================= */
     function renderSubjectCards(subjects) {
       var container = document.getElementById("subjectCards");
       var entries = Object.entries(subjects).sort(function (a, b) {
@@ -581,14 +874,179 @@
           '<div class="spc-stat"><span class="val">' + s.best + '</span><span class="lbl">Bestes</span></div>' +
           '</div>' +
           '<div class="spc-bar"><div class="spc-bar-fill" style="width:' + pct + '%;background:' + barColor(s.avg) + '"></div></div>' +
+          '<canvas class="spc-sparkline" id="spark-' + key + '"></canvas>' +
+          renderAfbBars(s.afb_scores_agg) +
+          renderErrorBars(s.error_types_agg) +
+          renderMissingTags(s.missing_topics_agg) +
           '</div>';
       }).join("");
+
+      // Sparklines nach DOM-Insert rendern
+      requestAnimationFrame(function () { renderSparklines(subjects); });
+    }
+
+    /* ================= SPARKLINES ================= */
+    function renderSparklines(subjects) {
+      Object.entries(subjects).forEach(function (entry) {
+        var key = entry[0];
+        var s = entry[1];
+        var canvas = document.getElementById("spark-" + key);
+        if (!canvas || !s.scores_timeline || s.scores_timeline.length < 3) {
+          if (canvas) canvas.style.display = "none";
+          return;
+        }
+        var scores = s.scores_timeline.map(function (t) { return t.total; });
+        var dpr = window.devicePixelRatio || 1;
+        var cw = canvas.offsetWidth;
+        var ch = canvas.offsetHeight;
+        canvas.width = cw * dpr;
+        canvas.height = ch * dpr;
+        var ctx = canvas.getContext("2d");
+        ctx.scale(dpr, dpr);
+
+        var stepX = cw / (scores.length - 1);
+        var color = SUBJECT_COLORS[key] || "#6366f1";
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+
+        for (var i = 0; i < scores.length; i++) {
+          var x = i * stepX;
+          var y = ch - ((scores[i] / 15) * (ch - 6)) - 3;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Flaechenfuellung
+        ctx.lineTo((scores.length - 1) * stepX, ch);
+        ctx.lineTo(0, ch);
+        ctx.closePath();
+        ctx.fillStyle = color + "20";
+        ctx.fill();
+      });
     }
 
     function escapeHtml(str) {
       var div = document.createElement("div");
       div.textContent = str || "";
       return div.innerHTML;
+    }
+
+    /* ================= KI-LERNPLAN ================= */
+    var LERNPLAN_CACHE_KEY = "lernplan_cache";
+    var LERNPLAN_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+
+    function getLernplanCache() {
+      try {
+        var cached = localStorage.getItem(LERNPLAN_CACHE_KEY);
+        if (!cached) return null;
+        var data = JSON.parse(cached);
+        if (Date.now() - new Date(data.created_at).getTime() > LERNPLAN_TTL_MS) {
+          localStorage.removeItem(LERNPLAN_CACHE_KEY);
+          return null;
+        }
+        return data;
+      } catch (e) { return null; }
+    }
+
+    async function generateLernplan(forceRefresh) {
+      var studentName = sessionStorage.getItem("student_name");
+      if (!studentName) return;
+
+      // localStorage-Cache pruefen
+      if (!forceRefresh) {
+        var cached = getLernplanCache();
+        if (cached) {
+          renderLernplan(cached.plan, cached.created_at, true);
+          return;
+        }
+      }
+
+      // Loading-Zustand
+      document.getElementById("lernplanEmpty").style.display = "none";
+      document.getElementById("lernplanLoading").style.display = "block";
+      document.getElementById("lernplanResult").style.display = "none";
+
+      try {
+        var data = await apiCall("/api/learning-plan", {
+          student_name: studentName,
+          force_refresh: !!forceRefresh
+        });
+
+        document.getElementById("lernplanLoading").style.display = "none";
+
+        // In localStorage cachen
+        localStorage.setItem(LERNPLAN_CACHE_KEY, JSON.stringify({
+          plan: data.plan,
+          created_at: data.created_at
+        }));
+
+        renderLernplan(data.plan, data.created_at, data.cached);
+      } catch (e) {
+        console.error("Lernplan-Fehler:", e);
+        document.getElementById("lernplanLoading").style.display = "none";
+        document.getElementById("lernplanEmpty").style.display = "block";
+        var btn = document.getElementById("btnLernplan");
+        if (btn) { btn.textContent = "Erneut versuchen"; }
+      }
+    }
+
+    function renderLernplan(plan, createdAt, fromCache) {
+      document.getElementById("lernplanEmpty").style.display = "none";
+      document.getElementById("lernplanLoading").style.display = "none";
+      var container = document.getElementById("lernplanResult");
+      container.style.display = "block";
+
+      var html = "";
+
+      // Wochen-Label + Motivation
+      if (plan.week_label) {
+        html += '<div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:.5rem">' +
+          escapeHtml(plan.week_label) + '</div>';
+      }
+      if (plan.motivation) {
+        html += '<div class="lp-motivation">' + escapeHtml(plan.motivation) + '</div>';
+      }
+
+      // Trainingseinheiten
+      if (plan.units && plan.units.length > 0) {
+        var units = plan.units.slice().sort(function (a, b) { return (a.priority || 0) - (b.priority || 0); });
+        html += '<div class="lp-units">';
+        for (var i = 0; i < units.length; i++) {
+          var u = units[i];
+          html += '<div class="lp-unit">' +
+            '<div class="lp-unit-header">' +
+            '<span class="lp-unit-prio">' + (u.priority || (i + 1)) + '</span>' +
+            '<span class="lp-unit-title">' + escapeHtml(u.title || u.subject_name) + '</span>' +
+            '<span class="lp-unit-duration">' + (u.duration_min || 30) + ' Min.</span>' +
+            '</div>' +
+            '<div class="lp-unit-desc">' + escapeHtml(u.description || "") + '</div>' +
+            (u.goal ? '<div class="lp-unit-goal">Ziel: ' + escapeHtml(u.goal) + '</div>' : '') +
+            (u.page_url ? '<a href="' + escapeHtml(u.page_url) + '" class="lp-unit-link">Jetzt ueben: ' + escapeHtml(u.page_label || u.subject_name || "") + '</a>' : '') +
+            '</div>';
+        }
+        html += '</div>';
+      }
+
+      // Wochenziel
+      if (plan.weekly_goal) {
+        html += '<div class="lp-weekly-goal"><strong>Wochenziel:</strong> ' + escapeHtml(plan.weekly_goal) + '</div>';
+      }
+
+      // Meta-Info + Neu-Generieren-Button
+      var dateStr = createdAt ? new Date(createdAt).toLocaleDateString("de-DE", {
+        day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit"
+      }) : "";
+
+      html += '<div class="lp-meta">' +
+        '<span>Erstellt: ' + dateStr + (fromCache ? ' (gespeichert)' : '') + '</span>' +
+        '<button onclick="generateLernplan(true)" class="lp-btn" style="font-size:.8rem;padding:.4rem .8rem">Neu generieren</button>' +
+        '</div>';
+
+      container.innerHTML = html;
     }
 
     /* ================= INIT ================= */
