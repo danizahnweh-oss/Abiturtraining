@@ -2296,6 +2296,17 @@
         <div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>
       </div>
     </div>
+    <!-- Kompetenzprofil-Link -->
+    <div id="profilLink" style="display:none; max-width:1000px; width:100%; margin:.8rem auto 0; padding:0 .5rem;">
+      <a href="profil.html"
+        style="display:flex; align-items:center; gap:.6rem; padding:.75rem 1.2rem; background:var(--card); border:1px solid var(--border); border-radius:14px; text-decoration:none; color:var(--ink); transition:all .15s ease; min-height:44px;"
+        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 2px 8px rgba(0,0,0,.06)'"
+        onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <span style="font-size:1.3rem">📊</span>
+        <span style="flex:1"><strong>Mein Kompetenzprofil</strong><br><small style="color:var(--ink-muted)">KI-Analyse deiner Stärken, Schwächen und Trends</small></span>
+        <span style="color:var(--ink-muted);font-size:1.2rem">→</span>
+      </a>
+    </div>
     <!-- Erinnerungs-Banner -->
     <div id="reminderBanner" class="reminder-banner" style="display:none;">
       <div class="reminder-banner-header">
@@ -4136,6 +4147,8 @@
           loadHiddenSubjects();
           loadExamSubjects();
           document.getElementById("examSubjectBtn").style.display = "";
+          var profilLink = document.getElementById("profilLink");
+          if (profilLink) profilLink.style.display = "";
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
           // Start onboarding if first time
           if (!isTourDone("onboarding_done")) {
@@ -4337,6 +4350,8 @@
       document.getElementById("reminderBanner").style.display = "none";
       document.getElementById("examSubjectBtn").style.display = "none";
       document.getElementById("examSettings").style.display = "none";
+      var profilLink = document.getElementById("profilLink");
+      if (profilLink) profilLink.style.display = "none";
       // Exam badges entfernen
       document.querySelectorAll(".subject-card").forEach(function (card) {
         card.classList.remove("exam-written", "exam-oral", "exam-ea");
@@ -4492,6 +4507,8 @@
         loadHiddenSubjects();
         loadExamSubjects();
         document.getElementById("examSubjectBtn").style.display = "";
+        var profilLink = document.getElementById("profilLink");
+        if (profilLink) profilLink.style.display = "";
       } else {
         // Not logged in: show subject selection with guest greeting
         document.getElementById("examSubjectBtn").style.display = "none";
