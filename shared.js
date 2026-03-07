@@ -109,6 +109,9 @@ function renderKorrekturFeedback(d) {
 
   // Übungsaufgaben bei schwachem Ergebnis
   renderUebungsaufgaben(d);
+
+  // Rewrite-Button anzeigen
+  renderRewriteButton(d);
 }
 
 /* ================= ÜBUNGSAUFGABEN ================= */
@@ -143,6 +146,186 @@ function renderUebungsaufgaben(d) {
 
   if (typeof renderMath === "function") renderMath(body);
   card.style.display = "";
+}
+
+/* ================= REWRITE / VERBESSERUNGSVORSCHLÄGE ================= */
+
+// Seite → API-Typ Mapping
+var REWRITE_TYPE_MAP = {
+  "analyse": "deutsch-analyse", "eroerterung": "deutsch-eroerterung",
+  "interpretation": "deutsch-interpretation",
+  "materialgestuetzt-argumentierend": "deutsch-materialgestuetzt-argumentierend",
+  "materialgestuetzt-informierend": "deutsch-materialgestuetzt-informierend",
+  "mediation": "mediation", "writing": "writing",
+  "francais-mediation": "french-mediation", "francais-schreiben": "french-writing",
+  "italiano-mediation": "italian-mediation", "italiano-schreiben": "italian-writing",
+  "geschichte": "geschichte", "geschichte-abitur": "geschichte-abitur",
+  "ethik": "ethik", "ethik-abitur": "ethik-abitur",
+  "religion": "religion", "religion-abitur": "religion-abitur",
+  "katholisch": "katholisch", "katholisch-abitur": "katholisch-abitur",
+  "geographie": "geographie", "geographie-abitur": "geographie-abitur",
+  "politik": "pug-klausur", "pug-abitur": "pug-abitur",
+  "wr": "wr", "wr-abitur": "wr-abitur",
+  "latein": "latein", "latein-abitur": "latein-abitur",
+  "mathe": "mathe", "mathe-abitur": "mathe-abitur",
+  "chemie": "chemie", "chemie-abitur": "chemie-abitur",
+  "physik": "physik", "physik-abitur": "physik-abitur",
+  "biologie": "biologie", "biologie-abitur": "biologie-abitur",
+  "sport": "sport", "sport-abitur": "sport-abitur",
+  "informatik": "informatik", "informatik-abitur": "informatik-abitur"
+};
+
+function getRewriteType() {
+  var page = window.location.pathname.split("/").pop().replace(".html", "");
+  return REWRITE_TYPE_MAP[page] || page;
+}
+
+function getRewriteTopic() {
+  if (typeof CONFIG !== "undefined" && CONFIG.storedData) {
+    return CONFIG.storedData.textsorte || CONFIG.storedData.thema || CONFIG.storedData.topic || CONFIG.storedData.aufgabenstellung || "";
+  }
+  return "";
+}
+
+function renderRewriteButton(feedbackData) {
+  var textarea = document.getElementById("studentText");
+  if (!textarea || !textarea.value.trim()) return;
+
+  // Alten Button entfernen
+  var old = document.getElementById("rewriteBtnCard");
+  if (old) old.remove();
+
+  // Einfuege-Anker: nach aspekteCard, korrekturCard oder feedbackBody
+  var anchor = document.getElementById("aspekteCard") || document.getElementById("korrekturCard");
+  if (!anchor) {
+    var fb = document.getElementById("feedbackBody");
+    if (fb) anchor = fb.closest(".card");
+  }
+  if (!anchor) return;
+
+  var card = document.createElement("div");
+  card.id = "rewriteBtnCard";
+  card.className = "card";
+  card.style.cssText = "padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;cursor:pointer;transition:background .15s";
+  card.innerHTML = '<span style="font-size:1.4rem">✨</span>' +
+    '<div style="flex:1"><strong>Verbesserungsvorschläge</strong><br>' +
+    '<small style="color:var(--ink-muted)">KI zeigt dir konkrete Formulierungen, die deinen Text besser machen</small></div>' +
+    '<span style="color:var(--ink-muted);font-size:1.2rem">→</span>';
+  card.onclick = function () { loadRewriteSuggestions(feedbackData); };
+
+  anchor.parentNode.insertBefore(card, anchor.nextSibling);
+}
+
+async function loadRewriteSuggestions(feedbackData) {
+  var textarea = document.getElementById("studentText");
+  if (!textarea || !textarea.value.trim()) return;
+
+  // Button durch Lade-Zustand ersetzen
+  var btnCard = document.getElementById("rewriteBtnCard");
+  if (btnCard) {
+    btnCard.onclick = null;
+    btnCard.style.cursor = "default";
+    btnCard.innerHTML = '<div class="loader-spinner" style="width:24px;height:24px;border-width:2px"></div>' +
+      '<span style="color:var(--ink-muted)">Verbesserungsvorschläge werden erstellt...</span>';
+  }
+
+  try {
+    var result = await apiCall("/api/rewrite", {
+      student_text: textarea.value,
+      type: getRewriteType(),
+      feedback: (feedbackData.feedback || "").substring(0, 3000),
+      topic: getRewriteTopic()
+    });
+
+    if (!result.suggestions || !result.suggestions.length) {
+      if (btnCard) btnCard.innerHTML = '<span style="color:var(--ink-muted)">Keine Vorschläge verfügbar.</span>';
+      return;
+    }
+
+    showRewriteOverlay(result);
+  } catch (e) {
+    if (btnCard) {
+      btnCard.innerHTML = '<span style="color:var(--warning)">Fehler: ' + escapeHtml(e.message) + '</span>';
+      btnCard.style.cursor = "pointer";
+      btnCard.onclick = function () { loadRewriteSuggestions(feedbackData); };
+    }
+  }
+}
+
+var REWRITE_CATEGORY_COLORS = {
+  "Fachsprache": "#6366f1", "Argumentation": "#059669", "Struktur": "#b45309",
+  "Stil": "#db2777", "Grammatik": "#ef4444", "Inhalt": "#2563eb", "Quellenarbeit": "#7c3aed"
+};
+
+function showRewriteOverlay(result) {
+  // Altes Overlay entfernen
+  var old = document.getElementById("rewriteOverlay");
+  if (old) old.remove();
+
+  var overlay = document.createElement("div");
+  overlay.id = "rewriteOverlay";
+  overlay.className = "rewrite-overlay";
+
+  var html = '<div class="rewrite-panel">' +
+    '<div class="rewrite-header">' +
+    '<h3>✨ Verbesserungsvorschläge</h3>' +
+    '<button class="rewrite-close" onclick="closeRewriteOverlay()" aria-label="Schließen">✕</button>' +
+    '</div>' +
+    '<div class="rewrite-body">';
+
+  // Vorschlaege
+  result.suggestions.forEach(function (s, i) {
+    var catColor = REWRITE_CATEGORY_COLORS[s.category] || "#6b7280";
+    html += '<div class="rewrite-suggestion">' +
+      '<div class="rewrite-suggestion-header">' +
+      '<span class="rewrite-nr">' + (i + 1) + '</span>' +
+      '<span class="rewrite-category" style="background:' + catColor + '">' + escapeHtml(s.category || "") + '</span>' +
+      '</div>' +
+      '<div class="rewrite-comparison">' +
+      '<div class="rewrite-before"><div class="rewrite-label">Vorher</div><div class="rewrite-text">' + escapeHtml(s.original || "") + '</div></div>' +
+      '<div class="rewrite-arrow">→</div>' +
+      '<div class="rewrite-after"><div class="rewrite-label">Nachher</div><div class="rewrite-text">' + escapeHtml(s.improved || "") + '</div></div>' +
+      '</div>' +
+      '<div class="rewrite-reason">' + escapeHtml(s.reason || "") + '</div>' +
+      '</div>';
+  });
+
+  // Umgeschriebener Absatz
+  if (result.rewritten_paragraph) {
+    html += '<div class="rewrite-paragraph">' +
+      '<h4>Beispiel-Umformulierung</h4>' +
+      '<p>' + escapeHtml(result.rewritten_paragraph) + '</p>' +
+      '</div>';
+  }
+
+  html += '</div></div>';
+  overlay.innerHTML = html;
+
+  // Klick auf Hintergrund schliesst Overlay
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) closeRewriteOverlay();
+  });
+
+  document.body.appendChild(overlay);
+
+  // Button aktualisieren
+  var btnCard = document.getElementById("rewriteBtnCard");
+  if (btnCard) {
+    btnCard.innerHTML = '<span style="font-size:1.4rem">✨</span>' +
+      '<div style="flex:1"><strong>Verbesserungsvorschläge</strong><br>' +
+      '<small style="color:var(--ink-muted)">' + result.suggestions.length + ' Vorschläge — nochmal anzeigen</small></div>' +
+      '<span style="color:var(--ink-muted);font-size:1.2rem">→</span>';
+    btnCard.style.cursor = "pointer";
+    btnCard.onclick = function () { showRewriteOverlay(result); };
+  }
+}
+
+function closeRewriteOverlay() {
+  var overlay = document.getElementById("rewriteOverlay");
+  if (overlay) {
+    overlay.style.animation = "fadeOut .2s ease-out forwards";
+    setTimeout(function () { overlay.remove(); }, 200);
+  }
 }
 
 /* ================= NAVIGATION ================= */
