@@ -2787,6 +2787,11 @@
     <div id="additionalSubjectSection" style="display:none;">
       <div class="section-header">
         <h3 class="section-label">Weitere Fächer</h3>
+        <button class="section-edit-btn" onclick="toggleAdditionalDateSettings()" type="button">📅 Termine</button>
+      </div>
+      <div id="additionalDateSettings" class="exam-settings" style="display:none;">
+        <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine nächsten Prüfungstermine ein.</p>
+        <div id="additionalDateRows"></div>
       </div>
       <div class="additional-subjects-grid" id="additionalSubjectsGrid" role="list" aria-label="Weitere Fächer"></div>
     </div>
@@ -4669,8 +4674,10 @@
       grid.innerHTML = "";
       var examAll = examSubjectsCache.written.concat(examSubjectsCache.oral);
 
+      var customDates = loadCustomExamDates();
       additionalSubjectsCache.forEach(function (subj) {
         if (examAll.indexOf(subj) !== -1) return;
+        var hasDate = !!customDates[subj];
         var btn = document.createElement("button");
         btn.type = "button";
         btn.className = "subject-card " + subj;
@@ -4679,10 +4686,17 @@
         btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
         btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
           + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>'
+          + (hasDate ? '<span class="subject-countdown" data-subject="' + subj + '"></span>' : '')
           + '<span class="subject-last-activity" data-activity="' + subj + '"></span>';
         btn.addEventListener("click", function () { selectSubject(subj, true); });
         grid.appendChild(btn);
       });
+
+      // Countdown fuer Faecher mit eigenem Termin aktivieren
+      if (Object.keys(customDates).length > 0) {
+        grid.classList.add("countdown-active");
+        renderCountdowns();
+      }
     }
 
     function loadExamSubjects() {
@@ -4935,6 +4949,50 @@
       saveCustomExamDates(customDates);
       renderCountdowns();
       renderExamDatePanel();
+      renderAdditionalDatePanel();
+    }
+
+    function toggleAdditionalDateSettings() {
+      var panel = document.getElementById("additionalDateSettings");
+      if (!panel) return;
+      var isOpen = panel.style.display !== "none";
+      if (!isOpen) renderAdditionalDatePanel();
+      panel.style.display = isOpen ? "none" : "";
+    }
+
+    function renderAdditionalDatePanel() {
+      var container = document.getElementById("additionalDateRows");
+      if (!container) return;
+      container.innerHTML = "";
+      var customDates = loadCustomExamDates();
+      var examAll = examSubjectsCache.written.concat(examSubjectsCache.oral);
+
+      var subjects = additionalSubjectsCache.filter(function (s) {
+        return examAll.indexOf(s) === -1;
+      });
+
+      if (subjects.length === 0) {
+        container.innerHTML = '<p style="font-size:.85rem;color:var(--ink-muted);">Keine weiteren Fächer ausgewählt.</p>';
+        return;
+      }
+
+      subjects.forEach(function (subj) {
+        var currentDate = customDates[subj] || "";
+        var countdownText = "";
+        if (currentDate) {
+          var days = daysUntil(new Date(currentDate + "T00:00:00"));
+          if (days > 0) countdownText = "in " + days + (days === 1 ? " Tag" : " Tagen");
+          else if (days === 0) countdownText = "Heute!";
+          else countdownText = "vorbei";
+        }
+
+        var row = document.createElement("div");
+        row.className = "exam-settings-row";
+        row.innerHTML = '<span class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + '</span>'
+          + '<input type="date" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
+          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '">' + countdownText + '</span>';
+        container.appendChild(row);
+      });
     }
 
     /* ====== ERINNERUNGS-BANNER ====== */
