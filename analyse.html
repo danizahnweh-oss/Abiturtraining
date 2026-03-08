@@ -521,7 +521,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        const data = await apiCall("/api/grade-deutsch", {
+        const data = await apiCallAsync("grade-deutsch", {
           task_instruction: CONFIG.storedData.task_instruction,
           primary_text: CONFIG.storedData.primary_text,
           student_text: text,

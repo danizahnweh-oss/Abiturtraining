@@ -701,7 +701,7 @@
 
       try {
         var aufgaben = CONFIG.storedData.aufgaben || [];
-        var d = await apiCall("/api/fos-grade-abitur-gestaltung", {
+        var d = await apiCallAsync("fos-grade-abitur-gestaltung", {
           aufgaben: aufgaben,
           student_texts: [t1, t2, t3],
           gesamt_be: CONFIG.storedData.gesamt_be || 80

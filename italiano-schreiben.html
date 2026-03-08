@@ -1137,7 +1137,7 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf ITALIENISCH.`;
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        const data = await apiCall("/api/grade", {
+        const data = await apiCallAsync("grade", {
           source_text_de: CONFIG.storedData.article_text,
           task_en: getSelectedTasks(),
           student_text_en: text,

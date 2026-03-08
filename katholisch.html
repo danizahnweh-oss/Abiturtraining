@@ -910,7 +910,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         };
         if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-        const d = await apiCall("/api/grade-katholisch", payload);
+        const d = await apiCallAsync("grade-katholisch", payload);
         document.getElementById("scoreVerstehen").textContent = d.scores?.verstehen ?? "\u2013";
         document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "\u2013";
         document.getElementById("scoreTotal").textContent = d.scores?.total ?? "\u2013";

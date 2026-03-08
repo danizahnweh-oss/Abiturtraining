@@ -1010,7 +1010,7 @@
       document.getElementById("feedbackLoader").style.display = "block";
       document.getElementById("feedbackContent").style.display = "none";
       try {
-        const d = await apiCall("/api/grade-chemie", {
+        const d = await apiCallAsync("grade-chemie", {
           aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "",
           teilaufgaben: CONFIG.storedData.teilaufgaben || [],
           gesamt_be: CONFIG.storedData.gesamt_be || 0,

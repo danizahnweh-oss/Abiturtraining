@@ -1008,7 +1008,7 @@
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        var d = await apiCall("/api/grade-abitur-sport", {
+        var d = await apiCallAsync("grade-abitur-sport", {
           aufgaben: getSelectedAufgaben(),
           student_texts: studentTexts,
           student_text: allText,

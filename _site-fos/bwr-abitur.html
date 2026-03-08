@@ -656,7 +656,7 @@
       try {
         var combinedText = "=== Aufgabe I ===\n" + tI + "\n\n=== Aufgabe II ===\n" + tII + "\n\n=== Aufgabe III ===\n" + tIII;
 
-        var d = await apiCall("/api/fos-grade-abitur-bwr", {
+        var d = await apiCallAsync("fos-grade-abitur-bwr", {
           aufgabenbloecke: CONFIG.storedData.aufgaben || [],
           student_text: combinedText,
           gesamt_be: CONFIG.storedData.gesamt_be || 85

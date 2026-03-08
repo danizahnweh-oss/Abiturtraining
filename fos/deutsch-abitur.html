@@ -786,7 +786,7 @@ Struktur:
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        var d = await apiCall("/api/fos-grade-abitur-deutsch", {
+        var d = await apiCallAsync("fos-grade-abitur-deutsch", {
           aufgabenbloecke: [selectedA],
           materialien: selectedA.materialien || [],
           task_instruction: selectedA.aufgabenstellung || "",

@@ -965,7 +965,7 @@ Tipp: Beachte den Fachbereich:
           type: "wr-abitur"
         };
 
-        const d = await apiCall("/api/grade-abitur-wr", payload);
+        const d = await apiCallAsync("grade-abitur-wr", payload);
         const be1 = d.scores?.be_1 ?? "–";
         const beMax1 = d.scores?.be_max_1 ?? (niveau === "eA" ? 60 : gesamt_be);
         const be2 = d.scores?.be_2 ?? "–";

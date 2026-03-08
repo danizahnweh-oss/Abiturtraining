@@ -1028,7 +1028,7 @@ gesamt_np = round(sach_a_np * 0.4 + sach_b_np * 0.3 + darstellung_np * 0.3)`;
           type: "geschichte-abitur"
         };
 
-        const d = await apiCall("/api/grade-abitur-geschichte", payload);
+        const d = await apiCallAsync("grade-abitur-geschichte", payload);
         document.getElementById("scoreSachA").textContent = d.scores?.sach_a ?? "–";
         document.getElementById("scoreSachB").textContent = d.scores?.sach_b ?? "–";
         document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";
