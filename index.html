@@ -2720,7 +2720,6 @@
         <button class="cat-filter-btn" data-filter="gewi" onclick="filterByCategory('gewi')">Geisteswiss.</button>
       </div>
       <div class="subject-filter-actions">
-        <button class="subject-filter-btn" id="examSubjectBtn" onclick="toggleExamEditMode()" style="display:none">🎓 Abifächer wählen</button>
         <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
           anpassen</button>
       </div>
@@ -4331,7 +4330,6 @@
     }
 
     /* ====== ABIFÄCHER-AUSWAHL ====== */
-    var examEditMode = false;
     var examSubjectsCache = { written: [], oral: [], ea: "" };
     var reminderIntervalCache = 3;
     var reminderEmailCache = "";
@@ -4791,31 +4789,6 @@
       if (el) el.textContent = total + "/5 Fächer gewählt" + (total > 0 ? eaText : "");
     }
 
-    function toggleExamEditMode() {
-      var grid = document.querySelector(".subject-grid");
-      var btn = document.getElementById("examSubjectBtn");
-      var settings = document.getElementById("examSettings");
-      examEditMode = !examEditMode;
-
-      if (examEditMode) {
-        grid.classList.add("exam-edit-mode");
-        btn.textContent = "✅ Fertig";
-        settings.style.display = "";
-        document.querySelectorAll(".subject-card").forEach(function (card) {
-          card.setAttribute("data-orig-onclick-exam", card.getAttribute("onclick") || "");
-          card.setAttribute("onclick", "toggleExamSubject(this); return false;");
-        });
-      } else {
-        grid.classList.remove("exam-edit-mode");
-        btn.textContent = "🎓 Abifächer wählen";
-        settings.style.display = "none";
-        document.querySelectorAll(".subject-card").forEach(function (card) {
-          card.setAttribute("onclick", card.getAttribute("data-orig-onclick-exam") || "");
-        });
-        applyExamBadges();
-        saveExamPreferences();
-      }
-    }
 
     function toggleExamSubject(card) {
       var subj = getSubjectKey(card);
@@ -5032,7 +5005,6 @@
             saveAllPreferences();
           }
           renderSubjectLayout();
-          document.getElementById("examSubjectBtn").style.display = "";
           var _remBtn = document.getElementById("reminderSettingsBtn");
           if (_remBtn) _remBtn.style.display = "";
           var profilLink = document.getElementById("profilLink");
@@ -5335,7 +5307,6 @@
       examSubjectsCache = { written: [], oral: [], ea: "" };
       document.getElementById("progressBar").style.display = "none";
       document.getElementById("reminderBanner").style.display = "none";
-      document.getElementById("examSubjectBtn").style.display = "none";
       var _remBtn3 = document.getElementById("reminderSettingsBtn");
       if (_remBtn3) _remBtn3.style.display = "none";
       document.getElementById("examSettings").style.display = "none";
@@ -5501,14 +5472,12 @@
         loadStudentProgress();
         loadHiddenSubjects();
         loadExamSubjects();
-        document.getElementById("examSubjectBtn").style.display = "";
         var _remBtn2 = document.getElementById("reminderSettingsBtn");
         if (_remBtn2) _remBtn2.style.display = "";
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
       } else {
         // Nicht eingeloggt: Faecheruebersicht trotzdem zeigen
-        document.getElementById("examSubjectBtn").style.display = "none";
         showSubjectSelection();
         history.replaceState({ screen: "subjects" }, "");
       }
