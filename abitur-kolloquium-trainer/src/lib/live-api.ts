@@ -482,3 +482,228 @@ export class LiveSession {
     this.session = null;
   }
 }
+
+/* ───────── Stateful Live Session (mit Server-Side State via Durable Object) ───────── */
+
+export class StatefulLiveSession {
+  private sessionId: string | null = null;
+  private ws: WebSocket | null = null;
+  private audioProcessor: AudioProcessor;
+  private audioPlayer: AudioPlayer;
+  private config: LiveSessionConfig;
+  private stopped = false;
+  private reconnectAttempts = 0;
+  private reconnecting = false;
+  private lastMessageTime = 0;
+  private activityTimer: number | null = null;
+  private connectionOpenedAt = 0;
+  private instruction = '';
+
+  constructor(config: LiveSessionConfig, preWarmedProcessor?: AudioProcessor) {
+    this.audioProcessor = preWarmedProcessor || new AudioProcessor();
+    this.audioPlayer = new AudioPlayer();
+    this.config = config;
+  }
+
+  async start() {
+    this.stopped = false;
+    this.reconnectAttempts = 0;
+    this.reconnecting = false;
+
+    // System-Instruction vorbereiten
+    this.instruction = this.config.feedbackMode
+      ? buildFeedbackInstruction(this.config)
+      : buildExamInstruction(this.config);
+
+    // Session auf dem Server erstellen
+    const response = await fetch(`${WORKER_URL}/session/create`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        subject: this.config.subject,
+        examLevel: this.config.examLevel,
+        schwerpunkt: this.config.schwerpunkt,
+        schwerpunktHalbjahr: this.config.schwerpunktHalbjahr,
+        weitereHalbjahre: this.config.weitereHalbjahre,
+        examMode: this.config.examMode || 'gesamt',
+        prueferTyp: this.config.prueferTyp || 'standard',
+        gender: this.config.gender || 'male',
+        aufgabenstellung: this.config.aufgabenstellung || '',
+        material: this.config.material || '',
+        systemInstruction: this.instruction,
+        feedbackMode: this.config.feedbackMode || false,
+        voiceName: this.config.gender === 'female' ? 'Kore' : 'Puck',
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Session-Erstellung fehlgeschlagen');
+    }
+
+    const data = await response.json() as { sessionId: string };
+    this.sessionId = data.sessionId;
+
+    await this.connectWebSocket();
+  }
+
+  private async connectWebSocket() {
+    if (this.stopped || !this.sessionId) return;
+
+    const isReconnect = this.reconnectAttempts > 0;
+    this.config.onStatusChange?.(isReconnect ? 'reconnecting' : 'connecting');
+
+    try { this.ws?.close(); } catch {}
+    this.ws = null;
+
+    const wsUrl = `${WORKER_URL!.replace('https://', 'wss://').replace('http://', 'ws://')}/session/${this.sessionId}/ws`;
+    this.ws = new WebSocket(wsUrl);
+
+    this.ws.onopen = () => {
+      this.connectionOpenedAt = Date.now();
+      this.lastMessageTime = Date.now();
+      this.reconnecting = false;
+      console.log(`Session-WS verbunden (sessionId=${this.sessionId})`);
+      this.config.onStatusChange?.('connected');
+      this.startActivityMonitor();
+
+      const sendAudio = (base64Data: string) => {
+        try {
+          if (this.ws?.readyState === WebSocket.OPEN) {
+            this.ws.send(JSON.stringify({
+              realtime_input: {
+                media_chunks: [{ data: base64Data, mime_type: 'audio/pcm;rate=16000' }]
+              }
+            }));
+          }
+        } catch { /* Sendefehler ignorieren */ }
+      };
+
+      if (this.audioProcessor.isRecording()) {
+        this.audioProcessor.updateCallback(sendAudio);
+      } else {
+        this.audioProcessor.startRecording(sendAudio);
+      }
+    };
+
+    this.ws.onmessage = (event) => {
+      this.lastMessageTime = Date.now();
+      try {
+        const data = JSON.parse(event.data);
+
+        // DO-eigene Nachrichten
+        if (data.type === 'session_restored') {
+          console.log(`Session wiederhergestellt (${data.transcriptLength} Transkript-Einträge)`);
+          return;
+        }
+        if (data.type === 'error') {
+          console.error('Session-Fehler:', data.message);
+          return;
+        }
+
+        // Audio abspielen
+        const base64Audio = data?.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
+        if (base64Audio) this.audioPlayer.playChunk(base64Audio);
+
+        if (data?.serverContent?.interrupted) this.audioPlayer.stop();
+
+        // Transkriptionen weiterleiten
+        if (data?.serverContent?.modelTurn?.parts) {
+          for (const part of data.serverContent.modelTurn.parts) {
+            if (part.text && !isThinkingText(part.text)) {
+              this.config.onModelTranscription?.(part.text);
+            }
+          }
+        }
+        if (data?.serverContent?.inputTranscription?.text) {
+          this.config.onUserTranscription?.(data.serverContent.inputTranscription.text);
+        }
+      } catch { /* Nicht-JSON ignorieren */ }
+    };
+
+    this.ws.onclose = () => {
+      this.stopActivityMonitor();
+      const duration = Date.now() - this.connectionOpenedAt;
+      console.log(`Session-WS geschlossen nach ${Math.round(duration / 1000)}s`);
+      if (duration > 10_000) this.reconnectAttempts = 0;
+      if (!this.stopped) {
+        this.tryReconnect();
+      } else {
+        this.audioProcessor.stopRecording();
+        this.config.onStatusChange?.('disconnected');
+      }
+    };
+
+    this.ws.onerror = () => {
+      console.error('Session-WS Fehler');
+      this.stopActivityMonitor();
+      if (!this.stopped) {
+        this.tryReconnect();
+      } else {
+        this.audioProcessor.stopRecording();
+        this.config.onStatusChange?.('error');
+      }
+    };
+  }
+
+  private startActivityMonitor() {
+    this.stopActivityMonitor();
+    this.activityTimer = window.setInterval(() => {
+      if (this.stopped) return;
+      const idle = Date.now() - this.lastMessageTime;
+      if (idle > ACTIVITY_TIMEOUT_MS) {
+        console.warn(`Keine Aktivität seit ${Math.round(idle / 1000)}s – Reconnect`);
+        try { this.ws?.close(); } catch {}
+      }
+    }, ACTIVITY_CHECK_INTERVAL_MS);
+  }
+
+  private stopActivityMonitor() {
+    if (this.activityTimer) {
+      clearInterval(this.activityTimer);
+      this.activityTimer = null;
+    }
+  }
+
+  private tryReconnect() {
+    if (this.reconnecting || this.stopped) return;
+    if (this.reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+      console.error('Maximale Reconnect-Versuche erreicht');
+      this.audioProcessor.stopRecording();
+      this.config.onStatusChange?.('error');
+      return;
+    }
+    this.reconnecting = true;
+    this.reconnectAttempts++;
+    const baseDelay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
+    const jitter = Math.random() * 1000;
+    const delay = baseDelay + jitter;
+    console.log(`Session-Reconnect in ${Math.round(delay)}ms (Versuch ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
+    this.config.onStatusChange?.('reconnecting');
+    setTimeout(() => {
+      this.reconnecting = false;
+      this.connectWebSocket(); // Gleiche sessionId → DO stellt Kontext her
+    }, delay);
+  }
+
+  stop() {
+    this.stopped = true;
+    this.reconnecting = false;
+    this.stopActivityMonitor();
+    this.audioProcessor.stopRecording();
+    this.audioPlayer.stop();
+    try { this.ws?.close(); } catch {}
+    this.ws = null;
+  }
+
+  /** Transkript vom Server abrufen (für Feedback-Generierung) */
+  async getServerTranscript(): Promise<Array<{ role: string; text: string; timestamp: number }>> {
+    if (!this.sessionId) return [];
+    try {
+      const res = await fetch(`${WORKER_URL}/session/${this.sessionId}/transcript`);
+      const data = await res.json() as { transcript: Array<{ role: string; text: string; timestamp: number }> };
+      return data.transcript || [];
+    } catch {
+      return [];
+    }
+  }
+}

@@ -9,3 +9,13 @@ compatibility_date = "2024-12-01"
 # Optional: restrict CORS to your domain
 # [vars]
 # ALLOWED_ORIGIN = "https://your-domain.com"
+
+# Durable Objects für Kolloquium-Sessions
+[durable_objects]
+bindings = [
+  { name = "COLLOQUIUM_SESSION", class_name = "ColloquiumSession" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ColloquiumSession"]
