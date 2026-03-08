@@ -1352,6 +1352,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     } else {
       fc.appendChild(uc);
     }
+  }
   // generateTask() automatisch mit Login-Check wrappen
   if (typeof window.generateTask === "function") {
     var _origGenerateTask = window.generateTask;
