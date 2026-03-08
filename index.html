@@ -1283,6 +1283,370 @@
       background: #b91c1c
     }
 
+    /* ====== ABI-WIZARD ====== */
+    #abiWizardOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9500;
+      background: rgba(0, 0, 0, .6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px)
+    }
+
+    #abiWizardModal {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 580px;
+      width: 100%;
+      max-height: 90dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, .3);
+      animation: slideUp .25s ease
+    }
+
+    .wizard-dots {
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      margin-bottom: 1.5rem
+    }
+
+    .wizard-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all .2s
+    }
+
+    .wizard-dot.active {
+      background: var(--accent);
+      transform: scale(1.3)
+    }
+
+    .wiz-slots {
+      display: flex;
+      gap: .5rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap
+    }
+
+    .wiz-slot {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .35rem .65rem;
+      border-radius: 20px;
+      border: 1.5px dashed var(--border);
+      font-size: .75rem;
+      color: var(--ink-muted);
+      min-height: 34px;
+      transition: all .2s;
+      white-space: nowrap
+    }
+
+    .wiz-slot.filled-ea {
+      border-style: solid;
+      border-color: #d97706;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 600
+    }
+
+    .wiz-slot.filled-written {
+      border-style: solid;
+      border-color: #2563eb;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 600
+    }
+
+    .wiz-slot.filled-oral {
+      border-style: solid;
+      border-color: #16a34a;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 600
+    }
+
+    [data-theme="dark"] .wiz-slot.filled-ea {
+      background: #451a03;
+      color: #fbbf24
+    }
+
+    [data-theme="dark"] .wiz-slot.filled-written {
+      background: #1e3a5f;
+      color: #93c5fd
+    }
+
+    [data-theme="dark"] .wiz-slot.filled-oral {
+      background: #14532d;
+      color: #86efac
+    }
+
+    #wizardSubjectGrid,
+    #wizardAdditionalGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+      gap: .5rem;
+      margin-bottom: 1.2rem
+    }
+
+    #wizardSubjectGrid .subject-card,
+    #wizardAdditionalGrid .subject-card {
+      padding: .6rem .3rem;
+      min-height: 80px;
+      animation: none;
+      opacity: 1
+    }
+
+    #wizardSubjectGrid .subject-icon,
+    #wizardAdditionalGrid .subject-icon {
+      font-size: 2rem;
+      margin-bottom: .15rem
+    }
+
+    #wizardSubjectGrid .subject-title,
+    #wizardAdditionalGrid .subject-title {
+      font-size: .72rem
+    }
+
+    #wizardSubjectGrid .subject-card.wiz-selected-ea {
+      border: 2px solid #d97706;
+      box-shadow: 0 0 0 2px #d9770622
+    }
+
+    #wizardSubjectGrid .subject-card.wiz-selected-written {
+      border: 2px solid #2563eb;
+      box-shadow: 0 0 0 2px #2563eb22
+    }
+
+    #wizardSubjectGrid .subject-card.wiz-selected-oral {
+      border: 2px solid #16a34a;
+      box-shadow: 0 0 0 2px #16a34a22
+    }
+
+    #wizardAdditionalGrid .subject-card.wiz-additional-selected {
+      border: 2px solid var(--accent);
+      background: var(--accent-soft, rgba(99, 102, 241, .08))
+    }
+
+    .wiz-preview-tags {
+      display: flex;
+      gap: .35rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: .6rem;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem
+    }
+
+    .wiz-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      padding: .25rem .55rem;
+      border-radius: 16px;
+      font-size: .72rem;
+      font-weight: 600
+    }
+
+    .wiz-tag-ea { background: #fef3c7; color: #92400e }
+    .wiz-tag-written { background: #dbeafe; color: #1e40af }
+    .wiz-tag-oral { background: #dcfce7; color: #166534 }
+
+    [data-theme="dark"] .wiz-tag-ea { background: #451a03; color: #fbbf24 }
+    [data-theme="dark"] .wiz-tag-written { background: #1e3a5f; color: #93c5fd }
+    [data-theme="dark"] .wiz-tag-oral { background: #14532d; color: #86efac }
+
+    .wiz-btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 52px;
+      width: 100%;
+      font-family: inherit;
+      transition: opacity .2s
+    }
+
+    .wiz-btn-primary:disabled {
+      opacity: .45;
+      cursor: not-allowed
+    }
+
+    .wiz-btn-secondary {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: .7rem;
+      font-size: .88rem;
+      cursor: pointer;
+      min-height: 44px;
+      font-family: inherit;
+      color: var(--ink-muted);
+      width: 100%;
+      transition: background .15s
+    }
+
+    .wiz-btn-secondary:hover {
+      background: var(--bg)
+    }
+
+    .wiz-btn-skip {
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      font-size: .82rem;
+      cursor: pointer;
+      padding: .5rem;
+      font-family: inherit;
+      min-height: 44px;
+      width: 100%;
+      transition: color .15s
+    }
+
+    .wiz-btn-skip:hover {
+      color: var(--ink)
+    }
+
+    @media (max-height: 700px) {
+      #abiWizardModal {
+        max-height: 95dvh;
+        padding: 1.2rem
+      }
+    }
+
+    /* ====== TWO-GRID LAYOUT ====== */
+    .section-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 700;
+      color: var(--ink-muted);
+      margin: 0
+    }
+
+    .section-header {
+      max-width: 1000px;
+      width: 100%;
+      margin: .8rem auto .3rem;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .section-edit-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .3rem .7rem;
+      font-size: .72rem;
+      color: var(--ink-muted);
+      cursor: pointer;
+      min-height: 36px;
+      min-width: 44px;
+      font-family: inherit;
+      transition: all .15s
+    }
+
+    .section-edit-btn:hover {
+      background: var(--bg);
+      color: var(--ink)
+    }
+
+    .exam-subjects-grid {
+      max-width: 1000px;
+      width: 100%;
+      margin: .3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .7rem
+    }
+
+    .exam-subjects-grid .subject-card {
+      padding: 1.2rem .5rem;
+      min-height: 110px;
+      animation: none;
+      opacity: 1
+    }
+
+    .exam-subjects-grid .subject-icon {
+      font-size: 2.8rem
+    }
+
+    .exam-subjects-grid .subject-title {
+      font-size: .95rem;
+      font-weight: 600
+    }
+
+    .exam-type-label {
+      font-size: .62rem;
+      padding: .2rem .5rem;
+      border-radius: 6px;
+      margin-top: .35rem;
+      display: inline-block;
+      font-weight: 700;
+      color: #fff
+    }
+
+    .exam-type-label-ea { background: #d97706 }
+    .exam-type-label-written { background: #2563eb }
+    .exam-type-label-oral { background: #16a34a }
+
+    .additional-subjects-grid {
+      max-width: 1000px;
+      width: 100%;
+      margin: .3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      gap: .55rem
+    }
+
+    .additional-subjects-grid .subject-card {
+      padding: .55rem .3rem;
+      min-height: 78px;
+      animation: none;
+      opacity: 1
+    }
+
+    .additional-subjects-grid .subject-icon {
+      font-size: 1.8rem;
+      margin-bottom: .1rem
+    }
+
+    .additional-subjects-grid .subject-title {
+      font-size: .72rem
+    }
+
+    @media (max-width: 640px) {
+      .exam-subjects-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media (max-width: 400px) {
+      .exam-subjects-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
     .exam-settings {
       max-width: 1000px;
       width: 100%;
@@ -2352,7 +2716,25 @@
       <p class="exam-hint">1. Klick = schriftlich gA · 2. Klick auf schriftliches Fach = eA · nochmal klicken = entfernen</p>
       <button class="exam-reset-btn" onclick="resetExamSubjects()" type="button">🔄 Alle Abifächer zurücksetzen</button>
     </div>
-    <div class="subject-grid" role="list" aria-label="Fächer">
+    <!-- Abi-Faecher-Sektion (grosse Karten, nach Wizard sichtbar) -->
+    <div id="examSubjectSection" style="display:none;">
+      <div class="section-header">
+        <h3 class="section-label">Deine Abiturfächer</h3>
+        <button class="section-edit-btn" onclick="showAbiWizard()" type="button">✏️ Ändern</button>
+      </div>
+      <div class="exam-subjects-grid" id="examSubjectsGrid" role="list" aria-label="Deine Abiturfächer"></div>
+    </div>
+
+    <!-- Weitere Faecher Sektion (kleinere Karten, nach Wizard sichtbar) -->
+    <div id="additionalSubjectSection" style="display:none;">
+      <div class="section-header">
+        <h3 class="section-label">Weitere Fächer</h3>
+      </div>
+      <div class="additional-subjects-grid" id="additionalSubjectsGrid" role="list" aria-label="Weitere Fächer"></div>
+    </div>
+
+    <!-- Haupt-Grid (Fallback wenn kein Wizard abgeschlossen) -->
+    <div class="subject-grid" id="mainSubjectGrid" role="list" aria-label="Fächer">
       <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
         aria-label="Englisch">
         <div class="subject-icon" aria-hidden="true">🇬🇧</div>
@@ -2590,6 +2972,54 @@
     </a>
     <footer>&copy; 2026 myAbiFlow · Abitur Trainer · <a href="impressum.html">Impressum</a> · <a href="impressum.html#datenschutz">Datenschutz</a><br><span style="font-size:0.75rem; opacity:0.7; margin-top:0.3rem; display:inline-block;">DSGVO-konform · Daten in der EU</span><br><a href="dashboard.html"
         style="font-size:0.75rem; opacity:0.6; margin-top:0.3rem; display:inline-block;">Lehrer-Dashboard →</a></footer>
+
+    <!-- ====== ABI-FAECHER-WIZARD OVERLAY ====== -->
+    <div id="abiWizardOverlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="wizardTitle">
+      <div id="abiWizardModal">
+        <div class="wizard-dots">
+          <div class="wizard-dot active" id="wizDot1"></div>
+          <div class="wizard-dot" id="wizDot2"></div>
+        </div>
+
+        <!-- SCHRITT 1: Abiturfaecher -->
+        <div id="wizardStep1">
+          <h2 id="wizardTitle" tabindex="-1" style="font-size:1.3rem;margin:0 0 .4rem;text-align:center;">Deine 5 Abiturfächer</h2>
+          <p style="color:var(--ink-muted);text-align:center;font-size:.88rem;margin:0 0 1.2rem;line-height:1.4;">
+            Wähle deine Prüfungsfächer: 1× erhöhtes Anforderungsniveau (eA), 2× schriftlich und 2× mündlich.
+          </p>
+          <div class="wiz-slots" id="wizSlots">
+            <span class="wiz-slot" id="wslot-ea">⭐ eA-Fach</span>
+            <span class="wiz-slot" id="wslot-w1">✍️ Schriftl. 1</span>
+            <span class="wiz-slot" id="wslot-w2">✍️ Schriftl. 2</span>
+            <span class="wiz-slot" id="wslot-o1">🗣️ Mündl. 1</span>
+            <span class="wiz-slot" id="wslot-o2">🗣️ Mündl. 2</span>
+          </div>
+          <p style="text-align:center;font-size:.78rem;color:var(--ink-muted);margin:0 0 .8rem;">
+            1. Klick = schriftlich · auf schriftl. Fach klicken = eA · nochmal = entfernen
+          </p>
+          <div id="wizardSubjectGrid"></div>
+          <div id="wizardCounter" style="text-align:center;font-size:.82rem;color:var(--ink-muted);margin-bottom:1rem;">0 / 5 Fächer gewählt</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <button class="wiz-btn-primary" id="wizardNextBtn" onclick="wizardGoToStep2()" disabled>Weiter → Weitere Fächer wählen</button>
+            <button class="wiz-btn-skip" onclick="skipAbiWizard()">Überspringen – später einrichten</button>
+          </div>
+        </div>
+
+        <!-- SCHRITT 2: Weitere Faecher -->
+        <div id="wizardStep2" style="display:none;">
+          <h2 style="font-size:1.3rem;margin:0 0 .4rem;text-align:center;">Weitere Fächer</h2>
+          <p style="color:var(--ink-muted);text-align:center;font-size:.88rem;margin:0 0 1rem;line-height:1.4;">
+            Welche Fächer möchtest du außerdem üben? Diese werden kleiner unter deinen Abifächern angezeigt.
+          </p>
+          <div class="wiz-preview-tags" id="wizardExamPreview"></div>
+          <div id="wizardAdditionalGrid"></div>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <button class="wiz-btn-primary" onclick="finishAbiWizard()">Los geht's!</button>
+            <button class="wiz-btn-secondary" onclick="wizardGoToStep1()">← Zurück</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ====== ENGLISH MODULE SCREEN ====== -->
@@ -3870,6 +4300,341 @@
       chemie: "🧪", physik: "⚛️", biologie: "🧬", sport: "⚽", informatik: "💻"
     };
 
+    /* ====== DATENSCHICHT: localStorage fuer alle Nutzer ====== */
+    var LS_EXAM_KEY = "maf_exam_subjects";
+    var LS_ADDITIONAL_KEY = "maf_additional_subjects";
+    var LS_WIZARD_KEY = "abi_wizard_done";
+
+    var additionalSubjectsCache = [];
+
+    var SUBJECT_CATEGORY = {
+      english: "sprachen", german: "sprachen", french: "sprachen",
+      italian: "sprachen", latein: "sprachen",
+      mathe: "nawi", chemie: "nawi", physik: "nawi",
+      biologie: "nawi", informatik: "nawi",
+      history: "gewi", pug: "gewi", wr: "gewi",
+      ethik: "gewi", religion: "gewi", katholisch: "gewi",
+      geographie: "gewi", sport: "sonstiges"
+    };
+
+    function getSubjectCategory(subj) {
+      return SUBJECT_CATEGORY[subj] || "sonstiges";
+    }
+
+    function loadLocalPreferences() {
+      try {
+        var stored = localStorage.getItem(LS_EXAM_KEY);
+        if (stored) {
+          var parsed = JSON.parse(stored);
+          examSubjectsCache = parsed;
+          if (!examSubjectsCache.written) examSubjectsCache.written = [];
+          if (!examSubjectsCache.oral) examSubjectsCache.oral = [];
+          if (!examSubjectsCache.ea) examSubjectsCache.ea = "";
+        }
+        var storedAdd = localStorage.getItem(LS_ADDITIONAL_KEY);
+        if (storedAdd) additionalSubjectsCache = JSON.parse(storedAdd);
+      } catch (e) { }
+    }
+
+    function saveLocalPreferences() {
+      localStorage.setItem(LS_EXAM_KEY, JSON.stringify(examSubjectsCache));
+      localStorage.setItem(LS_ADDITIONAL_KEY, JSON.stringify(additionalSubjectsCache));
+    }
+
+    function loadAllPreferences() {
+      loadLocalPreferences();
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (name && token) {
+        loadExamSubjects();
+        loadHiddenSubjects();
+      }
+      renderSubjectLayout();
+    }
+
+    function saveAllPreferences() {
+      saveLocalPreferences();
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (name && token) saveExamPreferences();
+    }
+
+    /* ====== ABI-WIZARD LOGIK ====== */
+    var wizardTempExam = { written: [], oral: [], ea: "" };
+    var wizardTempAdditional = [];
+
+    function showAbiWizard() {
+      wizardTempExam = JSON.parse(JSON.stringify(examSubjectsCache));
+      wizardTempAdditional = additionalSubjectsCache.slice();
+      renderWizardStep1();
+      wizardGoToStep1();
+      document.getElementById("abiWizardOverlay").style.display = "flex";
+      setTimeout(function () {
+        document.getElementById("wizardTitle").focus();
+      }, 100);
+    }
+
+    function skipAbiWizard() {
+      localStorage.setItem(LS_WIZARD_KEY, "1");
+      document.getElementById("abiWizardOverlay").style.display = "none";
+      renderSubjectLayout();
+    }
+
+    function finishAbiWizard() {
+      examSubjectsCache = JSON.parse(JSON.stringify(wizardTempExam));
+      additionalSubjectsCache = wizardTempAdditional.slice();
+      localStorage.setItem(LS_WIZARD_KEY, "1");
+      saveAllPreferences();
+      document.getElementById("abiWizardOverlay").style.display = "none";
+      renderSubjectLayout();
+    }
+
+    function wizardGoToStep1() {
+      document.getElementById("wizardStep1").style.display = "";
+      document.getElementById("wizardStep2").style.display = "none";
+      document.getElementById("wizDot1").classList.add("active");
+      document.getElementById("wizDot2").classList.remove("active");
+    }
+
+    function wizardGoToStep2() {
+      document.getElementById("wizardStep1").style.display = "none";
+      document.getElementById("wizardStep2").style.display = "";
+      document.getElementById("wizDot1").classList.remove("active");
+      document.getElementById("wizDot2").classList.add("active");
+      renderWizardStep2();
+    }
+
+    function renderWizardStep1() {
+      var grid = document.getElementById("wizardSubjectGrid");
+      grid.innerHTML = "";
+      VALID_SUBJECTS.forEach(function (subj) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "subject-card " + subj;
+        btn.setAttribute("data-category", getSubjectCategory(subj));
+        btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
+        btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
+          + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>';
+        btn.addEventListener("click", function () {
+          wizardToggleExamSubject(subj);
+        });
+        grid.appendChild(btn);
+      });
+      updateWizardStep1UI();
+    }
+
+    function wizardToggleExamSubject(subj) {
+      var wIdx = wizardTempExam.written.indexOf(subj);
+      var oIdx = wizardTempExam.oral.indexOf(subj);
+      var isEa = wizardTempExam.ea === subj;
+
+      if (isEa) {
+        wizardTempExam.ea = "";
+      } else if (wIdx !== -1 && !wizardTempExam.ea) {
+        wizardTempExam.ea = subj;
+      } else if (wIdx !== -1) {
+        wizardTempExam.written.splice(wIdx, 1);
+        if (wizardTempExam.ea === subj) wizardTempExam.ea = "";
+      } else if (oIdx !== -1) {
+        wizardTempExam.oral.splice(oIdx, 1);
+      } else if (wizardTempExam.written.length < 3) {
+        wizardTempExam.written.push(subj);
+      } else if (wizardTempExam.oral.length < 2) {
+        wizardTempExam.oral.push(subj);
+      }
+      updateWizardStep1UI();
+    }
+
+    function updateWizardStep1UI() {
+      var total = wizardTempExam.written.length + wizardTempExam.oral.length;
+
+      document.querySelectorAll("#wizardSubjectGrid .subject-card").forEach(function (btn) {
+        var subj = getSubjectKey(btn);
+        if (!subj) return;
+        btn.classList.remove("wiz-selected-ea", "wiz-selected-written", "wiz-selected-oral");
+        if (wizardTempExam.ea === subj) btn.classList.add("wiz-selected-ea");
+        else if (wizardTempExam.written.indexOf(subj) !== -1) btn.classList.add("wiz-selected-written");
+        else if (wizardTempExam.oral.indexOf(subj) !== -1) btn.classList.add("wiz-selected-oral");
+      });
+
+      document.getElementById("wizardCounter").textContent = total + " / 5 Fächer gewählt";
+
+      // Slots aktualisieren
+      var eaSlot = document.getElementById("wslot-ea");
+      if (wizardTempExam.ea) {
+        eaSlot.textContent = "⭐ " + (SUBJECT_DISPLAY[wizardTempExam.ea] || wizardTempExam.ea);
+        eaSlot.className = "wiz-slot filled-ea";
+      } else {
+        eaSlot.textContent = "⭐ eA-Fach";
+        eaSlot.className = "wiz-slot";
+      }
+
+      var writtenNonEa = wizardTempExam.written.filter(function (s) { return s !== wizardTempExam.ea; });
+      ["wslot-w1", "wslot-w2"].forEach(function (id, idx) {
+        var slot = document.getElementById(id);
+        var s = writtenNonEa[idx];
+        if (s) {
+          slot.textContent = "✍️ " + (SUBJECT_DISPLAY[s] || s);
+          slot.className = "wiz-slot filled-written";
+        } else {
+          slot.textContent = "✍️ Schriftl. " + (idx + 1);
+          slot.className = "wiz-slot";
+        }
+      });
+
+      ["wslot-o1", "wslot-o2"].forEach(function (id, idx) {
+        var slot = document.getElementById(id);
+        var s = wizardTempExam.oral[idx];
+        if (s) {
+          slot.textContent = "🗣️ " + (SUBJECT_DISPLAY[s] || s);
+          slot.className = "wiz-slot filled-oral";
+        } else {
+          slot.textContent = "🗣️ Mündl. " + (idx + 1);
+          slot.className = "wiz-slot";
+        }
+      });
+
+      // Next-Button: aktiv wenn 5 Faecher + 1 eA
+      var complete = total === 5 && wizardTempExam.ea !== "";
+      var nextBtn = document.getElementById("wizardNextBtn");
+      nextBtn.disabled = !complete;
+    }
+
+    function renderWizardStep2() {
+      // Preview der 5 Abi-Faecher
+      var preview = document.getElementById("wizardExamPreview");
+      preview.innerHTML = "";
+      var allExam = [];
+      if (wizardTempExam.ea) allExam.push({ subj: wizardTempExam.ea, type: "eA", cls: "wiz-tag-ea" });
+      wizardTempExam.written.forEach(function (s) {
+        if (s !== wizardTempExam.ea) allExam.push({ subj: s, type: "schriftl.", cls: "wiz-tag-written" });
+      });
+      wizardTempExam.oral.forEach(function (s) {
+        allExam.push({ subj: s, type: "mündl.", cls: "wiz-tag-oral" });
+      });
+      allExam.forEach(function (item) {
+        var tag = document.createElement("span");
+        tag.className = "wiz-tag " + item.cls;
+        tag.textContent = (SUBJECT_EMOJI[item.subj] || "") + " " + (SUBJECT_DISPLAY[item.subj] || item.subj) + " (" + item.type + ")";
+        preview.appendChild(tag);
+      });
+
+      // Grid fuer weitere Faecher
+      var grid = document.getElementById("wizardAdditionalGrid");
+      grid.innerHTML = "";
+      var examAll = wizardTempExam.written.concat(wizardTempExam.oral);
+      VALID_SUBJECTS.forEach(function (subj) {
+        if (examAll.indexOf(subj) !== -1) return;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "subject-card " + subj;
+        if (wizardTempAdditional.indexOf(subj) !== -1) btn.classList.add("wiz-additional-selected");
+        btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
+        btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
+          + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>';
+        btn.addEventListener("click", function () {
+          var idx = wizardTempAdditional.indexOf(subj);
+          if (idx !== -1) {
+            wizardTempAdditional.splice(idx, 1);
+            btn.classList.remove("wiz-additional-selected");
+          } else {
+            wizardTempAdditional.push(subj);
+            btn.classList.add("wiz-additional-selected");
+          }
+        });
+        grid.appendChild(btn);
+      });
+    }
+
+    /* ====== TWO-GRID LAYOUT RENDERING ====== */
+    function renderSubjectLayout() {
+      var hasAbiSubjects = examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0;
+      var mainGrid = document.getElementById("mainSubjectGrid");
+      var examSection = document.getElementById("examSubjectSection");
+      var additionalSection = document.getElementById("additionalSubjectSection");
+
+      if (!hasAbiSubjects) {
+        if (mainGrid) mainGrid.style.display = "";
+        if (examSection) examSection.style.display = "none";
+        if (additionalSection) additionalSection.style.display = "none";
+        return;
+      }
+
+      if (mainGrid) mainGrid.style.display = "none";
+      if (examSection) examSection.style.display = "";
+      renderExamSubjectGrid();
+
+      if (additionalSubjectsCache.length > 0) {
+        if (additionalSection) additionalSection.style.display = "";
+        renderAdditionalSubjectGrid();
+      } else {
+        if (additionalSection) additionalSection.style.display = "none";
+      }
+    }
+
+    function renderExamSubjectGrid() {
+      var grid = document.getElementById("examSubjectsGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+
+      // Reihenfolge: eA → schriftlich gA → muendlich
+      var ordered = [];
+      if (examSubjectsCache.ea) ordered.push(examSubjectsCache.ea);
+      examSubjectsCache.written.forEach(function (s) {
+        if (s !== examSubjectsCache.ea) ordered.push(s);
+      });
+      examSubjectsCache.oral.forEach(function (s) { ordered.push(s); });
+
+      ordered.forEach(function (subj) {
+        var isEa = examSubjectsCache.ea === subj;
+        var isOral = examSubjectsCache.oral.indexOf(subj) !== -1;
+        var typeLabel = isEa ? "⭐ schriftlich eA" : isOral ? "🗣️ mündlich gA" : "✍️ schriftlich gA";
+        var typeLabelCls = isEa ? "exam-type-label-ea" : isOral ? "exam-type-label-oral" : "exam-type-label-written";
+        var typeCls = isEa ? "exam-ea" : isOral ? "exam-oral" : "exam-written";
+
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "subject-card " + subj + " " + typeCls;
+        btn.setAttribute("role", "listitem");
+        btn.setAttribute("data-category", getSubjectCategory(subj));
+        btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
+        btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
+          + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>'
+          + '<span class="exam-type-label ' + typeLabelCls + '">' + typeLabel + '</span>'
+          + '<span class="subject-countdown" data-subject="' + subj + '"></span>'
+          + '<span class="subject-last-activity" data-activity="' + subj + '"></span>';
+        btn.addEventListener("click", function () { selectSubject(subj, true); });
+        grid.appendChild(btn);
+      });
+
+      renderCountdowns();
+    }
+
+    function renderAdditionalSubjectGrid() {
+      var grid = document.getElementById("additionalSubjectsGrid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      var examAll = examSubjectsCache.written.concat(examSubjectsCache.oral);
+
+      additionalSubjectsCache.forEach(function (subj) {
+        if (examAll.indexOf(subj) !== -1) return;
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "subject-card " + subj;
+        btn.setAttribute("role", "listitem");
+        btn.setAttribute("data-category", getSubjectCategory(subj));
+        btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
+        btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
+          + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>'
+          + '<span class="subject-countdown" data-subject="' + subj + '"></span>'
+          + '<span class="subject-last-activity" data-activity="' + subj + '"></span>';
+        btn.addEventListener("click", function () { selectSubject(subj, true); });
+        grid.appendChild(btn);
+      });
+
+      renderCountdowns();
+    }
+
     function loadExamSubjects() {
       var name = sessionStorage.getItem("student_name");
       var token = sessionStorage.getItem("access_token");
@@ -3898,6 +4663,8 @@
             document.getElementById("reminderEmail").value = reminderEmailCache;
             applyExamBadges();
             updateExamCounter();
+            saveLocalPreferences();
+            renderSubjectLayout();
             loadReminders();
           }
         })
@@ -4157,6 +4924,11 @@
           loadStudentProgress();
           loadHiddenSubjects();
           loadExamSubjects();
+          // Gast-Praeferenzen (Wizard-Daten) in API hochladen
+          if (examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0) {
+            saveAllPreferences();
+          }
+          renderSubjectLayout();
           document.getElementById("examSubjectBtn").style.display = "";
           var profilLink = document.getElementById("profilLink");
           if (profilLink) profilLink.style.display = "";
@@ -4280,13 +5052,7 @@
     };
 
     function selectSubject(subject, _push) {
-      // If not logged in, redirect to login and remember chosen subject
-      if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
-        sessionStorage.setItem("pending_subject", subject);
-        document.getElementById("subject-screen").style.display = "none";
-        document.getElementById("login-screen").style.display = "flex";
-        return;
-      }
+      // Kein Login-Check mehr – Gaeste koennen Faecher anklicken
       // Show exam type modal
       _pendingSubjectForModal = subject;
       document.getElementById("examTypeTitle").textContent = subjectTitleMap[subject] || subject;
@@ -4481,7 +5247,9 @@
       if (logoutBtn) logoutBtn.style.display = "none";
       if (guestLoginBtn) guestLoginBtn.style.display = "";
       if (userInfoEl) userInfoEl.style.display = "none";
-      // Show subject selection with guest greeting
+      // Layout aus localStorage wiederherstellen und Faecheruebersicht zeigen
+      loadLocalPreferences();
+      renderSubjectLayout();
       showSubjectSelection();
     }
 
@@ -4585,10 +5353,10 @@
       var backTo = urlParams.get("back");
       var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
 
-      // Always hide login screen initially, show subject selection
+      // Login-Screen immer ausblenden – Login kommt spaeter bei Bedarf
       document.getElementById("login-screen").style.display = "none";
 
-      // Show/hide auth-dependent UI elements
+      // UI-Elemente je nach Login-Status
       var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
       var userInfoEl = document.getElementById("userInfo");
@@ -4598,9 +5366,11 @@
       if (userInfoEl) userInfoEl.style.display = isLoggedIn ? "" : "none";
       if (guestHint) guestHint.style.display = isLoggedIn ? "none" : "";
 
+      // Lokale Praeferenzen immer laden (fuer Gaeste und Eingeloggte)
+      loadLocalPreferences();
+
       if (isLoggedIn) {
-        var validSubjects = ["german", "english", "history", "pug", "wr", "french", "italian", "ethik", "religion", "katholisch", "geographie",
-          "latein", "mathe", "chemie", "physik", "biologie"];
+        var validSubjects = VALID_SUBJECTS;
         if (backTo && validSubjects.indexOf(backTo) !== -1) {
           openModuleScreen(backTo);
         } else if (backTo === "subjects") {
@@ -4626,10 +5396,16 @@
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
       } else {
-        // Not logged in: show subject selection with guest greeting
+        // Nicht eingeloggt: Faecheruebersicht trotzdem zeigen
         document.getElementById("examSubjectBtn").style.display = "none";
         showSubjectSelection();
         history.replaceState({ screen: "subjects" }, "");
+      }
+
+      // Layout und Wizard (fuer alle Nutzer)
+      renderSubjectLayout();
+      if (!localStorage.getItem(LS_WIZARD_KEY)) {
+        setTimeout(function () { showAbiWizard(); }, 500);
       }
     }
 

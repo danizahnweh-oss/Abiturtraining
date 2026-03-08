@@ -1137,14 +1137,13 @@ window.addEventListener("beforeunload", function (e) {
 window.addEventListener("pageshow", function (e) {
   if (e.persisted) {
     if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
-      if (MODULE_CONFIG.hasOwnLogin) {
+      if (typeof MODULE_CONFIG !== 'undefined' && MODULE_CONFIG.hasOwnLogin) {
         const ls = document.getElementById("login-screen");
         const aw = document.getElementById("app-wrapper");
         if (ls) ls.style.display = "flex";
         if (aw) aw.style.display = "none";
-      } else {
-        window.location.href = (typeof MODULE_CONFIG !== 'undefined' && MODULE_CONFIG.loginPage) || "index.html";
       }
+      // Kein Redirect mehr – Seite bleibt sichtbar im Gast-Modus
     }
   }
 });
@@ -1277,9 +1276,11 @@ function updateTeacherCodeBtn(code) {
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
 
-  // Modules with their own login screen handle auth themselves
+  var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
+
+  // Modules mit eigenem Login-Screen
   if (MODULE_CONFIG.hasOwnLogin) {
-    if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
+    if (!isLoggedIn) {
       const ls = document.getElementById("login-screen");
       const aw = document.getElementById("app-wrapper");
       if (ls) ls.style.display = "flex";
@@ -1306,24 +1307,23 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     return;
   }
 
-  // Auth check for German-style modules (redirect if not logged in)
-  if (sessionStorage.getItem("access") !== "1") {
-    window.location.href = MODULE_CONFIG.loginPage || "index.html";
-    return;
+  // Seite fuer alle zeigen – kein Redirect mehr
+  if (isLoggedIn) {
+    const greeting = document.getElementById("studentGreeting");
+    if (greeting) {
+      greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
+      greeting.style.display = "inline";
+    }
+    restoreSession();
+    initHL();
+    initTeacherCodeUI();
+    setInterval(saveSession, 30000);
+  } else {
+    // Gast-Modus: Seite anzeigen ohne Session/Greeting
+    const greeting = document.getElementById("studentGreeting");
+    if (greeting) greeting.style.display = "none";
+    initHL();
   }
-
-  // Greeting
-  const greeting = document.getElementById("studentGreeting");
-  if (greeting) {
-    greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
-    greeting.style.display = "inline";
-  }
-
-  // Restore & init
-  restoreSession();
-  initHL();
-  initTeacherCodeUI();
-  setInterval(saveSession, 30000);
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 
   // KI-Disclaimer in Feedback-Bereich einfügen
@@ -1352,6 +1352,16 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     } else {
       fc.appendChild(uc);
     }
+  // generateTask() automatisch mit Login-Check wrappen
+  if (typeof window.generateTask === "function") {
+    var _origGenerateTask = window.generateTask;
+    window.generateTask = function () {
+      if (sessionStorage.getItem("access") !== "1") {
+        requireLogin(function () { _origGenerateTask(); });
+        return;
+      }
+      _origGenerateTask();
+    };
   }
 };
 
@@ -1431,4 +1441,155 @@ var loadDallEImage = function(prompt, containerId) {
   loadEducationalImage(prompt, containerId, null);
 };
 var loadUnsplashImage = loadDallEImage;
+
+/* ============================
+   Login-Modal für Fachseiten
+   Wird von requireLogin() aufgerufen wenn ein Gast
+   "Aufgabe generieren" oder ähnliches klickt.
+   ============================ */
+var _loginModalCallback = null;
+var _loginModalMode = "login";
+
+function requireLogin(callback) {
+  if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+    callback();
+    return;
+  }
+  _loginModalCallback = callback;
+  _loginModalMode = "login";
+  _ensureLoginModal();
+  document.getElementById("sharedLoginOverlay").style.display = "flex";
+  _updateLoginModalUI();
+  setTimeout(function () {
+    var nameInput = document.getElementById("slModalName");
+    if (nameInput) nameInput.focus();
+  }, 100);
+}
+
+function _ensureLoginModal() {
+  if (document.getElementById("sharedLoginOverlay")) return;
+  var overlay = document.createElement("div");
+  overlay.id = "sharedLoginOverlay";
+  overlay.style.cssText = "display:none;position:fixed;inset:0;z-index:9800;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) _closeLoginModal(); });
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:400px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;">' +
+    '<h2 style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
+    '<p style="color:var(--ink-muted);text-align:center;font-size:.85rem;margin:0 0 1.2rem;">Um eine Aufgabe zu generieren, melde dich bitte an.</p>' +
+    '<div style="display:flex;gap:.3rem;margin-bottom:1rem;">' +
+    '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
+    '<button id="slModeRegister" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'register\')">Registrieren</button>' +
+    '</div>' +
+    '<input type="text" id="slModalName" placeholder="Dein Name …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<div id="slRegFields" style="display:none;">' +
+    '<input type="password" id="slModalPwConfirm" placeholder="Passwort bestätigen …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalClassPw" placeholder="Klassenpasswort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '</div>' +
+    '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
+    '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
+    '<button type="button" onclick="_closeLoginModal()" style="width:100%;padding:.5rem;background:none;border:none;color:var(--ink-muted);font-size:.82rem;cursor:pointer;margin-top:.5rem;min-height:44px;font-family:inherit;">Abbrechen</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+function _setLoginModalMode(mode) {
+  _loginModalMode = mode;
+  _updateLoginModalUI();
+}
+
+function _updateLoginModalUI() {
+  var loginBtn = document.getElementById("slModeLogin");
+  var regBtn = document.getElementById("slModeRegister");
+  var regFields = document.getElementById("slRegFields");
+  var submitBtn = document.getElementById("slModalBtn");
+  var pwInput = document.getElementById("slModalPw");
+  if (_loginModalMode === "register") {
+    loginBtn.style.background = "var(--surface)"; loginBtn.style.color = "var(--ink)";
+    regBtn.style.background = "var(--accent)"; regBtn.style.color = "#fff";
+    regFields.style.display = "block";
+    submitBtn.textContent = "Registrieren";
+    pwInput.placeholder = "Eigenes Passwort wählen …";
+  } else {
+    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "#fff";
+    regBtn.style.background = "var(--surface)"; regBtn.style.color = "var(--ink)";
+    regFields.style.display = "none";
+    submitBtn.textContent = "Anmelden";
+    pwInput.placeholder = "Dein Passwort …";
+  }
+  var err = document.getElementById("slModalError");
+  if (err) err.style.display = "none";
+}
+
+async function _doLoginModal() {
+  var name = document.getElementById("slModalName").value.trim();
+  var pw = document.getElementById("slModalPw").value;
+  var err = document.getElementById("slModalError");
+  var btn = document.getElementById("slModalBtn");
+
+  if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
+  if (!pw) { err.textContent = "Passwort erforderlich."; err.style.display = "block"; return; }
+  if (_loginModalMode === "register" && pw.length < 6) { err.textContent = "Passwort muss mindestens 6 Zeichen haben."; err.style.display = "block"; return; }
+
+  var level = sessionStorage.getItem("student_level") || "eA";
+  var body = { student_name: name, personal_password: pw, mode: _loginModalMode, level: level };
+
+  if (_loginModalMode === "register") {
+    var confirmPw = document.getElementById("slModalPwConfirm").value;
+    var classPw = document.getElementById("slModalClassPw").value.trim();
+    if (pw !== confirmPw) { err.textContent = "Passwörter stimmen nicht überein."; err.style.display = "block"; return; }
+    if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
+    body.password = classPw;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Prüfe …";
+  err.style.display = "none";
+
+  try {
+    var res = await fetch(API_BASE + "/api/check-student", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem("access", "1");
+      sessionStorage.setItem("access_token", data.token);
+      sessionStorage.setItem("student_name", name);
+      if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+
+      // Greeting aktualisieren
+      var greeting = document.getElementById("studentGreeting");
+      if (greeting) {
+        greeting.textContent = name + " · " + (sessionStorage.getItem("student_level") || "eA").toUpperCase();
+        greeting.style.display = "inline";
+      }
+
+      _closeLoginModal();
+      // Callback ausfuehren (z.B. generateTask)
+      if (_loginModalCallback) {
+        var cb = _loginModalCallback;
+        _loginModalCallback = null;
+        cb();
+      }
+    } else {
+      err.textContent = data.error || "Fehler bei der Anmeldung.";
+      err.style.display = "block";
+    }
+  } catch (e) {
+    err.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+    err.style.display = "block";
+  }
+
+  btn.disabled = false;
+  btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
+}
+
+function _closeLoginModal() {
+  var overlay = document.getElementById("sharedLoginOverlay");
+  if (overlay) overlay.style.display = "none";
+  _loginModalCallback = null;
+}
 
