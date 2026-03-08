@@ -943,7 +943,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       document.getElementById("feedbackLoader").style.display = "block";
       document.getElementById("feedbackContent").style.display = "none";
       try {
-        var d = await apiCall("/api/fos-grade-abitur13-mathe", {
+        var d = await apiCallAsync("fos-grade-abitur13-mathe", {
           teil_a_pflicht: CONFIG.storedData.teil_a_pflicht || [],
           teil_a_wahl: getSelectedWahlaufgaben(),
           teil_b: CONFIG.storedData.teil_b || [],

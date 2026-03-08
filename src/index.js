@@ -443,6 +443,14 @@ export default {
         return await handleTeacherResults(request, env);
       }
 
+      // ===== ASYNC GRADING: STATUS (vor Auth-Check, kein Rate-Limit da lightweight) =====
+      if (pathname.startsWith("/api/grade-status/") && request.method === "GET") {
+        const authError = await checkAuth(request, env);
+        if (authError) return authError;
+        const jobId = pathname.replace("/api/grade-status/", "");
+        return await handleGradeStatus(jobId, env);
+      }
+
       // ===== AUTH CHECK für /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
         const authError = await checkAuth(request, env);
@@ -883,6 +891,11 @@ export default {
         return await handleSubmitResult(request, env);
       }
 
+      // ===== ASYNC GRADING: SUBMIT =====
+      if (pathname === "/api/grade-submit" && request.method === "POST") {
+        return await handleGradeSubmit(request, env);
+      }
+
       // ===== STUDENT PREFERENCES =====
       if (pathname === "/api/get-preferences" && request.method === "POST") {
         return await handleGetPreferences(request, env);
@@ -913,9 +926,69 @@ export default {
     }
   },
 
-  // Täglicher Cron-Job für Email-Erinnerungen
+  // Täglicher Cron-Job für Email-Erinnerungen + Aufräumen alter Grading-Jobs
   async scheduled(event, env, ctx) {
     ctx.waitUntil(sendReminderEmails(env));
+    ctx.waitUntil(cleanupOldGradingJobs(env));
+  },
+
+  // Queue-Consumer für asynchrone KI-Korrekturen
+  async queue(batch, env) {
+    // Dead Letter Queue: Jobs einfach bestätigen (Status steht bereits in D1)
+    if (batch.queue === "grading-dlq") {
+      for (const message of batch.messages) {
+        console.warn("DLQ: Job endgültig fehlgeschlagen:", message.body.jobId);
+        message.ack();
+      }
+      return;
+    }
+
+    for (const message of batch.messages) {
+      const { jobId, endpoint } = message.body;
+
+      try {
+        // Status auf "processing" setzen
+        await env.DB.prepare(
+          "UPDATE grading_jobs SET status = 'processing', attempts = attempts + 1, updated_at = ? WHERE id = ?"
+        ).bind(new Date().toISOString(), jobId).run();
+
+        // Input-Daten aus D1 laden
+        const job = await env.DB.prepare(
+          "SELECT input_data, endpoint FROM grading_jobs WHERE id = ?"
+        ).bind(jobId).first();
+
+        if (!job) {
+          console.error("Grading Job nicht gefunden:", jobId);
+          message.ack();
+          continue;
+        }
+
+        const inputData = JSON.parse(job.input_data);
+
+        // Grade-Handler ausführen (hier passiert der eigentliche KI-Aufruf)
+        const result = await executeGradeHandler(job.endpoint, inputData, env);
+
+        // Ergebnis in D1 speichern
+        await env.DB.prepare(
+          "UPDATE grading_jobs SET status = 'completed', result_data = ?, updated_at = ? WHERE id = ?"
+        ).bind(JSON.stringify(result), new Date().toISOString(), jobId).run();
+
+        message.ack();
+
+      } catch (err) {
+        console.error("Grading Job " + jobId + " fehlgeschlagen:", err.message);
+
+        // Fehlerstatus in D1 speichern
+        const safeMsg = truncate(err.message || "Unbekannter Fehler", 500);
+        const isUnsafe = /api[_-]?key|token|secret|stack|\.js:/i.test(safeMsg);
+        await env.DB.prepare(
+          "UPDATE grading_jobs SET status = 'failed', error_msg = ?, updated_at = ? WHERE id = ?"
+        ).bind(isUnsafe ? "Interner Fehler." : safeMsg, new Date().toISOString(), jobId).run();
+
+        // Queue-eigener Retry-Mechanismus (nach max_retries → DLQ)
+        message.retry();
+      }
+    }
   }
 };
 
@@ -13196,5 +13269,160 @@ async function handleStudentCodes(request, env) {
      WHERE stl.student_name_lower = ?`
   ).bind(nameLower).all();
   return jsonResponse({ success: true, codes: codes || [] }, 200, env);
+}
+
+/* ================= ASYNC GRADING: HANDLER ================= */
+
+const GRADE_HANDLER_MAP = {
+  "grade": handleGrade,
+  "grade-deutsch": handleGradeDeutsch,
+  "grade-pug": handleGradePuG,
+  "grade-abitur-pug": handleGradeAbiturPuG,
+  "grade-abitur-geschichte": handleGradeAbiturGeschichte,
+  "grade-abitur-wr": handleGradeAbiturWR,
+  "grade-wr": handleGradeWR,
+  "grade-ethik": handleGradeEthik,
+  "grade-abitur-ethik": handleGradeAbiturEthik,
+  "grade-religion": handleGradeReligion,
+  "grade-abitur-religion": handleGradeAbiturReligion,
+  "grade-katholisch": handleGradeKatholisch,
+  "grade-abitur-katholisch": handleGradeAbiturKatholisch,
+  "grade-geographie": handleGradeGeographie,
+  "grade-abitur-geographie": handleGradeAbiturGeographie,
+  "grade-latein": handleGradeLatein,
+  "grade-abitur-latein": handleGradeAbiturLatein,
+  "grade-mathe": handleGradeMathe,
+  "grade-abitur-mathe": handleGradeAbiturMathe,
+  "grade-chemie": handleGradeChemie,
+  "grade-physik": handleGradePhysik,
+  "grade-bio": handleGradeBio,
+  "grade-sport": handleGradeSport,
+  "grade-abitur-sport": handleGradeAbiturSport,
+  "grade-informatik": handleGradeInformatik,
+  "grade-abitur-chemie": handleGradeAbiturChemie,
+  "grade-abitur-physik": handleGradeAbiturPhysik,
+  "grade-abitur-biologie": handleGradeAbiturBiologie,
+  "grade-abitur-informatik": handleGradeAbiturInformatik,
+};
+
+function isValidGradeEndpoint(endpoint) {
+  // Gymnasium-Grade-Handler
+  if (GRADE_HANDLER_MAP[endpoint]) return true;
+  // FOS-Grade-Endpoints (werden über handleFOSRoute geroutet)
+  if (/^fos-grade(-abitur|-abitur13)?-[a-z]+$/.test(endpoint)) return true;
+  return false;
+}
+
+async function handleGradeSubmit(request, env) {
+  const body = await request.json();
+  const { endpoint, student_name, ...inputData } = body;
+
+  if (!endpoint || !isValidGradeEndpoint(endpoint)) {
+    return jsonResponse({ error: "Ungültiger Endpoint: " + (endpoint || "(leer)") }, 400, env);
+  }
+
+  // Minimale Input-Validierung
+  const hasText = inputData.student_text || inputData.student_texts || inputData.text_a ||
+                  inputData.student_text_en || inputData.rubric_prompt;
+  if (!hasText) {
+    return jsonResponse({ error: "Kein Schülertext vorhanden." }, 400, env);
+  }
+
+  const jobId = crypto.randomUUID();
+  const now = new Date().toISOString();
+  const sName = truncate(student_name || "Unbekannt", 100);
+
+  // Job in D1 anlegen
+  await env.DB.prepare(
+    `INSERT INTO grading_jobs (id, student_name, endpoint, input_data, status, attempts, created_at, updated_at)
+     VALUES (?, ?, ?, ?, 'pending', 0, ?, ?)`
+  ).bind(jobId, sName, endpoint, JSON.stringify(inputData), now, now).run();
+
+  // Message in Queue einstellen
+  await env.GRADING_QUEUE.send({ jobId, endpoint });
+
+  return jsonResponse({ job_id: jobId, status: "pending" }, 202, env);
+}
+
+async function handleGradeStatus(jobId, env) {
+  if (!jobId || jobId.length > 50) {
+    return jsonResponse({ error: "Ungültige Job-ID." }, 400, env);
+  }
+
+  const job = await env.DB.prepare(
+    "SELECT status, result_data, error_msg, created_at FROM grading_jobs WHERE id = ?"
+  ).bind(jobId).first();
+
+  if (!job) {
+    return jsonResponse({ error: "Job nicht gefunden." }, 404, env);
+  }
+
+  if (job.status === "completed") {
+    return jsonResponse({
+      status: "completed",
+      result: JSON.parse(job.result_data)
+    }, 200, env);
+  }
+
+  if (job.status === "failed") {
+    return jsonResponse({
+      status: "failed",
+      error: job.error_msg || "Korrektur fehlgeschlagen. Bitte erneut versuchen."
+    }, 200, env);
+  }
+
+  // pending oder processing
+  const elapsed = Math.round((Date.now() - new Date(job.created_at).getTime()) / 1000);
+  return jsonResponse({
+    status: job.status,
+    elapsed_seconds: elapsed
+  }, 200, env);
+}
+
+async function executeGradeHandler(endpoint, inputData, env) {
+  // Fake-Request für bestehende Handler (rufen request.json() auf)
+  const fakeRequest = { json: async () => inputData, headers: new Headers() };
+  let response;
+
+  if (endpoint.startsWith("fos-")) {
+    // FOS-Endpoints über handleFOSRoute
+    response = await handleFOSRoute("/api/" + endpoint, fakeRequest, env);
+  } else {
+    const handler = GRADE_HANDLER_MAP[endpoint];
+    if (!handler) {
+      throw new Error("Kein Handler für Endpoint: " + endpoint);
+    }
+    response = await handler(fakeRequest, env);
+  }
+
+  // Response-Body parsen
+  const responseData = await response.json();
+
+  if (response.status >= 400) {
+    throw new Error(responseData.error || "Handler-Fehler (Status " + response.status + ")");
+  }
+
+  return responseData;
+}
+
+async function cleanupOldGradingJobs(env) {
+  try {
+    // Jobs älter als 24h löschen
+    const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const result = await env.DB.prepare(
+      "DELETE FROM grading_jobs WHERE created_at < ?"
+    ).bind(cutoff).run();
+    if (result.meta?.changes > 0) {
+      console.log("Alte Grading-Jobs bereinigt:", result.meta.changes);
+    }
+
+    // Jobs die länger als 5 Min im Status "processing" hängen auf "failed" setzen
+    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    await env.DB.prepare(
+      "UPDATE grading_jobs SET status = 'failed', error_msg = 'Zeitlimit überschritten', updated_at = ? WHERE status = 'processing' AND updated_at < ?"
+    ).bind(new Date().toISOString(), fiveMinAgo).run();
+  } catch (err) {
+    console.error("Grading-Jobs Cleanup fehlgeschlagen:", err.message);
+  }
 }
 

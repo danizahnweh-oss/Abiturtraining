@@ -883,7 +883,7 @@ Struktur:
         const niveau = CONFIG.storedData._niveau || document.getElementById("niveauSelect").value;
         const maxBE = CONFIG.storedData.gesamt_be || (niveau === "gA" ? 100 : 60);
 
-        const d = await apiCall("/api/grade-wr", {
+        const d = await apiCallAsync("grade-wr", {
           aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
           materialien: CONFIG.storedData.materialien || [],
           student_text: t,

@@ -1333,7 +1333,7 @@
       });
 
       try {
-        var d = await apiCall("/api/fos-grade-abitur-englisch", {
+        var d = await apiCallAsync("fos-grade-abitur-englisch", {
           aufgabenbloecke: [
             { nr: "Reading", teilaufgaben: readingSubmit },
             { nr: "Writing", teilaufgaben: [{ text: writingText, taskNr: selectedWritingTask + 1 }] }

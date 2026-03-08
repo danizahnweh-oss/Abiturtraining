@@ -635,7 +635,7 @@ gesamt_np = round(verstehen_np * 0.6 + darstellung_np * 0.4)`;
       document.getElementById("feedbackLoader").style.display = "block";
       document.getElementById("feedbackContent").style.display = "none";
       try {
-        const d = await apiCall("/api/grade-deutsch", {
+        const d = await apiCallAsync("grade-deutsch", {
           task_instruction: CONFIG.storedData.task_instruction,
           materials: CONFIG.storedData.materials,
           zieltext: CONFIG.storedData.zieltext,

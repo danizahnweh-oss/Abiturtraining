@@ -532,7 +532,7 @@
       document.getElementById("submitBtn").disabled = true; nav("feedback");
       document.getElementById("feedbackLoader").style.display = "block"; document.getElementById("feedbackContent").style.display = "none";
       try {
-        var d = await apiCall("/api/fos-grade-mathe", { aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "", teilaufgaben: CONFIG.storedData.teilaufgaben || [], gesamt_be: CONFIG.storedData.gesamt_be || 0, sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet, student_text: allText, student_texts: student_texts });
+        var d = await apiCallAsync("fos-grade-mathe", { aufgabe: CONFIG.storedData.aufgabe || CONFIG.storedData.task_instruction || "", teilaufgaben: CONFIG.storedData.teilaufgaben || [], gesamt_be: CONFIG.storedData.gesamt_be || 0, sachgebiet: CONFIG.storedData.sachgebiet || CONFIG.sachgebiet, student_text: allText, student_texts: student_texts });
         var grid = document.getElementById("beScoresGrid");
         if (d.teilbewertungen && d.teilbewertungen.length) grid.innerHTML = d.teilbewertungen.map(function(t) { return '<div class="be-score-card"><div class="score-label">' + escapeHtml(t.id||"") + '</div><div class="score-value">' + (t.erreichte_be ?? "?") + '</div><div class="score-max">/ ' + (t.max_be ?? "?") + ' BE</div></div>'; }).join("");
         else grid.innerHTML = "";

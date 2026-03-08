@@ -1085,7 +1085,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
         };
         if (CONFIG.storedData.materials) payload.materials = CONFIG.storedData.materials;
 
-        const d = await apiCall("/api/grade-abitur-pug", payload);
+        const d = await apiCallAsync("grade-abitur-pug", payload);
         document.getElementById("scoreTeilA").textContent = d.scores?.teil_a ?? "–";
         document.getElementById("scoreTeilB").textContent = d.scores?.teil_b ?? "–";
         document.getElementById("scoreDarstellung").textContent = d.scores?.darstellung ?? "–";

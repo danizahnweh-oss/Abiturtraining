@@ -900,7 +900,7 @@ Struktur:
       try {
         const maxBE = CONFIG.storedData.gesamt_be || 60;
 
-        const d = await apiCall("/api/fos-grade-chemie", {
+        const d = await apiCallAsync("fos-grade-chemie", {
           aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
           materialien: CONFIG.storedData.materialien || [],
           student_text: t,

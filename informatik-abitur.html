@@ -946,7 +946,7 @@
       var lc = getLevelConfig();
 
       try {
-        var d = await apiCall("/api/grade-abitur-informatik", {
+        var d = await apiCallAsync("grade-abitur-informatik", {
           aufgaben: getSelectedAufgaben(),
           student_texts: studentTexts,
           student_text: allText,

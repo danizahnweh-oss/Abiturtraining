@@ -596,7 +596,7 @@
       document.getElementById("feedbackLoader").style.display = "block";
       document.getElementById("feedbackContent").style.display = "none";
       try {
-        var d = await apiCall("/api/fos-grade-abitur-paedpsych", {
+        var d = await apiCallAsync("fos-grade-abitur-paedpsych", {
           aufgabenbloecke: CONFIG.storedData.aufgaben || [],
           student_text: combinedText,
           gesamt_be: CONFIG.storedData.gesamt_be || 80

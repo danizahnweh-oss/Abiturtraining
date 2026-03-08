@@ -886,7 +886,7 @@ Struktur:
       try {
         const maxBE = CONFIG.storedData.gesamt_be || 60;
 
-        const d = await apiCall("/api/fos-grade-kunstgeschichte", {
+        const d = await apiCallAsync("fos-grade-kunstgeschichte", {
           aufgabenbloecke: CONFIG.storedData.aufgabenbloecke || [],
           materialien: CONFIG.storedData.materialien || [],
           student_text: t,
