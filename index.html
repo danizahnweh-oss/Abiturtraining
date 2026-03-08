@@ -3885,19 +3885,17 @@
       var allDates = [];
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
-      var MONAT_KURZ = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
       document.querySelectorAll(".subject-countdown[data-subject]").forEach(function (el) {
         var subj = el.dataset.subject;
         var examDate = getExamDate(subj);
         if (!examDate) { el.textContent = ""; return; }
         var days = daysUntil(examDate);
-        var dateStr = examDate.getDate() + ". " + MONAT_KURZ[examDate.getMonth()];
         if (days > 0) {
           allDates.push(days);
-          el.textContent = "📅 " + dateStr + " · " + days + (days === 1 ? " Tag" : " Tage");
+          el.textContent = "noch " + days + (days === 1 ? " Tag" : " Tage");
           el.className = "subject-countdown" + (days <= 14 ? " soon" : "");
         } else if (days === 0) {
-          el.textContent = "📅 " + dateStr + " · Heute!";
+          el.textContent = "Heute!";
           el.className = "subject-countdown soon";
         } else {
           el.textContent = "✅ abgeschlossen";
