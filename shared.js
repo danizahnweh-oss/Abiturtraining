@@ -72,6 +72,80 @@ async function apiCall(endpoint, body) {
   return res.json();
 }
 
+/* ================= ASYNC API (Queue-basiert) ================= */
+
+async function apiCallAsync(gradeEndpoint, body, options) {
+  options = options || {};
+  var pollInterval = options.pollInterval || 3000;
+  var maxWait = options.maxWait || 180000; // 3 Minuten
+  var onProgress = options.onProgress || null;
+
+  // OCR-Bilder automatisch mitsenden
+  if (/grade/.test(gradeEndpoint) && typeof getOCRImages === "function") {
+    var imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
+
+  // 1. Job erstellen
+  var submitBody = Object.assign({}, body, {
+    endpoint: gradeEndpoint,
+    student_name: sessionStorage.getItem("student_name") || "Unbekannt"
+  });
+
+  var submitRes = await fetch(API_BASE + "/api/grade-submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+    body: JSON.stringify(submitBody)
+  });
+
+  if (!submitRes.ok) {
+    var submitErr = await submitRes.json().catch(function() { return {}; });
+    throw new Error(submitErr.error || "HTTP " + submitRes.status);
+  }
+
+  var submitData = await submitRes.json();
+  var jobId = submitData.job_id;
+
+  // 2. Polling
+  var startTime = Date.now();
+  while (Date.now() - startTime < maxWait) {
+    await new Promise(function(r) { setTimeout(r, pollInterval); });
+
+    var statusRes;
+    try {
+      statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
+        headers: { "X-Access-Token": getAccessToken() }
+      });
+    } catch (fetchErr) {
+      // Netzwerkfehler beim Polling – nächster Versuch
+      continue;
+    }
+
+    if (!statusRes.ok) continue;
+
+    var statusData = await statusRes.json();
+
+    if (onProgress) {
+      try { onProgress(statusData); } catch (e) { /* Callback-Fehler ignorieren */ }
+    }
+
+    if (statusData.status === "completed") {
+      return statusData.result;
+    }
+
+    if (statusData.status === "failed") {
+      throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+    }
+
+    // Adaptives Polling: nach 30s langsamer
+    if (Date.now() - startTime > 30000 && pollInterval < 8000) {
+      pollInterval = Math.min(pollInterval + 1000, 8000);
+    }
+  }
+
+  throw new Error("Zeitlimit überschritten. Die Korrektur dauert ungewöhnlich lang. Bitte versuche es erneut.");
+}
+
 /* ================= KORREKTUR & ASPEKTE ================= */
 
 function renderKorrekturFeedback(d) {

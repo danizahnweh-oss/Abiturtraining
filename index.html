@@ -356,6 +356,83 @@
       transform: translateX(4px)
     }
 
+    .training-card {
+      border-color: var(--accent);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-family: inherit
+    }
+
+    .training-card:hover,
+    .training-card:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 20px 25px -5px rgba(59, 130, 246, .1)
+    }
+
+    .training-card::before {
+      background: linear-gradient(135deg, rgba(59, 130, 246, .05), transparent)
+    }
+
+    .training-fach-btn {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      width: 100%;
+      padding: .8rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: .9rem;
+      color: var(--ink);
+      transition: all .15s;
+      text-align: left;
+      min-height: 48px
+    }
+
+    .training-fach-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft, rgba(59,130,246,.05))
+    }
+
+    .training-fach-btn .tf-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0
+    }
+
+    .training-fach-btn .tf-name {
+      flex: 1;
+      font-weight: 600
+    }
+
+    .training-fach-btn .tf-tag {
+      font-size: .7rem;
+      color: var(--ink-muted);
+      opacity: .7
+    }
+
+    .training-fach-btn .tf-arrow {
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0
+    }
+
+    .training-group-label {
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin: .8rem 0 .3rem;
+      padding-left: .2rem
+    }
+
+    .training-group-label:first-child {
+      margin-top: 0
+    }
+
     .school-badge {
       background: linear-gradient(135deg, var(--accent-soft), var(--accent-de-soft), var(--accent-ge-soft), var(--accent-pug-soft), var(--accent-wr-soft), var(--accent-fr-soft), var(--accent-it-soft), var(--accent-eth-soft), var(--accent-geo-soft), var(--accent-lat-soft), var(--accent-mat-soft), var(--accent-che-soft), var(--accent-phy-soft), var(--accent-bio-soft));
       color: var(--ink)
@@ -519,56 +596,6 @@
 
     .countdown-ask-icon {
       font-size: 1.1rem
-    }
-
-    .training-start-wrapper {
-      display: flex;
-      justify-content: center;
-      gap: .6rem;
-      margin-top: .8rem;
-      flex-wrap: wrap;
-      align-items: center
-    }
-
-    .training-start-select {
-      padding: .5rem .8rem;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      font-size: .9rem;
-      font-family: inherit;
-      min-height: 44px;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23fff' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right .8rem center;
-      padding-right: 2rem
-    }
-
-    .training-start-select option {
-      background: var(--bg);
-      color: var(--ink)
-    }
-
-    .training-start-btn {
-      padding: .5rem 1.2rem;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.2);
-      color: #fff;
-      font-size: .9rem;
-      font-family: inherit;
-      cursor: pointer;
-      min-height: 44px;
-      font-weight: 600;
-      transition: all .2s
-    }
-
-    .training-start-btn:hover {
-      background: rgba(255,255,255,0.35)
     }
 
     .countdown-bar {
@@ -2755,12 +2782,6 @@
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
       <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
         ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
-      <div class="training-start-wrapper">
-        <select id="trainingFachSelect" class="training-start-select" aria-label="Fach auswählen">
-          <option value="">Fach wählen…</option>
-        </select>
-        <button class="training-start-btn" onclick="startTrainingFromSelect()">▶ Training starten</button>
-      </div>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
         <button onclick="enableCountdown()"
           style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:all 0.2s;">
@@ -3059,6 +3080,17 @@
       </button>
     </div>
     <div class="kolloquium-banner">
+      <button type="button" class="kolloquium-card training-card" onclick="openTrainingModal()" aria-label="Training starten">
+        <div class="kol-icon" aria-hidden="true">📝</div>
+        <div class="kol-body">
+          <div class="kol-title" style="color:var(--accent)">Training starten</div>
+          <div class="kol-desc">Wähle ein Fach und starte direkt mit dem Üben – schriftliche Aufgaben, Abiturtraining und mehr.</div>
+        </div>
+        <div class="kol-badge" style="background:var(--accent-soft,rgba(59,130,246,.1));color:var(--accent)">Fach wählen</div>
+        <div class="kol-arrow" aria-hidden="true">→</div>
+      </button>
+    </div>
+    <div class="kolloquium-banner">
       <a href="abitur-kolloquium-trainer/dist/" class="kolloquium-card" aria-label="Kolloquiumstrainer öffnen">
         <div class="kol-icon" aria-hidden="true">🎤</div>
         <div class="kol-body">
@@ -3105,6 +3137,16 @@
           </div>
           <div id="examCodeStatus" style="font-size:.78rem;margin-top:.4rem;color:var(--ink-muted);"></div>
         </div>
+      </div>
+    </div>
+
+    <!-- Training-Fachauswahl Modal -->
+    <div class="exam-type-overlay" id="trainingOverlay" onclick="if(event.target===this)closeTrainingModal()">
+      <div class="exam-type-modal">
+        <h3>📝 Training starten</h3>
+        <p class="etm-sub">Welches Fach möchtest du üben?</p>
+        <div id="trainingFachList" class="exam-type-choices" style="flex-direction:column;"></div>
+        <button class="exam-type-cancel" onclick="closeTrainingModal()">Abbrechen</button>
       </div>
     </div>
 
@@ -4732,7 +4774,6 @@
       } else {
         if (additionalSection) additionalSection.style.display = "none";
       }
-      populateTrainingSelect();
     }
 
     function renderExamSubjectGrid() {
@@ -5357,48 +5398,68 @@
     };
 
     /* ====== TRAINING STARTEN ====== */
-    function populateTrainingSelect() {
-      var sel = document.getElementById("trainingFachSelect");
-      if (!sel) return;
-      sel.innerHTML = '<option value="">Fach wählen…</option>';
+    function openTrainingModal() {
+      var list = document.getElementById("trainingFachList");
+      if (!list) return;
+      list.innerHTML = "";
 
-      // Abifaecher zuerst
       var examAll = [];
       if (examSubjectsCache.ea) examAll.push(examSubjectsCache.ea);
       examSubjectsCache.written.forEach(function (s) { if (examAll.indexOf(s) === -1) examAll.push(s); });
       examSubjectsCache.oral.forEach(function (s) { examAll.push(s); });
 
-      if (examAll.length > 0) {
-        var grp1 = document.createElement("optgroup");
-        grp1.label = "Abiturfächer";
-        examAll.forEach(function (s) {
-          var opt = document.createElement("option");
-          opt.value = s;
-          opt.textContent = SUBJECT_DISPLAY[s] || s;
-          grp1.appendChild(opt);
+      function makeFachBtn(subj, tag) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "training-fach-btn";
+        btn.innerHTML = '<span class="tf-icon">' + (SUBJECT_EMOJI[subj] || "📚") + '</span>'
+          + '<span class="tf-name">' + (SUBJECT_DISPLAY[subj] || subj) + '</span>'
+          + (tag ? '<span class="tf-tag">' + tag + '</span>' : '')
+          + '<span class="tf-arrow">→</span>';
+        btn.addEventListener("click", function () {
+          closeTrainingModal();
+          selectSubject(subj, true);
         });
-        sel.appendChild(grp1);
+        return btn;
       }
 
-      // Weitere Faecher
+      if (examAll.length > 0) {
+        var lbl1 = document.createElement("div");
+        lbl1.className = "training-group-label";
+        lbl1.textContent = "Abiturfächer";
+        list.appendChild(lbl1);
+        examAll.forEach(function (s) {
+          var isEa = examSubjectsCache.ea === s;
+          var isOral = examSubjectsCache.oral.indexOf(s) !== -1;
+          var tag = isEa ? "eA" : isOral ? "mündlich" : "schriftlich";
+          list.appendChild(makeFachBtn(s, tag));
+        });
+      }
+
       var additional = additionalSubjectsCache.filter(function (s) { return examAll.indexOf(s) === -1; });
       if (additional.length > 0) {
-        var grp2 = document.createElement("optgroup");
-        grp2.label = "Weitere Fächer";
+        var lbl2 = document.createElement("div");
+        lbl2.className = "training-group-label";
+        lbl2.textContent = "Weitere Fächer";
+        list.appendChild(lbl2);
         additional.forEach(function (s) {
-          var opt = document.createElement("option");
-          opt.value = s;
-          opt.textContent = SUBJECT_DISPLAY[s] || s;
-          grp2.appendChild(opt);
+          list.appendChild(makeFachBtn(s, ""));
         });
-        sel.appendChild(grp2);
       }
+
+      if (examAll.length === 0 && additional.length === 0) {
+        // Alle Faecher anzeigen wenn nichts ausgewaehlt
+        Object.keys(SUBJECT_DISPLAY).forEach(function (s) {
+          if (s === "geschichte") return;
+          list.appendChild(makeFachBtn(s, ""));
+        });
+      }
+
+      document.getElementById("trainingOverlay").classList.add("open");
     }
 
-    function startTrainingFromSelect() {
-      var sel = document.getElementById("trainingFachSelect");
-      if (!sel || !sel.value) return;
-      selectSubject(sel.value, true);
+    function closeTrainingModal() {
+      document.getElementById("trainingOverlay").classList.remove("open");
     }
 
     function selectSubject(subject, _push) {
