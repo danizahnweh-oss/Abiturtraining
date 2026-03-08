@@ -376,19 +376,15 @@ function nav(step, _pushHistory) {
 function toggleDarkMode() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
-  localStorage.setItem("theme", isDark ? "light" : "dark");
   const btn = document.getElementById("themeToggleBtn");
   if (btn) btn.textContent = isDark ? "🌙" : "☀️";
   if (progressChartInstance) renderProgressChart();
 }
 
 function initTheme() {
-  const saved = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const theme = saved || (prefersDark ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-theme", "light");
   const btn = document.getElementById("themeToggleBtn");
-  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
+  if (btn) btn.textContent = "🌙";
 }
 
 /* ================= TIMER ================= */
