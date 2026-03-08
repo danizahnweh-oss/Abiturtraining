@@ -34,12 +34,12 @@ function isThinkingText(text) {
 /* ───────── Setup-Generierung (Thema + Rollen) ───────── */
 
 /**
- * Generiert Diskussionsthema und Rollenkarten per Gemini Text-API.
+ * Generiert Diskussionsthema im echten FOS-Prüfungsformat per Gemini Text-API.
  * @param {Object} config
  * @param {number} config.totalCount – Gesamtzahl Teilnehmer (4 oder 5)
  * @param {number} config.realStudents – Anzahl echte Schüler (1-3)
  * @param {string} [config.topic] – Optionales Wunschthema (sonst zufällig)
- * @returns {Promise<Object>} { topic, context, roles: [{ name, stance, background, args, isReal }] }
+ * @returns {Promise<Object>} { topic, situation, taskInstruction, opinions: [{ label, opinion }] }
  */
 export async function generateDiscussionSetup(config) {
   var mod = await loadGenAI();
@@ -47,16 +47,28 @@ export async function generateDiscussionSetup(config) {
 
   var topicHint = config.topic && config.topic !== 'random'
     ? 'Verwende dieses Thema: "' + config.topic + '".'
-    : 'Wähle ein aktuelles, kontroverses Thema das Jugendliche interessiert (z.B. Social Media, Klimawandel, KI, Bildung, Arbeitswelt, Gleichberechtigung, Migration).';
+    : 'Wähle ein aktuelles, kontroverses Thema das FOS-Schüler interessiert (z.B. Social Media, Klimawandel, Jugendkriminalität, Fake News, Arbeitswelt, Umwelt, Tourismus, Ernährung, Stadtentwicklung).';
 
-  var prompt = 'Du bist ein erfahrener FOS-Englischlehrer in Bayern. Erstelle ein Setup für eine englische Gruppendiskussion.\n\n' +
+  var prompt = 'Du bist ein erfahrener FOS-Englischlehrer in Bayern und erstellst Aufgaben für die mündliche Gruppenprüfung (MGP) in Englisch.\n\n' +
     topicHint + '\n\n' +
-    'Erstelle genau ' + config.totalCount + ' verschiedene Rollen mit unterschiedlichen Standpunkten zum Thema.\n' +
-    'Die ersten ' + config.realStudents + ' Rolle(n) sind für echte Schüler bestimmt, die restlichen ' + (config.totalCount - config.realStudents) + ' für die KI.\n\n' +
-    'WICHTIG: Alles auf ENGLISCH (Thema, Rollen, Argumente). Sprachniveau B2-C1.\n\n' +
+    'Erstelle eine Aufgabe im ECHTEN FOS-Prüfungsformat mit genau ' + config.totalCount + ' Teilnehmern.\n\n' +
+    'Das Format muss so aussehen:\n' +
+    '1. SITUATION: Ein konkreter Rahmen, wer die Teilnehmer sind und warum sie diskutieren (z.B. "You are part of a city council...", "You are in the youth forum...", "The school has recently discovered..."). 3-5 Sätze auf Englisch. Am Ende muss klar sein, dass die Gruppe sich auf EINEN gemeinsamen Vorschlag einigen muss.\n' +
+    '2. TASK INSTRUCTION: Ein kurzer Satz der beschreibt was diskutiert wird (z.B. "In a meeting they discuss which is the best measure to take.").\n' +
+    '3. OPINIONS: Genau ' + config.totalCount + ' verschiedene Meinungen/Positionen, je ein klarer Satz pro Person. Die Meinungen müssen unterschiedlich sein aber Überschneidungen und Kompromissmöglichkeiten bieten.\n\n' +
+    'BEISPIELE für gute Aufgaben:\n' +
+    '- Situation: "You are part of the youth forum \'The future of work is our future\'. Your task is to come up with ideas about what the future of work looks like. In the end you need to present the three most important points to the rest of the forum."\n' +
+    '  Opinions: "Remote work will become the norm." / "Upskilling and lifelong learning is the priority." / "Traditional 9 to 5 workdays will become a thing of the past." / "Job sharing and flexible schedules are the future."\n' +
+    '- Situation: "The school has recently discovered it has a problem with bullying among pupils. A team of pupils\' representatives is asked to make their suggestion how to deal with the issue. They have to put forward ONE proposal they all support."\n' +
+    '  Opinions: "Kick the bullies out immediately." / "Ban the bullies from school for some time." / "Leave it in the hands of a psychologist." / "Create an ethics board with teachers, parents and pupils."\n\n' +
+    'WICHTIG:\n' +
+    '- ALLES auf ENGLISCH. Sprachniveau B2-C1.\n' +
+    '- Opinions sind kurze, klare Statements (1 Satz, max 2 Sätze).\n' +
+    '- Die Situation muss realistisch und für Jugendliche relevant sein.\n\n' +
     'Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):\n' +
-    '{"topic":"...","context":"2-3 Sätze Kontext zum Thema auf Englisch","roles":[' +
-    '{"name":"Vorname","stance":"pro/contra/neutral/moderate","background":"1 Satz Rollenbeschreibung auf Englisch","args":"2-3 Stichpunkte mit Argumenten auf Englisch","isReal":true/false}' +
+    '{"topic":"Kurzer Titel auf Englisch","situation":"3-5 Sätze Situation auf Englisch","taskInstruction":"1 Satz Aufgabe auf Englisch","opinions":[' +
+    '{"label":"Person 1","opinion":"Klare Meinung als 1 Satz auf Englisch"},' +
+    '{"label":"Person 2","opinion":"..."}' +
     ']}';
 
   var response = await ai.models.generateContent({
@@ -69,20 +81,18 @@ export async function generateDiscussionSetup(config) {
     return JSON.parse(raw);
   } catch (e) {
     // Fallback bei Parse-Fehler
-    var roles = [];
+    var opinions = [];
     for (var i = 0; i < config.totalCount; i++) {
-      roles.push({
-        name: 'Student ' + (i + 1),
-        stance: i % 2 === 0 ? 'pro' : 'contra',
-        background: 'A student with strong opinions on the topic.',
-        args: 'Various arguments to discuss.',
-        isReal: i < config.realStudents
+      opinions.push({
+        label: 'Person ' + (i + 1),
+        opinion: 'This person has a unique perspective on the topic.'
       });
     }
     return {
       topic: config.topic || 'The impact of artificial intelligence on education',
-      context: 'Discuss the advantages and disadvantages of this topic from different perspectives.',
-      roles: roles
+      situation: 'You are part of a student committee discussing an important issue at your school. The committee has to present ONE joint recommendation to the school board.',
+      taskInstruction: 'Discuss the different perspectives and come to a compromise by the end.',
+      opinions: opinions
     };
   }
 }
@@ -110,16 +120,19 @@ export async function generateDiscussionFeedback(config) {
     if (config.modelTranscription[i]) lines.push('AI Characters: ' + config.modelTranscription[i]);
   }
 
-  var prompt = 'You are an experienced Bavarian FOS English teacher evaluating a group discussion.\n\n' +
+  var situationInfo = config.situation ? '\nSituation: ' + config.situation + '\n' : '';
+
+  var prompt = 'You are an experienced Bavarian FOS English teacher evaluating a group discussion (Mündliche Gruppenprüfung).\n\n' +
     'Topic: ' + config.topic + '\n' +
+    situationInfo +
     'Number of real students: ' + config.realStudents + '\n\n' +
     'COMPLETE DISCUSSION TRANSCRIPT:\n---\n' +
     (lines.join('\n') || '(No transcript available)') + '\n---\n\n' +
     'Evaluate the student\'s performance in this group discussion. Provide feedback in GERMAN.\n\n' +
-    'Structure your feedback as follows:\n\n' +
+    'Bewerte nach den Kriterien einer FOS-Gruppenprüfung:\n\n' +
     '## Gesamteindruck\n(2-3 Sätze, ehrliche Einschätzung)\n\n' +
     '## Sprachliche Leistung\n- Wortschatz und Ausdrucksfähigkeit\n- Grammatische Korrektheit\n- Flüssigkeit und Aussprache\n- Angemessenheit des Sprachregisters (B2-C1)\n\n' +
-    '## Diskussionsfähigkeit\n- Wurde auf andere Teilnehmer eingegangen?\n- Wurden Argumente überzeugend dargelegt?\n- Wurde die zugewiesene Rolle eingehalten?\n- Gesprächsstrategien (turn-taking, agree/disagree, asking for opinions)\n\n' +
+    '## Diskussionsfähigkeit\n- Wurde die eigene Position klar in der Einleitung dargestellt?\n- Wurde auf andere Teilnehmer eingegangen und auf vorherige Punkte Bezug genommen?\n- Wurden Argumente überzeugend dargelegt?\n- Wurde die zugewiesene Meinung/Rolle eingehalten?\n- Gesprächsstrategien (turn-taking, agree/disagree, asking for opinions, Redewendungen)\n- Wurde aktiv an der Kompromissfindung mitgewirkt?\n\n' +
     '## Stärken\n- Konkrete Beispiele aus dem Gespräch\n\n' +
     '## Verbesserungsbereiche\n- Konkrete Beispiele und Vorschläge\n\n' +
     '## Punkteeinschätzung\n(0-15 Punkte mit Begründung)\n\n' +
@@ -137,39 +150,61 @@ export async function generateDiscussionFeedback(config) {
 /* ───────── Multi-Persona System-Prompt ───────── */
 
 function buildDiscussionInstruction(config) {
-  var aiRoles = config.roles.filter(function(r) { return !r.isReal; });
-  var realRoles = config.roles.filter(function(r) { return r.isReal; });
+  // Bestimme welche Opinions KI-gesteuert und welche Schüler-gesteuert sind
+  var realCount = config.realStudents || 1;
+  var allOpinions = config.opinions || [];
+  var aiOpinions = [];
+  var realOpinions = [];
 
-  var aiChars = aiRoles.map(function(r) {
-    return '- ' + r.name + ' (' + r.stance + '): ' + r.background + '. Key arguments: ' + r.args;
+  allOpinions.forEach(function(op, i) {
+    if (i < realCount) {
+      realOpinions.push(op);
+    } else {
+      aiOpinions.push(op);
+    }
+  });
+
+  var aiChars = aiOpinions.map(function(op) {
+    return '- ' + op.label + ': "' + op.opinion + '"';
   }).join('\n');
 
-  var realChars = realRoles.map(function(r, i) {
-    var label = realRoles.length === 1 ? 'THE STUDENT' : 'STUDENT ' + (i + 1);
-    return '- ' + label + ' plays ' + r.name + ' (' + r.stance + '): ' + r.background;
+  var realChars = realOpinions.map(function(op, i) {
+    var label = realOpinions.length === 1 ? 'THE REAL STUDENT' : 'REAL STUDENT ' + (i + 1);
+    return '- ' + label + ' has the role of ' + op.label + ': "' + op.opinion + '"';
   }).join('\n');
 
   var duration = config.totalCount * 5;
 
-  return 'You are simulating a group discussion at a Bavarian FOS (Fachoberschule).\n' +
-    'There are ' + config.totalCount + ' participants total. You play ' + aiRoles.length + ' of them.\n\n' +
-    'TOPIC: "' + config.topic + '"\n' +
-    'CONTEXT: ' + config.context + '\n\n' +
-    'YOUR CHARACTERS (you simulate these):\n' + aiChars + '\n\n' +
-    'REAL STUDENTS (speaking via microphone, you do NOT play these):\n' + realChars + '\n\n' +
+  return 'You are simulating a mündliche Gruppenprüfung (oral group exam) at a Bavarian FOS (Fachoberschule) in English.\n' +
+    'There are ' + config.totalCount + ' participants total. You play ' + aiOpinions.length + ' of them.\n\n' +
+    'SITUATION:\n' + config.situation + '\n\n' +
+    'TASK: ' + config.taskInstruction + '\n\n' +
+    'YOUR CHARACTERS (you simulate these – each defends their assigned opinion):\n' + aiChars + '\n\n' +
+    'REAL STUDENT(S) (speaking via microphone, you do NOT play these):\n' + realChars + '\n\n' +
+    'THE EXAM HAS TWO PHASES:\n\n' +
+    'PHASE 1 – STATEMENTS (first ' + Math.min(config.totalCount * 1, 5) + ' minutes):\n' +
+    '- ' + aiOpinions[0].label + ' opens the discussion: introduces the topic, states their opinion, then asks the next person.\n' +
+    '- Each participant introduces themselves and makes a brief statement on their personal point of view.\n' +
+    '- After 1-2 AI characters introduce themselves, PAUSE and wait for the real student(s) to give their statement.\n' +
+    '- If the student hasn\'t spoken after ~20 seconds, gently prompt them: "What about you? What\'s your opinion on this?"\n\n' +
+    'PHASE 2 – DISCUSSION (remaining time, about ' + (duration - 5) + ' minutes):\n' +
+    '- The positions and views are discussed, arguments exchanged.\n' +
+    '- React to what others say – agree, disagree, ask follow-up questions, build on arguments.\n' +
+    '- Refer back to points that were mentioned earlier.\n' +
+    '- Make sure everyone gets to speak roughly equally.\n' +
+    '- IMPORTANT: At the end, the group MUST reach some kind of agreement or compromise. Guide the discussion towards finding common ground.\n\n' +
     'RULES:\n' +
-    '1. ALWAYS start each contribution with the character\'s name: "This is ' + aiRoles[0].name + '. I think..."\n' +
-    '2. Keep contributions SHORT (2-4 sentences) to leave room for real students.\n' +
-    '3. After 1-2 AI characters speak, PAUSE and wait for real students to respond.\n' +
-    '4. Stay IN CHARACTER with assigned stance and arguments.\n' +
-    '5. React to what the students say - ask follow-up questions, agree, disagree.\n' +
-    '6. If no student has spoken for ~30s, address one directly: "' + realRoles[0].name + ', what do you think?"\n' +
-    '7. Language level: B2-C1 English.\n' +
-    (realRoles.length > 1 ? '8. Multiple real students share one microphone - different voices are different people.\n' : '') +
-    '\nFLOW (' + duration + ' minutes total):\n' +
-    '- Opening (1-2 min): One character introduces topic, asks a real student for their opinion.\n' +
-    '- Main discussion: All participants contribute. Ensure everyone gets a turn.\n' +
-    '- Closing (last 2 min): One character summarizes key points, asks for final thoughts.\n\n' +
+    '1. ALWAYS start each contribution by saying the character label: "This is ' + aiOpinions[0].label + '. I think..."\n' +
+    '2. Keep contributions SHORT (2-4 sentences max) to leave room for real students.\n' +
+    '3. After 1-2 AI characters speak, PAUSE and WAIT for real students to respond.\n' +
+    '4. Stay IN CHARACTER with assigned opinion. Defend it with arguments but be open to compromise.\n' +
+    '5. If the student hasn\'t spoken for ~30 seconds, address them directly.\n' +
+    '6. Language level: B2-C1 English. Use natural, conversational English.\n' +
+    '7. Use discussion phrases naturally: "I see your point, but...", "That\'s an interesting argument...", "Don\'t you think that...", "I partially agree, however..."\n' +
+    (realOpinions.length > 1 ? '8. Multiple real students share one microphone – different voices are different people.\n' : '') +
+    '\nTIMING (' + duration + ' minutes total):\n' +
+    '- In the last 2-3 minutes, one character should say: "We\'re running out of time. Can we agree on a compromise?"\n' +
+    '- Push for a joint conclusion that everyone can support.\n\n' +
     'LANGUAGE: English only. This is an English speaking exam simulation.';
 }
 
@@ -184,9 +219,11 @@ var STABLE_CONNECTION_MS = 10000;
 /**
  * @param {Object} config
  * @param {string} config.topic
- * @param {string} config.context
- * @param {Array} config.roles
+ * @param {string} config.situation
+ * @param {string} config.taskInstruction
+ * @param {Array} config.opinions – [{ label, opinion }]
  * @param {number} config.totalCount
+ * @param {number} config.realStudents – Anzahl echte Schüler
  * @param {Function} [config.onModelTranscription]
  * @param {Function} [config.onUserTranscription]
  * @param {Function} [config.onStatusChange]

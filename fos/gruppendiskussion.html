@@ -103,94 +103,168 @@
       margin-bottom: .4rem;
     }
 
-    /* ====== Rollenkarten-Grid ====== */
-    .roles-grid {
+    /* ====== Opinions-Grid ====== */
+    .opinions-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: .75rem;
       margin: 1.5rem 0;
     }
 
-    .role-card {
+    .opinion-card {
       background: var(--surface, var(--bg-warm));
       border: 2px solid var(--border);
       border-radius: var(--radius, 12px);
-      padding: 1.2rem;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
       transition: all .2s ease;
     }
 
-    .role-card.real-student {
+    .opinion-card.real-student {
       border-color: var(--accent);
       background: var(--accent-soft);
       box-shadow: 0 0 0 3px var(--accent-glow);
     }
 
-    .role-card-header {
+    .opinion-label {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: .5rem;
-      margin-bottom: .6rem;
+      gap: .3rem;
+      flex-shrink: 0;
+      min-width: 70px;
     }
 
-    .role-badge {
+    .opinion-label-name {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .opinion-badge {
       display: inline-flex;
       align-items: center;
-      gap: .25rem;
-      padding: .2rem .6rem;
+      padding: .15rem .5rem;
       border-radius: var(--radius-full, 20px);
-      font-size: .7rem;
+      font-size: .65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: .04em;
     }
 
-    .role-badge.student {
+    .opinion-badge.student {
       background: var(--accent);
       color: #fff;
     }
 
-    .role-badge.ai {
+    .opinion-badge.ai {
       background: var(--border);
       color: var(--ink-muted);
     }
 
-    .role-name {
-      font-weight: 700;
-      font-size: 1.1rem;
+    .opinion-text {
+      font-size: .95rem;
       color: var(--ink);
+      line-height: 1.5;
+      padding-top: .15rem;
     }
 
-    .role-stance {
-      display: inline-block;
-      padding: .15rem .5rem;
-      border-radius: var(--radius-full, 20px);
-      font-size: .75rem;
+    .opinion-card.real-student .opinion-text {
       font-weight: 600;
-      margin-bottom: .4rem;
     }
 
-    .role-stance.pro { background: #dcfce7; color: #16a34a; }
-    .role-stance.contra { background: #fee2e2; color: #dc2626; }
-    .role-stance.neutral { background: #e0e7ff; color: #4f46e5; }
-    .role-stance.moderate { background: #fef3c7; color: #d97706; }
+    /* ====== Tipps & Phrases ====== */
+    .tips-section {
+      margin: 1.5rem 0;
+    }
 
-    [data-theme="dark"] .role-stance.pro { background: rgba(22,163,74,.2); color: #4ade80; }
-    [data-theme="dark"] .role-stance.contra { background: rgba(220,38,38,.2); color: #fca5a5; }
-    [data-theme="dark"] .role-stance.neutral { background: rgba(79,70,229,.2); color: #a5b4fc; }
-    [data-theme="dark"] .role-stance.moderate { background: rgba(217,119,6,.2); color: #fcd34d; }
+    .tips-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .8rem 1rem;
+      background: var(--surface, var(--bg-warm));
+      border: 2px solid var(--border);
+      border-radius: var(--radius, 12px);
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--ink);
+      transition: border-color .2s;
+      min-height: 48px;
+    }
 
-    .role-background {
+    .tips-toggle:hover, .tips-toggle:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .tips-toggle-arrow {
+      transition: transform .2s;
+      font-size: 1.2rem;
+    }
+
+    .tips-toggle.open .tips-toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    .tips-content {
+      display: none;
+      padding: 1rem 1.2rem;
+      border: 2px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 var(--radius, 12px) var(--radius, 12px);
+      background: var(--surface, var(--bg-warm));
+    }
+
+    .tips-content.open {
+      display: block;
+    }
+
+    .tips-content h4 {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 1rem 0 .4rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+
+    .tips-content h4:first-child {
+      margin-top: 0;
+    }
+
+    .tips-content ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    .tips-content li {
       font-size: .85rem;
       color: var(--ink-light);
-      margin-bottom: .4rem;
+      line-height: 1.5;
+      margin-bottom: .3rem;
+    }
+
+    .tips-content .phrase {
+      display: block;
+      font-size: .85rem;
+      color: var(--ink);
+      font-style: italic;
+      padding: .3rem .6rem;
+      margin: .3rem 0;
+      background: var(--border-light, rgba(0,0,0,.03));
+      border-radius: var(--radius-sm, 6px);
       line-height: 1.4;
     }
 
-    .role-args {
-      font-size: .8rem;
-      color: var(--ink-muted);
-      line-height: 1.4;
-      font-style: italic;
+    [data-theme="dark"] .tips-content .phrase {
+      background: rgba(255,255,255,.05);
     }
 
     /* ====== Countdown-Timer ====== */
@@ -376,10 +450,6 @@
         grid-template-columns: 1fr;
       }
 
-      .roles-grid {
-        grid-template-columns: 1fr;
-      }
-
       .live-header {
         gap: .5rem;
       }
@@ -387,15 +457,21 @@
       .prep-timer-display {
         font-size: 2.2rem;
       }
+
+      .opinion-card {
+        flex-direction: column;
+        gap: .5rem;
+      }
+
+      .opinion-label {
+        flex-direction: row;
+        gap: .5rem;
+      }
     }
 
     @media (max-width: 480px) {
-      .roles-grid {
-        gap: .75rem;
-      }
-
-      .role-card {
-        padding: 1rem;
+      .opinion-card {
+        padding: .8rem;
       }
     }
   </style>
@@ -470,13 +546,17 @@
               <label for="selTopic">Thema</label>
               <select id="selTopic">
                 <option value="random" selected>Zufällig</option>
-                <option value="Social Media and Mental Health">Social Media & Mental Health</option>
-                <option value="Artificial Intelligence in Education">AI in Education</option>
-                <option value="Climate Change and Individual Responsibility">Climate Change</option>
-                <option value="Gap Year: Pros and Cons">Gap Year</option>
-                <option value="Fast Fashion and Sustainability">Fast Fashion</option>
-                <option value="Universal Basic Income">Universal Basic Income</option>
-                <option value="Online vs. Traditional Learning">Online vs. Traditional Learning</option>
+                <option value="Bullying at School">Bullying at School</option>
+                <option value="The Future of Work">Future of Work</option>
+                <option value="Living Your Own Life and Making Choices">Living Your Own Life</option>
+                <option value="Teen Crime and Youth Justice">Teen Crime</option>
+                <option value="Saving the Environment">Saving the Environment</option>
+                <option value="Sustainable Tourism">Sustainable Tourism</option>
+                <option value="Nutrition and Healthy Eating">Nutrition & Health</option>
+                <option value="Fake News and Misinformation">Fake News</option>
+                <option value="Developing Declining Urban Areas">Declining Areas</option>
+                <option value="Social Media and Mental Health">Social Media</option>
+                <option value="Artificial Intelligence and Society">AI & Society</option>
               </select>
             </div>
           </div>
@@ -495,14 +575,77 @@
         <div id="prepPhase">
           <div class="card">
             <h2 id="topicDisplay"></h2>
-            <p id="contextDisplay" style="color:var(--ink-muted);line-height:1.5;margin-bottom:1rem;"></p>
 
-            <h3 style="margin-bottom:.5rem;">Rollenkarten</h3>
-            <div class="roles-grid" id="rolesGrid"></div>
+            <!-- Situation -->
+            <div style="background:var(--surface, var(--bg-warm));border:2px solid var(--border);border-radius:var(--radius, 12px);padding:1rem 1.2rem;margin:1rem 0;line-height:1.6;">
+              <strong style="font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);display:block;margin-bottom:.4rem;">Situation</strong>
+              <p id="situationDisplay" style="color:var(--ink);margin:0;font-size:.95rem;"></p>
+            </div>
+
+            <!-- Task Instruction -->
+            <div style="background:var(--accent-soft);border:2px solid var(--accent);border-radius:var(--radius, 12px);padding:1rem 1.2rem;margin-bottom:1rem;">
+              <strong style="font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);display:block;margin-bottom:.4rem;">Task</strong>
+              <div id="taskDisplay" style="color:var(--ink);font-size:.95rem;line-height:1.5;">
+                <p id="taskInstructionText" style="margin:0 0 .5rem;"></p>
+                <p style="margin:0;font-size:.85rem;color:var(--ink-muted);"><strong>Task I (Statements):</strong> Each participant introduces themselves and makes a brief statement on their personal point of view.</p>
+                <p style="margin:.3rem 0 0;font-size:.85rem;color:var(--ink-muted);"><strong>Task II (Discussion):</strong> The positions and views are discussed, arguments exchanged. At the end, some kind of agreement has to be reached.</p>
+              </div>
+            </div>
+
+            <!-- Opinions -->
+            <h3 style="margin-bottom:.5rem;">Opinions</h3>
+            <div class="opinions-grid" id="opinionsGrid"></div>
+
+            <!-- Tipps & Useful Phrases -->
+            <div class="tips-section">
+              <button class="tips-toggle" onclick="toggleTips(this)" type="button">
+                Tipps & Useful Phrases
+                <span class="tips-toggle-arrow">▼</span>
+              </button>
+              <div class="tips-content" id="tipsContent">
+                <h4>Diskussionstipps</h4>
+                <ul>
+                  <li>Beschreibe und erkläre deine Position in der <strong>Einleitung</strong></li>
+                  <li>Beachte die <strong>gesamte Angabe</strong> (Situation + Aufgabe)</li>
+                  <li>Greife die <strong>vorgegebene Situation</strong> auf</li>
+                  <li>Benutze die vorgegebenen Punkte <strong>UND</strong> denke dir neue Punkte und Ideen aus</li>
+                  <li>Wenn ihr euch unterbrecht, benutzt <strong>Redewendungen</strong></li>
+                  <li>Achtet darauf, ca. <strong>gleich viel zu reden</strong></li>
+                  <li>Bezieht euch immer wieder auf <strong>Punkte zurück</strong>, die vorher genannt wurden</li>
+                </ul>
+
+                <h4>Einleitung (Person 1 eröffnet)</h4>
+                <span class="phrase">"Hello everybody, we are meeting here today to discuss / to debate / to talk about..."</span>
+                <span class="phrase">"My name is... and I am of the opinion that we should..."</span>
+                <span class="phrase">"I am strongly convinced that the best way to solve this problem is to..."</span>
+                <span class="phrase">"Now would you please introduce yourselves!"</span>
+
+                <h4>Vorstellung (Person 2-5)</h4>
+                <span class="phrase">"I feel very honoured to take part in this discussion, my name is... and I..."</span>
+                <span class="phrase">"Let me say that I appreciate taking part in this discussion, my name is... and I..."</span>
+                <span class="phrase">"I think I can make a valuable contribution to this discussion..."</span>
+                <span class="phrase">"Thank you for letting me have my say, my name is..."</span>
+
+                <h4>Zustimmen / Widersprechen / Nachfragen</h4>
+                <span class="phrase">"I agree with you on that point, because..."</span>
+                <span class="phrase">"I see your point, but I think..."</span>
+                <span class="phrase">"That's an interesting argument, however..."</span>
+                <span class="phrase">"Don't you think that...?"</span>
+                <span class="phrase">"I partially agree, but we also need to consider..."</span>
+                <span class="phrase">"Could you elaborate on that?"</span>
+                <span class="phrase">"Going back to what ... said earlier..."</span>
+
+                <h4>Kompromiss / Abschluss</h4>
+                <span class="phrase">"So, can we all agree that...?"</span>
+                <span class="phrase">"I think we've found some common ground here..."</span>
+                <span class="phrase">"To sum up our discussion, we all agree that..."</span>
+                <span class="phrase">"As a compromise, I would suggest..."</span>
+              </div>
+            </div>
 
             <div class="prep-timer">
               <div class="prep-timer-display" id="prepTimerDisplay">20:00</div>
-              <div class="prep-timer-label">Vorbereitungszeit – Studiere dein Thema und deine Rolle</div>
+              <div class="prep-timer-label">Vorbereitungszeit – Studiere die Situation, deine Meinung und die Tipps</div>
             </div>
 
             <div style="display:flex;gap:1rem;flex-wrap:wrap;">
@@ -651,7 +794,7 @@
         });
 
         STATE.setupData = data;
-        renderRoleCards(data);
+        renderOpinionCards(data);
         startPrepTimer();
 
         // Mikrofon Warmup im Hintergrund
@@ -676,43 +819,38 @@
       }
     }
 
-    function renderRoleCards(data) {
+    function renderOpinionCards(data) {
       document.getElementById('topicDisplay').textContent = data.topic;
-      document.getElementById('contextDisplay').textContent = data.context;
+      document.getElementById('situationDisplay').textContent = data.situation;
+      document.getElementById('taskInstructionText').textContent = data.taskInstruction;
 
-      var grid = document.getElementById('rolesGrid');
+      var grid = document.getElementById('opinionsGrid');
       var html = '';
-      var realIndex = 0;
 
-      data.roles.forEach(function(role, i) {
-        var isReal = role.isReal;
-        var stanceClass = (role.stance || 'neutral').toLowerCase();
-        if (['pro', 'contra', 'neutral', 'moderate'].indexOf(stanceClass) === -1) stanceClass = 'neutral';
-
+      data.opinions.forEach(function(op, i) {
+        var isReal = i < STATE.realStudents;
         var badgeLabel = '';
         if (isReal) {
-          realIndex++;
-          if (STATE.realStudents === 1) {
-            badgeLabel = 'DEINE ROLLE';
-          } else {
-            badgeLabel = 'SCHÜLER ' + realIndex;
-          }
+          badgeLabel = STATE.realStudents === 1 ? 'DEINE ROLLE' : 'SCHÜLER ' + (i + 1);
         } else {
           badgeLabel = 'KI';
         }
 
-        html += '<div class="role-card' + (isReal ? ' real-student' : '') + '">' +
-          '<div class="role-card-header">' +
-          '<span class="role-badge ' + (isReal ? 'student' : 'ai') + '">' + badgeLabel + '</span>' +
-          '<span class="role-name">' + role.name + '</span>' +
+        html += '<div class="opinion-card' + (isReal ? ' real-student' : '') + '">' +
+          '<div class="opinion-label">' +
+          '<span class="opinion-label-name">' + op.label + '</span>' +
+          '<span class="opinion-badge ' + (isReal ? 'student' : 'ai') + '">' + badgeLabel + '</span>' +
           '</div>' +
-          '<span class="role-stance ' + stanceClass + '">' + role.stance + '</span>' +
-          '<div class="role-background">' + role.background + '</div>' +
-          '<div class="role-args">' + role.args + '</div>' +
+          '<div class="opinion-text">' + op.opinion + '</div>' +
           '</div>';
       });
 
       grid.innerHTML = html;
+    }
+
+    function toggleTips(btn) {
+      btn.classList.toggle('open');
+      document.getElementById('tipsContent').classList.toggle('open');
     }
 
     /* ================= VORBEREITUNGSZEIT ================= */
@@ -787,9 +925,11 @@
 
         STATE.liveSession = new mod.DiscussionLiveSession({
           topic: STATE.setupData.topic,
-          context: STATE.setupData.context,
-          roles: STATE.setupData.roles,
+          situation: STATE.setupData.situation,
+          taskInstruction: STATE.setupData.taskInstruction,
+          opinions: STATE.setupData.opinions,
           totalCount: STATE.totalCount,
+          realStudents: STATE.realStudents,
           onModelTranscription: function(text) {
             STATE.modelTranscription.push(text);
             addTranscriptEntry('ai', text);
@@ -893,6 +1033,7 @@
         var mod = await import('./discussion-live.js');
         var feedback = await mod.generateDiscussionFeedback({
           topic: STATE.setupData.topic,
+          situation: STATE.setupData.situation,
           modelTranscription: STATE.modelTranscription,
           userTranscription: STATE.userTranscription,
           realStudents: STATE.realStudents
