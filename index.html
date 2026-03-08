@@ -2753,7 +2753,27 @@
     <div id="examSubjectSection" style="display:none;">
       <div class="section-header">
         <h3 class="section-label">Deine Abiturfächer</h3>
-        <button class="section-edit-btn" onclick="showAbiWizard()" type="button">✏️ Ändern</button>
+        <div style="display:flex;gap:.4rem;align-items:center;">
+          <button class="section-edit-btn" id="reminderSettingsBtn" onclick="toggleReminderSettings()" type="button" style="display:none">🔔 Erinnerungen</button>
+          <button class="section-edit-btn" onclick="showAbiWizard()" type="button">✏️ Ändern</button>
+        </div>
+      </div>
+      <div id="examReminderSettings" class="exam-settings" style="display:none;">
+        <div class="exam-settings-row">
+          <label for="reminderInterval2">Erinnere mich, wenn ich ein Abifach nicht geübt habe seit:</label>
+          <select id="reminderInterval2" onchange="saveReminderFromNewPanel()">
+            <option value="1">1 Tag</option>
+            <option value="2">2 Tage</option>
+            <option value="3" selected>3 Tage</option>
+            <option value="5">5 Tage</option>
+            <option value="7">1 Woche</option>
+            <option value="0">Nie</option>
+          </select>
+        </div>
+        <div class="exam-settings-row">
+          <label for="reminderEmail2">Email für Erinnerungen (optional):</label>
+          <input type="email" id="reminderEmail2" placeholder="deine@email.de" onchange="saveReminderFromNewPanel()" style="font-size:16px;">
+        </div>
       </div>
       <div class="exam-subjects-grid" id="examSubjectsGrid" role="list" aria-label="Deine Abiturfächer"></div>
     </div>
@@ -4720,6 +4740,10 @@
             updateExamCounter();
             saveLocalPreferences();
             renderSubjectLayout();
+            syncReminderPanels();
+            // Erinnerungs-Button sichtbar machen
+            var remBtn = document.getElementById("reminderSettingsBtn");
+            if (remBtn) remBtn.style.display = "";
             loadReminders();
           }
         })
@@ -4851,6 +4875,30 @@
           email: email
         })
       }).catch(function () { });
+    }
+
+    function toggleReminderSettings() {
+      var panel = document.getElementById("examReminderSettings");
+      if (!panel) return;
+      var isOpen = panel.style.display !== "none";
+      panel.style.display = isOpen ? "none" : "";
+    }
+
+    function saveReminderFromNewPanel() {
+      var interval = document.getElementById("reminderInterval2").value;
+      var email = document.getElementById("reminderEmail2").value;
+      document.getElementById("reminderInterval").value = interval;
+      document.getElementById("reminderEmail").value = email;
+      saveExamPreferences();
+    }
+
+    function syncReminderPanels() {
+      var el1 = document.getElementById("reminderInterval");
+      var el2 = document.getElementById("reminderInterval2");
+      var em1 = document.getElementById("reminderEmail");
+      var em2 = document.getElementById("reminderEmail2");
+      if (el1 && el2) el2.value = el1.value;
+      if (em1 && em2) em2.value = em1.value;
     }
 
     /* ====== ERINNERUNGS-BANNER ====== */
@@ -4985,6 +5033,8 @@
           }
           renderSubjectLayout();
           document.getElementById("examSubjectBtn").style.display = "";
+          var _remBtn = document.getElementById("reminderSettingsBtn");
+          if (_remBtn) _remBtn.style.display = "";
           var profilLink = document.getElementById("profilLink");
           if (profilLink) profilLink.style.display = "";
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
@@ -5286,7 +5336,11 @@
       document.getElementById("progressBar").style.display = "none";
       document.getElementById("reminderBanner").style.display = "none";
       document.getElementById("examSubjectBtn").style.display = "none";
+      var _remBtn3 = document.getElementById("reminderSettingsBtn");
+      if (_remBtn3) _remBtn3.style.display = "none";
       document.getElementById("examSettings").style.display = "none";
+      var _remPanel = document.getElementById("examReminderSettings");
+      if (_remPanel) _remPanel.style.display = "none";
       var profilLink = document.getElementById("profilLink");
       if (profilLink) profilLink.style.display = "none";
       // Exam badges entfernen
@@ -5448,6 +5502,8 @@
         loadHiddenSubjects();
         loadExamSubjects();
         document.getElementById("examSubjectBtn").style.display = "";
+        var _remBtn2 = document.getElementById("reminderSettingsBtn");
+        if (_remBtn2) _remBtn2.style.display = "";
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
       } else {
