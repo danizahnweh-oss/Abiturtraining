@@ -1086,23 +1086,6 @@
       gap: .5rem
     }
 
-    .subject-filter-btn {
-      background: none;
-      border: none;
-      color: var(--ink-muted);
-      font-size: .78rem;
-      cursor: pointer;
-      padding: .3rem .6rem;
-      border-radius: var(--radius);
-      transition: all .2s;
-      font-family: inherit
-    }
-
-    .subject-filter-btn:hover {
-      color: var(--ink);
-      background: var(--surface)
-    }
-
     /* ====== CATEGORY FILTERS ====== */
     .category-filters {
       display: flex;
@@ -1197,12 +1180,6 @@
     }
 
     /* ====== ABIFÄCHER ====== */
-    .subject-filter-actions {
-      display: flex;
-      gap: .4rem;
-      flex-wrap: wrap;
-      align-items: center
-    }
 
     .subject-card.exam-written {
       border: 2px solid #2563eb;
@@ -2719,10 +2696,6 @@
         <button class="cat-filter-btn" data-filter="nawi" onclick="filterByCategory('nawi')">Naturwiss.</button>
         <button class="cat-filter-btn" data-filter="gewi" onclick="filterByCategory('gewi')">Geisteswiss.</button>
       </div>
-      <div class="subject-filter-actions">
-        <button class="subject-filter-btn" id="subjectFilterBtn" onclick="toggleSubjectEditMode()">✏️ Fächer
-          anpassen</button>
-      </div>
     </div>
     <!-- Abifächer-Einstellungen (Frequenz + Email) -->
     <div id="examSettings" class="exam-settings" style="display:none;">
@@ -3886,6 +3859,8 @@
       var bar = document.getElementById("countdownBar");
       var toggle = document.getElementById("countdownToggle");
       var grid = document.querySelector(".subject-grid");
+      var examGrid = document.getElementById("examSubjectsGrid");
+      var addGrid = document.getElementById("additionalSubjectsGrid");
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
       var cohortToggleHtml = '<div class="cohort-toggle">' +
@@ -3896,6 +3871,8 @@
       if (isVisible) {
         if (toggle) toggle.style.display = "none";
         if (grid) grid.classList.add("countdown-active");
+        if (examGrid) examGrid.classList.add("countdown-active");
+        if (addGrid) addGrid.classList.add("countdown-active");
         if (allDates.length) {
           var minDays = Math.min.apply(null, allDates);
           if (minDays > 0) {
@@ -3914,6 +3891,8 @@
       } else {
         bar.style.display = "none";
         if (grid) grid.classList.remove("countdown-active");
+        if (examGrid) examGrid.classList.remove("countdown-active");
+        if (addGrid) addGrid.classList.remove("countdown-active");
         if (allDates.length && toggle) {
           toggle.style.display = "inline-block";
         }
@@ -3936,7 +3915,6 @@
     }
 
     /* ====== SUBJECT FILTER ====== */
-    var subjectEditMode = false;
     var hiddenSubjectsCache = [];
     var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "biologie", "sport", "informatik"];
 
@@ -3991,43 +3969,6 @@
       });
     }
 
-    function toggleSubjectEditMode() {
-      var grid = document.querySelector(".subject-grid");
-      var btn = document.getElementById("subjectFilterBtn");
-      subjectEditMode = !subjectEditMode;
-
-      if (subjectEditMode) {
-        grid.classList.add("edit-mode");
-        btn.textContent = "✅ Fertig";
-        document.querySelectorAll(".subject-card").forEach(function (card) {
-          card.setAttribute("data-orig-onclick", card.getAttribute("onclick") || "");
-          card.setAttribute("onclick", "toggleSubjectVisibility(this); return false;");
-        });
-      } else {
-        grid.classList.remove("edit-mode");
-        btn.textContent = "✏️ Fächer anpassen";
-        document.querySelectorAll(".subject-card").forEach(function (card) {
-          card.setAttribute("onclick", card.getAttribute("data-orig-onclick") || "");
-        });
-        applySubjectFilter();
-        saveHiddenSubjects();
-      }
-    }
-
-    function toggleSubjectVisibility(card) {
-      var subj = getSubjectKey(card);
-      if (!subj) return;
-
-      var idx = hiddenSubjectsCache.indexOf(subj);
-      if (idx !== -1) {
-        hiddenSubjectsCache.splice(idx, 1);
-        card.classList.remove("subject-hidden");
-      } else {
-        hiddenSubjectsCache.push(subj);
-        card.classList.add("subject-hidden");
-      }
-    }
-
     /* ====== CATEGORY FILTER ====== */
     var activeCategory = 'alle';
 
@@ -4072,7 +4013,6 @@
         card.setAttribute('draggable', 'true');
 
         card.addEventListener('dragstart', function (e) {
-          if (subjectEditMode) { e.preventDefault(); return; }
           dragSrcEl = this;
           this.classList.add('dragging');
           grid.classList.add('drag-active');
@@ -4132,7 +4072,6 @@
 
       cards.forEach(function (card) {
         card.addEventListener('touchstart', function (e) {
-          if (subjectEditMode) return;
           var touch = e.touches[0];
           touchStartX = touch.clientX;
           touchStartY = touch.clientY;
@@ -5375,12 +5314,6 @@
         target: ".category-filters",
         title: "Fächer filtern",
         text: "Filtere nach Kategorie: Sprachen, Naturwissenschaften oder Geisteswissenschaften.",
-        pos: "bottom"
-      },
-      {
-        target: "#subjectFilterBtn",
-        title: "Fächer anpassen",
-        text: "Blende Fächer ein oder aus, die du nicht brauchst. So bleibt dein Dashboard übersichtlich.",
         pos: "bottom"
       },
       {
