@@ -11,9 +11,11 @@ import {
   RotateCcw, PenLine, Volume2, ArrowLeft, Download,
 } from 'lucide-react';
 import {
-  LiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
+  LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
   type ExamLevel, type ExamMode, type ExamMaterial, type PrueferTyp,
 } from './lib/live-api';
+
+const USE_STATEFUL_SESSIONS = true;
 import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
@@ -146,7 +148,7 @@ export default function App() {
   const [status, setStatus] = useState<'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error'>('disconnected');
   const [modelTx, setModelTx] = useState<string[]>([]);
   const [userTx, setUserTx] = useState<string[]>([]);
-  const sessionRef = useRef<LiveSession | null>(null);
+  const sessionRef = useRef<LiveSession | StatefulLiveSession | null>(null);
   const micRef = useRef<AudioProcessor | null>(null);
 
   /* Prüfer-Geschlecht (zufällig gewählt) */
@@ -218,7 +220,8 @@ export default function App() {
       processor.warmup().catch(() => {});
       micRef.current = processor;
 
-      const session = new LiveSession({
+      const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+      const session = new SessionClass({
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode, gender, prueferTyp,
         onStatusChange: s => setStatus(s),
@@ -265,7 +268,8 @@ export default function App() {
     const processor = micRef.current || undefined;
     micRef.current = null;
 
-    const session = new LiveSession({
+    const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+      const session = new SessionClass({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       examMode, gender: examinerGender, prueferTyp,
@@ -311,7 +315,8 @@ export default function App() {
       return `${u ? `Prüfling: ${u}\n` : ''}Prüfer: ${m}`;
     }).join('\n');
 
-    const session = new LiveSession({
+    const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+      const session = new SessionClass({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
       material: material?.material || '',

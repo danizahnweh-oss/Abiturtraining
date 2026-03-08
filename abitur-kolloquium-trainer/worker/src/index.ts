@@ -1,11 +1,15 @@
 /**
  * Cloudflare Worker – Gemini API Proxy
  * Hält den API Key als Secret und leitet Anfragen (REST + WebSocket) an Gemini weiter.
+ * Session-basierte Routes delegieren an das ColloquiumSession Durable Object.
  */
+
+export { ColloquiumSession } from './session-do';
 
 interface Env {
   GEMINI_API_KEY: string;
   ALLOWED_ORIGIN?: string;
+  COLLOQUIUM_SESSION: DurableObjectNamespace;
 }
 
 const GEMINI_HOST = 'generativelanguage.googleapis.com';
@@ -32,6 +36,14 @@ function buildUpstreamUrl(requestUrl: URL, realKey: string): URL {
   return out;
 }
 
+function addCors(response: Response, cors: Record<string, string>): Response {
+  const newResp = new Response(response.body, response);
+  for (const [k, v] of Object.entries(cors)) {
+    newResp.headers.set(k, v);
+  }
+  return newResp;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const cors = corsHeaders(env);
@@ -42,6 +54,13 @@ export default {
     }
 
     const url = new URL(request.url);
+
+    // ── Session-basierte Routes (Durable Objects) ──
+    if (url.pathname.startsWith('/session/')) {
+      const response = await handleSessionRoute(request, url, env);
+      return addCors(response, cors);
+    }
+
     const targetUrl = buildUpstreamUrl(url, env.GEMINI_API_KEY);
 
     // ── WebSocket proxy (for Live API) ──
@@ -151,3 +170,54 @@ export default {
     return response;
   },
 };
+
+// ── Session-Routing zu Durable Objects ──
+async function handleSessionRoute(request: Request, url: URL, env: Env): Promise<Response> {
+  // POST /session/create
+  if (url.pathname === '/session/create' && request.method === 'POST') {
+    const id = env.COLLOQUIUM_SESSION.newUniqueId();
+    const stub = env.COLLOQUIUM_SESSION.get(id);
+
+    const response = await stub.fetch(new Request('https://do/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: request.body,
+    }));
+
+    const data = await response.json() as Record<string, unknown>;
+    return new Response(JSON.stringify({
+      sessionId: id.toString(),
+      ...data,
+    }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // /session/{id}/ws  oder  /session/{id}/status  oder  /session/{id}/transcript
+  const match = url.pathname.match(/^\/session\/([a-f0-9]+)\/(ws|status|transcript)$/);
+  if (match) {
+    const [, sessionIdHex, action] = match;
+
+    let id: DurableObjectId;
+    try {
+      id = env.COLLOQUIUM_SESSION.idFromString(sessionIdHex);
+    } catch {
+      return new Response('Ungültige Session-ID', { status: 400 });
+    }
+
+    const stub = env.COLLOQUIUM_SESSION.get(id);
+
+    // WebSocket-Upgrade direkt an DO weiterleiten
+    if (action === 'ws') {
+      return stub.fetch(request);
+    }
+
+    // REST-Endpoints
+    return stub.fetch(new Request(`https://do/${action}`, {
+      method: request.method,
+      headers: request.headers,
+    }));
+  }
+
+  return new Response('Not Found', { status: 404 });
+}
