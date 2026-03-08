@@ -1700,6 +1700,34 @@
       min-width: 200px
     }
 
+    .exam-settings-row input[type="date"] {
+      padding: .4rem .6rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      font-family: inherit;
+      min-height: 44px
+    }
+
+    .exam-date-label {
+      min-width: 120px;
+      font-weight: 600;
+      font-size: .85rem
+    }
+
+    .exam-date-countdown {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      font-family: var(--font-mono);
+      margin-left: auto
+    }
+
+    .exam-date-countdown.soon {
+      color: var(--warning)
+    }
+
     .exam-info {
       display: flex;
       justify-content: space-between;
@@ -2726,6 +2754,7 @@
       <div class="section-header">
         <h3 class="section-label">Deine Abiturfächer</h3>
         <div style="display:flex;gap:.4rem;align-items:center;">
+          <button class="section-edit-btn" onclick="toggleExamDateSettings()" type="button">📅 Termine</button>
           <button class="section-edit-btn" id="reminderSettingsBtn" onclick="toggleReminderSettings()" type="button" style="display:none">🔔 Erinnerungen</button>
           <button class="section-edit-btn" onclick="showAbiWizard()" type="button">✏️ Ändern</button>
         </div>
@@ -2746,6 +2775,10 @@
           <label for="reminderEmail2">Email für Erinnerungen (optional):</label>
           <input type="email" id="reminderEmail2" placeholder="deine@email.de" onchange="saveReminderFromNewPanel()" style="font-size:16px;">
         </div>
+      </div>
+      <div id="examDateSettings" class="exam-settings" style="display:none;">
+        <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine Prüfungstermine ein – der Countdown aktualisiert sich automatisch.</p>
+        <div id="examDateRows"></div>
       </div>
       <div class="exam-subjects-grid" id="examSubjectsGrid" role="list" aria-label="Deine Abiturfächer"></div>
     </div>
@@ -3819,6 +3852,15 @@
 
     /* ====== COUNTDOWN (#14) ====== */
     function getExamDate(subject) {
+      // Eigene Termine haben Vorrang
+      try {
+        var custom = localStorage.getItem("maf_exam_dates");
+        if (custom) {
+          var parsed = JSON.parse(custom);
+          if (parsed[subject]) return new Date(parsed[subject] + "T00:00:00");
+        }
+      } catch (e) { }
+      // Fallback: offizielle Termine
       var dates = getAbiturDates();
       var d = dates[subject];
       if (!d) return null;
@@ -3838,20 +3880,22 @@
       var allDates = [];
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
+      var MONAT_KURZ = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
       document.querySelectorAll(".subject-countdown[data-subject]").forEach(function (el) {
         var subj = el.dataset.subject;
         var examDate = getExamDate(subj);
         if (!examDate) { el.textContent = ""; return; }
         var days = daysUntil(examDate);
+        var dateStr = examDate.getDate() + ". " + MONAT_KURZ[examDate.getMonth()];
         if (days > 0) {
           allDates.push(days);
-          el.textContent = "in " + days + (days === 1 ? " Tag" : " Tagen");
+          el.textContent = "📅 " + dateStr + " · " + days + (days === 1 ? " Tag" : " Tage");
           el.className = "subject-countdown" + (days <= 14 ? " soon" : "");
         } else if (days === 0) {
-          el.textContent = "Heute!";
+          el.textContent = "📅 " + dateStr + " · Heute!";
           el.className = "subject-countdown soon";
         } else {
-          el.textContent = "abgeschlossen";
+          el.textContent = "✅ abgeschlossen";
           el.className = "subject-countdown done";
         }
       });
@@ -3860,7 +3904,6 @@
       var toggle = document.getElementById("countdownToggle");
       var grid = document.querySelector(".subject-grid");
       var examGrid = document.getElementById("examSubjectsGrid");
-      var addGrid = document.getElementById("additionalSubjectsGrid");
       var isVisible = localStorage.getItem("countdown_visible") === "1";
 
       var cohortToggleHtml = '<div class="cohort-toggle">' +
@@ -3872,7 +3915,6 @@
         if (toggle) toggle.style.display = "none";
         if (grid) grid.classList.add("countdown-active");
         if (examGrid) examGrid.classList.add("countdown-active");
-        if (addGrid) addGrid.classList.add("countdown-active");
         if (allDates.length) {
           var minDays = Math.min.apply(null, allDates);
           if (minDays > 0) {
@@ -3892,7 +3934,6 @@
         bar.style.display = "none";
         if (grid) grid.classList.remove("countdown-active");
         if (examGrid) examGrid.classList.remove("countdown-active");
-        if (addGrid) addGrid.classList.remove("countdown-active");
         if (allDates.length && toggle) {
           toggle.style.display = "inline-block";
         }
@@ -4638,13 +4679,10 @@
         btn.setAttribute("aria-label", SUBJECT_DISPLAY[subj] || subj);
         btn.innerHTML = '<div class="subject-icon" aria-hidden="true">' + (SUBJECT_EMOJI[subj] || "📚") + '</div>'
           + '<div class="subject-title">' + (SUBJECT_DISPLAY[subj] || subj) + '</div>'
-          + '<span class="subject-countdown" data-subject="' + subj + '"></span>'
           + '<span class="subject-last-activity" data-activity="' + subj + '"></span>';
         btn.addEventListener("click", function () { selectSubject(subj, true); });
         grid.appendChild(btn);
       });
-
-      renderCountdowns();
     }
 
     function loadExamSubjects() {
@@ -4811,6 +4849,92 @@
       var em2 = document.getElementById("reminderEmail2");
       if (el1 && el2) el2.value = el1.value;
       if (em1 && em2) em2.value = em1.value;
+    }
+
+    /* ====== PRÜFUNGSTERMINE ====== */
+    var LS_EXAM_DATES_KEY = "maf_exam_dates";
+
+    function loadCustomExamDates() {
+      try {
+        var stored = localStorage.getItem(LS_EXAM_DATES_KEY);
+        return stored ? JSON.parse(stored) : {};
+      } catch (e) { return {}; }
+    }
+
+    function saveCustomExamDates(dates) {
+      localStorage.setItem(LS_EXAM_DATES_KEY, JSON.stringify(dates));
+    }
+
+    function getDefaultExamDate(subject) {
+      var dates = getAbiturDates();
+      var d = dates[subject];
+      if (!d) return "";
+      if (typeof d === "string") return d;
+      var lvl = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+      return d[lvl] || d.eA || "";
+    }
+
+    function toggleExamDateSettings() {
+      var panel = document.getElementById("examDateSettings");
+      if (!panel) return;
+      var isOpen = panel.style.display !== "none";
+      if (!isOpen) renderExamDatePanel();
+      panel.style.display = isOpen ? "none" : "";
+    }
+
+    function renderExamDatePanel() {
+      var container = document.getElementById("examDateRows");
+      if (!container) return;
+      container.innerHTML = "";
+      var customDates = loadCustomExamDates();
+
+      var ordered = [];
+      if (examSubjectsCache.ea) ordered.push(examSubjectsCache.ea);
+      examSubjectsCache.written.forEach(function (s) {
+        if (s !== examSubjectsCache.ea) ordered.push(s);
+      });
+      examSubjectsCache.oral.forEach(function (s) { ordered.push(s); });
+
+      if (ordered.length === 0) {
+        container.innerHTML = '<p style="font-size:.85rem;color:var(--ink-muted);">Wähle zuerst deine Abiturfächer aus.</p>';
+        return;
+      }
+
+      ordered.forEach(function (subj) {
+        var isEa = examSubjectsCache.ea === subj;
+        var isOral = examSubjectsCache.oral.indexOf(subj) !== -1;
+        var typeTag = isEa ? " (eA)" : isOral ? " (mündlich)" : " (schriftlich)";
+
+        var currentDate = customDates[subj] || getDefaultExamDate(subj);
+        var countdownText = "";
+        if (currentDate) {
+          var days = daysUntil(new Date(currentDate + "T00:00:00"));
+          if (days > 0) countdownText = "in " + days + (days === 1 ? " Tag" : " Tagen");
+          else if (days === 0) countdownText = "Heute!";
+          else countdownText = "vorbei";
+        }
+
+        var row = document.createElement("div");
+        row.className = "exam-settings-row";
+        row.innerHTML = '<span class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + typeTag + '</span>'
+          + '<input type="date" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
+          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '">' + countdownText + '</span>';
+        container.appendChild(row);
+      });
+    }
+
+    function onExamDateChange(input) {
+      var subj = input.dataset.subject;
+      var val = input.value;
+      var customDates = loadCustomExamDates();
+      if (val) {
+        customDates[subj] = val;
+      } else {
+        delete customDates[subj];
+      }
+      saveCustomExamDates(customDates);
+      renderCountdowns();
+      renderExamDatePanel();
     }
 
     /* ====== ERINNERUNGS-BANNER ====== */
