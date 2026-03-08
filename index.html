@@ -1349,7 +1349,40 @@
       color: var(--ink-muted);
       min-height: 34px;
       transition: all .2s;
-      white-space: nowrap
+      white-space: nowrap;
+      position: relative
+    }
+
+    .wiz-slot-x {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, .15);
+      color: inherit;
+      font-size: .65rem;
+      line-height: 1;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      margin-left: .15rem;
+      flex-shrink: 0;
+      font-family: inherit;
+      transition: background .15s
+    }
+
+    .wiz-slot-x:hover {
+      background: rgba(0, 0, 0, .3)
+    }
+
+    [data-theme="dark"] .wiz-slot-x {
+      background: rgba(255, 255, 255, .15)
+    }
+
+    [data-theme="dark"] .wiz-slot-x:hover {
+      background: rgba(255, 255, 255, .3)
     }
 
     .wiz-slot.filled-ea {
@@ -4423,6 +4456,15 @@
       updateWizardStep1UI();
     }
 
+    function wizardRemoveSubject(subj) {
+      var wIdx = wizardTempExam.written.indexOf(subj);
+      var oIdx = wizardTempExam.oral.indexOf(subj);
+      if (wizardTempExam.ea === subj) wizardTempExam.ea = "";
+      if (wIdx !== -1) wizardTempExam.written.splice(wIdx, 1);
+      if (oIdx !== -1) wizardTempExam.oral.splice(oIdx, 1);
+      updateWizardStep1UI();
+    }
+
     function wizardToggleExamSubject(subj) {
       var wIdx = wizardTempExam.written.indexOf(subj);
       var oIdx = wizardTempExam.oral.indexOf(subj);
@@ -4459,10 +4501,14 @@
 
       document.getElementById("wizardCounter").textContent = total + " / 5 Fächer gewählt";
 
-      // Slots aktualisieren
+      // Slots aktualisieren (mit X-Button zum Entfernen)
+      function _slotHTML(emoji, label, subj) {
+        return emoji + " " + label + ' <button type="button" class="wiz-slot-x" data-remove="' + subj + '" aria-label="Entfernen">&times;</button>';
+      }
+
       var eaSlot = document.getElementById("wslot-ea");
       if (wizardTempExam.ea) {
-        eaSlot.textContent = "⭐ " + (SUBJECT_DISPLAY[wizardTempExam.ea] || wizardTempExam.ea);
+        eaSlot.innerHTML = _slotHTML("⭐", SUBJECT_DISPLAY[wizardTempExam.ea] || wizardTempExam.ea, wizardTempExam.ea);
         eaSlot.className = "wiz-slot filled-ea";
       } else {
         eaSlot.textContent = "⭐ eA-Fach";
@@ -4474,7 +4520,7 @@
         var slot = document.getElementById(id);
         var s = writtenNonEa[idx];
         if (s) {
-          slot.textContent = "✍️ " + (SUBJECT_DISPLAY[s] || s);
+          slot.innerHTML = _slotHTML("✍️", SUBJECT_DISPLAY[s] || s, s);
           slot.className = "wiz-slot filled-written";
         } else {
           slot.textContent = "✍️ Schriftl. " + (idx + 1);
@@ -4486,12 +4532,21 @@
         var slot = document.getElementById(id);
         var s = wizardTempExam.oral[idx];
         if (s) {
-          slot.textContent = "🗣️ " + (SUBJECT_DISPLAY[s] || s);
+          slot.innerHTML = _slotHTML("🗣️", SUBJECT_DISPLAY[s] || s, s);
           slot.className = "wiz-slot filled-oral";
         } else {
           slot.textContent = "🗣️ Mündl. " + (idx + 1);
           slot.className = "wiz-slot";
         }
+      });
+
+      // X-Buttons Event-Listener
+      document.querySelectorAll("#wizSlots .wiz-slot-x").forEach(function (xBtn) {
+        xBtn.onclick = function (e) {
+          e.stopPropagation();
+          var subj = this.getAttribute("data-remove");
+          wizardRemoveSubject(subj);
+        };
       });
 
       // Next-Button: aktiv wenn 5 Faecher + 1 eA
