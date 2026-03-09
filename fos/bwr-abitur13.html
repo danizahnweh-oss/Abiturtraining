@@ -335,16 +335,17 @@
         </div>
       </div>
 
-      <!-- FOTO-UPLOAD (direkte Bewertung, kein OCR) -->
+      <!-- HANDSCHRIFT-UPLOAD (BWR-spezifische Erkennung) -->
       <div class="card">
-        <h2 class="card-header">Handschriftliche L&ouml;sung fotografieren</h2>
+        <h2 class="card-header">Handschriftliche L&ouml;sung hochladen</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-          Fotografiere deine L&ouml;sung &ndash; die KI bewertet direkt die Fotos. Alternativ kannst du auch oben tippen.
+          Fotografiere deine L&ouml;sung &ndash; die KI liest deine Handschrift (Tabellen, Rechnungen, Buchungss&auml;tze).
+          Du kannst den erkannten Text pr&uuml;fen und korrigieren. Beim Bewerten werden <strong>Text und Fotos</strong> zusammen verwendet.
         </p>
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
           <div class="upload-icon">&#x1F4F7;</div>
           <div class="upload-text"><strong>Klicken</strong> oder Fotos hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Foto</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Foto &middot; Mehrere Seiten m&ouml;glich</div>
         </div>
         <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
@@ -353,7 +354,20 @@
           <div class="loader-spinner"></div>
           <div class="loader-text"><span id="ocrProgress"></span></div>
         </div>
-        <div id="ocrResult" style="display:none;margin-top:1rem;"></div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;">
+          <label>Erkannter Text <span style="font-weight:normal;color:var(--ink-muted)">&ndash; bitte pr&uuml;fen und ggf. korrigieren:</span></label>
+          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+            oninput="updateOCRWordCount()"></textarea>
+          <p style="font-size:.8rem;color:var(--ink-muted);margin:.5rem 0;">
+            Deine Originalfotos werden zus&auml;tzlich zum Text bei der Bewertung ber&uuml;cksichtigt.
+          </p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText('I')">&#x2713; In Aufgabe I &uuml;bernehmen</button>
+            <button class="btn btn-small" onclick="useOCRText('II')">&#x2713; In Aufgabe II &uuml;bernehmen</button>
+            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
+            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
+          </div>
+        </div>
       </div>
 
       <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
@@ -468,7 +482,7 @@
       chartColor: "#f59e0b",
       minWords: 20,
       loginPage: "index.html",
-      skipOCR: true
+      ocrEndpoint: "/api/ocr-bwr"
     };
   </script>
   <script src="tour.js"></script>
