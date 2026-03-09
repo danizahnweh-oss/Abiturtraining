@@ -345,7 +345,7 @@
 
         <!-- Formel-Editor (MathLive) -->
         <details class="formel-editor" id="formelEditor">
-          <summary>&#x1F9EE; Formel-Editor <span class="formel-target" id="formelTarget">Ziel: Teil A</span></summary>
+          <summary>&#x1F9EE; Formel-Editor <span class="formel-target" id="formelTarget">Ziel: Teil 1</span></summary>
           <div class="formel-editor-body">
             <div class="formel-mf-wrap"><math-field id="formelMF" virtual-keyboard-mode="onfocus"></math-field></div>
             <div class="formel-tabs" id="formelTabs"></div>
@@ -360,25 +360,31 @@
 
         <!-- Teil A Textarea -->
         <div class="write-part">
-          <h3>Teil A &ndash; Ohne Hilfsmittel (30 BE)</h3>
-          <textarea id="studentTextA" placeholder="Teil A: Beginne hier mit deiner L&ouml;sung &hellip;
+          <h3>Teil 1 &ndash; Ohne Hilfsmittel (34 BE)</h3>
+          <textarea id="studentTextA" placeholder="Teil 1: Beginne hier mit deiner L&ouml;sung &hellip;
 
-A1: ...
-A2: ...
-A3: ...
-A4: ...
-Wahlaufgaben: ..." oninput="updateWordCounts()"></textarea>
+Analysis:
+Aufgabe 1: ...
+Aufgabe 2: ...
+Aufgabe 3: ...
+
+Lineare Algebra / Analytische Geometrie:
+Aufgabe 1: ...
+Aufgabe 2: ..." oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountA">0</span> W&ouml;rter</div>
         </div>
 
         <!-- Teil B Textarea -->
         <div class="write-part">
-          <h3>Teil B &ndash; Mit CAS/Hilfsmitteln (70 BE)</h3>
-          <textarea id="studentTextB" placeholder="Teil B: Beginne hier mit deiner L&ouml;sung &hellip;
+          <h3>Teil 2 &ndash; Mit Hilfsmitteln (66 BE)</h3>
+          <textarea id="studentTextB" placeholder="Teil 2: Beginne hier mit deiner L&ouml;sung &hellip;
 
-B1 Analysis: ...
-B2 Lineare Algebra: ...
-B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
+Analysis:
+Aufgabe 1: ...
+Aufgabe 2: ...
+
+Lineare Algebra / Analytische Geometrie:
+Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountB">0</span> W&ouml;rter</div>
         </div>
 
@@ -414,8 +420,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
           <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil A</button>
-            <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil B</button>
+            <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil 1</button>
+            <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil 2</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
             <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
           </div>
@@ -436,14 +442,14 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
           <h2 class="card-header">Bewertung</h2>
           <div class="scores-grid" style="grid-template-columns:repeat(4,1fr)">
             <div class="score-card">
-              <div class="score-label">Teil A</div>
+              <div class="score-label">Teil 1</div>
               <div class="score-value" id="scoreTeilA">&ndash;</div>
-              <div class="score-max">/ 30 BE</div>
+              <div class="score-max">/ 34 BE</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Teil B</div>
+              <div class="score-label">Teil 2</div>
               <div class="score-value" id="scoreTeilB">&ndash;</div>
-              <div class="score-max">/ 70 BE</div>
+              <div class="score-max">/ 66 BE</div>
             </div>
             <div class="score-card">
               <div class="score-label">Gesamt</div>
@@ -502,8 +508,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
             <thead>
               <tr>
                 <th>Datum</th>
-                <th>A</th>
-                <th>B</th>
+                <th>T1</th>
+                <th>T2</th>
                 <th>BE</th>
                 <th>NP</th>
                 <th></th>
@@ -659,17 +665,19 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
     }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     // BE -> NP conversion table (ISB)
+    // Offizieller FOS-Notenschlüssel (BE-Schwellenwerte, 100 BE Prüfung)
     const BE_NP_TABLE = [
-      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
-      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
-      [33, 3], [27, 2], [20, 1], [0, 0]
+      [96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10],
+      [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4],
+      [34, 3], [27, 2], [20, 1], [0, 0]
     ];
 
     function beToNP(erreicht, max) {
       if (max <= 0 || erreicht == null) return null;
-      const pct = (erreicht / max) * 100;
+      // Bei x,5 zugunsten des Prüflings aufrunden (offiziell)
+      var be = erreicht % 1 === 0.5 ? Math.ceil(erreicht) : erreicht;
       for (const [threshold, np] of BE_NP_TABLE) {
-        if (pct >= threshold) return np;
+        if (be >= threshold) return np;
       }
       return 0;
     }
@@ -868,8 +876,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       }
 
       // Write step references (strip GeoGebra containers)
-      document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil A (30 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
-      document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil B (70 BE)</strong><br>' + (teilB.innerHTML || "");
+      document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil 1 – Ohne Hilfsmittel (34 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
+      document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil 2 – Mit Hilfsmitteln (66 BE)</strong><br>' + (teilB.innerHTML || "");
       document.querySelectorAll("#writeTaskRefA .ggb-container, #writeTaskRefA .ggb-toggle, #writeTaskRefB .ggb-container, #writeTaskRefB .ggb-toggle").forEach(function (el) { el.remove(); });
     }
 
@@ -917,7 +925,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextA").value = clean;
       updateWordCounts();
-      showToast("Text in Teil A \u00fcbernommen!", "success");
+      showToast("Text in Teil 1 \u00fcbernommen!", "success");
     }
 
     function useOCRTextB() {
@@ -926,7 +934,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextB").value = clean;
       updateWordCounts();
-      showToast("Text in Teil B \u00fcbernommen!", "success");
+      showToast("Text in Teil 2 \u00fcbernommen!", "success");
     }
 
     async function submitForGrading() {
@@ -1161,7 +1169,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
 
     function updateFormelTarget() {
       var label = document.getElementById("formelTarget");
-      if (label) { label.textContent = "Ziel: " + (activeTextareaId === "studentTextA" ? "Teil A" : "Teil B"); }
+      if (label) { label.textContent = "Ziel: " + (activeTextareaId === "studentTextA" ? "Teil 1" : "Teil 2"); }
     }
 
     // Track active textarea
