@@ -110,11 +110,17 @@ var KI_ROBOT_HTML = '<div class="ki-robot-scene">' +
   '<p class="ki-status-text" id="kiStatusText">KI korrigiert deine Arbeit<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span></p>' +
 '</div>';
 
+// Kontext fuer Lazy-Load Detail-Feedback
+var _lastGradeBody = null;
+
 async function apiCallAsync(gradeEndpoint, body, options) {
   options = options || {};
   var pollInterval = options.pollInterval || 3000;
   var maxWait = options.maxWait || 180000; // 3 Minuten
   var onProgress = options.onProgress || null;
+
+  // Grading-Kontext speichern fuer spaeteres Detail-Feedback
+  _lastGradeBody = body;
 
   // OCR-Bilder automatisch mitsenden
   if (/grade/.test(gradeEndpoint) && typeof getOCRImages === "function") {
@@ -220,19 +226,27 @@ function renderKorrekturFeedback(d) {
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
 
-  // Kurzfeedback + aufklappbares Detail-Feedback
+  // Kurzfeedback + Lazy-Load Detail-Feedback
   var fb = document.getElementById("feedbackBody");
   if (fb && d.feedback_kurz && d.feedback_kurz.length) {
+    // Scores + Kurzfeedback fuer spaeteres Detail-Feedback merken
+    window._detailFeedbackScores = d.scores || null;
+    window._detailFeedbackKurz = d.feedback_kurz;
+
     var kurzHtml = '<ul class="feedback-kurz">' +
       d.feedback_kurz.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
       '</ul>';
     var detailHtml = fb.innerHTML;
     if (detailHtml && detailHtml.trim()) {
+      // Detail bereits vorhanden (z.B. Fallback) → direkt aufklappbar anzeigen
       fb.innerHTML = kurzHtml +
         '<details class="feedback-detail-toggle"><summary>Detailliertes Feedback anzeigen</summary>' +
         '<div class="feedback-detail-body">' + detailHtml + '</div></details>';
     } else {
-      fb.innerHTML = kurzHtml;
+      // Detail noch nicht generiert → Lade-Button anzeigen
+      fb.innerHTML = kurzHtml +
+        '<button class="btn btn-secondary feedback-load-detail" onclick="loadDetailFeedback(this)">Detailliertes Feedback laden</button>' +
+        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>';
     }
   }
 
@@ -268,6 +282,44 @@ function renderKorrekturFeedback(d) {
 
   // Rewrite-Button anzeigen
   renderRewriteButton(d);
+}
+
+/* ================= DETAIL-FEEDBACK LAZY-LOAD ================= */
+
+async function loadDetailFeedback(btn) {
+  if (!_lastGradeBody) {
+    showToast("Kein Bewertungskontext vorhanden.");
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "Wird geladen\u2026";
+
+  try {
+    var result = await apiCall("/api/detail-feedback", {
+      rubric_prompt: _lastGradeBody.rubric_prompt || "",
+      task_instruction: _lastGradeBody.task_instruction || "",
+      primary_text: _lastGradeBody.primary_text || "",
+      student_text: _lastGradeBody.student_text || _lastGradeBody.text_a || "",
+      scores: window._detailFeedbackScores || null,
+      feedback_kurz: window._detailFeedbackKurz || []
+    });
+
+    var container = document.getElementById("feedbackDetailContainer");
+    if (!container) {
+      container = btn.nextElementSibling;
+    }
+    if (container) {
+      var parseFn = (typeof safeMathParse === "function") ? safeMathParse : marked.parse;
+      container.innerHTML = DOMPurify.sanitize(parseFn(result.feedback || ""));
+      container.style.display = "";
+      if (typeof renderMath === "function") renderMath(container);
+    }
+    btn.style.display = "none";
+  } catch (e) {
+    btn.textContent = "Fehler \u2013 erneut versuchen";
+    btn.disabled = false;
+    showToast("Feedback konnte nicht geladen werden: " + e.message);
+  }
 }
 
 /* ================= ÜBUNGSAUFGABEN ================= */
