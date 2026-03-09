@@ -2150,7 +2150,8 @@ KRITISCH - Längen wie im echten Abitur:
 - Die Materialien sollen MEHR Informationen enthalten als strikt nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten
 - Statistiken als Markdown-Tabelle mit echten, plausiblen Zahlen (6-10 Zeilen)
 - Gesamtes Lesematerial: ca. 3000-5000 Wörter
-- IMMER 1-2 Bilder als Material erstellen`;
+- IMMER 1-2 Bilder als Material erstellen
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in der Aufgabenstellung direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben — jedes Material muss für die Bearbeitung der Aufgabe notwendig sein!`;
   } else {
     return jsonResponse({ error: "Unbekannter Aufgabentyp." }, 400, env);
   }
@@ -3237,6 +3238,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 2-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (I → II → III).
 Erstelle 2-3 passende Materialien (Texte, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
@@ -3535,6 +3537,7 @@ Teil A: 2-4 Teilaufgaben mit Materialien, steigendes Anforderungsniveau.
 Teil B: Eigenständige Transferaufgabe OHNE Materialien, Bezug zu einem anderen Halbjahr oder übergreifende Reflexion.
 
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein! Vollständige Quellentexte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
@@ -3747,6 +3750,7 @@ ${isGA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEG
 
 MATERIALIEN:
 - Materialien (M1, M2, …) sind der Kern der Aufgabe
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 - Typen: Zeitungsartikel, Tabellen/Statistiken, Bilanzen, Gesetzestexte, Schaubilder, Fallbeispiele
 - Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen oder Stichpunkte! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
@@ -3789,6 +3793,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll ${bloecke} mit insgesamt ${gesamtBE} BE umfassen.
 Erstelle ${materialCount} (Texte, Tabellen, ggf. Gesetzestexte) plus 1 Bild.
 KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER mindestens 1 Bild als Material.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${isGA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
@@ -4107,7 +4112,8 @@ KRITISCH:
 - Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
 - Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
 - ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels sollen DIREKT im Bild erscheinen — schreibe jeden Text in Anführungszeichen im Prompt. KEINE Karikaturen oder Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels sollen DIREKT im Bild erscheinen — schreibe jeden Text in Anführungszeichen im Prompt. KEINE Karikaturen oder Personen!
+AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt + zeitHinweis },
@@ -4317,6 +4323,7 @@ ${isEA
 
 Beide Aufgaben müssen eigenständig und thematisch verschieden sein.
 KRITISCH: Jedes Textmaterial MUSS 300-600 Wörter lang sein! Vollständige Texte, NICHT Zusammenfassungen. Die Materialien sollen MEHR Informationen enthalten als nötig — Schüler müssen die relevanten Inhalte herausarbeiten. Erstelle IMMER pro Aufgabe mindestens 1 Bild als Material.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Themen mit "nur eA" dürfen NICHT vorkommen!` : ""}`;
 
   const openaiRes = await callOpenAI(env, [
@@ -4957,6 +4964,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
 Erstelle 2-3 passende Materialien (philosophische Texte, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als für die Aufgaben nötig — Schüler müssen die relevanten Inhalte selbst herausarbeiten.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
@@ -5183,6 +5191,7 @@ Antworte NUR mit validem JSON:
 - Teil A: ${bePruefungA}, Teil B: ${bePruefungB}, Gesamt: ${beGesamt}
 
 KRITISCH: Jedes Textmaterial in Teil A MUSS 400-800 Wörter lang sein.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-exklusiven Lernbereiche oder Themen!` : ""}`;
 
@@ -5485,6 +5494,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
 Erstelle 2-3 passende Materialien (theologische Texte, biblische Quellen, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein!
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
 
@@ -5648,6 +5658,7 @@ ${lb.inhalte}${schwerpunktZusatz}
 MATERIALIEN für Teil A:
 - 2-3 Materialien (theologische/biblische Texte, Statistiken, plus 1 Bild)
 - Textmaterialien MINDESTENS 400-800 Wörter
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 TEIL B – AUSWEITUNG:
 - Geht thematisch ÜBER den Lernbereich von Teil A hinaus
@@ -5953,6 +5964,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AFB I → II → III).
 Erstelle 2-3 passende Materialien (theologische Texte, biblische Quellen, Statistiken, plus 1 Bild).
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein!
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe!` : ""}`;
 
@@ -6116,6 +6128,7 @@ ${lb.inhalte}${schwerpunktZusatz}
 MATERIALIEN für Teil A:
 - 2-3 Materialien (theologische/biblische Texte, kirchliche Dokumente, Statistiken, plus 1 Bild)
 - Textmaterialien MINDESTENS 400-800 Wörter
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 TEIL B – AUSWEITUNG:
 - Geht thematisch ÜBER den Lernbereich von Teil A hinaus
@@ -6380,6 +6393,7 @@ STRUKTUR DER AUFGABE:
 
 MATERIALIEN:
 - Materialien: ${totalBE < 20 ? '1-2 Materialien (1 Text + 1 Karte)' : totalBE < 40 ? '2-3 Materialien (Text, Statistik, Karte)' : '3-5 Materialien (geographische Texte, Statistiken, Karten, Klimadiagramme, Fotos)'}
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche geographische Quellentexte (Fachartikel, Zeitungsartikel, Auszüge aus geographischen Werken). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
@@ -6428,6 +6442,7 @@ Die Aufgabe soll 3-4 Teilaufgaben umfassen mit steigendem Anforderungsniveau (AF
 Erstelle 3-5 passende Materialien: 1 geographischer Text (400-800 Wörter), 1 Statistik, 1 Karte (mit Koordinaten-Objekt), und wenn passend 1 Klimadiagramm (mit Klimadaten-Objekt) oder 1 Foto.
 KRITISCH: Jedes Textmaterial MUSS 400-800 Wörter lang sein — vollständige, ausführliche Quellentexte, NICHT Zusammenfassungen!
 KRITISCH: Bei "karte" und "klimadiagramm" ist content ein JSON-OBJEKT, KEIN String! Klimadaten müssen realistisch sein für den jeweiligen Ort.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Summe der BE für Prüfungsteil A: ${bePruefungA}.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgabe muss dem grundlegenden Anforderungsniveau entsprechen.` : ""}`;
 
@@ -6602,6 +6617,7 @@ PRÜFUNGSTEIL A (${bePruefungA}):
 - IMMER mindestens 1 Material vom Typ "karte" — content ist ein OBJEKT: {"lat": ..., "lon": ..., "zoom": ..., "label": "..."}
 - Wenn thematisch passend: 1 Material vom Typ "klimadiagramm" — content ist ein OBJEKT: {"station": "...", "hoehe": ..., "temp": [12 Werte], "niederschlag": [12 Werte]}
 - Optional: 1 Material vom Typ "foto" — content ist ein Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben.
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
 - 1-2 Teilaufgaben, die einen räumlichen Vergleich oder Transfer zu einem anderen Raumbeispiel erfordern
@@ -8373,6 +8389,7 @@ KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
 ${totalBE >= 25 ? 'Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.' : totalBE >= 15 ? 'Maximal 1 Material pro Aufgabe.' : 'Keine Materialien bei dieser Aufgabengröße.'}
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 Hinweis: "strukturformeln" ist PFLICHT bei Organik/Kunststoffe, sonst optional.`;
 
   const organikHint = (sg === "organik" || sg === "kunststoffe" || sg === "farbstoffe") ? "\nWICHTIG: Gib unbedingt ein strukturformeln-Array mit 2–4 relevanten Molekülen an (englische Namen für PubChem)!" : "";
@@ -8697,7 +8714,8 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
-${totalBE >= 25 ? 'Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.' : totalBE >= 15 ? 'Maximal 1 Material pro Aufgabe.' : 'Keine Materialien bei dieser Aufgabengröße.'}`;
+${totalBE >= 25 ? 'Pro Aufgabe: mindestens 1x statistik/diagramm + 1x text.' : totalBE >= 15 ? 'Maximal 1 Material pro Aufgabe.' : 'Keine Materialien bei dieser Aufgabengröße.'}
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
@@ -10334,6 +10352,7 @@ KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
 Pro Aufgabengruppe: mind. 1x statistik/diagramm + 1x text.
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Sachgebieten, Daten und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
 
@@ -10675,6 +10694,7 @@ WICHTIG:
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Sachgebieten. Keine Themen oder Konzepte verwenden, die nicht im Lehrplan stehen.
 ${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für das GRUNDLEGENDE Anforderungsniveau (gA). Die Aufgaben müssen in Tiefe, Komplexität und Umfang dem gA-Niveau entsprechen — NICHT dem eA-Niveau. Halte dich strikt an den gA-Lehrplan. Insbesondere: weniger Vertiefung, keine über den gA-Lehrplan hinausgehenden Themen, zugänglichere Materialien und Aufgabenstellungen.` : ""}
 - Teilaufgaben sollen sich DIREKT auf die Materialien beziehen ("Werte M1 aus", "Beschreibe den in M2 dargestellten Verlauf")
+- AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 BIOLOGIE-SPEZIFISCHE NOTATION:
 - Genotypen: $Aa \\times aa$, $F_1$, $F_2$
@@ -11349,6 +11369,7 @@ KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Pseudocode, der..." oder "Eine Tabelle mit..." schreiben!
 - Das "text"-Feld MUSS den TATSÄCHLICHEN, VOLLSTÄNDIGEN Inhalt enthalten!
 Pro Aufgabengruppe: mind. 2-3 Materialien verschiedener Typen (davon mindestens 1x "bild").
+AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
