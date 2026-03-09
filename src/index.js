@@ -3975,10 +3975,11 @@ Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
 /* ================= BWR ABITUR 13: GRADE (BWR-spezifisch) ================= */
 async function handleGradeAbitur13BWR(request, env) {
   const body = await request.json();
-  const { aufgabenbloecke, student_text, gesamt_be, images } = body;
+  const { aufgabenbloecke, gesamt_be, images } = body;
+  let student_text = body.student_text || "";
 
-  if (!student_text) {
-    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  if (!student_text && (!images || !images.length)) {
+    return jsonResponse({ error: "student_text oder Bilder erforderlich." }, 400, env);
   }
 
   const maxBE = gesamt_be || 100;
@@ -4100,7 +4101,9 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "1.1", "aspekte": ["§ 150 AktG-Prüfung fehlt", "Junge Aktien zeitanteilig nicht berücksichtigt"]}]
 }`;
 
-  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const bilderHinweis = (images && images.length)
+    ? `\n\nBILDER: Die Schülerlösung liegt als Foto(s) der handschriftlichen Arbeit bei. Bewerte die Lösung DIREKT aus den Bildern. Achte besonders auf Rechenwege, Tabellen, Strukturbilanzen, Kennzahlen und Buchungssätze in der Handschrift. Bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`
+    : "";
   const messages = [
     { role: "system", content: rubricPrompt + bilderHinweis },
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
@@ -4226,10 +4229,11 @@ Verwende Markdown-Tabellen für alle tabellarischen Daten.`;
 /* ================= BWR FACHABITUR 12: GRADE (BWR-spezifisch) ================= */
 async function handleGradeAbiturBWR(request, env) {
   const body = await request.json();
-  const { aufgabenbloecke, student_text, gesamt_be, images } = body;
+  const { aufgabenbloecke, gesamt_be, images } = body;
+  let student_text = body.student_text || "";
 
-  if (!student_text) {
-    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  if (!student_text && (!images || !images.length)) {
+    return jsonResponse({ error: "student_text oder Bilder erforderlich." }, 400, env);
   }
 
   const maxBE = gesamt_be || 85;
@@ -4357,7 +4361,9 @@ Antworte NUR mit validem JSON:
   "fehlende_aspekte": [{"aufgabe": "1.1", "aspekte": ["AfA monatsgenau nicht berücksichtigt", "Montagekosten fehlen in AK"]}]
 }`;
 
-  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const bilderHinweis = (images && images.length)
+    ? `\n\nBILDER: Die Schülerlösung liegt als Foto(s) der handschriftlichen Arbeit bei. Bewerte die Lösung DIREKT aus den Bildern. Achte besonders auf Rechenwege, Kalkulationen, Buchungssätze, BAB-Tabellen und HGB-Bewertungen in der Handschrift. Bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`
+    : "";
   const messages = [
     { role: "system", content: rubricPrompt + bilderHinweis },
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
