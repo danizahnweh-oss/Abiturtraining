@@ -3848,9 +3848,10 @@ BEWERTUNGSREGELN:
 - AFB III: Eigenständiges, begründetes Urteil mit Abwägung
 - Max BE gesamt: ${maxBE}
 
-BE → NOTENPUNKTE (0-15):
-Formel: NP = round((erreichte_BE / ${maxBE}) * 15)
-Mindestens 0, maximal 15.
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Antworte NUR mit validem JSON:
 {
@@ -3885,7 +3886,10 @@ Antworte NUR mit validem JSON:
     let np = parsed.notenpunkte ?? null;
 
     if (np == null && beErreicht != null) {
-      np = Math.max(0, Math.min(15, Math.round((beErreicht / beMax) * 15)));
+      const pct = (beErreicht / beMax) * 100;
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
 
     return jsonResponse({
@@ -3964,6 +3968,257 @@ Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
     { role: "system", content: systemPrompt + maRechtsRef },
     { role: "user", content: userContent }
   ], 6000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= BWR ABITUR 13: GRADE (BWR-spezifisch) ================= */
+async function handleGradeAbitur13BWR(request, env) {
+  const body = await request.json();
+  const { aufgabenbloecke, student_text, gesamt_be, images } = body;
+
+  if (!student_text) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 100;
+
+  let aufgabenInfo = "";
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    aufgabenInfo += "Aufgabenblöcke:\n";
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      aufgabenInfo += `\nAufgabe ${block.id || block.nr}: ${block.titel} (${block.gesamt_be || block.be_gesamt} BE)\n`;
+      if (block.kontext) aufgabenInfo += `Kontext: ${truncate(block.kontext, 3000)}\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 20)) {
+          aufgabenInfo += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 600)}\n`;
+        }
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine BwR-Abiturarbeit (Betriebswirtschaftslehre mit Rechnungswesen) der FOS/BOS 13. Klasse Bayern nach dem offiziellen BE-System.
+
+WICHTIG – BWR IST EIN RECHENFACH:
+- BwR-Lösungen bestehen ÜBERWIEGEND aus Berechnungen, Tabellen, Formeln und kurzen Begründungen.
+- Stichpunkte, Tabellen und Aufzählungen sind in BWR VÖLLIG NORMAL und korrekt – KEIN Punktabzug dafür!
+- Fließtext ist nur bei Erläuterungen, Diskussionen und Beurteilungen nötig (z.B. Leverage-Effekt-Diskussion, BSC-Ursache-Wirkungsketten, Personalmanagement).
+- Bei Berechnungsaufgaben: Prüfe Ansatz → Formel → Rechenweg → Ergebnis. Teilpunkte für korrekte Ansätze!
+
+FACHSPEZIFISCHE BEWERTUNGSKRITERIEN:
+
+1. BILANZANALYSE:
+   - Ergebnisverwendungsrechnung: § 150 AktG-Prüfung, Aktienanzahl, Kapitalerhöhung (alte/junge Aktien, zeitanteilige Dividende), Einstellungen in Rücklagen, Bilanzgewinn, Dividende, Gewinnvortrag
+   - Strukturbilanz: Korrekte Zuordnung AV (Grundstücke+Gebäude+Maschinen+BGA+Finanzanlagen) / UV, EK / langfristiges FK (Pensionsrückstellungen+langfr. Verbindlichkeiten) / kurzfristiges FK (sonst. Rückstellungen+erhaltene Anzahlungen+Verb. aLL+Dividende)
+   - Kennzahlen: Formel nennen → korrekt berechnen (2 Dezimalstellen!) → beurteilen (Normwert, Branchenvergleich)
+   - EK-Quote: EK/GK, Normwert ≥ 30-50%
+   - Dynamischer Verschuldungsgrad: Nettoverbindlichkeiten/Cashflow in Jahren, Normwert 5-11 Jahre
+   - EK-Rentabilität: JÜ/EK (Stichtags-EK oder Anfangs-EK), GK-Rentabilität: (JÜ+Zinsaufwand)/GK
+   - Leverage-Effekt: GKR > FK-Zinssatz → positiver Leverage
+   - Cashflow: JÜ + Abschreibungen + Erhöhung langfr. Rückstellungen
+
+2. INVESTITIONSRECHNUNG:
+   - Kapitalwertmethode: Tabelle mit Jahr, Einzahlungen, Auszahlungen, Überschuss, AZF (Abzinsungsfaktor), Barwert → Kapitalwert = Summe Barwerte
+   - Amortisationsdauer: AK / (Gewinn + kalk. Abschreibung), bei Preisindex: WBW = AK * Preisindex/100
+   - Kostenvergleichsrechnung: Fixe Kosten + variable Kosten vergleichen, kritische Menge
+   - Lohmann-Ruchti-Effekt: Tabelle mit Zugang, Bestand, Abschreibung, Abgang, freie Mittel; KEF = 2n/(n+1)
+
+3. KOSTENANPASSUNG:
+   - Selektive Anpassung: Reihenfolge nach Stückdeckungsbeitrag (höchster db zuerst)
+   - Gewinnfunktionen: Abschnittsweise definiert mit Mengenintervallen
+   - Gewinnschwellenmenge (GSM): KF / db (des ersten Intervalls)
+   - Intensitätsmäßige Anpassung: Verbrauchsfunktion V(y), V'(y)=0 → optimale Intensität
+   - Zeitliche Anpassung: Überstundenzuschlag berechnen
+
+4. HGB-BEWERTUNG:
+   - Anschaffungskosten ermitteln: Listenpreis - Rabatt = ZEP - Skonto = BEP + Bezugskosten = AK
+   - NICHT zu AK: Finanzierungskosten, Wartung/Kundendienst nach Inbetriebnahme
+   - Lineare AfA: AK/ND, monatsgenau im Anschaffungsjahr
+   - Bilanzansatz: Regelwert vs. beizulegender Wert
+   - Anlagevermögen: Gemildertes Niederstwertprinzip (bei dauerhafter Wertminderung → Pflicht)
+   - Umlaufvermögen (Vorräte): Strenges Niederstwertprinzip (immer niedrigerer Wert)
+   - Durchschnittswertverfahren bei Vorräten
+
+5. PLANKOSTENRECHNUNG:
+   - Plankosten (PK) = KF + kv × xPlan
+   - Sollkosten (SK) = KF + kv × xIst
+   - Verrechnete Plankosten (verr. PK) = (PK/xPlan) × xIst = pkvs × xIst
+   - Beschäftigungsabweichung (BA) = verr. PK - SK (positiv = Überbeschäftigung, negativ = Unterbeschäftigung)
+   - Verbrauchsabweichung (VA) = SK - IK (positiv = Minderverbrauch, negativ = Mehrverbrauch)
+   - Gesamtabweichung (GA) = BA + VA = verr. PK - IK
+   - Fixkosten aus BA ableiten: KF = BA / Δx × xPlan (wenn BA und Minderbeschäftigung gegeben)
+
+6. BALANCED SCORECARD & PERSONAL:
+   - BSC: 4 Perspektiven (Finanzen, Kunden, Interne Prozesse, Mitarbeiter/Lernen)
+   - Strategisches Ziel + Kennzahl mit Zielwert + operative Maßnahmen
+   - Ursache-Wirkungsketten: Mitarbeiter → Prozesse → Kunden → Finanzen
+   - Stärken-Schwächen-Profil / SWOT-Analyse einbeziehen
+   - Blake & Mouton: 9×9 Gitter (Aufgaben- vs. Mitarbeiterorientierung)
+   - Locke & Latham: SMART-Ziele, gemeinsame Vereinbarung, Feedback
+   - Herzberg: Hygienefaktoren (Lohn, Arbeitsumfeld) vs. Motivatoren (Anerkennung, Verantwortung)
+   - PE: into-the-job, on-the-job, near-the-job, off-the-job, along-the-job, out-of-the-job
+   - Diskussionen: Pro/Kontra/Fazit-Struktur
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Teilpunkte vergeben: Korrekter Ansatz ohne Ergebnis → ca. 50% der BE
+- Folgefehler: Wenn ein Zwischenergebnis falsch ist, aber der weitere Rechenweg korrekt → Punkte für den Rechenweg
+- Rundung: Auf 2 Dezimalstellen. Falsche Rundung → max. 0,5 BE Abzug
+- Max BE gesamt: ${maxBE}
+
+OFFIZIELLE NOTENPUNKTE-TABELLE (BE → NP):
+| NP | BE von | BE bis |
+| 15 | 96     | 100    |
+| 14 | 91     | 95     |
+| 13 | 86     | 90     |
+| 12 | 81     | 85     |
+| 11 | 76     | 80     |
+| 10 | 71     | 75     |
+| 9  | 66     | 70     |
+| 8  | 61     | 65     |
+| 7  | 56     | 60     |
+| 6  | 51     | 55     |
+| 5  | 46     | 50     |
+| 4  | 41     | 45     |
+| 3  | 34     | 40     |
+| 2  | 27     | 33     |
+| 1  | 20     | 26     |
+| 0  | 0      | 19     |
+Ergibt die Gesamtsumme n,5 BE → einmalig zugunsten des Prüflings aufrunden.
+
+Antworte NUR mit validem JSON:
+{
+  "bewertung_bloecke": [
+    {"block_nr": 1, "block_titel": "Aufgabe I", "teilaufgaben": [{"nr": "1.1", "be_erreicht": 5, "be_max": 7, "kommentar": "Ergebnisverwendungsrechnung korrekt, Strukturbilanz: AV richtig, UV fehlt geleistete Anzahlungen..."}], "be_erreicht": 38, "be_max": 55},
+    {"block_nr": 2, "block_titel": "Aufgabe II", "teilaufgaben": [...], "be_erreicht": 30, "be_max": 45}
+  ],
+  "be_erreicht": <Zahl>,
+  "be_max": ${maxBE},
+  "notenpunkte": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback: Welche Berechnungen korrekt, welche Fehler, welche Ansätze fehlten, Verbesserungsvorschläge>",
+  "korrektur_text": "<Der Schülertext mit Markierungen: Rechenfehler mit <mark class='fehler-rs' title='Richtig: 32,58 %'>32,85 %</mark>, fehlende Schritte kennzeichnen>",
+  "fehlende_aspekte": [{"aufgabe": "1.1", "aspekte": ["§ 150 AktG-Prüfung fehlt", "Junge Aktien zeitanteilig nicht berücksichtigt"]}]
+}`;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const messages = [
+    { role: "system", content: rubricPrompt + bilderHinweis },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 12000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.be_erreicht ?? null;
+    const beMax = parsed.be_max ?? maxBE;
+    let np = parsed.notenpunkte ?? null;
+
+    // Offizielle NP-Tabelle anwenden
+    if (np == null && beErreicht != null) {
+      const BE_NP = [[96,15],[91,14],[86,13],[81,12],[76,11],[71,10],[66,9],[61,8],[56,7],[51,6],[46,5],[41,4],[34,3],[27,2],[20,1],[0,0]];
+      // Aufrundung bei n,5
+      const be = beErreicht % 1 === 0.5 ? Math.ceil(beErreicht) : Math.round(beErreicht);
+      np = 0;
+      for (const [schwelle, punkte] of BE_NP) {
+        if (be >= schwelle) { np = punkte; break; }
+      }
+    }
+
+    return jsonResponse({
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      bewertung_bloecke: parsed.bewertung_bloecke || [],
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      bewertung_bloecke: [],
+      feedback: openaiRes,
+      feedback_kurz: [],
+      korrektur_text: "",
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
+    }, 200, env);
+  }
+}
+
+/* ================= BWR ABITUR 13: MODEL ANSWER (BWR-spezifisch) ================= */
+async function handleModelAnswerAbitur13BWR(request, env) {
+  const { aufgabenbloecke } = await request.json();
+
+  const systemPrompt = `Du bist ein BwR-Experte und erstellst eine vorbildliche Musterlösung für eine BwR-Abiturprüfung (FOS/BOS 13. Klasse Bayern).
+Die Musterlösung orientiert sich am Stil der offiziellen ISB-Lösungshinweise.
+
+FORMAT DER MUSTERLÖSUNG:
+
+1. BERECHNUNGEN (Hauptteil der Lösung):
+   - Klare Darstellung: Ansatz → Formel → Einsetzen → Ergebnis
+   - Alle Zwischenschritte zeigen
+   - Auf 2 Dezimalstellen runden (Kennzahlen, Geldbeträge, Prozentsätze)
+   - Markdown-Tabellen für tabellarische Daten verwenden
+
+2. TABELLARISCHE DARSTELLUNGEN (wo passend):
+   - Ergebnisverwendungsrechnung als Tabelle (JÜ + Gewinnvortrag - Einstellungen = Bilanzgewinn - Dividende = GV)
+   - Strukturbilanz als Tabelle (AV/UV links, EK/langfr.FK/kurzfr.FK rechts)
+   - Kapitalwert-Tabelle (Jahr | Einzahlungen | Auszahlungen | Überschuss | AZF | Barwert)
+   - Lohmann-Ruchti-Tabelle (Jahr | Zugang | Bestand | Abschreibung | Abgang | freie Mittel)
+   - Plankostenrechnung: Alle Werte übersichtlich auflisten
+
+3. KENNZAHLEN-SCHEMA:
+   - Beschreibung der Kennzahl (1 Satz)
+   - Formel
+   - Berechnung mit eingesetzten Werten
+   - Ergebnis mit Einheit (%, Jahre, €)
+   - Beurteilung mit Bezug auf Normwert
+
+4. BEGRÜNDUNGEN & DISKUSSIONEN:
+   - Pro-/Kontra-Struktur bei Diskussionsaufgaben
+   - Fazit/Empfehlung am Ende
+   - Bezug auf berechnete Kennzahlen und gegebene Daten
+   - Kurz und präzise – kein Fließtext-Aufsatz!
+
+5. HGB-BEWERTUNG:
+   - AK-Ermittlung als Staffelrechnung (LP - Rabatt = ZEP - Skonto = BEP + Bezugskosten = AK)
+   - AfA-Berechnung (Jahres-AfA, ggf. monatsgenau)
+   - Regelwert vs. beizulegender Wert
+   - Anwendbares Prinzip nennen (strenges/gemildertes NWP)
+   - Bilanzansatz mit Begründung
+
+6. PLANKOSTENRECHNUNG:
+   - Alle Größen berechnen: PK, SK, verr. PK, BA, VA, GA
+   - Art der Abweichung angeben (Mehr-/Minderverbrauch, Über-/Unterbeschäftigung)
+
+7. BSC & PERSONAL:
+   - BSC: Strategisches Ziel → Kennzahl mit Zielwert → Operative Maßnahmen (als Tabelle)
+   - Ursache-Wirkungsketten: Mitarbeiter → Prozesse → Kunden → Finanzen
+   - Blake & Mouton: Koordinaten bestimmen und begründen
+   - Diskussionen: Strukturiert mit Pro/Kontra/Fazit
+
+Formatiere die gesamte Lösung als Markdown mit klaren Überschriften (## Aufgabe I, ### 1.1, etc.)
+Verwende Markdown-Tabellen für alle tabellarischen Daten.`;
+
+  let userContent = "AUFGABEN:\n";
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      userContent += `\n## Aufgabe ${block.id || block.nr}: ${block.titel} (${block.gesamt_be || block.be_gesamt} BE)\n`;
+      if (block.kontext) userContent += `${truncate(block.kontext, 4000)}\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 20)) {
+          userContent += `**${ta.nr}** (${ta.be} BE): ${truncate(ta.text, 600)}\n`;
+        }
+      }
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -4400,8 +4655,10 @@ BEWERTUNGSREGELN:
 - Gesamt: max ${maxBE} BE
 - Berücksichtige: Materialbezug, Operatoren (AFB I/II/III), fachliche Korrektheit, Struktur
 
-BE → NOTENPUNKTE (0-15):
-Formel: NP = round((be_gesamt / ${maxBE}) * 15)
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Antworte NUR mit validem JSON:
 {
@@ -12107,8 +12364,8 @@ async function handleFOSRoute(pathname, request, env) {
 
   // === BWR ABITUR 13 (Fachgebundene/Allgemeine Hochschulreife) ===
   if (route === "generate-abitur13-bwr") return handleFOSGenerateAbitur13BWR(body, env);
-  if (route === "grade-abitur13-bwr") return handleGradeWR(fakeReq, env);
-  if (route === "model-answer-abitur13-bwr") return handleModelAnswerWR(fakeReq, env);
+  if (route === "grade-abitur13-bwr") return handleGradeAbitur13BWR(fakeReq, env);
+  if (route === "model-answer-abitur13-bwr") return handleModelAnswerAbitur13BWR(fakeReq, env);
 
   // === IBV ABITUR (FOS-Fachabitur) ===
   if (route === "generate-abitur-ibv") return handleFOSGenerateAbiturIBV(body, env);
@@ -12498,126 +12755,156 @@ KEINE Themen aus BwR 13 verwenden!`;
 async function handleFOSGenerateAbitur13BWR(body, env) {
   const systemPrompt = `Du bist ein Experte für die FOS/BOS-Abiturprüfung BwR (Betriebswirtschaftslehre mit Rechnungswesen) 13. Klasse in Bayern.
 Erstelle eine VOLLSTÄNDIGE Abiturprüfung für die fachgebundene/allgemeine Hochschulreife.
+Die Prüfung soll sich am Stil und Niveau der echten FOSBOS-Abiturprüfungen orientieren.
 
-PRÜFUNGSSTRUKTUR (FOS/BOS Bayern, BwR Abitur 13. Klasse):
-- Bearbeitungszeit: 180 Minuten
+PRÜFUNGSFORMAT:
+- Bearbeitungszeit: 180 Minuten (09:00 – 12:00 Uhr)
 - Hilfsmittel: ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
 - BEIDE Aufgaben sind Pflicht (kein Wahlteil!)
-- Gesamt: ca. 80-85 BE
-- WICHTIG: Schwerpunkt auf BwR 13-Inhalten! Grundlagenwissen aus BwR 11/12 darf eingebunden werden, aber der Fokus liegt auf den 13er-Lernbereichen.
+- Gesamt: 100 BE (Bewertungseinheiten)
+- Hinweise: "Bearbeiten Sie alle Aufgaben. Bei der jeweiligen Lösung sind auch die Ansätze für die einzelnen Lösungsschritte sowie die dazugehörigen Nebenrechnungen niederzuschreiben. Gebräuchliche Abkürzungen sollen verwendet werden. Geldbeträge, Kennzahlen und Prozentsätze sind grundsätzlich auf zwei Kommastellen zu runden. Der Umsatzsteuersatz beträgt 19 % bzw. 7 % für Umsätze im Inland. Für Umsätze mit dem Ausland bleibt die Umsatzsteuer unberücksichtigt."
 
-AUFGABE I (ca. 45-50 BE) – Bilanzanalyse, Investition & Kostenanpassung:
-Durchgängiger Unternehmenskontext (AG, Industrieunternehmen).
+AUFGABE I (ca. 55 BE) – Bilanzanalyse, Investition, Kostenanpassung & HGB-Bewertung:
+Durchgängiger Unternehmenskontext: Eine AG (Industrieunternehmen, fiktiver Name, konkreter Firmensitz in Bayern).
 
-Themenbereich 1 – Bilanzanalyse (BwR 13 LB1, ca. 15-20 BE):
-- Ergebnisverwendungsrechnung AG
-- Strukturbilanz aufstellen/ergänzen
-- Bilanzkennzahlen berechnen und beurteilen: Eigenkapitalquote, Fremdkapitalquote, statischer Verschuldungsgrad, Anlagedeckungsgrad I und II, Working Capital, Liquiditätsgrade 1-3
-- Kennzahlen der Finanz- und Ertragskraft: Eigenkapitalrentabilität, Gesamtkapitalrentabilität, Leverage-Effekt, Umsatzrentabilität, Kapitalumschlag, ROI, Cashflow, dynamischer Verschuldungsgrad, EBIT
-- Kennzahlenvergleich (Zeitvergleich oder Branchenvergleich)
-- Maßnahmen zur Verbesserung finanzwirtschaftlicher Ziele
+Aufgabe I MUSS folgende 4 Themenbereiche abdecken (wie in echten Prüfungen):
 
-Themenbereich 2 – Investition & Finanzierung (BwR 13 LB1, ca. 10-15 BE):
-- Kapitalwertmethode (dynamische Investitionsrechnung) – ZENTRAL!
-- Statische Verfahren zum Vergleich (Kostenvergleich, Amortisation)
-- Leasing vs. Kreditfinanzierung (Operate Leasing, Financial Leasing, rechnerischer Vergleich)
-- Factoring (Funktionen, Vor-/Nachteile)
-- Lohmann-Ruchti-Effekt (Gesamtkapazität, Periodenkapazität, Kapazitätserweiterungsfaktor)
+1. BILANZANALYSE (ca. 20-25 BE):
+   - Vollständige Bilanz mit 2 Geschäftsjahren (Aktiva + Passiva, Werte in Tsd. €)
+   - Bilanzpositionen: Grundstücke, Gebäude, Maschinen, BGA, Finanzanlagen, RHB-Stoffe/Vorräte, Fertigerzeugnisse, Geleistete Anzahlungen, Forderungen aLL, Wertpapiere UV, Kasse, Bank | Gezeichnetes Kapital, Kapitalrücklage, Gesetzliche Rücklage, Andere Gewinnrücklagen, Gewinnvortrag, Jahresüberschuss, Pensionsrückstellungen, Sonstige Rückstellungen, Langfr. Verbindlichkeiten, Erhaltene Anzahlungen, Verbindlichkeiten aLL
+   - Kapitalerhöhung oder besondere Dividendenregelung (alte/junge Aktien, zeitanteilig)
+   - GuV-Auszug: Abschreibungen, Zinserträge, Zinsaufwendungen (ggf. Umsatzerlöse)
+   - Branchenwerte als Vergleich
+   - Aufgabenstellung: Ergebnisverwendungsrechnung + Strukturbilanz erstellen (ca. 7 BE)
+   - Kennzahlen berechnen und beurteilen (ca. 7 BE): z.B. EK-Quote + dynamischer Verschuldungsgrad ODER AD I + AD II + statischer Verschuldungsgrad
+   - EK-Rentabilität + GK-Rentabilität berechnen (ca. 3 BE)
+   - Leverage-Effekt diskutieren / Finanzierungsentscheidung begründen (ca. 5 BE)
 
-Themenbereich 3 – Kostenanpassung (BwR 13 LB3, ca. 10-15 BE):
-- Anpassungsformen bei konstanter Betriebsgröße: zeitlich, intensitätsmäßig, quantitativ, selektiv
-- Gewinnfunktionen aufstellen und vergleichen
-- Gewinnschwellenmenge berechnen und grafisch darstellen
-- Nutzkosten und Leerkosten unterscheiden, Kostenremanenz erklären
-- HGB-Bewertung: Herstellungskosten, außerplanmäßige Abschreibung (darf aus BwR 12 eingebunden werden)
+2. INVESTITIONSRECHNUNG (ca. 13 BE):
+   - 2 Investitionsalternativen mit Daten (AK, ND, Kapazität, variable Kosten, Fixkosten)
+   - Kostenvergleich oder Amortisationsrechnung (ca. 4 BE)
+   - Kapitalwertmethode: Zahlungsreihe über 3-6 Jahre mit Barwertberechnung (ca. 6 BE)
+   - Beurteilung/Empfehlung formulieren (ca. 3 BE)
+   - ODER: Lohmann-Ruchti-Effekt mit Tabelle (ca. 5 BE) + Kapitalwertmethode (ca. 6 BE)
 
-AUFGABE II (ca. 30-35 BE) – Controlling, Personal & Strategisches Management:
-Anderer Unternehmenskontext (anderes Unternehmen, andere Branche).
+3. KOSTENANPASSUNG (ca. 14-16 BE):
+   - Mehrere Produktionsanlagen (2-3) mit unterschiedlichen Fixkosten, variablen Stückkosten und Kapazitäten
+   - Einheitlicher Verkaufspreis
+   - Selektive Anpassung: Reihenfolge nach Stückdeckungsbeitrag bestimmen
+   - Gesamtgewinnfunktion G(x) abschnittsweise aufstellen (ca. 5 BE)
+   - Gewinnschwellenmenge berechnen (ca. 4 BE)
+   - Anpassungsmaßnahme prüfen: z.B. intensitätsmäßige Anpassung einer Anlage → neuer db, Empfehlung (ca. 7 BE)
+   ODER:
+   - Intensitätsmäßige vs. zeitliche Anpassung: Verbrauchsfunktion V(y), optimale Intensität, Überstundenzuschlag berechnen
 
-Themenbereich 1 – Plankostenrechnung & BSC (BwR 13 LB2, ca. 15-20 BE):
-- Flexible Plankostenrechnung auf Vollkostenbasis
-- Beschäftigungsabweichung berechnen
-- Verbrauchsabweichung berechnen
-- Gesamtabweichung bestimmen
-- Grafische Darstellung der Abweichungen (Stück- oder Gesamtbetrachtung)
-- Balanced Scorecard (BSC): 4 Perspektiven (Finanzen, Kunden, Interne Prozesse, Mitarbeiter)
-- Strategische Situationsanalyse (SWOT)
-- Ursache-Wirkungsketten zwischen BSC-Perspektiven
-- Strategische Ziele und operative Maßnahmen definieren
+4. HGB-BEWERTUNG (ca. 7 BE):
+   - Tochterunternehmen oder eigene Abteilung
+   - Eingangsrechnung (Listenpreis, Rabatt, Transport, Montage, Wartung, USt, Skonto)
+   - AK ermitteln (was gehört dazu, was nicht?)
+   - Lineare AfA, ggf. monatsgenau
+   - Außerplanmäßige Abschreibung (Wasserschaden o.ä. → beizulegender Wert)
+   - Bilanzansatz ermitteln und begründen (gemildertes Niederstwertprinzip)
+   ODER:
+   - Vorratsbewertung: Durchschnittswertverfahren, strenges Niederstwertprinzip
 
-Themenbereich 2 – Personalmanagement (BwR 13 LB4, ca. 10-15 BE):
-- Motivationstheorien: Herzberg (Zweifaktorentheorie: Hygienefaktoren vs. Motivatoren), Locke & Latham (Zielsetzungstheorie)
-- Menschenbilder: Theorie X und Theorie Y
-- Führungsstile: autoritär, kooperativ, Verhaltensgitter nach Blake & Mouton (9.9-Gitter)
-- Managementtechniken: Management by Exception, by Delegation, by Objectives
-- Personalentwicklung: PE into-the-job, on-the-job, near-the-job, off-the-job, along-the-job, out-of-the-job
-- Praktische Anwendung auf Unternehmenssituation
+AUFGABE II (ca. 45 BE) – Controlling, Personal & Strategisches Management:
+Anderer Unternehmenskontext (anderes Unternehmen, andere Branche, konkreter Firmensitz).
+SWOT-Analyse oder Stärken-Schwächen-Profil (mit Wettbewerber-Vergleich) als zentrale Informationsgrundlage!
 
-Ergänzend darf aus früheren Jahrgangsstufen eingebaut werden (als Grundlage, nicht als Hauptthema):
-- BCG-Matrix und Normstrategien (BwR 12 LB2)
-- Optimale Bestellmenge, Bestellpunktverfahren (BwR 11 LB2)
-- Grundlagen der Vollkosten-/Teilkostenrechnung
+1. PLANKOSTENRECHNUNG (ca. 12-17 BE):
+   - Ein Werk, ein Produkt, monatliche Kapazität
+   - Daten für 2 Monate (z.B. Mai und Juni) mit unterschiedlichen Plan-/Ist-Werten
+   - Berechnung: Fixkosten (KF), variable Stückkosten (kv), Sollkosten (SK), verrechnete Plankosten (verr. PK), BA, VA
+   - Grafische Darstellung (Skizze beschreiben) in der Gesamtbetrachtung
+   - BSC-Maßnahme zur Vermeidung der Verbrauchsabweichung (strategisches Ziel, Kennzahl, Maßnahmen)
+
+2. PERSONALMANAGEMENT (ca. 11-16 BE):
+   - Bezug auf Stärken-Schwächen-Profil oder SWOT
+   - Diskussion einer aktuellen Maßnahme/Situation (z.B. "Job-Turbo", Fachkräftemangel, Umfrageergebnis)
+   - Personalentwicklungsmaßnahme beschreiben (on-the-job, off-the-job etc.)
+   - Ursache-Wirkungskette über alle 4 BSC-Perspektiven
+   - ODER: Verhaltensgitter Blake & Mouton anhand einer Führungskraft-Beschreibung
+   - ODER: Motivationsanalyse mit Locke & Latham oder Herzberg
+
+3. STRATEGISCHES MANAGEMENT (ca. 8-13 BE):
+   - BCG-Portfolio mit SGE-Daten (Marktwachstum, relativer Marktanteil)
+   - Normstrategie für eine SGE ableiten
+   - Produktpolitische Maßnahme (Produktvariation, -innovation, -diversifikation, -elimination) zuordnen
+   - ODER: Optimale Bestellmenge (Andler-Formel) + Bestellintervall
+   - ODER: Lieferantenauswahl mit Nutzwertanalyse
 
 PFLICHT-REGELN:
 - Jede Aufgabe hat einen EIGENEN Unternehmenskontext (Name, Branche, Situation)
-- BE-Angaben an JEDER Teilaufgabe
-- Realistische Zahlen (Geschäftsjahr, Bilanzstichtag, Bilanzsummen im Millionenbereich etc.)
-- Tabellen und Kontoauszüge direkt in der Aufgabe
+- BE-Angaben an JEDER Teilaufgabe (Zahl im JSON)
+- Realistische Zahlen (Bilanzsummen 5-150 Mio. €, passende Verhältnisse)
+- Tabellen als Markdown im kontext-Feld
+- Nennwert der Aktien: 5,00 € pro Aktie (wie in echten Prüfungen)
+- Alle Geldbeträge mit 2 Dezimalstellen und € oder Tsd. €
 
-NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
-- KEINE Buchstaben a), b), c), d) verwenden! Nur Dezimalnotation!
-- Gliederung innerhalb jeder Aufgabe (I, II):
-  Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
-  Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
-  Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben, nur wenn nötig)
-- Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten, bevor die Teilaufgaben kommen
-- Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
-- Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+NUMMERIERUNG (wie Original-Prüfungen):
+- KEINE Buchstaben a), b), c), d)! Nur Dezimalnotation!
+- Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
+- Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
+- Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben)
+- KEINE Operatoren in Klammern (KEIN "(Operator: berechnen)")
+- Operatoren natürlich im Aufgabentext ("Berechnen Sie...", "Begründen Sie...")
 
-TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
-- Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
-  Bilanzen, Bilanzauszüge, GuV-Auszüge, Kontoauszüge, Strukturbilanzen, Plankostenrechnungen, Anlagenspiegel, Darlehenspläne, Abzinsungstabellen
-- Markdown-Tabellen-Format: | Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |
-- Für die Kapitalwertmethode: Tabelle mit Abzinsungsfaktoren oder Zahlungsreihe bereitstellen
-- Für Plankostenrechnung: Tabelle mit Plan-/Ist-Daten (Planbeschäftigung, Istbeschäftigung, Plankosten fix/variabel, Istkosten)
-- Für Strukturbilanz: Aufbereitete Bilanzpositionen mit Absolutwerten
+TABELLEN IM KONTEXT-FELD:
+- Bilanz: Markdown-Tabelle mit Aktiva/Passiva und 2 Geschäftsjahren
+- Eingangsrechnung: Als formatierter Text mit Positionen
+- Plankostenrechnungsdaten: In Fließtext mit Zahlen eingebettet (wie in echten Prüfungen)
+- Stärken-Schwächen-Profil oder SWOT-Analyse: Als Markdown-Tabelle
 
 Antworte NUR mit validem JSON:
 {
   "titel": "Abiturprüfung BwR – 13. Klasse",
-  "gesamt_be": 85,
+  "gesamt_be": 100,
   "zeit": 180,
   "hilfsmittel": "ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
   "aufgaben": [
     {
       "id": "I",
-      "titel": "Aufgabe I – Bilanzanalyse, Investition & Kostenanpassung",
-      "kontext": "Ausführlicher Unternehmenskontext mit Bilanzdaten, Strukturbilanz etc. ...",
-      "gesamt_be": 50,
+      "titel": "Aufgabe I",
+      "kontext": "Ausführlicher Unternehmenskontext mit Bilanz-Tabelle (2 Jahre), GuV-Auszug, Branchenwerte, Investitionsdaten, Anlagendaten, Rechnungsdaten...",
+      "gesamt_be": 55,
       "teilaufgaben": [
-        {"nr": "1", "text": "Einleitungstext mit Daten/Tabellen...", "be": 0},
-        {"nr": "1.1", "text": "Erstellen Sie die Strukturbilanz...", "be": 8},
-        {"nr": "1.2", "text": "Berechnen und beurteilen Sie die Eigenkapitalquote...", "be": 5},
-        {"nr": "2", "text": "Investitionsentscheidung mit Zahlungsreihe...", "be": 0},
-        {"nr": "2.1", "text": "Berechnen Sie den Kapitalwert...", "be": 7},
-        {"nr": "3", "text": "Kostenoptimale Anpassung...", "be": 0},
-        {"nr": "3.1", "text": "Berechnen Sie die Gewinnschwellenmenge...", "be": 6}
+        {"nr": "1", "text": "Einleitungstext zur Bilanzanalyse mit Verweis auf Bilanz im Kontext...", "be": 0},
+        {"nr": "1.1", "text": "Erstellen Sie die vollständige Ergebnisverwendungsrechnung für das Jahr 2024 sowie die Strukturbilanz zum 31.12.2024.", "be": 7},
+        {"nr": "1.2", "text": "Beschreiben und beurteilen Sie die Eigenkapitalquote sowie den dynamischen Verschuldungsgrad.", "be": 7},
+        {"nr": "1.2.1", "text": "...", "be": 3},
+        {"nr": "2", "text": "Investitionskontext mit Daten zu 2 Maschinen...", "be": 0},
+        {"nr": "2.1", "text": "Formulieren Sie eine Empfehlung...", "be": 4},
+        {"nr": "3", "text": "Kostenanpassungs-Kontext mit Anlagendaten...", "be": 0},
+        {"nr": "3.1", "text": "Ermitteln Sie die Gesamtgewinnfunktion G(x)...", "be": 5},
+        {"nr": "4", "text": "HGB-Bewertungskontext mit Eingangsrechnung...", "be": 7}
       ]
     },
-    {"id": "II", "titel": "Aufgabe II – Controlling, Personal & Strategisches Management", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [...]}
+    {
+      "id": "II",
+      "titel": "Aufgabe II",
+      "kontext": "Anderer Unternehmenskontext mit SWOT-Analyse oder Stärken-Schwächen-Profil...",
+      "gesamt_be": 45,
+      "teilaufgaben": [
+        {"nr": "1", "text": "Plankostenrechnungs-Kontext...", "be": 0},
+        {"nr": "1.1", "text": "Berechnen Sie die Beschäftigungs- und Verbrauchsabweichung...", "be": 5},
+        {"nr": "2", "text": "Personal-Kontext...", "be": 0},
+        {"nr": "2.1", "text": "Diskutieren Sie...", "be": 5}
+      ]
+    }
   ]
 }
-WICHTIG zur Nummerierung:
-- Hauptnummern (1, 2, 3, 4) haben be: 0 wenn sie nur Kontexttext/Daten enthalten und KEINE eigene Aufgabenstellung sind
-- Hauptnummern haben be > 0 wenn sie SELBST eine Aufgabenstellung sind
+WICHTIG:
+- Hauptnummern (1, 2, 3, 4) mit be: 0 = nur Kontext/Daten, keine Aufgabenstellung
+- Hauptnummern mit be > 0 = sind SELBST eine Aufgabenstellung
 - Teilaufgaben (1.1, 1.2, 2.1) haben IMMER be > 0
+- Summe aller BE einer Aufgabe = gesamt_be dieser Aufgabe
+- Summe beider Aufgaben = 100 BE
 - NIEMALS a), b), c), d) verwenden!`;
 
-  const userPrompt = `Erstelle eine vollständige FOS/BOS-Abiturprüfung BwR 13. Klasse (ca. 85 BE).
-Aufgabe I (~50 BE): Bilanzanalyse mit Strukturbilanz & Kennzahlen (~18 BE) + Investitionsrechnung mit Kapitalwertmethode (~15 BE) + Kostenanpassung & Gewinnfunktionen (~17 BE). Durchgängiger Unternehmenskontext einer AG.
-Aufgabe II (~35 BE): Flexible Plankostenrechnung mit Abweichungsanalyse (~12 BE) + Balanced Scorecard mit Ursache-Wirkungsketten (~10 BE) + Personalmanagement mit Führungsstilen & Motivationstheorien (~13 BE). Anderer Unternehmenskontext.
-Jede Aufgabe braucht realistische Zahlen, Tabellen und BE an jeder Teilaufgabe.
-Schwerpunkt auf BwR-13-Inhalten! Grundlagen aus 11/12 dürfen eingebaut werden.`;
+  const userPrompt = `Erstelle eine vollständige FOS/BOS-Abiturprüfung BwR 13. Klasse (100 BE gesamt).
+Aufgabe I (~55 BE): Bilanzanalyse mit Ergebnisverwendungsrechnung AG + Strukturbilanz + Kennzahlen (~22 BE) + Investitionsrechnung mit Kapitalwertmethode + Amortisation (~13 BE) + Kostenanpassung mit selektiver Anpassung + Gewinnfunktionen + GSM (~13 BE) + HGB-Bewertung mit Eingangsrechnung + AfA + Bilanzansatz (~7 BE). Ein durchgängiger AG-Unternehmenskontext.
+Aufgabe II (~45 BE): Plankostenrechnung mit Abweichungsanalyse + Skizze-Aufgabe (~14 BE) + BSC mit strategischem Ziel + Kennzahl + Maßnahmen (~7 BE) + Personalmanagement mit Führungsstil oder Motivationstheorie + PE-Maßnahme + Ursache-Wirkungskette (~16 BE) + Strategisches Management mit Portfolio-Analyse oder optimaler Bestellmenge (~8 BE). Anderer Unternehmenskontext mit Stärken-Schwächen-Profil oder SWOT-Analyse.
+Realistische Zahlen, vollständige Bilanz mit 2 Jahren, Markdown-Tabellen.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
