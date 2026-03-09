@@ -1507,13 +1507,13 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
    Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
    Generiert textfreie Bilder mit HTML-Label-Overlays.
    ============================ */
-async function loadEducationalImage(prompt, containerId, labels, style) {
+async function loadEducationalImage(prompt, containerId, labels, style, withText) {
   var el = document.getElementById(containerId);
   if (!el) return;
   try {
     var d = await apiCall("/api/generate-image", {
       prompt: prompt,
-      noText: true,
+      noText: !withText,
       style: style || "diagram"
     });
 
