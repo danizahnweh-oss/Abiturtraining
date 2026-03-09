@@ -344,36 +344,25 @@
         </div>
       </div>
 
-      <!-- OCR UPLOAD -->
+      <!-- FOTO-UPLOAD (direkte Bewertung, kein OCR) -->
       <div class="card">
-        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <h2 class="card-header">Handschriftliche L&ouml;sung fotografieren</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+          Fotografiere deine L&ouml;sung &ndash; die KI bewertet direkt die Fotos. Alternativ kannst du auch oben tippen.
         </p>
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
           <div class="upload-icon">&#x1F4F7;</div>
-          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Fotos hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Foto</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+          <div class="loader-text"><span id="ocrProgress"></span></div>
         </div>
-        <div id="ocrResult" style="display:none;margin-top:1rem;">
-          <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
-            oninput="updateOCRWordCount()"></textarea>
-          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRText('I')">&#x2713; In Aufgabe I</button>
-            <button class="btn btn-small" onclick="useOCRText('II')">&#x2713; In Aufgabe II</button>
-            <button class="btn btn-small" onclick="useOCRText('III')">&#x2713; In Aufgabe III</button>
-            <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
-            <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
-          </div>
-        </div>
+        <div id="ocrResult" style="display:none;margin-top:1rem;"></div>
       </div>
 
       <button class="btn btn-secondary" onclick="startTimer()" id="timerStartBtn">&#x23F1; Timer starten</button>
@@ -493,7 +482,8 @@
       pdfFilename: "FOS_BWR_Fachabitur",
       chartColor: "#f59e0b",
       minWords: 20,
-      loginPage: "index.html"
+      loginPage: "index.html",
+      skipOCR: true
     };
   </script>
   <script src="tour.js"></script>
@@ -648,7 +638,8 @@
       var tII = document.getElementById("studentTextII").value;
       var tIII = document.getElementById("studentTextIII").value;
       var totalWords = countWords(tI) + countWords(tII) + countWords(tIII);
-      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      var hatFotos = typeof getOCRImages === "function" && getOCRImages().length > 0;
+      if (totalWords < MODULE_CONFIG.minWords && !hatFotos) { showToast("Bitte eine L\u00f6sung eingeben oder Fotos hochladen"); return; }
       if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
 
       document.getElementById("submitBtn").disabled = true;
@@ -657,7 +648,9 @@
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        var combinedText = "=== Aufgabe I ===\n" + tI + "\n\n=== Aufgabe II ===\n" + tII + "\n\n=== Aufgabe III ===\n" + tIII;
+        var combinedText = (totalWords > 0)
+          ? "=== Aufgabe I ===\n" + tI + "\n\n=== Aufgabe II ===\n" + tII + "\n\n=== Aufgabe III ===\n" + tIII
+          : "L\u00f6sung als Fotos beigef\u00fcgt \u2013 bitte Bilder direkt bewerten.";
 
         var d = await apiCallAsync("fos-grade-abitur-bwr", {
           aufgabenbloecke: CONFIG.storedData.aufgaben || [],
