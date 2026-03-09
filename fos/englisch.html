@@ -310,6 +310,154 @@
     [data-theme="dark"] .cartoon-bubble.bottom-left::after { border-bottom-color: #888; }
     [data-theme="dark"] .cartoon-bubble.bottom-right::after { border-bottom-color: #888; }
 
+    /* ====== Reading-Texte ====== */
+    .reading-text {
+      max-height: 400px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      font-size: .95rem;
+      line-height: 1.7;
+      border: 1px solid var(--border);
+    }
+
+    .reading-text p { margin-bottom: .8rem; }
+
+    /* ====== Task-Bloecke ====== */
+    .task-block {
+      background: var(--surface, #fff);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .task-block h3 {
+      font-size: 1rem;
+      margin-bottom: .8rem;
+      color: var(--accent);
+      font-family: var(--font-display);
+    }
+
+    .task-block h4 {
+      font-size: .92rem;
+      margin: 1rem 0 .5rem;
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .task-instruction {
+      font-size: .93rem;
+      color: var(--ink-light);
+      margin-bottom: .8rem;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    .be-badge {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: .4rem;
+    }
+
+    .text-divider {
+      border: none;
+      border-top: 2px solid var(--accent-soft);
+      margin: 2rem 0;
+    }
+
+    .answer-correct { color: #16a34a; font-weight: 600; }
+    .answer-incorrect { color: #dc2626; font-weight: 600; }
+    .correction-note { font-size: .82rem; color: var(--ink-muted); margin-top: .2rem; }
+
+    /* ====== BE Scores Grid ====== */
+    .be-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .be-score-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .be-score-card.total {
+      background: var(--accent-glow);
+      border-color: var(--accent);
+    }
+
+    .be-score-label { font-size: .8rem; color: var(--ink-muted); margin-bottom: .3rem; }
+    .be-score-value { font-size: 1.5rem; font-weight: 800; font-family: var(--font-display); color: var(--ink); }
+    .be-score-max { font-size: .75rem; color: var(--ink-muted); }
+
+    /* ====== RC Sub-Typen Checkboxen ====== */
+    .rc-subtypes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .8rem;
+      margin: 1rem 0;
+    }
+
+    .rc-subtype-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      padding: .8rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all .15s;
+      min-height: 44px;
+    }
+
+    .rc-subtype-item:hover { border-color: var(--accent); }
+
+    .rc-subtype-item input[type="checkbox"] {
+      min-width: 20px;
+      min-height: 20px;
+      margin-top: .15rem;
+      cursor: pointer;
+    }
+
+    .rc-subtype-item span {
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--ink);
+      display: block;
+    }
+
+    .rc-subtype-item small {
+      font-size: .8rem;
+      color: var(--ink-muted);
+      display: block;
+      margin-top: .15rem;
+    }
+
+    /* ====== Mode-Badge fuer History ====== */
+    .mode-badge {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-right: .3rem;
+      vertical-align: middle;
+    }
+
     @media (max-width: 640px) {
       .scores-grid {
         grid-template-columns: 1fr;
@@ -324,6 +472,14 @@
       }
 
       .setup-selects {
+        grid-template-columns: 1fr;
+      }
+
+      .rc-subtypes {
+        grid-template-columns: 1fr;
+      }
+
+      .be-scores-grid {
         grid-template-columns: 1fr;
       }
 
@@ -366,14 +522,17 @@
       <button id="nav-setup" class="active" onclick="nav('setup')">
         <span class="step-num">1</span> Setup
       </button>
-      <button id="nav-task" onclick="nav('task')">
+      <button id="nav-task" onclick="nav('task')" style="display:none;">
         <span class="step-num">2</span> Aufgabe
       </button>
-      <button id="nav-write" onclick="nav('write')">
+      <button id="nav-write" onclick="nav('write')" style="display:none;">
         <span class="step-num">3</span> Schreiben
       </button>
+      <button id="nav-rc-tasks" onclick="nav('rc-tasks')" style="display:none;">
+        <span class="step-num">2</span> Text &amp; Aufgaben
+      </button>
       <button id="nav-feedback" onclick="nav('feedback')">
-        <span class="step-num">4</span> Bewertung
+        <span class="step-num" id="feedbackStepNum">4</span> <span id="feedbackNavLabel">Bewertung</span>
       </button>
       <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;">
         <span class="step-num">📊</span> Fortschritt
@@ -410,40 +569,64 @@
 
         <!-- MODE A: Generate -->
         <div class="card" id="setupGenerate">
-          <h2 class="card-header">Neue Aufgabe generieren</h2>
-          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
-            Die KI erstellt einen englischen Ausgangstext und drei Aufgaben (Outline, Analyse,
-            Stellungnahme/Gestaltendes Schreiben).
-          </p>
+          <h2 class="card-header">Trainingsmodus wählen</h2>
 
-          <div class="form-group" id="fachbereichSection">
-            <label>Aufgabentyp</label>
-            <div class="hj-grid">
-              <div class="hj-card selected" data-hj="argumentative" onclick="selectSachgebiet('argumentative')">
-                <div class="hj-icon">💬</div>
-                <div class="hj-name">Argumentative Writing</div>
-                <div class="hj-desc">Essay, Comment, Discussion</div>
-              </div>
-              <div class="hj-card" data-hj="mediation" onclick="selectSachgebiet('mediation')">
-                <div class="hj-icon">🔄</div>
-                <div class="hj-name">Mediation D→E</div>
-                <div class="hj-desc">Sprachmittlung Deutsch-Englisch</div>
-              </div>
-              <div class="hj-card" data-hj="sprachmittlung" onclick="selectSachgebiet('sprachmittlung')">
-                <div class="hj-icon">📋</div>
-                <div class="hj-name">Sprachmittlung E→D</div>
-                <div class="hj-desc">Hauptaussagen übertragen</div>
-              </div>
-              <div class="hj-card" data-hj="textanalyse" onclick="selectSachgebiet('textanalyse')">
-                <div class="hj-icon">📊</div>
-                <div class="hj-name">Text-/Medienanalyse</div>
-                <div class="hj-desc">Karikatur, Statistik, Sachtext</div>
-              </div>
+          <!-- 3 Mode Cards -->
+          <div class="hj-grid" style="grid-template-columns:repeat(3,1fr);" id="modeCards">
+            <div class="hj-card selected" data-mode="rc" onclick="selectMode('rc')">
+              <div class="hj-icon">📖</div>
+              <div class="hj-name">Reading Comprehension</div>
+              <div class="hj-desc">Leseverstehen mit interaktiven Aufgaben</div>
             </div>
-            <div id="subtopics-panel" class="subtopics-panel"></div>
+            <div class="hj-card" data-mode="textproduction" onclick="selectMode('textproduction')">
+              <div class="hj-icon">✍️</div>
+              <div class="hj-name">Text Production</div>
+              <div class="hj-desc">Schreibaufgabe mit KI-Korrektur</div>
+            </div>
+            <div class="hj-card" data-mode="klausur" onclick="selectMode('klausur')">
+              <div class="hj-icon">📝</div>
+              <div class="hj-name">Gesamte Klausur</div>
+              <div class="hj-desc">Reading + Mediation kombiniert</div>
+            </div>
           </div>
 
-          <div class="setup-selects">
+          <!-- RC Sub-Optionen (nur bei Reading Comprehension sichtbar) -->
+          <div id="rcSubtypes" style="margin-top:1rem;">
+            <label style="font-size:.85rem;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.04em;">Aufgabentypen auswählen:</label>
+            <div class="rc-subtypes">
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="rcGappedSummary" checked>
+                <div>
+                  <span>Gapped Summary</span>
+                  <small>Lückentext mit Wörtern aus dem Text</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="rcMultipleMatching" checked>
+                <div>
+                  <span>Multiple Matching</span>
+                  <small>Aussagen A-H den Abschnitten 1-5 zuordnen</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="rcMultipleChoice" checked>
+                <div>
+                  <span>Multiple Choice</span>
+                  <small>3 Fragen mit je 4 Antwortoptionen</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="rcMediation">
+                <div>
+                  <span>Mediationsaufgaben</span>
+                  <small>Deutsche Fragen zum englischen Text</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Thema-Auswahl -->
+          <div class="setup-selects" style="margin-top:1rem;">
             <div>
               <label for="topicSelect">Thema</label>
               <select id="topicSelect">
@@ -457,7 +640,7 @@
                 <option value="politics">Politik & Demokratie</option>
               </select>
             </div>
-            <div>
+            <div id="textTypeWrapper" style="display:none;">
               <label for="textTypeSelect">Textart</label>
               <select id="textTypeSelect">
                 <option value="nicht-literarisch">Sachtext</option>
@@ -466,7 +649,7 @@
             </div>
           </div>
 
-          <button class="btn" id="generateBtn" onclick="generateExam()">
+          <button class="btn" id="generateBtn" onclick="generateExam()" style="margin-top:1rem;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -656,6 +839,32 @@
         </button>
       </section>
 
+      <!-- ====== RC-TASKS: Interaktive Reading Comprehension ====== -->
+      <section id="rc-tasks">
+        <div class="card">
+          <h2 class="card-header" id="rcExamTitle">Reading Comprehension</h2>
+          <p style="color:var(--ink-muted);font-size:.88rem;margin-bottom:1rem" id="rcExamSubtitle">
+            Lies den Text sorgfältig und bearbeite die Aufgaben.
+          </p>
+          <div id="rcReadingContainer"></div>
+        </div>
+
+        <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem;">
+          <button class="btn" id="rcSubmitBtn" onclick="submitRCForGrading()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            Auswertung starten
+          </button>
+        </div>
+
+        <div id="rcLoader" class="loader" style="display:none;">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Antworten werden ausgewertet …</div>
+        </div>
+      </section>
+
       <!-- ====== STEP 3: WRITE ====== -->
       <section id="write">
         <!-- Collapsible Task Reference -->
@@ -770,7 +979,34 @@
         </div>
 
         <div id="feedbackContent" style="display:none;">
-          <!-- Scores Grid -->
+          <!-- RC Scores (nur bei RC/Klausur sichtbar) -->
+          <div id="rcScoreSection" style="display:none;">
+            <div class="be-scores-grid">
+              <div class="be-score-card">
+                <div class="be-score-label">Erreicht</div>
+                <div class="be-score-value" id="rcBEReached">–</div>
+                <div class="be-score-max" id="rcBEMax">/ – BE</div>
+              </div>
+              <div class="be-score-card">
+                <div class="be-score-label">Prozent</div>
+                <div class="be-score-value" id="rcPercent">–</div>
+                <div class="be-score-max">%</div>
+              </div>
+              <div class="be-score-card total">
+                <div class="be-score-label">Notenpunkte</div>
+                <div class="be-score-value" id="rcNP">–</div>
+                <div class="be-score-max">/ 15</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RC Korrektur-Details -->
+          <div class="card" id="rcCorrectionCard" style="display:none;">
+            <h2 class="card-header">Auswertung – Details</h2>
+            <div id="rcCorrectionBody"></div>
+          </div>
+
+          <!-- Text Production Scores (nur bei Text Production sichtbar) -->
           <div class="scores-grid" id="scoresGrid">
             <div class="score-card">
               <div class="score-label">Inhalt & Struktur (40%)</div>
@@ -893,9 +1129,9 @@
                   <tr>
                     <th>Datum</th>
                     <th>Thema</th>
-                    <th>Inhalt</th>
-                    <th>Sprache</th>
-                    <th>Gesamt</th>
+                    <th>Wert 1</th>
+                    <th>Wert 2</th>
+                    <th>NP</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -939,96 +1175,67 @@
   <script src="ai-tutor.js"></script>
   <script src="shared.js"></script>
   <script>
-    const SG_LABELS = { argumentative: "Argumentative Writing", mediation: "Mediation D→E", sprachmittlung: "Sprachmittlung E→D", textanalyse: "Text-/Medienanalyse" };
-    const SG_ICONS = { argumentative: "💬", mediation: "🔄", sprachmittlung: "📋", textanalyse: "📊" };
+    /* ====== MODUS-LOGIK ====== */
+    let currentMode = "rc"; // "rc", "textproduction", "klausur"
 
-    CONFIG.sachgebiet = "argumentative";
-    CONFIG.selectedSachgebiete = ["argumentative"];
+    /* BE -> NP Umrechnungstabelle (ISB) */
+    const BE_NP_TABLE = [
+      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
+      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
+      [33, 3], [27, 2], [20, 1], [0, 0]
+    ];
 
-    /* ====== UNTERPUNKTE DATA ====== */
-    const UNTERPUNKTE = {
-      argumentative: [
-        "Comment (eigene Meinung, Pro/Contra)",
-        "Essay (strukturierte Argumentation)",
-        "Discussion (verschiedene Perspektiven)",
-        "Gesellschaft und Medien (Social Media, Konsum)",
-        "Globalisierung (Migration, Konflikte, Terrorismus)",
-        "Wissenschaft und Ethik (Gender, Werte)"
-      ],
-      mediation: [
-        "Zeitungsartikel Deutsch → Englisch",
-        "Sachtext zusammenfassen und übertragen",
-        "Kohäsive und kohärente Textproduktion"
-      ],
-      sprachmittlung: [
-        "Interviews und Berichte E→D",
-        "Hauptaussagen aus authentischen Texten",
-        "Kompensationsstrategien (Synonyme, Umschreibung)"
-      ],
-      textanalyse: [
-        "Karikaturanalyse (Beschreibung, Interpretation)",
-        "Statistikanalyse (Trends, Vergleiche)",
-        "Sachtextanalyse (Argumentation, Intention)",
-        "Literarische Textanalyse (Short Story, Ganzschrift)"
-      ]
-    };
-
-    /* ====== SUBTOPICS RENDERING ====== */
-    function renderSubtopics() {
-      var panel = document.getElementById('subtopics-panel');
-      var html = '';
-      CONFIG.selectedSachgebiete.forEach(function(key) {
-        var items = UNTERPUNKTE[key] || [];
-        if (!items.length) return;
-        var label = SG_LABELS[key] || key;
-        html += '<div class="subtopic-group"><div class="subtopic-group-title">' + label + '</div>';
-        html += '<div class="subtopic-item subtopic-all">' +
-          '<input type="checkbox" id="st-all-' + key + '" onchange="toggleAllGroup(\'' + key + '\', this.checked)">' +
-          '<label for="st-all-' + key + '">Alle auswählen</label></div>';
-        items.forEach(function(item, i) {
-          var id = 'st-' + key + '-' + i;
-          html += '<div class="subtopic-item">' +
-            '<input type="checkbox" id="' + id + '" data-subtopic="' + item + '">' +
-            '<label for="' + id + '">' + item + '</label></div>';
-        });
-        html += '</div>';
-      });
-      panel.innerHTML = html;
-      panel.classList.toggle('open', html.length > 0);
-    }
-
-    function toggleAllGroup(key, checked) {
-      var panel = document.getElementById('subtopics-panel');
-      panel.querySelectorAll('#st-all-' + key).forEach(function(el) {
-        var group = el.closest('.subtopic-group');
-        if (group) group.querySelectorAll('input[data-subtopic]').forEach(function(cb) { cb.checked = checked; });
-      });
-    }
-
-    function getSelectedSubtopics() {
-      var panel = document.getElementById('subtopics-panel');
-      var result = [];
-      panel.querySelectorAll('input[data-subtopic]:checked').forEach(function(cb) {
-        result.push(cb.dataset.subtopic);
-      });
-      return result;
-    }
-
-    function selectSachgebiet(sg) {
-      var idx = CONFIG.selectedSachgebiete.indexOf(sg);
-      if (idx !== -1) {
-        if (CONFIG.selectedSachgebiete.length > 1) {
-          CONFIG.selectedSachgebiete.splice(idx, 1);
-        }
-      } else {
-        CONFIG.selectedSachgebiete.push(sg);
+    function beToNP(erreicht, max) {
+      if (max <= 0 || erreicht == null) return null;
+      var pct = (erreicht / max) * 100;
+      for (var i = 0; i < BE_NP_TABLE.length; i++) {
+        if (pct >= BE_NP_TABLE[i][0]) return BE_NP_TABLE[i][1];
       }
-      CONFIG.sachgebiet = CONFIG.selectedSachgebiete[0];
-      document.querySelectorAll(".hj-card").forEach(function(c) {
-        c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
-      });
-      renderSubtopics();
+      return 0;
     }
+
+    function selectMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll("#modeCards .hj-card").forEach(function(c) {
+        c.classList.toggle("selected", c.dataset.mode === mode);
+      });
+      // RC-Subtypen nur bei RC anzeigen
+      document.getElementById("rcSubtypes").style.display = mode === "rc" ? "block" : "none";
+      // Textart nur bei Text Production
+      document.getElementById("textTypeWrapper").style.display = mode === "textproduction" ? "block" : "none";
+      // Upload nur bei Text Production
+      var uploadBtn = document.getElementById("modeUpload");
+      if (uploadBtn) uploadBtn.style.display = mode === "textproduction" ? "" : "none";
+      // Nav aktualisieren
+      updateNavForMode(mode);
+    }
+
+    function updateNavForMode(mode) {
+      var navTask = document.getElementById("nav-task");
+      var navWrite = document.getElementById("nav-write");
+      var navRC = document.getElementById("nav-rc-tasks");
+      var feedbackLabel = document.getElementById("feedbackNavLabel");
+      var feedbackNum = document.getElementById("feedbackStepNum");
+
+      if (mode === "textproduction") {
+        navTask.style.display = "";
+        navWrite.style.display = "";
+        navRC.style.display = "none";
+        feedbackLabel.textContent = "Bewertung";
+        feedbackNum.textContent = "4";
+        MODULE_CONFIG.steps = ["setup", "task", "write", "feedback", "progress"];
+      } else {
+        navTask.style.display = "none";
+        navWrite.style.display = "none";
+        navRC.style.display = "";
+        feedbackLabel.textContent = "Auswertung";
+        feedbackNum.textContent = "3";
+        MODULE_CONFIG.steps = ["setup", "rc-tasks", "feedback", "progress"];
+      }
+    }
+
+    // Initiale Nav-Einstellung
+    updateNavForMode("rc");
 
     /* ================= PROMPTS ================= */
 
@@ -1202,12 +1409,17 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     /* ================= SESSION RECOVERY ================= */
     function saveSession() {
       const session = {
+        mode: currentMode,
         examData: CONFIG.storedData,
-        studentText: document.getElementById("studentText").value,
         currentStep: document.querySelector("section.active")?.id || "setup",
         timerSeconds: timerSeconds,
         timerRunning: !!timerInterval
       };
+      if (currentMode === "textproduction") {
+        session.studentText = document.getElementById("studentText").value;
+      } else {
+        session.readingAnswers = collectReadingAnswers();
+      }
       localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
     }
 
@@ -1217,11 +1429,23 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         if (!raw) return false;
         const session = JSON.parse(raw);
 
-        if (session.examData && session.examData.article_text) {
-          CONFIG.storedData = session.examData;
-          renderExam(session.examData);
+        if (session.mode) {
+          currentMode = session.mode;
+          selectMode(session.mode);
         }
-        if (session.studentText) {
+
+        if (session.examData) {
+          CONFIG.storedData = session.examData;
+          if (currentMode === "textproduction" && session.examData.article_text) {
+            renderExam(session.examData);
+          } else if (session.examData.reading) {
+            renderRCTasks(session.examData);
+            if (session.readingAnswers) {
+              setTimeout(function() { restoreReadingAnswers(session.readingAnswers); }, 50);
+            }
+          }
+        }
+        if (session.studentText && currentMode === "textproduction") {
           document.getElementById("studentText").value = session.studentText;
           updateWordCount();
         }
@@ -1229,36 +1453,66 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           nav(session.currentStep);
         }
         return true;
-      } catch { return false; }
+      } catch(e) { console.warn("Session restore:", e); return false; }
     }
 
 
-    /* ================= GENERATE ================= */
+    /* ================= GENERATE (3-Wege-Switch) ================= */
     async function generateExam() {
       const topic = document.getElementById("topicSelect").value;
-      const textType = document.getElementById("textTypeSelect").value;
-      const level = sessionStorage.getItem("student_level") || "gA";
       const btn = document.getElementById("generateBtn");
 
       btn.disabled = true;
       document.getElementById("setupLoader").style.display = "block";
 
       try {
-        // Build prompt with level and text type substituted
-        const prompt = GENERATION_PROMPT_TEMPLATE
-          .replace(/\{level\}/g, level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)")
-          .replace(/\{texttype\}/g, textType);
+        let data;
 
-        const data = await apiCall("/api/fos-generate-englisch", {
-          topic,
-          source_len_words: 700,
-          prompt_template: prompt
-        });
+        if (currentMode === "rc") {
+          // Reading Comprehension: Gewaehlte RC-Typen sammeln
+          const taskTypes = [];
+          if (document.getElementById("rcGappedSummary").checked) taskTypes.push("gapped_summary");
+          if (document.getElementById("rcMultipleMatching").checked) taskTypes.push("multiple_matching");
+          if (document.getElementById("rcMultipleChoice").checked) taskTypes.push("multiple_choice");
+          if (document.getElementById("rcMediation").checked) taskTypes.push("mediation_en_de");
 
-        CONFIG.storedData = data;
-        localStorage.setItem("exam_data", JSON.stringify(data));
-        renderExam(data);
-        nav("task");
+          if (!taskTypes.length) {
+            showToast("Bitte mindestens einen Aufgabentyp auswählen.");
+            btn.disabled = false;
+            document.getElementById("setupLoader").style.display = "none";
+            return;
+          }
+
+          data = await apiCall("/api/fos-generate-rc-englisch", { taskTypes, topic });
+          data._mode = "rc";
+          CONFIG.storedData = data;
+          renderRCTasks(data);
+          nav("rc-tasks");
+
+        } else if (currentMode === "textproduction") {
+          // Text Production: Bisherige Logik
+          const textType = document.getElementById("textTypeSelect").value;
+          const level = sessionStorage.getItem("student_level") || "gA";
+          const prompt = GENERATION_PROMPT_TEMPLATE
+            .replace(/\{level\}/g, level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)")
+            .replace(/\{texttype\}/g, textType);
+
+          data = await apiCall("/api/fos-generate-englisch", { topic, source_len_words: 700, prompt_template: prompt });
+          data._mode = "textproduction";
+          CONFIG.storedData = data;
+          renderExam(data);
+          nav("task");
+
+        } else if (currentMode === "klausur") {
+          // Gesamte Klausur: RC + Mediation
+          data = await apiCall("/api/fos-generate-klausur-englisch", { topic });
+          data._mode = "klausur";
+          CONFIG.storedData = data;
+          renderRCTasks(data);
+          nav("rc-tasks");
+        }
+
+        saveSession();
       } catch (e) {
         showToast("Fehler beim Generieren: " + e.message);
       }
@@ -1407,7 +1661,446 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       });
     });
 
-    /* ================= RENDER ================= */
+    /* ================= RC RENDERING (adaptiert von englisch-abitur.html) ================= */
+    function renderRCTasks(d) {
+      var container = document.getElementById("rcReadingContainer");
+      container.innerHTML = "";
+
+      if (d.titel) {
+        document.getElementById("rcExamTitle").textContent = d.titel;
+      }
+
+      var reading = d.reading;
+      if (!reading || !reading.texte || !reading.tasks) return;
+
+      for (var t = 0; t < reading.tasks.length; t++) {
+        var task = reading.tasks[t];
+        var textData = reading.texte[t] || reading.texte[0] || {};
+
+        var block = document.createElement("div");
+        block.className = "task-block";
+
+        var textHeader = '<h3>' + escapeHtml(textData.nr || ("Text " + (t + 1))) + ': ' +
+          escapeHtml(textData.titel || "") +
+          ' <span class="be-badge">' + (task.be || "?") + ' BE</span></h3>';
+
+        var textContent = '<div class="reading-text">';
+        if (textData.text) {
+          var paragraphs = textData.text.split("\n").filter(function (p) { return p.trim(); });
+          textContent += paragraphs.map(function (p) { return '<p>' + escapeHtml(p) + '</p>'; }).join("");
+        }
+        textContent += '</div>';
+
+        if (textData.source_info) {
+          textContent += '<div style="font-size:.8rem;color:var(--ink-muted);margin-top:.4rem;font-style:italic;">' + escapeHtml(textData.source_info) + '</div>';
+        }
+
+        var tasksHtml = '<div style="margin-top:1.2rem">';
+        tasksHtml += '<h4>Task ' + escapeHtml(task.nr || "") + ' <span class="be-badge">' + (task.be || "?") + ' BE</span></h4>';
+
+        if (task.teile) {
+          for (var p = 0; p < task.teile.length; p++) {
+            tasksHtml += renderTaskTeil(task.teile[p], t, p);
+          }
+        }
+        tasksHtml += '</div>';
+
+        block.innerHTML = textHeader + textContent + tasksHtml;
+        container.appendChild(block);
+
+        if (t < reading.tasks.length - 1) {
+          var divider = document.createElement("hr");
+          divider.className = "text-divider";
+          container.appendChild(divider);
+        }
+      }
+    }
+
+    function renderTaskTeil(teil, taskIdx, teilIdx) {
+      var html = '';
+      var prefix = "t" + taskIdx + "_p" + teilIdx;
+      switch (teil.typ) {
+        case "multiple_matching": html += renderMultipleMatching(teil, prefix); break;
+        case "short_answer": html += renderShortAnswer(teil, prefix); break;
+        case "gapped_summary": html += renderGappedSummary(teil, prefix); break;
+        case "multiple_choice": html += renderMultipleChoice(teil, prefix); break;
+        case "mediation_en_de": html += renderMediation(teil, prefix); break;
+        default: html += '<p style="color:var(--ink-muted);font-size:.9rem">Aufgabentyp: ' + escapeHtml(teil.typ || "unbekannt") + '</p>';
+      }
+      return html;
+    }
+
+    function renderMultipleMatching(teil, prefix) {
+      var html = '<div class="task-teil" data-type="multiple_matching" data-prefix="' + prefix + '">';
+      html += '<p class="task-instruction">' + escapeHtml(teil.anweisung || "") + ' <span class="be-badge">' + (teil.be || "") + ' BE</span></p>';
+      if (teil.statements && teil.statements.length) {
+        html += '<div style="margin-bottom:.8rem;padding:.6rem;background:var(--bg-warm);border-radius:.4rem;font-size:.9rem">';
+        html += '<strong>Statements:</strong><br>';
+        teil.statements.forEach(function (s) { html += '<div style="padding:.2rem 0">' + escapeHtml(s) + '</div>'; });
+        html += '</div>';
+      }
+      if (teil.items && teil.items.length) {
+        var options = [];
+        if (teil.statements) {
+          teil.statements.forEach(function (s) { var match = s.match(/^([A-Z]):/); if (match) options.push(match[1]); });
+        }
+        if (!options.length) options = ["A", "B", "C", "D", "E", "F", "G", "H"];
+        teil.items.forEach(function (item, i) {
+          html += '<div class="matching-row">';
+          html += '<span class="matching-label">' + escapeHtml(item) + '</span>';
+          html += '<select class="matching-select" id="' + prefix + '_match_' + i + '">';
+          html += '<option value="">--</option>';
+          options.forEach(function (opt) { html += '<option value="' + opt + '">' + opt + '</option>'; });
+          html += '</select></div>';
+        });
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderShortAnswer(teil, prefix) {
+      var html = '<div class="task-teil" data-type="short_answer" data-prefix="' + prefix + '">';
+      if (teil.anweisung) html += '<p class="task-instruction">' + escapeHtml(teil.anweisung) + '</p>';
+      html += '<div style="font-size:.85rem;color:var(--ink-muted);margin-bottom:.5rem">' + (teil.be || "") + ' BE</div>';
+      if (teil.fragen && teil.fragen.length) {
+        teil.fragen.forEach(function (f, i) {
+          html += '<div style="margin-bottom:.8rem">';
+          html += '<label style="font-size:.9rem;font-weight:600;display:block;margin-bottom:.3rem">' +
+            escapeHtml(f.nr || ("" + (i + 1))) + ') ' + escapeHtml(f.frage || "") +
+            ' <span class="be-badge">' + (f.be || "") + ' BE</span></label>';
+          html += '<input type="text" class="short-answer-input" id="' + prefix + '_sa_' + i + '" placeholder="Deine Antwort...">';
+          html += '</div>';
+        });
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderGappedSummary(teil, prefix) {
+      var html = '<div class="task-teil" data-type="gapped_summary" data-prefix="' + prefix + '">';
+      html += '<p class="task-instruction">Complete the summary. <span class="be-badge">' + (teil.be || "") + ' BE</span></p>';
+      if (teil.text) {
+        var processed = escapeHtml(teil.text).replace(/______\((\d+)\)/g, function (match, num) {
+          return '<input type="text" class="gap-input" id="' + prefix + '_gap_' + num + '" placeholder="(' + num + ')" data-gap="' + num + '">';
+        });
+        html += '<div style="line-height:2;font-size:.93rem">' + processed + '</div>';
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderMultipleChoice(teil, prefix) {
+      var html = '<div class="task-teil" data-type="multiple_choice" data-prefix="' + prefix + '">';
+      html += '<div style="font-size:.85rem;color:var(--ink-muted);margin-bottom:.5rem">' + (teil.be || "") + ' BE</div>';
+      if (teil.fragen && teil.fragen.length) {
+        teil.fragen.forEach(function (f, i) {
+          html += '<div style="margin-bottom:1rem">';
+          html += '<p style="font-weight:600;font-size:.93rem;margin-bottom:.4rem">' +
+            (f.nr || (i + 1)) + '. ' + escapeHtml(f.frage || "") + '</p>';
+          if (f.optionen && f.optionen.length) {
+            f.optionen.forEach(function (opt, j) {
+              var optId = prefix + '_mc_' + i + '_' + j;
+              var optValue = opt.match(/^([A-D]):/);
+              var val = optValue ? optValue[1] : String.fromCharCode(65 + j);
+              html += '<label class="mc-option" for="' + optId + '">';
+              html += '<input type="radio" id="' + optId + '" name="' + prefix + '_mc_' + i + '" value="' + val + '">';
+              html += '<span>' + escapeHtml(opt) + '</span></label>';
+            });
+          }
+          html += '</div>';
+        });
+      }
+      html += '</div>';
+      return html;
+    }
+
+    function renderMediation(teil, prefix) {
+      var html = '<div class="task-teil" data-type="mediation_en_de" data-prefix="' + prefix + '">';
+      html += '<p class="task-instruction">' + escapeHtml(teil.anweisung || "Beantworten Sie auf DEUTSCH.") +
+        ' <span class="be-badge">' + (teil.be || "") + ' BE</span></p>';
+      if (teil.fragen && teil.fragen.length) {
+        teil.fragen.forEach(function (f, i) {
+          html += '<div style="margin-bottom:.8rem">';
+          html += '<label style="font-size:.9rem;font-weight:600;display:block;margin-bottom:.3rem">' +
+            escapeHtml(f.nr || ("" + (i + 1))) + ') ' + escapeHtml(f.frage || "") +
+            ' <span class="be-badge">' + (f.be || "") + ' BE</span></label>';
+          html += '<input type="text" class="short-answer-input" id="' + prefix + '_med_' + i + '" placeholder="Antwort auf Deutsch...">';
+          html += '</div>';
+        });
+      }
+      html += '</div>';
+      return html;
+    }
+
+    /* ================= RC ANTWORTEN SAMMELN ================= */
+    function collectReadingAnswers() {
+      var answers = {};
+      document.querySelectorAll("#rcReadingContainer [id^='t'][id*='_p']").forEach(function (el) {
+        if (el.tagName === "SELECT" || el.tagName === "INPUT") {
+          if (el.type === "radio") {
+            if (el.checked) answers[el.name] = el.value;
+          } else {
+            answers[el.id] = el.value;
+          }
+        }
+      });
+      return answers;
+    }
+
+    function restoreReadingAnswers(answers) {
+      if (!answers) return;
+      Object.keys(answers).forEach(function (key) {
+        var el = document.getElementById(key);
+        if (el) {
+          el.value = answers[key];
+        } else {
+          var radio = document.querySelector('input[name="' + key + '"][value="' + answers[key] + '"]');
+          if (radio) radio.checked = true;
+        }
+      });
+    }
+
+    /* ================= RC LOKAL AUSWERTEN ================= */
+    function evaluateReadingLocally() {
+      var data = CONFIG.storedData;
+      if (!data || !data.reading || !data.reading.tasks) return { results: [], totalBE: 0, maxBE: 0 };
+
+      var results = [];
+      var totalBE = 0;
+      var maxBE = 0;
+
+      data.reading.tasks.forEach(function (task, taskIdx) {
+        if (!task.teile) return;
+        task.teile.forEach(function (teil, teilIdx) {
+          var prefix = "t" + taskIdx + "_p" + teilIdx;
+          switch (teil.typ) {
+            case "multiple_matching":
+              if (teil.loesung && teil.items) {
+                var matchMax = teil.be || teil.items.length;
+                maxBE += matchMax;
+                var matchCorrect = 0;
+                var matchDetails = [];
+                teil.items.forEach(function (item, i) {
+                  var select = document.getElementById(prefix + "_match_" + i);
+                  var userAnswer = select ? select.value : "";
+                  var itemKey = item.match(/^(\d+)/);
+                  var key = itemKey ? itemKey[1] : String(i + 1);
+                  var correct = teil.loesung[key] || "";
+                  var isCorrect = userAnswer.toUpperCase() === correct.toUpperCase();
+                  if (isCorrect) matchCorrect++;
+                  matchDetails.push({ item: item, userAnswer: userAnswer, correctAnswer: correct, isCorrect: isCorrect, elementId: prefix + "_match_" + i });
+                });
+                var beEarned = Math.round((matchCorrect / teil.items.length) * matchMax);
+                totalBE += beEarned;
+                results.push({ typ: "multiple_matching", taskNr: task.nr, be: beEarned, maxBe: matchMax, details: matchDetails });
+              }
+              break;
+            case "gapped_summary":
+              if (teil.loesungen) {
+                var gapKeys = Object.keys(teil.loesungen);
+                var gapMax = teil.be || gapKeys.length;
+                maxBE += gapMax;
+                var gapCorrect = 0;
+                var gapDetails = [];
+                gapKeys.forEach(function (gapNum) {
+                  var input = document.getElementById(prefix + "_gap_" + gapNum);
+                  var userAnswer = input ? input.value.trim() : "";
+                  var correct = teil.loesungen[gapNum] || "";
+                  var isCorrect = userAnswer.toLowerCase() === correct.toLowerCase();
+                  if (isCorrect) gapCorrect++;
+                  gapDetails.push({ gapNr: gapNum, userAnswer: userAnswer, correctAnswer: correct, isCorrect: isCorrect, elementId: prefix + "_gap_" + gapNum });
+                });
+                var beGap = Math.round((gapCorrect / gapKeys.length) * gapMax);
+                totalBE += beGap;
+                results.push({ typ: "gapped_summary", taskNr: task.nr, be: beGap, maxBe: gapMax, details: gapDetails });
+              }
+              break;
+            case "multiple_choice":
+              if (teil.fragen) {
+                var mcMax = teil.be || teil.fragen.length;
+                maxBE += mcMax;
+                var mcCorrect = 0;
+                var mcDetails = [];
+                teil.fragen.forEach(function (f, i) {
+                  var radioName = prefix + "_mc_" + i;
+                  var checked = document.querySelector('input[name="' + radioName + '"]:checked');
+                  var userAnswer = checked ? checked.value : "";
+                  var correct = f.loesung || "";
+                  var isCorrect = userAnswer.toUpperCase() === correct.toUpperCase();
+                  if (isCorrect) mcCorrect++;
+                  mcDetails.push({ frage: f.frage, userAnswer: userAnswer, correctAnswer: correct, isCorrect: isCorrect, radioName: radioName });
+                });
+                var beMc = Math.round((mcCorrect / teil.fragen.length) * mcMax);
+                totalBE += beMc;
+                results.push({ typ: "multiple_choice", taskNr: task.nr, be: beMc, maxBe: mcMax, details: mcDetails });
+              }
+              break;
+            case "mediation_en_de":
+              if (teil.fragen) {
+                var medMax = teil.be || 0;
+                maxBE += medMax;
+                var medDetails = [];
+                teil.fragen.forEach(function (f, i) {
+                  var input = document.getElementById(prefix + "_med_" + i);
+                  medDetails.push({ nr: f.nr, frage: f.frage, userAnswer: input ? input.value.trim() : "", correctAnswer: f.loesung || "", be: f.be || 0 });
+                });
+                results.push({ typ: "mediation_en_de", taskNr: task.nr, be: null, maxBe: medMax, details: medDetails });
+              }
+              break;
+          }
+        });
+      });
+      return { results: results, totalBE: totalBE, maxBE: maxBE };
+    }
+
+    /* ================= RC VISUELLE KORREKTUR ================= */
+    function markReadingCorrections(results) {
+      results.forEach(function (r) {
+        if (!r.details) return;
+        r.details.forEach(function (d) {
+          if (d.elementId) {
+            var el = document.getElementById(d.elementId);
+            if (el) { el.classList.add(d.isCorrect ? "correct" : "incorrect"); el.disabled = true; }
+          }
+          if (d.radioName) {
+            var radios = document.querySelectorAll('input[name="' + d.radioName + '"]');
+            radios.forEach(function (radio) {
+              radio.disabled = true;
+              var label = radio.closest(".mc-option");
+              if (!label) return;
+              if (radio.value.toUpperCase() === d.correctAnswer.toUpperCase()) label.classList.add("correct");
+              else if (radio.checked && !d.isCorrect) label.classList.add("incorrect");
+            });
+          }
+        });
+      });
+    }
+
+    function renderReadingCorrection(results) {
+      var card = document.getElementById("rcCorrectionCard");
+      var body = document.getElementById("rcCorrectionBody");
+      if (!results || !results.length) return;
+      var html = '';
+      results.forEach(function (r) {
+        html += '<div style="margin-bottom:1rem;padding:.8rem;background:var(--bg-warm);border-radius:.4rem">';
+        html += '<strong>Task ' + escapeHtml(r.taskNr || "") + ' – ' + escapeHtml(r.typ.replace(/_/g, " ")) + '</strong>';
+        if (r.be != null) html += ' <span class="be-badge">' + r.be + ' / ' + r.maxBe + ' BE</span>';
+        else html += ' <span class="be-badge">KI-bewertet</span>';
+        if (r.details && r.details.length) {
+          html += '<div style="margin-top:.5rem;font-size:.88rem">';
+          r.details.forEach(function (d) {
+            if (d.isCorrect === true) {
+              html += '<div class="answer-correct">' + escapeHtml(d.gapNr ? "(" + d.gapNr + ")" : (d.item || d.frage || d.nr || "")) +
+                ': ' + escapeHtml(d.userAnswer || "--") + ' ✓</div>';
+            } else if (d.isCorrect === false) {
+              html += '<div class="answer-incorrect">' + escapeHtml(d.gapNr ? "(" + d.gapNr + ")" : (d.item || d.frage || d.nr || "")) +
+                ': ' + escapeHtml(d.userAnswer || "--") + ' ✗' +
+                '<div class="correction-note">Richtig: ' + escapeHtml(d.correctAnswer || "") + '</div></div>';
+            } else {
+              html += '<div style="color:var(--ink-light)">' +
+                escapeHtml(d.nr || d.frage || "") + ': "' + escapeHtml(d.userAnswer || "--") + '"</div>';
+            }
+          });
+          html += '</div>';
+        }
+        html += '</div>';
+      });
+      body.innerHTML = html;
+      card.style.display = "block";
+    }
+
+    /* ================= RC SUBMIT & GRADING ================= */
+    async function submitRCForGrading() {
+      var btn = document.getElementById("rcSubmitBtn");
+      btn.disabled = true;
+      document.getElementById("rcLoader").style.display = "block";
+
+      try {
+        // 1. Client-side Auswertung (GS, MM, MC)
+        var readingEval = evaluateReadingLocally();
+        markReadingCorrections(readingEval.results);
+
+        // 2. Mediation ans Backend schicken (falls vorhanden)
+        var mediationResults = readingEval.results.filter(function(r) { return r.typ === "mediation_en_de"; });
+        var mediationBE = 0;
+
+        if (mediationResults.length > 0 && mediationResults[0].details.some(function(d) { return d.userAnswer; })) {
+          try {
+            var textForMediation = "";
+            if (CONFIG.storedData.reading && CONFIG.storedData.reading.texte && CONFIG.storedData.reading.texte[0]) {
+              textForMediation = CONFIG.storedData.reading.texte[0].text || "";
+            }
+            var mediationData = await apiCall("/api/fos-grade-rc-mediation-englisch", {
+              text: textForMediation,
+              fragen: mediationResults[0].details,
+              maxBE: mediationResults[0].maxBe
+            });
+            mediationBE = mediationData.totalBE || 0;
+            mediationResults[0].be = mediationBE;
+            // Mediations-Feedback in Details einfuegen
+            if (mediationData.results) {
+              mediationData.results.forEach(function(mr, i) {
+                if (mediationResults[0].details[i]) {
+                  mediationResults[0].details[i].isCorrect = mr.isCorrect;
+                  mediationResults[0].details[i].feedback = mr.feedback;
+                }
+              });
+            }
+          } catch (e) {
+            showToast("Mediation-Bewertung: " + e.message);
+          }
+        }
+
+        // 3. Gesamt-BE berechnen
+        var totalBE = readingEval.totalBE + mediationBE;
+        var maxBE = readingEval.maxBE;
+        var np = beToNP(totalBE, maxBE);
+        var pct = maxBE > 0 ? Math.round((totalBE / maxBE) * 100) : 0;
+
+        // 4. Korrektur-Details rendern
+        renderReadingCorrection(readingEval.results);
+
+        // 5. Feedback-Scores anzeigen
+        document.getElementById("scoresGrid").style.display = "none";
+        document.getElementById("rcScoreSection").style.display = "block";
+        document.getElementById("rcBEReached").textContent = totalBE;
+        document.getElementById("rcBEMax").textContent = "/ " + maxBE + " BE";
+        document.getElementById("rcPercent").textContent = pct;
+        document.getElementById("rcNP").textContent = np != null ? np : "–";
+
+        document.getElementById("feedbackContent").style.display = "block";
+
+        // 6. History speichern
+        saveToHistory({
+          topic: CONFIG.storedData.titel || "Reading Comprehension",
+          mode: currentMode,
+          content: totalBE,
+          language: maxBE,
+          total: np
+        });
+
+        // 7. An Server senden
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          course: sessionStorage.getItem("student_course") || "",
+          type: "fos_englisch_rc",
+          topic: CONFIG.storedData.titel || "RC",
+          content: totalBE,
+          language: maxBE,
+          total: np,
+          date: new Date().toISOString()
+        }).catch(function() {});
+
+        nav("feedback");
+      } catch (e) {
+        showToast("Fehler bei der Auswertung: " + e.message);
+      }
+
+      document.getElementById("rcLoader").style.display = "none";
+      btn.disabled = false;
+    }
+
+    /* ================= RENDER (Text Production - bisherige Logik) ================= */
     function renderExam(d) {
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
       if (d._uploadImages && d._uploadImages.length) {
@@ -1678,6 +2371,10 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       nav("feedback");
       document.getElementById("feedbackLoader").style.display = "block";
       document.getElementById("feedbackContent").style.display = "none";
+      // Text Production: NP-Scores zeigen, RC-Scores verstecken
+      document.getElementById("scoresGrid").style.display = "";
+      document.getElementById("rcScoreSection").style.display = "none";
+      document.getElementById("rcCorrectionCard").style.display = "none";
 
       try {
         const data = await apiCallAsync("fos-grade-englisch", {
@@ -1772,6 +2469,10 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("articleTitle").innerText = "Ausgangstext";
       document.getElementById("articleBody").innerHTML = "";
       document.getElementById("wordCountLabel").innerText = "0";
+      // RC-Container zuruecksetzen
+      document.getElementById("rcReadingContainer").innerHTML = "";
+      document.getElementById("rcCorrectionCard").style.display = "none";
+      document.getElementById("rcScoreSection").style.display = "none";
       clearOCR();
       clearTaskUpload();
       stopTimer();
@@ -1886,11 +2587,15 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         const d = new Date(h.date);
         const dateStr = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
         const timeStr = `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+        const modeLabel = h.mode === "rc" ? "RC" : h.mode === "klausur" ? "Klausur" : "Text";
+        const isRC = h.mode === "rc" || h.mode === "klausur";
+        const col3 = isRC ? (h.content ?? "–") + " BE" : (h.content ?? "–") + "/15";
+        const col4 = isRC ? (h.language ?? "–") + " BE" : (h.language ?? "–") + "/15";
         return `<tr>
       <td>${dateStr}<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span></td>
-      <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(h.topic)}</td>
-      <td class="history-score">${h.content ?? "–"}/15</td>
-      <td class="history-score">${h.language ?? "–"}/15</td>
+      <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><span class="mode-badge">${modeLabel}</span>${escapeHtml(h.topic || "")}</td>
+      <td class="history-score">${col3}</td>
+      <td class="history-score">${col4}</td>
       <td class="history-score" style="font-size:1.05rem;">${h.total ?? "–"}/15</td>
       <td><button class="history-delete" onclick="deleteHistoryEntry(${realIdx})" title="Löschen">✕</button></td>
     </tr>`;
