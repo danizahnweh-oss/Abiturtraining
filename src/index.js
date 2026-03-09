@@ -4223,6 +4223,276 @@ Verwende Markdown-Tabellen für alle tabellarischen Daten.`;
   return jsonResponse({ model_answer: answer }, 200, env);
 }
 
+/* ================= BWR FACHABITUR 12: GRADE (BWR-spezifisch) ================= */
+async function handleGradeAbiturBWR(request, env) {
+  const body = await request.json();
+  const { aufgabenbloecke, student_text, gesamt_be, images } = body;
+
+  if (!student_text) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  const maxBE = gesamt_be || 85;
+
+  let aufgabenInfo = "";
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    aufgabenInfo += "Aufgabenblöcke:\n";
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      aufgabenInfo += `\nAufgabe ${block.id || block.nr}: ${block.titel} (${block.gesamt_be || block.be_gesamt} BE)\n`;
+      if (block.kontext) aufgabenInfo += `Kontext: ${truncate(block.kontext, 3000)}\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 20)) {
+          aufgabenInfo += `  ${ta.nr} (${ta.be} BE): ${truncate(ta.text, 600)}\n`;
+        }
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine BwR-Fachabiturarbeit (Betriebswirtschaftslehre mit Rechnungswesen) der FOS 12. Klasse Bayern nach dem offiziellen BE-System.
+
+WICHTIG – BWR IST EIN RECHENFACH:
+- BwR-Lösungen bestehen ÜBERWIEGEND aus Berechnungen, Tabellen, Formeln und kurzen Begründungen.
+- Stichpunkte, Tabellen und Aufzählungen sind in BWR VÖLLIG NORMAL und korrekt – KEIN Punktabzug dafür!
+- Fließtext ist nur bei Erläuterungen und Begründungen nötig (z.B. Marketing-Entscheidungen, Investitionsempfehlungen).
+- Bei Berechnungsaufgaben: Prüfe Ansatz → Formel → Rechenweg → Ergebnis. Teilpunkte für korrekte Ansätze!
+
+FACHSPEZIFISCHE BEWERTUNGSKRITERIEN (FOS 12 – NUR THEMEN AUS BWR 11 + 12!):
+
+1. JAHRESABSCHLUSS & HGB-BEWERTUNG (BwR 12 LB3):
+   - Anschaffungskosten ermitteln: Listenpreis - Rabatt = ZEP - Skonto = BEP + Bezugskosten = AK
+   - NICHT zu AK: Finanzierungskosten, Wartung/Kundendienst nach Inbetriebnahme
+   - Herstellungskosten: Materialeinzelkosten + Fertigungseinzelkosten + angemessene Gemeinkosten
+   - Bewertung nicht abnutzbares SAV: AK vs. beizulegender Wert → außerplanmäßige Abschreibung + Wertaufholung
+   - Bewertung abnutzbares AV: Lineare AfA, ggf. monatsgenau. Außerplanmäßige Abschreibung (KEINE Wertaufholung!)
+   - Bewertung Finanzanlagen: Wertpapiere des AV → gemildertes Niederstwertprinzip
+   - Bewertung Forderungen: Einzelwertberichtigung (EWB), Pauschalwertberichtigung (PWB) – Buchungssätze prüfen!
+   - Bewertung Vorräte (Rohstoffe/Fremdbauteile): Durchschnittswertverfahren + strenges Niederstwertprinzip
+   - Rückstellungen für Altersversorgung
+   - GuV nach Gesamtkostenverfahren (§ 275 (2) HGB, Staffelform)
+   - Ergebnisverwendungsrechnung AG: § 150 AktG, Gezeichnetes Kapital, Kapitalrücklage, Gesetzliche Rücklage, Gewinnvortrag, Bilanzgewinn, Dividende
+   - Vorbereitende Abschlussbuchungen und Abschlussbuchungen
+
+2. KOSTENRECHNUNG (BwR 11 LB5 + BwR 12 LB1):
+   Vollkostenrechnung (BwR 11 LB5):
+   - Zuschlagskalkulation: Vorwärts-, Rückwärts-, Differenzkalkulation
+   - Maschinenstundensatz: kalk. Abschreibung (WBW), kalk. Zinsen, Raumkosten, Energiekosten, Instandhaltung
+   - BAB: Ein-/mehrstufig, max. 5 Hauptkostenstellen, einfache Kostenumlage
+   - Kostenträgerzeitrechnung: 2 Kostenträger, Normalkostenbereich
+   - Bestandsveränderungen an unfertigen/fertigen Erzeugnissen
+   Teilkostenrechnung (BwR 12 LB1):
+   - Stück- und Gesamtdeckungsbeitrag
+   - Break-even-Analyse: Rechnerisch und grafisch, Einproduktunternehmen
+   - Mehrstufige Deckungsbeitragsrechnung
+   - Engpassrechnung: Beschaffung, Produktion, Absatz (relativer Deckungsbeitrag)
+   - Eigenfertigung vs. Fremdbezug: Kritische Menge rechnerisch + grafisch
+   - Kurzfristige/langfristige Preisuntergrenze, Zusatzaufträge
+
+3. MARKETING, FINANZIERUNG & INVESTITION (BwR 12 LB2 + LB4 + BwR 11 LB2):
+   Marketing (BwR 12 LB2):
+   - BCG-Matrix: Marktwachstum-Marktanteils-Portfolio, Normstrategien (Question Marks, Stars, Cash Cows, Poor Dogs)
+   - Marketingmix: Produktpolitik, Distributionspolitik (Reisender vs. Handelsvertreter: Kritische Menge!), Kontrahierungspolitik, Kommunikationspolitik
+   Finanzierung (BwR 12 LB4):
+   - Ordentliche Kapitalerhöhung AG: Bezugsverhältnis, rechnerischer Bezugsrechtswert, Mischkurs
+   - Kreditfinanzierung: Annuitäten-/Abzahlungsdarlehen (Tilgungsplan!)
+   - Kontokorrentkredit
+   - Selbstfinanzierung (offen + still), Finanzierung aus Rückstellungen/Abschreibung
+   - Bewegungsbilanz: Mittelverwendung vs. Mittelherkunft
+   Investition (BwR 12 LB4 – NUR statische Verfahren!):
+   - Kostenvergleichsrechnung
+   - Gewinnvergleichsrechnung
+   - Rentabilitätsrechnung: Gewinn/durchschn. gebundenes Kapital × 100
+   - Amortisationsrechnung: AK / (Gewinn + kalk. Abschreibung)
+   Beschaffung (BwR 11 LB2):
+   - ABC-Analyse, Bestellpunktverfahren, optimale Bestellmenge (tabellarisch, rechnerisch, grafisch)
+   - Lieferantenvergleich: Bezugskalkulation, Nutzwertanalyse
+
+VERBOTENE THEMEN (BwR 13 – NICHT positiv bewerten wenn verwendet!):
+- Kapitalwertmethode / dynamische Investitionsrechnung → KEIN Thema der FOS 12!
+- Plankostenrechnung → KEIN Thema der FOS 12!
+- Bilanzanalyse / Strukturbilanz / Bilanzkennzahlen → KEIN Thema der FOS 12!
+- Balanced Scorecard, Leasing, Factoring, Lohmann-Ruchti-Effekt → KEIN Thema der FOS 12!
+- Kostenanpassung, Produktionsfunktion Typ B → KEIN Thema der FOS 12!
+
+BEWERTUNGSREGELN:
+- Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
+- Teilpunkte vergeben: Korrekter Ansatz ohne Ergebnis → ca. 50% der BE
+- Folgefehler: Wenn ein Zwischenergebnis falsch ist, aber der weitere Rechenweg korrekt → Punkte für den Rechenweg
+- Rundung: Auf 2 Dezimalstellen. Falsche Rundung → max. 0,5 BE Abzug
+- Buchungssätze: Korrekte Konten + Beträge prüfen (Soll an Haben)
+- Max BE gesamt: ${maxBE}
+
+OFFIZIELLE NOTENPUNKTE-TABELLE (BE → NP, Schwellenwerte bezogen auf 100 BE):
+| NP | BE von | BE bis |
+| 15 | 96     | 100    |
+| 14 | 91     | 95     |
+| 13 | 86     | 90     |
+| 12 | 81     | 85     |
+| 11 | 76     | 80     |
+| 10 | 71     | 75     |
+| 9  | 66     | 70     |
+| 8  | 61     | 65     |
+| 7  | 56     | 60     |
+| 6  | 51     | 55     |
+| 5  | 46     | 50     |
+| 4  | 41     | 45     |
+| 3  | 34     | 40     |
+| 2  | 27     | 33     |
+| 1  | 20     | 26     |
+| 0  | 0      | 19     |
+Falls max BE ≠ 100: Prozentual umrechnen (erreichte BE / max BE × 100), dann Tabelle anwenden.
+Ergibt die Gesamtsumme n,5 BE → einmalig zugunsten des Prüflings aufrunden.
+
+Antworte NUR mit validem JSON:
+{
+  "bewertung_bloecke": [
+    {"block_nr": 1, "block_titel": "Aufgabe I", "teilaufgaben": [{"nr": "1.1", "be_erreicht": 5, "be_max": 7, "kommentar": "AK-Ermittlung korrekt, AfA monatsgenau richtig berechnet..."}], "be_erreicht": 28, "be_max": 35},
+    {"block_nr": 2, "block_titel": "Aufgabe II", "teilaufgaben": [...], "be_erreicht": 20, "be_max": 25},
+    {"block_nr": 3, "block_titel": "Aufgabe III", "teilaufgaben": [...], "be_erreicht": 18, "be_max": 25}
+  ],
+  "be_erreicht": <Zahl>,
+  "be_max": ${maxBE},
+  "notenpunkte": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback: Welche Berechnungen korrekt, welche Fehler, welche Ansätze fehlten, Verbesserungsvorschläge>",
+  "korrektur_text": "<Der Schülertext mit Markierungen: Rechenfehler mit <mark class='fehler-rs' title='Richtig: 32,58 %'>32,85 %</mark>, fehlende Schritte kennzeichnen>",
+  "fehlende_aspekte": [{"aufgabe": "1.1", "aspekte": ["AfA monatsgenau nicht berücksichtigt", "Montagekosten fehlen in AK"]}]
+}`;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const messages = [
+    { role: "system", content: rubricPrompt + bilderHinweis },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 12000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const beErreicht = parsed.be_erreicht ?? null;
+    const beMax = parsed.be_max ?? maxBE;
+    let np = parsed.notenpunkte ?? null;
+
+    // Offizielle NP-Tabelle anwenden (auf 100 normiert)
+    if (np == null && beErreicht != null) {
+      const BE_NP = [[96,15],[91,14],[86,13],[81,12],[76,11],[71,10],[66,9],[61,8],[56,7],[51,6],[46,5],[41,4],[34,3],[27,2],[20,1],[0,0]];
+      // Aufrundung bei n,5
+      let be = beErreicht % 1 === 0.5 ? Math.ceil(beErreicht) : Math.round(beErreicht);
+      // Auf 100 normieren falls max ≠ 100
+      if (beMax !== 100) be = Math.round((be / beMax) * 100);
+      np = 0;
+      for (const [schwelle, punkte] of BE_NP) {
+        if (be >= schwelle) { np = punkte; break; }
+      }
+    }
+
+    return jsonResponse({
+      scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
+      bewertung_bloecke: parsed.bewertung_bloecke || [],
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
+      bewertung_bloecke: [],
+      feedback: openaiRes,
+      feedback_kurz: [],
+      korrektur_text: "",
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
+    }, 200, env);
+  }
+}
+
+/* ================= BWR FACHABITUR 12: MODEL ANSWER (BWR-spezifisch) ================= */
+async function handleModelAnswerAbiturBWR(request, env) {
+  const { aufgabenbloecke } = await request.json();
+
+  const systemPrompt = `Du bist ein BwR-Experte und erstellst eine vorbildliche Musterlösung für eine BwR-Fachabiturprüfung (FOS 12. Klasse Bayern).
+Die Musterlösung orientiert sich am Stil der offiziellen ISB-Lösungshinweise.
+
+FORMAT DER MUSTERLÖSUNG:
+
+1. BERECHNUNGEN (Hauptteil der Lösung):
+   - Klare Darstellung: Ansatz → Formel → Einsetzen → Ergebnis
+   - Alle Zwischenschritte zeigen
+   - Auf 2 Dezimalstellen runden (Geldbeträge, Prozentsätze)
+   - Markdown-Tabellen für tabellarische Daten verwenden
+
+2. BUCHUNGSSÄTZE:
+   - Korrekte Konten mit Beträgen
+   - Format: "Soll-Konto | an | Haben-Konto | Betrag"
+   - Bei Umsatzsteuer: Brutto/Netto/USt korrekt trennen
+
+3. HGB-BEWERTUNG:
+   - AK-Ermittlung als Staffelrechnung (LP - Rabatt = ZEP - Skonto = BEP + Bezugskosten = AK)
+   - HK: MEK + FEK + angemessene GK, einzeln auflisten
+   - AfA-Berechnung (Jahres-AfA, ggf. monatsgenau im Anschaffungsjahr)
+   - Regelwert vs. beizulegender Wert
+   - Anwendbares Prinzip nennen (strenges/gemildertes NWP)
+   - Bilanzansatz mit Begründung
+   - EWB/PWB: Buchungssätze + Berechnung
+
+4. KOSTENRECHNUNG:
+   Vollkostenrechnung:
+   - Zuschlagskalkulation als Staffelrechnung (MEK + MGK + FEK + FGK + ... = SK + Gewinn = BVP)
+   - BAB als Tabelle (Kostenstellen, Zuschlagssätze)
+   - Maschinenstundensatz: Einzelne Kostenarten aufschlüsseln
+   Teilkostenrechnung:
+   - Break-even: xBEP = KF / db (Formel + Berechnung)
+   - Deckungsbeitragsrechnung als Tabelle
+   - Engpassrechnung: Relativer db berechnen, Rangfolge bestimmen
+   - Eigenfertigung vs. Fremdbezug: Kritische Menge xkrit = ΔKF / Δkv
+
+5. GuV & ERGEBNISVERWENDUNG:
+   - GuV nach Gesamtkostenverfahren als Staffelform
+   - Ergebnisverwendungsrechnung als Tabelle (JÜ + GV - Einstellungen = BG - Dividende = GV neu)
+
+6. MARKETING & FINANZIERUNG:
+   - BCG-Matrix: Einordnung mit Begründung (Marktwachstum >/< Branchenschnitt, rel. Marktanteil >/< 1)
+   - Reisender vs. Handelsvertreter: Kostenfunktionen aufstellen, kritische Menge berechnen
+   - Kapitalerhöhung: Bezugsverhältnis, rechnerischer Wert des Bezugsrechts, Mischkurs
+   - Tilgungsplan als Tabelle (Jahr, Restschuld, Zinsen, Tilgung, Annuität/Rate)
+   - Bewegungsbilanz als Tabelle (Mittelverwendung | Mittelherkunft)
+
+7. INVESTITIONSRECHNUNG (NUR statische Verfahren!):
+   - Kostenvergleich: Fixe + variable Kosten pro Alternative
+   - Gewinnvergleich: Erlöse - Kosten
+   - Rentabilität: Gewinn / durchschn. geb. Kapital × 100
+   - Amortisation: AK / (Gewinn + kalk. AfA)
+
+8. BESCHAFFUNG:
+   - Optimale Bestellmenge: Formel + Berechnung oder tabellarisch
+   - Bezugskalkulation als Staffelrechnung
+   - Nutzwertanalyse als Tabelle (Kriterien, Gewichtung, Punkte)
+
+Formatiere die gesamte Lösung als Markdown mit klaren Überschriften (## Aufgabe I, ### 1.1, etc.)
+Verwende Markdown-Tabellen für alle tabellarischen Daten.
+KEINE Themen aus BwR 13 verwenden (keine Kapitalwertmethode, keine Plankostenrechnung, keine Bilanzanalyse/Kennzahlen)!`;
+
+  let userContent = "AUFGABEN:\n";
+  if (aufgabenbloecke && aufgabenbloecke.length) {
+    for (const block of aufgabenbloecke.slice(0, 5)) {
+      userContent += `\n## Aufgabe ${block.id || block.nr}: ${block.titel} (${block.gesamt_be || block.be_gesamt} BE)\n`;
+      if (block.kontext) userContent += `${truncate(block.kontext, 4000)}\n`;
+      if (block.teilaufgaben) {
+        for (const ta of block.teilaufgaben.slice(0, 20)) {
+          userContent += `**${ta.nr}** (${ta.be} BE): ${truncate(ta.text, 600)}\n`;
+        }
+      }
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
+}
+
 /* ================= WIRTSCHAFT UND RECHT: PARSE TASK (OCR) ================= */
 async function handleParseTaskWR(request, env) {
   const { images } = await request.json();
@@ -12372,8 +12642,8 @@ async function handleFOSRoute(pathname, request, env) {
 
   // === BWR ABITUR (FOS-Fachabitur) ===
   if (route === "generate-abitur-bwr") return handleFOSGenerateAbiturBWR(body, env);
-  if (route === "grade-abitur-bwr") return handleGradeWR(fakeReq, env);
-  if (route === "model-answer-abitur-bwr") return handleModelAnswerWR(fakeReq, env);
+  if (route === "grade-abitur-bwr") return handleGradeAbiturBWR(fakeReq, env);
+  if (route === "model-answer-abitur-bwr") return handleModelAnswerAbiturBWR(fakeReq, env);
 
   // === BWR ABITUR 13 (Fachgebundene/Allgemeine Hochschulreife) ===
   if (route === "generate-abitur13-bwr") return handleFOSGenerateAbitur13BWR(body, env);
