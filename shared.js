@@ -569,7 +569,7 @@ function nav(step, _pushHistory) {
   }
 
   currentStep = step;
-  if (step === "task") injectPdfButton();
+  if (step === "task" || step === "reading") injectPdfButton();
   if (step === "progress") renderProgress();
   window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -920,7 +920,32 @@ function hasMaterial() {
   );
 }
 
+function isExamPage() {
+  var prefix = MODULE_CONFIG.sectionPrefix || "";
+  return !document.getElementById(prefix + "task") && !!document.getElementById(prefix + "reading");
+}
+
 function showPdfExportModal() {
+  if (isExamPage()) {
+    // Englisch-Abitur: Reading + Writing Sections
+    if (document.getElementById("pdfModal")) return;
+    var overlay = document.createElement("div");
+    overlay.className = "pdf-modal-overlay";
+    overlay.id = "pdfModal";
+    overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
+    overlay.innerHTML =
+      '<div class="pdf-modal">' +
+      '<h3>Als PDF speichern</h3>' +
+      '<div class="pdf-modal-buttons">' +
+      '<button class="btn" onclick="exportTaskPDF(\'reading\')">Nur Reading</button>' +
+      '<button class="btn" onclick="exportTaskPDF(\'writing-only\')">Nur Writing</button>' +
+      '<button class="btn" onclick="exportTaskPDF(\'exam\')">Komplette Pr\u00fcfung</button>' +
+      '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
+      '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    return;
+  }
   if (!hasMaterial()) {
     exportTaskPDF("task");
     return;
@@ -950,9 +975,37 @@ function closePdfModal() {
 
 function exportTaskPDF(mode) {
   var prefix = MODULE_CONFIG.sectionPrefix || "";
-  var sec = document.getElementById(prefix + "task");
-  if (!sec) { closePdfModal(); return; }
   closePdfModal();
+
+  // Exam-Modi (Reading/Writing-Seiten wie Englisch Abitur)
+  if (mode === "reading" || mode === "writing-only" || mode === "exam") {
+    var readingSec = document.getElementById(prefix + "reading");
+    var writingSec = document.getElementById(prefix + "writing");
+    if (mode === "reading" && readingSec) {
+      printElement(readingSec);
+    } else if (mode === "writing-only" && writingSec) {
+      printElement(writingSec);
+    } else if (mode === "exam") {
+      // Beide Sections in temporären Wrapper zusammenfassen
+      var wrapper = document.createElement("div");
+      wrapper.id = "_examPrintWrapper";
+      if (readingSec) wrapper.appendChild(readingSec.cloneNode(true));
+      if (writingSec) wrapper.appendChild(writingSec.cloneNode(true));
+      // Textarea-Inhalte werden nicht geklont – Input-Felder leeren (sind eh leer beim Drucken)
+      document.body.appendChild(wrapper);
+      var cleanup = function () {
+        wrapper.remove();
+        window.removeEventListener("afterprint", cleanup);
+      };
+      window.addEventListener("afterprint", cleanup);
+      printElement(wrapper);
+    }
+    return;
+  }
+
+  // Standard-Modi (task/material/both)
+  var sec = document.getElementById(prefix + "task");
+  if (!sec) return;
 
   // Mode-spezifisch: Material- oder Aufgaben-Elemente temporär ausblenden
   var tempHidden = [];
@@ -997,7 +1050,7 @@ function exportTaskPDF(mode) {
 
 function injectPdfButton() {
   var prefix = MODULE_CONFIG.sectionPrefix || "";
-  var sec = document.getElementById(prefix + "task");
+  var sec = document.getElementById(prefix + "task") || document.getElementById(prefix + "reading");
   if (!sec) return;
   if (sec.querySelector(".pdf-export-btn")) return;
   var pdfBtn = document.createElement("button");
