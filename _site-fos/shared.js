@@ -72,6 +72,152 @@ async function apiCall(endpoint, body) {
   return res.json();
 }
 
+/* ================= ASYNC API (Queue-basiert) ================= */
+
+// KI-Roboter SVG-Animation (wird automatisch beim Korrigieren angezeigt)
+var KI_ROBOT_HTML = '<div class="ki-robot-scene">' +
+  '<svg viewBox="0 0 200 170" class="ki-robot-svg" aria-hidden="true">' +
+    '<rect class="ki-s-desk" x="38" y="128" width="6" height="35" rx="2" opacity=".45"/>' +
+    '<rect class="ki-s-desk" x="156" y="128" width="6" height="35" rx="2" opacity=".45"/>' +
+    '<rect class="ki-s-desk" x="25" y="122" width="150" height="8" rx="3"/>' +
+    '<rect class="ki-s-paper" x="42" y="98" width="24" height="30" rx="2" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="105" x2="62" y2="104" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="110" x2="62" y2="109" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="115" x2="58" y2="114" transform="rotate(-5 54 113)"/>' +
+    '<rect class="ki-s-paper" x="132" y="100" width="24" height="30" rx="2" transform="rotate(4 144 115)"/>' +
+    '<line class="ki-s-line" x1="136" y1="107" x2="152" y2="108" transform="rotate(4 144 115)"/>' +
+    '<line class="ki-s-line" x1="136" y1="112" x2="152" y2="113" transform="rotate(4 144 115)"/>' +
+    '<g class="ki-s-pencil">' +
+      '<line x1="110" y1="100" x2="126" y2="118" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>' +
+      '<line x1="126" y1="118" x2="128" y2="122" stroke="var(--ink,#333)" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</g>' +
+    '<rect class="ki-s-arm ki-s-arm-l" x="58" y="86" width="20" height="8" rx="4"/>' +
+    '<rect class="ki-s-arm ki-s-arm-r" x="122" y="86" width="20" height="8" rx="4"/>' +
+    '<rect class="ki-s-body" x="72" y="72" width="56" height="52" rx="10"/>' +
+    '<circle cx="100" cy="96" r="6" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>' +
+    '<circle cx="100" cy="96" r="3" class="ki-s-chest"/>' +
+    '<rect class="ki-s-body" x="70" y="30" width="60" height="46" rx="14"/>' +
+    '<g class="ki-s-eyes">' +
+      '<circle cx="86" cy="50" r="7.5" class="ki-s-eye-bg"/>' +
+      '<circle cx="88" cy="50" r="3.5" class="ki-s-pupil"/>' +
+      '<circle cx="114" cy="50" r="7.5" class="ki-s-eye-bg"/>' +
+      '<circle cx="112" cy="50" r="3.5" class="ki-s-pupil"/>' +
+    '</g>' +
+    '<rect x="90" y="64" width="20" height="3.5" rx="1.5" fill="rgba(255,255,255,.3)"/>' +
+    '<line class="ki-s-stem" x1="100" y1="30" x2="100" y2="18" stroke-width="3"/>' +
+    '<circle cx="100" cy="13" r="5" class="ki-s-glow"/>' +
+  '</svg>' +
+  '<p class="ki-status-text" id="kiStatusText">KI korrigiert deine Arbeit<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span></p>' +
+'</div>';
+
+// Kontext fuer Lazy-Load Detail-Feedback
+var _lastGradeBody = null;
+
+async function apiCallAsync(gradeEndpoint, body, options) {
+  options = options || {};
+  var pollInterval = options.pollInterval || 3000;
+  var maxWait = options.maxWait || 180000; // 3 Minuten
+  var onProgress = options.onProgress || null;
+
+  // Grading-Kontext speichern fuer spaeteres Detail-Feedback
+  _lastGradeBody = body;
+
+  // OCR-Bilder automatisch mitsenden
+  if (/grade/.test(gradeEndpoint) && typeof getOCRImages === "function") {
+    var imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
+
+  // Roboter-Animation in feedbackLoader einbauen
+  var feedbackEl = document.getElementById("feedbackLoader");
+  var originalLoaderHTML = null;
+  if (feedbackEl) {
+    originalLoaderHTML = feedbackEl.innerHTML;
+    feedbackEl.innerHTML = KI_ROBOT_HTML;
+  }
+
+  try {
+    // 1. Job erstellen
+    var submitBody = Object.assign({}, body, {
+      endpoint: gradeEndpoint,
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt"
+    });
+
+    var submitRes = await fetch(API_BASE + "/api/grade-submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify(submitBody)
+    });
+
+    if (!submitRes.ok) {
+      var submitErr = await submitRes.json().catch(function() { return {}; });
+      throw new Error(submitErr.error || "HTTP " + submitRes.status);
+    }
+
+    var submitData = await submitRes.json();
+    var jobId = submitData.job_id;
+
+    // 2. Polling
+    var startTime = Date.now();
+    var statusMsgUpdated = false;
+    while (Date.now() - startTime < maxWait) {
+      await new Promise(function(r) { setTimeout(r, pollInterval); });
+
+      // Status-Text nach 15s aktualisieren
+      if (!statusMsgUpdated && feedbackEl && Date.now() - startTime > 15000) {
+        var statusEl = document.getElementById("kiStatusText");
+        if (statusEl) statusEl.innerHTML = 'KI analysiert deine Antworten<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+        statusMsgUpdated = true;
+      }
+      // Nach 40s nochmal aktualisieren
+      if (statusMsgUpdated && feedbackEl && Date.now() - startTime > 40000) {
+        var statusEl2 = document.getElementById("kiStatusText");
+        if (statusEl2 && statusEl2.textContent.indexOf("Geduld") === -1) {
+          statusEl2.innerHTML = 'Dauert etwas l\u00e4nger, bitte Geduld<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+        }
+      }
+
+      var statusRes;
+      try {
+        statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
+          headers: { "X-Access-Token": getAccessToken() }
+        });
+      } catch (fetchErr) {
+        // Netzwerkfehler beim Polling – nächster Versuch
+        continue;
+      }
+
+      if (!statusRes.ok) continue;
+
+      var statusData = await statusRes.json();
+
+      if (onProgress) {
+        try { onProgress(statusData); } catch (e) { /* Callback-Fehler ignorieren */ }
+      }
+
+      if (statusData.status === "completed") {
+        return statusData.result;
+      }
+
+      if (statusData.status === "failed") {
+        throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+      }
+
+      // Adaptives Polling: nach 30s langsamer
+      if (Date.now() - startTime > 30000 && pollInterval < 8000) {
+        pollInterval = Math.min(pollInterval + 1000, 8000);
+      }
+    }
+
+    throw new Error("Zeitlimit \u00fcberschritten. Die Korrektur dauert ungew\u00f6hnlich lang. Bitte versuche es erneut.");
+  } finally {
+    // Originalen Loader-Inhalt wiederherstellen
+    if (feedbackEl && originalLoaderHTML !== null) {
+      feedbackEl.innerHTML = originalLoaderHTML;
+    }
+  }
+}
+
 /* ================= KORREKTUR & ASPEKTE ================= */
 
 function renderKorrekturFeedback(d) {
@@ -79,6 +225,30 @@ function renderKorrekturFeedback(d) {
   const aspekteCard = document.getElementById("aspekteCard");
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
+
+  // Kurzfeedback + Lazy-Load Detail-Feedback
+  var fb = document.getElementById("feedbackBody");
+  if (fb && d.feedback_kurz && d.feedback_kurz.length) {
+    // Scores + Kurzfeedback fuer spaeteres Detail-Feedback merken
+    window._detailFeedbackScores = d.scores || null;
+    window._detailFeedbackKurz = d.feedback_kurz;
+
+    var kurzHtml = '<ul class="feedback-kurz">' +
+      d.feedback_kurz.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
+      '</ul>';
+    var detailHtml = fb.innerHTML;
+    if (detailHtml && detailHtml.trim()) {
+      // Detail bereits vorhanden (z.B. Fallback) → direkt aufklappbar anzeigen
+      fb.innerHTML = kurzHtml +
+        '<details class="feedback-detail-toggle"><summary>Detailliertes Feedback anzeigen</summary>' +
+        '<div class="feedback-detail-body">' + detailHtml + '</div></details>';
+    } else {
+      // Detail noch nicht generiert → Lade-Button anzeigen
+      fb.innerHTML = kurzHtml +
+        '<button class="btn btn-secondary feedback-load-detail" onclick="loadDetailFeedback(this)">Detailliertes Feedback laden</button>' +
+        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>';
+    }
+  }
 
   const sanitizeOpts = { ALLOWED_TAGS: ["mark", "br", "p"], ALLOWED_ATTR: ["class", "title"] };
 
@@ -112,6 +282,44 @@ function renderKorrekturFeedback(d) {
 
   // Rewrite-Button anzeigen
   renderRewriteButton(d);
+}
+
+/* ================= DETAIL-FEEDBACK LAZY-LOAD ================= */
+
+async function loadDetailFeedback(btn) {
+  if (!_lastGradeBody) {
+    showToast("Kein Bewertungskontext vorhanden.");
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "Wird geladen\u2026";
+
+  try {
+    var result = await apiCall("/api/detail-feedback", {
+      rubric_prompt: _lastGradeBody.rubric_prompt || "",
+      task_instruction: _lastGradeBody.task_instruction || "",
+      primary_text: _lastGradeBody.primary_text || "",
+      student_text: _lastGradeBody.student_text || _lastGradeBody.text_a || "",
+      scores: window._detailFeedbackScores || null,
+      feedback_kurz: window._detailFeedbackKurz || []
+    });
+
+    var container = document.getElementById("feedbackDetailContainer");
+    if (!container) {
+      container = btn.nextElementSibling;
+    }
+    if (container) {
+      var parseFn = (typeof safeMathParse === "function") ? safeMathParse : marked.parse;
+      container.innerHTML = DOMPurify.sanitize(parseFn(result.feedback || ""));
+      container.style.display = "";
+      if (typeof renderMath === "function") renderMath(container);
+    }
+    btn.style.display = "none";
+  } catch (e) {
+    btn.textContent = "Fehler \u2013 erneut versuchen";
+    btn.disabled = false;
+    showToast("Feedback konnte nicht geladen werden: " + e.message);
+  }
 }
 
 /* ================= ÜBUNGSAUFGABEN ================= */
@@ -376,19 +584,15 @@ function nav(step, _pushHistory) {
 function toggleDarkMode() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
   document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
-  localStorage.setItem("theme", isDark ? "light" : "dark");
   const btn = document.getElementById("themeToggleBtn");
   if (btn) btn.textContent = isDark ? "🌙" : "☀️";
   if (progressChartInstance) renderProgressChart();
 }
 
 function initTheme() {
-  const saved = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const theme = saved || (prefersDark ? "dark" : "light");
-  document.documentElement.setAttribute("data-theme", theme);
+  document.documentElement.setAttribute("data-theme", "light");
   const btn = document.getElementById("themeToggleBtn");
-  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
+  if (btn) btn.textContent = "🌙";
 }
 
 /* ================= TIMER ================= */
@@ -1137,14 +1341,13 @@ window.addEventListener("beforeunload", function (e) {
 window.addEventListener("pageshow", function (e) {
   if (e.persisted) {
     if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
-      if (MODULE_CONFIG.hasOwnLogin) {
+      if (typeof MODULE_CONFIG !== 'undefined' && MODULE_CONFIG.hasOwnLogin) {
         const ls = document.getElementById("login-screen");
         const aw = document.getElementById("app-wrapper");
         if (ls) ls.style.display = "flex";
         if (aw) aw.style.display = "none";
-      } else {
-        window.location.href = (typeof MODULE_CONFIG !== 'undefined' && MODULE_CONFIG.loginPage) || "index.html";
       }
+      // Kein Redirect mehr – Seite bleibt sichtbar im Gast-Modus
     }
   }
 });
@@ -1277,9 +1480,11 @@ function updateTeacherCodeBtn(code) {
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
 
-  // Modules with their own login screen handle auth themselves
+  var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
+
+  // Modules mit eigenem Login-Screen
   if (MODULE_CONFIG.hasOwnLogin) {
-    if (sessionStorage.getItem("access") !== "1" || !sessionStorage.getItem("student_name")) {
+    if (!isLoggedIn) {
       const ls = document.getElementById("login-screen");
       const aw = document.getElementById("app-wrapper");
       if (ls) ls.style.display = "flex";
@@ -1306,24 +1511,23 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     return;
   }
 
-  // Auth check for German-style modules (redirect if not logged in)
-  if (sessionStorage.getItem("access") !== "1") {
-    window.location.href = MODULE_CONFIG.loginPage || "index.html";
-    return;
+  // Seite fuer alle zeigen – kein Redirect mehr
+  if (isLoggedIn) {
+    const greeting = document.getElementById("studentGreeting");
+    if (greeting) {
+      greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
+      greeting.style.display = "inline";
+    }
+    restoreSession();
+    initHL();
+    initTeacherCodeUI();
+    setInterval(saveSession, 30000);
+  } else {
+    // Gast-Modus: Seite anzeigen ohne Session/Greeting
+    const greeting = document.getElementById("studentGreeting");
+    if (greeting) greeting.style.display = "none";
+    initHL();
   }
-
-  // Greeting
-  const greeting = document.getElementById("studentGreeting");
-  if (greeting) {
-    greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
-    greeting.style.display = "inline";
-  }
-
-  // Restore & init
-  restoreSession();
-  initHL();
-  initTeacherCodeUI();
-  setInterval(saveSession, 30000);
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 
   // KI-Disclaimer in Feedback-Bereich einfügen
@@ -1353,6 +1557,17 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       fc.appendChild(uc);
     }
   }
+  // generateTask() automatisch mit Login-Check wrappen
+  if (typeof window.generateTask === "function") {
+    var _origGenerateTask = window.generateTask;
+    window.generateTask = function () {
+      if (sessionStorage.getItem("access") !== "1") {
+        requireLogin(function () { _origGenerateTask(); });
+        return;
+      }
+      _origGenerateTask();
+    };
+  }
 };
 
 /* ============================
@@ -1366,7 +1581,7 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
   try {
     var d = await apiCall("/api/generate-image", {
       prompt: prompt,
-      noText: true,
+      noText: false,
       style: style || "diagram"
     });
 
@@ -1431,4 +1646,155 @@ var loadDallEImage = function(prompt, containerId) {
   loadEducationalImage(prompt, containerId, null);
 };
 var loadUnsplashImage = loadDallEImage;
+
+/* ============================
+   Login-Modal für Fachseiten
+   Wird von requireLogin() aufgerufen wenn ein Gast
+   "Aufgabe generieren" oder ähnliches klickt.
+   ============================ */
+var _loginModalCallback = null;
+var _loginModalMode = "login";
+
+function requireLogin(callback) {
+  if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+    callback();
+    return;
+  }
+  _loginModalCallback = callback;
+  _loginModalMode = "login";
+  _ensureLoginModal();
+  document.getElementById("sharedLoginOverlay").style.display = "flex";
+  _updateLoginModalUI();
+  setTimeout(function () {
+    var nameInput = document.getElementById("slModalName");
+    if (nameInput) nameInput.focus();
+  }, 100);
+}
+
+function _ensureLoginModal() {
+  if (document.getElementById("sharedLoginOverlay")) return;
+  var overlay = document.createElement("div");
+  overlay.id = "sharedLoginOverlay";
+  overlay.style.cssText = "display:none;position:fixed;inset:0;z-index:9800;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) _closeLoginModal(); });
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:400px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;">' +
+    '<h2 style="font-size:1.2rem;margin:0 0 .3rem;text-align:center;">Anmeldung erforderlich</h2>' +
+    '<p style="color:var(--ink-muted);text-align:center;font-size:.85rem;margin:0 0 1.2rem;">Um eine Aufgabe zu generieren, melde dich bitte an.</p>' +
+    '<div style="display:flex;gap:.3rem;margin-bottom:1rem;">' +
+    '<button id="slModeLogin" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'login\')">Anmelden</button>' +
+    '<button id="slModeRegister" type="button" style="flex:1;padding:.5rem;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;font-size:.85rem;" onclick="_setLoginModalMode(\'register\')">Registrieren</button>' +
+    '</div>' +
+    '<input type="text" id="slModalName" placeholder="Dein Name …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<div id="slRegFields" style="display:none;">' +
+    '<input type="password" id="slModalPwConfirm" placeholder="Passwort bestätigen …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalClassPw" placeholder="Klassenpasswort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '</div>' +
+    '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
+    '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
+    '<button type="button" onclick="_closeLoginModal()" style="width:100%;padding:.5rem;background:none;border:none;color:var(--ink-muted);font-size:.82rem;cursor:pointer;margin-top:.5rem;min-height:44px;font-family:inherit;">Abbrechen</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+}
+
+function _setLoginModalMode(mode) {
+  _loginModalMode = mode;
+  _updateLoginModalUI();
+}
+
+function _updateLoginModalUI() {
+  var loginBtn = document.getElementById("slModeLogin");
+  var regBtn = document.getElementById("slModeRegister");
+  var regFields = document.getElementById("slRegFields");
+  var submitBtn = document.getElementById("slModalBtn");
+  var pwInput = document.getElementById("slModalPw");
+  if (_loginModalMode === "register") {
+    loginBtn.style.background = "var(--surface)"; loginBtn.style.color = "var(--ink)";
+    regBtn.style.background = "var(--accent)"; regBtn.style.color = "#fff";
+    regFields.style.display = "block";
+    submitBtn.textContent = "Registrieren";
+    pwInput.placeholder = "Eigenes Passwort wählen …";
+  } else {
+    loginBtn.style.background = "var(--accent)"; loginBtn.style.color = "#fff";
+    regBtn.style.background = "var(--surface)"; regBtn.style.color = "var(--ink)";
+    regFields.style.display = "none";
+    submitBtn.textContent = "Anmelden";
+    pwInput.placeholder = "Dein Passwort …";
+  }
+  var err = document.getElementById("slModalError");
+  if (err) err.style.display = "none";
+}
+
+async function _doLoginModal() {
+  var name = document.getElementById("slModalName").value.trim();
+  var pw = document.getElementById("slModalPw").value;
+  var err = document.getElementById("slModalError");
+  var btn = document.getElementById("slModalBtn");
+
+  if (!name) { err.textContent = "Bitte gib deinen Namen ein."; err.style.display = "block"; return; }
+  if (!pw) { err.textContent = "Passwort erforderlich."; err.style.display = "block"; return; }
+  if (_loginModalMode === "register" && pw.length < 6) { err.textContent = "Passwort muss mindestens 6 Zeichen haben."; err.style.display = "block"; return; }
+
+  var level = sessionStorage.getItem("student_level") || "eA";
+  var body = { student_name: name, personal_password: pw, mode: _loginModalMode, level: level };
+
+  if (_loginModalMode === "register") {
+    var confirmPw = document.getElementById("slModalPwConfirm").value;
+    var classPw = document.getElementById("slModalClassPw").value.trim();
+    if (pw !== confirmPw) { err.textContent = "Passwörter stimmen nicht überein."; err.style.display = "block"; return; }
+    if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
+    body.password = classPw;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Prüfe …";
+  err.style.display = "none";
+
+  try {
+    var res = await fetch(API_BASE + "/api/check-student", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+
+    if (data.success) {
+      sessionStorage.setItem("access", "1");
+      sessionStorage.setItem("access_token", data.token);
+      sessionStorage.setItem("student_name", name);
+      if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+
+      // Greeting aktualisieren
+      var greeting = document.getElementById("studentGreeting");
+      if (greeting) {
+        greeting.textContent = name + " · " + (sessionStorage.getItem("student_level") || "eA").toUpperCase();
+        greeting.style.display = "inline";
+      }
+
+      _closeLoginModal();
+      // Callback ausfuehren (z.B. generateTask)
+      if (_loginModalCallback) {
+        var cb = _loginModalCallback;
+        _loginModalCallback = null;
+        cb();
+      }
+    } else {
+      err.textContent = data.error || "Fehler bei der Anmeldung.";
+      err.style.display = "block";
+    }
+  } catch (e) {
+    err.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+    err.style.display = "block";
+  }
+
+  btn.disabled = false;
+  btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
+}
+
+function _closeLoginModal() {
+  var overlay = document.getElementById("sharedLoginOverlay");
+  if (overlay) overlay.style.display = "none";
+  _loginModalCallback = null;
+}
 
