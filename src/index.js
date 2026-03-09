@@ -13134,6 +13134,31 @@ ALL texts complete, realistic, C1 level. Include correct answers for Reading. Us
   return jsonResponse(extractJSON(openaiRes), 200, env);
 }
 
+// Themen-Mapping für lesbare Prompt-Beschreibungen
+const FOS_ENGLISCH_TOPIC_MAP = {
+  "society": "Gesellschaft & Medien",
+  "globalisation": "Globalisierung",
+  "environment": "Umwelt & Nachhaltigkeit",
+  "technology": "Technologie & Digitalisierung",
+  "education": "Bildung & Beruf",
+  "culture": "Kultur & Identität",
+  "politics": "Politik & Demokratie",
+  "demographic-change": "Gesellschaftliche Herausforderungen: demografischer Wandel, Gender issues, soziale Ungleichheit",
+  "social-inequality": "Werte und Wertekonflikte: Freiheit vs. Sicherheit, Wissenschaft und Ethik",
+  "globalisation-conflicts": "Globalisierung: internationale Beziehungen, Konflikte, Terrorismus",
+  "migration": "Ursachen von Migration, internationale Beziehungen und Konflikte",
+  "language-power": "Sprache und Kommunikation: Macht und Manipulation, Sprachenvielfalt, Jugendsprache",
+  "literature": "Literatur (literarische Ganzschrift zu gesellschaftlichen Themen)",
+  "current-events": "Aktuelle Ereignisse und Entwicklungen",
+  "science-ethics": "Wissenschaft und Ethik, gesellschaftliche Verantwortung"
+};
+
+function getFOSEnglischTopicHint(topic) {
+  if (!topic || topic === "random") return "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
+  const desc = FOS_ENGLISCH_TOPIC_MAP[topic] || topic;
+  return `\nTHEMA: Der Text soll sich mit dem Thema "${desc}" befassen.`;
+}
+
 /* ================= FOS ENGLISCH: READING COMPREHENSION KLAUSURTRAINING ================= */
 async function handleFOSGenerateRCEnglisch(body, env) {
   const taskTypes = body.taskTypes || ["gapped_summary", "multiple_matching", "multiple_choice"];
@@ -13200,7 +13225,7 @@ async function handleFOSGenerateRCEnglisch(body, env) {
     }
   }
 
-  const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
+  const topicHint = getFOSEnglischTopicHint(topic);
 
   const textHint = (is13 && taskTypes.includes("mediation_en_de"))
     ? `\nWICHTIG: Da Mediation ausgewählt ist, soll der Text ein LITERARISCHER Text sein (Romanauszug oder Short Story, C1-Niveau).`
@@ -13264,7 +13289,7 @@ async function handleFOSGenerateKlausurEnglisch(body, env) {
   const rcTypes = ["gapped_summary", "multiple_matching", "multiple_choice"];
   const chosenRC = rcTypes[Math.floor(Math.random() * rcTypes.length)];
 
-  const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
+  const topicHint = getFOSEnglischTopicHint(topic);
 
   const rcInstructions12 = {
     gapped_summary: `GAPPED SUMMARY (6 BE):
