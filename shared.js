@@ -220,6 +220,22 @@ function renderKorrekturFeedback(d) {
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
 
+  // Kurzfeedback + aufklappbares Detail-Feedback
+  var fb = document.getElementById("feedbackBody");
+  if (fb && d.feedback_kurz && d.feedback_kurz.length) {
+    var kurzHtml = '<ul class="feedback-kurz">' +
+      d.feedback_kurz.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
+      '</ul>';
+    var detailHtml = fb.innerHTML;
+    if (detailHtml && detailHtml.trim()) {
+      fb.innerHTML = kurzHtml +
+        '<details class="feedback-detail-toggle"><summary>Detailliertes Feedback anzeigen</summary>' +
+        '<div class="feedback-detail-body">' + detailHtml + '</div></details>';
+    } else {
+      fb.innerHTML = kurzHtml;
+    }
+  }
+
   const sanitizeOpts = { ALLOWED_TAGS: ["mark", "br", "p"], ALLOWED_ATTR: ["class", "title"] };
 
   // Single-part korrektur
