@@ -2623,60 +2623,18 @@ function getCalendarWeek(date) {
   return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
 }
 
-/* ================= IMAGE GENERATION: GEMINI FLASH ================= */
+/* ================= IMAGE GENERATION: IMAGEN 4 + GEMINI FLASH FALLBACK ================= */
 async function handleGenerateImage(request, env) {
   const { prompt, noText, style } = await request.json();
   if (!prompt) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Drei Prompt-Varianten: Cartoon (noText), Diagramm (noText), Legacy (mit Text)
-  let enhancedPrompt;
-  if (noText && style === "cartoon") {
-    // Cartoons/Karikaturen: KEIN Text im Bild, wird als HTML-Overlay hinzugefügt
-    enhancedPrompt = `Generate a high-quality editorial cartoon / political cartoon illustration.
+  // Imagen-4-Prompt: Klar und direkt, Text im Bild auf Deutsch
+  const imagenPrompt = `Professional educational illustration for a German school exam. Clean, modern infographic style with crisp lines, vivid colors, and professional typography. High contrast, white background, no watermarks, no logos. ALL text, labels, titles, and annotations in the image MUST be in GERMAN with correct spelling. Text must be clearly legible. ${prompt}`;
 
-CRITICAL RULE — NO TEXT:
-- Do NOT include ANY text, words, letters, numbers, labels, signs, speech bubbles, thought bubbles, captions, titles, annotations, or written content of any kind in the image.
-- Where speech bubbles would normally appear, leave EMPTY white speech bubbles (no text inside) or omit them entirely.
-- Where signs or labels would normally appear, leave them BLANK.
-- This is absolutely essential — the image must contain ZERO text or letterforms.
-
-STYLE REQUIREMENTS:
-- Bold, expressive editorial cartoon style with thick outlines and vivid colors
-- Exaggerated features, satirical visual metaphors, clear visual storytelling
-- High contrast, clean composition, professional quality
-- Characters should have clear facial expressions and body language that convey meaning WITHOUT text
-
-SUBJECT TO ILLUSTRATE:
-${prompt}
-
-ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the cartoon shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
-  } else if (noText) {
-    // Diagramme/Infografiken: KEIN Text im Bild, Labels werden als HTML-Overlay hinzugefügt
-    enhancedPrompt = `Generate a clean, professional educational diagram or infographic.
-
-CRITICAL RULE — NO TEXT:
-- Do NOT include ANY text, words, letters, numbers, labels, signs, captions, titles, annotations, or written content of any kind in the image.
-- Axis labels, legends, titles, and data values must be COMPLETELY ABSENT — leave those spaces empty.
-- This is absolutely essential — the image must contain ZERO text or letterforms.
-- Text labels will be added separately as HTML overlays on top of the image.
-
-STYLE REQUIREMENTS:
-- Clean, modern infographic or diagram style with crisp lines and vivid colors
-- High contrast and sharp details suitable for educational materials
-- White or light neutral background for clarity
-- Clear visual hierarchy through size, color, positioning, and arrows
-- No watermarks, no logos, no decorative borders
-- Use distinct colors for different categories/data series
-
-SUBJECT TO ILLUSTRATE:
-${prompt}
-
-ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
-  } else {
-    // Legacy-Fallback: Text im Bild (wird schrittweise abgelöst)
-    enhancedPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
+  // Gemini-Flash-Prompt (Fallback): Enthält Caption-Anforderung
+  const flashPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
 
 STYLE REQUIREMENTS:
 - Clean, modern infographic or diagram style with crisp lines, vivid colors, and professional typography
@@ -2693,91 +2651,52 @@ SUBJECT TO ILLUSTRATE:
 ${prompt}
 
 ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
-  }
 
-  try {
-    // Modell-Kette: 3.1 Flash zuerst, bei Fehler Fallback auf 2.5 Flash
-    const MODELS = [
-      { id: "gemini-3.1-flash-image-preview", size: "2K" },
-      { id: "gemini-2.5-flash-image", size: "1K" }
-    ];
+  let lastError = "";
 
-    let imagePart = null;
-    let textParts = [];
-    let lastError = "";
-
-    for (const model of MODELS) {
-      try {
-        const geminiRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model.id}:generateContent`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-goog-api-key": env.GOOGLE_AI_API_KEY
-            },
-            body: JSON.stringify({
-              contents: [{
-                parts: [{ text: enhancedPrompt }]
-              }],
-              generationConfig: {
-                responseModalities: ["IMAGE", "TEXT"],
-                imageConfig: {
-                  aspectRatio: "16:9",
-                  imageSize: model.size
-                }
-              }
-            })
-          }
-        );
-        const geminiData = await geminiRes.json();
-
-        if (!geminiRes.ok) {
-          lastError = geminiData.error?.message || `${model.id}: HTTP ${geminiRes.status}`;
-          console.log(`Bildgenerierung ${model.id} fehlgeschlagen: ${lastError}`);
-          continue;
+  // === STUFE 1: Imagen 4 (beste Bildqualität + Text-Rendering) ===
+  const IMAGEN_MODELS = ["imagen-4.0-fast-generate-001", "imagen-4.0-generate-001"];
+  for (const modelId of IMAGEN_MODELS) {
+    try {
+      const imagenRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:predict`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": env.GOOGLE_AI_API_KEY
+          },
+          body: JSON.stringify({
+            instances: [{ prompt: imagenPrompt }],
+            parameters: {
+              sampleCount: 1,
+              aspectRatio: "16:9",
+              personGeneration: "dont_allow"
+            }
+          })
         }
+      );
+      const imagenData = await imagenRes.json();
 
-        const parts = geminiData.candidates?.[0]?.content?.parts || [];
-        const img = parts.find(p => p.inlineData?.mimeType?.startsWith("image/"));
-        if (!img) {
-          const reason = geminiData.candidates?.[0]?.finishReason || "unbekannt";
-          lastError = `${model.id}: Kein Bild (finishReason: ${reason})`;
-          console.log(`Bildgenerierung ${model.id}: kein Bild in Antwort (${reason})`);
-          continue;
-        }
-
-        imagePart = img;
-        textParts = parts;
-        console.log(`Bild erfolgreich generiert mit ${model.id}`);
-        break;
-      } catch (e) {
-        lastError = `${model.id}: ${e.message}`;
-        console.log(`Bildgenerierung ${model.id} Exception: ${e.message}`);
+      if (!imagenRes.ok) {
+        lastError = imagenData.error?.message || `${modelId}: HTTP ${imagenRes.status}`;
+        console.log(`Imagen ${modelId} fehlgeschlagen: ${lastError}`);
         continue;
       }
-    }
 
-    if (!imagePart) {
-      return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + lastError }, 500, env);
-    }
+      const prediction = imagenData.predictions?.[0];
+      if (!prediction?.bytesBase64Encoded) {
+        lastError = `${modelId}: Kein Bild in Antwort`;
+        console.log(`Imagen ${modelId}: kein Bild in Antwort`);
+        continue;
+      }
 
-    const mimeType = imagePart.inlineData.mimeType || "image/png";
-    const dataUrl = `data:${mimeType};base64,${imagePart.inlineData.data}`;
+      const mimeType = prediction.mimeType || "image/png";
+      const dataUrl = `data:${mimeType};base64,${prediction.bytesBase64Encoded}`;
+      console.log(`Bild erfolgreich generiert mit ${modelId}`);
 
-    // Caption aus der Gemini-Antwort extrahieren (da wir sie explizit angefordert haben)
-    const textPart = textParts.find(p => p.text);
-    let caption = "";
-    if (textPart?.text) {
-      // Erste Zeile als Caption nehmen, da der Prompt das so anfordert
-      const lines = textPart.text.trim().split("\n").filter(l => l.trim());
-      caption = lines[0]?.replace(/^["„"']|["„"']$/g, "").trim() || "";
-      // Zu lange Captions kürzen
-      if (caption.length > 120) caption = caption.substring(0, 117) + "...";
-    }
-
-    // Fallback: Nur wenn Gemini keine Caption liefert, via GPT generieren
-    if (!caption) {
+      // Caption via GPT (Imagen liefert keinen Text)
+      let caption = "";
       try {
         const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
@@ -2792,16 +2711,78 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
         const captionData = await captionRes.json();
         caption = captionData.choices?.[0]?.message?.content?.trim() || "";
       } catch { }
-    }
 
-    return jsonResponse({
-      url: dataUrl,
-      credit: "Google Gemini",
-      caption
-    }, 200, env);
-  } catch (e) {
-    return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + e.message }, 500, env);
+      return jsonResponse({ url: dataUrl, credit: "Google Imagen", caption }, 200, env);
+    } catch (e) {
+      lastError = `${modelId}: ${e.message}`;
+      console.log(`Imagen ${modelId} Exception: ${e.message}`);
+      continue;
+    }
   }
+
+  // === STUFE 2: Gemini Flash Fallback ===
+  const FLASH_MODELS = [
+    { id: "gemini-3.1-flash-image-preview", size: "2K" },
+    { id: "gemini-2.5-flash-image", size: "1K" }
+  ];
+
+  for (const model of FLASH_MODELS) {
+    try {
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model.id}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": env.GOOGLE_AI_API_KEY
+          },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: flashPrompt }] }],
+            generationConfig: {
+              responseModalities: ["IMAGE", "TEXT"],
+              imageConfig: { aspectRatio: "16:9", imageSize: model.size }
+            }
+          })
+        }
+      );
+      const geminiData = await geminiRes.json();
+
+      if (!geminiRes.ok) {
+        lastError = geminiData.error?.message || `${model.id}: HTTP ${geminiRes.status}`;
+        console.log(`Flash ${model.id} fehlgeschlagen: ${lastError}`);
+        continue;
+      }
+
+      const parts = geminiData.candidates?.[0]?.content?.parts || [];
+      const img = parts.find(p => p.inlineData?.mimeType?.startsWith("image/"));
+      if (!img) {
+        const reason = geminiData.candidates?.[0]?.finishReason || "unbekannt";
+        lastError = `${model.id}: Kein Bild (finishReason: ${reason})`;
+        console.log(`Flash ${model.id}: kein Bild (${reason})`);
+        continue;
+      }
+
+      const mimeType = img.inlineData.mimeType || "image/png";
+      const dataUrl = `data:${mimeType};base64,${img.inlineData.data}`;
+      console.log(`Bild erfolgreich generiert mit ${model.id} (Fallback)`);
+
+      const textPart = parts.find(p => p.text);
+      let caption = "";
+      if (textPart?.text) {
+        const lines = textPart.text.trim().split("\n").filter(l => l.trim());
+        caption = lines[0]?.replace(/^["„"']|["„"']$/g, "").trim() || "";
+        if (caption.length > 120) caption = caption.substring(0, 117) + "...";
+      }
+
+      return jsonResponse({ url: dataUrl, credit: "Google Gemini", caption }, 200, env);
+    } catch (e) {
+      lastError = `${model.id}: ${e.message}`;
+      console.log(`Flash ${model.id} Exception: ${e.message}`);
+      continue;
+    }
+  }
+
+  return jsonResponse({ error: "Bildgenerierung fehlgeschlagen: " + lastError }, 500, env);
 }
 
 /* ================= IMAGE FETCH: LEGACY ENDPOINT ================= */
