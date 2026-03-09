@@ -74,6 +74,42 @@ async function apiCall(endpoint, body) {
 
 /* ================= ASYNC API (Queue-basiert) ================= */
 
+// KI-Roboter SVG-Animation (wird automatisch beim Korrigieren angezeigt)
+var KI_ROBOT_HTML = '<div class="ki-robot-scene">' +
+  '<svg viewBox="0 0 200 170" class="ki-robot-svg" aria-hidden="true">' +
+    '<rect class="ki-s-desk" x="38" y="128" width="6" height="35" rx="2" opacity=".45"/>' +
+    '<rect class="ki-s-desk" x="156" y="128" width="6" height="35" rx="2" opacity=".45"/>' +
+    '<rect class="ki-s-desk" x="25" y="122" width="150" height="8" rx="3"/>' +
+    '<rect class="ki-s-paper" x="42" y="98" width="24" height="30" rx="2" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="105" x2="62" y2="104" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="110" x2="62" y2="109" transform="rotate(-5 54 113)"/>' +
+    '<line class="ki-s-line" x1="46" y1="115" x2="58" y2="114" transform="rotate(-5 54 113)"/>' +
+    '<rect class="ki-s-paper" x="132" y="100" width="24" height="30" rx="2" transform="rotate(4 144 115)"/>' +
+    '<line class="ki-s-line" x1="136" y1="107" x2="152" y2="108" transform="rotate(4 144 115)"/>' +
+    '<line class="ki-s-line" x1="136" y1="112" x2="152" y2="113" transform="rotate(4 144 115)"/>' +
+    '<g class="ki-s-pencil">' +
+      '<line x1="110" y1="100" x2="126" y2="118" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>' +
+      '<line x1="126" y1="118" x2="128" y2="122" stroke="var(--ink,#333)" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</g>' +
+    '<rect class="ki-s-arm ki-s-arm-l" x="58" y="86" width="20" height="8" rx="4"/>' +
+    '<rect class="ki-s-arm ki-s-arm-r" x="122" y="86" width="20" height="8" rx="4"/>' +
+    '<rect class="ki-s-body" x="72" y="72" width="56" height="52" rx="10"/>' +
+    '<circle cx="100" cy="96" r="6" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>' +
+    '<circle cx="100" cy="96" r="3" class="ki-s-chest"/>' +
+    '<rect class="ki-s-body" x="70" y="30" width="60" height="46" rx="14"/>' +
+    '<g class="ki-s-eyes">' +
+      '<circle cx="86" cy="50" r="7.5" class="ki-s-eye-bg"/>' +
+      '<circle cx="88" cy="50" r="3.5" class="ki-s-pupil"/>' +
+      '<circle cx="114" cy="50" r="7.5" class="ki-s-eye-bg"/>' +
+      '<circle cx="112" cy="50" r="3.5" class="ki-s-pupil"/>' +
+    '</g>' +
+    '<rect x="90" y="64" width="20" height="3.5" rx="1.5" fill="rgba(255,255,255,.3)"/>' +
+    '<line class="ki-s-stem" x1="100" y1="30" x2="100" y2="18" stroke-width="3"/>' +
+    '<circle cx="100" cy="13" r="5" class="ki-s-glow"/>' +
+  '</svg>' +
+  '<p class="ki-status-text" id="kiStatusText">KI korrigiert deine Arbeit<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span></p>' +
+'</div>';
+
 async function apiCallAsync(gradeEndpoint, body, options) {
   options = options || {};
   var pollInterval = options.pollInterval || 3000;
@@ -86,64 +122,94 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     if (imgs.length) body.images = imgs;
   }
 
-  // 1. Job erstellen
-  var submitBody = Object.assign({}, body, {
-    endpoint: gradeEndpoint,
-    student_name: sessionStorage.getItem("student_name") || "Unbekannt"
-  });
-
-  var submitRes = await fetch(API_BASE + "/api/grade-submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
-    body: JSON.stringify(submitBody)
-  });
-
-  if (!submitRes.ok) {
-    var submitErr = await submitRes.json().catch(function() { return {}; });
-    throw new Error(submitErr.error || "HTTP " + submitRes.status);
+  // Roboter-Animation in feedbackLoader einbauen
+  var feedbackEl = document.getElementById("feedbackLoader");
+  var originalLoaderHTML = null;
+  if (feedbackEl) {
+    originalLoaderHTML = feedbackEl.innerHTML;
+    feedbackEl.innerHTML = KI_ROBOT_HTML;
   }
 
-  var submitData = await submitRes.json();
-  var jobId = submitData.job_id;
+  try {
+    // 1. Job erstellen
+    var submitBody = Object.assign({}, body, {
+      endpoint: gradeEndpoint,
+      student_name: sessionStorage.getItem("student_name") || "Unbekannt"
+    });
 
-  // 2. Polling
-  var startTime = Date.now();
-  while (Date.now() - startTime < maxWait) {
-    await new Promise(function(r) { setTimeout(r, pollInterval); });
+    var submitRes = await fetch(API_BASE + "/api/grade-submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      body: JSON.stringify(submitBody)
+    });
 
-    var statusRes;
-    try {
-      statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
-        headers: { "X-Access-Token": getAccessToken() }
-      });
-    } catch (fetchErr) {
-      // Netzwerkfehler beim Polling – nächster Versuch
-      continue;
+    if (!submitRes.ok) {
+      var submitErr = await submitRes.json().catch(function() { return {}; });
+      throw new Error(submitErr.error || "HTTP " + submitRes.status);
     }
 
-    if (!statusRes.ok) continue;
+    var submitData = await submitRes.json();
+    var jobId = submitData.job_id;
 
-    var statusData = await statusRes.json();
+    // 2. Polling
+    var startTime = Date.now();
+    var statusMsgUpdated = false;
+    while (Date.now() - startTime < maxWait) {
+      await new Promise(function(r) { setTimeout(r, pollInterval); });
 
-    if (onProgress) {
-      try { onProgress(statusData); } catch (e) { /* Callback-Fehler ignorieren */ }
+      // Status-Text nach 15s aktualisieren
+      if (!statusMsgUpdated && feedbackEl && Date.now() - startTime > 15000) {
+        var statusEl = document.getElementById("kiStatusText");
+        if (statusEl) statusEl.innerHTML = 'KI analysiert deine Antworten<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+        statusMsgUpdated = true;
+      }
+      // Nach 40s nochmal aktualisieren
+      if (statusMsgUpdated && feedbackEl && Date.now() - startTime > 40000) {
+        var statusEl2 = document.getElementById("kiStatusText");
+        if (statusEl2 && statusEl2.textContent.indexOf("Geduld") === -1) {
+          statusEl2.innerHTML = 'Dauert etwas l\u00e4nger, bitte Geduld<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+        }
+      }
+
+      var statusRes;
+      try {
+        statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
+          headers: { "X-Access-Token": getAccessToken() }
+        });
+      } catch (fetchErr) {
+        // Netzwerkfehler beim Polling – nächster Versuch
+        continue;
+      }
+
+      if (!statusRes.ok) continue;
+
+      var statusData = await statusRes.json();
+
+      if (onProgress) {
+        try { onProgress(statusData); } catch (e) { /* Callback-Fehler ignorieren */ }
+      }
+
+      if (statusData.status === "completed") {
+        return statusData.result;
+      }
+
+      if (statusData.status === "failed") {
+        throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
+      }
+
+      // Adaptives Polling: nach 30s langsamer
+      if (Date.now() - startTime > 30000 && pollInterval < 8000) {
+        pollInterval = Math.min(pollInterval + 1000, 8000);
+      }
     }
 
-    if (statusData.status === "completed") {
-      return statusData.result;
-    }
-
-    if (statusData.status === "failed") {
-      throw new Error(statusData.error || "Korrektur fehlgeschlagen. Bitte erneut versuchen.");
-    }
-
-    // Adaptives Polling: nach 30s langsamer
-    if (Date.now() - startTime > 30000 && pollInterval < 8000) {
-      pollInterval = Math.min(pollInterval + 1000, 8000);
+    throw new Error("Zeitlimit \u00fcberschritten. Die Korrektur dauert ungew\u00f6hnlich lang. Bitte versuche es erneut.");
+  } finally {
+    // Originalen Loader-Inhalt wiederherstellen
+    if (feedbackEl && originalLoaderHTML !== null) {
+      feedbackEl.innerHTML = originalLoaderHTML;
     }
   }
-
-  throw new Error("Zeitlimit überschritten. Die Korrektur dauert ungewöhnlich lang. Bitte versuche es erneut.");
 }
 
 /* ================= KORREKTUR & ASPEKTE ================= */
