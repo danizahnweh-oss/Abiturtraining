@@ -1909,13 +1909,24 @@ KRITISCH:
 - Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (3-5 Sätze) und beschreibt das Bild OHNE Text/Zahlen/Beschriftungen — nur visuelle Elemente. ZUSÄTZLICH ein image_labels-Objekt mit Beschriftungen als HTML-Overlay: {"title": "...", "labels": [{"text": "...", "position": "top-center|left-center|..."}], "x_axis": "...", "y_axis": "...", "legend": ["..."]}. KEINE Karikaturen oder Personen!
 - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
 
-  const openaiRes = await callOpenAI(env, [
-    { role: "system", content: systemPrompt },
-    { role: "user", content: userPrompt }
-  ], 10000);
+  let openaiRes;
+  try {
+    openaiRes = await callOpenAI(env, [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt }
+    ], 10000);
+  } catch (err) {
+    console.error("Geschichte generate – OpenAI Fehler:", err.message);
+    return jsonResponse({ error: "KI-Fehler: " + truncate(err.message || "Unbekannt", 150) }, 500, env);
+  }
 
-  const content = extractJSON(openaiRes);
-  return jsonResponse(content, 200, env);
+  try {
+    const content = extractJSON(openaiRes);
+    return jsonResponse(content, 200, env);
+  } catch (err) {
+    console.error("Geschichte generate – JSON-Parse Fehler:", err.message, "Response preview:", (openaiRes || "").substring(0, 300));
+    return jsonResponse({ error: "Antwort konnte nicht verarbeitet werden. Bitte erneut versuchen." }, 500, env);
+  }
 }
 
 /* ================= DEUTSCH: GENERATE ================= */
@@ -11964,6 +11975,9 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "grade-englisch") return handleGrade(fakeReq, env);
   if (route === "model-answer-englisch") return handleModelAnswer(fakeReq, env);
   if (route === "parse-task-englisch") return handleParseTask(fakeReq, env);
+  if (route === "generate-rc-englisch") return handleFOSGenerateRCEnglisch(body, env);
+  if (route === "generate-klausur-englisch") return handleFOSGenerateKlausurEnglisch(body, env);
+  if (route === "grade-rc-mediation-englisch") return handleFOSGradeRCMediationEnglisch(body, env);
 
   // === MATHE (FOS-spezifische Lehrplaninhalte) ===
   if (route === "generate-mathe") return handleFOSGenerateMathe(body, env);
@@ -12728,6 +12742,201 @@ ALL texts complete and realistic. Include correct answers for Reading.`;
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
   ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS ENGLISCH: READING COMPREHENSION KLAUSURTRAINING ================= */
+async function handleFOSGenerateRCEnglisch(body, env) {
+  const taskTypes = body.taskTypes || ["gapped_summary", "multiple_matching", "multiple_choice"];
+  const topic = body.topic || "random";
+
+  // Dynamisch die angeforderten Aufgabentypen in den Prompt einbauen
+  const typInstructions = [];
+  if (taskTypes.includes("gapped_summary")) {
+    typInstructions.push(`GAPPED SUMMARY (6 BE):
+- Schreibe eine Zusammenfassung des Textes mit 6 Lücken.
+- Lücken als ______(1), ______(2) etc. markieren.
+- Lösungen sind einzelne Wörter oder kurze Phrasen aus dem Text.
+- JSON: {"typ": "gapped_summary", "be": 6, "text": "The article discusses ______(1)...", "loesungen": {"1": "word", "2": "word", ...}}`);
+  }
+  if (taskTypes.includes("multiple_matching")) {
+    typInstructions.push(`MULTIPLE MATCHING (5 BE):
+- 5 Items (Personen/Abschnitte) und 8 Statements (A-H, davon 3 Distraktoren).
+- Schüler ordnen Statements den Items zu.
+- JSON: {"typ": "multiple_matching", "be": 5, "anweisung": "Match statements A-H with sections 1-5.", "items": ["1: ...", "2: ...", "3: ...", "4: ...", "5: ..."], "statements": ["A: ...", "B: ...", ...], "loesung": {"1": "C", "2": "A", ...}}`);
+  }
+  if (taskTypes.includes("multiple_choice")) {
+    typInstructions.push(`MULTIPLE CHOICE (3 BE):
+- 3 Fragen mit je 4 Optionen (A-D), nur eine richtig.
+- Optionen plausibel formuliert.
+- JSON: {"typ": "multiple_choice", "be": 3, "fragen": [{"nr": 1, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"}, ...]}`);
+  }
+  if (taskTypes.includes("mediation_en_de")) {
+    typInstructions.push(`MEDIATION EN→DE (5 BE):
+- 5 Fragen auf DEUTSCH über den englischen Text.
+- Antworten müssen auf DEUTSCH gegeben werden.
+- JSON: {"typ": "mediation_en_de", "be": 5, "anweisung": "Beantworten Sie die folgenden Fragen auf DEUTSCH.", "fragen": [{"nr": "1", "frage": "Welches Problem...", "be": 1, "loesung": "Deutsche Antwort..."}, ...]}`);
+  }
+
+  const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
+
+  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, 12. Klasse, B2-Niveau).
+Erstelle EINEN englischen Sachtext (~600-800 Wörter) und die angeforderten Reading-Comprehension-Aufgaben.
+${topicHint}
+
+Der Text soll authentisch wirken (wie ein Zeitungsartikel, Feature oder Essay), sprachlich anspruchsvoll sein und genug Inhalt für alle Aufgabentypen bieten.
+
+ANGEFORDERTE AUFGABENTYPEN:
+${typInstructions.join("\n\n")}
+
+WICHTIG:
+- Alle Texte KOMPLETT und realistisch (B2-Niveau)
+- Korrekte Antworten für ALLE Aufgaben angeben
+- Multiple Matching: genau 5 Zuordnungen + 3 Distraktoren
+- Gapped Summary: Lücken als ______(1), ______(2) etc.
+- Erfinde plausiblen Autor und Quelle
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Reading Comprehension: ...",
+  "reading": {
+    "be": <Summe aller BE>,
+    "texte": [{"nr": "Text I", "titel": "...", "text": "Vollständiger Text ~600-800 Wörter", "source_info": "Autor, Quelle, Datum"}],
+    "tasks": [{
+      "nr": "I",
+      "be": <Summe>,
+      "referenz_text": "Text I",
+      "teile": [
+        <hier die angeforderten Aufgabentypen als JSON-Objekte>
+      ]
+    }]
+  }
+}`;
+
+  const userPrompt = `Erstelle einen Reading-Comprehension-Test mit folgenden Aufgabentypen: ${taskTypes.join(", ")}.
+Ein Text (~700 Wörter), dazu die passenden Aufgaben. Alle Antworten angeben.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 10000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS ENGLISCH: GESAMTE KLAUSUR (RC + MEDIATION) ================= */
+async function handleFOSGenerateKlausurEnglisch(body, env) {
+  const topic = body.topic || "random";
+  // Zufällig einen RC-Typ wählen
+  const rcTypes = ["gapped_summary", "multiple_matching", "multiple_choice"];
+  const chosenRC = rcTypes[Math.floor(Math.random() * rcTypes.length)];
+
+  const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
+
+  const rcInstructions = {
+    gapped_summary: `GAPPED SUMMARY (6 BE):
+{"typ": "gapped_summary", "be": 6, "text": "The article discusses ______(1)...", "loesungen": {"1": "word", ...}}`,
+    multiple_matching: `MULTIPLE MATCHING (5 BE):
+{"typ": "multiple_matching", "be": 5, "anweisung": "Match statements A-H with sections 1-5.", "items": ["1: ...", ...], "statements": ["A: ...", ...], "loesung": {"1": "C", ...}}`,
+    multiple_choice: `MULTIPLE CHOICE (3 BE):
+{"typ": "multiple_choice", "be": 3, "fragen": [{"nr": 1, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"}, ...]}`
+  };
+
+  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, 12. Klasse, B2-Niveau).
+Erstelle eine GESAMTE KLAUSUR bestehend aus:
+1. Einem englischen Sachtext (~600-800 Wörter)
+2. Einer Reading-Comprehension-Aufgabe (${chosenRC.replace(/_/g, " ")})
+3. Einer kleinen Mediationsaufgabe (4 BE): 4 deutsche Fragen zum englischen Text, auf Deutsch zu beantworten
+${topicHint}
+
+AUFGABENTYPEN:
+
+${rcInstructions[chosenRC]}
+
+MEDIATION EN→DE (4 BE):
+{"typ": "mediation_en_de", "be": 4, "anweisung": "Beantworten Sie die folgenden Fragen auf DEUTSCH.", "fragen": [{"nr": "1", "frage": "...", "be": 1, "loesung": "..."}, ...]}
+
+WICHTIG:
+- Text KOMPLETT und realistisch (B2-Niveau)
+- Korrekte Antworten für ALLE Aufgaben
+- Erfinde plausiblen Autor und Quelle
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Klausur Englisch: ...",
+  "reading": {
+    "be": <Summe aller BE>,
+    "texte": [{"nr": "Text I", "titel": "...", "text": "...", "source_info": "..."}],
+    "tasks": [{
+      "nr": "I",
+      "be": <Summe>,
+      "referenz_text": "Text I",
+      "teile": [
+        <RC-Aufgabe>,
+        <Mediation-Aufgabe>
+      ]
+    }]
+  }
+}`;
+
+  const userPrompt = `Erstelle eine Englisch-Klausur: 1 Text + ${chosenRC.replace(/_/g, " ")} + Mediation. Alle Antworten angeben.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 10000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS ENGLISCH: RC MEDIATION BEWERTUNG ================= */
+async function handleFOSGradeRCMediationEnglisch(body, env) {
+  const text = body.text || "";
+  const fragen = body.fragen || [];
+  const maxBE = body.maxBE || fragen.length;
+
+  if (!fragen.length) return jsonResponse({ results: [], totalBE: 0, maxBE: 0 }, 200, env);
+
+  const fragenText = fragen.map((f, i) => {
+    return `Frage ${f.nr || (i + 1)}: "${f.frage}"
+Erwartete Antwort: "${f.correctAnswer}"
+Schüler-Antwort: "${f.userAnswer}"
+Maximale BE: ${f.be || 1}`;
+  }).join("\n\n");
+
+  const systemPrompt = `Du bist ein strenger Englischlehrer an einer bayerischen FOS. Bewerte die Mediationsantworten der Schüler.
+
+Die Schüler haben einen englischen Text gelesen und müssen Fragen auf DEUTSCH beantworten.
+
+ENGLISCHER ORIGINALTEXT (Auszug):
+${text.substring(0, 2000)}
+
+BEWERTUNGSREGELN:
+- Vergib pro Frage 0 oder die volle BE-Zahl (${fragen[0]?.be || 1} BE)
+- Die Antwort muss inhaltlich korrekt sein und die wesentliche Information enthalten
+- Kleine sprachliche Fehler im Deutschen sind akzeptabel
+- Die Antwort muss auf Deutsch sein
+- Sinngemäß richtige Antworten akzeptieren (nicht nur wörtliche Übereinstimmung)
+
+FRAGEN UND ANTWORTEN:
+${fragenText}
+
+Antworte NUR mit validem JSON:
+{
+  "results": [
+    {"nr": "1", "be": 1, "maxBe": 1, "isCorrect": true, "feedback": "Kurzes Feedback..."},
+    ...
+  ],
+  "totalBE": <Summe der erreichten BE>,
+  "maxBE": ${maxBE},
+  "feedback": "Kurzes Gesamtfeedback zur Mediationsleistung (2-3 Sätze, auf Deutsch)."
+}`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: "Bewerte die Mediationsantworten." }
+  ], 2000);
 
   return jsonResponse(extractJSON(openaiRes), 200, env);
 }
