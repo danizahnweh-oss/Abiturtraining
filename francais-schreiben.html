@@ -1136,10 +1136,10 @@ Schreibe das Feedback auf DEUTSCH, zitiere den Schülertext auf FRANZÖSISCH.`;
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        const data = await apiCallAsync("grade", {
+        const data = await apiCallAsync("grade-french", {
           source_text_de: CONFIG.storedData.article_text,
-          task_en: getSelectedTasks(),
-          student_text_en: text,
+          task_fr: getSelectedTasks(),
+          student_text_fr: text,
           rubric_prompt: CORRECTION_RUBRIC_PROMPT
         });
 
