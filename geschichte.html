@@ -715,9 +715,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             renderStatistikChart(m.content, `chart-gz-${i}`);
           } else if (m.type === "bild") {
-            loadEducationalImage(m.content, `img-gz-${i}`, null, null, true);
+            loadEducationalImage(m.content, `img-gz-${i}`, m.image_labels || null);
           } else if (m.type === "foto") {
-            loadEducationalImage(m.content, `img-gz-${i}`, null, null, true);
+            loadEducationalImage(m.content, `img-gz-${i}`, m.image_labels || null);
           }
         });
       } else {
