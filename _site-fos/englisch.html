@@ -638,16 +638,23 @@
               <label for="topicSelect">Thema</label>
               <select id="topicSelect">
                 <option value="random">Zufallsthema</option>
-                <option value="society">Gesellschaft &amp; Medien</option>
-                <option value="globalisation">Globalisierung</option>
-                <option value="environment">Umwelt &amp; Nachhaltigkeit</option>
-                <option value="technology">Technologie &amp; Digitalisierung</option>
-                <option value="education">Bildung &amp; Beruf</option>
-                <option value="culture">Kultur &amp; Identit&auml;t</option>
-                <option value="politics">Politik &amp; Demokratie</option>
-                <option value="ethics" class="stufe13-topic" style="display:none;">Ethik &amp; Wissenschaft</option>
-                <option value="literature" class="stufe13-topic" style="display:none;">Literatur &amp; Gesellschaft</option>
-                <option value="philosophy" class="stufe13-topic" style="display:none;">Philosophie &amp; Menschenrechte</option>
+                <!-- Jgst. 11-12 Themen -->
+                <option value="society" class="stufe12-topic">Gesellschaft &amp; Medien</option>
+                <option value="globalisation" class="stufe12-topic">Globalisierung</option>
+                <option value="environment" class="stufe12-topic">Umwelt &amp; Nachhaltigkeit</option>
+                <option value="technology" class="stufe12-topic">Technologie &amp; Digitalisierung</option>
+                <option value="education" class="stufe12-topic">Bildung &amp; Beruf</option>
+                <option value="culture" class="stufe12-topic">Kultur &amp; Identit&auml;t</option>
+                <option value="politics" class="stufe12-topic">Politik &amp; Demokratie</option>
+                <!-- Jgst. 13 Themen (LehrplanPLUS) -->
+                <option value="demographic-change" class="stufe13-topic" style="display:none;">Demografischer Wandel &amp; Gender</option>
+                <option value="social-inequality" class="stufe13-topic" style="display:none;">Soziale Ungleichheit &amp; Wertekonflikte</option>
+                <option value="globalisation-conflicts" class="stufe13-topic" style="display:none;">Globalisierung &amp; Konflikte</option>
+                <option value="migration" class="stufe13-topic" style="display:none;">Migration &amp; internationale Beziehungen</option>
+                <option value="language-power" class="stufe13-topic" style="display:none;">Sprache, Macht &amp; Manipulation</option>
+                <option value="literature" class="stufe13-topic" style="display:none;">Literatur (Ganzschrift)</option>
+                <option value="current-events" class="stufe13-topic" style="display:none;">Aktuelle Ereignisse &amp; Entwicklungen</option>
+                <option value="science-ethics" class="stufe13-topic" style="display:none;">Wissenschaft &amp; Ethik</option>
               </select>
             </div>
             <div id="textTypeWrapper" style="display:none;">
@@ -1248,10 +1255,18 @@
     function updateStufe() {
       var stufe = document.getElementById("stufeSelect").value;
       var is13 = stufe === "13";
-      // Stufe-13-Themen ein-/ausblenden
+      // Themen je Stufe ein-/ausblenden
+      document.querySelectorAll(".stufe12-topic").forEach(function(opt) {
+        opt.style.display = is13 ? "none" : "";
+      });
       document.querySelectorAll(".stufe13-topic").forEach(function(opt) {
         opt.style.display = is13 ? "" : "none";
       });
+      // Dropdown auf "Zufallsthema" zurücksetzen wenn aktuelle Auswahl versteckt wird
+      var sel = document.getElementById("topicSelect");
+      if (sel.selectedOptions[0] && sel.selectedOptions[0].style.display === "none") {
+        sel.value = "random";
+      }
       // RC-Beschreibungen anpassen
       var dGS = document.getElementById("descGappedSummary");
       var dMM = document.getElementById("descMultipleMatching");
