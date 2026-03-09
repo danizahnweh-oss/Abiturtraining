@@ -1038,6 +1038,56 @@ textarea:focus {
   margin-top: 1.5rem;
 }
 
+/* ====== KURZFEEDBACK + DETAIL-TOGGLE ====== */
+
+.feedback-kurz {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+.feedback-kurz li {
+  padding: .55rem .8rem;
+  margin-bottom: .4rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+.feedback-detail-toggle {
+  margin-top: .5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.feedback-detail-toggle summary {
+  padding: .7rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: .9rem;
+  color: var(--accent);
+  user-select: none;
+  -webkit-user-select: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.feedback-detail-toggle summary:hover {
+  background: var(--surface);
+}
+
+.feedback-detail-toggle[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.feedback-detail-body {
+  padding: 1rem;
+  line-height: 1.7;
+}
+
 /* ====== FEHLERKORREKTUR ====== */
 .fehler-rs {
   background: #fecdd3;

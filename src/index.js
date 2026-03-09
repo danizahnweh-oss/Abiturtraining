@@ -17,11 +17,13 @@ function keineLoesungshinweise(beispiel) {
 }
 
 const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
+- "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
 - "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
 - "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
+- "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
 - "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
 - "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
@@ -1631,6 +1633,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.len
     return jsonResponse({
       scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       corrections: parsed.corrections || "",
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -1653,6 +1656,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.len
     return jsonResponse({
       scores: { content_textstructure: contentScore, language: langScore, total: totalScore },
       feedback: openaiRes,
+      feedback_kurz: [],
       corrections: "",
       korrektur_text: "",
       fehlende_aspekte: [],
@@ -2148,6 +2152,7 @@ async function handleGradeDeutsch(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -2156,6 +2161,7 @@ async function handleGradeDeutsch(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -3224,6 +3230,7 @@ async function handleGradePuG(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -3232,6 +3239,7 @@ async function handleGradePuG(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -3522,6 +3530,7 @@ async function handleGradeAbiturPuG(request, env) {
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -3531,6 +3540,7 @@ async function handleGradeAbiturPuG(request, env) {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "",
       korrektur_text_b: "",
       fehlende_aspekte: [],
@@ -3815,6 +3825,7 @@ Antworte NUR mit validem JSON:
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       bewertung_bloecke: parsed.bewertung_bloecke || [],
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -3824,6 +3835,7 @@ Antworte NUR mit validem JSON:
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       bewertung_bloecke: [],
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -4086,6 +4098,7 @@ async function handleGradeAbiturGeschichte(request, env) {
     return jsonResponse({
       scores: { sach_a, sach_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -4095,6 +4108,7 @@ async function handleGradeAbiturGeschichte(request, env) {
     return jsonResponse({
       scores: { sach_a: null, sach_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "",
       korrektur_text_b: "",
       fehlende_aspekte: [],
@@ -4362,6 +4376,7 @@ Antworte NUR mit validem JSON:
     return jsonResponse({
       scores: { be_1: be1, be_max_1: be1Max, be_2: be2, be_max_2: be2Max, be_gesamt: beGesamt, be_max_gesamt: maxBE, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -4371,6 +4386,7 @@ Antworte NUR mit validem JSON:
     return jsonResponse({
       scores: { be_1: null, be_max_1: be1Max, be_2: null, be_max_2: be2Max, be_gesamt: null, be_max_gesamt: maxBE, notenpunkte: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "",
       korrektur_text_b: "",
       fehlende_aspekte: [],
@@ -4934,6 +4950,7 @@ async function handleGradeEthik(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -4942,6 +4959,7 @@ async function handleGradeEthik(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -5160,6 +5178,7 @@ async function handleGradeAbiturEthik(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -5168,6 +5187,7 @@ async function handleGradeAbiturEthik(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -5458,6 +5478,7 @@ async function handleGradeReligion(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -5466,6 +5487,7 @@ async function handleGradeReligion(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -5636,6 +5658,7 @@ async function handleGradeAbiturReligion(request, env) {
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -5645,6 +5668,7 @@ async function handleGradeAbiturReligion(request, env) {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "", korrektur_text_b: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -5922,6 +5946,7 @@ async function handleGradeKatholisch(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -5930,6 +5955,7 @@ async function handleGradeKatholisch(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -6100,6 +6126,7 @@ async function handleGradeAbiturKatholisch(request, env) {
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -6109,6 +6136,7 @@ async function handleGradeAbiturKatholisch(request, env) {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "", korrektur_text_b: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -6393,6 +6421,7 @@ async function handleGradeGeographie(request, env) {
     return jsonResponse({
       scores: { verstehen, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text: parsed.korrektur_text || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
@@ -6401,6 +6430,7 @@ async function handleGradeGeographie(request, env) {
     return jsonResponse({
       scores: { verstehen: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text: "",
       fehlende_aspekte: [],
       uebungsaufgaben: []
@@ -6615,6 +6645,7 @@ async function handleGradeAbiturGeographie(request, env) {
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || parsed.korrektur_text || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -6624,6 +6655,7 @@ async function handleGradeAbiturGeographie(request, env) {
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "",
       korrektur_text_b: "",
       fehlende_aspekte: [],
@@ -6958,6 +6990,7 @@ Antworte NUR mit validem JSON:
       return jsonResponse({
         scores: { uebersetzung: be, total: np },
         feedback: parsed.feedback || "",
+        feedback_kurz: parsed.feedback_kurz || [],
         korrektur_text: parsed.korrektur_text || "",
         fehlende_aspekte: parsed.fehlende_aspekte || []
       }, 200, env);
@@ -6965,6 +6998,7 @@ Antworte NUR mit validem JSON:
       return jsonResponse({
         scores: { uebersetzung: null, total: null },
         feedback: openaiRes,
+        feedback_kurz: [],
         korrektur_text: "",
         fehlende_aspekte: []
       }, 200, env);
@@ -7027,6 +7061,7 @@ Antworte NUR mit validem JSON:
       return jsonResponse({
         scores: { verstehen, darstellung, total: gesamt },
         feedback: parsed.feedback || "",
+        feedback_kurz: parsed.feedback_kurz || [],
         korrektur_text: parsed.korrektur_text || "",
         fehlende_aspekte: parsed.fehlende_aspekte || []
       }, 200, env);
@@ -7034,6 +7069,7 @@ Antworte NUR mit validem JSON:
       return jsonResponse({
         scores: { verstehen: null, darstellung: null, total: null },
         feedback: openaiRes,
+        feedback_kurz: [],
         korrektur_text: "",
         fehlende_aspekte: []
       }, 200, env);
@@ -7328,6 +7364,7 @@ Antworte NUR mit validem JSON:
     return jsonResponse({
       scores: { teil_a, teil_b, darstellung, total: gesamt },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       korrektur_text_a: parsed.korrektur_text_a || "",
       korrektur_text_b: parsed.korrektur_text_b || "",
       fehlende_aspekte: parsed.fehlende_aspekte || [],
@@ -7337,6 +7374,7 @@ Antworte NUR mit validem JSON:
     return jsonResponse({
       scores: { teil_a: null, teil_b: null, darstellung: null, total: null },
       feedback: openaiRes,
+      feedback_kurz: [],
       korrektur_text_a: "",
       korrektur_text_b: "",
       fehlende_aspekte: [],
@@ -7692,6 +7730,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -7710,6 +7749,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -8052,6 +8092,7 @@ Antworte NUR mit validem JSON:
       gesamt_be: gesamtBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -8061,6 +8102,7 @@ Antworte NUR mit validem JSON:
       gesamt_be: null,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -8387,6 +8429,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -8405,6 +8448,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -8705,6 +8749,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -8723,6 +8768,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -9082,6 +9128,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -9100,6 +9147,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -9383,6 +9431,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -9401,6 +9450,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -9696,6 +9746,7 @@ Antworte NUR mit validem JSON:
       note: np,
       scores: { be_erreicht: beErreicht, be_max: beMax, notenpunkte: np, total: np },
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch (e) {
@@ -9714,6 +9765,7 @@ Antworte NUR mit validem JSON:
       note: null,
       scores: { be_erreicht: null, be_max: maxBE, notenpunkte: null, total: null },
       feedback: fallbackFeedback,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -10076,6 +10128,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -10085,6 +10138,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -10396,6 +10450,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -10405,6 +10460,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -10820,6 +10876,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -10829,6 +10886,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -11095,6 +11153,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -11104,6 +11163,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
@@ -11363,6 +11423,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: np,
       feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
       uebungsaufgaben: parsed.uebungsaufgaben || []
     }, 200, env);
   } catch {
@@ -11372,6 +11433,7 @@ Antworte NUR mit validem JSON:
       max_be: maxBE,
       note: null,
       feedback: openaiRes,
+      feedback_kurz: [],
       uebungsaufgaben: []
     }, 200, env);
   }
