@@ -598,46 +598,56 @@
                 <input type="checkbox" id="rcGappedSummary" checked>
                 <div>
                   <span>Gapped Summary</span>
-                  <small>Lückentext mit Wörtern aus dem Text</small>
+                  <small id="descGappedSummary">L&uuml;ckentext mit W&ouml;rtern aus dem Text (6 BE)</small>
                 </div>
               </label>
               <label class="rc-subtype-item">
                 <input type="checkbox" id="rcMultipleMatching" checked>
                 <div>
                   <span>Multiple Matching</span>
-                  <small>Aussagen A-H den Abschnitten 1-5 zuordnen</small>
+                  <small id="descMultipleMatching">Aussagen A-H den Abschnitten 1-5 zuordnen (5 BE)</small>
                 </div>
               </label>
               <label class="rc-subtype-item">
                 <input type="checkbox" id="rcMultipleChoice" checked>
                 <div>
                   <span>Multiple Choice</span>
-                  <small>3 Fragen mit je 4 Antwortoptionen</small>
+                  <small id="descMultipleChoice">3 Fragen mit je 4 Antwortoptionen (3 BE)</small>
                 </div>
               </label>
               <label class="rc-subtype-item">
                 <input type="checkbox" id="rcMediation">
                 <div>
                   <span>Mediationsaufgaben</span>
-                  <small>Deutsche Fragen zum englischen Text</small>
+                  <small id="descMediation">Deutsche Fragen zum englischen Text (5 BE)</small>
                 </div>
               </label>
             </div>
           </div>
 
-          <!-- Thema-Auswahl -->
+          <!-- Jahrgangsstufe + Thema-Auswahl -->
           <div class="setup-selects" style="margin-top:1rem;">
+            <div>
+              <label for="stufeSelect">Jahrgangsstufe</label>
+              <select id="stufeSelect" onchange="updateStufe()">
+                <option value="11-12">Jahrgangsstufe 11&ndash;12 (B2)</option>
+                <option value="13">Jahrgangsstufe 13 (C1)</option>
+              </select>
+            </div>
             <div>
               <label for="topicSelect">Thema</label>
               <select id="topicSelect">
                 <option value="random">Zufallsthema</option>
-                <option value="society">Gesellschaft & Medien</option>
+                <option value="society">Gesellschaft &amp; Medien</option>
                 <option value="globalisation">Globalisierung</option>
-                <option value="environment">Umwelt & Nachhaltigkeit</option>
-                <option value="technology">Technologie & Digitalisierung</option>
-                <option value="education">Bildung & Beruf</option>
-                <option value="culture">Kultur & Identität</option>
-                <option value="politics">Politik & Demokratie</option>
+                <option value="environment">Umwelt &amp; Nachhaltigkeit</option>
+                <option value="technology">Technologie &amp; Digitalisierung</option>
+                <option value="education">Bildung &amp; Beruf</option>
+                <option value="culture">Kultur &amp; Identit&auml;t</option>
+                <option value="politics">Politik &amp; Demokratie</option>
+                <option value="ethics" class="stufe13-topic" style="display:none;">Ethik &amp; Wissenschaft</option>
+                <option value="literature" class="stufe13-topic" style="display:none;">Literatur &amp; Gesellschaft</option>
+                <option value="philosophy" class="stufe13-topic" style="display:none;">Philosophie &amp; Menschenrechte</option>
               </select>
             </div>
             <div id="textTypeWrapper" style="display:none;">
@@ -1234,6 +1244,32 @@
       }
     }
 
+    // Jahrgangsstufe wechseln: Themen + RC-Beschreibungen anpassen
+    function updateStufe() {
+      var stufe = document.getElementById("stufeSelect").value;
+      var is13 = stufe === "13";
+      // Stufe-13-Themen ein-/ausblenden
+      document.querySelectorAll(".stufe13-topic").forEach(function(opt) {
+        opt.style.display = is13 ? "" : "none";
+      });
+      // RC-Beschreibungen anpassen
+      var dGS = document.getElementById("descGappedSummary");
+      var dMM = document.getElementById("descMultipleMatching");
+      var dMC = document.getElementById("descMultipleChoice");
+      var dMed = document.getElementById("descMediation");
+      if (is13) {
+        if (dGS) dGS.textContent = "8 L\u00fccken + Zeilenangabe aus dem Text (8 BE)";
+        if (dMM) dMM.textContent = "6 L\u00fccken im Text, S\u00e4tze A-I zuordnen (6 BE)";
+        if (dMC) dMC.textContent = "3 Fragen mit je 4 Antwortoptionen (3 BE)";
+        if (dMed) dMed.textContent = "6 Fragen auf Deutsch zum literarischen Text (10 BE)";
+      } else {
+        if (dGS) dGS.textContent = "L\u00fcckentext mit W\u00f6rtern aus dem Text (6 BE)";
+        if (dMM) dMM.textContent = "Aussagen A-H den Abschnitten 1-5 zuordnen (5 BE)";
+        if (dMC) dMC.textContent = "3 Fragen mit je 4 Antwortoptionen (3 BE)";
+        if (dMed) dMed.textContent = "Deutsche Fragen zum englischen Text (5 BE)";
+      }
+    }
+
     // Initiale Nav-Einstellung
     updateNavForMode("rc");
 
@@ -1460,6 +1496,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     /* ================= GENERATE (3-Wege-Switch) ================= */
     async function generateExam() {
       const topic = document.getElementById("topicSelect").value;
+      const stufe = document.getElementById("stufeSelect").value;
       const btn = document.getElementById("generateBtn");
 
       btn.disabled = true;
@@ -1483,7 +1520,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
             return;
           }
 
-          data = await apiCall("/api/fos-generate-rc-englisch", { taskTypes, topic });
+          data = await apiCall("/api/fos-generate-rc-englisch", { taskTypes, topic, stufe });
           data._mode = "rc";
           CONFIG.storedData = data;
           renderRCTasks(data);
@@ -1497,7 +1534,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
             .replace(/\{level\}/g, level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)")
             .replace(/\{texttype\}/g, textType);
 
-          data = await apiCall("/api/fos-generate-englisch", { topic, source_len_words: 700, prompt_template: prompt });
+          data = await apiCall("/api/fos-generate-englisch", { topic, source_len_words: stufe === "13" ? 900 : 700, prompt_template: prompt, stufe });
           data._mode = "textproduction";
           CONFIG.storedData = data;
           renderExam(data);
@@ -1505,7 +1542,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
         } else if (currentMode === "klausur") {
           // Gesamte Klausur: RC + Mediation
-          data = await apiCall("/api/fos-generate-klausur-englisch", { topic });
+          data = await apiCall("/api/fos-generate-klausur-englisch", { topic, stufe });
           data._mode = "klausur";
           CONFIG.storedData = data;
           renderRCTasks(data);

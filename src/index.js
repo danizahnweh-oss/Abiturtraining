@@ -12105,6 +12105,11 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "grade-abitur-bwr") return handleGradeWR(fakeReq, env);
   if (route === "model-answer-abitur-bwr") return handleModelAnswerWR(fakeReq, env);
 
+  // === BWR ABITUR 13 (Fachgebundene/Allgemeine Hochschulreife) ===
+  if (route === "generate-abitur13-bwr") return handleFOSGenerateAbitur13BWR(body, env);
+  if (route === "grade-abitur13-bwr") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur13-bwr") return handleModelAnswerWR(fakeReq, env);
+
   // === IBV ABITUR (FOS-Fachabitur) ===
   if (route === "generate-abitur-ibv") return handleFOSGenerateAbiturIBV(body, env);
   if (route === "grade-abitur-ibv") return handleGradeWR(fakeReq, env);
@@ -12480,6 +12485,139 @@ Aufgabe II: Kostenrechnung (~25 BE) – nur BwR 11 LB5 + BwR 12 LB1-Themen.
 Aufgabe III: Marketing, Finanzierung & Investition (~25 BE) – nur BwR 12 LB2 + LB4 + BwR 11 LB2-Themen.
 Jede Aufgabe braucht einen eigenen Unternehmenskontext, realistische Zahlen und BE an jeder Teilaufgabe.
 KEINE Themen aus BwR 13 verwenden!`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS BWR ABITUR 13: GENERATE (fachgeb./allg. Hochschulreife) ================= */
+async function handleFOSGenerateAbitur13BWR(body, env) {
+  const systemPrompt = `Du bist ein Experte für die FOS/BOS-Abiturprüfung BwR (Betriebswirtschaftslehre mit Rechnungswesen) 13. Klasse in Bayern.
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung für die fachgebundene/allgemeine Hochschulreife.
+
+PRÜFUNGSSTRUKTUR (FOS/BOS Bayern, BwR Abitur 13. Klasse):
+- Bearbeitungszeit: 180 Minuten
+- Hilfsmittel: ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner
+- BEIDE Aufgaben sind Pflicht (kein Wahlteil!)
+- Gesamt: ca. 80-85 BE
+- WICHTIG: Schwerpunkt auf BwR 13-Inhalten! Grundlagenwissen aus BwR 11/12 darf eingebunden werden, aber der Fokus liegt auf den 13er-Lernbereichen.
+
+AUFGABE I (ca. 45-50 BE) – Bilanzanalyse, Investition & Kostenanpassung:
+Durchgängiger Unternehmenskontext (AG, Industrieunternehmen).
+
+Themenbereich 1 – Bilanzanalyse (BwR 13 LB1, ca. 15-20 BE):
+- Ergebnisverwendungsrechnung AG
+- Strukturbilanz aufstellen/ergänzen
+- Bilanzkennzahlen berechnen und beurteilen: Eigenkapitalquote, Fremdkapitalquote, statischer Verschuldungsgrad, Anlagedeckungsgrad I und II, Working Capital, Liquiditätsgrade 1-3
+- Kennzahlen der Finanz- und Ertragskraft: Eigenkapitalrentabilität, Gesamtkapitalrentabilität, Leverage-Effekt, Umsatzrentabilität, Kapitalumschlag, ROI, Cashflow, dynamischer Verschuldungsgrad, EBIT
+- Kennzahlenvergleich (Zeitvergleich oder Branchenvergleich)
+- Maßnahmen zur Verbesserung finanzwirtschaftlicher Ziele
+
+Themenbereich 2 – Investition & Finanzierung (BwR 13 LB1, ca. 10-15 BE):
+- Kapitalwertmethode (dynamische Investitionsrechnung) – ZENTRAL!
+- Statische Verfahren zum Vergleich (Kostenvergleich, Amortisation)
+- Leasing vs. Kreditfinanzierung (Operate Leasing, Financial Leasing, rechnerischer Vergleich)
+- Factoring (Funktionen, Vor-/Nachteile)
+- Lohmann-Ruchti-Effekt (Gesamtkapazität, Periodenkapazität, Kapazitätserweiterungsfaktor)
+
+Themenbereich 3 – Kostenanpassung (BwR 13 LB3, ca. 10-15 BE):
+- Anpassungsformen bei konstanter Betriebsgröße: zeitlich, intensitätsmäßig, quantitativ, selektiv
+- Gewinnfunktionen aufstellen und vergleichen
+- Gewinnschwellenmenge berechnen und grafisch darstellen
+- Nutzkosten und Leerkosten unterscheiden, Kostenremanenz erklären
+- HGB-Bewertung: Herstellungskosten, außerplanmäßige Abschreibung (darf aus BwR 12 eingebunden werden)
+
+AUFGABE II (ca. 30-35 BE) – Controlling, Personal & Strategisches Management:
+Anderer Unternehmenskontext (anderes Unternehmen, andere Branche).
+
+Themenbereich 1 – Plankostenrechnung & BSC (BwR 13 LB2, ca. 15-20 BE):
+- Flexible Plankostenrechnung auf Vollkostenbasis
+- Beschäftigungsabweichung berechnen
+- Verbrauchsabweichung berechnen
+- Gesamtabweichung bestimmen
+- Grafische Darstellung der Abweichungen (Stück- oder Gesamtbetrachtung)
+- Balanced Scorecard (BSC): 4 Perspektiven (Finanzen, Kunden, Interne Prozesse, Mitarbeiter)
+- Strategische Situationsanalyse (SWOT)
+- Ursache-Wirkungsketten zwischen BSC-Perspektiven
+- Strategische Ziele und operative Maßnahmen definieren
+
+Themenbereich 2 – Personalmanagement (BwR 13 LB4, ca. 10-15 BE):
+- Motivationstheorien: Herzberg (Zweifaktorentheorie: Hygienefaktoren vs. Motivatoren), Locke & Latham (Zielsetzungstheorie)
+- Menschenbilder: Theorie X und Theorie Y
+- Führungsstile: autoritär, kooperativ, Verhaltensgitter nach Blake & Mouton (9.9-Gitter)
+- Managementtechniken: Management by Exception, by Delegation, by Objectives
+- Personalentwicklung: PE into-the-job, on-the-job, near-the-job, off-the-job, along-the-job, out-of-the-job
+- Praktische Anwendung auf Unternehmenssituation
+
+Ergänzend darf aus früheren Jahrgangsstufen eingebaut werden (als Grundlage, nicht als Hauptthema):
+- BCG-Matrix und Normstrategien (BwR 12 LB2)
+- Optimale Bestellmenge, Bestellpunktverfahren (BwR 11 LB2)
+- Grundlagen der Vollkosten-/Teilkostenrechnung
+
+PFLICHT-REGELN:
+- Jede Aufgabe hat einen EIGENEN Unternehmenskontext (Name, Branche, Situation)
+- BE-Angaben an JEDER Teilaufgabe
+- Realistische Zahlen (Geschäftsjahr, Bilanzstichtag, Bilanzsummen im Millionenbereich etc.)
+- Tabellen und Kontoauszüge direkt in der Aufgabe
+
+NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
+- KEINE Buchstaben a), b), c), d) verwenden! Nur Dezimalnotation!
+- Gliederung innerhalb jeder Aufgabe (I, II):
+  Ebene 1: 1, 2, 3, 4 (Hauptthemen, oft mit Kontexttext/Daten)
+  Ebene 2: 1.1, 1.2, 1.3 (Teilaufgaben)
+  Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben, nur wenn nötig)
+- Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten, bevor die Teilaufgaben kommen
+- Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
+- Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+
+TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
+- Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
+  Bilanzen, Bilanzauszüge, GuV-Auszüge, Kontoauszüge, Strukturbilanzen, Plankostenrechnungen, Anlagenspiegel, Darlehenspläne, Abzinsungstabellen
+- Markdown-Tabellen-Format: | Spalte1 | Spalte2 |\\n|---|---|\\n| Wert1 | Wert2 |
+- Für die Kapitalwertmethode: Tabelle mit Abzinsungsfaktoren oder Zahlungsreihe bereitstellen
+- Für Plankostenrechnung: Tabelle mit Plan-/Ist-Daten (Planbeschäftigung, Istbeschäftigung, Plankosten fix/variabel, Istkosten)
+- Für Strukturbilanz: Aufbereitete Bilanzpositionen mit Absolutwerten
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Abiturprüfung BwR – 13. Klasse",
+  "gesamt_be": 85,
+  "zeit": 180,
+  "hilfsmittel": "ISB-Merkhilfe BwR, relevante Gesetzestexte, nicht programmierbarer Taschenrechner",
+  "aufgaben": [
+    {
+      "id": "I",
+      "titel": "Aufgabe I – Bilanzanalyse, Investition & Kostenanpassung",
+      "kontext": "Ausführlicher Unternehmenskontext mit Bilanzdaten, Strukturbilanz etc. ...",
+      "gesamt_be": 50,
+      "teilaufgaben": [
+        {"nr": "1", "text": "Einleitungstext mit Daten/Tabellen...", "be": 0},
+        {"nr": "1.1", "text": "Erstellen Sie die Strukturbilanz...", "be": 8},
+        {"nr": "1.2", "text": "Berechnen und beurteilen Sie die Eigenkapitalquote...", "be": 5},
+        {"nr": "2", "text": "Investitionsentscheidung mit Zahlungsreihe...", "be": 0},
+        {"nr": "2.1", "text": "Berechnen Sie den Kapitalwert...", "be": 7},
+        {"nr": "3", "text": "Kostenoptimale Anpassung...", "be": 0},
+        {"nr": "3.1", "text": "Berechnen Sie die Gewinnschwellenmenge...", "be": 6}
+      ]
+    },
+    {"id": "II", "titel": "Aufgabe II – Controlling, Personal & Strategisches Management", "kontext": "...", "gesamt_be": 35, "teilaufgaben": [...]}
+  ]
+}
+WICHTIG zur Nummerierung:
+- Hauptnummern (1, 2, 3, 4) haben be: 0 wenn sie nur Kontexttext/Daten enthalten und KEINE eigene Aufgabenstellung sind
+- Hauptnummern haben be > 0 wenn sie SELBST eine Aufgabenstellung sind
+- Teilaufgaben (1.1, 1.2, 2.1) haben IMMER be > 0
+- NIEMALS a), b), c), d) verwenden!`;
+
+  const userPrompt = `Erstelle eine vollständige FOS/BOS-Abiturprüfung BwR 13. Klasse (ca. 85 BE).
+Aufgabe I (~50 BE): Bilanzanalyse mit Strukturbilanz & Kennzahlen (~18 BE) + Investitionsrechnung mit Kapitalwertmethode (~15 BE) + Kostenanpassung & Gewinnfunktionen (~17 BE). Durchgängiger Unternehmenskontext einer AG.
+Aufgabe II (~35 BE): Flexible Plankostenrechnung mit Abweichungsanalyse (~12 BE) + Balanced Scorecard mit Ursache-Wirkungsketten (~10 BE) + Personalmanagement mit Führungsstilen & Motivationstheorien (~13 BE). Anderer Unternehmenskontext.
+Jede Aufgabe braucht realistische Zahlen, Tabellen und BE an jeder Teilaufgabe.
+Schwerpunkt auf BwR-13-Inhalten! Grundlagen aus 11/12 dürfen eingebaut werden.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -13000,21 +13138,44 @@ ALL texts complete, realistic, C1 level. Include correct answers for Reading. Us
 async function handleFOSGenerateRCEnglisch(body, env) {
   const taskTypes = body.taskTypes || ["gapped_summary", "multiple_matching", "multiple_choice"];
   const topic = body.topic || "random";
+  const stufe = body.stufe || "11-12";
+  const is13 = stufe === "13";
+
+  const niveau = is13 ? "C1" : "B2";
+  const klasse = is13 ? "13. Klasse" : "12. Klasse";
+  const textLen = is13 ? "800-1000" : "600-800";
 
   // Dynamisch die angeforderten Aufgabentypen in den Prompt einbauen
   const typInstructions = [];
   if (taskTypes.includes("gapped_summary")) {
-    typInstructions.push(`GAPPED SUMMARY (6 BE):
+    if (is13) {
+      typInstructions.push(`GAPPED SUMMARY (8 BE):
+- Schreibe eine Zusammenfassung des Textes mit 8 Lücken.
+- Lücken als ______(1), ______(2) etc. markieren.
+- Schüler müssen auch die Zeilennummer angeben, wo sie das Wort gefunden haben.
+- Lösungen sind einzelne Wörter oder kurze Phrasen aus dem Text.
+- JSON: {"typ": "gapped_summary", "be": 8, "anweisung": "Fill the gaps in the summary with appropriate words or expressions from the corresponding sections of the text. Do not make any changes. Please also provide the number of the line.", "text": "The article explains that ______(1)...", "loesungen": {"1": "word", "2": "word", "3": "...", "4": "...", "5": "...", "6": "...", "7": "...", "8": "..."}}`);
+    } else {
+      typInstructions.push(`GAPPED SUMMARY (6 BE):
 - Schreibe eine Zusammenfassung des Textes mit 6 Lücken.
 - Lücken als ______(1), ______(2) etc. markieren.
 - Lösungen sind einzelne Wörter oder kurze Phrasen aus dem Text.
 - JSON: {"typ": "gapped_summary", "be": 6, "text": "The article discusses ______(1)...", "loesungen": {"1": "word", "2": "word", ...}}`);
+    }
   }
   if (taskTypes.includes("multiple_matching")) {
-    typInstructions.push(`MULTIPLE MATCHING (5 BE):
+    if (is13) {
+      typInstructions.push(`MULTIPLE MATCHING (6 BE):
+- 6 Lücken im Text. Der Text enthält Lücken markiert als _GAP 1_, _GAP 2_ etc.
+- 9 Sätze (A-I) zum Einsetzen, davon 3 Distraktoren.
+- Schüler ordnen jedem Gap den passenden Satz zu.
+- JSON: {"typ": "multiple_matching", "be": 6, "anweisung": "There are six gaps in the text. Match each gap (1-6) with the most suitable sentence (A-I). There are three more options than you need.", "items": ["1", "2", "3", "4", "5", "6"], "statements": ["A: Full sentence...", "B: ...", "C: ...", "D: ...", "E: ...", "F: ...", "G: ...", "H: ...", "I: ..."], "loesung": {"1": "G", "2": "D", "3": "I", "4": "A", "5": "E", "6": "B"}}`);
+    } else {
+      typInstructions.push(`MULTIPLE MATCHING (5 BE):
 - 5 Items (Personen/Abschnitte) und 8 Statements (A-H, davon 3 Distraktoren).
 - Schüler ordnen Statements den Items zu.
 - JSON: {"typ": "multiple_matching", "be": 5, "anweisung": "Match statements A-H with sections 1-5.", "items": ["1: ...", "2: ...", "3: ...", "4: ...", "5: ..."], "statements": ["A: ...", "B: ...", ...], "loesung": {"1": "C", "2": "A", ...}}`);
+    }
   }
   if (taskTypes.includes("multiple_choice")) {
     typInstructions.push(`MULTIPLE CHOICE (3 BE):
@@ -13023,28 +13184,42 @@ async function handleFOSGenerateRCEnglisch(body, env) {
 - JSON: {"typ": "multiple_choice", "be": 3, "fragen": [{"nr": 1, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"}, ...]}`);
   }
   if (taskTypes.includes("mediation_en_de")) {
-    typInstructions.push(`MEDIATION EN→DE (5 BE):
+    if (is13) {
+      typInstructions.push(`MEDIATION EN→DE (10 BE):
+- 6 Fragen auf DEUTSCH über den englischen Text. Der Text soll ein LITERARISCHER Text sein (Romanauszug oder Short Story).
+- Mischung aus Verständnis-, Analyse- und Interpretationsfragen.
+- NIEMALS Kategorien wie (Inhalt), (Deutung), (Analyse) etc. in Klammern bei den Fragen hinzufügen.
+- Punkteverteilung: 1-2 Punkte pro Frage, insgesamt 10.
+- Antworten müssen auf DEUTSCH gegeben werden.
+- JSON: {"typ": "mediation_en_de", "be": 10, "anweisung": "Bearbeiten Sie die folgenden Aufgaben auf Deutsch.", "fragen": [{"nr": "1", "frage": "Was ist konkret damit gemeint, wenn...", "be": 1, "loesung": "Deutsche Antwort..."}, {"nr": "2", "frage": "Inwiefern...", "be": 2, "loesung": "..."}, ...]}`);
+    } else {
+      typInstructions.push(`MEDIATION EN→DE (5 BE):
 - 5 Fragen auf DEUTSCH über den englischen Text.
 - Antworten müssen auf DEUTSCH gegeben werden.
 - JSON: {"typ": "mediation_en_de", "be": 5, "anweisung": "Beantworten Sie die folgenden Fragen auf DEUTSCH.", "fragen": [{"nr": "1", "frage": "Welches Problem...", "be": 1, "loesung": "Deutsche Antwort..."}, ...]}`);
+    }
   }
 
   const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
 
-  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, 12. Klasse, B2-Niveau).
-Erstelle EINEN englischen Sachtext (~600-800 Wörter) und die angeforderten Reading-Comprehension-Aufgaben.
-${topicHint}
+  const textHint = (is13 && taskTypes.includes("mediation_en_de"))
+    ? `\nWICHTIG: Da Mediation ausgewählt ist, soll der Text ein LITERARISCHER Text sein (Romanauszug oder Short Story, C1-Niveau).`
+    : "";
 
-Der Text soll authentisch wirken (wie ein Zeitungsartikel, Feature oder Essay), sprachlich anspruchsvoll sein und genug Inhalt für alle Aufgabentypen bieten.
+  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, ${klasse}, ${niveau}-Niveau).
+Erstelle EINEN englischen ${(is13 && taskTypes.includes("mediation_en_de")) ? "literarischen Text" : "Sachtext"} (~${textLen} Wörter) und die angeforderten Reading-Comprehension-Aufgaben.
+${topicHint}${textHint}
+
+Der Text soll authentisch wirken, sprachlich anspruchsvoll sein (${niveau}-Niveau) und genug Inhalt für alle Aufgabentypen bieten.${is13 ? " Die Aufgaben entsprechen dem Format der FOS-Abiturprüfung 13. Klasse." : ""}
 
 ANGEFORDERTE AUFGABENTYPEN:
 ${typInstructions.join("\n\n")}
 
 WICHTIG:
-- Alle Texte KOMPLETT und realistisch (B2-Niveau)
+- Alle Texte KOMPLETT und realistisch (${niveau}-Niveau)
 - Korrekte Antworten für ALLE Aufgaben angeben
-- Multiple Matching: genau 5 Zuordnungen + 3 Distraktoren
-- Gapped Summary: Lücken als ______(1), ______(2) etc.
+${is13 ? "- Multiple Matching: genau 6 Lücken im Text (_GAP 1_ etc.) + 9 Sätze (A-I, 3 Distraktoren)" : "- Multiple Matching: genau 5 Zuordnungen + 3 Distraktoren"}
+${is13 ? "- Gapped Summary: 8 Lücken als ______(1) etc. mit Zeilenangabe" : "- Gapped Summary: Lücken als ______(1), ______(2) etc."}
 - Erfinde plausiblen Autor und Quelle
 
 Antworte NUR mit validem JSON:
@@ -13052,7 +13227,7 @@ Antworte NUR mit validem JSON:
   "titel": "Reading Comprehension: ...",
   "reading": {
     "be": <Summe aller BE>,
-    "texte": [{"nr": "Text I", "titel": "...", "text": "Vollständiger Text ~600-800 Wörter", "source_info": "Autor, Quelle, Datum"}],
+    "texte": [{"nr": "Text I", "titel": "...", "text": "Vollständiger Text ~${textLen} Wörter", "source_info": "Autor, Quelle, Datum"}],
     "tasks": [{
       "nr": "I",
       "be": <Summe>,
@@ -13064,13 +13239,13 @@ Antworte NUR mit validem JSON:
   }
 }`;
 
-  const userPrompt = `Erstelle einen Reading-Comprehension-Test mit folgenden Aufgabentypen: ${taskTypes.join(", ")}.
-Ein Text (~700 Wörter), dazu die passenden Aufgaben. Alle Antworten angeben.`;
+  const userPrompt = `Erstelle einen Reading-Comprehension-Test (${niveau}-Niveau, ${klasse}) mit folgenden Aufgabentypen: ${taskTypes.join(", ")}.
+Ein Text (~${is13 ? "900" : "700"} Wörter), dazu die passenden Aufgaben. Alle Antworten angeben.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 10000);
+  ], is13 ? 12000 : 10000);
 
   return jsonResponse(extractJSON(openaiRes), 200, env);
 }
@@ -13078,13 +13253,20 @@ Ein Text (~700 Wörter), dazu die passenden Aufgaben. Alle Antworten angeben.`;
 /* ================= FOS ENGLISCH: GESAMTE KLAUSUR (RC + MEDIATION) ================= */
 async function handleFOSGenerateKlausurEnglisch(body, env) {
   const topic = body.topic || "random";
+  const stufe = body.stufe || "11-12";
+  const is13 = stufe === "13";
+
+  const niveau = is13 ? "C1" : "B2";
+  const klasse = is13 ? "13. Klasse" : "12. Klasse";
+  const textLen = is13 ? "800-1000" : "600-800";
+
   // Zufällig einen RC-Typ wählen
   const rcTypes = ["gapped_summary", "multiple_matching", "multiple_choice"];
   const chosenRC = rcTypes[Math.floor(Math.random() * rcTypes.length)];
 
   const topicHint = topic !== "random" ? `\nTHEMA: Der Text soll sich mit dem Thema "${topic}" befassen.` : "\nTHEMA: Wähle ein aktuelles, interessantes Thema.";
 
-  const rcInstructions = {
+  const rcInstructions12 = {
     gapped_summary: `GAPPED SUMMARY (6 BE):
 {"typ": "gapped_summary", "be": 6, "text": "The article discusses ______(1)...", "loesungen": {"1": "word", ...}}`,
     multiple_matching: `MULTIPLE MATCHING (5 BE):
@@ -13093,22 +13275,38 @@ async function handleFOSGenerateKlausurEnglisch(body, env) {
 {"typ": "multiple_choice", "be": 3, "fragen": [{"nr": 1, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"}, ...]}`
   };
 
-  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, 12. Klasse, B2-Niveau).
+  const rcInstructions13 = {
+    gapped_summary: `GAPPED SUMMARY (8 BE):
+- 8 Lücken, Schüler geben auch die Zeilennummer an.
+{"typ": "gapped_summary", "be": 8, "anweisung": "Fill the gaps with appropriate words from the corresponding sections. Also provide the line number.", "text": "The article explains that ______(1)...", "loesungen": {"1": "word", "2": "word", "3": "...", "4": "...", "5": "...", "6": "...", "7": "...", "8": "..."}}`,
+    multiple_matching: `MULTIPLE MATCHING (6 BE):
+- 6 Lücken im Text (_GAP 1_ bis _GAP 6_), 9 Sätze (A-I), 3 Distraktoren.
+{"typ": "multiple_matching", "be": 6, "anweisung": "There are six gaps in the text. Match each gap (1-6) with the most suitable sentence (A-I). There are three more options than you need.", "items": ["1", "2", "3", "4", "5", "6"], "statements": ["A: ...", "B: ...", "C: ...", "D: ...", "E: ...", "F: ...", "G: ...", "H: ...", "I: ..."], "loesung": {"1": "G", "2": "D", ...}}`,
+    multiple_choice: `MULTIPLE CHOICE (3 BE):
+{"typ": "multiple_choice", "be": 3, "fragen": [{"nr": 1, "frage": "...", "optionen": ["A: ...", "B: ...", "C: ...", "D: ..."], "loesung": "B"}, ...]}`
+  };
+
+  const rcInstructions = is13 ? rcInstructions13 : rcInstructions12;
+  const medBE = is13 ? 6 : 4;
+  const medTotal = is13 ? 10 : 4;
+  const medAnweisung = is13 ? "Bearbeiten Sie die folgenden Aufgaben auf Deutsch." : "Beantworten Sie die folgenden Fragen auf DEUTSCH.";
+
+  const systemPrompt = `Du bist ein Experte für FOS-Englisch-Klausuren (Bayern, ${klasse}, ${niveau}-Niveau).
 Erstelle eine GESAMTE KLAUSUR bestehend aus:
-1. Einem englischen Sachtext (~600-800 Wörter)
+1. Einem englischen Sachtext (~${textLen} Wörter)
 2. Einer Reading-Comprehension-Aufgabe (${chosenRC.replace(/_/g, " ")})
-3. Einer kleinen Mediationsaufgabe (4 BE): 4 deutsche Fragen zum englischen Text, auf Deutsch zu beantworten
+3. Einer Mediationsaufgabe (${medTotal} BE): ${medBE} deutsche Fragen zum englischen Text, auf Deutsch zu beantworten
 ${topicHint}
 
 AUFGABENTYPEN:
 
 ${rcInstructions[chosenRC]}
 
-MEDIATION EN→DE (4 BE):
-{"typ": "mediation_en_de", "be": 4, "anweisung": "Beantworten Sie die folgenden Fragen auf DEUTSCH.", "fragen": [{"nr": "1", "frage": "...", "be": 1, "loesung": "..."}, ...]}
+MEDIATION EN→DE (${medTotal} BE):
+${is13 ? '- NIEMALS Kategorien wie (Inhalt), (Deutung), (Analyse) etc. in Klammern bei den Fragen hinzufügen.\n' : ''}{"typ": "mediation_en_de", "be": ${medTotal}, "anweisung": "${medAnweisung}", "fragen": [{"nr": "1", "frage": "...", "be": ${is13 ? "1" : "1"}, "loesung": "..."}, ...]}
 
 WICHTIG:
-- Text KOMPLETT und realistisch (B2-Niveau)
+- Text KOMPLETT und realistisch (${niveau}-Niveau)
 - Korrekte Antworten für ALLE Aufgaben
 - Erfinde plausiblen Autor und Quelle
 
@@ -13130,12 +13328,12 @@ Antworte NUR mit validem JSON:
   }
 }`;
 
-  const userPrompt = `Erstelle eine Englisch-Klausur: 1 Text + ${chosenRC.replace(/_/g, " ")} + Mediation. Alle Antworten angeben.`;
+  const userPrompt = `Erstelle eine Englisch-Klausur (${niveau}, ${klasse}): 1 Text + ${chosenRC.replace(/_/g, " ")} + Mediation. Alle Antworten angeben.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userPrompt }
-  ], 10000);
+  ], is13 ? 12000 : 10000);
 
   return jsonResponse(extractJSON(openaiRes), 200, env);
 }
