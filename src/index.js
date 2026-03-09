@@ -18,12 +18,14 @@ function keineLoesungshinweise(beispiel) {
 
 const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
 - "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
+- "feedback": "" (LEER lassen! Das ausführliche Feedback wird separat generiert. Schreibe NICHTS in dieses Feld.)
 - "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
 - "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
 - "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
+- "feedback": "" (LEER lassen! Das ausführliche Feedback wird separat generiert. Schreibe NICHTS in dieses Feld.)
 - "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
 - "korrektur_text_b": Vollständiger Schülertext Teil B mit gleichen Fehlermarkierungen.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
@@ -909,6 +911,11 @@ export default {
         return await handleCheckReminders(request, env);
       }
 
+      // ===== DETAIL-FEEDBACK (Lazy-Load) =====
+      if (pathname === "/api/detail-feedback" && request.method === "POST") {
+        return await handleDetailFeedback(request, env);
+      }
+
       // ===== REWRITE FEATURE =====
       if (pathname === "/api/rewrite" && request.method === "POST") {
         return await handleRewrite(request, env);
@@ -1153,6 +1160,61 @@ async function handleSavePreferences(request, env) {
 
   if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
   return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= DETAIL-FEEDBACK (Lazy-Load) ================= */
+
+async function handleDetailFeedback(request, env) {
+  const body = await request.json();
+  const { rubric_prompt, task_instruction, primary_text, student_text, scores, feedback_kurz } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  const kurzText = (feedback_kurz && feedback_kurz.length)
+    ? feedback_kurz.join("; ")
+    : "Keine Kurzfeedback-Punkte vorhanden.";
+
+  const scoresText = scores
+    ? Object.entries(scores).map(([k, v]) => `${k}: ${v}`).join(", ")
+    : "Keine Noten vorhanden.";
+
+  const systemPrompt = `Du bist ein erfahrener Lehrer. Schreibe ein ausführliches, konstruktives Feedback zu einer Schülerarbeit auf Deutsch.
+Verwende die bereits ermittelten Noten und Kurzfeedback-Punkte als Grundlage.
+Schreibe in Markdown-Format mit Überschriften (##) und Absätzen.
+
+Bewertungskriterien:
+${truncate(rubric_prompt, 3000)}`;
+
+  const userPrompt = `Aufgabenstellung:
+${truncate(task_instruction || "", 2000)}
+
+${primary_text ? "Ausgangstext:\n" + truncate(primary_text, 3000) + "\n" : ""}
+Noten: ${scoresText}
+Kurzfeedback: ${kurzText}
+
+Schülertext:
+${truncate(student_text, 8000)}
+
+Schreibe ein ausführliches Feedback (ca. 300–500 Wörter) mit:
+- Detaillierte Stärken der Arbeit
+- Konkrete Verbesserungsvorschläge mit Beispielen aus dem Text
+- Tipps für die nächste Klausur
+
+Antworte NUR mit dem Feedback als Markdown-Text (kein JSON, keine Codeblöcke).`;
+
+  try {
+    const result = await callOpenAI(env, [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userPrompt }
+    ], 3000, { temperature: 0.5 });
+
+    return jsonResponse({ feedback: result }, 200, env);
+  } catch (err) {
+    console.error("Detail-Feedback Fehler:", err.message);
+    return jsonResponse({ error: "Feedback konnte nicht generiert werden." }, 500, env);
+  }
 }
 
 /* ================= REWRITE FEATURE ================= */
