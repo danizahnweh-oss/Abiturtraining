@@ -1208,29 +1208,21 @@ async function handleOCRFiles(fileList) {
   renderOCRPages();
 
   const startIdx = ocrPages.length - files.length;
-  const skipOCR = typeof MODULE_CONFIG !== "undefined" && MODULE_CONFIG.skipOCR;
+  const ocrEndpoint = (typeof MODULE_CONFIG !== "undefined" && MODULE_CONFIG.ocrEndpoint) || "/api/ocr";
   document.getElementById("ocrLoader").style.display = "block";
 
   for (let i = startIdx; i < ocrPages.length; i++) {
     const p = ocrPages[i];
     p.status = "processing";
     renderOCRPages();
-    document.getElementById("ocrProgress").textContent = skipOCR
-      ? `Foto ${i + 1} von ${ocrPages.length} wird vorbereitet …`
-      : `Seite ${i + 1} von ${ocrPages.length}`;
+    document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length} wird erkannt …`;
 
     try {
       const b64 = await compressImage(p.file, 2000);
       p.base64 = b64;
-      if (skipOCR) {
-        // Kein OCR – Bild nur komprimieren und direkt als fertig markieren
-        p.text = "";
-        p.status = "done";
-      } else {
-        const d = await apiCall("/api/ocr", { image_base64: b64 });
-        p.text = d.text || "";
-        p.status = "done";
-      }
+      const d = await apiCall(ocrEndpoint, { image_base64: b64 });
+      p.text = d.text || "";
+      p.status = "done";
     } catch (e) {
       p.text = `[Fehler bei Seite ${i + 1}: ${e.message}]`;
       p.status = "error";
@@ -1240,21 +1232,8 @@ async function handleOCRFiles(fileList) {
 
   document.getElementById("ocrLoader").style.display = "none";
   document.getElementById("ocrProgress").textContent = "";
-
-  if (skipOCR) {
-    // Bei skipOCR: Nur Statusmeldung anzeigen, keine Textarea
-    var ocrResult = document.getElementById("ocrResult");
-    if (ocrResult) {
-      var doneCount = ocrPages.filter(function (p) { return p.status === "done"; }).length;
-      ocrResult.style.display = "block";
-      ocrResult.innerHTML = '<div style="color:var(--ink-muted);font-size:.9rem;">' +
-        doneCount + (doneCount === 1 ? ' Foto' : ' Fotos') + ' bereit zur Bewertung' +
-        ' &nbsp;<button class="btn btn-small btn-secondary" onclick="clearOCR()">Alle entfernen</button></div>';
-    }
-  } else {
-    combineOCRTexts();
-    document.getElementById("ocrResult").style.display = "block";
-  }
+  combineOCRTexts();
+  document.getElementById("ocrResult").style.display = "block";
   document.getElementById("ocrFileInput").value = "";
 }
 
