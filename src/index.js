@@ -504,6 +504,9 @@ export default {
       if (pathname === "/api/generate-geschichte" && request.method === "POST") {
         return await handleGenerateGeschichte(request, env);
       }
+      if (pathname === "/api/grade-geschichte" && request.method === "POST") {
+        return await handleGradeGeschichte(request, env);
+      }
 
       // ===== DEUTSCH ENDPOINTS =====
       if (pathname === "/api/generate-deutsch" && request.method === "POST") {
@@ -590,6 +593,9 @@ export default {
       if (pathname === "/api/parse-task-french" && request.method === "POST") {
         return await handleParseTaskFrench(request, env);
       }
+      if (pathname === "/api/grade-french" && request.method === "POST") {
+        return await handleGradeFrench(request, env);
+      }
 
       // ===== ITALIENISCH ENDPOINTS =====
       if (pathname === "/api/model-answer-italian" && request.method === "POST") {
@@ -600,6 +606,9 @@ export default {
       }
       if (pathname === "/api/parse-task-italian" && request.method === "POST") {
         return await handleParseTaskItalian(request, env);
+      }
+      if (pathname === "/api/grade-italian" && request.method === "POST") {
+        return await handleGradeItalian(request, env);
       }
 
       // ===== ETHIK ENDPOINTS =====
@@ -1992,6 +2001,66 @@ KRITISCH:
   } catch (err) {
     console.error("Geschichte generate – JSON-Parse Fehler:", err.message, "Response preview:", (openaiRes || "").substring(0, 300));
     return jsonResponse({ error: "Antwort konnte nicht verarbeitet werden. Bitte erneut versuchen." }, 500, env);
+  }
+}
+
+/* ================= GESCHICHTE: GRADE ================= */
+async function handleGradeGeschichte(request, env) {
+  const body = await request.json();
+  const { task_instruction, primary_text, student_text, rubric_prompt, materials, images } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return jsonResponse({ error: "student_text und rubric_prompt erforderlich." }, 400, env);
+  }
+
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+
+  if (primary_text) {
+    contextInfo += `Quellenmaterial:\n${truncate(primary_text, 15000)}\n\n`;
+  }
+
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+
+  const korrekturAnweisung = KORREKTUR_SINGLE;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const messages = [
+    { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const verstehen = parsed.verstehen_np ?? null;
+    const darstellung = parsed.darstellung_np ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && verstehen != null && darstellung != null) {
+      gesamt = Math.round(verstehen * 0.7 + darstellung * 0.3);
+      if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { verstehen, darstellung, total: gesamt },
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { verstehen: null, darstellung: null, total: null },
+      feedback: openaiRes,
+      feedback_kurz: [],
+      korrektur_text: "",
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
+    }, 200, env);
   }
 }
 
@@ -5177,6 +5246,70 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unt
   return jsonResponse({ model_answer: answer }, 200, env);
 }
 
+/* ================= FRANZÖSISCH: GRADE ================= */
+async function handleGradeFrench(request, env) {
+  const body = await request.json();
+  const { source_text_de, task_fr, task_en, student_text_fr, student_text_en, rubric_prompt, images } = body;
+
+  const task = task_fr || task_en;
+  const studentText = student_text_fr || student_text_en;
+
+  if (!studentText) {
+    return jsonResponse({ error: "student_text_fr erforderlich." }, 400, env);
+  }
+
+  const systemPrompt = rubric_prompt || `Du bist ein erfahrener Französischlehrer am bayerischen Gymnasium.
+Bewerte die Schülerarbeit nach dem ISB-Bewertungsraster mit Notenpunkten (0-15 NP).
+Antworte NUR mit validem JSON:
+{"inhalt_np": <0-15>, "sprache_np": <0-15>, "gesamt_np": <0-15>, "feedback": "<Markdown-Feedback auf Deutsch>", "korrektur_text": "<Vollständiger Schülertext mit Fehlermarkierungen>", "fehlende_aspekte": [...]}
+BERECHNUNG: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
+SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const messages = [
+    { role: "system", content: truncate(systemPrompt, 5000) + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    {
+      role: "user",
+      content: buildUserContent(
+        `Deutscher Quelltext:\n${truncate(source_text_de, 15000)}\n\n` +
+        `Aufgabenstellung:\n${truncate(task, 5000)}\n\n` +
+        `Schülertext (Französisch):\n${truncate(studentText, 15000)}`, images)
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const inhalt = parsed.inhalt_np ?? parsed.content_textstructure ?? null;
+    const sprache = parsed.sprache_np ?? parsed.language ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && inhalt != null && sprache != null) {
+      gesamt = Math.round(inhalt * 0.4 + sprache * 0.6);
+      if (inhalt === 0 || sprache === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { content_textstructure: null, language: null, total: null },
+      feedback: openaiRes,
+      feedback_kurz: [],
+      korrektur_text: "",
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
+    }, 200, env);
+  }
+}
+
 /* ================= ITALIENISCH: PARSE TASK (OCR) ================= */
 async function handleParseTaskItalian(request, env) {
   const { images } = await request.json();
@@ -5275,6 +5408,70 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unt
   ], 6000);
 
   return jsonResponse({ model_answer: answer }, 200, env);
+}
+
+/* ================= ITALIENISCH: GRADE ================= */
+async function handleGradeItalian(request, env) {
+  const body = await request.json();
+  const { source_text_de, task_it, task_en, student_text_it, student_text_en, rubric_prompt, images } = body;
+
+  const task = task_it || task_en;
+  const studentText = student_text_it || student_text_en;
+
+  if (!studentText) {
+    return jsonResponse({ error: "student_text_it erforderlich." }, 400, env);
+  }
+
+  const systemPrompt = rubric_prompt || `Du bist ein erfahrener Italienischlehrer am bayerischen Gymnasium.
+Bewerte die Schülerarbeit nach dem ISB-Bewertungsraster mit Notenpunkten (0-15 NP).
+Antworte NUR mit validem JSON:
+{"inhalt_np": <0-15>, "sprache_np": <0-15>, "gesamt_np": <0-15>, "feedback": "<Markdown-Feedback auf Deutsch>", "korrektur_text": "<Vollständiger Schülertext mit Fehlermarkierungen>", "fehlende_aspekte": [...]}
+BERECHNUNG: gesamt_np = round(inhalt_np * 0.4 + sprache_np * 0.6)
+SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+  const messages = [
+    { role: "system", content: truncate(systemPrompt, 5000) + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    {
+      role: "user",
+      content: buildUserContent(
+        `Deutscher Quelltext:\n${truncate(source_text_de, 15000)}\n\n` +
+        `Aufgabenstellung:\n${truncate(task, 5000)}\n\n` +
+        `Schülertext (Italienisch):\n${truncate(studentText, 15000)}`, images)
+    }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 8000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const inhalt = parsed.inhalt_np ?? parsed.content_textstructure ?? null;
+    const sprache = parsed.sprache_np ?? parsed.language ?? null;
+    let gesamt = parsed.gesamt_np ?? null;
+
+    if (gesamt == null && inhalt != null && sprache != null) {
+      gesamt = Math.round(inhalt * 0.4 + sprache * 0.6);
+      if (inhalt === 0 || sprache === 0) gesamt = Math.min(gesamt, 3);
+    }
+
+    return jsonResponse({
+      scores: { content_textstructure: inhalt, language: sprache, total: gesamt },
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      korrektur_text: parsed.korrektur_text || "",
+      fehlende_aspekte: parsed.fehlende_aspekte || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      scores: { content_textstructure: null, language: null, total: null },
+      feedback: openaiRes,
+      feedback_kurz: [],
+      korrektur_text: "",
+      fehlende_aspekte: [],
+      uebungsaufgaben: []
+    }, 200, env);
+  }
 }
 
 /* ================= ETHIK: PARSE TASK (OCR) ================= */
@@ -14536,7 +14733,10 @@ const GRADE_HANDLER_MAP = {
   "grade-deutsch": handleGradeDeutsch,
   "grade-pug": handleGradePuG,
   "grade-abitur-pug": handleGradeAbiturPuG,
+  "grade-geschichte": handleGradeGeschichte,
   "grade-abitur-geschichte": handleGradeAbiturGeschichte,
+  "grade-french": handleGradeFrench,
+  "grade-italian": handleGradeItalian,
   "grade-abitur-wr": handleGradeAbiturWR,
   "grade-wr": handleGradeWR,
   "grade-ethik": handleGradeEthik,

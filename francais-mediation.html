@@ -1087,7 +1087,7 @@ Schreibe das gesamte Feedback auf DEUTSCH, aber zitiere den Schülertext natürl
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        const data = await apiCallAsync("grade", {
+        const data = await apiCallAsync("grade-french", {
           source_text_de: CONFIG.storedData.article_text,
           task_fr: CONFIG.storedData.task_instruction,
           student_text_fr: text,
