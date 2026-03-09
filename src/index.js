@@ -4696,7 +4696,10 @@ Antworte NUR mit validem JSON:
     let np = parsed.notenpunkte ?? null;
 
     if (np == null && beGesamt != null) {
-      np = Math.max(0, Math.min(15, Math.round((beGesamt / maxBE) * 15)));
+      const pct = (beGesamt / maxBE) * 100;
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
+      np = 0;
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
 
     return jsonResponse({
@@ -9410,7 +9413,12 @@ async function handleGradeBio(request, env) {
 
 BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
-- Pro Teilaufgabe bewerte: Fachsprache, wissenschaftliche Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung biologischer Zusammenhänge
+- Pro Teilaufgabe bewerte: Fachsprache, wissenschaftliche Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung biologischer Zusammenhänge, Materialauswertung
+- Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe:
+  • AFB I ("Nennen", "Beschreiben", "Angeben"): Korrekte Wiedergabe von Fakten, Definitionen, Fachbegriffen
+  • AFB II ("Erläutern", "Erklären", "Vergleichen", "Interpretieren"): Sachgerechte Analyse, Transfer auf neue Zusammenhänge, Materialauswertung mit korrekter Fachsprache
+  • AFB III ("Beurteilen", "Bewerten", "Diskutieren", "Stellung nehmen"): Eigenständiges, begründetes Urteil mit Abwägung verschiedener Aspekte
+- Eine Antwort auf AFB-III-Niveau bei einer AFB-I-Aufgabe bringt KEINE Extra-Punkte — umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden
 - Korrekte Fachsprache (z.B. "homozygot" statt "reinerbig") wird positiv bewertet
 - Korrekte Anwendung biologischer Konzepte und Modelle
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
@@ -11163,6 +11171,11 @@ Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
 BEWERTUNGSREGELN:
 - Bewerte jede Aufgabe und jede Teilaufgabe einzeln
 - Bewertungskriterien: Fachsprache (biologische Fachbegriffe), korrekte Verwendung von Fachkonzepten, Materialauswertung, logische Argumentation, Darstellungsleistung
+- Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe:
+  • AFB I ("Nennen", "Beschreiben", "Angeben"): Korrekte Wiedergabe von Fakten, Definitionen, Fachbegriffen
+  • AFB II ("Erläutern", "Erklären", "Vergleichen", "Interpretieren"): Sachgerechte Analyse, Transfer auf neue Zusammenhänge, Materialauswertung mit korrekter Fachsprache
+  • AFB III ("Beurteilen", "Bewerten", "Diskutieren", "Stellung nehmen"): Eigenständiges, begründetes Urteil mit Abwägung verschiedener Aspekte
+- Eine Antwort auf AFB-III-Niveau bei einer AFB-I-Aufgabe bringt KEINE Extra-Punkte — umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden
 - Korrekte Fachbegriffe und Zusammenhänge → volle Punkte
 - Teilweise korrekte Antworten → Teilpunkte
 - Folgefehler berücksichtigen
@@ -11447,10 +11460,10 @@ BEWERTUNGSREGELN:
 - Teilweise korrekte Antworten → Teilpunkte
 - Folgefehler berücksichtigen
 
-BE → NOTENPUNKTE (ISB-Tabelle, 100 BE Basis):
-100-96 → 15, 95-91 → 14, 90-86 → 13, 85-81 → 12, 80-76 → 11, 75-71 → 10
-70-66 → 9, 65-61 → 8, 60-56 → 7, 55-51 → 6, 50-46 → 5, 45-41 → 4
-40-34 → 3, 33-27 → 2, 26-20 → 1, 19-0 → 0
+BE → NOTENPUNKTE (ISB-Tabelle):
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
+33% → 3, 27% → 2, 20% → 1, <20% → 0
 
 Antworte NUR mit validem JSON:
 {
@@ -11480,10 +11493,10 @@ Antworte NUR mit validem JSON:
       gesamtBE = parsed.aufgaben_be.reduce((sum, a) => sum + (a.erreichte_be || 0), 0);
     }
     if (np == null && gesamtBE != null) {
-      // ISB-Tabelle: absolute BE-Grenzen bei 100 BE Basis
-      const table = [[96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10], [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4], [34, 3], [27, 2], [20, 1], [0, 0]];
+      const pct = (gesamtBE / maxBE) * 100;
+      const table = [[95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10], [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4], [33, 3], [27, 2], [20, 1], [0, 0]];
       np = 0;
-      for (const [th, n] of table) { if (gesamtBE >= th) { np = n; break; } }
+      for (const [th, n] of table) { if (pct >= th) { np = n; break; } }
     }
 
     return jsonResponse({
