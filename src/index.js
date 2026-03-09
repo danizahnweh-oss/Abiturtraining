@@ -12749,6 +12749,7 @@ Text III (~800 words): Literary text (short story)
 TASK III (8 BE):
 - Part 1: Multiple Choice (3 BE) – 3 MC questions, 4 options each (A-D)
 - Part 2: Mediation EN→DE (5 BE) – 5 questions answered in GERMAN
+- NEVER add category labels like (Inhalt), (Deutung), (Analyse), (Zusammenfassung), (Interpretation) etc. in parentheses within or after the questions. Just write the plain question.
 
 PART 2 – MATERIAL-BASED WRITING (24 BE):
 2 Tasks to choose from (student picks ONE), min. 300 words each.
@@ -12884,6 +12885,7 @@ TASK III: Mediation Englisch-Deutsch (10 BE)
 - 6 questions answered in GERMAN about the English text.
 - Mix of comprehension, analysis, and interpretation questions.
 - Point distribution: typically 1-2 points per question, totaling 10.
+- NEVER add category labels like (Inhalt), (Deutung), (Analyse), (Zusammenfassung), (Interpretation) etc. in parentheses within or after the questions. Just write the plain question.
 
 PART 2 – WRITING (36 BE, 90 min):
 
