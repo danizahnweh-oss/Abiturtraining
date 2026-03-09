@@ -11989,10 +11989,15 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "grade-abitur-deutsch") return handleGradeWR(fakeReq, env);
   if (route === "model-answer-abitur-deutsch") return handleModelAnswerWR(fakeReq, env);
 
-  // === ENGLISCH ABITUR (FOS-Fachabitur) ===
+  // === ENGLISCH ABITUR (FOS-Fachabitur 12) ===
   if (route === "generate-abitur-englisch") return handleFOSGenerateAbiturEnglisch(body, env);
   if (route === "grade-abitur-englisch") return handleGradeWR(fakeReq, env);
   if (route === "model-answer-abitur-englisch") return handleModelAnswerWR(fakeReq, env);
+
+  // === ENGLISCH ABITUR 13 (Fachgebundene/Allgemeine Hochschulreife) ===
+  if (route === "generate-abitur13-englisch") return handleFOSGenerateAbitur13Englisch(body, env);
+  if (route === "grade-abitur13-englisch") return handleGradeWR(fakeReq, env);
+  if (route === "model-answer-abitur13-englisch") return handleModelAnswerWR(fakeReq, env);
 
   // === PROFILFACH ABITUR (Physik, PädPsych, Bio, Gesundheit, Gestaltung) ===
   const abiturProfilMatch = route.match(/^(generate|grade|model-answer)-abitur-(physik|paedpsych|biologie|gesundheit|gestaltung)$/);
@@ -12716,6 +12721,144 @@ Respond ONLY with valid JSON:
 Part 1 Reading (24 BE): 3 texts (~800 words each), Task I (Multiple Matching + Short Answer), Task II (Gapped Summary + Short Answer), Task III (MC + Mediation EN→DE).
 Part 2 Writing (24 BE): 2 tasks to choose from (essay, 300+ words, 3 materials each).
 ALL texts complete and realistic. Include correct answers for Reading.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 16000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS ENGLISCH: ABITUR 13 (Fachgebundene/Allgemeine Hochschulreife) ================= */
+async function handleFOSGenerateAbitur13Englisch(body, env) {
+  const systemPrompt = `You are an expert on the Bavarian FOS/BOS Abiturprüfung (13th grade) in English for the "fachgebundene/allgemeine Hochschulreife".
+Create a COMPLETE exam following the official format exactly.
+
+EXAM STRUCTURE (FOS/BOS Bayern, English 13th grade):
+Total: 60 BE (Reading 24 BE + Writing 36 BE)
+Duration: 210 min (90 min Reading + 30 min break + 90 min Writing)
+
+PART 1 – READING COMPREHENSION (24 BE, 90 min):
+3 Texts (total ~2,700 words), 3 Task groups:
+
+Text I (~700 words): Non-fiction article on a current societal topic (e.g. media, technology, society)
+TASK I: Multiple Matching (6 BE)
+- 6 gaps in the text. Match each gap (1-6) with the most suitable sentence from A-I (9 sentences, 3 distractors).
+- The text should have clear gap positions marked as _GAP 1_, _GAP 2_ etc.
+
+Text II (~700 words): Non-fiction article on science/ethics/technology
+TASK II: Gapped Summary (8 BE)
+- 8 gaps to fill with words/expressions from the CORRESPONDING sections of the text.
+- Students must also provide the line number where they found the word.
+- One word per gap line (some gaps may require two words).
+
+Text III (~1,100 words): Literary text (novel excerpt, short story)
+TASK III: Mediation Englisch-Deutsch (10 BE)
+- 6 questions answered in GERMAN about the English text.
+- Mix of comprehension, analysis, and interpretation questions.
+- Point distribution: typically 1-2 points per question, totaling 10.
+
+PART 2 – WRITING (36 BE, 90 min):
+
+TASK IV: Mediation Deutsch→Englisch (12 BE)
+- 2 German source texts (~150-200 words each) on a topic.
+- Student writes a coherent English text (~150 words) covering specific aspects listed.
+- 4 bullet point aspects to address.
+
+TASK V: Material-Based Writing (24 BE)
+- 2 tasks to choose from (student picks ONE), at least 300 words each.
+- Each task: argumentative essay/comment/discussion with 3 materials.
+- Materials mix: English text, German text, statistics/infographic description, cartoon description.
+- Task types: "Comment on..." or "Discuss..."
+
+IMPORTANT:
+- All texts COMPLETE and realistic, C1 level (higher than 12th grade!)
+- Text I must have actual gap positions in the text body
+- Gapped Summary gaps as ______(1), ______(2) etc.
+- CORRECT ANSWERS for ALL Reading tasks
+- Writing materials: mix of English and German
+- Literary text for Task III should be from a novel or sophisticated short story
+
+Respond ONLY with valid JSON:
+{
+  "titel": "Abiturprüfung Englisch 2025 – 13. Klasse",
+  "gesamt_be": 60,
+  "reading": {
+    "be": 24,
+    "zeit": 90,
+    "texte": [
+      {"nr": "Text I", "titel": "Title", "text": "Full text ~700 words with _GAP 1_, _GAP 2_ etc. embedded in the text body..."},
+      {"nr": "Text II", "titel": "...", "text": "Full text ~700 words with line-numbered content..."},
+      {"nr": "Text III", "titel": "Literary Title", "text": "Full literary text ~1100 words..."}
+    ],
+    "tasks": [
+      {
+        "nr": "I", "be": 6, "referenz_text": "Text I",
+        "teile": [
+          {"typ": "multiple_matching", "be": 6,
+           "anweisung": "There are six gaps in the text. Match each gap (1-6) with the most suitable sentence (A-I). There are three more options than you need.",
+           "items": ["1", "2", "3", "4", "5", "6"],
+           "statements": ["A: Full sentence...", "B: ...", "C: ...", "D: ...", "E: ...", "F: ...", "G: ...", "H: ...", "I: ..."],
+           "loesung": {"1": "G", "2": "D", "3": "I", "4": "A", "5": "E", "6": "B"}}
+        ]
+      },
+      {
+        "nr": "II", "be": 8, "referenz_text": "Text II",
+        "teile": [
+          {"typ": "gapped_summary", "be": 8,
+           "anweisung": "Fill the gaps in the summary with appropriate words or expressions (one word per line) from the corresponding sections of the text. Do not make any changes. Please also provide the number of the line.",
+           "text": "The article explains that ______(1) ... research shows ______(2) ...",
+           "loesungen": {"1": "word", "2": "word", "3": "...", "4": "...", "5": "...", "6": "...", "7": "...", "8": "..."}}
+        ]
+      },
+      {
+        "nr": "III", "be": 10, "referenz_text": "Text III",
+        "teile": [
+          {"typ": "mediation_en_de", "be": 10,
+           "anweisung": "Bearbeiten Sie die folgenden Aufgaben auf Deutsch.",
+           "fragen": [
+             {"nr": "1", "frage": "Was ist konkret damit gemeint, wenn...", "be": 1, "loesung": "Deutsche Antwort..."},
+             {"nr": "2", "frage": "Inwiefern unterscheiden sich...", "be": 2, "loesung": "..."},
+             {"nr": "3", "frage": "Welcher bildhafte Vergleich...", "be": 2, "loesung": "..."},
+             {"nr": "4", "frage": "Inwiefern unterscheidet sich...", "be": 2, "loesung": "..."},
+             {"nr": "5", "frage": "Welche beiden Ziele...", "be": 2, "loesung": "..."},
+             {"nr": "6", "frage": "Weshalb ist ... irritiert...", "be": 1, "loesung": "..."}
+           ]}
+        ]
+      }
+    ]
+  },
+  "writing": {
+    "be": 36,
+    "mediation_de": {
+      "be": 12,
+      "anweisung": "Prepare an overview for a presentation. Write a coherent English text (ca. 150 words) using the two source texts below. Address the following aspects:",
+      "aspekte": ["Aspect 1", "Aspect 2", "Aspect 3", "Aspect 4"],
+      "texte": [
+        {"titel": "Text 1: German Title", "text": "German source text 1 (~150 words)..."},
+        {"titel": "Text 2: German Title", "text": "German source text 2 (~150 words)..."}
+      ]
+    },
+    "tasks": [
+      {"nr": 1, "thema": "Topic", "anweisung": "Comment on the importance of... and ways to achieve it. Write at least 300 words. Include information from all the material provided.", "materialien": [
+        {"nr": 1, "typ": "text_de", "text": "German source..."},
+        {"nr": 2, "typ": "statistik", "text": "Statistics/infographic description..."},
+        {"nr": 3, "typ": "cartoon/image", "text": "Cartoon/image description..."}
+      ]},
+      {"nr": 2, "thema": "Topic 2", "anweisung": "Discuss how... Write at least 300 words. Include information from all the material provided.", "materialien": [
+        {"nr": 1, "typ": "text_en", "text": "English source..."},
+        {"nr": 2, "typ": "statistik", "text": "Statistics description..."},
+        {"nr": 3, "typ": "text_de", "text": "German source..."}
+      ]}
+    ]
+  }
+}`;
+
+  const userPrompt = `Create a complete FOS/BOS Abiturprüfung English 13th grade (60 BE, fachgebundene/allgemeine Hochschulreife):
+Part 1 Reading (24 BE): Text I with Multiple Matching (6 BE, 6 gaps, 9 sentences A-I), Text II with Gapped Summary (8 BE, 8 gaps with line numbers), Text III (literary) with Mediation EN→DE (10 BE, 6 questions in German).
+Part 2 Writing (36 BE): Task IV Mediation D→E (12 BE, 2 German texts, ~150 words English), Task V Material-Based Writing (24 BE, 2 tasks to choose from, 300+ words, 3 materials each).
+ALL texts complete, realistic, C1 level. Include correct answers for Reading. Use current, relevant topics.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
