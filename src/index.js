@@ -2723,7 +2723,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
   let lastError = "";
 
   // === STUFE 1: Imagen 4 (beste Bildqualität + Text-Rendering) ===
-  const IMAGEN_MODELS = ["imagen-4.0-fast-generate-001", "imagen-4.0-generate-001"];
+  const IMAGEN_MODELS = ["imagen-4.0-generate-001", "imagen-4.0-fast-generate-001"];
   for (const modelId of IMAGEN_MODELS) {
     try {
       const imagenRes = await fetch(
