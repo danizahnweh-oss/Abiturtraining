@@ -55,6 +55,11 @@ function getAccessToken() {
 }
 
 async function apiCall(endpoint, body) {
+  // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
+  if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
+    const imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
   const res = await fetch(API_BASE + endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
@@ -104,6 +109,9 @@ function renderKorrekturFeedback(d) {
 
   // Übungsaufgaben bei schwachem Ergebnis
   renderUebungsaufgaben(d);
+
+  // Rewrite-Button anzeigen
+  renderRewriteButton(d);
 }
 
 /* ================= ÜBUNGSAUFGABEN ================= */
@@ -138,6 +146,186 @@ function renderUebungsaufgaben(d) {
 
   if (typeof renderMath === "function") renderMath(body);
   card.style.display = "";
+}
+
+/* ================= REWRITE / VERBESSERUNGSVORSCHLÄGE ================= */
+
+// Seite → API-Typ Mapping
+var REWRITE_TYPE_MAP = {
+  "analyse": "deutsch-analyse", "eroerterung": "deutsch-eroerterung",
+  "interpretation": "deutsch-interpretation",
+  "materialgestuetzt-argumentierend": "deutsch-materialgestuetzt-argumentierend",
+  "materialgestuetzt-informierend": "deutsch-materialgestuetzt-informierend",
+  "mediation": "mediation", "writing": "writing",
+  "francais-mediation": "french-mediation", "francais-schreiben": "french-writing",
+  "italiano-mediation": "italian-mediation", "italiano-schreiben": "italian-writing",
+  "geschichte": "geschichte", "geschichte-abitur": "geschichte-abitur",
+  "ethik": "ethik", "ethik-abitur": "ethik-abitur",
+  "religion": "religion", "religion-abitur": "religion-abitur",
+  "katholisch": "katholisch", "katholisch-abitur": "katholisch-abitur",
+  "geographie": "geographie", "geographie-abitur": "geographie-abitur",
+  "politik": "pug-klausur", "pug-abitur": "pug-abitur",
+  "wr": "wr", "wr-abitur": "wr-abitur",
+  "latein": "latein", "latein-abitur": "latein-abitur",
+  "mathe": "mathe", "mathe-abitur": "mathe-abitur",
+  "chemie": "chemie", "chemie-abitur": "chemie-abitur",
+  "physik": "physik", "physik-abitur": "physik-abitur",
+  "biologie": "biologie", "biologie-abitur": "biologie-abitur",
+  "sport": "sport", "sport-abitur": "sport-abitur",
+  "informatik": "informatik", "informatik-abitur": "informatik-abitur"
+};
+
+function getRewriteType() {
+  var page = window.location.pathname.split("/").pop().replace(".html", "");
+  return REWRITE_TYPE_MAP[page] || page;
+}
+
+function getRewriteTopic() {
+  if (typeof CONFIG !== "undefined" && CONFIG.storedData) {
+    return CONFIG.storedData.textsorte || CONFIG.storedData.thema || CONFIG.storedData.topic || CONFIG.storedData.aufgabenstellung || "";
+  }
+  return "";
+}
+
+function renderRewriteButton(feedbackData) {
+  var textarea = document.getElementById("studentText");
+  if (!textarea || !textarea.value.trim()) return;
+
+  // Alten Button entfernen
+  var old = document.getElementById("rewriteBtnCard");
+  if (old) old.remove();
+
+  // Einfuege-Anker: nach aspekteCard, korrekturCard oder feedbackBody
+  var anchor = document.getElementById("aspekteCard") || document.getElementById("korrekturCard");
+  if (!anchor) {
+    var fb = document.getElementById("feedbackBody");
+    if (fb) anchor = fb.closest(".card");
+  }
+  if (!anchor) return;
+
+  var card = document.createElement("div");
+  card.id = "rewriteBtnCard";
+  card.className = "card";
+  card.style.cssText = "padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;cursor:pointer;transition:background .15s";
+  card.innerHTML = '<span style="font-size:1.4rem">✨</span>' +
+    '<div style="flex:1"><strong>Verbesserungsvorschläge</strong><br>' +
+    '<small style="color:var(--ink-muted)">KI zeigt dir konkrete Formulierungen, die deinen Text besser machen</small></div>' +
+    '<span style="color:var(--ink-muted);font-size:1.2rem">→</span>';
+  card.onclick = function () { loadRewriteSuggestions(feedbackData); };
+
+  anchor.parentNode.insertBefore(card, anchor.nextSibling);
+}
+
+async function loadRewriteSuggestions(feedbackData) {
+  var textarea = document.getElementById("studentText");
+  if (!textarea || !textarea.value.trim()) return;
+
+  // Button durch Lade-Zustand ersetzen
+  var btnCard = document.getElementById("rewriteBtnCard");
+  if (btnCard) {
+    btnCard.onclick = null;
+    btnCard.style.cursor = "default";
+    btnCard.innerHTML = '<div class="loader-spinner" style="width:24px;height:24px;border-width:2px"></div>' +
+      '<span style="color:var(--ink-muted)">Verbesserungsvorschläge werden erstellt...</span>';
+  }
+
+  try {
+    var result = await apiCall("/api/rewrite", {
+      student_text: textarea.value,
+      type: getRewriteType(),
+      feedback: (feedbackData.feedback || "").substring(0, 3000),
+      topic: getRewriteTopic()
+    });
+
+    if (!result.suggestions || !result.suggestions.length) {
+      if (btnCard) btnCard.innerHTML = '<span style="color:var(--ink-muted)">Keine Vorschläge verfügbar.</span>';
+      return;
+    }
+
+    showRewriteOverlay(result);
+  } catch (e) {
+    if (btnCard) {
+      btnCard.innerHTML = '<span style="color:var(--warning)">Fehler: ' + escapeHtml(e.message) + '</span>';
+      btnCard.style.cursor = "pointer";
+      btnCard.onclick = function () { loadRewriteSuggestions(feedbackData); };
+    }
+  }
+}
+
+var REWRITE_CATEGORY_COLORS = {
+  "Fachsprache": "#6366f1", "Argumentation": "#059669", "Struktur": "#b45309",
+  "Stil": "#db2777", "Grammatik": "#ef4444", "Inhalt": "#2563eb", "Quellenarbeit": "#7c3aed"
+};
+
+function showRewriteOverlay(result) {
+  // Altes Overlay entfernen
+  var old = document.getElementById("rewriteOverlay");
+  if (old) old.remove();
+
+  var overlay = document.createElement("div");
+  overlay.id = "rewriteOverlay";
+  overlay.className = "rewrite-overlay";
+
+  var html = '<div class="rewrite-panel">' +
+    '<div class="rewrite-header">' +
+    '<h3>✨ Verbesserungsvorschläge</h3>' +
+    '<button class="rewrite-close" onclick="closeRewriteOverlay()" aria-label="Schließen">✕</button>' +
+    '</div>' +
+    '<div class="rewrite-body">';
+
+  // Vorschlaege
+  result.suggestions.forEach(function (s, i) {
+    var catColor = REWRITE_CATEGORY_COLORS[s.category] || "#6b7280";
+    html += '<div class="rewrite-suggestion">' +
+      '<div class="rewrite-suggestion-header">' +
+      '<span class="rewrite-nr">' + (i + 1) + '</span>' +
+      '<span class="rewrite-category" style="background:' + catColor + '">' + escapeHtml(s.category || "") + '</span>' +
+      '</div>' +
+      '<div class="rewrite-comparison">' +
+      '<div class="rewrite-before"><div class="rewrite-label">Vorher</div><div class="rewrite-text">' + escapeHtml(s.original || "") + '</div></div>' +
+      '<div class="rewrite-arrow">→</div>' +
+      '<div class="rewrite-after"><div class="rewrite-label">Nachher</div><div class="rewrite-text">' + escapeHtml(s.improved || "") + '</div></div>' +
+      '</div>' +
+      '<div class="rewrite-reason">' + escapeHtml(s.reason || "") + '</div>' +
+      '</div>';
+  });
+
+  // Umgeschriebener Absatz
+  if (result.rewritten_paragraph) {
+    html += '<div class="rewrite-paragraph">' +
+      '<h4>Beispiel-Umformulierung</h4>' +
+      '<p>' + escapeHtml(result.rewritten_paragraph) + '</p>' +
+      '</div>';
+  }
+
+  html += '</div></div>';
+  overlay.innerHTML = html;
+
+  // Klick auf Hintergrund schliesst Overlay
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) closeRewriteOverlay();
+  });
+
+  document.body.appendChild(overlay);
+
+  // Button aktualisieren
+  var btnCard = document.getElementById("rewriteBtnCard");
+  if (btnCard) {
+    btnCard.innerHTML = '<span style="font-size:1.4rem">✨</span>' +
+      '<div style="flex:1"><strong>Verbesserungsvorschläge</strong><br>' +
+      '<small style="color:var(--ink-muted)">' + result.suggestions.length + ' Vorschläge — nochmal anzeigen</small></div>' +
+      '<span style="color:var(--ink-muted);font-size:1.2rem">→</span>';
+    btnCard.style.cursor = "pointer";
+    btnCard.onclick = function () { showRewriteOverlay(result); };
+  }
+}
+
+function closeRewriteOverlay() {
+  var overlay = document.getElementById("rewriteOverlay");
+  if (overlay) {
+    overlay.style.animation = "fadeOut .2s ease-out forwards";
+    setTimeout(function () { overlay.remove(); }, 200);
+  }
 }
 
 /* ================= NAVIGATION ================= */
@@ -721,6 +909,36 @@ function syncHL() {
 
 const ocrPages = [];
 
+/** Bild auf max maxDim px resizen und als JPEG Base64 zurückgeben */
+function compressImage(file, maxDim) {
+  maxDim = maxDim || 2000;
+  return new Promise(function (resolve, reject) {
+    var img = new Image();
+    img.onload = function () {
+      var w = img.naturalWidth, h = img.naturalHeight;
+      if (w > maxDim || h > maxDim) {
+        var ratio = Math.min(maxDim / w, maxDim / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+      }
+      var canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      var dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+      resolve(dataUrl.split(",")[1]);
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = function () { reject(new Error("Bild konnte nicht geladen werden.")); };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
+/** Komprimierte Base64-Bilder aller erfolgreich erkannten OCR-Seiten */
+function getOCRImages() {
+  return ocrPages.filter(function (p) { return p.base64 && p.status === "done"; }).map(function (p) { return p.base64; });
+}
+
 async function handleOCRFiles(fileList) {
   const files = Array.from(fileList).filter(f => {
     if (!f.type.startsWith("image/")) { showToast(f.name + " ist kein Bild."); return false; }
@@ -742,7 +960,7 @@ async function handleOCRFiles(fileList) {
     document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length}`;
 
     try {
-      const b64 = await fileToBase64(p.file);
+      const b64 = await compressImage(p.file, 2000);
       p.base64 = b64;
       const d = await apiCall("/api/ocr", { image_base64: b64 });
       p.text = d.text || "";
@@ -938,6 +1156,123 @@ window.addEventListener("popstate", function (e) {
   }
 });
 
+/* ================= LEHRER-CODE UI ================= */
+
+function initTeacherCodeUI() {
+  var headerRight = document.querySelector(".header-right");
+  if (!headerRight || !sessionStorage.getItem("student_name")) return;
+  if (typeof MODULE_CONFIG === "undefined" || !MODULE_CONFIG.historyType) return;
+
+  var subject = MODULE_CONFIG.historyType;
+  var savedCode = localStorage.getItem("teacher_code_" + subject) || "";
+
+  var codeBtn = document.createElement("button");
+  codeBtn.className = "teacher-code-btn";
+  codeBtn.id = "teacherCodeBtn";
+  codeBtn.title = savedCode ? "Lehrer-Code: " + savedCode : "Lehrer-Code eingeben";
+  codeBtn.textContent = savedCode || "Code";
+  codeBtn.style.cssText = "background:" + (savedCode ? "var(--accent)" : "var(--accent-soft)") + ";border:1px solid " + (savedCode ? "var(--accent)" : "var(--border)") + ";border-radius:var(--radius-sm);padding:.3rem .6rem;font-size:.75rem;font-family:var(--font-mono);font-weight:700;color:" + (savedCode ? "#fff" : "var(--accent)") + ";cursor:pointer;min-height:36px;min-width:44px;transition:all .15s;";
+  codeBtn.onclick = showTeacherCodeModal;
+
+  var themeBtn = headerRight.querySelector(".theme-toggle");
+  if (themeBtn) {
+    headerRight.insertBefore(codeBtn, themeBtn);
+  } else {
+    headerRight.appendChild(codeBtn);
+  }
+}
+
+function showTeacherCodeModal() {
+  var old = document.getElementById("teacherCodeModal");
+  if (old) old.remove();
+
+  var subject = MODULE_CONFIG.historyType;
+  var savedCode = localStorage.getItem("teacher_code_" + subject) || "";
+  var savedInfo = localStorage.getItem("teacher_code_info_" + subject) || "";
+
+  var overlay = document.createElement("div");
+  overlay.id = "teacherCodeModal";
+  overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;display:flex;align-items:center;justify-content:center;";
+
+  var infoHtml = savedInfo ? '<p style="font-size:.82rem;color:var(--accent);margin-bottom:.8rem;font-weight:600;">' + escapeHtml(savedInfo) + '</p>' : '';
+  var removeBtn = savedCode ? '<button class="btn btn-secondary" style="flex:1" onclick="removeTeacherCode()">Entfernen</button>' : '';
+
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:var(--radius-lg);padding:2rem;max-width:400px;width:90%;box-shadow:var(--shadow-xl,0 25px 50px -12px rgba(0,0,0,.25));">' +
+      '<h3 style="margin:0 0 1rem;font-family:var(--font-display);">Lehrer-Code</h3>' +
+      '<p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">' +
+        'Gib den Code deiner Lehrkraft ein, damit sie deine Ergebnisse in diesem Fach sehen kann.' +
+      '</p>' +
+      infoHtml +
+      '<input type="text" id="teacherCodeInput" value="' + savedCode + '" placeholder="Z.B. ABC123" ' +
+        'style="width:100%;padding:.7rem;font-size:1.1rem;font-family:var(--font-mono);text-align:center;text-transform:uppercase;letter-spacing:.15em;border:2px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);box-sizing:border-box;" ' +
+        'maxlength="6" autocomplete="off" onkeyup="if(event.key===\'Enter\')saveTeacherCode()">' +
+      '<div id="teacherCodeError" style="color:#ef4444;font-size:.82rem;margin-top:.5rem;display:none;"></div>' +
+      '<div style="display:flex;gap:.5rem;margin-top:1rem;">' +
+        '<button class="btn" style="flex:1" onclick="saveTeacherCode()">Speichern</button>' +
+        removeBtn +
+        '<button class="btn btn-secondary" onclick="document.getElementById(\'teacherCodeModal\').remove()">Abbrechen</button>' +
+      '</div>' +
+    '</div>';
+
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+  document.getElementById("teacherCodeInput").focus();
+}
+
+async function saveTeacherCode() {
+  var input = document.getElementById("teacherCodeInput");
+  var code = input.value.toUpperCase().trim();
+  var errEl = document.getElementById("teacherCodeError");
+  var subject = MODULE_CONFIG.historyType;
+
+  if (!code || code.length < 4) {
+    errEl.textContent = "Code muss mindestens 4 Zeichen haben.";
+    errEl.style.display = "block";
+    return;
+  }
+
+  try {
+    var res = await apiCall("/api/link-student-code", {
+      student_name: sessionStorage.getItem("student_name"),
+      code: code,
+      subject: subject
+    });
+    localStorage.setItem("teacher_code_" + subject, code);
+    localStorage.setItem("teacher_code_info_" + subject, res.teacher_name + " \u00b7 " + res.label);
+    var modal = document.getElementById("teacherCodeModal");
+    if (modal) modal.remove();
+    updateTeacherCodeBtn(code);
+    if (typeof showToast === "function") showToast("Code gespeichert!", "success");
+  } catch (e) {
+    errEl.textContent = e.message || "Ungueltiger Code.";
+    errEl.style.display = "block";
+  }
+}
+
+function removeTeacherCode() {
+  var subject = MODULE_CONFIG.historyType;
+  localStorage.removeItem("teacher_code_" + subject);
+  localStorage.removeItem("teacher_code_info_" + subject);
+  var modal = document.getElementById("teacherCodeModal");
+  if (modal) modal.remove();
+  updateTeacherCodeBtn("");
+  if (typeof showToast === "function") showToast("Code entfernt.");
+}
+
+function updateTeacherCodeBtn(code) {
+  var btn = document.getElementById("teacherCodeBtn");
+  if (!btn) return;
+  btn.textContent = code || "Code";
+  btn.title = code ? "Lehrer-Code: " + code : "Lehrer-Code eingeben";
+  btn.style.background = code ? "var(--accent)" : "var(--accent-soft)";
+  btn.style.color = code ? "#fff" : "var(--accent)";
+  btn.style.borderColor = code ? "var(--accent)" : "var(--border)";
+}
+
 // Main init — only for module pages (deutsch.html, etc.), not index.html
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
@@ -965,6 +1300,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     }
     restoreSession();
     initHL();
+    initTeacherCodeUI();
     setInterval(saveSession, 15000);
     history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
     return;
@@ -986,6 +1322,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   // Restore & init
   restoreSession();
   initHL();
+  initTeacherCodeUI();
   setInterval(saveSession, 30000);
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 
@@ -1018,4 +1355,80 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   }
 };
 
+/* ============================
+   Zentrale Bildlade-Funktion
+   Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
+   Generiert textfreie Bilder mit HTML-Label-Overlays.
+   ============================ */
+async function loadEducationalImage(prompt, containerId, labels, style) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  try {
+    var d = await apiCall("/api/generate-image", {
+      prompt: prompt,
+      noText: true,
+      style: style || "diagram"
+    });
+
+    var credit = d.credit
+      ? '<div class="edu-img-credit">' + escapeHtml(d.credit) + '</div>'
+      : '';
+    var caption = d.caption
+      ? '<figcaption class="edu-img-caption">' + escapeHtml(d.caption) + '</figcaption>'
+      : '';
+
+    // Labels unter dem Bild als Beschriftungen (nicht mehr als Overlay)
+    var titleHtml = '';
+    var labelsHtml = '';
+    var legendHtml = '';
+    if (labels) {
+      // Titel als Überschrift unter dem Bild
+      if (labels.title) {
+        titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
+      }
+      // Achsen- und positionierte Labels als Tag-Liste
+      var allLabels = [];
+      if (labels.y_axis) allLabels.push(labels.y_axis);
+      if (labels.x_axis) allLabels.push(labels.x_axis);
+      if (labels.labels && labels.labels.length) {
+        labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
+      }
+      if (allLabels.length) {
+        labelsHtml = '<div class="edu-img-labels">' +
+          allLabels.map(function(t) {
+            return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+          }).join('') +
+          '</div>';
+      }
+      // Legende
+      if (labels.legend && labels.legend.length) {
+        legendHtml = '<div class="edu-img-legend">' +
+          labels.legend.map(function(l) {
+            return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
+          }).join('') +
+          '</div>';
+      }
+    }
+
+    var altText = labels && labels.title ? escapeHtml(labels.title) : 'Illustration';
+    el.innerHTML =
+      '<figure class="edu-img-figure">' +
+        '<div class="edu-img-wrapper">' +
+          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
+        '</div>' +
+        titleHtml + labelsHtml + caption + legendHtml + credit +
+      '</figure>';
+  } catch (e) {
+    console.error('Bild-Fehler:', e);
+    var el2 = document.getElementById(containerId);
+    if (el2) el2.innerHTML =
+      '<div class="edu-img-error">Bild konnte nicht geladen werden.</div>';
+  }
+}
+
+// Rückwärtskompatibilität
+var loadDallEImage = function(prompt, containerId) {
+  loadEducationalImage(prompt, containerId, null);
+};
+var loadUnsplashImage = loadDallEImage;
 

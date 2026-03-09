@@ -1229,6 +1229,117 @@ textarea:focus {
   color: var(--ink-muted);
 }
 
+/* ====== KI-ROBOTER ANIMATION ====== */
+.ki-robot-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  padding: 1rem;
+  user-select: none;
+}
+.ki-robot-svg {
+  width: 180px;
+  height: auto;
+}
+
+/* SVG-Farben (Light + Dark Mode via CSS Custom Properties) */
+.ki-s-desk { fill: var(--accent); }
+.ki-s-body { fill: var(--accent); }
+.ki-s-stem { stroke: var(--accent); fill: none; }
+.ki-s-arm { fill: var(--accent); }
+.ki-s-paper { fill: var(--card-bg, #fff); stroke: var(--border, #ddd); stroke-width: 1; }
+.ki-s-line { stroke: var(--ink-muted, #999); stroke-width: .8; opacity: .35; fill: none; }
+.ki-s-eye-bg { fill: var(--card-bg, #fff); }
+.ki-s-pupil { fill: var(--ink, #333); }
+
+/* Augen blinzeln */
+.ki-s-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: kiBlink 4s ease-in-out infinite;
+}
+@keyframes kiBlink {
+  0%, 43%, 47%, 100% { transform: scaleY(1); }
+  45% { transform: scaleY(.1); }
+}
+
+/* Arme tippen */
+.ki-s-arm-l {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: kiTypeL .55s ease-in-out infinite alternate;
+}
+.ki-s-arm-r {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: kiTypeR .55s ease-in-out infinite alternate-reverse;
+}
+@keyframes kiTypeL {
+  from { transform: rotate(0); }
+  to { transform: translateY(2px) rotate(-3deg); }
+}
+@keyframes kiTypeR {
+  from { transform: rotate(0); }
+  to { transform: translateY(2px) rotate(3deg); }
+}
+
+/* Antennen-Licht pulsiert */
+.ki-s-glow {
+  fill: #f59e0b;
+  animation: kiGlow 2s ease-in-out infinite;
+}
+@keyframes kiGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+
+/* Brust-LED pulsiert */
+.ki-s-chest {
+  fill: #4ade80;
+  animation: kiChest 1.5s ease-in-out infinite;
+}
+@keyframes kiChest {
+  0%, 100% { opacity: .9; }
+  50% { opacity: .2; }
+}
+
+/* Stift schreibt */
+.ki-s-pencil {
+  transform-box: fill-box;
+  transform-origin: top left;
+  animation: kiWrite 1s ease-in-out infinite;
+}
+@keyframes kiWrite {
+  0%, 100% { transform: rotate(0); }
+  30% { transform: rotate(3deg) translate(1px, 1px); }
+  70% { transform: rotate(-2deg) translate(-1px, .5px); }
+}
+
+/* Status-Text mit animierten Punkten */
+.ki-status-text {
+  font-size: .95rem;
+  color: var(--ink-muted);
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+}
+.ki-dots {
+  display: inline-flex;
+  margin-left: 1px;
+}
+.ki-dots span {
+  animation: kiDot 1.4s infinite;
+  opacity: 0;
+  font-weight: bold;
+}
+.ki-dots span:nth-child(2) { animation-delay: .2s; }
+.ki-dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes kiDot {
+  0%, 60%, 100% { opacity: 0; }
+  30% { opacity: 1; }
+}
+
 /* ====== TIMER ====== */
 .timer-bar {
   background: var(--surface);
