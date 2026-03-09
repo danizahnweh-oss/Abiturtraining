@@ -493,6 +493,9 @@ export default {
       if (pathname === "/api/ocr" && request.method === "POST") {
         return await handleOCR(request, env);
       }
+      if (pathname === "/api/ocr-bwr" && request.method === "POST") {
+        return await handleOCRBWR(request, env);
+      }
       if (pathname === "/api/parse-task" && request.method === "POST") {
         return await handleParseTask(request, env);
       }
@@ -1754,6 +1757,64 @@ async function handleOCR(request, env) {
   ];
 
   const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-5.2", temperature: 0.1 });
+  return jsonResponse({ text: text || "" }, 200, env);
+}
+
+/* ================= BWR: OCR (BWR-spezifische Handschrift-Transkription) ================= */
+async function handleOCRBWR(request, env) {
+  const { image_base64 } = await request.json();
+  if (!image_base64) {
+    return jsonResponse({ error: "image_base64 required" }, 400, env);
+  }
+
+  const content = [
+    { type: "text", text: `Transkribiere die handgeschriebene BwR-Lösung (Betriebswirtschaftslehre mit Rechnungswesen) aus diesem Bild.
+
+WICHTIG – BWR-SPEZIFISCHE REGELN:
+
+1. TABELLEN als Markdown-Tabellen darstellen:
+   - Bilanzen/Strukturbilanzen: | Aktiva | € | Passiva | € |
+   - BAB: | Kostenart | Gesamt | Material | Fertigung | ... |
+   - Tilgungspläne: | Jahr | Restschuld | Zinsen | Tilgung | Annuität |
+   - Ergebnisverwendung: | Position | Betrag |
+   - Kapitalwert-Tabellen: | Jahr | Einzahlung | Auszahlung | Überschuss | AZF | Barwert |
+   - Plankostenrechnung: | Größe | Wert |
+
+2. BUCHUNGSSÄTZE im Format:
+   Soll-Konto [Betrag] an Haben-Konto [Betrag]
+
+3. STAFFELRECHNUNGEN strukturiert:
+   Listenpreis: 50.000,00 €
+   - Rabatt 20 %: 10.000,00 €
+   = Zieleinkaufspreis: 40.000,00 €
+   - Skonto 2 %: 800,00 €
+   = Bareinkaufspreis: 39.200,00 €
+   + Bezugskosten: 1.500,00 €
+   = Anschaffungskosten: 40.700,00 €
+
+4. BERECHNUNGEN mit Ansatz:
+   Formelname: Formel
+   Einsetzen der Werte
+   = Ergebnis mit Einheit
+
+5. KENNZAHLEN:
+   Name der Kennzahl
+   Formel: z.B. EK-Quote = EK / GK × 100
+   Berechnung: 450.000 / 1.200.000 × 100
+   = 37,50 %
+
+6. ALLGEMEINE REGELN:
+   - Geldbeträge mit € und 2 Dezimalstellen: 12.345,67 €
+   - Prozentsätze mit 2 Dezimalstellen: 37,50 %
+   - Unsichere/unleserliche Stellen mit [?] markieren
+   - Durchgestrichenes ignorieren
+   - Unterstreichungen als **fett** markieren
+
+Gib NUR den transkribierten Text zurück, keine Erklärungen oder Kommentare.` },
+    { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
+  ];
+
+  const text = await callOpenAI(env, [{ role: "user", content }], 3000, { model: "gpt-5.2", temperature: 0.1 });
   return jsonResponse({ text: text || "" }, 200, env);
 }
 
@@ -12840,8 +12901,8 @@ async function handleFOSRoute(pathname, request, env) {
 
   // === MATHE ABITUR 13 (FOS-Abiturprüfung 13. Klasse) ===
   if (route === "generate-abitur13-mathe") return handleFOSGenerateAbitur13Mathe(body, env);
-  if (route === "grade-abitur13-mathe") return handleGradeAbiturMathe(fakeReq, env);
-  if (route === "model-answer-abitur13-mathe") return handleModelAnswerAbiturMathe(fakeReq, env);
+  if (route === "grade-abitur13-mathe") return handleGradeAbitur13Mathe(fakeReq, env);
+  if (route === "model-answer-abitur13-mathe") return handleModelAnswerAbitur13Mathe(fakeReq, env);
 
   // === BWR ABITUR (FOS-Fachabitur) ===
   if (route === "generate-abitur-bwr") return handleFOSGenerateAbiturBWR(body, env);
@@ -13047,46 +13108,72 @@ KEINE Geometrie! Jede Teilaufgabe braucht einen klaren Operator.`;
 
 /* ================= FOS MATHE ABITUR 13: GENERATE (Lineare Algebra statt Stochastik) ================= */
 async function handleFOSGenerateAbitur13Mathe(body, env) {
-  const systemPrompt = `Du bist ein Experte für die FOS-Abiturprüfung Mathematik 13. Klasse (Bayern).
-Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 100 BE.
+  const systemPrompt = `Du bist ein Experte für die FOS/BOS-Abiturprüfung Mathematik 13. Klasse (Bayern, Nichttechnische Ausbildungsrichtungen, fachgebundene Hochschulreife).
+Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit exakt 100 BE.
 
-PRÜFUNGSSTRUKTUR (FOS Bayern, 13. Klasse):
+PRÜFUNGSSTRUKTUR (wie echte FOS-Abiturprüfung):
 
-TEIL 1 (34 BE, 60 min, OHNE Hilfsmittel/Merkhilfe/CAS):
-- Analysis (22 BE): 3-4 kompakte Aufgaben, ohne CAS lösbar
-- Lineare Algebra / Analytische Geometrie (12 BE): 2 kompakte Aufgaben
+TEIL 1 (34 BE, 60 min, OHNE Hilfsmittel):
+- Analysis (22 BE): 3-4 Aufgaben, OHNE Hilfsmittel lösbar, "schöne" Zahlen
+- Lineare Algebra / Analytische Geometrie (12 BE): 2 Aufgaben
 
-TEIL 2 (66 BE, 120 min, MIT Hilfsmittel/Merkhilfe/CAS):
-- Analysis (43 BE): 2 große mehrteilige Aufgaben mit Sachkontext
-- Lineare Algebra / Analytische Geometrie (23 BE): 1 große mehrteilige Aufgabe
+TEIL 2 (66 BE, 120 min, MIT Hilfsmitteln/Merkhilfe):
+- Analysis (43 BE): 2 große mehrteilige Aufgaben mit durchgängigem Sachkontext
+- Lineare Algebra / Analytische Geometrie (23 BE): 1 große mehrteilige Aufgabe mit Sachkontext
 
 WICHTIG: KEINE Stochastik in der 13. Klasse! Stattdessen Lineare Algebra/Analytische Geometrie!
 
+STIL DER ECHTEN PRÜFUNG (unbedingt einhalten!):
+- JEDE Aufgabe in Teil 2 hat einen REALEN SACHKONTEXT (z.B. Kinderbecken, Skateboardrampe, Solarmodul, Kletterwand, Berglandschaft, Milchsäuregärung, Stromleitung)
+- Aufgaben referenzieren Abbildungen ("Die nebenstehende Abbildung zeigt...", "Die untenstehende Abbildung zeigt...")
+- Bei schwierigen Zwischenschritten: "Mögliche Teilergebnisse" angeben, z.B. "[Mögliches Teilergebnis: $f'(x) = ...$]"
+- Hinweis "Runden Sie Ihre Ergebnisse auf eine/zwei Nachkommastelle(n)." wo nötig
+- Hinweis "Auf die Mitführung von Einheiten bei den Rechnungen kann verzichtet werden." bei Sachkontexten
+- Teil 1 Analysis: Aufgaben zu gebrochen-rationalen Funktionen (Definitionslücken, Asymptoten, Nullstellen), Gleichungen lösen (e-Funktion, ln), Integrale berechnen
+- Teil 1 LinAlg: Punkte/Vektoren im R³, Ebenengleichungen, Flächeninhalt, Orthogonalität zeigen
+- Teil 2 Analysis: Komplexe Kurvendiskussionen mit Kontext, Monotonie, Extrema, Wendepunkte, Integrale, Tangenten, Zeichnungen
+- Teil 2 LinAlg: Geraden/Ebenen im R³, Abstände, Winkel, Flächeninhalte, LGS lösen
+
+NUMMERIERUNG (wie Original-Prüfungen):
+- Teil 1: Aufgaben 1, 2, 3, 4 (durchnummeriert innerhalb Analysis bzw. LinAlg)
+- Teilaufgaben: 1.1, 1.2, 2.1, 2.2 etc.
+- Zusammengehörige Aufgaben: 1.0 (Kontext ohne eigene BE), 1.1 (erste Teilaufgabe), 1.2, 1.3 etc.
+- Teil 2: Ebenfalls 1.0, 1.1, 1.2, ..., 2.0, 2.1, 2.2
+
 FOS-LEHRPLAN (13. Klasse):
-Analysis: Gebrochen-rationale Funktionen (Definitionslücken, Asymptoten), ln-Funktion, komplexe Kurvendiskussion, partielle Integration, uneigentliche Integrale, Parameteraufgaben
-Lineare Algebra/Analytische Geometrie: Vektoren (Addition, skalare Multiplikation), Skalarprodukt, Winkelberechnung, Geraden im Raum (Parameterform), Lagebeziehungen, Ebenen (Parameter-/Normalen-/Koordinatenform), Abstände (Punkt-Ebene, Punkt-Gerade), Kreuzprodukt, Volumenberechnung
+Analysis: Gebrochen-rationale Funktionen (Definitionslücken: stetig behebbar vs. Polstelle, senkrechte/waagrechte Asymptoten), ln-Funktion und ihre Eigenschaften, e-Funktion mit komplexeren Exponenten, komplexe Kurvendiskussion (Symmetrie, Nullstellen, Extrema, Wendepunkte, Monotonie, Krümmung), partielle Integration, uneigentliche Integrale, Parameteraufgaben, Tangenten/Normalen, Flächenberechnung
+Lineare Algebra/Analytische Geometrie: Vektoren im R³ (Addition, skalare Multiplikation, Linearkombination), Skalarprodukt und Orthogonalität, Kreuzprodukt und Flächeninhalt, Winkelberechnung, Geraden im Raum (Parameterform), Lagebeziehungen von Geraden, Ebenen (Parameter-/Normalen-/Koordinatenform, Umrechnung), Abstände (Punkt-Ebene, Punkt-Gerade), Schnittwinkel, Volumenberechnung, Lineare Gleichungssysteme (3×3)
 
 PFLICHT-REGELN:
-- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben
-- Teil 1 MUSS ohne CAS lösbar sein
-- LaTeX-Notation: $\\cdot$ statt *, $e^{-x}$ mit geschweiften Klammern, $\\frac{a}{b}$, Dezimalkomma $3{,}6$
+- JEDE Teilaufgabe MUSS einen klaren OPERATOR haben (Berechnen Sie, Zeigen Sie, Ermitteln Sie, Geben Sie an, Bestimmen Sie, Zeichnen Sie, Überprüfen Sie, Benennen Sie)
+- Teil 1 MUSS ohne Hilfsmittel lösbar sein (einfache Zahlen, keine langen Rechnungen)
+- Gesamt EXAKT 100 BE (Teil 1: exakt 34 BE, Teil 2: exakt 66 BE)
+- LaTeX-Notation: $\\cdot$ statt *, $e^{-x}$ mit geschweiften Klammern, $\\frac{a}{b}$, Dezimalkomma $3{,}6$, Vektoren $\\vec{AB}$, Matrizen $\\begin{pmatrix}...\\end{pmatrix}$
 
 Antworte NUR mit validem JSON:
 {
   "teil_a_pflicht": [
-    {"id": "A1", "sachgebiet": "Analysis", "be": 7, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 3}]}
+    {"id": "1", "sachgebiet": "Analysis", "be": 6, "text": "Aufgabentext mit $LaTeX$", "teilaufgaben": []},
+    {"id": "2", "sachgebiet": "Analysis", "be": 7, "text": "Kontexttext (2.0)", "teilaufgaben": [{"id": "2.1", "text": "...", "be": 3}, {"id": "2.2", "text": "...", "be": 4}]},
+    {"id": "3", "sachgebiet": "Analysis", "be": 4, "text": "...", "teilaufgaben": []},
+    {"id": "4", "sachgebiet": "Analysis", "be": 5, "text": "...", "teilaufgaben": []},
+    {"id": "5", "sachgebiet": "Lineare Algebra / Analytische Geometrie", "be": 9, "text": "Kontexttext (1.0)", "teilaufgaben": [{"id": "1.1", "text": "...", "be": 3}, {"id": "1.2", "text": "...", "be": 3}, {"id": "1.3", "text": "...", "be": 3}]},
+    {"id": "6", "sachgebiet": "Lineare Algebra / Analytische Geometrie", "be": 3, "text": "...", "teilaufgaben": [{"id": "2.1", "text": "...", "be": 1}, {"id": "2.2", "text": "...", "be": 2}]}
   ],
   "teil_a_wahl": [],
   "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 22, "text": "...", "teilaufgaben": [{"id": "a)", "text": "...", "be": 4}]}
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "Sachkontext mit Abbildungsverweis", "teilaufgaben": [{"id": "1.1", "text": "...", "be": 3}, {"id": "1.2", "text": "...", "be": 10}]},
+    {"id": "B2", "sachgebiet": "Analysis", "be": 13, "text": "Zweiter Sachkontext", "teilaufgaben": [{"id": "2.1", "text": "...", "be": 3}]},
+    {"id": "B3", "sachgebiet": "Lineare Algebra / Analytische Geometrie", "be": 23, "text": "Sachkontext im R³", "teilaufgaben": [{"id": "1.1", "text": "...", "be": 4}]}
   ]
 }
-Hinweis: teil_a_pflicht = Teil 1, teil_b = Teil 2. teil_a_wahl bleibt leer.`;
+Hinweis: teil_a_pflicht = Teil 1 (ohne Hilfsmittel), teil_b = Teil 2 (mit Hilfsmitteln). teil_a_wahl bleibt leer (kein Wahlteil).
+WICHTIG: Die Summe aller BE in teil_a_pflicht MUSS exakt 34 sein. Die Summe aller BE in teil_b MUSS exakt 66 sein.`;
 
-  const userPrompt = `Erstelle eine vollständige FOS-Abiturprüfung Mathematik 13. Klasse (100 BE).
-Teil 1 (34 BE): Analysis 22 BE + Lineare Algebra/Analytische Geometrie 12 BE, ohne CAS
-Teil 2 (66 BE): Analysis 43 BE + Lineare Algebra/Analytische Geometrie 23 BE, mit CAS
-KEINE Stochastik! Jede Teilaufgabe braucht einen klaren Operator.`;
+  const userPrompt = `Erstelle eine vollständige FOS-Abiturprüfung Mathematik 13. Klasse (100 BE) im Stil der echten bayerischen Prüfungen.
+Teil 1 (34 BE): Analysis 22 BE + Lineare Algebra/Analytische Geometrie 12 BE, ohne Hilfsmittel
+Teil 2 (66 BE): Analysis 43 BE + Lineare Algebra/Analytische Geometrie 23 BE, mit Hilfsmitteln
+KEINE Stochastik! Jede Teilaufgabe mit Operator. Sachkontexte in Teil 2. Mögliche Teilergebnisse angeben.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -13094,6 +13181,187 @@ KEINE Stochastik! Jede Teilaufgabe braucht einen klaren Operator.`;
   ], 16000);
 
   return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= FOS MATHE ABITUR 13: GRADE ================= */
+async function handleGradeAbitur13Mathe(request, env) {
+  const body = await request.json();
+  const { teil_a_pflicht, teil_a_wahl, teil_b, student_text_a, student_text_b, images } = body;
+
+  if (!student_text_a && !student_text_b) {
+    return jsonResponse({ error: "student_text erforderlich." }, 400, env);
+  }
+
+  let aufgabenInfo = "TEIL 1 (34 BE, ohne Hilfsmittel):\n\n";
+  aufgabenInfo += "Analysis (22 BE) + Lineare Algebra/Analytische Geometrie (12 BE):\n";
+  if (teil_a_pflicht && teil_a_pflicht.length) {
+    for (const a of teil_a_pflicht) {
+      aufgabenInfo += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  aufgabenInfo += "\n\nTEIL 2 (66 BE, mit Hilfsmitteln):\n";
+  aufgabenInfo += "Analysis (43 BE) + Lineare Algebra/Analytische Geometrie (23 BE):\n";
+  if (teil_b && teil_b.length) {
+    for (const b of teil_b) {
+      aufgabenInfo += `${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 500)}\n`;
+      if (b.teilaufgaben) {
+        for (const t of b.teilaufgaben) {
+          aufgabenInfo += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+        }
+      }
+    }
+  }
+
+  const rubricPrompt = `Du bewertest eine vollständige Mathematik-Abiturprüfung der FOS 13. Klasse (Bayern, fachgebundene Hochschulreife, 100 BE).
+
+PRÜFUNGSSTRUKTUR:
+- Teil 1 (34 BE): Analysis (22 BE) + Lineare Algebra/Analytische Geometrie (12 BE), OHNE Hilfsmittel
+- Teil 2 (66 BE): Analysis (43 BE) + Lineare Algebra/Analytische Geometrie (23 BE), MIT Hilfsmitteln
+- KEINE Stochastik in der 13. Klasse!
+- Gesamt: 100 BE
+
+BEWERTUNGSREGELN:
+- Bewerte jede Teilaufgabe einzeln: Ansatz, Rechnung, Ergebnis
+- Ansatz korrekt aber Rechenfehler → Teilpunkte
+- Folgefehler berücksichtigen (korrektes Weiterrechnen mit falschem Zwischenergebnis → Punkte)
+- Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe und LaTeX-Notation ($...$). Interpretiere beides großzügig.
+- Auch Skizzen/Zeichnungen gelten als Teil der Lösung
+
+BE → NOTENPUNKTE (Offizieller FOS-Schlüssel):
+96 BE → 15, 91 → 14, 86 → 13, 81 → 12, 76 → 11, 71 → 10
+66 → 9, 61 → 8, 56 → 7, 51 → 6, 46 → 5, 41 → 4
+34 → 3, 27 → 2, 20 → 1, <20 → 0
+Bei x,5 BE wird zugunsten des Prüflings aufgerundet.
+
+Verwende LaTeX-Notation ($...$, $$...$$) im Feedback.
+LATEX-REGELN: $\\cdot$ statt *, e-Funktion IMMER $e^{...}$ mit geschweiften Klammern (z.B. $e^{-x}$, $e^{-0{,}5x}$, NIEMALS $e^-x$ oder $\\exp(...)$), $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
+
+Antworte NUR mit validem JSON:
+{
+  "teil_a_be": <0-34>,
+  "teil_b_be": <0-66>,
+  "gesamt_be": <0-100>,
+  "note": <0-15>,
+  "feedback": "<Ausführliches Markdown-Feedback mit $LaTeX$, gegliedert nach Aufgaben: Teil 1 Analysis, Teil 1 LinAlg/AnalGeo, Teil 2 Analysis, Teil 2 LinAlg/AnalGeo. Stärken, Fehler, korrekte Lösungswege>"
+}`;
+
+  let studentTexts = "";
+  if (student_text_a) studentTexts += `Schülerlösung Teil 1 (ohne Hilfsmittel):\n${truncate(student_text_a, 12000)}\n\n`;
+  if (student_text_b) studentTexts += `Schülerlösung Teil 2 (mit Hilfsmitteln):\n${truncate(student_text_b, 12000)}`;
+
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_MINT : "";
+  const messages = [
+    { role: "system", content: rubricPrompt + bilderHinweis + UEBUNGSAUFGABEN_ANWEISUNG },
+    { role: "user", content: buildUserContent(`${aufgabenInfo}\n\n${studentTexts}`, images) }
+  ];
+
+  const openaiRes = await callOpenAI(env, messages, 10000);
+
+  try {
+    const parsed = extractJSON(openaiRes);
+    const teilABE = parsed.teil_a_be ?? null;
+    const teilBBE = parsed.teil_b_be ?? null;
+    let gesamtBE = parsed.gesamt_be ?? null;
+    let np = parsed.note ?? null;
+
+    if (gesamtBE == null && teilABE != null && teilBBE != null) {
+      gesamtBE = teilABE + teilBBE;
+    }
+    if (np == null && gesamtBE != null) {
+      // Offizieller FOS-Notenschlüssel
+      const table = [[96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10], [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4], [34, 3], [27, 2], [20, 1], [0, 0]];
+      np = 0;
+      // Bei x,5 zugunsten des Prüflings aufrunden
+      const be = gesamtBE % 1 === 0.5 ? Math.ceil(gesamtBE) : gesamtBE;
+      for (const [th, n] of table) { if (be >= th) { np = n; break; } }
+    }
+
+    return jsonResponse({
+      teil_a_be: teilABE,
+      teil_b_be: teilBBE,
+      gesamt_be: gesamtBE,
+      note: np,
+      feedback: parsed.feedback || "",
+      feedback_kurz: parsed.feedback_kurz || [],
+      uebungsaufgaben: parsed.uebungsaufgaben || []
+    }, 200, env);
+  } catch {
+    return jsonResponse({
+      teil_a_be: null,
+      teil_b_be: null,
+      gesamt_be: null,
+      note: null,
+      feedback: openaiRes,
+      feedback_kurz: [],
+      uebungsaufgaben: []
+    }, 200, env);
+  }
+}
+
+/* ================= FOS MATHE ABITUR 13: MODEL ANSWER ================= */
+async function handleModelAnswerAbitur13Mathe(request, env) {
+  const { teil_a_pflicht, teil_a_wahl, teil_b } = await request.json();
+
+  const systemPrompt = `Du bist ein Mathematik-Experte für die FOS-Abiturprüfung 13. Klasse (Bayern, fachgebundene Hochschulreife).
+Schreibe eine vorbildliche, vollständig ausgearbeitete Musterlösung für die GESAMTE Abiturprüfung.
+
+WICHTIG:
+- Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
+- Zeige JEDEN Lösungsschritt ausführlich
+- Gib bei jedem Schritt die BE an
+- Begründe Ansätze kurz
+- LATEX-REGELN: $\\cdot$ statt *, e-Funktion IMMER $e^{...}$ mit geschweiften Klammern (z.B. $e^{-x}$, $e^{-0{,}5x}$, NIEMALS $e^-x$ oder $\\exp(...)$), $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$
+- Formatiere als Markdown mit klaren Überschriften:
+  ## Teil 1 – Ohne Hilfsmittel (34 BE)
+  ### Analysis
+  #### Aufgabe 1 (x BE)
+  ...
+  ### Lineare Algebra / Analytische Geometrie
+  #### Aufgabe 1 (x BE)
+  ...
+  ## Teil 2 – Mit Hilfsmitteln (66 BE)
+  ### Analysis
+  #### Aufgabe 1 (x BE)
+  ...
+  ### Lineare Algebra / Analytische Geometrie
+  #### Aufgabe 1 (x BE)
+  ...
+- Am Ende: Zusammenfassung der BE pro Aufgabe und Gesamtergebnis
+- KEINE Stochastik — 13. Klasse hat Lineare Algebra/Analytische Geometrie statt Stochastik`;
+
+  let userContent = "TEIL 1 – OHNE HILFSMITTEL (34 BE):\n";
+  userContent += "Analysis (22 BE) + Lineare Algebra/Analytische Geometrie (12 BE):\n";
+  if (teil_a_pflicht && teil_a_pflicht.length) {
+    for (const a of teil_a_pflicht) {
+      userContent += `${a.id} – ${a.sachgebiet} (${a.be} BE): ${truncate(a.text || "", 500)}\n`;
+      if (a.teilaufgaben) {
+        for (const t of a.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+      }
+    }
+  }
+  userContent += "\nTEIL 2 – MIT HILFSMITTELN (66 BE):\n";
+  userContent += "Analysis (43 BE) + Lineare Algebra/Analytische Geometrie (23 BE):\n";
+  if (teil_b && teil_b.length) {
+    for (const b of teil_b) {
+      userContent += `${b.id} – ${b.sachgebiet} (${b.be} BE): ${truncate(b.text || "", 500)}\n`;
+      if (b.teilaufgaben) {
+        for (const t of b.teilaufgaben) userContent += `  ${t.id} (${t.be} BE): ${truncate(t.text, 300)}\n`;
+      }
+    }
+  }
+
+  const answer = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userContent }
+  ], 10000);
+
+  return jsonResponse({ model_answer: answer }, 200, env);
 }
 
 /* ================= FOS BWR ABITUR: GENERATE (FAP 12) ================= */
