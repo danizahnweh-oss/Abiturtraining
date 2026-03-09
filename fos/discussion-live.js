@@ -101,7 +101,7 @@ export async function generateDiscussionSetup(config) {
 
 /**
  * Generiert schriftliches Feedback nach der Diskussion.
- * Platzhalter-Prompt – wird später durch echtes ISB-Bewertungsraster ersetzt.
+ * Basiert auf dem offiziellen ISB-Bewertungsraster für Mündliche Gruppenprüfung 13.
  * @param {Object} config
  * @param {string} config.topic
  * @param {string[]} config.modelTranscription
@@ -122,22 +122,76 @@ export async function generateDiscussionFeedback(config) {
 
   var situationInfo = config.situation ? '\nSituation: ' + config.situation + '\n' : '';
 
-  var prompt = 'You are an experienced Bavarian FOS English teacher evaluating a group discussion (Mündliche Gruppenprüfung).\n\n' +
+  var rubric =
+    'OFFIZIELLES ISB-BEWERTUNGSRASTER – Mündliche Gruppenprüfung (0–15 Punkte)\n' +
+    'Bewerte in DREI Kategorien und bilde daraus eine Gesamtnote.\n\n' +
+    '=== KATEGORIE 1: Sprachbeherrschung (fluency, accuracy, range) ===\n' +
+    '15 P: Besonders mühelos und mit Leichtigkeit; Aussagen besitzen hohe Wirksamkeit.\n' +
+    '14-13 P: Fast durchweg spontan und fließend; korrekte Sprache mit wenigen Flüchtigkeitsfehlern; idiomatisches Englisch und sehr guter thematischer Wortschatz erlauben Präzision im Ausdruck.\n' +
+    '12-10 P: Fast durchweg spontan und fließend; weitgehend korrekte Sprache; weitgehend idiomatisches Englisch und guter thematischer Wortschatz erlauben Präzision im Ausdruck.\n' +
+    '9-7 P: Weitgehend fließend; etliche sprachliche Fehler kommen vor; Idiomatik und thematischer Wortschatz stellenweise vorhanden.\n' +
+    '6-4 P: Unter gelegentlichem Zögern insgesamt relativ fließend; vereinzelt sinnstörende Fehler, insgesamt gut verständlich; Idiomatik und thematischer Wortschatz ansatzweise vorhanden.\n' +
+    '3-2 P: Äußerungen eher zögernd; gelegentlich sinnentstellende Fehler die Verstehen erschweren; einfacher aber überwiegend korrekter Wortschatz.\n' +
+    '1 P: Pausen, Abbrechen und Neuansetzen; häufige sinnentstellende Fehler; häufig fehlender bzw. falscher Wortschatz.\n' +
+    '0 P: Beiträge zu kurz für Bewertung und/oder überwiegend unverständlich.\n\n' +
+    '=== KATEGORIE 2: Inhaltliche Qualität der Beiträge (relevance, depth, coherence) ===\n' +
+    '15 P: Besonders überzeugend; verleiht der Diskussion von Anfang an Niveau.\n' +
+    '14-13 P: Überzeugend mit klarem Bezug auf Situation und Aufgabenstellung; breites Spektrum an detailliert dargelegten, besonders interessanten Ideen/Aspekten; differenziert, problematisiert und wägt ab.\n' +
+    '12-10 P: Klarer Bezug auf Situation und Aufgabenstellung; breites Spektrum an detailliert dargelegten Ideen/Aspekten/Beispielen; differenziert, problematisiert, wägt ab.\n' +
+    '9-7 P: Klarer Bezug auf Situation und Aufgabenstellung; nennt wichtige Aspekte, legt eigene Gedanken detailliert dar; differenziert, problematisiert, wägt ab.\n' +
+    '6-4 P: Unter Berücksichtigung der Situation und Aufgabenstellung; bringt neue Aspekte ein und begründet Zustimmung oder Ablehnung; stellt Gedanken eher kurz dar.\n' +
+    '3-2 P: Zu geringe Berücksichtigung der Situation und Aufgabenstellung; kaum neue Aspekte, beschränkt sich auf Wiederholungen; weicht von Situation/Thema ab.\n' +
+    '1 P: Weitgehend ohne Bezug zur Situation und Aufgabenstellung; Gedankengänge nicht einfach nachvollziehbar; weicht von Situation/Thema ab.\n' +
+    '0 P: Beiträge zu kurz für Bewertung und/oder überwiegend unverständlich.\n\n' +
+    '=== KATEGORIE 3: Interaktive Kompetenz (strategies) ===\n' +
+    '15 P: Bewältigt den spontanen Sprecherwechsel besonders elegant und natürlich.\n' +
+    '14-13 P: Sprecherwechsel geschickt (spontanes Reagieren, natürliches und variationsreiches turn-taking); intensive und souveräne Beteiligung am Gesprächsverlauf (knüpft an, bezieht sich zurück, fasst zusammen, achtet auf Partner, fordert heraus, trägt besonders aktiv zur Entscheidungsfindung bei).\n' +
+    '12-10 P: Spontanen Sprecherwechsel geschickt; beteiligt sich intensiv am Gespräch; klarer Überblick über Gesprächsverlauf (knüpft an, bezieht sich zurück, fasst zusammen, achtet auf Partner, trägt aktiv zur Entscheidungsfindung bei).\n' +
+    '9-7 P: Bewältigt spontanen Sprecherwechsel; beteiligt sich in ausgewogenem Maß als Sprecher und Hörer; Überblick über Gesprächsverlauf (knüpft an, achtet auf Partner, trägt zur Entscheidungsfindung bei).\n' +
+    '6-4 P: Wechselt angemessen zwischen Sprecher- und Hörerrolle; leichte Tendenz zu viel/zu wenig zu sprechen; folgt der Entwicklung des Gesprächs (knüpft an, trägt zur Entscheidungsfindung bei).\n' +
+    '3-2 P: Gelegentlich zu starkes oder zu geringes, aber in der Regel selbstständiges Eingreifen; folgt der Entwicklung des Gesprächs, bringt sich aber eher abrupt ein.\n' +
+    '1 P: Spricht deutlich zu viel oder zu wenig; bringt sich vereinzelt noch selbstständig ein; kennt den Stand des Gesprächs, konzentriert sich aber auf eigenen Beitrag.\n' +
+    '0 P: Beiträge zu kurz für Bewertung und/oder überwiegend unverständlich.\n';
+
+  var prompt = 'You are an experienced Bavarian FOS English teacher evaluating a student\'s performance in a Mündliche Gruppenprüfung (oral group exam).\n\n' +
     'Topic: ' + config.topic + '\n' +
     situationInfo +
     'Number of real students: ' + config.realStudents + '\n\n' +
     'COMPLETE DISCUSSION TRANSCRIPT:\n---\n' +
     (lines.join('\n') || '(No transcript available)') + '\n---\n\n' +
-    'Evaluate the student\'s performance in this group discussion. Provide feedback in GERMAN.\n\n' +
-    'Bewerte nach den Kriterien einer FOS-Gruppenprüfung:\n\n' +
-    '## Gesamteindruck\n(2-3 Sätze, ehrliche Einschätzung)\n\n' +
-    '## Sprachliche Leistung\n- Wortschatz und Ausdrucksfähigkeit\n- Grammatische Korrektheit\n- Flüssigkeit und Aussprache\n- Angemessenheit des Sprachregisters (B2-C1)\n\n' +
-    '## Diskussionsfähigkeit\n- Wurde die eigene Position klar in der Einleitung dargestellt?\n- Wurde auf andere Teilnehmer eingegangen und auf vorherige Punkte Bezug genommen?\n- Wurden Argumente überzeugend dargelegt?\n- Wurde die zugewiesene Meinung/Rolle eingehalten?\n- Gesprächsstrategien (turn-taking, agree/disagree, asking for opinions, Redewendungen)\n- Wurde aktiv an der Kompromissfindung mitgewirkt?\n\n' +
-    '## Stärken\n- Konkrete Beispiele aus dem Gespräch\n\n' +
-    '## Verbesserungsbereiche\n- Konkrete Beispiele und Vorschläge\n\n' +
-    '## Punkteeinschätzung\n(0-15 Punkte mit Begründung)\n\n' +
-    '## Tipps für die nächste Diskussion\n- 3-4 konkrete Ratschläge\n\n' +
-    'Sei EHRLICH und KONSTRUKTIV. Beziehe dich auf KONKRETE Aussagen aus dem Transkript.';
+    'Bewerte die Leistung des Schülers (markiert als "Student") anhand des folgenden OFFIZIELLEN Bewertungsrasters.\n' +
+    'Die KI-Charaktere sind Simulationspartner – bewerte NUR den echten Schüler.\n\n' +
+    rubric + '\n' +
+    'Erstelle dein Feedback auf DEUTSCH im folgenden Format:\n\n' +
+    '## Gesamteindruck\n' +
+    '(2-3 Sätze, ehrliche Gesamteinschätzung der Leistung)\n\n' +
+    '## Sprachbeherrschung (fluency, accuracy, range)\n' +
+    '- Bewerte Flüssigkeit, Korrektheit, Wortschatz und Ausdrucksfähigkeit\n' +
+    '- Belege mit konkreten Zitaten/Beispielen aus dem Transkript\n' +
+    '- **Punkteeinschätzung: X/15**\n\n' +
+    '## Inhaltliche Qualität (relevance, depth, coherence)\n' +
+    '- Bewerte Themenbezug, Tiefe der Argumente, Differenziertheit\n' +
+    '- Belege mit konkreten Zitaten/Beispielen aus dem Transkript\n' +
+    '- **Punkteeinschätzung: X/15**\n\n' +
+    '## Interaktive Kompetenz (strategies)\n' +
+    '- Bewerte Sprecherwechsel, Gesprächsbeteiligung, Bezugnahme auf andere\n' +
+    '- Belege mit konkreten Zitaten/Beispielen aus dem Transkript\n' +
+    '- **Punkteeinschätzung: X/15**\n\n' +
+    '## Stärken\n' +
+    '- Konkrete Stärken mit Beispielen aus dem Gespräch\n\n' +
+    '## Verbesserungsbereiche\n' +
+    '- Konkrete Schwächen mit Beispielen und Verbesserungsvorschlägen\n\n' +
+    '## Gesamtpunktzahl\n' +
+    '**X/15 Punkte** (Durchschnitt der drei Kategorien, gerundet)\n' +
+    '(Begründe kurz, warum diese Gesamtnote angemessen ist)\n\n' +
+    '## Tipps für die nächste Diskussion\n' +
+    '- 3-4 konkrete, umsetzbare Ratschläge\n\n' +
+    'WICHTIG:\n' +
+    '- Sei EHRLICH und KONSTRUKTIV.\n' +
+    '- Beziehe dich auf KONKRETE Aussagen aus dem Transkript.\n' +
+    '- Ordne die Leistung dem passenden Punktebereich im Raster zu und begründe die Zuordnung.\n' +
+    '- Schreibe die Punkteeinschätzung in jeder Kategorie im Format "X/15".\n' +
+    '- Die Gesamtpunktzahl ist der gerundete Durchschnitt der drei Einzelkategorien.';
 
   var response = await ai.models.generateContent({
     model: 'gemini-2.5-flash',

@@ -1057,9 +1057,11 @@
       var html = DOMPurify.sanitize(marked.parse(markdown));
       document.getElementById('feedbackBody').innerHTML = html;
 
-      // Punkte extrahieren (suche nach "X/15" oder "X von 15")
-      var scoreMatch = markdown.match(/(\d{1,2})\s*(?:\/|von)\s*15/);
-      var score = scoreMatch ? parseInt(scoreMatch[1]) : null;
+      // Gesamtpunktzahl extrahieren (letzte "X/15"-Angabe = Gesamtnote nach Bewertungsraster)
+      var allMatches = markdown.match(/(\d{1,2})\s*(?:\/|von)\s*15/g);
+      var lastMatch = allMatches ? allMatches[allMatches.length - 1] : null;
+      var scoreNum = lastMatch ? lastMatch.match(/(\d{1,2})/) : null;
+      var score = scoreNum ? parseInt(scoreNum[1]) : null;
 
       if (score !== null && score >= 0 && score <= 15) {
         document.getElementById('scoreDisplay').style.display = 'block';
