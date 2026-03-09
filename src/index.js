@@ -1878,8 +1878,9 @@ ABSOLUTE PFLICHT:
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
-  - type "bild": content = Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Beschreibe das Bild OHNE jeglichen Text, Zahlen oder Beschriftungen — nur visuelle Elemente (Formen, Farben, Pfeile, Symbole). KEINE Karikaturen oder Personen! ZUSÄTZLICH: image_labels-Objekt mit allen Beschriftungen als HTML-Overlay: {"title": "Titel", "labels": [{"text": "...", "position": "top-center|left-center|right-center|bottom-center|top-left|top-right|bottom-left|bottom-right"}], "x_axis": "...", "y_axis": "...", "legend": ["..."]}
-  - VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte, Beschriftungen, Titel und Labels werden DIREKT im Bild dargestellt. Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen. Beispiel: 'A diagram with the title "Politische Ordnung" at the top. On the left side a box labeled "Kaiser" with an arrow pointing down to a box labeled "Reichskanzler". On the right side...'
+  - WICHTIG für Bild-Prompts: Jede Beschriftung, jeder Titel, jede Legende MUSS explizit im Prompt in Anführungszeichen stehen, damit der Text korrekt im Bild erscheint. Alle Texte auf DEUTSCH!
+  - KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -1888,7 +1889,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Imagen-Prompt auf Englisch (3-5 Sätze). WICHTIG: Beschreibe das Bild OHNE jeglichen Text, Zahlen oder Beschriftungen — nur visuelle Elemente (Formen, Farben, Pfeile, Symbole).", "image_labels": {"title": "Diagrammtitel auf Deutsch", "labels": [{"text": "Beschriftung", "position": "top-center oder left-center oder right-center etc."}], "x_axis": "Achse X (falls Diagramm, sonst weglassen)", "y_axis": "Achse Y (falls Diagramm, sonst weglassen)", "legend": ["Farbe = Kategorie (falls nötig)"]}, "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte/Beschriftungen auf DEUTSCH direkt in Anführungszeichen. Z.B.: A professional diagram with the title \"Politische Ordnung\" at the top. A blue box labeled \"Kaiser\" connected by an arrow to...", "source": ""}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -1906,8 +1907,7 @@ KRITISCH:
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
 - ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder ein Plakat (type "bild"). Der Bild-Prompt ist auf Englisch (3-5 Sätze) und beschreibt das Bild OHNE Text/Zahlen/Beschriftungen — nur visuelle Elemente. ZUSÄTZLICH ein image_labels-Objekt mit Beschriftungen als HTML-Overlay: {"title": "...", "labels": [{"text": "...", "position": "top-center|left-center|..."}], "x_axis": "...", "y_axis": "...", "legend": ["..."]}. KEINE Karikaturen oder Personen!
-- VERBOTEN: Bilder als Text beschreiben (z.B. "Die Abbildung zeigt...") — IMMER type "bild" mit Imagen-Prompt verwenden!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels sollen DIREKT im Bild erscheinen — schreibe jeden Text in Anführungszeichen im Prompt, z.B.: 'A diagram with the title "Verfassungsvergleich" at the top. On the left a blue box labeled "Kaiser"...' KEINE Karikaturen oder Personen!`;
 
   let openaiRes;
   try {
