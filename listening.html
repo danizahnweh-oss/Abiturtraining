@@ -760,7 +760,8 @@
           voice,
           function(pct) {
             document.getElementById("audioProgress").textContent = pct + "%";
-          }
+          },
+          listeningData.speakers
         );
 
         audioUrl = result.url;
