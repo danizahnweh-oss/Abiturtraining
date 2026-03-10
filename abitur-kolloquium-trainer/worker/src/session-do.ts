@@ -263,6 +263,9 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
             voiceConfig: {
               prebuiltVoiceConfig: { voiceName }
             }
+          },
+          thinkingConfig: {
+            thinkingBudget: 0
           }
         },
         systemInstruction: {
