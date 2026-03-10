@@ -3,6 +3,11 @@
    Gemeinsame Styles für alle Module
    ============================ */
 
+/* ====== BASE FONT SIZE (skaliert alle rem-Werte ~12.5% größer) ====== */
+html {
+  font-size: 112.5%; /* 18px statt 16px */
+}
+
 /* ====== CSS CUSTOM PROPERTIES ====== */
 :root {
   --ink: #0f172a;
@@ -494,7 +499,7 @@ header .logo-brand .logo-text {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   padding: 1rem;
-  max-width: 1200px;
+  max-width: 1320px;
   margin: 0 auto 3rem;
 }
 
@@ -725,7 +730,7 @@ nav button.active .step-num {
 /* ====== MAIN CONTENT ====== */
 main {
   flex: 1;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 2rem auto;
   padding: 0 1.5rem;
   width: 100%;
