@@ -1773,7 +1773,11 @@ TEIL 1 – HÖRTEXT:
 - Format: ${safeFormat} (z.B. Nachrichtenbericht, Interview, Vortrag, Dialog)
 - Sprachniveau B2/C1 (Oberstufe)
 - Natürliche Sprache mit klarer Struktur
-- Bei Dialogen: Sprechernamen in eckigen Klammern, z.B. [Reporter]: ... [Expert]: ...
+- WICHTIG für TTS-Sprecherzuordnung: Jede Sprechzeile MUSS mit "Sprechername: " beginnen (ohne Klammern!), z.B.:
+  Reporter: Welcome to today's programme.
+  Expert: Thank you for having me.
+- Verwende genau 2 Sprecher (z.B. Reporter + Expert, Interviewer + Guest, Host + Scientist)
+- Bei Monolog-Formaten (Vortrag, Nachrichtenbericht): Verwende nur 1 Sprecher (z.B. "Presenter: ...")
 - Der Text muss beim Hören gut verständlich sein (keine zu komplexen Schachtelsätze)
 
 TEIL 2 – FRAGEN (insgesamt 20 Punkte):
@@ -1800,7 +1804,7 @@ OUTPUT FORMAT – Antworte NUR mit reinem JSON:
   "title": "Kurzer englischer Titel",
   "transcript": "Der vollständige Hörtext...",
   "format": "${safeFormat}",
-  "speakers": ["Speaker1", "Speaker2"],
+  "speakers": ["Reporter", "Expert"],
   "questions": [
     {"id": 1, "type": "mc", "question": "What is the main topic of the report?", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "correct": "B", "points": 1},
     {"id": 6, "type": "tf", "question": "The expert claims that...", "correct": "true", "points": 1},

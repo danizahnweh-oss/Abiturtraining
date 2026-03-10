@@ -22,14 +22,28 @@ function createAI(GoogleGenAI) {
   });
 }
 
+/** Stimmen-Paare für Multi-Speaker (weiblich + männlich) */
+const VOICE_PAIRS = {
+  Kore:   { second: 'Puck' },
+  Puck:   { second: 'Kore' },
+  Aoede:  { second: 'Charon' },
+  Charon: { second: 'Aoede' },
+  Fenrir: { second: 'Leda' },
+  Leda:   { second: 'Fenrir' },
+};
+
 /**
- * Generiert Audio für einen Hörtext via Gemini TTS API (REST-Call, kein WebSocket).
+ * Generiert Audio für einen Hörtext via Gemini TTS API (REST-Call).
+ * Unterstützt Multi-Speaker: wenn speakers-Array übergeben wird,
+ * bekommt jeder Sprecher eine eigene Stimme.
+ *
  * @param {string} text – Der Text, der vorgelesen werden soll
- * @param {string} [voice='Kore'] – Stimme (Kore=weiblich, Puck=männlich)
+ * @param {string} [voice='Kore'] – Haupt-Stimme
  * @param {function} [onProgress] – Callback für Fortschrittsupdates (0-100)
+ * @param {string[]} [speakers] – Array mit Sprecher-Namen (max. 2)
  * @returns {Promise<{blob: Blob, url: string, duration: number}>}
  */
-export async function generateListeningAudio(text, voice, onProgress) {
+export async function generateListeningAudio(text, voice, onProgress, speakers) {
   voice = voice || 'Kore';
   if (onProgress) onProgress(10);
 
@@ -37,16 +51,41 @@ export async function generateListeningAudio(text, voice, onProgress) {
   var ai = createAI(mod.GoogleGenAI);
   if (onProgress) onProgress(20);
 
-  console.log('[Listening] Starte TTS-Generierung, ' + text.split(/\s+/).length + ' Wörter, Stimme: ' + voice);
+  // Multi-Speaker oder Single-Speaker Config erstellen
+  var speechConfig;
+  if (speakers && speakers.length >= 2) {
+    var secondVoice = (VOICE_PAIRS[voice] && VOICE_PAIRS[voice].second) || 'Puck';
+    // Sicherstellen, dass die zweite Stimme nicht die gleiche ist
+    if (secondVoice === voice) secondVoice = 'Puck';
+
+    speechConfig = {
+      multiSpeakerVoiceConfig: {
+        speakerVoiceConfigs: [
+          {
+            speaker: speakers[0],
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
+          },
+          {
+            speaker: speakers[1],
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: secondVoice } },
+          },
+        ],
+      },
+    };
+    console.log('[Listening] Multi-Speaker TTS: ' + speakers[0] + '=' + voice + ', ' + speakers[1] + '=' + secondVoice + ', ' + text.split(/\s+/).length + ' Wörter');
+  } else {
+    speechConfig = {
+      voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
+    };
+    console.log('[Listening] Single-Speaker TTS, ' + text.split(/\s+/).length + ' Wörter, Stimme: ' + voice);
+  }
 
   var response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-preview-tts',
     contents: [{ role: 'user', parts: [{ text: text }] }],
     config: {
       responseModalities: ['AUDIO'],
-      speechConfig: {
-        voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
-      },
+      speechConfig: speechConfig,
     },
   });
   if (onProgress) onProgress(80);
