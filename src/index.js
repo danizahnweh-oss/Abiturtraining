@@ -2298,7 +2298,56 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in der Aufgabenstellung direk
   return jsonResponse(content, 200, env);
 }
 
-/* ================= DEUTSCH: GRADE ================= */
+/* ================= DEUTSCH: STRUKTURANALYSE (Schritt 1) ================= */
+async function analyzeTextStructure(env, contextInfo, studentText, type, images) {
+  const typeLabels = {
+    analyse: "Textanalyse eines pragmatischen Textes",
+    eroerterung: "Textbezogene Erörterung eines pragmatischen Textes",
+    interpretation: "Interpretation eines literarischen Textes",
+    materialgestuetzt: "Materialgestütztes Schreiben"
+  };
+  const aufgabentyp = typeLabels[type] || "Deutschaufsatz";
+
+  const systemPrompt = `Du bist ein erfahrener Deutsch-Lehrer am bayerischen Gymnasium. Analysiere den folgenden Schülertext OHNE ihn zu bewerten oder zu benoten. Erstelle eine sachliche, objektive Bestandsaufnahme der Textstruktur und -inhalte.
+
+Aufgabentyp: ${aufgabentyp}
+
+Antworte NUR mit validem JSON:
+{
+  "thema_erkannt": true/false,
+  "zentrale_these": "Die zentrale These/Deutungshypothese des Schülers in einem Satz (oder null falls nicht erkennbar)",
+  "argumentationsstruktur": {
+    "anzahl_argumente": <Zahl>,
+    "argumente": ["Zusammenfassung Argument 1", "Zusammenfassung Argument 2"],
+    "qualitaet": "differenziert" | "einseitig" | "oberflaechlich" | "nicht_erkennbar"
+  },
+  "fachbegriffe": ["verwendeter Fachbegriff 1", "verwendeter Fachbegriff 2"],
+  "textbelege_zitate": <Anzahl direkter Zitate oder Textverweise>,
+  "struktur": {
+    "einleitung": true/false,
+    "hauptteil": true/false,
+    "schluss": true/false,
+    "kohaerenz": "gut" | "teilweise" | "schwach"
+  },
+  "fliesstext": true/false,
+  "sprachliche_mittel_erkannt": ["erkanntes Mittel 1", "erkanntes Mittel 2"],
+  "textlaenge_woerter": <geschätzte Wortanzahl>
+}
+
+WICHTIG: Keine Bewertung, keine Punkte, kein Feedback — nur objektive Bestandsaufnahme.`;
+
+  const userContent = buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(studentText, 15000)}`, images);
+  const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+
+  const res = await callOpenAI(env, [
+    { role: "system", content: systemPrompt + bilderHinweis },
+    { role: "user", content: userContent }
+  ], 2000, { temperature: 0.3 });
+
+  return extractJSON(res);
+}
+
+/* ================= DEUTSCH: GRADE (2-Stufen-Bewertung) ================= */
 async function handleGradeDeutsch(request, env) {
   const body = await request.json();
   const { task_instruction, primary_text, student_text, rubric_prompt, type, materials, zieltext, zielgruppe, images } = body;
@@ -2320,16 +2369,26 @@ async function handleGradeDeutsch(request, env) {
   if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
   if (zielgruppe) contextInfo += `Zielgruppe: ${truncate(zielgruppe, 200)}\n`;
 
-  const korrekturAnweisung = KORREKTUR_SINGLE;
+  // Schritt 1: Strukturanalyse (separater KI-Call)
+  let analyseText = "";
+  try {
+    const analyse = await analyzeTextStructure(env, contextInfo, student_text, type, images);
+    analyseText = `\n\nVORAB-STRUKTURANALYSE (automatisch erstellt – als Orientierung, nicht blindlings übernehmen):\n${JSON.stringify(analyse, null, 2)}\n\n`;
+  } catch {
+    // Fallback: Wenn Analyse fehlschlägt, weiter ohne – der Bewertungs-Call funktioniert auch allein
+  }
 
+  // Schritt 2: Bewertung nach Rubrik (mit Analyse als Kontext)
+  const korrekturAnweisung = KORREKTUR_SINGLE;
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
   const messages = [
     { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
-    { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
+    { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
   const openaiRes = await callOpenAI(env, messages, 8000);
 
+  // Schritt 3: Regelbasierte Punkteberechnung
   try {
     const parsed = extractJSON(openaiRes);
     const verstehen = parsed.verstehen_np ?? null;
