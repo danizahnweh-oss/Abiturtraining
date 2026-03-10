@@ -2966,6 +2966,29 @@
       </div>
       <div id="countdownBar" class="countdown-bar" style="margin-top:1rem;"></div>
     </div>
+    <div class="kolloquium-banner">
+      <button type="button" class="kolloquium-card training-card" onclick="openTrainingModal()" aria-label="Training starten">
+        <div class="kol-icon" aria-hidden="true">📝</div>
+        <div class="kol-body">
+          <div class="kol-title" style="color:var(--accent)">Training starten</div>
+          <div class="kol-desc">Wähle ein Fach und starte direkt mit dem Üben – schriftliche Aufgaben, Abiturtraining und mehr.</div>
+        </div>
+        <div class="kol-badge" style="background:var(--accent-soft,rgba(59,130,246,.1));color:var(--accent)">Fach wählen</div>
+        <div class="kol-arrow" aria-hidden="true">→</div>
+      </button>
+    </div>
+    <div class="kolloquium-banner">
+      <a href="abitur-kolloquium-trainer/dist/" class="kolloquium-card" aria-label="Kolloquiumstrainer öffnen">
+        <div class="kol-icon" aria-hidden="true">🎤</div>
+        <div class="kol-body">
+          <div class="kol-title">Kolloquiumstrainer</div>
+          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und
+            sofortiges Feedback.</div>
+        </div>
+        <div class="kol-badge">Live · KI-Prüfer</div>
+        <div class="kol-arrow" aria-hidden="true">→</div>
+      </a>
+    </div>
     <div id="progressBar" class="progress-bar">
       <div class="progress-stats">
         <div class="pstat"><span id="pStatTotal">0</span><small>Aufgaben</small></div>
@@ -3254,29 +3277,6 @@
         <span class="subject-countdown" data-subject="informatik"></span>
         <span class="subject-last-activity" data-activity="informatik"></span>
       </button>
-    </div>
-    <div class="kolloquium-banner">
-      <button type="button" class="kolloquium-card training-card" onclick="openTrainingModal()" aria-label="Training starten">
-        <div class="kol-icon" aria-hidden="true">📝</div>
-        <div class="kol-body">
-          <div class="kol-title" style="color:var(--accent)">Training starten</div>
-          <div class="kol-desc">Wähle ein Fach und starte direkt mit dem Üben – schriftliche Aufgaben, Abiturtraining und mehr.</div>
-        </div>
-        <div class="kol-badge" style="background:var(--accent-soft,rgba(59,130,246,.1));color:var(--accent)">Fach wählen</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
-      </button>
-    </div>
-    <div class="kolloquium-banner">
-      <a href="abitur-kolloquium-trainer/dist/" class="kolloquium-card" aria-label="Kolloquiumstrainer öffnen">
-        <div class="kol-icon" aria-hidden="true">🎤</div>
-        <div class="kol-body">
-          <div class="kol-title">Kolloquiumstrainer</div>
-          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und
-            sofortiges Feedback.</div>
-        </div>
-        <div class="kol-badge">Live · KI-Prüfer</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
-      </a>
     </div>
     <!-- Exam type modal -->
     <div class="exam-type-overlay" id="examTypeOverlay" onclick="if(event.target===this)closeExamTypeModal()">
