@@ -442,6 +442,160 @@
       font-size: 1.8rem
     }
 
+    /* ====== ROLE SELECTION SCREEN ====== */
+    #role-screen {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    #role-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(79, 70, 229, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, .06) 0%, transparent 50%);
+      pointer-events: none
+    }
+
+    [data-theme="dark"] #role-screen::before {
+      background: radial-gradient(ellipse at 20% 50%, rgba(129, 140, 248, .08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, .05) 0%, transparent 50%)
+    }
+
+    .role-box {
+      position: relative;
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      padding: 2.5rem;
+      animation: fadeUp .5s ease-out
+    }
+
+    .role-box img {
+      height: 56px;
+      width: auto;
+      margin-bottom: 1rem
+    }
+
+    [data-theme="dark"] .role-box img {
+      filter: brightness(1.3) contrast(1.1);
+      mix-blend-mode: screen
+    }
+
+    .role-box h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin: .8rem 0 .3rem
+    }
+
+    .role-box p {
+      color: var(--ink-muted);
+      font-size: .95rem;
+      margin-bottom: 1.8rem
+    }
+
+    .role-buttons {
+      display: flex;
+      gap: 1rem
+    }
+
+    .role-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      padding: 1.8rem 1.2rem;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all .2s ease;
+      min-height: 140px;
+      min-width: 44px
+    }
+
+    .role-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,.1)
+    }
+
+    .role-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px
+    }
+
+    .role-btn:active {
+      transform: translateY(0)
+    }
+
+    .role-icon {
+      font-size: 2.5rem;
+      line-height: 1
+    }
+
+    .role-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink)
+    }
+
+    .role-desc {
+      font-size: .82rem;
+      color: var(--ink-muted)
+    }
+
+    .role-btn-student:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft)
+    }
+
+    .role-btn-student:hover .role-label {
+      color: var(--accent)
+    }
+
+    .role-btn-teacher {
+      opacity: .5;
+      cursor: not-allowed
+    }
+
+    .role-btn-teacher:hover {
+      transform: none;
+      box-shadow: none
+    }
+
+    .role-btn-teacher .role-desc {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .03em
+    }
+
+    @media (max-width: 600px) {
+      .role-buttons {
+        flex-direction: column
+      }
+
+      .role-btn {
+        min-height: 100px;
+        padding: 1.4rem 1rem
+      }
+
+      .role-box {
+        padding: 1.5rem
+      }
+
+      .role-box h2 {
+        font-size: 1.3rem
+      }
+    }
+
     /* ====== LOGIN SCREEN — aufgewertet (#2) ====== */
     #login-screen {
       position: relative;
@@ -2730,6 +2884,28 @@
         }
       })();
     </script>
+  </div>
+
+  <!-- ====== ROLE SELECTION SCREEN ====== -->
+  <div id="role-screen">
+    <div class="role-box">
+      <img src="logo.png" alt="myAbiFlow Logo">
+      <div class="abitur-badge">Abitur 2026</div>
+      <h2>Willkommen bei myAbiFlow</h2>
+      <p>Wähle deinen Bereich:</p>
+      <div class="role-buttons">
+        <button class="role-btn role-btn-student" type="button" onclick="selectRole('student')">
+          <span class="role-icon" aria-hidden="true">🎓</span>
+          <span class="role-label">Ich bin Schüler/in</span>
+          <span class="role-desc">Abitur-Training starten</span>
+        </button>
+        <button class="role-btn role-btn-teacher" type="button" disabled>
+          <span class="role-icon" aria-hidden="true">🏫</span>
+          <span class="role-label">Ich bin Lehrkraft / Schule</span>
+          <span class="role-desc">Kommt demnächst</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ====== LOGIN SCREEN ====== -->
@@ -5305,6 +5481,7 @@
     }
 
     function showSubjectSelection(_push) {
+      document.getElementById("role-screen").style.display = "none";
       document.getElementById("login-screen").style.display = "none";
       document.getElementById("subject-screen").style.display = "flex";
       document.getElementById("module-screen-english").style.display = "none";
@@ -5667,10 +5844,10 @@
       if (logoutBtn) logoutBtn.style.display = "none";
       if (guestLoginBtn) guestLoginBtn.style.display = "";
       if (userInfoEl) userInfoEl.style.display = "none";
-      // Layout aus localStorage wiederherstellen und Faecheruebersicht zeigen
-      loadLocalPreferences();
-      renderSubjectLayout();
-      showSubjectSelection();
+      // Zur Rollen-Auswahl zurueck
+      document.getElementById("subject-screen").style.display = "none";
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("role-screen").style.display = "flex";
     }
 
     function toggleDark() {
@@ -5755,6 +5932,15 @@
       startTour({ steps: indexTourSteps, storageKey: "onboarding_done", force: true });
     }
 
+    function selectRole(role) {
+      if (role === 'teacher') {
+        // Lehrer-Bereich kommt spaeter
+        return;
+      }
+      document.getElementById('role-screen').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+    }
+
     function checkSession() {
       initTheme();
       if (typeof initAiTutor === "function") initAiTutor();
@@ -5763,8 +5949,9 @@
       var backTo = urlParams.get("back");
       var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
 
-      // Login-Screen immer ausblenden – Login kommt spaeter bei Bedarf
+      // Beide Screens ausblenden – werden bei Bedarf angezeigt
       document.getElementById("login-screen").style.display = "none";
+      document.getElementById("role-screen").style.display = "none";
 
       // UI-Elemente je nach Login-Status
       var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
@@ -5806,16 +5993,15 @@
         if (_remBtn2) _remBtn2.style.display = "";
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
-      } else {
-        // Nicht eingeloggt: Faecheruebersicht trotzdem zeigen
-        showSubjectSelection();
-        history.replaceState({ screen: "subjects" }, "");
-      }
 
-      // Layout und Wizard (fuer alle Nutzer)
-      renderSubjectLayout();
-      if (!localStorage.getItem(LS_WIZARD_KEY)) {
-        setTimeout(function () { showAbiWizard(); }, 500);
+        // Layout und Wizard (fuer eingeloggte Nutzer)
+        renderSubjectLayout();
+        if (!localStorage.getItem(LS_WIZARD_KEY)) {
+          setTimeout(function () { showAbiWizard(); }, 500);
+        }
+      } else {
+        // Nicht eingeloggt: Rollen-Auswahl zeigen
+        document.getElementById("role-screen").style.display = "flex";
       }
     }
 
