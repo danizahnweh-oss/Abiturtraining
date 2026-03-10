@@ -10,6 +10,8 @@
  * Hinweis: Für Deutsch, Englisch, Französisch und Italienisch definiert der
  * LehrplanPLUS keine offizielle Halbjahr-Zuordnung (2-Jahres-Block 12/13).
  * Die hier verwendete Verteilung orientiert sich an der gängigen Schulpraxis.
+ *
+ * Regel: Maximal 3 Schwerpunkte pro Halbjahr.
  */
 
 export interface SubjectCurriculum {
@@ -123,7 +125,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 
   'Englisch': {
     // LehrplanPLUS: E12/13 als 2-Jahres-Block (gA + eA), keine offizielle Halbjahr-Zuordnung.
-    // Themengebiete nach gängiger Schulpraxis gruppiert. eA-Vertiefungen in Klammern.
+    // Themengebiete nach gängiger Schulpraxis gruppiert.
     halbjahre: {
       '12/1': [
         'Ireland: Geography, History, Society and Politics (Troubles, Brexit)',
@@ -151,31 +153,49 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   'Ethik': {
     // Eth12 gA: LB1 = 12/1 (Theorie und Praxis des Handelns), LB2 = 12/2 (Freiheit und Determination)
     // Eth13 gA: LB1 = 13/1 (Recht und Gerechtigkeit), LB2 = 13/2 (Sinnorientierung und Lebensgestaltung)
-    // eA-Vertiefungen in Klammern
     halbjahre: {
       '12/1': [
         'Theorie und Praxis des Handelns: Handlungsbegriff, Platon (Idee des Guten, Seelenlehre), Aristoteles (Tugendethik, Mesoteslehre)',
         'Ethische Grundpositionen: Kant (kategorischer Imperativ, Pflichtethik), Utilitarismus (Handlungs-, Regel-, Präferenzutilitarismus)',
         'Diskursethik (Habermas) und Verantwortungsethik (H. Jonas: Heuristik der Furcht, Nah-/Fernethik)',
-        'eA: Mitleidsethik (Schopenhauer), Moralkritik (Nietzsche), Sprachkritik (Wittgenstein), Bereichsethiken, Wissenschaftstheorie (Popper)',
       ],
       '12/2': [
         'Freiheit und Determination: Aristoteles (freiwilliges/unfreiwilliges Handeln), Willensschwäche, positive und negative Freiheit',
-        'Philosophische Positionen zur Freiheit: Kant (Autonomie), Sartre (Existentialismus), Bieri (bedingte/unbedingte Freiheit; eA: Schopenhauer, Erkenntnistheorie Kant)',
-        'Sozialpsychologie (Konformität, Milgram-Experiment, Bystander-Effekt) und Sozialisation (Status, Rolle; eA: Nudging, Gender)',
-        'Neurobiologie und Willensfreiheit: Libet-Experiment, Roth/Singer/Prinz; philosophische Kritik (Qualia, Erklärungslücke, kausale Geschlossenheit)',
+        'Philosophische Positionen zur Freiheit: Kant (Autonomie), Sartre (Existentialismus), Bieri (bedingte/unbedingte Freiheit)',
+        'Sozialpsychologie (Konformität, Milgram-Experiment, Bystander-Effekt), Neurobiologie und Willensfreiheit (Libet-Experiment, Roth/Singer/Prinz)',
       ],
       '13/1': [
         'Recht und Gerechtigkeit: Aristoteles (kommutative/distributive Gerechtigkeit), Rawls (Schleier des Nichtwissens, Differenzprinzip)',
-        'Rechtspositivismus, Naturrecht und Radbruch\'sche Formel (eA: Eichmann-Prozess, Arendt)',
-        'Strafrecht: Strafzwecktheorien (absolute, relative, Mischform), Kriminalitätstheorien, Tat-/Täterstrafrecht, Strafvollzug',
-        'Menschenrechte und globale Friedensordnung (Schutzverantwortung, Völkerrecht, Migration; eA: Galtung, Singer, Pogge, Arendt: Macht und Gewalt)',
+        'Rechtspositivismus, Naturrecht und Radbruch\'sche Formel; Strafrecht: Strafzwecktheorien (absolute, relative, Mischform)',
+        'Menschenrechte und globale Friedensordnung (Schutzverantwortung, Völkerrecht, Migration)',
       ],
       '13/2': [
         'Sinnorientierung und Lebensgestaltung: Eudaimonie bei Aristoteles, Epikur (Ataraxie, Hedonismus) und Stoa (Apathie, logos, vita activa)',
-        'Sinnkonzepte: Frankl (Selbsttranszendenz), Camus (Absurdität, Sisyphos-Mythos; eA: Kant – Würdigkeit zum Glück, Resilienzforschung)',
-        'Empirische Glücksforschung: Flow (Csikszentmihalyi), PERMA-Modell (Seligman)',
-        'Kommunikationspsychologie (Schulz v. Thun, Berne) und Utopien/Dystopien (eA: Ganzschrift)',
+        'Sinnkonzepte: Frankl (Selbsttranszendenz), Camus (Absurdität, Sisyphos-Mythos)',
+        'Empirische Glücksforschung: Flow (Csikszentmihalyi), PERMA-Modell (Seligman), Kommunikationspsychologie (Schulz v. Thun)',
+      ],
+    },
+    // eA-Schwerpunkte: Erweiterte Inhalte laut LehrplanPLUS Ethik 12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Theorie und Praxis des Handelns: Platon, Aristoteles, Kant (kategorischer Imperativ), Utilitarismus, Diskursethik (Habermas), Verantwortungsethik (Jonas)',
+        'Mitleidsethik (Schopenhauer), Moralkritik (Nietzsche), Sprachkritik (Wittgenstein)',
+        'Bereichsethiken, Wissenschaftstheorie (Popper) und kritische Auseinandersetzung mit ethischen Grundpositionen',
+      ],
+      '12/2': [
+        'Freiheit und Determination: Aristoteles, Kant (Autonomie), Sartre (Existentialismus), Bieri, Schopenhauer, Erkenntnistheorie (Kant)',
+        'Sozialpsychologie (Konformität, Milgram, Bystander-Effekt, Nudging, Gender) und Sozialisation (Status, Rolle)',
+        'Neurobiologie und Willensfreiheit: Libet-Experiment, Roth/Singer/Prinz; philosophische Kritik (Qualia, Erklärungslücke, kausale Geschlossenheit)',
+      ],
+      '13/1': [
+        'Recht und Gerechtigkeit: Aristoteles, Rawls (Schleier des Nichtwissens, Differenzprinzip), Rechtspositivismus, Naturrecht, Radbruch\'sche Formel (Eichmann-Prozess, Arendt)',
+        'Strafrecht: Strafzwecktheorien, Kriminalitätstheorien, Tat-/Täterstrafrecht, Strafvollzug',
+        'Menschenrechte und globale Friedensordnung (Schutzverantwortung, Völkerrecht, Migration, Galtung, Singer, Pogge, Arendt: Macht und Gewalt)',
+      ],
+      '13/2': [
+        'Sinnorientierung: Eudaimonie bei Aristoteles, Epikur (Ataraxie, Hedonismus), Stoa (Apathie, logos, vita activa)',
+        'Sinnkonzepte: Frankl (Selbsttranszendenz), Camus (Absurdität, Sisyphos-Mythos), Kant (Würdigkeit zum Glück), Resilienzforschung',
+        'Empirische Glücksforschung (Flow, PERMA-Modell), Kommunikationspsychologie (Schulz v. Thun, Berne), Utopien/Dystopien (Ganzschrift)',
       ],
     },
   },
@@ -248,10 +268,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Ethik der Lebensbereiche: Ehe/Familie, Berufswahl/Arbeitswelt, Kath. Soziallehre (Personalität, Solidarität, Subsidiarität, Gemeinwohl), Unternehmensleitbild-Analyse, Nachhaltigkeit, Digitalisierung',
       ],
       '13/2': [
-        'Wahrheitsansprüche: Exklusivismus, Inklusivismus, Pluralismus, Kriterien der Beurteilung, interreligiöser Dialog (z. B. Assisi 1986), Relativismus vs. verbindliche Wahrheitsdeutung',
+        'Wahrheitsansprüche: Exklusivismus, Inklusivismus, Pluralismus, interreligiöser Dialog (z. B. Assisi 1986), Relativismus vs. verbindliche Wahrheitsdeutung',
         'Perspektiven christlicher Ethik: Konsensbildung (Diskursethik/Habermas), Rolle der Kirche, Letztbegründung in philosophischer und christlicher Ethik',
-        'Auferstehungshoffnung und Eschatologie: säkulare und religiöse Zukunftskonzepte (z. B. Islam, Reinkarnation), Reich-Gottes-Botschaft Jesu, individuelle/universale Eschatologie',
-        'Entwicklung eigener Lebensentwürfe: Reflexion anhand einer Persönlichkeit, die vier Kantischen Fragen (Wissen, Tun, Hoffen, Menschsein)',
+        'Auferstehungshoffnung und Eschatologie (säkulare und religiöse Zukunftskonzepte, Reich-Gottes-Botschaft Jesu), Entwicklung eigener Lebensentwürfe (vier Kantische Fragen)',
       ],
     },
   },
@@ -300,12 +319,10 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Globalisierung und Entwicklung (Indikatoren, Disparitäten, fragmentierende Entwicklung)',
         'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland)',
-        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze)',
-        'Regenerative Energien und nachhaltiges Ressourcenmanagement',
+        'Rohstofflagerstätten, Rohstoffabbau und regenerative Energien (Verfügbarkeit, Konflikte, nachhaltiges Ressourcenmanagement)',
       ],
       '13/2': [
-        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung)',
-        'Bevölkerungsentwicklung in Deutschland (Zu- und Abwanderung, demographischer Wandel)',
+        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung, Bevölkerungsentwicklung in Deutschland)',
         'Verstädterung, Megastädte und Global Cities',
         'Nachhaltige Stadtentwicklung (Stadtklima, Smart Cities, Bürgerbeteiligung)',
       ],
@@ -323,19 +340,14 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Naturkatastrophen und Risikoforschung (Vulkanismus, Erdbeben, Tsunamis, Plattentektonik, tropische Wirbelstürme, Risikoforschung und Risikomanagement)',
       ],
       '13/1': [
-        'Globalisierung, Entwicklung und Disparitäten (Indikatoren, verschiedene Entwicklungstheorien, fragmentierende Entwicklung, Entwicklungsstrategien)',
-        'Globalisierung und Standort Deutschland (Standortfaktoren, Wirtschaftsdynamik, wirtschaftsräumliche Disparitäten)',
+        'Globalisierung, Entwicklung und Disparitäten (Indikatoren, Entwicklungstheorien, Standort Deutschland, Wirtschaftsdynamik)',
         'Ferntourismus und nachhaltiger Tourismus (Südostasien, Deutschland, Digitalisierung und Raumwahrnehmung)',
-        'Rohstofflagerstätten und Rohstoffabbau (Verfügbarkeit, Konflikte, Pipelinenetze, Extremräume, geopolitische Bedeutung)',
-        'Regenerative Energien, nachhaltige Mobilitätskonzepte und lokales Ressourcenmanagement',
+        'Rohstofflagerstätten, regenerative Energien und nachhaltiges Ressourcenmanagement (Verfügbarkeit, Konflikte, geopolitische Bedeutung, Mobilitätskonzepte)',
       ],
       '13/2': [
-        'Bevölkerung und Migration (demographischer Übergang, Flucht und Vertreibung, Steuerung und Geopolitik)',
-        'Sozialgeographische Aspekte der Demographie (Familienstruktur, Stellung der Frau, Arbeitswelt, Generationenvertrag)',
-        'Bevölkerungsentwicklung in Deutschland, Tragfähigkeit der Erde und Bevölkerungsprognosen',
-        'Verstädterung, Megastädte und Global Cities (Lösungsansätze)',
-        'Nachhaltige Stadtentwicklung, Ökosystem Stadt, Stadtklima und Urban Gardening',
-        'Imageorientierung von Städten (Prestigebauten, Stadtmarketing, Megaevents)',
+        'Bevölkerung, Migration und Demographie (demographischer Übergang, Flucht, Steuerung, Geopolitik, Tragfähigkeit der Erde, Bevölkerungsprognosen)',
+        'Verstädterung, Megastädte und Global Cities (Lösungsansätze, Imageorientierung, Stadtmarketing, Megaevents)',
+        'Nachhaltige Stadtentwicklung (Ökosystem Stadt, Stadtklima, Urban Gardening, Bevölkerungsentwicklung in Deutschland)',
       ],
     },
   },
@@ -350,8 +362,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Demokratisierung und Gesellschaft in der Weimarer Republik (Novemberrevolution, Weimarer Reichsverfassung, Frauenbewegung)',
       ],
       '12/2': [
-        'Scheitern der Weimarer Republik (Präsidialkabinette, Aufbau des NS-Staats)',
-        'NS-Diktatur und Völkermord (NS-Ideologie, Volksgemeinschaft, Holocaust/Shoa, Vernichtungskrieg)',
+        'Scheitern der Weimarer Republik und NS-Diktatur (Präsidialkabinette, NS-Ideologie, Volksgemeinschaft, Holocaust/Shoa, Vernichtungskrieg)',
         'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Systemvergleich, Wiedervereinigung)',
         'Deutsche Einheit und die Bundesrepublik 1990–2009 (Aufarbeitung SED-Diktatur, Agenda 2010, Extremismus)',
       ],
@@ -373,17 +384,14 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Vertiefungsmodul: Jüdisches Leben zwischen Emanzipation und Ausgrenzung (Haskala, Landjudentum, jüdische Selbstzeugnisse, Beitrag zu Modernisierungsprozessen)',
       ],
       '12/2': [
-        'Scheitern der Weimarer Republik – NS-Diktatur und Völkermord (Faschismus im Kontext der Moderne, NS-Ideologie, Zweiter Weltkrieg als Weltanschauungs- und totaler Krieg, Widerstand gegen NS)',
-        'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Protest in West und Ost – Friedens-/Umweltbewegung, Grundgesetz im Wiedervereinigungsprozess)',
-        'Die Bundesrepublik Deutschland 1990–2013 (Aufarbeitung SED-Diktatur, Agenda 2010, Atomausstieg, Extremismus, internationale Konflikte – Kosovo, ISAF-Afghanistan)',
-        'Vertiefungsmodul: Deutsche Demokratiegeschichte in der öffentlichen Erinnerung (Erinnerungskultur, Geschichtspolitik, Nationalfeiertage und Gedenktage)',
+        'Scheitern der Weimarer Republik – NS-Diktatur und Völkermord (Faschismus, NS-Ideologie, Weltanschauungs- und totaler Krieg, Widerstand gegen NS)',
+        'Die Bundesrepublik Deutschland und die DDR (Verfassung, Wirtschaft, Protest in West und Ost, Grundgesetz im Wiedervereinigungsprozess)',
+        'Bundesrepublik 1990–2013 und Erinnerungskultur (Aufarbeitung SED-Diktatur, Agenda 2010, Extremismus, Geschichtspolitik, Nationalfeiertage)',
       ],
       '13/1': [
-        'Die historische Entwicklung des israelisch-palästinensischen Konflikts (Diaspora, Zionismus, Gründung Israels, Friedensbemühungen)',
-        'USA im 20./21. Jh. (Führungsmacht, Kalter Krieg, geopolitische Neuausrichtung seit 2000, NATO-Osterweiterung, Pazifikraum)',
-        'Russland im 20./21. Jh. (Stalinismus, Sowjetunion als sozialistische Führungsmacht, Reformpolitik Gorbatschows, Neuausrichtung seit 1990er-Jahren)',
-        'China im 20./21. Jh. (Maoismus, wirtschaftliche Transformation, geopolitische und ökonomische Interessenpolitik)',
-        'Vertiefungsmodul: Internationale Konfliktfelder im Nahen und Mittleren Osten (Osmanisches Reich, Imperialismus, Kalter Krieg in der Region, Regionalmächte Israel/Saudi-Arabien/Türkei/Iran, Chinas Neue Seidenstraße)',
+        'Israelisch-palästinensischer Konflikt und internationale Konfliktfelder (Diaspora, Zionismus, Gründung Israels, Naher/Mittlerer Osten, Regionalmächte)',
+        'USA im 20./21. Jh. (Führungsmacht, Kalter Krieg, geopolitische Neuausrichtung, NATO-Osterweiterung, Pazifikraum)',
+        'Russland und China im 20./21. Jh. (Stalinismus, Gorbatschow, Maoismus, wirtschaftliche Transformation, geopolitische Interessenpolitik, Neue Seidenstraße)',
       ],
       '13/2': [
         'Historische Grundlagen moderner demokratischer Staatsordnungen (attische Demokratie, Imperium Romanum – Verwaltung und römisches Recht, Heiliges Römisches Reich – Goldene Bulle, Föderalismus, Aufklärung)',
@@ -409,14 +417,12 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Immigrazione ed emigrazione nella storia e nel presente',
         'Criminalità organizzata e le sue conseguenze sulla società',
-        'La problematica Nord-Sud (confronto tra due regioni, ad es. Calabria/Puglia – Lombardia/Veneto)',
-        'Turismo: aspetti positivi e negativi, patrimonio culturale',
+        'La problematica Nord-Sud e turismo (confronto tra regioni, patrimonio culturale)',
       ],
       '13/2': [
         'Il Risorgimento e la nascita dello Stato nazionale italiano',
         'Istituzioni politiche italiane e ruolo dell\'Italia nell\'UE',
-        'Cultura italiana: il cinema italiano e l\'opera lirica; Letteratura del 20°/21° secolo (ggf. Boccaccio)',
-        'Riflessione linguistica: nascita dell\'italiano e sviluppo della lingua standard',
+        'Cultura italiana: cinema, opera, letteratura del 20°/21° sec.; Riflessione linguistica (nascita dell\'italiano, lingua standard)',
       ],
     },
     // eA-Schwerpunkte (3. Fremdsprache): Erweiterte Inhalte laut LehrplanPLUS It12/13 eA
@@ -428,8 +434,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '12/2': [
         'Sostenibilità e risorse naturali (turismo, pesca, agricoltura, Slow Food, energia)',
-        'Istituzioni politiche e struttura amministrativa; Rapporto tra Chiesa e Stato (Patti Lateranensi)',
-        'Il Risorgimento e la nascita dello Stato nazionale italiano',
+        'Istituzioni politiche, struttura amministrativa, rapporto Chiesa e Stato (Patti Lateranensi); Il Risorgimento',
         'Bau- und Kunstgeschichte: Rinascimento, Barocco, Classicismo; patrimonio culturale',
       ],
       '13/1': [
@@ -461,8 +466,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         '"Imperium sine fine dedi" – Literatur und Herrschaft im augusteischen Rom',
         'Vergil: Aeneis (Staatsidee und Sendungsbewusstsein)',
-        'Horaz: carmen 4,15 (Augusteisches Friedensideal)',
-        'Ggf. Res gestae divi Augusti (augusteische Selbstdarstellung)',
+        'Horaz: carmen 4,15 (Augusteisches Friedensideal) und Res gestae divi Augusti (augusteische Selbstdarstellung)',
       ],
       '13/2': [
         '"Res publica res populi" – Staatsphilosophische Betrachtungen',
@@ -470,20 +474,26 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Cicero: De officiis (Pflichtenlehre, bellum iustum, politische Verantwortung)',
       ],
     },
-    // eA-Schwerpunkte: Zusätzliche Inhalte laut LehrplanPLUS L12/13 eA
+    // eA-Schwerpunkte: gA-Basis + zusätzliche Inhalte laut LehrplanPLUS L12/13 eA
     halbjahreEA: {
       '12/1': [
+        'Stoische Ethik und Lebensführung (Seneca: Epistulae morales), Eklektizismus und akademische Skepsis (Cicero)',
         'Lukrez: De rerum natura (Epikureische Naturphilosophie, Atomlehre)',
         'Horaz: Ode 1,11 (carpe diem – epikureische Lebenshaltung)',
       ],
       '12/2': [
+        'Catull: satirische Darstellung gesellschaftlicher Missstände (Carmina)',
+        'Petron: Satyrica / Cena Trimalchionis (Gesellschaftskritik, Vulgärlatein und Sprachvarietäten)',
         'Horaz: Satiren / Verssatire (Diatribensatire, Erzählsatire)',
       ],
       '13/1': [
+        'Vergil: Aeneis (Staatsidee und Sendungsbewusstsein im augusteischen Rom)',
+        'Horaz: carmen 4,15 (Friedensideal), Res gestae divi Augusti (augusteische Selbstdarstellung)',
         'Livius: Ab urbe condita (Geschichtsdarstellung, exempla-Technik)',
-        'Res gestae divi Augusti (verbindlich im eA)',
       ],
       '13/2': [
+        'Cicero: De re publica (Staatsdefinition, Verfassungskreislauf, Mischverfassung)',
+        'Cicero: De officiis (Pflichtenlehre, bellum iustum, politische Verantwortung)',
         'Augustinus: De civitate Dei (christliche Staatsphilosophie, Auseinandersetzung mit antikem Staatsdenken)',
       ],
     },
@@ -553,8 +563,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Photoeffekt (Hallwachs, Einstein-Gleichung), Mach-Zehnder-Interferometer',
         'Heisenberg\'sche Unbestimmtheitsrelation, Quantenradierer, Delayed-Choice-Experiment, Dekohärenz',
-        'Schrödinger-Gleichung, wasserstoffähnliche Systeme, Pauli-Prinzip, Moseley-Gesetz',
-        'Strukturuntersuchung mit Röntgenstrahlung, Synchrotronstrahlung',
+        'Schrödinger-Gleichung, wasserstoffähnliche Systeme, Pauli-Prinzip, Moseley-Gesetz, Strukturuntersuchung mit Röntgen-/Synchrotronstrahlung',
       ],
       '13/2': [
         'Energie- und Impulsbilanzen bei Kernreaktionen; Nuklidkarte und Zerfallsreihen',
@@ -620,11 +629,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // WR13 eA: LB1 Recht (48 Std.) → 13/1, LB2 VWL (36 Std.) = 13/2
     halbjahre: {
       '12/1': [
-        'Unternehmensaufbau und -ziele: Stakeholder, Zielkonflikte, Aufbau-/Ablauforganisation, Wertschöpfung und Funktionsbereiche',
-        'Markt und Produktion: Beschaffungsarten, Break-even-Analyse, Marktsituation, ABC-Analyse und Marktwachstum-Marktanteils-Portfolio',
+        'Unternehmensaufbau, Markt und Produktion: Stakeholder, Wertschöpfung, Beschaffung, Break-even-Analyse, ABC-Analyse',
         'Jahresabschluss und Bilanzanalyse: Bilanz, GuV, Bilanzkennzahlen (Anlageintensität, EK-Quote, Deckungsgrade, Liquiditätsgrade), Rentabilitätskennzahlen und EBIT',
-        'Investition und Finanzierung: Gewinnvergleichsrechnung, Amortisationsrechnung, Kapitalwertmethode, Leverage-Effekt',
-        'Unternehmensführung und Management: SWOT-Analyse, Wettbewerbsstrategien nach Porter, Kernkompetenzen, Managementfunktionen',
+        'Investition, Finanzierung und Unternehmensführung: Kapitalwertmethode, Leverage-Effekt, SWOT-Analyse, Wettbewerbsstrategien nach Porter',
       ],
       '12/2': [
         'Magisches Viereck, Konjunkturzyklus, Konjunkturindikatoren und Zielbeziehungen',
@@ -632,16 +639,14 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Einkommen und soziale Sicherung: Tarifpolitik, Kranken-/Rentenversicherung, demographischer Wandel, soziale Gerechtigkeit (Leistungs-, Chancen-, Bedarfs-, Generationengerechtigkeit)',
       ],
       '13/1': [
-        'Rechtstechnische Grundlagen (BGB-Systematik, Gutachtenstil), gesetzliche Schuldverhältnisse: § 823 I BGB, Gefährdungshaftung, Herausgabeanspruch und gutgläubiger Eigentumserwerb',
-        'Vertragliche Schuldverhältnisse: Vertragstypen (Werk-, Dienstvertrag), Leistungsstörungen (verspätete Leistung, Unmöglichkeit, Nebenpflichtverletzung), Gewährleistung beim Verbrauchsgüterkauf',
-        'Verbraucherschutz: Beweislastumkehr, Widerrufsrecht bei Fernabsatzverträgen, AGB, Vertragsfreiheit in der sozialen Marktwirtschaft',
+        'Rechtstechnische Grundlagen und gesetzliche Schuldverhältnisse (BGB-Systematik, Gutachtenstil, § 823 I BGB, Gefährdungshaftung, gutgläubiger Eigentumserwerb)',
+        'Vertragliche Schuldverhältnisse und Verbraucherschutz (Vertragstypen, Leistungsstörungen, Gewährleistung, Widerrufsrecht, AGB)',
         'Strafrecht: Aufbau einer Straftat, Rechtfertigungs- und Entschuldigungsgründe, Strafzwecktheorien, Strafzumessung, Radbruchsche Formel',
       ],
       '13/2': [
         'Geld und Preisniveau: Preisniveaustabilität, Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit), Wirkungsgrenzen',
         'Außenhandel und Währung: Leistungs-/Kapitalbilanz, Wechselkursbildung, außenhandels- und währungspolitische Maßnahmen',
-        'Spieltheorie: Gefangenendilemma, dominante Strategie, Nash-Gleichgewicht, Pareto-Optimum',
-        'Vertiefte und vernetzende Betrachtung aktueller gesamtwirtschaftlicher Problemstellungen',
+        'Spieltheorie (Gefangenendilemma, Nash-Gleichgewicht, Pareto-Optimum) und vernetzte Betrachtung gesamtwirtschaftlicher Problemstellungen',
       ],
     },
   },
@@ -676,10 +681,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Bäume: geordneter Binärbaum, Einfügen/Suchen, Traversierung (Preorder, Inorder, Postorder), Spezialfälle (vollständig, balanciert, entartet), Huffman-Baum',
       ],
       '12/2': [
-        'Funktionsweise eines Rechners: Von-Neumann-Architektur, Zweierkomplement, Logikgatter (AND, OR, NOT, NAND), Halb-/Volladdierer, disjunktive Normalform, Registermaschine, Assemblersprache, Befehlszyklus',
-        'Betriebssysteme und Nebenläufigkeit: Kernel-/User-Mode, Prozesszustände, Scheduling (FCFS, Round-Robin, SJF, Priorität), Synchronisation, Deadlock, Coffman-Bedingungen, Monitor-/Semaphorkonzept, Erzeuger-Verbraucher-/Leser-Schreiber-/Philosophenproblem',
-        'Informationssicherheit: Schutzziele (Vertraulichkeit, Integrität, Verfügbarkeit, Authentizität), Gefährdungskategorien, Sicherheitsmaßnahmen',
-        'Praktische Softwareentwicklung: MVC, Observer-Pattern, Wasserfallmodell, agile Methoden, Softwareergonomie, Testen, Refaktorierung, Versionsverwaltung',
+        'Funktionsweise eines Rechners: Von-Neumann-Architektur, Zweierkomplement, Logikgatter (AND, OR, NOT, NAND), Halb-/Volladdierer, Registermaschine, Assemblersprache, Befehlszyklus',
+        'Betriebssysteme und Nebenläufigkeit: Kernel-/User-Mode, Prozesszustände, Scheduling (FCFS, Round-Robin, SJF, Priorität), Synchronisation, Deadlock, Coffman-Bedingungen, Monitor-/Semaphorkonzept',
+        'Informationssicherheit und Softwareentwicklung: Schutzziele, Gefährdungskategorien, MVC, Observer-Pattern, agile Methoden, Testen, Versionsverwaltung',
       ],
       '13/1': [
         'Internet der Dinge: IoT-Systeme, Sensoren/Aktoren, Client-Server-Anwendung, Physical Computing, Sicherheitsmaßnahmen für IoT',
