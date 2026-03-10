@@ -746,8 +746,14 @@
 
         document.getElementById("profilLoading").style.display = "none";
 
-        if (!data.profile) {
-          document.getElementById("profilEmpty").style.display = "block";
+        if (!data.profile || data.profile.total_exercises < 3) {
+          var emptyDiv = document.getElementById("profilEmpty");
+          if (data.profile && data.profile.total_exercises > 0) {
+            emptyDiv.querySelector("h3").textContent = "Noch nicht genug Daten";
+            emptyDiv.querySelector("p").textContent =
+              "Du hast erst " + data.profile.total_exercises + " von mindestens 3 Aufgaben absolviert. Mach weiter, damit die KI dein Kompetenzprofil erstellen kann!";
+          }
+          emptyDiv.style.display = "block";
           return;
         }
 
