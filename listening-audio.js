@@ -1,7 +1,7 @@
 /**
  * Audio-Modul für die Listening Comprehension.
- * Nutzt die Gemini Live API, um einen Text natürlich vorlesen zu lassen.
- * Sammelt die Audio-Chunks und gibt einen abspielbaren WAV-Blob zurück.
+ * Nutzt die Gemini TTS API (REST), um einen Text natürlich vorlesen zu lassen.
+ * Gibt einen abspielbaren WAV-Blob zurück.
  */
 
 const PROXY_URL = 'https://gemini-proxy.sanktannagymnasium.workers.dev';
@@ -23,7 +23,7 @@ function createAI(GoogleGenAI) {
 }
 
 /**
- * Generiert Audio für einen Hörtext via Gemini Live API.
+ * Generiert Audio für einen Hörtext via Gemini TTS API (REST-Call, kein WebSocket).
  * @param {string} text – Der Text, der vorgelesen werden soll
  * @param {string} [voice='Kore'] – Stimme (Kore=weiblich, Puck=männlich)
  * @param {function} [onProgress] – Callback für Fortschrittsupdates (0-100)
@@ -31,157 +31,78 @@ function createAI(GoogleGenAI) {
  */
 export async function generateListeningAudio(text, voice, onProgress) {
   voice = voice || 'Kore';
+  if (onProgress) onProgress(10);
+
   var mod = await loadGenAI();
   var ai = createAI(mod.GoogleGenAI);
+  if (onProgress) onProgress(20);
 
-  // Audio-Chunks sammeln
-  var audioChunks = [];
-  var settled = false;
+  console.log('[Listening] Starte TTS-Generierung, ' + text.split(/\s+/).length + ' Wörter, Stimme: ' + voice);
 
-  return new Promise(function(resolve, reject) {
-    // Timeout: 120 Sekunden max
-    var timeout = setTimeout(function() {
-      if (!settled) {
-        settled = true;
-        if (audioChunks.length > 0) {
-          finalize();
-        } else {
-          reject(new Error('Audio-Generierung hat zu lange gedauert.'));
-        }
-      }
-    }, 120000);
-
-    function finalize() {
-      clearTimeout(timeout);
-      if (audioChunks.length === 0) {
-        reject(new Error('Kein Audio empfangen.'));
-        return;
-      }
-
-      var wavBlob = pcmChunksToWav(audioChunks, PLAYBACK_SAMPLE_RATE);
-      var url = URL.createObjectURL(wavBlob);
-      var totalSamples = 0;
-      for (var i = 0; i < audioChunks.length; i++) {
-        totalSamples += audioChunks[i].length;
-      }
-      var duration = totalSamples / PLAYBACK_SAMPLE_RATE;
-
-      resolve({ blob: wavBlob, url: url, duration: duration });
-    }
-
-    // Text direkt in die System-Instruction einbauen, damit das Model ihn kennt
-    var systemPrompt = 'You are a professional English narrator for a listening comprehension exam.\n\n' +
-      'INSTRUCTIONS:\n' +
-      '- Read the text below clearly, naturally, and at a steady pace suitable for B2/C1 level students.\n' +
-      '- Use appropriate intonation, emphasis, and natural pauses between sentences and paragraphs.\n' +
-      '- If the text contains dialogue or quotes, slightly vary your tone to indicate different speakers.\n' +
-      '- Do NOT add any commentary, introduction, greeting, or explanation.\n' +
-      '- Do NOT say things like "Here is the text" or "Let me read this for you".\n' +
-      '- Start reading IMMEDIATELY when prompted.\n' +
-      '- Read the COMPLETE text from beginning to end, do not skip or summarize.\n\n' +
-      'TEXT TO READ:\n\n' + text;
-
-    // Session erstellen, dann Text-Trigger senden
-    ai.live.connect({
-      model: 'gemini-2.5-flash-native-audio-preview-12-2025',
-      config: {
-        responseModalities: [mod.Modality.AUDIO],
-        speechConfig: {
-          voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
-        },
-        systemInstruction: systemPrompt,
+  var response = await ai.models.generateContent({
+    model: 'gemini-2.5-flash-preview-tts',
+    contents: [{ role: 'user', parts: [{ text: text }] }],
+    config: {
+      responseModalities: ['AUDIO'],
+      speechConfig: {
+        voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
       },
-      callbacks: {
-        onopen: function() {
-          console.log('[Listening] WebSocket verbunden');
-        },
-        onmessage: function(message) {
-          var parts = message.serverContent && message.serverContent.modelTurn && message.serverContent.modelTurn.parts;
-          if (parts) {
-            for (var i = 0; i < parts.length; i++) {
-              if (parts[i].inlineData && parts[i].inlineData.data) {
-                var pcm = base64ToPcm(parts[i].inlineData.data);
-                audioChunks.push(pcm);
-
-                if (onProgress) {
-                  var estimated = text.split(/\s+/).length * 8640;
-                  var current = 0;
-                  for (var j = 0; j < audioChunks.length; j++) current += audioChunks[j].length;
-                  var pct = Math.min(95, Math.round(current / estimated * 100));
-                  onProgress(pct);
-                }
-              }
-            }
-          }
-
-          // Turn Complete = Vorlesen fertig
-          if (message.serverContent && message.serverContent.turnComplete) {
-            if (!settled) {
-              settled = true;
-              if (onProgress) onProgress(100);
-              console.log('[Listening] Audio-Generierung abgeschlossen, ' + audioChunks.length + ' Chunks');
-              finalize();
-            }
-          }
-        },
-        onclose: function() {
-          console.log('[Listening] WebSocket geschlossen');
-          if (!settled) {
-            settled = true;
-            if (audioChunks.length > 0) {
-              finalize();
-            } else {
-              clearTimeout(timeout);
-              reject(new Error('Verbindung geschlossen bevor Audio empfangen wurde.'));
-            }
-          }
-        },
-        onerror: function(err) {
-          console.error('[Listening] Fehler:', err);
-          if (!settled) {
-            settled = true;
-            clearTimeout(timeout);
-            reject(new Error('Audio-Fehler: ' + (err.message || err)));
-          }
-        }
-      }
-    }).then(function(session) {
-      // Session ist jetzt verbunden – Trigger senden damit das Model anfängt zu lesen
-      console.log('[Listening] Session bereit, sende Lese-Trigger');
-      try {
-        session.send({ text: 'Please begin reading the text now.' });
-      } catch (e) {
-        console.error('[Listening] send() fehlgeschlagen, versuche sendClientContent:', e);
-        // Fallback: sendClientContent
-        try {
-          session.sendClientContent({
-            turns: [{ role: 'user', parts: [{ text: 'Please begin reading the text now.' }] }],
-            turnComplete: true
-          });
-        } catch (e2) {
-          console.error('[Listening] sendClientContent() auch fehlgeschlagen:', e2);
-        }
-      }
-    }).catch(function(err) {
-      if (!settled) {
-        settled = true;
-        clearTimeout(timeout);
-        reject(new Error('Verbindung fehlgeschlagen: ' + (err.message || err)));
-      }
-    });
+    },
   });
-}
+  if (onProgress) onProgress(80);
 
-/**
- * Base64-String zu Int16Array (PCM) konvertieren
- */
-function base64ToPcm(base64Data) {
-  var binaryString = atob(base64Data);
+  console.log('[Listening] TTS-Antwort erhalten');
+
+  // Audio-Daten aus der Response extrahieren
+  var audioData = null;
+  if (response.candidates && response.candidates[0] &&
+      response.candidates[0].content && response.candidates[0].content.parts) {
+    var parts = response.candidates[0].content.parts;
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].inlineData && parts[i].inlineData.data) {
+        audioData = parts[i].inlineData;
+        break;
+      }
+    }
+  }
+
+  if (!audioData) {
+    throw new Error('Kein Audio in der Antwort erhalten.');
+  }
+
+  if (onProgress) onProgress(90);
+
+  // Base64-Audio dekodieren
+  var binaryString = atob(audioData.data);
   var bytes = new Uint8Array(binaryString.length);
   for (var i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
-  return new Int16Array(bytes.buffer);
+
+  var blob;
+  var duration;
+
+  // Prüfen ob die Antwort bereits WAV/MP3 ist oder rohes PCM
+  var mimeType = audioData.mimeType || '';
+
+  if (mimeType.indexOf('wav') !== -1 || mimeType.indexOf('mp3') !== -1 || mimeType.indexOf('mpeg') !== -1) {
+    // Bereits ein fertiges Audio-Format
+    blob = new Blob([bytes], { type: mimeType });
+    // Dauer schätzen: ~150 Wörter pro Minute
+    duration = (text.split(/\s+/).length / 150) * 60;
+  } else {
+    // Rohes PCM (16-bit, 24kHz, mono) – zu WAV konvertieren
+    var pcmData = new Int16Array(bytes.buffer);
+    blob = pcmChunksToWav([pcmData], PLAYBACK_SAMPLE_RATE);
+    duration = pcmData.length / PLAYBACK_SAMPLE_RATE;
+  }
+
+  var url = URL.createObjectURL(blob);
+  if (onProgress) onProgress(100);
+
+  console.log('[Listening] Audio fertig: ' + Math.round(duration) + 's, ' + Math.round(bytes.length / 1024) + ' KB');
+
+  return { blob: blob, url: url, duration: duration };
 }
 
 /**
@@ -198,7 +119,6 @@ function pcmChunksToWav(chunks, sampleRate) {
   var buffer = new ArrayBuffer(headerLength + dataLength);
   var view = new DataView(buffer);
 
-  // WAV Header
   writeString(view, 0, 'RIFF');
   view.setUint32(4, 36 + dataLength, true);
   writeString(view, 8, 'WAVE');
@@ -213,7 +133,6 @@ function pcmChunksToWav(chunks, sampleRate) {
   writeString(view, 36, 'data');
   view.setUint32(40, dataLength, true);
 
-  // PCM-Daten
   var offset = headerLength;
   for (var i = 0; i < chunks.length; i++) {
     var chunk = chunks[i];
