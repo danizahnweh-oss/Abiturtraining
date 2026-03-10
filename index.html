@@ -374,6 +374,33 @@
       background: linear-gradient(135deg, rgba(59, 130, 246, .05), transparent)
     }
 
+    .profil-card {
+      border-color: #8b5cf6
+    }
+
+    .profil-card .kol-title {
+      color: #8b5cf6
+    }
+
+    .profil-card .kol-badge {
+      background: rgba(139, 92, 246, .1);
+      color: #8b5cf6
+    }
+
+    .profil-card .kol-arrow {
+      color: #8b5cf6
+    }
+
+    .profil-card:hover,
+    .profil-card:focus-visible {
+      border-color: #7c3aed;
+      box-shadow: 0 20px 25px -5px rgba(139, 92, 246, .1)
+    }
+
+    .profil-card::before {
+      background: linear-gradient(135deg, rgba(139, 92, 246, .05), transparent)
+    }
+
     .training-fach-btn {
       display: flex;
       align-items: center;
@@ -1334,7 +1361,7 @@
     .subject-filter-bar {
       max-width: 1000px;
       width: 100%;
-      margin: 0 auto;
+      margin: 1.5rem auto 0;
       padding: 0 1.5rem;
       display: flex;
       justify-content: space-between;
@@ -2990,7 +3017,7 @@
       </a>
     </div>
     <div id="profilLink" class="kolloquium-banner" style="display:none">
-      <a href="profil.html" class="kolloquium-card" aria-label="Mein Kompetenzprofil öffnen">
+      <a href="profil.html" class="kolloquium-card profil-card" aria-label="Mein Kompetenzprofil öffnen">
         <div class="kol-icon" aria-hidden="true">📊</div>
         <div class="kol-body">
           <div class="kol-title">Mein Kompetenzprofil</div>
