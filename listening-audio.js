@@ -36,24 +36,20 @@ export async function generateListeningAudio(text, voice, onProgress) {
 
   // Audio-Chunks sammeln
   var audioChunks = [];
-  var totalBytes = 0;
+  var settled = false;
 
   return new Promise(function(resolve, reject) {
-    var sessionRef = null;
-    var settled = false;
-    // Timeout: 90 Sekunden max
+    // Timeout: 120 Sekunden max
     var timeout = setTimeout(function() {
       if (!settled) {
         settled = true;
-        try { if (sessionRef) sessionRef.close(); } catch (e) {}
         if (audioChunks.length > 0) {
-          // Partial audio verfügbar – verwende was wir haben
           finalize();
         } else {
           reject(new Error('Audio-Generierung hat zu lange gedauert.'));
         }
       }
-    }, 90000);
+    }, 120000);
 
     function finalize() {
       clearTimeout(timeout);
@@ -62,7 +58,6 @@ export async function generateListeningAudio(text, voice, onProgress) {
         return;
       }
 
-      // PCM-Chunks zu einem WAV-Blob konvertieren
       var wavBlob = pcmChunksToWav(audioChunks, PLAYBACK_SAMPLE_RATE);
       var url = URL.createObjectURL(wavBlob);
       var totalSamples = 0;
@@ -74,6 +69,19 @@ export async function generateListeningAudio(text, voice, onProgress) {
       resolve({ blob: wavBlob, url: url, duration: duration });
     }
 
+    // Text direkt in die System-Instruction einbauen, damit das Model ihn kennt
+    var systemPrompt = 'You are a professional English narrator for a listening comprehension exam.\n\n' +
+      'INSTRUCTIONS:\n' +
+      '- Read the text below clearly, naturally, and at a steady pace suitable for B2/C1 level students.\n' +
+      '- Use appropriate intonation, emphasis, and natural pauses between sentences and paragraphs.\n' +
+      '- If the text contains dialogue or quotes, slightly vary your tone to indicate different speakers.\n' +
+      '- Do NOT add any commentary, introduction, greeting, or explanation.\n' +
+      '- Do NOT say things like "Here is the text" or "Let me read this for you".\n' +
+      '- Start reading IMMEDIATELY when prompted.\n' +
+      '- Read the COMPLETE text from beginning to end, do not skip or summarize.\n\n' +
+      'TEXT TO READ:\n\n' + text;
+
+    // Session erstellen, dann Text-Trigger senden
     ai.live.connect({
       model: 'gemini-2.5-flash-native-audio-preview-12-2025',
       config: {
@@ -81,28 +89,22 @@ export async function generateListeningAudio(text, voice, onProgress) {
         speechConfig: {
           voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } },
         },
-        systemInstruction: 'You are a professional English narrator for a listening comprehension exam. Read the provided text clearly, naturally, and at a steady pace suitable for B2/C1 level students. Use appropriate intonation and pauses. If the text contains dialogue or quotes, slightly vary your voice to indicate different speakers. Do NOT add any commentary, introduction, or explanation — just read the text exactly as given.',
+        systemInstruction: systemPrompt,
       },
       callbacks: {
         onopen: function() {
-          // Text zum Vorlesen senden
-          if (sessionRef) {
-            sessionRef.send({ text: text });
-          }
+          console.log('[Listening] WebSocket verbunden');
         },
         onmessage: function(message) {
-          // Audio-Chunks sammeln
           var parts = message.serverContent && message.serverContent.modelTurn && message.serverContent.modelTurn.parts;
           if (parts) {
             for (var i = 0; i < parts.length; i++) {
               if (parts[i].inlineData && parts[i].inlineData.data) {
                 var pcm = base64ToPcm(parts[i].inlineData.data);
                 audioChunks.push(pcm);
-                totalBytes += pcm.length * 2;
 
-                // Fortschrittsupdate (geschätzt: ~500 Wörter ≈ 3 Min ≈ 4.3 MB PCM bei 24kHz)
                 if (onProgress) {
-                  var estimated = text.split(/\s+/).length * 8640; // Samples pro Wort (geschätzt)
+                  var estimated = text.split(/\s+/).length * 8640;
                   var current = 0;
                   for (var j = 0; j < audioChunks.length; j++) current += audioChunks[j].length;
                   var pct = Math.min(95, Math.round(current / estimated * 100));
@@ -114,24 +116,28 @@ export async function generateListeningAudio(text, voice, onProgress) {
 
           // Turn Complete = Vorlesen fertig
           if (message.serverContent && message.serverContent.turnComplete) {
-            settled = true;
-            try { if (sessionRef) sessionRef.close(); } catch (e) {}
-            if (onProgress) onProgress(100);
-            finalize();
+            if (!settled) {
+              settled = true;
+              if (onProgress) onProgress(100);
+              console.log('[Listening] Audio-Generierung abgeschlossen, ' + audioChunks.length + ' Chunks');
+              finalize();
+            }
           }
         },
         onclose: function() {
+          console.log('[Listening] WebSocket geschlossen');
           if (!settled) {
             settled = true;
             if (audioChunks.length > 0) {
               finalize();
             } else {
               clearTimeout(timeout);
-              reject(new Error('Verbindung geschlossen, kein Audio empfangen.'));
+              reject(new Error('Verbindung geschlossen bevor Audio empfangen wurde.'));
             }
           }
         },
         onerror: function(err) {
+          console.error('[Listening] Fehler:', err);
           if (!settled) {
             settled = true;
             clearTimeout(timeout);
@@ -140,7 +146,22 @@ export async function generateListeningAudio(text, voice, onProgress) {
         }
       }
     }).then(function(session) {
-      sessionRef = session;
+      // Session ist jetzt verbunden – Trigger senden damit das Model anfängt zu lesen
+      console.log('[Listening] Session bereit, sende Lese-Trigger');
+      try {
+        session.send({ text: 'Please begin reading the text now.' });
+      } catch (e) {
+        console.error('[Listening] send() fehlgeschlagen, versuche sendClientContent:', e);
+        // Fallback: sendClientContent
+        try {
+          session.sendClientContent({
+            turns: [{ role: 'user', parts: [{ text: 'Please begin reading the text now.' }] }],
+            turnComplete: true
+          });
+        } catch (e2) {
+          console.error('[Listening] sendClientContent() auch fehlgeschlagen:', e2);
+        }
+      }
     }).catch(function(err) {
       if (!settled) {
         settled = true;
@@ -167,33 +188,32 @@ function base64ToPcm(base64Data) {
  * Array von Int16Array-Chunks zu einem WAV-Blob konvertieren
  */
 function pcmChunksToWav(chunks, sampleRate) {
-  // Gesamtlänge berechnen
   var totalSamples = 0;
   for (var i = 0; i < chunks.length; i++) {
     totalSamples += chunks[i].length;
   }
 
-  var dataLength = totalSamples * 2; // 16-bit = 2 bytes pro sample
+  var dataLength = totalSamples * 2;
   var headerLength = 44;
   var buffer = new ArrayBuffer(headerLength + dataLength);
   var view = new DataView(buffer);
 
-  // WAV Header schreiben
+  // WAV Header
   writeString(view, 0, 'RIFF');
   view.setUint32(4, 36 + dataLength, true);
   writeString(view, 8, 'WAVE');
   writeString(view, 12, 'fmt ');
-  view.setUint32(16, 16, true); // Subchunk1Size
-  view.setUint16(20, 1, true); // PCM Format
-  view.setUint16(22, 1, true); // Mono
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
   view.setUint32(24, sampleRate, true);
-  view.setUint32(28, sampleRate * 2, true); // ByteRate
-  view.setUint16(32, 2, true); // BlockAlign
-  view.setUint16(34, 16, true); // BitsPerSample
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
   writeString(view, 36, 'data');
   view.setUint32(40, dataLength, true);
 
-  // PCM-Daten schreiben
+  // PCM-Daten
   var offset = headerLength;
   for (var i = 0; i < chunks.length; i++) {
     var chunk = chunks[i];
