@@ -503,6 +503,14 @@ export default {
         return await handleModelAnswer(request, env);
       }
 
+      // ===== LISTENING COMPREHENSION ENDPOINTS =====
+      if (pathname === "/api/generate-listening" && request.method === "POST") {
+        return await handleGenerateListening(request, env);
+      }
+      if (pathname === "/api/grade-listening" && request.method === "POST") {
+        return await handleGradeListening(request, env);
+      }
+
       // ===== GESCHICHTE ENDPOINTS =====
       if (pathname === "/api/generate-geschichte" && request.method === "POST") {
         return await handleGenerateGeschichte(request, env);
@@ -1737,6 +1745,220 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.len
       uebungsaufgaben: []
     }, 200, env);
   }
+}
+
+/* ================= LISTENING COMPREHENSION: GENERATE ================= */
+async function handleGenerateListening(request, env) {
+  const body = await request.json();
+  const { topic, format, prompt_template } = body;
+
+  const safeTopic = truncate(topic || "Science & Technology", 500);
+  const safeFormat = truncate(format || "news report", 200);
+
+  let prompt;
+  if (prompt_template && typeof prompt_template === "string") {
+    prompt = prompt_template
+      .replace(/\{topic\}/g, safeTopic)
+      .replace(/\{format\}/g, safeFormat);
+  } else {
+    prompt = `Du bist ein erfahrener Englischlehrer am bayerischen Gymnasium und erstellst eine Listening Comprehension Aufgabe für das Abitur (Niveau B2/C1).
+
+THEMA: ${safeTopic}
+FORMAT: ${safeFormat}
+
+Erstelle einen englischen Hörtext und passende Fragen.
+
+TEIL 1 – HÖRTEXT:
+- 400–600 Wörter, authentisch klingender englischer Text
+- Format: ${safeFormat} (z.B. Nachrichtenbericht, Interview, Vortrag, Dialog)
+- Sprachniveau B2/C1 (Oberstufe)
+- Natürliche Sprache mit klarer Struktur
+- Bei Dialogen: Sprechernamen in eckigen Klammern, z.B. [Reporter]: ... [Expert]: ...
+- Der Text muss beim Hören gut verständlich sein (keine zu komplexen Schachtelsätze)
+
+TEIL 2 – FRAGEN (insgesamt 20 Punkte):
+Erstelle einen Mix aus drei Fragetypen:
+
+A) Multiple Choice (5 Fragen, je 1 Punkt = 5 Punkte):
+- 4 Optionen (A, B, C, D), genau eine richtig
+- Fragen zur Hauptaussage, Details und Schlussfolgerungen
+
+B) True / False / Not Given (5 Fragen, je 1 Punkt = 5 Punkte):
+- Aussagen zum Text
+- "true" = im Text so gesagt
+- "false" = im Text das Gegenteil gesagt
+- "not_given" = im Text nicht erwähnt
+
+C) Kurzantworten (5 Fragen, je 2 Punkte = 10 Punkte):
+- Offene Fragen, die in 1-2 Sätzen beantwortet werden
+- Beziehen sich auf Argumentation, Meinungen oder Zusammenhänge
+
+WICHTIG: Die Fragen sollen in der Reihenfolge des Textes gestellt werden (chronologisch).
+
+OUTPUT FORMAT – Antworte NUR mit reinem JSON:
+{
+  "title": "Kurzer englischer Titel",
+  "transcript": "Der vollständige Hörtext...",
+  "format": "${safeFormat}",
+  "speakers": ["Speaker1", "Speaker2"],
+  "questions": [
+    {"id": 1, "type": "mc", "question": "What is the main topic of the report?", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "correct": "B", "points": 1},
+    {"id": 6, "type": "tf", "question": "The expert claims that...", "correct": "true", "points": 1},
+    {"id": 11, "type": "short", "question": "Explain why the speaker believes...", "sample_answer": "The speaker believes... because...", "points": 2}
+  ],
+  "total_points": 20
+}`;
+  }
+
+  const openaiRes = await callOpenAI(env, [
+    {
+      role: "system",
+      content: "You are a Listening Comprehension exam generator for the Bavarian Abitur. Return valid JSON only. No markdown fences. No preamble. All questions must be in English."
+    },
+    { role: "user", content: truncate(prompt, 12000) }
+  ], 6000);
+
+  const content = extractJSON(openaiRes);
+  return jsonResponse(content, 200, env);
+}
+
+/* ================= LISTENING COMPREHENSION: GRADE ================= */
+async function handleGradeListening(request, env) {
+  const body = await request.json();
+  const { questions, student_answers, transcript } = body;
+
+  if (!questions || !student_answers) {
+    return jsonResponse({ error: "questions and student_answers required" }, 400, env);
+  }
+
+  // MC und True/False clientseitig auswerten – nur Kurzantworten an KI senden
+  const shortQuestions = [];
+  let autoPoints = 0;
+  let autoMax = 0;
+  const autoResults = [];
+
+  for (const q of questions) {
+    const answer = student_answers[q.id];
+    if (q.type === "mc" || q.type === "tf") {
+      const isCorrect = answer && answer.toLowerCase() === String(q.correct).toLowerCase();
+      const pts = isCorrect ? q.points : 0;
+      autoPoints += pts;
+      autoMax += q.points;
+      autoResults.push({
+        id: q.id,
+        type: q.type,
+        question: q.question,
+        student_answer: answer || "(keine Antwort)",
+        correct_answer: q.correct,
+        points_awarded: pts,
+        max_points: q.points,
+        is_correct: isCorrect
+      });
+    } else if (q.type === "short") {
+      shortQuestions.push({ ...q, student_answer: answer || "" });
+    }
+  }
+
+  // Kurzantworten per KI bewerten
+  let shortResults = [];
+  let shortPoints = 0;
+  let shortMax = 0;
+
+  if (shortQuestions.length > 0) {
+    const shortPrompt = shortQuestions.map(function(q) {
+      return `Frage ${q.id}: ${q.question}\nMusterantwort: ${q.sample_answer}\nSchülerantwort: ${q.student_answer || "(keine Antwort)"}\nMax. Punkte: ${q.points}`;
+    }).join("\n\n");
+
+    const gradeRes = await callOpenAI(env, [
+      {
+        role: "system",
+        content: `Du bist ein erfahrener Englischlehrer und bewertest Kurzantworten einer Listening Comprehension.
+Vergleiche die Schülerantwort semantisch mit der Musterantwort. Der Schüler muss nicht exakt die gleichen Worte verwenden – es geht um den Inhalt.
+
+Bewertungsregeln:
+- Volle Punktzahl: Inhaltlich korrekt und vollständig
+- Halbe Punktzahl: Teilweise korrekt oder unvollständig
+- 0 Punkte: Falsch oder keine Antwort
+
+Antworte NUR mit validem JSON:
+{"results": [{"id": <number>, "points_awarded": <number>, "max_points": <number>, "feedback": "<kurze Begründung auf Deutsch>"}]}`
+      },
+      { role: "user", content: shortPrompt }
+    ], 3000);
+
+    try {
+      const parsed = extractJSON(gradeRes);
+      shortResults = (parsed.results || []).map(function(r) {
+        var q = shortQuestions.find(function(sq) { return sq.id === r.id; });
+        shortPoints += r.points_awarded || 0;
+        shortMax += (q ? q.points : r.max_points || 2);
+        return {
+          id: r.id,
+          type: "short",
+          question: q ? q.question : "",
+          student_answer: q ? q.student_answer : "",
+          correct_answer: q ? q.sample_answer : "",
+          points_awarded: r.points_awarded || 0,
+          max_points: q ? q.points : r.max_points || 2,
+          feedback: r.feedback || ""
+        };
+      });
+    } catch (e) {
+      // Fallback: 0 Punkte für alle Kurzantworten
+      for (const q of shortQuestions) {
+        shortMax += q.points;
+        shortResults.push({
+          id: q.id,
+          type: "short",
+          question: q.question,
+          student_answer: q.student_answer,
+          correct_answer: q.sample_answer,
+          points_awarded: 0,
+          max_points: q.points,
+          feedback: "Konnte nicht automatisch bewertet werden."
+        });
+      }
+    }
+  }
+
+  const totalPoints = autoPoints + shortPoints;
+  const maxPoints = autoMax + shortMax;
+  const percentage = maxPoints > 0 ? Math.round(totalPoints / maxPoints * 100) : 0;
+
+  // Notenpunkte berechnen (0-15 NP)
+  let notenpunkte;
+  if (percentage >= 95) notenpunkte = 15;
+  else if (percentage >= 90) notenpunkte = 14;
+  else if (percentage >= 85) notenpunkte = 13;
+  else if (percentage >= 80) notenpunkte = 12;
+  else if (percentage >= 75) notenpunkte = 11;
+  else if (percentage >= 70) notenpunkte = 10;
+  else if (percentage >= 65) notenpunkte = 9;
+  else if (percentage >= 60) notenpunkte = 8;
+  else if (percentage >= 55) notenpunkte = 7;
+  else if (percentage >= 50) notenpunkte = 6;
+  else if (percentage >= 45) notenpunkte = 5;
+  else if (percentage >= 40) notenpunkte = 4;
+  else if (percentage >= 33) notenpunkte = 3;
+  else if (percentage >= 27) notenpunkte = 2;
+  else if (percentage >= 20) notenpunkte = 1;
+  else notenpunkte = 0;
+
+  // Schulnote
+  const gradeMap = {15:"1+",14:"1",13:"1-",12:"2+",11:"2",10:"2-",9:"3+",8:"3",7:"3-",6:"4+",5:"4",4:"4-",3:"5+",2:"5",1:"5-",0:"6"};
+  const grade = gradeMap[notenpunkte] || "6";
+
+  // Alle Ergebnisse zusammenführen und nach ID sortieren
+  const allResults = autoResults.concat(shortResults).sort(function(a, b) { return a.id - b.id; });
+
+  return jsonResponse({
+    results: allResults,
+    total_points: totalPoints,
+    max_points: maxPoints,
+    percentage: percentage,
+    notenpunkte: notenpunkte,
+    grade: grade
+  }, 200, env);
 }
 
 /* ================= ENGLISCH: OCR ================= */
