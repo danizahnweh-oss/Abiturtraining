@@ -689,6 +689,7 @@
 
         if (session.listeningData && session.listeningData.transcript) {
           listeningData = session.listeningData;
+          CONFIG.storedData = session.listeningData;
           playCount = session.playCount || 0;
           studentAnswers = session.studentAnswers || {};
           if (session.notes) document.getElementById("listeningNotes").value = session.notes;
@@ -724,6 +725,7 @@
         }
 
         listeningData = data;
+        CONFIG.storedData = data;
         playCount = 0;
         studentAnswers = {};
         feedbackMode = false;
@@ -1146,6 +1148,7 @@
       if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
       localStorage.removeItem("session_" + getStudentKey());
       listeningData = null;
+      CONFIG.storedData = null;
       audioUrl = null;
       playCount = 0;
       studentAnswers = {};
