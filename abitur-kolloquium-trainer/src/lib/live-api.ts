@@ -334,6 +334,9 @@ export class LiveSession {
           speechConfig: {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: this.config.gender === 'female' ? 'Kore' : 'Puck' } },
           },
+          thinkingConfig: {
+            thinkingBudget: 0,
+          },
           systemInstruction: this.instruction,
           inputAudioTranscription: {},
           outputAudioTranscription: {},
@@ -570,8 +573,8 @@ export class StatefulLiveSession {
         try {
           if (this.ws?.readyState === WebSocket.OPEN) {
             this.ws.send(JSON.stringify({
-              realtime_input: {
-                media_chunks: [{ data: base64Data, mime_type: 'audio/pcm;rate=16000' }]
+              realtimeInput: {
+                mediaChunks: [{ data: base64Data, mimeType: 'audio/pcm;rate=16000' }]
               }
             }));
           }
