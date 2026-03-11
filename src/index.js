@@ -14333,7 +14333,16 @@ TASK III (8 BE):
 
 PART 2 – MATERIAL-BASED WRITING (24 BE):
 2 Tasks to choose from (student picks ONE), min. 300 words each.
-Each task: argumentative essay/comment with 3 materials (text excerpts, statistics, German text).
+Each task: argumentative essay/comment with 3 materials.
+MATERIAL RULES:
+- Maximum ONE text (short excerpt, 80-150 words). The other materials MUST be non-text types.
+- Use a DIVERSE MIX from: quote (famous person, expert, politician), statistik (table, survey results, percentages), grafik (detailed description of a chart/graph/diagram), cartoon (detailed description of a political/editorial cartoon with visual elements, caption, message).
+- Each task should have a DIFFERENT combination of material types.
+- Statistik: Present as realistic data with source, year, specific numbers/percentages.
+- Grafik: Describe the chart type (bar, pie, line), axes, data points, trends – detailed enough to interpret.
+- Cartoon: Describe the visual scene, characters, speech bubbles, captions, symbols – detailed enough to analyze.
+- Quote: Include the person's name, role/profession, and the full quote with context.
+- Materials can be in English or German (mark typ accordingly: quote_en, quote_de, statistik, grafik, cartoon, text_en, text_de).
 
 IMPORTANT:
 - All texts COMPLETE and realistic, B2 level
@@ -14341,7 +14350,7 @@ IMPORTANT:
 - Multiple Matching: exactly 5 matches + 3 distractors
 - Gapped Summary: gaps as ______(1), ______(2) etc.
 - CORRECT ANSWERS for all Reading tasks
-- Writing materials: mix of English and German
+- Writing materials: diverse types (NOT just texts!)
 
 Respond ONLY with valid JSON:
 {
@@ -14411,14 +14420,14 @@ Respond ONLY with valid JSON:
     "be": 24,
     "tasks": [
       {"nr": 1, "thema": "Topic", "anweisung": "Comment on...", "materialien": [
-        {"nr": 1, "typ": "text_en", "text": "English source..."},
-        {"nr": 2, "typ": "statistik", "text": "Statistics description..."},
-        {"nr": 3, "typ": "text_de", "text": "German source..."}
+        {"nr": 1, "typ": "quote_en", "text": "\"Quote text...\" – Name, Role (Year)"},
+        {"nr": 2, "typ": "statistik", "text": "Survey by [Source] (2024): 67% of young Europeans..."},
+        {"nr": 3, "typ": "cartoon", "text": "The cartoon shows... [detailed visual description]"}
       ]},
       {"nr": 2, "thema": "Topic 2", "anweisung": "Discuss...", "materialien": [
-        {"nr": 1, "typ": "text_en", "text": "..."},
-        {"nr": 2, "typ": "text_en", "text": "..."},
-        {"nr": 3, "typ": "text_de", "text": "..."}
+        {"nr": 1, "typ": "text_en", "text": "Short excerpt (80-150 words)..."},
+        {"nr": 2, "typ": "grafik", "text": "Bar chart showing... X-axis: ..., Y-axis: ... [detailed description]"},
+        {"nr": 3, "typ": "quote_de", "text": "\"Zitat...\" – Name, Rolle (Jahr)"}
       ]}
     ]
   }
@@ -14427,6 +14436,7 @@ Respond ONLY with valid JSON:
   const userPrompt = `Create a complete FOS Fachabiturprüfung English (48 BE):
 Part 1 Reading (24 BE): 3 texts (~800 words each), Task I (Multiple Matching + Short Answer), Task II (Gapped Summary + Short Answer), Task III (MC + Mediation EN→DE).
 Part 2 Writing (24 BE): 2 tasks to choose from (essay, 300+ words, 3 materials each).
+IMPORTANT for Writing materials: Use max. 1 text per task. Other materials MUST be quotes, statistics, chart/graph descriptions, or cartoon descriptions. Each task should use a DIFFERENT combination.
 ALL texts complete and realistic. Include correct answers for Reading.`;
 
   const openaiRes = await callOpenAI(env, [
