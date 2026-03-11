@@ -14334,6 +14334,10 @@ TASK III (8 BE):
 PART 2 – MATERIAL-BASED WRITING (24 BE):
 2 Tasks to choose from (student picks ONE), min. 300 words each.
 Each task: argumentative essay/comment with 3 materials.
+WRITING TASK FORMAT:
+- "anweisung" must be SHORT and DIRECT (1-2 sentences max!), e.g. "Write a comment on the role of social media in education. Use the materials provided."
+- NO long introductory text, NO background explanation, NO context paragraphs – just the task instruction.
+- The materials speak for themselves – the student does NOT need a long text explaining the topic.
 MATERIAL RULES:
 - Maximum ONE text (short excerpt, 80-150 words). The other materials MUST be non-text types.
 - Use a DIVERSE MIX from: quote (famous person, expert, politician), statistik (table, survey results, percentages), grafik (detailed description of a chart/graph/diagram), cartoon (detailed description of a political/editorial cartoon with visual elements, caption, message).
