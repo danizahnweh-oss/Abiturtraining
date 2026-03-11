@@ -358,6 +358,9 @@
               <div class="hj-desc">BGB, Leistungsstörungen, Strafrecht</div>
             </div>
           </div>
+        </div>
+        <div class="form-group" id="schwerpunkteSection">
+          <label>Schwerpunkte <span style="font-weight:400;color:var(--ink-muted);font-size:.85rem">(optional – ohne Auswahl wird zufällig generiert)</span></label>
           <div id="subtopics-panel" class="subtopics-panel"></div>
         </div>
         <div id="gaHint" style="display:none;padding:.8rem 1rem;background:var(--accent-glow);border-radius:var(--radius-sm);margin-bottom:1rem;font-size:.9rem">
@@ -718,6 +721,12 @@ Struktur:
       document.getElementById("gaHint").style.display = isGA ? "block" : "none";
       document.getElementById("timerMinutes").value = isGA ? "210" : "135";
       document.getElementById("totalBE").value = isGA ? "100" : "60";
+      // Bei gA: Alle drei Fachbereiche aktivieren und Schwerpunkte anzeigen
+      if (isGA) {
+        CONFIG.selectedSachgebiete = ["bwl", "vwl", "recht"];
+        CONFIG.sachgebiet = "bwl";
+      }
+      renderSubtopics();
     }
 
     /* ====== SETUP MODE ====== */
@@ -997,7 +1006,7 @@ Struktur:
       const sel = document.getElementById("niveauSelect");
       if (sel) {
         sel.value = level;
-        updateFachbereichVisibility();
+        updateNiveau();
       }
     })();
   </script>
