@@ -800,7 +800,7 @@ Struktur:
           niveau: niveau,
           fachbereich: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
           sachgebiet: isGA ? "integriert" : CONFIG.selectedSachgebiete.join(", "),
-          unterpunkte: isGA ? [] : getSelectedSubtopics(),
+          unterpunkte: getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 135,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1
