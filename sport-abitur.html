@@ -1153,18 +1153,41 @@
       });
     }
 
-    async function loadImage(prompt, containerId) {
+    async function loadImage(prompt, containerId, _isRetry) {
+      var el = document.getElementById(containerId);
+      if (!el) return;
+
+      if (_isRetry) {
+        el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Bild wird neu generiert…</span></div>';
+      }
+
+      var actualPrompt = _isRetry
+        ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
+        : prompt;
+
       try {
-        var el = document.getElementById(containerId);
-        if (!el) return;
-        var d = await apiCall("/api/generate-image", { prompt: prompt });
+        var d = await apiCall("/api/generate-image", { prompt: actualPrompt });
         var credit = d.credit ? '<div class="material-credit">' + escapeHtml(d.credit) + '</div>' : "";
         var caption = d.caption ? '<figcaption class="material-caption">' + escapeHtml(d.caption) + '</figcaption>' : "";
-        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + '</figure>';
+        var regenBtnHtml =
+          '<div style="text-align:center;">' +
+            '<button type="button" class="edu-img-regen-btn" title="Bild neu generieren">' +
+              '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+              'Neu generieren' +
+            '</button>' +
+          '</div>';
+        el.innerHTML = '<figure class="material-figure"><img src="' + d.url + '" alt="Illustration" class="material-img">' + caption + credit + regenBtnHtml + '</figure>';
+
+        var regenBtn = el.querySelector('.edu-img-regen-btn');
+        if (regenBtn) {
+          regenBtn.addEventListener('click', function() {
+            loadImage(prompt, containerId, true);
+          });
+        }
       } catch (e) {
         console.error("Bild-Fehler:", e);
-        var el = document.getElementById(containerId);
-        if (el) el.innerHTML = '<div style="color:var(--warning);font-size:.8rem;text-align:center;padding:1rem">Bild konnte nicht geladen werden.</div>';
+        var el2 = document.getElementById(containerId);
+        if (el2) el2.innerHTML = '<div style="color:var(--warning);font-size:.8rem;text-align:center;padding:1rem">Bild konnte nicht geladen werden.</div>';
       }
     }
   </script>

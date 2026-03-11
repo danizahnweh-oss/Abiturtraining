@@ -1223,11 +1223,20 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       }
     }
 
-    async function loadCartoonImage(prompt, containerId, bubbles) {
+    async function loadCartoonImage(prompt, containerId, bubbles, _isRetry) {
+      var el = document.getElementById(containerId);
+      if (!el) return;
+
+      if (_isRetry) {
+        el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird neu generiert…</span></div>';
+      }
+
+      var actualPrompt = _isRetry
+        ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
+        : prompt;
+
       try {
-        const el = document.getElementById(containerId);
-        if (!el) return;
-        const d = await apiCall("/api/generate-image", { prompt: prompt, noText: true, style: "cartoon" });
+        const d = await apiCall("/api/generate-image", { prompt: actualPrompt, noText: true, style: "cartoon" });
         const credit = d.credit ? '<div style="font-size:.7rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.credit) + '</div>' : "";
         const caption = d.caption ? '<figcaption style="font-size:.8rem;color:var(--ink-light);margin-top:.4rem;font-style:italic;">' + escapeHtml(d.caption) + '</figcaption>' : "";
 
@@ -1241,18 +1250,33 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           }).join("");
         }
 
+        var regenBtnHtml =
+          '<div style="text-align:center;">' +
+            '<button type="button" class="edu-img-regen-btn" title="Cartoon neu generieren">' +
+              '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+              'Neu generieren' +
+            '</button>' +
+          '</div>';
+
         el.innerHTML =
           '<figure style="margin:0;text-align:center;">' +
           '<div class="cartoon-wrapper">' +
           '<img src="' + d.url + '" alt="Cartoon">' +
           bubblesHtml +
           '</div>' +
-          caption + credit + '</figure>';
+          caption + credit + regenBtnHtml + '</figure>';
         CONFIG.cartoonUrl = d.url;
+
+        var regenBtn = el.querySelector('.edu-img-regen-btn');
+        if (regenBtn) {
+          regenBtn.addEventListener('click', function() {
+            loadCartoonImage(prompt, containerId, bubbles, true);
+          });
+        }
       } catch (e) {
         console.error("Cartoon-Fehler:", e);
-        const el = document.getElementById(containerId);
-        if (el) el.innerHTML =
+        var el2 = document.getElementById(containerId);
+        if (el2) el2.innerHTML =
           '<div style="color:var(--warning);font-size:.85rem;padding:.5rem;">Cartoon konnte nicht geladen werden.</div>';
       }
     }
