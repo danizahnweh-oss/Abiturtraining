@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS students (
   salt            TEXT,
   hash            TEXT,
   hidden_subjects TEXT NOT NULL DEFAULT '[]',
+  class_group     TEXT DEFAULT NULL,
   created_at      TEXT NOT NULL
 );
 
@@ -80,6 +81,17 @@ CREATE TABLE IF NOT EXISTS student_teacher_links (
 CREATE INDEX IF NOT EXISTS idx_stl_student ON student_teacher_links(student_name_lower);
 CREATE INDEX IF NOT EXISTS idx_stl_teacher ON student_teacher_links(teacher_id);
 CREATE INDEX IF NOT EXISTS idx_stl_code ON student_teacher_links(code);
+
+-- Klassenpasswoerter: Registrierungspasswoerter pro Klasse/Gruppe
+CREATE TABLE IF NOT EXISTS class_passwords (
+  id         TEXT PRIMARY KEY,
+  label      TEXT NOT NULL,
+  password   TEXT NOT NULL,
+  active     INTEGER NOT NULL DEFAULT 1,
+  created_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_class_passwords_active ON class_passwords(active);
 
 -- KI-Lernplan: Gecachte wöchentliche Trainingsplaene
 CREATE TABLE IF NOT EXISTS learning_plans (

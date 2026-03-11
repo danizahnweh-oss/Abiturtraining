@@ -380,9 +380,12 @@ footer a { color: var(--accent); }
     <div class="card" id="registeredStudentsCard">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
         <h2 style="font-family:var(--font-display);">Registrierte Schüler</h2>
-        <div style="display:flex;gap:.5rem;align-items:center;">
+        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+          <select id="filterStudentClass" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+            <option value="">Alle Klassen</option>
+          </select>
           <span id="regStudentCount" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
-          <button class="btn btn-small" onclick="loadStudents()">🔄 Aktualisieren</button>
+          <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄 Aktualisieren</button>
         </div>
       </div>
       <div style="overflow-x:auto;">
@@ -390,7 +393,7 @@ footer a { color: var(--accent); }
           <thead>
             <tr>
               <th>Name</th>
-              <th>Kurs</th>
+              <th>Klasse</th>
               <th>Registriert am</th>
               <th>Ausgeblendete Fächer</th>
               <th></th>
@@ -402,6 +405,48 @@ footer a { color: var(--accent); }
       <div id="noRegistered" class="empty-state" style="display:none;">
         <div class="icon">👤</div>
         <p>Noch keine Schüler registriert.</p>
+      </div>
+    </div>
+
+    <!-- Klassenpasswörter verwalten -->
+    <div class="card" id="classPasswordsCard">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
+        <h2 style="font-family:var(--font-display);">Klassenpasswörter</h2>
+        <button class="btn btn-small" onclick="toggleNewClassPassword()" style="min-height:44px;">+ Neues Passwort</button>
+      </div>
+      <div id="newClassPasswordForm" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;">
+          <div style="flex:1;min-width:150px;">
+            <label style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
+            <input type="text" id="cpLabel" placeholder="z.B. 12a, Q12 Physik eA" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+          </div>
+          <div style="flex:1;min-width:150px;">
+            <label style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
+            <input type="text" id="cpPassword" placeholder="Klassenpasswort" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+          </div>
+          <button class="btn btn-small" onclick="createClassPassword()" style="min-height:44px;">Erstellen</button>
+          <button class="btn btn-small btn-secondary" onclick="toggleNewClassPassword()" style="min-height:44px;">Abbrechen</button>
+        </div>
+        <div id="cpError" style="color:#dc2626;font-size:.82rem;margin-top:.5rem;display:none;"></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="results-table" id="classPasswordsTable">
+          <thead>
+            <tr>
+              <th>Bezeichnung</th>
+              <th>Passwort</th>
+              <th>Schüler</th>
+              <th>Status</th>
+              <th>Erstellt</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="classPasswordsBody"></tbody>
+        </table>
+      </div>
+      <div id="noClassPasswords" class="empty-state" style="display:none;">
+        <div class="icon">🔑</div>
+        <p>Noch keine Klassenpasswörter angelegt. Schüler können sich nur mit dem Master-Passwort registrieren.</p>
       </div>
     </div>
 
@@ -434,12 +479,8 @@ footer a { color: var(--accent); }
       </div>
 
       <div class="filter-bar">
-        <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();">
-          <option value="">Alle Kurse</option>
-          <option value="2e1">2e1</option>
-          <option value="2e2">2e2</option>
-          <option value="2e3">2e3</option>
-          <option value="2e4">2e4</option>
+        <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
+          <option value="">Alle Klassen</option>
         </select>
         <select id="filterType" onchange="renderTable(); renderStudentCards(); renderChart();">
           <option value="">Alle Übungstypen</option>
@@ -516,12 +557,8 @@ footer a { color: var(--accent); }
             <h2 style="font-family:var(--font-display);">Schüler × Fächer</h2>
             <p style="font-size:.85rem;color:var(--ink-muted);margin-top:.2rem;">Klick auf einen Schüler für Details</p>
           </div>
-          <select id="heatmapCourse" onchange="renderHeatmap()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.88rem;background:var(--surface);color:var(--ink);">
-            <option value="">Alle Kurse</option>
-            <option value="2e1">2e1</option>
-            <option value="2e2">2e2</option>
-            <option value="2e3">2e3</option>
-            <option value="2e4">2e4</option>
+          <select id="heatmapCourse" onchange="renderHeatmap()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+            <option value="">Alle Klassen</option>
           </select>
         </div>
         <div class="heatmap-wrap">
@@ -617,6 +654,7 @@ async function loadResults() {
 
     renderAll();
     loadStudents();
+    loadClassPasswords();
   } catch (e) {
     err.textContent = "Verbindungsfehler: " + e.message;
     err.style.display = "block";
@@ -625,10 +663,15 @@ async function loadResults() {
 
 /* ====== RENDER ====== */
 function getFiltered() {
-  const course = document.getElementById("filterCourse")?.value || "";
+  const classGroup = document.getElementById("filterCourse")?.value || "";
   const type = document.getElementById("filterType")?.value || "";
   let data = allResults;
-  if (course) data = data.filter(r => r.course === course);
+  if (classGroup) {
+    const studentsInGroup = new Set(
+      allStudents.filter(s => s.class_group === classGroup).map(s => s.name)
+    );
+    data = data.filter(r => studentsInGroup.has(r.student_name));
+  }
   if (type) data = data.filter(r => r.type === type);
   return data;
 }
@@ -662,7 +705,7 @@ function renderStudentCards() {
 
   data.forEach(r => {
     if (!students[r.student_name]) {
-      students[r.student_name] = { attempts: 0, totals: [], latest: r.date, course: r.course || "" };
+      students[r.student_name] = { attempts: 0, totals: [], latest: r.date };
     }
     const s = students[r.student_name];
     s.attempts++;
@@ -671,6 +714,12 @@ function renderStudentCards() {
   });
 
   const names = Object.keys(students).sort();
+
+  // class_group aus allStudents nachschlagen
+  names.forEach(name => {
+    const reg = allStudents.find(s => s.name === name);
+    if (reg && reg.class_group) students[name].class_group = reg.class_group;
+  });
 
   if (!names.length) {
     grid.innerHTML = "";
@@ -686,7 +735,7 @@ function renderStudentCards() {
     const trend = s.totals.length >= 2
       ? (s.totals[s.totals.length-1] >= s.totals[s.totals.length-2] ? "📈" : "📉")
       : "";
-    const courseTag = s.course ? `<span style="font-size:.72rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .4rem;border-radius:4px;font-weight:700;margin-left:.4rem;">${escapeHtml(s.course)}</span>` : "";
+    const courseTag = s.class_group ? `<span style="font-size:.72rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .4rem;border-radius:4px;font-weight:700;margin-left:.4rem;">${escapeHtml(s.class_group)}</span>` : "";
     return `<div class="student-card">
       <div class="student-name">${escapeHtml(name)}${courseTag} ${trend}</div>
       <div class="student-stats">
@@ -946,6 +995,7 @@ async function loadStudents() {
     }
     allStudents = data.students || [];
     renderStudents();
+    updateClassGroupFilters();
   } catch (e) {
     console.error("Fehler beim Laden der Schüler:", e);
   }
@@ -956,30 +1006,36 @@ function renderStudents() {
   const noReg = document.getElementById("noRegistered");
   const countEl = document.getElementById("regStudentCount");
 
-  countEl.textContent = allStudents.length + " Schüler";
+  const classFilter = document.getElementById("filterStudentClass")?.value || "";
+  let filtered = [...allStudents].sort((a, b) => a.name.localeCompare(b.name));
+  if (classFilter) filtered = filtered.filter(s => s.class_group === classFilter);
 
-  if (!allStudents.length) {
+  countEl.textContent = filtered.length + " Schüler";
+
+  if (!filtered.length) {
     tbody.innerHTML = "";
     noReg.style.display = "block";
     return;
   }
 
   noReg.style.display = "none";
-  const sorted = [...allStudents].sort((a, b) => a.name.localeCompare(b.name));
 
-  tbody.innerHTML = sorted.map(s => {
+  tbody.innerHTML = filtered.map(s => {
     const d = s.date ? new Date(s.date) : null;
     const dateStr = d ? `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}` : "–";
     const timeStr = d ? `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}` : "";
     const hidden = s.hidden_subjects && s.hidden_subjects.length
       ? s.hidden_subjects.map(f => escapeHtml(f)).join(", ")
       : '<span style="color:var(--ink-muted);">–</span>';
+    const classTag = s.class_group
+      ? `<span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(s.class_group)}</span>`
+      : '<span style="color:var(--ink-muted);">–</span>';
     return `<tr>
       <td><strong>${escapeHtml(s.name)}</strong></td>
-      <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(s.level || "–")}</span></td>
+      <td>${classTag}</td>
       <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
       <td style="font-size:.82rem;">${hidden}</td>
-      <td><button class="delete-btn" onclick="deleteStudent('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Schüler entfernen">✕</button></td>
+      <td><button class="delete-btn" onclick="deleteStudent('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Schüler entfernen" style="min-width:44px;min-height:44px;">✕</button></td>
     </tr>`;
   }).join("");
 }
@@ -1007,9 +1063,120 @@ async function deleteStudent(name) {
     }
     allStudents = allStudents.filter(s => s.name !== name);
     renderStudents();
+    updateClassGroupFilters();
   } catch (e) {
     alert("Fehler: " + e.message);
   }
+}
+
+/* ====== KLASSENPASSWÖRTER ====== */
+let allClassPasswords = [];
+
+function updateClassGroupFilters() {
+  const groups = [...new Set(allStudents.filter(s => s.class_group).map(s => s.class_group))].sort();
+  ["filterCourse", "heatmapCourse", "filterStudentClass"].forEach(selectId => {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+    const current = select.value;
+    select.innerHTML = '<option value="">Alle Klassen</option>' +
+      groups.map(g => `<option value="${escapeHtml(g)}" ${g === current ? 'selected' : ''}>${escapeHtml(g)}</option>`).join("");
+  });
+}
+
+async function loadClassPasswords() {
+  try {
+    const res = await fetch(API_BASE + "/api/class-passwords", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ action: "list" })
+    });
+    if (res.status === 401) return;
+    const data = await res.json();
+    allClassPasswords = data.class_passwords || [];
+    renderClassPasswords();
+  } catch (e) {
+    console.error("Fehler beim Laden der Klassenpasswörter:", e);
+  }
+}
+
+function renderClassPasswords() {
+  const tbody = document.getElementById("classPasswordsBody");
+  const noEl = document.getElementById("noClassPasswords");
+  if (!allClassPasswords.length) {
+    tbody.innerHTML = "";
+    noEl.style.display = "block";
+    document.getElementById("classPasswordsTable").style.display = "none";
+    return;
+  }
+  noEl.style.display = "none";
+  document.getElementById("classPasswordsTable").style.display = "";
+  tbody.innerHTML = allClassPasswords.map(cp => {
+    const d = cp.created_at ? new Date(cp.created_at) : null;
+    const dateStr = d ? `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}` : "–";
+    const statusBadge = cp.active
+      ? '<span style="color:#059669;font-weight:700;font-size:.82rem;">Aktiv</span>'
+      : '<span style="color:#dc2626;font-weight:700;font-size:.82rem;">Deaktiviert</span>';
+    return `<tr>
+      <td><strong>${escapeHtml(cp.label)}</strong></td>
+      <td><code style="font-family:monospace;font-size:.82rem;background:var(--accent-soft);padding:.15rem .4rem;border-radius:3px;">${escapeHtml(cp.password)}</code></td>
+      <td style="font-family:monospace;font-weight:700;">${cp.student_count || 0}</td>
+      <td>${statusBadge}</td>
+      <td style="font-size:.82rem;">${dateStr}</td>
+      <td style="white-space:nowrap;">
+        <button class="btn btn-small btn-secondary" onclick="toggleClassPassword('${escapeHtml(cp.id)}')" style="margin-right:.3rem;min-height:44px;">${cp.active ? 'Deaktivieren' : 'Aktivieren'}</button>
+        <button class="delete-btn" onclick="deleteClassPassword('${escapeHtml(cp.id)}', '${escapeHtml(cp.label).replace(/'/g, "\\'")}')" title="Löschen" style="min-width:44px;min-height:44px;">✕</button>
+      </td>
+    </tr>`;
+  }).join("");
+}
+
+function toggleNewClassPassword() {
+  const form = document.getElementById("newClassPasswordForm");
+  form.style.display = form.style.display === "none" ? "block" : "none";
+  if (form.style.display === "block") document.getElementById("cpLabel").focus();
+}
+
+async function createClassPassword() {
+  const label = document.getElementById("cpLabel").value.trim();
+  const password = document.getElementById("cpPassword").value.trim();
+  const err = document.getElementById("cpError");
+  if (!label) { err.textContent = "Bezeichnung eingeben."; err.style.display = "block"; return; }
+  if (!password) { err.textContent = "Passwort eingeben."; err.style.display = "block"; return; }
+  err.style.display = "none";
+  try {
+    const res = await fetch(API_BASE + "/api/class-passwords", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ action: "create", label, password })
+    });
+    const data = await res.json();
+    if (!res.ok) { err.textContent = data.error || "Fehler."; err.style.display = "block"; return; }
+    document.getElementById("cpLabel").value = "";
+    document.getElementById("cpPassword").value = "";
+    toggleNewClassPassword();
+    loadClassPasswords();
+  } catch (e) {
+    err.textContent = "Verbindungsfehler."; err.style.display = "block";
+  }
+}
+
+async function toggleClassPassword(id) {
+  await fetch(API_BASE + "/api/class-passwords", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+    body: JSON.stringify({ action: "toggle", id })
+  });
+  loadClassPasswords();
+}
+
+async function deleteClassPassword(id, label) {
+  if (!confirm('Klassenpasswort "' + label + '" wirklich löschen?')) return;
+  await fetch(API_BASE + "/api/class-passwords", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+    body: JSON.stringify({ action: "delete", id })
+  });
+  loadClassPasswords();
 }
 
 /* ====== SUBJECT MAPPING ====== */
@@ -1087,13 +1254,21 @@ function getSubjectData() {
 
 function getStudentSubjectData(courseFilter) {
   const data = {};
+  // Schueler-Lookup fuer class_group
+  let studentsInGroup = null;
+  if (courseFilter) {
+    studentsInGroup = new Set(
+      allStudents.filter(s => s.class_group === courseFilter).map(s => s.name)
+    );
+  }
   allResults.forEach(r => {
     if (r.total == null) return;
-    if (courseFilter && r.course !== courseFilter) return;
+    if (studentsInGroup && !studentsInGroup.has(r.student_name)) return;
     const subj = typeToSubject(r.type);
     if (!subj) return;
     const key = r.student_name;
-    if (!data[key]) data[key] = { course: r.course || "" };
+    const reg = allStudents.find(s => s.name === key);
+    if (!data[key]) data[key] = { class_group: reg?.class_group || "" };
     if (!data[key][subj]) data[key][subj] = [];
     data[key][subj].push({ total: r.total, date: r.date });
   });
@@ -1202,7 +1377,7 @@ function renderHeatmap() {
     }).join("");
     const totalAvg = allScores.length ? +(allScores.reduce((a, b) => a + b, 0) / allScores.length).toFixed(1) : "–";
     const totalCls = typeof totalAvg === "number" ? (totalAvg >= 10 ? "hm-good" : totalAvg >= 5 ? "hm-ok" : "hm-bad") : "hm-empty";
-    const courseTag = d.course ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;font-weight:700;">' + escapeHtml(d.course) + '</span>' : '';
+    const courseTag = d.class_group ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;font-weight:700;">' + escapeHtml(d.class_group) + '</span>' : '';
     return '<tr style="cursor:pointer" onclick="showStudentDetail(\'' + escapeHtml(name).replace(/'/g, "\\'") + '\')">' +
       '<td>' + escapeHtml(name) + courseTag + '</td>' + cells +
       '<td><span class="hm-cell ' + totalCls + '" style="font-weight:800">' + totalAvg + '</span></td></tr>';
