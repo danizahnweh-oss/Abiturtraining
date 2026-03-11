@@ -54,7 +54,7 @@ function getAccessToken() {
   return sessionStorage.getItem("access_token") || "";
 }
 
-async function apiCall(endpoint, body) {
+async function apiCall(endpoint, body, _isRetry) {
   // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
   if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
     const imgs = getOCRImages();
@@ -65,6 +65,16 @@ async function apiCall(endpoint, body) {
     headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
     body: JSON.stringify(body)
   });
+  // 401 = Token abgelaufen/ungueltig → Login-Modal zeigen und API-Call wiederholen
+  if (res.status === 401 && !_isRetry && typeof requireLogin === "function") {
+    sessionStorage.removeItem("access");
+    sessionStorage.removeItem("access_token");
+    return new Promise(function(resolve, reject) {
+      requireLogin(function() {
+        apiCall(endpoint, body, true).then(resolve).catch(reject);
+      });
+    });
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || `HTTP ${res.status}`);
@@ -148,6 +158,19 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
       body: JSON.stringify(submitBody)
     });
+
+    // 401 = Token abgelaufen → Login-Modal zeigen und erneut versuchen
+    if (submitRes.status === 401 && typeof requireLogin === "function") {
+      // Loader zuruecksetzen
+      if (feedbackEl && originalLoaderHTML) feedbackEl.innerHTML = originalLoaderHTML;
+      sessionStorage.removeItem("access");
+      sessionStorage.removeItem("access_token");
+      return new Promise(function(resolve, reject) {
+        requireLogin(function() {
+          apiCallAsync(gradeEndpoint, body, options).then(resolve).catch(reject);
+        });
+      });
+    }
 
     if (!submitRes.ok) {
       var submitErr = await submitRes.json().catch(function() { return {}; });
