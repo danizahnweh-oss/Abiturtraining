@@ -482,15 +482,8 @@ footer a { color: var(--accent); }
         <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
           <option value="">Alle Klassen</option>
         </select>
-        <select id="filterType" onchange="renderTable(); renderStudentCards(); renderChart();">
-          <option value="">Alle Übungstypen</option>
-          <option value="mediation">🌍 Mediation</option>
-          <option value="writing">✍️ Textproduktion</option>
-          <option value="deutsch-interpretation">📜 Interpretation</option>
-          <option value="deutsch-analyse">🔍 Textanalyse</option>
-          <option value="deutsch-eroerterung">⚖️ Erörterung</option>
-          <option value="deutsch-materialgestuetzt">📑 Materialgestützt</option>
-          <option value="geschichte">📜 Geschichte</option>
+        <select id="filterSubject" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
+          <option value="">Alle Fächer</option>
         </select>
         <select id="filterStudent" onchange="renderTable()">
           <option value="">Alle Schüler</option>
@@ -511,7 +504,7 @@ footer a { color: var(--accent); }
               <th>Datum</th>
               <th>Schüler</th>
               <th>Kurs</th>
-              <th>Typ</th>
+              <th>Fach</th>
               <th>Thema</th>
               <th>Inhalt</th>
               <th>Sprache</th>
@@ -664,7 +657,7 @@ async function loadResults() {
 /* ====== RENDER ====== */
 function getFiltered() {
   const classGroup = document.getElementById("filterCourse")?.value || "";
-  const type = document.getElementById("filterType")?.value || "";
+  const subject = document.getElementById("filterSubject")?.value || "";
   let data = allResults;
   if (classGroup) {
     const studentsInGroup = new Set(
@@ -672,7 +665,10 @@ function getFiltered() {
     );
     data = data.filter(r => studentsInGroup.has(r.student_name));
   }
-  if (type) data = data.filter(r => r.type === type);
+  if (subject) {
+    const types = SUBJECT_TYPES_MAP[subject] || [];
+    data = data.filter(r => types.includes(r.type));
+  }
   return data;
 }
 
@@ -786,7 +782,7 @@ function renderTable() {
       <td>${dateStr}<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span></td>
       <td><strong>${escapeHtml(r.student_name)}</strong></td>
       <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(r.course || "–")}</span></td>
-      <td><span style="font-size:.75rem;">${r.type === "writing" ? "✍️" : "🌍"}</span></td>
+      <td><span style="font-size:.8rem;">${(() => { const s = typeToSubject(r.type); return s ? (SUBJECT_NAMES[s] || r.type) : r.type; })()}</span></td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(r.topic || "—")}</td>
       <td class="score-cell">${r.content ?? "–"}/15</td>
       <td class="score-cell">${r.language ?? "–"}/15</td>
@@ -804,6 +800,18 @@ function populateFilter() {
 
   select.innerHTML = '<option value="">Alle Schüler</option>' +
     students.map(n => `<option value="${escapeHtml(n)}" ${n === current ? "selected" : ""}>${escapeHtml(n)}</option>`).join("");
+
+  // Fach-Filter befüllen
+  const subjSelect = document.getElementById("filterSubject");
+  const currentSubj = subjSelect.value;
+  const activeSubjects = new Set();
+  allResults.forEach(r => {
+    const subj = typeToSubject(r.type);
+    if (subj) activeSubjects.add(subj);
+  });
+  const sortedSubjects = [...activeSubjects].sort((a, b) => (SUBJECT_NAMES[a] || a).localeCompare(SUBJECT_NAMES[b] || b));
+  subjSelect.innerHTML = '<option value="">Alle Fächer</option>' +
+    sortedSubjects.map(s => `<option value="${s}" ${s === currentSubj ? "selected" : ""}>${SUBJECT_NAMES[s] || s}</option>`).join("");
 }
 
 /* ====== CHART ====== */
