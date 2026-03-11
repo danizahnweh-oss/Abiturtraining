@@ -1629,12 +1629,23 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
    Ersetzt die inline loadDallEImage/loadUnsplashImage in allen Seiten.
    Generiert textfreie Bilder mit HTML-Label-Overlays.
    ============================ */
-async function loadEducationalImage(prompt, containerId, labels, style) {
+async function loadEducationalImage(prompt, containerId, labels, style, _isRetry) {
   var el = document.getElementById(containerId);
   if (!el) return;
+
+  // Bei Neu-Generierung: Ladeanimation anzeigen
+  if (_isRetry) {
+    el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Bild wird neu generiert…</span></div>';
+  }
+
+  // Bei Retry: Hinweis an Prompt anhängen, genauer auf Details zu achten
+  var actualPrompt = _isRetry
+    ? prompt + " --- IMPORTANT: Pay extra close attention to fine details, accuracy, proportions, and clarity. Make sure all elements are precisely rendered and clearly distinguishable. Improve the overall quality and visual precision compared to the previous attempt."
+    : prompt;
+
   try {
     var d = await apiCall("/api/generate-image", {
-      prompt: prompt,
+      prompt: actualPrompt,
       noText: false,
       style: style || "diagram"
     });
@@ -1679,6 +1690,15 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
       }
     }
 
+    // Neu-Generieren-Button
+    var regenBtnHtml =
+      '<div style="text-align:center;">' +
+        '<button type="button" class="edu-img-regen-btn" title="Bild neu generieren">' +
+          '<svg class="regen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+          'Neu generieren' +
+        '</button>' +
+      '</div>';
+
     var altText = labels && labels.title ? escapeHtml(labels.title) : 'Illustration';
     el.innerHTML =
       '<figure class="edu-img-figure">' +
@@ -1686,7 +1706,16 @@ async function loadEducationalImage(prompt, containerId, labels, style) {
           '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
         '</div>' +
         titleHtml + labelsHtml + caption + legendHtml + credit +
+        regenBtnHtml +
       '</figure>';
+
+    // Klick-Handler für Neu-Generieren
+    var regenBtn = el.querySelector('.edu-img-regen-btn');
+    if (regenBtn) {
+      regenBtn.addEventListener('click', function() {
+        loadEducationalImage(prompt, containerId, labels, style, true);
+      });
+    }
   } catch (e) {
     console.error('Bild-Fehler:', e);
     var el2 = document.getElementById(containerId);

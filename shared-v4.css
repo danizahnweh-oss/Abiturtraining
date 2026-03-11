@@ -2854,6 +2854,45 @@ footer a:hover {
   font-size: .85rem;
 }
 
+/* Neu-Generieren-Button */
+.edu-img-regen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .5rem;
+  padding: .45rem .9rem;
+  font-size: .8rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--accent, #4f46e5);
+  background: var(--accent-soft, #e8e8ff);
+  border: 1px solid var(--accent, #4f46e5);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s, transform .1s;
+  min-height: 44px;
+  min-width: 44px;
+}
+.edu-img-regen-btn:hover {
+  background: var(--accent, #4f46e5);
+  color: #fff;
+}
+.edu-img-regen-btn:active {
+  transform: scale(.97);
+}
+.edu-img-regen-btn .regen-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  transition: transform .3s;
+}
+.edu-img-regen-btn.loading .regen-icon {
+  animation: regenSpin .8s linear infinite;
+}
+@keyframes regenSpin {
+  to { transform: rotate(360deg); }
+}
+
 /* Dark Mode */
 [data-theme="dark"] .edu-img-title {
   color: #e8e8f0;
