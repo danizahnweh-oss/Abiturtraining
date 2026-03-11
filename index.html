@@ -3005,7 +3005,7 @@
       </button>
     </div>
     <div class="kolloquium-banner">
-      <a href="abitur-kolloquium-trainer/dist/" class="kolloquium-card" aria-label="Kolloquiumstrainer öffnen">
+      <a href="#" class="kolloquium-card" onclick="requireLogin(function(){ window.location.href='abitur-kolloquium-trainer/dist/'; }); return false;" aria-label="Kolloquiumstrainer öffnen">
         <div class="kol-icon" aria-hidden="true">🎤</div>
         <div class="kol-body">
           <div class="kol-title">Kolloquiumstrainer</div>
@@ -5778,13 +5778,15 @@
       if (!subject) return;
 
       if (type === "muendlich") {
-        // Redirect to Kolloquiumstrainer with subject pre-filled
+        // Kolloquium erfordert Login
         var fachName = subjectNameMap[subject] || subject;
-        window.location.href = "abitur-kolloquium-trainer/dist/?fach=" + encodeURIComponent(fachName);
+        requireLogin(function () {
+          window.location.href = "abitur-kolloquium-trainer/dist/?fach=" + encodeURIComponent(fachName);
+        });
         return;
       }
 
-      // Schriftlich → open module screen as before
+      // Schriftlich → Modul-Screen (Gaeste koennen browsern, Login erst bei generateTask)
       openModuleScreen(subject, true);
     }
 
@@ -5794,7 +5796,7 @@
 
       var name = sessionStorage.getItem("student_name") || "";
       var level = (sessionStorage.getItem("student_level") || "eA").toUpperCase();
-      var info = name + " \u00b7 " + level;
+      var info = name ? (name + " \u00b7 " + level) : "";
 
       var screenMap = {
         english: "module-screen-english", history: "module-screen-history",
@@ -5968,8 +5970,15 @@
         // Lehrer-Bereich kommt spaeter
         return;
       }
+      sessionStorage.setItem('role_selected', '1');
       document.getElementById('role-screen').style.display = 'none';
-      document.getElementById('login-screen').style.display = 'flex';
+      // Gast-Modus: Direkt zur Fachauswahl statt Login
+      showSubjectSelection();
+      renderSubjectLayout();
+      // Abi-Wizard fuer Gaeste anzeigen (localStorage-basiert)
+      if (!localStorage.getItem(LS_WIZARD_KEY)) {
+        setTimeout(function () { showAbiWizard(); }, 500);
+      }
     }
 
     function checkSession() {
@@ -6031,8 +6040,14 @@
           setTimeout(function () { showAbiWizard(); }, 500);
         }
       } else {
-        // Nicht eingeloggt: Rollen-Auswahl zeigen
-        document.getElementById("role-screen").style.display = "flex";
+        // Nicht eingeloggt
+        if (sessionStorage.getItem('role_selected') === '1') {
+          // Gast hatte bereits "Ich bin Schueler" geklickt → Fachauswahl zeigen
+          showSubjectSelection();
+          renderSubjectLayout();
+        } else {
+          document.getElementById("role-screen").style.display = "flex";
+        }
       }
     }
 
