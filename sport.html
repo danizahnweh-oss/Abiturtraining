@@ -659,6 +659,7 @@
         }).join('');
       } else {
         instrEl.innerHTML = DOMPurify.sanitize(marked.parse(d.aufgabe || d.task_instruction || ""));
+      }
 
       const container = document.getElementById("teilaufgabenContainer");
       if (d.teilaufgaben && d.teilaufgaben.length) {
