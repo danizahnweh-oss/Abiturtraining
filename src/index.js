@@ -351,6 +351,24 @@ function truncate(str, max) {
   return str.length > max ? str.slice(0, max) : str;
 }
 
+/* ================= AUTO-MIGRATION ================= */
+let _migrated = false;
+async function ensureMigrations(env) {
+  if (_migrated) return;
+  try {
+    await env.DB.prepare(
+      "CREATE TABLE IF NOT EXISTS class_passwords (id TEXT PRIMARY KEY, label TEXT NOT NULL, password TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL)"
+    ).run();
+    // class_group Spalte in students – ignoriert Fehler wenn schon vorhanden
+    try {
+      await env.DB.prepare("ALTER TABLE students ADD COLUMN class_group TEXT DEFAULT NULL").run();
+    } catch (_) { /* Spalte existiert bereits */ }
+    _migrated = true;
+  } catch (e) {
+    console.error("Migration error:", e);
+  }
+}
+
 /* ================= MAIN HANDLER ================= */
 export default {
   async fetch(request, env) {
@@ -364,6 +382,9 @@ export default {
     }
 
     try {
+      // Auto-Migration (nur beim ersten Request)
+      await ensureMigrations(env);
+
       // Origin-Validierung (CSRF-Schutz)
       const origin = env._origin;
       const allowedOrigins = getAllowedOrigins(env);
@@ -419,6 +440,12 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleDeleteStudent(request, env);
+      }
+      if (pathname === "/api/class-passwords" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleClassPasswords(request, env);
       }
 
       // ===== LEHRER-CODE-SYSTEM (eigene Auth) =====
@@ -1071,7 +1098,26 @@ async function handleCheckStudent(request, env) {
     if (!password || typeof password !== "string") {
       return jsonResponse({ success: false, error: "Klassenpasswort erforderlich." }, 400, env);
     }
-    const validClass = await safeCompare(password, env.ACCESS_PASSWORD);
+
+    // Gegen class_passwords-Tabelle pruefen
+    let classGroup = null;
+    let validClass = false;
+    const { results: classPasswords } = await env.DB.prepare(
+      "SELECT label, password FROM class_passwords WHERE active = 1"
+    ).all();
+    for (const row of (classPasswords || [])) {
+      if (password === row.password) {
+        validClass = true;
+        classGroup = row.label;
+        break;
+      }
+    }
+
+    // Fallback: Master-Passwort
+    if (!validClass) {
+      validClass = await safeCompare(password, env.ACCESS_PASSWORD);
+    }
+
     if (!validClass) {
       return jsonResponse({ success: false, error: "Falsches Klassenpasswort." }, 401, env);
     }
@@ -1082,8 +1128,8 @@ async function handleCheckStudent(request, env) {
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
     await env.DB.prepare(
-      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?)"
-    ).bind(student_name.trim(), nameLower, level || "", salt, hash, new Date().toISOString()).run();
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, class_group, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
+    ).bind(student_name.trim(), nameLower, level || "", salt, hash, classGroup, new Date().toISOString()).run();
   } else {
     if (!existing) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
@@ -3410,7 +3456,7 @@ async function handleGetStudents(request, env) {
   }
 
   const { results: students } = await env.DB.prepare(
-    "SELECT name, level, hidden_subjects, created_at AS date FROM students ORDER BY name ASC"
+    "SELECT name, level, hidden_subjects, class_group, created_at AS date FROM students ORDER BY name ASC"
   ).all();
 
   const safe = (students || []).map(s => ({
@@ -3418,6 +3464,7 @@ async function handleGetStudents(request, env) {
     level: s.level || "",
     date: s.date || "",
     hidden_subjects: JSON.parse(s.hidden_subjects || "[]"),
+    class_group: s.class_group || null,
   }));
 
   return jsonResponse({ success: true, students: safe }, 200, env);
@@ -3446,6 +3493,75 @@ async function handleDeleteStudent(request, env) {
 
   const countResult = await env.DB.prepare("SELECT COUNT(*) as cnt FROM students").first();
   return jsonResponse({ success: true, remaining: countResult.cnt }, 200, env);
+}
+
+/* ================= DASHBOARD: KLASSENPASSWÖRTER ================= */
+async function handleClassPasswords(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert. Bitte erneut einloggen." }, 401, env);
+  }
+
+  const { action, id, label, password } = await request.json();
+
+  if (action === "list") {
+    const { results: passwords } = await env.DB.prepare(
+      "SELECT id, label, password, active, created_at FROM class_passwords ORDER BY created_at DESC"
+    ).all();
+    const withCount = [];
+    for (const p of (passwords || [])) {
+      const count = await env.DB.prepare(
+        "SELECT COUNT(*) as cnt FROM students WHERE class_group = ?"
+      ).bind(p.label).first();
+      withCount.push({ ...p, student_count: count?.cnt || 0 });
+    }
+    return jsonResponse({ success: true, class_passwords: withCount }, 200, env);
+  }
+
+  if (action === "create") {
+    if (!label || typeof label !== "string" || !label.trim()) {
+      return jsonResponse({ error: "Bezeichnung erforderlich." }, 400, env);
+    }
+    if (!password || typeof password !== "string" || !password.trim()) {
+      return jsonResponse({ error: "Passwort erforderlich." }, 400, env);
+    }
+    const existing = await env.DB.prepare(
+      "SELECT 1 FROM class_passwords WHERE label = ?"
+    ).bind(label.trim()).first();
+    if (existing) {
+      return jsonResponse({ error: "Diese Bezeichnung existiert bereits." }, 409, env);
+    }
+    const existingPw = await env.DB.prepare(
+      "SELECT 1 FROM class_passwords WHERE password = ?"
+    ).bind(password.trim()).first();
+    if (existingPw) {
+      return jsonResponse({ error: "Dieses Passwort wird bereits verwendet." }, 409, env);
+    }
+    const newId = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
+    await env.DB.prepare(
+      "INSERT INTO class_passwords (id, label, password, active, created_at) VALUES (?, ?, ?, 1, ?)"
+    ).bind(newId, label.trim(), password.trim(), new Date().toISOString()).run();
+    return jsonResponse({ success: true, id: newId, label: label.trim() }, 200, env);
+  }
+
+  if (action === "toggle") {
+    if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+    await env.DB.prepare(
+      "UPDATE class_passwords SET active = CASE WHEN active = 1 THEN 0 ELSE 1 END WHERE id = ?"
+    ).bind(id).run();
+    return jsonResponse({ success: true }, 200, env);
+  }
+
+  if (action === "delete") {
+    if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+    await env.DB.prepare("DELETE FROM class_passwords WHERE id = ?").bind(id).run();
+    return jsonResponse({ success: true }, 200, env);
+  }
+
+  return jsonResponse({ error: "Unbekannte Aktion." }, 400, env);
 }
 
 /* ================= POLITIK UND GESELLSCHAFT: PARSE TASK (OCR) ================= */
