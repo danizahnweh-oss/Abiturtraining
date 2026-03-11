@@ -969,9 +969,23 @@
       var task = examData.writing.tasks[idx];
 
       if (task && task.materialien && task.materialien.length) {
+        var matTypLabels = {
+          text_en: "Text (EN)", text_de: "Text (DE)",
+          quote_en: "Zitat (EN)", quote_de: "Zitat (DE)",
+          statistik: "Statistik", grafik: "Grafik/Diagramm",
+          cartoon: "Karikatur"
+        };
+        var matTypIcons = {
+          text_en: "\uD83D\uDCC4", text_de: "\uD83D\uDCC4",
+          quote_en: "\uD83D\uDCAC", quote_de: "\uD83D\uDCAC",
+          statistik: "\uD83D\uDCCA", grafik: "\uD83D\uDCC8",
+          cartoon: "\uD83D\uDDBC\uFE0F"
+        };
         var mHtml = '<h3 style="color:var(--accent);font-size:.95rem;margin-bottom:.8rem">Materialien</h3>';
         task.materialien.forEach(function (mat) {
-          mHtml += '<div class="writing-material-label">Material ' + (mat.nr || "") + ' (' + escapeHtml(mat.typ || "") + ')</div>';
+          var typLabel = matTypLabels[mat.typ] || mat.typ || "";
+          var typIcon = matTypIcons[mat.typ] || "";
+          mHtml += '<div class="writing-material-label">' + typIcon + ' Material ' + (mat.nr || "") + ' \u2013 ' + escapeHtml(typLabel) + '</div>';
           mHtml += '<div class="writing-material">';
           if (mat.text) {
             var pars = mat.text.split("\n").filter(function (p) { return p.trim(); });
