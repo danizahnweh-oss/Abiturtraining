@@ -9,11 +9,11 @@ const rateLimitMap = new Map();
 const loginRateLimitMap = new Map();
 
 /* ================= SHARED PROMPT CONSTANTS ================= */
-const KEINE_LOESUNGSHINWEISE = `KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern. Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.`;
+const KEINE_LOESUNGSHINWEISE = `ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN: Nenne in den Aufgabenstellungen NIEMALS konkrete Beispiele, Hinweise, Lösungsansätze oder Stichworte in Klammern. VERBOTEN sind z.B. Formulierungen wie "Untersuchen Sie ... (Metapher, Alliteration, ...)" oder "Erörtern Sie ... (Pro/Contra, ...)". Die Aufgabenstellung muss OHNE jegliche Klammer-Beispiele formuliert sein – die Schüler müssen selbst erkennen, welche Aspekte relevant sind. Prüfe jede Aufgabenstellung vor der Ausgabe und entferne alle Klammer-Hinweise!`;
 
 function keineLoesungshinweise(beispiel) {
   if (!beispiel) return KEINE_LOESUNGSHINWEISE;
-  return `KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "${beispiel}"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.`;
+  return `ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN: Nenne in den Aufgabenstellungen NIEMALS konkrete Beispiele, Hinweise, Lösungsansätze oder Stichworte in Klammern (z.B. NICHT "${beispiel}"). Die Aufgabenstellung muss OHNE jegliche Klammer-Beispiele formuliert sein – die Schüler müssen selbst erkennen, welche Aspekte relevant sind. Prüfe jede Aufgabenstellung vor der Ausgabe und entferne alle Klammer-Hinweise!`;
 }
 
 const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
@@ -1844,6 +1844,7 @@ C) Kurzantworten (5 Fragen, je 2 Punkte = 10 Punkte):
 - Beziehen sich auf Argumentation, Meinungen oder Zusammenhänge
 
 WICHTIG: Die Fragen sollen in der Reihenfolge des Textes gestellt werden (chronologisch).
+KEINE LÖSUNGSHINWEISE IN KLAMMERN: Nenne in den Fragestellungen NIEMALS konkrete Beispiele oder Hinweise in Klammern. Die Schüler müssen selbst erkennen, worauf sich die Frage bezieht.
 
 OUTPUT FORMAT – Antworte NUR mit reinem JSON:
 {
@@ -9167,7 +9168,7 @@ WICHTIG:
 - Aufgaben müssen mathematisch korrekt und eindeutig lösbar sein
 - Teil A muss OHNE CAS/Taschenrechner lösbar sein
 - Teil B darf CAS voraussetzen
-- KEINE LÖSUNGSHINWEISE in Klammern
+- ${KEINE_LOESUNGSHINWEISE}
 - LEHRPLAN-TREUE: Verwende NUR Inhalte aus den oben angegebenen Lehrplan-Inhalten.
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
@@ -10241,7 +10242,7 @@ ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen) → AFB III (Bewerten/Diskutieren)
 - Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
-- KEINE Lösungshinweise in den Aufgabenstellungen
+- ${KEINE_LOESUNGSHINWEISE}
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
 SACHGEBIET: ${sgInfo.title}
@@ -10560,7 +10561,7 @@ ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, PRAXISNAHEN Kontext ein (z.B. ein bestimmter Sportler, ein Trainingsplan, eine Wettkampfsituation, ein Gesundheitsproblem)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Beurteilen)
 - Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
-- KEINE Lösungshinweise in den Aufgabenstellungen
+- ${KEINE_LOESUNGSHINWEISE}
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 
 SACHGEBIET: ${sgInfo.title}
@@ -10864,7 +10865,7 @@ ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein Softwareprojekt, eine Anwendung, ein konkretes System)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen/Analysieren) → AFB III (Bewerten/Diskutieren/Entwerfen)
 - Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
-- KEINE Lösungshinweise in den Aufgabenstellungen
+- ${KEINE_LOESUNGSHINWEISE}
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
 - Bei Algorithmen/Datenstrukturen: Java- oder Python-Code bzw. Pseudocode ist erlaubt
 - Bei Automaten: Zustandsdiagramme, Übergangstabellen, EBNF-Regeln oder Syntaxdiagramme können verlangt werden
@@ -12293,7 +12294,7 @@ WICHTIG:
 - KRITISCH: Für "bild": "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!
 - Pro Aufgabe: MINDESTENS 1x "bild" oder "diagramm" + 1x "text"
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
+- ${KEINE_LOESUNGSHINWEISE}
 
 SPORT-SPEZIFISCHE NOTATION:
 - Einheiten korrekt: HF in min⁻¹, VO₂max in ml/min/kg, Kraft in N, Laktat in mmol/l
@@ -12550,7 +12551,7 @@ JEDE AUFGABENGRUPPE hat:
 - Ein Sachgebiet
 - Material (M1, M2, ...): Pseudocode, UML-Diagramme, Tabellen, Textbeschreibungen, Zustandsdiagramme
 - 4-6 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
+- ${KEINE_LOESUNGSHINWEISE}
 - Gesamt: ${beProAufgabe} BE
 
 WICHTIG:
@@ -13412,7 +13413,7 @@ AUFGABE:
 ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben (a, b, c, ...), zusammen ' + totalBE + ' BE.'}
 - Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
 - Hilfsmittel/CAS erlaubt
-- KEINE LÖSUNGSHINWEISE in Klammern
+- ${KEINE_LOESUNGSHINWEISE}
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -13850,6 +13851,7 @@ NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
 - Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten, bevor die Teilaufgaben kommen
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+- ${KEINE_LOESUNGSHINWEISE}
 
 TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
 - Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
@@ -14003,6 +14005,7 @@ NUMMERIERUNG (wie Original-Prüfungen):
 - Ebene 3: 1.2.1, 1.2.2, 1.2.3 (Unteraufgaben)
 - KEINE Operatoren in Klammern (KEIN "(Operator: berechnen)")
 - Operatoren natürlich im Aufgabentext ("Berechnen Sie...", "Begründen Sie...")
+- ${KEINE_LOESUNGSHINWEISE}
 
 TABELLEN IM KONTEXT-FELD:
 - Bilanz: Markdown-Tabelle mit Aktiva/Passiva und 2 Geschäftsjahren
@@ -14161,6 +14164,7 @@ NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
 - Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: berechnen)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Berechnen Sie..." oder "Begründen Sie...")
+- ${KEINE_LOESUNGSHINWEISE}
 
 TABELLEN FÜR ZAHLENMATERIAL (WICHTIG!):
 - Verwende im "kontext"-Feld Markdown-Tabellen für alle tabellarischen Daten:
@@ -14966,6 +14970,7 @@ NUMMERIERUNG DER TEILAUFGABEN (WICHTIG – wie Original-Prüfungen!):
 - Hauptnummern (1, 2, 3) können eigenen Einführungstext mit Daten/Tabellen enthalten
 - Schreibe KEINE Operatoren in Klammern hinter die Aufgaben (KEIN "(Operator: erläutern)" etc.)
 - Verwende die Operatoren natürlich im Aufgabentext selbst (z.B. "Erläutern Sie..." oder "Beurteilen Sie...")
+- ${KEINE_LOESUNGSHINWEISE}
 
 TABELLEN FÜR ZAHLENMATERIAL:
 - Verwende im "kontext"-Feld Markdown-Tabellen für tabellarische Daten (Statistiken, Messwerte, Laborergebnisse, Versuchsdaten, Vergleichstabellen etc.)
@@ -15049,7 +15054,7 @@ AUFGABENSTRUKTUR:
 - AFB I (20%): beschreiben, nennen, darstellen, zusammenfassen
 - AFB II (40%): erläutern, analysieren, vergleichen, berechnen
 - AFB III (40%): beurteilen, erörtern, Stellung nehmen
-- KEINE LÖSUNGSHINWEISE in Klammern
+- ${KEINE_LOESUNGSHINWEISE}
 - LEHRPLAN-TREUE: NUR FOS-Lehrplan-Inhalte verwenden!
 
 MATERIALIEN:
