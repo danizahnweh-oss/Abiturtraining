@@ -489,6 +489,187 @@
       border-color: var(--accent)
     }
 
+    /* ====== COUNTDOWN WIDGET ====== */
+    .countdown-bar {
+      max-width: 600px;
+      margin: .8rem auto 0;
+      padding: 0 1.5rem;
+      text-align: center;
+      animation: fadeUp .5s ease .2s both;
+      position: relative
+    }
+
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: .5rem 1.2rem;
+      font-size: .9rem;
+      color: var(--ink-muted);
+      box-shadow: var(--shadow-sm)
+    }
+
+    .countdown-pill strong {
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 1.05rem
+    }
+
+    .countdown-hide-btn {
+      position: absolute;
+      right: .5rem;
+      top: .5rem;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: .2rem .5rem;
+      border-radius: 50%;
+      transition: all .2s;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .countdown-hide-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff
+    }
+
+    .countdown-done {
+      color: var(--success)
+    }
+
+    .cohort-toggle {
+      display: inline-flex;
+      gap: 0;
+      margin-bottom: .5rem;
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.25)
+    }
+
+    .cohort-btn {
+      padding: .3rem .8rem;
+      font-size: .8rem;
+      font-family: inherit;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      min-height: 44px;
+      min-width: 44px
+    }
+
+    .cohort-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.9)
+    }
+
+    .cohort-btn.active {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff
+    }
+
+    .subject-countdown {
+      display: block;
+      font-size: .7rem;
+      font-family: var(--font-mono);
+      margin-top: .3rem;
+      color: var(--ink-muted);
+      position: relative;
+      z-index: 1
+    }
+
+    .subject-countdown.soon {
+      color: #f59e0b;
+      font-weight: 700
+    }
+
+    .subject-countdown.done {
+      color: var(--success)
+    }
+
+    /* ====== TWO-GRID LAYOUT (Abiturfächer + Weitere) ====== */
+    .section-label {
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 700;
+      color: var(--ink-muted);
+      margin: 0
+    }
+
+    .section-header {
+      max-width: 1000px;
+      width: 100%;
+      margin: .8rem auto .3rem;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .exam-subjects-grid {
+      max-width: 1000px;
+      width: 100%;
+      margin: .3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .7rem
+    }
+
+    .exam-subjects-grid .subject-card {
+      padding: 1.2rem .5rem;
+      min-height: 110px;
+      animation: none;
+      opacity: 1
+    }
+
+    .exam-subjects-grid .subject-icon {
+      font-size: 2.8rem
+    }
+
+    .exam-subjects-grid .subject-title {
+      font-size: .95rem;
+      font-weight: 600
+    }
+
+    .additional-subjects-grid {
+      max-width: 1000px;
+      width: 100%;
+      margin: .3rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+      gap: .55rem
+    }
+
+    .additional-subjects-grid .subject-card {
+      padding: .55rem .3rem;
+      min-height: 78px;
+      animation: none;
+      opacity: 1
+    }
+
+    .additional-subjects-grid .subject-icon {
+      font-size: 1.8rem;
+      margin-bottom: .1rem
+    }
+
+    .additional-subjects-grid .subject-title {
+      font-size: .72rem
+    }
+
     /* ====== FOOTER ====== */
     footer {
       padding: 1.5rem;
@@ -580,6 +761,10 @@
         font-size: .85rem
       }
 
+      .exam-subjects-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
       .module-grid {
         grid-template-columns: 1fr
       }
@@ -658,6 +843,13 @@
     <div class="dashboard-hero">
       <h2 id="greetingText">Willkommen zurück!</h2>
       <p id="heroSubtext">Wähle deine Fachrichtung, um loszulegen.</p>
+      <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
+        <button onclick="enableCountdown()"
+          style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:all 0.2s; min-height:44px;">
+          📅 Prüfungs-Countdown anzeigen
+        </button>
+      </div>
+      <div id="countdownBar" class="countdown-bar" style="margin-top:1rem;"></div>
     </div>
 
     <!-- Zurück zu Fachrichtungen -->
@@ -709,14 +901,14 @@
 
     <!-- Fächer-Grid (dynamisch) -->
     <div id="facherBereich" style="display:none;">
-      <div class="faecher-section">
-        <h3 id="facherTitlePflicht">Pflichtfächer</h3>
+      <div class="section-header">
+        <h3 class="section-label">Deine Abiturfächer</h3>
       </div>
-      <div class="subject-grid" id="pflichtGrid" role="list" aria-label="Pflichtfächer"></div>
-      <div class="faecher-section">
-        <h3 id="facherTitleProfil">Profilfächer</h3>
+      <div class="exam-subjects-grid" id="abiturGrid" role="list" aria-label="Deine Abiturfächer"></div>
+      <div class="section-header">
+        <h3 class="section-label">Weitere Fächer</h3>
       </div>
-      <div class="subject-grid" id="profilGrid" role="list" aria-label="Profilfächer"></div>
+      <div class="additional-subjects-grid" id="weitereGrid" role="list" aria-label="Weitere Fächer"></div>
     </div>
 
     <a href="https://myabiflow.de" class="cross-link-banner" style="max-width:500px;margin:1rem auto;">
@@ -798,6 +990,133 @@
       el.style.setProperty('--fsd', c.sd);
       el.style.setProperty('--fg', h2r(c.l, .08));
       el.style.setProperty('--fgd', h2r(c.d, .08));
+    }
+
+    /* ====== FACHABITUR TERMINE ====== */
+    var FACHABITUR_DATES_2026 = {
+      deutsch: "2026-05-15",
+      profilfach: "2026-05-18",
+      mathe: "2026-05-20",
+      englisch: "2026-05-22"
+    };
+
+    var FACHABITUR_DATES_2027 = {
+      deutsch: "2027-05-12",
+      profilfach: "2027-05-14",
+      englisch: "2027-06-01",
+      mathe: "2027-06-03"
+    };
+
+    /* Abitur-Profilfach pro Fachrichtung */
+    var ABITUR_PROFILFACH = {
+      technik: "physik",
+      wirtschaft: "bwr",
+      sozialwesen: "paedpsych",
+      abu: "biologie",
+      gestaltung: "gestaltung",
+      gesundheit: "gesundheit",
+      "int-wirtschaft": "bwr"
+    };
+
+    function getFachabiturDates() {
+      var cohort = localStorage.getItem("fos_countdown_cohort") || "2026";
+      return cohort === "2027" ? FACHABITUR_DATES_2027 : FACHABITUR_DATES_2026;
+    }
+
+    function getExamDate(fachId) {
+      var dates = getFachabiturDates();
+      var abiturFaecher = ["deutsch", "mathe", "englisch"];
+      var profilfach = currentFachrichtung ? ABITUR_PROFILFACH[currentFachrichtung] : null;
+
+      if (abiturFaecher.indexOf(fachId) !== -1) {
+        return dates[fachId] ? new Date(dates[fachId] + "T00:00:00") : null;
+      }
+      if (profilfach && fachId === profilfach) {
+        return dates.profilfach ? new Date(dates.profilfach + "T00:00:00") : null;
+      }
+      return null;
+    }
+
+    function daysUntil(date) {
+      var now = new Date(); now.setHours(0, 0, 0, 0);
+      return Math.ceil((date - now) / 86400000);
+    }
+
+    function renderCountdowns() {
+      var cohort = localStorage.getItem("fos_countdown_cohort") || "2026";
+      var isVisible = localStorage.getItem("fos_countdown_visible") !== "0";
+      var allDays = [];
+
+      var bar = document.getElementById("countdownBar");
+      var toggle = document.getElementById("countdownToggle");
+
+      /* Keine Fachrichtung gewählt → alles ausblenden */
+      if (!currentFachrichtung) {
+        if (bar) bar.style.display = "none";
+        if (toggle) toggle.style.display = "none";
+        return;
+      }
+
+      document.querySelectorAll(".subject-countdown[data-subject]").forEach(function(el) {
+        var subj = el.dataset.subject;
+        var examDate = getExamDate(subj);
+        if (!examDate) { el.textContent = ""; return; }
+        var days = daysUntil(examDate);
+        if (days > 0) {
+          allDays.push(days);
+          el.textContent = "noch " + days + (days === 1 ? " Tag" : " Tage");
+          el.className = "subject-countdown" + (days <= 14 ? " soon" : "");
+        } else if (days === 0) {
+          el.textContent = "Heute!";
+          el.className = "subject-countdown soon";
+        } else {
+          el.textContent = "✅ abgeschlossen";
+          el.className = "subject-countdown done";
+        }
+      });
+
+      var cohortToggleHtml = '<div class="cohort-toggle">' +
+        '<button class="cohort-btn' + (cohort === "2026" ? " active" : "") + '" onclick="switchCohort(\'2026\')">2026</button>' +
+        '<button class="cohort-btn' + (cohort === "2027" ? " active" : "") + '" onclick="switchCohort(\'2027\')">2027</button>' +
+        '</div>';
+
+      if (isVisible) {
+        if (toggle) toggle.style.display = "none";
+        if (allDays.length) {
+          var minDays = Math.min.apply(null, allDays);
+          if (minDays > 0) {
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden">&times;</button>' +
+              cohortToggleHtml +
+              '<div class="countdown-pill">Noch <strong>' + minDays + ' Tage</strong> bis zur nächsten Prüfung 🎓</div>';
+            bar.style.display = "block";
+          } else {
+            bar.innerHTML = '<button class="countdown-hide-btn" onclick="disableCountdown()" aria-label="Ausblenden" title="Ausblenden">&times;</button>' +
+              cohortToggleHtml +
+              '<div class="countdown-pill countdown-done">Alle Prüfungen abgeschlossen ✅</div>';
+            bar.style.display = "block";
+          }
+        }
+      } else {
+        bar.style.display = "none";
+        if (allDays.length && toggle) {
+          toggle.style.display = "inline-block";
+        }
+      }
+    }
+
+    function enableCountdown() {
+      localStorage.setItem("fos_countdown_visible", "1");
+      renderCountdowns();
+    }
+
+    function disableCountdown() {
+      localStorage.setItem("fos_countdown_visible", "0");
+      renderCountdowns();
+    }
+
+    function switchCohort(cohort) {
+      localStorage.setItem("fos_countdown_cohort", cohort);
+      renderCountdowns();
     }
 
     /* ====== Fachrichtungs-Definitionen ====== */
@@ -1094,22 +1413,45 @@
       document.getElementById("frBackBar").style.display = "block";
       document.getElementById("heroSubtext").textContent = "Fachrichtung: " + fr.name;
 
-      /* Fächer-Grids befüllen */
-      var pflichtGrid = document.getElementById("pflichtGrid");
-      var profilGrid = document.getElementById("profilGrid");
-      pflichtGrid.innerHTML = "";
-      profilGrid.innerHTML = "";
+      /* Abiturfächer: Deutsch, Mathe, Englisch + Profilfach */
+      var abiturGrid = document.getElementById("abiturGrid");
+      var weitereGrid = document.getElementById("weitereGrid");
+      abiturGrid.innerHTML = "";
+      weitereGrid.innerHTML = "";
 
-      fr.pflicht.forEach(function (fach) {
-        pflichtGrid.appendChild(createSubjectCard(fach));
+      var profilfachId = ABITUR_PROFILFACH[frId];
+      var abiturFachIds = ["deutsch", "mathe", "englisch", profilfachId];
+      var allFaecher = fr.pflicht.concat(fr.profil);
+
+      var abiturFaecher = [];
+      var weitereFaecher = [];
+
+      allFaecher.forEach(function(fach) {
+        if (abiturFachIds.indexOf(fach.id) !== -1) {
+          abiturFaecher.push(fach);
+        } else {
+          weitereFaecher.push(fach);
+        }
       });
 
-      fr.profil.forEach(function (fach) {
-        profilGrid.appendChild(createSubjectCard(fach));
+      /* Sortierung: Deutsch, Englisch, Mathe, Profilfach */
+      var order = ["deutsch", "englisch", "mathe", profilfachId];
+      abiturFaecher.sort(function(a, b) {
+        return order.indexOf(a.id) - order.indexOf(b.id);
       });
 
-      document.getElementById("facherTitleProfil").textContent = "Profilfächer – " + fr.name;
+      abiturFaecher.forEach(function(fach) {
+        abiturGrid.appendChild(createSubjectCard(fach));
+      });
+
+      weitereFaecher.forEach(function(fach) {
+        weitereGrid.appendChild(createSubjectCard(fach));
+      });
+
       document.getElementById("facherBereich").style.display = "block";
+
+      /* Countdown rendern */
+      renderCountdowns();
     }
 
     function resetFachrichtung() {
@@ -1119,6 +1461,8 @@
       document.getElementById("frBackBar").style.display = "none";
       document.getElementById("facherBereich").style.display = "none";
       document.getElementById("heroSubtext").textContent = "Wähle deine Fachrichtung, um loszulegen.";
+      document.getElementById("countdownBar").style.display = "none";
+      document.getElementById("countdownToggle").style.display = "none";
     }
 
     function createSubjectCard(fach) {
@@ -1134,7 +1478,8 @@
 
       btn.innerHTML =
         '<div class="subject-icon" aria-hidden="true">' + fach.icon + '</div>' +
-        '<div class="subject-title">' + fach.title + '</div>';
+        '<div class="subject-title">' + fach.title + '</div>' +
+        '<span class="subject-countdown" data-subject="' + fach.id + '"></span>';
       return btn;
     }
 
