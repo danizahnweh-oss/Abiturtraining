@@ -5488,6 +5488,10 @@
           var profilLink = document.getElementById("profilLink");
           if (profilLink) profilLink.style.display = "";
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
+          // Abiturfaecher-Wizard nach Login/Registrierung anzeigen
+          if (!localStorage.getItem(LS_WIZARD_KEY)) {
+            setTimeout(function () { showAbiWizard(); }, 500);
+          }
           // Start onboarding if first time
           if (!isTourDone("onboarding_done")) {
             setTimeout(function () {
