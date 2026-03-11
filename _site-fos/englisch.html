@@ -797,55 +797,61 @@
           </div>
         </div>
 
+        <!-- Upload-Aufgabenblatt (nur bei eigenen Aufgaben) -->
+        <div id="taskInstruction" style="display:none;"></div>
+
+        <!-- Materialien -->
         <div class="card">
-          <h2 class="card-header">Aufgaben</h2>
-          <p style="color:var(--ink-muted);font-size:.88rem;margin-bottom:1rem;">Wähle die Aufgabe(n), die du bearbeiten
-            möchtest:</p>
+          <h2 class="card-header">Materialien</h2>
+          <p style="color:var(--ink-muted);font-size:.88rem;margin-bottom:1rem;">Diese Materialien stehen dir zusätzlich zum Ausgangstext zur Verfügung. Beziehe dich in deinem Essay darauf.</p>
+
+          <!-- Cartoon (immer) -->
+          <div style="margin-bottom:1rem;">
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.5rem;">Cartoon</div>
+            <div id="cartoonContainer" style="border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.5rem;"></div>
+          </div>
+
+          <!-- Zusatzmaterial (Statistik oder Zitat) -->
+          <div id="additionalMaterialSection">
+            <div id="quoteContainer" style="display:none;padding:1rem;background:var(--surface-alt,#f5f5f5);border-radius:var(--radius-sm);border-left:4px solid var(--accent);">
+              <div style="font-weight:600;color:var(--accent);margin-bottom:.5rem;">Zitat</div>
+              <blockquote style="margin:0;font-style:italic;font-size:1rem;line-height:1.6;color:var(--ink);" id="quoteText"></blockquote>
+              <div style="font-size:.82rem;color:var(--ink-muted);margin-top:.5rem;" id="quoteSource"></div>
+            </div>
+            <div id="statisticsContainer" style="display:none;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.8rem;">
+              <div style="font-weight:600;color:var(--accent);margin-bottom:.5rem;">Statistik</div>
+              <div id="statisticsTitle" style="font-weight:600;font-size:.95rem;text-align:center;margin-bottom:.5rem;"></div>
+              <div style="height:220px;"><canvas id="statisticsChart"></canvas></div>
+              <div id="statisticsSource" style="font-size:.75rem;color:var(--ink-muted);text-align:right;margin-top:.3rem;font-style:italic;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Essay-Wahlaufgaben -->
+        <div class="card">
+          <h2 class="card-header">Essay-Aufgabe</h2>
+          <p style="color:var(--ink-muted);font-size:.88rem;margin-bottom:1rem;">Wähle eine der beiden Aufgaben:</p>
 
           <div style="display:flex;flex-direction:column;gap:.8rem;">
             <label
-              style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
-              onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <input type="checkbox" id="doTask1" style="margin-top:.2rem;" checked>
+              style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--accent);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
+              id="essayDialecticLabel">
+              <input type="radio" name="essayChoice" id="doEssayDialectic" value="dialectic" style="margin-top:.2rem;" checked>
               <div>
-                <strong style="color:var(--accent);">Aufgabe 1 (30%)</strong>
-                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction1">–</div>
+                <strong style="color:var(--accent);">Option A – Dialektischer Essay</strong>
+                <div style="font-size:.82rem;color:var(--ink-muted);margin-bottom:.3rem;">Pro & Contra diskutieren, beide Seiten abwägen</div>
+                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="essayDialecticText">–</div>
               </div>
             </label>
 
             <label
               style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
-              onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <input type="checkbox" id="doTask2" style="margin-top:.2rem;" checked>
+              id="essayLinearLabel">
+              <input type="radio" name="essayChoice" id="doEssayLinear" value="linear" style="margin-top:.2rem;">
               <div>
-                <strong style="color:var(--accent);">Aufgabe 2 (30%)</strong>
-                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction2">–</div>
-              </div>
-            </label>
-
-            <label
-              style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
-              onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <input type="radio" name="task3" id="doTask31" value="3.1" style="margin-top:.2rem;" checked>
-              <div style="flex:1;">
-                <strong style="color:var(--accent);">Aufgabe 3.1 (40%)</strong> – <span id="task31TypeLabel">Persönliche Stellungnahme</span>
-                <div id="cartoonContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.5rem;"></div>
-                <div id="statisticsContainer" style="display:none;margin:.8rem 0;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-alt,#f5f5f5);padding:.8rem;">
-                  <div id="statisticsTitle" style="font-weight:600;font-size:.95rem;text-align:center;margin-bottom:.5rem;"></div>
-                  <div style="height:220px;"><canvas id="statisticsChart"></canvas></div>
-                  <div id="statisticsSource" style="font-size:.75rem;color:var(--ink-muted);text-align:right;margin-top:.3rem;font-style:italic;"></div>
-                </div>
-                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction31">–</div>
-              </div>
-            </label>
-
-            <label
-              style="display:flex;gap:.6rem;align-items:flex-start;padding:.8rem;border:2px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;"
-              onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <input type="radio" name="task3" id="doTask32" value="3.2" style="margin-top:.2rem;">
-              <div>
-                <strong style="color:var(--accent);">Aufgabe 3.2 (40%)</strong> – Gestaltendes Schreiben
-                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="taskInstruction32">–</div>
+                <strong style="color:var(--accent);">Option B – Linearer Essay</strong>
+                <div style="font-size:.82rem;color:var(--ink-muted);margin-bottom:.3rem;">Klare Position einnehmen, einseitig argumentieren</div>
+                <div style="font-size:.88rem;color:var(--ink-light);margin-top:.2rem;" id="essayLinearText">–</div>
               </div>
             </label>
           </div>
@@ -892,6 +898,7 @@
           <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">
             <p style="font-weight:600;color:var(--accent);margin-bottom:.5rem;" id="writeTaskInstruction"></p>
             <div id="writeCartoonPreview" style="display:none;margin:.5rem 0;text-align:center;"></div>
+            <div id="writeQuotePreview" style="display:none;margin:.5rem 0;"></div>
             <div id="writeStatisticsPreview" style="display:none;margin:.5rem 0;">
               <div id="writeStatsTitle" style="font-weight:600;font-size:.9rem;text-align:center;margin-bottom:.3rem;"></div>
               <div style="height:180px;"><canvas id="writeStatsChart"></canvas></div>
@@ -1285,19 +1292,31 @@
       }
     }
 
+    // Essay-Radio-Button Hervorhebung + Schreib-Referenz aktualisieren
+    document.addEventListener("change", function(e) {
+      if (e.target.name === "essayChoice") {
+        var dLabel = document.getElementById("essayDialecticLabel");
+        var lLabel = document.getElementById("essayLinearLabel");
+        if (dLabel) dLabel.style.borderColor = e.target.value === "dialectic" ? "var(--accent)" : "var(--border)";
+        if (lLabel) lLabel.style.borderColor = e.target.value === "linear" ? "var(--accent)" : "var(--border)";
+        // Schreib-Referenz aktualisieren
+        if (CONFIG.storedData) updateWriteReference(CONFIG.storedData);
+      }
+    });
+
     // Initiale Nav-Einstellung
     updateNavForMode("rc");
 
     /* ================= PROMPTS ================= */
 
-    const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben). Erstelle eine vollständige Schreiben-Prüfungsaufgabe.
+    const GENERATION_PROMPT_TEMPLATE = `Du bist ein Experte für die bayerische FOS-Abschlussprüfung im Fach Englisch (Prüfungsteil B: Textproduktion). Erstelle eine vollständige Schreiben-Prüfungsaufgabe im FOS-Stil.
 
 NIVEAU: {level}
 THEMA: {topic}
 TEXTART: {texttype}
 STRIKTE ZIELLÄNGE: ca. 700 Wörter
 
-Erstelle einen ENGLISCHEN Ausgangstext UND drei Aufgaben dazu, exakt im Stil des bayerischen Abiturs 2026.
+Erstelle einen ENGLISCHEN Ausgangstext, MATERIALIEN und ZWEI Essay-Wahlaufgaben, exakt im Stil der bayerischen FOS-Abschlussprüfung 2026.
 
 TEIL 1 – ENGLISCHER AUSGANGSTEXT:
 
@@ -1314,75 +1333,79 @@ WENN TEXTART = "literarisch":
 - Gib eine kurze Kontextinfo am Anfang (1-2 Sätze kursiv, z.B. "The following passage is set in...").
 - Erfinde einen plausiblen Autor (z.B. "Emma Whitfield, The Glass Between Us, 2023").
 
-TEIL 2 – DREI AUFGABEN:
+TEIL 2 – MATERIALIEN (IMMER BEIDES GENERIEREN!):
 
-Aufgabe 1 (30%): Eine kurze, präzise Outline-Aufgabe.
-- Bei nicht-literarisch: z.B. "Outline the main arguments presented in the article and the author's stance on [Thema]."
-- Bei literarisch: z.B. "Outline what the reader learns about [Figur] and [his/her] state of mind."
+MATERIAL 1 – KARIKATUR/CARTOON (PFLICHT):
+- Erstelle einen SEHR DETAILLIERTEN englischen Prompt für die Bildgenerierung (cartoon_prompt). Der Prompt muss beschreiben:
+  * Art des Cartoons (political cartoon, editorial cartoon, satirical illustration)
+  * Alle Figuren/Personen mit Aussehen, Kleidung, Gesichtsausdruck, Haltung
+  * Symbole, Metaphern, visuelle Übertreibungen
+  * WICHTIG: KEIN Text, KEINE Sprechblasen, KEINE Beschriftungen im Bild! Nur visuelle Elemente beschreiben.
+  * Hintergrund, Setting, Komposition
+  * Die satirische Aussage/den Humor der Karikatur
+  Der Prompt muss mindestens 5-8 Sätze lang sein!
+- Erstelle ZUSÄTZLICH ein Array "cartoon_bubbles" mit den Sprechblasen-Texten, die ÜBER dem Bild als HTML angezeigt werden.
+  Jede Bubble hat: "text" (der Sprechblasentext in Englisch), "position" (eines von: "top-left", "top-right", "bottom-left", "bottom-right"), "speaker" (kurze Beschreibung wer spricht).
+  Maximal 2-3 Sprechblasen. Kurze, prägnante Texte (max. 10 Wörter pro Bubble).
+- Der Cartoon MUSS zum Thema des Textes passen und eine klare satirische/komische Aussage haben.
 
-Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe. MAXIMAL 1-2 Sätze!
-- Bei nicht-literarisch: z.B. "Analyse the writer's attitude. Focus on the use of language."
-- Bei literarisch: z.B. "Analyse how the setting is used to create atmosphere. Focus on the author's use of language."
+MATERIAL 2 – ZUSATZMATERIAL (PFLICHT, wähle ZUFÄLLIG eines von beiden):
 
-Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
-- 3.1: Entscheide zufällig zwischen DREI Material-Varianten (jeweils ca. 33%):
+VARIANTE A – ZITAT (ca. 50%):
+- Wähle ein passendes, prägnantes englisches Zitat einer bekannten Person (Politiker, Autor, Wissenschaftler etc.) zum Thema.
+- Das Zitat soll NICHT aus dem Ausgangstext stammen, sondern eine eigenständige Perspektive bieten.
+- Gib Autor und ggf. Kontext an.
+- Setze "additional_material_type" auf "quote".
 
-  VARIANTE A – ZITAT (ca. 33%):
-  Ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
+VARIANTE B – STATISTIK/DIAGRAMM (ca. 50%):
+- Erstelle ein Objekt "statistics_data" mit folgenden Feldern:
+  * "chart_type": "bar", "horizontalBar", "pie", "doughnut" oder "line" – wähle passend zum Thema
+  * "title": Überschrift des Diagramms (auf Englisch)
+  * "source": Quellenangabe, z.B. "Source: Statista, 2025" oder "Source: OECD Report, 2024"
+  * "labels": Array mit Beschriftungen der Datenpunkte (z.B. Länder, Jahre, Kategorien). Maximal 8 Einträge.
+  * "datasets": Array mit 1–2 Datensätzen. Jeder Datensatz hat:
+    - "label": Bezeichnung des Datensatzes (z.B. "in %", "in millions", "Number of...")
+    - "data": Array mit Zahlenwerten (gleiche Länge wie labels)
+  * "unit": Einheit für die Achsenbeschriftung (z.B. "%", "million", "per 1000")
+- Die Statistik MUSS zum Thema des Textes passen und plausible, realistische Daten enthalten.
+- Die Daten sollen interessant und diskussionswürdig sein (z.B. Trends, Vergleiche, Überraschungen).
+- Setze "additional_material_type" auf "statistics".
 
-  VARIANTE B – KARIKATUR/CARTOON (ca. 33%):
-  - Lasse task_3_1_quote LEER ("")
-  - Schreibe die Aufgabe als Cartoon-Kommentar, z.B. "Comment on the cartoon below. In your comment, refer to the text." oder "Describe and comment on the cartoon. In your answer, also refer to the article."
-  - Erstelle einen SEHR DETAILLIERTEN englischen Prompt für die Bildgenerierung (cartoon_prompt). Der Prompt muss beschreiben:
-    * Art des Cartoons (political cartoon, editorial cartoon, satirical illustration)
-    * Alle Figuren/Personen mit Aussehen, Kleidung, Gesichtsausdruck, Haltung
-    * Symbole, Metaphern, visuelle Übertreibungen
-    * WICHTIG: KEIN Text, KEINE Sprechblasen, KEINE Beschriftungen im Bild! Nur visuelle Elemente beschreiben.
-    * Hintergrund, Setting, Komposition
-    * Die satirische Aussage/den Humor der Karikatur
-    Der Prompt muss mindestens 5-8 Sätze lang sein!
-  - Erstelle ZUSÄTZLICH ein Array "cartoon_bubbles" mit den Sprechblasen-Texten, die ÜBER dem Bild als HTML angezeigt werden.
-    Jede Bubble hat: "text" (der Sprechblasentext in Englisch), "position" (eines von: "top-left", "top-right", "bottom-left", "bottom-right"), "speaker" (kurze Beschreibung wer spricht).
-    Maximal 2-3 Sprechblasen. Kurze, prägnante Texte (max. 10 Wörter pro Bubble).
+TEIL 3 – ZWEI ESSAY-WAHLAUFGABEN:
 
-  VARIANTE C – STATISTIK/DIAGRAMM (ca. 33%):
-  - Lasse task_3_1_quote LEER ("")
-  - Lasse cartoon_prompt LEER ("")
-  - Schreibe die Aufgabe als Statistik-Kommentar, z.B. "Comment on the statistics below. In your comment, refer to the text." oder "Analyse the data shown in the chart below. In your answer, also refer to the article."
-  - Erstelle ein Objekt "statistics_data" mit folgenden Feldern:
-    * "chart_type": "bar", "horizontalBar", "pie", "doughnut" oder "line" – wähle passend zum Thema
-    * "title": Überschrift des Diagramms (auf Englisch)
-    * "source": Quellenangabe, z.B. "Source: Statista, 2025" oder "Source: OECD Report, 2024"
-    * "labels": Array mit Beschriftungen der Datenpunkte (z.B. Länder, Jahre, Kategorien). Maximal 8 Einträge.
-    * "datasets": Array mit 1–2 Datensätzen. Jeder Datensatz hat:
-      - "label": Bezeichnung des Datensatzes (z.B. "in %", "in millions", "Number of...")
-      - "data": Array mit Zahlenwerten (gleiche Länge wie labels)
-    * "unit": Einheit für die Achsenbeschriftung (z.B. "%", "million", "per 1000")
-  - Die Statistik MUSS zum Thema des Textes passen und plausible, realistische Daten enthalten.
-  - Die Daten sollen interessant und diskussionswürdig sein (z.B. Trends, Vergleiche, Überraschungen).
+Der Schüler wählt EINE der beiden Aufgaben:
 
-- 3.2: Situationsbeschreibung (1-2 Sätze) + "Write a/an [Textsorte] in which you..." (1 Satz)
+OPTION A – DIALEKTISCHER ESSAY:
+- Formuliere eine Essay-Aufgabe, bei der der Schüler BEIDE SEITEN eines Arguments diskutieren soll (Pro und Contra).
+- Typische Formulierung: "Discuss the pros and cons of..." oder "'[These/Behauptung]' – Discuss this statement, taking into account both sides of the argument."
+- Der Essay soll sich auf den Text UND die Materialien (Cartoon + Zusatzmaterial) beziehen.
+- Beispiel: "The article argues that social media has fundamentally changed the way we communicate. Discuss both the advantages and disadvantages of this development. In your essay, refer to the text and the materials provided."
 
-Bei eA: Aufgaben sprachlich und inhaltlich anspruchsvoller, tiefere Analyse erwartet.
-Bei gA: Aufgaben etwas zugänglicher formuliert.
+OPTION B – LINEARER ESSAY:
+- Formuliere eine Essay-Aufgabe, bei der der Schüler eine KLARE POSITION einnehmen und einseitig argumentieren soll.
+- Typische Formulierung: "Write a comment in which you argue for/against..." oder "Do you agree that...? Write a comment giving your personal opinion."
+- Der Essay soll sich auf den Text UND die Materialien (Cartoon + Zusatzmaterial) beziehen.
+- Beispiel: "Write a comment in which you argue whether schools should ban smartphones. In your comment, refer to the text and the materials provided."
+
+Bei eA: Aufgaben sprachlich und inhaltlich anspruchsvoller, differenziertere Argumentation erwartet.
+Bei gA: Aufgaben etwas zugänglicher formuliert, klarere Leitfragen.
 
 OUTPUT FORMAT (NUR reines JSON):
 {
   "headline": "Titel des Texts",
   "source_info": "Autor, Quelle, Datum",
   "article_text": "Der komplette englische Text...",
-  "task_1": "Outline...",
-  "task_2": "Analyse... Focus on...",
-  "task_3_1_quote": "Exaktes Zitat aus dem Text (LEER lassen wenn Cartoon oder Statistik verwendet wird)",
-  "task_3_1": "Taking the quotation as a starting point... ODER Comment on the cartoon below... ODER Comment on the statistics below...",
-  "cartoon_prompt": "NUR wenn Cartoon: Sehr detaillierter englischer Prompt OHNE Text/Sprechblasen (5-8 Sätze). LEER lassen wenn kein Cartoon.",
-  "cartoon_bubbles": [{"text": "Speech bubble text", "position": "top-left oder top-right oder bottom-left oder bottom-right", "speaker": "Wer spricht"}],
+  "cartoon_prompt": "Sehr detaillierter englischer Prompt OHNE Text/Sprechblasen (5-8 Sätze)",
+  "cartoon_bubbles": [{"text": "Speech bubble text", "position": "top-left", "speaker": "Wer spricht"}],
+  "additional_material_type": "quote" oder "statistics",
+  "quote_text": "Das Zitat (NUR wenn additional_material_type = quote, sonst LEER)",
+  "quote_source": "Autor und Kontext des Zitats (NUR wenn quote, sonst LEER)",
   "statistics_data": {"chart_type": "bar", "title": "Chart Title", "source": "Source: ...", "labels": ["A","B","C"], "datasets": [{"label": "in %", "data": [10,20,30]}], "unit": "%"},
-  "task_3_2_situation": "Situationsbeschreibung (1-2 Sätze)",
-  "task_3_2": "Write a/an [Textsorte] in which you..."
+  "essay_dialectic": "Die dialektische Essay-Aufgabe (Pro/Contra, beide Seiten diskutieren)...",
+  "essay_linear": "Die lineare Essay-Aufgabe (klare Position, einseitig argumentieren)..."
 }`;
 
-    const CORRECTION_RUBRIC_PROMPT = `Rolle: Du bist ein erfahrener und strenger Englischlehrer an einem bayerischen Gymnasium. Du bewertest eine Textproduktion (Schreiben) nach dem offiziellen ISB-Bewertungsraster (Stand: Juni 2024).
+    const CORRECTION_RUBRIC_PROMPT = `Rolle: Du bist ein erfahrener und strenger Englischlehrer an einer bayerischen FOS. Du bewertest einen Essay (Textproduktion) nach dem offiziellen ISB-Bewertungsraster (Stand: Juni 2024).
 
 BEWERTUNGSSYSTEM:
 - Inhalt und Textstruktur: 0-15 Notenpunkte (Gewichtung 40%)
@@ -1390,41 +1413,24 @@ BEWERTUNGSSYSTEM:
 - Gesamtnote: gewichteter Durchschnitt, gerundet (0-15 NP)
 - SPERRKLAUSEL: Inhalt ODER Sprache = 0 NP -> Gesamt max. 3 NP.
 
-=== WICHTIG: WÄHLE DAS RICHTIGE INHALTSRASTER JE NACH AUFGABENTYP ===
+=== ESSAY-BEWERTUNG – Inhalt (40%) ===
 
-Wenn der Schüler Aufgabe 1 (Outline) oder Aufgabe 2 (Analyse) bearbeitet hat, verwende RASTER A.
-Wenn der Schüler Aufgabe 3.1 (Stellungnahme) oder 3.2 (Gestaltendes Schreiben) bearbeitet hat, verwende RASTER B.
-Falls der Schüler mehrere Aufgaben bearbeitet hat, bewerte jede nach dem passenden Raster und bilde einen Gesamteindruck.
+15-13 NP: Aufgabenstellung vollumfänglich erfüllt. Durchgehend sachgerechte, differenzierte und ideenreiche Umsetzung. Materialbezüge (Text, Cartoon, Statistik/Zitat) durchgängig überzeugend eingebunden. Durchgängig kohärente, klar strukturierte und sehr überzeugende Argumentation.
 
-=== RASTER A: TEXTVERSTEHEN UND TEXTANALYSE – Inhalt (40%) ===
-(Für Aufgabe 1: Outline und Aufgabe 2: Analyse)
+12-10 NP: Nahezu vollständig erfüllt. Meist sachgerechte, differenzierte und ideenreiche Umsetzung. Materialien größtenteils einbezogen. Meist kohärente, überzeugende Argumentation.
 
-15-13 NP: Aufgabenstellung vollumfänglich erfüllt, Textaussage vollumfänglich erfasst. Durchgehend text- und sachbezogene, differenzierte Umsetzung. Durchgängig kohärente, klar strukturierte und sehr überzeugende Darstellung.
+09-07 NP: Im Großen und Ganzen erfüllt. In weiten Teilen sachgerecht, allenfalls leichte Abweichungen. Materialien teilweise einbezogen. Weitgehend kohärent und im Großen und Ganzen überzeugende Argumentation.
 
-12-10 NP: Nahezu vollständig erfüllt, Textaussage erfasst; vereinzelte Lücken fallen nicht ins Gewicht. Meist text- und sachbezogene, differenzierte Umsetzung. Meist kohärente, strukturierte und überzeugende Darstellung.
+06-04 NP: Insgesamt noch erfüllt. Mit Abstrichen noch sachgerecht, vereinzelte Abweichungen. Materialbezüge oberflächlich oder lückenhaft. Ansatzweise kohärent, nur teilweise überzeugende Argumentation.
 
-09-07 NP: Im Großen und Ganzen erfüllt, Textaussage im Allgemeinen erfasst; einzelne Lücken vorhanden. In weiten Teilen text- und sachbezogen, differenziert. Weitgehend kohärent, im Großen und Ganzen überzeugend.
+03-01 NP: Kaum mehr erfüllt. Kaum sachgerecht, mehrfache Abweichungen. Materialien kaum oder gar nicht einbezogen. Kaum kohärent, in weiten Teilen unstrukturiert.
 
-06-04 NP: Insgesamt noch erfüllt, Textaussage insgesamt noch erfasst; mehrere Lücken vorhanden. Mit Abstrichen noch text- und sachbezogen. Ansatzweise kohärent, nur teilweise überzeugend.
+00 NP: Nicht erfüllt. Themaverfehlung. Kein Materialbezug. Inkohärent, unstrukturiert, nicht nachvollziehbar.
 
-03-01 NP: Kaum mehr erfüllt und/oder Textaussage kaum mehr erfasst; größere Lücken. Kaum noch text- und sachbezogen. Kaum kohärent, in weiten Teilen unstrukturiert.
-
-00 NP: Nicht erfüllt und/oder Textaussage nicht erfasst. Keine text- und sachbezogene Umsetzung. Inkohärent, unstrukturiert, nicht nachvollziehbar.
-
-=== RASTER B: PERSÖNLICHE STELLUNGNAHME / GESTALTENDES SCHREIBEN – Inhalt (40%) ===
-(Für Aufgabe 3.1 und 3.2)
-
-15-13 NP: Aufgabenstellung vollumfänglich erfüllt. Durchgehend sachgerechte, differenzierte und ideenreiche Umsetzung. Textart/Textsorte vollumfänglich erfüllt, durchgängig treffender Situations-/Adressatenbezug. Durchgängig kohärente, klar strukturierte und sehr überzeugende Darstellung.
-
-12-10 NP: Nahezu vollständig erfüllt. Meist sachgerechte, differenzierte und ideenreiche Umsetzung. Textart nahezu vollständig erfüllt, weitgehend treffender Bezug. Meist kohärente, überzeugende Darstellung.
-
-09-07 NP: Im Großen und Ganzen erfüllt. In weiten Teilen sachgerecht, allenfalls leichte Abweichungen. Textart im Wesentlichen erfüllt. Weitgehend kohärent und im Großen und Ganzen überzeugend.
-
-06-04 NP: Insgesamt noch erfüllt. Mit Abstrichen noch sachgerecht, vereinzelte Abweichungen. Textart mit Abstrichen noch erfüllt, ansatzweise Bezug. Ansatzweise kohärent, nur teilweise überzeugend.
-
-03-01 NP: Kaum mehr erfüllt. Kaum sachgerecht, mehrfache Abweichungen. Textart kaum erfüllt, fehlerhafter Bezug. Kaum kohärent, in weiten Teilen unstrukturiert.
-
-00 NP: Nicht erfüllt. Themaverfehlung. Textart nicht erfüllt. Inkohärent, unstrukturiert, nicht nachvollziehbar.
+ZUSÄTZLICHE BEWERTUNGSKRITERIEN FÜR ESSAY-TYP:
+- Bei DIALEKTISCHEM Essay: Werden BEIDE SEITEN ausgewogen dargestellt? Wird am Ende eine eigene Position bezogen?
+- Bei LINEAREM Essay: Ist die Argumentation stringent und einseitig überzeugend? Werden Gegenargumente angemessen entkräftet?
+- MATERIALBEZUG: Der Schüler MUSS sich auf den Ausgangstext UND die bereitgestellten Materialien (Cartoon + Statistik/Zitat) beziehen. Fehlender Materialbezug führt zu Abzug!
 
 === SPRACHE (60%) ===
 
@@ -1443,7 +1449,7 @@ Falls der Schüler mehrere Aufgaben bearbeitet hat, bewerte jede nach dem passen
 === FORMAT DES FEEDBACKS ===
 
 ### Inhalt & Textstruktur ({inhalt_np}/15 NP)
-Erkläre, ob und wie gut die Aufgabenstellung erfüllt wurde. Zitiere konkrete Passagen.
+Erkläre, ob und wie gut die Aufgabenstellung erfüllt wurde. Bewerte Argumentation, Materialbezüge und Strukturierung. Zitiere konkrete Passagen.
 
 ### Sprache ({sprache_np}/15 NP)
 Liste Sprachfehler auf: "Fehler" -> "Korrektur" (Erklärung). Gehe auf Korrektheit, Eigenständigkeit, Wortwahl, Satzbau und textstrukturierende Mittel ein.
@@ -1453,7 +1459,7 @@ Liste Sprachfehler auf: "Fehler" -> "Korrektur" (Erklärung). Gehe auf Korrekthe
 
 WICHTIG: Nenne KEINE Gesamtpunktzahl und KEINE Schulnote im Feedback.
 
-WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen (insbesondere bei Inhalt und Textstruktur). Erwähne dies explizit im Feedback.
+WICHTIG – FLIEẞTEXT-PFLICHT: Der Essay MUSS in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen (insbesondere bei Inhalt und Textstruktur). Erwähne dies explizit im Feedback.
 
 Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
@@ -1468,6 +1474,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       };
       if (currentMode === "textproduction") {
         session.studentText = document.getElementById("studentText").value;
+        session.essayChoice = document.getElementById("doEssayDialectic")?.checked ? "dialectic" : "linear";
       } else {
         session.readingAnswers = collectReadingAnswers();
       }
@@ -1499,6 +1506,13 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         if (session.studentText && currentMode === "textproduction") {
           document.getElementById("studentText").value = session.studentText;
           updateWordCount();
+        }
+        // Essay-Auswahl wiederherstellen
+        if (session.essayChoice && currentMode === "textproduction") {
+          if (session.essayChoice === "linear") {
+            var linearRadio = document.getElementById("doEssayLinear");
+            if (linearRadio) { linearRadio.checked = true; linearRadio.dispatchEvent(new Event("change", { bubbles: true })); }
+          }
         }
         if (session.currentStep && session.currentStep !== "setup") {
           nav(session.currentStep);
@@ -1542,7 +1556,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           nav("rc-tasks");
 
         } else if (currentMode === "textproduction") {
-          // Text Production: Bisherige Logik
+          // Text Production: Essay mit Materialien (Cartoon + Statistik/Zitat)
           const textType = document.getElementById("textTypeSelect").value;
           const level = sessionStorage.getItem("student_level") || "gA";
           const prompt = GENERATION_PROMPT_TEMPLATE
@@ -2155,11 +2169,18 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     /* ================= RENDER (Text Production - bisherige Logik) ================= */
     function renderExam(d) {
       // Hochgeladene Bilder: Original-Aufgabenblatt gross anzeigen
+      var taskInstr = document.getElementById("taskInstruction");
       if (d._uploadImages && d._uploadImages.length) {
-        document.getElementById("taskInstruction").innerHTML = d._uploadImages.map(function(url) {
-          return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
-        }).join('');
+        if (taskInstr) {
+          taskInstr.style.display = "block";
+          taskInstr.innerHTML = d._uploadImages.map(function(url) {
+            return '<img src="' + url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+          }).join('');
+        }
         return;
+      } else if (taskInstr) {
+        taskInstr.style.display = "none";
+        taskInstr.innerHTML = "";
       }
 
       document.getElementById("articleTitle").innerText = d.headline || "Ausgangstext";
@@ -2170,56 +2191,53 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         document.getElementById("sourceInfo").innerText = d.source_info;
       }
 
-      // Populate task displays
-      document.getElementById("taskInstruction1").innerText = d.task_1 || "–";
-      document.getElementById("taskInstruction2").innerText = d.task_2 || "–";
-
-      const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
-      const hasStatistics = d.statistics_data && d.statistics_data.chart_type && d.statistics_data.labels && d.statistics_data.labels.length > 0;
+      // Cartoon IMMER anzeigen
       const cartoonContainer = document.getElementById("cartoonContainer");
-      const statisticsContainer = document.getElementById("statisticsContainer");
-      const typeLabel = document.getElementById("task31TypeLabel");
-
-      // Alle Material-Container zurücksetzen
-      cartoonContainer.style.display = "none";
       cartoonContainer.innerHTML = "";
-      statisticsContainer.style.display = "none";
-      if (CONFIG.statisticsChartInstance) { CONFIG.statisticsChartInstance.destroy(); CONFIG.statisticsChartInstance = null; }
-
-      if (hasCartoon) {
-        typeLabel.textContent = "Cartoon-Kommentar";
-        cartoonContainer.style.display = "block";
+      if (d.cartoon_prompt && d.cartoon_prompt.trim().length > 10) {
         cartoonContainer.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Cartoon wird generiert…</span></div>';
         loadCartoonImage(d.cartoon_prompt, "cartoonContainer", d.cartoon_bubbles || []);
-        document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
-      } else if (hasStatistics) {
-        typeLabel.textContent = "Statistik-Kommentar";
-        statisticsContainer.style.display = "block";
-        renderStatisticsMaterial(d.statistics_data, "statisticsChart", "statisticsTitle", "statisticsSource");
-        document.getElementById("taskInstruction31").innerText = d.task_3_1 || "–";
-      } else {
-        typeLabel.textContent = "Persönliche Stellungnahme";
-        const q31 = d.task_3_1_quote ? `"${d.task_3_1_quote}"\n\n` : "";
-        document.getElementById("taskInstruction31").innerText = q31 + (d.task_3_1 || "–");
       }
 
-      const sit32 = d.task_3_2_situation ? `${d.task_3_2_situation}\n\n` : "";
-      document.getElementById("taskInstruction32").innerText = sit32 + (d.task_3_2 || "–");
+      // Zusatzmaterial: Statistik oder Zitat
+      const statisticsContainer = document.getElementById("statisticsContainer");
+      const quoteContainer = document.getElementById("quoteContainer");
+      statisticsContainer.style.display = "none";
+      quoteContainer.style.display = "none";
+      if (CONFIG.statisticsChartInstance) { CONFIG.statisticsChartInstance.destroy(); CONFIG.statisticsChartInstance = null; }
 
-      // Populate write-tab reference panel
-      const selectedTasks = getSelectedTasks();
-      document.getElementById("writeTaskInstruction").innerText = selectedTasks;
+      if (d.additional_material_type === "statistics" && d.statistics_data && d.statistics_data.chart_type) {
+        statisticsContainer.style.display = "block";
+        renderStatisticsMaterial(d.statistics_data, "statisticsChart", "statisticsTitle", "statisticsSource");
+      } else if (d.additional_material_type === "quote" && d.quote_text) {
+        quoteContainer.style.display = "block";
+        document.getElementById("quoteText").innerText = d.quote_text;
+        document.getElementById("quoteSource").innerText = d.quote_source || "";
+      }
+
+      // Essay-Aufgaben befüllen
+      document.getElementById("essayDialecticText").innerText = d.essay_dialectic || "–";
+      document.getElementById("essayLinearText").innerText = d.essay_linear || "–";
+
+      // Schreib-Referenz-Panel befüllen
+      updateWriteReference(d);
+    }
+
+    function updateWriteReference(d) {
+      if (!d) d = CONFIG.storedData;
+      if (!d) return;
+
+      document.getElementById("writeTaskInstruction").innerText = getSelectedTasks();
       document.getElementById("writeArticlePreview").innerHTML =
         `<strong>${escapeHtml(d.headline || "")}</strong><br><br>` +
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
 
-      // Material auch in Schreib-Referenz anzeigen
+      // Cartoon-Preview im Schreib-Bereich
       const writeCartoon = document.getElementById("writeCartoonPreview");
-      const writeStats = document.getElementById("writeStatisticsPreview");
-
-      // Cartoon-Preview
-      if (hasCartoon && document.getElementById("doTask31")?.checked) {
-        writeCartoon.style.display = "block";
+      writeCartoon.style.display = "block";
+      if (CONFIG.cartoonUrl) {
+        writeCartoon.innerHTML = '<img src="' + CONFIG.cartoonUrl + '" alt="Cartoon" style="max-width:100%;max-height:250px;border-radius:var(--radius-sm);border:1px solid var(--border);">';
+      } else {
         writeCartoon.innerHTML = '<div style="font-size:.85rem;color:var(--ink-muted);padding:.5rem;">Cartoon wird geladen…</div>';
         const waitForCartoon = setInterval(function() {
           if (CONFIG.cartoonUrl) {
@@ -2227,17 +2245,27 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
             writeCartoon.innerHTML = '<img src="' + CONFIG.cartoonUrl + '" alt="Cartoon" style="max-width:100%;max-height:250px;border-radius:var(--radius-sm);border:1px solid var(--border);">';
           }
         }, 500);
-      } else {
-        writeCartoon.style.display = "none";
-        writeCartoon.innerHTML = "";
       }
 
-      // Statistik-Preview im Schreib-Bereich
-      if (hasStatistics && document.getElementById("doTask31")?.checked) {
+      // Statistik/Zitat-Preview im Schreib-Bereich
+      const writeStats = document.getElementById("writeStatisticsPreview");
+      const writeQuote = document.getElementById("writeQuotePreview");
+
+      if (d.additional_material_type === "statistics" && d.statistics_data && d.statistics_data.chart_type) {
         writeStats.style.display = "block";
         renderStatisticsMaterial(d.statistics_data, "writeStatsChart", "writeStatsTitle", "writeStatsSource");
+        if (writeQuote) writeQuote.style.display = "none";
+      } else if (d.additional_material_type === "quote" && d.quote_text) {
+        if (writeQuote) {
+          writeQuote.style.display = "block";
+          writeQuote.innerHTML = '<blockquote style="margin:0;font-style:italic;font-size:.9rem;line-height:1.5;color:var(--ink);padding:.5rem;background:var(--surface-alt,#f5f5f5);border-left:3px solid var(--accent);border-radius:var(--radius-sm);">' +
+            escapeHtml(d.quote_text) + '<div style="font-size:.78rem;color:var(--ink-muted);margin-top:.3rem;">' + escapeHtml(d.quote_source || "") + '</div></blockquote>';
+        }
+        writeStats.style.display = "none";
+        if (CONFIG.writeStatsChartInstance) { CONFIG.writeStatsChartInstance.destroy(); CONFIG.writeStatsChartInstance = null; }
       } else {
         writeStats.style.display = "none";
+        if (writeQuote) writeQuote.style.display = "none";
         if (CONFIG.writeStatsChartInstance) { CONFIG.writeStatsChartInstance.destroy(); CONFIG.writeStatsChartInstance = null; }
       }
     }
@@ -2278,25 +2306,22 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
     function getSelectedTasks() {
       const d = CONFIG.storedData;
-      let tasks = [];
-      if (document.getElementById("doTask1")?.checked) tasks.push("1. " + (d.task_1 || ""));
-      if (document.getElementById("doTask2")?.checked) tasks.push("2. " + (d.task_2 || ""));
-      if (document.getElementById("doTask31")?.checked) {
-        const hasCartoon = d.cartoon_prompt && d.cartoon_prompt.trim().length > 10;
-        const hasStatistics = d.statistics_data && d.statistics_data.chart_type && d.statistics_data.labels && d.statistics_data.labels.length > 0;
-        if (hasCartoon) {
-          tasks.push("3.1 [See cartoon above] " + (d.task_3_1 || ""));
-        } else if (hasStatistics) {
-          tasks.push("3.1 [See statistics above] " + (d.task_3_1 || ""));
-        } else {
-          const q = d.task_3_1_quote ? `"${d.task_3_1_quote}" — ` : "";
-          tasks.push("3.1 " + q + (d.task_3_1 || ""));
-        }
-      } else if (document.getElementById("doTask32")?.checked) {
-        const s = d.task_3_2_situation ? d.task_3_2_situation + " " : "";
-        tasks.push("3.2 " + s + (d.task_3_2 || ""));
-      }
-      return tasks.join("\n\n");
+      if (!d) return "";
+
+      // Gewählte Essay-Aufgabe ermitteln
+      const isDialectic = document.getElementById("doEssayDialectic")?.checked;
+      const essayText = isDialectic ? (d.essay_dialectic || "") : (d.essay_linear || "");
+      const essayType = isDialectic ? "Dialektischer Essay" : "Linearer Essay";
+
+      let result = essayType + ":\n" + essayText;
+
+      // Materialhinweise anhängen
+      result += "\n\n[Materials: Cartoon";
+      if (d.additional_material_type === "statistics") result += " + Statistics";
+      else if (d.additional_material_type === "quote") result += " + Quote: \"" + (d.quote_text || "") + "\" (" + (d.quote_source || "") + ")";
+      result += "]";
+
+      return result;
     }
 
     /* ================= STATISTIK-MATERIAL RENDERN ================= */
@@ -2413,7 +2438,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");
         return;
       }
-      if (!CONFIG.storedData?.article_text || !CONFIG.storedData?.task_instruction) {
+      if (!CONFIG.storedData?.article_text && !CONFIG.storedData?.task_instruction) {
         showToast("Bitte zuerst eine Prüfung generieren (Schritt 1).");
         return;
       }
@@ -2504,19 +2529,24 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("studentText").value = "";
       document.getElementById("feedbackContent").style.display = "none";
       document.getElementById("modelAnswerCard").style.display = "none";
-      document.getElementById("taskInstruction1").innerText = "–";
-      document.getElementById("taskInstruction2").innerText = "–";
-      document.getElementById("taskInstruction31").innerText = "–";
-      document.getElementById("taskInstruction32").innerText = "–";
-      document.getElementById("cartoonContainer").style.display = "none";
+      // Essay-Aufgaben zurücksetzen
+      document.getElementById("essayDialecticText").innerText = "–";
+      document.getElementById("essayLinearText").innerText = "–";
+      document.getElementById("doEssayDialectic").checked = true;
+      document.getElementById("essayDialecticLabel").style.borderColor = "var(--accent)";
+      document.getElementById("essayLinearLabel").style.borderColor = "var(--border)";
+      // Materialien zurücksetzen
       document.getElementById("cartoonContainer").innerHTML = "";
-      document.getElementById("writeCartoonPreview").style.display = "none";
-      document.getElementById("writeCartoonPreview").innerHTML = "";
+      document.getElementById("quoteContainer").style.display = "none";
       document.getElementById("statisticsContainer").style.display = "none";
       if (CONFIG.statisticsChartInstance) { CONFIG.statisticsChartInstance.destroy(); CONFIG.statisticsChartInstance = null; }
+      // Schreib-Referenz zurücksetzen
+      document.getElementById("writeCartoonPreview").style.display = "none";
+      document.getElementById("writeCartoonPreview").innerHTML = "";
+      var writeQuote = document.getElementById("writeQuotePreview");
+      if (writeQuote) { writeQuote.style.display = "none"; writeQuote.innerHTML = ""; }
       document.getElementById("writeStatisticsPreview").style.display = "none";
       if (CONFIG.writeStatsChartInstance) { CONFIG.writeStatsChartInstance.destroy(); CONFIG.writeStatsChartInstance = null; }
-      document.getElementById("task31TypeLabel").textContent = "Persönliche Stellungnahme";
       CONFIG.cartoonUrl = null;
       document.getElementById("articleTitle").innerText = "Ausgangstext";
       document.getElementById("articleBody").innerHTML = "";
