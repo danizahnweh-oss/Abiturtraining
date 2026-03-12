@@ -1713,6 +1713,13 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       }
     }
 
+    // KI-Hinweis
+    var aiNoticeHtml =
+      '<div class="edu-img-ai-notice">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="edu-img-ai-notice-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' +
+        'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.' +
+      '</div>';
+
     // Neu-Generieren-Button
     var regenBtnHtml =
       '<div style="text-align:center;">' +
@@ -1729,7 +1736,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
           '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
         '</div>' +
         titleHtml + labelsHtml + caption + legendHtml + credit +
-        regenBtnHtml +
+        aiNoticeHtml + regenBtnHtml +
       '</figure>';
 
     // Klick-Handler für Neu-Generieren
