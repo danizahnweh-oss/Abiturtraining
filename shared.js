@@ -1718,11 +1718,15 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       }
     }
 
-    // KI-Hinweis
+    // KI-Hinweis (angepasst je nach Modell)
+    var isIdeogram = d.credit && d.credit.toLowerCase().indexOf('ideogram') !== -1;
+    var noticeText = isIdeogram
+      ? 'KI-generiertes Bild — Beschriftungen im Bild auf Englisch, deutsche Übersetzung siehe unten.'
+      : 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
     var aiNoticeHtml =
       '<div class="edu-img-ai-notice">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="edu-img-ai-notice-icon"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>' +
-        'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.' +
+        noticeText +
       '</div>';
 
     // Neu-Generieren-Button
