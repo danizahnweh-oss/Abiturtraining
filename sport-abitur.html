@@ -766,7 +766,7 @@
             if (!m || typeof m !== "object") return;
             if (m.text && typeof m.text === "string") m.text = normalizeMaterialText(m.text);
             var mtype = detectMaterialType(m);
-            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : mtype === "bild" ? "\ud83d\uddbc\ufe0f " : "";
+            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : (mtype === "bild" || mtype === "foto") ? "\ud83d\uddbc\ufe0f " : "";
             html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("Abb. " + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
             if (mtype === "statistik" || mtype === "diagramm") {
@@ -774,6 +774,8 @@
               html += '<div class="material-chart"><canvas id="chart-spo-' + idx + '-' + mi + '"></canvas></div>';
             } else if (mtype === "bild") {
               html += '<div class="material-img-loading" id="img-spo-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else if (mtype === "foto") {
+              html += '<div class="material-img-loading" id="img-spo-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
             } else {
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
             }
@@ -815,7 +817,7 @@
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
           var mtype = detectMaterialType(m);
-          if (mtype === "bild" && m.text) {
+          if ((mtype === "bild" || mtype === "foto") && m.text) {
             loadImage(m.text, 'img-spo-' + idx + '-' + mi);
           }
         });
@@ -1101,7 +1103,7 @@
 
     /* ====== MATERIAL TYPE AUTO-DETECTION ====== */
     function detectMaterialType(m) {
-      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "text")) return m.type;
+      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "foto" || m.type === "text")) return m.type;
       if (!m.text || typeof m.text !== "string") return "text";
       var txt = normalizeMaterialText(m.text);
       var tableLines = txt.split("\n").filter(function (l) { return l.trim().startsWith("|") && l.trim().endsWith("|"); });

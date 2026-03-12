@@ -709,6 +709,11 @@
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
               html += '</div></details>';
               html += '</div>';
+            } else if (m.type === "bild" || m.type === "foto") {
+              html += '<details class="material-details" open><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+              html += '<div class="material-body">';
+              html += '<div class="material-img-loading" id="img-phy-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>' + (m.type === "foto" ? "Foto wird geladen\u2026" : "Bild wird generiert\u2026") + '</span></div>';
+              html += '</div></details>';
             } else {
               html += '<details class="material-details"><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
               html += '<div class="material-body">';
@@ -743,6 +748,15 @@
       updateWahlUI();
       // Charts rendern nachdem HTML im DOM ist
       renderMaterialCharts(allChartMaterials);
+      // Bilder nach DOM-Einfügung laden
+      aufgaben.forEach(function (a, idx) {
+        var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
+        mats.forEach(function (m, mi) {
+          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+            loadEducationalImage(m.text || m.content, 'img-phy-' + idx + '-' + mi, m.image_labels || null);
+          }
+        });
+      });
     }
 
     /* ====== SELECTION: CHOOSE 3 OF 4 ====== */

@@ -806,6 +806,7 @@
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m, mIdx) {
           var isChartMaterial = (m.type === "statistik" || m.type === "diagramm") && m.text;
+          var isBildOrFoto = (m.type === "bild" || m.type === "foto") && m.text;
 
           if (isChartMaterial) {
             // Chart-Material: Grafik prominent, Rohdaten einklappbar
@@ -838,8 +839,22 @@
             wrapper.appendChild(rawDetails);
 
             matContainer.appendChild(wrapper);
+          } else if (isBildOrFoto) {
+            // Bild/Foto-Material: Bild laden
+            var wrapper = document.createElement("div");
+            wrapper.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;padding:1rem";
+            var title = document.createElement("div");
+            title.style.cssText = "font-weight:600;color:var(--accent);margin-bottom:.8rem";
+            title.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
+            wrapper.appendChild(title);
+            var imgBox = document.createElement("div");
+            imgBox.id = "img-phy-" + mIdx;
+            imgBox.innerHTML = '<div class="loader-spinner"></div><span>' + (m.type === "foto" ? "Foto wird geladen\u2026" : "Bild wird generiert\u2026") + '</span>';
+            imgBox.className = "material-img-loading";
+            wrapper.appendChild(imgBox);
+            matContainer.appendChild(wrapper);
           } else {
-            // Normales Material (Text, Bild): wie bisher als <details>
+            // Normales Text-Material: als einklappbare <details>
             var details = document.createElement("details");
             details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
             var summary = document.createElement("summary");
@@ -857,6 +872,12 @@
         instrEl.closest(".card").insertBefore(matContainer, container);
         // Charts rendern nachdem Canvas-Elemente im DOM sind
         renderMaterialCharts(d.material);
+        // Bilder nach DOM-Einfügung laden
+        d.material.forEach(function (m, mIdx) {
+          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+            loadEducationalImage(m.text || m.content, 'img-phy-' + mIdx, m.image_labels || null);
+          }
+        });
       }
 
       // Write step reference

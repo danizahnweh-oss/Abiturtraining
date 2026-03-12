@@ -776,14 +776,16 @@
             if (m.text && typeof m.text === "string") m.text = normalizeMaterialText(m.text);
             var mtype = detectMaterialType(m);
             console.log("[Bio-Material] Aufgabe " + (idx+1) + " M" + (mi+1) + ": type=" + (m.type||"NONE") + " detected=" + mtype + " hasTable=" + (m.text && m.text.includes("|")) + " chart_type=" + (m.chart_type||"NONE"));
-            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : mtype === "bild" ? "\ud83d\uddbc\ufe0f " : "";
-            html += '<details class="material-details"><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var typeIcon = mtype === "statistik" ? "\ud83d\udcca " : mtype === "diagramm" ? "\ud83d\udcc8 " : (mtype === "bild" || mtype === "foto") ? "\ud83d\uddbc\ufe0f " : "";
+            html += '<details class="material-details"' + ((mtype === "bild" || mtype === "foto") ? ' open' : '') + '><summary>' + typeIcon + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
             if (mtype === "statistik" || mtype === "diagramm") {
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
               html += '<div class="material-chart"><canvas id="chart-bio-' + idx + '-' + mi + '"></canvas></div>';
             } else if (mtype === "bild") {
               html += '<div class="material-img-loading" id="img-bio-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else if (mtype === "foto") {
+              html += '<div class="material-img-loading" id="img-bio-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
             } else {
               if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
             }
@@ -819,7 +821,7 @@
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
           var mtype = detectMaterialType(m);
-          if (mtype === "bild" && m.text) {
+          if ((mtype === "bild" || mtype === "foto") && m.text) {
             console.log("[Bio-Bild] Loading image for Aufgabe " + (idx+1) + " M" + (mi+1) + ": " + m.text.substring(0, 80));
             loadEducationalImage(m.text, 'img-bio-' + idx + '-' + mi, m.image_labels || null);
           }
@@ -1315,7 +1317,7 @@
 
     /* ====== MATERIAL TYPE AUTO-DETECTION ====== */
     function detectMaterialType(m) {
-      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "text")) return m.type;
+      if (m.type && (m.type === "statistik" || m.type === "diagramm" || m.type === "bild" || m.type === "foto" || m.type === "text")) return m.type;
       if (!m.text || typeof m.text !== "string") return "text";
       var txt = normalizeMaterialText(m.text);
       // Detect markdown table (has | delimiters with data rows)
