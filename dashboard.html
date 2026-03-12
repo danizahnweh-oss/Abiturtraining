@@ -422,7 +422,7 @@ footer a { color: var(--accent); }
           </div>
           <div style="flex:1;min-width:150px;">
             <label style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
-            <input type="text" id="cpPassword" placeholder="Klassenpasswort" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+            <input type="text" id="cpPassword" placeholder="Schulcode" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
           </div>
           <button class="btn btn-small" onclick="createClassPassword()" style="min-height:44px;">Erstellen</button>
           <button class="btn btn-small btn-secondary" onclick="toggleNewClassPassword()" style="min-height:44px;">Abbrechen</button>
@@ -1178,7 +1178,7 @@ async function toggleClassPassword(id) {
 }
 
 async function deleteClassPassword(id, label) {
-  if (!confirm('Klassenpasswort "' + label + '" wirklich löschen?')) return;
+  if (!confirm('Schulcode "' + label + '" wirklich löschen?')) return;
   await fetch(API_BASE + "/api/class-passwords", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
