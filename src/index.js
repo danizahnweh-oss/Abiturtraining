@@ -2192,6 +2192,9 @@ async function handleGenerateGeschichte(request, env) {
   const zeitMinuten = zeit || 180;
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2.5);
   const aufgabenAnzahl = Math.min(Math.max(anzahl || 1, 1), 5);
+  // Teilaufgaben pro Aufgabe dynamisch nach BE berechnen
+  const beProAufgabe = aufgabenAnzahl > 1 ? Math.round(totalBE / aufgabenAnzahl) : totalBE;
+  const teilaufgabenAnzahl = beProAufgabe <= 30 ? 2 : beProAufgabe <= 50 ? 3 : 4;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
     : '';
@@ -2230,6 +2233,50 @@ async function handleGenerateGeschichte(request, env) {
     ? "Erhöhtes Anforderungsniveau (eA). Komplexere Quellen, höherer Anteil AFB III, tiefere multiperspektivische Analyse."
     : "Grundlegendes Anforderungsniveau (gA). Schwerpunkt auf AFB I und II, zugänglicherer Quellenzugang.";
 
+  // Dynamische Teilaufgaben-Beschreibung je nach BE
+  const teilaufgabenNummern = Array.from({length: teilaufgabenAnzahl}, (_, i) => i + 1).join(', ');
+  let teilaufgabenBeschreibung;
+  if (teilaufgabenAnzahl === 2) {
+    teilaufgabenBeschreibung = `3. TEILAUFGABEN (genau 2) mit Bewertungseinheiten (BE):
+   Teilaufgabe 1 (AFB I/II, ca. ${Math.round(beProAufgabe * 0.57)} BE):
+   - Operatoren: "Arbeiten Sie aus M 1 heraus ...", "Analysieren Sie ...", "Stellen Sie mithilfe von M 1 dar ..."
+   - Bezieht sich DIREKT auf die Quelle M 1
+
+   Teilaufgabe 2 (AFB II/III, ca. ${Math.round(beProAufgabe * 0.43)} BE):
+   - Operatoren: "Beurteilen Sie ...", "Erörtern Sie, inwieweit ...", "Nehmen Sie Stellung ..."
+   - Verlangt Transfer, Urteilsbildung, eigenes Wissen`;
+  } else if (teilaufgabenAnzahl === 3) {
+    teilaufgabenBeschreibung = `3. TEILAUFGABEN (genau 3) mit Bewertungseinheiten (BE):
+   Teilaufgabe 1 (AFB I, ca. ${Math.round(beProAufgabe * 0.30)} BE):
+   - Operatoren: "Arbeiten Sie aus M 1 heraus ...", "Fassen Sie zusammen ...", "Stellen Sie dar ..."
+   - Bezieht sich DIREKT auf die Quelle M 1
+
+   Teilaufgabe 2 (AFB II, ca. ${Math.round(beProAufgabe * 0.35)} BE):
+   - Operatoren: "Analysieren Sie ...", "Ordnen Sie ein ...", "Erklären Sie mithilfe von M 1 ..."
+   - Verbindet Quelle mit historischem Kontext und eigenem Wissen
+
+   Teilaufgabe 3 (AFB III, ca. ${Math.round(beProAufgabe * 0.35)} BE):
+   - Operatoren: "Beurteilen Sie ...", "Erörtern Sie, inwieweit ...", "Nehmen Sie Stellung ..."
+   - Verlangt Transfer, Urteilsbildung, eigenes Wissen`;
+  } else {
+    teilaufgabenBeschreibung = `3. TEILAUFGABEN (genau 4) mit Bewertungseinheiten (BE):
+   Teilaufgabe 1 (AFB I, ca. ${Math.round(beProAufgabe * 0.20)} BE):
+   - Operatoren: "Fassen Sie zusammen ...", "Arbeiten Sie aus M 1 heraus ..."
+   - Reine Reproduktion aus der Quelle M 1
+
+   Teilaufgabe 2 (AFB I/II, ca. ${Math.round(beProAufgabe * 0.25)} BE):
+   - Operatoren: "Stellen Sie dar ...", "Analysieren Sie ...", "Charakterisieren Sie ..."
+   - Verbindet Quelle mit historischem Hintergrundwissen
+
+   Teilaufgabe 3 (AFB II, ca. ${Math.round(beProAufgabe * 0.25)} BE):
+   - Operatoren: "Ordnen Sie ein ...", "Erklären Sie ...", "Vergleichen Sie ..."
+   - Transfer und Einordnung in den historischen Zusammenhang
+
+   Teilaufgabe 4 (AFB III, ca. ${Math.round(beProAufgabe * 0.30)} BE):
+   - Operatoren: "Beurteilen Sie ...", "Erörtern Sie, inwieweit ...", "Nehmen Sie Stellung ..."
+   - Eigene begründete Urteilsbildung, geht über M 1 hinaus`;
+  }
+
   const systemPrompt = `Du bist ein Experte für das bayerische Geschichte-Abitur (ab 2026, G9). Erstelle eine authentische Abituraufgabe exakt nach dem Format der offiziellen IQB-Beispielaufgaben.
 
 SCHWERPUNKT: ${sp.titel} ${sp.zeitraum}
@@ -2246,7 +2293,7 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
-Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und 2 Teilaufgaben.
+Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und ${teilaufgabenAnzahl} Teilaufgaben.
 
 1. EINLEITUNG (2-4 Sätze):
    - Stellt den historischen Kontext her und führt zur Quelle hin
@@ -2261,21 +2308,14 @@ Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= 
    - Sprache muss dem Entstehungszeitraum entsprechen
    - Vollständige Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort
 
-3. TEILAUFGABEN mit Bewertungseinheiten (BE):
-   Teilaufgabe 1 (AFB I/II, ca. 55-60% der BE):
-   - Operatoren: "Arbeiten Sie aus M 1 heraus ...", "Analysieren Sie ...", "Stellen Sie mithilfe von M 1 dar ...", "Charakterisieren Sie ..."
-   - Bezieht sich DIREKT auf die Quelle M 1
-
-   Teilaufgabe 2 (AFB II/III, ca. 40-45% der BE):
-   - Operatoren: "Beurteilen Sie ...", "Erörtern Sie, inwieweit ...", "Nehmen Sie Stellung ...", "Überprüfen Sie ..."
-   - Verlangt Transfer, Urteilsbildung, Einbeziehung von Ergebnissen aus Teilaufgabe 1
-   - Geht über die Quelle hinaus und erfordert eigenes Wissen
+${teilaufgabenBeschreibung}
 
 BEISPIELE FÜR KORREKTE AUFGABENSTELLUNGEN:
-- "1 Arbeiten Sie aus dem Zeitungsartikel M 1 die Argumentation und Position von Hugo Preuß vor dem Hintergrund des Ringens um eine demokratische Ordnung heraus!"
-- "2 Erörtern Sie, inwieweit die Weimarer Reichsverfassung ein Gegenmodell zum Obrigkeitsstaat des Deutschen Kaiserreichs entwirft!"
-- "1 Stellen Sie auch mithilfe von M 1 zentrale Konfliktthemen in den israelisch-palästinensischen Beziehungen seit 1948 dar!"
-- "2 Arbeiten Sie aus M 1 die Grundlinien für eine Lösung heraus und bewerten Sie diese differenziert!"
+- "1 Arbeiten Sie aus dem Zeitungsartikel M 1 die Argumentation und Position von Hugo Preuß vor dem Hintergrund des Ringens um eine demokratische Ordnung heraus!" (AFB I/II)
+- "2 Ordnen Sie die Position von Hugo Preuß in die politische Debatte um die Verfassungsordnung 1918/19 ein!" (AFB II)
+- "3 Erörtern Sie, inwieweit die Weimarer Reichsverfassung ein Gegenmodell zum Obrigkeitsstaat des Deutschen Kaiserreichs entwirft!" (AFB III)
+- "1 Stellen Sie auch mithilfe von M 1 zentrale Konfliktthemen in den israelisch-palästinensischen Beziehungen seit 1948 dar!" (AFB I)
+- "2 Arbeiten Sie aus M 1 die Grundlinien für eine Lösung heraus und bewerten Sie diese differenziert!" (AFB II/III)
 
 ABSOLUTE PFLICHT:
 - Die Quelle MUSS historisch KORREKT sein mit realen Personen und Fakten
@@ -2293,7 +2333,7 @@ ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für da
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction": "Vollständige Aufgabenstellung: Einleitung + nummerierte Teilaufgaben (1, 2) mit BE-Angaben",
+  "task_instruction": "Vollständige Aufgabenstellung: Einleitung + nummerierte Teilaufgaben (${teilaufgabenNummern}) mit BE-Angaben — Summe MUSS ${beProAufgabe} BE ergeben!",
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
