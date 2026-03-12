@@ -1802,7 +1802,7 @@ function _ensureLoginModal() {
     '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="slRegFields" style="display:none;">' +
     '<input type="password" id="slModalPwConfirm" placeholder="Passwort bestätigen …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
-    '<input type="password" id="slModalClassPw" placeholder="Klassenpasswort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalClassPw" placeholder="Schulcode …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '</div>' +
     '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
     '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
@@ -1856,7 +1856,7 @@ async function _doLoginModal() {
     var confirmPw = document.getElementById("slModalPwConfirm").value;
     var classPw = document.getElementById("slModalClassPw").value.trim();
     if (pw !== confirmPw) { err.textContent = "Passwörter stimmen nicht überein."; err.style.display = "block"; return; }
-    if (!classPw) { err.textContent = "Bitte gib das Klassenpasswort ein."; err.style.display = "block"; return; }
+    if (!classPw) { err.textContent = "Bitte gib den Schulcode ein."; err.style.display = "block"; return; }
     body.password = classPw;
   }
 

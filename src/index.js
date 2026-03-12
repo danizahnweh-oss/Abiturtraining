@@ -1096,7 +1096,7 @@ async function handleCheckStudent(request, env) {
 
   if (mode === "register") {
     if (!password || typeof password !== "string") {
-      return jsonResponse({ success: false, error: "Klassenpasswort erforderlich." }, 400, env);
+      return jsonResponse({ success: false, error: "Schulcode erforderlich." }, 400, env);
     }
 
     // Gegen class_passwords-Tabelle pruefen
@@ -1119,7 +1119,7 @@ async function handleCheckStudent(request, env) {
     }
 
     if (!validClass) {
-      return jsonResponse({ success: false, error: "Falsches Klassenpasswort." }, 401, env);
+      return jsonResponse({ success: false, error: "Falscher Schulcode." }, 401, env);
     }
     if (existing) {
       return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
