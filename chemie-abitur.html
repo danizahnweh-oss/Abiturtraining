@@ -720,10 +720,15 @@
         if (mats.length) {
           mats.forEach(function (m, mi) {
             if (!m || typeof m !== "object") return;
-            html += '<details class="material-details"><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
+            var isBildOrFoto = m.type === "bild" || m.type === "foto";
+            html += '<details class="material-details"' + (isBildOrFoto ? ' open' : '') + '><summary>' + renderInlineKatex(m.titel || m.id || ("M" + (mi + 1))) + '</summary>';
             html += '<div class="material-body">';
-            if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
-            if (m.tabelle) html += DOMPurify.sanitize(m.tabelle);
+            if (m.type === "bild") {
+              html += '<div class="material-img-loading" id="img-che-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else if (m.type === "foto") {
+              html += '<div class="material-img-loading" id="img-che-' + idx + '-' + mi + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
+            } else if (m.text) html += DOMPurify.sanitize(safeMathParse(m.text));
+            if (!isBildOrFoto && m.tabelle) html += DOMPurify.sanitize(m.tabelle);
             if (m.strukturformeln && m.strukturformeln.length) {
               m.strukturformeln.forEach(function (sf) {
                 if (!sf.name) return;
@@ -758,6 +763,17 @@
       }).join("");
 
       renderMath(container);
+
+      // Bilder nach DOM-Einfügung laden
+      aufgaben.forEach(function (a, idx) {
+        var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
+        mats.forEach(function (m, mi) {
+          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+            loadEducationalImage(m.text || m.content, 'img-che-' + idx + '-' + mi, m.image_labels || null);
+          }
+        });
+      });
+
       updateWahlUI();
     }
 

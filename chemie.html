@@ -859,21 +859,34 @@
         var matContainer = document.createElement("div");
         matContainer.className = "dynamic-material";
         matContainer.style.cssText = "margin:1rem 0";
-        d.material.forEach(function (m) {
+        d.material.forEach(function (m, mIdx) {
           var details = document.createElement("details");
           details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
+          if (m.type === "bild" || m.type === "foto") details.open = true;
           var summary = document.createElement("summary");
           summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
           summary.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
           var body = document.createElement("div");
           body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
-          body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
-          renderMath(body);
+          if (m.type === "bild") {
+            body.innerHTML = '<div class="material-img-loading" id="img-che-' + mIdx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+          } else if (m.type === "foto") {
+            body.innerHTML = '<div class="material-img-loading" id="img-che-' + mIdx + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
+          } else {
+            body.innerHTML = DOMPurify.sanitize(safeMathParse(m.text || ""));
+            renderMath(body);
+          }
           details.appendChild(summary);
           details.appendChild(body);
           matContainer.appendChild(details);
         });
         instrEl.closest(".card").insertBefore(matContainer, container);
+        // Bilder nach DOM-Einfügung laden
+        d.material.forEach(function (m, mIdx) {
+          if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
+            loadEducationalImage(m.text || m.content, 'img-che-' + mIdx, m.image_labels || null);
+          }
+        });
       }
 
       // Write step reference

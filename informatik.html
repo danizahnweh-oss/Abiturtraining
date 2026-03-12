@@ -747,8 +747,8 @@
       // Typ-Erkennung: Erkennt englische Bild-Prompts, die fälschlich als "text" typisiert wurden
       function fixMaterialType(m) {
         var t = (m.type || "").toLowerCase().trim();
-        if (t === "image" || t === "foto" || t === "photo") return "bild";
-        if (t === "bild" || t === "statistik" || t === "diagramm") return t;
+        if (t === "image" || t === "photo") return "bild";
+        if (t === "bild" || t === "foto" || t === "statistik" || t === "diagramm") return t;
         var txt = (m.text || m.content || "").trim();
         if (txt && txt.length > 20 && txt.length < 800 && !/[äöüßÄÖÜ]/.test(txt) && /\b(detailed|showing|depicting|illustration|diagram|image|visual|scene|background|style|color|layout|depicting|arrows?|labels?|boxes?|flowchart|architecture|network)\b/i.test(txt)) {
           return "bild";
@@ -766,10 +766,10 @@
             var mType = fixMaterialType(m);
             var details = document.createElement("details");
             details.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem";
-            if (mType === "bild") details.open = true;
+            if (mType === "bild" || mType === "foto") details.open = true;
             var summary = document.createElement("summary");
             summary.style.cssText = "padding:.8rem 1rem;cursor:pointer;font-weight:600;color:var(--accent)";
-            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : mType === "bild" ? "\uD83D\uDDBC\uFE0F " : "";
+            var typeIcon = mType === "statistik" ? "\uD83D\uDCCA " : mType === "diagramm" ? "\uD83D\uDCC8 " : (mType === "bild" || mType === "foto") ? "\uD83D\uDDBC\uFE0F " : "";
             summary.textContent = typeIcon + (m.id || "") + " " + (m.titel || "");
             var body = document.createElement("div");
             body.style.cssText = "padding:.5rem 1rem 1rem;line-height:1.7";
@@ -779,6 +779,8 @@
               body.innerHTML += '<div class="material-chart"><canvas id="chart-inf-' + idx + '"></canvas></div>';
             } else if (mType === "bild") {
               body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Bild wird generiert\u2026</span></div>';
+            } else if (mType === "foto") {
+              body.innerHTML = '<div class="material-img-loading" id="img-inf-' + idx + '"><div class="loader-spinner"></div><span>Foto wird geladen\u2026</span></div>';
             } else {
               body.innerHTML = DOMPurify.sanitize(marked.parse(m.text || ""));
             }
@@ -799,7 +801,7 @@
             if ((mType === "statistik" || mType === "diagramm") && (m.text || "").includes("|")) {
               var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
-            } else if (mType === "bild" && (m.text || m.content)) {
+            } else if ((mType === "bild" || mType === "foto") && (m.text || m.content)) {
               loadMaterialImage(m.text || m.content, "img-inf-" + idx);
             }
           } catch (err) {

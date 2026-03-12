@@ -814,7 +814,7 @@
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m, mIdx) {
           var isChartMaterial = (m.type === "statistik" || m.type === "diagramm") && m.text;
-          var isBildMaterial = m.type === "bild" && m.text;
+          var isBildMaterial = (m.type === "bild" || m.type === "foto") && m.text;
 
           if (isChartMaterial) {
             // Chart-Material: Grafik prominent, Rohdaten einklappbar
