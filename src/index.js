@@ -2287,8 +2287,8 @@ ABSOLUTE PFLICHT:
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
 - Die Hauptquelle M 1 ist IMMER ein Textdokument
 - Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte, Beschriftungen, Titel und Labels werden DIREKT im Bild dargestellt. Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen. Beispiel: 'A diagram with the title "Politische Ordnung" at the top. On the left side a box labeled "Kaiser" with an arrow pointing down to a box labeled "Reichskanzler". On the right side...'
-  - WICHTIG für Bild-Prompts: Jede Beschriftung, jeder Titel, jede Legende MUSS explizit im Prompt in Anführungszeichen stehen, damit der Text korrekt im Bild erscheint. Alle Texte auf DEUTSCH!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte, Beschriftungen, Titel und Labels auf ENGLISCH. Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Beispiel: 'A diagram with the title "Political Order" at the top. On the left side a box labeled "Emperor" with an arrow pointing down to a box labeled "Chancellor". On the right side...'
+  - WICHTIG für Bild-Prompts: Jede Beschriftung, jeder Titel, jede Legende MUSS explizit im Prompt in Anführungszeichen stehen, damit der Text korrekt im Bild erscheint. Alle Texte auf ENGLISCH!
   - KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
 
@@ -2298,7 +2298,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
   "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte/Beschriftungen auf DEUTSCH direkt in Anführungszeichen. Z.B.: A professional diagram with the title \"Politische Ordnung\" at the top. A blue box labeled \"Kaiser\" connected by an arrow to...", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte/Beschriftungen auf ENGLISCH direkt in Anführungszeichen. Z.B.: A professional diagram with the title \"Political Order\" at the top. A blue box labeled \"Emperor\" connected by an arrow to...", "source": ""}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -2315,8 +2315,8 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels sollen DIREKT im Bild erscheinen — schreibe jeden Text in Anführungszeichen im Prompt, z.B.: 'A diagram with the title "Verfassungsvergleich" at the top. On the left a blue box labeled "Kaiser"...' KEINE Karikaturen oder Personen!`;
+- ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bildtexte/-beschriftungen auf ENGLISCH!
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels im Bild auf ENGLISCH — schreibe jeden Text in Anführungszeichen im Prompt, z.B.: 'A diagram with the title "Constitutional Comparison" at the top. On the left a blue box labeled "Emperor"...' KEINE Karikaturen oder Personen!`;
 
   let openaiRes;
   try {
@@ -2530,7 +2530,7 @@ Erstelle genau 6-8 verschiedene Materialien:
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Setzen Sie sich mit dem Thema auseinander (Pro/Contra, gesellschaftliche Folgen, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
 - Erstelle IMMER 1-2 Materialien vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Präzise Aufgabenstellung mit Textsorte, Adressat, Anlass und konkretem Schreibauftrag",
@@ -2539,7 +2539,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Inhalt (300-600 Wörter)", "source": "Autor, Quelle, Jahr"},
     {"title": "Titel der Statistik", "type": "statistik", "content": "| Kategorie | Wert |\\n|---|---|\\n| ... | ... |\\nBeschreibung der Statistik.", "source": "Institut/Studie, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
   ]
 }`;
     userPrompt = `Erstelle eine materialgestützte Aufgabe:
@@ -3800,7 +3800,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -3821,7 +3821,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (200-500 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel ggf. Statistik", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -4088,7 +4088,7 @@ MATERIALIEN (nur für Teil A):
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (KI-generiertes Schaubild/Infografik/Illustration):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Karikaturen oder Personen!
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -4117,7 +4117,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter!)", "source": "Autor, Quelle, Datum"},
     {"title": "Titel", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE-Angaben",
   "halbjahr": "${halbjahr || "12_1"}",
@@ -4374,7 +4374,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien": [
     {"nr": "M1", "titel": "Titel des Materials", "typ": "text", "inhalt": "Ausführlicher Materialtext (300-600 Wörter!)", "quelle": "Quellenangabe"},
     {"nr": "M2", "titel": "Statistik: ...", "typ": "statistik", "inhalt": "| Spalte1 | Spalte2 |\\n|---|---|\\n| ... | ... |", "quelle": "Institut, Jahr"},
-    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "quelle": ""}
+    {"nr": "M3", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "quelle": ""}
   ],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${isGA ? "integriert" : (fachbereich || "bwl")}",
@@ -5220,7 +5220,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben mit BE-Angaben in Klammern",
   "primary_text_b": "Kurzer Materialimpuls für Teil B (100-200 Wörter) oder leerer String",
@@ -5239,8 +5239,8 @@ KRITISCH:
 - Verwende eine REALE historische Persönlichkeit als Autor
 - Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
 - Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
-- ALLE Materialien (Texte, Statistiken, Bildtexte) müssen auf DEUTSCH sein!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels sollen DIREKT im Bild erscheinen — schreibe jeden Text in Anführungszeichen im Prompt. KEINE Karikaturen oder Personen!
+- ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bildtexte/-beschriftungen auf ENGLISCH!
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt das Bild SEHR DETAILLIERT. ALLE Texte, Beschriftungen, Titel und Labels im Bild auf ENGLISCH. KEINE Karikaturen oder Personen!
 AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
   const openaiRes = await callOpenAI(env, [
@@ -5428,11 +5428,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materialien_1": [
     {"nr":"M1","titel":"Kostenkalkulation der Erweiterung","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter): Fallbeispiel mit konkreten Zahlen zu Fixkosten, variablen Kosten, Absatzpreis, geplanter Produktionsmenge etc.","quelle":"Unternehmensunterlagen"},
     {"nr":"M2","titel":"Vergleich Investitionsalternativen","typ":"statistik","inhalt":"EIGENE Markdown-Tabelle mit konkreten Zahlenwerten generieren (mind. 6 Zeilen): Vergleich zweier Maschinen mit Anschaffungskosten, Nutzungsdauer, Erlösen, Kosten etc.","quelle":"Angebote der Hersteller, 2025"},
-    {"nr":"M3","titel":"Schaubild: Kostenvergleich","typ":"bild","inhalt":"Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!","quelle":""}
+    {"nr":"M3","titel":"Schaubild: Kostenvergleich","typ":"bild","inhalt":"Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!","quelle":""}
   ],
   "task_instruction_2": "EIGENEN Situationstext generieren (anderes Thema/anderer Fachbereich als Aufgabe 1)",
   "aufgabenbloecke_2": [{"nr":1,"titel":"EIGENEN Aufgabenblock generieren","teilaufgaben":["EIGENE Teilaufgaben generieren (3-4 Teilaufgaben, AFB I→II→III, mit konkreten BE-Angaben)"],"be_gesamt":"EIGENE BE-Verteilung"}],
-  "materialien_2": [{"nr":"M1","titel":"EIGENES Material generieren","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter)","quelle":"EIGENE Quelle"},{"nr":"M2","titel":"Schaubild: EIGENES Thema","typ":"bild","inhalt":"Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!","quelle":""}],
+  "materialien_2": [{"nr":"M1","titel":"EIGENES Material generieren","typ":"text","inhalt":"EIGENEN ausführlichen Text generieren (300-600 Wörter)","quelle":"EIGENE Quelle"},{"nr":"M2","titel":"Schaubild: EIGENES Thema","typ":"bild","inhalt":"Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!","quelle":""}],
   "gesamt_be": ${isEA ? 120 : 100},
   "fachbereich_1": "${isEA ? (fachbereich_1 || "bwl") : "integriert"}",
   "fachbereich_2": "${isEA ? (fachbereich_2 || "vwl") : "transfer"}",
@@ -6190,7 +6190,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -6211,7 +6211,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -6435,7 +6435,7 @@ Antworte NUR mit validem JSON:
     "materials": [
       {"title": "Titel", "type": "text", "content": "Philosophischer Quelltext (400-800 Wörter)", "source": "Autor, Werk, Jahr"},
       {"title": "Statistik: ...", "type": "statistik", "content": "| ... |", "source": "Institut, Jahr"},
-      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
+      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.", "source": ""}
     ]
   },
   "teil_b": {
@@ -6721,7 +6721,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -6741,7 +6741,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -6932,7 +6932,7 @@ Antworte NUR mit validem JSON:
     "task_instruction": "Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
     "materials": [
       {"title": "...", "type": "text", "content": "400-800 Wörter", "source": "..."},
-      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
     ]
   },
   "teil_b": {
@@ -7191,7 +7191,7 @@ MATERIALIEN:
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
 - Erstelle IMMER zusätzlich 1 Material vom Typ "bild" (Illustration/Schaubild):
-  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
+  - type "bild": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -7211,7 +7211,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "materials": [
     {"title": "Titel des Materials", "type": "text", "content": "Ausführlicher Materialtext (400-800 Wörter)", "source": "Autor, Quelle, Datum"},
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
-    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+    {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
   ],
   "lernbereich": "${lernbereich || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -7402,7 +7402,7 @@ Antworte NUR mit validem JSON:
     "task_instruction": "Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
     "materials": [
       {"title": "...", "type": "text", "content": "400-800 Wörter", "source": "..."},
-      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+      {"title": "Schaubild: ...", "type": "bild", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
     ]
   },
   "teil_b": {
@@ -7667,7 +7667,7 @@ MATERIALIEN:
   - temp: Array mit 12 Monatsmitteltemperaturen in °C (Jan-Dez), plausible Werte für den Ort!
   - niederschlag: Array mit 12 Monatsniederschlägen in mm, plausible Werte für den Ort!
 - Optional: Erstelle 1 Material vom Typ "foto" (KI-generiertes Bild):
-  - type "foto": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben.
+  - type "foto": content = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben.
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Relevante Inhalte:
@@ -7688,7 +7688,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"title": "Statistik: ...", "type": "statistik", "content": "| Spalte1 | Spalte2 |\\n|---|---|\\n| Daten | ... |", "source": "Institut, Jahr"},
     {"title": "Karte: Region X", "type": "karte", "content": {"lat": 48.1, "lon": 11.5, "zoom": 7, "label": "Süddeutschland"}, "source": "OpenStreetMap"},
     {"title": "Klimadiagramm: Ort X", "type": "klimadiagramm", "content": {"station": "München", "hoehe": 519, "temp": [-1.5,0.2,4.1,8.2,12.8,16.1,18.0,17.4,13.5,8.4,3.2,-0.3], "niederschlag": [48,44,58,62,90,115,126,110,75,56,52,50]}, "source": "DWD Klimadaten"},
-    {"title": "Foto: ...", "type": "foto", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+    {"title": "Foto: ...", "type": "foto", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
   ],
   "halbjahr": "${halbjahr || "12_1"}",
   "thema": "Konkretes Thema der Aufgabe"
@@ -7877,7 +7877,7 @@ PRÜFUNGSTEIL A (${bePruefungA}):
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Ursachen der Desertifikation (Überweidung, Abholzung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - IMMER mindestens 1 Material vom Typ "karte" — content ist ein OBJEKT: {"lat": ..., "lon": ..., "zoom": ..., "label": "..."}
 - Wenn thematisch passend: 1 Material vom Typ "klimadiagramm" — content ist ein OBJEKT: {"station": "...", "hoehe": ..., "temp": [12 Werte], "niederschlag": [12 Werte]}
-- Optional: 1 Material vom Typ "foto" — content ist ein Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben.
+- Optional: 1 Material vom Typ "foto" — content ist ein Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben.
 - AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
@@ -7904,7 +7904,7 @@ Antworte NUR mit validem JSON:
       {"title": "Statistik: EIGENER Titel", "type": "statistik", "content": "EIGENE vollständige Markdown-Tabelle mit mind. 6-10 Datenzeilen und plausiblen Zahlenwerten generieren", "source": "Institut, Jahr"},
       {"title": "Karte: EIGENE Region", "type": "karte", "content": {"lat": "EIGENE Koordinate passend zum Raumbeispiel", "lon": "EIGENE Koordinate", "zoom": "passender Zoomfaktor (3-12)", "label": "EIGENE Beschriftung"}, "source": "OpenStreetMap"},
       {"title": "Klimadiagramm: EIGENER Ort", "type": "klimadiagramm", "content": {"station": "EIGENER Stationsname passend zum Raumbeispiel", "hoehe": "EIGENE Höhenangabe in m", "temp": "12 EIGENE monatliche Temperaturwerte in °C (Jan-Dez), passend zur Klimazone", "niederschlag": "12 EIGENE monatliche Niederschlagswerte in mm (Jan-Dez), passend zur Klimazone"}, "source": "Klimadatenbank"},
-      {"title": "Foto: EIGENER Titel", "type": "foto", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
+      {"title": "Foto: EIGENER Titel", "type": "foto", "content": "Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!", "source": ""}
     ]
   },
   "teil_b": {
@@ -9645,7 +9645,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
-- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
@@ -9972,7 +9972,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Messwerten (mind. 4-6 Datenzeilen)
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte, z.B. t/U, t/I, λ/Intensität)
-- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
@@ -10227,7 +10227,7 @@ async function repairPlaceholderMaterials(env, materials, sachgebietTitle) {
       text: `Schreibe einen vollständigen, ausformulierten Fachtext (mind. 150 Wörter) für Biologie-Oberstufenschüler. Der Text soll als Material in einer Klausuraufgabe dienen. Thema: "${m.titel || "Fachtext"}". Sachgebiet: ${sachgebietTitle}. Gib NUR den reinen Fachtext aus, keine Überschrift, kein JSON.`,
       statistik: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen Zahlenwerten (mind. 4 Datenzeilen) zum Thema "${m.titel || "Daten"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
       diagramm: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen x/y-Messwerten (mind. 6 Datenpunkte) zum Thema "${m.titel || "Messwerte"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
-      bild: `Schreibe einen sehr detaillierten Imagen-Prompt auf Englisch (5-10 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll (Titel, Beschriftungen, Labels), EXAKT in Anführungszeichen auf Deutsch. Gib NUR den Prompt aus.`
+      bild: `Schreibe einen sehr detaillierten Imagen-Prompt auf Englisch (5-10 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll (Titel, Beschriftungen, Labels), EXAKT in Anführungszeichen auf Englisch. Gib NUR den Prompt aus.`
     };
     const prompt = typeInstr[m.type] || typeInstr.text;
     try {
@@ -10326,7 +10326,7 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
-- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!
+- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
 Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
@@ -10645,7 +10645,7 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
-- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!
+- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
 Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
@@ -10953,7 +10953,7 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter) oder Code-Listing, KEIN Platzhalter
-- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben! Erstelle IMMER mindestens 1 Material vom Typ "bild" (z.B. Architekturdiagramm, Netzwerkdiagramm, Flussdiagramm, UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Schaubild o.Ä.)
+- "bild" → "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben! Erstelle IMMER mindestens 1 Material vom Typ "bild" (z.B. Architekturdiagramm, Netzwerkdiagramm, Flussdiagramm, UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Schaubild o.Ä.)
   REGELN für "bild": (1) Jeden Text der im Bild erscheinen soll in Anführungszeichen beschreiben (2) Layout, Farben und visuelle Elemente detailliert beschreiben (3) KEINE Personen!
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
@@ -10971,7 +10971,7 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
   "sachgebiet": "${sg}",
   "material": [
     {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"},
-    {"id": "M2", "titel": "Schaubild: ...", "type": "bild", "text": "<Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Deutsch>"}
+    {"id": "M2", "titel": "Schaubild: ...", "type": "bild", "text": "<Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Englisch>"}
   ]
 }`;
 
@@ -11296,7 +11296,7 @@ Format: [{"name": "ethanol", "caption": "Ethanol (Edukt)"}, {"name": "acetic aci
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Zahlenwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
-- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
@@ -11620,7 +11620,7 @@ KEINE Strukturformeln oder \\ce{}-Notation (das ist Physik, nicht Chemie).
 MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN Messwerten (mind. 4-6 Datenzeilen). KEINE Werte aus den Beispielen kopieren!
 - "diagramm" + "chart_type":"line": "text" enthält eine VOLLSTÄNDIGE Markdown-Tabelle mit EIGENEN, NEUEN x/y-Datenpunkten (mind. 5-8 Messwerte). KEINE Werte aus den Beispielen kopieren!
-- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
+- "bild": "text" ist ein sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!- "text": "text" enthält den VOLLSTÄNDIGEN AUSFORMULIERTEN Fachtext (mind. 150-300 Wörter)
 
 KRITISCH — ABSOLUT VERBOTEN:
 - NIEMALS Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." schreiben!
@@ -11958,7 +11958,7 @@ Jedes Material hat ein "type"-Feld:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
 - KRITISCH: Für "statistik" und "diagramm": "text" MUSS eine Markdown-Tabelle sein (mit | ... | Syntax und echten Zahlenwerten). KEINE Textbeschreibungen von Diagrammen — stattdessen die Datenpunkte als Tabelle!
-- KRITISCH: Für "bild": "text" MUSS ein sehr detaillierter Imagen-Prompt auf Englisch sein (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben! KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
+- KRITISCH: Für "bild": "text" MUSS ein sehr detaillierter Imagen-Prompt auf Englisch sein (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben! KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
 - VERBOTEN: Bilder, Fotos, Abbildungen, Schaubilder oder visuelle Materialien als Textbeschreibung in type "text" einbetten! Wenn ein Material visuell ist (Foto, Mikroskopaufnahme, Versuchsaufbau, Landschaft, Organismus), MUSS es type "bild" mit einem ausführlichen Imagen-Prompt sein. Texte wie "Die Abbildung zeigt..." oder "[Beschreibung eines Bildes]" sind NICHT erlaubt — stattdessen als type "bild" generieren!
 - Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "bild" (mit Imagen-Prompt)
 - LaTeX $...$ NUR für mathematische Formeln: $Aa$, $\\frac{dN}{dt}$, $p^2 + 2pq + q^2 = 1$
@@ -12057,7 +12057,7 @@ KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln al
 KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
 - "statistik" (type + chart_type "bar"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
 - "diagramm" (type + chart_type "line"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
-- "bild" (type): "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!- "text" (type): "text" = VOLLSTÄNDIGER AUSFORMULIERTER Fachtext (mind. 150-300 Wörter)
+- "bild" (type): "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!- "text" (type): "text" = VOLLSTÄNDIGER AUSFORMULIERTER Fachtext (mind. 150-300 Wörter)
 ABSOLUT VERBOTEN: Platzhalter wie "Ein Fachtext, der..." oder "Eine Tabelle mit..." — das "text"-Feld MUSS den TATSÄCHLICHEN Inhalt enthalten!
 Pro Aufgabengruppe: mindestens 1x statistik/diagramm + 1x text. Optional 1x bild.`;
 
@@ -12362,7 +12362,7 @@ MATERIALIEN — ISB-STIL:
 Materialien heißen "Abb. 1", "Abb. 2", "Abb. 3" (für Bilder, Diagramme, Schaubilder) oder "Blogauszug – Teil 1", "Textquelle 1", "Tabelle 1" etc. NICHT "M1", "M2"!
 Sie sind thematisch in die Aufgabe eingebettet und werden in den Teilaufgaben direkt referenziert ("vgl. Abb. 1", "unter Berücksichtigung von Abb. 2").
 Pro Aufgabe 2-4 Materialien. Typen:
-- **"bild"** — Bewegungsabläufe, Bildreihen, anatomische Darstellungen. "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben! "titel" = z.B. "Abb. 1: Speerwurf"
+- **"bild"** — Bewegungsabläufe, Bildreihen, anatomische Darstellungen. "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben! "titel" = z.B. "Abb. 1: Speerwurf"
 - **"diagramm"** — Kurvenverläufe (Laktat, HF, Streckenprofil). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "line". "titel" = z.B. "Abb. 2: Laktatleistungskurve"
 - **"statistik"** — Datentabellen (Leistungswerte, Testergebnisse). "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten. "chart_type": "bar". "titel" = z.B. "Tabelle 1: Testergebnisse"
 - **"text"** — Blogauszüge, Zitate, Fachtexte, Quellenangaben. "text" = vollständiger Fließtext (mind. 80-200 Wörter). "titel" = z.B. "Blogauszug – Teil 1" oder "Textquelle 1"
@@ -12370,7 +12370,7 @@ Pro Aufgabe 2-4 Materialien. Typen:
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben!
 - KRITISCH: Für "statistik" und "diagramm": "text" = Markdown-Tabelle mit ECHTEN Zahlenwerten
-- KRITISCH: Für "bild": "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!
+- KRITISCH: Für "bild": "text" = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!
 - Pro Aufgabe: MINDESTENS 1x "bild" oder "diagramm" + 1x "text"
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - ${KEINE_LOESUNGSHINWEISE}
@@ -12645,7 +12645,7 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "text": Vollständige Textbeschreibung einer Situation/eines Systems (150-300 Wörter) oder Code-Listing
 - "statistik" + "chart_type":"bar": Markdown-Tabelle mit Daten (mind. 4-6 Zeilen)
 - "diagramm" + "chart_type":"line": Markdown-Tabelle mit x/y-Werten (mind. 5-8 Werte)
-- "bild": Sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze) für UML/Zustandsdiagramm. ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben!
+- "bild": Sehr detaillierter Imagen-Prompt auf ENGLISCH (5-10 Sätze) für UML/Zustandsdiagramm. ALLE Texte und Beschriftungen auf ENGLISCH direkt in Anführungszeichen im Prompt beschreiben!
 - Erstelle pro Aufgabengruppe IMMER mindestens 1 Material vom Typ "bild" (z.B. UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Netzwerkdiagramm, Architekturschaubild, Flussdiagramm o.Ä.)
   REGELN für "bild": (1) Jeden Text der im Bild erscheinen soll in Anführungszeichen beschreiben (2) Layout, Farben, Stil detailliert beschreiben (3) KEINE Personen!
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
@@ -12665,7 +12665,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "sachgebiet": "sachgebiet_key",
       "material": [
         {"id": "M1", "titel": "Materialtitel", "type": "text", "text": "Vollständiger Materialtext..."},
-        {"id": "M2", "titel": "Diagramm: ...", "type": "bild", "text": "Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Deutsch"}
+        {"id": "M2", "titel": "Diagramm: ...", "type": "bild", "text": "Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Englisch"}
       ],
       "teilaufgaben": [
         {"id": "1.1", "text": "Aufgabentext", "be": 4}
@@ -15139,13 +15139,13 @@ AUFGABENSTRUKTUR:
 MATERIALIEN:
 - Textmaterialien: 300-600 Wörter pro Material
 - Tabellen/Statistiken: Markdown-Tabelle mit plausiblen Zahlen
-- 1 Material vom Typ "bild" (KI-generiert): inhalt = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Deutsch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.
+- 1 Material vom Typ "bild" (KI-generiert): inhalt = Sehr detaillierter Imagen-Prompt auf Englisch (5-10 Sätze). WICHTIG: Beschreibe JEDEN Text, der im Bild erscheinen soll, EXAKT in Anführungszeichen auf Englisch. Alle Titel, Beschriftungen, Labels und Legenden direkt im Prompt angeben.
 
 Antworte NUR mit validem JSON:
 {
   "task_instruction": "Einleitender Situationstext",
   "aufgabenbloecke": [{"nr": 1, "titel": "...", "teilaufgaben": [{"nr": "1.1", "text": "...", "be": 5, "afb": "I"}], "be_gesamt": 15}],
-  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}, {"nr": "M2", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Deutsch", "quelle": ""}],
+  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}, {"nr": "M2", "titel": "Schaubild: ...", "typ": "bild", "inhalt": "Sehr detaillierter englischer Imagen-Prompt mit allen Texten in Anführungszeichen auf Englisch", "quelle": ""}],
   "gesamt_be": ${gesamtBE},
   "fachbereich": "${fbLabel}",
   "thema": "Konkretes Thema"
