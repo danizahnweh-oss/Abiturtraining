@@ -684,12 +684,35 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       }
       const taskHtml = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("taskInstruction").innerHTML = taskHtml;
-      document.getElementById("textTitle").textContent = "Material M 1";
-      const sourceHtml = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-      document.getElementById("sourceText").innerHTML = sourceHtml;
-      document.getElementById("sourceMeta").textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
       document.getElementById("writeTaskRef").innerHTML = taskHtml;
-      document.getElementById("writeSourceRef").innerHTML = sourceHtml;
+
+      // M1 je nach primary_type rendern
+      const pType = (d.primary_type || "text").toLowerCase();
+      const titleEl = document.getElementById("textTitle");
+      const sourceEl = document.getElementById("sourceText");
+      const metaEl = document.getElementById("sourceMeta");
+
+      if (pType === "statistik" && (d.primary_text || "").includes("|")) {
+        titleEl.textContent = "Material M 1 — Statistik";
+        sourceEl.innerHTML = DOMPurify.sanitize(marked.parse(d.primary_text || ""));
+        sourceEl.innerHTML += `<div class="material-chart"><canvas id="chart-primary"></canvas></div>`;
+        metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
+        document.getElementById("writeSourceRef").innerHTML = sourceEl.innerHTML;
+        setTimeout(() => renderStatistikChart(d.primary_text, "chart-primary"), 100);
+      } else if (pType === "foto" || pType === "bild") {
+        titleEl.textContent = "Material M 1 — " + (pType === "foto" ? "Historisches Foto" : "Bild");
+        sourceEl.innerHTML = `<div class="material-img-loading" id="img-primary"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
+        metaEl.textContent = d.primary_meta ? `${d.primary_meta}` : "";
+        document.getElementById("writeSourceRef").innerHTML = `<em>${escapeHtml(d.primary_meta || "Historisches Bildmaterial")}</em>`;
+        loadEducationalImage(d.primary_text, "img-primary", d.primary_bild_labels || null);
+      } else {
+        // Standard: Textquelle
+        titleEl.textContent = "Material M 1";
+        const sourceHtml = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        sourceEl.innerHTML = sourceHtml;
+        metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
+        document.getElementById("writeSourceRef").innerHTML = sourceHtml;
+      }
 
       renderZusatzMaterialien(d.zusatz_materialien || [], "gz");
     }
@@ -701,19 +724,39 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       let fullSourceHtml = "";
       let allZm = [];
 
+      // Bilder die nach dem Rendern geladen werden müssen
+      const pendingImages = [];
+
       tasks.forEach((t, idx) => {
         const nr = t.aufgabe_nr || (idx + 1);
         const taskText = escapeHtml(t.task_instruction || "").replace(/\n/g, "<br>");
-        const sourceText = (t.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-        const meta = t.primary_meta ? `<div class="material-source">Quelle: ${escapeHtml(t.primary_meta)}</div>` : "";
+        const pType = (t.primary_type || "text").toLowerCase();
+        const meta = t.primary_meta ? `<div class="material-source">${escapeHtml(t.primary_meta)}</div>` : "";
+
+        let materialHtml;
+        if (pType === "statistik" && (t.primary_text || "").includes("|")) {
+          materialHtml = `<h4 class="card-header">Material M 1 — Statistik</h4>
+            <div class="source-text">${DOMPurify.sanitize(marked.parse(t.primary_text || ""))}</div>
+            <div class="material-chart"><canvas id="chart-multi-${idx}"></canvas></div>
+            ${meta}`;
+        } else if (pType === "foto" || pType === "bild") {
+          const imgId = `img-multi-${idx}`;
+          materialHtml = `<h4 class="card-header">Material M 1 — ${pType === "foto" ? "Historisches Foto" : "Bild"}</h4>
+            <div class="material-img-loading" id="${imgId}"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>
+            ${meta}`;
+          pendingImages.push({ prompt: t.primary_text, id: imgId, labels: t.primary_bild_labels || null });
+        } else {
+          const sourceText = (t.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+          materialHtml = `<h4 class="card-header">Material M 1</h4>
+            <div class="source-text">${sourceText}</div>
+            ${meta}`;
+        }
 
         fullTaskHtml += `<div class="multi-aufgabe-block" style="margin-bottom:1.5rem;${idx > 0 ? 'padding-top:1.5rem;border-top:2px solid var(--border);' : ''}">
           <h3 style="color:var(--accent);margin-bottom:0.75rem;">Aufgabe ${nr}${t.thema ? ' — ' + escapeHtml(t.thema) : ''}</h3>
           <div class="task-text">${taskText}</div>
           <div class="card" style="margin-top:1rem;">
-            <h4 class="card-header">Material M 1</h4>
-            <div class="source-text">${sourceText}</div>
-            ${meta}
+            ${materialHtml}
           </div>
         </div>`;
 
@@ -727,6 +770,15 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("textTitle").textContent = "";
       document.getElementById("sourceText").innerHTML = "";
       document.getElementById("sourceMeta").textContent = "";
+
+      // Statistik-Charts und Bilder laden (nach innerHTML)
+      tasks.forEach((t, idx) => {
+        const pType = (t.primary_type || "text").toLowerCase();
+        if (pType === "statistik" && (t.primary_text || "").includes("|")) {
+          setTimeout(() => renderStatistikChart(t.primary_text, `chart-multi-${idx}`), 100);
+        }
+      });
+      pendingImages.forEach(img => loadEducationalImage(img.prompt, img.id, img.labels));
 
       // Schreib-Referenz: Alle Aufgabenstellungen
       document.getElementById("writeTaskRef").innerHTML = fullTaskHtml;
