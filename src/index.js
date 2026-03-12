@@ -3161,7 +3161,10 @@ async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Gemeinsamer Bild-Prompt
+  // Ideogram-Prompt: Kurz, direkt, englische Texte im Bild (MagicPrompt optimiert automatisch)
+  const ideogramPrompt = `Educational diagram: ${prompt}. Clean infographic, white background, vivid colors, sharp lines. All text and labels in ENGLISH.`;
+
+  // Imagen-Prompt (Fallback)
   const basePrompt = `Professional educational illustration for a German school exam. Clean, modern infographic style with crisp lines, vivid colors, and professional typography. High contrast, white background, no watermarks, no logos. ALL text, labels, titles, and annotations in the image MUST be in GERMAN with correct spelling. Text must be clearly legible. ${prompt}`;
 
   // Gemini-Flash-Prompt (Fallback): Enthält Caption-Anforderung
@@ -3204,8 +3207,10 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
   let lastError = "";
 
   // === STUFE 1: Ideogram 3.0 (bestes Text-Rendering) ===
+  console.log(`[Bildgen] IDEOGRAM_API_KEY vorhanden: ${!!env.IDEOGRAM_API_KEY}, Länge: ${env.IDEOGRAM_API_KEY?.length || 0}`);
   if (env.IDEOGRAM_API_KEY) {
     try {
+      console.log("[Bildgen] Starte Ideogram 3.0 Request...");
       const ideogramRes = await fetch("https://api.ideogram.ai/v1/ideogram-v3/generate", {
         method: "POST",
         headers: {
@@ -3213,8 +3218,8 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          prompt: basePrompt,
-          aspect_ratio: "16:9",
+          prompt: ideogramPrompt,
+          aspect_ratio: "16x9",
           rendering_speed: "DEFAULT",
           style_type: "DESIGN",
           magic_prompt: "ON",
@@ -3226,7 +3231,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
 
       if (!ideogramRes.ok) {
         lastError = ideogramData.error || ideogramData.message || `Ideogram: HTTP ${ideogramRes.status}`;
-        console.log(`Ideogram fehlgeschlagen: ${lastError}`);
+        console.log(`[Bildgen] Ideogram fehlgeschlagen (${ideogramRes.status}): ${JSON.stringify(ideogramData).substring(0, 500)}`);
       } else {
         const imageUrl = ideogramData.data?.[0]?.url;
         if (imageUrl) {
@@ -3255,6 +3260,11 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
       lastError = `Ideogram: ${e.message}`;
       console.log(`Ideogram Exception: ${e.message}`);
     }
+    // DEBUG: Fallbacks deaktiviert – Ideogram-Fehler direkt anzeigen
+    return jsonResponse({ error: `[DEBUG] Ideogram fehlgeschlagen: ${lastError}` }, 500, env);
+  } else {
+    // Kein API-Key gesetzt
+    return jsonResponse({ error: "[DEBUG] IDEOGRAM_API_KEY ist nicht gesetzt im Worker" }, 500, env);
   }
 
   // === STUFE 2: Imagen 4 (Fallback) ===
