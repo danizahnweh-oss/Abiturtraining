@@ -678,6 +678,10 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
     }
 
     function renderTask(d) {
+      // Multi-Aufgaben-Format: tasks-Array vom Backend
+      if (d.tasks && d.tasks.length > 0) {
+        return renderMultiTasks(d);
+      }
       const taskHtml = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
       document.getElementById("taskInstruction").innerHTML = taskHtml;
       document.getElementById("textTitle").textContent = "Material M 1";
@@ -687,8 +691,89 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("writeTaskRef").innerHTML = taskHtml;
       document.getElementById("writeSourceRef").innerHTML = sourceHtml;
 
-      // Zusatz-Materialien (Bilder, Fotos, Statistiken)
-      const zm = d.zusatz_materialien || [];
+      renderZusatzMaterialien(d.zusatz_materialien || [], "gz");
+    }
+
+    function renderMultiTasks(d) {
+      const tasks = d.tasks;
+      // Aufgabenstellungen zusammenfassen
+      let fullTaskHtml = "";
+      let fullSourceHtml = "";
+      let allZm = [];
+
+      tasks.forEach((t, idx) => {
+        const nr = t.aufgabe_nr || (idx + 1);
+        const taskText = escapeHtml(t.task_instruction || "").replace(/\n/g, "<br>");
+        const sourceText = (t.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        const meta = t.primary_meta ? `<div class="material-source">Quelle: ${escapeHtml(t.primary_meta)}</div>` : "";
+
+        fullTaskHtml += `<div class="multi-aufgabe-block" style="margin-bottom:1.5rem;${idx > 0 ? 'padding-top:1.5rem;border-top:2px solid var(--border);' : ''}">
+          <h3 style="color:var(--accent);margin-bottom:0.75rem;">Aufgabe ${nr}${t.thema ? ' — ' + escapeHtml(t.thema) : ''}</h3>
+          <div class="task-text">${taskText}</div>
+          <div class="card" style="margin-top:1rem;">
+            <h4 class="card-header">Material M 1</h4>
+            <div class="source-text">${sourceText}</div>
+            ${meta}
+          </div>
+        </div>`;
+
+        // Zusatz-Materialien mit eindeutigem Prefix pro Aufgabe
+        (t.zusatz_materialien || []).forEach((m, mi) => {
+          allZm.push({ ...m, _prefix: `gz-${idx}`, _index: mi, _aufgabeNr: nr });
+        });
+      });
+
+      document.getElementById("taskInstruction").innerHTML = fullTaskHtml;
+      document.getElementById("textTitle").textContent = "";
+      document.getElementById("sourceText").innerHTML = "";
+      document.getElementById("sourceMeta").textContent = "";
+
+      // Schreib-Referenz: Alle Aufgabenstellungen
+      document.getElementById("writeTaskRef").innerHTML = fullTaskHtml;
+      document.getElementById("writeSourceRef").innerHTML = "";
+
+      // Alle Zusatz-Materialien rendern
+      const zmContainer = document.getElementById("zusatzMaterialien");
+      if (allZm.length) {
+        zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + allZm.map((m) => {
+          const prefix = m._prefix;
+          const i = m._index;
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+          let body;
+          if (m.type === "statistik" && (m.content || "").includes("|")) {
+            body = DOMPurify.sanitize(marked.parse(m.content || ""));
+            body += `<div class="material-chart"><canvas id="chart-${prefix}-${i}"></canvas></div>`;
+          } else if (m.type === "bild" || m.type === "foto") {
+            body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
+          } else {
+            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+          }
+          return `<div class="material-card">
+            <h4>Aufgabe ${m._aufgabeNr} — M ${i + 2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+            <div class="material-body">${body}</div>
+            ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+          </div>`;
+        }).join("") + '</div>';
+        allZm.forEach((m) => {
+          const prefix = m._prefix;
+          const i = m._index;
+          if (m.type === "statistik" && (m.content || "").includes("|")) {
+            renderStatistikChart(m.content, `chart-${prefix}-${i}`);
+          } else if (m.type === "bild" || m.type === "foto") {
+            loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
+          }
+        });
+      } else {
+        zmContainer.innerHTML = "";
+      }
+
+      // Für Bewertung: Zusammengeführte Daten im storedData hinterlegen
+      d.task_instruction = tasks.map((t, i) => `[Aufgabe ${t.aufgabe_nr || i+1}]\n${t.task_instruction}`).join('\n\n');
+      d.primary_text = tasks.map((t, i) => `[Quelle Aufgabe ${t.aufgabe_nr || i+1}]\n${t.primary_text}`).join('\n\n');
+    }
+
+    function renderZusatzMaterialien(zm, prefix) {
       const zmContainer = document.getElementById("zusatzMaterialien");
       if (zm.length) {
         zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + zm.map((m, i) => {
@@ -697,11 +782,11 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           let body;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             body = DOMPurify.sanitize(marked.parse(m.content || ""));
-            body += `<div class="material-chart"><canvas id="chart-gz-${i}"></canvas></div>`;
+            body += `<div class="material-chart"><canvas id="chart-${prefix}-${i}"></canvas></div>`;
           } else if (m.type === "bild") {
-            body = `<div class="material-img-loading" id="img-gz-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
+            body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
           } else if (m.type === "foto") {
-            body = `<div class="material-img-loading" id="img-gz-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
+            body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
           } else {
             body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
           }
@@ -713,11 +798,11 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         }).join("") + '</div>';
         zm.forEach((m, i) => {
           if (m.type === "statistik" && (m.content || "").includes("|")) {
-            renderStatistikChart(m.content, `chart-gz-${i}`);
+            renderStatistikChart(m.content, `chart-${prefix}-${i}`);
           } else if (m.type === "bild") {
-            loadEducationalImage(m.content, `img-gz-${i}`, m.bild_labels || m.image_labels || null);
+            loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
-            loadEducationalImage(m.content, `img-gz-${i}`, m.bild_labels || m.image_labels || null);
+            loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
           }
         });
       } else {

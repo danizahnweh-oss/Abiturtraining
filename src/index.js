@@ -2284,13 +2284,11 @@ MÖGLICHE THEMEN: ${sp.themen}${schwerpunktZusatz}
 ANFORDERUNGSNIVEAU: ${niveauText}
 
 KLAUSUR-PARAMETER:
-- Gesamt: ${totalBE} BE (Bewertungseinheiten)
-- Bearbeitungszeit: ${zeitMinuten} Minuten${zeitHinweis}
-- Verteile die ${totalBE} BE sinnvoll auf die Teilaufgaben
-- Die Summe aller Teilaufgaben-BE muss exakt ${totalBE} ergeben
-${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. ${Math.round(totalBE / aufgabenAnzahl)} BE)
-- Nummeriere: "Aufgabe 1:", "Aufgabe 2:", etc. im task_instruction-Feld
-- Jede Aufgabe kompakt und kleinschrittiger` : '- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!'}
+- Gesamt: ${beProAufgabe} BE (Bewertungseinheiten)
+- Bearbeitungszeit: ${aufgabenAnzahl > 1 ? Math.round(zeitMinuten / aufgabenAnzahl) : zeitMinuten} Minuten${zeitHinweis}
+- Verteile die ${beProAufgabe} BE sinnvoll auf die Teilaufgaben
+- Die Summe aller Teilaufgaben-BE muss exakt ${beProAufgabe} ergeben
+- Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
 Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und ${teilaufgabenAnzahl} Teilaufgaben.
@@ -2352,11 +2350,52 @@ ${level !== "eA" ? `WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus de
 KRITISCH:
 - Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle mit MEHR Informationen als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
 - Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
-- Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
+- Die Teilaufgaben müssen nummeriert sein (${teilaufgabenNummern}) mit BE-Angaben in Klammern. Summe = ${beProAufgabe} BE!
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
 - ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bilder: NUR Nummern als Beschriftungen, KEINE Wörter!
 - Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist. Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!`;
 
+  // Bei mehreren Aufgaben: parallele API-Aufrufe, dann Ergebnisse zusammenführen
+  if (aufgabenAnzahl > 1) {
+    const themenHinweise = [
+      "Wähle ein FRÜHES Thema aus dem Schwerpunkt.",
+      "Wähle ein ANDERES Thema als typischerweise gewählt wird — einen weniger bekannten Aspekt.",
+      "Wähle ein SPÄTES Thema oder einen aktuelleren Bezug aus dem Schwerpunkt.",
+      "Wähle einen kulturellen oder gesellschaftlichen Aspekt aus dem Schwerpunkt.",
+      "Wähle einen internationalen oder vergleichenden Aspekt aus dem Schwerpunkt."
+    ];
+    const promises = Array.from({length: aufgabenAnzahl}, (_, i) => {
+      const variantPrompt = userPrompt + `\n\nWICHTIG: ${themenHinweise[i % themenHinweise.length]} Verwende eine ANDERE historische Quelle und ein ANDERES Unterthema als andere Aufgaben zum selben Schwerpunkt.`;
+      return callOpenAI(env, [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: variantPrompt }
+      ], 10000).then(res => {
+        try { return extractJSON(res); } catch (e) { console.error(`Geschichte Aufgabe ${i+1} JSON-Fehler:`, e.message); return null; }
+      }).catch(err => { console.error(`Geschichte Aufgabe ${i+1} API-Fehler:`, err.message); return null; });
+    });
+
+    const results = (await Promise.all(promises)).filter(r => r !== null);
+    if (results.length === 0) {
+      return jsonResponse({ error: "Keine Aufgabe konnte generiert werden. Bitte erneut versuchen." }, 500, env);
+    }
+
+    // Ergebnisse in tasks-Array zurückgeben
+    const merged = {
+      tasks: results.map((t, i) => ({
+        aufgabe_nr: i + 1,
+        task_instruction: t.task_instruction,
+        primary_text: t.primary_text,
+        primary_meta: t.primary_meta,
+        zusatz_materialien: t.zusatz_materialien || [],
+        thema: t.thema || ""
+      })),
+      thema: results.map(t => t.thema).join(', '),
+      schwerpunkt: results[0]?.schwerpunkt || selectedSchwerpunkt.replace('_', '/')
+    };
+    return jsonResponse(merged, 200, env);
+  }
+
+  // Einzelaufgabe: Standard-Aufruf
   let openaiRes;
   try {
     openaiRes = await callOpenAI(env, [
