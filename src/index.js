@@ -2340,7 +2340,8 @@ ABSOLUTE PFLICHT:
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern.
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
-- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen
+- JEDES Material MUSS in mindestens einer Teilaufgabe explizit referenziert werden (z.B. "mithilfe von M 1", "anhand von M 2"). Erstelle KEINE Materialien, die nicht in den Aufgabenstellungen genutzt werden!
+- Optional 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien", NUR wenn sie in den Teilaufgaben benötigt und referenziert werden
   - type "foto"/"bild": content = Bildprompt auf Englisch (5-10 Sätze), NUR Nummern als Marker. "bild_labels": {"1": "Beschriftung", ...}. KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
   - type "text": content = Textauszug
@@ -2373,7 +2374,7 @@ KRITISCH:
 - Die Teilaufgaben müssen nummeriert sein (${teilaufgabenNummern}) mit BE-Angaben in Klammern. Summe = ${beProAufgabe} BE!
 - Orientiere dich am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
 - ALLE Texte und Statistiken auf DEUTSCH! Bildprompts auf Englisch, NUR Nummern als Beschriftungen.
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" oder "foto". Bild-Prompt auf Englisch, NUR NUMMERN, "bild_labels" mitliefern. KEINE Karikaturen oder Personen!`;
+- Erstelle NUR dann ergänzende Materialien (zusatz_materialien), wenn sie in den Teilaufgaben auch explizit referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "statistik" oder "foto". KEINE Karikaturen oder Personen!`;
 
   // Bei mehreren Aufgaben: parallele API-Aufrufe, dann Ergebnisse zusammenführen
   if (aufgabenAnzahl > 1) {
@@ -2404,8 +2405,10 @@ KRITISCH:
       tasks: results.map((t, i) => ({
         aufgabe_nr: i + 1,
         task_instruction: t.task_instruction,
+        primary_type: t.primary_type || "text",
         primary_text: t.primary_text,
         primary_meta: t.primary_meta,
+        primary_bild_labels: t.primary_bild_labels || null,
         zusatz_materialien: t.zusatz_materialien || [],
         thema: t.thema || ""
       })),

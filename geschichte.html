@@ -721,36 +721,64 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       const tasks = d.tasks;
       // Aufgabenstellungen zusammenfassen
       let fullTaskHtml = "";
-      let fullSourceHtml = "";
-      let allZm = [];
 
-      // Bilder die nach dem Rendern geladen werden müssen
+      // Durchgehende Material-Nummerierung über alle Aufgaben
       const pendingImages = [];
+      const pendingCharts = [];
+      let materialNr = 1;
 
       tasks.forEach((t, idx) => {
         const nr = t.aufgabe_nr || (idx + 1);
         const taskText = escapeHtml(t.task_instruction || "").replace(/\n/g, "<br>");
         const pType = (t.primary_type || "text").toLowerCase();
         const meta = t.primary_meta ? `<div class="material-source">${escapeHtml(t.primary_meta)}</div>` : "";
+        const mNr = materialNr;
+        materialNr++;
 
         let materialHtml;
         if (pType === "statistik" && (t.primary_text || "").includes("|")) {
-          materialHtml = `<h4 class="card-header">Material M 1 — Statistik</h4>
+          materialHtml = `<h4 class="card-header">M ${mNr}: Statistik</h4>
             <div class="source-text">${DOMPurify.sanitize(marked.parse(t.primary_text || ""))}</div>
             <div class="material-chart"><canvas id="chart-multi-${idx}"></canvas></div>
             ${meta}`;
+          pendingCharts.push({ text: t.primary_text, id: `chart-multi-${idx}` });
         } else if (pType === "foto" || pType === "bild") {
           const imgId = `img-multi-${idx}`;
-          materialHtml = `<h4 class="card-header">Material M 1 — ${pType === "foto" ? "Historisches Foto" : "Bild"}</h4>
+          materialHtml = `<h4 class="card-header">M ${mNr}: ${pType === "foto" ? "Historisches Foto" : "Bild"}</h4>
             <div class="material-img-loading" id="${imgId}"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>
             ${meta}`;
           pendingImages.push({ prompt: t.primary_text, id: imgId, labels: t.primary_bild_labels || null });
         } else {
           const sourceText = (t.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
-          materialHtml = `<h4 class="card-header">Material M 1</h4>
+          materialHtml = `<h4 class="card-header">M ${mNr}: Textquelle</h4>
             <div class="source-text">${sourceText}</div>
             ${meta}`;
         }
+
+        // Zusatz-Materialien inline pro Aufgabe rendern
+        let zmHtml = "";
+        (t.zusatz_materialien || []).forEach((m, mi) => {
+          const zmNr = materialNr;
+          materialNr++;
+          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
+          const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
+          let body;
+          if (m.type === "statistik" && (m.content || "").includes("|")) {
+            body = DOMPurify.sanitize(marked.parse(m.content || ""));
+            body += `<div class="material-chart"><canvas id="chart-zm-${idx}-${mi}"></canvas></div>`;
+            pendingCharts.push({ text: m.content, id: `chart-zm-${idx}-${mi}` });
+          } else if (m.type === "bild" || m.type === "foto") {
+            body = `<div class="material-img-loading" id="img-zm-${idx}-${mi}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
+            pendingImages.push({ prompt: m.content, id: `img-zm-${idx}-${mi}`, labels: m.bild_labels || m.image_labels || null });
+          } else {
+            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+          }
+          zmHtml += `<div class="material-card" style="margin-top:0.75rem;">
+            <h4>M ${zmNr}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
+            <div class="material-body">${body}</div>
+            ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
+          </div>`;
+        });
 
         fullTaskHtml += `<div class="multi-aufgabe-block" style="margin-bottom:1.5rem;${idx > 0 ? 'padding-top:1.5rem;border-top:2px solid var(--border);' : ''}">
           <h3 style="color:var(--accent);margin-bottom:0.75rem;">Aufgabe ${nr}${t.thema ? ' — ' + escapeHtml(t.thema) : ''}</h3>
@@ -758,67 +786,23 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           <div class="card" style="margin-top:1rem;">
             ${materialHtml}
           </div>
+          ${zmHtml}
         </div>`;
-
-        // Zusatz-Materialien mit eindeutigem Prefix pro Aufgabe
-        (t.zusatz_materialien || []).forEach((m, mi) => {
-          allZm.push({ ...m, _prefix: `gz-${idx}`, _index: mi, _aufgabeNr: nr });
-        });
       });
 
       document.getElementById("taskInstruction").innerHTML = fullTaskHtml;
       document.getElementById("textTitle").textContent = "";
       document.getElementById("sourceText").innerHTML = "";
       document.getElementById("sourceMeta").textContent = "";
+      document.getElementById("zusatzMaterialien").innerHTML = "";
 
-      // Statistik-Charts und Bilder laden (nach innerHTML)
-      tasks.forEach((t, idx) => {
-        const pType = (t.primary_type || "text").toLowerCase();
-        if (pType === "statistik" && (t.primary_text || "").includes("|")) {
-          setTimeout(() => renderStatistikChart(t.primary_text, `chart-multi-${idx}`), 100);
-        }
-      });
+      // Charts und Bilder laden (nach innerHTML)
+      pendingCharts.forEach(c => setTimeout(() => renderStatistikChart(c.text, c.id), 100));
       pendingImages.forEach(img => loadEducationalImage(img.prompt, img.id, img.labels));
 
       // Schreib-Referenz: Alle Aufgabenstellungen
       document.getElementById("writeTaskRef").innerHTML = fullTaskHtml;
       document.getElementById("writeSourceRef").innerHTML = "";
-
-      // Alle Zusatz-Materialien rendern
-      const zmContainer = document.getElementById("zusatzMaterialien");
-      if (allZm.length) {
-        zmContainer.innerHTML = '<div class="card"><h2 class="card-header">Ergänzende Materialien</h2>' + allZm.map((m) => {
-          const prefix = m._prefix;
-          const i = m._index;
-          const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
-          const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
-          let body;
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            body = DOMPurify.sanitize(marked.parse(m.content || ""));
-            body += `<div class="material-chart"><canvas id="chart-${prefix}-${i}"></canvas></div>`;
-          } else if (m.type === "bild" || m.type === "foto") {
-            body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
-          } else {
-            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
-          }
-          return `<div class="material-card">
-            <h4>Aufgabe ${m._aufgabeNr} — M ${i + 2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
-            <div class="material-body">${body}</div>
-            ${m.source ? `<div class="material-source">${escapeHtml(m.source)}</div>` : ""}
-          </div>`;
-        }).join("") + '</div>';
-        allZm.forEach((m) => {
-          const prefix = m._prefix;
-          const i = m._index;
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            renderStatistikChart(m.content, `chart-${prefix}-${i}`);
-          } else if (m.type === "bild" || m.type === "foto") {
-            loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
-          }
-        });
-      } else {
-        zmContainer.innerHTML = "";
-      }
 
       // Für Bewertung: Zusammengeführte Daten im storedData hinterlegen
       d.task_instruction = tasks.map((t, i) => `[Aufgabe ${t.aufgabe_nr || i+1}]\n${t.task_instruction}`).join('\n\n');
