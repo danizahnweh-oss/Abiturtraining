@@ -3161,8 +3161,8 @@ async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Imagen-4-Prompt: Klar und direkt, Text im Bild auf Deutsch
-  const imagenPrompt = `Professional educational illustration for a German school exam. Clean, modern infographic style with crisp lines, vivid colors, and professional typography. High contrast, white background, no watermarks, no logos. ALL text, labels, titles, and annotations in the image MUST be in GERMAN with correct spelling. Text must be clearly legible. ${prompt}`;
+  // Gemeinsamer Bild-Prompt
+  const basePrompt = `Professional educational illustration for a German school exam. Clean, modern infographic style with crisp lines, vivid colors, and professional typography. High contrast, white background, no watermarks, no logos. ALL text, labels, titles, and annotations in the image MUST be in GERMAN with correct spelling. Text must be clearly legible. ${prompt}`;
 
   // Gemini-Flash-Prompt (Fallback): Enthält Caption-Anforderung
   const flashPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
@@ -3183,9 +3183,81 @@ ${prompt}
 
 ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
 
+  // Hilfsfunktion: Caption über GPT generieren
+  async function generateCaption() {
+    try {
+      const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein generiertes Bild zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
+          max_tokens: 60,
+          temperature: 0.3
+        })
+      });
+      const captionData = await captionRes.json();
+      return captionData.choices?.[0]?.message?.content?.trim() || "";
+    } catch { return ""; }
+  }
+
   let lastError = "";
 
-  // === STUFE 1: Imagen 4 (beste Bildqualität + Text-Rendering) ===
+  // === STUFE 1: Ideogram 3.0 (bestes Text-Rendering) ===
+  if (env.IDEOGRAM_API_KEY) {
+    try {
+      const ideogramRes = await fetch("https://api.ideogram.ai/v1/ideogram-v3/generate", {
+        method: "POST",
+        headers: {
+          "Api-Key": env.IDEOGRAM_API_KEY,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: basePrompt,
+          aspect_ratio: "16:9",
+          rendering_speed: "DEFAULT",
+          style_type: "DESIGN",
+          magic_prompt: "ON",
+          num_images: 1,
+          negative_prompt: "people, persons, faces, portraits, caricatures, watermark, logo"
+        })
+      });
+      const ideogramData = await ideogramRes.json();
+
+      if (!ideogramRes.ok) {
+        lastError = ideogramData.error || ideogramData.message || `Ideogram: HTTP ${ideogramRes.status}`;
+        console.log(`Ideogram fehlgeschlagen: ${lastError}`);
+      } else {
+        const imageUrl = ideogramData.data?.[0]?.url;
+        if (imageUrl) {
+          // Bild herunterladen und als Base64 konvertieren
+          const imgFetch = await fetch(imageUrl);
+          if (imgFetch.ok) {
+            const imgBuffer = await imgFetch.arrayBuffer();
+            const bytes = new Uint8Array(imgBuffer);
+            let binary = "";
+            for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+            const base64 = btoa(binary);
+            const contentType = imgFetch.headers.get("content-type") || "image/png";
+            const dataUrl = `data:${contentType};base64,${base64}`;
+            console.log("Bild erfolgreich generiert mit Ideogram 3.0");
+            const caption = await generateCaption();
+            return jsonResponse({ url: dataUrl, credit: "Ideogram", caption }, 200, env);
+          }
+          lastError = "Ideogram: Bild-Download fehlgeschlagen";
+          console.log(lastError);
+        } else {
+          lastError = "Ideogram: Kein Bild in Antwort";
+          console.log(lastError);
+        }
+      }
+    } catch (e) {
+      lastError = `Ideogram: ${e.message}`;
+      console.log(`Ideogram Exception: ${e.message}`);
+    }
+  }
+
+  // === STUFE 2: Imagen 4 (Fallback) ===
   const IMAGEN_MODELS = ["imagen-4.0-generate-001", "imagen-4.0-fast-generate-001"];
   for (const modelId of IMAGEN_MODELS) {
     try {
@@ -3198,7 +3270,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
             "x-goog-api-key": env.GOOGLE_AI_API_KEY
           },
           body: JSON.stringify({
-            instances: [{ prompt: imagenPrompt }],
+            instances: [{ prompt: basePrompt }],
             parameters: {
               sampleCount: 1,
               aspectRatio: "16:9",
@@ -3225,24 +3297,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
       const mimeType = prediction.mimeType || "image/png";
       const dataUrl = `data:${mimeType};base64,${prediction.bytesBase64Encoded}`;
       console.log(`Bild erfolgreich generiert mit ${modelId}`);
-
-      // Caption via GPT (Imagen liefert keinen Text)
-      let caption = "";
-      try {
-        const captionRes = await fetch("https://api.openai.com/v1/chat/completions", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.OPENAI_API_KEY}` },
-          body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [{ role: "user", content: `Schreibe eine kurze, sachliche deutsche Bildunterschrift (max. 15 Wörter) für ein generiertes Bild zum Thema. Nur die Bildunterschrift, kein "Abb." Präfix, keine Anführungszeichen.\n\nThema: ${prompt}` }],
-            max_tokens: 60,
-            temperature: 0.3
-          })
-        });
-        const captionData = await captionRes.json();
-        caption = captionData.choices?.[0]?.message?.content?.trim() || "";
-      } catch { }
-
+      const caption = await generateCaption();
       return jsonResponse({ url: dataUrl, credit: "Google Imagen", caption }, 200, env);
     } catch (e) {
       lastError = `${modelId}: ${e.message}`;
@@ -3251,7 +3306,7 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
     }
   }
 
-  // === STUFE 2: Gemini Flash Fallback ===
+  // === STUFE 3: Gemini Flash Fallback ===
   const FLASH_MODELS = [
     { id: "gemini-3.1-flash-image-preview", size: "2K" },
     { id: "gemini-2.5-flash-image", size: "1K" }
