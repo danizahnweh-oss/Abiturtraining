@@ -5912,35 +5912,32 @@
         text: "Dein persönlicher Abitur-Trainer mit KI-Bewertung. Lass uns dir kurz zeigen, wie alles funktioniert."
       },
       {
-        target: ".subject-grid",
-        title: "Deine Fächer",
-        text: "Wähle ein Fach, um mit dem Üben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
-        pos: "top"
-      },
-      {
-        target: ".category-filters",
-        title: "Fächer filtern",
-        text: "Filtere nach Kategorie: Sprachen, Naturwissenschaften oder Geisteswissenschaften.",
+        target: ".training-card",
+        title: "Training starten",
+        text: "Starte direkt mit dem Üben — wähle ein Fach und los geht's mit schriftlichen Aufgaben, Abiturtraining und mehr.",
         pos: "bottom"
       },
       {
-        target: ".subject-grid",
-        title: "Fächer sortieren",
-        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position — so schiebst du wichtige Fächer nach oben.",
-        pos: "top"
+        target: "a.kolloquium-card:not(.profil-card)",
+        title: "Kolloquiumstrainer",
+        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback — wie im echten Kolloquium.",
+        pos: "bottom"
+      },
+      {
+        target: "#profilLink",
+        title: "Dein Kompetenzprofil",
+        text: "Nach ein paar Aufgaben erstellt die KI eine Analyse deiner Stärken und Schwächen — mit personalisierten Empfehlungen.",
+        pos: "bottom",
+        condition: function () {
+          var el = document.getElementById("profilLink");
+          return el && el.style.display !== "none";
+        }
       },
       {
         target: "#progressBar",
         title: "Dein Fortschritt",
-        text: "Hier siehst du deine Gesamtstatistik: Aufgaben, Durchschnitt und deinen Übungs-Streak.",
+        text: "Hier siehst du deine Gesamtstatistik: bearbeitete Aufgaben, Notendurchschnitt und deinen Übungs-Streak.",
         pos: "bottom"
-      },
-      {
-        target: ".kolloquium-card",
-        title: "Kolloquiumstrainer",
-        text: "Übe mündliche Prüfungen mit dem KI-Prüfer. Er stellt dir Fragen und gibt Feedback — wie im echten Kolloquium.",
-        pos: "top",
-        scrollTo: true
       },
       {
         target: "#countdownToggle",
@@ -5953,10 +5950,55 @@
         }
       },
       {
+        target: ".category-filters",
+        title: "Fächer filtern",
+        text: "Filtere nach Kategorie: Sprachen, Naturwissenschaften oder Geisteswissenschaften.",
+        pos: "bottom"
+      },
+      {
+        target: "#examSubjectSection",
+        title: "Deine Abiturfächer",
+        text: "Hier siehst du deine gewählten Abiturfächer auf einen Blick. Du kannst Prüfungstermine eintragen und Erinnerungen aktivieren.",
+        pos: "bottom",
+        scrollTo: true,
+        condition: function () {
+          var el = document.getElementById("examSubjectSection");
+          return el && el.style.display !== "none";
+        }
+      },
+      {
+        target: ".subject-grid",
+        title: "Deine Fächer",
+        text: "Wähle ein Fach, um mit dem Üben zu beginnen. Jedes Fach hat verschiedene Aufgabentypen.",
+        pos: "top",
+        scrollTo: true
+      },
+      {
+        target: ".subject-grid",
+        title: "Fächer sortieren",
+        text: "Halte ein Fach länger gedrückt und ziehe es an eine neue Position — so schiebst du wichtige Fächer nach oben.",
+        pos: "top"
+      },
+      {
+        target: "#ai-tutor-widget",
+        title: "Flowie — Dein KI-Tutor",
+        text: "Klicke auf Flowie, um jederzeit Fragen zu stellen. Sie erklärt dir Themen, hilft bei Aufgaben und gibt Tipps.",
+        pos: "left",
+        condition: function () {
+          return !!document.getElementById("ai-tutor-widget");
+        }
+      },
+      {
         target: "#themeBtn",
         title: "Dark Mode",
-        text: "Hier kannst du zwischen hellem und dunklem Design wechseln.",
+        text: "Wechsle zwischen hellem und dunklem Design — je nachdem was für deine Augen angenehmer ist.",
         pos: "left"
+      },
+      {
+        target: ".tour-restart-btn",
+        title: "Tour wiederholen",
+        text: "Klicke jederzeit auf das Fragezeichen, um diese Tour nochmal zu starten. Viel Erfolg beim Üben!",
+        pos: "bottom"
       }
     ];
 
