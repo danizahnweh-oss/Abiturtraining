@@ -883,9 +883,13 @@ input:focus {
   padding: 1.6rem;
   margin: 1rem 0;
   line-height: 1.9;
-  max-height: 500px;
-  overflow-y: auto;
   cursor: text;
+}
+
+.material-box,
+.material-content {
+  max-height: none !important;
+  overflow-y: visible !important;
 }
 
 .source-meta {
