@@ -776,7 +776,7 @@
               var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-abi-" + idx + "-" + mi, chartType);
             } else if ((mType === "bild" || mType === "foto") && (m.text || m.content)) {
-              loadMaterialImage(m.text || m.content, "img-abi-" + idx + "-" + mi);
+              loadEducationalImage(m.text || m.content, "img-abi-" + idx + "-" + mi, m.bild_labels || m.image_labels || null);
             }
           } catch (err) {
             console.error("Material-Render-Fehler:", err);

@@ -753,7 +753,7 @@
         var mats = a.materialien || (Array.isArray(a.material) ? a.material : []);
         mats.forEach(function (m, mi) {
           if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
-            loadEducationalImage(m.text || m.content, 'img-phy-' + idx + '-' + mi, m.image_labels || null);
+            loadEducationalImage(m.text || m.content, 'img-phy-' + idx + '-' + mi, m.bild_labels || m.image_labels || null);
           }
         });
       });

@@ -875,7 +875,7 @@
         // Bilder nach DOM-Einfügung laden
         d.material.forEach(function (m, mIdx) {
           if ((m.type === "bild" || m.type === "foto") && (m.text || m.content)) {
-            loadEducationalImage(m.text || m.content, 'img-phy-' + mIdx, m.image_labels || null);
+            loadEducationalImage(m.text || m.content, 'img-phy-' + mIdx, m.bild_labels || m.image_labels || null);
           }
         });
       }

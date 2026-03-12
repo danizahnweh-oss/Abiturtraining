@@ -802,7 +802,7 @@
               var chartType = m.chart_type || (mType === "statistik" ? "bar" : "line");
               renderMaterialChart(m.text, "chart-inf-" + idx, chartType);
             } else if ((mType === "bild" || mType === "foto") && (m.text || m.content)) {
-              loadMaterialImage(m.text || m.content, "img-inf-" + idx);
+              loadEducationalImage(m.text || m.content, "img-inf-" + idx, m.bild_labels || m.image_labels || null);
             }
           } catch (err) {
             console.error("Material-Render-Fehler M" + (idx + 1) + ":", err);

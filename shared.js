@@ -1685,43 +1685,54 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
       ? '<figcaption class="edu-img-caption">' + escapeHtml(d.caption) + '</figcaption>'
       : '';
 
-    // Labels unter dem Bild als Beschriftungen (nicht mehr als Overlay)
+    // Labels unter dem Bild als Beschriftungen
     var titleHtml = '';
     var labelsHtml = '';
     var legendHtml = '';
-    if (labels) {
-      // Titel als Überschrift unter dem Bild
-      if (labels.title) {
-        titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
-      }
-      // Achsen- und positionierte Labels als Tag-Liste
-      var allLabels = [];
-      if (labels.y_axis) allLabels.push(labels.y_axis);
-      if (labels.x_axis) allLabels.push(labels.x_axis);
-      if (labels.labels && labels.labels.length) {
-        labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
-      }
-      if (allLabels.length) {
-        labelsHtml = '<div class="edu-img-labels">' +
-          allLabels.map(function(t) {
-            return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+    var numberedLegendHtml = '';
+    var hasNumberedLegend = false;
+    if (labels && typeof labels === 'object') {
+      // Prüfe ob es ein nummeriertes Labels-Objekt ist {"1": "Zellkern", "2": "..."}
+      var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
+      if (numKeys.length > 0) {
+        hasNumberedLegend = true;
+        var entries = numKeys.sort(function(a, b) { return parseInt(a) - parseInt(b); });
+        numberedLegendHtml = '<div class="edu-img-numbered-legend">' +
+          entries.map(function(k) {
+            return '<div class="edu-img-legend-entry"><span class="edu-img-legend-num">' + escapeHtml(k) + '</span> ' + escapeHtml(labels[k]) + '</div>';
           }).join('') +
-          '</div>';
-      }
-      // Legende
-      if (labels.legend && labels.legend.length) {
-        legendHtml = '<div class="edu-img-legend">' +
-          labels.legend.map(function(l) {
-            return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
-          }).join('') +
-          '</div>';
+        '</div>';
+      } else {
+        // Altes Format: title, labels[], legend[]
+        if (labels.title) {
+          titleHtml = '<div class="edu-img-title">' + escapeHtml(labels.title) + '</div>';
+        }
+        var allLabels = [];
+        if (labels.y_axis) allLabels.push(labels.y_axis);
+        if (labels.x_axis) allLabels.push(labels.x_axis);
+        if (labels.labels && labels.labels.length) {
+          labels.labels.forEach(function(lbl) { allLabels.push(lbl.text); });
+        }
+        if (allLabels.length) {
+          labelsHtml = '<div class="edu-img-labels">' +
+            allLabels.map(function(t) {
+              return '<span class="edu-img-label-tag">' + escapeHtml(t) + '</span>';
+            }).join('') +
+            '</div>';
+        }
+        if (labels.legend && labels.legend.length) {
+          legendHtml = '<div class="edu-img-legend">' +
+            labels.legend.map(function(l) {
+              return '<span class="edu-legend-item">' + escapeHtml(l) + '</span>';
+            }).join('') +
+            '</div>';
+        }
       }
     }
 
-    // KI-Hinweis (angepasst je nach Modell)
-    var isIdeogram = d.credit && d.credit.toLowerCase().indexOf('ideogram') !== -1;
-    var noticeText = isIdeogram
-      ? 'KI-generiertes Bild — Beschriftungen im Bild auf Englisch, deutsche Übersetzung siehe unten.'
+    // KI-Hinweis
+    var noticeText = hasNumberedLegend
+      ? 'KI-generiertes Bild — Beschriftungen siehe Legende.'
       : 'KI-generiertes Bild — Texte und Beschriftungen können Fehler enthalten.';
     var aiNoticeHtml =
       '<div class="edu-img-ai-notice">' +
@@ -1744,7 +1755,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
         '<div class="edu-img-wrapper">' +
           '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
         '</div>' +
-        titleHtml + labelsHtml + caption + legendHtml + credit +
+        titleHtml + labelsHtml + numberedLegendHtml + caption + legendHtml + credit +
         aiNoticeHtml + regenBtnHtml +
       '</figure>';
 

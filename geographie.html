@@ -892,9 +892,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           } else if (m.type === "klimadiagramm") {
             renderKlimadiagramm(m.content, `klima-m-${i}`);
           } else if (m.type === "bild") {
-            loadEducationalImage(m.content, `img-m-${i}`, m.image_labels || null);
+            loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
-            loadEducationalImage(m.content, `img-m-${i}`, m.image_labels || null);
+            loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
           }
         });
       }
