@@ -2315,7 +2315,7 @@ KRITISCH:
 - Die Teilaufgaben müssen nummeriert sein (1, 2) mit BE-Angaben in Klammern.
 - Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
 - ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bilder: NUR Nummern als Beschriftungen, KEINE Wörter!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!`;
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist. Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!`;
 
   let openaiRes;
   try {
@@ -2528,9 +2528,9 @@ Erstelle genau 6-8 verschiedene Materialien:
 
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Setzen Sie sich mit dem Thema auseinander (Pro/Contra, gesellschaftliche Folgen, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
-- Erstelle IMMER 1-2 Materialien vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle IMMER 1-2 ergänzende Materialien. BEVORZUGE "foto" (Alltagssituationen, Symbolbilder, Natur) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Alltagsszenen (ohne Gesichter), Gebäude, Natur, Symbolbilder. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
   "task_instruction": "Präzise Aufgabenstellung mit Textsorte, Adressat, Anlass und konkretem Schreibauftrag",
@@ -3161,11 +3161,11 @@ async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Ideogram-Prompt: Nummern statt Text (Legende wird als HTML daruntergelegt)
-  const ideogramPrompt = `Educational diagram: ${prompt}. Clean infographic, white background, vivid colors, sharp lines. Use ONLY NUMBERS (1, 2, 3...) as labels in the image. NO text, NO words, NO sentences - ONLY numbers as markers.`;
+  // Ideogram-Prompt: KEIN Text, nur Nummern (Legende wird als HTML daruntergelegt)
+  const ideogramPrompt = `${prompt}. Clean design, white background, vivid colors. CRITICAL RULE: The image must contain ZERO text, ZERO words, ZERO letters, ZERO captions, ZERO titles. The ONLY characters allowed are Arabic numerals (1, 2, 3...) used as small markers. Everything else must be purely visual — icons, shapes, arrows, colors. Absolutely no English or German words anywhere.`;
 
   // Imagen-Prompt (Fallback): Ebenfalls nur Nummern
-  const basePrompt = `Professional educational illustration for a German school exam. Clean, modern infographic style with crisp lines, vivid colors, and professional typography. High contrast, white background, no watermarks, no logos. Use ONLY NUMBERS (1, 2, 3...) as labels. Do NOT include any text, words, or sentences - ONLY numbers as markers for labeled elements. ${prompt}`;
+  const basePrompt = `Professional educational illustration. Clean, modern style with crisp lines, vivid colors. High contrast, white background, no watermarks, no logos. CRITICAL: Do NOT include ANY text, words, letters, titles, or captions. Use ONLY Arabic numerals (1, 2, 3...) as small label markers. Everything else must be purely visual. ${prompt}`;
 
   // Gemini-Flash-Prompt (Fallback): Nur Nummern
   const flashPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
@@ -3787,9 +3787,9 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche Quellentexte (Zeitungsartikel, Interviews, Reden, Fachtexte). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen, EU-Gebäude) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Parlamentsgebäude, Gerichtssaal, Wahlplakate, Demonstrationen (ohne erkennbare Gesichter), EU-Institutionen, Grenzkontrollen. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -4077,9 +4077,9 @@ MATERIALIEN (nur für Teil A):
 - 2-3 realistische Materialien (Texte, Statistiken, Bilder)
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Vollständige, ausführliche Quellentexte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte selbst herausarbeiten müssen.
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Parlamentsgebäude, Gerichtssäle, Institutionen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. italienische Landschaften, Architektur, Alltagsszenen, Kultur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Karikaturen oder Personen!
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
 Lernbereiche: ${hj.lernbereiche}
 Relevante Inhalte:
@@ -4344,9 +4344,9 @@ MATERIALIEN:
 - Tabellen/Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben mit vereinfachtem Wortlaut (150-300 Wörter)
 - Jedes Material hat einen Titel und eine Quellenangabe
-- Erstelle IMMER zusätzlich 1 Material vom typ "bild" oder "foto":
-  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - typ "foto": Realistisches Foto. inhalt = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Unternehmen, Fabriken, Märkte, Produkte, Büros, Gerichtssaal. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
 ${isGA ? "\n- Bei gA: Die Aufgabe muss alle drei Fachbereiche (BWL, VWL, Recht) integrieren" : ""}
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
@@ -5233,7 +5233,7 @@ KRITISCH:
 - Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
 - Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
 - ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bilder: NUR Nummern als Beschriftungen, KEINE Wörter!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien): z.B. ein Schaubild, eine Infografik oder eine Zeitleiste (type "bild"). Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist. Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!
 AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
   const openaiRes = await callOpenAI(env, [
@@ -5401,9 +5401,9 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 300-600 Wörter pro Material! Vollständige, ausführliche Texte — NICHT Zusammenfassungen! Die Materialien sollen MEHR Informationen enthalten als strikt nötig, damit Schüler die relevanten Inhalte herausarbeiten müssen.
 - Tabellen: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Gesetzestexte: Korrekte §-Angaben (150-300 Wörter)
-- Erstelle IMMER zusätzlich 1 Material vom typ "bild" oder "foto" pro Aufgabe:
-  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
+- Erstelle IMMER zusätzlich 1 ergänzendes Material pro Aufgabe. BEVORZUGE "foto" (Produkte, Märkte, Wirtschaftsszenarien, Unternehmen) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - typ "foto": Realistisches Foto. inhalt = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Unternehmen, Fabriken, Produkte, Büros. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - typ "bild": Schaubild/Diagramm. inhalt = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
 
 WICHTIG: Die folgenden Beispiele zeigen NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Themen, Fallbeispielen und Materialien! Kopiere NIEMALS Inhalte aus den Beispielen!
 
@@ -6183,9 +6183,9 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche philosophische Quellentexte (Essays, Fachtexte, Zeitungsartikel zu ethischen Themen, Auszüge aus philosophischen Werken). NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Alltagssituationen, Symbolbilder, Natur) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Alltagssituationen (ohne Gesichter), Symbolbilder (Waage der Gerechtigkeit, Friedenstaube), Architektur, Natur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -6716,9 +6716,9 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Sakralbauten, religiöse Orte, Symbolbilder, sakrale Räume) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Kirchenarchitektur, religiöse Symbole, sakrale Räume, Friedhöfe, Gedenkstätten, Natur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -7188,9 +7188,9 @@ MATERIALIEN:
 - Textmaterialien: MINDESTENS 400-800 Wörter pro Material! Authentische, ausführliche theologische/philosophische Quellentexte. NICHT kürzer als 400 Wörter!
 - Statistiken: Als Markdown-Tabelle mit plausiblen Zahlen, mindestens 6-10 Datenzeilen (z.B. Umfragen zu Glauben, Kirchenmitgliedschaft, ethische Einstellungen)
 - Materialien werden in der Aufgabenstellung mit M 1, M 2 etc. referenziert
-- Erstelle IMMER zusätzlich 1 Material vom Typ "bild" oder "foto":
-  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
+- Erstelle IMMER zusätzlich 1 ergänzendes Material. BEVORZUGE "foto" (Sakralbauten, religiöse Orte, Symbolbilder, Klöster, Wallfahrtsorte) oder "statistik" (Tabellen mit echten Daten). Verwende "bild" (KI-generierte Infografik) NUR wenn ein Schaubild wirklich nötig ist (z.B. Strukturdiagramme, Prozessabläufe):
   - type "foto": Realistisches Foto. content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Z.B. Kirchenarchitektur, religiöse Symbole, sakrale Räume, Klöster, Wallfahrtsorte, Natur. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+  - type "bild": Schaubild/Infografik/Diagramm. content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}. KEINE Personen!
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 Lernbereiche: ${lb.lernbereiche}
 Relevante Inhalte:
@@ -7666,7 +7666,7 @@ MATERIALIEN:
   - type "klimadiagramm": content ist ein OBJEKT (kein String!) mit: {"station": "Ortsname", "hoehe": 206, "temp": [-26.8,-24.1,-16.5,-5.2,5.8,12.3,16.1,14.2,7.5,-3.1,-15.8,-23.4], "niederschlag": [14,11,13,18,22,30,40,38,32,28,22,16]}
   - temp: Array mit 12 Monatsmitteltemperaturen in °C (Jan-Dez), plausible Werte für den Ort!
   - niederschlag: Array mit 12 Monatsniederschlägen in mm, plausible Werte für den Ort!
-- Optional: Erstelle 1 Material vom Typ "foto" (KI-generiertes Bild):
+- Erstelle IMMER 1 Material vom Typ "foto" (Landschaften, Städte, Naturphänomene, geographische Besonderheiten):
   - type "foto": content = Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 
 HALBJAHR: ${halbjahr?.replace("_", "/") || "12/1"} – ${hj.title}
@@ -7877,7 +7877,7 @@ PRÜFUNGSTEIL A (${bePruefungA}):
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Ursachen der Desertifikation (Überweidung, Abholzung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - IMMER mindestens 1 Material vom Typ "karte" — content ist ein OBJEKT: {"lat": ..., "lon": ..., "zoom": ..., "label": "..."}
 - Wenn thematisch passend: 1 Material vom Typ "klimadiagramm" — content ist ein OBJEKT: {"station": "...", "hoehe": ..., "temp": [12 Werte], "niederschlag": [12 Werte]}
-- Optional: 1 Material vom Typ "foto" — content ist ein Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+- Erstelle IMMER 1 Material vom Typ "foto" (Landschaften, Städte, Naturphänomene, geographische Besonderheiten) — content ist ein Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 - AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
@@ -10957,9 +10957,10 @@ MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
 - "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter) oder Code-Listing, KEIN Platzhalter
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. Erstelle IMMER mindestens 1 Material vom Typ "bild" oder "foto" (z.B. Architekturdiagramm, Netzwerkdiagramm, Flussdiagramm, UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Schaubild o.Ä.)
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}.
   REGELN für "bild": (1) Layout, Farben und visuelle Elemente detailliert beschreiben (2) NUR Nummern als Marker im Bild (3) KEINE Personen!
 - "foto" → "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). Realistisches Foto von Hardware, Serverräumen, Netzwerkgeräten, Leiterplatten, Robotern, Alltagstechnologie. KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
+- Erstelle pro Aufgabengruppe IMMER mindestens 1 visuelles Material. BEVORZUGE "statistik" (Benchmark-Tabellen, Vergleichsdaten) oder "foto" (Hardware, Netzwerkgeräte). Für UML-/Architekturdiagramme verwende "bild".
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
@@ -12660,7 +12661,7 @@ MATERIAL-TYPEN (jedes Material MUSS ein "type"-Feld haben):
 - "statistik" + "chart_type":"bar": Markdown-Tabelle mit Daten (mind. 4-6 Zeilen)
 - "diagramm" + "chart_type":"line": Markdown-Tabelle mit x/y-Werten (mind. 5-8 Werte)
 - "bild": Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für UML/Zustandsdiagramm. NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
-- Erstelle pro Aufgabengruppe IMMER mindestens 1 Material vom Typ "bild" (z.B. UML-Klassendiagramm, Zustandsdiagramm, ER-Diagramm, Netzwerkdiagramm, Architekturschaubild, Flussdiagramm o.Ä.)
+- Erstelle pro Aufgabengruppe IMMER mindestens 1 visuelles Material. BEVORZUGE "statistik" (Benchmark-Tabellen, Vergleichsdaten) oder "foto" (Hardware, Netzwerkgeräte). Für UML-/Architekturdiagramme verwende "bild".
   REGELN für "bild": (1) Layout, Farben, Stil detailliert beschreiben (2) NUR Nummern als Marker im Bild (3) KEINE Personen!
   VERBOTEN: Diagramme/Bilder als Textbeschreibung oder ASCII-Art einfügen — IMMER type "bild" mit englischem Imagen-Prompt verwenden!
 
