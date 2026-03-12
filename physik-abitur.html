@@ -1222,9 +1222,25 @@
 
     function stripMathLabel(text) {
       return text.replace(/\$([^$]+)\$/g, "$1")
+                 .replace(/\\mathrm\{([^}]+)\}/g, "$1")
                  .replace(/\\text\{([^}]+)\}/g, "$1")
+                 .replace(/\\ce\{([^}]+)\}/g, "$1")
+                 .replace(/\\mu(?![a-zA-Z])/g, "µ")
+                 .replace(/\\circ/g, "°")
+                 .replace(/\^{\\circ}/g, "°")
+                 .replace(/\^{(-?\d+)}/g, function(_, s) {
+                   var sup = {"0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹","-":"⁻"};
+                   return s.split("").map(function(c) { return sup[c] || c; }).join("");
+                 })
+                 .replace(/_{(\d+)}/g, function(_, s) {
+                   var sub = {"0":"₀","1":"₁","2":"₂","3":"₃","4":"₄","5":"₅","6":"₆","7":"₇","8":"₈","9":"₉"};
+                   return s.split("").map(function(c) { return sub[c] || c; }).join("");
+                 })
+                 .replace(/\\cdot/g, "·")
+                 .replace(/\\times/g, "×")
                  .replace(/\\\\/g, "")
                  .replace(/\\,/g, " ")
+                 .replace(/\\/g, "")
                  .trim();
     }
 
