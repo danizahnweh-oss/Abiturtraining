@@ -864,7 +864,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           if (m.type === "statistik" && (m.content || "").includes("|")) {
             renderStatistikChart(m.content, `chart-m-${i}`);
           } else if (m.type === "bild" || m.type === "foto") {
-            loadEducationalImage(m.content, `img-m-${i}`, m.image_labels || null);
+            loadEducationalImage(m.content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
           }
         });
       }

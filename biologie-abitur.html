@@ -823,7 +823,7 @@
           var mtype = detectMaterialType(m);
           if ((mtype === "bild" || mtype === "foto") && m.text) {
             console.log("[Bio-Bild] Loading image for Aufgabe " + (idx+1) + " M" + (mi+1) + ": " + m.text.substring(0, 80));
-            loadEducationalImage(m.text, 'img-bio-' + idx + '-' + mi, m.image_labels || null);
+            loadEducationalImage(m.text, 'img-bio-' + idx + '-' + mi, m.bild_labels || m.image_labels || null);
           }
         });
       });

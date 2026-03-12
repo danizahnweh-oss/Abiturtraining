@@ -1054,7 +1054,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
             } else if (m.type === "klimadiagramm") {
               renderKlimadiagramm(content, `klima-m-${i}`);
             } else if (m.type === "bild" || m.type === "foto") {
-              loadEducationalImage(contentStr || content, `img-m-${i}`, m.image_labels || null);
+              loadEducationalImage(contentStr || content, `img-m-${i}`, m.bild_labels || m.image_labels || null);
             }
           } catch (err) {
             console.error("Material-Render-Fehler M" + (i+1) + ":", err);

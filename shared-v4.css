@@ -2929,6 +2929,43 @@ footer a:hover {
   background: var(--surface, #1e1e2e);
 }
 
+/* Nummerierte Bild-Legende (1 = Zellkern, 2 = Mitochondrien etc.) */
+.edu-img-numbered-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: .3rem 1rem;
+  padding: .5rem .75rem;
+  margin-top: .4rem;
+  background: var(--bg-warm, #f8f8f0);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
+  color: var(--ink, #1a1a2e);
+}
+.edu-img-legend-entry {
+  display: flex;
+  align-items: baseline;
+  gap: .4rem;
+}
+.edu-img-legend-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: var(--accent, #4f46e5);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1;
+}
+[data-theme="dark"] .edu-img-numbered-legend {
+  background: var(--surface, #1e1e2e);
+  color: #e8e8f0;
+}
+
 /* Tablet & Mobil */
 @media (max-width: 640px) {
   .edu-img-title {
@@ -2937,5 +2974,9 @@ footer a:hover {
   .edu-img-label-tag {
     font-size: .72rem;
     padding: .15rem .4rem;
+  }
+  .edu-img-numbered-legend {
+    grid-template-columns: 1fr;
+    font-size: .8rem;
   }
 }
