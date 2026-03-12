@@ -2291,20 +2291,35 @@ KLAUSUR-PARAMETER:
 - Erstelle GENAU 1 Hauptaufgabe mit Teilaufgaben. KEINE separaten Aufgaben 1, 2, 3!
 
 AUFGABENFORMAT (orientiert am offiziellen Beispielabitur Bayern):
-Die Aufgabe besteht aus einem Einleitungstext, einer historischen Textquelle (= Material M 1) und ${teilaufgabenAnzahl} Teilaufgaben.
+Die Aufgabe besteht aus einem Einleitungstext, einem Hauptmaterial (M 1) und ${teilaufgabenAnzahl} Teilaufgaben.
 
 1. EINLEITUNG (2-4 Sätze):
-   - Stellt den historischen Kontext her und führt zur Quelle hin
+   - Stellt den historischen Kontext her und führt zum Material hin
    - Kann ein Szenario enthalten (z.B. "An Ihrer Schule findet ... statt", "Im Rahmen eines Projekts ...")
-   - Benennt die Quelle (z.B. "In seiner Rede ... legte XY dar (M 1).")
+   - Benennt das Material (z.B. "In seiner Rede ... legte XY dar (M 1)." oder "Die Statistik M 1 zeigt ...")
    - Beispiel: "Der deutsche Staatsrechtler Hugo Preuß legte am 14. November 1918 seine Kritik an der Revolutionsregierung dar (M 1)."
 
-2. QUELLENMATERIAL (M 1) - ZWINGEND eine substanzielle TEXTQUELLE von 400-800 Wörtern:
-   - Genres: Rede, Zeitungsartikel, Denkschrift, Brief, Memoiren, Flugblatt, Erlass, Vertragsauszug, Historikertext
-   - MUSS einen REALEN historischen Autor und korrekten Kontext haben
-   - Mit Zeilennummerierung (alle 5 Zeilen) und ggf. Fußnoten für schwierige Begriffe
-   - Sprache muss dem Entstehungszeitraum entsprechen
-   - Vollständige Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort
+2. HAUPTMATERIAL (M 1) — wähle EINEN der folgenden Typen:
+
+   a) primary_type "text" (ca. 60% der Fälle, STANDARD):
+      - Substanzielle Textquelle (400-800 Wörter): Rede, Zeitungsartikel, Brief, Memoiren, Erlass, Vertragsauszug, Historikertext
+      - MUSS einen REALEN historischen Autor und korrekten Kontext haben
+      - Mit Zeilennummerierung (alle 5 Zeilen) und ggf. Fußnoten
+      - Sprache muss dem Entstehungszeitraum entsprechen
+      - Inhalt in "primary_text", Quellenangabe in "primary_meta"
+
+   b) primary_type "statistik" (ca. 20% der Fälle):
+      - Historische Daten als Markdown-Tabelle: Bevölkerungszahlen, Wahlergebnisse, Wirtschaftsdaten, Zeitleisten
+      - Mit Titel und Quellenangabe
+      - Inhalt in "primary_text" als Markdown-Tabelle (mit |), Quellenangabe in "primary_meta"
+
+   c) primary_type "foto" (ca. 20% der Fälle):
+      - Historisches Foto, Gemälde, Plakat, Denkmal, Gebäude, Ort
+      - "primary_text" = Bildprompt auf Englisch (5-10 Sätze), NUR visuellen Inhalt
+      - Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen, KEINE Wörter im Bild!
+      - "primary_bild_labels": {"1": "Deutsche Beschriftung", "2": "..."}
+      - "primary_meta" = Bildunterschrift/Quellenangabe
+      - KEINE Karikaturen oder realen Personen!
 
 ${teilaufgabenBeschreibung}
 
@@ -2316,26 +2331,29 @@ BEISPIELE FÜR KORREKTE AUFGABENSTELLUNGEN:
 - "2 Arbeiten Sie aus M 1 die Grundlinien für eine Lösung heraus und bewerten Sie diese differenziert!" (AFB II/III)
 
 ABSOLUTE PFLICHT:
-- Die Quelle MUSS historisch KORREKT sein mit realen Personen und Fakten
+- Das Material MUSS historisch KORREKT sein mit realen Fakten
 - Die Operatoren MÜSSEN den AFB-Stufen entsprechen
 - Die Aufgabe MUSS zum Schwerpunkt passen
-- Die Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
+- Bei primary_type "text": Quelle MUSS 400-800 Wörter lang sein, NICHT kürzer!
+- Bei primary_type "statistik": Tabelle mit mindestens 5 Zeilen realer historischer Daten
+- Bei primary_type "foto": Detaillierter englischer Bildprompt (5-10 Sätze), NUR Nummern als Marker
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, die in den oben genannten Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
-- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Arbeiten Sie die Argumentation heraus (Demokratiekritik, Verfassungsforderung, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
+- KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern.
 ${level !== "eA" ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" oder Vertiefungsmodule (z.B. Jüdisches Leben, Erinnerungskultur, Naher/Mittlerer Osten) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
-- Die Hauptquelle M 1 ist IMMER ein Textdokument
-- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen: Schaubilder, Infografiken, Statistiken
-  - type "bild": content = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Zusätzlich MUSS das Material-Objekt ein Feld "bild_labels" enthalten: {"1": "Deutsche Beschriftung", "2": "Weitere Beschriftung", ...}
-  - KEINE Karikaturen oder Personen!
+- Optional kannst du 0-2 ergänzende Materialien (M 2, M 3) als Array "zusatz_materialien" hinzufügen
+  - type "foto"/"bild": content = Bildprompt auf Englisch (5-10 Sätze), NUR Nummern als Marker. "bild_labels": {"1": "Beschriftung", ...}. KEINE Karikaturen oder Personen!
   - type "statistik": content = Markdown-Tabelle, title = Titel
+  - type "text": content = Textauszug
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
+  "primary_type": "text ODER statistik ODER foto",
   "task_instruction": "Vollständige Aufgabenstellung: Einleitung + nummerierte Teilaufgaben (${teilaufgabenNummern}) mit BE-Angaben — Summe MUSS ${beProAufgabe} BE ergeben!",
-  "primary_text": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung (kursiv, vor dem eigentlichen Text, erklärt wer/was/wann)",
-  "primary_meta": "Quellenangabe: Autor, Titel/Textsorte, Datum, Publikationsort",
+  "primary_text": "Bei text: Textquelle (400-800 Wörter) MIT Quelleneinleitung. Bei statistik: Markdown-Tabelle. Bei foto: Bildprompt auf Englisch.",
+  "primary_meta": "Quellenangabe / Bildunterschrift",
+  "primary_bild_labels": "NUR bei primary_type foto: {\"1\": \"Beschriftung\", ...} — sonst weglassen",
   "zusatz_materialien": [
-    {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
+    {"title": "...", "type": "foto", "content": "Bildprompt auf Englisch.", "bild_labels": {"1": "...", "2": "..."}, "source": ""}
   ],
   "thema": "Konkretes Thema der Aufgabe",
   "schwerpunkt": "${selectedSchwerpunkt.replace('_', '/')}"
@@ -2348,12 +2366,14 @@ Anforderungsniveau: ${level || "gA"}
 ${level !== "eA" ? `WICHTIG: Dies ist eine gA-Aufgabe! Verwende NUR Stoff aus dem gA-Lehrplan. Keine eA-Vertiefungsmodule oder eA-exklusive Themen!` : ""}
 
 KRITISCH:
-- Die Textquelle M 1 MUSS mindestens 500-800 Wörter lang sein! Schreibe eine substanzielle, zusammenhängende historische Quelle mit MEHR Informationen als strikt nötig — Schüler müssen die relevanten Inhalte herausarbeiten.
-- Verwende eine REALE historische Persönlichkeit als Autor der Quelle.
+- Wähle einen passenden primary_type für M 1: "text" (Textquelle, ca. 60%), "statistik" (Daten/Tabelle, ca. 20%) oder "foto" (historisches Bild, ca. 20%). Variiere den Typ!
+- Bei primary_type "text": Mindestens 500-800 Wörter! Substanzielle Quelle mit MEHR Informationen als nötig. Verwende eine REALE historische Persönlichkeit als Autor.
+- Bei primary_type "statistik": Markdown-Tabelle mit realen historischen Daten (mind. 5 Zeilen). Z.B. Wahlergebnisse, Bevölkerungsentwicklung, Wirtschaftsdaten, Zeitleiste.
+- Bei primary_type "foto": Detaillierter Bildprompt auf Englisch (5-10 Sätze). Historisches Foto, Gemälde, Denkmal, Gebäude, Plakat. NUR NUMMERN als Marker! "primary_bild_labels" mitliefern.
 - Die Teilaufgaben müssen nummeriert sein (${teilaufgabenNummern}) mit BE-Angaben in Klammern. Summe = ${beProAufgabe} BE!
-- Orientiere dich exakt am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
-- ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bilder: NUR Nummern als Beschriftungen, KEINE Wörter!
-- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist. Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!`;
+- Orientiere dich am Format der offiziellen bayerischen Beispielabitur-Aufgaben.
+- ALLE Texte und Statistiken auf DEUTSCH! Bildprompts auf Englisch, NUR Nummern als Beschriftungen.
+- Erstelle IMMER 1-2 ergänzende Materialien (zusatz_materialien). BEVORZUGE "statistik" oder "foto". Bild-Prompt auf Englisch, NUR NUMMERN, "bild_labels" mitliefern. KEINE Karikaturen oder Personen!`;
 
   // Bei mehreren Aufgaben: parallele API-Aufrufe, dann Ergebnisse zusammenführen
   if (aufgabenAnzahl > 1) {
