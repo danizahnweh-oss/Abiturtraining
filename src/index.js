@@ -9595,6 +9595,7 @@ LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
 
 CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- WICHTIG: Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$! Protonen liegen in wässriger Lösung als Oxonium-Ionen vor.
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$, $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
 - Phasenindikatoren: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
@@ -9717,7 +9718,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 
 Verwende LaTeX-Notation ($...$, $$...$$) in deinem Feedback für chemische und mathematische Ausdrücke.
 LATEX-REGELN: $\\cdot$ statt *, $\\frac{a}{b}$ statt a/b, Dezimalkomma $3{,}6$ statt $3.6$.
-CHEMIE-REGELN: Verwende $\\ce{}$ für alle Reaktionsgleichungen und chemische Formeln.
+CHEMIE-REGELN: Verwende $\\ce{}$ für alle Reaktionsgleichungen und chemische Formeln. Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$!
 TEMPERATUR: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$).
 
 Antworte NUR mit validem JSON:
@@ -9807,6 +9808,7 @@ LATEX-FORMATIERUNG (echte Chemie/Mathematik, NICHT Code-Syntax!):
 
 CHEMIE-SPEZIFISCHE LATEX-REGELN:
 - Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- WICHTIG: Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$! Protonen liegen in wässriger Lösung als Oxonium-Ionen vor.
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
 - Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
 - Oxidationsstufen: $\\ce{Fe^{III}}$, $\\overset{+II}{\\ce{Cu}}$
@@ -11259,6 +11261,7 @@ LATEX-FORMATIERUNG (schreibe echte Chemie/Mathematik, NICHT Code-Syntax!):
 
 CHEMIE-SPEZIFISCHE LATEX-REGELN (mhchem-Erweiterung \\ce{}):
 - Chemische Formeln: $\\ce{H2O}$, $\\ce{NaOH}$, $\\ce{H3O+}$
+- WICHTIG: Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$! Protonen liegen in wässriger Lösung als Oxonium-Ionen vor.
 - Reaktionsgleichungen: $\\ce{2H2 + O2 -> 2H2O}$
 - Gleichgewichtsreaktionen: $\\ce{CH3COOH + H2O <=> CH3COO- + H3O+}$
 - Phasenindikatoren: $\\ce{(aq)}$, $\\ce{(g)}$, $\\ce{(l)}$, $\\ce{(s)}$
@@ -11426,7 +11429,7 @@ BE → NOTENPUNKTE (ISB-Tabelle):
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
-Verwende LaTeX-Notation ($...$, $$...$$) und $\\ce{}$ im Feedback.
+Verwende LaTeX-Notation ($...$, $$...$$) und $\\ce{}$ im Feedback. Schreibe IMMER $\\ce{H3O+}$ (Oxonium-Ion), NIEMALS $\\ce{H+}$!
 TEMPERATUR: $20\\,°\\text{C}$ oder $T = 293\\,\\text{K}$ (NIEMALS $^\\circ\\ce{C}$ oder $\\vartheta$).
 
 Antworte NUR mit validem JSON:
