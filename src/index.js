@@ -10248,7 +10248,12 @@ ANFORDERUNGEN:
 SACHGEBIET: ${sgInfo.title}
 ${sgInfo.inhalte}${schwerpunktZusatz}
 
-FORMATIERUNG: LaTeX $...$ für Formeln ($Aa$, $\\frac{1}{4}$). Summenformeln als Text: CO₂, ATP.
+FORMATIERUNG:
+- LaTeX $...$ NUR für mathematische Formeln: $Aa$, $\\frac{1}{4}$, $F_1$, $p^2 + 2pq + q^2 = 1$
+- Summenformeln als Unicode-Text (KEIN LaTeX): CO₂, ATP, NADH, H₂O, O₂, C₆H₁₂O₆
+- Einheiten IMMER als Unicode-Text (KEIN LaTeX): 20°C, 37°C, µmol, mol/l, m², s⁻¹, mV, kJ, kPa, mg/l
+- VERBOTEN in Aufgabentexten: $\\mathrm{}$, $\\mu$, $\\circ$, $^{\\circ}$ für Einheiten — stattdessen Unicode: °, µ, ², ⁻¹
+- In Markdown-Tabellen IMMER Unicode: °C, µmol/m²/s, kPa, mg/l — NIEMALS LaTeX in Tabellenspalten!
 
 MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
@@ -10274,7 +10279,7 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
-KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
+KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln als Unicode-Text (°C, µmol, CO₂, m⁻²).`;
 
   let openaiRes;
   try {
@@ -11888,7 +11893,11 @@ WICHTIG:
 - KRITISCH: Für "bild": "text" MUSS ein sehr detaillierter Imagen-Prompt auf Englisch sein (5-10 Sätze). ALLE Texte und Beschriftungen auf DEUTSCH direkt in Anführungszeichen im Prompt beschreiben! KEINE kurzen Stichworte — KEINE 2-4 Wort Keywords!
 - VERBOTEN: Bilder, Fotos, Abbildungen, Schaubilder oder visuelle Materialien als Textbeschreibung in type "text" einbetten! Wenn ein Material visuell ist (Foto, Mikroskopaufnahme, Versuchsaufbau, Landschaft, Organismus), MUSS es type "bild" mit einem ausführlichen Imagen-Prompt sein. Texte wie "Die Abbildung zeigt..." oder "[Beschreibung eines Bildes]" sind NICHT erlaubt — stattdessen als type "bild" generieren!
 - Pro Aufgabengruppe: MINDESTENS 1x "statistik" oder "diagramm" (mit Markdown-Tabelle + chart_type), PLUS mindestens 1x "bild" (mit Imagen-Prompt)
-- Verwende LaTeX-Notation für Formeln: $...$ für inline, $$...$$ für Display
+- LaTeX $...$ NUR für mathematische Formeln: $Aa$, $\\frac{dN}{dt}$, $p^2 + 2pq + q^2 = 1$
+- Einheiten IMMER als Unicode-Text (KEIN LaTeX): 20°C, µmol, mol/l, m², s⁻¹, mV, kJ, mg/l
+- Summenformeln als Unicode: CO₂, ATP, NADH, H₂O, O₂, C₆H₁₂O₆
+- VERBOTEN: $\\mathrm{}$, $\\mu$, $\\circ$, $^{\\circ}$ für Einheiten — stattdessen Unicode: °, µ, ², ⁻¹
+- In Markdown-Tabellen IMMER Unicode: °C, µmol/m²/s, kPa — NIEMALS LaTeX in Tabellen!
 - Jede Teilaufgabe hat BE-Angabe
 - Aufgaben müssen fachlich korrekt und eindeutig lösbar sein
 - Materialien müssen realistisch, datenreich und aussagekräftig sein — KEINE leeren Platzhalter!
@@ -11898,11 +11907,13 @@ ${!isEA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Prüfung ist für das GRUNDL
 - AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!
 
 BIOLOGIE-SPEZIFISCHE NOTATION:
-- Genotypen: $Aa \\times aa$, $F_1$, $F_2$
-- Stoffwechsel: $\\text{ATP}$, $\\text{NADH}$, $\\text{CO}_2$, $\\text{C}_6\\text{H}_{12}\\text{O}_6$
+- Genotypen: $Aa \\times aa$, $F_1$, $F_2$ (LaTeX für math. Formeln)
+- Stoffwechsel: ATP, NADH, CO₂, C₆H₁₂O₆, H₂O, O₂ (Unicode, KEIN LaTeX)
+- Einheiten: 20°C, µmol/m²/s, mV, kJ/mol, mg/l, kPa (Unicode, KEIN LaTeX)
 - Populationsökologie: $\\frac{dN}{dt} = r \\cdot N$, $K$ (Kapazität), $N(t)$
-- Neurobiologie: Membranpotential in $\\text{mV}$, Ionenkonzentrationen
+- Neurobiologie: Membranpotential in mV, Ionenkonzentrationen in mmol/l
 - Evolution: Allelfrequenzen $p$, $q$, Hardy-Weinberg: $p^2 + 2pq + q^2 = 1$
+- VERBOTEN: $\\mathrm{}$, $\\mu$, $^{\\circ}$, $\\text{°C}$ für Einheiten — immer Unicode!
 
 KEINE GeoGebra-Visualisierung.
 
@@ -11974,7 +11985,7 @@ ${anzahlAufgaben} Aufgabengruppen à ${beProAufgabe} BE (Schüler wählt ${wahlA
 Prüfungsdauer: ${pruefungsdauer} Minuten.
 Verwende 4 verschiedene Sachgebiete. Jede Aufgabe mit Material und steigendem Anforderungsniveau.
 ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan. Die Aufgaben müssen in Tiefe und Komplexität dem grundlegenden Anforderungsniveau entsprechen — NICHT dem erhöhten Niveau.` : ""}
-KRITISCH: Alle Formeln in LaTeX-Notation.
+KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln als Unicode-Text (°C, µmol, CO₂, m⁻²).
 KRITISCH: Jedes Material MUSS ein "type"-Feld haben! Verwende die 4 Typen:
 - "statistik" (type + chart_type "bar"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN Zahlenwerten (mind. 4-6 Datenzeilen)
 - "diagramm" (type + chart_type "line"): "text" = VOLLSTÄNDIGE Markdown-Tabelle mit ECHTEN x/y-Datenpunkten (mind. 5-8 Messwerte)
