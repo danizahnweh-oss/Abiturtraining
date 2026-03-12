@@ -1581,10 +1581,15 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       greeting.style.display = "inline";
     }
     restoreSession();
+    // Sicherstellen, dass die aktive Section sichtbar ist
+    // (fadeUp-Animation lief ggf. ab, während app-wrapper noch hidden war)
+    if (!currentStep) {
+      nav(MODULE_CONFIG.steps[0]);
+    }
     initHL();
     initTeacherCodeUI();
     setInterval(saveSession, 15000);
-    history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
+    history.replaceState({ step: currentStep || MODULE_CONFIG.steps[0] }, "");
     return;
   }
 
