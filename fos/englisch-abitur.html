@@ -390,6 +390,14 @@
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
         <h2 class="card-header">Fachabiturpr&uuml;fung generieren</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
           Vollst&auml;ndige Englisch-Fachabiturpr&uuml;fung (48 BE, 150 min):<br>
@@ -400,6 +408,29 @@
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
           <div class="loader-text">Generiere Fachabiturpr&uuml;fung (Reading + Writing) &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Aufgabe wird erkannt &hellip;</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
@@ -692,6 +723,64 @@
       } catch (e) { console.warn("Session restore error:", e); }
     }
 
+    /* ====== SETUP MODE ====== */
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    /* ====== UPLOAD ====== */
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        const base64s = taskUploadImages.map(p => p.base64);
+        const d = await apiCall("/api/fos-parse-task-abitur-englisch", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      try {
+        const raw = document.getElementById("parsedMaterials").value;
+        const parsed = JSON.parse(raw);
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        examData = parsed;
+        CONFIG.storedData = parsed;
+        // Bilder im Reading-Container anzeigen
+        document.getElementById("readingContainer").innerHTML = parsed._uploadImages.map(function(src) {
+          return '<img src="' + src + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        nav("reading");
+      } catch (e) {
+        const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, reading: {}, writing: {}, gesamt_be: 48 };
+        c._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        examData = c;
+        CONFIG.storedData = c;
+        document.getElementById("readingContainer").innerHTML = c._uploadImages.map(function(src) {
+          return '<img src="' + src + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        nav("reading");
+      }
+    }
+
     /* ====== GENERATE ====== */
     async function generateTask() {
       var btn = document.getElementById("generateBtn");
@@ -982,18 +1071,60 @@
           cartoon: "\uD83D\uDDBC\uFE0F"
         };
         var mHtml = '<h3 style="color:var(--accent);font-size:.95rem;margin-bottom:.8rem">Materialien</h3>';
-        task.materialien.forEach(function (mat) {
+        task.materialien.forEach(function (mat, matIdx) {
           var typLabel = matTypLabels[mat.typ] || mat.typ || "";
           var typIcon = matTypIcons[mat.typ] || "";
           mHtml += '<div class="writing-material-label">' + typIcon + ' Material ' + (mat.nr || "") + ' \u2013 ' + escapeHtml(typLabel) + '</div>';
           mHtml += '<div class="writing-material">';
-          if (mat.text) {
+          if (mat.chart_data) {
+            mHtml += '<canvas id="chart_' + idx + '_' + matIdx + '" style="max-height:320px;width:100%"></canvas>';
+            if (mat.text) {
+              mHtml += '<p style="font-size:.8rem;color:var(--muted);margin-top:.5rem;text-align:center">' + escapeHtml(mat.text) + '</p>';
+            }
+          } else if (mat.text) {
             var pars = mat.text.split("\n").filter(function (p) { return p.trim(); });
             mHtml += pars.map(function (p) { return '<p>' + escapeHtml(p) + '</p>'; }).join("");
           }
           mHtml += '</div>';
         });
         materialsDiv.innerHTML = mHtml;
+
+        // Chart.js-Diagramme rendern
+        task.materialien.forEach(function (mat, matIdx) {
+          if (!mat.chart_data) return;
+          var canvasEl = document.getElementById('chart_' + idx + '_' + matIdx);
+          if (!canvasEl) return;
+          var cd = mat.chart_data;
+          var colors = ['rgba(79,70,229,.7)','rgba(236,72,153,.7)','rgba(34,197,94,.7)','rgba(251,146,60,.7)','rgba(14,165,233,.7)','rgba(168,85,247,.7)','rgba(244,63,94,.7)','rgba(20,184,166,.7)'];
+          var borderColors = ['rgba(79,70,229,1)','rgba(236,72,153,1)','rgba(34,197,94,1)','rgba(251,146,60,1)','rgba(14,165,233,1)','rgba(168,85,247,1)','rgba(244,63,94,1)','rgba(20,184,166,1)'];
+          var datasets = (cd.datasets || []).map(function (ds, dsIdx) {
+            var isPie = cd.type === 'pie' || cd.type === 'doughnut';
+            return {
+              label: ds.label || '',
+              data: ds.data || [],
+              backgroundColor: isPie ? colors.slice(0, (ds.data || []).length) : colors[dsIdx % colors.length],
+              borderColor: isPie ? borderColors.slice(0, (ds.data || []).length) : borderColors[dsIdx % borderColors.length],
+              borderWidth: 2,
+              tension: cd.type === 'line' ? 0.3 : 0,
+              fill: cd.type === 'line' ? false : undefined
+            };
+          });
+          new Chart(canvasEl, {
+            type: cd.type || 'bar',
+            data: { labels: cd.labels || [], datasets: datasets },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                title: { display: !!cd.title, text: cd.title || '', font: { size: 14 } },
+                legend: { display: datasets.length > 1 || cd.type === 'pie' || cd.type === 'doughnut' }
+              },
+              scales: (cd.type === 'pie' || cd.type === 'doughnut') ? {} : {
+                y: { beginAtZero: true }
+              }
+            }
+          });
+        });
         materialsDiv.style.display = "block";
       } else {
         materialsDiv.style.display = "none";
