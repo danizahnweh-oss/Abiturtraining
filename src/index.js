@@ -5215,6 +5215,68 @@ Antworte NUR mit validem JSON:
   return jsonResponse(parsed, 200, env);
 }
 
+/* ================= FOS ABITUR: PARSE-TASK (generisch für alle Fächer) ================= */
+async function handleParseTaskAbitur(fach, request, env) {
+  const { images } = await request.json();
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const fachLabels = {
+    bwr: "BwR (Betriebswirtschaftslehre/Rechnungswesen)",
+    mathe: "Mathematik",
+    deutsch: "Deutsch",
+    englisch: "Englisch",
+    biologie: "Biologie",
+    physik: "Physik",
+    gestaltung: "Gestaltung",
+    gesundheit: "Gesundheitswissenschaften",
+    ibs: "Internationale Betriebswirtschaft und Volkswirtschaft",
+    paedpsych: "Pädagogik/Psychologie"
+  };
+  const fachLabel = fachLabels[fach] || fach;
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen eine Fachabiturprüfung im Fach ${fachLabel} (Bayern FOS/BOS). Extrahiere die vollständige Prüfung:
+
+1. Situationstext / Aufgabenstellung (task_instruction)
+2. Alle Aufgabenblöcke mit Teilaufgaben und BE-Angaben
+3. Materialien (Texte, Tabellen, Diagramme, Gesetzestexte etc.)
+
+Antworte NUR mit validem JSON:
+{
+  "titel": "Fachabiturprüfung ${fachLabel}",
+  "task_instruction": "Gesamter Situationstext / Einleitung",
+  "aufgaben": [
+    {
+      "id": "I",
+      "titel": "Aufgabe I – Themenbereich",
+      "gesamt_be": 30,
+      "kontext": "Situationstext dieser Aufgabe",
+      "teilaufgaben": [
+        {"nr": "1.1", "text": "Aufgabentext ...", "be": 5}
+      ]
+    }
+  ],
+  "materialien": [{"nr": "M1", "titel": "...", "typ": "text", "inhalt": "...", "quelle": "..."}],
+  "gesamt_be": 85,
+  "zeit": 180,
+  "hilfsmittel": "Zugelassene Hilfsmittel falls angegeben"
+}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const text = await callOpenAI(env, [{ role: "user", content }], 8000, { model: "gpt-5.2", temperature: 0.2 });
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
+}
+
 /* ================= GESCHICHTE ABITUR: GENERATE (Teil A + B) ================= */
 async function handleGenerateAbiturGeschichte(request, env) {
   const body = await request.json();
@@ -13473,6 +13535,8 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "model-answer-englisch") return handleModelAnswer(fakeReq, env);
   if (route === "parse-task-englisch") return handleParseTask(fakeReq, env);
   if (route === "generate-rc-englisch") return handleFOSGenerateRCEnglisch(body, env);
+  if (route === "generate-rc-from-text-englisch") return handleFOSGenerateRCFromTextEnglisch(body, env);
+  if (route === "ocr-text-englisch") return handleFOSOCRTextEnglisch(body, env);
   if (route === "generate-klausur-englisch") return handleFOSGenerateKlausurEnglisch(body, env);
   if (route === "grade-rc-mediation-englisch") return handleFOSGradeRCMediationEnglisch(body, env);
 
@@ -13521,6 +13585,13 @@ async function handleFOSRoute(pathname, request, env) {
   if (route === "generate-abitur13-englisch") return handleFOSGenerateAbitur13Englisch(body, env);
   if (route === "grade-abitur13-englisch") return handleGradeWR(fakeReq, env);
   if (route === "model-answer-abitur13-englisch") return handleModelAnswerWR(fakeReq, env);
+
+  // === ABITUR PARSE-TASK (generisch für alle Fächer) ===
+  const parseAbiturMatch = route.match(/^parse-task-abitur(?:13)?-(.+)$/);
+  if (parseAbiturMatch) {
+    const fach = parseAbiturMatch[1];
+    return handleParseTaskAbitur(fach, fakeReq, env);
+  }
 
   // === PROFILFACH ABITUR (Physik, PädPsych, Bio, Gesundheit, Gestaltung) ===
   const abiturProfilMatch = route.match(/^(generate|grade|model-answer)-abitur-(physik|paedpsych|biologie|gesundheit|gestaltung)$/);
