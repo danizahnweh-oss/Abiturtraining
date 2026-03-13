@@ -245,6 +245,14 @@
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
         <h2 class="card-header">Abiturpr&uuml;fung 13. Klasse generieren</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
           Vollst&auml;ndige BWR-Abiturpr&uuml;fung (~85 BE, 180 min) f&uuml;r die fachgebundene/allgemeine Hochschulreife:<br>
@@ -258,6 +266,29 @@
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
           <div class="loader-text">Generiere BwR-Abiturpr&uuml;fung 13. Klasse &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Aufgabe wird erkannt &hellip;</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
@@ -546,6 +577,57 @@
     }
     function updateWordCount() { updateWordCounts(); }
 
+    /* ====== SETUP MODE ====== */
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    /* ====== UPLOAD ====== */
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        const base64s = taskUploadImages.map(p => p.base64);
+        const d = await apiCall("/api/fos-parse-task-abitur13-bwr", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      try {
+        const raw = document.getElementById("parsedMaterials").value;
+        const parsed = JSON.parse(raw);
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = parsed;
+        renderTask(parsed);
+        nav("task");
+      } catch (e) {
+        const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, aufgaben: [], materialien: [], gesamt_be: 85 };
+        c._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = c;
+        renderTask(c);
+        nav("task");
+      }
+    }
+
     async function generateTask() {
       const btn = document.getElementById("generateBtn");
       btn.disabled = true;
@@ -575,9 +657,14 @@
         hintEl.style.display = "none";
       }
 
-      // Aufgaben rendern
+      // Hochgeladene Bilder anzeigen
       var container = document.getElementById("aufgabenContainer");
       container.innerHTML = "";
+      if (d._uploadImages && d._uploadImages.length) {
+        d._uploadImages.forEach(function(src) {
+          container.innerHTML += '<img src="' + src + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        });
+      }
 
       if (d.aufgaben && d.aufgaben.length) {
         d.aufgaben.forEach(function (aufgabe) {

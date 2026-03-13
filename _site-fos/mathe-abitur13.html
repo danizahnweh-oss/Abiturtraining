@@ -272,6 +272,14 @@
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
         <h2 class="card-header">Abiturpr&uuml;fung generieren (13. Klasse)</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
           Vollst&auml;ndige Mathematik-Abiturpr&uuml;fung 13. Klasse (100 BE, 180 min):<br>
@@ -282,6 +290,29 @@
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
           <div class="loader-text">Generiere Abiturpr&uuml;fung 13. Klasse (Teil 1 + 2) &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Aufgabe wird erkannt &hellip;</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
@@ -345,7 +376,7 @@
 
         <!-- Formel-Editor (MathLive) -->
         <details class="formel-editor" id="formelEditor">
-          <summary>&#x1F9EE; Formel-Editor <span class="formel-target" id="formelTarget">Ziel: Teil A</span></summary>
+          <summary>&#x1F9EE; Formel-Editor <span class="formel-target" id="formelTarget">Ziel: Teil 1</span></summary>
           <div class="formel-editor-body">
             <div class="formel-mf-wrap"><math-field id="formelMF" virtual-keyboard-mode="onfocus"></math-field></div>
             <div class="formel-tabs" id="formelTabs"></div>
@@ -360,25 +391,31 @@
 
         <!-- Teil A Textarea -->
         <div class="write-part">
-          <h3>Teil A &ndash; Ohne Hilfsmittel (30 BE)</h3>
-          <textarea id="studentTextA" placeholder="Teil A: Beginne hier mit deiner L&ouml;sung &hellip;
+          <h3>Teil 1 &ndash; Ohne Hilfsmittel (34 BE)</h3>
+          <textarea id="studentTextA" placeholder="Teil 1: Beginne hier mit deiner L&ouml;sung &hellip;
 
-A1: ...
-A2: ...
-A3: ...
-A4: ...
-Wahlaufgaben: ..." oninput="updateWordCounts()"></textarea>
+Analysis:
+Aufgabe 1: ...
+Aufgabe 2: ...
+Aufgabe 3: ...
+
+Lineare Algebra / Analytische Geometrie:
+Aufgabe 1: ...
+Aufgabe 2: ..." oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountA">0</span> W&ouml;rter</div>
         </div>
 
         <!-- Teil B Textarea -->
         <div class="write-part">
-          <h3>Teil B &ndash; Mit CAS/Hilfsmitteln (70 BE)</h3>
-          <textarea id="studentTextB" placeholder="Teil B: Beginne hier mit deiner L&ouml;sung &hellip;
+          <h3>Teil 2 &ndash; Mit Hilfsmitteln (66 BE)</h3>
+          <textarea id="studentTextB" placeholder="Teil 2: Beginne hier mit deiner L&ouml;sung &hellip;
 
-B1 Analysis: ...
-B2 Lineare Algebra: ...
-B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
+Analysis:
+Aufgabe 1: ...
+Aufgabe 2: ...
+
+Lineare Algebra / Analytische Geometrie:
+Aufgabe 1: ..." oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountB">0</span> W&ouml;rter</div>
         </div>
 
@@ -414,8 +451,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
           <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil A</button>
-            <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil B</button>
+            <button class="btn btn-small" onclick="useOCRTextA()">&#x2713; In Teil 1</button>
+            <button class="btn btn-small" onclick="useOCRTextB()">&#x2713; In Teil 2</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
             <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
           </div>
@@ -436,14 +473,14 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
           <h2 class="card-header">Bewertung</h2>
           <div class="scores-grid" style="grid-template-columns:repeat(4,1fr)">
             <div class="score-card">
-              <div class="score-label">Teil A</div>
+              <div class="score-label">Teil 1</div>
               <div class="score-value" id="scoreTeilA">&ndash;</div>
-              <div class="score-max">/ 30 BE</div>
+              <div class="score-max">/ 34 BE</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Teil B</div>
+              <div class="score-label">Teil 2</div>
               <div class="score-value" id="scoreTeilB">&ndash;</div>
-              <div class="score-max">/ 70 BE</div>
+              <div class="score-max">/ 66 BE</div>
             </div>
             <div class="score-card">
               <div class="score-label">Gesamt</div>
@@ -502,8 +539,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
             <thead>
               <tr>
                 <th>Datum</th>
-                <th>A</th>
-                <th>B</th>
+                <th>T1</th>
+                <th>T2</th>
                 <th>BE</th>
                 <th>NP</th>
                 <th></th>
@@ -659,17 +696,19 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
     }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     // BE -> NP conversion table (ISB)
+    // Offizieller FOS-Notenschlüssel (BE-Schwellenwerte, 100 BE Prüfung)
     const BE_NP_TABLE = [
-      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
-      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
-      [33, 3], [27, 2], [20, 1], [0, 0]
+      [96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10],
+      [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4],
+      [34, 3], [27, 2], [20, 1], [0, 0]
     ];
 
     function beToNP(erreicht, max) {
       if (max <= 0 || erreicht == null) return null;
-      const pct = (erreicht / max) * 100;
+      // Bei x,5 zugunsten des Prüflings aufrunden (offiziell)
+      var be = erreicht % 1 === 0.5 ? Math.ceil(erreicht) : erreicht;
       for (const [threshold, np] of BE_NP_TABLE) {
-        if (pct >= threshold) return np;
+        if (be >= threshold) return np;
       }
       return 0;
     }
@@ -764,6 +803,57 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
     }
     function updateWordCount() { updateWordCounts(); }
 
+    /* ====== SETUP MODE ====== */
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    /* ====== UPLOAD ====== */
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        const base64s = taskUploadImages.map(p => p.base64);
+        const d = await apiCall("/api/fos-parse-task-abitur13-mathe", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      try {
+        const raw = document.getElementById("parsedMaterials").value;
+        const parsed = JSON.parse(raw);
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = parsed;
+        renderTask(parsed);
+        nav("task");
+      } catch (e) {
+        const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, teil_a_pflicht: [], teil_b: [], gesamt_be: 100 };
+        c._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = c;
+        renderTask(c);
+        nav("task");
+      }
+    }
+
     async function generateTask() {
       const btn = document.getElementById("generateBtn");
       btn.disabled = true;
@@ -784,6 +874,17 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       cleanupGeoGebra(document.getElementById("pflichtaufgaben"));
       cleanupGeoGebra(document.getElementById("wahlaufgaben"));
       cleanupGeoGebra(document.getElementById("teilBContainer"));
+
+      // Hochgeladene Bilder anzeigen
+      if (d._uploadImages && d._uploadImages.length) {
+        const pflichtEl = document.getElementById("pflichtaufgaben");
+        pflichtEl.innerHTML = d._uploadImages.map(function(src) {
+          return '<img src="' + src + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("teilBContainer").innerHTML = "";
+        document.getElementById("teilAWahlContainer").style.display = "none";
+        return;
+      }
 
       // Teil A Pflicht (A1-A4)
       const pflicht = document.getElementById("pflichtaufgaben");
@@ -868,8 +969,8 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       }
 
       // Write step references (strip GeoGebra containers)
-      document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil A (30 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
-      document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil B (70 BE)</strong><br>' + (teilB.innerHTML || "");
+      document.getElementById("writeTaskRefA").innerHTML = '<strong>Teil 1 – Ohne Hilfsmittel (34 BE)</strong><br>' + (pflicht.innerHTML || "") + (wahl.innerHTML || "");
+      document.getElementById("writeTaskRefB").innerHTML = '<strong>Teil 2 – Mit Hilfsmitteln (66 BE)</strong><br>' + (teilB.innerHTML || "");
       document.querySelectorAll("#writeTaskRefA .ggb-container, #writeTaskRefA .ggb-toggle, #writeTaskRefB .ggb-container, #writeTaskRefB .ggb-toggle").forEach(function (el) { el.remove(); });
     }
 
@@ -917,7 +1018,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextA").value = clean;
       updateWordCounts();
-      showToast("Text in Teil A \u00fcbernommen!", "success");
+      showToast("Text in Teil 1 \u00fcbernommen!", "success");
     }
 
     function useOCRTextB() {
@@ -926,7 +1027,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
       var clean = t.replace(/---\s*Seite\s*\d+\s*---\n?/g, "").trim();
       document.getElementById("studentTextB").value = clean;
       updateWordCounts();
-      showToast("Text in Teil B \u00fcbernommen!", "success");
+      showToast("Text in Teil 2 \u00fcbernommen!", "success");
     }
 
     async function submitForGrading() {
@@ -1161,7 +1262,7 @@ B3 Analytische Geometrie: ..." oninput="updateWordCounts()"></textarea>
 
     function updateFormelTarget() {
       var label = document.getElementById("formelTarget");
-      if (label) { label.textContent = "Ziel: " + (activeTextareaId === "studentTextA" ? "Teil A" : "Teil B"); }
+      if (label) { label.textContent = "Ziel: " + (activeTextareaId === "studentTextA" ? "Teil 1" : "Teil 2"); }
     }
 
     // Track active textarea

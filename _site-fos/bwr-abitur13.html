@@ -245,6 +245,14 @@
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
+        <h2 class="card-header">Aufgabe w&auml;hlen</h2>
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="modeGenerate" onclick="setSetupMode('generate')">&#x2728; KI generieren</button>
+          <button class="mode-btn" id="modeUpload" onclick="setSetupMode('upload')">&#x1F4C4; Eigene Aufgabe</button>
+        </div>
+      </div>
+
+      <div class="card" id="setupGenerate">
         <h2 class="card-header">Abiturpr&uuml;fung 13. Klasse generieren</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem">
           Vollst&auml;ndige BWR-Abiturpr&uuml;fung (~85 BE, 180 min) f&uuml;r die fachgebundene/allgemeine Hochschulreife:<br>
@@ -258,6 +266,29 @@
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
           <div class="loader-text">Generiere BwR-Abiturpr&uuml;fung 13. Klasse &hellip;</div>
+        </div>
+      </div>
+
+      <div class="card" id="setupUpload" style="display:none">
+        <h2 class="card-header">Eigene Aufgabe</h2>
+        <div class="upload-zone" id="taskUploadZone" onclick="document.getElementById('taskFileInput').click()">
+          <div class="upload-icon">&#x1F4F7;</div>
+          <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenbl&auml;tter)</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG, PDF &ndash; max. 10 MB pro Datei &middot; Mehrere Seiten m&ouml;glich</div>
+        </div>
+        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          onchange="handleTaskUpload(this.files)">
+        <div id="taskUploadPages" class="ocr-pages"></div>
+        <div class="loader" id="taskUploadLoader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Aufgabe wird erkannt &hellip;</div>
+        </div>
+        <div id="taskUploadResult" style="display:none;margin-top:1rem">
+          <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
+          <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
+          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedMaterials" style="display:none"></textarea>
+          <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
       </div>
 
@@ -335,31 +366,35 @@
         </div>
       </div>
 
-      <!-- OCR UPLOAD -->
+      <!-- HANDSCHRIFT-UPLOAD (BWR-spezifische Erkennung) -->
       <div class="card">
-        <h2 class="card-header">Handschrift hochladen (OCR)</h2>
+        <h2 class="card-header">Handschriftliche L&ouml;sung hochladen</h2>
         <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1rem;">
-          Fotos deiner handschriftlichen L&ouml;sung hochladen &ndash; der Text wird automatisch erkannt.
+          Fotografiere deine L&ouml;sung &ndash; die KI liest deine Handschrift (Tabellen, Rechnungen, Buchungss&auml;tze).
+          Du kannst den erkannten Text pr&uuml;fen und korrigieren. Beim Bewerten werden <strong>Text und Fotos</strong> zusammen verwendet.
         </p>
         <div class="upload-zone" id="uploadZone" onclick="document.getElementById('ocrFileInput').click()">
           <div class="upload-icon">&#x1F4F7;</div>
-          <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
-          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
+          <div class="upload-text"><strong>Klicken</strong> oder Fotos hierher ziehen</div>
+          <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Foto &middot; Mehrere Seiten m&ouml;glich</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" accept="image/*" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Handschrift wird erkannt &hellip; <span id="ocrProgress"></span></div>
+          <div class="loader-text"><span id="ocrProgress"></span></div>
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
-          <label>Erkannter Text (bearbeitbar):</label>
+          <label>Erkannter Text <span style="font-weight:normal;color:var(--ink-muted)">&ndash; bitte pr&uuml;fen und ggf. korrigieren:</span></label>
           <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
-          <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRText('I')">&#x2713; In Aufgabe I</button>
-            <button class="btn btn-small" onclick="useOCRText('II')">&#x2713; In Aufgabe II</button>
+          <p style="font-size:.8rem;color:var(--ink-muted);margin:.5rem 0;">
+            Deine Originalfotos werden zus&auml;tzlich zum Text bei der Bewertung ber&uuml;cksichtigt.
+          </p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-small" onclick="useOCRText('I')">&#x2713; In Aufgabe I &uuml;bernehmen</button>
+            <button class="btn btn-small" onclick="useOCRText('II')">&#x2713; In Aufgabe II &uuml;bernehmen</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
             <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
           </div>
@@ -477,7 +512,8 @@
       pdfFilename: "FOS_BWR_Abitur13",
       chartColor: "#f59e0b",
       minWords: 20,
-      loginPage: "index.html"
+      loginPage: "index.html",
+      ocrEndpoint: "/api/ocr-bwr"
     };
   </script>
   <script src="tour.js"></script>
@@ -488,18 +524,21 @@
   <script>
     marked.use({ breaks: true });
 
-    // BE -> NP Umrechnungstabelle (ISB)
+    // BE -> NP Umrechnungstabelle (offizielle ISB-Schwellenwerte, absolut aus 100 BE)
     const BE_NP_TABLE = [
-      [95, 15], [90, 14], [85, 13], [80, 12], [75, 11], [70, 10],
-      [65, 9], [60, 8], [55, 7], [50, 6], [45, 5], [40, 4],
-      [33, 3], [27, 2], [20, 1], [0, 0]
+      [96, 15], [91, 14], [86, 13], [81, 12], [76, 11], [71, 10],
+      [66, 9], [61, 8], [56, 7], [51, 6], [46, 5], [41, 4],
+      [34, 3], [27, 2], [20, 1], [0, 0]
     ];
 
     function beToNP(erreicht, max) {
       if (max <= 0 || erreicht == null) return null;
-      const pct = (erreicht / max) * 100;
+      // Bei n,5 einmalig zugunsten des Prüflings aufrunden
+      var be = Math.ceil(erreicht);
+      // Auf 100 BE normieren falls max != 100
+      if (max !== 100) be = Math.round((be / max) * 100);
       for (const [threshold, np] of BE_NP_TABLE) {
-        if (pct >= threshold) return np;
+        if (be >= threshold) return np;
       }
       return 0;
     }
@@ -538,6 +577,57 @@
     }
     function updateWordCount() { updateWordCounts(); }
 
+    /* ====== SETUP MODE ====== */
+    function setSetupMode(m) {
+      document.getElementById("modeGenerate").classList.toggle("active", m === "generate");
+      document.getElementById("modeUpload").classList.toggle("active", m === "upload");
+      document.getElementById("setupGenerate").style.display = m === "generate" ? "block" : "none";
+      document.getElementById("setupUpload").style.display = m === "upload" ? "block" : "none";
+    }
+
+    /* ====== UPLOAD ====== */
+    const taskUploadImages = [];
+    async function handleTaskUpload(files) {
+      document.getElementById("taskUploadLoader").style.display = "block";
+      try {
+        const processed = await processUploadFiles(files);
+        taskUploadImages.push(...processed);
+        document.getElementById("taskUploadPages").innerHTML = "";
+        const base64s = taskUploadImages.map(p => p.base64);
+        const d = await apiCall("/api/fos-parse-task-abitur13-bwr", { images: base64s });
+        document.getElementById("parsedTaskInstruction").value = d.task_instruction || "";
+        document.getElementById("parsedMaterials").value = JSON.stringify(d, null, 2);
+        document.getElementById("taskUploadPreview").innerHTML = taskUploadImages.map(function(p) {
+          return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        }).join('');
+        document.getElementById("taskUploadResult").style.display = "block";
+      } catch (e) { showToast("Fehler: " + e.message); }
+      document.getElementById("taskUploadLoader").style.display = "none";
+    }
+
+    function useUploadedTask() {
+      try {
+        const raw = document.getElementById("parsedMaterials").value;
+        const parsed = JSON.parse(raw);
+        parsed._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = parsed;
+        renderTask(parsed);
+        nav("task");
+      } catch (e) {
+        const c = { task_instruction: document.getElementById("parsedTaskInstruction").value, aufgaben: [], materialien: [], gesamt_be: 85 };
+        c._uploadImages = taskUploadImages.map(function(p) {
+          if (p.url.startsWith("data:")) return p.url;
+          return "data:image/jpeg;base64," + p.base64;
+        });
+        CONFIG.storedData = c;
+        renderTask(c);
+        nav("task");
+      }
+    }
+
     async function generateTask() {
       const btn = document.getElementById("generateBtn");
       btn.disabled = true;
@@ -556,7 +646,7 @@
       // Titel
       var titleEl = document.getElementById("taskTitle");
       titleEl.textContent = d.titel || "BwR Abiturpr\u00fcfung \u2013 13. Klasse";
-      titleEl.innerHTML += ' <span class="teil-badge">' + (d.gesamt_be || 85) + ' BE \u00b7 ' + (d.zeit || 180) + ' min</span>';
+      titleEl.innerHTML += ' <span class="teil-badge">' + (d.gesamt_be || 100) + ' BE \u00b7 ' + (d.zeit || 180) + ' min</span>';
 
       // Hilfsmittel
       var hintEl = document.getElementById("hilfsmittelHint");
@@ -567,9 +657,14 @@
         hintEl.style.display = "none";
       }
 
-      // Aufgaben rendern
+      // Hochgeladene Bilder anzeigen
       var container = document.getElementById("aufgabenContainer");
       container.innerHTML = "";
+      if (d._uploadImages && d._uploadImages.length) {
+        d._uploadImages.forEach(function(src) {
+          container.innerHTML += '<img src="' + src + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
+        });
+      }
 
       if (d.aufgaben && d.aufgaben.length) {
         d.aufgaben.forEach(function (aufgabe) {
@@ -624,7 +719,8 @@
       var tI = document.getElementById("studentTextI").value;
       var tII = document.getElementById("studentTextII").value;
       var totalWords = countWords(tI) + countWords(tII);
-      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      var hatFotos = typeof getOCRImages === "function" && getOCRImages().length > 0;
+      if (totalWords < MODULE_CONFIG.minWords && !hatFotos) { showToast("Bitte eine L\u00f6sung eingeben oder Fotos hochladen"); return; }
       if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
 
       document.getElementById("submitBtn").disabled = true;
@@ -633,19 +729,21 @@
       document.getElementById("feedbackContent").style.display = "none";
 
       try {
-        var combinedText = "=== Aufgabe I ===\n" + tI + "\n\n=== Aufgabe II ===\n" + tII;
+        var combinedText = (totalWords > 0)
+          ? "=== Aufgabe I ===\n" + tI + "\n\n=== Aufgabe II ===\n" + tII
+          : "L\u00f6sung als Fotos beigef\u00fcgt \u2013 bitte Bilder direkt bewerten.";
 
         var d = await apiCallAsync("fos-grade-abitur13-bwr", {
           aufgabenbloecke: CONFIG.storedData.aufgaben || [],
           student_text: combinedText,
-          gesamt_be: CONFIG.storedData.gesamt_be || 85
+          gesamt_be: CONFIG.storedData.gesamt_be || 100
         });
 
         var scores = d.scores || {};
         var bloecke = d.bewertung_bloecke || [];
         var beI = bloecke[0] ? bloecke[0].be_erreicht : null;
         var beII = bloecke[1] ? bloecke[1].be_erreicht : null;
-        var beMax = scores.be_max || CONFIG.storedData.gesamt_be || 85;
+        var beMax = scores.be_max || CONFIG.storedData.gesamt_be || 100;
         var beGesamt = scores.be_erreicht != null ? scores.be_erreicht : (beI != null && beII != null ? beI + beII : null);
         var np = scores.notenpunkte != null ? scores.notenpunkte : beToNP(beGesamt, beMax);
 
