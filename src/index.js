@@ -529,6 +529,15 @@ export default {
       if (pathname === "/api/model-answer" && request.method === "POST") {
         return await handleModelAnswer(request, env);
       }
+      if (pathname === "/api/generate-from-text-writing" && request.method === "POST") {
+        return await handleGenerateFromTextWriting(request, env);
+      }
+      if (pathname === "/api/generate-from-text-mediation" && request.method === "POST") {
+        return await handleGenerateFromTextMediation(request, env);
+      }
+      if (pathname === "/api/ocr-text" && request.method === "POST") {
+        return await handleOCRText(request, env);
+      }
 
       // ===== LISTENING COMPREHENSION ENDPOINTS =====
       if (pathname === "/api/generate-listening" && request.method === "POST") {
@@ -1710,6 +1719,145 @@ CRITICAL: The JSON must be valid. All string values must properly escape special
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
+}
+
+/* ================= ENGLISCH: AUFGABEN AUS EIGENEM TEXT GENERIEREN (Writing) ================= */
+async function handleGenerateFromTextWriting(request, env) {
+  const body = await request.json();
+  const customText = body.custom_text;
+  if (!customText || customText.trim().length < 50) {
+    return jsonResponse({ error: "Bitte einen englischen Text mit mindestens 50 Zeichen eingeben." }, 400, env);
+  }
+  const level = body.level || "gA";
+  const levelDesc = level === "eA" ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Prüfungsteil B: Schreiben).
+Dir wird ein englischer Text gegeben, den ein Schüler hochgeladen hat. Erstelle dazu passende Abitur-Schreibaufgaben im Stil des bayerischen Abiturs.
+
+WICHTIG: Verändere den Text NICHT. Verwende ihn exakt so wie er ist.
+
+NIVEAU: ${levelDesc}
+
+Erstelle DREI Aufgaben zum Text:
+
+Aufgabe 1 (30%): Eine kurze, präzise Outline-Aufgabe (1-2 Sätze).
+- z.B. "Outline the main arguments presented in the article."
+
+Aufgabe 2 (30%): Eine kurze, präzise Analyse-Aufgabe (1-2 Sätze).
+- z.B. "Analyse the writer's attitude. Focus on the use of language."
+
+Aufgabe 3 (40%): ZWEI Wahlaufgaben (3.1 und 3.2):
+- 3.1: Ein Zitat aus dem Text + "Taking the quotation as a starting point, assess/discuss..." (1 Satz)
+- 3.2: Gestaltendes Schreiben (z.B. Brief, Rede, Dialog) mit kurzer Situationsbeschreibung + Aufgabe (2-3 Sätze)
+
+ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN!
+
+Antworte NUR mit validem JSON:
+{
+  "headline": "Titel/Thema des Textes",
+  "source_info": "Autor, Quelle (falls erkennbar, sonst leer)",
+  "article_text": "DER ORIGINALTEXT UNVERÄNDERT",
+  "task_1": "Outline-Aufgabe...",
+  "task_2": "Analyse-Aufgabe...",
+  "task_3_1": "Stellungnahme-Aufgabe...",
+  "task_3_1_quote": "Zitat aus dem Text für 3.1",
+  "task_3_2": "Gestaltendes Schreiben Aufgabe...",
+  "task_3_2_situation": "Situationsbeschreibung für 3.2"
+}`;
+
+  const userPrompt = `Hier ist der englische Text, zu dem du Aufgaben erstellen sollst:
+
+---
+${customText.substring(0, 8000)}
+---
+
+Erstelle drei Schreibaufgaben (Outline, Analyse, Stellungnahme/Gestaltendes Schreiben) im Abitur-Stil.
+Der Text oben soll UNVERÄNDERT als "article_text" im JSON erscheinen.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 6000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= ENGLISCH: MEDIATION AUS EIGENEM TEXT GENERIEREN ================= */
+async function handleGenerateFromTextMediation(request, env) {
+  const body = await request.json();
+  const customText = body.custom_text;
+  if (!customText || customText.trim().length < 50) {
+    return jsonResponse({ error: "Bitte einen deutschen Text mit mindestens 50 Zeichen eingeben." }, 400, env);
+  }
+
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Englisch (Mediation/Sprachmittlung).
+Dir wird ein deutscher Quelltext gegeben, den ein Schüler hochgeladen hat. Erstelle dazu eine passende Mediation-Aufgabenstellung im Stil des bayerischen Abiturs.
+
+WICHTIG: Verändere den Text NICHT. Verwende ihn exakt so wie er ist.
+
+Erstelle eine KOMPAKTE englische Aufgabenstellung (3-5 Sätze) im authentischen Stil bayerischer Abiturprüfungen:
+- Erster Satz: Beschreibe kurz die Situation des Schülers (z.B. Ehrenamt, Austauschprogramm, Projekt).
+- Zweiter Satz: Erkläre den konkreten Anlass, warum ein Text verfasst werden muss.
+- Letzter Satz: Beginne mit "Write a/an [Textsorte] on..." und nenne die inhaltlichen Aspekte als natürlicher Fließtext.
+- ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN!
+
+Antworte NUR mit validem JSON:
+{
+  "headline": "Titel/Thema des Quelltextes",
+  "article_text": "DER ORIGINALTEXT UNVERÄNDERT",
+  "task_instruction": "Die kompakte englische Aufgabenstellung in 3-5 Sätzen..."
+}`;
+
+  const userPrompt = `Hier ist der deutsche Quelltext, zu dem du eine Mediation-Aufgabe erstellen sollst:
+
+---
+${customText.substring(0, 8000)}
+---
+
+Erstelle eine authentische Mediation-Aufgabenstellung im bayerischen Abitur-Stil.
+Der Text oben soll UNVERÄNDERT als "article_text" im JSON erscheinen.`;
+
+  const openaiRes = await callOpenAI(env, [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: userPrompt }
+  ], 4000);
+
+  return jsonResponse(extractJSON(openaiRes), 200, env);
+}
+
+/* ================= GENERISCHES OCR: TEXT EXTRAHIEREN ================= */
+async function handleOCRText(request, env) {
+  const body = await request.json();
+  const images = body.images;
+  const language = body.language || "auto";
+  if (!images || !images.length) {
+    return jsonResponse({ error: "images array required" }, 400, env);
+  }
+  if (images.length > 10) {
+    return jsonResponse({ error: "Maximal 10 Bilder erlaubt." }, 400, env);
+  }
+
+  const langHint = language === "de"
+    ? "einen deutschen Text"
+    : language === "en"
+      ? "einen englischen Text"
+      : "einen Text";
+
+  const content = [
+    {
+      type: "text",
+      text: `Diese Bilder zeigen ${langHint} (z.B. einen Zeitungsartikel, Essay, Buchseite oder Auszug).
+Extrahiere den KOMPLETTEN Text aus den Bildern so genau wie möglich.
+
+Antworte NUR mit validem JSON:
+{"text": "Der extrahierte Text...", "title": "Titel falls erkennbar, sonst leer"}`
+    },
+    ...images.map(img => ({ type: "image_url", image_url: { url: `data:image/jpeg;base64,${img}` } }))
+  ];
+
+  const text = await callOpenAI(env, [{ role: "user", content }], 6000, { model: "gpt-5.2", temperature: 0.2 });
+  const parsed = extractJSON(text);
+  return jsonResponse(parsed, 200, env);
 }
 
 /* ================= ENGLISCH: GRADE ================= */
