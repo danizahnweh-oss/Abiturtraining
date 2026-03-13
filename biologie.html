@@ -772,6 +772,203 @@
       nav("task");
     }
 
+    /* ====== STAMMBAUM SVG RENDERER ====== */
+    function renderStammbaumSVG(data) {
+      var S = 28, R = S / 2;
+      var COUPLE_GAP = 44;
+      var CHILD_GAP = 56;
+      var ROW_H = 92;
+      var PAD = {top: 30, left: 44, right: 24, bottom: 36};
+      var ROMAN = ['I', 'II', 'III', 'IV', 'V'];
+      var gens = data.generationen || [];
+      var elternKind = data.eltern_kind || [];
+      if (!gens.length) return '<p>Stammbaum-Daten fehlen.</p>';
+
+      // Hilfsfunktionen
+      function getVerb(g) { return (gens[g] && gens[g].verbindungen) || []; }
+      function areCoupled(g, i, j) {
+        return getVerb(g).some(function(v) {
+          return (v[0] === i && v[1] === j) || (v[0] === j && v[1] === i);
+        });
+      }
+
+      // Positionen berechnen
+      var pos = [];
+      for (var g = 0; g < gens.length; g++) {
+        var cy = PAD.top + R + g * ROW_H;
+        var x = PAD.left;
+        var gp = [];
+        for (var i = 0; i < gens[g].personen.length; i++) {
+          gp.push({cx: x, cy: cy});
+          if (i < gens[g].personen.length - 1) {
+            x += areCoupled(g, i, i + 1) ? COUPLE_GAP : CHILD_GAP;
+          }
+        }
+        pos.push(gp);
+      }
+
+      // Kinder unter Eltern zentrieren (2 Durchgänge für Stabilität)
+      for (var pass = 0; pass < 2; pass++) {
+        elternKind.forEach(function(ek) {
+          var pv = getVerb(ek.eltern_gen)[ek.verbindung];
+          if (!pv || !pos[ek.eltern_gen] || !pos[ek.eltern_gen][pv[0]] || !pos[ek.eltern_gen][pv[1]]) return;
+          var parentMidX = (pos[ek.eltern_gen][pv[0]].cx + pos[ek.eltern_gen][pv[1]].cx) / 2;
+          var cg = ek.eltern_gen + 1;
+          if (!pos[cg]) return;
+
+          // Alle Personen in dieser Familiengruppe (Kinder + Ehepartner)
+          var allIdx = [];
+          var isChild = {};
+          ek.kinder.forEach(function(k) { isChild[k] = true; allIdx.push(k); });
+          getVerb(cg).forEach(function(v) {
+            if (isChild[v[0]] && allIdx.indexOf(v[1]) === -1) allIdx.push(v[1]);
+            if (isChild[v[1]] && allIdx.indexOf(v[0]) === -1) allIdx.push(v[0]);
+          });
+          allIdx.sort(function(a, b) { return a - b; });
+          if (!allIdx.length) return;
+
+          var minI = allIdx[0], maxI = allIdx[allIdx.length - 1];
+          var childMidX = (pos[cg][minI].cx + pos[cg][maxI].cx) / 2;
+          var shift = parentMidX - childMidX;
+          for (var i = minI; i <= maxI; i++) {
+            if (pos[cg][i]) pos[cg][i].cx += shift;
+          }
+        });
+      }
+
+      // Überlappungen beheben
+      for (var g = 0; g < gens.length; g++) {
+        for (var i = 1; i < pos[g].length; i++) {
+          var minGap = areCoupled(g, i - 1, i) ? COUPLE_GAP : CHILD_GAP;
+          if (pos[g][i].cx - pos[g][i - 1].cx < minGap) {
+            pos[g][i].cx = pos[g][i - 1].cx + minGap;
+          }
+        }
+      }
+
+      // SVG-Dimensionen
+      var maxX = 0;
+      pos.forEach(function(gp) {
+        gp.forEach(function(p) { if (p.cx + R + PAD.right > maxX) maxX = p.cx + R + PAD.right; });
+      });
+      var totalH = PAD.top + (gens.length - 1) * ROW_H + S + PAD.bottom + 16;
+
+      var svg = [];
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var stroke = isDark ? '#e5e7eb' : '#1f2937';
+      var fill = isDark ? '#e5e7eb' : '#1f2937';
+      var bg = isDark ? '#374151' : '#ffffff';
+      var labelClr = isDark ? '#9ca3af' : '#6b7280';
+
+      svg.push('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + maxX + ' ' + totalH + '" style="width:100%;max-width:' + Math.max(maxX, 300) + 'px;height:auto;display:block;margin:0 auto">');
+
+      // Verbindungslinien
+      // 1. Paar-Linien
+      gens.forEach(function(gen, g) {
+        getVerb(g).forEach(function(v) {
+          var p1 = pos[g][v[0]], p2 = pos[g][v[1]];
+          if (!p1 || !p2) return;
+          svg.push('<line x1="' + (p1.cx + R) + '" y1="' + p1.cy + '" x2="' + (p2.cx - R) + '" y2="' + p2.cy + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+        });
+      });
+
+      // 2. Eltern-Kind-Linien
+      elternKind.forEach(function(ek) {
+        var pv = getVerb(ek.eltern_gen)[ek.verbindung];
+        if (!pv) return;
+        var p1 = pos[ek.eltern_gen][pv[0]], p2 = pos[ek.eltern_gen][pv[1]];
+        if (!p1 || !p2) return;
+        var parentMidX = (p1.cx + p2.cx) / 2;
+        var parentY = p1.cy + R;
+        var cg = ek.eltern_gen + 1;
+        if (!pos[cg] || !ek.kinder.length) return;
+        var childY = pos[cg][ek.kinder[0]].cy - R;
+        var midY = parentY + (childY - parentY) * 0.45;
+
+        // Vertikale vom Paar-Mittelpunkt
+        svg.push('<line x1="' + parentMidX + '" y1="' + parentY + '" x2="' + parentMidX + '" y2="' + midY + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+
+        if (ek.kinder.length === 1) {
+          var cp = pos[cg][ek.kinder[0]];
+          if (cp) svg.push('<line x1="' + parentMidX + '" y1="' + midY + '" x2="' + cp.cx + '" y2="' + childY + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+        } else {
+          var leftX = pos[cg][ek.kinder[0]].cx;
+          var rightX = pos[cg][ek.kinder[ek.kinder.length - 1]].cx;
+          // Horizontale Geschwister-Linie
+          svg.push('<line x1="' + leftX + '" y1="' + midY + '" x2="' + rightX + '" y2="' + midY + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+          // Einzelne Vertikale zu jedem Kind
+          ek.kinder.forEach(function(ki) {
+            var cp = pos[cg][ki];
+            if (cp) svg.push('<line x1="' + cp.cx + '" y1="' + midY + '" x2="' + cp.cx + '" y2="' + childY + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+          });
+        }
+      });
+
+      // Personen-Symbole
+      gens.forEach(function(gen, g) {
+        // Generations-Label
+        if (pos[g][0]) svg.push('<text x="10" y="' + (pos[g][0].cy + 5) + '" fill="' + labelClr + '" font-family="DM Sans,sans-serif" font-size="13" font-weight="600">' + (ROMAN[g] || (g + 1)) + '</text>');
+
+        gen.personen.forEach(function(person, i) {
+          var p = pos[g][i];
+          if (!p) return;
+          var isBetroffen = !!person.betroffen;
+          var isKonduktorin = !!person.konduktorin && !isBetroffen;
+          var fillColor = isBetroffen ? fill : bg;
+          var strokeColor = stroke;
+
+          if (person.geschlecht === 'm') {
+            // Quadrat
+            svg.push('<rect x="' + (p.cx - R) + '" y="' + (p.cy - R) + '" width="' + S + '" height="' + S + '" fill="' + fillColor + '" stroke="' + strokeColor + '" stroke-width="2"/>');
+          } else {
+            // Kreis
+            svg.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="' + R + '" fill="' + fillColor + '" stroke="' + strokeColor + '" stroke-width="2"/>');
+          }
+
+          // Konduktorin: kleiner Punkt in der Mitte
+          if (isKonduktorin) {
+            svg.push('<circle cx="' + p.cx + '" cy="' + p.cy + '" r="5" fill="' + fill + '"/>');
+          }
+
+          // Verstorben: diagonaler Strich
+          if (person.verstorben) {
+            svg.push('<line x1="' + (p.cx - R - 3) + '" y1="' + (p.cy + R + 3) + '" x2="' + (p.cx + R + 3) + '" y2="' + (p.cy - R - 3) + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+          }
+
+          // ID-Label
+          var label = (ROMAN[g] || (g + 1)) + '-' + (i + 1);
+          svg.push('<text x="' + p.cx + '" y="' + (p.cy + R + 15) + '" text-anchor="middle" fill="' + labelClr + '" font-family="DM Sans,sans-serif" font-size="10">' + label + '</text>');
+        });
+      });
+
+      // Legende
+      var legY = totalH - PAD.bottom + 4;
+      var legItems = [
+        {symbol: 'rect', label: 'männlich'},
+        {symbol: 'circle', label: 'weiblich'},
+        {symbol: 'filled', label: 'betroffen'},
+        {symbol: 'dot', label: 'Konduktorin'}
+      ];
+      var legX = PAD.left;
+      legItems.forEach(function(item) {
+        if (item.symbol === 'rect') {
+          svg.push('<rect x="' + legX + '" y="' + (legY - 8) + '" width="12" height="12" fill="' + bg + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+        } else if (item.symbol === 'circle') {
+          svg.push('<circle cx="' + (legX + 6) + '" cy="' + (legY - 2) + '" r="6" fill="' + bg + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+        } else if (item.symbol === 'filled') {
+          svg.push('<rect x="' + legX + '" y="' + (legY - 8) + '" width="12" height="12" fill="' + fill + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+        } else if (item.symbol === 'dot') {
+          svg.push('<circle cx="' + (legX + 6) + '" cy="' + (legY - 2) + '" r="6" fill="' + bg + '" stroke="' + stroke + '" stroke-width="1.5"/>');
+          svg.push('<circle cx="' + (legX + 6) + '" cy="' + (legY - 2) + '" r="2.5" fill="' + fill + '"/>');
+        }
+        svg.push('<text x="' + (legX + 18) + '" y="' + (legY + 2) + '" fill="' + labelClr + '" font-family="DM Sans,sans-serif" font-size="11">' + item.label + '</text>');
+        legX += 18 + item.label.length * 6.5 + 16;
+      });
+
+      svg.push('</svg>');
+      return svg.join('\n');
+    }
+
     function renderTask(d) {
       const instrEl = document.getElementById("taskInstruction");
       const raw = d.aufgabe || d.task_instruction || "";
@@ -812,9 +1009,23 @@
         matContainer.style.cssText = "margin:1rem 0";
         d.material.forEach(function (m, mIdx) {
           var isChartMaterial = (m.type === "statistik" || m.type === "diagramm") && m.text;
+          var isStammbaumMaterial = m.type === "stammbaum" && m.stammbaum_data;
           var isBildMaterial = (m.type === "bild" || m.type === "foto") && m.text;
 
-          if (isChartMaterial) {
+          if (isStammbaumMaterial) {
+            // Stammbaum: als SVG rendern
+            var wrapper = document.createElement("div");
+            wrapper.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;padding:1rem";
+            var title = document.createElement("div");
+            title.style.cssText = "font-weight:600;color:var(--accent);margin-bottom:.8rem";
+            title.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
+            wrapper.appendChild(title);
+            var svgBox = document.createElement("div");
+            svgBox.style.cssText = "overflow-x:auto;-webkit-overflow-scrolling:touch";
+            svgBox.innerHTML = renderStammbaumSVG(m.stammbaum_data);
+            wrapper.appendChild(svgBox);
+            matContainer.appendChild(wrapper);
+          } else if (isChartMaterial) {
             // Chart-Material: Grafik prominent, Rohdaten einklappbar
             var wrapper = document.createElement("div");
             wrapper.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;padding:1rem";
