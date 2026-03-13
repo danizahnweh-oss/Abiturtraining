@@ -3263,30 +3263,20 @@ async function handleGenerateImage(request, env) {
     return jsonResponse({ error: "prompt erforderlich." }, 400, env);
   }
 
-  // Ideogram-Prompt: KEIN Text, nur Nummern (Legende wird als HTML daruntergelegt)
-  const ideogramPrompt = `${prompt}. Clean design, white background, vivid colors. CRITICAL RULE: The image must contain ZERO text, ZERO words, ZERO letters, ZERO captions, ZERO titles. The ONLY characters allowed are Arabic numerals (1, 2, 3...) used as small markers. Everything else must be purely visual — icons, shapes, arrows, colors. Absolutely no English or German words anywhere.`;
+  // Ideogram-Prompt: Sauber und fokussiert, Einschränkungen gehen in negative_prompt
+  const ideogramPrompt = `Professional educational diagram: ${prompt}. Clean, precise illustration with vivid colors, sharp lines, white background. Label elements with numbers only (1, 2, 3).`;
 
-  // Imagen-Prompt (Fallback): Ebenfalls nur Nummern
-  const basePrompt = `Professional educational illustration. Clean, modern style with crisp lines, vivid colors. High contrast, white background, no watermarks, no logos. CRITICAL: Do NOT include ANY text, words, letters, titles, or captions. Use ONLY Arabic numerals (1, 2, 3...) as small label markers. Everything else must be purely visual. ${prompt}`;
+  // Imagen-Prompt (Fallback)
+  const basePrompt = `Professional educational illustration for a school textbook. ${prompt}. Clean, modern style with crisp lines, vivid colors, white background. Label elements with numbers (1, 2, 3) only, no text.`;
 
-  // Gemini-Flash-Prompt (Fallback): Nur Nummern
-  const flashPrompt = `Generate a high-quality, professional educational illustration for a German Abitur exam.
+  // Gemini-Flash-Prompt (Fallback)
+  const flashPrompt = `Generate a professional educational illustration for a German school textbook.
 
-STYLE REQUIREMENTS:
-- Clean, modern infographic or diagram style with crisp lines, vivid colors, and professional typography
-- High contrast and sharp details suitable for educational materials
-- White or light neutral background for clarity
-- No watermarks, no logos, no decorative borders
-
-LABEL REQUIREMENTS:
-- Use ONLY NUMBERS (1, 2, 3...) as labels and markers in the image
-- Do NOT include any text, words, or sentences in the image
-- ONLY numbers as markers for labeled elements
-
-SUBJECT TO ILLUSTRATE:
 ${prompt}
 
-ADDITIONALLY: After generating the image, write a short, factual German caption (max 15 words) that describes what the image shows. Write ONLY the caption text, no prefix like "Abb." or quotes.`;
+Style: Clean, precise diagram with vivid colors, sharp lines, white background. Label elements with numbers (1, 2, 3) only — no text or words in the image.
+
+After generating the image, write a short factual German caption (max 15 words). Only the caption, no prefix.`;
 
   // Hilfsfunktion: Caption über GPT generieren
   async function generateCaption() {
@@ -3321,10 +3311,10 @@ ADDITIONALLY: After generating the image, write a short, factual German caption 
           prompt: ideogramPrompt,
           aspect_ratio: "16x9",
           rendering_speed: "DEFAULT",
-          style_type: "DESIGN",
+          style_type: "GENERAL",
           magic_prompt: "ON",
           num_images: 1,
-          negative_prompt: "people, persons, faces, portraits, caricatures, watermark, logo"
+          negative_prompt: "text, words, letters, sentences, captions, titles, labels with text, English text, German text, people, persons, faces, portraits, caricatures, watermark, logo, blurry, low quality, ugly"
         })
       });
       const ideogramData = await ideogramRes.json();
