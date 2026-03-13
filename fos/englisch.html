@@ -564,6 +564,16 @@
               </svg>
               Eigene Aufgabe hochladen
             </button>
+            <button class="mode-btn" id="modeOwnText" onclick="setSetupMode('owntext')" style="display:none;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              Eigenen Text verwenden
+            </button>
           </div>
         </div>
 
@@ -764,6 +774,93 @@
               </button>
             </div>
           </details>
+        </div>
+
+        <!-- MODE C: Own Text → RC Tasks -->
+        <div class="card" id="setupOwnText" style="display:none;">
+          <h2 class="card-header">Eigenen Text verwenden</h2>
+          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
+            Füge einen englischen Text ein (oder lade ein Foto davon hoch) und lass dir automatisch
+            Reading-Comprehension-Aufgaben dafür generieren.
+          </p>
+
+          <div class="form-group">
+            <label for="ownTextArea" style="font-weight:600;">Englischer Text</label>
+            <textarea id="ownTextArea" style="min-height:250px;font-size:.95rem;line-height:1.7;"
+              placeholder="Paste your English text here …"></textarea>
+          </div>
+
+          <div style="margin-bottom:1.2rem;">
+            <div class="upload-zone" id="ownTextUploadZone" onclick="document.getElementById('ownTextFileInput').click()"
+              style="padding:1rem;">
+              <div class="upload-icon" style="font-size:1.5rem;">📷</div>
+              <div class="upload-text" style="font-size:.85rem;"><strong>Oder:</strong> Foto/PDF hochladen – Text wird automatisch erkannt</div>
+            </div>
+            <input type="file" id="ownTextFileInput" accept="image/*,.pdf" multiple style="display:none"
+              onchange="handleOwnTextUpload(this.files)">
+            <div id="ownTextOcrPages" class="ocr-pages"></div>
+            <div id="ownTextOcrLoader" class="loader" style="display:none;">
+              <div class="loader-spinner"></div>
+              <div class="loader-text">Text wird erkannt …</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1rem;">
+            <label style="font-size:.85rem;font-weight:600;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.04em;">Aufgabentypen auswählen:</label>
+            <div class="rc-subtypes">
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="ownRcGappedSummary" checked>
+                <div>
+                  <span>Gapped Summary</span>
+                  <small>Lückentext mit Wörtern aus dem Text</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="ownRcMultipleMatching" checked>
+                <div>
+                  <span>Multiple Matching</span>
+                  <small>Aussagen den Abschnitten zuordnen</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="ownRcMultipleChoice" checked>
+                <div>
+                  <span>Multiple Choice</span>
+                  <small>3 Fragen mit je 4 Antwortoptionen</small>
+                </div>
+              </label>
+              <label class="rc-subtype-item">
+                <input type="checkbox" id="ownRcMediation">
+                <div>
+                  <span>Mediationsaufgaben</span>
+                  <small>Deutsche Fragen zum englischen Text</small>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="setup-selects" style="margin-top:1rem;">
+            <div>
+              <label for="ownStufeSelect">Jahrgangsstufe</label>
+              <select id="ownStufeSelect">
+                <option value="11-12">Jahrgangsstufe 11–12 (B2)</option>
+                <option value="13">Jahrgangsstufe 13 (C1)</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn" id="ownTextGenerateBtn" onclick="generateFromOwnText()" style="margin-top:1rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Aufgaben generieren
+          </button>
+
+          <div id="ownTextLoader" class="loader" style="display:none;">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Aufgaben werden generiert – das kann bis zu 30 Sekunden dauern …</div>
+          </div>
         </div>
 
       </section>
@@ -1223,13 +1320,18 @@
       document.querySelectorAll("#modeCards .hj-card").forEach(function(c) {
         c.classList.toggle("selected", c.dataset.mode === mode);
       });
-      // RC-Subtypen nur bei RC anzeigen
+      // RC-Subtypen nur bei RC im Generate-Modus anzeigen
       document.getElementById("rcSubtypes").style.display = mode === "rc" ? "block" : "none";
       // Textart nur bei Text Production
       document.getElementById("textTypeWrapper").style.display = mode === "textproduction" ? "block" : "none";
-      // Upload nur bei Text Production
+      // Upload-Button nur bei Text Production
       var uploadBtn = document.getElementById("modeUpload");
       if (uploadBtn) uploadBtn.style.display = mode === "textproduction" ? "" : "none";
+      // "Eigenen Text verwenden"-Button nur bei RC
+      var ownTextBtn = document.getElementById("modeOwnText");
+      if (ownTextBtn) ownTextBtn.style.display = mode === "rc" ? "" : "none";
+      // Bei Moduswechsel zurück zu Generate-Ansicht
+      setSetupMode("generate");
       // Nav aktualisieren
       updateNavForMode(mode);
     }
@@ -1593,8 +1695,11 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
     function setSetupMode(mode) {
       document.getElementById("modeGenerate").classList.toggle("active", mode === "generate");
       document.getElementById("modeUpload").classList.toggle("active", mode === "upload");
+      var ownTextBtn = document.getElementById("modeOwnText");
+      if (ownTextBtn) ownTextBtn.classList.toggle("active", mode === "owntext");
       document.getElementById("setupGenerate").style.display = mode === "generate" ? "block" : "none";
       document.getElementById("setupUpload").style.display = mode === "upload" ? "block" : "none";
+      document.getElementById("setupOwnText").style.display = mode === "owntext" ? "block" : "none";
     }
 
     /* ================= TASK UPLOAD (own exam) ================= */
@@ -1727,7 +1832,113 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/") || f.type === "application/pdf");
         if (files.length) handleTaskUpload(files);
       });
+
+      // Drag & Drop für eigenen Text Upload
+      const ownZone = document.getElementById("ownTextUploadZone");
+      if (ownZone) {
+        ownZone.addEventListener("dragover", e => { e.preventDefault(); ownZone.classList.add("dragover"); });
+        ownZone.addEventListener("dragleave", () => ownZone.classList.remove("dragover"));
+        ownZone.addEventListener("drop", e => {
+          e.preventDefault();
+          ownZone.classList.remove("dragover");
+          const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith("image/") || f.type === "application/pdf");
+          if (files.length) handleOwnTextUpload(files);
+        });
+      }
     });
+
+    /* ================= OWN TEXT → RC TASKS ================= */
+    const ownTextUploadImages = [];
+
+    async function handleOwnTextUpload(fileList) {
+      const files = Array.from(fileList).filter(f => {
+        if (!f.type.startsWith("image/") && f.type !== "application/pdf") return false;
+        if (f.size > 10 * 1024 * 1024) { showToast(f.name + " zu groß (max. 10 MB)."); return false; }
+        return true;
+      });
+      if (!files.length) return;
+
+      const processed = await processUploadFiles(files);
+      for (const p of processed) {
+        ownTextUploadImages.push({ url: p.url, base64: p.base64 });
+      }
+      renderOwnTextPages();
+
+      document.getElementById("ownTextOcrLoader").style.display = "block";
+
+      try {
+        const base64List = ownTextUploadImages.map(p => p.base64).filter(Boolean);
+        const data = await apiCall("/api/fos-ocr-text-englisch", { images: base64List });
+
+        var textarea = document.getElementById("ownTextArea");
+        var existing = textarea.value.trim();
+        var ocrText = data.text || "";
+        textarea.value = existing ? existing + "\n\n" + ocrText : ocrText;
+        showToast("Text erkannt und eingefügt!");
+      } catch (e) {
+        showToast("Fehler bei der Texterkennung: " + e.message);
+      }
+
+      document.getElementById("ownTextOcrLoader").style.display = "none";
+      document.getElementById("ownTextFileInput").value = "";
+    }
+
+    function renderOwnTextPages() {
+      var container = document.getElementById("ownTextOcrPages");
+      if (!ownTextUploadImages.length) { container.innerHTML = ""; return; }
+      container.innerHTML = ownTextUploadImages.map(function(p, i) {
+        return '<div class="ocr-page-thumb done"><img src="' + p.url + '" alt="Seite ' + (i + 1) + '"><div class="page-num">Seite ' + (i + 1) + '</div><button class="remove-page" onclick="removeOwnTextPage(' + i + ')" title="Entfernen">✕</button></div>';
+      }).join("");
+    }
+
+    function removeOwnTextPage(index) {
+      if (ownTextUploadImages[index].url.startsWith("blob:")) URL.revokeObjectURL(ownTextUploadImages[index].url);
+      ownTextUploadImages.splice(index, 1);
+      renderOwnTextPages();
+    }
+
+    async function generateFromOwnText() {
+      var text = document.getElementById("ownTextArea").value.trim();
+      if (!text || text.length < 50) {
+        showToast("Bitte einen englischen Text mit mindestens 50 Zeichen eingeben.");
+        return;
+      }
+
+      var taskTypes = [];
+      if (document.getElementById("ownRcGappedSummary").checked) taskTypes.push("gapped_summary");
+      if (document.getElementById("ownRcMultipleMatching").checked) taskTypes.push("multiple_matching");
+      if (document.getElementById("ownRcMultipleChoice").checked) taskTypes.push("multiple_choice");
+      if (document.getElementById("ownRcMediation").checked) taskTypes.push("mediation_en_de");
+
+      if (!taskTypes.length) {
+        showToast("Bitte mindestens einen Aufgabentyp auswählen.");
+        return;
+      }
+
+      var stufe = document.getElementById("ownStufeSelect").value;
+      var btn = document.getElementById("ownTextGenerateBtn");
+      btn.disabled = true;
+      document.getElementById("ownTextLoader").style.display = "block";
+
+      try {
+        var data = await apiCall("/api/fos-generate-rc-from-text-englisch", {
+          custom_text: text,
+          taskTypes: taskTypes,
+          stufe: stufe
+        });
+        data._mode = "rc";
+        data._ownText = true;
+        CONFIG.storedData = data;
+        renderRCTasks(data);
+        nav("rc-tasks");
+        saveSession();
+      } catch (e) {
+        showToast("Fehler beim Generieren: " + e.message);
+      }
+
+      btn.disabled = false;
+      document.getElementById("ownTextLoader").style.display = "none";
+    }
 
     /* ================= RC RENDERING (adaptiert von englisch-abitur.html) ================= */
     function renderRCTasks(d) {
