@@ -10431,8 +10431,8 @@ FORMATIERUNG:
 MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
-- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}
+- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter. NICHT für Stammbäume oder Kreuzungsschemata — diese IMMER als "bild"!
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. STAMMBÄUME (Erbgänge/Pedigrees) MÜSSEN IMMER als type "bild" generiert werden mit einem detaillierten englischen Prompt (Kreise für Frauen, Quadrate für Männer, ausgefüllt = betroffen).
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
 Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
@@ -12063,11 +12063,11 @@ Jedes Material hat ein "type"-Feld:
   | 1 | +30 |
   | 2 | -80 |
 
-- **"bild"** — Schaubilder/Diagramme werden GENERIERT. Geeignet für: Schematische Darstellungen, Zelldiagramme, Stoffwechselwege, Gelelektrophorese-Ergebnisse. "text" MUSS ein ausführlicher Bildprompt KOMPLETT auf Englisch sein (mind. 3-5 Sätze) mit Layout, Farben, Stil und allen visuellen Details. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. KEIN chart_type. NICHT verwenden für: Stammbäume, Kreuzungsschemata — diese als type "text". WICHTIG: Bilder NIEMALS als Text beschreiben — IMMER type "bild" oder "foto" verwenden!
+- **"bild"** — Schaubilder/Diagramme werden GENERIERT. Geeignet für: Schematische Darstellungen, Zelldiagramme, Stoffwechselwege, Gelelektrophorese-Ergebnisse, STAMMBÄUME (Erbgänge), Kreuzungsschemata. "text" MUSS ein ausführlicher Bildprompt KOMPLETT auf Englisch sein (mind. 3-5 Sätze) mit Layout, Farben, Stil und allen visuellen Details. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. KEIN chart_type. WICHTIG: Bilder NIEMALS als Text beschreiben — IMMER type "bild" oder "foto" verwenden! STAMMBÄUME MÜSSEN IMMER als type "bild" generiert werden — NIEMALS als Text!
 
 - **"foto"** — Realistische Fotos. Geeignet für: Mikroskopaufnahmen, Laboraufbauten, Ökosysteme, Organismen, Pflanzen, Tiere, Versuchsaufbauten, Biotope. "text" = Prompt KOMPLETT auf Englisch (5-10 Sätze). KEINE Personen! Falls das Foto beschriftete Elemente zeigt, optional "bild_labels" mitliefern.
 
-- **"text"** — Textquellen, Versuchsbeschreibungen, Fachtexte, Forschungsergebnisse, Stammbäume (als Textformat mit Generationen I/II/III), Kreuzungsschemata. "text" enthält den Fließtext. KEIN chart_type. NIEMALS Bilder oder visuelle Materialien als Textbeschreibung — dafür type "bild" oder "foto" verwenden!
+- **"text"** — Textquellen, Versuchsbeschreibungen, Fachtexte, Forschungsergebnisse. "text" enthält den Fließtext. KEIN chart_type. NIEMALS Bilder oder visuelle Materialien als Textbeschreibung — dafür type "bild" oder "foto" verwenden! STAMMBÄUME und Kreuzungsschemata sind KEINE Texte — diese IMMER als type "bild" generieren!
 
 WICHTIG:
 - KRITISCH: Jedes Material MUSS ein "type"-Feld haben ("statistik", "diagramm", "bild" oder "text"). Materialien OHNE type-Feld werden nicht korrekt dargestellt!
@@ -12127,7 +12127,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
       "titel": "Erbgang einer Stoffwechselerkrankung",
       "sachgebiet": "genetik",
       "material": [
-        {"id": "M1", "titel": "Stammbaum einer betroffenen Familie", "type": "text", "text": "EIGENER vollständig ausformulierter Stammbaum über drei Generationen (mind. 8 Personen) mit Phänotyp-Angaben. Der Stammbaum muss als Textbeschreibung formuliert werden und eindeutige Rückschlüsse auf den Erbgang ermöglichen."},
+        {"id": "M1", "titel": "Stammbaum einer betroffenen Familie", "type": "bild", "text": "Clean scientific pedigree chart showing a family tree across three generations (I, II, III) for a genetic disorder. Generation I at top with one couple, Generation II in middle with 4-5 individuals including marriages, Generation III at bottom with 6-8 individuals. Use standard genetics symbols: squares for males, circles for females, filled shapes for affected individuals, half-filled for carriers. Horizontal lines connect couples, vertical lines connect to offspring. Each individual labeled only with a NUMBER (1, 2, 3...). White background, black lines, affected individuals filled in dark blue. Clean, professional medical genetics style.", "bild_labels": {"1": "Generation I – Großvater", "2": "Generation I – Großmutter", "3": "Generation II – Vater (betroffen)", "4": "Generation II – Mutter", "5": "Generation II – Tante", "6": "Generation II – Onkel (betroffen)", "7": "Generation III – Kind 1", "8": "Generation III – Kind 2 (betroffen)", "9": "Generation III – Kind 3", "10": "Generation III – Cousin"}},
         {"id": "M2", "titel": "Gelelektrophorese-Ergebnisse", "type": "bild", "text": "Scientific laboratory photograph showing a gel electrophoresis result under UV light. A horizontal agarose gel glows blue-green with 6 clearly labeled lanes showing distinct DNA band patterns at different molecular weights. Lane labels read 'Marker', 'Person 1', 'Person 2', 'Person 3', 'Person 4', 'Kontrolle' in small white text. Title 'Ergebnisse der Gelelektrophorese' centered at top in bold white font. Dark laboratory background."},
         {"id": "M3", "titel": "Bandenmuster und Restriktionsanalyse", "type": "text", "text": "EIGENE vollständige Beschreibung der Bandenmuster (mind. 100 Wörter): Für jede Spur die genauen Bandengrößen in bp angeben und Bezug zum RFLP-Muster nehmen."}
       ],
