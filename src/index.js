@@ -10631,8 +10631,28 @@ FORMATIERUNG:
 MATERIAL-TYPEN (jedes Material braucht ein "type"-Feld):
 - "statistik" + "chart_type":"bar" → "text" = vollständige Markdown-Tabelle mit echten Zahlenwerten (mind. 4 Datenzeilen)
 - "diagramm" + "chart_type":"line" → "text" = vollständige Markdown-Tabelle mit echten x/y-Messwerten (mind. 5 Datenpunkte)
-- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter. NICHT für Stammbäume oder Kreuzungsschemata — diese IMMER als "bild"!
-- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. STAMMBÄUME (Erbgänge/Pedigrees) MÜSSEN IMMER als type "bild" generiert werden mit einem detaillierten englischen Prompt (Kreise für Frauen, Quadrate für Männer, ausgefüllt = betroffen).
+- "text" → "text" = vollständiger, ausformulierter Fachtext (mind. 100 Wörter), KEIN Platzhalter. NICHT für Stammbäume oder Kreuzungsschemata!
+- "bild" → "text" = Bildprompt KOMPLETT auf Englisch (5-10 Sätze). NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen statt Text. KEINE Wörter im Bild! Zusätzlich MUSS ein Feld "bild_labels" als Objekt mitgeliefert werden: {"1": "Deutsche Beschriftung", "2": "..."}. NICHT für Stammbäume!
+- "stammbaum" → Für Stammbäume/Erbgänge/Pedigrees. MUSS ein Feld "stammbaum_data" als Objekt haben. Format:
+  "stammbaum_data": {
+    "generationen": [
+      {
+        "personen": [{"geschlecht": "m"|"w", "betroffen": true|false, "konduktorin": true|false}],
+        "verbindungen": [[0, 1]]
+      }
+    ],
+    "eltern_kind": [
+      {"eltern_gen": 0, "verbindung": 0, "kinder": [0, 2]}
+    ]
+  }
+  REGELN für stammbaum_data:
+  - "generationen" = Array der Generationen (Index 0 = älteste). Jede Generation hat "personen" (Array) und "verbindungen" (Paare als Index-Tupel).
+  - In "personen": "geschlecht" = "m" (Quadrat) oder "w" (Kreis). "betroffen" = true wenn erkrankt (Symbol ausgefüllt). "konduktorin" = true wenn Überträgerin.
+  - "verbindungen" = Paare innerhalb einer Generation. Z.B. [[0,1]] bedeutet Person 0 und Person 1 sind ein Paar. Partner MÜSSEN nebeneinander stehen (aufeinanderfolgende Indizes).
+  - "eltern_kind": Verknüpft Elternpaare mit ihren Kindern in der NÄCHSTEN Generation. "eltern_gen" = Generationsindex der Eltern, "verbindung" = Index in generationen[eltern_gen].verbindungen, "kinder" = Array der Kinder-Indizes in generationen[eltern_gen + 1] (NUR biologische Kinder, KEINE eingeheirateten Partner).
+  - Eingeheiratete Partner werden in der Personen-Liste aufgeführt und über "verbindungen" mit ihrem Partner verknüpft, aber NICHT in "kinder" aufgelistet.
+  - Der Stammbaum MUSS biologisch korrekt zum gewählten Erbgang passen (autosomal-dominant, autosomal-rezessiv, X-chromosomal-rezessiv etc.).
+  - Mindestens 3 Generationen mit insgesamt mindestens 8 Personen.
 KRITISCH: Materialien MÜSSEN echte Inhalte enthalten — NIEMALS Platzhalter wie "Ein Text über..." oder "(vollständiger Text...)". Schreibe den TATSÄCHLICHEN Inhalt!
 
 Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
@@ -10646,7 +10666,7 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}",
   "material": [
-    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild>", "text": "<ECHTER Inhalt>"}
+    {"id": "M1", "titel": "<Titel>", "type": "<statistik|diagramm|text|bild|stammbaum>", "text": "<ECHTER Inhalt>"}
   ]
 }`;
 
