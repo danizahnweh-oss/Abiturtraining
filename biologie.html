@@ -846,7 +846,7 @@
 
             matContainer.appendChild(wrapper);
           } else if (isBildMaterial) {
-            // Bild-Material: Imagen-Prompt als Platzhalter-Box mit Titel
+            // Bild-Material: Echtes Bild generieren via loadEducationalImage
             var wrapper = document.createElement("div");
             wrapper.style.cssText = "border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;padding:1rem";
             var title = document.createElement("div");
@@ -854,25 +854,18 @@
             title.innerHTML = renderInlineKatex((m.id || "") + " " + (m.titel || ""));
             wrapper.appendChild(title);
 
+            var imgContainerId = "img-bio-" + mIdx;
             var imgBox = document.createElement("div");
-            imgBox.style.cssText = "background:var(--bg-warm);border:2px dashed var(--border);border-radius:var(--radius-sm);padding:2rem;text-align:center;color:var(--ink-muted);min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem";
-            imgBox.innerHTML = '<div style="font-size:2.5rem">\uD83D\uDDBC\uFE0F</div><div style="font-size:.9rem;font-weight:600">' + escapeHtml(m.titel || "Abbildung") + '</div><div style="font-size:.8rem;font-style:italic;max-width:500px">(Abbildung: In der Pr\u00fcfung w\u00fcrde hier die Grafik erscheinen)</div>';
+            imgBox.className = "material-img-loading";
+            imgBox.id = imgContainerId;
+            imgBox.innerHTML = '<div class="loader-spinner"></div><span>' + (m.type === "foto" ? "Foto" : "Bild") + ' wird generiert...</span>';
             wrapper.appendChild(imgBox);
 
-            // Bildbeschreibung einklappbar
-            var descDetails = document.createElement("details");
-            descDetails.style.cssText = "margin-top:.5rem";
-            var descSummary = document.createElement("summary");
-            descSummary.style.cssText = "cursor:pointer;font-size:.8rem;color:var(--ink-muted)";
-            descSummary.textContent = "Bildbeschreibung anzeigen";
-            var descBody = document.createElement("div");
-            descBody.style.cssText = "padding:.5rem 0;font-size:.85rem;line-height:1.6;font-style:italic";
-            descBody.textContent = m.text || "";
-            descDetails.appendChild(descSummary);
-            descDetails.appendChild(descBody);
-            wrapper.appendChild(descDetails);
-
             matContainer.appendChild(wrapper);
+            // Bild laden sobald Container im DOM ist (verzögert)
+            (function(prompt, containerId, labels) {
+              setTimeout(function() { loadEducationalImage(prompt, containerId, labels); }, 50);
+            })(m.text, imgContainerId, m.bild_labels || null);
           } else {
             // Normales Text-Material: als einklappbare <details>
             var details = document.createElement("details");
