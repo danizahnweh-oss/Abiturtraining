@@ -9,10 +9,11 @@ import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
   RotateCcw, PenLine, Volume2, ArrowLeft, Download,
+  Quote, BarChart3, Image, ChevronUp, X,
 } from 'lucide-react';
 import {
-  LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateWrittenFeedback,
-  type ExamLevel, type ExamMode, type ExamMaterial, type PrueferTyp,
+  LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMaterialImpulse, generateWrittenFeedback,
+  type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
 } from './lib/live-api';
 
 const USE_STATEFUL_SESSIONS = false;
@@ -109,6 +110,128 @@ function Pill({ active, disabled, onClick, children, className }: {
   );
 }
 
+/* ───────── SVG-Charts für Material-Impulse ───────── */
+
+const CHART_COLORS = ['#10b981', '#6366f1', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+
+function BarChartSVG({ labels, werte, einheit }: { labels: string[]; werte: number[]; einheit?: string }) {
+  const max = Math.max(...werte, 1);
+  const barH = 28;
+  const gap = 8;
+  const labelW = 120;
+  const chartW = 300;
+  const svgH = labels.length * (barH + gap);
+
+  return (
+    <svg viewBox={`0 0 ${labelW + chartW + 60} ${svgH}`} className="w-full max-w-md" role="img">
+      {labels.map((label, i) => {
+        const y = i * (barH + gap);
+        const w = (werte[i] / max) * chartW;
+        return (
+          <g key={i}>
+            <text x={labelW - 8} y={y + barH / 2 + 5} textAnchor="end" className="fill-slate-600" fontSize="13">{label}</text>
+            <rect x={labelW} y={y} width={w} height={barH} rx={4} fill={CHART_COLORS[i % CHART_COLORS.length]} opacity={0.85} />
+            <text x={labelW + w + 6} y={y + barH / 2 + 5} className="fill-slate-700 font-medium" fontSize="13">
+              {werte[i]}{einheit ? ` ${einheit}` : ''}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function PieChartSVG({ labels, werte, einheit }: { labels: string[]; werte: number[]; einheit?: string }) {
+  const total = werte.reduce((a, b) => a + b, 0) || 1;
+  const r = 60;
+  const cx = 80;
+  const cy = 80;
+  let cumulative = 0;
+
+  const slices = werte.map((v, i) => {
+    const start = cumulative / total;
+    cumulative += v;
+    const end = cumulative / total;
+    const startAngle = start * 2 * Math.PI - Math.PI / 2;
+    const endAngle = end * 2 * Math.PI - Math.PI / 2;
+    const largeArc = (end - start) > 0.5 ? 1 : 0;
+    const x1 = cx + r * Math.cos(startAngle);
+    const y1 = cy + r * Math.sin(startAngle);
+    const x2 = cx + r * Math.cos(endAngle);
+    const y2 = cy + r * Math.sin(endAngle);
+    const d = `M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+    return <path key={i} d={d} fill={CHART_COLORS[i % CHART_COLORS.length]} opacity={0.85} />;
+  });
+
+  return (
+    <div className="flex items-start gap-4 flex-wrap">
+      <svg viewBox="0 0 160 160" className="w-32 h-32 shrink-0" role="img">
+        {slices}
+      </svg>
+      <div className="flex flex-col gap-1 text-sm min-w-0">
+        {labels.map((label, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: CHART_COLORS[i % CHART_COLORS.length] }} />
+            <span className="text-slate-600 truncate">{label}: <strong>{werte[i]}{einheit ? ` ${einheit}` : ''}</strong></span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+const IMPULS_ICONS: Record<string, React.ReactNode> = {
+  zitat: <Quote size={18} />,
+  statistik: <BarChart3 size={18} />,
+  quelle: <FileText size={18} />,
+  schaubild: <Image size={18} />,
+};
+
+const IMPULS_LABELS: Record<string, string> = {
+  zitat: 'Zitat',
+  statistik: 'Statistik',
+  quelle: 'Quelle',
+  schaubild: 'Schaubild',
+};
+
+function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; onMinimize: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.97 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 20, scale: 0.97 }}
+      className="w-full bg-gradient-to-b from-amber-50 to-white border border-amber-200 rounded-2xl shadow-lg shadow-amber-100/40 overflow-hidden"
+    >
+      {/* Header */}
+      <div className="px-5 py-3 bg-amber-100/60 border-b border-amber-200/50 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-amber-800">
+          {IMPULS_ICONS[impuls.typ] || <FileText size={18} />}
+          <span className="text-xs font-semibold uppercase tracking-wider">{IMPULS_LABELS[impuls.typ] || 'Material'}</span>
+        </div>
+        <button
+          onClick={onMinimize}
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-amber-200/50 transition-colors text-amber-700"
+          title="Minimieren"
+        >
+          <ChevronUp size={18} />
+        </button>
+      </div>
+      {/* Inhalt */}
+      <div className="p-5 space-y-3 max-h-[300px] overflow-y-auto" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <h4 className="font-semibold text-slate-800 text-base">{impuls.titel}</h4>
+        {impuls.chartDaten && impuls.chartDaten.typ === 'balken' && (
+          <BarChartSVG labels={impuls.chartDaten.labels} werte={impuls.chartDaten.werte} einheit={impuls.chartDaten.einheit} />
+        )}
+        {impuls.chartDaten && impuls.chartDaten.typ === 'kreis' && (
+          <PieChartSVG labels={impuls.chartDaten.labels} werte={impuls.chartDaten.werte} einheit={impuls.chartDaten.einheit} />
+        )}
+        <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{impuls.inhalt}</p>
+        <p className="text-xs text-slate-500 italic">Quelle: {impuls.quellenangabe}</p>
+      </div>
+    </motion.div>
+  );
+}
+
 /* ───────── Main component ───────── */
 
 type Step = 'setup' | 'generating' | 'preparation' | 'exam' | 'feedback-choice' | 'feedback';
@@ -143,6 +266,12 @@ export default function App() {
 
   /* Material */
   const [material, setMaterial] = useState<ExamMaterial | null>(null);
+
+  /* Material-Impulse für den Fragenteil */
+  const [matImpulse, setMatImpulse] = useState<MaterialImpuls[]>([]);
+  const [activeImpuls, setActiveImpuls] = useState<number | null>(null);
+  const [shownImpulse, setShownImpulse] = useState<Set<number>>(new Set());
+  const [mitMaterial, setMitMaterial] = useState(true);
 
   /* Session state */
   const [status, setStatus] = useState<'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error'>('disconnected');
@@ -179,6 +308,25 @@ export default function App() {
   const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
 
+  /* ── Material-Impuls Timer ── */
+  useEffect(() => {
+    if (step !== 'exam' || matImpulse.length === 0) return;
+
+    // Zeitpunkte im weiteren-HJ-Teil:
+    // gesamt: weiterer HJ ab ~15 min → Material 1 bei 18 min, Material 2 bei 25 min
+    // fragen: weiterer HJ ab ~5 min → Material 1 bei 8 min, Material 2 bei 15 min
+    const offsets = examMode === 'fragen'
+      ? [8 * 60, 15 * 60]
+      : [18 * 60, 25 * 60];
+
+    offsets.forEach((triggerAt, idx) => {
+      if (idx < matImpulse.length && exam.elapsed >= triggerAt && !shownImpulse.has(idx)) {
+        setActiveImpuls(idx);
+        setShownImpulse(prev => new Set(prev).add(idx));
+      }
+    });
+  }, [step, exam.elapsed, matImpulse, examMode, shownImpulse]);
+
   /* ── Reset helpers ── */
   const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); setCustomSchwerpunkte({}); };
 
@@ -208,8 +356,22 @@ export default function App() {
     const gender = Math.random() < 0.5 ? 'male' : 'female' as const;
     setExaminerGender(gender);
 
-    // "Fragen" mode: skip material generation + prep, go straight to exam
+    // "Fragen" mode: skip referat material generation + prep
     if (examMode === 'fragen') {
+      // Material-Impulse generieren (falls aktiviert)
+      let impulse: MaterialImpuls[] = [];
+      if (mitMaterial) {
+        setStep('generating');
+        try {
+          impulse = await generateMaterialImpulse({
+            subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr, weitereHalbjahre: weitereHJ,
+          });
+        } catch { impulse = []; }
+        setMatImpulse(impulse);
+      }
+      setActiveImpuls(null);
+      setShownImpulse(new Set());
+
       setMaterial({ aufgabenstellung: '', material: '', hinweise: '' });
       setStep('exam');
       setModelTx([]);
@@ -223,7 +385,9 @@ export default function App() {
       const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
       const session = new SessionClass({
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
-        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '', examMode, gender, prueferTyp,
+        weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
+        materialImpulse: impulse.length > 0 ? impulse : undefined,
+        examMode, gender, prueferTyp,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => setModelTx(prev => [...prev, t]),
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -235,17 +399,25 @@ export default function App() {
     }
 
     setStep('generating');
+    setActiveImpuls(null);
+    setShownImpulse(new Set());
     try {
-      const m = await generateExamMaterial({
-        subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr, weitereHalbjahre: weitereHJ,
-      });
+      // Referat-Material + Material-Impulse parallel generieren
+      const examConfigForGen = { subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr, weitereHalbjahre: weitereHJ };
+      const promises: [Promise<ExamMaterial>, Promise<MaterialImpuls[]>] = [
+        generateExamMaterial(examConfigForGen),
+        mitMaterial ? generateMaterialImpulse(examConfigForGen) : Promise.resolve([]),
+      ];
+      const [m, impulse] = await Promise.all(promises);
       setMaterial(m);
+      setMatImpulse(impulse);
     } catch {
       setMaterial({
         aufgabenstellung: `Erläutern Sie "${schwerpunkt}" und nehmen Sie kritisch Stellung.`,
         material: 'Nutzen Sie Ihr Vorwissen.',
         hinweise: 'Strukturieren Sie Ihr Referat. Planen Sie ca. 10 Minuten.',
       });
+      setMatImpulse([]);
     }
     setStep('preparation');
     prep.reset(30 * 60);
@@ -272,6 +444,7 @@ export default function App() {
       const session = new SessionClass({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
+      materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
       examMode, gender: examinerGender, prueferTyp,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
@@ -297,6 +470,7 @@ export default function App() {
     try {
       const fb = await generateWrittenFeedback({
         subject, examLevel: level, schwerpunkt, modelTranscription: modelTx, userTranscription: userTx,
+        materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
       });
       setFbText(fb);
     } catch {
@@ -345,6 +519,10 @@ export default function App() {
     setModelTx([]);
     setUserTx([]);
     setMaterial(null);
+    setMatImpulse([]);
+    setActiveImpuls(null);
+    setShownImpulse(new Set());
+    setMitMaterial(true);
     setFbType(null);
     setFbText('');
     setExamMode('gesamt');
@@ -583,6 +761,23 @@ export default function App() {
                       </div>
                     </div>
                   )}
+                  {/* Materialimpulse Toggle — nur bei gesamt/fragen */}
+                  {schwerpunkt && examMode !== 'referat' && (
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Materialimpulse</label>
+                      <p className="text-xs opacity-50 ml-1 -mt-1">Sollen im Fragenteil Materialien (Statistik, Zitat etc.) eingeblendet werden?</p>
+                      <div className="flex gap-3">
+                        <Pill active={mitMaterial} onClick={() => setMitMaterial(true)} className="flex-1 text-center">
+                          <span className="font-medium">Mit Material</span>
+                          <span className="block text-xs opacity-60 mt-0.5">1–2 Materialien im weiteren-HJ-Teil</span>
+                        </Pill>
+                        <Pill active={!mitMaterial} onClick={() => setMitMaterial(false)} className="flex-1 text-center">
+                          <span className="font-medium">Ohne Material</span>
+                          <span className="block text-xs opacity-60 mt-0.5">Nur mündliche Fragen</span>
+                        </Pill>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Summary + Start */}
@@ -707,7 +902,23 @@ export default function App() {
                       ))
                     )}
                   </div>
-                  <span className="text-sm font-mono font-bold text-emerald-600 tabular-nums">{exam.display}</span>
+                  <div className="flex items-center gap-2">
+                    {/* Material-Chips (minimierte Materialien) */}
+                    {matImpulse.map((m, idx) => (
+                      shownImpulse.has(idx) && activeImpuls !== idx ? (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveImpuls(idx)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 hover:bg-amber-100 transition-colors min-h-[36px]"
+                          title={`Material ${idx + 1} anzeigen`}
+                        >
+                          {IMPULS_ICONS[m.typ] || <FileText size={14} />}
+                          <span className="text-xs font-medium">M{idx + 1}</span>
+                        </button>
+                      ) : null
+                    ))}
+                    <span className="text-sm font-mono font-bold text-emerald-600 tabular-nums">{exam.display}</span>
+                  </div>
                 </div>
 
                 <div className="p-8 flex flex-col items-center text-center">
@@ -764,6 +975,18 @@ export default function App() {
                       </div>
                     )}
                   </div>
+
+                  {/* Material-Impuls Card */}
+                  <AnimatePresence>
+                    {activeImpuls !== null && matImpulse[activeImpuls] && (
+                      <div className="w-full max-w-lg mt-4">
+                        <MaterialImpulsCard
+                          impuls={matImpulse[activeImpuls]}
+                          onMinimize={() => setActiveImpuls(null)}
+                        />
+                      </div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* Bottom bar */}

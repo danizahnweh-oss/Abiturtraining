@@ -21,10 +21,26 @@ export const SUBJECTS = [
 
 export type ExamLevel = 'gA' | 'eA';
 
+export interface ChartDaten {
+  typ: 'balken' | 'kreis';
+  labels: string[];
+  werte: number[];
+  einheit?: string;
+}
+
+export interface MaterialImpuls {
+  typ: 'zitat' | 'statistik' | 'quelle' | 'schaubild';
+  titel: string;
+  inhalt: string;
+  quellenangabe: string;
+  chartDaten?: ChartDaten;
+}
+
 export interface ExamMaterial {
   aufgabenstellung: string;
   material: string;
   hinweise: string;
+  materialImpulse?: MaterialImpuls[];
 }
 
 export interface ExamConfig {
@@ -55,6 +71,7 @@ export interface LiveSessionConfig {
   weitereHalbjahre: string[];
   aufgabenstellung: string;
   material: string;
+  materialImpulse?: MaterialImpuls[];
   examMode?: ExamMode;
   gender?: 'male' | 'female';
   prueferTyp?: PrueferTyp;
@@ -119,6 +136,58 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
   }
 }
 
+/* ───────── Material-Impulse für den Fragenteil ───────── */
+
+function getMaterialTypenFuerFach(subject: string): string {
+  const mint = ['Biologie', 'Chemie', 'Physik', 'Mathematik', 'Informatik'];
+  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein'];
+  if (mint.includes(subject)) return 'Daten-Tabellen, Experimentergebnisse, Statistiken mit Zahlenwerten, Diagramm-Beschreibungen';
+  if (sprachen.includes(subject)) return 'Zitate aus Primär-/Sekundärliteratur, kurze Textauszüge, Karikaturbeschreibungen';
+  if (subject === 'Sport') return 'Trainingsdaten, Leistungsstatistiken, Studienergebnisse';
+  return 'Quellentexte, Statistiken mit Zahlenwerten, Zitate, Karten-/Schaubildbeschreibungen';
+}
+
+export async function generateMaterialImpulse(config: ExamConfig): Promise<MaterialImpuls[]> {
+  const ai = createAI();
+  const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
+  const materialTypen = getMaterialTypenFuerFach(config.subject);
+
+  const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
+
+Erstelle 2 realistische Material-Impulse, die einem Prüfling während des Fragenteils zu den WEITEREN HALBJAHREN vorgelegt werden.
+
+Fach: ${config.subject}
+Anforderungsniveau: ${levelLabel}
+Weitere Halbjahre (NICHT der Schwerpunkt): ${config.weitereHalbjahre.join(', ')}
+
+Geeignete Material-Typen für dieses Fach: ${materialTypen}
+
+Anforderungen:
+1. Jedes Material muss sich auf eines der weiteren Halbjahre beziehen (nicht auf den Schwerpunkt "${config.schwerpunkt}").
+2. Die Materialien sollen als Gesprächsimpuls dienen — der Prüfling soll sie analysieren, interpretieren oder bewerten.
+3. Wähle für "typ" aus: "zitat", "statistik", "quelle", "schaubild".
+4. Bei typ "statistik" oder "schaubild": Füge ein "chartDaten"-Objekt hinzu mit typ ("balken" oder "kreis"), labels (3–6 Einträge), werte (passende Zahlen), und optional einheit (z.B. "%" oder "Mio.").
+5. Bei typ "zitat" oder "quelle": Kein chartDaten nötig, nur titel, inhalt und quellenangabe.
+6. Die Materialien müssen fachlich korrekt und für das bayerische Abitur-Niveau angemessen sein.
+
+Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON-Array):
+[{"typ":"statistik","titel":"...","inhalt":"...","quellenangabe":"...","chartDaten":{"typ":"balken","labels":["A","B","C"],"werte":[10,20,30],"einheit":"%"}},{"typ":"zitat","titel":"...","inhalt":"...","quellenangabe":"..."}]`;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
+
+    const raw = (response.text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+    const parsed = JSON.parse(raw) as MaterialImpuls[];
+    // Validierung: Nur gültige Objekte behalten
+    return parsed.filter(m => m.typ && m.titel && m.inhalt).slice(0, 2);
+  } catch {
+    return [];
+  }
+}
+
 /* ───────── Written feedback ───────── */
 
 export async function generateWrittenFeedback(config: {
@@ -127,6 +196,7 @@ export async function generateWrittenFeedback(config: {
   schwerpunkt: string;
   modelTranscription: string[];
   userTranscription: string[];
+  materialImpulse?: MaterialImpuls[];
 }): Promise<string> {
   const ai = createAI();
 
@@ -183,7 +253,13 @@ Strukturiere dein Feedback so:
 ## Konkrete Verbesserungstipps
 - Was genau sollte der Prüfling beim nächsten Mal anders machen?
 - Welche Themen sollte er/sie nochmal lernen?
-
+${config.materialImpulse && config.materialImpulse.length > 0 ? `
+## Umgang mit Materialien
+Dem Prüfling wurden folgende Materialien vorgelegt:
+${config.materialImpulse.map((m, i) => `Material ${i + 1}: "${m.titel}" (${m.quellenangabe})`).join('\n')}
+- Wie gut hat der Prüfling die Materialien in seine Antworten einbezogen?
+- Hat er/sie die Materialien korrekt analysiert und interpretiert?
+- Was hätte man aus den Materialien noch herauslesen können?` : ''}
 Schreibe auf Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
 
   const response = await ai.models.generateContent({
@@ -259,6 +335,24 @@ ABLAUF:
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.`;
+  }
+
+  // Materialimpulse für den weiteren-HJ-Fragenteil
+  if (config.materialImpulse && config.materialImpulse.length > 0) {
+    instruction += `\n\nMATERIALIMPULSE FÜR DEN FRAGENTEIL (WEITERE HALBJAHRE):
+Dir stehen folgende Materialien zur Verfügung, die dem Prüfling NUR während der Fragen zu den weiteren Halbjahren visuell angezeigt werden. Verwende sie NICHT im Schwerpunkt-Fragenteil.`;
+
+    config.materialImpulse.forEach((m, i) => {
+      const chartHinweis = m.chartDaten ? ` (mit ${m.chartDaten.typ === 'balken' ? 'Balkendiagramm' : 'Kreisdiagramm'})` : '';
+      instruction += `\n\nMaterial ${i + 1}: "${m.titel}"${chartHinweis}
+${m.inhalt}
+(Quelle: ${m.quellenangabe})`;
+      if (i === 0) {
+        instruction += `\n→ Wird dem Prüfling kurz nach Beginn der Fragen zu den weiteren Halbjahren eingeblendet. Leite über mit: "Ich möchte Ihnen nun ein Material vorlegen." Stelle dann eine Frage, die sich auf dieses Material bezieht.`;
+      } else {
+        instruction += `\n→ Wird etwas später im weiteren-HJ-Teil eingeblendet. Leite erneut über mit: "Ich lege Ihnen ein weiteres Material vor." Stelle dann eine Frage dazu.`;
+      }
+    });
   }
 
   const verhalten = PRUEFER_PRESETS[config.prueferTyp || 'standard'];
