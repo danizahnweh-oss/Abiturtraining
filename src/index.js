@@ -16,14 +16,19 @@ function keineLoesungshinweise(beispiel) {
   return `ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN: Nenne in den Aufgabenstellungen NIEMALS konkrete Beispiele, Hinweise, Lösungsansätze oder Stichworte in Klammern (z.B. NICHT "${beispiel}"). Die Aufgabenstellung muss OHNE jegliche Klammer-Beispiele formuliert sein – die Schüler müssen selbst erkennen, welche Aspekte relevant sind. Prüfe jede Aufgabenstellung vor der Ausgabe und entferne alle Klammer-Hinweise!`;
 }
 
-const KORREKTUR_SINGLE = `\n\nZUSÄTZLICH im JSON-Output:
+const ERWARTUNGSHORIZONT = `\n\nBEWERTUNGSMETHODE: Erstelle ZUERST intern einen Erwartungshorizont für JEDE Teilaufgabe, BEVOR du die Schülerlösung bewertest:
+1. Welche konkreten Inhalte, Fachbegriffe und Lösungsschritte werden für volle BE erwartet?
+2. Wie verteilen sich die BE auf die einzelnen erwarteten Inhaltspunkte?
+3. Bewerte dann die Schülerlösung Punkt für Punkt GEGEN diesen Erwartungshorizont — wie ein Lehrer mit Korrekturschlüssel.`;
+
+const KORREKTUR_SINGLE = ERWARTUNGSHORIZONT + `\n\nZUSÄTZLICH im JSON-Output:
 - "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
 - "feedback": "" (LEER lassen! Das ausführliche Feedback wird separat generiert. Schreibe NICHTS in dieses Feld.)
 - "korrektur_text": Gib den VOLLSTÄNDIGEN Schülertext zurück. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>. Nicht-fehlerhafte Stellen bleiben unverändert.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teilaufgabe X", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}. Liste pro Teilaufgabe die inhaltlichen Aspekte auf, die der Schüler nicht oder unzureichend behandelt hat.
 - "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
-const KORREKTUR_AB = `\n\nZUSÄTZLICH im JSON-Output:
+const KORREKTUR_AB = ERWARTUNGSHORIZONT + `\n\nZUSÄTZLICH im JSON-Output:
 - "feedback_kurz": Array mit 3–5 kurzen Stichpunkten (je max. 1 Satz). Fasse die wichtigsten Stärken und Schwächen der Arbeit zusammen. Format: ["Stärke/Schwäche 1", "Stärke/Schwäche 2", ...]. Beginne positive Punkte mit ✓ und negative mit ✗.
 - "feedback": "" (LEER lassen! Das ausführliche Feedback wird separat generiert. Schreibe NICHTS in dieses Feld.)
 - "korrektur_text_a": Vollständiger Schülertext Teil A mit Fehlermarkierungen: Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark>, Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
@@ -93,13 +98,13 @@ function skaliereTokens(basisTokens, bearbeitungszeit, referenzzeit) {
   return Math.max(4000, Math.round(basisTokens * faktor));
 }
 
-const KORREKTUR_LATEIN = `\n\nZUSÄTZLICH im JSON-Output:
+const KORREKTUR_LATEIN = ERWARTUNGSHORIZONT + `\n\nZUSÄTZLICH im JSON-Output:
 - "korrektur_text_a": Markierter Schülertext Teil A. Markiere Übersetzungsfehler mit <mark class='fehler-ue' title='Korrektur: RICHTIG (Fehlertyp: S/L/H)'>FALSCH</mark>.
 - "korrektur_text_b": Markierter Schülertext Teil B. Markiere Rechtschreibfehler mit <mark class='fehler-rs' title='Korrektur: RICHTIG'>FALSCH</mark> und Grammatikfehler mit <mark class='fehler-gr' title='Korrektur: RICHTIG'>FALSCH</mark>.
 - "fehlende_aspekte": Array von Objekten mit {"aufgabe": "Teil/Aufgabe", "aspekte": ["fehlender Punkt 1", "fehlender Punkt 2"]}.
 - "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
-const UEBUNGSAUFGABEN_ANWEISUNG = `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
+const UEBUNGSAUFGABEN_ANWEISUNG = ERWARTUNGSHORIZONT + `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
 /* ================= BILDER-SUPPORT FÜR GRADE-HANDLER ================= */
 
@@ -1893,7 +1898,7 @@ IMPORTANT: Return ONLY valid JSON. No markdown fences.` + ((images && images.len
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -2083,7 +2088,7 @@ Antworte NUR mit validem JSON:
 {"results": [{"id": <number>, "points_awarded": <number>, "max_points": <number>, "feedback": "<kurze Begründung auf Deutsch>"}]}`
       },
       { role: "user", content: shortPrompt }
-    ], 3000);
+    ], 3000, { temperature: 0.3 });
 
     try {
       const parsed = extractJSON(gradeRes);
@@ -2614,7 +2619,7 @@ async function handleGradeGeschichte(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -2909,7 +2914,7 @@ async function handleGradeDeutsch(request, env) {
     { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   // Schritt 3: Regelbasierte Punkteberechnung
   try {
@@ -4105,7 +4110,7 @@ async function handleGradePuG(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -4406,7 +4411,7 @@ async function handleGradeAbiturPuG(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b, 10000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -4707,7 +4712,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -4939,7 +4944,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 12000);
+  const openaiRes = await callOpenAI(env, messages, 12000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -5199,7 +5204,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 12000);
+  const openaiRes = await callOpenAI(env, messages, 12000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -5572,7 +5577,7 @@ async function handleGradeAbiturGeschichte(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A (Quellenanalyse):\n${truncate(student_text_a, 15000)}\n\nSchülertext Teil B (Darstellung):\n${truncate(student_text_b, 10000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -5855,7 +5860,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Aufgabe 1:\n${truncate(student_text_1, 15000)}\n\nSchülertext Aufgabe 2:\n${truncate(student_text_2, 10000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 12000);
+  const openaiRes = await callOpenAI(env, messages, 12000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -6101,7 +6106,7 @@ SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -6265,7 +6270,7 @@ SPERRKLAUSEL: Wenn inhalt_np ODER sprache_np = 0, dann gesamt_np maximal 3.`;
     }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -6563,7 +6568,7 @@ async function handleGradeEthik(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -6792,7 +6797,7 @@ async function handleGradeAbiturEthik(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -7095,7 +7100,7 @@ async function handleGradeReligion(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -7276,7 +7281,7 @@ async function handleGradeAbiturReligion(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -7567,7 +7572,7 @@ async function handleGradeKatholisch(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -7748,7 +7753,7 @@ async function handleGradeAbiturKatholisch(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext Teil A:\n${truncate(student_text_a || "", 15000)}\n\nSchülertext Teil B:\n${truncate(student_text_b || "", 10000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -8045,7 +8050,7 @@ async function handleGradeGeographie(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -8270,7 +8275,7 @@ async function handleGradeAbiturGeographie(request, env) {
     { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -8621,7 +8626,7 @@ Antworte NUR mit validem JSON:
       { role: "user", content: buildUserContent(`${contextInfo}\nSchülerübersetzung:\n${truncate(student_text, 15000)}`, images) }
     ];
 
-    const openaiRes = await callOpenAI(env, messages, 8000);
+    const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
     try {
       const parsed = extractJSON(openaiRes);
@@ -8686,7 +8691,7 @@ Antworte NUR mit validem JSON:
       { role: "user", content: buildUserContent(`${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
     ];
 
-    const openaiRes = await callOpenAI(env, messages, 8000);
+    const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
     try {
       const parsed = extractJSON(openaiRes);
@@ -8983,7 +8988,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${contextInfo}\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 12000);
+  const openaiRes = await callOpenAI(env, messages, 12000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -9349,7 +9354,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -9708,7 +9713,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -9969,6 +9974,12 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$), chemische Formeln mit
   ], 6000);
 
   const content = extractJSON(openaiRes);
+
+  // Materialien auf Platzhalter prüfen und ggf. nachgenerieren
+  if (content.material && content.material.length) {
+    content.material = await repairPlaceholderMaterials(env, content.material, "Chemie");
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -10052,7 +10063,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -10296,6 +10307,12 @@ KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).`;
   ], 6000);
 
   const content = extractJSON(openaiRes);
+
+  // Materialien auf Platzhalter prüfen und ggf. nachgenerieren
+  if (content.material && content.material.length) {
+    content.material = await repairPlaceholderMaterials(env, content.material, "Physik");
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -10376,7 +10393,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000);
+  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -10530,7 +10547,7 @@ async function repairPlaceholderMaterials(env, materials, sachgebietTitle) {
   // Alle Platzhalter parallel nachgenerieren
   const repairs = await Promise.allSettled(toRepair.map(async (m) => {
     const typeInstr = {
-      text: `Schreibe einen vollständigen, ausformulierten Fachtext (mind. 150 Wörter) für Biologie-Oberstufenschüler. Der Text soll als Material in einer Klausuraufgabe dienen. Thema: "${m.titel || "Fachtext"}". Sachgebiet: ${sachgebietTitle}. Gib NUR den reinen Fachtext aus, keine Überschrift, kein JSON.`,
+      text: `Schreibe einen vollständigen, ausformulierten Fachtext (mind. 150 Wörter) für Oberstufenschüler. Der Text soll als Material in einer Klausuraufgabe dienen. Thema: "${m.titel || "Fachtext"}". Sachgebiet: ${sachgebietTitle}. Gib NUR den reinen Fachtext aus, keine Überschrift, kein JSON.`,
       statistik: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen Zahlenwerten (mind. 4 Datenzeilen) zum Thema "${m.titel || "Daten"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
       diagramm: `Erstelle eine vollständige Markdown-Tabelle mit echten, realistischen x/y-Messwerten (mind. 6 Datenpunkte) zum Thema "${m.titel || "Messwerte"}". Sachgebiet: ${sachgebietTitle}. Gib NUR die Markdown-Tabelle aus.`,
       bild: `Schreibe einen Bildprompt KOMPLETT auf Englisch (5-10 Sätze) für eine biologische Abbildung zum Thema "${m.titel || "Abbildung"}". NUR visuellen Inhalt beschreiben. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter oder Sätze im Bild! Gib NUR den Prompt aus.`
@@ -10580,27 +10597,27 @@ async function handleGenerateBio(request, env) {
   const sgThemen = {
     genetik: {
       title: "Genetik & Gentechnik",
-      inhalte: "Genetik & Gentechnik — DNA-Bau, genetischer Code, Proteinbiosynthese (Transkription, Prozessierung, Translation), Genwirkketten, Regulation der Genaktivität (Transkriptionsfaktoren, Enhancer, Silencer), Epigenetik (DNA-Methylierung, X-Inaktivierung), Stammzellen, DNA-Replikation, PCR, Zellzyklus, Meiose, Neukombination, Genommutationen (Trisomie 21), Genmutationen, CRISPR/Cas, Gentechnik-Anwendungen, Mendelsche Regeln (mono-/dihybrid), Erbgänge (autosomal dominant/rezessiv, X-chromosomal), Stammbaumanalyse, Gelelektrophorese, genetischer Fingerabdruck"
+      inhalte: "Genetik & Gentechnik (B12 LB1): Aufbau und Struktur der DNA (Doppelhelix, Basenpaarung, antiparallele Stränge). Semikonservative Replikation. Proteinbiosynthese: Transkription, RNA-Processing (Spleißen), Translation am Ribosom, genetischer Code (Codon, Anticodon, Redundanz). Genregulation bei Prokaryoten (Operon-Modell) und Eukaryoten (Transkriptionsfaktoren, Enhancer, Methylierung). Genmutationen (Punkt-, Rastermutationen), Mutagene, Reparaturmechanismen. Chromosomenmutationen und Genommutationen. Klassische Genetik: Mendel-Regeln (Uniformität, Spaltung, Unabhängigkeit), Rückkreuzung, dihybrider Erbgang, Kopplung und Rekombination. Humangenetik: Stammbaumanalyse (autosomal/gonosomal, dominant/rezessiv). Gentechnik: Restriktionsenzyme, Vektoren, PCR, Gelelektrophorese, genetischer Fingerabdruck, CRISPR-Cas. Bioethische Bewertung gentechnischer Verfahren."
     },
     neurobiologie: {
       title: "Neurobiologie",
-      inhalte: "Neurobiologie — Bau der Nervenzelle, Biomembran (Flüssig-Mosaik-Modell), Ruhepotential (Ionenverteilung, Na⁺/K⁺-ATPase), Aktionspotential (Ionenkanäle, Refraktärphasen, Alles-oder-Nichts), Erregungsleitung (myelinisiert/nicht-myelinisiert, saltatorisch/kontinuierlich), erregende chemische Synapse, Stoffeinwirkung an Synapsen, Depression (Monoamin-Hypothese, Vulnerabilitäts-Stress-Modell, SSRI)"
+      inhalte: "Neurobiologie (B12 LB2): Bau und Funktion von Nervenzellen (Soma, Axon, Dendriten, Myelinscheide, Ranvier-Schnürringe). Ruhepotential (Natrium-Kalium-Pumpe, Kalium-Leckkanäle, Nernst-Gleichung). Aktionspotential (Depolarisation, Repolarisation, Hyperpolarisation, Refraktärzeit, Alles-oder-Nichts-Prinzip). Erregungsleitung: kontinuierlich und saltatorisch, Geschwindigkeit. Synapse: erregende und hemmende postsynaptische Potentiale (EPSP, IPSP), räumliche und zeitliche Summation. Verrechnung an Nervenzellen. Neuroaktive Substanzen und Synapsengifte (Wirkungsmechanismen). Sinnesphysiologie: Bau des Auges, Fotorezeptoren (Stäbchen, Zapfen), Signaltransduktion."
     },
     stoffwechsel: {
       title: "Stoffwechselphysiologie",
-      inhalte: "Stoffwechselphysiologie — Photosynthese (Gesamtgleichung, Abhängigkeit von abiotischen Faktoren, Absorptions-/Wirkungsspektrum, Chromatographie, Angepasstheiten, lichtabhängige Reaktionen, Calvin-Zyklus), Enzyme (Regulation, kompetitive/nicht-kompetitive Hemmung), Zellatmung (Glykolyse, oxidative Decarboxylierung, Tricarbonsäurezyklus, Atmungskette, Chemiosmose), Gärung (Milchsäure-, alkoholische Gärung), Vergleich Photosynthese/Zellatmung"
+      inhalte: "Stoffwechselphysiologie (B12 LB3): Enzyme: Aufbau (Proteine, aktives Zentrum), Substrat- und Wirkungsspezifität, Schlüssel-Schloss-Prinzip und Induced-Fit-Modell. Abhängigkeit der Enzymaktivität von Temperatur, pH-Wert und Substratkonzentration. Enzymhemmung (kompetitiv, nicht-kompetitiv, allosterisch). ATP als universeller Energieträger, Redoxreaktionen. Zellatmung: Glykolyse, oxidative Decarboxylierung, Citratzyklus, Atmungskette (Chemiosmose, ATP-Synthase), Energiebilanz. Gärung (alkoholische Gärung, Milchsäuregärung). Photosynthese: Lichtreaktion (Fotosystem I und II, Elektronentransportkette), Calvin-Zyklus (CO₂-Fixierung, Reduktion, Regeneration). Abhängigkeit der Fotosyntheserate von Lichtintensität, CO₂-Konzentration, Temperatur."
     },
     oekologie: {
       title: "Ökologie & Biodiversität",
-      inhalte: "Ökologie & Biodiversität — abiotische/biotische Faktoren, Toleranzkurven, ökologische Potenz, Nahrungsnetz, Kohlenstoffkreislauf, Energiefluss, intra-/interspezifische Konkurrenz, Symbiose, Prädation, ökologische Nische, Populationsdynamik (exponentielles/logistisches Wachstum, Umweltkapazität), Ökosystemleistungen, Biodiversität, Nachhaltigkeit, anthropogener Treibhauseffekt"
+      inhalte: "Ökologie & Biodiversität (B12 LB4): Abiotische und biotische Umweltfaktoren. Ökologische Potenz, Toleranzkurve, Minimum-Gesetz, stenök/euryök. Populationsökologie: Wachstumsmodelle (exponentiell, logistisch), Kapazitätsgrenze K, r- und K-Strategen. Intra- und interspezifische Konkurrenz, Konkurrenzvermeidung, ökologische Nische (Fundamental- vs. Realnische). Räuber-Beute-Beziehungen (Lotka-Volterra-Regeln). Symbiose, Parasitismus, Kommensalismus. Ökosystem: Trophieebenen, Nahrungsketten/-netze, Energiefluss, Stoffkreisläufe (C, N). Sukzession, Klimaxgesellschaft. Biodiversität: Artenschutz, nachhaltige Nutzung, anthropogener Treibhauseffekt."
     },
     evolution: {
       title: "Evolution",
-      inhalte: "Evolution — molekularbiologische Homologien, Stammbaum/Kladogramm, synthetische Evolutionstheorie (Mutation, Rekombination, Selektion, Alleldrift), Selektionsformen (stabilisierend, transformierend, disruptiv), Artbildung (geographische/ökologische Isolation), Koevolution, Darwin vs. Lamarck"
+      inhalte: "Evolution (B13 LB1): Evolutionstheorien (Darwin, Lamarck, synthetische Evolutionstheorie). Evolutionsfaktoren: Mutation, Rekombination, Selektion (gerichtet, stabilisierend, disruptiv), Gendrift (Flaschenhalseffekt, Gründereffekt), Genfluss, Isolation. Artbegriffe (biologischer, morphologischer Artbegriff). Artbildung: allopatrisch, sympatrisch, adaptive Radiation. Homologie und Analogie, Rudimente, Atavismen. Molekulare Phylogenetik: DNA-Sequenzvergleich, molekulare Uhr. Stammbaum-Analyse (Kladogramm, Synapomorphien). Koevolution. Humanevolution: fossile Funde, Merkmalsvergleich Menschenaffen/Mensch."
     },
     verhalten: {
       title: "Verhaltensökologie",
-      inhalte: "Verhaltensökologie — adaptiver Wert von Verhalten, direkte/indirekte Fitness, Kosten-Nutzen-Analyse, Optimalitätsmodell, Kooperation, Altruismus, Kommunikation (Sender-Empfänger), Aggression (Drohen, Kommentkampf), Fortpflanzung (Handicap-Prinzip, Paarungssysteme), Elternaufwand"
+      inhalte: "Verhaltensökologie (B13 LB2): Verhalten als Anpassung (proximate und ultimate Ursachen). Kosten-Nutzen-Analyse von Verhaltensweisen. Fitness (direkte und indirekte Fitness, Gesamtfitness/Inclusive Fitness). Fortpflanzungsstrategien: sexuelle Selektion (intra- und intersexuell), Partnerwahl, Brutpflege. Altruismus und Verwandtenselektion (Hamilton-Regel: rB > C). Kooperation: reziproker Altruismus, Tit-for-Tat. Sozialverhalten: Gruppenbildung (Vor- und Nachteile), Dominanzhierarchien. Kommunikation im Tierreich (optisch, akustisch, chemisch, taktil). Konflikte: Eltern-Kind-Konflikt, Geschwisterkonkurrenz."
     }
   };
 
@@ -10613,7 +10630,12 @@ ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math
 
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
-- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau: AFB I (Nennen/Beschreiben) → AFB II (Erläutern/Vergleichen) → AFB III (Bewerten/Diskutieren)
+- Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
+- Operatoren gezielt einsetzen:
+  • AFB I: "Nennen Sie", "Beschreiben Sie", "Geben Sie an", "Stellen Sie dar", "Benennen Sie"
+  • AFB II: "Erläutern Sie", "Erklären Sie", "Vergleichen Sie", "Interpretieren Sie", "Analysieren Sie", "Werten Sie aus", "Begründen Sie", "Ordnen Sie zu"
+  • AFB III: "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie", "Nehmen Sie Stellung", "Erörtern Sie", "Entwickeln Sie"
+- AFB-Verteilung: ca. 25% AFB I, 55% AFB II, 20% AFB III
 - Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
 - ${KEINE_LOESUNGSHINWEISE}
 - Jede Teilaufgabe MUSS einen konkreten Operator und eine BE-Angabe haben
@@ -10672,7 +10694,22 @@ Antworte NUR mit validem JSON (kein Markdown-Codeblock). EXAKTES Format:
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Aufgaben' : 'eine Aufgabe'} (${totalBE} BE gesamt) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und abiturrelevant sein.
-KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln als Unicode-Text (°C, µmol, CO₂, m⁻²).`;
+KRITISCH: Mathematische Formeln in LaTeX ($...$). Einheiten und Summenformeln als Unicode-Text (°C, µmol, CO₂, m⁻²).
+
+REFERENZBEISPIEL (Orientiere dich an diesem Qualitätsniveau):
+{
+  "aufgabe": "In einem Ökologiepraktikum untersucht eine Schülergruppe die Fotosyntheseleistung der Wasserpflanze Elodea canadensis bei verschiedenen Temperaturen. Sie messen die Sauerstoffentwicklung über jeweils 10 Minuten.",
+  "teilaufgaben": [
+    {"id": "a)", "text": "Beschreiben Sie den im Material M1 dargestellten Zusammenhang zwischen Temperatur und Sauerstoffentwicklung.", "be": 4},
+    {"id": "b)", "text": "Erläutern Sie unter Verwendung des Enzymbegriffs die Veränderung der Fotosyntheserate oberhalb von 35°C.", "be": 6},
+    {"id": "c)", "text": "Beurteilen Sie, ob der Versuchsaufbau geeignet ist, um ausschließlich den Einfluss der Temperatur auf die Fotosynthese nachzuweisen.", "be": 5}
+  ],
+  "gesamt_be": 15,
+  "sachgebiet": "stoffwechsel",
+  "material": [
+    {"id": "M1", "titel": "Sauerstoffentwicklung von Elodea bei verschiedenen Temperaturen", "type": "diagramm", "chart_type": "line", "text": "| Temperatur (°C) | O₂-Entwicklung (µmol/h) |\\n|---|---|\\n| 5 | 12 |\\n| 10 | 28 |\\n| 15 | 45 |\\n| 20 | 68 |\\n| 25 | 89 |\\n| 30 | 105 |\\n| 35 | 118 |\\n| 40 | 95 |\\n| 45 | 41 |"}
+  ]
+}`;
 
   let openaiRes;
   try {
@@ -10760,7 +10797,7 @@ BEWERTUNGSREGELN:
 - Max BE gesamt: ${maxBE}
 
 BE → NOTENPUNKTE (ISB-Tabelle):
-95% �� 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
+95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
 33% → 3, 27% → 2, 20% → 1, <20% → 0
 
@@ -11010,6 +11047,11 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
   } catch (e) {
     console.error("generate-sport JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
     return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
+  }
+
+  // Materialien auf Platzhalter prüfen und ggf. nachgenerieren
+  if (content.material && content.material.length) {
+    content.material = await repairPlaceholderMaterials(env, content.material, "Sport");
   }
 
   return jsonResponse(content, 200, env);
@@ -11324,6 +11366,11 @@ Die Aufgabe${aufgabenAnzahl > 1 ? 'n sollen' : ' soll'} abwechslungsreich und ab
   } catch (e) {
     console.error("generate-informatik JSON parse error:", e.message, "Response preview:", (openaiRes || "").substring(0, 300));
     return jsonResponse({ error: "Aufgabe konnte nicht generiert werden. Bitte erneut versuchen." }, 500, env);
+  }
+
+  // Materialien auf Platzhalter prüfen und ggf. nachgenerieren
+  if (content.material && content.material.length) {
+    content.material = await repairPlaceholderMaterials(env, content.material, "Informatik");
   }
 
   return jsonResponse(content, 200, env);
@@ -11711,6 +11758,18 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
   ], 16000);
 
   const content = extractJSON(openaiRes);
+
+  // Materialien aller Aufgabengruppen auf Platzhalter prüfen und nachgenerieren
+  const aufgabenChem = content.aufgaben || content.aufgabengruppen || [];
+  for (const a of aufgabenChem) {
+    const mats = a.materialien || a.material || [];
+    if (mats.length) {
+      const repaired = await repairPlaceholderMaterials(env, mats, a.sachgebiet || "Chemie");
+      if (a.materialien) a.materialien = repaired;
+      else if (a.material) a.material = repaired;
+    }
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -11789,7 +11848,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -12037,6 +12096,18 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
   ], 16000);
 
   const content = extractJSON(openaiRes);
+
+  // Materialien aller Aufgabengruppen auf Platzhalter prüfen und nachgenerieren
+  const aufgabenPhys = content.aufgaben || content.aufgabengruppen || [];
+  for (const a of aufgabenPhys) {
+    const mats = a.materialien || a.material || [];
+    if (mats.length) {
+      const repaired = await repairPlaceholderMaterials(env, mats, a.sachgebiet || "Physik");
+      if (a.materialien) a.materialien = repaired;
+      else if (a.material) a.material = repaired;
+    }
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -12114,7 +12185,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -12761,6 +12832,18 @@ WICHTIG:
   ], 16000, { model: "gpt-5.2", temperature: 0.7 });
 
   const content = extractJSON(openaiRes);
+
+  // Materialien aller Aufgabengruppen auf Platzhalter prüfen und nachgenerieren
+  const aufgabenSport = content.aufgaben || content.aufgabengruppen || [];
+  for (const a of aufgabenSport) {
+    const mats = a.materialien || a.material || [];
+    if (mats.length) {
+      const repaired = await repairPlaceholderMaterials(env, mats, a.sachgebiet || "Sport");
+      if (a.materialien) a.materialien = repaired;
+      else if (a.material) a.material = repaired;
+    }
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -13031,6 +13114,18 @@ ${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus de
   ], 16000);
 
   const content = extractJSON(openaiRes);
+
+  // Materialien aller Aufgabengruppen auf Platzhalter prüfen und nachgenerieren
+  const aufgabenInfo = content.aufgaben || content.aufgabengruppen || [];
+  for (const a of aufgabenInfo) {
+    const mats = a.materialien || a.material || [];
+    if (mats.length) {
+      const repaired = await repairPlaceholderMaterials(env, mats, a.sachgebiet || "Informatik");
+      if (a.materialien) a.materialien = repaired;
+      else if (a.material) a.material = repaired;
+    }
+  }
+
   return jsonResponse(content, 200, env);
 }
 
@@ -13105,7 +13200,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`AUFGABEN:\n${aufgabenInfo}\n\nSCHÜLERLÖSUNGEN:\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
@@ -13192,7 +13287,7 @@ WICHTIG:
 }
 
 /* ================= OPENAI CALL ================= */
-async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = false } = {}) {
+async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}) {
   const t0 = Date.now();
   let phase = "fetch";
   try {
@@ -14088,7 +14183,7 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n\n${studentTexts}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 10000);
+  const openaiRes = await callOpenAI(env, messages, 10000, { temperature: 0.3 });
 
   try {
     const parsed = extractJSON(openaiRes);
