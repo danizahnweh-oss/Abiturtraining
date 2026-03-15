@@ -242,6 +242,11 @@
             </div>
           </div>
           <div id="subtopics-panel" class="subtopics-panel"></div>
+          <div class="custom-topic-container">
+            <label for="customTopic">Eigenes Thema (optional)</label>
+            <input type="text" id="customTopic" placeholder="z.B. konkretes Thema oder Unterthema eingeben..." maxlength="200">
+            <small class="custom-topic-hint">Wenn du ein Thema eingibst, wird die Aufgabe nur dazu erstellt.</small>
+          </div>
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1rem">
           <div class="form-group" style="margin:0">
@@ -702,7 +707,7 @@
       try {
         const d = await apiCall("/api/generate-bio", {
           sachgebiet: CONFIG.selectedSachgebiete.join(", "),
-          unterpunkte: getSelectedSubtopics(),
+          unterpunkte: document.getElementById('customTopic').value.trim() ? [document.getElementById('customTopic').value.trim()] : getSelectedSubtopics(),
           be: parseInt(document.getElementById("totalBE").value) || 20,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 45,
           anzahl: parseInt(document.getElementById("taskCount").value) || 1
