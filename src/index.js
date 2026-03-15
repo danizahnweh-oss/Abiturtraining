@@ -9302,6 +9302,11 @@ BEWERTUNGSREGELN:
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe (z.B. f'(x) = 4x + 3, int_0^1 x^2 dx = 1/3) und LaTeX-Notation ($\\frac{1}{2}$, $\\int_0^1 x^2\\,dx$). Interpretiere beides großzügig.
 - Max BE gesamt: ${maxBE}
 
+ANTWORT-FORMAT:
+- Mathematik-typische Darstellungsformen sind erwünscht: Formeln, Berechnungen, Skizzen, Tabellen, Gleichungsketten
+- Stichpunkte bei Rechenwegen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -9659,6 +9664,11 @@ BEWERTUNGSREGELN:
 - Folgefehler berücksichtigen
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe und LaTeX-Notation ($...$). Interpretiere beides großzügig.
 
+ANTWORT-FORMAT:
+- Mathematik-typische Darstellungsformen sind erwünscht: Formeln, Berechnungen, Skizzen, Tabellen, Gleichungsketten
+- Stichpunkte bei Rechenwegen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -10009,6 +10019,11 @@ BEWERTUNGSREGELN:
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie (z.B. H2O, NaOH + HCl -> NaCl + H2O) und LaTeX-Notation ($\\ce{H2O}$, $\\frac{1}{2}$). Interpretiere beides großzügig.
 - Max BE gesamt: ${maxBE}
 
+ANTWORT-FORMAT:
+- Chemie-typische Darstellungsformen sind erwünscht: Reaktionsgleichungen, Strukturformeln, Berechnungen, Tabellen, Skizzen
+- Stichpunkte bei Rechenwegen, Reaktionsmechanismen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -10339,6 +10354,11 @@ BEWERTUNGSREGELN:
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
 - Der Schüler schreibt in einer Mischung aus Plain-Text und LaTeX-Notation. Interpretiere beides großzügig.
 - Max BE gesamt: ${maxBE}
+
+ANTWORT-FORMAT:
+- Physik-typische Darstellungsformen sind erwünscht: Formeln, Berechnungen, Skizzen, Diagramme, Einheitenrechnungen
+- Stichpunkte bei Rechenwegen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
@@ -10769,6 +10789,11 @@ BEWERTUNGSREGELN:
 - Der Schüler schreibt in einer Mischung aus Plain-Text und LaTeX-Notation. Interpretiere beides großzügig.
 - Max BE gesamt: ${maxBE}
 
+ANTWORT-FORMAT:
+- Biologie-typische Darstellungsformen sind erwünscht: Stammbäume, Kreuzungsschemata, Diagramme, Tabellen, Skizzen, Formeln
+- Stichpunkte bei Aufzählungen, Vergleichen und Beschreibungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -11080,6 +11105,11 @@ BEWERTUNGSREGELN:
 - Korrekte Anwendung sportwissenschaftlicher Konzepte und Modelle
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
 - Max BE gesamt: ${maxBE}
+
+ANTWORT-FORMAT:
+- Sporttheorie-typische Darstellungsformen sind erwünscht: Trainingspläne, Tabellen, Diagramme, Skizzen, Periodisierungsschemata
+- Stichpunkte bei Aufzählungen, Vergleichen und Beschreibungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
@@ -11402,6 +11432,11 @@ BEWERTUNGSREGELN:
 - Bei KI: Korrekte Berechnungen (Forward Propagation, k-Means-Schritte)
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
 - Max BE gesamt: ${maxBE}
+
+ANTWORT-FORMAT:
+- Informatik-typische Darstellungsformen sind erwünscht: Pseudocode, Struktogramme, UML-Diagramme, Zustandsdiagramme, Tabellen, Code-Snippets
+- Stichpunkte bei Aufzählungen, Algorithmus-Beschreibungen und Erklärungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
@@ -11796,6 +11831,11 @@ BEWERTUNGSREGELN:
 - Folgefehler berücksichtigen
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie und LaTeX-Notation. Interpretiere beides großzügig.
 
+ANTWORT-FORMAT:
+- Chemie-typische Darstellungsformen sind erwünscht: Reaktionsgleichungen, Strukturformeln, Berechnungen, Tabellen, Skizzen
+- Stichpunkte bei Rechenwegen, Reaktionsmechanismen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -12133,6 +12173,11 @@ BEWERTUNGSREGELN:
 - Ansatz korrekt aber Rechenfehler → Teilpunkte
 - Folgefehler berücksichtigen
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Physik und LaTeX-Notation. Interpretiere beides großzügig.
+
+ANTWORT-FORMAT:
+- Physik-typische Darstellungsformen sind erwünscht: Formeln, Berechnungen, Skizzen, Diagramme, Einheitenrechnungen
+- Stichpunkte bei Rechenwegen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
@@ -12576,6 +12621,11 @@ BEWERTUNGSREGELN:
 - Folgefehler berücksichtigen
 - Der Schüler schreibt in einer Mischung aus Fachsprache und LaTeX-Notation. Interpretiere beides großzügig.
 
+ANTWORT-FORMAT:
+- Biologie-typische Darstellungsformen sind erwünscht: Stammbäume, Kreuzungsschemata, Diagramme, Tabellen, Skizzen, Formeln
+- Stichpunkte bei Aufzählungen, Vergleichen und Beschreibungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -12868,6 +12918,11 @@ BEWERTUNGSREGELN:
 - Teilweise korrekte Antworten → Teilpunkte
 - Folgefehler berücksichtigen
 
+ANTWORT-FORMAT:
+- Sporttheorie-typische Darstellungsformen sind erwünscht: Trainingspläne, Tabellen, Diagramme, Skizzen, Periodisierungsschemata
+- Stichpunkte bei Aufzählungen, Vergleichen und Beschreibungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
+
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15 NP, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
 65% → 9, 60% → 8, 55% → 7, 50% → 6, 45% → 5, 40% → 4
@@ -13150,6 +13205,11 @@ BEWERTUNGSREGELN:
 - Bewertungskriterien: Fachsprache, korrekter Algorithmus/Pseudocode, logische Argumentation, Vollständigkeit
 - Ansatz korrekt aber Folgefehler → Teilpunkte
 - Pseudocode/Code muss nicht compilierbar sein, aber logisch korrekt
+
+ANTWORT-FORMAT:
+- Informatik-typische Darstellungsformen sind erwünscht: Pseudocode, Struktogramme, UML-Diagramme, Zustandsdiagramme, Tabellen, Code-Snippets
+- Stichpunkte bei Aufzählungen, Algorithmus-Beschreibungen und Erklärungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (ISB-Tabelle):
 95% → 15, 90% → 14, 85% → 13, 80% → 12, 75% → 11, 70% → 10
@@ -14127,6 +14187,11 @@ BEWERTUNGSREGELN:
 - Folgefehler berücksichtigen (korrektes Weiterrechnen mit falschem Zwischenergebnis → Punkte)
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Mathe und LaTeX-Notation ($...$). Interpretiere beides großzügig.
 - Auch Skizzen/Zeichnungen gelten als Teil der Lösung
+
+ANTWORT-FORMAT:
+- Mathematik-typische Darstellungsformen sind erwünscht: Formeln, Berechnungen, Skizzen, Tabellen, Gleichungsketten
+- Stichpunkte bei Rechenwegen und Aufzählungen sind völlig normal – KEIN Punktabzug dafür
+- Fließtext ist nur bei Erläuterungen, Begründungen und Diskussionen nötig
 
 BE → NOTENPUNKTE (Offizieller FOS-Schlüssel):
 96 BE → 15, 91 → 14, 86 → 13, 81 → 12, 76 → 11, 71 → 10
