@@ -77,6 +77,8 @@ export interface LiveSessionConfig {
   prueferTyp?: PrueferTyp;
   feedbackMode?: boolean;
   examTranscript?: string;
+  /** Wenn gesetzt: Model-Audio wird nur abgespielt wenn true zurückgegeben wird */
+  shouldPlayModelAudio?: () => boolean;
   onModelTranscription?: (text: string) => void;
   onUserTranscription?: (text: string) => void;
   onStatusChange?: (status: 'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error') => void;
@@ -262,11 +264,15 @@ ${config.materialImpulse.map((m, i) => `Material ${i + 1}: "${m.titel}" (${m.que
 - Was hätte man aus den Materialien noch herauslesen können?` : ''}
 Schreibe auf Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
 
-  const response = await ai.models.generateContent({
+  const feedbackPromise = ai.models.generateContent({
     model: "gemini-2.5-flash",
     contents: prompt,
   });
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error('Feedback-Timeout nach 60 Sekunden')), 60_000)
+  );
 
+  const response = await Promise.race([feedbackPromise, timeoutPromise]);
   return response.text || 'Feedback konnte nicht generiert werden.';
 }
 
@@ -324,14 +330,24 @@ Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj})
 
   if (mode === 'referat') {
     instruction += `
-ABLAUF: Begrüße den Prüfling, lass ihn sein Kurzreferat halten (~10 Min). Höre zu, unterbrich nur bei Abschweifen. Danach beende die Prüfung.`;
+ABLAUF: Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
+
+KRITISCHE REGEL FÜR DAS KURZREFERAT:
+- Du darfst während des Kurzreferats ABSOLUT NICHT SPRECHEN. KEIN EINZIGES WORT.
+- KEINE Reaktion, KEIN "Mhm", KEIN "Ja", KEIN "Interessant", KEIN Nicken, KEINE Rückfrage. TOTALE STILLE.
+- Auch wenn der Prüfling eine Pause macht: SCHWEIGE. Pausen im Referat sind völlig normal.
+- Auch wenn der Prüfling dich direkt anspricht oder eine Frage stellt: SCHWEIGE – er soll frei vortragen.
+- Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Referat beendet ist (z.B. "Damit bin ich am Ende", "Vielen Dank", "Das war mein Referat").
+- Wenn der Prüfling nach 10–12 Minuten nicht selbst aufhört, darfst du ihn freundlich bitten, zum Ende zu kommen.
+Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
   } else if (mode === 'fragen') {
     instruction += `
 ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.`;
   } else {
     instruction += `
 ABLAUF:
-1. Begrüße den Prüfling, lass ihn sein Kurzreferat halten (~10 Min).
+1. Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
+   KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.`;
@@ -354,6 +370,13 @@ ${m.inhalt}
       }
     });
   }
+
+  instruction += `
+GEDÄCHTNIS-REGEL:
+- Merke dir EXAKT, was der Prüfling bereits gesagt hat – sowohl im Referat als auch bei Antworten.
+- Stelle NIEMALS eine Frage zu einem Thema, das der Prüfling bereits ausführlich behandelt hat.
+- Wenn der Prüfling etwas im Referat erklärt hat, frage NICHT nochmal danach, sondern stelle VERTIEFENDE Fragen dazu oder wechsle zu einem NEUEN Aspekt.
+- Beziehe dich auf das Gesagte: "Sie haben vorhin ... erwähnt. Können Sie das vertiefen?" statt das Thema nochmal von vorne aufzurollen.`;
 
   const verhalten = PRUEFER_PRESETS[config.prueferTyp || 'standard'];
   instruction += `
@@ -429,7 +452,7 @@ export class LiveSession {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: this.config.gender === 'female' ? 'Kore' : 'Puck' } },
           },
           thinkingConfig: {
-            thinkingBudget: 0,
+            thinkingBudget: 512,
           },
           systemInstruction: this.instruction,
           inputAudioTranscription: {},
@@ -467,7 +490,10 @@ export class LiveSession {
             this.lastMessageTime = Date.now();
 
             const base64Audio = message.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
-            if (base64Audio) this.audioPlayer.playChunk(base64Audio);
+            if (base64Audio) {
+              const shouldPlay = this.config.shouldPlayModelAudio?.() ?? true;
+              if (shouldPlay) this.audioPlayer.playChunk(base64Audio);
+            }
 
             if (message.serverContent?.interrupted) this.audioPlayer.stop();
 
@@ -697,9 +723,12 @@ export class StatefulLiveSession {
           return;
         }
 
-        // Audio abspielen
+        // Audio abspielen (nur wenn nicht stummgeschaltet)
         const base64Audio = data?.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
-        if (base64Audio) this.audioPlayer.playChunk(base64Audio);
+        if (base64Audio) {
+          const shouldPlay = this.config.shouldPlayModelAudio?.() ?? true;
+          if (shouldPlay) this.audioPlayer.playChunk(base64Audio);
+        }
 
         if (data?.serverContent?.interrupted) this.audioPlayer.stop();
 

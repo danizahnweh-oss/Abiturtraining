@@ -16,7 +16,7 @@ import {
   type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
 } from './lib/live-api';
 
-const USE_STATEFUL_SESSIONS = false;
+const USE_STATEFUL_SESSIONS = true;
 import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
@@ -280,6 +280,11 @@ export default function App() {
   const sessionRef = useRef<LiveSession | StatefulLiveSession | null>(null);
   const micRef = useRef<AudioProcessor | null>(null);
 
+  /* Refs für Audio-Muting (Referat-Phase) */
+  const examElapsedRef = useRef(0);
+  const examModeRef = useRef<ExamMode>('gesamt');
+  const modelTxCountRef = useRef(0);
+
   /* Prüfer-Geschlecht (zufällig gewählt) */
   const [examinerGender, setExaminerGender] = useState<'male' | 'female'>('male');
   const prüferLabel = examinerGender === 'female' ? 'Prüferin' : 'Prüfer';
@@ -307,6 +312,24 @@ export default function App() {
     : [];
   const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
+
+  /* ── Refs synchron halten (für Callbacks ohne stale closures) ── */
+  useEffect(() => { examElapsedRef.current = exam.elapsed; }, [exam.elapsed]);
+  useEffect(() => { examModeRef.current = examMode; }, [examMode]);
+
+  /** Audio-Muting: Während der Referat-Phase nach der Begrüßung stumm */
+  const shouldPlayModelAudio = useCallback((): boolean => {
+    const mode = examModeRef.current;
+    const elapsed = examElapsedRef.current;
+    // Im Fragen-Modus: immer abspielen
+    if (mode === 'fragen') return true;
+    // Referat/Gesamt: Erste Model-Äußerung (Begrüßung) abspielen
+    if (modelTxCountRef.current <= 1) return true;
+    // Danach stumm bis Referat-Phase vorbei (10 Min)
+    if (mode === 'referat') return false;
+    if (elapsed < 600) return false;
+    return true;
+  }, []);
 
   /* ── Material-Impuls Timer ── */
   useEffect(() => {
@@ -382,14 +405,15 @@ export default function App() {
       processor.warmup().catch(() => {});
       micRef.current = processor;
 
+      modelTxCountRef.current = 0;
       const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
       const session = new SessionClass({
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
-        examMode, gender, prueferTyp,
+        examMode, gender, prueferTyp, shouldPlayModelAudio,
         onStatusChange: s => setStatus(s),
-        onModelTranscription: t => setModelTx(prev => [...prev, t]),
+        onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
       }, processor);
       sessionRef.current = session;
@@ -440,14 +464,15 @@ export default function App() {
     const processor = micRef.current || undefined;
     micRef.current = null;
 
+    modelTxCountRef.current = 0;
     const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
-      const session = new SessionClass({
+    const session = new SessionClass({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      examMode, gender: examinerGender, prueferTyp,
+      examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio,
       onStatusChange: s => setStatus(s),
-      onModelTranscription: t => setModelTx(prev => [...prev, t]),
+      onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
     }, processor);
     sessionRef.current = session;
@@ -456,41 +481,96 @@ export default function App() {
   };
 
   const stopExam = () => {
+    // Transkripte sichern bevor Session gestoppt wird (für Feedback)
+    try {
+      sessionStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
+        modelTx, userTx, timestamp: Date.now(),
+      }));
+    } catch { /* sessionStorage voll */ }
+
     sessionRef.current?.stop();
     sessionRef.current = null;
     exam.stop();
     setStatus('disconnected');
     setStep('feedback-choice');
+    sessionStorage.removeItem('kolloquium_active_exam');
+  };
+
+  /** Transkript-Fallback: Lokal → sessionStorage-Backup → Server (StatefulLiveSession) */
+  const getTranscripts = async (): Promise<{ mTx: string[]; uTx: string[] }> => {
+    // 1) Lokale Transkripte
+    if (modelTx.length > 0 || userTx.length > 0) return { mTx: [...modelTx], uTx: [...userTx] };
+    // 2) sessionStorage-Backup
+    try {
+      const backup = JSON.parse(sessionStorage.getItem('kolloquium_transcript_backup') || '{}');
+      if (backup.modelTx?.length > 0) return { mTx: backup.modelTx, uTx: backup.userTx || [] };
+    } catch { /* ignorieren */ }
+    // 3) Server-Transkript (StatefulLiveSession)
+    if (sessionRef.current && 'getServerTranscript' in sessionRef.current) {
+      const entries = await (sessionRef.current as StatefulLiveSession).getServerTranscript();
+      if (entries.length > 0) {
+        return {
+          mTx: entries.filter(e => e.role === 'pruefer').map(e => e.text),
+          uTx: entries.filter(e => e.role === 'pruefling').map(e => e.text),
+        };
+      }
+    }
+    return { mTx: [], uTx: [] };
   };
 
   const handleWrittenFb = async () => {
     setFbType('written');
     setFbLoading(true);
     setStep('feedback');
-    try {
-      const fb = await generateWrittenFeedback({
-        subject, examLevel: level, schwerpunkt, modelTranscription: modelTx, userTranscription: userTx,
-        materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      });
-      setFbText(fb);
-    } catch {
-      setFbText('Feedback konnte nicht generiert werden.');
+
+    const { mTx, uTx } = await getTranscripts();
+    if (mTx.length === 0 && uTx.length === 0) {
+      setFbText('Leider konnte kein Prüfungstranskript aufgezeichnet werden. Feedback ist nur möglich, wenn die Prüfung vollständig durchgeführt wurde. Bitte starte eine neue Prüfung.');
+      setFbLoading(false);
+      return;
     }
+
+    // 3 Versuche mit Backoff
+    let lastError = '';
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const fb = await generateWrittenFeedback({
+          subject, examLevel: level, schwerpunkt, modelTranscription: mTx, userTranscription: uTx,
+          materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
+        });
+        setFbText(fb);
+        setFbLoading(false);
+        return;
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : 'Unbekannter Fehler';
+        console.error(`Feedback-Versuch ${attempt + 1} fehlgeschlagen:`, err);
+        if (attempt < 2) await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+      }
+    }
+    setFbText(`Feedback konnte nach 3 Versuchen nicht generiert werden (${lastError}). Bitte versuche es erneut oder starte eine neue Prüfung.`);
     setFbLoading(false);
   };
 
   const handleOralFb = async () => {
     setFbType('oral');
     setStep('feedback');
-    setModelTx([]);
 
-    const transcript = modelTx.map((m, i) => {
-      const u = userTx[i] || '';
+    // Transkript sichern BEVOR modelTx geleert wird
+    const { mTx, uTx } = await getTranscripts();
+    const transcript = mTx.map((m, i) => {
+      const u = uTx[i] || '';
       return `${u ? `Prüfling: ${u}\n` : ''}Prüfer: ${m}`;
     }).join('\n');
 
+    if (!transcript.trim()) {
+      setModelTx(['Leider konnte kein Prüfungstranskript aufgezeichnet werden. Mündliches Feedback ist nur möglich, wenn die Prüfung vollständig durchgeführt wurde. Bitte starte eine neue Prüfung.']);
+      return;
+    }
+
+    setModelTx([]); // Jetzt erst leeren für neue Feedback-Transkription
+
     const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
-      const session = new SessionClass({
+    const session = new SessionClass({
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
       material: material?.material || '',
@@ -514,6 +594,7 @@ export default function App() {
     sessionRef.current = null;
     micRef.current?.stopRecording();
     micRef.current = null;
+    modelTxCountRef.current = 0;
     setStep('setup');
     setStatus('disconnected');
     setModelTx([]);
@@ -531,7 +612,27 @@ export default function App() {
     setSpHalbjahr('');
     setSchwerpunkt('');
     prep.reset(30 * 60);
+    sessionStorage.removeItem('kolloquium_active_exam');
+    sessionStorage.removeItem('kolloquium_transcript_backup');
   };
+
+  /* ── Prüfungsstatus in sessionStorage sichern (für Wiederherstellung nach Reload) ── */
+  useEffect(() => {
+    if (step !== 'exam') return;
+    const save = () => {
+      try {
+        sessionStorage.setItem('kolloquium_active_exam', JSON.stringify({
+          subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
+          weitereHJ, gestrichen, material, matImpulse,
+          modelTx, userTx, elapsed: exam.elapsed,
+          examinerGender, prueferTyp, timestamp: Date.now(),
+        }));
+      } catch { /* sessionStorage voll */ }
+    };
+    save();
+    const interval = setInterval(save, 15_000);
+    return () => clearInterval(interval);
+  }, [step, exam.elapsed, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp]);
 
   /* ───────── RENDER ───────── */
 
@@ -949,7 +1050,11 @@ export default function App() {
                   <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[120px] flex flex-col justify-center border border-black/5 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
                     {status === 'reconnecting' ? (
-                      <p className="text-sm text-amber-600 italic">Verbindung wird wiederhergestellt... Bitte kurz warten.</p>
+                      <div className="text-center">
+                        <Loader2 size={24} className="text-amber-500 animate-spin mx-auto mb-3" />
+                        <p className="text-sm text-amber-600 font-medium">Verbindung wird wiederhergestellt...</p>
+                        <p className="text-xs text-amber-500 mt-1">Das Gespräch wird fortgesetzt. Bitte einen Moment Geduld.</p>
+                      </div>
                     ) : status === 'connecting' ? (
                       <div className="text-center">
                         <Loader2 size={24} className="text-emerald-500 animate-spin mx-auto mb-3" />
