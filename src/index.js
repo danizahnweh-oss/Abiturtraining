@@ -376,7 +376,7 @@ async function ensureMigrations(env) {
 
 /* ================= MAIN HANDLER ================= */
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
 
     // Store origin on env to avoid global state race condition
@@ -958,7 +958,7 @@ export default {
 
       // ===== ASYNC GRADING: SUBMIT =====
       if (pathname === "/api/grade-submit" && request.method === "POST") {
-        return await handleGradeSubmit(request, env);
+        return await handleGradeSubmit(request, env, ctx);
       }
 
       // ===== STUDENT PREFERENCES =====
@@ -15995,7 +15995,7 @@ function isValidGradeEndpoint(endpoint) {
   return false;
 }
 
-async function handleGradeSubmit(request, env) {
+async function handleGradeSubmit(request, env, ctx) {
   const body = await request.json();
   const { endpoint, student_name, ...inputData } = body;
 
@@ -16006,24 +16006,57 @@ async function handleGradeSubmit(request, env) {
   // Minimale Input-Validierung
   const hasText = inputData.student_text || inputData.student_texts || inputData.text_a ||
                   inputData.student_text_en || inputData.rubric_prompt;
-  if (!hasText) {
+  const hasImages = inputData.images && inputData.images.length;
+  if (!hasText && !hasImages) {
     return jsonResponse({ error: "Kein Schülertext vorhanden." }, 400, env);
   }
+
+  // Bilder aus inputData extrahieren (zu groß für D1)
+  const images = inputData.images;
+  delete inputData.images;
 
   const jobId = crypto.randomUUID();
   const now = new Date().toISOString();
   const sName = truncate(student_name || "Unbekannt", 100);
 
-  // Job in D1 anlegen
+  // Job in D1 anlegen (ohne Bilder — passen nicht in SQLite)
   await env.DB.prepare(
     `INSERT INTO grading_jobs (id, student_name, endpoint, input_data, status, attempts, created_at, updated_at)
      VALUES (?, ?, ?, ?, 'pending', 0, ?, ?)`
   ).bind(jobId, sName, endpoint, JSON.stringify(inputData), now, now).run();
 
-  // Message in Queue einstellen
-  await env.GRADING_QUEUE.send({ jobId, endpoint });
+  if (images && images.length) {
+    // Bilder vorhanden → direkt verarbeiten (Queue kann keine großen Payloads)
+    ctx.waitUntil(processGradeDirectly(jobId, endpoint, inputData, images, env));
+  } else {
+    // Ohne Bilder → Queue wie bisher
+    await env.GRADING_QUEUE.send({ jobId, endpoint });
+  }
 
   return jsonResponse({ job_id: jobId, status: "pending" }, 202, env);
+}
+
+async function processGradeDirectly(jobId, endpoint, inputData, images, env) {
+  try {
+    await env.DB.prepare(
+      "UPDATE grading_jobs SET status = 'processing', attempts = 1, updated_at = ? WHERE id = ?"
+    ).bind(new Date().toISOString(), jobId).run();
+
+    // Bilder für den Handler wieder anhängen
+    const fullInput = { ...inputData, images };
+    const result = await executeGradeHandler(endpoint, fullInput, env);
+
+    await env.DB.prepare(
+      "UPDATE grading_jobs SET status = 'completed', result_data = ?, updated_at = ? WHERE id = ?"
+    ).bind(JSON.stringify(result), new Date().toISOString(), jobId).run();
+  } catch (err) {
+    console.error("Direct grading failed for job " + jobId + ":", err.message);
+    const safeMsg = truncate(err.message || "Unbekannter Fehler", 500);
+    const isUnsafe = /api[_-]?key|token|secret|stack|\.js:/i.test(safeMsg);
+    await env.DB.prepare(
+      "UPDATE grading_jobs SET status = 'failed', error_msg = ?, updated_at = ? WHERE id = ?"
+    ).bind(isUnsafe ? "Interner Fehler." : safeMsg, new Date().toISOString(), jobId).run();
+  }
 }
 
 async function handleGradeStatus(jobId, env) {
