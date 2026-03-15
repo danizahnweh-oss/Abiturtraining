@@ -2283,11 +2283,10 @@ async function handleModelAnswer(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B2/C1).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Mediation-Aufgabe auf ENGLISCH.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein — wie ein echter Aufsatz, den ein Schüler in der Prüfung abgeben würde.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich flüssig lesen lassen, mit sinnvollen Absätzen und Gedankenführung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Halte dich an die Aufgabenstellung
@@ -2956,12 +2955,10 @@ async function handleModelAnswerDeutsch(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Deutsch).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit eleganten Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Aufsatz lesen — mit sinnvollen Absätzen und klarer Gedankenführung
-- Strukturiere klar (Einleitung, Hauptteil, Schluss), aber gliedere durch Absätze, NICHT durch Aufzählungen
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Verwende Fachbegriffe korrekt
@@ -4150,12 +4147,10 @@ async function handleModelAnswerPuG(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -4454,12 +4449,10 @@ async function handleModelAnswerAbiturPuG(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Politik und Gesellschaft (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 PRÜFUNGSTEIL A:
 - Bearbeite ALLE Teilaufgaben
@@ -4673,7 +4666,7 @@ async function handleGradeWR(request, env) {
 
   const rubricPrompt = `Du bewertest eine Wirtschaft-und-Recht-Abiturarbeit nach dem bayerischen BE-System (Bewertungseinheiten).
 
-WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen. Erwähne dies explizit im Feedback.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
 
 BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
@@ -4756,12 +4749,10 @@ async function handleModelAnswerWR(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben strukturiert
@@ -5620,12 +5611,10 @@ async function handleModelAnswerAbiturGeschichte(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geschichte (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (Teil A + Teil B) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen, klarer Argumentation und Gedankenführung
-- Jeder Teil als eigener Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 TEIL A — QUELLENANALYSE:
 - Quelleneinordnung (Autor, Textsorte, Adressat, historischer Kontext)
@@ -5820,7 +5809,7 @@ async function handleGradeAbiturWR(request, env) {
 
   const rubricPrompt = `Du bewertest eine vollständige WR-Abiturprüfung (2 Aufgaben) nach dem bayerischen BE-System.
 
-WICHTIG – FLIEẞTEXT-PFLICHT: Antworten MÜSSEN in zusammenhängendem Fließtext verfasst sein. Wenn der Schüler in Stichpunkten oder Aufzählungen antwortet statt in Fließtext, muss dies zu deutlichem Punktabzug führen. Erwähne dies explizit im Feedback.
+WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
 
 BEWERTUNGSREGELN:
 - Bewerte JEDE Aufgabe separat mit BE
@@ -5905,12 +5894,10 @@ async function handleModelAnswerAbiturWR(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Wirtschaft und Recht.
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für eine VOLLSTÄNDIGE Abiturprüfung (2 Aufgaben) auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Aufgaben
@@ -6015,12 +6002,10 @@ async function handleModelAnswerFrench(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B1+/B2 Französisch).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Sprachmittlung-Aufgabe auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen (connecteurs logiques)
-- Der Text muss sich flüssig lesen lassen, mit sinnvollen Absätzen und Gedankenführung
-- Beachte die geforderte Textsorte (courriel, lettre, article) und deren formale Merkmale
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Halte dich an die Aufgabenstellung
@@ -6045,12 +6030,10 @@ async function handleModelAnswerFrenchWriting(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Französisch, Niveau B2).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf FRANZÖSISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit eleganten Übergängen und Verknüpfungen (connecteurs logiques)
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Aufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE angegebenen Aufgaben
@@ -6179,12 +6162,10 @@ async function handleModelAnswerItalian(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler (Niveau B1+/B2 Italienisch).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung für die Sprachmittlung-Aufgabe auf ITALIENISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen (connettivi logici)
-- Der Text muss sich flüssig lesen lassen, mit sinnvollen Absätzen und Gedankenführung
-- Beachte die geforderte Textsorte (e-mail, lettera, articolo) und deren formale Merkmale
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Halte dich an die Aufgabenstellung
@@ -6209,12 +6190,10 @@ async function handleModelAnswerItalianWriting(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium (Leistungskurs Italienisch, Niveau B2).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf ITALIENISCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit eleganten Übergängen und Verknüpfungen (connettivi logici)
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Aufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE angegebenen Aufgaben
@@ -6608,12 +6587,10 @@ async function handleModelAnswerEthik(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Ethik (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -6837,10 +6814,10 @@ async function handleModelAnswerAbiturEthik(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Ethik (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Prüfungsteile
@@ -7140,10 +7117,10 @@ async function handleModelAnswerReligion(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -7322,10 +7299,10 @@ async function handleModelAnswerAbiturReligion(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Evangelische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Prüfungsteile
@@ -7612,10 +7589,10 @@ async function handleModelAnswerKatholisch(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Katholische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -7794,10 +7771,10 @@ async function handleModelAnswerAbiturKatholisch(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Katholische Religionslehre (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Prüfungsteile
@@ -8090,12 +8067,10 @@ async function handleModelAnswerGeographie(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geographie (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -8317,10 +8292,10 @@ async function handleModelAnswerAbiturGeographie(request, env) {
   const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Geographie (Leistungsfach).
 Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben beider Prüfungsteile
@@ -8669,8 +8644,8 @@ BEWERTUNG (Inhalt 70% + Darstellung 30%):
 - darstellung_np (0-15): Sprachliche Darstellung — Fachsprache, Ausdruck, Struktur, Kohärenz
 - gesamt_np: verstehen_np × 0,7 + darstellung_np × 0,3 (gerundet)
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Der Schüler soll in zusammenhängendem Fließtext antworten. Stichpunktartige Antworten sind ABZUWERTEN (mindestens 2 NP Abzug bei darstellung_np).
+WICHTIG – GANZE SÄTZE:
+Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten. Fußnoten sind erlaubt. Leichter Abzug bei darstellung_np nur wenn ausschließlich Stichworte statt ganzer Sätze verwendet werden.
 
 ${truncate(rubric_prompt, 5000)}
 ${korrekturAnweisung}
@@ -8759,12 +8734,10 @@ ANFORDERUNGEN:
     const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Latein (Leistungsfach).
 Schreibe eine vorbildliche, vollständig ausformulierte Musterlösung auf DEUTSCH — so, wie ein Schüler sie in der Prüfung abgeben würde.
 
-WICHTIG – FLIEẞTEXT-PFLICHT:
-Diese Musterlösung dient Schülern als Vorbild. Sie MUSS als durchgehender, zusammenhängender Fließtext verfasst sein.
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Verwende vollständige Sätze mit Übergängen und Verknüpfungen zwischen den Absätzen
-- Der Text muss sich wie ein echter Prüfungsaufsatz lesen — mit sinnvollen Absätzen und klarer Argumentation
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift, NICHT als Aufzählung
+WICHTIG – GANZE SÄTZE:
+Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen. Fußnoten und Quellenverweise sind erlaubt.
+- Formuliere in ganzen Sätzen mit sinnvollen Übergängen
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben der Aufgabenstellung
@@ -8959,8 +8932,8 @@ TEIL B – AUFGABENTEIL (Inhalt 70% + Darstellung 30%):
 - darstellung_np (0-15): Sprachliche Darstellung
 - teil_b_gesamt_np = teil_b_np × 0,7 + darstellung_np × 0,3
 
-WICHTIG – FLIEẞTEXT-PFLICHT (Teil B):
-Stichpunktartige Antworten sind bei darstellung_np ABZUWERTEN (mindestens 2 NP Abzug).
+WICHTIG – GANZE SÄTZE (Teil B):
+Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten. Leichter Abzug bei darstellung_np nur wenn ausschließlich Stichworte verwendet werden.
 
 GESAMTNOTE:
 - Gesamt NP = Durchschnitt aus Teil A NP und Teil B Gesamt NP (1:1 Verhältnis, gerundet)
@@ -9042,10 +9015,10 @@ TEIL A – ÜBERSETZUNG:
 - Verwende flüssiges, gutes Deutsch
 
 TEIL B – AUFGABENTEIL:
-WICHTIG – FLIEẞTEXT-PFLICHT:
-- KEINE Stichpunkte, Aufzählungen, Bullet Points oder nummerierte Listen
-- Durchgehender, zusammenhängender Fließtext mit sinnvollen Absätzen
-- Jede Teilaufgabe als eigenen Fließtext-Abschnitt mit Überschrift
+WICHTIG – GANZE SÄTZE:
+- Verwende vollständige Sätze, keine Stichpunkte oder Aufzählungen
+- Fußnoten und Quellenverweise sind erlaubt
+- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
 
 Inhaltlich:
 - Bearbeite ALLE Teilaufgaben aller drei Abschnitte
