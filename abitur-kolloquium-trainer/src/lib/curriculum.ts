@@ -591,7 +591,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Bedeutung des Sozialstaats und aktuelle Herausforderungen',
       ],
       '13/2': [
-        'Internationale Konfliktbearbeitung vor dem Hintergrund des Völkerrechts',
+        'Internationale Konfliktbearbeitung und Friedenssicherung',
+        'Menschenrechte und humanitäres Engagement',
+        'Globalisierung und internationale Kooperation',
       ],
     },
   },
