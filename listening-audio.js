@@ -7,11 +7,11 @@
 const PROXY_URL = 'https://gemini-proxy.sanktannagymnasium.workers.dev';
 const PLAYBACK_SAMPLE_RATE = 24000;
 
-/** GoogleGenAI wird dynamisch über CDN geladen */
+/** GoogleGenAI wird lokal geladen (DSGVO-konform) */
 let _genaiModule = null;
 async function loadGenAI() {
   if (_genaiModule) return _genaiModule;
-  _genaiModule = await import('https://cdn.jsdelivr.net/npm/@google/genai/+esm');
+  _genaiModule = await import('/vendor/genai.esm.js');
   return _genaiModule;
 }
 
