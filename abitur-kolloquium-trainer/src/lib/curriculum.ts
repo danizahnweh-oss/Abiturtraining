@@ -625,28 +625,52 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Wirtschaft und Recht': {
-    // WR12 eA: LB1 BWL (54 Std.) = 12/1, LB2 VWL (40 Std.) = 12/2, LB3 Recht (18 Std.) → 13/1
-    // WR13 eA: LB1 Recht (48 Std.) → 13/1, LB2 VWL (36 Std.) = 13/2
+    // LehrplanPLUS WR (G9) gA – verifiziert anhand lehrplanplus.bayern.de 15-03-2026
+    // WR12 gA: LB1 BWL (16 Std.) = 12/1, LB2 VWL (26 Std.) = 12/2, LB3 Recht (14 Std.) → 13/1
+    // WR13 gA: LB1 Recht (24 Std.) → 13/1, LB2 VWL (18 Std.) = 13/2
     halbjahre: {
       '12/1': [
-        'Unternehmensaufbau, Markt und Produktion: Stakeholder, Wertschöpfung, Beschaffung, Break-even-Analyse, ABC-Analyse',
-        'Jahresabschluss und Bilanzanalyse: Bilanz, GuV, Bilanzkennzahlen (Anlageintensität, EK-Quote, Deckungsgrade, Liquiditätsgrade), Rentabilitätskennzahlen und EBIT',
-        'Investition, Finanzierung und Unternehmensführung: Kapitalwertmethode, Leverage-Effekt, SWOT-Analyse, Wettbewerbsstrategien nach Porter',
+        'Unternehmensaufbau: unternehmerische Zielsetzungen (ökonomisch, ökologisch, sozial, ethisch), Stakeholder, Break-even-Analyse (fixe und variable Kosten)',
+        'Investition, Finanzierung und Erfolgsmessung: statische Investitionsverfahren (Gewinnvergleichsrechnung, Amortisationsrechnung), Eigen- vs. Fremdfinanzierung, Eigenkapital- und Umsatzrentabilität',
       ],
       '12/2': [
         'Magisches Viereck, Konjunkturzyklus, Konjunkturindikatoren und Zielbeziehungen',
-        'Wachstum und Beschäftigung: Wirtschaftspolitik (Nachfrage-/Angebotstheorie), BIP (Verwendungs-/Entstehungsrechnung), Arbeitslosigkeitsarten, Staatsverschuldung, Klimaschutz',
-        'Einkommen und soziale Sicherung: Tarifpolitik, Kranken-/Rentenversicherung, demographischer Wandel, soziale Gerechtigkeit (Leistungs-, Chancen-, Bedarfs-, Generationengerechtigkeit)',
+        'Wachstum und Beschäftigung: Wirtschaftspolitik (Nachfrage-/Angebotstheorie), BIP (Verwendungsrechnung), konjunkturelle und strukturelle Arbeitslosigkeit, Staatsverschuldung, Klimaschutz',
+        'Einkommen und soziale Sicherung: Tarifpolitik, Kranken-/Rentenversicherung (Umlage-/Kapitaldeckungsverfahren), demographischer Wandel, soziale Gerechtigkeit',
       ],
       '13/1': [
-        'Rechtstechnische Grundlagen und gesetzliche Schuldverhältnisse (BGB-Systematik, Gutachtenstil, § 823 I BGB, Gefährdungshaftung, gutgläubiger Eigentumserwerb)',
-        'Vertragliche Schuldverhältnisse und Verbraucherschutz (Vertragstypen, Leistungsstörungen, Gewährleistung, Widerrufsrecht, AGB)',
-        'Strafrecht: Aufbau einer Straftat, Rechtfertigungs- und Entschuldigungsgründe, Strafzwecktheorien, Strafzumessung, Radbruchsche Formel',
+        'Rechtstechnische Grundlagen und gesetzliche Schuldverhältnisse: BGB-Systematik, Gutachtenstil, § 823 I BGB, gutgläubiger Eigentumserwerb',
+        'Vertragliche Schuldverhältnisse beim Kauf: Leistungsstörungen (verspätete Leistung, Unmöglichkeit), Mangelfreiheit, Gewährleistung beim Verbrauchsgüterkauf, Verbraucherschutz (Beweislastumkehr, Widerrufsrecht)',
+        'Strafrecht: Aufbau einer Straftat (Tatbestandsmäßigkeit, Rechtswidrigkeit, Schuld), Strafzwecktheorien, Strafzumessung',
       ],
       '13/2': [
         'Geld und Preisniveau: Preisniveaustabilität, Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit), Wirkungsgrenzen',
-        'Außenhandel und Währung: Leistungs-/Kapitalbilanz, Wechselkursbildung, außenhandels- und währungspolitische Maßnahmen',
-        'Spieltheorie (Gefangenendilemma, Nash-Gleichgewicht, Pareto-Optimum) und vernetzte Betrachtung gesamtwirtschaftlicher Problemstellungen',
+        'Außenhandel und Währung: Leistungsbilanz, außenwirtschaftliches Gleichgewicht, Wechselkursbildung, außenhandels- und währungspolitische Maßnahmen',
+      ],
+    },
+    // LehrplanPLUS WR (G9) eA – verifiziert anhand lehrplanplus.bayern.de 15-03-2026
+    // WR12 eA: LB1 BWL (54 Std.) = 12/1, LB2 VWL (40 Std.) = 12/2, LB3 Recht (18 Std.) → 13/1
+    // WR13 eA: LB1 Recht (48 Std.) → 13/1, LB2 VWL (36 Std.) = 13/2
+    halbjahreEA: {
+      '12/1': [
+        'Unternehmensaufbau, Markt und Produktion: Stakeholder, Aufbau-/Ablauforganisation, Wertschöpfung, Beschaffungsarten (Einzelbeschaffung, JIT, Vorratsbeschaffung), Rationalisierung, Break-even-Analyse, ABC-Analyse, Marktwachstum-Marktanteils-Portfolio',
+        'Jahresabschluss und Bilanzanalyse: Bilanz, GuV, Lagebericht, Bilanzkennzahlen (Anlageintensität, EK-Quote, Deckungsgrade, Liquiditätsgrade), Rentabilitätskennzahlen (EK-, GK-, Umsatzrentabilität, EBIT)',
+        'Investition, Finanzierung und Unternehmensführung: statische Verfahren (Gewinnvergleichsrechnung, Amortisationsrechnung), Kapitalwertmethode, Leverage-Effekt, SWOT-Analyse, Wettbewerbsstrategien nach Porter, Managementfunktionen',
+      ],
+      '12/2': [
+        'Magisches Viereck, Konjunkturzyklus, Konjunkturindikatoren und Zielbeziehungen',
+        'Wachstum und Beschäftigung: Wirtschaftspolitik (Nachfrage-/Angebotstheorie), BIP (Verwendungs-/Entstehungsrechnung), Arbeitslosigkeitsarten (friktionell, saisonal, konjunkturell, strukturell), Staatsverschuldung, Klimaschutz',
+        'Einkommen und soziale Sicherung: Tarifpolitik, Kranken-/Rentenversicherung, Umlage-/Kapitaldeckungsverfahren, demographischer Wandel, Moral Hazard, soziale Gerechtigkeit (Leistungs-, Chancen-, Bedarfs-, Generationengerechtigkeit)',
+      ],
+      '13/1': [
+        'Rechtstechnische Grundlagen und gesetzliche Schuldverhältnisse: BGB-Systematik, Kaufhandlung, Trennungsprinzip, Gutachtenstil, § 823 I BGB, Gefährdungshaftung, gutgläubiger Eigentumserwerb',
+        'Vertragliche Schuldverhältnisse und Verbraucherschutz: Vertragstypen (Kauf-, Werk-, Dienstvertrag), Leistungsstörungen (Nebenpflichtverletzung, verspätete Leistung, Unmöglichkeit), Mangelfreiheit, Gewährleistung, Widerrufsrecht, AGB, Vertragsfreiheit',
+        'Strafrecht: Ordnungswidrigkeit vs. Straftat, Aufbau einer Straftat, Rechtfertigungsgründe (Notwehr, Notstand), Entschuldigungsgründe, Strafzwecktheorien, Strafzumessung, Radbruchsche Formel',
+      ],
+      '13/2': [
+        'Geld und Preisniveau: Preisniveaustabilität, Geldpolitik der EZB (Zins-/Geldmengensteuerung, Transmissionsmechanismus, Mandat, Unabhängigkeit), Wirkungsgrenzen, aktuelle Fragen (Kryptowährungen, Währungsunion)',
+        'Außenhandel und Währung: Leistungs-/Kapitalbilanz, außenwirtschaftliches Gleichgewicht, Wechselkursbildung, Ursachen/Folgen von Wechselkursschwankungen, außenhandels- und währungspolitische Maßnahmen',
+        'Spieltheorie (Gefangenendilemma, dominante Strategie, Nash-Gleichgewicht, Pareto-Optimum) und vernetzte Betrachtung gesamtwirtschaftlicher Problemstellungen (Wechselwirkungen Geld-/Fiskalpolitik, Effizienz vs. Gerechtigkeit)',
       ],
     },
   },
