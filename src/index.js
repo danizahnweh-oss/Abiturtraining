@@ -2182,7 +2182,7 @@ async function handleOCR(request, env) {
     { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-5.2", temperature: 0.1 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 2000, { model: "gpt-5.2", temperature: 0.1, jsonMode: false });
   return jsonResponse({ text: text || "" }, 200, env);
 }
 
@@ -2240,7 +2240,7 @@ Gib NUR den transkribierten Text zurück, keine Erklärungen oder Kommentare.` }
     { type: "image_url", image_url: { url: `data:image/jpeg;base64,${image_base64}` } }
   ];
 
-  const text = await callOpenAI(env, [{ role: "user", content }], 3000, { model: "gpt-5.2", temperature: 0.1 });
+  const text = await callOpenAI(env, [{ role: "user", content }], 3000, { model: "gpt-5.2", temperature: 0.1, jsonMode: false });
   return jsonResponse({ text: text || "" }, 200, env);
 }
 
