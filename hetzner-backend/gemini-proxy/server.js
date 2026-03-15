@@ -1,0 +1,395 @@
+/**
+ * Gemini WebSocket-Proxy – Hetzner Edition
+ *
+ * Ersetzt den Cloudflare Gemini-Proxy Worker + Durable Objects.
+ * Session-State wird in Redis gespeichert (statt DO Storage).
+ * WebSocket-Proxy: Client ↔ Server ↔ Gemini Live API
+ */
+
+import { WebSocketServer, WebSocket } from 'ws';
+import { createServer } from 'node:http';
+import express from 'express';
+import Redis from 'ioredis';
+import crypto from 'node:crypto';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
+
+const app = express();
+const server = createServer(app);
+const wss = new WebSocketServer({ noServer: true });
+const redis = new Redis(process.env.REDIS_URL || 'redis://127.0.0.1:6379');
+
+const PORT = process.env.GEMINI_PROXY_PORT || 3001;
+const GEMINI_HOST = 'generativelanguage.googleapis.com';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://myabiflow.de';
+
+// Session-Konfiguration (wie Durable Object)
+const SESSION_MAX_DURATION_MS = 60 * 60 * 1000;  // 1 Stunde
+const TRANSCRIPT_PERSIST_INTERVAL = 30_000;        // 30 Sekunden
+const MAX_TRANSCRIPT_CHARS = 15_000;
+
+app.use(express.json());
+
+// ============================================================
+// CORS
+// ============================================================
+
+function corsHeaders() {
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+}
+
+app.options('*', (req, res) => {
+  res.set(corsHeaders()).status(204).end();
+});
+
+// ============================================================
+// SESSION MANAGEMENT (ersetzt Durable Objects)
+// ============================================================
+
+// Neue Session erstellen
+app.post('/session/create', async (req, res) => {
+  try {
+    const sessionId = crypto.randomUUID();
+    const config = req.body || {};
+
+    const session = {
+      config,
+      transcript: [],
+      reconnectCount: 0,
+      createdAt: new Date().toISOString()
+    };
+
+    // In Redis speichern mit 1h TTL (wie DO Alarm)
+    await redis.set(
+      `session:${sessionId}`,
+      JSON.stringify(session),
+      'EX', Math.floor(SESSION_MAX_DURATION_MS / 1000)
+    );
+
+    res.set(corsHeaders()).json({ sessionId });
+  } catch (err) {
+    console.error('Session Create Fehler:', err.message);
+    res.set(corsHeaders()).status(500).json({ error: err.message });
+  }
+});
+
+// Session-Status abfragen
+app.get('/session/:id/status', async (req, res) => {
+  try {
+    const data = await redis.get(`session:${req.params.id}`);
+    if (!data) {
+      return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
+    }
+    const session = JSON.parse(data);
+    res.set(corsHeaders()).json({
+      status: 'active',
+      reconnectCount: session.reconnectCount,
+      createdAt: session.createdAt,
+      transcriptLength: session.transcript.length
+    });
+  } catch (err) {
+    res.set(corsHeaders()).status(500).json({ error: err.message });
+  }
+});
+
+// Transkript abrufen
+app.get('/session/:id/transcript', async (req, res) => {
+  try {
+    const data = await redis.get(`session:${req.params.id}`);
+    if (!data) {
+      return res.set(corsHeaders()).status(404).json({ error: 'Session not found' });
+    }
+    const session = JSON.parse(data);
+    res.set(corsHeaders()).json({ transcript: session.transcript });
+  } catch (err) {
+    res.set(corsHeaders()).status(500).json({ error: err.message });
+  }
+});
+
+// ============================================================
+// WEBSOCKET PROXY (ersetzt Durable Object WebSocket)
+// ============================================================
+
+server.on('upgrade', async (request, socket, head) => {
+  const url = new URL(request.url, `http://${request.headers.host}`);
+
+  // Session-basiertes WebSocket: /session/{id}/ws
+  const sessionMatch = url.pathname.match(/^\/session\/([^/]+)\/ws$/);
+
+  // Direktes WebSocket-Proxy (ohne Session)
+  const directWs = request.headers.upgrade?.toLowerCase() === 'websocket' && !sessionMatch;
+
+  if (sessionMatch) {
+    const sessionId = sessionMatch[1];
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      handleSessionWebSocket(ws, sessionId, url);
+    });
+  } else if (directWs) {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+      handleDirectWebSocket(ws, url);
+    });
+  } else {
+    socket.destroy();
+  }
+});
+
+/**
+ * Session-basiertes WebSocket (Kolloquiumstrainer)
+ * Entspricht dem Durable Object WebSocket-Handler
+ */
+async function handleSessionWebSocket(clientWs, sessionId, url) {
+  console.log(`WebSocket: Session ${sessionId} verbunden`);
+
+  // Session aus Redis laden
+  const rawData = await redis.get(`session:${sessionId}`);
+  if (!rawData) {
+    clientWs.close(4004, 'Session not found');
+    return;
+  }
+
+  const session = JSON.parse(rawData);
+  session.reconnectCount = (session.reconnectCount || 0) + 1;
+
+  // Gemini WebSocket URL bauen
+  const model = session.config?.model || 'gemini-2.5-flash-native-audio-preview-12-2025';
+  const geminiUrl = `wss://${GEMINI_HOST}/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${GEMINI_API_KEY}`;
+
+  let upstream;
+  try {
+    upstream = new WebSocket(geminiUrl);
+  } catch (err) {
+    console.error('Gemini WebSocket Verbindungsfehler:', err.message);
+    clientWs.close(1011, 'Upstream connection failed');
+    return;
+  }
+
+  let transcriptTimer = null;
+  let pendingTranscript = [...session.transcript];
+
+  // Upstream (Gemini) ist bereit
+  upstream.on('open', () => {
+    console.log(`WebSocket: Gemini verbunden für Session ${sessionId}`);
+
+    // Reconnect-Info an Client senden
+    if (session.reconnectCount > 1) {
+      clientWs.send(JSON.stringify({
+        type: 'reconnect',
+        reconnectCount: session.reconnectCount,
+        transcriptLength: pendingTranscript.length
+      }));
+    }
+
+    // Transkript periodisch in Redis speichern
+    transcriptTimer = setInterval(async () => {
+      try {
+        const currentData = await redis.get(`session:${sessionId}`);
+        if (currentData) {
+          const s = JSON.parse(currentData);
+          s.transcript = pendingTranscript;
+          s.reconnectCount = session.reconnectCount;
+          await redis.set(`session:${sessionId}`, JSON.stringify(s),
+            'EX', Math.floor(SESSION_MAX_DURATION_MS / 1000));
+        }
+      } catch (err) {
+        console.error('Transkript-Persist Fehler:', err.message);
+      }
+    }, TRANSCRIPT_PERSIST_INTERVAL);
+  });
+
+  // Client → Gemini
+  clientWs.on('message', (data) => {
+    if (upstream.readyState === WebSocket.OPEN) {
+      try {
+        upstream.send(data);
+      } catch (err) {
+        console.error('Client→Gemini Sendefehler:', err.message);
+      }
+    }
+  });
+
+  // Gemini → Client
+  upstream.on('message', (data) => {
+    if (clientWs.readyState === WebSocket.OPEN) {
+      try {
+        clientWs.send(data);
+      } catch (err) {
+        console.error('Gemini→Client Sendefehler:', err.message);
+      }
+    }
+
+    // Transkript extrahieren
+    try {
+      const msg = JSON.parse(data.toString());
+      extractTranscript(msg, pendingTranscript);
+    } catch (e) {
+      // Nicht-JSON Nachrichten ignorieren
+    }
+  });
+
+  // Cleanup-Funktion
+  const cleanup = async () => {
+    if (transcriptTimer) clearInterval(transcriptTimer);
+
+    // Finales Transkript in Redis speichern
+    try {
+      const currentData = await redis.get(`session:${sessionId}`);
+      if (currentData) {
+        const s = JSON.parse(currentData);
+        s.transcript = pendingTranscript;
+        await redis.set(`session:${sessionId}`, JSON.stringify(s),
+          'EX', Math.floor(SESSION_MAX_DURATION_MS / 1000));
+      }
+    } catch (err) {
+      console.error('Finales Transkript-Speichern fehlgeschlagen:', err.message);
+    }
+
+    if (upstream.readyState === WebSocket.OPEN) upstream.close();
+    if (clientWs.readyState === WebSocket.OPEN) clientWs.close();
+    console.log(`WebSocket: Session ${sessionId} beendet`);
+  };
+
+  clientWs.on('close', cleanup);
+  clientWs.on('error', (err) => {
+    console.error(`Client WebSocket Fehler (${sessionId}):`, err.message);
+    cleanup();
+  });
+  upstream.on('close', (code, reason) => {
+    console.log(`Gemini WebSocket geschlossen (${sessionId}): ${code} ${reason}`);
+    if (clientWs.readyState === WebSocket.OPEN) {
+      clientWs.close(code || 1000, reason?.toString() || 'upstream closed');
+    }
+  });
+  upstream.on('error', (err) => {
+    console.error(`Gemini WebSocket Fehler (${sessionId}):`, err.message);
+    if (clientWs.readyState === WebSocket.OPEN) {
+      clientWs.close(1011, 'upstream error');
+    }
+  });
+}
+
+/**
+ * Direktes WebSocket-Proxy (ohne Session-State)
+ * Für einfache bidirektionale Kommunikation
+ */
+async function handleDirectWebSocket(clientWs, url) {
+  const targetPath = url.searchParams.get('target') || url.pathname.replace(/^\/ws\/?/, '/');
+  const geminiUrl = `wss://${GEMINI_HOST}${targetPath}${targetPath.includes('?') ? '&' : '?'}key=${GEMINI_API_KEY}`;
+
+  let upstream;
+  try {
+    upstream = new WebSocket(geminiUrl);
+  } catch (err) {
+    clientWs.close(1011, 'Upstream connection failed');
+    return;
+  }
+
+  upstream.on('open', () => {
+    console.log('Direktes WebSocket-Proxy: Gemini verbunden');
+  });
+
+  clientWs.on('message', (data) => {
+    if (upstream.readyState === WebSocket.OPEN) upstream.send(data);
+  });
+
+  upstream.on('message', (data) => {
+    if (clientWs.readyState === WebSocket.OPEN) clientWs.send(data);
+  });
+
+  const cleanup = () => {
+    if (upstream.readyState === WebSocket.OPEN) upstream.close();
+    if (clientWs.readyState === WebSocket.OPEN) clientWs.close();
+  };
+
+  clientWs.on('close', cleanup);
+  upstream.on('close', (code, reason) => {
+    if (clientWs.readyState === WebSocket.OPEN) {
+      clientWs.close(code || 1000, reason?.toString() || '');
+    }
+  });
+  clientWs.on('error', () => cleanup());
+  upstream.on('error', () => {
+    if (clientWs.readyState === WebSocket.OPEN) clientWs.close(1011, 'upstream error');
+  });
+}
+
+// ============================================================
+// HTTP PROXY (REST-Requests an Gemini)
+// ============================================================
+
+app.all('/v1beta/*', async (req, res) => {
+  try {
+    const targetUrl = `https://${GEMINI_HOST}${req.originalUrl}`;
+    const headers = { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_API_KEY };
+
+    const response = await fetch(targetUrl, {
+      method: req.method,
+      headers,
+      body: req.method !== 'GET' ? JSON.stringify(req.body) : undefined
+    });
+
+    const data = await response.text();
+    res.set(corsHeaders()).status(response.status).send(data);
+  } catch (err) {
+    res.set(corsHeaders()).status(502).json({ error: 'Gemini Proxy Fehler: ' + err.message });
+  }
+});
+
+// ============================================================
+// TRANSKRIPT-EXTRAKTION (aus Gemini-Responses)
+// ============================================================
+
+function extractTranscript(msg, transcript) {
+  const sc = msg?.serverContent;
+  if (!sc) return;
+
+  // Prüfer-Text (Gemini Model Output)
+  if (sc.modelTurn?.parts) {
+    for (const part of sc.modelTurn.parts) {
+      if (part.text) {
+        transcript.push({ role: 'pruefer', text: part.text, ts: Date.now() });
+      }
+    }
+  }
+
+  // Prüfling-Text (Input Transkription)
+  if (sc.inputTranscription?.text) {
+    transcript.push({ role: 'pruefling', text: sc.inputTranscription.text, ts: Date.now() });
+  }
+
+  // Transkript-Länge begrenzen
+  let totalChars = transcript.reduce((sum, t) => sum + (t.text?.length || 0), 0);
+  while (totalChars > MAX_TRANSCRIPT_CHARS && transcript.length > 2) {
+    const removed = transcript.shift();
+    totalChars -= (removed.text?.length || 0);
+  }
+}
+
+// Health-Check
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', service: 'gemini-proxy', timestamp: new Date().toISOString() });
+});
+
+// ============================================================
+// SERVER STARTEN
+// ============================================================
+
+server.listen(PORT, () => {
+  console.log(`Gemini Proxy gestartet auf Port ${PORT}`);
+  console.log(`  WebSocket: ws://localhost:${PORT}/session/{id}/ws`);
+  console.log(`  REST Proxy: http://localhost:${PORT}/v1beta/...`);
+});
+
+process.on('SIGTERM', async () => {
+  console.log('Gemini Proxy wird beendet...');
+  await redis.quit();
+  server.close();
+  process.exit(0);
+});
+
+export default app;
