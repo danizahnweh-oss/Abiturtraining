@@ -28,28 +28,32 @@ cp *.css _site/
 cp *.js _site/
 cp manifest.json _site/
 
-# 5. Bilder kopieren
+# 5. Fonts kopieren (lokal, DSGVO-konform)
+echo "→ Kopiere Fonts..."
+cp -r fonts _site/
+
+# 6. Bilder kopieren
 echo "→ Kopiere Bilder..."
 cp *.png _site/ 2>/dev/null || true
 
-# 6. Videos kopieren
+# 7. Videos kopieren
 echo "→ Kopiere Videos..."
 cp *.mp4 _site/ 2>/dev/null || true
 
-# 7. Lehrpläne kopieren
+# 8. Lehrpläne kopieren
 echo "→ Kopiere Lehrpläne..."
 cp -r lehrplaene _site/
 
-# 8. FOS-Seiten kopieren
+# 9. FOS-Seiten kopieren
 echo "→ Kopiere FOS-Seiten..."
 cp -r fos _site/fos
 
-# 9. Kolloquiumstrainer dist/ an den richtigen Pfad kopieren
+# 10. Kolloquiumstrainer dist/ an den richtigen Pfad kopieren
 echo "→ Kopiere Kolloquiumstrainer-Build..."
 mkdir -p _site/abitur-kolloquium-trainer
 cp -r abitur-kolloquium-trainer/dist _site/abitur-kolloquium-trainer/dist
 
-# 10. CNAME wird NICHT kopiert (Cloudflare Pages braucht kein CNAME-File)
+# 11. CNAME wird NICHT kopiert (Cloudflare Pages braucht kein CNAME-File)
 
 echo ""
 echo "=== Build fertig! ==="

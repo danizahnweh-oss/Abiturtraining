@@ -27,7 +27,11 @@ cp tour.js _site-fos/ 2>/dev/null || true
 cp ai-tutor.js _site-fos/ 2>/dev/null || true
 cp logo.png _site-fos/ 2>/dev/null || true
 
-# 4. Bilder/Videos aus Root kopieren (falls benötigt)
+# 4. Fonts kopieren (lokal, DSGVO-konform)
+echo "→ Kopiere Fonts..."
+cp -r fonts _site-fos/
+
+# 5. Bilder/Videos aus Root kopieren (falls benötigt)
 echo "→ Kopiere Bilder..."
 cp *.png _site-fos/ 2>/dev/null || true
 
