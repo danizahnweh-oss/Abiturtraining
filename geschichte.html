@@ -241,6 +241,11 @@
             </div>
           </div>
           <div id="subtopics-panel" class="subtopics-panel"></div>
+          <div class="custom-topic-container">
+            <label for="customTopic">Eigenes Thema (optional)</label>
+            <input type="text" id="customTopic" placeholder="z.B. konkretes Thema oder Unterthema eingeben..." maxlength="200">
+            <small class="custom-topic-hint">Wenn du ein Thema eingibst, wird die Aufgabe nur dazu erstellt.</small>
+          </div>
         </div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap">
           <div class="form-group" style="margin:0">
@@ -655,7 +660,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       try {
         const d = await apiCall("/api/generate-geschichte", {
           halbjahr: CONFIG.selectedHalbjahre.join(", "),
-          unterpunkte: getSelectedSubtopics(),
+          unterpunkte: document.getElementById('customTopic').value.trim() ? [document.getElementById('customTopic').value.trim()] : getSelectedSubtopics(),
           level: sessionStorage.getItem("student_level") || "gA",
           be: parseInt(document.getElementById("totalBE").value) || 60,
           zeit: parseInt(document.getElementById("timerMinutes").value) || 180,
