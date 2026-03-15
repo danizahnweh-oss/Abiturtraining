@@ -2980,3 +2980,380 @@ footer a:hover {
     font-size: .8rem;
   }
 }
+
+/* ============================================================
+   SMARTPHONE-OPTIMIERUNGEN
+   Nur für kleine Bildschirme – Tablets & Desktops bleiben unverändert
+   ============================================================ */
+
+/* --- 1. iOS Auto-Zoom Fix: Inputs immer mindestens 16px --- */
+@media (max-width: 640px) {
+  textarea,
+  select,
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  .login-input {
+    font-size: max(.92rem, 16px);
+  }
+}
+
+/* --- 2. Smooth Scrolling für scrollbare Container --- */
+.source-text,
+.feedback-detail-body,
+.material-content,
+.task-box,
+.korrektur-body,
+.ocr-pages {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* --- 3. Tap-Highlight für alle interaktiven Elemente --- */
+@media (max-width: 640px) {
+  button,
+  a,
+  .hj-card,
+  .mode-btn,
+  .module-card,
+  .subtopic-item {
+    -webkit-tap-highlight-color: rgba(79, 70, 229, 0.1);
+  }
+}
+
+/* --- 4. OCR-Thumb-Remove-Button immer sichtbar auf Touch --- */
+@media (max-width: 640px) {
+  .ocr-page-thumb .remove-page {
+    opacity: 1;
+  }
+}
+
+/* --- 5. Smartphones ≤ 640px: Allgemeine Verbesserungen --- */
+@media (max-width: 640px) {
+
+  /* Header komprimieren */
+  header {
+    padding: .7rem 1rem;
+    gap: .5rem;
+  }
+
+  header h1 {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .header-left {
+    gap: .5rem;
+    min-width: 0;
+  }
+
+  .back-link {
+    font-size: .78rem;
+  }
+
+  .header-meta {
+    font-size: .72rem;
+  }
+
+  /* Navigation komprimieren */
+  nav {
+    padding: 0 .5rem;
+    gap: 0;
+    scrollbar-width: none;           /* Firefox */
+    -ms-overflow-style: none;        /* Edge */
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;                   /* Chrome/Safari */
+  }
+
+  nav button {
+    padding: .7rem .6rem;
+    font-size: .75rem;
+    gap: .25rem;
+    min-height: 44px;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    font-size: .7rem;
+  }
+
+  /* Main: weniger Margin oben */
+  main {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Cards: Padding reduzieren */
+  .card {
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .card-header {
+    font-size: 1.15rem;
+    margin-bottom: .8rem;
+  }
+
+  /* Textarea: Höhe reduzieren */
+  textarea {
+    min-height: 200px;
+    padding: 1rem;
+  }
+
+  .student-ta-group textarea {
+    min-height: 120px;
+  }
+
+  /* Task-Box kompakter */
+  .task-box {
+    padding: 1rem;
+    margin: .8rem 0;
+  }
+
+  /* Source-Text kompakter */
+  .source-text {
+    padding: 1rem;
+  }
+
+  /* Upload-Zone kompakter */
+  .upload-zone {
+    padding: 1.2rem;
+  }
+
+  /* Scores kompakter */
+  .score-value {
+    font-size: 1.6rem;
+  }
+
+  .score-card {
+    padding: .8rem;
+  }
+
+  .stat-card {
+    padding: .8rem;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  /* Buttons: Touch-Target mindestens 44px */
+  .btn {
+    min-height: 44px;
+    padding: .7rem 1.2rem;
+  }
+
+  .btn-small {
+    min-height: 44px;
+    padding: .55rem .9rem;
+  }
+
+  /* Theme-Toggle größer */
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Highlighter-Buttons größer */
+  .hl-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Footer kompakter */
+  footer {
+    padding: 1.5rem 1rem;
+    font-size: .8rem;
+  }
+
+  /* Tour-Tooltip schmaler */
+  .tour-tooltip {
+    max-width: min(280px, 85vw);
+  }
+
+  /* Rewrite-Panel: Höhe begrenzen */
+  .rewrite-panel {
+    max-height: 80vh;
+  }
+
+  .rewrite-header {
+    padding: .8rem 1rem;
+  }
+
+  .rewrite-header h3 {
+    font-size: 1rem;
+  }
+
+  /* PDF-Modal kompakter */
+  .pdf-modal {
+    padding: 1.2rem;
+  }
+
+  /* Login-Box kompakter */
+  .login-box {
+    padding: 1.5rem;
+  }
+
+  .login-box h2 {
+    font-size: 1.3rem;
+  }
+
+  /* Übungsaufgaben kompakter */
+  .uebung-header {
+    padding: .7rem .8rem;
+    gap: .6rem;
+  }
+
+  .uebung-aufgabe {
+    padding: .7rem .8rem;
+  }
+
+  /* Dashboard-Hero kompakter */
+  .dashboard-hero {
+    padding: 1.5rem;
+  }
+
+  .dashboard-hero h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Module-Grid */
+  .module-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: .5rem;
+  }
+
+  .module-card {
+    padding: 1.2rem 1rem;
+    min-height: 160px;
+  }
+
+  /* Korrektur-Body kompakter */
+  .korrektur-body {
+    padding: .7rem;
+    font-size: .88rem;
+  }
+
+  /* Timer kompakter */
+  .timer-display {
+    font-size: 1.1rem;
+  }
+
+  /* Write-Toolbar kompakter */
+  .write-toolbar {
+    gap: .5rem;
+  }
+
+  /* Formel-Editor kompakter */
+  .formel-editor-body {
+    padding: .7rem;
+  }
+
+  .formel-btn {
+    min-height: 36px;
+  }
+}
+
+/* --- 6. Sehr kleine Smartphones ≤ 380px (iPhone SE etc.) --- */
+@media (max-width: 380px) {
+
+  /* Base Font etwas kleiner */
+  html {
+    font-size: 106%;
+  }
+
+  /* Header noch kompakter */
+  header h1 {
+    font-size: .9rem;
+  }
+
+  .back-link {
+    display: none;
+  }
+
+  /* Navigation: nur Icons + kurze Labels */
+  nav button {
+    padding: .6rem .4rem;
+    font-size: .68rem;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    font-size: .65rem;
+  }
+
+  /* Cards noch kompakter */
+  .card {
+    padding: .9rem;
+  }
+
+  .card-header {
+    font-size: 1.05rem;
+  }
+
+  /* Textarea noch kleiner */
+  textarea {
+    min-height: 160px;
+    padding: .8rem;
+  }
+
+  /* Buttons kompakter */
+  .btn {
+    padding: .6rem 1rem;
+    font-size: .88rem;
+  }
+}
+
+/* --- 7. Safe Areas für Notch-iPhones --- */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 640px) {
+    header {
+      padding-left: max(1rem, env(safe-area-inset-left));
+      padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    footer {
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+
+    .rewrite-panel {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .toast {
+      top: max(1.5rem, env(safe-area-inset-top));
+    }
+  }
+}
+
+/* --- 8. Landscape-Modus auf Smartphones --- */
+@media (max-height: 500px) and (max-width: 900px) {
+  textarea {
+    min-height: 120px;
+  }
+
+  .student-ta-group textarea {
+    min-height: 80px;
+  }
+
+  .card {
+    padding: .8rem;
+    margin-bottom: .6rem;
+  }
+
+  .upload-zone {
+    padding: .8rem;
+  }
+
+  .ki-robot-svg {
+    width: 100px;
+  }
+}
