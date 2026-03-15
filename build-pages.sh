@@ -28,9 +28,10 @@ cp *.css _site/
 cp *.js _site/
 cp manifest.json _site/
 
-# 5. Fonts kopieren (lokal, DSGVO-konform)
-echo "→ Kopiere Fonts..."
+# 5. Fonts + Vendor-Bibliotheken kopieren (lokal, DSGVO-konform)
+echo "→ Kopiere Fonts + Vendor..."
 cp -r fonts _site/
+cp -r vendor _site/
 
 # 6. Bilder kopieren
 echo "→ Kopiere Bilder..."
