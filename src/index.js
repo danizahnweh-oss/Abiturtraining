@@ -4802,7 +4802,7 @@ Formatiere als Markdown mit klaren Überschriften für jeden Aufgabenblock.`;
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt + maRechtsRef },
     { role: "user", content: userContent }
-  ], 6000);
+  ], 6000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -5970,7 +5970,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe und jeden Bl
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt + abiMaRechtsRef },
     { role: "user", content: userContent }
-  ], 10000);
+  ], 10000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
