@@ -249,8 +249,13 @@ function renderKorrekturFeedback(d) {
   if (korrekturCard) korrekturCard.style.display = "none";
   if (aspekteCard) aspekteCard.style.display = "none";
 
-  // Kurzfeedback + Lazy-Load Detail-Feedback
+  // Rohe uebungsaufgaben-Sektion aus Feedback entfernen (KI dupliziert sie manchmal als Text)
   var fb = document.getElementById("feedbackBody");
+  if (fb) {
+    fb.innerHTML = fb.innerHTML
+      .replace(/<h\d[^>]*>\s*[Uu]ebungsaufgaben\s*<\/h\d>[\s\S]*$/i, '')
+      .replace(/<p>\s*[Uu]ebungsaufgaben\s*<\/p>[\s\S]*$/i, '');
+  }
   if (fb && d.feedback_kurz && d.feedback_kurz.length) {
     // Scores + Kurzfeedback fuer spaeteres Detail-Feedback merken
     window._detailFeedbackScores = d.scores || null;
