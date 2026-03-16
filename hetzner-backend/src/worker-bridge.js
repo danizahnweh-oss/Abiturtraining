@@ -1,39 +1,30 @@
 /**
- * Worker-Bridge: Macht den originalen Cloudflare Worker Code
- * auf Node.js lauffähig.
+ * Worker-Bridge: Importiert den modularen Worker-Code direkt.
  *
- * ANLEITUNG:
- * 1. Kopiere den gesamten Inhalt von src/index.js (Original-Worker)
- *    nach src/worker-original.js
- * 2. Ersetze "export default {" am Ende durch "const workerHandlers = {"
- * 3. Füge am Ende hinzu: "export default workerHandlers;"
- * 4. Exportiere executeGradeHandler separat: "export { executeGradeHandler };"
+ * Seit der Modularisierung nutzt src/index.js ES-Module Imports.
+ * Node.js 22 löst diese nativ auf — kein convert-worker.js mehr nötig!
  *
- * Alternativ: Nutze das automatische Konvertierungs-Script:
- *   node scripts/convert-worker.js
- *
- * Die Änderungen am Original-Code sind MINIMAL:
- * - "export default {" → "const workerHandlers = {"
- * - Am Ende: "export default workerHandlers;"
- * - "export { executeGradeHandler };" hinzufügen
- * - Zeile mit "const RATE_LIMIT_WINDOW" → kein Änderung nötig
- *
- * Alles andere (env.DB, crypto.subtle, fetch, Response, Headers,
- * TextEncoder, btoa/atob) funktioniert in Node.js 22 nativ!
+ * Falls der Import fehlschlägt (z.B. fehlende Dateien), wird ein
+ * Platzhalter-Worker verwendet.
  */
 
-// ============================================================
-// SCHRITT 1: Versuche den konvertierten Worker zu laden
-// ============================================================
-
 let workerModule;
+let gradeHandler = null;
 
 try {
-  workerModule = await import('./worker-original.js');
-  console.log('Worker-Code geladen (worker-original.js)');
+  // Direkt-Import des modularen Worker-Codes
+  workerModule = await import('../../src/index.js');
+  console.log('Worker-Code geladen (modulare Version)');
+
+  // executeGradeHandler separat importieren (für Queue-Worker)
+  const gradingModule = await import('../../src/handlers/grading.js');
+  gradeHandler = gradingModule.executeGradeHandler || null;
+  if (gradeHandler) {
+    console.log('executeGradeHandler geladen');
+  }
 } catch (err) {
-  console.warn('worker-original.js nicht gefunden – nutze Platzhalter');
-  console.warn('Führe "node scripts/convert-worker.js" aus um den Worker zu konvertieren.');
+  console.warn('Worker-Code konnte nicht geladen werden:', err.message);
+  console.warn('Prüfe ob alle Dateien in src/ vorhanden sind.');
 
   // Platzhalter-Implementation für Tests
   workerModule = {
@@ -55,14 +46,14 @@ try {
           return new Response(JSON.stringify({
             status: 'ok',
             mode: 'platzhalter',
-            message: 'Worker-Code noch nicht konvertiert. Führe node scripts/convert-worker.js aus.'
+            message: 'Worker-Code konnte nicht geladen werden. Prüfe src/ Verzeichnis.'
           }), {
             headers: { 'Content-Type': 'application/json' }
           });
         }
 
         return new Response(JSON.stringify({
-          error: 'Worker-Code nicht geladen. Siehe hetzner-backend/README.md'
+          error: 'Worker-Code nicht geladen. Siehe Fehlermeldung oben.'
         }), {
           status: 503,
           headers: { 'Content-Type': 'application/json' }
@@ -80,15 +71,12 @@ try {
   };
 }
 
-// Den Worker-Export aufbereiten
+// Worker-Export aufbereiten
 const worker = workerModule.default || workerModule;
-
-// executeGradeHandler exportieren (falls vorhanden)
-const executeGradeHandler = workerModule.executeGradeHandler || null;
 
 export default {
   fetch: worker.fetch,
   scheduled: worker.scheduled,
   queue: worker.queue,
-  executeGradeHandler
+  executeGradeHandler: gradeHandler
 };

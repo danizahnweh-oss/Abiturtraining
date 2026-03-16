@@ -52,13 +52,21 @@ rsync -avz --delete \
   "${SERVER_USER}@${SERVER_IP}:/app/myabiflow-backend/"
 
 # ============================================================
-# 4. Worker-Code konvertieren + Dependencies
+# 4. Modularen Worker-Code hochladen (src/)
 # ============================================================
-echo "→ Konvertiere Worker-Code + installiere Dependencies..."
+echo "→ Lade modularen Worker-Code hoch (src/)..."
+rsync -avz --delete \
+  --exclude 'index.original.js' \
+  "$PROJECT_DIR/src/" \
+  "${SERVER_USER}@${SERVER_IP}:/app/src/"
+
+# ============================================================
+# 5. Dependencies installieren + Services neustarten
+# ============================================================
+echo "→ Installiere Dependencies + starte Services neu..."
 ssh "${SERVER_USER}@${SERVER_IP}" << 'REMOTE'
   cd /app/myabiflow-backend
   npm install --production
-  node scripts/convert-worker.js
   pm2 restart all 2>/dev/null || echo "PM2 nicht gestartet – starte mit: pm2 start ecosystem.config.cjs"
 REMOTE
 
