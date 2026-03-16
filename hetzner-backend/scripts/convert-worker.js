@@ -1,67 +1,43 @@
 #!/usr/bin/env node
 /**
- * Konvertiert den Cloudflare Worker (src/index.js) automatisch
- * für die Nutzung mit Node.js/Express.
+ * Worker-Konvertierung — NICHT MEHR NÖTIG
  *
- * Änderungen:
- * 1. "export default {" → "const workerHandlers = {"
- * 2. Am Ende: "export default workerHandlers;"
- * 3. executeGradeHandler wird separat exportiert
+ * Seit der Modularisierung von src/index.js nutzt der Code
+ * ES-Module Imports, die Node.js 22 nativ auflösen kann.
  *
- * Nutzung:
- *   node scripts/convert-worker.js
+ * Die worker-bridge.js importiert jetzt direkt aus ../../src/index.js.
+ * Dieses Script bleibt nur als Referenz erhalten.
+ *
+ * Falls du trotzdem eine gebündelte Version brauchst,
+ * kannst du dieses Script weiterhin ausführen.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SOURCE = resolve(__dirname, '../../src/index.js');
-const TARGET = resolve(__dirname, '../src/worker-original.js');
 
 console.log('=== Worker-Konvertierung ===');
+console.log('');
+console.log('HINWEIS: Seit der Modularisierung ist dieses Script nicht mehr nötig.');
+console.log('Die worker-bridge.js importiert jetzt direkt aus src/index.js.');
+console.log('');
 console.log(`Quelle: ${SOURCE}`);
-console.log(`Ziel:   ${TARGET}`);
 
-let code = readFileSync(SOURCE, 'utf-8');
-const originalLength = code.length;
+if (!existsSync(SOURCE)) {
+  console.error('FEHLER: src/index.js nicht gefunden!');
+  process.exit(1);
+}
 
-// 1. "export default {" ersetzen
-//    Suche nach dem Pattern am Anfang der Zeile
-const exportPattern = /^export\s+default\s+\{/m;
-if (exportPattern.test(code)) {
-  code = code.replace(exportPattern, 'const workerHandlers = {');
-  console.log('✓ "export default {" → "const workerHandlers = {"');
+// Prüfe ob die neue modulare Version vorhanden ist
+const code = readFileSync(SOURCE, 'utf-8');
+if (code.includes("import {") && code.includes("from './")) {
+  console.log('✓ Modulare Version erkannt — keine Konvertierung nötig.');
+  console.log('  Die worker-bridge.js importiert direkt aus src/index.js.');
+  console.log('  Starte den Server einfach mit: npm start');
 } else {
-  console.warn('⚠ "export default {" nicht gefunden – prüfe manuell');
+  console.log('⚠ Alte Monolith-Version erkannt.');
+  console.log('  Bitte aktualisiere src/index.js auf die modulare Version.');
 }
-
-// 2. Am Ende die Exports hinzufügen
-code += `
-
-// === Node.js Exports (automatisch hinzugefügt) ===
-export default workerHandlers;
-
-// executeGradeHandler exportieren (wird vom Queue-Worker genutzt)
-if (typeof executeGradeHandler === 'function') {
-  workerHandlers.executeGradeHandler = executeGradeHandler;
-}
-`;
-
-console.log('✓ Exports hinzugefügt');
-
-// 3. Optional: "CF-Connecting-IP" Header-Referenzen prüfen
-const cfIPCount = (code.match(/CF-Connecting-IP/g) || []).length;
-if (cfIPCount > 0) {
-  console.log(`ℹ ${cfIPCount}x "CF-Connecting-IP" gefunden – wird von server.js automatisch gesetzt`);
-}
-
-// 4. Schreiben
-writeFileSync(TARGET, code, 'utf-8');
-
-console.log(`\n✓ Konvertierung abgeschlossen!`);
-console.log(`  Original: ${originalLength.toLocaleString()} Zeichen`);
-console.log(`  Konvertiert: ${code.length.toLocaleString()} Zeichen`);
-console.log(`  Differenz: +${(code.length - originalLength).toLocaleString()} Zeichen (Exports)`);
-console.log(`\nDer Server kann jetzt gestartet werden: npm start`);

@@ -1,0 +1,281 @@
+// Handler: Student (Login, Check, Preferences, Reminders)
+import { jsonResponse } from '../utils.js';
+import { generateToken, safeCompare, hashPassword, verifyPassword } from '../auth.js';
+
+/* ================= LOGIN HANDLER ================= */
+export async function handleLogin(request, env) {
+  const { password } = await request.json();
+
+  if (!env.ACCESS_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+
+  if (!password || typeof password !== "string") {
+    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
+  }
+
+  const valid = await safeCompare(password, env.ACCESS_PASSWORD);
+  if (valid) {
+    const token = await generateToken(env);
+    return jsonResponse({ success: true, token }, 200, env);
+  } else {
+    return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+  }
+}
+
+/* ================= CHECK STUDENT (Register / Login) ================= */
+export async function handleCheckStudent(request, env) {
+  const { password, personal_password, student_name, mode, level } = await request.json();
+
+  if (!env.ACCESS_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!student_name || typeof student_name !== "string" || !student_name.trim()) {
+    return jsonResponse({ success: false, error: "Name erforderlich." }, 400, env);
+  }
+  if (mode !== "register" && mode !== "login") {
+    return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
+  }
+  if (!personal_password || typeof personal_password !== "string") {
+    return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
+  }
+  if (mode === "register" && personal_password.length < 6) {
+    return jsonResponse({ success: false, error: "Passwort muss mindestens 6 Zeichen haben." }, 400, env);
+  }
+
+  const nameLower = student_name.trim().toLowerCase();
+  const existing = await env.DB.prepare(
+    "SELECT id, name, level, salt, hash FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+
+  if (mode === "register") {
+    if (!password || typeof password !== "string") {
+      return jsonResponse({ success: false, error: "Schulcode erforderlich." }, 400, env);
+    }
+
+    // Gegen class_passwords-Tabelle pruefen
+    let classGroup = null;
+    let validClass = false;
+    const { results: classPasswords } = await env.DB.prepare(
+      "SELECT label, password FROM class_passwords WHERE active = 1"
+    ).all();
+    for (const row of (classPasswords || [])) {
+      if (password === row.password) {
+        validClass = true;
+        classGroup = row.label;
+        break;
+      }
+    }
+
+    // Fallback: Master-Passwort
+    if (!validClass) {
+      validClass = await safeCompare(password, env.ACCESS_PASSWORD);
+    }
+
+    if (!validClass) {
+      return jsonResponse({ success: false, error: "Falscher Schulcode." }, 401, env);
+    }
+    if (existing) {
+      return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
+    }
+
+    const salt = crypto.randomUUID();
+    const hash = await hashPassword(personal_password, salt);
+    await env.DB.prepare(
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, class_group, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
+    ).bind(student_name.trim(), nameLower, level || "", salt, hash, classGroup, new Date().toISOString()).run();
+  } else {
+    if (!existing) {
+      return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
+    }
+    if (!existing.hash || !existing.salt) {
+      const salt = crypto.randomUUID();
+      const hash = await hashPassword(personal_password, salt);
+      await env.DB.prepare(
+        "UPDATE students SET salt = ?, hash = ? WHERE id = ?"
+      ).bind(salt, hash, existing.id).run();
+    } else {
+      const match = await verifyPassword(personal_password, existing.salt, existing.hash);
+      if (!match) {
+        return jsonResponse({ success: false, error: "Falsches Passwort." }, 401, env);
+      }
+    }
+  }
+
+  const token = await generateToken(env);
+  return jsonResponse({ success: true, token }, 200, env);
+}
+
+/* ================= STUDENT PREFERENCES ================= */
+export async function handleGetPreferences(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+
+  const nameLower = student_name.trim().toLowerCase();
+  const student = await env.DB.prepare(
+    "SELECT hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  return jsonResponse({
+    success: true,
+    preferences: {
+      hidden_subjects: JSON.parse(student.hidden_subjects || "[]"),
+      exam_subjects: JSON.parse(student.exam_subjects || "{}"),
+      reminder_interval: student.reminder_interval ?? 3,
+      email: student.email || ""
+    }
+  }, 200, env);
+}
+
+export async function handleSavePreferences(request, env) {
+  const { student_name, hidden_subjects, exam_subjects, reminder_interval, email } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+
+  const nameLower = student_name.trim().toLowerCase();
+
+  // Dynamisch nur die übergebenen Felder updaten
+  const updates = [];
+  const binds = [];
+
+  if (Array.isArray(hidden_subjects)) {
+    updates.push("hidden_subjects = ?");
+    binds.push(JSON.stringify(hidden_subjects));
+  }
+  if (exam_subjects && typeof exam_subjects === "object") {
+    const es = exam_subjects;
+    if (!Array.isArray(es.written) || !Array.isArray(es.oral)) {
+      return jsonResponse({ error: "exam_subjects braucht written[] und oral[]." }, 400, env);
+    }
+    if (es.written.length > 3 || es.oral.length > 3) {
+      return jsonResponse({ error: "Maximal 3 schriftliche und 3 mündliche Fächer." }, 400, env);
+    }
+    updates.push("exam_subjects = ?");
+    binds.push(JSON.stringify(es));
+  }
+  if (reminder_interval !== undefined) {
+    const ri = parseInt(reminder_interval, 10);
+    if (isNaN(ri) || ri < 0 || ri > 30) {
+      return jsonResponse({ error: "reminder_interval muss zwischen 0 und 30 liegen." }, 400, env);
+    }
+    updates.push("reminder_interval = ?");
+    binds.push(ri);
+  }
+  if (email !== undefined) {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+    }
+    updates.push("email = ?");
+    binds.push(email || null);
+  }
+
+  if (updates.length === 0) {
+    return jsonResponse({ error: "Keine Felder zum Speichern." }, 400, env);
+  }
+
+  binds.push(nameLower);
+  const result = await env.DB.prepare(
+    `UPDATE students SET ${updates.join(", ")} WHERE name_lower = ?`
+  ).bind(...binds).run();
+
+  if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= SUBJECT MAPPINGS ================= */
+export const SUBJECT_TYPES_MAP = {
+  english: ["mediation", "writing"],
+  german: ["deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung", "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend"],
+  history: ["geschichte", "geschichte-abitur"],
+  pug: ["pug-klausur", "pug-abitur"],
+  wr: ["wr", "wr-abitur"],
+  french: ["french-mediation", "french-writing"],
+  italian: ["italian-mediation", "italian-writing"],
+  ethik: ["ethik", "ethik-abitur"],
+  religion: ["religion", "religion-abitur"],
+  katholisch: ["katholisch", "katholisch-abitur"],
+  geographie: ["geographie", "geographie-abitur"],
+  latein: ["latein", "latein-abitur"],
+  mathe: ["mathe", "mathe-abitur"],
+  chemie: ["chemie", "chemie-abitur"],
+  physik: ["physik", "physik-abitur"],
+  biologie: ["biologie", "biologie-abitur"],
+  sport: ["sport", "sport-abitur"],
+  informatik: ["informatik", "informatik-abitur"]
+};
+
+// Anzeige-Namen für Emails
+export const SUBJECT_NAMES = {
+  english: "Englisch", german: "Deutsch", history: "Geschichte",
+  pug: "Politik und Gesellschaft", wr: "Wirtschaft & Recht",
+  french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+  religion: "Ev. Religion", katholisch: "Kath. Religion",
+  geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+  chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+  sport: "Sport", informatik: "Informatik"
+};
+
+export const SUBJECT_ICONS = {
+  english: "🇬🇧", german: "📖", history: "📜", pug: "🏛️", wr: "⚖️",
+  french: "🇫🇷", italian: "🇮🇹", ethik: "🧠", religion: "✝️",
+  katholisch: "⛪", geographie: "🌍", latein: "🏺", mathe: "📐",
+  chemie: "🧪", physik: "⚛️", biologie: "🧬", sport: "⚽", informatik: "💻"
+};
+
+/* ================= CHECK REMINDERS ================= */
+export async function handleCheckReminders(request, env) {
+  const { student_name } = await request.json();
+  if (!student_name) return jsonResponse({ error: "Name erforderlich." }, 400, env);
+
+  const nameLower = student_name.trim().toLowerCase();
+  const student = await env.DB.prepare(
+    "SELECT exam_subjects, reminder_interval FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  const examSubjects = JSON.parse(student.exam_subjects || "{}");
+  const allExam = [...(examSubjects.written || []), ...(examSubjects.oral || [])];
+  if (allExam.length === 0) {
+    return jsonResponse({ success: true, reminders: [] }, 200, env);
+  }
+
+  const interval = student.reminder_interval ?? 3;
+  if (interval === 0) {
+    return jsonResponse({ success: true, reminders: [] }, 200, env);
+  }
+
+  // Letzte Aktivität pro Fach ermitteln
+  const results = await env.DB.prepare(
+    "SELECT type, MAX(created_at) as last_date FROM results WHERE LOWER(TRIM(student_name)) = ? GROUP BY type"
+  ).bind(nameLower).all();
+
+  const lastByType = {};
+  for (const r of (results.results || [])) {
+    lastByType[r.type] = r.last_date;
+  }
+
+  const now = Date.now();
+  const reminders = [];
+
+  for (const subj of allExam) {
+    const types = SUBJECT_TYPES_MAP[subj] || [];
+    let lastDate = null;
+    for (const t of types) {
+      if (lastByType[t]) {
+        const d = new Date(lastByType[t]).getTime();
+        if (!lastDate || d > lastDate) lastDate = d;
+      }
+    }
+
+    const daysSince = lastDate ? Math.floor((now - lastDate) / 86400000) : null;
+    if (daysSince === null || daysSince >= interval) {
+      reminders.push({
+        subject: subj,
+        daysSince: daysSince,
+        isWritten: (examSubjects.written || []).includes(subj)
+      });
+    }
+  }
+
+  return jsonResponse({ success: true, reminders }, 200, env);
+}

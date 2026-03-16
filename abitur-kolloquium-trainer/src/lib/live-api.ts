@@ -82,6 +82,8 @@ export interface LiveSessionConfig {
   onModelTranscription?: (text: string) => void;
   onUserTranscription?: (text: string) => void;
   onStatusChange?: (status: 'connecting' | 'connected' | 'reconnecting' | 'disconnected' | 'error') => void;
+  /** Liefert aktuelle Transkripte für Kontext-Wiederherstellung bei Reconnect */
+  getTranscripts?: () => { modelTx: string[]; userTx: string[] };
 }
 
 const WORKER_URL = process.env.WORKER_URL;
@@ -392,7 +394,7 @@ interface LiveAPISession {
   close(): void;
 }
 
-const MAX_RECONNECT_ATTEMPTS = 5;
+const MAX_RECONNECT_ATTEMPTS = 8;
 const RECONNECT_BASE_DELAY_MS = 1500;
 /** Wenn vom Server 45s lang keine Nachricht kommt → proaktiver Reconnect */
 const ACTIVITY_TIMEOUT_MS = 45_000;
@@ -433,6 +435,35 @@ export class LiveSession {
     await this.connect();
   }
 
+  /** Baut bei Reconnect die Instruction mit bisherigem Transkript-Kontext auf */
+  private buildReconnectInstruction(): string {
+    const transcripts = this.config.getTranscripts?.();
+    if (!transcripts || (transcripts.modelTx.length === 0 && transcripts.userTx.length === 0)) {
+      return this.instruction;
+    }
+
+    // Transkript zusammenbauen (max 10.000 Zeichen um Token-Limit nicht zu sprengen)
+    const lines: string[] = [];
+    const max = Math.max(transcripts.modelTx.length, transcripts.userTx.length);
+    for (let i = 0; i < max; i++) {
+      if (transcripts.userTx[i]) lines.push(`Prüfling: ${transcripts.userTx[i]}`);
+      if (transcripts.modelTx[i]) lines.push(`Prüfer: ${transcripts.modelTx[i]}`);
+    }
+    const transcript = lines.join('\n').slice(0, 10_000);
+
+    return `${this.instruction}
+
+KONTEXT-WIEDERHERSTELLUNG (Verbindung wurde unterbrochen):
+Das Gespräch wurde durch eine technische Unterbrechung kurz getrennt. Setze es NAHTLOS an der letzten Stelle fort.
+- Wiederhole NICHT deine Begrüßung.
+- Fasse das Bisherige NICHT zusammen, es sei denn, der Prüfling fragt danach.
+- Sage kurz: "Entschuldigung für die kurze Unterbrechung. Wir machen weiter." und fahre dann mit der nächsten Frage oder dem nächsten Punkt fort.
+- Stelle KEINE Fragen, die bereits beantwortet wurden.
+
+Bisheriges Gespräch:
+${transcript}`;
+  }
+
   private async connect() {
     if (this.stopped) return;
 
@@ -444,6 +475,9 @@ export class LiveSession {
       try { this.session?.close(); } catch { /* ignorieren */ }
       this.session = null;
 
+      // Bei Reconnect: Transkript-Kontext in die Instruction injizieren
+      const instruction = isReconnect ? this.buildReconnectInstruction() : this.instruction;
+
       this.session = await this.ai.live.connect({
         model: "gemini-2.5-flash-native-audio-preview-12-2025",
         config: {
@@ -454,7 +488,7 @@ export class LiveSession {
           thinkingConfig: {
             thinkingBudget: 0,
           },
-          systemInstruction: this.instruction,
+          systemInstruction: instruction,
           inputAudioTranscription: {},
           outputAudioTranscription: {},
         },

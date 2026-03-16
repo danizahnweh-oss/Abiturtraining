@@ -68,7 +68,7 @@ function useStopwatch() {
   const [running, setRunning] = useState(false);
   const ref = useRef<number | null>(null);
 
-  const start = useCallback(() => { setElapsed(0); setRunning(true); }, []);
+  const start = useCallback((fromSeconds?: number) => { setElapsed(fromSeconds ?? 0); setRunning(true); }, []);
   const stop = useCallback(() => setRunning(false), []);
 
   useEffect(() => {
@@ -253,6 +253,9 @@ export default function App() {
   /* URL params */
   const fachFromUrl = new URLSearchParams(window.location.search).get('fach') || '';
 
+  /* Wiederherstellbare Prüfung aus sessionStorage */
+  const [recoveryData, setRecoveryData] = useState<any>(null);
+
   /* Config state */
   const [step, setStep] = useState<Step>('setup');
   const [subject, setSubject] = useState(fachFromUrl);
@@ -279,6 +282,13 @@ export default function App() {
   const [userTx, setUserTx] = useState<string[]>([]);
   const sessionRef = useRef<LiveSession | StatefulLiveSession | null>(null);
   const micRef = useRef<AudioProcessor | null>(null);
+
+  /* Refs für Transkripte (für Reconnect-Kontext-Wiederherstellung) */
+  const modelTxRef = useRef<string[]>([]);
+  const userTxRef = useRef<string[]>([]);
+  useEffect(() => { modelTxRef.current = modelTx; }, [modelTx]);
+  useEffect(() => { userTxRef.current = userTx; }, [userTx]);
+  const getTranscripts = useCallback(() => ({ modelTx: modelTxRef.current, userTx: userTxRef.current }), []);
 
   /* Refs für Audio-Muting (Referat-Phase) */
   const examElapsedRef = useRef(0);
@@ -347,6 +357,75 @@ export default function App() {
     });
   }, [step, exam.elapsed, matImpulse, examMode, shownImpulse]);
 
+  /* ── Prüfungs-Wiederherstellung nach Seiten-Reload ── */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('kolloquium_active_exam');
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      // Nur anbieten wenn die Prüfung nicht älter als 30 Minuten ist
+      if (Date.now() - data.timestamp > 30 * 60 * 1000) {
+        sessionStorage.removeItem('kolloquium_active_exam');
+        return;
+      }
+      setRecoveryData(data);
+    } catch { /* ignorieren */ }
+  }, []);
+
+  const resumeExam = async () => {
+    if (!recoveryData) return;
+    const d = recoveryData;
+    setRecoveryData(null);
+
+    // State aus dem Backup wiederherstellen
+    setSubject(d.subject);
+    setExamLevel(d.examLevel);
+    setExamMode(d.examMode);
+    setSchwerpunkt(d.schwerpunkt);
+    setSpHalbjahr(d.spHalbjahr);
+    setGestrichen(d.gestrichen || '');
+    setExaminerGender(d.examinerGender || 'male');
+    setPrueferTyp(d.prueferTyp || 'standard');
+    setMaterial(d.material || null);
+    setMatImpulse(d.matImpulse || []);
+    setModelTx(d.modelTx || []);
+    setUserTx(d.userTx || []);
+
+    setStep('exam');
+
+    // Mikrofon initialisieren
+    const processor = new AudioProcessor();
+    processor.warmup().catch(() => {});
+    micRef.current = processor;
+
+    modelTxCountRef.current = (d.modelTx || []).length;
+    const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+    const session = new SessionClass({
+      subject: d.subject, examLevel: d.examLevel, schwerpunkt: d.schwerpunkt,
+      schwerpunktHalbjahr: d.spHalbjahr,
+      weitereHalbjahre: d.weitereHJ || [],
+      aufgabenstellung: d.material?.aufgabenstellung || '',
+      material: d.material?.material || '',
+      materialImpulse: d.matImpulse?.length > 0 ? d.matImpulse : undefined,
+      examMode: d.examMode, gender: d.examinerGender || 'male',
+      prueferTyp: d.prueferTyp || 'standard',
+      shouldPlayModelAudio: makeShouldPlayAudio(d.examMode),
+      getTranscripts,
+      onStatusChange: s => setStatus(s),
+      onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
+      onUserTranscription: t => setUserTx(prev => [...prev, t]),
+    }, processor);
+    sessionRef.current = session;
+    // Timer bei der gespeicherten Zeit fortsetzen
+    exam.start(d.elapsed || 0);
+    await session.start();
+  };
+
+  const dismissRecovery = () => {
+    setRecoveryData(null);
+    sessionStorage.removeItem('kolloquium_active_exam');
+  };
+
   /* ── Reset helpers ── */
   const resetSpHalbjahr = () => { setSpHalbjahr(''); setSchwerpunkt(''); setCustomSp(false); setCustomSchwerpunkte({}); };
 
@@ -409,6 +488,7 @@ export default function App() {
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
         examMode, gender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+        getTranscripts,
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -468,6 +548,7 @@ export default function App() {
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
       examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
+      getTranscripts,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -572,6 +653,7 @@ export default function App() {
       weitereHalbjahre: weitereHJ, aufgabenstellung: material?.aufgabenstellung || '',
       material: material?.material || '',
       gender: examinerGender, feedbackMode: true, examTranscript: transcript,
+      getTranscripts,
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => setModelTx(prev => [...prev, t]),
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -683,6 +765,43 @@ export default function App() {
           {step === 'setup' && (
             <motion.div key="setup" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }} className="grid gap-8">
               <TutorialOverlay steps={KOLLOQUIUM_TOUR_STEPS} storageKey={KOLLOQUIUM_STORAGE_KEY} />
+
+              {/* ── Recovery-Banner: Unterbrochene Prüfung fortsetzen ── */}
+              {recoveryData && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-amber-50/90 backdrop-blur-md p-5 rounded-2xl border border-amber-200/60 shadow-lg shadow-amber-100/30"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-amber-100 rounded-lg text-amber-600 shrink-0 mt-0.5">
+                      <RotateCcw size={20} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-amber-900 text-sm">Unterbrochene Prüfung gefunden</h3>
+                      <p className="text-xs text-amber-700 mt-1">
+                        {recoveryData.subject} – {recoveryData.schwerpunkt}
+                        {' '}({Math.floor((recoveryData.elapsed || 0) / 60)} Min. gelaufen)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 mt-4">
+                    <button
+                      onClick={resumeExam}
+                      className="flex-1 py-3 px-4 bg-amber-600 text-white rounded-xl text-sm font-medium hover:bg-amber-700 transition-colors"
+                    >
+                      Prüfung fortsetzen
+                    </button>
+                    <button
+                      onClick={dismissRecovery}
+                      className="py-3 px-4 bg-white/80 border border-amber-200 rounded-xl text-sm text-amber-700 hover:bg-white transition-colors"
+                    >
+                      Verwerfen
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+
               <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl shadow-emerald-50/50 border border-emerald-100/50 ring-1 ring-white">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 bg-emerald-50 rounded-lg text-emerald-600">
@@ -1018,6 +1137,27 @@ export default function App() {
                     <span className="text-sm font-mono font-bold text-emerald-600 tabular-nums">{exam.display}</span>
                   </div>
                 </div>
+
+                {/* Reconnect-Hinweis */}
+                {(status === 'reconnecting' || status === 'error') && (
+                  <div className={cn(
+                    "mx-6 mt-4 px-4 py-3 rounded-xl text-sm flex items-center gap-3",
+                    status === 'reconnecting'
+                      ? "bg-amber-50 border border-amber-200 text-amber-800"
+                      : "bg-red-50 border border-red-200 text-red-800",
+                  )}>
+                    {status === 'reconnecting' ? (
+                      <Loader2 size={16} className="animate-spin shrink-0" />
+                    ) : (
+                      <X size={16} className="shrink-0" />
+                    )}
+                    <span>
+                      {status === 'reconnecting'
+                        ? 'Verbindung wird wiederhergestellt... Das Gespräch wird nahtlos fortgesetzt.'
+                        : 'Verbindung verloren. Bitte beende die Prüfung und starte eine neue.'}
+                    </span>
+                  </div>
+                )}
 
                 <div className="p-8 flex flex-col items-center text-center">
                   {/* Mic visual */}
