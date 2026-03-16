@@ -282,7 +282,6 @@ export default function App() {
 
   /* Refs für Audio-Muting (Referat-Phase) */
   const examElapsedRef = useRef(0);
-  const examModeRef = useRef<ExamMode>('gesamt');
   const modelTxCountRef = useRef(0);
 
   /* Prüfer-Geschlecht (zufällig gewählt) */
@@ -313,23 +312,21 @@ export default function App() {
   const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
   const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
 
-  /* ── Refs synchron halten (für Callbacks ohne stale closures) ── */
+  /* ── elapsed-Ref synchron halten (für Audio-Muting-Callbacks) ── */
   useEffect(() => { examElapsedRef.current = exam.elapsed; }, [exam.elapsed]);
-  useEffect(() => { examModeRef.current = examMode; }, [examMode]);
 
-  /** Audio-Muting: Während der Referat-Phase nach der Begrüßung stumm */
-  const shouldPlayModelAudio = useCallback((): boolean => {
-    const mode = examModeRef.current;
-    const elapsed = examElapsedRef.current;
+  /** Erzeugt einen Audio-Muting-Callback, der examMode einmalig einfängt.
+   *  examMode ändert sich während der Prüfung nie → direktes Capture ist sicher. */
+  const makeShouldPlayAudio = (mode: ExamMode) => (): boolean => {
     // Im Fragen-Modus: immer abspielen
     if (mode === 'fragen') return true;
     // Referat/Gesamt: Erste Model-Äußerung (Begrüßung) abspielen
     if (modelTxCountRef.current <= 1) return true;
     // Danach stumm bis Referat-Phase vorbei (10 Min)
     if (mode === 'referat') return false;
-    if (elapsed < 600) return false;
+    if (examElapsedRef.current < 600) return false;
     return true;
-  }, []);
+  };
 
   /* ── Material-Impuls Timer ── */
   useEffect(() => {
@@ -411,7 +408,7 @@ export default function App() {
         subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
-        examMode, gender, prueferTyp, shouldPlayModelAudio,
+        examMode, gender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
         onStatusChange: s => setStatus(s),
         onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
         onUserTranscription: t => setUserTx(prev => [...prev, t]),
@@ -470,7 +467,7 @@ export default function App() {
       subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
-      examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio,
+      examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
       onStatusChange: s => setStatus(s),
       onModelTranscription: t => { modelTxCountRef.current++; setModelTx(prev => [...prev, t]); },
       onUserTranscription: t => setUserTx(prev => [...prev, t]),
