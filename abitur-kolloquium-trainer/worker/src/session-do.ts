@@ -265,7 +265,7 @@ Sage kurz "Die Verbindung steht wieder. Bitte fahren Sie fort." und mache dann w
             }
           },
           thinkingConfig: {
-            thinkingBudget: 512
+            thinkingBudget: 0
           }
         },
         systemInstruction: {

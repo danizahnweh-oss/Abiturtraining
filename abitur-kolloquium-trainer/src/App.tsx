@@ -16,7 +16,7 @@ import {
   type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
 } from './lib/live-api';
 
-const USE_STATEFUL_SESSIONS = true;
+const USE_STATEFUL_SESSIONS = false;
 import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
 import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
