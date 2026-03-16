@@ -452,7 +452,7 @@ export class LiveSession {
             voiceConfig: { prebuiltVoiceConfig: { voiceName: this.config.gender === 'female' ? 'Kore' : 'Puck' } },
           },
           thinkingConfig: {
-            thinkingBudget: 512,
+            thinkingBudget: 0,
           },
           systemInstruction: this.instruction,
           inputAudioTranscription: {},
