@@ -229,53 +229,59 @@ import { getMatheGebietInhalte } from './curriculum';
 
 export async function generateMatheAufgaben(config: ExamConfig): Promise<ExamMaterial> {
   const ai = createAI();
-  const schwerpunkt = config.schwerpunkt; // z.B. "Analysis"
-  const inhalte = getMatheGebietInhalte(schwerpunkt);
+  // Beide verbleibenden Gebiete (z.B. "Analysis und Geometrie")
+  const gebiete = config.weitereHalbjahre; // z.B. ['Analysis', 'Geometrie']
+  const alleInhalte = gebiete.map(g => `${g}: ${getMatheGebietInhalte(g).join('; ')}`).join('\n');
+
+  const gebiet1 = gebiete[0] || 'Analysis';
+  const gebiet2 = gebiete[1] || '';
 
   const prompt = `Du bist ein erfahrener Mathematik-Prüfer für das bayerische Abitur-Kolloquium 2026 (erhöhtes Anforderungsniveau).
 
-Erstelle ein realistisches Aufgabenblatt für den Prüfungsteil 1 (Schwerpunkt: ${schwerpunkt}).
+Erstelle ein realistisches Aufgabenblatt für eine mündliche Mathematik-Prüfung.
 Der Prüfling hat 30 Minuten Vorbereitungszeit und soll die Aufgaben dann in einem 10-minütigen Vortrag präsentieren.
 
-Schwerpunkt-Gebiet: ${schwerpunkt}
-Relevante Inhalte: ${inhalte.join('; ')}
+Prüfungsgebiete: ${gebiete.join(' und ')}
+(Das Gebiet ${config.schwerpunktHalbjahr || 'eines der Gebiete'} wurde ausgeschlossen.)
+
+Relevante Inhalte:
+${alleInhalte}
 
 WICHTIGE REGELN (ISB-Vorgaben):
 - Die Aufgaben müssen einen EINFACHEN EINSTIEG erlauben und so angelegt sein, dass JEDE NOTE erreichbar ist
 - KEINE umfangreichen Rechnungen – der Prüfling soll Lösungswege ERLÄUTERN, nicht durchrechnen
 - Besonders geeignet: Erläuterung von Lösungswegen, Interpretation vorgegebener Ergebnisse/Skizzen/Graphen
 - Anforderungsbereiche I (Reproduktion), II (Transfer) und III (Reflexion) abdecken
-- 3–4 Aufgaben mit Teilaufgaben (a, b, c, d)
+- Die Aufgaben sollen BEIDE Gebiete abdecken (gemischt)
+- 4–6 Aufgaben mit Teilaufgaben (a, b, c, d), ca. 50/50 auf beide Gebiete verteilt
 - Aufgaben müssen nicht inhaltlich zusammenhängen
+- Strukturiere das Aufgabenblatt mit Überschriften: "${gebiet1}" und "${gebiet2}"
 
-${schwerpunkt === 'Analysis' ? `BEISPIEL-AUFGABENTYPEN für Analysis:
+${gebiete.includes('Analysis') ? `BEISPIEL-AUFGABENTYPEN für Analysis:
 - Funktion gegeben → Graph zuordnen/begründen, Definitionsmenge/Wertemenge angeben
 - Ableitungsfunktion → zugehörigen Graphen zuordnen und begründen
 - Tangente an Graphen: Vorgehensweise beschreiben
 - Nullstellen und Extremstellen einer Funktion ermitteln
-- Flächeninhalt zwischen Graph und x-Achse: Vorgehensweise mit Skizze beschreiben, Stammfunktion angeben
+- Flächeninhalt zwischen Graph und x-Achse: Vorgehensweise mit Skizze beschreiben
 - Grenzwertverhalten einer Funktion bestimmen` : ''}
-${schwerpunkt === 'Geometrie' ? `BEISPIEL-AUFGABENTYPEN für Geometrie:
+${gebiete.includes('Geometrie') ? `BEISPIEL-AUFGABENTYPEN für Geometrie:
 - Lineare Abhängigkeit von Vektoren erklären
 - Schnitt von Gerade und Ebene zeigen/berechnen
 - Hesse'sche Normalform bestimmen und Anwendung erläutern
 - Abstands-Berechnungen (Punkt-Ebene, Punkt-Gerade)
 - Kreuzprodukt berechnen (z.B. Parallelogramm-Fläche)
-- Schnittwinkel zwischen Ebenen bestimmen
-- Anwendungsaufgaben (z.B. Drohne, Turm, Brücke)` : ''}
-${schwerpunkt === 'Stochastik' ? `BEISPIEL-AUFGABENTYPEN für Stochastik:
+- Schnittwinkel zwischen Ebenen bestimmen` : ''}
+${gebiete.includes('Stochastik') ? `BEISPIEL-AUFGABENTYPEN für Stochastik:
 - Binomialverteilung: Erwartungswert, Standardabweichung berechnen
 - Signifikanztest durchführen und interpretieren
 - Normalverteilung: Wahrscheinlichkeiten mit Sigma-Regeln bestimmen
-- Baumdiagramm erstellen und bedingte Wahrscheinlichkeiten berechnen
-- Kombinatorik-Aufgaben
-- Modellierungsaufgaben mit Zufallsexperimenten` : ''}
+- Baumdiagramm erstellen und bedingte Wahrscheinlichkeiten berechnen` : ''}
 
 Gib im Feld "material" konkrete mathematische Objekte an, die dem Prüfling vorgelegt werden:
 Funktionsterme, Gleichungen, Vektoren, Matrizen, Graphen-Beschreibungen, Tabellen mit Werten.
 
 Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
-{"aufgabenstellung":"Die vollständigen Aufgaben 1–4 mit Teilaufgaben, klar formuliert mit Operatoren","material":"Konkrete mathematische Objekte (Funktionsterme, Vektoren, Graphen-Beschreibungen etc.)","hinweise":"Bearbeitungshinweise für die Vorbereitungszeit"}`;
+{"aufgabenstellung":"Die vollständigen Aufgaben mit Teilaufgaben, klar formuliert mit Operatoren, mit Gebiet-Überschriften","material":"Konkrete mathematische Objekte (Funktionsterme, Vektoren, Graphen-Beschreibungen etc.)","hinweise":"Bearbeitungshinweise für die Vorbereitungszeit"}`;
 
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -288,18 +294,16 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
     } catch { /* nächster Versuch */ }
   }
 
-  // Fallback: Standard-Aufgabenblatt
+  // Fallback: gemischtes Aufgabenblatt
+  const analysisAufgaben = `Analysis\n\n1. Gegeben ist die Funktion f: x ↦ 3/(1+x²) − 1.\na) Begründen Sie anhand charakteristischer Eigenschaften, welcher der vorgelegten Graphen zur Funktion f gehört.\nb) Geben Sie die maximale Definitionsmenge und die Wertemenge von f an.\nc) Beschreiben Sie, wie man die Gleichung der Tangente an den Graphen von f an der Stelle x = 1 ermittelt.\n\n2. Gegeben ist die Funktion g: x ↦ x·e^(−x²), D = ℝ.\nErmitteln Sie die Nullstellen und die Extremstellen von g.`;
+  const geoAufgaben = `Geometrie\n\n1. Erklären Sie, wann drei Vektoren linear abhängig sind.\n\n2. Gegeben sind die Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2) und die Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0.\na) Zeigen Sie, dass sich E und g schneiden.\nb) Bestimmen Sie die Hesse'sche Normalenform von E und erläutern Sie eine Anwendung.\n\n3. Berechnen Sie den Flächeninhalt eines Parallelogramms, das durch a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2) aufgespannt wird.`;
+  const stochAufgaben = `Stochastik\n\n1. Ein Glücksrad wird 100-mal gedreht. Die Wahrscheinlichkeit für "Gewinn" beträgt p = 0,3.\na) Berechnen Sie den Erwartungswert und die Standardabweichung.\nb) Bestimmen Sie die Wahrscheinlichkeit für 25–35 Gewinne mithilfe der Sigma-Regeln.\n\n2. Führen Sie einen Signifikanztest zum Niveau α = 5% durch (n = 50, H₀: p ≤ 0,05).`;
+
+  const aufgabenTeile = gebiete.map(g => g === 'Analysis' ? analysisAufgaben : g === 'Geometrie' ? geoAufgaben : stochAufgaben);
+
   return {
-    aufgabenstellung: schwerpunkt === 'Analysis'
-      ? `1. Gegeben ist die Funktion f: x ↦ 3/(1+x²) − 1.\na) Begründen Sie anhand charakteristischer Eigenschaften, welcher der vorgelegten Graphen zur Funktion f gehört.\nb) Geben Sie die maximale Definitionsmenge und die Wertemenge von f an.\nc) Beschreiben Sie, wie man die Gleichung der Tangente an den Graphen von f an der Stelle x = 1 ermittelt.\n\n2. Gegeben ist die Funktion g: x ↦ x·e^(−x²), D = ℝ.\nErmitteln Sie die Nullstellen und die Extremstellen von g.\n\n3. Beschreiben Sie unter Zuhilfenahme einer Skizze die Vorgehensweise zur Bestimmung des Flächeninhalts, der von der x-Achse und dem Graphen der Funktion h: x ↦ x² − 4 eingeschlossen wird. Geben Sie die Stammfunktion explizit an.`
-      : schwerpunkt === 'Geometrie'
-      ? `1. Erklären Sie, wann drei Vektoren linear abhängig sind.\n\n2. Gegeben sind die Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2) und die Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0.\na) Zeigen Sie, dass sich E und g schneiden.\nb) Bestimmen Sie die Hesse'sche Normalenform von E und erläutern Sie eine Anwendung.\n\n3. Berechnen Sie den Flächeninhalt eines Parallelogramms, das durch die Vektoren a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2) aufgespannt wird.\n\n4. Gegeben sind zwei Ebenen E: 3x₁ − x₂ + 2x₃ − 10 = 0 und F: 3x₁ + kx₂ + 2x₃ − 10 = 0.\na) Bestimmen Sie k, damit E ⊥ F gilt.\nb) Ermitteln Sie den Schnittwinkel für k = 1.`
-      : `1. Ein Glücksrad wird 100-mal gedreht. Die Wahrscheinlichkeit für "Gewinn" beträgt p = 0,3.\na) Berechnen Sie den Erwartungswert und die Standardabweichung der Anzahl der Gewinne.\nb) Bestimmen Sie die Wahrscheinlichkeit für mindestens 25 und höchstens 35 Gewinne mithilfe der Sigma-Regeln.\n\n2. Ein Hersteller behauptet, dass höchstens 5% seiner Produkte fehlerhaft sind. Führen Sie einen Signifikanztest zum Niveau α = 5% durch (Stichprobenumfang n = 50).\n\n3. Erläutern Sie den Unterschied zwischen Binomialverteilung und Normalverteilung. Wann kann die Normalverteilung als Näherung verwendet werden?`,
-    material: schwerpunkt === 'Analysis'
-      ? 'Funktionsterme: f(x) = 3/(1+x²) − 1, g(x) = x·e^(−x²), h(x) = x² − 4'
-      : schwerpunkt === 'Geometrie'
-      ? 'Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2), Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0, Vektoren a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2)'
-      : 'Binomialverteilung B(100; 0,3), Signifikanzniveau α = 0,05, Stichprobenumfang n = 50',
+    aufgabenstellung: aufgabenTeile.join('\n\n'),
+    material: gebiete.map(g => g === 'Analysis' ? 'f(x) = 3/(1+x²) − 1, g(x) = x·e^(−x²)' : g === 'Geometrie' ? 'g: X⃗ = (−1,0,3) + λ·(3,−2,−2), E: 3x₁+x₂−2x₃−2=0, a⃗=(0,3,−1), b⃗=(2,2,2)' : 'B(100; 0,3), α = 0,05, n = 50').join(' | '),
     hinweise: 'Sie haben 30 Minuten Vorbereitungszeit. Notieren Sie sich Lösungswege und Ergebnisse. Erläutern Sie im Vortrag die Vorgehensweise – umfangreiche Rechnungen müssen nicht im Detail ausgeführt werden.',
   };
 }
@@ -503,11 +507,10 @@ function buildExamInstruction(config: LiveSessionConfig): string {
   let instruction: string;
 
   if (isMathe) {
-    // Mathe-Kolloquium: Gebiete statt Halbjahre
-    const schwerpunkt = config.schwerpunkt; // z.B. "Analysis"
-    const weiteresGebiet = config.weitereHalbjahre[0] || '';
+    // Mathe-Kolloquium: Gebiete statt Halbjahre, kein Schwerpunkt – beide Gebiete gleichwertig
+    const gebiete = config.weitereHalbjahre.join(' und '); // z.B. "Analysis und Geometrie"
     instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
-Fach: Mathematik (eA), Schwerpunkt-Gebiet: ${schwerpunkt}, weiteres Gebiet: ${weiteresGebiet}.`;
+Fach: Mathematik (eA), Prüfungsgebiete: ${gebiete}.`;
 
     if (config.aufgabenstellung) {
       instruction += `\nDem Prüfling wurden folgende Aufgaben vorgelegt:\n${config.aufgabenstellung}`;
@@ -522,38 +525,36 @@ KRITISCHE REGEL FÜR DEN AUFGABEN-VORTRAG:
 - Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Vortrag beendet ist.
 - Nach 10–12 Minuten ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.`;
 
-    if (mode === 'referat') {
-      instruction += `
-ABLAUF: Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den ${schwerpunkt}-Aufgaben in einem zusammenhängenden Vortrag präsentieren (~10 Min).
-${stilleRegel}
-Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
-    } else if (mode === 'fragen') {
-      instruction += `
-ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Gebiet ${schwerpunkt} (AB II/III, ~5 Min).
-Dann wechsle zum Gebiet ${weiteresGebiet} (~15 Min): Stelle 4–5 Fragen mit steigendem Schwierigkeitsgrad (AB I→II→III).
-Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen, Vektoren).
-Beende die Prüfung.
-
+    const matheFragenHinweis = `
 WICHTIG für Mathematik-Fragen:
 - Fragen sollen Verständnis prüfen, nicht reines Rechnen
 - "Beschreiben Sie die Vorgehensweise..." statt "Rechnen Sie aus..."
 - "Erläutern Sie, warum..." / "Was passiert, wenn..." / "Interpretieren Sie..."
 - Bei Bedarf: Konkrete Terme, Gleichungen oder Skizzen mündlich beschreiben`;
+
+    if (mode === 'referat') {
+      instruction += `
+ABLAUF: Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${gebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+${stilleRegel}
+Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
+    } else if (mode === 'fragen') {
+      instruction += `
+ABLAUF: Begrüße den Prüfling. Stelle gemischte Fragen zu ${gebiete} (~20 Min).
+Decke beide Gebiete gleichmäßig ab. Steigere den Schwierigkeitsgrad (AB I→II→III).
+Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen, Vektoren).
+Beende die Prüfung.
+${matheFragenHinweis}`;
     } else {
       instruction += `
 ABLAUF:
-1. Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den ${schwerpunkt}-Aufgaben in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+1. Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den Aufgaben (${gebiete}) in einem zusammenhängenden Vortrag präsentieren (~10 Min).
    ${stilleRegel}
-2. Stelle 2–3 vertiefende Fragen zum Gebiet ${schwerpunkt} (AB II/III, ~5 Min).
-   Z.B. Fragen die an den Vortrag anknüpfen, Verallgemeinerungen, oder Fragen ohne Bezug zum Vortrag.
-3. Wechsle zum Gebiet ${weiteresGebiet} (~15 Min): Stelle 4–5 Fragen mit steigendem Schwierigkeitsgrad (AB I→II→III).
+2. Stelle vertiefende Fragen zu den vorgelegten Aufgaben und beiden Gebieten (~5 Min, AB II/III).
+   Z.B. Fragen die an den Vortrag anknüpfen, Verallgemeinerungen, oder neue Aspekte.
+3. Stelle weitere Fragen zu ${gebiete} (~15 Min): Gemischt aus beiden Gebieten, mit steigendem Schwierigkeitsgrad (AB I→II→III).
    Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen).
 4. Beende die Prüfung.
-
-WICHTIG für Mathematik-Fragen:
-- Fragen sollen Verständnis prüfen, nicht reines Rechnen
-- "Beschreiben Sie die Vorgehensweise..." statt "Rechnen Sie aus..."
-- "Erläutern Sie, warum..." / "Was passiert, wenn..." / "Interpretieren Sie..."`;
+${matheFragenHinweis}`;
     }
   } else {
     // Alle anderen Fächer: bisherige Logik
