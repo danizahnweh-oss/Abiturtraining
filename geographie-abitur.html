@@ -320,6 +320,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -329,7 +330,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
 
@@ -342,7 +343,7 @@
       Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -381,7 +382,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Schwerpunkt (optional)</label>
+          <label for="schwerpunktSelect">Schwerpunkt (optional)</label>
           <select id="schwerpunktSelect">
             <option value="random">Zufällig</option>
           </select>
@@ -415,20 +416,20 @@
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label>Aufgabenstellung Prüfungsteil A</label><textarea id="manualTaskInstruction"
+        <div class="form-group"><label for="manualTaskInstruction">Aufgabenstellung Prüfungsteil A</label><textarea id="manualTaskInstruction"
             style="min-height:60px" placeholder="Stellen Sie … dar! / Diskutieren Sie …"></textarea></div>
-        <div class="form-group"><label>Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px"
+        <div class="form-group"><label for="manualPrimaryText">Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px"
             placeholder="Materialtext hier einfügen …"></textarea></div>
-        <div class="form-group"><label>Aufgabenstellung Prüfungsteil B (Ausweitung)</label><textarea
+        <div class="form-group"><label for="manualTaskInstructionB">Aufgabenstellung Prüfungsteil B (Ausweitung)</label><textarea
             id="manualTaskInstructionB" style="min-height:60px"
             placeholder="Prüfungsteil B: Transfer-/Ausweitungsaufgabe …"></textarea></div>
-        <div class="form-group"><label>Quelle</label><input type="text" id="manualMeta"
+        <div class="form-group"><label for="manualMeta">Quelle</label><input type="text" id="manualMeta"
             placeholder="z.B. FAZ, 12.03.2024"></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
       </div>

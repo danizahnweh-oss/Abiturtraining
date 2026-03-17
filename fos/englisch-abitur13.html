@@ -405,6 +405,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -414,7 +415,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">&#x1F319;</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">&#x1F319;</button>
     </div>
   </header>
 
@@ -427,7 +428,7 @@
         class="step-num">&#x1F4CA;</span> Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -476,7 +477,7 @@
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="210" min="30" max="300" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">Standard: 210 Min. (90 Min. Reading + 30 Min. Pause + 90 Min. Writing)</div>
       </div>

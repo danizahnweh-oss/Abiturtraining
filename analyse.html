@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -27,7 +28,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
 
@@ -40,7 +41,7 @@
       Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -55,7 +56,7 @@
         <h2 class="card-header">Aufgabe konfigurieren</h2>
         <div class="form-row">
           <div class="form-group">
-            <label>Textsorte</label>
+            <label for="textsorteSelect">Textsorte</label>
             <select id="textsorteSelect">
               <option value="random">Zufällig auswählen</option>
               <option value="rede">Politische Rede</option>
@@ -67,7 +68,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Themenbereich</label>
+            <label for="themaSelect">Themenbereich</label>
             <select id="themaSelect">
               <option value="random">Zufällig auswählen</option>
               <option value="sprache_politik">Sprache in politisch-gesellschaftlichen Zusammenhängen</option>
@@ -79,7 +80,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Weiterführender Schreibauftrag</label>
+          <label for="schreibauftragSelect">Weiterführender Schreibauftrag</label>
           <select id="schreibauftragSelect">
             <option value="stellungnahme">Stellungnahme verfassen</option>
             <option value="vergleich">Vergleich mit zweitem Text</option>
@@ -87,7 +88,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Bearbeitungszeit (Minuten)</label>
+          <label for="timerMinutes">Bearbeitungszeit (Minuten)</label>
           <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>

@@ -128,7 +128,7 @@ export function TutorialOverlay({ steps, storageKey, onComplete }: TutorialOverl
   };
 
   return (
-    <div className="fixed inset-0 z-[10000]">
+    <div className="fixed inset-0 z-[10000]" role="dialog" aria-modal="true" aria-label="Tutorial-Tour">
       {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
