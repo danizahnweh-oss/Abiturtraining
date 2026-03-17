@@ -263,7 +263,7 @@ function initAiTutor() {
         <div class="ai-message ai">${greeting}</div>
       </div>
       <div class="ai-chat-input">
-        <input type="text" id="ai-input" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
+        <input type="text" id="ai-input" aria-label="Deine Frage an den KI-Assistenten" placeholder="Deine Frage zu ${pageInfo.isIndex ? "den Fächern" : pageInfo.subject}..." onkeypress="handleAiEnter(event)">
         <button id="ai-send-btn" onclick="sendAiMessage()">➤</button>
       </div>
     </div>
