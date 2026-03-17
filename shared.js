@@ -20,6 +20,33 @@
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 const CONFIG = { storedData: null };
 
+/* ================= FOCUS-TRAP ================= */
+
+/**
+ * Beschränkt Tab/Shift+Tab auf Elemente innerhalb eines Containers.
+ * Gibt eine Cleanup-Funktion zurück (zum Entfernen des Listeners).
+ */
+function trapFocus(container) {
+  const focusable = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  function getFocusable() {
+    return Array.from(container.querySelectorAll(focusable)).filter(el => !el.closest('[hidden]'));
+  }
+  function handler(e) {
+    if (e.key !== "Tab") return;
+    const els = getFocusable();
+    if (!els.length) { e.preventDefault(); return; }
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  container.addEventListener("keydown", handler);
+  return () => container.removeEventListener("keydown", handler);
+}
+
 /* ================= UTILITIES ================= */
 
 function showToast(msg, type) {
@@ -495,21 +522,27 @@ var REWRITE_CATEGORY_COLORS = {
   "Stil": "#db2777", "Grammatik": "#ef4444", "Inhalt": "#2563eb", "Quellenarbeit": "#7c3aed"
 };
 
+var _rewriteOverlayCleanup = null;
+var _rewriteOverlayPreviousFocus = null;
+
 function showRewriteOverlay(result) {
   // Altes Overlay entfernen
   var old = document.getElementById("rewriteOverlay");
-  if (old) old.remove();
+  if (old) { old.remove(); if (_rewriteOverlayCleanup) _rewriteOverlayCleanup(); }
+
+  // Fokus merken, um ihn beim Schließen wiederherzustellen
+  _rewriteOverlayPreviousFocus = document.activeElement;
 
   var overlay = document.createElement("div");
   overlay.id = "rewriteOverlay";
   overlay.className = "rewrite-overlay";
   overlay.setAttribute("role", "dialog");
   overlay.setAttribute("aria-modal", "true");
-  overlay.setAttribute("aria-label", "Verbesserungsvorschläge");
+  overlay.setAttribute("aria-labelledby", "rewriteOverlayTitle");
 
   var html = '<div class="rewrite-panel">' +
     '<div class="rewrite-header">' +
-    '<h3>✨ Verbesserungsvorschläge</h3>' +
+    '<h3 id="rewriteOverlayTitle"><span aria-hidden="true">✨</span> Verbesserungsvorschläge</h3>' +
     '<button class="rewrite-close" onclick="closeRewriteOverlay()" aria-label="Schließen">✕</button>' +
     '</div>' +
     '<div class="rewrite-body">';
@@ -554,6 +587,9 @@ function showRewriteOverlay(result) {
 
   document.body.appendChild(overlay);
 
+  // Focus-Trap aktivieren
+  _rewriteOverlayCleanup = trapFocus(overlay);
+
   // Focus auf Close-Button setzen
   var closeBtn = overlay.querySelector(".rewrite-close");
   if (closeBtn) closeBtn.focus();
@@ -573,8 +609,14 @@ function showRewriteOverlay(result) {
 function closeRewriteOverlay() {
   var overlay = document.getElementById("rewriteOverlay");
   if (overlay) {
+    if (_rewriteOverlayCleanup) { _rewriteOverlayCleanup(); _rewriteOverlayCleanup = null; }
     overlay.style.animation = "fadeOut .2s ease-out forwards";
     setTimeout(function () { overlay.remove(); }, 200);
+    // Fokus zurücksetzen
+    if (_rewriteOverlayPreviousFocus && _rewriteOverlayPreviousFocus.focus) {
+      _rewriteOverlayPreviousFocus.focus();
+    }
+    _rewriteOverlayPreviousFocus = null;
   }
 }
 
@@ -860,6 +902,13 @@ function renderProgressChart() {
   if (!ctx) return;
   if (progressChartInstance) progressChartInstance.destroy();
 
+  // Screenreader-Beschreibung: zugängliche Zusammenfassung der Daten
+  const avg = history.length ? Math.round(history.reduce((s, h) => s + (h.total || 0), 0) / history.length) : 0;
+  ctx.setAttribute("role", "img");
+  ctx.setAttribute("aria-label", `Fortschrittsdiagramm: ${history.length} Einträge, Ø ${avg} Punkte`);
+  // Fallback-Text innerhalb des Canvas (für Browser ohne Canvas-Support)
+  ctx.textContent = `Fortschritt: ${history.length} Einträge, Durchschnitt ${avg} Punkte.`;
+
   const color = MODULE_CONFIG.chartColor || "#059669";
   const colorAlpha = color + "1a"; // ~10% opacity
 
@@ -967,62 +1016,61 @@ function isExamPage() {
   return !document.getElementById(prefix + "task") && !!document.getElementById(prefix + "reading");
 }
 
+var _pdfModalCleanup = null;
+var _pdfModalPreviousFocus = null;
+
+function _openPdfModal(innerHtml) {
+  if (document.getElementById("pdfModal")) return;
+  _pdfModalPreviousFocus = document.activeElement;
+  var overlay = document.createElement("div");
+  overlay.className = "pdf-modal-overlay";
+  overlay.id = "pdfModal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-labelledby", "pdfModalTitle");
+  overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
+  overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
+  overlay.innerHTML = '<div class="pdf-modal">' +
+    '<h3 id="pdfModalTitle">Als PDF speichern</h3>' +
+    '<div class="pdf-modal-buttons">' + innerHtml + '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+  _pdfModalCleanup = trapFocus(overlay);
+  overlay.querySelector(".btn").focus();
+}
+
 function showPdfExportModal() {
   if (isExamPage()) {
-    // Englisch-Abitur: Reading + Writing Sections
-    if (document.getElementById("pdfModal")) return;
-    var overlay = document.createElement("div");
-    overlay.className = "pdf-modal-overlay";
-    overlay.id = "pdfModal";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "PDF Export Optionen");
-    overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
-    overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
-    overlay.innerHTML =
-      '<div class="pdf-modal">' +
-      '<h3>Als PDF speichern</h3>' +
-      '<div class="pdf-modal-buttons">' +
+    _openPdfModal(
       '<button class="btn" onclick="exportTaskPDF(\'reading\')">Nur Reading</button>' +
       '<button class="btn" onclick="exportTaskPDF(\'writing-only\')">Nur Writing</button>' +
       '<button class="btn" onclick="exportTaskPDF(\'exam\')">Komplette Pr\u00fcfung</button>' +
-      '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
-      '</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
-    overlay.querySelector(".btn").focus();
+      '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>'
+    );
     return;
   }
   if (!hasMaterial()) {
     exportTaskPDF("task");
     return;
   }
-  if (document.getElementById("pdfModal")) return;
-  var overlay = document.createElement("div");
-  overlay.className = "pdf-modal-overlay";
-  overlay.id = "pdfModal";
-  overlay.setAttribute("role", "dialog");
-  overlay.setAttribute("aria-modal", "true");
-  overlay.setAttribute("aria-label", "PDF Export Optionen");
-  overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
-  overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
-  overlay.innerHTML =
-    '<div class="pdf-modal">' +
-    '<h3>Als PDF speichern</h3>' +
-    '<div class="pdf-modal-buttons">' +
+  _openPdfModal(
     '<button class="btn" onclick="exportTaskPDF(\'task\')">Nur Aufgaben</button>' +
     '<button class="btn" onclick="exportTaskPDF(\'material\')">Nur Material</button>' +
     '<button class="btn" onclick="exportTaskPDF(\'both\')">Aufgaben + Material</button>' +
-    '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>' +
-    '</div>' +
-    '</div>';
-  document.body.appendChild(overlay);
-  overlay.querySelector(".btn").focus();
+    '<button class="btn btn-cancel" onclick="closePdfModal()">Abbrechen</button>'
+  );
 }
 
 function closePdfModal() {
   var m = document.getElementById("pdfModal");
-  if (m) m.remove();
+  if (m) {
+    if (_pdfModalCleanup) { _pdfModalCleanup(); _pdfModalCleanup = null; }
+    m.remove();
+    if (_pdfModalPreviousFocus && _pdfModalPreviousFocus.focus) {
+      _pdfModalPreviousFocus.focus();
+    }
+    _pdfModalPreviousFocus = null;
+  }
 }
 
 function exportTaskPDF(mode) {

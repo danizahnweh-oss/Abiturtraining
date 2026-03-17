@@ -303,6 +303,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- ====== LOGIN REDIRECT ====== -->
   <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
@@ -323,7 +324,7 @@
       <div class="header-right">
         <span id="studentGreeting" class="header-meta" style="display:none"></span>
         <div class="header-meta">myAbiFlow</div>
-        <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
+        <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Dark Mode umschalten"
           id="themeToggleBtn">🌙</button>
       </div>
     </header>
@@ -346,7 +347,7 @@
       </button>
     </nav>
 
-    <main>
+    <main id="main-content">
 
       <!-- ====== STEP 1: SETUP ====== -->
       <section id="setup" class="active">
@@ -358,7 +359,7 @@
           </p>
 
           <div class="form-group">
-            <label>Themenfeld</label>
+            <label for="topicSelect">Themenfeld</label>
             <select id="topicSelect">
               <option value="Science & Technology: Artificial Intelligence and Society">Science & Technology: AI & Society</option>
               <option value="Global Chances and Challenges: Climate Change and Sustainability">Global Challenges: Climate & Sustainability</option>
@@ -419,11 +420,11 @@
           <!-- Audio Player -->
           <div id="audioPlayerUI" style="display:none;">
             <div class="audio-controls">
-              <button class="play-btn" id="playBtn" onclick="togglePlay()">
-                <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-label="Audio abspielen">
+                <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="5 3 19 12 5 21 5 3"/>
                 </svg>
-                <svg id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+                <svg id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;" aria-hidden="true">
                   <rect x="6" y="4" width="4" height="16"/>
                   <rect x="14" y="4" width="4" height="16"/>
                 </svg>
@@ -547,8 +548,12 @@
 
           <!-- Nochmal anhören (unbegrenzt im Feedback) -->
           <div class="card" id="feedbackAudioCard" style="display:none;">
-            <h2 class="card-header">🎧 Nochmal anhören</h2>
-            <audio id="feedbackAudio" controls style="width:100%;margin-top:.5rem;"></audio>
+            <h2 class="card-header"><span aria-hidden="true">🎧</span> Nochmal anhören</h2>
+            <audio id="feedbackAudio" controls style="width:100%;margin-top:.5rem;"
+              aria-label="Hörtext nochmal anhören"></audio>
+            <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem;">
+              Das vollständige Transkript findest du im Abschnitt „Hörtext-Transkript" oben.
+            </p>
           </div>
 
           <!-- Actions -->
@@ -787,6 +792,7 @@
     function togglePlay() {
       const audioEl = document.getElementById("audioElement");
 
+      const btn = document.getElementById("playBtn");
       if (audioEl.paused) {
         if (playCount >= MAX_PLAYS && !feedbackMode) {
           showToast("Du hast den Text bereits 2x angehört.");
@@ -795,10 +801,12 @@
         audioEl.play();
         document.getElementById("playIcon").style.display = "none";
         document.getElementById("pauseIcon").style.display = "block";
+        if (btn) btn.setAttribute("aria-label", "Audio pausieren");
       } else {
         audioEl.pause();
         document.getElementById("playIcon").style.display = "block";
         document.getElementById("pauseIcon").style.display = "none";
+        if (btn) btn.setAttribute("aria-label", "Audio abspielen");
       }
     }
 

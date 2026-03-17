@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 
 const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
@@ -18,6 +18,37 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
   const [oldPw, setOldPw] = useState('');
   const [newPw, setNewPw] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
+
+  // Focus-Trap: ersten fokussierbaren Button referenzieren
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Focus auf Close-Button beim Öffnen
+  useEffect(() => {
+    closeRef.current?.focus();
+  }, []);
+
+  // Focus-Trap: Tab/Shift+Tab innerhalb des Dialogs halten
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const focusable = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') { onClose(); return; }
+      if (e.key !== 'Tab') return;
+      const els = Array.from(dialog.querySelectorAll<HTMLElement>(focusable));
+      if (!els.length) { e.preventDefault(); return; }
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    }
+    dialog.addEventListener('keydown', handleKeyDown);
+    return () => dialog.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   useEffect(() => {
     const studentName = sessionStorage.getItem('student_name') || '';
@@ -108,12 +139,25 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      role="presentation"
     >
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto p-6" style={{ WebkitOverflowScrolling: 'touch' }}>
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="profileModalTitle"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto p-6"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-lg font-semibold">Mein Profil</h2>
-          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors">
-            <X size={18} />
+          <h2 id="profileModalTitle" className="text-lg font-semibold">Mein Profil</h2>
+          <button
+            ref={closeRef}
+            onClick={onClose}
+            aria-label="Schließen"
+            className="w-11 h-11 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
+          >
+            <X size={18} aria-hidden="true" />
           </button>
         </div>
 
@@ -147,6 +191,7 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Optional – für Erinnerungen"
+              autoComplete="email"
               className="flex-1 px-3 py-2 text-base border border-slate-200 rounded-lg bg-white min-h-[44px]"
             />
           </div>
@@ -159,7 +204,10 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
         </div>
 
         {msg && (
-          <div className={`text-xs text-center p-2 rounded-lg mb-3 ${msg.error ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600'}`}>
+          <div
+            role="alert"
+            className={`text-xs text-center p-2 rounded-lg mb-3 ${msg.error ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600'}`}
+          >
             {msg.text}
           </div>
         )}
@@ -177,11 +225,14 @@ export function ProfileModal({ onClose }: ProfileModalProps) {
             Passwort ändern
           </summary>
           <div className="space-y-2 pt-2">
-            <input type="password" value={oldPw} onChange={(e) => setOldPw(e.target.value)} placeholder="Aktuelles Passwort" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
-            <input type="password" value={newPw} onChange={(e) => setNewPw(e.target.value)} placeholder="Neues Passwort (min. 6 Zeichen)" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
-            <input type="password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} placeholder="Neues Passwort bestätigen" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
+            <label htmlFor="oldPw" className="sr-only">Aktuelles Passwort</label>
+            <input id="oldPw" type="password" value={oldPw} onChange={(e) => setOldPw(e.target.value)} placeholder="Aktuelles Passwort" autoComplete="current-password" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
+            <label htmlFor="newPw" className="sr-only">Neues Passwort (mindestens 6 Zeichen)</label>
+            <input id="newPw" type="password" value={newPw} onChange={(e) => setNewPw(e.target.value)} placeholder="Neues Passwort (min. 6 Zeichen)" autoComplete="new-password" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
+            <label htmlFor="confirmPw" className="sr-only">Neues Passwort bestätigen</label>
+            <input id="confirmPw" type="password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} placeholder="Neues Passwort bestätigen" autoComplete="new-password" className="w-full px-3 py-2 text-base border border-slate-200 rounded-lg min-h-[44px]" />
             {pwMsg && (
-              <div className={`text-xs text-center p-2 rounded-lg ${pwMsg.error ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600'}`}>
+              <div role="alert" className={`text-xs text-center p-2 rounded-lg ${pwMsg.error ? 'bg-red-50 text-red-500' : 'bg-green-50 text-green-600'}`}>
                 {pwMsg.text}
               </div>
             )}

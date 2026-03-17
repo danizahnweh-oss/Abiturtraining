@@ -3336,7 +3336,7 @@
         <!-- Lehrer-Code Eingabe -->
         <div id="teacherCodeSection" style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border);">
           <div style="display:flex;align-items:center;gap:.6rem;">
-            <span style="font-size:.85rem;color:var(--ink-muted);">Lehrer-Code:</span>
+            <label for="examTeacherCode" style="font-size:.85rem;color:var(--ink-muted);white-space:nowrap;">Lehrer-Code:</label>
             <input type="text" id="examTeacherCode" placeholder="z.B. ABC123"
               style="flex:1;padding:.45rem .6rem;font-size:.9rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);min-height:44px;box-sizing:border-box;"
               maxlength="6" autocomplete="off">
@@ -5287,11 +5287,12 @@
           else countdownText = "vorbei";
         }
 
+        var dateId = "exam-date-" + subj;
         var row = document.createElement("div");
         row.className = "exam-settings-row";
-        row.innerHTML = '<span class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + typeTag + '</span>'
-          + '<input type="date" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
-          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '">' + countdownText + '</span>';
+        row.innerHTML = '<label for="' + dateId + '" class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + typeTag + '</label>'
+          + '<input type="date" id="' + dateId + '" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
+          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '" aria-live="polite">' + countdownText + '</span>';
         container.appendChild(row);
       });
     }
@@ -5345,11 +5346,12 @@
           else countdownText = "vorbei";
         }
 
+        var dateId2 = "exam-date-add-" + subj;
         var row = document.createElement("div");
         row.className = "exam-settings-row";
-        row.innerHTML = '<span class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + '</span>'
-          + '<input type="date" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
-          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '">' + countdownText + '</span>';
+        row.innerHTML = '<label for="' + dateId2 + '" class="exam-date-label">' + (SUBJECT_DISPLAY[subj] || subj) + '</label>'
+          + '<input type="date" id="' + dateId2 + '" value="' + currentDate + '" data-subject="' + subj + '" onchange="onExamDateChange(this)" style="font-size:16px;">'
+          + '<span class="exam-date-countdown' + (countdownText === "Heute!" ? " soon" : "") + '" aria-live="polite">' + countdownText + '</span>';
         container.appendChild(row);
       });
     }

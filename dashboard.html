@@ -319,15 +319,16 @@ footer a { color: var(--accent); }
     <h2>Dashboard</h2>
     <p>myAbiFlow · Mediation Trainer</p>
 
+    <label for="teacherPassword" class="sr-only">Lehrer-Passwort</label>
     <input type="password" id="teacherPassword"
            class="login-input"
            placeholder="Lehrer-Passwort …"
-           autocomplete="off"
+           autocomplete="current-password"
            onkeyup="if(event.key==='Enter')loginTeacher()">
 
     <br><br>
     <button class="btn" style="width:100%" onclick="loginTeacher()">Anmelden</button>
-    <div id="loginError" class="login-error"></div>
+    <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
     <p style="margin-top:1rem;font-size:.8rem;">
       <a href="lehrer.html">Lehrer-Login (eigenes Konto)</a> ·
       <a href="index.html">← Zurück zum Trainer</a>
@@ -381,6 +382,7 @@ footer a { color: var(--accent); }
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
         <h2 style="font-family:var(--font-display);">Registrierte Schüler</h2>
         <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+          <label for="filterStudentClass" class="sr-only">Klasse filtern</label>
           <select id="filterStudentClass" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
             <option value="">Alle Klassen</option>
           </select>
@@ -417,11 +419,11 @@ footer a { color: var(--accent); }
       <div id="newClassPasswordForm" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);">
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;">
           <div style="flex:1;min-width:150px;">
-            <label style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
+            <label for="cpLabel" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
             <input type="text" id="cpLabel" placeholder="z.B. 12a, Q12 Physik eA" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
           </div>
           <div style="flex:1;min-width:150px;">
-            <label style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
+            <label for="cpPassword" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
             <input type="text" id="cpPassword" placeholder="Schulcode" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
           </div>
           <button class="btn btn-small" onclick="createClassPassword()" style="min-height:44px;">Erstellen</button>
@@ -464,7 +466,7 @@ footer a { color: var(--accent); }
     <div class="card">
       <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Klassenentwicklung</h2>
       <div class="chart-container">
-        <canvas id="classChart"></canvas>
+        <canvas id="classChart" role="img" aria-label="Klassenentwicklung: Durchschnittliche Punktzahl aller Schüler im Zeitverlauf"></canvas>
       </div>
     </div>
 
@@ -479,15 +481,19 @@ footer a { color: var(--accent); }
       </div>
 
       <div class="filter-bar">
+        <label for="filterCourse" class="sr-only">Klasse</label>
         <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
           <option value="">Alle Klassen</option>
         </select>
+        <label for="filterSubject" class="sr-only">Fach</label>
         <select id="filterSubject" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
           <option value="">Alle Fächer</option>
         </select>
+        <label for="filterStudent" class="sr-only">Schüler</label>
         <select id="filterStudent" onchange="renderTable()">
           <option value="">Alle Schüler</option>
         </select>
+        <label for="filterSort" class="sr-only">Sortierung</label>
         <select id="filterSort" onchange="renderTable()">
           <option value="date-desc">Neueste zuerst</option>
           <option value="date-asc">Älteste zuerst</option>
