@@ -140,7 +140,7 @@ const createAI = () => {
  * Der Worker ersetzt den Dummy-Key automatisch durch den echten API-Key.
  */
 async function geminiJSON(prompt: string): Promise<string> {
-  const model = 'gemini-2.0-flash';
+  const model = 'gemini-2.5-flash';
   let url: string;
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
 
