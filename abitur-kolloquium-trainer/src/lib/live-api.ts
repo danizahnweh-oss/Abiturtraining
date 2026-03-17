@@ -134,6 +134,43 @@ const createAI = () => {
   return new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
 };
 
+/**
+ * Direkter fetch-Aufruf an Gemini (REST) über den Worker-Proxy.
+ * Umgeht SDK-Proxy-Probleme bei HTTP generateContent-Requests.
+ * Der Worker ersetzt den Dummy-Key automatisch durch den echten API-Key.
+ */
+async function geminiJSON(prompt: string): Promise<string> {
+  const model = 'gemini-2.0-flash';
+  let url: string;
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+
+  if (WORKER_URL) {
+    // Über Worker-Proxy – Worker setzt x-goog-api-key automatisch
+    url = `${WORKER_URL}/v1beta/models/${model}:generateContent`;
+  } else {
+    // Lokale Entwicklung – direkter API-Aufruf mit Key
+    url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+    headers['x-goog-api-key'] = process.env.GEMINI_API_KEY || '';
+  }
+
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { responseMimeType: 'application/json' },
+    }),
+  });
+
+  if (!resp.ok) {
+    const errText = await resp.text().catch(() => '');
+    throw new Error(`Gemini API ${resp.status}: ${errText.substring(0, 200)}`);
+  }
+
+  const data = await resp.json() as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
+  return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
+
 /* ───────── Material generation ───────── */
 
 /** Prüft ob das generierte Material brauchbar ist (nicht leer / zu kurz / generisch) */
@@ -167,7 +204,6 @@ function parseExamMaterialResponse(text: string): ExamMaterial | null {
 }
 
 export async function generateExamMaterial(config: ExamConfig): Promise<ExamMaterial> {
-  const ai = createAI();
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
 
   const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
@@ -193,19 +229,10 @@ BEISPIEL für gutes Material (Fach Geschichte):
 
 Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise.`;
 
-  const genConfig = {
-    responseMimeType: 'application/json' as const,
-  };
-
   // Bis zu 3 Versuche für brauchbares Material
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-        config: genConfig,
-      });
-      const text = response.text || '';
+      const text = await geminiJSON(prompt);
       console.log(`[Material-Gen] Versuch ${attempt + 1}, Antwort-Länge: ${text.length}`);
       const parsed = parseExamMaterialResponse(text);
       if (parsed && isValidMaterial(parsed)) return parsed;
@@ -223,12 +250,7 @@ Das Material muss ein echtes Zitat, eine Statistik oder einen Quellentext enthal
 
 Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: fallbackPrompt,
-      config: genConfig,
-    });
-    const text = response.text || '';
+    const text = await geminiJSON(fallbackPrompt);
     console.log(`[Material-Gen] Fallback, Antwort-Länge: ${text.length}`);
     const parsed = parseExamMaterialResponse(text);
     if (parsed && parsed.material && parsed.material.trim().length > 30) return parsed;
@@ -250,7 +272,6 @@ Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
 import { getMatheGebietInhalte } from './curriculum';
 
 export async function generateMatheAufgaben(config: ExamConfig): Promise<ExamMaterial> {
-  const ai = createAI();
   // Beide verbleibenden Gebiete (z.B. "Analysis und Geometrie")
   const gebiete = config.weitereHalbjahre; // z.B. ['Analysis', 'Geometrie']
   const alleInhalte = gebiete.map(g => `${g}: ${getMatheGebietInhalte(g).join('; ')}`).join('\n');
@@ -307,12 +328,7 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
 
   for (let attempt = 0; attempt < 3; attempt++) {
     try {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-        config: { responseMimeType: 'application/json' as const },
-      });
-      const text = response.text || '';
+      const text = await geminiJSON(prompt);
       console.log(`[Mathe-Gen] Versuch ${attempt + 1}, Antwort-Länge: ${text.length}`);
       const parsed = parseExamMaterialResponse(text);
       if (parsed && isValidMaterial(parsed)) return parsed;
@@ -348,7 +364,6 @@ function getMaterialTypenFuerFach(subject: string): string {
 }
 
 export async function generateMaterialImpulse(config: ExamConfig): Promise<MaterialImpuls[]> {
-  const ai = createAI();
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
   const materialTypen = getMaterialTypenFuerFach(config.subject);
 
@@ -389,13 +404,8 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
 [{"typ":"statistik","titel":"...","inhalt":"...","quellenangabe":"...","chartDaten":{"typ":"balken","labels":["A","B","C"],"werte":[10,20,30],"einheit":"%"}},{"typ":"zitat","titel":"...","inhalt":"...","quellenangabe":"..."}]`;
 
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
-      config: { responseMimeType: 'application/json' as const },
-    });
-
-    const raw = (response.text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+    const text = await geminiJSON(prompt);
+    const raw = text.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(raw) as MaterialImpuls[];
     // Validierung: Nur gültige Objekte behalten
     return parsed.filter(m => m.typ && m.titel && m.inhalt).slice(0, 2);
