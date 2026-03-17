@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="description" content="Erklärung zur Barrierefreiheit von myAbiFlow gemäß BFSG und BITV 2.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <title>Erklärung zur Barrierefreiheit – myAbiFlow</title>
+  <link rel="icon" href="/icon-192.png">
+  <link rel="stylesheet" href="shared-v4.css">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <style>
+    body { padding-bottom: 4rem; }
+    .legal-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      margin-bottom: .5rem;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      margin-bottom: .75rem;
+      color: var(--accent);
+    }
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: .5rem;
+    }
+    p, li { line-height: 1.8; color: var(--ink-light); margin-bottom: .5rem; }
+    ul { padding-left: 1.5rem; }
+    .meta {
+      font-size: .82rem;
+      color: var(--ink-muted);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .status-badge {
+      display: inline-block;
+      padding: .25rem .75rem;
+      border-radius: var(--radius-full);
+      font-size: .8rem;
+      font-weight: 700;
+    }
+    .status-partial {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .conformance-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: .88rem;
+    }
+    .conformance-table th {
+      background: var(--bg-warm);
+      padding: .6rem .8rem;
+      text-align: left;
+      border: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .conformance-table td {
+      padding: .55rem .8rem;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--ink-light);
+    }
+    .conformance-table tr:nth-child(even) td { background: var(--bg-warm); }
+    .badge-ok { color: #059669; font-weight: 700; }
+    .badge-partial { color: #b45309; font-weight: 700; }
+    .badge-no { color: #dc2626; font-weight: 700; }
+    .contact-box {
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .contact-box p { color: var(--ink); margin-bottom: .3rem; }
+    .notice {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: .8rem 1rem;
+      margin: 1rem 0;
+      font-size: .88rem;
+      color: var(--ink);
+    }
+    .toc { background: var(--bg-warm); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.5rem; margin-bottom: 2rem; }
+    .toc ol { margin: .5rem 0 0; padding-left: 1.5rem; }
+    .toc li { margin-bottom: .25rem; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: .9rem; }
+    .toc a:hover, .toc a:focus-visible { text-decoration: underline; }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <header>
+    <a href="index.html" class="header-logo-link">
+      <img src="logo.png" alt="myAbiFlow" class="header-logo">
+    </a>
+    <h1 class="header-title">Barrierefreiheit</h1>
+    <div class="header-right">
+      <a href="index.html" class="back-link">← Zurück</a>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="legal-container">
+
+      <h1>Erklärung zur Barrierefreiheit</h1>
+      <p class="meta">
+        Gemäß §&nbsp;12 Barrierefreiheitsstärkungsgesetz (BFSG) und der Durchführungsverordnung (EU)&nbsp;2018/1524
+        in Verbindung mit BITV&nbsp;2.0 · Stand: 17.&nbsp;März 2026
+      </p>
+
+      <!-- Inhaltsverzeichnis -->
+      <nav class="toc" aria-labelledby="toc-heading">
+        <strong id="toc-heading">Inhalt dieser Seite</strong>
+        <ol>
+          <li><a href="#vereinbarkeit">Stand der Vereinbarkeit</a></li>
+          <li><a href="#umfang">Geltungsbereich</a></li>
+          <li><a href="#kriterien">WCAG-Kriterien im Detail</a></li>
+          <li><a href="#einschraenkungen">Bekannte Einschränkungen</a></li>
+          <li><a href="#alternativen">Alternativen &amp; Umgehungslösungen</a></li>
+          <li><a href="#kontakt">Feedback &amp; Kontakt</a></li>
+          <li><a href="#schlichtung">Schlichtungsverfahren</a></li>
+          <li><a href="#pruefung">Prüfmethodik</a></li>
+        </ol>
+      </nav>
+
+      <!-- 1. Vereinbarkeit -->
+      <section aria-labelledby="vereinbarkeit">
+        <h2 id="vereinbarkeit">1. Stand der Vereinbarkeit</h2>
+        <p>
+          <strong>myAbiFlow</strong> (<a href="https://myabiflow.de">myabiflow.de</a>) ist
+          <span class="status-badge status-partial">teilweise konform</span>
+          mit den Anforderungen der Web Content Accessibility Guidelines (WCAG) 2.1,
+          Konformitätsstufe AA.
+        </p>
+        <p>
+          Die im Folgenden aufgeführten Einschränkungen werden schrittweise behoben.
+          Am 17.&nbsp;März 2026 wurden umfangreiche Verbesserungen vorgenommen
+          (Focus-Management, Formular-Labels, Skip-Links, Farbkontrast).
+          Ein abschließendes Konformitätsaudit steht noch aus.
+        </p>
+      </section>
+
+      <!-- 2. Geltungsbereich -->
+      <section aria-labelledby="umfang">
+        <h2 id="umfang">2. Geltungsbereich</h2>
+        <p>Diese Erklärung gilt für folgende Bereiche des Angebots:</p>
+        <ul>
+          <li><strong>Hauptanwendung:</strong> myabiflow.de (alle Fachtrainer-Seiten)</li>
+          <li><strong>FOS-Bereich:</strong> myabiflow.de/fos/</li>
+          <li><strong>Kolloquiumstrainer:</strong> myabiflow.de/abitur-kolloquium-trainer/dist/</li>
+          <li><strong>Lehrer-Bereich:</strong> myabiflow.de/lehrer.html, myabiflow.de/dashboard.html</li>
+        </ul>
+        <div class="notice">
+          <strong>Hinweis BFSG-Pflicht:</strong> Die myAbiFlow UG (haftungsbeschränkt)
+          ist ein Kleinstunternehmen (&lt;&nbsp;10 Beschäftigte, &lt;&nbsp;2 Mio.&nbsp;€ Jahresumsatz).
+          Für Dienstleistungen von Kleinstunternehmen sieht §&nbsp;2 Abs.&nbsp;3 BFSG eine
+          Ausnahmeregelung vor. Diese Erklärung wird gleichwohl freiwillig erstellt,
+          da Barrierefreiheit ein zentrales Qualitätsziel von myAbiFlow ist.
+        </div>
+      </section>
+
+      <!-- 3. WCAG-Kriterien -->
+      <section aria-labelledby="kriterien">
+        <h2 id="kriterien">3. WCAG-Kriterien im Detail</h2>
+
+        <h3>Prinzip 1 – Wahrnehmbar</h3>
+        <table class="conformance-table">
+          <caption class="sr-only">WCAG-Kriterien: Prinzip Wahrnehmbar</caption>
+          <thead>
+            <tr>
+              <th scope="col">Kriterium</th>
+              <th scope="col">Status</th>
+              <th scope="col">Anmerkung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.1.1 Nicht-Text-Inhalt (A)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>Alle &lt;img&gt;-Alt-Texte vorhanden. Dekorative Emojis mit aria-hidden. Fortschritts-Charts erhalten role="img" + aria-label; Aufgaben-Charts in Fachseiten noch ohne semantische Beschriftung.</td>
+            </tr>
+            <tr>
+              <td>1.2.1 Nur-Audio / Nur-Video (A)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>listening.html: Audio-Transkript über &lt;details&gt;/&lt;summary&gt; zugänglich. KI-generierte Hörtexte ohne vorberechnetes Transkript vor dem ersten Abspielen.</td>
+            </tr>
+            <tr>
+              <td>1.2.2 Untertitel (aufgezeichnet) (A)</td>
+              <td><span class="badge-no">Nicht anwendbar</span></td>
+              <td>Keine aufgezeichneten Videos mit Sprache auf der Plattform. Splash-Video ist rein dekorativ und stumm.</td>
+            </tr>
+            <tr>
+              <td>1.3.1 Info und Beziehungen (A)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>Seit 17.03.2026: Alle Login- und Filter-Inputs mit &lt;label&gt;. Dynamisch generierte Prüfungsdatum-Inputs erhalten label-IDs. Legende-Elemente in Tabellen vorhanden.</td>
+            </tr>
+            <tr>
+              <td>1.3.5 Eingabezweck erkennen (AA)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>autocomplete-Attribute auf Login-Formularen gesetzt. Schüler-Passwort-Feld bleibt bewusst ohne Autocomplete (Schulkontext).</td>
+            </tr>
+            <tr>
+              <td>1.4.1 Verwendung von Farbe (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Farbe wird nie als einzige Unterscheidungsinfo verwendet. Alle Status-Informationen sind text- und icon-gestützt.</td>
+            </tr>
+            <tr>
+              <td>1.4.3 Kontrast (Minimum) (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>axe-Scan (17.03.2026) zeigt 0 Kontrast-Violations. --ink-muted (#475569 auf #fff) = 8,5:1. Alle Akzentfarben ≥ 4,5:1 geprüft und ggf. korrigiert.</td>
+            </tr>
+            <tr>
+              <td>1.4.4 Textgröße ändern (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>rem-basiertes Layout, html { font-size: 112.5% }. Zoom bis 200 % ohne Inhaltsverlust getestet.</td>
+            </tr>
+            <tr>
+              <td>1.4.10 Umbruch (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Responsive Flexbox/Grid-Layouts. Kein horizontales Scrollen bei 320 px Viewport-Breite erforderlich.</td>
+            </tr>
+            <tr>
+              <td>1.4.11 Nicht-Text-Kontrast (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle UI-Komponenten-Ränder (Eingabefelder, Buttons) ≥ 3:1 gegen Hintergrund.</td>
+            </tr>
+            <tr>
+              <td>1.4.12 Textabstand (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Kein CSS, das Textabstand-Überschreibungen blockiert. Getestet mit Text Spacing Bookmarklet.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Prinzip 2 – Bedienbar</h3>
+        <table class="conformance-table">
+          <caption class="sr-only">WCAG-Kriterien: Prinzip Bedienbar</caption>
+          <thead>
+            <tr>
+              <th scope="col">Kriterium</th>
+              <th scope="col">Status</th>
+              <th scope="col">Anmerkung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2.1.1 Tastatur (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle interaktiven Elemente per Tab erreichbar. Kein Hover-only-Verhalten. Modals mit Escape schließbar.</td>
+            </tr>
+            <tr>
+              <td>2.1.2 Keine Tastaturfalle (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle Dialoge (PDF-Export, Verbesserungsvorschläge, Profil, Tutorial) haben Focus-Trap + Escape-Handler. Verlassen immer möglich.</td>
+            </tr>
+            <tr>
+              <td>2.4.1 Blöcke umgehen (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Skip-Link „Zum Hauptinhalt springen" auf allen Seiten. Ziel: #main-content.</td>
+            </tr>
+            <tr>
+              <td>2.4.2 Seite mit Titel (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Jede Seite hat einen eindeutigen &lt;title&gt; im Format „Fach · myAbiFlow".</td>
+            </tr>
+            <tr>
+              <td>2.4.3 Fokus-Reihenfolge (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Logische Tab-Reihenfolge im DOM. Modals setzen Fokus automatisch auf ersten fokussierbaren Button; Fokus kehrt nach Schließen zurück.</td>
+            </tr>
+            <tr>
+              <td>2.4.7 Sichtbarer Fokus (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Globaler Focus-Ring (2 px solid, accent-Farbe) auf allen interaktiven Elementen. :hover-Styles auch für :focus-visible gesetzt.</td>
+            </tr>
+            <tr>
+              <td>2.4.11 Fokus nicht verdeckt (AA, WCAG 2.2)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Kein sticky-Element, das fokussierte Elemente vollständig verdeckt.</td>
+            </tr>
+            <tr>
+              <td>2.5.3 Beschriftung im Namen (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle aria-label-Texte enthalten den sichtbaren Button-Text oder sind konsistent damit.</td>
+            </tr>
+            <tr>
+              <td>2.5.5 Zielgröße (AAA / WCAG 2.2 AA)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>Alle Haupt-Interaktionen ≥ 44 × 44 px. Einige Inline-Buttons in Feedback-Detailansichten: ~36 px (WCAG 2.2 AA empfiehlt 24 px Minimum – erfüllt; 44 px Ziel nicht überall erreicht).</td>
+            </tr>
+            <tr>
+              <td>2.3.3 Animation bei Interaktion (AAA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>@media (prefers-reduced-motion: reduce) deaktiviert alle CSS-Animationen und Übergänge global.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Prinzip 3 – Verständlich</h3>
+        <table class="conformance-table">
+          <caption class="sr-only">WCAG-Kriterien: Prinzip Verständlich</caption>
+          <thead>
+            <tr>
+              <th scope="col">Kriterium</th>
+              <th scope="col">Status</th>
+              <th scope="col">Anmerkung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>3.1.1 Sprache der Seite (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle Seiten: &lt;html lang="de"&gt;. Englisch-Übungen deklarieren Texte nicht per lang-Attribut (bekannte Einschränkung).</td>
+            </tr>
+            <tr>
+              <td>3.3.1 Fehlererkennung (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Fehler-Container mit role="alert" aria-live="polite" auf allen Login-Seiten. Fehlerbeschreibungen in Klartext.</td>
+            </tr>
+            <tr>
+              <td>3.3.2 Beschriftungen oder Anweisungen (A)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Alle Formularfelder haben sichtbare Labels oder sr-only-Labels. Pflichtfelder sind kenntlich gemacht.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Prinzip 4 – Robust</h3>
+        <table class="conformance-table">
+          <caption class="sr-only">WCAG-Kriterien: Prinzip Robust</caption>
+          <thead>
+            <tr>
+              <th scope="col">Kriterium</th>
+              <th scope="col">Status</th>
+              <th scope="col">Anmerkung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4.1.2 Name, Rolle, Wert (A)</td>
+              <td><span class="badge-partial">Teilweise</span></td>
+              <td>Alle Buttons und Links mit aria-label oder sichtbarem Text. ARIA-Radiogroups und Tabs korrekt. Canvas-Elemente mit role="img". Komplexe dynamische Inhalte (KI-Antworten) werden per aria-live-Region angekündigt.</td>
+            </tr>
+            <tr>
+              <td>4.1.3 Statusmeldungen (AA)</td>
+              <td><span class="badge-ok">Konform</span></td>
+              <td>Toast-Nachrichten: role="status" aria-live="polite". Fehlermeldungen: role="alert" aria-live="polite". KI-Loading-States: role="status".</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 4. Bekannte Einschränkungen -->
+      <section aria-labelledby="einschraenkungen">
+        <h2 id="einschraenkungen">4. Bekannte Einschränkungen</h2>
+
+        <h3>Einschränkung 1: Englische Texte ohne lang-Attribut</h3>
+        <p>
+          <strong>Betroffen:</strong> Alle englischen Aufgabentexte (mediation.html, writing.html, listening.html, francais-mediation.html u.&nbsp;a.)<br>
+          <strong>WCAG:</strong> 3.1.2 Sprache von Teilen (AA)<br>
+          <strong>Auswirkung:</strong> Screenreader lesen englische Passagen mit deutscher Aussprache vor.<br>
+          <strong>Geplante Behebung:</strong> Q2 2026 – automatische lang-Attribut-Setzung über Template-System.<br>
+          <strong>Workaround:</strong> Nutzer können in ihrem Screenreader die Sprache manuell umschalten.
+        </p>
+
+        <h3>Einschränkung 2: KI-generierte Hörtexte ohne sofortiges Transkript</h3>
+        <p>
+          <strong>Betroffen:</strong> listening.html (Listening-Comprehension-Trainer)<br>
+          <strong>WCAG:</strong> 1.2.1 Nur-Audio (A)<br>
+          <strong>Auswirkung:</strong> Gehörlose Nutzer können den Hörtext nicht ohne Transkript verstehen. Das Transkript wird erst nach erstem Abspielen im Abschnitt „Hörtext-Transkript" angezeigt.<br>
+          <strong>Geplante Behebung:</strong> Q2 2026 – Transkript wird parallel zur Audiogenerierung angezeigt.<br>
+          <strong>Workaround:</strong> Nach dem Laden der Aufgabe ist das Transkript über die &lt;details&gt;-Schaltfläche „Hörtext-Transkript anzeigen" zugänglich.
+        </p>
+
+        <h3>Einschränkung 3: Aufgaben-Charts (Material-Diagramme) ohne semantische Datenbeschriftung</h3>
+        <p>
+          <strong>Betroffen:</strong> Fachseiten mit statistischen Aufgaben (Biologie, Geographie, Geschichte u.&nbsp;a.)<br>
+          <strong>WCAG:</strong> 1.1.1 Nicht-Text-Inhalt (A)<br>
+          <strong>Auswirkung:</strong> Dynamisch generierte Aufgaben-Charts werden von Screenreadern als generisches Bild angesagt, ohne Datenwerte.<br>
+          <strong>Geplante Behebung:</strong> Q2 2026 – Chart.js aria-label-Generierung aus Datenpunkten.<br>
+          <strong>Workaround:</strong> Die Aufgabenstellung enthält stets eine Textzusammenfassung der Daten neben dem Diagramm.
+        </p>
+
+        <h3>Einschränkung 4: Touch-Targets in Inline-Feedback-Buttons</h3>
+        <p>
+          <strong>Betroffen:</strong> Kolloquiumstrainer – Bewertungs-Buttons im Feedback-Bereich<br>
+          <strong>WCAG:</strong> 2.5.5 Zielgröße (WCAG 2.2 AA-Empfehlung: 44 × 44 px)<br>
+          <strong>Auswirkung:</strong> Einige Buttons messen ca.&nbsp;36 × 36&nbsp;px und sind auf Tablets schwerer präzise zu treffen.<br>
+          <strong>Geplante Behebung:</strong> Q2 2026 – Padding-Anpassung im Tailwind-Layout.<br>
+          <strong>Hinweis:</strong> WCAG 2.2 fordert als Minimum 24 × 24 px (erfüllt). 44 px ist eine Empfehlung (AAA-Level bei WCAG 2.2).
+        </p>
+      </section>
+
+      <!-- 5. Alternativen -->
+      <section aria-labelledby="alternativen">
+        <h2 id="alternativen">5. Alternativen &amp; Umgehungslösungen</h2>
+        <p>
+          Falls bestimmte Inhalte aufgrund der oben genannten Einschränkungen nicht zugänglich sind,
+          bieten wir auf Anfrage folgende Alternativen an:
+        </p>
+        <ul>
+          <li>Bereitstellung von Aufgabentexten als barrierefreies PDF auf Anfrage</li>
+          <li>Texttranskripte für Listening-Aufgaben auf Anfrage per E-Mail</li>
+          <li>Individuelle Unterstützung bei der Nutzung einzelner Funktionen</li>
+          <li>Anpassung von Klassen-Einstellungen durch Lehrkräfte über das Dashboard</li>
+        </ul>
+        <p>Kontaktieren Sie uns dafür unter der unten angegebenen Adresse.</p>
+      </section>
+
+      <!-- 6. Kontakt -->
+      <section aria-labelledby="kontakt">
+        <h2 id="kontakt">6. Feedback &amp; Kontakt</h2>
+        <p>
+          Wenn Sie Mängel in Bezug auf die barrierefreie Gestaltung von myAbiFlow bemerken,
+          können Sie uns dies mitteilen. Wir bemühen uns, auf Rückmeldungen
+          <strong>innerhalb von 7 Werktagen</strong> zu reagieren und festgestellte Mängel
+          innerhalb angemessener Frist zu beheben.
+        </p>
+        <div class="contact-box">
+          <p><strong>myAbiFlow UG (haftungsbeschränkt)</strong></p>
+          <p>Verantwortlich für Barrierefreiheit: Daniel Zahnweh</p>
+          <p>Karolingerstraße 12B, 82205 Gilching</p>
+          <p>
+            E-Mail:
+            <a href="mailto:barrierefreiheit@myabiflow.de">barrierefreiheit@myabiflow.de</a>
+            (alternativ: <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>)
+          </p>
+          <p>Telefon: 015679&nbsp;785995 (Mo–Fr 9–17 Uhr)</p>
+        </div>
+        <p>
+          Bitte schildern Sie in Ihrer Nachricht möglichst genau, welche Funktion oder
+          welcher Inhalt nicht zugänglich ist, und welches Hilfsmittel Sie verwenden
+          (z.&nbsp;B. VoiceOver unter iOS, NVDA unter Windows).
+        </p>
+      </section>
+
+      <!-- 7. Schlichtung -->
+      <section aria-labelledby="schlichtung">
+        <h2 id="schlichtung">7. Schlichtungsverfahren</h2>
+        <p>
+          Wenn Sie auf Ihre Anfrage innerhalb von 6&nbsp;Wochen keine zufriedenstellende
+          Antwort erhalten haben, können Sie die Schlichtungsstelle für barrierefreie
+          Informationstechnik einschalten:
+        </p>
+        <div class="contact-box">
+          <p><strong>Schlichtungsstelle nach §&nbsp;16 BFSG</strong></p>
+          <p>Bundesfachstelle Barrierefreiheit beim ITZBund</p>
+          <p>
+            Internet:
+            <a href="https://www.bundesfachstelle-barrierefreiheit.de/schlichtung"
+               target="_blank" rel="noopener noreferrer">
+              www.bundesfachstelle-barrierefreiheit.de/schlichtung
+            </a>
+          </p>
+          <p>
+            E-Mail:
+            <a href="mailto:schlichtungsstelle@bfit-bund.de">schlichtungsstelle@bfit-bund.de</a>
+          </p>
+        </div>
+        <p>
+          Das Schlichtungsverfahren ist für Sie kostenlos. Es besteht keine Pflicht
+          zur Teilnahme am Verfahren.
+        </p>
+        <div class="notice">
+          <strong>Hinweis:</strong> Da myAbiFlow als Kleinstunternehmen gemäß §&nbsp;2
+          Abs.&nbsp;3 BFSG von bestimmten Pflichten ausgenommen ist, steht das Schlichtungsverfahren
+          nach aktuellem Rechtsstand möglicherweise nicht für alle Aspekte zur Verfügung.
+          Wir nennen die Schlichtungsstelle gleichwohl als Anlaufpunkt für Ihre Anliegen.
+        </div>
+      </section>
+
+      <!-- 8. Prüfmethodik -->
+      <section aria-labelledby="pruefung">
+        <h2 id="pruefung">8. Prüfmethodik &amp; Zeitplan</h2>
+        <h3>Zuletzt durchgeführte Prüfung</h3>
+        <ul>
+          <li><strong>Datum:</strong> 17. März 2026</li>
+          <li><strong>Methode:</strong> Kombination aus automatisierter Prüfung (axe-core 4.11.1) und manueller Sichtprüfung</li>
+          <li><strong>Werkzeuge:</strong> axe DevTools (Browser-Extension), VoiceOver (macOS/iOS), Tastaturnavigation, Chrome Lighthouse</li>
+          <li><strong>Geprüfte Seiten:</strong> ethik.html, ethik-abitur.html, biologie-abitur.html sowie Stichproben aus allen Seitenkategorien</li>
+          <li><strong>Ergebnis:</strong> 0 automatisch erkannte axe-Violations auf geprüften Seiten</li>
+        </ul>
+
+        <h3>Nächste planmäßige Prüfung</h3>
+        <p>September 2026 oder nach wesentlichen Änderungen der Anwendung.</p>
+
+        <h3>Erstellungsdatum dieser Erklärung</h3>
+        <p>17. März 2026</p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="impressum.html#datenschutz">Datenschutz</a>
+      <a href="agb.html">AGB</a>
+      <a href="barrierefreiheit.html" aria-current="page">Barrierefreiheit</a>
+    </div>
+    <p>&copy; 2026 myAbiFlow UG (haftungsbeschränkt)</p>
+  </footer>
+
+</body>
+</html>
