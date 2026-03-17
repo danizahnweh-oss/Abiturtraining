@@ -514,9 +514,9 @@ export default function App() {
       setMatImpulse(impulse);
     } catch {
       setMaterial({
-        aufgabenstellung: `Erläutern Sie "${schwerpunkt}" und nehmen Sie kritisch Stellung.`,
-        material: 'Nutzen Sie Ihr Vorwissen.',
-        hinweise: 'Strukturieren Sie Ihr Referat. Planen Sie ca. 10 Minuten.',
+        aufgabenstellung: `Erläutern Sie den Schwerpunkt "${schwerpunkt}" im Kontext des Halbjahres ${spHalbjahr}. Gehen Sie dabei auf zentrale Begriffe, Zusammenhänge und aktuelle Bezüge ein. Nehmen Sie abschließend kritisch Stellung.`,
+        material: `Material 1 – Fachlicher Impuls:\nSetzen Sie sich mit dem Themenbereich "${schwerpunkt}" auseinander. Berücksichtigen Sie dabei die im Unterricht behandelten Fachtexte, Modelle und Theorien.\n\nMaterial 2 – Transferaufgabe:\nReflektieren Sie, inwiefern die zentralen Konzepte aus "${schwerpunkt}" auf aktuelle gesellschaftliche oder wissenschaftliche Fragestellungen übertragen werden können. Beziehen Sie eigene Beispiele ein.`,
+        hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Beziehen Sie die Materialien in Ihren Vortrag ein. Planen Sie ca. 10 Minuten für den Vortrag.',
       });
       setMatImpulse([]);
     }
