@@ -1130,6 +1130,11 @@ export default function App() {
                 <p className="text-sm text-amber-800 opacity-80 whitespace-pre-wrap">{renderMarkdown(material.hinweise)}</p>
               </div>
 
+              {/* KI-Hinweis */}
+              <p className="flex items-center gap-1.5 text-xs text-slate-400 px-1">
+                🤖 KI-generiert – Inhalte können Fehler enthalten.
+              </p>
+
               <button
                 onClick={startExam}
                 className="w-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
