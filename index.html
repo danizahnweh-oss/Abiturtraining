@@ -4203,8 +4203,9 @@
       var d = dates[subject];
       if (!d) return null;
       if (typeof d === "string") return new Date(d + "T00:00:00");
-      var lvl = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-      return new Date((d[lvl] || d.eA) + "T00:00:00");
+      // Fach-spezifisches Niveau: eA nur wenn dieses Fach das eA-Fach des Schülers ist
+      var isEa = examSubjectsCache && examSubjectsCache.ea === subject;
+      return new Date((isEa ? (d.eA || d.gA) : (d.gA || d.eA)) + "T00:00:00");
     }
 
     function daysUntil(date) {
