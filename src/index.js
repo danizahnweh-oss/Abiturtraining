@@ -10,7 +10,7 @@ import {
 } from './auth.js';
 
 // Handler
-import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders } from './handlers/student.js';
+import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes } from './handlers/teacher.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
@@ -510,10 +510,17 @@ export default {
       // ===== ASYNC GRADING: SUBMIT =====
       if (pathname === "/api/grade-submit" && request.method === "POST") return await handleGradeSubmit(request, env, ctx);
 
-      // ===== STUDENT PREFERENCES =====
+      // ===== STUDENT PREFERENCES & PROFIL =====
       if (pathname === "/api/get-preferences" && request.method === "POST") return await handleGetPreferences(request, env);
       if (pathname === "/api/save-preferences" && request.method === "POST") return await handleSavePreferences(request, env);
       if (pathname === "/api/check-reminders" && request.method === "POST") return await handleCheckReminders(request, env);
+      if (pathname === "/api/change-password" && request.method === "POST") {
+        const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
+        if (loginLimit) return loginLimit;
+        cleanupRateLimitMaps();
+        return await handleChangePassword(request, env);
+      }
+      if (pathname === "/api/update-profile" && request.method === "POST") return await handleUpdateProfile(request, env);
 
       // ===== DETAIL-FEEDBACK =====
       if (pathname === "/api/detail-feedback" && request.method === "POST") return await handleDetailFeedback(request, env);

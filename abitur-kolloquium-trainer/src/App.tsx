@@ -758,28 +758,35 @@ export default function App() {
             <h1 className="text-xl font-semibold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-slate-600">Kolloquium Trainer</h1>
           </div>
 
-          {step !== 'setup' && step !== 'generating' && (
-            <div className="flex items-center gap-3">
-              {step === 'exam' && (
-                <span className="text-xs font-medium opacity-50 uppercase tracking-wider hidden sm:block">
-                  {PHASE_LABELS[exam.phase]}
+          <div className="flex items-center gap-3">
+            {step !== 'setup' && step !== 'generating' && step === 'exam' && (
+              <span className="text-xs font-medium opacity-50 uppercase tracking-wider hidden sm:block">
+                {PHASE_LABELS[exam.phase]}
+              </span>
+            )}
+            {step !== 'setup' && step !== 'generating' && (step === 'exam' || (step === 'feedback' && fbType === 'oral')) && (
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm shadow-sm rounded-full border border-black/5">
+                <div className={cn(
+                  "w-2 h-2 rounded-full animate-pulse",
+                  status === 'connected' ? "bg-emerald-500" : status === 'error' ? "bg-red-500" : "bg-amber-500",
+                )} />
+                <span className="text-xs font-medium uppercase tracking-wider opacity-60">
+                  {status === 'connected' ? 'Live' : status === 'error' ? 'Fehler' : status === 'reconnecting' ? 'Verbindet neu...' : 'Verbindet...'}
                 </span>
-              )}
-              {(step === 'exam' || (step === 'feedback' && fbType === 'oral')) && (
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-white/90 backdrop-blur-sm shadow-sm rounded-full border border-black/5">
-                  <div className={cn(
-                    "w-2 h-2 rounded-full animate-pulse",
-                    status === 'connected' ? "bg-emerald-500" : status === 'error' ? "bg-red-500" : "bg-amber-500",
-                  )} />
-                  <span className="text-xs font-medium uppercase tracking-wider opacity-60">
-                    {status === 'connected' ? 'Live' : status === 'error' ? 'Fehler' : status === 'reconnecting' ? 'Verbindet neu...' : 'Verbindet...'}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
+            <button
+              onClick={() => setShowProfile(true)}
+              className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
+              title="Profil"
+            >
+              <User size={18} className="opacity-60" />
+            </button>
+          </div>
         </div>
       </header>
+
+      {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
 
       <main className="max-w-4xl mx-auto px-6 py-10 relative z-0">
         <AnimatePresence mode="wait">
@@ -865,90 +872,122 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Halbjahr streichen */}
-                  {subject && CURRICULUM[subject] && (
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Halbjahr streichen</label>
-                      <p className="text-xs opacity-50 ml-1 -mt-1">Welches Halbjahr möchtest du von der Prüfung ausschließen?</p>
-                      <div className="flex gap-3">
-                        <Pill active={gestrichen === '12/1'} onClick={() => { setGestrichen('12/1'); resetSpHalbjahr(); }} className="flex-1 text-center">
-                          <span className="font-medium">12/1</span>
-                        </Pill>
-                        <Pill active={gestrichen === '12/2'} onClick={() => { setGestrichen('12/2'); resetSpHalbjahr(); }} className="flex-1 text-center">
-                          <span className="font-medium">12/2</span>
-                        </Pill>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Eigene Schwerpunkte Toggle */}
-                  {gestrichen && (
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkte</label>
-                      <p className="text-xs opacity-50 ml-1 -mt-1">Hat dein Lehrer eigene Schwerpunkte festgelegt?</p>
-                      <div className="flex gap-3">
-                        <Pill active={!customSp} onClick={() => { if (customSp) { setCustomSp(false); setCustomSchwerpunkte({}); setSchwerpunkt(''); setSpHalbjahr(''); } }} className="flex-1 text-center">
-                          <span className="font-medium">LehrplanPLUS</span>
-                        </Pill>
-                        <Pill active={customSp} onClick={() => { if (!customSp) toggleCustomSp(); }} className="flex-1 text-center">
-                          <span className="font-medium">Eigene</span>
-                        </Pill>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Eigene Schwerpunkte Eingabe */}
-                  {customSp && availHJ.length > 0 && (
-                    <div className="space-y-4">
-                      <p className="text-xs opacity-50 ml-1">Gib für jedes Halbjahr 3 Schwerpunktthemen ein:</p>
-                      {availHJ.map(hj => (
-                        <div key={hj} className="space-y-2 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                          <label className="text-xs font-semibold uppercase tracking-widest opacity-60 ml-1">{hj}</label>
-                          {[0, 1, 2].map(i => (
-                            <input
-                              key={i}
-                              type="text"
-                              value={customSchwerpunkte[hj]?.[i] || ''}
-                              onChange={e => updateCustomSp(hj, i, e.target.value)}
-                              placeholder={`Schwerpunkt ${i + 1}`}
-                              className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
-                            />
+                  {/* ── Mathe: Gebiet ausschließen + Schwerpunkt ── */}
+                  {isMathe && subject && CURRICULUM[subject] && (
+                    <>
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Gebiet ausschließen</label>
+                        <p className="text-xs opacity-50 ml-1 -mt-1">Welches Gebiet möchtest du ausschließen? (Analysis ist immer dabei)</p>
+                        <div className="flex gap-3">
+                          {getMatheStreichbareGebiete().map(g => (
+                            <Pill key={g} active={gestrichen === g} onClick={() => { setGestrichen(g); setSchwerpunkt(''); }} className="flex-1 text-center">
+                              <span className="font-medium">{g}</span>
+                            </Pill>
                           ))}
                         </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Schwerpunkt Halbjahr */}
-                  {gestrichen && (!customSp || availHJ.some(hj => (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0)) && (
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt-Halbjahr</label>
-                      <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Halbjahr kommt dein Schwerpunktthema?</p>
-                      <div className="flex gap-3">
-                        {availHJ.map(hj => {
-                          const hjHasTopics = !customSp || (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0;
-                          return (
-                            <Pill key={hj} active={spHalbjahr === hj} disabled={!hjHasTopics} onClick={() => { if (hjHasTopics) { setSpHalbjahr(hj); setSchwerpunkt(''); } }} className="flex-1 text-center">
-                              <span className="font-medium">{hj}</span>
-                            </Pill>
-                          );
-                        })}
                       </div>
-                    </div>
+                      {gestrichen && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Prüfungsschwerpunkt</label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Welches Gebiet soll dein Schwerpunkt sein?</p>
+                          <div className="flex gap-3">
+                            {matheGebiete.map(g => (
+                              <Pill key={g} active={schwerpunkt === g} onClick={() => setSchwerpunkt(g)} className="flex-1 text-center">
+                                <span className="font-medium">{g}</span>
+                              </Pill>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
 
-                  {/* Schwerpunkt */}
-                  {spHalbjahr && spOptions.length > 0 && (
-                    <div className="space-y-2">
-                      <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunktthema</label>
-                      <div className="grid gap-2">
-                        {spOptions.map(opt => (
-                          <Pill key={opt} active={schwerpunkt === opt} onClick={() => setSchwerpunkt(opt)} className="w-full">
-                            {opt}
+                  {/* ── Andere Fächer: Halbjahr streichen + Schwerpunkte ── */}
+                  {!isMathe && subject && CURRICULUM[subject] && (
+                    <>
+                      <div className="space-y-2">
+                        <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Halbjahr streichen</label>
+                        <p className="text-xs opacity-50 ml-1 -mt-1">Welches Halbjahr möchtest du von der Prüfung ausschließen?</p>
+                        <div className="flex gap-3">
+                          <Pill active={gestrichen === '12/1'} onClick={() => { setGestrichen('12/1'); resetSpHalbjahr(); }} className="flex-1 text-center">
+                            <span className="font-medium">12/1</span>
                           </Pill>
-                        ))}
+                          <Pill active={gestrichen === '12/2'} onClick={() => { setGestrichen('12/2'); resetSpHalbjahr(); }} className="flex-1 text-center">
+                            <span className="font-medium">12/2</span>
+                          </Pill>
+                        </div>
                       </div>
-                    </div>
+
+                      {/* Eigene Schwerpunkte Toggle */}
+                      {gestrichen && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkte</label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Hat dein Lehrer eigene Schwerpunkte festgelegt?</p>
+                          <div className="flex gap-3">
+                            <Pill active={!customSp} onClick={() => { if (customSp) { setCustomSp(false); setCustomSchwerpunkte({}); setSchwerpunkt(''); setSpHalbjahr(''); } }} className="flex-1 text-center">
+                              <span className="font-medium">LehrplanPLUS</span>
+                            </Pill>
+                            <Pill active={customSp} onClick={() => { if (!customSp) toggleCustomSp(); }} className="flex-1 text-center">
+                              <span className="font-medium">Eigene</span>
+                            </Pill>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Eigene Schwerpunkte Eingabe */}
+                      {customSp && availHJ.length > 0 && (
+                        <div className="space-y-4">
+                          <p className="text-xs opacity-50 ml-1">Gib für jedes Halbjahr 3 Schwerpunktthemen ein:</p>
+                          {availHJ.map(hj => (
+                            <div key={hj} className="space-y-2 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                              <label className="text-xs font-semibold uppercase tracking-widest opacity-60 ml-1">{hj}</label>
+                              {[0, 1, 2].map(i => (
+                                <input
+                                  key={i}
+                                  type="text"
+                                  value={customSchwerpunkte[hj]?.[i] || ''}
+                                  onChange={e => updateCustomSp(hj, i, e.target.value)}
+                                  placeholder={`Schwerpunkt ${i + 1}`}
+                                  className="w-full rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 text-[16px] outline-none focus:ring-2 focus:ring-emerald-400 min-h-[44px]"
+                                />
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Schwerpunkt Halbjahr */}
+                      {gestrichen && (!customSp || availHJ.some(hj => (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0)) && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt-Halbjahr</label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Halbjahr kommt dein Schwerpunktthema?</p>
+                          <div className="flex gap-3">
+                            {availHJ.map(hj => {
+                              const hjHasTopics = !customSp || (customSchwerpunkte[hj] || []).filter(s => s.trim()).length > 0;
+                              return (
+                                <Pill key={hj} active={spHalbjahr === hj} disabled={!hjHasTopics} onClick={() => { if (hjHasTopics) { setSpHalbjahr(hj); setSchwerpunkt(''); } }} className="flex-1 text-center">
+                                  <span className="font-medium">{hj}</span>
+                                </Pill>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Schwerpunkt */}
+                      {spHalbjahr && spOptions.length > 0 && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunktthema</label>
+                          <div className="grid gap-2">
+                            {spOptions.map(opt => (
+                              <Pill key={opt} active={schwerpunkt === opt} onClick={() => setSchwerpunkt(opt)} className="w-full">
+                                {opt}
+                              </Pill>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
 
                   {/* Prüfungsmodus */}
@@ -959,15 +998,15 @@ export default function App() {
                       <div className="grid gap-2">
                         <Pill active={examMode === 'gesamt'} onClick={() => setExamMode('gesamt')} className="w-full">
                           <span className="font-medium">Gesamte Prüfung</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Kurzreferat + Fragen zum Schwerpunkt + Fragen zu weiteren Halbjahren (ca. 30 Min)</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? 'Aufgaben-Vortrag + Fragen zum Schwerpunkt + Fragen zum weiteren Gebiet (ca. 30 Min)' : 'Kurzreferat + Fragen zum Schwerpunkt + Fragen zu weiteren Halbjahren (ca. 30 Min)'}</span>
                         </Pill>
                         <Pill active={examMode === 'referat'} onClick={() => setExamMode('referat')} className="w-full">
-                          <span className="font-medium">Nur Kurzreferat</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Vorbereitung + Kurzreferat mit Feedback (ca. 10 Min)</span>
+                          <span className="font-medium">{isMathe ? 'Nur Aufgaben-Vortrag' : 'Nur Kurzreferat'}</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? 'Vorbereitung + Aufgaben-Vortrag mit Feedback (ca. 10 Min)' : 'Vorbereitung + Kurzreferat mit Feedback (ca. 10 Min)'}</span>
                         </Pill>
                         <Pill active={examMode === 'fragen'} onClick={() => setExamMode('fragen')} className="w-full">
                           <span className="font-medium">Nur Fragenteil</span>
-                          <span className="block text-xs opacity-60 mt-0.5">Fragen zum Schwerpunkt + weitere Halbjahre, ohne Referat (ca. 20 Min)</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? 'Fragen zum Schwerpunkt + weiteres Gebiet, ohne Vortrag (ca. 20 Min)' : 'Fragen zum Schwerpunkt + weitere Halbjahre, ohne Referat (ca. 20 Min)'}</span>
                         </Pill>
                       </div>
                     </div>
@@ -1026,7 +1065,7 @@ export default function App() {
                   <div className="mt-6 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-sm">
                     <p className="font-medium text-emerald-800 mb-1">Zusammenfassung:</p>
                     <p className="text-emerald-700 opacity-80">
-                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? 'Nur Referat' : 'Nur Fragen'} · {prueferTyp !== 'standard' ? `Prüfertyp: ${prueferTyp} · ` : ''}Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}
+                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? (isMathe ? 'Nur Vortrag' : 'Nur Referat') : 'Nur Fragen'} · {prueferTyp !== 'standard' ? `Prüfertyp: ${prueferTyp} · ` : ''}{isMathe ? <>Schwerpunkt: <em>{schwerpunkt}</em> · Ausgeschlossen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}</> : <>Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}</>}
                     </p>
                   </div>
                 )}
@@ -1068,7 +1107,7 @@ export default function App() {
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest opacity-40">Vorbereitungszeit</p>
-                    <p className="text-sm opacity-60">Erstelle dein Kurzreferat. Kein ausformuliertes Manuskript!</p>
+                    <p className="text-sm opacity-60">{isMathe ? 'Bearbeite die Aufgaben und bereite deinen Vortrag vor!' : 'Erstelle dein Kurzreferat. Kein ausformuliertes Manuskript!'}</p>
                   </div>
                 </div>
                 <div className={cn(

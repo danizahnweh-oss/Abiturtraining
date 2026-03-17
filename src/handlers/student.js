@@ -113,12 +113,18 @@ export async function handleGetPreferences(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const student = await env.DB.prepare(
-    "SELECT hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
+    "SELECT name, level, class_group, created_at, hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
   return jsonResponse({
     success: true,
+    profile: {
+      name: student.name,
+      level: student.level || "eA",
+      class_group: student.class_group || "",
+      created_at: student.created_at || ""
+    },
     preferences: {
       hidden_subjects: JSON.parse(student.hidden_subjects || "[]"),
       exam_subjects: JSON.parse(student.exam_subjects || "{}"),
@@ -171,6 +177,81 @@ export async function handleSavePreferences(request, env) {
 
   if (updates.length === 0) {
     return jsonResponse({ error: "Keine Felder zum Speichern." }, 400, env);
+  }
+
+  binds.push(nameLower);
+  const result = await env.DB.prepare(
+    `UPDATE students SET ${updates.join(", ")} WHERE name_lower = ?`
+  ).bind(...binds).run();
+
+  if (result.meta.changes === 0) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+  return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= PASSWORT ÄNDERN ================= */
+export async function handleChangePassword(request, env) {
+  const { student_name, old_password, new_password } = await request.json();
+
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "Name erforderlich." }, 400, env);
+  }
+  if (!old_password || typeof old_password !== "string") {
+    return jsonResponse({ error: "Aktuelles Passwort erforderlich." }, 400, env);
+  }
+  if (!new_password || typeof new_password !== "string" || new_password.length < 6) {
+    return jsonResponse({ error: "Neues Passwort muss mindestens 6 Zeichen haben." }, 400, env);
+  }
+
+  const nameLower = student_name.trim().toLowerCase();
+  const student = await env.DB.prepare(
+    "SELECT id, salt, hash FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+  if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
+
+  const match = await verifyPassword(old_password, student.salt, student.hash);
+  if (!match) {
+    return jsonResponse({ error: "Aktuelles Passwort ist falsch." }, 401, env);
+  }
+
+  const newSalt = crypto.randomUUID();
+  const newHash = await hashPassword(new_password, newSalt);
+  await env.DB.prepare(
+    "UPDATE students SET salt = ?, hash = ? WHERE id = ?"
+  ).bind(newSalt, newHash, student.id).run();
+
+  const token = await generateToken(env);
+  return jsonResponse({ success: true, token }, 200, env);
+}
+
+/* ================= PROFIL AKTUALISIEREN ================= */
+export async function handleUpdateProfile(request, env) {
+  const { student_name, email, level } = await request.json();
+
+  if (!student_name || typeof student_name !== "string") {
+    return jsonResponse({ error: "Name erforderlich." }, 400, env);
+  }
+
+  const nameLower = student_name.trim().toLowerCase();
+  const updates = [];
+  const binds = [];
+
+  if (level !== undefined) {
+    if (level !== "gA" && level !== "eA") {
+      return jsonResponse({ error: "Level muss 'gA' oder 'eA' sein." }, 400, env);
+    }
+    updates.push("level = ?");
+    binds.push(level);
+  }
+  if (email !== undefined) {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return jsonResponse({ error: "Ungültige Email-Adresse." }, 400, env);
+    }
+    updates.push("email = ?");
+    binds.push(email || null);
+  }
+
+  if (updates.length === 0) {
+    return jsonResponse({ error: "Keine Felder zum Aktualisieren." }, 400, env);
   }
 
   binds.push(nameLower);
