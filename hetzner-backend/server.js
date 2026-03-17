@@ -132,7 +132,7 @@ async function bridgeToWorker(req, res) {
 }
 
 // Alle /api/* Routen an den Worker-Bridge weiterleiten
-app.all('/api/*', bridgeToWorker);
+app.all('/api/{*path}', bridgeToWorker);
 
 // Health-Check Endpoint
 app.get('/health', (req, res) => {
