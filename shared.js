@@ -1997,11 +1997,8 @@ function showProfileModal() {
           '<span id="profClass" style="font-size:.95rem;">–</span>' +
         '</div>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
-          '<label for="profLevel" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Kursstufe</label>' +
-          '<select id="profLevel" style="padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);min-height:44px;font-family:inherit;">' +
-            '<option value="eA">eA (erhöhtes Anforderungsniveau)</option>' +
-            '<option value="gA">gA (grundlegendes Anforderungsniveau)</option>' +
-          '</select>' +
+          '<label for="profSchool" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Schule</label>' +
+          '<input type="text" id="profSchool" placeholder="z.\u2009B. Gymnasium Musterstadt" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
         '</div>' +
         '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
           '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
@@ -2045,7 +2042,6 @@ async function _loadProfileData() {
   if (!name) return;
 
   document.getElementById("profName").textContent = name;
-  document.getElementById("profLevel").value = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
 
   try {
     var data = await apiCall("/api/get-preferences", { student_name: name });
@@ -2055,7 +2051,7 @@ async function _loadProfileData() {
         var d = new Date(data.profile.created_at);
         document.getElementById("profSince").textContent = d.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
       }
-      document.getElementById("profLevel").value = data.profile.level || "eA";
+      document.getElementById("profSchool").value = data.profile.school || "";
     }
     if (data.preferences) {
       document.getElementById("profEmail").value = data.preferences.email || "";
@@ -2067,19 +2063,11 @@ async function _loadProfileData() {
 
 async function _saveProfileChanges() {
   var name = sessionStorage.getItem("student_name");
-  var level = document.getElementById("profLevel").value;
+  var school = document.getElementById("profSchool").value.trim();
   var email = document.getElementById("profEmail").value.trim();
 
   try {
-    await apiCall("/api/update-profile", { student_name: name, level: level, email: email });
-
-    // sessionStorage + Greeting aktualisieren
-    sessionStorage.setItem("student_level", level);
-    var greeting = document.getElementById("studentGreeting");
-    if (greeting) {
-      var course = sessionStorage.getItem("student_course") || "";
-      greeting.textContent = [name, course, level.toUpperCase()].filter(Boolean).join(" · ");
-    }
+    await apiCall("/api/update-profile", { student_name: name, school: school, email: email });
 
     _showProfileMsg("profMsg", "Änderungen gespeichert!", false);
   } catch (e) {

@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS students (
   hash            TEXT,
   hidden_subjects TEXT NOT NULL DEFAULT '[]',
   class_group     TEXT DEFAULT NULL,
+  school          TEXT DEFAULT NULL,
   created_at      TEXT NOT NULL
 );
 
