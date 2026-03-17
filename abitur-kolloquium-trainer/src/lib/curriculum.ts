@@ -17,6 +17,7 @@
 export interface SubjectCurriculum {
   halbjahre: Record<string, string[]>;
   halbjahreEA?: Record<string, string[]>;
+  gebiete?: Record<string, string[]>;
 }
 
 export const CURRICULUM: Record<string, SubjectCurriculum> = {
@@ -500,7 +501,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
   },
 
   'Mathematik': {
-    // LehrplanPLUS Mathematik (G9) – nur eA, verifiziert anhand LIS_PDF_04-03-2026-14 (M12) / 04-03-2026-15 (M13)
+    // LehrplanPLUS Mathematik (G9) – nur eA
+    // Mathe-Kolloquium: Prüfling schließt Geometrie ODER Stochastik aus, wählt Schwerpunkt-Gebiet
+    // (Quelle: ISB Bayern "IlluPA Mathematik – Hinweise zur mündlichen Prüfung", Juli 2024)
     halbjahre: {
       '12/1': [
         'Untersuchung von Funktionen: ganzrationale Funktionen, Exponentialfunktion, Sinus-/Kosinusfunktion, Stammfunktion, Produkt- und Kettenregel',
@@ -520,6 +523,27 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Anwendungen der Differential- und Integralrechnung: Extremwertprobleme, Parameterfunktionen, verknüpfte Funktionen',
         'Modellierung mit Funktionen (Wachstum, Zerfall)',
         'Vertiefung Koordinatengeometrie (Winkel, Schnitte, Abstände, Kugel-Ebene-Schnitt)',
+      ],
+    },
+    // Themengebiete für das Mathe-Kolloquium (statt Halbjahre)
+    gebiete: {
+      'Analysis': [
+        'Funktionsuntersuchung (ganzrationale, Exponential-, trigonometrische, gebrochen-rationale Funktionen)',
+        'Ableitungsregeln (Produkt-, Quotienten-, Kettenregel)',
+        'Stammfunktion und bestimmtes Integral, Flächeninhalt, Rotationsvolumen',
+        'Anwendungen der Differential- und Integralrechnung (Extremwertprobleme, Modellierung)',
+      ],
+      'Geometrie': [
+        'Vektoren, lineare Abhängigkeit, Vektorprodukt/Kreuzprodukt',
+        'Geraden und Ebenen im Raum (Parameterform, Koordinatenform, Normalenform)',
+        'Lagebeziehungen, Schnittaufgaben, Abstände, Hesse\'sche Normalform',
+        'Winkelberechnungen, Kreise und Kugeln',
+      ],
+      'Stochastik': [
+        'Zufallsgrößen und Binomialverteilung (Erwartungswert, Standardabweichung)',
+        'Einseitiger Signifikanztest (Hypothesentest, Fehler erster Art)',
+        'Normalverteilung (Dichtefunktion, Sigma-Regeln, Standardisierung)',
+        'Kombinatorik, bedingte Wahrscheinlichkeit, Unabhängigkeit',
       ],
     },
   },
@@ -747,4 +771,24 @@ export function getWeitereHalbjahre(
 ): string[] {
   return getAvailableHalbjahre('', gestrichenesHalbjahr)
     .filter(h => h !== schwerpunktHalbjahr);
+}
+
+/* ── Mathe-Kolloquium: Themengebiete statt Halbjahre ── */
+
+const MATHE_GEBIETE = ['Analysis', 'Geometrie', 'Stochastik'] as const;
+const MATHE_STREICHBAR = ['Geometrie', 'Stochastik'] as const;
+
+/** Gibt die streichbaren Mathe-Gebiete zurück (Geometrie oder Stochastik) */
+export function getMatheStreichbareGebiete(): readonly string[] {
+  return MATHE_STREICHBAR;
+}
+
+/** Gibt die verfügbaren Gebiete nach Ausschluss zurück (Analysis + das verbleibende) */
+export function getMatheVerfuegbareGebiete(ausgeschlossen: string): string[] {
+  return MATHE_GEBIETE.filter(g => g !== ausgeschlossen);
+}
+
+/** Gibt die Themen-Inhalte eines Mathe-Gebiets zurück */
+export function getMatheGebietInhalte(gebiet: string): string[] {
+  return CURRICULUM['Mathematik']?.gebiete?.[gebiet] ?? [];
 }

@@ -49,6 +49,7 @@ export interface ExamConfig {
   schwerpunkt: string;
   schwerpunktHalbjahr: string;
   weitereHalbjahre: string[];
+  isMathe?: boolean; // Mathe-Kolloquium: Gebiete statt Halbjahre
 }
 
 export type ExamMode = 'gesamt' | 'referat' | 'fragen';
@@ -62,6 +63,39 @@ const PRUEFER_PRESETS: Record<PrueferTyp, string> = {
   zeitdruck: 'Halte dich streng an die Zeit. Nach 10 Min Referat sofort unterbrechen. Fragen zügig stellen, bei zu langen Antworten freundlich aber bestimmt zum nächsten Punkt übergehen. Kein Abwarten — wenn der Prüfling zögert, nächste Frage.',
   detailfragen: 'Stelle besonders tiefgehende Nachfragen. Gehe bei jedem Thema in die Tiefe — fordere Begründungen, Zusammenhänge und Transfer-Leistungen. Auf jede Antwort folgt ein "Warum?" oder "Können Sie das mit einem Beispiel belegen?".'
 };
+
+// Fächerspezifische Operatoren nach ISB Bayern, gruppiert nach Anforderungsbereichen
+const OPERATOREN: Record<string, { AB_I: string[]; AB_II: string[]; AB_III: string[] }> = {
+  MINT: {
+    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Geben Sie an', 'Definieren Sie'],
+    AB_II: ['Erklären Sie', 'Vergleichen Sie', 'Erläutern Sie', 'Wenden Sie an'],
+    AB_III: ['Bewerten Sie', 'Beurteilen Sie', 'Entwickeln Sie', 'Überprüfen Sie'],
+  },
+  SPRACHEN: {
+    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Fassen Sie zusammen', 'Geben Sie wieder'],
+    AB_II: ['Analysieren Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Ordnen Sie ein', 'Charakterisieren Sie'],
+    AB_III: ['Beurteilen Sie', 'Erörtern Sie', 'Bewerten Sie', 'Nehmen Sie Stellung'],
+  },
+  GESELLSCHAFT: {
+    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Skizzieren Sie', 'Lokalisieren Sie'],
+    AB_II: ['Erklären Sie', 'Analysieren Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Ordnen Sie ein'],
+    AB_III: ['Erörtern Sie', 'Beurteilen Sie', 'Bewerten Sie', 'Nehmen Sie Stellung', 'Diskutieren Sie'],
+  },
+  SPORT: {
+    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Geben Sie an'],
+    AB_II: ['Erklären Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Analysieren Sie'],
+    AB_III: ['Beurteilen Sie', 'Bewerten Sie', 'Entwickeln Sie', 'Diskutieren Sie'],
+  },
+};
+
+function getOperatorenFuerFach(subject: string) {
+  const mint = ['Biologie', 'Chemie', 'Physik', 'Informatik'];
+  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein'];
+  if (mint.includes(subject)) return OPERATOREN.MINT;
+  if (sprachen.includes(subject)) return OPERATOREN.SPRACHEN;
+  if (subject === 'Sport') return OPERATOREN.SPORT;
+  return OPERATOREN.GESELLSCHAFT;
+}
 
 export interface LiveSessionConfig {
   subject: string;
@@ -189,6 +223,87 @@ Gib GENAU dieses JSON zurück (kein Markdown, kein Codeblock):
   };
 }
 
+/* ───────── Mathe-Kolloquium: Aufgaben generieren ───────── */
+
+import { getMatheGebietInhalte } from './curriculum';
+
+export async function generateMatheAufgaben(config: ExamConfig): Promise<ExamMaterial> {
+  const ai = createAI();
+  const schwerpunkt = config.schwerpunkt; // z.B. "Analysis"
+  const inhalte = getMatheGebietInhalte(schwerpunkt);
+
+  const prompt = `Du bist ein erfahrener Mathematik-Prüfer für das bayerische Abitur-Kolloquium 2026 (erhöhtes Anforderungsniveau).
+
+Erstelle ein realistisches Aufgabenblatt für den Prüfungsteil 1 (Schwerpunkt: ${schwerpunkt}).
+Der Prüfling hat 30 Minuten Vorbereitungszeit und soll die Aufgaben dann in einem 10-minütigen Vortrag präsentieren.
+
+Schwerpunkt-Gebiet: ${schwerpunkt}
+Relevante Inhalte: ${inhalte.join('; ')}
+
+WICHTIGE REGELN (ISB-Vorgaben):
+- Die Aufgaben müssen einen EINFACHEN EINSTIEG erlauben und so angelegt sein, dass JEDE NOTE erreichbar ist
+- KEINE umfangreichen Rechnungen – der Prüfling soll Lösungswege ERLÄUTERN, nicht durchrechnen
+- Besonders geeignet: Erläuterung von Lösungswegen, Interpretation vorgegebener Ergebnisse/Skizzen/Graphen
+- Anforderungsbereiche I (Reproduktion), II (Transfer) und III (Reflexion) abdecken
+- 3–4 Aufgaben mit Teilaufgaben (a, b, c, d)
+- Aufgaben müssen nicht inhaltlich zusammenhängen
+
+${schwerpunkt === 'Analysis' ? `BEISPIEL-AUFGABENTYPEN für Analysis:
+- Funktion gegeben → Graph zuordnen/begründen, Definitionsmenge/Wertemenge angeben
+- Ableitungsfunktion → zugehörigen Graphen zuordnen und begründen
+- Tangente an Graphen: Vorgehensweise beschreiben
+- Nullstellen und Extremstellen einer Funktion ermitteln
+- Flächeninhalt zwischen Graph und x-Achse: Vorgehensweise mit Skizze beschreiben, Stammfunktion angeben
+- Grenzwertverhalten einer Funktion bestimmen` : ''}
+${schwerpunkt === 'Geometrie' ? `BEISPIEL-AUFGABENTYPEN für Geometrie:
+- Lineare Abhängigkeit von Vektoren erklären
+- Schnitt von Gerade und Ebene zeigen/berechnen
+- Hesse'sche Normalform bestimmen und Anwendung erläutern
+- Abstands-Berechnungen (Punkt-Ebene, Punkt-Gerade)
+- Kreuzprodukt berechnen (z.B. Parallelogramm-Fläche)
+- Schnittwinkel zwischen Ebenen bestimmen
+- Anwendungsaufgaben (z.B. Drohne, Turm, Brücke)` : ''}
+${schwerpunkt === 'Stochastik' ? `BEISPIEL-AUFGABENTYPEN für Stochastik:
+- Binomialverteilung: Erwartungswert, Standardabweichung berechnen
+- Signifikanztest durchführen und interpretieren
+- Normalverteilung: Wahrscheinlichkeiten mit Sigma-Regeln bestimmen
+- Baumdiagramm erstellen und bedingte Wahrscheinlichkeiten berechnen
+- Kombinatorik-Aufgaben
+- Modellierungsaufgaben mit Zufallsexperimenten` : ''}
+
+Gib im Feld "material" konkrete mathematische Objekte an, die dem Prüfling vorgelegt werden:
+Funktionsterme, Gleichungen, Vektoren, Matrizen, Graphen-Beschreibungen, Tabellen mit Werten.
+
+Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
+{"aufgabenstellung":"Die vollständigen Aufgaben 1–4 mit Teilaufgaben, klar formuliert mit Operatoren","material":"Konkrete mathematische Objekte (Funktionsterme, Vektoren, Graphen-Beschreibungen etc.)","hinweise":"Bearbeitungshinweise für die Vorbereitungszeit"}`;
+
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+      const parsed = parseExamMaterialResponse(response.text || '');
+      if (parsed && isValidMaterial(parsed)) return parsed;
+    } catch { /* nächster Versuch */ }
+  }
+
+  // Fallback: Standard-Aufgabenblatt
+  return {
+    aufgabenstellung: schwerpunkt === 'Analysis'
+      ? `1. Gegeben ist die Funktion f: x ↦ 3/(1+x²) − 1.\na) Begründen Sie anhand charakteristischer Eigenschaften, welcher der vorgelegten Graphen zur Funktion f gehört.\nb) Geben Sie die maximale Definitionsmenge und die Wertemenge von f an.\nc) Beschreiben Sie, wie man die Gleichung der Tangente an den Graphen von f an der Stelle x = 1 ermittelt.\n\n2. Gegeben ist die Funktion g: x ↦ x·e^(−x²), D = ℝ.\nErmitteln Sie die Nullstellen und die Extremstellen von g.\n\n3. Beschreiben Sie unter Zuhilfenahme einer Skizze die Vorgehensweise zur Bestimmung des Flächeninhalts, der von der x-Achse und dem Graphen der Funktion h: x ↦ x² − 4 eingeschlossen wird. Geben Sie die Stammfunktion explizit an.`
+      : schwerpunkt === 'Geometrie'
+      ? `1. Erklären Sie, wann drei Vektoren linear abhängig sind.\n\n2. Gegeben sind die Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2) und die Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0.\na) Zeigen Sie, dass sich E und g schneiden.\nb) Bestimmen Sie die Hesse'sche Normalenform von E und erläutern Sie eine Anwendung.\n\n3. Berechnen Sie den Flächeninhalt eines Parallelogramms, das durch die Vektoren a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2) aufgespannt wird.\n\n4. Gegeben sind zwei Ebenen E: 3x₁ − x₂ + 2x₃ − 10 = 0 und F: 3x₁ + kx₂ + 2x₃ − 10 = 0.\na) Bestimmen Sie k, damit E ⊥ F gilt.\nb) Ermitteln Sie den Schnittwinkel für k = 1.`
+      : `1. Ein Glücksrad wird 100-mal gedreht. Die Wahrscheinlichkeit für "Gewinn" beträgt p = 0,3.\na) Berechnen Sie den Erwartungswert und die Standardabweichung der Anzahl der Gewinne.\nb) Bestimmen Sie die Wahrscheinlichkeit für mindestens 25 und höchstens 35 Gewinne mithilfe der Sigma-Regeln.\n\n2. Ein Hersteller behauptet, dass höchstens 5% seiner Produkte fehlerhaft sind. Führen Sie einen Signifikanztest zum Niveau α = 5% durch (Stichprobenumfang n = 50).\n\n3. Erläutern Sie den Unterschied zwischen Binomialverteilung und Normalverteilung. Wann kann die Normalverteilung als Näherung verwendet werden?`,
+    material: schwerpunkt === 'Analysis'
+      ? 'Funktionsterme: f(x) = 3/(1+x²) − 1, g(x) = x·e^(−x²), h(x) = x² − 4'
+      : schwerpunkt === 'Geometrie'
+      ? 'Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2), Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0, Vektoren a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2)'
+      : 'Binomialverteilung B(100; 0,3), Signifikanzniveau α = 0,05, Stichprobenumfang n = 50',
+    hinweise: 'Sie haben 30 Minuten Vorbereitungszeit. Notieren Sie sich Lösungswege und Ergebnisse. Erläutern Sie im Vortrag die Vorgehensweise – umfangreiche Rechnungen müssen nicht im Detail ausgeführt werden.',
+  };
+}
+
 /* ───────── Material-Impulse für den Fragenteil ───────── */
 
 function getMaterialTypenFuerFach(subject: string): string {
@@ -205,18 +320,33 @@ export async function generateMaterialImpulse(config: ExamConfig): Promise<Mater
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
   const materialTypen = getMaterialTypenFuerFach(config.subject);
 
+  // Mathe-Kolloquium: Materialimpulse beziehen sich auf das weitere Gebiet, nicht auf Halbjahre
+  const isMathe = config.isMathe || config.subject === 'Mathematik';
+  const weitereLabel = isMathe
+    ? `Weiteres Gebiet (NICHT der Schwerpunkt): ${config.weitereHalbjahre.join(', ')}`
+    : `Weitere Halbjahre (NICHT der Schwerpunkt): ${config.weitereHalbjahre.join(', ')}`;
+
+  const matheHinweis = isMathe
+    ? `\n\nWICHTIG: Dies ist eine MATHEMATIK-Prüfung. Geeignete Material-Typen sind:
+- Funktionsterme mit Aufgabe ("Bestimmen Sie...", "Erläutern Sie...")
+- Graphen-Beschreibungen ("Der Graph zeigt...")
+- Gleichungssysteme oder Vektoren/Ebenen-Darstellungen
+- Wahrscheinlichkeitstabellen oder Verteilungen
+Verwende typ "quelle" für mathematische Aufgabenstellungen.`
+    : '';
+
   const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
 
-Erstelle 2 realistische Material-Impulse, die einem Prüfling während des Fragenteils zu den WEITEREN HALBJAHREN vorgelegt werden.
+Erstelle 2 realistische Material-Impulse, die einem Prüfling während des Fragenteils ${isMathe ? 'zum WEITEREN GEBIET' : 'zu den WEITEREN HALBJAHREN'} vorgelegt werden.
 
 Fach: ${config.subject}
 Anforderungsniveau: ${levelLabel}
-Weitere Halbjahre (NICHT der Schwerpunkt): ${config.weitereHalbjahre.join(', ')}
+${weitereLabel}
 
-Geeignete Material-Typen für dieses Fach: ${materialTypen}
+Geeignete Material-Typen für dieses Fach: ${materialTypen}${matheHinweis}
 
 Anforderungen:
-1. Jedes Material muss sich auf eines der weiteren Halbjahre beziehen (nicht auf den Schwerpunkt "${config.schwerpunkt}").
+1. Jedes Material muss sich auf ${isMathe ? 'das weitere Gebiet' : 'eines der weiteren Halbjahre'} beziehen (nicht auf den Schwerpunkt "${config.schwerpunkt}").
 2. Die Materialien sollen als Gesprächsimpuls dienen — der Prüfling soll sie analysieren, interpretieren oder bewerten.
 3. Wähle für "typ" aus: "zitat", "statistik", "quelle", "schaubild".
 4. Bei typ "statistik" oder "schaubild": Füge ein "chartDaten"-Objekt hinzu mit typ ("balken" oder "kreis"), labels (3–6 Einträge), werte (passende Zahlen), und optional einheit (z.B. "%" oder "Mio.").
@@ -367,20 +497,77 @@ AUFGABE: Ehrlicher Gesamteindruck → konkrete fachliche Fehler benennen und kor
 function buildExamInstruction(config: LiveSessionConfig): string {
   const level = config.examLevel === 'eA' ? 'eA' : 'gA';
   const mode = config.examMode || 'gesamt';
-  const hj = config.schwerpunktHalbjahr;
-  const weitere = config.weitereHalbjahre.join(' und ');
-
+  const isMathe = config.subject === 'Mathematik';
   const prüferLabel = config.gender === 'female' ? 'Prüferin' : 'Prüfer';
 
-  let instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
+  let instruction: string;
+
+  if (isMathe) {
+    // Mathe-Kolloquium: Gebiete statt Halbjahre
+    const schwerpunkt = config.schwerpunkt; // z.B. "Analysis"
+    const weiteresGebiet = config.weitereHalbjahre[0] || '';
+    instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
+Fach: Mathematik (eA), Schwerpunkt-Gebiet: ${schwerpunkt}, weiteres Gebiet: ${weiteresGebiet}.`;
+
+    if (config.aufgabenstellung) {
+      instruction += `\nDem Prüfling wurden folgende Aufgaben vorgelegt:\n${config.aufgabenstellung}`;
+      if (config.material) instruction += `\nMathematische Objekte: ${config.material}`;
+    }
+
+    const stilleRegel = `
+KRITISCHE REGEL FÜR DEN AUFGABEN-VORTRAG:
+- Du darfst während des Vortrags ABSOLUT NICHT SPRECHEN. KEIN EINZIGES WORT.
+- KEINE Reaktion, KEIN "Mhm", KEIN "Ja", KEIN "Richtig", KEINE Rückfrage. TOTALE STILLE.
+- Auch wenn der Prüfling eine Pause macht oder unsicher wirkt: SCHWEIGE.
+- Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Vortrag beendet ist.
+- Nach 10–12 Minuten ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.`;
+
+    if (mode === 'referat') {
+      instruction += `
+ABLAUF: Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den ${schwerpunkt}-Aufgaben in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+${stilleRegel}
+Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
+    } else if (mode === 'fragen') {
+      instruction += `
+ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Gebiet ${schwerpunkt} (AB II/III, ~5 Min).
+Dann wechsle zum Gebiet ${weiteresGebiet} (~15 Min): Stelle 4–5 Fragen mit steigendem Schwierigkeitsgrad (AB I→II→III).
+Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen, Vektoren).
+Beende die Prüfung.
+
+WICHTIG für Mathematik-Fragen:
+- Fragen sollen Verständnis prüfen, nicht reines Rechnen
+- "Beschreiben Sie die Vorgehensweise..." statt "Rechnen Sie aus..."
+- "Erläutern Sie, warum..." / "Was passiert, wenn..." / "Interpretieren Sie..."
+- Bei Bedarf: Konkrete Terme, Gleichungen oder Skizzen mündlich beschreiben`;
+    } else {
+      instruction += `
+ABLAUF:
+1. Begrüße den Prüfling KURZ (1 Satz). Er wird seine vorbereiteten Lösungen zu den ${schwerpunkt}-Aufgaben in einem zusammenhängenden Vortrag präsentieren (~10 Min).
+   ${stilleRegel}
+2. Stelle 2–3 vertiefende Fragen zum Gebiet ${schwerpunkt} (AB II/III, ~5 Min).
+   Z.B. Fragen die an den Vortrag anknüpfen, Verallgemeinerungen, oder Fragen ohne Bezug zum Vortrag.
+3. Wechsle zum Gebiet ${weiteresGebiet} (~15 Min): Stelle 4–5 Fragen mit steigendem Schwierigkeitsgrad (AB I→II→III).
+   Lege ggf. Zusatzmaterialien vor (Funktionsterme, Gleichungen, Graphen-Beschreibungen).
+4. Beende die Prüfung.
+
+WICHTIG für Mathematik-Fragen:
+- Fragen sollen Verständnis prüfen, nicht reines Rechnen
+- "Beschreiben Sie die Vorgehensweise..." statt "Rechnen Sie aus..."
+- "Erläutern Sie, warum..." / "Was passiert, wenn..." / "Interpretieren Sie..."`;
+    }
+  } else {
+    // Alle anderen Fächer: bisherige Logik
+    const hj = config.schwerpunktHalbjahr;
+    const weitere = config.weitereHalbjahre.join(' und ');
+    instruction = `Du bist ${prüferLabel} im bayerischen Abitur-Kolloquium 2026.
 Fach: ${config.subject} (${level}), Schwerpunkt: "${config.schwerpunkt}" (${hj}), weitere HJ: ${weitere}.`;
 
-  if (config.aufgabenstellung) {
-    instruction += `\nAufgabe: ${config.aufgabenstellung}\nMaterial: ${config.material}`;
-  }
+    if (config.aufgabenstellung) {
+      instruction += `\nAufgabe: ${config.aufgabenstellung}\nMaterial: ${config.material}`;
+    }
 
-  if (mode === 'referat') {
-    instruction += `
+    if (mode === 'referat') {
+      instruction += `
 ABLAUF: Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
 
 KRITISCHE REGEL FÜR DAS KURZREFERAT:
@@ -391,23 +578,42 @@ KRITISCHE REGEL FÜR DAS KURZREFERAT:
 - Du darfst ERST WIEDER sprechen, wenn der Prüfling EXPLIZIT sagt, dass sein Referat beendet ist (z.B. "Damit bin ich am Ende", "Vielen Dank", "Das war mein Referat").
 - Wenn der Prüfling nach 10–12 Minuten nicht selbst aufhört, darfst du ihn freundlich bitten, zum Ende zu kommen.
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
-  } else if (mode === 'fragen') {
-    instruction += `
+    } else if (mode === 'fragen') {
+      instruction += `
 ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.`;
-  } else {
-    instruction += `
+    } else {
+      instruction += `
 ABLAUF:
 1. Begrüße den Prüfling KURZ (1 Satz), dann lass ihn sein Kurzreferat halten (~10 Min).
    KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
 4. Beende die Prüfung.`;
+    }
   }
 
-  // Materialimpulse für den weiteren-HJ-Fragenteil
+  // Fächerspezifische Operatoren für Nicht-Mathe-Fächer im Fragenmodus
+  if (!isMathe && mode !== 'referat') {
+    const ops = getOperatorenFuerFach(config.subject);
+    instruction += `
+
+OPERATOREN FÜR DEINE FRAGEN:
+Verwende in deinen Fragen überwiegend fachspezifische Operatoren (~70%). Die restlichen dürfen offene Gesprächsfragen sein ("Was wissen Sie über...", "Wie sehen Sie das?").
+
+Operatoren nach Anforderungsbereich:
+- AB I (Reproduktion): ${ops.AB_I.join(', ')}
+- AB II (Transfer): ${ops.AB_II.join(', ')}
+- AB III (Reflexion): ${ops.AB_III.join(', ')}
+
+Schwerpunkt-Fragen: Verwende AB II/III-Operatoren. Weitere Halbjahre: Starte mit AB I und steigere zu AB III.
+Beispiel: Statt "Was wissen Sie über X?" → "${ops.AB_II[0]} den Zusammenhang zwischen X und Y."`;
+  }
+
+  // Materialimpulse für den Fragenteil
   if (config.materialImpulse && config.materialImpulse.length > 0) {
-    instruction += `\n\nMATERIALIMPULSE FÜR DEN FRAGENTEIL (WEITERE HALBJAHRE):
-Dir stehen folgende Materialien zur Verfügung, die dem Prüfling NUR während der Fragen zu den weiteren Halbjahren visuell angezeigt werden. Verwende sie NICHT im Schwerpunkt-Fragenteil.`;
+    const fragenteilLabel = isMathe ? 'WEITERES GEBIET' : 'WEITERE HALBJAHRE';
+    instruction += `\n\nMATERIALIMPULSE FÜR DEN FRAGENTEIL (${fragenteilLabel}):
+Dir stehen folgende Materialien zur Verfügung, die dem Prüfling NUR während der Fragen ${isMathe ? 'zum weiteren Gebiet' : 'zu den weiteren Halbjahren'} visuell angezeigt werden. Verwende sie NICHT im Schwerpunkt-Fragenteil.`;
 
     config.materialImpulse.forEach((m, i) => {
       const chartHinweis = m.chartDaten ? ` (mit ${m.chartDaten.typ === 'balken' ? 'Balkendiagramm' : 'Kreisdiagramm'})` : '';
@@ -415,18 +621,18 @@ Dir stehen folgende Materialien zur Verfügung, die dem Prüfling NUR während d
 ${m.inhalt}
 (Quelle: ${m.quellenangabe})`;
       if (i === 0) {
-        instruction += `\n→ Wird dem Prüfling kurz nach Beginn der Fragen zu den weiteren Halbjahren eingeblendet. Leite über mit: "Ich möchte Ihnen nun ein Material vorlegen." Stelle dann eine Frage, die sich auf dieses Material bezieht.`;
+        instruction += `\n→ Wird dem Prüfling kurz nach Beginn der Fragen ${isMathe ? 'zum weiteren Gebiet' : 'zu den weiteren Halbjahren'} eingeblendet. Leite über mit: "Ich möchte Ihnen nun ein Material vorlegen." Stelle dann eine Frage, die sich auf dieses Material bezieht.`;
       } else {
-        instruction += `\n→ Wird etwas später im weiteren-HJ-Teil eingeblendet. Leite erneut über mit: "Ich lege Ihnen ein weiteres Material vor." Stelle dann eine Frage dazu.`;
+        instruction += `\n→ Wird etwas später eingeblendet. Leite erneut über mit: "Ich lege Ihnen ein weiteres Material vor." Stelle dann eine Frage dazu.`;
       }
     });
   }
 
   instruction += `
 GEDÄCHTNIS-REGEL:
-- Merke dir EXAKT, was der Prüfling bereits gesagt hat – sowohl im Referat als auch bei Antworten.
+- Merke dir EXAKT, was der Prüfling bereits gesagt hat – sowohl im ${isMathe ? 'Vortrag' : 'Referat'} als auch bei Antworten.
 - Stelle NIEMALS eine Frage zu einem Thema, das der Prüfling bereits ausführlich behandelt hat.
-- Wenn der Prüfling etwas im Referat erklärt hat, frage NICHT nochmal danach, sondern stelle VERTIEFENDE Fragen dazu oder wechsle zu einem NEUEN Aspekt.
+- Wenn der Prüfling etwas im ${isMathe ? 'Vortrag' : 'Referat'} erklärt hat, frage NICHT nochmal danach, sondern stelle VERTIEFENDE Fragen dazu oder wechsle zu einem NEUEN Aspekt.
 - Beziehe dich auf das Gesagte: "Sie haben vorhin ... erwähnt. Können Sie das vertiefen?" statt das Thema nochmal von vorne aufzurollen.`;
 
   const verhalten = PRUEFER_PRESETS[config.prueferTyp || 'standard'];
