@@ -1378,7 +1378,7 @@
     .cat-filter-btn {
       background: var(--surface);
       border: 1px solid var(--border);
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-size: .78rem;
       cursor: pointer;
       padding: .35rem .8rem;
@@ -2410,6 +2410,11 @@
       color: #fff
     }
 
+    #profileBtn:hover {
+      background: var(--accent);
+      color: #fff
+    }
+
     footer {
       padding: 1.5rem;
       border-top: none
@@ -2912,7 +2917,7 @@
   </div>
 
   <!-- ====== ROLE SELECTION SCREEN ====== -->
-  <div id="role-screen">
+  <div id="role-screen" role="main" aria-label="Willkommen">
     <div class="role-box">
       <img src="logo.png" alt="myAbiFlow Logo">
       <div class="abitur-badge">Dein Weg zum Abitur</div>
@@ -2973,6 +2978,7 @@
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
+        <button class="logout-btn" id="profileBtn" onclick="showProfileModal()" aria-label="Profil öffnen" style="display:none">👤 Profil</button>
         <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
         <button class="logout-btn" id="guestLoginBtn"
           onclick="document.getElementById('login-screen').style.display='flex';document.getElementById('subject-screen').style.display='none'"
@@ -3121,7 +3127,7 @@
 
     <!-- Haupt-Grid (Fallback wenn kein Wizard abgeschlossen) -->
     <div class="subject-grid" id="mainSubjectGrid" role="list" aria-label="Fächer">
-      <button class="subject-card english" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('english', true)"
+      <button class="subject-card english" type="button" data-category="sprachen" onclick="selectSubject('english', true)"
         aria-label="Englisch">
         <div class="subject-icon" aria-hidden="true">🇬🇧</div>
         <div class="subject-title">Englisch</div>
@@ -3131,7 +3137,7 @@
         <span class="subject-countdown" data-subject="english"></span>
         <span class="subject-last-activity" data-activity="english"></span>
       </button>
-      <button class="subject-card german" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('german', true)"
+      <button class="subject-card german" type="button" data-category="sprachen" onclick="selectSubject('german', true)"
         aria-label="Deutsch">
         <div class="subject-icon" aria-hidden="true">📖</div>
         <div class="subject-title">Deutsch</div>
@@ -3141,7 +3147,7 @@
         <span class="subject-countdown" data-subject="german"></span>
         <span class="subject-last-activity" data-activity="german"></span>
       </button>
-      <button class="subject-card history" type="button" role="listitem" data-category="gewi" onclick="selectSubject('history', true)"
+      <button class="subject-card history" type="button" data-category="gewi" onclick="selectSubject('history', true)"
         aria-label="Geschichte">
         <div class="subject-icon" aria-hidden="true">📜</div>
         <div class="subject-title">Geschichte</div>
@@ -3151,7 +3157,7 @@
         <span class="subject-countdown" data-subject="history"></span>
         <span class="subject-last-activity" data-activity="history"></span>
       </button>
-      <button class="subject-card pug" type="button" role="listitem" data-category="gewi" onclick="selectSubject('pug', true)"
+      <button class="subject-card pug" type="button" data-category="gewi" onclick="selectSubject('pug', true)"
         aria-label="Politik und Gesellschaft">
         <div class="subject-icon" aria-hidden="true">🏛️</div>
         <div class="subject-title">Politik und Gesellschaft</div>
@@ -3161,7 +3167,7 @@
         <span class="subject-countdown" data-subject="pug"></span>
         <span class="subject-last-activity" data-activity="pug"></span>
       </button>
-      <button class="subject-card wr" type="button" role="listitem" data-category="gewi" onclick="selectSubject('wr', true)"
+      <button class="subject-card wr" type="button" data-category="gewi" onclick="selectSubject('wr', true)"
         aria-label="Wirtschaft und Recht">
         <div class="subject-icon" aria-hidden="true">⚖️</div>
         <div class="subject-title">Wirtschaft & Recht</div>
@@ -3171,7 +3177,7 @@
         <span class="subject-countdown" data-subject="wr"></span>
         <span class="subject-last-activity" data-activity="wr"></span>
       </button>
-      <button class="subject-card french" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('french', true)"
+      <button class="subject-card french" type="button" data-category="sprachen" onclick="selectSubject('french', true)"
         aria-label="Französisch">
         <div class="subject-icon" aria-hidden="true">🇫🇷</div>
         <div class="subject-title">Französisch</div>
@@ -3181,7 +3187,7 @@
         <span class="subject-countdown" data-subject="french"></span>
         <span class="subject-last-activity" data-activity="french"></span>
       </button>
-      <button class="subject-card italian" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('italian', true)"
+      <button class="subject-card italian" type="button" data-category="sprachen" onclick="selectSubject('italian', true)"
         aria-label="Italienisch">
         <div class="subject-icon" aria-hidden="true">🇮🇹</div>
         <div class="subject-title">Italienisch</div>
@@ -3191,7 +3197,7 @@
         <span class="subject-countdown" data-subject="italian"></span>
         <span class="subject-last-activity" data-activity="italian"></span>
       </button>
-      <button class="subject-card ethik" type="button" role="listitem" data-category="gewi" onclick="selectSubject('ethik', true)"
+      <button class="subject-card ethik" type="button" data-category="gewi" onclick="selectSubject('ethik', true)"
         aria-label="Ethik">
         <div class="subject-icon" aria-hidden="true">🧠</div>
         <div class="subject-title">Ethik</div>
@@ -3201,7 +3207,7 @@
         <span class="subject-countdown" data-subject="ethik"></span>
         <span class="subject-last-activity" data-activity="ethik"></span>
       </button>
-      <button class="subject-card religion" type="button" role="listitem" data-category="gewi" onclick="selectSubject('religion', true)"
+      <button class="subject-card religion" type="button" data-category="gewi" onclick="selectSubject('religion', true)"
         aria-label="Evangelische Religionslehre">
         <div class="subject-icon" aria-hidden="true">✝️</div>
         <div class="subject-title">Ev. Religion</div>
@@ -3212,7 +3218,7 @@
         <span class="subject-countdown" data-subject="religion"></span>
         <span class="subject-last-activity" data-activity="religion"></span>
       </button>
-      <button class="subject-card katholisch" type="button" role="listitem" data-category="gewi" onclick="selectSubject('katholisch', true)"
+      <button class="subject-card katholisch" type="button" data-category="gewi" onclick="selectSubject('katholisch', true)"
         aria-label="Katholische Religionslehre">
         <div class="subject-icon" aria-hidden="true">⛪</div>
         <div class="subject-title">Kath. Religion</div>
@@ -3223,7 +3229,7 @@
         <span class="subject-countdown" data-subject="katholisch"></span>
         <span class="subject-last-activity" data-activity="katholisch"></span>
       </button>
-      <button class="subject-card geographie" type="button" role="listitem" data-category="gewi" onclick="selectSubject('geographie', true)"
+      <button class="subject-card geographie" type="button" data-category="gewi" onclick="selectSubject('geographie', true)"
         aria-label="Geographie">
         <div class="subject-icon" aria-hidden="true">🌍</div>
         <div class="subject-title">Geographie</div>
@@ -3233,7 +3239,7 @@
         <span class="subject-countdown" data-subject="geographie"></span>
         <span class="subject-last-activity" data-activity="geographie"></span>
       </button>
-      <button class="subject-card latein" type="button" role="listitem" data-category="sprachen" onclick="selectSubject('latein', true)"
+      <button class="subject-card latein" type="button" data-category="sprachen" onclick="selectSubject('latein', true)"
         aria-label="Latein">
         <div class="subject-icon" aria-hidden="true">🏺</div>
         <div class="subject-title">Latein</div>
@@ -3243,7 +3249,7 @@
         <span class="subject-countdown" data-subject="latein"></span>
         <span class="subject-last-activity" data-activity="latein"></span>
       </button>
-      <button class="subject-card mathe" type="button" role="listitem" data-category="nawi" onclick="selectSubject('mathe', true)"
+      <button class="subject-card mathe" type="button" data-category="nawi" onclick="selectSubject('mathe', true)"
         aria-label="Mathematik">
         <div class="subject-icon" aria-hidden="true">📐</div>
         <div class="subject-title">Mathematik</div>
@@ -3253,7 +3259,7 @@
         <span class="subject-countdown" data-subject="mathe"></span>
         <span class="subject-last-activity" data-activity="mathe"></span>
       </button>
-      <button class="subject-card chemie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('chemie', true)"
+      <button class="subject-card chemie" type="button" data-category="nawi" onclick="selectSubject('chemie', true)"
         aria-label="Chemie">
         <div class="subject-icon" aria-hidden="true">🧪</div>
         <div class="subject-title">Chemie</div>
@@ -3263,7 +3269,7 @@
         <span class="subject-countdown" data-subject="chemie"></span>
         <span class="subject-last-activity" data-activity="chemie"></span>
       </button>
-      <button class="subject-card physik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('physik', true)"
+      <button class="subject-card physik" type="button" data-category="nawi" onclick="selectSubject('physik', true)"
         aria-label="Physik">
         <div class="subject-icon" aria-hidden="true">⚛️</div>
         <div class="subject-title">Physik</div>
@@ -3273,7 +3279,7 @@
         <span class="subject-countdown" data-subject="physik"></span>
         <span class="subject-last-activity" data-activity="physik"></span>
       </button>
-      <button class="subject-card biologie" type="button" role="listitem" data-category="nawi" onclick="selectSubject('biologie', true)"
+      <button class="subject-card biologie" type="button" data-category="nawi" onclick="selectSubject('biologie', true)"
         aria-label="Biologie">
         <div class="subject-icon" aria-hidden="true">🧬</div>
         <div class="subject-title">Biologie</div>
@@ -3283,7 +3289,7 @@
         <span class="subject-countdown" data-subject="biologie"></span>
         <span class="subject-last-activity" data-activity="biologie"></span>
       </button>
-      <button class="subject-card sport" type="button" role="listitem" data-category="sonstiges" onclick="selectSubject('sport', true)"
+      <button class="subject-card sport" type="button" data-category="sonstiges" onclick="selectSubject('sport', true)"
         aria-label="Sport">
         <div class="subject-icon" aria-hidden="true">⚽</div>
         <div class="subject-title">Sport</div>
@@ -3293,7 +3299,7 @@
         <span class="subject-countdown" data-subject="sport"></span>
         <span class="subject-last-activity" data-activity="sport"></span>
       </button>
-      <button class="subject-card informatik" type="button" role="listitem" data-category="nawi" onclick="selectSubject('informatik', true)"
+      <button class="subject-card informatik" type="button" data-category="nawi" onclick="selectSubject('informatik', true)"
         aria-label="Informatik">
         <div class="subject-icon" aria-hidden="true">💻</div>
         <div class="subject-title">Informatik</div>
@@ -3354,8 +3360,8 @@
     <a href="https://fos.myabiflow.de" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem 1rem;background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.85rem;color:var(--ink-light);text-decoration:none;transition:all .2s;max-width:500px;margin:1rem auto;">
       Du bist an der FOS? → fos.myabiflow.de
     </a>
-    <footer>&copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html">Impressum</a> &middot; <a href="impressum.html#datenschutz">Datenschutz</a> &middot; <a href="agb.html">AGB</a><br><span style="font-size:0.75rem; opacity:0.7; margin-top:0.3rem; display:inline-block;">DSGVO-konform &middot; Daten in der EU</span><br><a href="lehrer.html"
-        style="font-size:0.75rem; opacity:0.6; margin-top:0.3rem; display:inline-block;">Für Lehrkräfte &rarr;</a></footer>
+    <footer role="contentinfo" style="margin-top:2rem;">&copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html" style="text-decoration:underline;">Impressum</a> &middot; <a href="impressum.html#datenschutz" style="text-decoration:underline;">Datenschutz</a> &middot; <a href="agb.html" style="text-decoration:underline;">AGB</a><br><span style="font-size:0.75rem; color:var(--ink-light); margin-top:0.3rem; display:inline-block;">DSGVO-konform &middot; Daten in der EU</span><br><a href="lehrer.html"
+        style="font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.3rem; display:inline-block;">Für Lehrkräfte &rarr;</a></footer>
 
     <!-- ====== ABI-FAECHER-WIZARD OVERLAY ====== -->
     <div id="abiWizardOverlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="wizardTitle">
@@ -5455,12 +5461,14 @@
           if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
 
           // Show/hide auth-dependent UI elements
-          var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+          var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
           var guestLoginBtn = document.getElementById("guestLoginBtn");
           var userInfoEl = document.getElementById("userInfo");
+          var profileBtn = document.getElementById("profileBtn");
           if (logoutBtn) logoutBtn.style.display = "";
           if (guestLoginBtn) guestLoginBtn.style.display = "none";
           if (userInfoEl) userInfoEl.style.display = "";
+          if (profileBtn) profileBtn.style.display = "";
 
           // If user clicked a subject before login, go there directly
           var pendingSubject = sessionStorage.getItem("pending_subject");
@@ -5867,12 +5875,14 @@
         if (badge) badge.remove();
       });
       // Hide auth-dependent UI
-      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
       var userInfoEl = document.getElementById("userInfo");
+      var profileBtn = document.getElementById("profileBtn");
       if (logoutBtn) logoutBtn.style.display = "none";
       if (guestLoginBtn) guestLoginBtn.style.display = "";
       if (userInfoEl) userInfoEl.style.display = "none";
+      if (profileBtn) profileBtn.style.display = "none";
       // Zur Rollen-Auswahl zurueck
       document.getElementById("subject-screen").style.display = "none";
       document.getElementById("login-screen").style.display = "none";
@@ -6028,14 +6038,16 @@
       document.getElementById("role-screen").style.display = "none";
 
       // UI-Elemente je nach Login-Status
-      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn)");
+      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
       var userInfoEl = document.getElementById("userInfo");
       var guestHint = document.getElementById("guestHint");
+      var profileBtn = document.getElementById("profileBtn");
       if (logoutBtn) logoutBtn.style.display = isLoggedIn ? "" : "none";
       if (guestLoginBtn) guestLoginBtn.style.display = isLoggedIn ? "none" : "";
       if (userInfoEl) userInfoEl.style.display = isLoggedIn ? "" : "none";
       if (guestHint) guestHint.style.display = isLoggedIn ? "none" : "";
+      if (profileBtn) profileBtn.style.display = isLoggedIn ? "" : "none";
 
       // Lokale Praeferenzen immer laden (fuer Gaeste und Eingeloggte)
       loadLocalPreferences();
