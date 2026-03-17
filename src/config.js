@@ -48,9 +48,9 @@ export const KORREKTUR_LATEIN = ERWARTUNGSHORIZONT + `\n\nZUSÄTZLICH im JSON-Ou
 
 export const UEBUNGSAUFGABEN_ANWEISUNG = ERWARTUNGSHORIZONT + `\n- "uebungsaufgaben": NUR wenn die Gesamtnote < 10 NP: Array mit 2–3 gezielten Übungsaufgaben basierend auf den häufigsten Fehlern dieser Abgabe. Format: [{"titel":"Kurztitel","schwerpunkt":"Identifizierter Fehler/Schwäche","aufgabe":"Vollständige, selbstständig lösbare Aufgabenstellung auf Deutsch","hinweis":"Optionaler methodischer Tipp oder null"}]. Die Aufgaben müssen ohne externes Material lösbar sein — bei Textaufgaben den benötigten Kurztext direkt einfügen. Wenn Gesamtnote >= 10: "uebungsaufgaben": []`;
 
-export const BILDER_HINWEIS_MINT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere Handschrift, mathematische Formeln, Diagramme, Skizzen und Reaktionsgleichungen direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`;
+export const BILDER_HINWEIS_MINT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere Handschrift, mathematische Formeln, Diagramme, Skizzen und Reaktionsgleichungen direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild. WICHTIG: Durchgestrichene Wörter oder Textpassagen KOMPLETT IGNORIEREN — diese sind ungültig und dürfen weder transkribiert noch bewertet werden.`;
 
-export const BILDER_HINWEIS_TEXT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere die Handschrift direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild.`;
+export const BILDER_HINWEIS_TEXT = `\n\nBILDER: Die Schülerlösung liegt auch als Foto(s) bei. Interpretiere die Handschrift direkt aus den Bildern. Der beigefügte Text ist eine automatische Transkription — bei Widersprüchen zwischen Text und Bild vertraue dem Bild. WICHTIG: Durchgestrichene Wörter oder Textpassagen KOMPLETT IGNORIEREN — diese sind ungültig und dürfen weder transkribiert noch bewertet werden.`;
 
 export const KORREKTURHILFE_GEWAEHRLEISTUNG = `
 KORREKTURHILFE GEWÄHRLEISTUNGSRECHT (bei Rechtsaufgaben zum Thema Mängelrecht/Gewährleistung anwenden):

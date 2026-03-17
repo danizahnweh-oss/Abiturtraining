@@ -161,6 +161,7 @@ export async function handleOCRText(request, env) {
       type: "text",
       text: `Diese Bilder zeigen ${langHint} (z.B. einen Zeitungsartikel, Essay, Buchseite oder Auszug).
 Extrahiere den KOMPLETTEN Text aus den Bildern so genau wie möglich.
+WICHTIG: Falls handgeschriebener Text vorliegt — durchgestrichene Wörter oder Textpassagen KOMPLETT IGNORIEREN und NICHT übernehmen.
 
 Antworte NUR mit validem JSON:
 {"text": "Der extrahierte Text...", "title": "Titel falls erkennbar, sonst leer"}`
@@ -482,6 +483,7 @@ export async function handleOCR(request, env) {
 
   const content = [
     { type: "text", text: `Transkribiere den gesamten handgeschriebenen Text aus diesem Bild. Regeln:
+- WICHTIG: Durchgestrichene Wörter oder Textpassagen KOMPLETT IGNORIEREN und NICHT übernehmen. Schüler streichen häufig Wörter durch — diese sind ungültig und dürfen nicht im transkribierten Text erscheinen.
 - Mathematische Formeln als LaTeX: $\\frac{a}{b}$, $\\int_0^1 x^2\\,dx$, $\\sqrt{x}$, $e^{-x}$
 - Chemische Formeln: H₂O, NaOH, CH₃COOH, Reaktionsgleichungen mit →
 - Physikalische Einheiten beibehalten: m/s, kg, N, J
@@ -541,7 +543,7 @@ WICHTIG – BWR-SPEZIFISCHE REGELN:
    - Geldbeträge mit € und 2 Dezimalstellen: 12.345,67 €
    - Prozentsätze mit 2 Dezimalstellen: 37,50 %
    - Unsichere/unleserliche Stellen mit [?] markieren
-   - Durchgestrichenes ignorieren
+   - Durchgestrichene Wörter/Textpassagen KOMPLETT IGNORIEREN und NICHT übernehmen — Schüler streichen häufig Wörter durch, diese sind ungültig
    - Unterstreichungen als **fett** markieren
 
 Gib NUR den transkribierten Text zurück, keine Erklärungen oder Kommentare.` },
