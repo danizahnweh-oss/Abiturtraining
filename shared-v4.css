@@ -225,7 +225,8 @@ html {
   user-select: none
 }
 
-.formel-editor summary:hover {
+.formel-editor summary:hover,
+.formel-editor summary:focus-visible {
   opacity: .8
 }
 
@@ -280,7 +281,8 @@ html {
   transition: all .15s
 }
 
-.formel-tab:hover {
+.formel-tab:hover,
+.formel-tab:focus-visible {
   background: var(--accent-soft);
   color: var(--accent)
 }
@@ -315,7 +317,8 @@ html {
   justify-content: center
 }
 
-.formel-btn:hover {
+.formel-btn:hover,
+.formel-btn:focus-visible {
   border-color: var(--accent);
   background: var(--accent-glow);
   color: var(--accent)
@@ -521,7 +524,8 @@ header .logo-brand .logo-text {
   overflow: hidden;
 }
 
-.module-card:hover {
+.module-card:hover,
+.module-card:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.05);
   border-color: #a5b4fc;
@@ -647,7 +651,8 @@ header h1 span {
   font-size: .85rem;
 }
 
-.back-link:hover {
+.back-link:hover,
+.back-link:focus-visible {
   color: var(--accent);
 }
 
@@ -666,7 +671,8 @@ header h1 span {
   font-size: 1.1rem;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
   background: var(--accent-soft);
 }
 
@@ -701,8 +707,9 @@ nav button {
   white-space: nowrap;
 }
 
-nav button:hover {
-  color: var(--ink-light);
+nav button:hover,
+nav button:focus-visible {
+  color: var(--ink);
 }
 
 nav button.active {
@@ -800,13 +807,13 @@ select:focus,
 input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-  outline: none;
-}
-
-select:focus-visible,
-input:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+select:focus:not(:focus-visible),
+input:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .form-group {
@@ -951,12 +958,12 @@ textarea {
 textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-  outline: none;
-}
-
-textarea:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+textarea:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .write-toolbar {
@@ -1469,7 +1476,8 @@ textarea:focus-visible {
   transition: all .15s;
 }
 
-.timer-controls button:hover {
+.timer-controls button:hover,
+.timer-controls button:focus-visible {
   background: var(--accent-soft);
   color: var(--accent);
 }
@@ -1576,7 +1584,8 @@ textarea:focus-visible {
   transition: color .15s;
 }
 
-.history-delete:hover {
+.history-delete:hover,
+.history-delete:focus-visible {
   color: var(--warning);
 }
 
@@ -1636,7 +1645,8 @@ textarea:focus-visible {
   transition: transform .1s;
 }
 
-.hl-btn:hover {
+.hl-btn:hover,
+.hl-btn:focus-visible {
   transform: scale(1.1);
 }
 
@@ -1685,7 +1695,8 @@ textarea:focus-visible {
   cursor: pointer;
 }
 
-.hl-clear:hover {
+.hl-clear:hover,
+.hl-clear:focus-visible {
   border-color: var(--warning);
   color: var(--warning);
 }
@@ -1766,7 +1777,8 @@ textarea:focus-visible {
   background: var(--bg-warm);
 }
 
-.upload-zone:hover {
+.upload-zone:hover,
+.upload-zone:focus-visible {
   border-color: var(--accent);
   background: var(--accent-glow);
 }
@@ -1898,7 +1910,8 @@ textarea:focus-visible {
   transition: all .2s;
 }
 
-.mode-btn:hover {
+.mode-btn:hover,
+.mode-btn:focus-visible {
   border-color: var(--accent);
   color: var(--ink);
 }
@@ -2050,7 +2063,8 @@ textarea:focus-visible {
   transition: background .15s;
 }
 
-.rewrite-close:hover {
+.rewrite-close:hover,
+.rewrite-close:focus-visible {
   background: var(--bg-warm);
   color: var(--ink);
 }
@@ -2260,12 +2274,12 @@ textarea:focus-visible {
 .login-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-  outline: none;
-}
-
-.login-input:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.login-input:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .login-error {
@@ -2317,7 +2331,8 @@ footer a {
   transition: color .2s;
 }
 
-footer a:hover {
+footer a:hover,
+footer a:focus-visible {
   color: var(--accent);
 }
 
@@ -2349,7 +2364,8 @@ footer a:hover {
 
 /* ================= LEHRER-CODE BUTTON ================= */
 
-.teacher-code-btn:hover {
+.teacher-code-btn:hover,
+.teacher-code-btn:focus-visible {
   transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
 }
@@ -2505,11 +2521,13 @@ footer a:hover {
   transition: background 0.15s ease;
 }
 
-.subtopic-item:hover {
+.subtopic-item:hover,
+.subtopic-item:focus-within {
   background: rgba(0, 0, 0, 0.03);
 }
 
-[data-theme="dark"] .subtopic-item:hover {
+[data-theme="dark"] .subtopic-item:hover,
+[data-theme="dark"] .subtopic-item:focus-within {
   background: rgba(255, 255, 255, 0.05);
 }
 
@@ -2618,14 +2636,14 @@ footer a:hover {
 }
 
 .custom-topic-container input[type="text"]:focus {
-  outline: none;
   border-color: var(--accent, #4f46e5);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-}
-
-.custom-topic-container input[type="text"]:focus-visible {
   outline: 2px solid var(--accent, #4f46e5);
   outline-offset: 2px;
+}
+
+.custom-topic-container input[type="text"]:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .custom-topic-hint {
@@ -3477,5 +3495,31 @@ button:focus-visible,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Hoher Kontrast – stärkere Ränder und Fokus-Indikatoren */
+@media (prefers-contrast: more) {
+  :root {
+    --border: #64748b;
+    --ink-muted: #374151;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible,
+  select:focus,
+  input:focus,
+  textarea:focus {
+    outline: 3px solid var(--accent) !important;
+    outline-offset: 3px !important;
+  }
+
+  .btn,
+  .login-input,
+  select,
+  textarea {
+    border-width: 2px;
   }
 }

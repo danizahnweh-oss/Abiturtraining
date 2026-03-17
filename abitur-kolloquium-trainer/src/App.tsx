@@ -747,10 +747,10 @@ export default function App() {
             <a
               href="/"
               onClick={(e) => { e.preventDefault(); sessionRef.current?.stop(); window.location.href = '/'; }}
-              className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
-              title="Zurück zur Startseite"
+              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
+              aria-label="Zurück zur Startseite"
             >
-              <ArrowLeft size={20} className="opacity-60" />
+              <ArrowLeft size={20} className="opacity-60" aria-hidden="true" />
             </a>
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-200 ring-1 ring-black/5 ring-inset">
               <GraduationCap size={24} />
@@ -777,10 +777,10 @@ export default function App() {
             )}
             <button
               onClick={() => setShowProfile(true)}
-              className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
-              title="Profil"
+              className="w-11 h-11 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center border border-black/5 hover:bg-white hover:shadow-sm transition-all shadow-sm"
+              aria-label="Profil öffnen"
             >
-              <User size={18} className="opacity-60" />
+              <User size={18} className="opacity-60" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -1176,10 +1176,10 @@ export default function App() {
                         <button
                           key={idx}
                           onClick={() => setActiveImpuls(idx)}
-                          className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 hover:bg-amber-100 transition-colors min-h-[36px]"
-                          title={`Material ${idx + 1} anzeigen`}
+                          className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-lg text-amber-700 hover:bg-amber-100 transition-colors min-h-[44px]"
+                          aria-label={`Material ${idx + 1} anzeigen`}
                         >
-                          {IMPULS_ICONS[m.typ] || <FileText size={14} />}
+                          <span aria-hidden="true">{IMPULS_ICONS[m.typ] || <FileText size={14} />}</span>
                           <span className="text-xs font-medium">M{idx + 1}</span>
                         </button>
                       ) : null

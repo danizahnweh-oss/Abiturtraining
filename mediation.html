@@ -150,6 +150,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- ====== LOGIN REDIRECT ====== -->
   <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
@@ -170,7 +171,7 @@
       <div class="header-right">
         <span id="studentGreeting" class="header-meta" style="display:none"></span>
         <div class="header-meta">myAbiFlow</div>
-        <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
+        <button class="theme-toggle" aria-label="Dark Mode umschalten" onclick="toggleDarkMode()" title="Dark Mode umschalten"
           id="themeToggleBtn">🌙</button>
       </div>
     </header>
@@ -193,7 +194,7 @@
       </button>
     </nav>
 
-    <main>
+    <main id="main-content">
 
       <!-- ====== STEP 1: SETUP ====== -->
       <section id="setup" class="active">

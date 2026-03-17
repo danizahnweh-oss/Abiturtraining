@@ -257,6 +257,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -266,7 +267,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" aria-label="Dark Mode umschalten" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
     </div>
   </header>
 
@@ -279,7 +280,7 @@
       Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
