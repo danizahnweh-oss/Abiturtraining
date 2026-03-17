@@ -2917,7 +2917,7 @@
   </div>
 
   <!-- ====== ROLE SELECTION SCREEN ====== -->
-  <div id="role-screen" role="main" aria-label="Willkommen">
+  <div id="role-screen" role="region" aria-label="Willkommen">
     <div class="role-box">
       <img src="logo.png" alt="myAbiFlow Logo">
       <div class="abitur-badge">Dein Weg zum Abitur</div>
@@ -2940,7 +2940,7 @@
 
   <!-- ====== LOGIN SCREEN ====== -->
   <div id="login-screen">
-    <div class="login-box" role="main">
+    <div class="login-box">
       <div style="text-align:center; margin-bottom:1.5rem;">
         <img src="logo.png" alt="myAbiFlow Logo" style="height: 49px; width: auto;">
       </div>
@@ -3109,7 +3109,7 @@
         <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine Prüfungstermine ein – der Countdown aktualisiert sich automatisch.</p>
         <div id="examDateRows"></div>
       </div>
-      <div class="exam-subjects-grid" id="examSubjectsGrid" role="list" aria-label="Deine Abiturfächer"></div>
+      <div class="exam-subjects-grid" id="examSubjectsGrid" aria-label="Deine Abiturfächer"></div>
     </div>
 
     <!-- Weitere Faecher Sektion (kleinere Karten, nach Wizard sichtbar) -->
@@ -3122,11 +3122,11 @@
         <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine nächsten Prüfungstermine ein.</p>
         <div id="additionalDateRows"></div>
       </div>
-      <div class="additional-subjects-grid" id="additionalSubjectsGrid" role="list" aria-label="Weitere Fächer"></div>
+      <div class="additional-subjects-grid" id="additionalSubjectsGrid" aria-label="Weitere Fächer"></div>
     </div>
 
     <!-- Haupt-Grid (Fallback wenn kein Wizard abgeschlossen) -->
-    <div class="subject-grid" id="mainSubjectGrid" role="list" aria-label="Fächer">
+    <div class="subject-grid" id="mainSubjectGrid" aria-label="Fächer">
       <button class="subject-card english" type="button" data-category="sprachen" onclick="selectSubject('english', true)"
         aria-label="Englisch">
         <div class="subject-icon" aria-hidden="true">🇬🇧</div>
@@ -3360,8 +3360,8 @@
     <a href="https://fos.myabiflow.de" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem 1rem;background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.85rem;color:var(--ink-light);text-decoration:none;transition:all .2s;max-width:500px;margin:1rem auto;">
       Du bist an der FOS? → fos.myabiflow.de
     </a>
-    <footer role="contentinfo" style="margin-top:2rem;">&copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html" style="text-decoration:underline;">Impressum</a> &middot; <a href="impressum.html#datenschutz" style="text-decoration:underline;">Datenschutz</a> &middot; <a href="agb.html" style="text-decoration:underline;">AGB</a><br><span style="font-size:0.75rem; color:var(--ink-light); margin-top:0.3rem; display:inline-block;">DSGVO-konform &middot; Daten in der EU</span><br><a href="lehrer.html"
-        style="font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.3rem; display:inline-block;">Für Lehrkräfte &rarr;</a></footer>
+    <div role="none" style="margin-top:2rem; text-align:center; font-size:.85rem; color:var(--ink-light); padding:1rem 0;">&copy; 2026 myAbiFlow &middot; Abitur Trainer &middot; <a href="impressum.html" style="text-decoration:underline; color:var(--ink-light);">Impressum</a> &middot; <a href="impressum.html#datenschutz" style="text-decoration:underline; color:var(--ink-light);">Datenschutz</a> &middot; <a href="agb.html" style="text-decoration:underline; color:var(--ink-light);">AGB</a><br><span style="font-size:0.75rem; color:var(--ink-light); margin-top:0.3rem; display:inline-block;">DSGVO-konform &middot; Daten in der EU</span><br><a href="lehrer.html"
+        style="font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.3rem; display:inline-block;">Für Lehrkräfte &rarr;</a></div>
 
     <!-- ====== ABI-FAECHER-WIZARD OVERLAY ====== -->
     <div id="abiWizardOverlay" style="display:none" role="dialog" aria-modal="true" aria-labelledby="wizardTitle">
