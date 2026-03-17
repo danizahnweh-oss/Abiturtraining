@@ -102,6 +102,28 @@ const createAI = () => {
 
 /* ───────── Material generation ───────── */
 
+/** Prüft ob das generierte Material brauchbar ist (nicht leer / zu kurz / generisch) */
+function isValidMaterial(m: ExamMaterial): boolean {
+  if (!m.aufgabenstellung || !m.material) return false;
+  const matLower = m.material.toLowerCase().trim();
+  const generisch = ['nutzen sie ihr vorwissen', 'vorwissen', 'eigenes wissen'];
+  if (generisch.some(g => matLower === g || matLower.startsWith(g))) return false;
+  if (m.material.trim().length < 80) return false;
+  return true;
+}
+
+/** Versucht JSON aus der Gemini-Antwort zu parsen */
+function parseExamMaterialResponse(text: string): ExamMaterial | null {
+  try {
+    const raw = (text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+    const parsed = JSON.parse(raw) as ExamMaterial;
+    if (parsed.aufgabenstellung && parsed.material) return parsed;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateExamMaterial(config: ExamConfig): Promise<ExamMaterial> {
   const ai = createAI();
   const levelLabel = config.examLevel === 'eA' ? 'erhöhtes Anforderungsniveau' : 'grundlegendes Anforderungsniveau';
@@ -117,27 +139,54 @@ Schwerpunktthema: ${config.schwerpunkt}
 
 Anforderungen:
 1. Formuliere eine klare, anspruchsvolle Aufgabenstellung, die alle drei Anforderungsbereiche (Reproduktion, Transfer, Reflexion) abdeckt.
-2. Stelle 1–2 Materialien bereit (Quellentexte, Statistiken, Zitate oder Schaubilder als Textbeschreibung), die der Prüfling in sein Referat einbeziehen soll.
+2. Stelle im Feld "material" IMMER 1–2 konkrete Materialien bereit, die der Prüfling in sein Referat einbeziehen soll. Materialien sind z.B.:
+   - Ein Zitat einer historischen Persönlichkeit, eines Wissenschaftlers oder aus einem Fachtext (mit Quellenangabe)
+   - Eine Statistik oder Tabelle mit konkreten Zahlenwerten
+   - Ein kurzer Quellentext-Auszug (3–5 Sätze)
+   - Eine Schaubild-/Diagramm-Beschreibung
+   Das Material-Feld darf NIEMALS leer sein oder nur "Nutzen Sie Ihr Vorwissen" enthalten!
 3. Gib kurze Hinweise zur Bearbeitung.
+
+WICHTIG: Das "material"-Feld MUSS immer konkretes, inhaltliches Material enthalten (Zitate, Daten, Quellentexte). Mindestens 100 Zeichen.
 
 Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
 {"aufgabenstellung":"...","material":"...","hinweise":"..."}`;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: prompt,
-  });
-
-  try {
-    const raw = (response.text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-    return JSON.parse(raw);
-  } catch {
-    return {
-      aufgabenstellung: `Erläutern Sie den Schwerpunkt "${config.schwerpunkt}" im Kontext des Halbjahres ${config.schwerpunktHalbjahr}. Nehmen Sie kritisch Stellung.`,
-      material: 'Nutzen Sie Ihr Vorwissen zu diesem Themengebiet.',
-      hinweise: 'Strukturieren Sie Ihr Referat klar. Planen Sie ca. 10 Minuten für den Vortrag.',
-    };
+  // Bis zu 2 Versuche für brauchbares Material
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+      const parsed = parseExamMaterialResponse(response.text || '');
+      if (parsed && isValidMaterial(parsed)) return parsed;
+    } catch {
+      // API-Fehler → nächster Versuch
+    }
   }
+
+  // Letzter Fallback: vereinfachter Prompt
+  try {
+    const fallbackPrompt = `Erstelle für das Fach ${config.subject} (${levelLabel}) zum Thema "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr}) ein konkretes Material für eine Kolloquiumsprüfung.
+
+Gib GENAU dieses JSON zurück (kein Markdown, kein Codeblock):
+{"aufgabenstellung":"Eine Aufgabenstellung die alle drei Anforderungsbereiche abdeckt","material":"HIER ein konkretes Zitat, eine Statistik oder einen Quellentext mit Quellenangabe (mindestens 3 Sätze)","hinweise":"Bearbeitungshinweise"}`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: fallbackPrompt,
+    });
+    const parsed = parseExamMaterialResponse(response.text || '');
+    if (parsed && parsed.material && parsed.material.trim().length > 30) return parsed;
+  } catch { /* absoluter Fallback greift */ }
+
+  // Absoluter Fallback mit fachspezifischem Impuls
+  return {
+    aufgabenstellung: `Erläutern Sie den Schwerpunkt "${config.schwerpunkt}" im Kontext des Halbjahres ${config.schwerpunktHalbjahr}. Gehen Sie dabei auf zentrale Begriffe, Zusammenhänge und aktuelle Bezüge ein. Nehmen Sie abschließend kritisch Stellung.`,
+    material: `Material 1 – Fachlicher Impuls:\nSetzen Sie sich mit dem Themenbereich "${config.schwerpunkt}" auseinander. Berücksichtigen Sie dabei die im Unterricht behandelten Fachtexte, Modelle und Theorien.\n\nMaterial 2 – Transferaufgabe:\nReflektieren Sie, inwiefern die zentralen Konzepte aus "${config.schwerpunkt}" auf aktuelle gesellschaftliche oder wissenschaftliche Fragestellungen übertragen werden können. Beziehen Sie eigene Beispiele ein.`,
+    hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Beziehen Sie die Materialien in Ihren Vortrag ein. Planen Sie ca. 10 Minuten für den Vortrag.',
+  };
 }
 
 /* ───────── Material-Impulse für den Fragenteil ───────── */
