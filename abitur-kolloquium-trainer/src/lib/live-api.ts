@@ -140,8 +140,16 @@ const createAI = () => {
 function isValidMaterial(m: ExamMaterial): boolean {
   if (!m.aufgabenstellung || !m.material) return false;
   const matLower = m.material.toLowerCase().trim();
-  const generisch = ['nutzen sie ihr vorwissen', 'vorwissen', 'eigenes wissen'];
+  // Generische Phrasen die kein echtes Material sind
+  const generisch = [
+    'nutzen sie ihr vorwissen', 'vorwissen', 'eigenes wissen',
+    'setzen sie sich mit', 'reflektieren sie', 'erläutern sie',
+    'berücksichtigen sie dabei die im unterricht',
+  ];
   if (generisch.some(g => matLower === g || matLower.startsWith(g))) return false;
+  // Material das nur aus Arbeitsanweisungen besteht = generisch
+  const anweisungsWörter = (matLower.match(/\b(erläutern|reflektieren|analysieren|bewerten|setzen sie sich|berücksichtigen|beziehen sie)\b/g) || []).length;
+  if (anweisungsWörter >= 3 && !matLower.includes('quelle') && !matLower.includes('zitat')) return false;
   if (m.material.trim().length < 80) return false;
   return true;
 }
@@ -173,47 +181,61 @@ Schwerpunktthema: ${config.schwerpunkt}
 
 Anforderungen:
 1. Formuliere eine klare, anspruchsvolle Aufgabenstellung, die alle drei Anforderungsbereiche (Reproduktion, Transfer, Reflexion) abdeckt.
-2. Stelle im Feld "material" IMMER 1–2 konkrete Materialien bereit, die der Prüfling in sein Referat einbeziehen soll. Materialien sind z.B.:
-   - Ein Zitat einer historischen Persönlichkeit, eines Wissenschaftlers oder aus einem Fachtext (mit Quellenangabe)
-   - Eine Statistik oder Tabelle mit konkreten Zahlenwerten
-   - Ein kurzer Quellentext-Auszug (3–5 Sätze)
-   - Eine Schaubild-/Diagramm-Beschreibung
-   Das Material-Feld darf NIEMALS leer sein oder nur "Nutzen Sie Ihr Vorwissen" enthalten!
+2. Stelle im Feld "material" IMMER 1–2 konkrete Materialien bereit, die der Prüfling in sein Referat einbeziehen soll:
+   - Ein echtes oder realistisches Zitat (mit Autor, Werk, Jahr)
+   - ODER eine konkrete Statistik/Tabelle mit echten Zahlenwerten
+   - ODER einen kurzen Quellentext-Auszug (3–5 Sätze) aus einem Fachbuch oder einer Studie
+   Jedes Material MUSS eine Quellenangabe haben (Autor, Titel, Jahr).
 3. Gib kurze Hinweise zur Bearbeitung.
 
-WICHTIG: Das "material"-Feld MUSS immer konkretes, inhaltliches Material enthalten (Zitate, Daten, Quellentexte). Mindestens 100 Zeichen.
+BEISPIEL für gutes Material (Fach Geschichte):
+"Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen. Wir wollen eine Gesellschaft, die mehr Freiheit bietet und mehr Mitverantwortung fordert.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik:\\nWahlbeteiligung bei Bundestagswahlen: 1972: 91,1% | 1980: 88,6% | 1990: 77,8% | 2002: 79,1% | 2021: 76,6%\\n(Quelle: Bundeswahlleiter, 2021)"
 
-Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
-{"aufgabenstellung":"...","material":"...","hinweise":"..."}`;
+Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise.`;
 
-  // Bis zu 2 Versuche für brauchbares Material
-  for (let attempt = 0; attempt < 2; attempt++) {
+  const genConfig = {
+    responseMimeType: 'application/json' as const,
+  };
+
+  // Bis zu 3 Versuche für brauchbares Material
+  for (let attempt = 0; attempt < 3; attempt++) {
     try {
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
+        config: genConfig,
       });
-      const parsed = parseExamMaterialResponse(response.text || '');
+      const text = response.text || '';
+      console.log(`[Material-Gen] Versuch ${attempt + 1}, Antwort-Länge: ${text.length}`);
+      const parsed = parseExamMaterialResponse(text);
       if (parsed && isValidMaterial(parsed)) return parsed;
-    } catch {
-      // API-Fehler → nächster Versuch
+      console.warn(`[Material-Gen] Versuch ${attempt + 1} ungültig:`, text.substring(0, 200));
+    } catch (err) {
+      console.error(`[Material-Gen] Versuch ${attempt + 1} Fehler:`, err);
     }
   }
 
   // Letzter Fallback: vereinfachter Prompt
   try {
-    const fallbackPrompt = `Erstelle für das Fach ${config.subject} (${levelLabel}) zum Thema "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr}) ein konkretes Material für eine Kolloquiumsprüfung.
+    const fallbackPrompt = `Erstelle für das Fach ${config.subject} (${levelLabel}) zum Thema "${config.schwerpunkt}" (Halbjahr ${config.schwerpunktHalbjahr}) eine Kolloquiums-Aufgabe mit konkretem Material.
 
-Gib GENAU dieses JSON zurück (kein Markdown, kein Codeblock):
-{"aufgabenstellung":"Eine Aufgabenstellung die alle drei Anforderungsbereiche abdeckt","material":"HIER ein konkretes Zitat, eine Statistik oder einen Quellentext mit Quellenangabe (mindestens 3 Sätze)","hinweise":"Bearbeitungshinweise"}`;
+Das Material muss ein echtes Zitat, eine Statistik oder einen Quellentext enthalten – mit Quellenangabe (Autor, Werk, Jahr). Keine generischen Anweisungen wie "Nutzen Sie Ihr Vorwissen".
+
+Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: fallbackPrompt,
+      config: genConfig,
     });
-    const parsed = parseExamMaterialResponse(response.text || '');
+    const text = response.text || '';
+    console.log(`[Material-Gen] Fallback, Antwort-Länge: ${text.length}`);
+    const parsed = parseExamMaterialResponse(text);
     if (parsed && parsed.material && parsed.material.trim().length > 30) return parsed;
-  } catch { /* absoluter Fallback greift */ }
+    console.warn('[Material-Gen] Fallback ungültig:', text.substring(0, 200));
+  } catch (err) {
+    console.error('[Material-Gen] Fallback Fehler:', err);
+  }
 
   // Absoluter Fallback mit fachspezifischem Impuls
   return {
@@ -283,15 +305,21 @@ Funktionsterme, Gleichungen, Vektoren, Matrizen, Graphen-Beschreibungen, Tabelle
 Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
 {"aufgabenstellung":"Die vollständigen Aufgaben mit Teilaufgaben, klar formuliert mit Operatoren, mit Gebiet-Überschriften","material":"Konkrete mathematische Objekte (Funktionsterme, Vektoren, Graphen-Beschreibungen etc.)","hinweise":"Bearbeitungshinweise für die Vorbereitungszeit"}`;
 
-  for (let attempt = 0; attempt < 2; attempt++) {
+  for (let attempt = 0; attempt < 3; attempt++) {
     try {
       const response = await ai.models.generateContent({
         model: "gemini-2.5-flash",
         contents: prompt,
+        config: { responseMimeType: 'application/json' as const },
       });
-      const parsed = parseExamMaterialResponse(response.text || '');
+      const text = response.text || '';
+      console.log(`[Mathe-Gen] Versuch ${attempt + 1}, Antwort-Länge: ${text.length}`);
+      const parsed = parseExamMaterialResponse(text);
       if (parsed && isValidMaterial(parsed)) return parsed;
-    } catch { /* nächster Versuch */ }
+      console.warn(`[Mathe-Gen] Versuch ${attempt + 1} ungültig:`, text.substring(0, 200));
+    } catch (err) {
+      console.error(`[Mathe-Gen] Versuch ${attempt + 1} Fehler:`, err);
+    }
   }
 
   // Fallback: gemischtes Aufgabenblatt
@@ -364,13 +392,15 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: prompt,
+      config: { responseMimeType: 'application/json' as const },
     });
 
     const raw = (response.text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(raw) as MaterialImpuls[];
     // Validierung: Nur gültige Objekte behalten
     return parsed.filter(m => m.typ && m.titel && m.inhalt).slice(0, 2);
-  } catch {
+  } catch (err) {
+    console.error('[MaterialImpulse-Gen] Fehler:', err);
     return [];
   }
 }
