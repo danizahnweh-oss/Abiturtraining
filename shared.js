@@ -2197,3 +2197,29 @@ function _doLogout() {
   location.reload();
 }
 
+/* ================= KI-HINWEIS AUFGABEN ================= */
+
+function _appendKiHinweisToTask() {
+  // Bekannte Aufgaben-Container aller Fachseiten
+  var ids = ["aufgabengruppenContainer", "taskInstruction", "materialsContainer"];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el && el.innerHTML.trim() && !el.querySelector(".ki-hinweis")) {
+      el.insertAdjacentHTML("afterend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+      return;
+    }
+  }
+}
+
+// renderTask nach DOMContentLoaded wrappen, damit der Hinweis bei jeder
+// Aufgabengenerierung automatisch erscheint (ohne jede HTML-Seite anzufassen).
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof renderTask === "function") {
+    var _orig = renderTask;
+    window.renderTask = function (data) {
+      _orig(data);
+      _appendKiHinweisToTask();
+    };
+  }
+});
+
