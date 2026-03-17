@@ -294,16 +294,19 @@ function renderKorrekturFeedback(d) {
       d.feedback_kurz.map(function(p) { return '<li>' + escapeHtml(p) + '</li>'; }).join('') +
       '</ul>';
     var detailHtml = fb.innerHTML;
+    var kiHinweis = '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>';
     if (detailHtml && detailHtml.trim()) {
       // Detail bereits vorhanden (z.B. Fallback) → direkt aufklappbar anzeigen
       fb.innerHTML = kurzHtml +
         '<details class="feedback-detail-toggle"><summary>Detailliertes Feedback anzeigen</summary>' +
-        '<div class="feedback-detail-body">' + detailHtml + '</div></details>';
+        '<div class="feedback-detail-body">' + detailHtml + '</div></details>' +
+        kiHinweis;
     } else {
       // Detail noch nicht generiert → Lade-Button anzeigen
       fb.innerHTML = kurzHtml +
         '<button class="btn btn-secondary feedback-load-detail" onclick="loadDetailFeedback(this)">Detailliertes Feedback laden</button>' +
-        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>';
+        '<div class="feedback-detail-body" id="feedbackDetailContainer" style="display:none"></div>' +
+        kiHinweis;
     }
   }
 
@@ -313,6 +316,7 @@ function renderKorrekturFeedback(d) {
   const body = document.getElementById("korrekturBody");
   if (body && d.korrektur_text) {
     body.innerHTML = DOMPurify.sanitize(d.korrektur_text.replace(/\n/g, "<br>"), sanitizeOpts);
+    body.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
     if (korrekturCard) korrekturCard.style.display = "";
   }
 
@@ -321,7 +325,12 @@ function renderKorrekturFeedback(d) {
   const bodyB = document.getElementById("korrekturBodyB");
   if (bodyA && (d.korrektur_text_a || d.korrektur_text_b)) {
     if (d.korrektur_text_a) bodyA.innerHTML = DOMPurify.sanitize(d.korrektur_text_a.replace(/\n/g, "<br>"), sanitizeOpts);
-    if (d.korrektur_text_b && bodyB) bodyB.innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), sanitizeOpts);
+    if (d.korrektur_text_b && bodyB) {
+      bodyB.innerHTML = DOMPurify.sanitize(d.korrektur_text_b.replace(/\n/g, "<br>"), sanitizeOpts);
+      bodyB.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+    } else if (d.korrektur_text_a && bodyA) {
+      bodyA.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
+    }
     if (korrekturCard) korrekturCard.style.display = "";
   }
 
@@ -368,6 +377,7 @@ async function loadDetailFeedback(btn) {
     if (container) {
       var parseFn = (typeof safeMathParse === "function") ? safeMathParse : marked.parse;
       container.innerHTML = DOMPurify.sanitize(parseFn(result.feedback || ""));
+      container.insertAdjacentHTML("beforeend", '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>');
       container.style.display = "";
       if (typeof renderMath === "function") renderMath(container);
     }
@@ -407,7 +417,7 @@ function renderUebungsaufgaben(d) {
       '<div class="uebung-aufgabe">' + DOMPurify.sanitize(marked.parse(a.aufgabe || '')) + '</div>' +
       hinweis +
     '</div>';
-  }).join('');
+  }).join('') + '<p class="ki-hinweis">🤖 KI-generiert\u2013 Inhalte können Fehler enthalten.</p>';
 
   if (typeof renderMath === "function") renderMath(body);
   card.style.display = "";
@@ -1451,18 +1461,32 @@ function clearOCR() {
   document.getElementById("ocrFileInput").value = "";
 }
 
-/* ================= DASHBOARD-LINK IM FOOTER ================= */
+/* ================= LEGAL-LINKS + DASHBOARD-LINK IM FOOTER ================= */
 
 ;(function() {
-  var footer = document.querySelector("footer");
-  if (!footer || /dashboard/i.test(footer.innerHTML)) return;
-  var br = document.createElement("br");
-  var a = document.createElement("a");
-  a.href = "dashboard.html";
-  a.textContent = "Lehrer-Dashboard \u2192";
-  a.style.cssText = "font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.5rem; display:inline-block;";
-  footer.appendChild(br);
-  footer.appendChild(a);
+  var footers = document.querySelectorAll("footer");
+  footers.forEach(function(footer) {
+    // Legal-Links: Impressum, AGB, Barrierefreiheit
+    if (!/impressum/i.test(footer.innerHTML)) {
+      var legalDiv = document.createElement("div");
+      legalDiv.style.cssText = "margin-top:0.5rem; font-size:0.75rem; color:var(--ink-light);";
+      legalDiv.innerHTML =
+        '<a href="/impressum.html" style="color:var(--ink-light);text-decoration:underline;">Impressum</a>' +
+        ' &middot; <a href="/agb.html" style="color:var(--ink-light);text-decoration:underline;">AGB</a>' +
+        ' &middot; <a href="/barrierefreiheit.html" style="color:var(--ink-light);text-decoration:underline;">Barrierefreiheit</a>';
+      footer.appendChild(legalDiv);
+    }
+    // Dashboard-Link (nur wenn noch nicht vorhanden)
+    if (!/dashboard/i.test(footer.innerHTML)) {
+      var br = document.createElement("br");
+      var a = document.createElement("a");
+      a.href = "/dashboard.html";
+      a.textContent = "Lehrer-Dashboard \u2192";
+      a.style.cssText = "font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.25rem; display:inline-block;";
+      footer.appendChild(br);
+      footer.appendChild(a);
+    }
+  });
 })();
 
 /* ================= INIT ================= */
