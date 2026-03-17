@@ -12,7 +12,7 @@ html {
 :root {
   --ink: #0f172a;
   --ink-light: #475569;
-  --ink-muted: #94a3b8;
+  --ink-muted: #64748b;
   --accent: #4f46e5;
   --accent-hover: #4338ca;
   --accent-soft: #e0e7ff;
@@ -642,7 +642,7 @@ header h1 span {
 }
 
 .back-link {
-  color: var(--ink-muted);
+  color: var(--ink-light);
   text-decoration: none;
   font-size: .85rem;
 }
@@ -693,7 +693,7 @@ nav button {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: .9rem;
-  color: var(--ink-muted);
+  color: var(--ink-light);
   border-bottom: 3px solid transparent;
   display: flex;
   align-items: center;
@@ -1894,7 +1894,7 @@ textarea:focus-visible {
   font-family: var(--font-body);
   font-weight: 600;
   font-size: .9rem;
-  color: var(--ink-muted);
+  color: var(--ink-light);
   transition: all .2s;
 }
 
@@ -2304,14 +2304,15 @@ textarea:focus-visible {
 footer {
   text-align: center;
   padding: 2.5rem;
-  color: var(--ink-muted);
+  color: var(--ink-light);
   font-size: .875rem;
   border-top: 1px solid var(--border);
   margin-top: auto;
 }
 
 footer a {
-  color: var(--ink-muted);
+  color: var(--ink-light);
+  text-decoration: underline;
   text-decoration: none;
   transition: color .2s;
 }
