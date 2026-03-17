@@ -176,7 +176,8 @@ async function geminiJSON(prompt: string): Promise<string> {
 /** Prüft ob das generierte Material brauchbar ist (nicht leer / zu kurz / generisch) */
 function isValidMaterial(m: ExamMaterial): boolean {
   if (!m.aufgabenstellung || !m.material) return false;
-  const matLower = m.material.toLowerCase().trim();
+  const matStr = typeof m.material === 'string' ? m.material : String(m.material);
+  const matLower = matStr.toLowerCase().trim();
   // Generische Phrasen die kein echtes Material sind
   const generisch = [
     'nutzen sie ihr vorwissen', 'vorwissen', 'eigenes wissen',
@@ -187,7 +188,7 @@ function isValidMaterial(m: ExamMaterial): boolean {
   // Material das nur aus Arbeitsanweisungen besteht = generisch
   const anweisungsWörter = (matLower.match(/\b(erläutern|reflektieren|analysieren|bewerten|setzen sie sich|berücksichtigen|beziehen sie)\b/g) || []).length;
   if (anweisungsWörter >= 3 && !matLower.includes('quelle') && !matLower.includes('zitat')) return false;
-  if (m.material.trim().length < 80) return false;
+  if (matStr.trim().length < 80) return false;
   return true;
 }
 
@@ -196,8 +197,15 @@ function parseExamMaterialResponse(text: string): ExamMaterial | null {
   try {
     const raw = (text || '').replace(/```json?\n?/g, '').replace(/```/g, '').trim();
     const parsed = JSON.parse(raw) as ExamMaterial;
-    if (parsed.aufgabenstellung && parsed.material) return parsed;
-    return null;
+    if (!parsed.aufgabenstellung || !parsed.material) return null;
+    // Gemini gibt material manchmal als Array zurück → in String umwandeln
+    if (Array.isArray(parsed.material)) {
+      parsed.material = (parsed.material as string[]).join('\n\n');
+    }
+    if (Array.isArray(parsed.aufgabenstellung)) {
+      parsed.aufgabenstellung = (parsed.aufgabenstellung as string[]).join('\n\n');
+    }
+    return parsed;
   } catch {
     return null;
   }
