@@ -113,7 +113,7 @@ export async function handleGetPreferences(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const student = await env.DB.prepare(
-    "SELECT name, level, class_group, created_at, hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
+    "SELECT name, level, class_group, school, created_at, hidden_subjects, exam_subjects, reminder_interval, email FROM students WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!student) return jsonResponse({ error: "Schüler nicht gefunden." }, 404, env);
 
@@ -123,6 +123,7 @@ export async function handleGetPreferences(request, env) {
       name: student.name,
       level: student.level || "eA",
       class_group: student.class_group || "",
+      school: student.school || "",
       created_at: student.created_at || ""
     },
     preferences: {
@@ -225,7 +226,7 @@ export async function handleChangePassword(request, env) {
 
 /* ================= PROFIL AKTUALISIEREN ================= */
 export async function handleUpdateProfile(request, env) {
-  const { student_name, email, level } = await request.json();
+  const { student_name, email, level, school } = await request.json();
 
   if (!student_name || typeof student_name !== "string") {
     return jsonResponse({ error: "Name erforderlich." }, 400, env);
@@ -248,6 +249,10 @@ export async function handleUpdateProfile(request, env) {
     }
     updates.push("email = ?");
     binds.push(email || null);
+  }
+  if (school !== undefined) {
+    updates.push("school = ?");
+    binds.push(school.trim() || null);
   }
 
   if (updates.length === 0) {
