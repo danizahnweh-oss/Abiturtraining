@@ -150,6 +150,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- ====== LOGIN REDIRECT ====== -->
   <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
@@ -171,7 +172,7 @@
         <span id="studentGreeting" class="header-meta" style="display:none"></span>
         <div class="header-meta">myAbiFlow</div>
         <button class="theme-toggle" onclick="toggleDarkMode()" title="Dark Mode umschalten"
-          id="themeToggleBtn">🌙</button>
+          id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
       </div>
     </header>
 
@@ -193,7 +194,7 @@
       </button>
     </nav>
 
-    <main>
+    <main id="main-content">
 
       <!-- ====== STEP 1: SETUP ====== -->
       <section id="setup" class="active">
@@ -229,7 +230,7 @@
           </p>
 
           <div class="form-group">
-            <label>Themenfeld</label>
+            <label for="topicSelect">Themenfeld</label>
             <select id="topicSelect">
               <option value="L'individu et la société : identité, diversité, vivre ensemble">L'individu et la société :
                 identité, diversité, vivre ensemble</option>
@@ -245,7 +246,7 @@
           </div>
 
           <div class="form-group">
-            <label>Länge Quelltext (Wörter)</label>
+            <label for="sourceLength">Länge Quelltext (Wörter)</label>
             <input type="number" id="sourceLength" value="600" min="200" max="1500" step="50">
           </div>
 
@@ -324,17 +325,17 @@
             </summary>
             <div style="margin-top:1rem;">
               <div class="form-group">
-                <label>Aufgabenstellung (Französisch)</label>
+                <label for="manualTaskInstruction">Aufgabenstellung (Französisch)</label>
                 <textarea id="manualTaskInstruction" style="min-height:100px;"
                   placeholder="Rédigez un courriel à …"></textarea>
               </div>
               <div class="form-group">
-                <label>Quelltext (Deutsch)</label>
+                <label for="manualArticleText">Quelltext (Deutsch)</label>
                 <textarea id="manualArticleText" style="min-height:180px;"
                   placeholder="Deutscher Quelltext hier einfügen …"></textarea>
               </div>
               <div class="form-group">
-                <label>Titel / Überschrift</label>
+                <label for="manualHeadline">Titel / Überschrift</label>
                 <input type="text" id="manualHeadline" placeholder="Titel …"
                   style="width:100%;padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;outline:none;">
               </div>

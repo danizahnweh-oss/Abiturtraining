@@ -9,20 +9,21 @@ import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
   RotateCcw, PenLine, Volume2, ArrowLeft, Download,
-  Quote, BarChart3, Image, ChevronUp, X,
+  Quote, BarChart3, Image, ChevronUp, X, User,
 } from 'lucide-react';
 import {
-  LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMaterialImpulse, generateWrittenFeedback,
+  LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
   type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
 } from './lib/live-api';
 
 const USE_STATEFUL_SESSIONS = false;
 import { downloadFeedbackPdf } from './lib/pdf-export';
 import { AudioProcessor } from './lib/audio-utils';
-import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre } from './lib/curriculum';
+import { CURRICULUM, getSchwerpunkte, getAvailableHalbjahre, getMatheStreichbareGebiete, getMatheVerfuegbareGebiete } from './lib/curriculum';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { TutorialOverlay, KOLLOQUIUM_TOUR_STEPS, KOLLOQUIUM_STORAGE_KEY } from './TutorialOverlay';
+import { ProfileModal } from './ProfileModal';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -94,8 +95,10 @@ function Pill({ active, disabled, onClick, children, className }: {
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={disabled}
+      aria-pressed={active}
       className={cn(
         "py-3 px-4 rounded-xl text-sm border transition-all text-left duration-200",
         active
@@ -123,7 +126,7 @@ function BarChartSVG({ labels, werte, einheit }: { labels: string[]; werte: numb
   const svgH = labels.length * (barH + gap);
 
   return (
-    <svg viewBox={`0 0 ${labelW + chartW + 60} ${svgH}`} className="w-full max-w-md" role="img">
+    <svg viewBox={`0 0 ${labelW + chartW + 60} ${svgH}`} className="w-full max-w-md" role="img" aria-label={`Balkendiagramm: ${labels.map((l, i) => `${l} ${werte[i]}${einheit ? ' ' + einheit : ''}`).join(', ')}`}>
       {labels.map((label, i) => {
         const y = i * (barH + gap);
         const w = (werte[i] / max) * chartW;
@@ -165,7 +168,7 @@ function PieChartSVG({ labels, werte, einheit }: { labels: string[]; werte: numb
 
   return (
     <div className="flex items-start gap-4 flex-wrap">
-      <svg viewBox="0 0 160 160" className="w-32 h-32 shrink-0" role="img">
+      <svg viewBox="0 0 160 160" className="w-32 h-32 shrink-0" role="img" aria-label={`Kreisdiagramm: ${labels.map((l, i) => `${l} ${werte[i]}${einheit ? ' ' + einheit : ''}`).join(', ')}`}>
         {slices}
       </svg>
       <div className="flex flex-col gap-1 text-sm min-w-0">
@@ -258,10 +261,11 @@ export default function App() {
 
   /* Config state */
   const [step, setStep] = useState<Step>('setup');
+  const [showProfile, setShowProfile] = useState(false);
   const [subject, setSubject] = useState(fachFromUrl);
   const [examLevel, setExamLevel] = useState<ExamLevel>('gA');
   const [examMode, setExamMode] = useState<ExamMode>('gesamt');
-  const [gestrichen, setGestrichen] = useState<'12/1' | '12/2' | ''>('');
+  const [gestrichen, setGestrichen] = useState('');
   const [spHalbjahr, setSpHalbjahr] = useState('');
   const [schwerpunkt, setSchwerpunkt] = useState('');
   const [customSp, setCustomSp] = useState(false);
@@ -313,14 +317,21 @@ export default function App() {
   /* Derived */
   const isMathe = subject === 'Mathematik';
   const level = isMathe ? 'eA' : examLevel;
-  const availHJ = gestrichen ? getAvailableHalbjahre(subject, gestrichen) : [];
-  const spOptions = spHalbjahr
+  // Mathe: Gebiete statt Halbjahre
+  const matheGebiete = isMathe && gestrichen ? getMatheVerfuegbareGebiete(gestrichen) : [];
+  const availHJ = !isMathe && gestrichen ? getAvailableHalbjahre(subject, gestrichen as '12/1' | '12/2') : [];
+  const spOptions = !isMathe && spHalbjahr
     ? (customSp
         ? (customSchwerpunkte[spHalbjahr] || []).filter(s => s.trim())
         : getSchwerpunkte(subject, spHalbjahr, level))
     : [];
-  const weitereHJ = (gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : [];
-  const canGenerate = !!(subject && gestrichen && spHalbjahr && schwerpunkt);
+  // Mathe: weiteres Gebiet; andere Fächer: weitere Halbjahre
+  const weitereHJ = isMathe
+    ? (gestrichen && schwerpunkt ? matheGebiete.filter(g => g !== schwerpunkt) : [])
+    : ((gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : []);
+  const canGenerate = isMathe
+    ? !!(subject && gestrichen && schwerpunkt)
+    : !!(subject && gestrichen && spHalbjahr && schwerpunkt);
 
   /* ── elapsed-Ref synchron halten (für Audio-Muting-Callbacks) ── */
   useEffect(() => { examElapsedRef.current = exam.elapsed; }, [exam.elapsed]);
@@ -455,6 +466,9 @@ export default function App() {
     const gender = Math.random() < 0.5 ? 'male' : 'female' as const;
     setExaminerGender(gender);
 
+    // Mathe: spHalbjahr = Schwerpunkt-Gebiet (z.B. "Analysis")
+    const configHalbjahr = isMathe ? schwerpunkt : spHalbjahr;
+
     // "Fragen" mode: skip referat material generation + prep
     if (examMode === 'fragen') {
       // Material-Impulse generieren (falls aktiviert)
@@ -463,7 +477,7 @@ export default function App() {
         setStep('generating');
         try {
           impulse = await generateMaterialImpulse({
-            subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr, weitereHalbjahre: weitereHJ,
+            subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr, weitereHalbjahre: weitereHJ, isMathe,
           });
         } catch { impulse = []; }
         setMatImpulse(impulse);
@@ -484,7 +498,7 @@ export default function App() {
       modelTxCountRef.current = 0;
       const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
       const session = new SessionClass({
-        subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
+        subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr,
         weitereHalbjahre: weitereHJ, aufgabenstellung: '', material: '',
         materialImpulse: impulse.length > 0 ? impulse : undefined,
         examMode, gender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
@@ -503,21 +517,29 @@ export default function App() {
     setActiveImpuls(null);
     setShownImpulse(new Set());
     try {
-      // Referat-Material + Material-Impulse parallel generieren
-      const examConfigForGen = { subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr, weitereHalbjahre: weitereHJ };
+      // Material + Impulse parallel generieren
+      const examConfigForGen = { subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHalbjahr, weitereHalbjahre: weitereHJ, isMathe };
       const promises: [Promise<ExamMaterial>, Promise<MaterialImpuls[]>] = [
-        generateExamMaterial(examConfigForGen),
+        isMathe ? generateMatheAufgaben(examConfigForGen) : generateExamMaterial(examConfigForGen),
         mitMaterial ? generateMaterialImpulse(examConfigForGen) : Promise.resolve([]),
       ];
       const [m, impulse] = await Promise.all(promises);
       setMaterial(m);
       setMatImpulse(impulse);
     } catch {
-      setMaterial({
-        aufgabenstellung: `Erläutern Sie den Schwerpunkt "${schwerpunkt}" im Kontext des Halbjahres ${spHalbjahr}. Gehen Sie dabei auf zentrale Begriffe, Zusammenhänge und aktuelle Bezüge ein. Nehmen Sie abschließend kritisch Stellung.`,
-        material: `Material 1 – Fachlicher Impuls:\nSetzen Sie sich mit dem Themenbereich "${schwerpunkt}" auseinander. Berücksichtigen Sie dabei die im Unterricht behandelten Fachtexte, Modelle und Theorien.\n\nMaterial 2 – Transferaufgabe:\nReflektieren Sie, inwiefern die zentralen Konzepte aus "${schwerpunkt}" auf aktuelle gesellschaftliche oder wissenschaftliche Fragestellungen übertragen werden können. Beziehen Sie eigene Beispiele ein.`,
-        hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Beziehen Sie die Materialien in Ihren Vortrag ein. Planen Sie ca. 10 Minuten für den Vortrag.',
-      });
+      if (isMathe) {
+        setMaterial({
+          aufgabenstellung: `Erläutern Sie grundlegende Konzepte des Gebiets ${schwerpunkt}. Gehen Sie auf zentrale Definitionen, Sätze und Rechenverfahren ein.`,
+          material: `Gebiet: ${schwerpunkt}`,
+          hinweise: 'Sie haben 30 Minuten Vorbereitungszeit. Notieren Sie sich Lösungswege und Ergebnisse.',
+        });
+      } else {
+        setMaterial({
+          aufgabenstellung: `Erläutern Sie den Schwerpunkt "${schwerpunkt}" im Kontext des Halbjahres ${spHalbjahr}. Gehen Sie dabei auf zentrale Begriffe, Zusammenhänge und aktuelle Bezüge ein. Nehmen Sie abschließend kritisch Stellung.`,
+          material: `Material 1 – Fachlicher Impuls:\nSetzen Sie sich mit dem Themenbereich "${schwerpunkt}" auseinander. Berücksichtigen Sie dabei die im Unterricht behandelten Fachtexte, Modelle und Theorien.\n\nMaterial 2 – Transferaufgabe:\nReflektieren Sie, inwiefern die zentralen Konzepte aus "${schwerpunkt}" auf aktuelle gesellschaftliche oder wissenschaftliche Fragestellungen übertragen werden können. Beziehen Sie eigene Beispiele ein.`,
+          hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Beziehen Sie die Materialien in Ihren Vortrag ein. Planen Sie ca. 10 Minuten für den Vortrag.',
+        });
+      }
       setMatImpulse([]);
     }
     setStep('preparation');
@@ -543,8 +565,9 @@ export default function App() {
 
     modelTxCountRef.current = 0;
     const SessionClass = USE_STATEFUL_SESSIONS ? StatefulLiveSession : LiveSession;
+    const configHj = isMathe ? schwerpunkt : spHalbjahr;
     const session = new SessionClass({
-      subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: spHalbjahr,
+      subject, examLevel: level, schwerpunkt, schwerpunktHalbjahr: configHj,
       weitereHalbjahre: weitereHJ, aufgabenstellung: material.aufgabenstellung, material: material.material,
       materialImpulse: matImpulse.length > 0 ? matImpulse : undefined,
       examMode, gender: examinerGender, prueferTyp, shouldPlayModelAudio: makeShouldPlayAudio(examMode),
@@ -575,7 +598,7 @@ export default function App() {
   };
 
   /** Transkript-Fallback: Lokal → sessionStorage-Backup → Server (StatefulLiveSession) */
-  const getTranscripts = async (): Promise<{ mTx: string[]; uTx: string[] }> => {
+  const getTranscriptsWithFallback = async (): Promise<{ mTx: string[]; uTx: string[] }> => {
     // 1) Lokale Transkripte
     if (modelTx.length > 0 || userTx.length > 0) return { mTx: [...modelTx], uTx: [...userTx] };
     // 2) sessionStorage-Backup
@@ -601,7 +624,7 @@ export default function App() {
     setFbLoading(true);
     setStep('feedback');
 
-    const { mTx, uTx } = await getTranscripts();
+    const { mTx, uTx } = await getTranscriptsWithFallback();
     if (mTx.length === 0 && uTx.length === 0) {
       setFbText('Leider konnte kein Prüfungstranskript aufgezeichnet werden. Feedback ist nur möglich, wenn die Prüfung vollständig durchgeführt wurde. Bitte starte eine neue Prüfung.');
       setFbLoading(false);
@@ -634,7 +657,7 @@ export default function App() {
     setStep('feedback');
 
     // Transkript sichern BEVOR modelTx geleert wird
-    const { mTx, uTx } = await getTranscripts();
+    const { mTx, uTx } = await getTranscriptsWithFallback();
     const transcript = mTx.map((m, i) => {
       const u = uTx[i] || '';
       return `${u ? `Prüfling: ${u}\n` : ''}Prüfer: ${m}`;
@@ -818,6 +841,7 @@ export default function App() {
                       <select
                         value={subject}
                         onChange={e => { setSubject(e.target.value); setGestrichen(''); resetSpHalbjahr(); if (e.target.value === 'Mathematik') setExamLevel('eA'); }}
+                        aria-label="Prüfungsfach auswählen"
                         className="w-full appearance-none bg-[#F9F9F9] border border-black/5 rounded-2xl px-5 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/50 transition-all cursor-pointer"
                       >
                         <option value="" disabled>Fach auswählen...</option>
@@ -1140,7 +1164,7 @@ export default function App() {
 
                 {/* Reconnect-Hinweis */}
                 {(status === 'reconnecting' || status === 'error') && (
-                  <div className={cn(
+                  <div role="alert" aria-live="assertive" className={cn(
                     "mx-6 mt-4 px-4 py-3 rounded-xl text-sm flex items-center gap-3",
                     status === 'reconnecting'
                       ? "bg-amber-50 border border-amber-200 text-amber-800"
@@ -1172,7 +1196,8 @@ export default function App() {
                       transition={{ repeat: Infinity, duration: 2, delay: 0.2, ease: "easeInOut" }}
                       className="relative w-32 h-32 bg-gradient-to-tr from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center text-white shadow-[0_0_40px_-10px_rgba(16,185,129,0.5)] ring-4 ring-white/50"
                     >
-                      {status === 'connected' ? <Mic size={48} /> : <MicOff size={48} className="opacity-50" />}
+                      {status === 'connected' ? <Mic size={48} aria-hidden="true" /> : <MicOff size={48} className="opacity-50" aria-hidden="true" />}
+                      <span className="sr-only">{status === 'connected' ? 'Mikrofon aktiv' : 'Mikrofon inaktiv'}</span>
                     </motion.div>
                   </div>
 
@@ -1184,7 +1209,7 @@ export default function App() {
                   <p className="text-emerald-600 font-medium text-sm mb-6">{schwerpunkt}</p>
 
                   {/* Transcription */}
-                  <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[120px] flex flex-col justify-center border border-black/5 relative overflow-hidden">
+                  <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[120px] flex flex-col justify-center border border-black/5 relative overflow-hidden" aria-live="polite" aria-atomic="true">
                     <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
                     {status === 'reconnecting' ? (
                       <div className="text-center">
@@ -1305,8 +1330,8 @@ export default function App() {
                     Feedback
                   </h2>
                   {fbLoading ? (
-                    <div className="flex flex-col items-center py-12">
-                      <Loader2 size={36} className="text-emerald-600 animate-spin mb-4" />
+                    <div className="flex flex-col items-center py-12" role="status" aria-live="polite">
+                      <Loader2 size={36} className="text-emerald-600 animate-spin mb-4" aria-hidden="true" />
                       <p className="opacity-50">Feedback wird erstellt...</p>
                     </div>
                   ) : (
@@ -1346,7 +1371,7 @@ export default function App() {
                     <h2 className="text-xl font-semibold mb-1 text-slate-800">Mündliches Feedback</h2>
                     <p className="text-sm opacity-50 mb-6 text-slate-500">{examinerGender === 'female' ? 'Die' : 'Der'} {prüferLabel} bespricht dein Ergebnis mit dir.</p>
 
-                    <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5 relative overflow-hidden">
+                    <div className="w-full max-w-lg bg-gradient-to-b from-slate-50 to-white shadow-inner rounded-2xl p-6 min-h-[100px] flex flex-col justify-center border border-black/5 relative overflow-hidden" aria-live="polite" aria-atomic="true">
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-100 to-transparent opacity-50" />
                       {status === 'connecting' ? (
                         <div className="text-center">

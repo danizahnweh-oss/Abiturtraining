@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
   <header>
     <div class="header-left">
       <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
@@ -26,7 +27,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
   <nav>
@@ -37,7 +38,7 @@
     <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;"><span class="step-num">📊</span>
       Fortschritt</button>
   </nav>
-  <main>
+  <main id="main-content">
     <section id="sec-setup" class="active">
       <div class="card">
         <h2 class="card-header">Aufgabe wählen</h2>
@@ -50,7 +51,7 @@
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Aufgabe konfigurieren</h2>
         <div class="form-group">
-          <label>Themenbereich</label>
+          <label for="themaSelect">Themenbereich</label>
           <select id="themaSelect">
             <option value="random">Zufällig</option>
             <option value="sprache_politik">Sprache in politisch-gesellschaftlichen Zusammenhängen</option>
@@ -62,7 +63,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Bearbeitungszeit (Minuten)</label>
+          <label for="timerMinutes">Bearbeitungszeit (Minuten)</label>
           <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:150px">
         </div>
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Aufgabe generieren</button>

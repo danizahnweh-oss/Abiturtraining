@@ -25,6 +25,8 @@ const CONFIG = { storedData: null };
 function showToast(msg, type) {
   const t = document.createElement("div");
   t.className = "toast" + (type === "success" ? " success" : "");
+  t.setAttribute("role", "status");
+  t.setAttribute("aria-live", "polite");
   t.textContent = msg;
   document.body.appendChild(t);
   setTimeout(() => { t.style.opacity = "0"; setTimeout(() => t.remove(), 300); }, 3500);
@@ -501,6 +503,9 @@ function showRewriteOverlay(result) {
   var overlay = document.createElement("div");
   overlay.id = "rewriteOverlay";
   overlay.className = "rewrite-overlay";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", "Verbesserungsvorschläge");
 
   var html = '<div class="rewrite-panel">' +
     '<div class="rewrite-header">' +
@@ -542,7 +547,16 @@ function showRewriteOverlay(result) {
     if (e.target === overlay) closeRewriteOverlay();
   });
 
+  // Escape-Taste schliesst Overlay
+  overlay.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeRewriteOverlay();
+  });
+
   document.body.appendChild(overlay);
+
+  // Focus auf Close-Button setzen
+  var closeBtn = overlay.querySelector(".rewrite-close");
+  if (closeBtn) closeBtn.focus();
 
   // Button aktualisieren
   var btnCard = document.getElementById("rewriteBtnCard");
@@ -960,7 +974,11 @@ function showPdfExportModal() {
     var overlay = document.createElement("div");
     overlay.className = "pdf-modal-overlay";
     overlay.id = "pdfModal";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "PDF Export Optionen");
     overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
+    overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
     overlay.innerHTML =
       '<div class="pdf-modal">' +
       '<h3>Als PDF speichern</h3>' +
@@ -972,6 +990,7 @@ function showPdfExportModal() {
       '</div>' +
       '</div>';
     document.body.appendChild(overlay);
+    overlay.querySelector(".btn").focus();
     return;
   }
   if (!hasMaterial()) {
@@ -982,7 +1001,11 @@ function showPdfExportModal() {
   var overlay = document.createElement("div");
   overlay.className = "pdf-modal-overlay";
   overlay.id = "pdfModal";
+  overlay.setAttribute("role", "dialog");
+  overlay.setAttribute("aria-modal", "true");
+  overlay.setAttribute("aria-label", "PDF Export Optionen");
   overlay.onclick = function (e) { if (e.target === overlay) closePdfModal(); };
+  overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") closePdfModal(); });
   overlay.innerHTML =
     '<div class="pdf-modal">' +
     '<h3>Als PDF speichern</h3>' +
@@ -994,6 +1017,7 @@ function showPdfExportModal() {
     '</div>' +
     '</div>';
   document.body.appendChild(overlay);
+  overlay.querySelector(".btn").focus();
 }
 
 function closePdfModal() {
@@ -1585,6 +1609,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       greeting.textContent = [name, course, level].filter(Boolean).join(" · ");
       greeting.style.display = "inline";
     }
+    _makeProfileGreetingClickable();
     restoreSession();
     // Sicherstellen, dass die aktive Section sichtbar ist
     // (fadeUp-Animation lief ggf. ab, während app-wrapper noch hidden war)
@@ -1605,6 +1630,7 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       greeting.textContent = `${sessionStorage.getItem("student_name")} · ${(sessionStorage.getItem("student_level") || "").toUpperCase()}`;
       greeting.style.display = "inline";
     }
+    _makeProfileGreetingClickable();
     restoreSession();
     initHL();
     initTeacherCodeUI();
@@ -1909,6 +1935,7 @@ async function _doLoginModal() {
         greeting.textContent = name + " · " + (sessionStorage.getItem("student_level") || "eA").toUpperCase();
         greeting.style.display = "inline";
       }
+      _makeProfileGreetingClickable();
 
       _closeLoginModal();
       // Callback ausfuehren (z.B. generateTask)
@@ -1934,5 +1961,179 @@ function _closeLoginModal() {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
   _loginModalCallback = null;
+}
+
+/* ================= PROFIL-MODAL ================= */
+function _makeProfileGreetingClickable() {
+  var greeting = document.getElementById("studentGreeting");
+  if (!greeting) return;
+  if (sessionStorage.getItem("access") !== "1") return;
+  greeting.style.cursor = "pointer";
+  greeting.title = "Profil öffnen";
+  greeting.onclick = showProfileModal;
+}
+
+function showProfileModal() {
+  var old = document.getElementById("profileModalOverlay");
+  if (old) old.remove();
+
+  var overlay = document.createElement("div");
+  overlay.id = "profileModalOverlay";
+  overlay.style.cssText = "display:flex;position:fixed;inset:0;z-index:9900;background:rgba(0,0,0,.6);align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);";
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) overlay.remove(); });
+
+  overlay.innerHTML =
+    '<div style="background:var(--surface);border-radius:20px;padding:2rem;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:slideUp .25s ease;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;">' +
+      '<h2 style="font-size:1.2rem;margin:0 0 1.2rem;text-align:center;font-family:var(--font-display);">Mein Profil</h2>' +
+
+      // Profil-Info
+      '<div id="profileInfo" style="margin-bottom:1.2rem;">' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Name</span>' +
+          '<span id="profName" style="font-weight:600;font-size:.95rem;">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Klasse</span>' +
+          '<span id="profClass" style="font-size:.95rem;">–</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<label for="profLevel" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Kursstufe</label>' +
+          '<select id="profLevel" style="padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);min-height:44px;font-family:inherit;">' +
+            '<option value="eA">eA (erhöhtes Anforderungsniveau)</option>' +
+            '<option value="gA">gA (grundlegendes Anforderungsniveau)</option>' +
+          '</select>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem;">' +
+          '<label for="profEmail" style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">E-Mail</label>' +
+          '<input type="email" id="profEmail" placeholder="Optional – für Erinnerungen" style="flex:1;padding:.5rem .7rem;font-size:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem;">' +
+          '<span style="font-size:.82rem;color:var(--ink-muted);min-width:80px;">Dabei seit</span>' +
+          '<span id="profSince" style="font-size:.85rem;color:var(--ink-muted);">–</span>' +
+        '</div>' +
+      '</div>' +
+
+      '<div id="profMsg" style="display:none;font-size:.82rem;margin-bottom:.8rem;text-align:center;padding:.5rem;border-radius:8px;"></div>' +
+
+      '<button type="button" onclick="_saveProfileChanges()" style="width:100%;padding:.75rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:.95rem;font-weight:600;cursor:pointer;min-height:48px;font-family:inherit;margin-bottom:1rem;">Änderungen speichern</button>' +
+
+      // Passwort ändern (aufklappbar)
+      '<details style="margin-bottom:1rem;">' +
+        '<summary style="cursor:pointer;font-size:.9rem;font-weight:600;color:var(--ink);padding:.6rem 0;min-height:44px;display:flex;align-items:center;">Passwort ändern</summary>' +
+        '<div style="padding-top:.5rem;">' +
+          '<input type="password" id="profOldPw" placeholder="Aktuelles Passwort" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="password" id="profNewPw" placeholder="Neues Passwort (min. 6 Zeichen)" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<input type="password" id="profNewPwConfirm" placeholder="Neues Passwort bestätigen" style="width:100%;padding:.6rem .8rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.5rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+          '<div id="profPwMsg" style="display:none;font-size:.82rem;margin-bottom:.5rem;text-align:center;padding:.4rem;border-radius:8px;"></div>' +
+          '<button type="button" onclick="_changePassword()" style="width:100%;padding:.65rem;background:var(--ink);color:var(--surface);border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Passwort ändern</button>' +
+        '</div>' +
+      '</details>' +
+
+      // Aktionen
+      '<div style="display:flex;gap:.5rem;">' +
+        '<button type="button" onclick="_doLogout()" style="flex:1;padding:.6rem;background:none;border:1px solid #ef4444;color:#ef4444;border-radius:10px;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;font-family:inherit;">Abmelden</button>' +
+        '<button type="button" onclick="document.getElementById(\'profileModalOverlay\').remove()" style="flex:1;padding:.6rem;background:none;border:1px solid var(--border);color:var(--ink-muted);border-radius:10px;font-size:.85rem;cursor:pointer;min-height:44px;font-family:inherit;">Schließen</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+  _loadProfileData();
+}
+
+async function _loadProfileData() {
+  var name = sessionStorage.getItem("student_name");
+  if (!name) return;
+
+  document.getElementById("profName").textContent = name;
+  document.getElementById("profLevel").value = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
+
+  try {
+    var data = await apiCall("/api/get-preferences", { student_name: name });
+    if (data.profile) {
+      document.getElementById("profClass").textContent = data.profile.class_group || "–";
+      if (data.profile.created_at) {
+        var d = new Date(data.profile.created_at);
+        document.getElementById("profSince").textContent = d.toLocaleDateString("de-DE", { day: "2-digit", month: "long", year: "numeric" });
+      }
+      document.getElementById("profLevel").value = data.profile.level || "eA";
+    }
+    if (data.preferences) {
+      document.getElementById("profEmail").value = data.preferences.email || "";
+    }
+  } catch (e) {
+    _showProfileMsg("profMsg", "Profil konnte nicht geladen werden.", true);
+  }
+}
+
+async function _saveProfileChanges() {
+  var name = sessionStorage.getItem("student_name");
+  var level = document.getElementById("profLevel").value;
+  var email = document.getElementById("profEmail").value.trim();
+
+  try {
+    await apiCall("/api/update-profile", { student_name: name, level: level, email: email });
+
+    // sessionStorage + Greeting aktualisieren
+    sessionStorage.setItem("student_level", level);
+    var greeting = document.getElementById("studentGreeting");
+    if (greeting) {
+      var course = sessionStorage.getItem("student_course") || "";
+      greeting.textContent = [name, course, level.toUpperCase()].filter(Boolean).join(" · ");
+    }
+
+    _showProfileMsg("profMsg", "Änderungen gespeichert!", false);
+  } catch (e) {
+    _showProfileMsg("profMsg", e.message || "Fehler beim Speichern.", true);
+  }
+}
+
+async function _changePassword() {
+  var oldPw = document.getElementById("profOldPw").value;
+  var newPw = document.getElementById("profNewPw").value;
+  var confirmPw = document.getElementById("profNewPwConfirm").value;
+
+  if (!oldPw) { _showProfileMsg("profPwMsg", "Aktuelles Passwort eingeben.", true); return; }
+  if (!newPw || newPw.length < 6) { _showProfileMsg("profPwMsg", "Neues Passwort muss mind. 6 Zeichen haben.", true); return; }
+  if (newPw !== confirmPw) { _showProfileMsg("profPwMsg", "Passwörter stimmen nicht überein.", true); return; }
+
+  try {
+    var res = await fetch(API_BASE + "/api/change-password", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" },
+      body: JSON.stringify({ student_name: sessionStorage.getItem("student_name"), old_password: oldPw, new_password: newPw })
+    });
+    var data = await res.json();
+
+    if (data.success) {
+      if (data.token) sessionStorage.setItem("access_token", data.token);
+      document.getElementById("profOldPw").value = "";
+      document.getElementById("profNewPw").value = "";
+      document.getElementById("profNewPwConfirm").value = "";
+      _showProfileMsg("profPwMsg", "Passwort erfolgreich geändert!", false);
+    } else {
+      _showProfileMsg("profPwMsg", data.error || "Fehler beim Ändern.", true);
+    }
+  } catch (e) {
+    _showProfileMsg("profPwMsg", "Verbindungsfehler.", true);
+  }
+}
+
+function _showProfileMsg(id, msg, isError) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = "block";
+  el.style.background = isError ? "#fef2f2" : "#f0fdf4";
+  el.style.color = isError ? "#ef4444" : "#16a34a";
+  if (!isError) setTimeout(function () { el.style.display = "none"; }, 3000);
+}
+
+function _doLogout() {
+  sessionStorage.removeItem("access");
+  sessionStorage.removeItem("access_token");
+  sessionStorage.removeItem("student_name");
+  sessionStorage.removeItem("student_level");
+  sessionStorage.removeItem("student_course");
+  location.reload();
 }
 

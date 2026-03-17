@@ -310,6 +310,7 @@ footer a { color: var(--accent); }
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
 <!-- LOGIN -->
 <div id="login-screen">
@@ -341,11 +342,11 @@ footer a { color: var(--accent); }
     <h1>Lehrer-<span>Dashboard</span></h1>
     <div class="header-right">
       <a href="index.html" style="font-size:.85rem;color:var(--accent);text-decoration:none;font-weight:600;">← Zum Trainer</a>
-      <button class="theme-toggle" onclick="toggleDark()" id="themeBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <!-- Tab Navigation -->
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('overview')">Übersicht</button>

@@ -295,6 +295,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -304,7 +305,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
 
@@ -317,7 +318,7 @@
       Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -385,21 +386,21 @@
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label>Aufgabenstellung Teil A</label><textarea id="manualTaskInstruction"
+        <div class="form-group"><label for="manualTaskInstruction">Aufgabenstellung Teil A</label><textarea id="manualTaskInstruction"
             style="min-height:60px" placeholder="Arbeiten Sie aus M 1 heraus …"></textarea></div>
-        <div class="form-group"><label>Quellenmaterial</label><textarea id="manualPrimaryText" style="min-height:120px"
+        <div class="form-group"><label for="manualPrimaryText">Quellenmaterial</label><textarea id="manualPrimaryText" style="min-height:120px"
             placeholder="Historische Quelle hier einfügen …"></textarea></div>
-        <div class="form-group"><label>Aufgabenstellung Teil B</label><textarea id="manualTaskInstructionB"
+        <div class="form-group"><label for="manualTaskInstructionB">Aufgabenstellung Teil B</label><textarea id="manualTaskInstructionB"
             style="min-height:60px" placeholder="Stellen Sie dar … / Beurteilen Sie …"></textarea></div>
-        <div class="form-group"><label>Materialimpuls Teil B (optional)</label><textarea id="manualPrimaryTextB"
+        <div class="form-group"><label for="manualPrimaryTextB">Materialimpuls Teil B (optional)</label><textarea id="manualPrimaryTextB"
             style="min-height:60px" placeholder="Kurzer Impulstext oder Zitat …"></textarea></div>
-        <div class="form-group"><label>Quellenangabe</label><input type="text" id="manualMeta"
+        <div class="form-group"><label for="manualMeta">Quellenangabe</label><input type="text" id="manualMeta"
             placeholder="z.B. Bismarck, Rede, 6.2.1888"></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
         <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
       </div>

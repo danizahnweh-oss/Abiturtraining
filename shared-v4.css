@@ -791,7 +791,6 @@ input[type="number"] {
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: .95rem;
-  outline: none;
   background: var(--surface);
   color: var(--ink);
   transition: all .2s;
@@ -801,6 +800,13 @@ select:focus,
 input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .form-group {
@@ -936,7 +942,6 @@ textarea {
   line-height: 1.7;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  outline: none;
   resize: vertical;
   color: var(--ink);
   background: var(--surface);
@@ -946,6 +951,12 @@ textarea {
 textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .write-toolbar {
@@ -2236,7 +2247,6 @@ textarea:focus {
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
   font-size: 1rem;
-  outline: none;
   background: #f1f5f9;
   color: var(--ink);
   margin-top: .6rem;
@@ -2250,6 +2260,12 @@ textarea:focus {
 .login-input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+.login-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .login-error {
@@ -2604,6 +2620,11 @@ footer a:hover {
   outline: none;
   border-color: var(--accent, #4f46e5);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.custom-topic-container input[type="text"]:focus-visible {
+  outline: 2px solid var(--accent, #4f46e5);
+  outline-offset: 2px;
 }
 
 .custom-topic-hint {
@@ -3401,5 +3422,59 @@ footer a:hover {
 
   .ki-robot-svg {
     width: 100px;
+  }
+}
+
+/* ====== ACCESSIBILITY UTILITIES ====== */
+
+/* Visuell versteckt, aber für Screen-Reader sichtbar */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Globaler Focus-Ring für alle interaktiven Elemente (Tastatur) */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Sprunglink zum Hauptinhalt */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: .75rem 1.5rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Reduzierte Bewegung – global */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

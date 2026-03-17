@@ -115,6 +115,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
 
   <header>
     <div class="header-left">
@@ -124,7 +125,7 @@
     </div>
     <div class="header-right">
       <span id="studentGreeting" class="header-meta" style="display:none"></span>
-      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn">🌙</button>
+      <button class="theme-toggle" onclick="toggleDarkMode()" id="themeToggleBtn" aria-label="Farbmodus wechseln">🌙</button>
     </div>
   </header>
 
@@ -137,7 +138,7 @@
       Fortschritt</button>
   </nav>
 
-  <main>
+  <main id="main-content">
     <!-- STEP 1: SETUP -->
     <section id="sec-setup" class="active">
       <div class="card">
@@ -169,7 +170,7 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Epoche</label>
+            <label for="epocheSelect">Epoche</label>
             <select id="epocheSelect">
               <option value="random">Zufällig</option>
               <option value="klassik_romantik">Klassik und Romantik</option>
@@ -180,7 +181,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Schreibauftrag</label>
+            <label for="schreibauftragSelect">Schreibauftrag</label>
             <select id="schreibauftragSelect">
               <option value="motivvergleich">Motivvergleich</option>
               <option value="poetologisch">Poetologische Ausrichtung</option>
@@ -217,17 +218,17 @@
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label>Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px"
+        <div class="form-group"><label for="manualTaskInstruction">Aufgabe</label><textarea id="manualTaskInstruction" style="min-height:60px"
             placeholder="Interpretieren Sie …"></textarea></div>
-        <div class="form-group"><label>Text</label><textarea id="manualPrimaryText" style="min-height:120px"
+        <div class="form-group"><label for="manualPrimaryText">Text</label><textarea id="manualPrimaryText" style="min-height:120px"
             placeholder="Text hier einfügen …"></textarea></div>
-        <div class="form-group"><label>Autor / Titel</label><input type="text" id="manualMeta"
+        <div class="form-group"><label for="manualMeta">Autor / Titel</label><input type="text" id="manualMeta"
             placeholder="z.B. Goethe, Erlkönig, 1782"></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
       <div class="card">
-        <label>Bearbeitungszeit (Min.)</label>
+        <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
         <input type="number" id="timerMinutes" value="180" min="30" max="315" style="max-width:120px">
       </div>
     </section>
