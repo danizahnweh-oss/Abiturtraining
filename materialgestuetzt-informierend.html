@@ -216,7 +216,7 @@
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
             Seiten möglich</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -224,9 +224,9 @@
           <div class="loader-text">Text wird erkannt …</div>
         </div>
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
-          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction"
+          <div class="form-group"><label>Aufgabenstellung</label><textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A"
               style="min-height:80px"></textarea></div>
-          <div class="form-group"><label>Materialien (gesamter Text)</label><textarea id="parsedPrimaryText"
+          <div class="form-group"><label>Materialien (gesamter Text)</label><textarea id="parsedPrimaryText" aria-label="Erkannter Primärtext"
               style="min-height:200px"></textarea></div>
           <button class="btn" onclick="useUploadedTask()">✓ Verwenden</button>
         </div>
@@ -302,7 +302,7 @@
             <div id="writeMaterialsRef"></div>
           </div>
         </details>
-        <textarea id="studentText" placeholder="Verfasse hier deinen informierenden Text …
+        <textarea id="studentText" aria-label="Deine Antwort" placeholder="Verfasse hier deinen informierenden Text …
 
 Denke an:
 • Adressatenorientierung (Wer liest den Text?)
@@ -331,7 +331,7 @@ Denke an:
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – max. 10 MB pro Bild · Mehrere
             Seiten möglich</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -340,7 +340,7 @@ Denke an:
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRText()">✓ Text übernehmen</button>

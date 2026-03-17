@@ -275,7 +275,7 @@
         <div class="upload-zone" onclick="document.getElementById('taskFileInput').click()">
           <div class="upload-text"><strong>Bilder oder PDF hochladen</strong> (Aufgabenblatt)</div>
         </div>
-        <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleTaskUpload(this.files)">
         <div id="taskUploadPages" class="ocr-pages"></div>
         <div class="loader" id="taskUploadLoader">
@@ -284,7 +284,7 @@
         <div id="taskUploadResult" style="display:none;margin-top:1rem">
           <div id="taskUploadPreview" style="margin-bottom:1rem"></div>
           <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
-          <textarea id="parsedTaskInstruction" style="display:none"></textarea>
+          <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"></textarea>
           <input type="hidden" id="parsedMeta">
           <button class="btn" onclick="useUploadedTask()">&#x2713; Aufgabe verwenden</button>
         </div>
@@ -356,7 +356,7 @@
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -365,7 +365,7 @@
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRText()">&#x2713; Text &uuml;bernehmen</button>

@@ -282,7 +282,7 @@
             <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG – Mehrere Seiten möglich</div>
           </div>
 
-          <input type="file" id="taskFileInput" accept="image/*,.pdf" multiple style="display:none"
+          <input type="file" id="taskFileInput" aria-label="Aufgabe als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
             onchange="handleTaskUpload(this.files)">
 
           <div id="taskUploadPages" class="ocr-pages"></div>
@@ -298,7 +298,7 @@
             <p style="color:var(--ink-success,#16a34a);font-weight:600;margin:.5rem 0 1rem">&#x2713; Dein Abitrainer hat die Aufgabe gelesen und verstanden.</p>
             <div class="form-group" style="display:none">
               <label></label>
-              <textarea id="parsedTaskInstruction" style="display:none"
+              <textarea id="parsedTaskInstruction" aria-label="Erkannter Aufgabentext Teil A" style="display:none"
                 placeholder="Italienische Aufgabenstellung …"></textarea>
             </div>
             <div class="form-group" style="display:none">
@@ -478,7 +478,7 @@
               <button class="btn btn-small btn-secondary" onclick="startTimer()">Timer starten</button>
             </div>
           </div>
-          <textarea id="studentText" placeholder="Scrivete il vostro testo qui …"
+          <textarea id="studentText" aria-label="Deine Antwort" placeholder="Scrivete il vostro testo qui …"
             oninput="updateWordCount()"></textarea>
 
           <div class="write-toolbar">
@@ -512,7 +512,7 @@
               Seiten möglich</div>
           </div>
 
-          <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+          <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
             onchange="handleOCRFiles(this.files)">
 
           <!-- Thumbnail gallery for uploaded pages -->
@@ -525,7 +525,7 @@
 
           <div id="ocrResult" style="display:none;margin-top:1rem;">
             <label>Erkannter Text (bearbeitbar):</label>
-            <textarea id="ocrText" style="min-height:200px;"
+            <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;"
               placeholder="Erkannter Text erscheint hier – du kannst ihn vor der Übernahme bearbeiten …"></textarea>
             <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
               <button class="btn btn-small" onclick="useOCRText()">

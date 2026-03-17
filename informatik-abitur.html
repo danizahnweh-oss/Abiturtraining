@@ -429,7 +429,7 @@
           <div class="upload-text"><strong>Klicken</strong> oder Bilder hierher ziehen</div>
           <div class="upload-text" style="font-size:.8rem;margin-top:.3rem">JPG, PNG &ndash; max. 10 MB pro Bild</div>
         </div>
-        <input type="file" id="ocrFileInput" accept="image/*,.pdf" multiple style="display:none"
+        <input type="file" id="ocrFileInput" aria-label="Abgeschriebenen Text als Bild oder PDF hochladen" accept="image/*,.pdf" multiple style="display:none"
           onchange="handleOCRFiles(this.files)">
         <div id="ocrPages" class="ocr-pages"></div>
         <div id="ocrLoader" class="loader">
@@ -438,7 +438,7 @@
         </div>
         <div id="ocrResult" style="display:none;margin-top:1rem;">
           <label>Erkannter Text (bearbeitbar):</label>
-          <textarea id="ocrText" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
+          <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier &hellip;"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
             <button class="btn btn-small" onclick="useOCRText()">&#x2713; In aktive Aufgabe</button>
