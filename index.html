@@ -11,7 +11,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="wave-icon.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="/fonts/fonts.css">
@@ -2364,32 +2364,36 @@
     /* ====== LEVEL TOGGLE ====== */
     .level-toggle {
       display: flex;
-      justify-content: center;
-      margin: .8rem 0 .2rem
+      flex-direction: column;
+      align-items: center;
+      gap: .35rem;
+      margin: 1rem 0 .2rem
     }
 
     .level-pill {
       display: flex;
-      background: var(--bg);
+      background: var(--bg-warm);
       border-radius: var(--radius-full);
-      padding: 3px;
-      gap: 3px;
-      border: 1px solid var(--border)
+      padding: 4px;
+      gap: 4px;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .06)
     }
 
     .level-pill .level-btn {
-      padding: .45rem 1.4rem;
+      padding: .6rem 2rem;
       border: none;
       border-radius: 99px;
       background: transparent;
       cursor: pointer;
       font-family: var(--font-body);
       font-weight: 700;
-      font-size: .8rem;
+      font-size: .9rem;
       color: var(--ink-light);
       transition: all .2s;
-      letter-spacing: .04em;
-      text-transform: uppercase
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      min-width: 76px
     }
 
     .level-pill .level-btn:hover {
@@ -2397,14 +2401,22 @@
     }
 
     .level-pill .level-btn.active {
-      background: var(--surface);
-      color: var(--accent);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .1)
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .18)
     }
 
     [data-theme="dark"] .level-pill .level-btn.active {
-      background: var(--bg-warm);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .3)
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .45)
+    }
+
+    .level-desc {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: .85
     }
 
     /* ====== LEVEL BACKGROUND ====== */
@@ -5104,7 +5116,7 @@
       });
 
       ordered.forEach(function (subj) {
-        var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+        var isAutoEa = subj === 'mathe' || subj === 'german';
         var isEa = examSubjectsCache.ea === subj || isAutoEa;
         var isOral = examSubjectsCache.oral.indexOf(subj) !== -1;
         // Mathe/Deutsch: kein eA/gA-Label anzeigen
@@ -5215,7 +5227,7 @@
       examSubjectsCache.written.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+          var isAutoEa = subj === 'mathe' || subj === 'german';
           var isEa = examSubjectsCache.ea === subj || isAutoEa;
           card.classList.add(isEa ? "exam-ea" : "exam-written");
           if (!isAutoEa) {
@@ -5232,7 +5244,7 @@
       examSubjectsCache.oral.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+          var isAutoEa = subj === 'mathe' || subj === 'german';
           var isEa = examSubjectsCache.ea === subj || isAutoEa;
           card.classList.add(isEa ? "exam-ea" : "exam-oral");
           if (!isAutoEa) {
@@ -5257,7 +5269,7 @@
       if (!subj) return;
 
       // Mathe und Deutsch sind immer eA – kein manuelles Leistungsfach nötig
-      var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+      var isAutoEa = subj === 'mathe' || subj === 'german';
       var wIdx = examSubjectsCache.written.indexOf(subj);
       var oIdx = examSubjectsCache.oral.indexOf(subj);
       var isLeistung = examSubjectsCache.ea === subj;
@@ -5971,6 +5983,7 @@
       document.getElementById(screenId).style.display = "flex";
       document.getElementById(screenId).setAttribute("data-level-bg", currentLevel);
       document.getElementById(infoId).textContent = info;
+      updateLevelDesc(currentLevel);
 
       document.querySelectorAll("#" + screenId + " .level-btn").forEach(function (btn) {
         btn.classList.toggle("active", btn.dataset.level === currentLevel);
@@ -5978,6 +5991,16 @@
       });
 
       if (_push) history.pushState({ screen: "module-" + subject }, "");
+    }
+
+    function getLevelDesc(lvl) {
+      return lvl === "gA" ? "Grundlegendes Anforderungsniveau (gA)" : "Erhöhtes Anforderungsniveau (eA)";
+    }
+
+    function updateLevelDesc(lvl) {
+      document.querySelectorAll(".level-desc").forEach(function (el) {
+        el.textContent = getLevelDesc(lvl);
+      });
     }
 
     function setLevel(lvl) {
@@ -5992,6 +6015,7 @@
       document.querySelectorAll("[id^='module-screen-']").forEach(function (el) {
         if (el.style.display === "flex") el.setAttribute("data-level-bg", lvl);
       });
+      updateLevelDesc(lvl);
       renderCountdowns();
     }
 
@@ -6262,6 +6286,15 @@
         var abiturJahr = now.getMonth() >= 7 ? now.getFullYear() + 1 : now.getFullYear();
         badge.textContent = "Abitur " + abiturJahr;
       }
+
+      // Level-Beschreibung in alle Toggles injizieren
+      var currentLevel = sessionStorage.getItem("student_level") || "eA";
+      document.querySelectorAll(".level-toggle").forEach(function (toggle) {
+        var desc = document.createElement("p");
+        desc.className = "level-desc";
+        desc.textContent = getLevelDesc(currentLevel);
+        toggle.appendChild(desc);
+      });
 
       checkSession();
       initTheme();
