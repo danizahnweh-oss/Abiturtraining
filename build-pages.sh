@@ -22,11 +22,13 @@ mkdir -p _site
 echo "→ Kopiere HTML-Dateien..."
 cp *.html _site/
 
-# 4. CSS, JS, JSON kopieren
-echo "→ Kopiere CSS, JS, JSON..."
+# 4. CSS, JS, JSON + SEO-Dateien kopieren
+echo "→ Kopiere CSS, JS, JSON, SEO..."
 cp *.css _site/
 cp *.js _site/
 cp manifest.json _site/
+cp robots.txt _site/
+cp sitemap.xml _site/
 
 # 5. Fonts + Vendor-Bibliotheken kopieren (lokal, DSGVO-konform)
 echo "→ Kopiere Fonts + Vendor..."
