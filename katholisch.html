@@ -271,26 +271,39 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": [
-        "WebPage",
-        "LearningResource"
-      ],
-      "name": "myAbiFlow · Kath. Religionslehre",
-      "description": "Katholische Religionslehre üben fürs bayerische Gymnasium – Glaube, Ethik, Kirche mit KI-Feedback auf myAbiFlow.",
+      "@type": "Course",
+      "name": "Kath. Religionslehre Klausurtraining",
+      "description": "Glaube, Ethik, Kirche – Kath. Religion üben mit KI-Feedback.",
       "url": "https://myabiflow.de/katholisch.html",
-      "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
       },
-      "educationalLevel": "Abitur (Gymnasium Bayern)",
+      "inLanguage": "de",
+      "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+      "about": "Kath. Religionslehre",
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student",
-        "audienceType": "Gymnasiasten in Bayern"
+        "audienceType": "Gymnasiasten in Bayern (G9)"
       },
-      "learningResourceType": "Übungsaufgaben"
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -304,7 +317,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Kath. Religionslehre",
+          "name": "Kath. Religionslehre Klausurtraining",
           "item": "https://myabiflow.de/katholisch.html"
         }
       ]

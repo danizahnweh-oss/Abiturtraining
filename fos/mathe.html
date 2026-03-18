@@ -58,26 +58,39 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": [
-        "WebPage",
-        "LearningResource"
-      ],
-      "name": "myAbiFlow FOS · Mathematik",
-      "description": "Mathematik üben für die bayerische FOS – Analysis, Stochastik und Geometrie mit KI-Feedback auf myAbiFlow.",
+      "@type": "Course",
+      "name": "FOS Mathematik",
+      "description": "Analysis, Stochastik und Geometrie für die bayerische FOS.",
       "url": "https://myabiflow.de/fos/mathe.html",
-      "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
       },
-      "educationalLevel": "Fachabitur (FOS Bayern)",
+      "inLanguage": "de",
+      "educationalLevel": "Fachabitur (FOS/BOS Bayern)",
+      "about": "Mathematik",
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student",
-        "audienceType": "FOS-Schüler in Bayern"
+        "audienceType": "FOS/BOS-Schüler in Bayern"
       },
-      "learningResourceType": "Übungsaufgaben"
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -97,7 +110,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Mathematik",
+          "name": "FOS Mathematik",
           "item": "https://myabiflow.de/fos/mathe.html"
         }
       ]
