@@ -1934,9 +1934,32 @@
       }
     }
 
-    @media (max-width: 400px) {
+    /* Auf echten Handys (< 480px) nur 2 Spalten für bessere Lesbarkeit */
+    @media (max-width: 480px) {
       .exam-subjects-grid {
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 .75rem
+      }
+
+      .exam-subjects-grid .subject-card {
+        padding: .9rem .4rem
+      }
+
+      .exam-subjects-grid .subject-icon {
+        font-size: 2.2rem
+      }
+
+      .exam-subjects-grid .subject-title {
+        font-size: .8rem
+      }
+
+      .additional-subjects-grid {
+        padding: 0 .75rem;
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr))
+      }
+
+      .section-header {
+        padding: 0 .75rem
       }
     }
 
@@ -2653,6 +2676,50 @@
       .countdown-ask-btn {
         font-size: .78rem;
         padding: .5rem .8rem
+      }
+
+      /* ===== MOBILE: Subject-Header ===== */
+      .subject-header {
+        padding: .6rem 1rem
+      }
+
+      .subject-header img {
+        height: 38px !important;
+        width: auto !important
+      }
+
+      /* ===== MOBILE: Kolloquium & Training Cards ===== */
+      .kolloquium-banner {
+        padding: 0 .75rem
+      }
+
+      .kolloquium-card {
+        padding: .85rem 1rem;
+        gap: .65rem;
+        flex-wrap: wrap
+      }
+
+      .kolloquium-card .kol-icon {
+        font-size: 1.5rem
+      }
+
+      .kolloquium-card .kol-body {
+        min-width: 0;
+        flex: 1
+      }
+
+      .kolloquium-card .kol-desc {
+        font-size: .73rem
+      }
+
+      .kolloquium-card .kol-badge {
+        font-size: .7rem;
+        padding: .25rem .55rem;
+        white-space: nowrap
+      }
+
+      .kolloquium-card .kol-arrow {
+        display: none
       }
     }
 
