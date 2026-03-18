@@ -279,7 +279,7 @@ html {
   font-size: .78rem;
   font-weight: 600;
   color: var(--ink-muted);
-  transition: background-color, color .15s
+  transition: background-color .15s, color .15s
 }
 
 .formel-tab:hover,
@@ -515,7 +515,7 @@ header .logo-brand .logo-text {
   text-align: center;
   text-decoration: none;
   color: var(--ink);
-  transition: transform, box-shadow, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -801,7 +801,7 @@ input[type="number"] {
   font-size: .95rem;
   background: var(--surface);
   color: var(--ink);
-  transition: border-color, box-shadow .2s;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 select:focus,
@@ -841,10 +841,11 @@ input:focus:not(:focus-visible) {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: .95rem;
-  transition: background-color, transform, box-shadow .2s;
+  transition: background-color .2s, transform .2s, box-shadow .2s;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus-visible {
   background: var(--accent-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
@@ -862,7 +863,8 @@ input:focus:not(:focus-visible) {
   border: 1px solid var(--border);
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
   background: var(--accent-soft);
   border-color: var(--accent);
 }
@@ -871,7 +873,8 @@ input:focus:not(:focus-visible) {
   background: var(--warning);
 }
 
-.btn-danger:hover {
+.btn-danger:hover,
+.btn-danger:focus-visible {
   background: #b91c1c;
 }
 
@@ -1109,7 +1112,8 @@ textarea:focus:not(:focus-visible) {
   align-items: center;
 }
 
-.feedback-detail-toggle summary:hover {
+.feedback-detail-toggle summary:hover,
+.feedback-detail-toggle summary:focus-visible {
   background: var(--surface);
 }
 
@@ -1223,7 +1227,8 @@ textarea:focus:not(:focus-visible) {
   align-items: center;
 }
 
-.aspekt-details summary:hover {
+.aspekt-details summary:hover,
+.aspekt-details summary:focus-visible {
   background: var(--bg-warm);
 }
 
@@ -1519,7 +1524,7 @@ textarea:focus:not(:focus-visible) {
   font-size: .8rem;
   font-weight: 600;
   color: var(--ink-light);
-  transition: background-color, color .15s;
+  transition: background-color .15s, color .15s;
 }
 
 .timer-controls button:hover,
@@ -2033,7 +2038,8 @@ textarea:focus:not(:focus-visible) {
   margin-top: .3rem;
 }
 
-.pdf-modal-buttons .btn-cancel:hover {
+.pdf-modal-buttons .btn-cancel:hover,
+.pdf-modal-buttons .btn-cancel:focus-visible {
   background: var(--bg-warm);
   color: var(--ink);
 }
@@ -2310,7 +2316,7 @@ textarea:focus:not(:focus-visible) {
   background: #f1f5f9;
   color: var(--ink);
   margin-top: .6rem;
-  transition: border-color, box-shadow .2s;
+  transition: border-color .2s, box-shadow .2s;
 }
 
 [data-theme="dark"] .login-input {
@@ -3026,7 +3032,8 @@ footer a:focus-visible {
   min-height: 44px;
   min-width: 44px;
 }
-.edu-img-regen-btn:hover {
+.edu-img-regen-btn:hover,
+.edu-img-regen-btn:focus-visible {
   background: var(--accent, #4f46e5);
   color: #fff;
 }

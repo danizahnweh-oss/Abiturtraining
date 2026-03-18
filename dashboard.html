@@ -1392,7 +1392,7 @@ function renderHeatmap() {
     const totalAvg = allScores.length ? +(allScores.reduce((a, b) => a + b, 0) / allScores.length).toFixed(1) : "–";
     const totalCls = typeof totalAvg === "number" ? (totalAvg >= 10 ? "hm-good" : totalAvg >= 5 ? "hm-ok" : "hm-bad") : "hm-empty";
     const courseTag = d.class_group ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;font-weight:700;">' + escapeHtml(d.class_group) + '</span>' : '';
-    return '<tr style="cursor:pointer" onclick="showStudentDetail(\'' + escapeHtml(name).replace(/'/g, "\\'") + '\')">' +
+    return '<tr style="cursor:pointer" onclick="showStudentDetail(\'' + escapeHtml(name).replace(/'/g, "\\'") + '\')" tabindex="0" role="button" aria-label="Details für ' + escapeHtml(name) + '" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();showStudentDetail(\'' + escapeHtml(name).replace(/'/g, "\\'") + '\')}">' +
       '<td>' + escapeHtml(name) + courseTag + '</td>' + cells +
       '<td><span class="hm-cell ' + totalCls + '" style="font-weight:800">' + totalAvg + '</span></td></tr>';
   }).join("");
