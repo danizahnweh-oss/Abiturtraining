@@ -198,26 +198,39 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": [
-        "WebPage",
-        "LearningResource"
-      ],
-      "name": "myAbiFlow · Geschichte",
-      "description": "Geschichte üben fürs bayerische Gymnasium – alle Epochen mit KI-Feedback auf myAbiFlow.",
+      "@type": "Course",
+      "name": "Geschichte Klausurtraining",
+      "description": "Alle Epochen – Geschichte üben mit KI-Feedback.",
       "url": "https://myabiflow.de/geschichte.html",
-      "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
       },
-      "educationalLevel": "Abitur (Gymnasium Bayern)",
+      "inLanguage": "de",
+      "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+      "about": "Geschichte",
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student",
-        "audienceType": "Gymnasiasten in Bayern"
+        "audienceType": "Gymnasiasten in Bayern (G9)"
       },
-      "learningResourceType": "Übungsaufgaben"
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -231,7 +244,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Geschichte",
+          "name": "Geschichte Klausurtraining",
           "item": "https://myabiflow.de/geschichte.html"
         }
       ]

@@ -377,26 +377,39 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": [
-        "WebPage",
-        "LearningResource"
-      ],
-      "name": "myAbiFlow · Sport Abiturtraining",
-      "description": "Sport Theorie Abiturtraining Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.",
+      "@type": "Course",
+      "name": "Sport Theorie Abiturtraining",
+      "description": "Trainingslehre und Bewegungslehre – Sport Abiturprüfung Bayern.",
       "url": "https://myabiflow.de/sport-abitur.html",
-      "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
       },
-      "educationalLevel": "Abitur (Gymnasium Bayern)",
+      "inLanguage": "de",
+      "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+      "about": "Sport Theorie",
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student",
-        "audienceType": "Gymnasiasten in Bayern"
+        "audienceType": "Gymnasiasten in Bayern (G9)"
       },
-      "learningResourceType": "Prüfungsvorbereitung"
+      "learningResourceType": "Prüfungsvorbereitung",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
     },
     {
       "@type": "BreadcrumbList",
@@ -410,7 +423,7 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Sport Abiturtraining",
+          "name": "Sport Theorie Abiturtraining",
           "item": "https://myabiflow.de/sport-abitur.html"
         }
       ]

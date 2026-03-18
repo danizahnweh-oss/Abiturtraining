@@ -12,7 +12,7 @@
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
   <meta property="og:title" content="myAbiFlow – Dein Weg zum Abitur">
-  <meta property="og:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium und die FOS.">
+  <meta property="og:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die FOS. Übe alle Fächer mit automatischer Bewertung.">
   <meta property="og:image" content="https://myabiflow.de/og-image.png">
   <meta property="og:url" content="https://myabiflow.de/">
   <meta property="og:type" content="website">
@@ -20,7 +20,7 @@
   <meta property="og:site_name" content="myAbiFlow">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="myAbiFlow – Dein Weg zum Abitur">
-  <meta name="twitter:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium und die FOS.">
+  <meta name="twitter:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die FOS. Übe alle Fächer mit automatischer Bewertung.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/">
   <link rel="icon" href="wave-icon-new.png" type="image/png">
@@ -2881,24 +2881,268 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "EducationalOrganization"],
+      "@id": "https://myabiflow.de/#organization",
+      "name": "myAbiFlow UG (haftungsbeschränkt) i.G.",
+      "alternateName": "myAbiFlow",
+      "url": "https://myabiflow.de",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://myabiflow.de/logo-v3.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://myabiflow.de/og-image.png",
+      "description": "KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die Fachoberschule (FOS/BOS). Alle Fächer mit automatischer Bewertung.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Karolingerstraße 12B",
+        "addressLocality": "Gilching",
+        "postalCode": "82205",
+        "addressCountry": "DE",
+        "addressRegion": "Bayern"
+      },
+      "email": "info@myabiflow.de",
+      "telephone": "+4915679785995",
+      "founder": {
+        "@type": "Person",
+        "name": "Daniel Zahnweh"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Bayern",
+        "containedInPlace": {
+          "@type": "Country",
+          "name": "Deutschland"
+        }
+      },
+      "knowsAbout": [
+        "Abiturprüfung Bayern G9",
+        "Fachabitur FOS Bayern",
+        "KI-gestütztes Lernen",
+        "Prüfungsvorbereitung"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://myabiflow.de/#website",
       "name": "myAbiFlow",
       "url": "https://myabiflow.de",
-      "logo": "https://myabiflow.de/logo-v3.png",
-      "description": "KI-gestützter Abitur-Trainer für das bayerische Gymnasium und die FOS.",
-      "sameAs": []
+      "description": "Dein KI-Abiturtrainer für Bayern – Gymnasium G9 und FOS/BOS",
+      "publisher": { "@id": "https://myabiflow.de/#organization" },
+      "inLanguage": "de",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://myabiflow.de/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     },
     {
       "@type": "WebPage",
+      "@id": "https://myabiflow.de/#webpage",
       "name": "myAbiFlow – Dein Weg zum Abitur",
-      "description": "",
+      "description": "KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.",
       "url": "https://myabiflow.de/",
       "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
-      }
+      "isPartOf": { "@id": "https://myabiflow.de/#website" },
+      "about": { "@id": "https://myabiflow.de/#organization" }
+    },
+    {
+      "@type": "ItemList",
+      "name": "Abiturtraining-Kurse – Gymnasium Bayern G9",
+      "description": "Alle verfügbaren Fächer für die Abiturvorbereitung am bayerischen Gymnasium (G9)",
+      "numberOfItems": 16,
+      "itemListElement": [
+        {
+          "@type": "Course",
+          "position": 1,
+          "name": "Englisch Abiturtraining",
+          "description": "Mediation, Textproduktion und Listening Comprehension – KI-gestützte Vorbereitung auf das Englisch-Abitur in Bayern.",
+          "url": "https://myabiflow.de/mediation.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "inLanguage": "de",
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Englisch",
+          "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "courseWorkload": "PT30M"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "category": "Kostenlose Basisversion"
+          }
+        },
+        {
+          "@type": "Course",
+          "position": 2,
+          "name": "Deutsch Abiturtraining",
+          "description": "Interpretation, Textanalyse, Erörterung und materialgestütztes Schreiben – Vorbereitung auf das Deutsch-Abitur in Bayern.",
+          "url": "https://myabiflow.de/analyse.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "inLanguage": "de",
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Deutsch",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 3,
+          "name": "Mathematik Abiturtraining",
+          "description": "Analysis, Stochastik und Geometrie – originalnahe Aufgaben für das Mathe-Abitur Bayern mit KI-Bewertung.",
+          "url": "https://myabiflow.de/mathe-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Mathematik",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 4,
+          "name": "Geschichte Abiturtraining",
+          "description": "Klausur- und Abiturtraining Geschichte für das bayerische Gymnasium mit KI-Feedback.",
+          "url": "https://myabiflow.de/geschichte-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Geschichte",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 5,
+          "name": "Physik Abiturtraining",
+          "description": "Mechanik, Elektrodynamik und Quantenphysik – Prüfungsvorbereitung Physik Bayern.",
+          "url": "https://myabiflow.de/physik-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Physik",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 6,
+          "name": "Biologie Abiturtraining",
+          "description": "Genetik, Ökologie und Evolution – Prüfungsvorbereitung Biologie Bayern.",
+          "url": "https://myabiflow.de/biologie-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Biologie",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 7,
+          "name": "Chemie Abiturtraining",
+          "description": "Organik, Anorganik und Gleichgewichte – Prüfungsvorbereitung Chemie Bayern.",
+          "url": "https://myabiflow.de/chemie-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Chemie",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 8,
+          "name": "Geographie Abiturtraining",
+          "description": "Physische und Humangeographie – Prüfungsvorbereitung Geographie Bayern.",
+          "url": "https://myabiflow.de/geographie-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Geographie",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 9,
+          "name": "Wirtschaft und Recht Abiturtraining",
+          "description": "BWL, VWL und Recht – Prüfungsvorbereitung WR Bayern.",
+          "url": "https://myabiflow.de/wr-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Wirtschaft und Recht",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 10,
+          "name": "Politik und Gesellschaft Abiturtraining",
+          "description": "Demokratie, Europa und Globalisierung – Prüfungsvorbereitung PuG Bayern.",
+          "url": "https://myabiflow.de/pug-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Politik und Gesellschaft",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 11,
+          "name": "Informatik Abiturtraining",
+          "description": "Algorithmen, Datenstrukturen und mehr – Prüfungsvorbereitung Informatik Bayern.",
+          "url": "https://myabiflow.de/informatik-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Informatik",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 12,
+          "name": "Ethik Abiturtraining",
+          "description": "Moralphilosophie, Freiheit und Gerechtigkeit – Prüfungsvorbereitung Ethik Bayern.",
+          "url": "https://myabiflow.de/ethik-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Ethik",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 13,
+          "name": "Französisch Abiturtraining",
+          "description": "Sprachmittlung und Textproduktion – Prüfungsvorbereitung Französisch Bayern.",
+          "url": "https://myabiflow.de/francais-mediation.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Französisch",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 14,
+          "name": "Latein Abiturtraining",
+          "description": "Übersetzung und Interpretation – Prüfungsvorbereitung Latein Bayern.",
+          "url": "https://myabiflow.de/latein-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Latein",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 15,
+          "name": "Ev. Religionslehre Abiturtraining",
+          "description": "Theologie und Ethik – Prüfungsvorbereitung Ev. Religion Bayern.",
+          "url": "https://myabiflow.de/religion-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Evangelische Religionslehre",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        },
+        {
+          "@type": "Course",
+          "position": 16,
+          "name": "Kath. Religionslehre Abiturtraining",
+          "description": "Glaube, Ethik und Kirche – Prüfungsvorbereitung Kath. Religion Bayern.",
+          "url": "https://myabiflow.de/katholisch-abitur.html",
+          "provider": { "@id": "https://myabiflow.de/#organization" },
+          "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+          "about": "Katholische Religionslehre",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+        }
+      ]
     }
   ]
 }

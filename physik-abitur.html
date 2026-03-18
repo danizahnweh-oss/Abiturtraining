@@ -274,26 +274,39 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": [
-        "WebPage",
-        "LearningResource"
-      ],
-      "name": "myAbiFlow · Physik Abiturtraining",
-      "description": "Physik Abiturtraining Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.",
+      "@type": "Course",
+      "name": "Physik Abiturtraining",
+      "description": "Mechanik, Elektrodynamik, Quantenphysik – Physik Abiturprüfung Bayern.",
       "url": "https://myabiflow.de/physik-abitur.html",
-      "inLanguage": "de",
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "myAbiFlow",
-        "url": "https://myabiflow.de"
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
       },
-      "educationalLevel": "Abitur (Gymnasium Bayern)",
+      "inLanguage": "de",
+      "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+      "about": "Physik",
       "audience": {
         "@type": "EducationalAudience",
         "educationalRole": "student",
-        "audienceType": "Gymnasiasten in Bayern"
+        "audienceType": "Gymnasiasten in Bayern (G9)"
       },
-      "learningResourceType": "Prüfungsvorbereitung"
+      "learningResourceType": "Prüfungsvorbereitung",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
     },
     {
       "@type": "BreadcrumbList",
