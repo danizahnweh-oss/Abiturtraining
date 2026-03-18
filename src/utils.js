@@ -2,6 +2,11 @@
 /* Gemeinsame Hilfsfunktionen für alle Module */
 
 /* ---- CORS ---- */
+// Cloudflare Pages Preview-Origins (z.B. staging.myabiflow.pages.dev)
+function isAllowedPreviewOrigin(origin) {
+  return /^https:\/\/[a-z0-9-]+\.myabiflow\.pages\.dev$/.test(origin);
+}
+
 export function getAllowedOrigins(env) {
   const primary = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
   const origins = [primary, primary.replace("://", "://www.")];
@@ -11,10 +16,14 @@ export function getAllowedOrigins(env) {
   return origins;
 }
 
+export function isOriginAllowed(origin, env) {
+  if (!origin) return false;
+  return getAllowedOrigins(env).includes(origin) || isAllowedPreviewOrigin(origin);
+}
+
 export function corsHeaders(env, requestOrigin) {
-  const allowedOrigins = getAllowedOrigins(env);
   const primary = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
-  const origin = (requestOrigin && allowedOrigins.includes(requestOrigin)) ? requestOrigin : primary;
+  const origin = (requestOrigin && isOriginAllowed(requestOrigin, env)) ? requestOrigin : primary;
   return {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": origin,
