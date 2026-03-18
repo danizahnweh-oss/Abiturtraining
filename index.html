@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#4f46e5">
   <meta name="color-scheme" content="light dark">
   <meta http-equiv="Content-Security-Policy"
-    content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.zahnweh.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
   <meta property="og:title" content="myAbiFlow – Dein Weg zum Abitur">
   <meta property="og:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die FOS. Übe alle Fächer mit automatischer Bewertung.">
@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die FOS. Übe alle Fächer mit automatischer Bewertung.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/">
-  <link rel="icon" href="wave-icon-new.png" type="image/png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="/fonts/fonts.css">
@@ -3147,6 +3147,54 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Ist myAbiFlow kostenlos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, myAbiFlow bietet eine kostenlose Basisversion mit KI-gestütztem Klausur- und Abiturtraining für alle Fächer am bayerischen Gymnasium (G9) und der FOS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Für welche Fächer gibt es Abiturtraining?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "myAbiFlow bietet Training für über 16 Fächer: Deutsch, Englisch, Mathematik, Geschichte, Geographie, Politik und Gesellschaft, Wirtschaft und Recht, Ethik, Ev. und Kath. Religion, Biologie, Chemie, Physik, Informatik, Sport, Französisch, Italienisch und Latein."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie funktioniert die KI-Bewertung?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Du bearbeitest lehrplankonforme Aufgaben (Klausur- oder Abiturformat) und bekommst sofort automatisches Feedback mit Punktebewertung, detaillierter Fehleranalyse und einer Musterlösung – alles durch KI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ist myAbiFlow am LehrplanPLUS Bayern orientiert?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, alle Aufgaben und Bewertungskriterien orientieren sich am LehrplanPLUS Bayern für das G9-Gymnasium. Für die Fachoberschule gibt es eigene FOS-spezifische Module."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich auch handschriftliche Lösungen abgeben?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, du kannst deine handschriftlichen Lösungen fotografieren und hochladen. Die integrierte OCR-Erkennung wandelt deine Handschrift in Text um, der dann von der KI bewertet wird."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 
 <body>
@@ -3158,7 +3206,7 @@
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
       <video id="splashVideo" muted playsinline preload="auto" style="display:none">
       </video>
-      <img src="logo.png" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
+      <img src="logo.webp" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo">
     </div>
     <script>
       (function () {
@@ -3285,7 +3333,7 @@
   <!-- ====== ROLE SELECTION SCREEN ====== -->
   <div id="role-screen" role="region" aria-label="Willkommen">
     <div class="role-box">
-      <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431">
+      <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431">
       <div class="abitur-badge">Dein Weg zum Abitur</div>
       <h2>Willkommen bei myAbiFlow</h2>
       <p>Wähle deinen Bereich:</p>
@@ -3308,7 +3356,7 @@
   <div id="login-screen">
     <div class="login-box">
       <div style="text-align:center; margin-bottom:1.5rem;">
-        <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431" style="height: 49px; width: auto;">
+        <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" style="height: 49px; width: auto;">
       </div>
       <div class="abitur-badge" id="abiturYearBadge">Abitur 2026</div>
       <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
@@ -3340,7 +3388,7 @@
   <!-- ====== SUBJECT SELECTION SCREEN ====== -->
   <div id="subject-screen" role="main">
     <div class="subject-header">
-      <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431" style="height: 101px; width: auto;">
+      <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" style="height: 101px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
@@ -3784,7 +3832,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">English <span style="color:var(--accent)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">English <span style="color:var(--accent)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoEn" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -3829,7 +3877,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Deutsch <span style="color:var(--accent-de)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Deutsch <span style="color:var(--accent-de)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoDe" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -3883,7 +3931,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Geschichte <span style="color:var(--accent-ge)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Geschichte <span style="color:var(--accent-ge)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoGe" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -3922,7 +3970,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Politik und Gesellschaft <span style="color:var(--accent-pug)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Politik und Gesellschaft <span style="color:var(--accent-pug)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoPug" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -3961,7 +4009,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Wirtschaft & Recht <span style="color:var(--accent-wr)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Wirtschaft & Recht <span style="color:var(--accent-wr)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoWr" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4001,7 +4049,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
-        <h1 style="margin-top:.3rem">Französisch <span style="color:var(--accent-fr)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Französisch <span style="color:var(--accent-fr)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoFr" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4041,7 +4089,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fächerauswahl</a>
-        <h1 style="margin-top:.3rem">Italienisch <span style="color:var(--accent-it)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Italienisch <span style="color:var(--accent-it)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoIt" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4081,7 +4129,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Ethik <span style="color:var(--accent-eth)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Ethik <span style="color:var(--accent-eth)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoEth" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4120,7 +4168,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">&larr; Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Ev. Religion <span style="color:var(--accent-rel)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Ev. Religion <span style="color:var(--accent-rel)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoRel" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4159,7 +4207,7 @@
   <div id="module-screen-katholisch" style="display:none;min-height:100vh;flex-direction:column">
     <div class="module-header">
       <a href="#" class="back-link" onclick="event.preventDefault();showSubjectGrid()">&larr; Fachauswahl</a>
-      <h1 style="margin-top:.3rem">Kath. Religion <span style="color:var(--accent-kath)">Trainer</span></h1>
+      <h2 style="margin-top:.3rem">Kath. Religion <span style="color:var(--accent-kath)">Trainer</span></h2>
     </div>
     <div class="greeting-bar" id="userInfoKath">Was m&ouml;chtest du &uuml;ben?</div>
     <div class="module-grid">
@@ -4184,7 +4232,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Geographie <span style="color:var(--accent-geo)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Geographie <span style="color:var(--accent-geo)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoGeo" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4223,7 +4271,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Latein <span style="color:var(--accent-lat)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Latein <span style="color:var(--accent-lat)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoLat" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4263,7 +4311,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Mathematik <span style="color:var(--accent-mat)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Mathematik <span style="color:var(--accent-mat)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoMat" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4296,7 +4344,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Chemie <span style="color:var(--accent-che)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Chemie <span style="color:var(--accent-che)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoChe" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4336,7 +4384,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Physik <span style="color:var(--accent-phy)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Physik <span style="color:var(--accent-phy)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoPhy" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4375,7 +4423,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Biologie <span style="color:var(--accent-bio)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Biologie <span style="color:var(--accent-bio)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoBio" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4415,7 +4463,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Sport <span style="color:var(--accent-spo)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Sport <span style="color:var(--accent-spo)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoSpo" style="font-size:.85rem;color:var(--ink-muted)"></span>
@@ -4454,7 +4502,7 @@
     <div class="module-header">
       <div>
         <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
-        <h1 style="margin-top:.3rem">Informatik <span style="color:var(--accent-inf)">Trainer</span></h1>
+        <h2 style="margin-top:.3rem">Informatik <span style="color:var(--accent-inf)">Trainer</span></h2>
       </div>
       <div class="header-right">
         <span id="userInfoInf" style="font-size:.85rem;color:var(--ink-muted)"></span>
