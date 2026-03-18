@@ -749,7 +749,7 @@
       document.getElementById("audioPlayerUI").style.display = "none";
 
       try {
-        const { generateListeningAudio } = await import('./listening-audio.js');
+        const { generateListeningAudio } = await import('/listening-audio.js');
         const voice = document.getElementById("voiceSelect").value;
 
         const result = await generateListeningAudio(
