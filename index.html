@@ -7,6 +7,7 @@
   <meta name="description"
     content="myAbiFlow – KI-gestützter Abitur-Trainer für das bayerische Gymnasium. Übe alle Fächer mit automatischer Bewertung.">
   <meta name="theme-color" content="#4f46e5">
+  <meta name="color-scheme" content="light dark">
   <meta http-equiv="Content-Security-Policy"
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
@@ -330,7 +331,7 @@
       flex-shrink: 0;
       background: var(--accent-kol-soft);
       color: var(--accent-kol);
-      font-size: .65rem;
+      font-size: .75rem;
       font-weight: 700;
       padding: .3rem .7rem;
       border-radius: 20px;
@@ -444,7 +445,7 @@
     }
 
     .training-group-label {
-      font-size: .7rem;
+      font-size: .75rem;
       font-weight: 700;
       color: var(--ink-light);
       text-transform: uppercase;
@@ -5895,13 +5896,19 @@
 
     function toggleDark() {
       var d = document.documentElement.getAttribute("data-theme") === "dark";
-      document.documentElement.setAttribute("data-theme", d ? "light" : "dark");
+      var next = d ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch(e) {}
       document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = d ? "\uD83C\uDF19" : "\u2600\uFE0F"; });
     }
 
     function initTheme() {
-      document.documentElement.setAttribute("data-theme", "light");
-      document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = "\uD83C\uDF19"; });
+      var saved;
+      try { saved = localStorage.getItem("theme"); } catch(e) {}
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      var theme = saved || (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+      document.querySelectorAll(".theme-toggle").forEach(function (btn) { btn.textContent = theme === "dark" ? "\u2600\uFE0F" : "\uD83C\uDF19"; });
     }
   </script>
 

@@ -6,6 +6,7 @@
 /* ====== BASE FONT SIZE (skaliert alle rem-Werte ~12.5% größer) ====== */
 html {
   font-size: 112.5%; /* 18px statt 16px */
+  color-scheme: light dark; /* Browser-UI (Scrollbars, native Inputs) folgt dem aktiven Theme */
 }
 
 /* ====== CSS CUSTOM PROPERTIES ====== */
@@ -664,8 +665,8 @@ header h1 span {
 .theme-toggle {
   background: var(--border);
   border: none;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 1.1rem;
@@ -989,6 +990,12 @@ textarea:focus:not(:focus-visible) {
   margin-bottom: 1.5rem;
 }
 
+@media (max-width: 400px) {
+  .scores-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .score-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -1130,12 +1137,22 @@ textarea:focus:not(:focus-visible) {
   cursor: help;
 }
 
+[data-theme="dark"] .fehler-rs {
+  background: rgba(251, 113, 133, .2);
+  color: #fda4af;
+}
+
 .fehler-gr {
   background: #fed7aa;
   color: #c2410c;
   border-radius: 2px;
   padding: 0 2px;
   cursor: help;
+}
+
+[data-theme="dark"] .fehler-gr {
+  background: rgba(251, 146, 60, .2);
+  color: #fdba74;
 }
 
 .korrektur-legende {
@@ -1152,11 +1169,21 @@ textarea:focus:not(:focus-visible) {
   border-radius: 4px;
 }
 
+[data-theme="dark"] .fehler-rs-demo {
+  background: rgba(251, 113, 133, .2);
+  color: #fda4af;
+}
+
 .fehler-gr-demo {
   background: #fed7aa;
   color: #c2410c;
   padding: 2px 8px;
   border-radius: 4px;
+}
+
+[data-theme="dark"] .fehler-gr-demo {
+  background: rgba(251, 146, 60, .2);
+  color: #fdba74;
 }
 
 .korrektur-body {
@@ -1296,6 +1323,11 @@ textarea:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: .35rem;
+}
+
+[data-theme="dark"] .ki-hinweis {
+  background: rgba(129, 140, 248, .08);
+  border-color: rgba(129, 140, 248, .2);
 }
 
 /* ====== LOADER ====== */

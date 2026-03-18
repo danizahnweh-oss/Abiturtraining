@@ -677,16 +677,22 @@ function nav(step, _pushHistory) {
 
 function toggleDarkMode() {
   const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-  document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+  const next = isDark ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try { localStorage.setItem("theme", next); } catch(e) {}
   const btn = document.getElementById("themeToggleBtn");
   if (btn) btn.textContent = isDark ? "🌙" : "☀️";
   if (progressChartInstance) renderProgressChart();
 }
 
 function initTheme() {
-  document.documentElement.setAttribute("data-theme", "light");
+  let saved;
+  try { saved = localStorage.getItem("theme"); } catch(e) {}
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const theme = saved || (prefersDark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", theme);
   const btn = document.getElementById("themeToggleBtn");
-  if (btn) btn.textContent = "🌙";
+  if (btn) btn.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
 /* ================= TIMER ================= */
