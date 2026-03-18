@@ -279,7 +279,7 @@ html {
   font-size: .78rem;
   font-weight: 600;
   color: var(--ink-muted);
-  transition: all .15s
+  transition: background-color, color .15s
 }
 
 .formel-tab:hover,
@@ -310,7 +310,7 @@ html {
   font-family: var(--font-mono);
   color: var(--ink);
   text-align: center;
-  transition: all .12s;
+  transition: border-color, background-color, color .12s;
   line-height: 1.2;
   min-height: 32px;
   display: flex;
@@ -515,7 +515,7 @@ header .logo-brand .logo-text {
   text-align: center;
   text-decoration: none;
   color: var(--ink);
-  transition: all 0.2s ease;
+  transition: transform, box-shadow, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -801,7 +801,7 @@ input[type="number"] {
   font-size: .95rem;
   background: var(--surface);
   color: var(--ink);
-  transition: all .2s;
+  transition: border-color, box-shadow .2s;
 }
 
 select:focus,
@@ -841,7 +841,7 @@ input:focus:not(:focus-visible) {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: .95rem;
-  transition: all .2s;
+  transition: background-color, transform, box-shadow .2s;
 }
 
 .btn:hover {
@@ -1519,7 +1519,7 @@ textarea:focus:not(:focus-visible) {
   font-size: .8rem;
   font-weight: 600;
   color: var(--ink-light);
-  transition: all .15s;
+  transition: background-color, color .15s;
 }
 
 .timer-controls button:hover,
@@ -1819,7 +1819,7 @@ textarea:focus:not(:focus-visible) {
   padding: 2rem;
   text-align: center;
   cursor: pointer;
-  transition: all .2s;
+  transition: border-color, background-color .2s;
   background: var(--bg-warm);
 }
 
@@ -1953,7 +1953,7 @@ textarea:focus:not(:focus-visible) {
   font-weight: 600;
   font-size: .9rem;
   color: var(--ink-light);
-  transition: all .2s;
+  transition: border-color, color .2s;
 }
 
 .mode-btn:hover,
@@ -2310,7 +2310,7 @@ textarea:focus:not(:focus-visible) {
   background: #f1f5f9;
   color: var(--ink);
   margin-top: .6rem;
-  transition: all .2s;
+  transition: border-color, box-shadow .2s;
 }
 
 [data-theme="dark"] .login-input {
@@ -2713,7 +2713,7 @@ footer a:focus-visible {
   border-radius: var(--radius);
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, .55);
   pointer-events: none;
-  transition: all .4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: top, left, width, height .4s cubic-bezier(0.22, 1, 0.36, 1);
   animation: tourSpotlightIn .3s ease;
 }
 
