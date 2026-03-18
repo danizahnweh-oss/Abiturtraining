@@ -3077,7 +3077,7 @@
         <span id="examCounter">0/5 Fächer gewählt</span>
         <span class="exam-legend"><span class="exam-dot ea"></span> eA <span class="exam-dot written"></span> Schriftlich gA <span class="exam-dot oral"></span> Mündlich gA</span>
       </div>
-      <p class="exam-hint">1. Klick = schriftlich gA · 2. Klick auf schriftliches Fach = eA · nochmal klicken = entfernen</p>
+      <p class="exam-hint">1. Klick = gA · 2. Klick = eA (schriftlich & mündlich möglich) · nochmal klicken = entfernen · Mathe ist immer eA</p>
       <button class="exam-reset-btn" onclick="resetExamSubjects()" type="button">🔄 Alle Abifächer zurücksetzen</button>
     </div>
     <!-- Abi-Faecher-Sektion (grosse Karten, nach Wizard sichtbar) -->
@@ -5008,7 +5008,7 @@
       ordered.forEach(function (subj) {
         var isEa = examSubjectsCache.ea === subj;
         var isOral = examSubjectsCache.oral.indexOf(subj) !== -1;
-        var typeLabel = isEa ? "⭐ schriftlich eA" : isOral ? "🗣️ mündlich gA" : "✍️ schriftlich gA";
+        var typeLabel = isEa ? (isOral ? "⭐ mündlich eA" : "⭐ schriftlich eA") : isOral ? "🗣️ mündlich gA" : "✍️ schriftlich gA";
         var typeLabelCls = isEa ? "exam-type-label-ea" : isOral ? "exam-type-label-oral" : "exam-type-label-written";
         var typeCls = isEa ? "exam-ea" : isOral ? "exam-oral" : "exam-written";
 
@@ -5128,10 +5128,11 @@
       examSubjectsCache.oral.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          card.classList.add("exam-oral");
+          var isEa = examSubjectsCache.ea === subj;
+          card.classList.add(isEa ? "exam-ea" : "exam-oral");
           var badge = document.createElement("span");
-          badge.className = "exam-badge exam-badge-oral";
-          badge.textContent = "🗣️ mündlich gA";
+          badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-oral");
+          badge.textContent = isEa ? "⭐ mündlich eA" : "🗣️ mündlich gA";
           card.appendChild(badge);
         }
       });
@@ -5148,28 +5149,40 @@
       var subj = getSubjectKey(card);
       if (!subj) return;
 
+      var isMathe = subj === 'mathematik';
       var wIdx = examSubjectsCache.written.indexOf(subj);
       var oIdx = examSubjectsCache.oral.indexOf(subj);
       var isEa = examSubjectsCache.ea === subj;
 
-      if (isEa) {
-        // eA → zurück zu normalem schriftlichen Fach (gA)
+      if (isMathe) {
+        // Mathe ist immer eA – direkt hinzufügen oder entfernen
+        if (wIdx !== -1) {
+          examSubjectsCache.written.splice(wIdx, 1);
+          examSubjectsCache.ea = "";
+        } else if (examSubjectsCache.written.length < 3) {
+          examSubjectsCache.written.push(subj);
+          examSubjectsCache.ea = subj;
+        }
+      } else if (isEa) {
+        // eA → zurück zu gA (schriftlich oder mündlich bleibt)
         examSubjectsCache.ea = "";
       } else if (wIdx !== -1 && !examSubjectsCache.ea) {
-        // Schriftlich gA → zu eA hochstufen (wenn noch kein eA gewählt)
+        // Schriftlich gA → zu eA hochstufen
         examSubjectsCache.ea = subj;
       } else if (wIdx !== -1) {
-        // Schriftlich → entfernen
+        // Schriftlich gA (eA schon vergeben) → entfernen
         examSubjectsCache.written.splice(wIdx, 1);
-        if (examSubjectsCache.ea === subj) examSubjectsCache.ea = "";
+      } else if (oIdx !== -1 && !examSubjectsCache.ea) {
+        // Mündlich gA → zu eA hochstufen
+        examSubjectsCache.ea = subj;
       } else if (oIdx !== -1) {
-        // Mündlich → entfernen
+        // Mündlich gA (eA schon vergeben) → entfernen
         examSubjectsCache.oral.splice(oIdx, 1);
       } else if (examSubjectsCache.written.length < 3) {
-        // Als schriftlich hinzufügen (gA)
+        // Als schriftlich gA hinzufügen
         examSubjectsCache.written.push(subj);
       } else if (examSubjectsCache.oral.length < 2) {
-        // Als mündlich hinzufügen (gA)
+        // Als mündlich gA hinzufügen
         examSubjectsCache.oral.push(subj);
       }
 
