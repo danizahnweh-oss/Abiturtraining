@@ -1727,7 +1727,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
           return '<img src="' + p.url + '" style="width:100%;max-width:800px;border-radius:var(--radius-sm);margin-bottom:1rem;display:block" alt="Aufgabenblatt">';
         }).join('');
 
-        document.getElementById("taskUploadResult").style.display = "block";
+        document.getElementById("taskUploadResult").style.display = "block"; setTimeout(() => { document.getElementById("taskUploadResult").scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 150);
       } catch (e) {
         showToast("Fehler bei der Erkennung: " + e.message);
       }
