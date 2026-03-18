@@ -665,6 +665,13 @@
     let feedbackMode = false;
     let studentAnswers = {};
 
+    // Speech Synthesis State
+    let synthUtterance = null;
+    let synthEstDuration = 0;
+    let synthStartTime = null;
+    let synthProgressTimer = null;
+    let synthPlaying = false;
+
     /* ================= SESSION RECOVERY ================= */
     function saveSession() {
       const session = {
@@ -743,185 +750,165 @@
       document.getElementById("setupLoader").style.display = "none";
     }
 
-    /* ================= AUDIO GENERATION ================= */
+    /* ================= AUDIO GENERATION (Web Speech API) ================= */
 
-    // Stimmen-Paare für Multi-Speaker TTS
-    const TTS_VOICE_PAIRS = {
-      Kore: 'Puck', Puck: 'Kore', Aoede: 'Charon',
-      Charon: 'Aoede', Fenrir: 'Leda', Leda: 'Fenrir'
-    };
-    const TTS_PROXY = 'https://gemini-proxy.sanktannagymnasium.workers.dev';
-    const TTS_SAMPLE_RATE = 24000;
-
-    function pcmToWav(pcmData, sampleRate) {
-      const dataLen = pcmData.length * 2;
-      const buf = new ArrayBuffer(44 + dataLen);
-      const v = new DataView(buf);
-      const s = (o, str) => { for (let i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
-      s(0, 'RIFF'); v.setUint32(4, 36 + dataLen, true); s(8, 'WAVE');
-      s(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true);
-      v.setUint16(22, 1, true); v.setUint32(24, sampleRate, true);
-      v.setUint32(28, sampleRate * 2, true); v.setUint16(32, 2, true);
-      v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, dataLen, true);
-      let off = 44;
-      for (let i = 0; i < pcmData.length; i++) { v.setInt16(off, pcmData[i], true); off += 2; }
-      return new Blob([buf], { type: 'audio/wav' });
+    function getSpeechVoice() {
+      const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+      // Bevorzuge Siri/hochwertige englische Stimmen auf Apple-Geräten
+      const preferred = ['Samantha', 'Alex', 'Karen', 'Daniel', 'Moira'];
+      for (const name of preferred) {
+        const v = voices.find(v => v.name.includes(name) && v.lang.startsWith('en'));
+        if (v) return v;
+      }
+      return voices.find(v => v.lang.startsWith('en-')) || voices.find(v => v.lang.startsWith('en')) || null;
     }
 
-    async function generateListeningAudioDirect(text, voice, onProgress, speakers) {
-      voice = voice || 'Kore';
-      if (onProgress) onProgress(10);
+    function setupSpeechPlayer() {
+      const text = listeningData.transcript;
+      // Geschätzte Dauer bei ~120 Wörtern/Minute (rate=0.9)
+      synthEstDuration = (text.split(/\s+/).length / 120) * 60;
+      document.getElementById("audioDuration").textContent = formatTime(synthEstDuration);
 
-      let speechConfig;
-      if (speakers && speakers.length >= 2) {
-        const second = TTS_VOICE_PAIRS[voice] || 'Puck';
-        speechConfig = { multiSpeakerVoiceConfig: { speakerVoiceConfigs: [
-          { speaker: speakers[0], voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
-          { speaker: speakers[1], voiceConfig: { prebuiltVoiceConfig: { voiceName: second } } }
-        ]}};
-      } else {
-        speechConfig = { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } };
-      }
+      synthUtterance = new SpeechSynthesisUtterance(text);
+      synthUtterance.lang = 'en-US';
+      synthUtterance.rate = 0.9;
+      synthUtterance.pitch = 1.0;
+      const voice = getSpeechVoice();
+      if (voice) synthUtterance.voice = voice;
 
-      if (onProgress) onProgress(20);
+      synthUtterance.onstart = function() {
+        synthStartTime = Date.now();
+        synthPlaying = true;
+        document.getElementById("playIcon").style.display = "none";
+        document.getElementById("pauseIcon").style.display = "block";
+        synthProgressTimer = setInterval(function() {
+          if (!synthStartTime) return;
+          const elapsed = (Date.now() - synthStartTime) / 1000;
+          const pct = Math.min(elapsed / synthEstDuration, 1);
+          document.getElementById("audioProgressBar").style.width = (pct * 100) + "%";
+          document.getElementById("audioCurrentTime").textContent = formatTime(elapsed);
+        }, 500);
+      };
 
-      const res = await fetch(
-        TTS_PROXY + '/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=PROXY',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ role: 'user', parts: [{ text: text }] }],
-            generationConfig: { responseModalities: ['AUDIO'], speechConfig }
-          })
+      synthUtterance.onpause = function() {
+        synthPlaying = false;
+        clearInterval(synthProgressTimer);
+        document.getElementById("playIcon").style.display = "block";
+        document.getElementById("pauseIcon").style.display = "none";
+      };
+
+      synthUtterance.onresume = function() {
+        synthPlaying = true;
+        document.getElementById("playIcon").style.display = "none";
+        document.getElementById("pauseIcon").style.display = "block";
+        synthProgressTimer = setInterval(function() {
+          if (!synthStartTime) return;
+          const elapsed = (Date.now() - synthStartTime) / 1000;
+          const pct = Math.min(elapsed / synthEstDuration, 1);
+          document.getElementById("audioProgressBar").style.width = (pct * 100) + "%";
+          document.getElementById("audioCurrentTime").textContent = formatTime(elapsed);
+        }, 500);
+      };
+
+      synthUtterance.onend = function() {
+        synthPlaying = false;
+        clearInterval(synthProgressTimer);
+        document.getElementById("playIcon").style.display = "block";
+        document.getElementById("pauseIcon").style.display = "none";
+        document.getElementById("audioProgressBar").style.width = "0%";
+        document.getElementById("audioCurrentTime").textContent = "0:00";
+        if (!feedbackMode) {
+          playCount++;
+          updatePlayCount();
+          saveSession();
+          if (playCount >= 1) enableQuestions();
         }
-      );
+      };
 
-      if (!res.ok) throw new Error('TTS-API Fehler: ' + res.status);
-      if (onProgress) onProgress(70);
+      synthUtterance.onerror = function(e) {
+        synthPlaying = false;
+        clearInterval(synthProgressTimer);
+        if (e.error !== 'interrupted' && e.error !== 'canceled') {
+          showToast("Sprachausgabe-Fehler: " + e.error);
+          enableQuestions();
+        }
+      };
 
-      const data = await res.json();
-      if (onProgress) onProgress(85);
-
-      let audioData = null;
-      const parts = data?.candidates?.[0]?.content?.parts || [];
-      for (const p of parts) { if (p.inlineData?.data) { audioData = p.inlineData; break; } }
-      if (!audioData) throw new Error('Kein Audio in der Antwort.');
-
-      const bytes = Uint8Array.from(atob(audioData.data), c => c.charCodeAt(0));
-      const mimeType = audioData.mimeType || '';
-      let blob, duration;
-      if (mimeType.includes('wav') || mimeType.includes('mp3') || mimeType.includes('mpeg')) {
-        blob = new Blob([bytes], { type: mimeType });
-        duration = (text.split(/\s+/).length / 150) * 60;
-      } else {
-        const pcm = new Int16Array(bytes.buffer);
-        blob = pcmToWav(pcm, TTS_SAMPLE_RATE);
-        duration = pcm.length / TTS_SAMPLE_RATE;
-      }
-      if (onProgress) onProgress(100);
-      return { blob, url: URL.createObjectURL(blob), duration };
+      document.getElementById("audioLoader").style.display = "none";
+      document.getElementById("audioPlayerUI").style.display = "block";
+      updatePlayCount();
     }
 
     async function generateAudio() {
       document.getElementById("audioLoader").style.display = "block";
       document.getElementById("audioPlayerUI").style.display = "none";
+      document.getElementById("audioProgress").textContent = "";
 
-      try {
-        const voice = document.getElementById("voiceSelect").value;
-
-        const result = await generateListeningAudioDirect(
-          listeningData.transcript,
-          voice,
-          function(pct) {
-            document.getElementById("audioProgress").textContent = pct + "%";
-          },
-          listeningData.speakers
-        );
-
-        audioUrl = result.url;
-
-        // Audio-Element konfigurieren
-        const audioEl = document.getElementById("audioElement");
-        audioEl.src = audioUrl;
-        audioEl.load();
-
-        // Auch Feedback-Audio
-        document.getElementById("feedbackAudio").src = audioUrl;
-
-        // Player UI anzeigen
-        document.getElementById("audioLoader").style.display = "none";
-        document.getElementById("audioPlayerUI").style.display = "block";
-        updatePlayCount();
-
-        // Duration anzeigen wenn geladen
-        audioEl.addEventListener("loadedmetadata", function() {
-          document.getElementById("audioDuration").textContent = formatTime(audioEl.duration);
-        });
-      } catch (e) {
-        document.getElementById("audioLoader").style.display = "none";
-        showToast("Audio konnte nicht generiert werden: " + e.message);
-        // Fallback: Zum Antworten weiterleiten auch ohne Audio
-        enableQuestions();
+      // Warte kurz bis Stimmen geladen sind, dann Player einrichten
+      function initWhenReady() {
+        if (speechSynthesis.getVoices().length > 0) {
+          setupSpeechPlayer();
+        } else {
+          speechSynthesis.addEventListener('voiceschanged', function onVoices() {
+            speechSynthesis.removeEventListener('voiceschanged', onVoices);
+            setupSpeechPlayer();
+          });
+          // Fallback: nach 1s trotzdem einrichten
+          setTimeout(setupSpeechPlayer, 1000);
+        }
       }
+
+      if (!window.speechSynthesis) {
+        document.getElementById("audioLoader").style.display = "none";
+        showToast("Sprachausgabe nicht verfügbar in diesem Browser.");
+        enableQuestions();
+        return;
+      }
+
+      initWhenReady();
     }
 
     /* ================= AUDIO PLAYER ================= */
     function togglePlay() {
-      const audioEl = document.getElementById("audioElement");
-
+      if (!window.speechSynthesis || !synthUtterance) return;
       const btn = document.getElementById("playBtn");
-      if (audioEl.paused) {
+
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        // Läuft gerade → pausieren
+        speechSynthesis.pause();
+        if (btn) btn.setAttribute("aria-label", "Audio abspielen");
+      } else if (speechSynthesis.paused) {
+        // Pausiert → fortsetzen
+        speechSynthesis.resume();
+        if (btn) btn.setAttribute("aria-label", "Audio pausieren");
+      } else {
+        // Nicht aktiv → neu starten
         if (playCount >= MAX_PLAYS && !feedbackMode) {
           showToast("Du hast den Text bereits 2x angehört.");
           return;
         }
-        audioEl.play();
-        document.getElementById("playIcon").style.display = "none";
-        document.getElementById("pauseIcon").style.display = "block";
+        speechSynthesis.cancel(); // sicherstellen, dass nichts hängt
+        // Neues Utterance-Objekt nötig, da iOS nach cancel() kein Re-Speak erlaubt
+        const u = new SpeechSynthesisUtterance(synthUtterance.text);
+        u.lang = synthUtterance.lang;
+        u.rate = synthUtterance.rate;
+        u.pitch = synthUtterance.pitch;
+        if (synthUtterance.voice) u.voice = synthUtterance.voice;
+        u.onstart = synthUtterance.onstart;
+        u.onpause = synthUtterance.onpause;
+        u.onresume = synthUtterance.onresume;
+        u.onend = synthUtterance.onend;
+        u.onerror = synthUtterance.onerror;
+        synthUtterance = u;
+        synthStartTime = Date.now();
+        speechSynthesis.speak(synthUtterance);
         if (btn) btn.setAttribute("aria-label", "Audio pausieren");
-      } else {
-        audioEl.pause();
-        document.getElementById("playIcon").style.display = "block";
-        document.getElementById("pauseIcon").style.display = "none";
-        if (btn) btn.setAttribute("aria-label", "Audio abspielen");
       }
     }
 
-    // Audio Events
-    document.addEventListener("DOMContentLoaded", function() {
-      const audioEl = document.getElementById("audioElement");
-
-      audioEl.addEventListener("timeupdate", function() {
-        if (!audioEl.duration) return;
-        const pct = (audioEl.currentTime / audioEl.duration) * 100;
-        document.getElementById("audioProgressBar").style.width = pct + "%";
-        document.getElementById("audioCurrentTime").textContent = formatTime(audioEl.currentTime);
-      });
-
-      audioEl.addEventListener("ended", function() {
-        document.getElementById("playIcon").style.display = "block";
-        document.getElementById("pauseIcon").style.display = "none";
-        document.getElementById("audioProgressBar").style.width = "0%";
-        document.getElementById("audioCurrentTime").textContent = "0:00";
-
-        if (!feedbackMode) {
-          playCount++;
-          updatePlayCount();
-          saveSession();
-
-          if (playCount >= 1) {
-            enableQuestions();
-          }
-        }
-      });
-
-      audioEl.addEventListener("play", function() {
-        // Beim ersten Abspielen schon den Button aktivieren
-        if (playCount === 0 && !feedbackMode) {
-          // Erst am Ende zählen
-        }
-      });
+    // Beim Verlassen der Seite Sprachausgabe stoppen
+    window.addEventListener("pagehide", function() {
+      if (window.speechSynthesis) speechSynthesis.cancel();
     });
 
     function updatePlayCount() {
