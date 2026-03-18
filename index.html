@@ -5104,9 +5104,11 @@
       });
 
       ordered.forEach(function (subj) {
-        var isEa = examSubjectsCache.ea === subj || subj === 'mathematik' || subj === 'deutsch';
+        var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+        var isEa = examSubjectsCache.ea === subj || isAutoEa;
         var isOral = examSubjectsCache.oral.indexOf(subj) !== -1;
-        var typeLabel = isEa ? (isOral ? "⭐ mündlich eA" : "⭐ schriftlich eA") : isOral ? "🗣️ mündlich gA" : "✍️ schriftlich gA";
+        // Mathe/Deutsch: kein eA/gA-Label anzeigen
+        var typeLabel = isAutoEa ? (isOral ? "🗣️ mündlich" : "✍️ schriftlich") : isEa ? (isOral ? "⭐ mündlich eA" : "⭐ schriftlich eA") : isOral ? "🗣️ mündlich gA" : "✍️ schriftlich gA";
         var typeLabelCls = isEa ? "exam-type-label-ea" : isOral ? "exam-type-label-oral" : "exam-type-label-written";
         var typeCls = isEa ? "exam-ea" : isOral ? "exam-oral" : "exam-written";
 
