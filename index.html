@@ -5015,9 +5015,10 @@
         }
       }
 
-      // Mündlich-Slots (nur non-eA oral)
+      // Mündlich-Slots: wenn eA mündlich ist, gibt es nur noch 1 gA-Oral-Slot
       var oralNonEa = wizardTempExam.oral.filter(function (s) { return s !== wizardTempExam.ea; });
-      for (var oi = 0; oi < 2; oi++) {
+      var oralSlotCount = eaIsOral ? 1 : 2;
+      for (var oi = 0; oi < oralSlotCount; oi++) {
         var os = oralNonEa[oi];
         if (os) {
           _makeSlot("🗣️", SUBJECT_DISPLAY[os] || os, os, "filled-oral");
