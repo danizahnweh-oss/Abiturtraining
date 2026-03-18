@@ -189,6 +189,35 @@ export async function ensureMigrations(env) {
     try {
       await env.DB.prepare("ALTER TABLE students ADD COLUMN class_group TEXT DEFAULT NULL").run();
     } catch (_) { /* Spalte existiert bereits */ }
+
+    // Stripe Subscription-Tabelle
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS subscriptions (
+        id TEXT PRIMARY KEY,
+        student_id TEXT NOT NULL,
+        stripe_customer_id TEXT,
+        stripe_subscription_id TEXT,
+        plan TEXT NOT NULL DEFAULT 'free',
+        status TEXT NOT NULL DEFAULT 'trialing',
+        trial_end TEXT,
+        current_period_end TEXT,
+        cancel_at_period_end INTEGER DEFAULT 0,
+        school_license_code TEXT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        FOREIGN KEY (student_id) REFERENCES students(id)
+      )
+    `).run();
+
+    // Stripe-Spalten in students (für schnellen Zugriff)
+    const addCol = async (col, def) => {
+      try { await env.DB.prepare(`ALTER TABLE students ADD COLUMN ${col} ${def}`).run(); } catch (_) {}
+    };
+    await addCol("stripe_customer_id", "TEXT DEFAULT NULL");
+    await addCol("subscription_status", "TEXT DEFAULT 'none'");
+    await addCol("subscription_plan", "TEXT DEFAULT 'free'");
+    await addCol("trial_end", "TEXT DEFAULT NULL");
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

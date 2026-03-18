@@ -18,6 +18,7 @@ import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeS
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails } from './handlers/email.js';
+import { handleCreateCheckout, handleStripeWebhook, handleSubscriptionStatus, handleCustomerPortal, handleStartTrial, handleRedeemLicense } from './handlers/stripe.js';
 
 // Fach-Handler: Englisch
 import {
@@ -284,6 +285,11 @@ export default {
         return await handleTeacherResults(request, env);
       }
 
+      // ===== STRIPE WEBHOOK (vor Auth-Check, eigene Signatur-Prüfung) =====
+      if (pathname === "/api/stripe/webhook" && request.method === "POST") {
+        return await handleStripeWebhook(request, env);
+      }
+
       // ===== ASYNC GRADING: STATUS (vor Auth-Check) =====
       if (pathname.startsWith("/api/grade-status/") && request.method === "GET") {
         const authError = await checkAuth(request, env);
@@ -527,6 +533,13 @@ export default {
 
       // ===== REWRITE =====
       if (pathname === "/api/rewrite" && request.method === "POST") return await handleRewrite(request, env);
+
+      // ===== STRIPE (authentifiziert) =====
+      if (pathname === "/api/stripe/create-checkout" && request.method === "POST") return await handleCreateCheckout(request, env);
+      if (pathname === "/api/stripe/subscription-status" && request.method === "POST") return await handleSubscriptionStatus(request, env);
+      if (pathname === "/api/stripe/customer-portal" && request.method === "POST") return await handleCustomerPortal(request, env);
+      if (pathname === "/api/stripe/start-trial" && request.method === "POST") return await handleStartTrial(request, env);
+      if (pathname === "/api/stripe/redeem-license" && request.method === "POST") return await handleRedeemLicense(request, env);
 
       // ===== UNSUBSCRIBE =====
       if (pathname === "/api/unsubscribe" && request.method === "GET") return await handleUnsubscribe(request, env);
