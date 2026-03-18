@@ -6005,16 +6005,9 @@
       var screenId = screenMap[subject] || screenMap.german;
       var infoId = infoMap[subject] || infoMap.german;
 
-      var currentLevel = sessionStorage.getItem("student_level") || "eA";
       document.getElementById(screenId).style.display = "flex";
-      document.getElementById(screenId).setAttribute("data-level-bg", currentLevel);
+      document.getElementById(screenId).setAttribute("data-level-bg", autoLevel);
       document.getElementById(infoId).textContent = info;
-      updateLevelDesc(currentLevel);
-
-      document.querySelectorAll("#" + screenId + " .level-btn").forEach(function (btn) {
-        btn.classList.toggle("active", btn.dataset.level === currentLevel);
-        btn.setAttribute("aria-checked", btn.dataset.level === currentLevel);
-      });
 
       if (_push) history.pushState({ screen: "module-" + subject }, "");
     }
