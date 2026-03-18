@@ -111,6 +111,67 @@ async function apiCall(endpoint, body, _isRetry) {
   return res.json();
 }
 
+/* ================= SUBSCRIPTION CHECK ================= */
+
+// Abo-Status im Cache halten (pro Session)
+var _subscriptionCache = null;
+var _subscriptionCacheTime = 0;
+var SUBSCRIPTION_CACHE_TTL = 5 * 60 * 1000; // 5 Minuten
+
+async function checkSubscription() {
+  var studentId = sessionStorage.getItem("student_id") || "";
+  var token = getAccessToken();
+  if (!studentId || !token) return { status: "none", plan: "free" };
+
+  // Cache prüfen
+  if (_subscriptionCache && (Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL)) {
+    return _subscriptionCache;
+  }
+
+  try {
+    var res = await fetch(API_BASE + "/api/stripe/subscription-status", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": token },
+      body: JSON.stringify({ student_id: studentId })
+    });
+    if (!res.ok) return { status: "none", plan: "free" };
+    var data = await res.json();
+    _subscriptionCache = data;
+    _subscriptionCacheTime = Date.now();
+    return data;
+  } catch (e) {
+    return { status: "none", plan: "free" };
+  }
+}
+
+// Prüft ob der Nutzer ein aktives Abo hat. Gibt true zurück wenn Zugriff erlaubt.
+// Bei abgelaufenem Trial/keinem Abo wird zur Abo-Seite weitergeleitet.
+async function requireSubscription() {
+  var sub = await checkSubscription();
+  if (sub.status === "active" || sub.status === "trialing") {
+    return true;
+  }
+  // Kein Abo → zur Abo-Seite weiterleiten
+  window.location.href = "/abo.html";
+  return false;
+}
+
+// Trial-Banner einblenden (wenn Trial aktiv)
+async function showTrialBannerIfNeeded(containerId) {
+  var sub = await checkSubscription();
+  if (sub.status === "trialing" && sub.trial_days_left > 0) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    var banner = document.createElement("div");
+    banner.className = "trial-hint-banner";
+    banner.setAttribute("role", "status");
+    banner.innerHTML = '<span style="font-size:1.2em">&#9200;</span> Testphase: noch <strong>' +
+      sub.trial_days_left + ' Tage</strong>. <a href="/abo.html" style="color:var(--accent);font-weight:700;text-decoration:none;">Jetzt Abo wählen &rarr;</a>';
+    banner.style.cssText = "background:var(--accent-soft,#e0e7ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:.8rem 1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;font-size:.9rem;";
+    container.prepend(banner);
+  }
+}
+
 /* ================= ASYNC API (Queue-basiert) ================= */
 
 // KI-Roboter SVG-Animation (wird automatisch beim Korrigieren angezeigt)
