@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
@@ -739,6 +739,7 @@ export default function App() {
   /* ───────── RENDER ───────── */
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-slate-100 text-slate-800 font-sans selection:bg-emerald-200/50">
       {/* Header */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 transition-all w-full">
@@ -1449,5 +1450,6 @@ export default function App() {
         </p>
       </footer>
     </div>
+    </MotionConfig>
   );
 }

@@ -843,7 +843,7 @@
       } else {
         wrap.innerHTML =
           '<div class="student-ta-group">' +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Informatik:\n\u2022 Rekursion, Stapel, Warteschlange, Bin\u00e4rbaum\n\u2022 DEA, EBNF, Von-Neumann-Architektur\n\u2022 O-Notation, Halteproblem, Neuronales Netz" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" aria-label="Deine Lösung" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Informatik:\n\u2022 Rekursion, Stapel, Warteschlange, Bin\u00e4rbaum\n\u2022 DEA, EBNF, Von-Neumann-Architektur\n\u2022 O-Notation, Halteproblem, Neuronales Netz" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });

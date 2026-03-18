@@ -1167,7 +1167,7 @@
         wrap.innerHTML =
           '<div class="student-ta-group">' +
           formelEditorHTML(0) +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Bio-Notation:\n\u2022 DNA \u2192 mRNA \u2192 Protein\n\u2022 $\\ce{6 CO2 + 6 H2O -> C6H12O6 + 6 O2}$\n\u2022 Genotyp: $Aa \\times Aa$" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" aria-label="Deine Lösung" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Bio-Notation:\n\u2022 DNA \u2192 mRNA \u2192 Protein\n\u2022 $\\ce{6 CO2 + 6 H2O -> C6H12O6 + 6 O2}$\n\u2022 Genotyp: $Aa \\times Aa$" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });

@@ -743,7 +743,7 @@
       } else {
         wrap.innerHTML =
           '<div class="student-ta-group">' +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Sportwissenschaft:\n\u2022 Superkompensation, Periodisierung\n\u2022 aerob/anaerob, VO\u2082max\n\u2022 Koordination, Motorik" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" aria-label="Deine Lösung" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Fachbegriffe der Sportwissenschaft:\n\u2022 Superkompensation, Periodisierung\n\u2022 aerob/anaerob, VO\u2082max\n\u2022 Koordination, Motorik" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });
