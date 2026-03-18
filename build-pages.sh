@@ -33,9 +33,10 @@ echo "→ Kopiere Fonts + Vendor..."
 cp -r fonts _site/
 cp -r vendor _site/
 
-# 6. Bilder kopieren
+# 6. Bilder + SVG-Assets kopieren
 echo "→ Kopiere Bilder..."
 cp *.png _site/ 2>/dev/null || true
+cp *.svg _site/ 2>/dev/null || true
 
 # 7. Videos kopieren
 echo "→ Kopiere Videos..."
