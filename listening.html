@@ -439,6 +439,7 @@
               <span class="play-count" id="playCount">Abspielen: 0/2</span>
               <span class="audio-time" id="audioDuration">0:00</span>
             </div>
+            <div id="audioSourceLabel" style="text-align:center;margin-top:.5rem;font-size:.75rem;color:var(--ink-muted);"></div>
           </div>
 
           <audio id="audioElement" preload="auto"></audio>
@@ -897,6 +898,7 @@
         if (e.error!=='interrupted'&&e.error!=='canceled') { showToast("Sprachausgabe-Fehler: "+e.error); enableQuestions(); }
       };
 
+      document.getElementById("audioSourceLabel").textContent = "🔊 Browser-Stimme (Gemini nicht verfügbar)";
       document.getElementById("audioLoader").style.display = "none";
       document.getElementById("audioPlayerUI").style.display = "block";
       updatePlayCount();
@@ -925,6 +927,7 @@
         if (!feedbackMode) { playCount++; updatePlayCount(); saveSession(); if (playCount>=1) enableQuestions(); }
       };
 
+      document.getElementById("audioSourceLabel").textContent = "✨ Gemini-Stimme";
       document.getElementById("audioLoader").style.display = "none";
       document.getElementById("audioPlayerUI").style.display = "block";
       updatePlayCount();
