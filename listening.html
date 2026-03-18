@@ -744,15 +744,93 @@
     }
 
     /* ================= AUDIO GENERATION ================= */
+
+    // Stimmen-Paare für Multi-Speaker TTS
+    const TTS_VOICE_PAIRS = {
+      Kore: 'Puck', Puck: 'Kore', Aoede: 'Charon',
+      Charon: 'Aoede', Fenrir: 'Leda', Leda: 'Fenrir'
+    };
+    const TTS_PROXY = 'https://gemini-proxy.sanktannagymnasium.workers.dev';
+    const TTS_SAMPLE_RATE = 24000;
+
+    function pcmToWav(pcmData, sampleRate) {
+      const dataLen = pcmData.length * 2;
+      const buf = new ArrayBuffer(44 + dataLen);
+      const v = new DataView(buf);
+      const s = (o, str) => { for (let i = 0; i < str.length; i++) v.setUint8(o + i, str.charCodeAt(i)); };
+      s(0, 'RIFF'); v.setUint32(4, 36 + dataLen, true); s(8, 'WAVE');
+      s(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true);
+      v.setUint16(22, 1, true); v.setUint32(24, sampleRate, true);
+      v.setUint32(28, sampleRate * 2, true); v.setUint16(32, 2, true);
+      v.setUint16(34, 16, true); s(36, 'data'); v.setUint32(40, dataLen, true);
+      let off = 44;
+      for (let i = 0; i < pcmData.length; i++) { v.setInt16(off, pcmData[i], true); off += 2; }
+      return new Blob([buf], { type: 'audio/wav' });
+    }
+
+    async function generateListeningAudioDirect(text, voice, onProgress, speakers) {
+      voice = voice || 'Kore';
+      if (onProgress) onProgress(10);
+
+      let speechConfig;
+      if (speakers && speakers.length >= 2) {
+        const second = TTS_VOICE_PAIRS[voice] || 'Puck';
+        speechConfig = { multiSpeakerVoiceConfig: { speakerVoiceConfigs: [
+          { speaker: speakers[0], voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+          { speaker: speakers[1], voiceConfig: { prebuiltVoiceConfig: { voiceName: second } } }
+        ]}};
+      } else {
+        speechConfig = { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } };
+      }
+
+      if (onProgress) onProgress(20);
+
+      const res = await fetch(
+        TTS_PROXY + '/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=PROXY',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ role: 'user', parts: [{ text: text }] }],
+            generationConfig: { responseModalities: ['AUDIO'], speechConfig }
+          })
+        }
+      );
+
+      if (!res.ok) throw new Error('TTS-API Fehler: ' + res.status);
+      if (onProgress) onProgress(70);
+
+      const data = await res.json();
+      if (onProgress) onProgress(85);
+
+      let audioData = null;
+      const parts = data?.candidates?.[0]?.content?.parts || [];
+      for (const p of parts) { if (p.inlineData?.data) { audioData = p.inlineData; break; } }
+      if (!audioData) throw new Error('Kein Audio in der Antwort.');
+
+      const bytes = Uint8Array.from(atob(audioData.data), c => c.charCodeAt(0));
+      const mimeType = audioData.mimeType || '';
+      let blob, duration;
+      if (mimeType.includes('wav') || mimeType.includes('mp3') || mimeType.includes('mpeg')) {
+        blob = new Blob([bytes], { type: mimeType });
+        duration = (text.split(/\s+/).length / 150) * 60;
+      } else {
+        const pcm = new Int16Array(bytes.buffer);
+        blob = pcmToWav(pcm, TTS_SAMPLE_RATE);
+        duration = pcm.length / TTS_SAMPLE_RATE;
+      }
+      if (onProgress) onProgress(100);
+      return { blob, url: URL.createObjectURL(blob), duration };
+    }
+
     async function generateAudio() {
       document.getElementById("audioLoader").style.display = "block";
       document.getElementById("audioPlayerUI").style.display = "none";
 
       try {
-        const { generateListeningAudio } = await import('/listening-audio.js');
         const voice = document.getElementById("voiceSelect").value;
 
-        const result = await generateListeningAudio(
+        const result = await generateListeningAudioDirect(
           listeningData.transcript,
           voice,
           function(pct) {
