@@ -11,7 +11,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
-  <link rel="icon" href="wave-icon.png" type="image/png">
+  <link rel="icon" href="wave-icon-new.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="/fonts/fonts.css">
@@ -5110,11 +5110,14 @@
       grid.innerHTML = "";
 
       // Reihenfolge: eA → schriftlich gA → muendlich
+      // Reihenfolge: schriftliche zuerst (eA schriftlich vorne), dann mündliche rechts
       var ordered = [];
-      if (examSubjectsCache.ea) ordered.push(examSubjectsCache.ea);
+      var eaIsOral = examSubjectsCache.ea && examSubjectsCache.oral.indexOf(examSubjectsCache.ea) !== -1;
+      if (examSubjectsCache.ea && !eaIsOral) ordered.push(examSubjectsCache.ea);
       examSubjectsCache.written.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
+      if (examSubjectsCache.ea && eaIsOral) ordered.push(examSubjectsCache.ea);
       examSubjectsCache.oral.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
@@ -5413,10 +5416,12 @@
       var customDates = loadCustomExamDates();
 
       var ordered = [];
-      if (examSubjectsCache.ea) ordered.push(examSubjectsCache.ea);
+      var eaIsOral2 = examSubjectsCache.ea && examSubjectsCache.oral.indexOf(examSubjectsCache.ea) !== -1;
+      if (examSubjectsCache.ea && !eaIsOral2) ordered.push(examSubjectsCache.ea);
       examSubjectsCache.written.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
+      if (examSubjectsCache.ea && eaIsOral2) ordered.push(examSubjectsCache.ea);
       examSubjectsCache.oral.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
@@ -5953,12 +5958,29 @@
       openModuleScreen(subject, true);
     }
 
+    // Bestimmt das passende Anforderungsniveau anhand der Abifach-Konfiguration
+    function getSubjectDefaultLevel(subject) {
+      // Deutsch und Mathe sind immer eA
+      if (subject === "german" || subject === "mathe") return "eA";
+      // Das gewaehlte Leistungsfach ist eA
+      if (examSubjectsCache && examSubjectsCache.ea === subject) return "eA";
+      // Wenn das Fach als Abifach gewaehlt ist (schriftlich oder muendlich), ist es gA
+      var allExam = (examSubjectsCache.written || []).concat(examSubjectsCache.oral || []);
+      if (allExam.indexOf(subject) !== -1) return "gA";
+      // Kein Abifach → aktuelles Level beibehalten
+      return sessionStorage.getItem("student_level") || "eA";
+    }
+
     function openModuleScreen(subject, _push) {
       sessionStorage.setItem("current_subject", subject);
       document.getElementById("subject-screen").style.display = "none";
 
+      // Level automatisch anhand der Abifach-Konfiguration setzen
+      var autoLevel = getSubjectDefaultLevel(subject);
+      setLevel(autoLevel);
+
       var name = sessionStorage.getItem("student_name") || "";
-      var level = (sessionStorage.getItem("student_level") || "eA").toUpperCase();
+      var level = autoLevel.toUpperCase();
       var info = name ? (name + " \u00b7 " + level) : "";
 
       var screenMap = {
