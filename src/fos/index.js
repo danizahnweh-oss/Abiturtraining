@@ -1529,19 +1529,19 @@ EXAM STRUCTURE (FOS Bayern, English FAP 12th grade):
 Total: 48 BE (Reading 24 + Writing 24)
 
 PART 1 – READING COMPREHENSION (24 BE, 90 min):
-3 Texts (total ~2,400 words), 3 Task groups:
+3 Texts (total ~2,700 words), 3 Task groups:
 
-Text I (~800 words): Non-fiction article on a current topic
+Text I (~900 words, i.e. 850-950): Non-fiction article on a current topic
 TASK I (8 BE):
 - Part 1: Multiple Matching (5 BE) – Match statements A-H to people/sections 1-5 (3 distractors)
 - Part 2: Short Answer Questions (3 BE) – 3 questions, brief answers from text
 
-Text II (~800 words): Non-fiction article, different topic
+Text II (~900 words, i.e. 850-950): Non-fiction article, different topic
 TASK II (8 BE):
 - Part 1: Gapped Summary (6 BE) – Fill 6 gaps using words from text
 - Part 2: Short Answer Questions (2 BE) – 2 questions
 
-Text III (~800 words): Literary text (short story)
+Text III (~900 words, i.e. 850-950): Literary text (short story)
 TASK III (8 BE):
 - Part 1: Multiple Choice (3 BE) – 3 MC questions, 4 options each (A-D)
 - Part 2: Mediation EN→DE (5 BE) – 5 questions answered in GERMAN
@@ -1593,9 +1593,9 @@ Respond ONLY with valid JSON:
     "be": 24,
     "zeit": 90,
     "texte": [
-      {"nr": "Text I", "titel": "Title", "text": "Full text ~800 words..."},
-      {"nr": "Text II", "titel": "...", "text": "..."},
-      {"nr": "Text III", "titel": "Short Story Title", "text": "..."}
+      {"nr": "Text I", "titel": "Title", "text": "Full text ~900 words (850-950)..."},
+      {"nr": "Text II", "titel": "...", "text": "Full text ~900 words (850-950)..."},
+      {"nr": "Text III", "titel": "Short Story Title", "text": "Full text ~900 words (850-950)..."}
     ],
     "tasks": [
       {
@@ -1667,7 +1667,7 @@ Respond ONLY with valid JSON:
 }`;
 
   const userPrompt = `Create a complete FOS Fachabiturprüfung English (48 BE):
-Part 1 Reading (24 BE): 3 texts (~800 words each), Task I (Multiple Matching + Short Answer), Task II (Gapped Summary + Short Answer), Task III (MC + Mediation EN→DE).
+Part 1 Reading (24 BE): 3 texts (~900 words each, i.e. 850-950 words), Task I (Multiple Matching + Short Answer), Task II (Gapped Summary + Short Answer), Task III (MC + Mediation EN→DE).
 Part 2 Writing (24 BE): 2 tasks to choose from (essay, 300+ words, 3 materials each).
 IMPORTANT for Writing materials: Use max. 1 text per task. Other materials MUST be quotes, statistics, chart/graph descriptions, or cartoon descriptions. Each task should use a DIFFERENT combination.
 ALL texts complete and realistic. Include correct answers for Reading.`;
@@ -1690,14 +1690,14 @@ Total: 60 BE (Reading 24 BE + Writing 36 BE)
 Duration: 210 min (90 min Reading + 30 min break + 90 min Writing)
 
 PART 1 – READING COMPREHENSION (24 BE, 90 min):
-3 Texts (total ~2,700 words), 3 Task groups:
+3 Texts (total ~2,900 words), 3 Task groups:
 
-Text I (~700 words): Non-fiction article on a current societal topic (e.g. media, technology, society)
+Text I (~900 words, i.e. 850-950): Non-fiction article on a current societal topic (e.g. media, technology, society)
 TASK I: Multiple Matching (6 BE)
 - 6 gaps in the text. Match each gap (1-6) with the most suitable sentence from A-I (9 sentences, 3 distractors).
 - The text should have clear gap positions marked as _GAP 1_, _GAP 2_ etc.
 
-Text II (~700 words): Non-fiction article on science/ethics/technology
+Text II (~900 words, i.e. 850-950): Non-fiction article on science/ethics/technology
 TASK II: Gapped Summary (8 BE)
 - 8 gaps to fill with words/expressions from the CORRESPONDING sections of the text.
 - Students must also provide the line number where they found the word.
@@ -1713,7 +1713,7 @@ TASK III: Mediation Englisch-Deutsch (10 BE)
 PART 2 – WRITING (36 BE, 90 min):
 
 TASK IV: Mediation Deutsch→Englisch (12 BE)
-- 2 German source texts (~150-200 words each) on a topic.
+- 2 German source texts (~250-300 words each) on a topic.
 - Student writes a coherent English text (~150 words) covering specific aspects listed.
 - 4 bullet point aspects to address.
 
@@ -1742,8 +1742,8 @@ Respond ONLY with valid JSON:
     "be": 24,
     "zeit": 90,
     "texte": [
-      {"nr": "Text I", "titel": "Title", "text": "Full text ~700 words with _GAP 1_, _GAP 2_ etc. embedded in the text body..."},
-      {"nr": "Text II", "titel": "...", "text": "Full text ~700 words with line-numbered content..."},
+      {"nr": "Text I", "titel": "Title", "text": "Full text ~900 words (850-950) with _GAP 1_, _GAP 2_ etc. embedded in the text body..."},
+      {"nr": "Text II", "titel": "...", "text": "Full text ~900 words (850-950) with line-numbered content..."},
       {"nr": "Text III", "titel": "Literary Title", "text": "Full literary text ~1100 words..."}
     ],
     "tasks": [
@@ -1790,8 +1790,8 @@ Respond ONLY with valid JSON:
       "anweisung": "Prepare an overview for a presentation. Write a coherent English text (ca. 150 words) using the two source texts below. Address the following aspects:",
       "aspekte": ["Aspect 1", "Aspect 2", "Aspect 3", "Aspect 4"],
       "texte": [
-        {"titel": "Text 1: German Title", "text": "German source text 1 (~150 words)..."},
-        {"titel": "Text 2: German Title", "text": "German source text 2 (~150 words)..."}
+        {"titel": "Text 1: German Title", "text": "German source text 1 (~250-300 words)..."},
+        {"titel": "Text 2: German Title", "text": "German source text 2 (~250-300 words)..."}
       ]
     },
     "tasks": [
@@ -1810,9 +1810,9 @@ Respond ONLY with valid JSON:
 }`;
 
   const userPrompt = `Create a complete FOS/BOS Abiturprüfung English 13th grade (60 BE, fachgebundene/allgemeine Hochschulreife):
-Part 1 Reading (24 BE): Text I with Multiple Matching (6 BE, 6 gaps, 9 sentences A-I), Text II with Gapped Summary (8 BE, 8 gaps with line numbers), Text III (literary) with Mediation EN→DE (10 BE, 6 questions in German).
-Part 2 Writing (36 BE): Task IV Mediation D→E (12 BE, 2 German texts, ~150 words English), Task V Material-Based Writing (24 BE, 2 tasks to choose from, 300+ words, 3 materials each).
-ALL texts complete, realistic, C1 level. Include correct answers for Reading. Use current, relevant topics.`;
+Part 1 Reading (24 BE): Text I (~900 words, 850-950) with Multiple Matching (6 BE, 6 gaps, 9 sentences A-I), Text II (~900 words, 850-950) with Gapped Summary (8 BE, 8 gaps with line numbers), Text III (~1100 words, literary) with Mediation EN→DE (10 BE, 6 questions in German).
+Part 2 Writing (36 BE): Task IV Mediation D→E (12 BE, 2 German source texts ~250-300 words each, student writes ~150 words English), Task V Material-Based Writing (24 BE, 2 tasks to choose from, 300+ words, 3 materials each).
+ALL texts complete, realistic, C1 level. Reading texts MUST be at least 850 words. Include correct answers for Reading. Use current, relevant topics.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1856,7 +1856,7 @@ async function handleFOSGenerateRCEnglisch(body, env) {
 
   const niveau = is13 ? "C1" : "B2";
   const klasse = is13 ? "13. Klasse" : "12. Klasse";
-  const textLen = is13 ? "800-1000" : "600-800";
+  const textLen = is13 ? "850-1000" : "850-950";
 
   // Dynamisch die angeforderten Aufgabentypen in den Prompt einbauen
   const typInstructions = [];
@@ -1953,7 +1953,7 @@ Antworte NUR mit validem JSON:
 }`;
 
   const userPrompt = `Erstelle einen Reading-Comprehension-Test (${niveau}-Niveau, ${klasse}) mit folgenden Aufgabentypen: ${taskTypes.join(", ")}.
-Ein Text (~${is13 ? "900" : "700"} Wörter), dazu die passenden Aufgaben. Alle Antworten angeben.`;
+Ein Text (~${is13 ? "900-1000" : "900"} Wörter, mindestens 850), dazu die passenden Aufgaben. Alle Antworten angeben.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -1971,7 +1971,7 @@ async function handleFOSGenerateKlausurEnglisch(body, env) {
 
   const niveau = is13 ? "C1" : "B2";
   const klasse = is13 ? "13. Klasse" : "12. Klasse";
-  const textLen = is13 ? "800-1000" : "600-800";
+  const textLen = is13 ? "850-1000" : "850-950";
 
   // Zufällig einen RC-Typ wählen
   const rcTypes = ["gapped_summary", "multiple_matching", "multiple_choice"];
