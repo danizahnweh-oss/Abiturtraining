@@ -7,7 +7,7 @@
   <meta name="description" content="Mathematik Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.zahnweh.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS · Mathematik Fachabiturtraining</title>
   <meta property="og:title" content="myAbiFlow FOS · Mathematik Fachabiturtraining">
   <meta property="og:description" content="Mathematik Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
@@ -21,11 +21,10 @@
   <meta name="twitter:description" content="Mathematik Fachabiturtraining FOS Bayern – Prüfungsaufgaben mit KI-gestützter Bewertung auf myAbiFlow.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/fos/mathe-abitur.html">
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
-  <script src="/vendor/marked.min.js"></script>
-  <script src="/vendor/purify.min.js"></script>
-  <script src="/vendor/chart.umd.min.js"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
   <!-- KaTeX -->
   <link rel="stylesheet" href="/vendor/katex/katex.min.css">
   <script defer src="/vendor/katex/katex.min.js"></script>
@@ -315,7 +314,7 @@
 
   <header>
     <div class="header-left">
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <a href="index.html?back=mathe" class="back-link">&larr; Zur&uuml;ck</a>
       <h1>Mathematik &middot; <span>Fachabiturtraining</span></h1>
     </div>

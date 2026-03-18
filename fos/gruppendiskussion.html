@@ -7,7 +7,7 @@
   <meta name="description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.zahnweh.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow FOS · Gruppendiskussion</title>
   <meta property="og:title" content="myAbiFlow FOS · Gruppendiskussion">
   <meta property="og:description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
@@ -21,12 +21,11 @@
   <meta name="twitter:description" content="Gruppendiskussion üben für die bayerische FOS – mündliche Prüfungsvorbereitung mit KI-Feedback auf myAbiFlow.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/fos/gruppendiskussion.html">
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗣️</text></svg>">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-  <script src="/vendor/marked.min.js"></script>
-  <script src="/vendor/purify.min.js"></script>
-  <script src="/vendor/chart.umd.min.js"></script>
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <link rel="stylesheet" href="shared-fos.css">
@@ -563,7 +562,7 @@
   <div id="app-wrapper" style="display:none">
 
     <header>
-      <a href="index.html" class="header-logo-link"><img src="logo.png" alt="myAbiFlow" class="header-logo"></a>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
       <h1><a href="index.html?back=english" style="color:var(--ink);text-decoration:none;">←</a> Englisch &middot;
         <span>Gruppendiskussion</span></h1>
       <div class="header-right">

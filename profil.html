@@ -8,7 +8,7 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
   <meta http-equiv="Content-Security-Policy"
-    content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.zahnweh.workers.dev; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>myAbiFlow · Kompetenzprofil</title>
   <meta property="og:title" content="myAbiFlow · Kompetenzprofil">
   <meta property="og:description" content="Dein Kompetenzprofil auf myAbiFlow – Lernfortschritt und Stärken auf einen Blick.">
@@ -22,8 +22,8 @@
   <meta name="twitter:description" content="Dein Kompetenzprofil auf myAbiFlow – Lernfortschritt und Stärken auf einen Blick.">
   <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
   <link rel="canonical" href="https://myabiflow.de/profil.html">
-  <link rel="icon" href="wave-icon-new.png" type="image/png">
-  <script src="/vendor/chart.umd.min.js"></script>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script src="/vendor/chart.umd.min.js" defer></script>
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
   <style>
