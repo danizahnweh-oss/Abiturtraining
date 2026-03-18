@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
@@ -29,14 +31,53 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/* ───────── Markdown-Hilfsfunktion ───────── */
+/* ───────── Markdown + LaTeX Hilfsfunktion ───────── */
+
+function renderLatexSegment(text: string, key: number): React.ReactNode {
+  // Suche nach LaTeX-Blöcken: $$...$$ (Display) und $...$ (Inline) und \begin{}...\end{}
+  const latexPattern = /(\$\$[\s\S]*?\$\$|\$[^$\n]+?\$|\\begin\{[a-z]+\}[\s\S]*?\\end\{[a-z]+\})/g;
+  const parts = text.split(latexPattern);
+  if (parts.length === 1) return text;
+
+  return parts.map((part, i) => {
+    if (!part) return null;
+    // Display-Mathe: $$...$$
+    if (part.startsWith('$$') && part.endsWith('$$')) {
+      const tex = part.slice(2, -2).trim();
+      try {
+        return <span key={`${key}-${i}`} dangerouslySetInnerHTML={{
+          __html: katex.renderToString(tex, { displayMode: true, throwOnError: false })
+        }} />;
+      } catch { return <span key={`${key}-${i}`}>{part}</span>; }
+    }
+    // Inline-Mathe: $...$
+    if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
+      const tex = part.slice(1, -1).trim();
+      try {
+        return <span key={`${key}-${i}`} dangerouslySetInnerHTML={{
+          __html: katex.renderToString(tex, { displayMode: false, throwOnError: false })
+        }} />;
+      } catch { return <span key={`${key}-${i}`}>{part}</span>; }
+    }
+    // \begin{...}...\end{...} Blöcke
+    if (part.startsWith('\\begin{')) {
+      try {
+        return <span key={`${key}-${i}`} dangerouslySetInnerHTML={{
+          __html: katex.renderToString(part, { displayMode: true, throwOnError: false })
+        }} />;
+      } catch { return <span key={`${key}-${i}`}>{part}</span>; }
+    }
+    return <React.Fragment key={`${key}-${i}`}>{part}</React.Fragment>;
+  });
+}
 
 function renderMarkdown(text: string) {
+  // Erst Bold-Markdown auflösen, dann LaTeX
   const parts = text.split(/(\*\*.*?\*\*)/g);
   return parts.map((part, i) =>
     part.startsWith('**') && part.endsWith('**')
-      ? <strong key={i}>{part.slice(2, -2)}</strong>
-      : part
+      ? <strong key={i}>{renderLatexSegment(part.slice(2, -2), i)}</strong>
+      : renderLatexSegment(part, i)
   );
 }
 
@@ -228,7 +269,7 @@ function MaterialImpulsCard({ impuls, onMinimize }: { impuls: MaterialImpuls; on
         {impuls.chartDaten && impuls.chartDaten.typ === 'kreis' && (
           <PieChartSVG labels={impuls.chartDaten.labels} werte={impuls.chartDaten.werte} einheit={impuls.chartDaten.einheit} />
         )}
-        <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{impuls.inhalt}</p>
+        <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">{renderMarkdown(impuls.inhalt)}</p>
         <p className="text-xs text-slate-500 italic">Quelle: {impuls.quellenangabe}</p>
       </div>
     </motion.div>
