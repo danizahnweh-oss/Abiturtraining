@@ -30,6 +30,16 @@
 - Kolloquium-Struktur: Teil 1 (Kurzreferat 10 min + Fragen 5 min) + Teil 2 (Gespräch 15 min)
 - Lehrplan-Quelle: LehrplanPLUS Bayern G9 (lehrplanplus.bayern.de)
 
+### Abiturprüfung G9 – Struktur (Quelle: KM Bayern, Stand 25.02.2026)
+- **5 Prüfungsfächer** insgesamt: 3 schriftlich + 2 mündlich (Kolloquium)
+- **3 eA-Fächer:** Deutsch + Mathematik (beide automatisch eA) + 1 frei wählbares **Leistungsfach** (eA)
+- **2 gA-Fächer:** Fach 4 + Fach 5
+- eA-Verteilung: mindestens 2× schriftlich, höchstens 1× mündlich
+  → d.h. entweder Deutsch **oder** Mathe darf mündlich sein (nicht beide)
+- gA-Verteilung: mindestens 1× mündlich, höchstens 1× schriftlich
+- NEU G9: Nur eines von Deutsch/Mathe muss verpflichtend schriftlich sein
+- Leistungsfach kann schriftlich oder mündlich sein (solange eA-Regel erfüllt)
+
 ## Tablet-Optimierung (immer beachten!)
 Bei **jeder** Änderung an HTML, CSS oder JS automatisch sicherstellen, dass die Seite auf allen Tablets (iPad, Android, Surface etc.) optimal funktioniert:
 - **Touch-Targets:** Alle klickbaren Elemente mindestens 44×44px
