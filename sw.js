@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v82';
+const CACHE_NAME = 'myabiflow-v83';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -78,7 +78,11 @@ self.addEventListener('fetch', event => {
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        if (response.ok && event.request.method === 'GET') {
+        // Nie eine HTML-Fehlerseite als JS/CSS cachen (verhindert MIME-type-Fehler)
+        const ct = response.headers.get('Content-Type') || '';
+        const isJsOrCss = url.pathname.endsWith('.js') || url.pathname.endsWith('.css');
+        const wrongMime = isJsOrCss && ct.includes('text/html');
+        if (response.ok && event.request.method === 'GET' && !wrongMime) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
