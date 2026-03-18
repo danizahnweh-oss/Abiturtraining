@@ -2785,7 +2785,7 @@
 </head>
 
 <body>
-  <a href="#subject-screen" class="skip-link">Zum Hauptinhalt springen</a>
+  <a href="#login-screen" id="skipLink" class="skip-link">Zum Hauptinhalt springen</a>
 
   <!-- ====== SPLASH SCREEN ====== -->
   <div id="splash" role="status" aria-label="App wird geladen">
@@ -2920,7 +2920,7 @@
   <!-- ====== ROLE SELECTION SCREEN ====== -->
   <div id="role-screen" role="region" aria-label="Willkommen">
     <div class="role-box">
-      <img src="logo.png" alt="myAbiFlow Logo">
+      <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431">
       <div class="abitur-badge">Dein Weg zum Abitur</div>
       <h2>Willkommen bei myAbiFlow</h2>
       <p>Wähle deinen Bereich:</p>
@@ -2930,11 +2930,11 @@
           <span class="role-label">Ich bin Schüler/in</span>
           <span class="role-desc">Abitur-Training starten</span>
         </button>
-        <button class="role-btn role-btn-teacher" type="button" disabled>
+        <div class="role-btn role-btn-teacher" role="img" aria-label="Lehrkraft / Schule – bald verfügbar">
           <span class="role-icon" aria-hidden="true">🏫</span>
           <span class="role-label">Ich bin Lehrkraft / Schule</span>
-          <span class="role-desc">Kommt demnächst</span>
-        </button>
+          <span class="role-desc">Bald verfügbar</span>
+        </div>
       </div>
     </div>
   </div>
@@ -2943,9 +2943,9 @@
   <div id="login-screen">
     <div class="login-box">
       <div style="text-align:center; margin-bottom:1.5rem;">
-        <img src="logo.png" alt="myAbiFlow Logo" style="height: 49px; width: auto;">
+        <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431" style="height: 49px; width: auto;">
       </div>
-      <div class="abitur-badge">Abitur 2026</div>
+      <div class="abitur-badge" id="abiturYearBadge">Abitur 2026</div>
       <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
         <button id="modeLogin" class="active" role="tab" aria-selected="true"
           onclick="setLoginMode('login')">Anmelden</button>
@@ -2953,17 +2953,18 @@
           registrieren</button>
       </div>
       <label for="studentName" class="sr-only">Name</label>
-      <input type="text" id="studentName" class="login-input" placeholder="Dein Name ..." autocomplete="off">
+      <input type="text" id="studentName" class="login-input" placeholder="Dein Name ..." autocomplete="username">
       <label for="personalPassword" class="sr-only">Passwort</label>
       <input type="password" id="personalPassword" class="login-input" placeholder="Dein Passwort ..."
-        autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
+        autocomplete="current-password" onkeyup="if(event.key==='Enter')doLogin()">
       <div id="registerFields" style="display:none">
         <label for="personalPasswordConfirm" class="sr-only">Passwort bestätigen</label>
         <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort bestätigen ..."
-          autocomplete="off">
-        <label for="classPassword" class="sr-only">Schulcode</label>
-        <input type="password" id="classPassword" class="login-input" placeholder="Schulcode ..."
-          autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()">
+          autocomplete="new-password">
+        <label for="classPassword" style="display:block;font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.6rem;">Schulcode</label>
+        <input type="password" id="classPassword" class="login-input" placeholder="Schulcode eingeben ..."
+          autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()" aria-describedby="schulcodeHint">
+        <p id="schulcodeHint" style="font-size:.82rem;color:var(--ink-muted);margin-top:.3rem;">Den Schulcode erhältst du von deiner Lehrkraft oder Schule.</p>
       </div>
       <br>
       <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
@@ -2974,7 +2975,7 @@
   <!-- ====== SUBJECT SELECTION SCREEN ====== -->
   <div id="subject-screen" role="main">
     <div class="subject-header">
-      <img src="logo.png" alt="myAbiFlow Logo" style="height: 101px; width: auto;">
+      <img src="logo.png" alt="myAbiFlow Logo" width="2095" height="431" style="height: 101px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
@@ -2991,8 +2992,8 @@
       <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
         ein Fach aus, um loszulegen. Melde dich an, um Aufgaben zu bearbeiten.</p>
       <div id="countdownToggle" style="display:none; margin-top:0.5rem;">
-        <button onclick="enableCountdown()"
-          style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:all 0.2s;">
+        <button type="button" onclick="enableCountdown()" aria-label="Prüfungs-Countdown anzeigen"
+          style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:0.5rem 1rem; border-radius:20px; cursor:pointer; font-size:0.9rem; color:rgba(255,255,255,0.85); transition:background-color,border-color 0.2s;">
           📅 Prüfungs-Countdown anzeigen
         </button>
       </div>
@@ -5423,6 +5424,7 @@
       document.getElementById("loginBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
       document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
       document.getElementById("personalPassword").placeholder = mode === "register" ? "Eigenes Passwort w\u00e4hlen \u2026" : "Dein Passwort \u2026";
+      document.getElementById("personalPassword").autocomplete = mode === "register" ? "new-password" : "current-password";
       document.getElementById("loginError").style.display = "none";
     }
 
@@ -5542,6 +5544,9 @@
       document.getElementById("module-screen-biologie").style.display = "none";
       document.getElementById("module-screen-sport").style.display = "none";
       sessionStorage.removeItem("current_subject");
+      // Skip-Link auf Hauptinhalt aktualisieren
+      var skipLink = document.getElementById("skipLink");
+      if (skipLink) skipLink.href = "#subject-screen";
 
       var name = sessionStorage.getItem("student_name") || "";
       var isLoggedIn = sessionStorage.getItem("access") === "1" && name;
@@ -6116,6 +6121,15 @@
     });
 
     window.onload = function () {
+      // Abitur-Jahres-Badge dynamisch aktualisieren
+      var badge = document.getElementById("abiturYearBadge");
+      if (badge) {
+        var now = new Date();
+        // Nach August des laufenden Jahres bereits das nächste Abiturjahr anzeigen
+        var abiturJahr = now.getMonth() >= 7 ? now.getFullYear() + 1 : now.getFullYear();
+        badge.textContent = "Abitur " + abiturJahr;
+      }
+
       checkSession();
       initTheme();
       initDragAndDrop();
