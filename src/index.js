@@ -2,7 +2,7 @@
 /* Schlanker Einstiegspunkt — importiert alle Handler aus Modulen */
 
 // Basis-Module
-import { jsonResponse, corsHeaders, getAllowedOrigins, checkBodySize, truncate } from './utils.js';
+import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
 import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS } from './config.js';
 import {
   checkAuth, checkRateLimit, cleanupRateLimitMaps,
@@ -198,8 +198,7 @@ export default {
 
       // Origin-Validierung (CSRF-Schutz)
       const origin = env._origin;
-      const allowedOrigins = getAllowedOrigins(env);
-      if (origin && !allowedOrigins.includes(origin)) {
+      if (origin && !isOriginAllowed(origin, env)) {
         return jsonResponse({ error: "Forbidden" }, 403, env);
       }
 
