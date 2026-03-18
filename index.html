@@ -11,8 +11,7 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src * data: blob:; font-src * data:; connect-src *;">
   <title>myAbiFlow – Dein Weg zum Abitur</title>
-  <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="/fonts/fonts.css">
@@ -5100,7 +5099,9 @@
       examSubjectsCache.written.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
-      examSubjectsCache.oral.forEach(function (s) { ordered.push(s); });
+      examSubjectsCache.oral.forEach(function (s) {
+        if (s !== examSubjectsCache.ea) ordered.push(s);
+      });
 
       ordered.forEach(function (subj) {
         var isEa = examSubjectsCache.ea === subj || subj === 'mathematik' || subj === 'deutsch';
@@ -5212,12 +5213,16 @@
       examSubjectsCache.written.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          var isEa = examSubjectsCache.ea === subj || subj === 'mathematik' || subj === 'deutsch';
+          var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+          var isEa = examSubjectsCache.ea === subj || isAutoEa;
           card.classList.add(isEa ? "exam-ea" : "exam-written");
-          var badge = document.createElement("span");
-          badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-written");
-          badge.textContent = isEa ? "⭐ schriftlich eA" : "✍️ schriftlich gA";
-          card.appendChild(badge);
+          if (!isAutoEa) {
+            // Mathe/Deutsch: kein Badge (Level immer klar)
+            var badge = document.createElement("span");
+            badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-written");
+            badge.textContent = isEa ? "⭐ schriftlich eA" : "✍️ schriftlich gA";
+            card.appendChild(badge);
+          }
         }
       });
 
@@ -5225,12 +5230,15 @@
       examSubjectsCache.oral.forEach(function (subj) {
         var card = document.querySelector(".subject-card." + subj);
         if (card) {
-          var isEa = examSubjectsCache.ea === subj || subj === 'mathematik' || subj === 'deutsch';
+          var isAutoEa = subj === 'mathematik' || subj === 'deutsch';
+          var isEa = examSubjectsCache.ea === subj || isAutoEa;
           card.classList.add(isEa ? "exam-ea" : "exam-oral");
-          var badge = document.createElement("span");
-          badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-oral");
-          badge.textContent = isEa ? "⭐ mündlich eA" : "🗣️ mündlich gA";
-          card.appendChild(badge);
+          if (!isAutoEa) {
+            var badge = document.createElement("span");
+            badge.className = "exam-badge " + (isEa ? "exam-badge-ea" : "exam-badge-oral");
+            badge.textContent = isEa ? "⭐ mündlich eA" : "🗣️ mündlich gA";
+            card.appendChild(badge);
+          }
         }
       });
     }
@@ -5391,7 +5399,9 @@
       examSubjectsCache.written.forEach(function (s) {
         if (s !== examSubjectsCache.ea) ordered.push(s);
       });
-      examSubjectsCache.oral.forEach(function (s) { ordered.push(s); });
+      examSubjectsCache.oral.forEach(function (s) {
+        if (s !== examSubjectsCache.ea) ordered.push(s);
+      });
 
       if (ordered.length === 0) {
         container.innerHTML = '<p style="font-size:.85rem;color:var(--ink-muted);">Wähle zuerst deine Abiturfächer aus.</p>';
