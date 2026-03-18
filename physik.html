@@ -947,7 +947,7 @@
         wrap.innerHTML =
           '<div class="student-ta-group">' +
           formelEditorHTML(0) +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Physik-Notation:\n\u2022 $F = m \\cdot a$\n\u2022 $E = \\frac{U}{d}$\n\u2022 $\\lambda = \\frac{h}{p}$\n\u2022 $E = h \\cdot f$\n\u2022 $F = q \\cdot v \\times B$" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" aria-label="Deine Lösung" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Physik-Notation:\n\u2022 $F = m \\cdot a$\n\u2022 $E = \\frac{U}{d}$\n\u2022 $\\lambda = \\frac{h}{p}$\n\u2022 $E = h \\cdot f$\n\u2022 $F = q \\cdot v \\times B$" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });

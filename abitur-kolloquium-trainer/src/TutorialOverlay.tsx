@@ -61,7 +61,8 @@ export function TutorialOverlay({ steps, storageKey, onComplete }: TutorialOverl
     if (step.target) {
       const el = document.querySelector(step.target);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        el.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
         // Kurz warten bis Scroll abgeschlossen
         const timer = setTimeout(() => {
           const rect = el.getBoundingClientRect();

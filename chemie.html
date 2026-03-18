@@ -956,7 +956,7 @@
         wrap.innerHTML =
           '<div class="student-ta-group">' +
           formelEditorHTML(0) +
-          '<textarea id="studentText_0" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Chemie-Notation:\n\u2022 \\ce{H2O}\n\u2022 \\ce{2H2 + O2 -> 2H2O}\n\u2022 Delta H = -286 kJ/mol\n\u2022 pH = -lg(c(H3O+))\n\u2022 K_c = [Produkte]/[Edukte]" oninput="updateWordCount()"></textarea>' +
+          '<textarea id="studentText_0" aria-label="Deine Lösung" placeholder="Beginne hier mit deiner L\u00f6sung \u2026\n\nTipp: Verwende Chemie-Notation:\n\u2022 \\ce{H2O}\n\u2022 \\ce{2H2 + O2 -> 2H2O}\n\u2022 Delta H = -286 kJ/mol\n\u2022 pH = -lg(c(H3O+))\n\u2022 K_c = [Produkte]/[Edukte]" oninput="updateWordCount()"></textarea>' +
           '<div class="ta-word-count" id="wc_studentText_0">0 W\u00f6rter</div>' +
           '</div>';
         document.getElementById("studentText_0").addEventListener("focus", function () { activeStudentTaId = "studentText_0"; });

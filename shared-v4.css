@@ -556,7 +556,9 @@ body {
   display: block !important;
   text-align: left;
   padding: 2.5rem 3rem;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
   margin: 0 auto 2rem;
   animation: fadeUp 0.6s ease-out;
   background: var(--accent);
@@ -802,6 +804,12 @@ input[type="number"] {
   background: var(--surface);
   color: var(--ink);
   transition: border-color .2s, box-shadow .2s;
+}
+
+/* Explizite option-Farben für Dark Mode (WebKit erbt nicht immer CSS-Variablen) */
+[data-theme="dark"] select option {
+  background: var(--surface);
+  color: var(--ink);
 }
 
 select:focus,
@@ -3355,11 +3363,15 @@ footer a:focus-visible {
 
   /* Dashboard-Hero kompakter */
   .dashboard-hero {
-    padding: 1.5rem;
+    padding: 1.2rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 .8rem;
+    border-radius: var(--radius);
   }
 
   .dashboard-hero h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   /* Module-Grid */
