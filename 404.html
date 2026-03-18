@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,follow">
+  <title>Seite nicht gefunden – myAbiFlow</title>
+  <meta name="description" content="Die angeforderte Seite wurde nicht gefunden. Zurück zur Startseite von myAbiFlow.">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/shared-v4.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+
+    .error-code {
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 800;
+      color: var(--accent, #4f46e5);
+      line-height: 1;
+      opacity: .15;
+    }
+
+    .error-message {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 600;
+      color: var(--ink, #0f172a);
+      margin-top: -2rem;
+    }
+
+    .error-hint {
+      font-size: 1.05rem;
+      color: var(--muted, #64748b);
+      max-width: 28rem;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: .5rem;
+    }
+
+    .error-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      border-radius: var(--r-m, 12px);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      min-height: 44px;
+      min-width: 44px;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .error-actions a:active {
+      transform: scale(.97);
+    }
+
+    .btn-primary {
+      background: var(--accent, #4f46e5);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 4px 14px rgba(79, 70, 229, .35);
+    }
+
+    .btn-secondary {
+      background: var(--surface, #fff);
+      color: var(--ink, #0f172a);
+      border: 1.5px solid var(--border, #e2e8f0);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent, #4f46e5);
+      color: var(--accent, #4f46e5);
+    }
+  </style>
+</head>
+
+<body>
+  <main class="error-page">
+    <div class="error-code">404</div>
+    <h1 class="error-message">Seite nicht gefunden</h1>
+    <p class="error-hint">
+      Die Seite, die du suchst, existiert nicht oder wurde verschoben.
+      Vielleicht findest du auf der Startseite, was du brauchst.
+    </p>
+    <div class="error-actions">
+      <a href="/" class="btn-primary">Zur Startseite</a>
+      <a href="javascript:history.back()" class="btn-secondary">Zurück</a>
+    </div>
+  </main>
+</body>
+
+</html>

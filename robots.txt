@@ -1,4 +1,33 @@
 User-agent: *
 Allow: /
 
+# KI-Crawler: Suche erlaubt, Training nicht
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# KI-Training-Crawler blockieren
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
 Sitemap: https://myabiflow.de/sitemap.xml
