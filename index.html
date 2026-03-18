@@ -3444,7 +3444,7 @@
         <div id="wizardStep1">
           <h2 id="wizardTitle" tabindex="-1" style="font-size:1.3rem;margin:0 0 .4rem;text-align:center;">Deine 5 Abiturfächer</h2>
           <p style="color:var(--ink-muted);text-align:center;font-size:.88rem;margin:0 0 1.2rem;line-height:1.4;">
-            Wähle deine Prüfungsfächer: 1× erhöhtes Anforderungsniveau (eA), 2× schriftlich und 2× mündlich.
+            Wähle deine 5 Abiturfächer und markiere dein Leistungsfach (eA) per 2. Klick – schriftlich oder mündlich.
           </p>
           <div class="wiz-slots" id="wizSlots">
             <span class="wiz-slot" id="wslot-ea">⭐ eA-Fach</span>
@@ -3454,7 +3454,7 @@
             <span class="wiz-slot" id="wslot-o2">🗣️ Mündl. 2</span>
           </div>
           <p style="text-align:center;font-size:.78rem;color:var(--ink-muted);margin:0 0 .8rem;">
-            1. Klick = schriftlich · auf schriftl. Fach klicken = eA · nochmal = entfernen
+            1. Klick = schriftlich gA · 2. Klick = Leistungsfach eA · bei mündl. Fach: 2. Klick = eA · nochmal = entfernen
           </p>
           <div id="wizardSubjectGrid"></div>
           <div id="wizardCounter" style="text-align:center;font-size:.82rem;color:var(--ink-muted);margin-bottom:1rem;">0 / 5 Fächer gewählt</div>
@@ -4898,18 +4898,37 @@
     }
 
     function wizardToggleExamSubject(subj) {
+      var isAutoEa = subj === 'mathe' || subj === 'german';
       var wIdx = wizardTempExam.written.indexOf(subj);
       var oIdx = wizardTempExam.oral.indexOf(subj);
-      var isEa = wizardTempExam.ea === subj;
+      var isLeistung = wizardTempExam.ea === subj;
 
-      if (isEa) {
+      if (isAutoEa) {
+        // Mathe/Deutsch: immer eA – Zyklus schriftlich → mündlich → entfernen
+        if (wIdx !== -1) {
+          wizardTempExam.written.splice(wIdx, 1);
+          if (wizardTempExam.oral.length < 2) wizardTempExam.oral.push(subj);
+        } else if (oIdx !== -1) {
+          wizardTempExam.oral.splice(oIdx, 1);
+        } else if (wizardTempExam.written.length < 3) {
+          wizardTempExam.written.push(subj);
+        } else if (wizardTempExam.oral.length < 2) {
+          wizardTempExam.oral.push(subj);
+        }
+      } else if (isLeistung) {
+        // Leistungsfach → zurück zu gA (Fach bleibt in written/oral)
         wizardTempExam.ea = "";
       } else if (wIdx !== -1 && !wizardTempExam.ea) {
+        // Schriftlich gA → zum Leistungsfach hochstufen
         wizardTempExam.ea = subj;
       } else if (wIdx !== -1) {
+        // Schriftlich gA (Leistungsfach schon vergeben) → entfernen
         wizardTempExam.written.splice(wIdx, 1);
-        if (wizardTempExam.ea === subj) wizardTempExam.ea = "";
+      } else if (oIdx !== -1 && !wizardTempExam.ea) {
+        // Mündlich gA → zum Leistungsfach hochstufen
+        wizardTempExam.ea = subj;
       } else if (oIdx !== -1) {
+        // Mündlich (Leistungsfach schon vergeben) → entfernen
         wizardTempExam.oral.splice(oIdx, 1);
       } else if (wizardTempExam.written.length < 3) {
         wizardTempExam.written.push(subj);
@@ -4933,53 +4952,64 @@
 
       document.getElementById("wizardCounter").textContent = total + " / 5 Fächer gewählt";
 
-      // Slots aktualisieren (mit X-Button zum Entfernen)
-      function _slotHTML(emoji, label, subj) {
-        return emoji + " " + label + ' <button type="button" class="wiz-slot-x" data-remove="' + subj + '" aria-label="Entfernen">&times;</button>';
+      // Slots dynamisch rendern
+      var slotsDiv = document.getElementById("wizSlots");
+      slotsDiv.innerHTML = "";
+
+      function _makeSlot(emoji, label, subj, cls) {
+        var span = document.createElement("span");
+        span.className = "wiz-slot" + (cls ? " " + cls : "");
+        if (subj) {
+          var xBtn = document.createElement("button");
+          xBtn.type = "button";
+          xBtn.className = "wiz-slot-x";
+          xBtn.setAttribute("data-remove", subj);
+          xBtn.setAttribute("aria-label", "Entfernen");
+          xBtn.textContent = "\u00d7";
+          xBtn.onclick = function (e) {
+            e.stopPropagation();
+            wizardRemoveSubject(this.getAttribute("data-remove"));
+          };
+          span.textContent = emoji + " " + label + " ";
+          span.appendChild(xBtn);
+        } else {
+          span.textContent = emoji + " " + label;
+        }
+        slotsDiv.appendChild(span);
+        return span;
       }
 
-      var eaSlot = document.getElementById("wslot-ea");
+      // eA-Slot
+      var eaIsOral = wizardTempExam.ea && wizardTempExam.oral.indexOf(wizardTempExam.ea) !== -1;
       if (wizardTempExam.ea) {
-        eaSlot.innerHTML = _slotHTML("⭐", SUBJECT_DISPLAY[wizardTempExam.ea] || wizardTempExam.ea, wizardTempExam.ea);
-        eaSlot.className = "wiz-slot filled-ea";
+        var eaEmoji = eaIsOral ? "⭐🗣️" : "⭐";
+        _makeSlot(eaEmoji, SUBJECT_DISPLAY[wizardTempExam.ea] || wizardTempExam.ea, wizardTempExam.ea, "filled-ea");
       } else {
-        eaSlot.textContent = "⭐ eA-Fach";
-        eaSlot.className = "wiz-slot";
+        _makeSlot("⭐", "Leistungsfach", null, "");
       }
 
+      // Schriftlich-Slots (alle schriftlichen Fächer, eA ggf. schon oben)
       var writtenNonEa = wizardTempExam.written.filter(function (s) { return s !== wizardTempExam.ea; });
-      ["wslot-w1", "wslot-w2"].forEach(function (id, idx) {
-        var slot = document.getElementById(id);
-        var s = writtenNonEa[idx];
-        if (s) {
-          slot.innerHTML = _slotHTML("✍️", SUBJECT_DISPLAY[s] || s, s);
-          slot.className = "wiz-slot filled-written";
+      var writtenSlotCount = eaIsOral ? 3 : 2; // wenn eA mündlich → 3 schriftl. gA-Slots
+      for (var wi = 0; wi < writtenSlotCount; wi++) {
+        var ws = writtenNonEa[wi];
+        if (ws) {
+          _makeSlot("✍️", SUBJECT_DISPLAY[ws] || ws, ws, "filled-written");
         } else {
-          slot.textContent = "✍️ Schriftl. " + (idx + 1);
-          slot.className = "wiz-slot";
+          _makeSlot("✍️", "Schriftl. " + (wi + 1), null, "");
         }
-      });
+      }
 
-      ["wslot-o1", "wslot-o2"].forEach(function (id, idx) {
-        var slot = document.getElementById(id);
-        var s = wizardTempExam.oral[idx];
-        if (s) {
-          slot.innerHTML = _slotHTML("🗣️", SUBJECT_DISPLAY[s] || s, s);
-          slot.className = "wiz-slot filled-oral";
+      // Mündlich-Slots (nur non-eA oral)
+      var oralNonEa = wizardTempExam.oral.filter(function (s) { return s !== wizardTempExam.ea; });
+      for (var oi = 0; oi < 2; oi++) {
+        var os = oralNonEa[oi];
+        if (os) {
+          _makeSlot("🗣️", SUBJECT_DISPLAY[os] || os, os, "filled-oral");
         } else {
-          slot.textContent = "🗣️ Mündl. " + (idx + 1);
-          slot.className = "wiz-slot";
+          _makeSlot("🗣️", "Mündl. " + (oi + 1), null, "");
         }
-      });
-
-      // X-Buttons Event-Listener
-      document.querySelectorAll("#wizSlots .wiz-slot-x").forEach(function (xBtn) {
-        xBtn.onclick = function (e) {
-          e.stopPropagation();
-          var subj = this.getAttribute("data-remove");
-          wizardRemoveSubject(subj);
-        };
-      });
+      }
 
       // Next-Button: aktiv wenn 5 Faecher + 1 eA
       var complete = total === 5 && wizardTempExam.ea !== "";
