@@ -783,57 +783,39 @@
         speechConfig = { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } };
       }
 
-      if (onProgress) onProgress(5);
+      if (onProgress) onProgress(10);
       const ctrl = new AbortController();
-      const tid = setTimeout(() => ctrl.abort(), 55000);
+      const tid = setTimeout(() => ctrl.abort(), 90000);
 
       try {
-        // Streaming-Endpunkt: Daten fließen sofort → kein Cloudflare-Timeout
+        // Non-Streaming-Endpunkt: stabiler durch Cloudflare Worker, kein SSE-Parsing
         const res = await fetch(
-          TTS_PROXY + '/v1beta/models/gemini-2.5-flash-preview-tts:streamGenerateContent?key=PROXY&alt=sse',
+          TTS_PROXY + '/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=PROXY',
           { method:'POST', headers:{'Content-Type':'application/json'}, signal:ctrl.signal,
             body: JSON.stringify({
               contents:[{role:'user',parts:[{text}]}],
               generationConfig:{ responseModalities:['AUDIO'], speechConfig }
             }) }
         );
-        if (!res.ok) { const t = await res.text(); throw new Error('TTS '+res.status+': '+t.slice(0,120)); }
-        if (onProgress) onProgress(15);
-
-        const reader = res.body.getReader(), dec = new TextDecoder();
-        let buf = '', chunks = [], mimeType = '';
-        while (true) {
-          const {done, value} = await reader.read();
-          if (done) break;
-          buf += dec.decode(value, {stream:true});
-          const lines = buf.split('\n'); buf = lines.pop() || '';
-          for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
-            const j = line.slice(6).trim();
-            if (!j || j==='[DONE]') continue;
-            try {
-              const parts = JSON.parse(j)?.candidates?.[0]?.content?.parts || [];
-              for (const p of parts) if (p.inlineData?.data) {
-                chunks.push(Uint8Array.from(atob(p.inlineData.data), c=>c.charCodeAt(0)));
-                if (!mimeType) mimeType = p.inlineData.mimeType || '';
-                if (onProgress) onProgress(Math.min(15 + chunks.length*4, 80));
-              }
-            } catch(e) {}
-          }
-        }
         clearTimeout(tid);
-        if (!chunks.length) throw new Error('Kein Audio erhalten.');
-        if (onProgress) onProgress(88);
+        if (!res.ok) { const t = await res.text(); throw new Error('TTS '+res.status+': '+t.slice(0,200)); }
+        if (onProgress) onProgress(80);
 
-        const total = chunks.reduce((s,c)=>s+c.length,0);
-        const combined = new Uint8Array(total);
-        let off=0; for (const c of chunks) { combined.set(c,off); off+=c.length; }
+        const data = await res.json();
+        if (onProgress) onProgress(90);
 
+        const parts = data?.candidates?.[0]?.content?.parts || [];
+        let audioData = null;
+        for (const p of parts) { if (p.inlineData?.data) { audioData = p.inlineData; break; } }
+        if (!audioData) throw new Error('Kein Audio in der Antwort erhalten.');
+
+        const bytes = Uint8Array.from(atob(audioData.data), c=>c.charCodeAt(0));
+        const mimeType = audioData.mimeType || '';
         let blob;
         if (mimeType.includes('wav')||mimeType.includes('mp3')||mimeType.includes('mpeg')) {
-          blob = new Blob([combined], {type:mimeType});
+          blob = new Blob([bytes], {type:mimeType});
         } else {
-          blob = pcmToWav(new Int16Array(combined.buffer, 0, Math.floor(combined.byteLength/2)), TTS_SAMPLE_RATE);
+          blob = pcmToWav(new Int16Array(bytes.buffer, 0, Math.floor(bytes.byteLength/2)), TTS_SAMPLE_RATE);
         }
         if (onProgress) onProgress(100);
         return URL.createObjectURL(blob);
@@ -948,7 +930,8 @@
         setupGeminiPlayer(url);
         return;
       } catch(e) {
-        console.warn('[Listening] Gemini TTS fehlgeschlagen, Fallback zu Web Speech:', e.message);
+        console.error('[Listening] Gemini TTS fehlgeschlagen:', e.message, e);
+        showToast('Gemini-Stimme nicht verfügbar – Browser-Stimme wird genutzt');
       }
 
       // 2. Fallback: Web Speech API
