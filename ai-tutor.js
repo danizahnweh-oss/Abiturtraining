@@ -68,6 +68,11 @@ function initAiTutor() {
       transform: translateX(0);
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
+    .ai-hover-hint.peek {
+      opacity: 1;
+      transform: translateX(-10px);
+      pointer-events: auto;
+    }
     .ai-hover-hint::after {
       content: '';
       position: absolute;
@@ -275,6 +280,19 @@ function initAiTutor() {
 
   // 6. Always show widget (even for guests)
   widget.style.display = "block";
+
+  // 7. "Frag mich!" Sprechblase periodisch einblenden (alle 60s, 4s sichtbar)
+  var hint = widget.querySelector(".ai-hover-hint");
+  if (hint) {
+    setInterval(function () {
+      var chatWin = document.getElementById("ai-chat-window");
+      if (chatWin && chatWin.style.display === "flex") return; // Chat offen → nicht zeigen
+      hint.classList.add("peek");
+      setTimeout(function () {
+        hint.classList.remove("peek");
+      }, 4000);
+    }, 60000);
+  }
 }
 
 /* ====== DRAG-AND-DROP ====== */
