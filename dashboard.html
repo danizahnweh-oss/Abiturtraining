@@ -425,6 +425,10 @@ footer a { color: var(--accent); }
           <select id="filterStudentClass" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
             <option value="">Alle Klassen</option>
           </select>
+          <label for="filterStudentFrom" class="sr-only">Registriert ab</label>
+          <input type="date" id="filterStudentFrom" onchange="renderStudents()" placeholder="Von" title="Registriert ab" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <label for="filterStudentTo" class="sr-only">Registriert bis</label>
+          <input type="date" id="filterStudentTo" onchange="renderStudents()" placeholder="Bis" title="Registriert bis" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
           <span id="regStudentCount" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
           <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄 Aktualisieren</button>
         </div>
@@ -1060,8 +1064,12 @@ function renderStudents() {
   const countEl = document.getElementById("regStudentCount");
 
   const classFilter = document.getElementById("filterStudentClass")?.value || "";
+  const fromDate = document.getElementById("filterStudentFrom")?.value || "";
+  const toDate = document.getElementById("filterStudentTo")?.value || "";
   let filtered = [...allStudents].sort((a, b) => a.name.localeCompare(b.name));
   if (classFilter) filtered = filtered.filter(s => s.class_group === classFilter);
+  if (fromDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) >= fromDate);
+  if (toDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) <= toDate);
 
   countEl.textContent = filtered.length + " Schüler";
 
