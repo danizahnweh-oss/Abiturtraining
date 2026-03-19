@@ -275,6 +275,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
     // 2. Polling
     var startTime = Date.now();
     var statusMsgUpdated = false;
+    var _networkErrors = 0;
     while (Date.now() - startTime < maxWait) {
       await new Promise(function(r) { setTimeout(r, pollInterval); });
 
@@ -298,7 +299,8 @@ async function apiCallAsync(gradeEndpoint, body, options) {
           headers: { "X-Access-Token": getAccessToken() }
         });
       } catch (fetchErr) {
-        // Netzwerkfehler beim Polling – nächster Versuch
+        _networkErrors++;
+        if (_networkErrors >= 5) throw new Error("Verbindung zum Server verloren. Bitte prüfe deine Internetverbindung und versuche es erneut.");
         continue;
       }
 
@@ -2057,12 +2059,30 @@ async function _doLoginModal() {
   err.style.display = "none";
 
   try {
-    var res = await fetch(API_BASE + "/api/check-student", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    });
-    var data = await res.json();
+    // Retry-Logik bei Netzwerkfehlern (max 2 Versuche)
+    var res, data;
+    for (var _attempt = 0; _attempt < 2; _attempt++) {
+      try {
+        res = await fetch(API_BASE + "/api/check-student", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        });
+        break;
+      } catch (fetchErr) {
+        if (_attempt === 1) throw fetchErr;
+        await new Promise(function(r) { setTimeout(r, 1500); });
+      }
+    }
+    if (!res.ok) {
+      data = await res.json().catch(function() { return {}; });
+      err.textContent = data.error || "Serverfehler (" + res.status + "). Bitte versuche es erneut.";
+      err.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = _loginModalMode === "register" ? "Registrieren" : "Anmelden";
+      return;
+    }
+    data = await res.json();
 
     if (data.success) {
       sessionStorage.setItem("access", "1");

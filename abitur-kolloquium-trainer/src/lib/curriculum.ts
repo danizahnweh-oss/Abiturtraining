@@ -72,7 +72,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
 
   'Chemie': {
     // C12: LB2 Atombau, LB3 Bindung, LB4 Protonenübergänge, LB5 Elektronenübergänge
-    // C13: LB2 Organische Verbindungen, LB3 Farbstoffe, LB4 Makromoleküle, LB5 Nachhaltigkeit
+    // C13: LB2 Organische Verbindungen, LB3 Farbstoffe, LB4 Natürliche Makromoleküle (Aminocarbonsäuren→Protein), LB5 Synthetische Makromoleküle (Kunststoffe)
     halbjahre: {
       '12/1': [
         'Atombau: Energiestufen, Orbitalmodell und Periodensystem',
@@ -90,9 +90,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Farbigkeit und Struktur von Farbstoffen',
       ],
       '13/2': [
-        'Natürliche Makromoleküle: Proteine und Kohlenhydrate',
-        'Kunststoffe: Polymerisation, Polykondensation und Recycling',
-        'Chemie und Nachhaltigkeit (Stoffkreisläufe, Green Chemistry)',
+        'Natürliche Makromoleküle: Von den Aminocarbonsäuren zum Protein (Ampholyt, Zwitter-Ion, Peptidbindung, Primär-/Sekundär-/Tertiär-/Quartärstruktur, Denaturierung, Enzyme)',
+        'Synthetische Makromoleküle: Kunststoffe (Thermoplast, Duroplast, Elastomer, radikalische Polymerisation, Polykondensation, Silikone, leitfähige Kunststoffe)',
+        'Kunststoff-Verwertung und Nachhaltigkeit (Recycling, biologisch abbaubare Kunststoffe, fossile und nachwachsende Rohstoffe)',
       ],
     },
   },
