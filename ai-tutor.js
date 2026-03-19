@@ -399,13 +399,15 @@ function initWidgetDrag(widget) {
       widget._justDragged = true;
       setTimeout(function () { widget._justDragged = false; }, 50);
     } else if (e.type === "touchend") {
-      // Auf Touch-Geräten wird der Click-Event durch den Drag-Handler unterdrückt.
-      // Bei einem Tap (kein Drag) manuell toggleAiChat/Close auslösen.
+      // Auf Touch-Geräten: Bei einem Tap (kein Drag) manuell toggleAiChat auslösen
+      // und den synthetischen Click unterdrücken, damit toggleAiChat nicht doppelt feuert.
       var btn = document.getElementById("ai-tutor-btn");
       var closeBtn = document.getElementById("ai-close-btn");
       if (dragStartTarget && (dragStartTarget === closeBtn || (closeBtn && closeBtn.contains(dragStartTarget)))) {
+        e.preventDefault();
         toggleAiChat();
       } else if (dragStartTarget && (dragStartTarget === btn || (btn && btn.contains(dragStartTarget)))) {
+        e.preventDefault();
         toggleAiChat();
       }
     }
