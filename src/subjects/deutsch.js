@@ -360,16 +360,45 @@ export async function handleGenerateDeutsch(request, env) {
   let systemPrompt, userPrompt;
 
   if (type === "interpretation") {
+    // Gattungsspezifische Aufgabenstruktur
+    const gattungRegeln = gattung === "lyrik"
+      ? `AUFGABENSTRUKTUR FÜR LYRIK:
+- Teil 1 (Schwerpunkt): Erschließen und interpretieren Sie das vorliegende Gedicht. Arbeiten Sie dabei EIN bis ZWEI zentrale Aspekte heraus (z.B. Naturdarstellung, lyrisches Ich, Vergänglichkeitsmotiv).
+- Teil 2: Motivvergleich mit einem ZWEITEN Gedicht (Vergleichstext wird mitgeliefert). Z.B. "Vergleichen Sie die Funktion und Gestaltung des Motivs X im Textausschnitt mit dem Motiv X im Vergleichstext."
+- NUR bei Lyrik gibt es einen Vergleichstext (zweites Gedicht)!
+
+TEXTLÄNGE:
+- Hauptgedicht: Komplettes Gedicht (3-7 Strophen, 20-40 Verse, ca. 100-200 Wörter)
+- Vergleichsgedicht: Kürzeres Gedicht (2-4 Strophen, 8-16 Verse)`
+      : gattung === "drama"
+      ? `AUFGABENSTRUKTUR FÜR DRAMA:
+- Teil 1 (Schwerpunkt): KURZE, fokussierte Aufgabenstellung! Nur 1-2 Sätze. Beispiel: "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, wie [EIN konkreter Aspekt, z.B. 'der Protagonist dargestellt wird' oder 'der Konflikt zwischen X und Y gestaltet wird']."
+- Teil 2: KURZ! Vergleich mit einem ANDEREN literarischen Werk (KEIN Vergleichstext mitgeliefert — der Schüler wählt selbst). Nur 1-2 Sätze. Beispiel: "Zeigen Sie ausgehend von Ihren Ergebnissen vergleichend auf, wie in einem anderen literarischen Werk [ein Protagonist/eine Figur] mit einer Situation [des Konflikts/der Überforderung/etc.] umgeht."
+- KEIN Vergleichstext bei Drama! compare_text und compare_meta müssen null sein.
+
+TEXTLÄNGE:
+- Szenenausschnitt: 100-150 Zeilen Dialog mit Regieanweisungen (800-1200 Wörter)`
+      : `AUFGABENSTRUKTUR FÜR EPIK:
+- Teil 1 (Schwerpunkt): KURZE, fokussierte Aufgabenstellung! Nur 1-2 Sätze. Beispiel: "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, wie [EIN konkreter Aspekt, z.B. 'die Erzählperspektive die Darstellung der Figur prägt' oder 'das Motiv der Entfremdung gestaltet wird']."
+- Teil 2: KURZ! Vergleich mit einem ANDEREN literarischen Werk (KEIN Vergleichstext mitgeliefert — der Schüler wählt selbst). Nur 1-2 Sätze. Beispiel: "Zeigen Sie ausgehend von Ihren Ergebnissen vergleichend auf, wie in einem anderen literarischen Werk [Thema/Motiv] dargestellt wird."
+- KEIN Vergleichstext bei Epik! compare_text und compare_meta müssen null sein.
+
+TEXTLÄNGE:
+- Geschlossener Prosatext: 1000-1500 Wörter (vollständige Kurzgeschichte oder verständlicher Romanauszug)`;
+
     systemPrompt = `Du bist ein Experte für das bayerische Deutsch-Abitur (ab 2026, G9). Erstelle eine authentische Interpretationsaufgabe.
 
-WICHTIG - TEXTLÄNGEN WIE IM ECHTEN ABITUR:
-- Bei LYRIK: Das KOMPLETTE Gedicht (3-7 Strophen, 20-40 Verse, ca. 100-200 Wörter). Bei Vergleichsaufgabe zusätzlich ein kürzeres Vergleichsgedicht (2-4 Strophen, 8-16 Verse).
-- Bei DRAMA: Einen substantiellen Szenenausschnitt von 100-150 Zeilen Dialog mit Regieanweisungen (ca. 800-1200 Wörter). Eine zusammenhängende Szene mit echtem dramatischem Konflikt.
-- Bei EPIK: Einen geschlossenen Prosatext von 1000-1500 Wörtern (ca. 2-3 Druckseiten). Vollständige Kurzgeschichte oder selbständig verständlicher Romanauszug.
+${gattungRegeln}
 
-Die Aufgabenstellung ist ZWEITEILIG:
-- Teil 1 (70%): Erschließung und Interpretation des Textes
-- Teil 2 (30%): Weiterführender Schreibauftrag (Vergleich, Stellungnahme, Kreativauftrag)
+EPOCHEN-ZUORDNUNG — STRIKT EINHALTEN:
+Verwende NUR Autoren, die tatsächlich zur gewählten Epoche gehören!
+- Klassik und Romantik (ca. 1786-1835): Goethe, Schiller, Kleist, Novalis, Eichendorff, E.T.A. Hoffmann, Brentano, Hölderlin
+- Realismus (ca. 1848-1890): Fontane, Storm, Keller, Raabe, C.F. Meyer, Droste-Hülshoff (Spätwerk)
+- Naturalismus (ca. 1880-1900): Hauptmann, Holz, Schlaf
+- Moderne (ca. 1890-1950): Rilke, Trakl, Kafka, Brecht, Döblin, Thomas Mann, Musil, Schnitzler, Hofmannsthal
+- Nachkriegszeit bis Mauerfall (1945-1989): Borchert, Böll, Grass, Bachmann, Celan, Bernhard, Dürrenmatt, Frisch, Christa Wolf
+- Literatur seit 1989: Erpenbeck (Heimsuchung – G9-Pflichtlektüre!), Herta Müller, Juli Zeh, Daniel Kehlmann
+WICHTIG: Kleist gehört zur Klassik/Romantik, NICHT zum Realismus! Hauptmann ist Naturalist, NICHT Moderne!
 
 KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Untersuchen Sie die sprachlichen Mittel (Metapher, Alliteration, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 
@@ -377,11 +406,11 @@ Verwende bekannte, kanonische Texte der deutschen Literatur die du vollständig 
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "task_instruction": "Zweiteilige Aufgabenstellung mit klarem Operator",
+  "task_instruction": "Zweiteilige Aufgabenstellung — bei Drama/Epik: KURZ (je 1-2 Sätze pro Teil)!",
   "primary_text": "DER VOLLSTÄNDIGE LITERARISCHE TEXT in voller Länge!",
   "primary_meta": "Autor, Titel, Jahr",
-  "compare_text": "VOLLSTÄNDIGER Vergleichstext oder null",
-  "compare_meta": "Metadaten Vergleichstext oder null",
+  "compare_text": "NUR bei Lyrik: Vergleichsgedicht. Bei Drama/Epik: null!",
+  "compare_meta": "NUR bei Lyrik: Metadaten Vergleichsgedicht. Sonst null",
   "material_text": "Material für poetologische Aufgabe oder null",
   "material_meta": "Quelle oder null",
   "gattung": "${truncate(gattung, 100)}",
@@ -394,15 +423,19 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 - Epoche: ${epoche === "random" ? "frei wählbar" : truncate(epoche, 100)}
 - Weiterführender Auftrag: ${truncate(schreibauftrag, 500)}
 
-KRITISCH - Textlängen wie im echten bayerischen Abitur:
-- Lyrik: Komplettes Gedicht mit 3-7 Strophen, 20-40 Versen (ca. 100-200 Wörter). Bei Vergleich: zweites Gedicht mit 2-4 Strophen.
-- Drama: 100-150 Zeilen zusammenhängender Dialog mit Sprecherangaben und Regieanweisungen (800-1200 Wörter)
-- Epik: Geschlossener Prosatext von 1000-1500 Wörtern
+AUFGABENSTELLUNG — ORIENTIERE DICH AN ECHTEN ABITURAUFGABEN:
+${gattung === "lyrik" ? `- Teil 1: "Erschließen und interpretieren Sie das vorliegende Gedicht. Arbeiten Sie dabei [Aspekt] heraus und zeigen Sie, wie [...]."
+- Teil 2: Motivvergleich mit dem Vergleichsgedicht. "Vergleichen Sie die Funktion und Gestaltung des Motivs X im Gedicht mit dem Motiv X im Vergleichstext."
+- Liefere ein Vergleichsgedicht in compare_text!` : `- Teil 1: KURZ! Nur 1-2 Sätze. "Interpretieren Sie den vorliegenden Auszug aus [Autor] '[Werk]'. Arbeiten Sie dabei insbesondere heraus, [EIN Aspekt]."
+- Teil 2: KURZ! Nur 1-2 Sätze. Vergleich mit einem anderen Werk (Schüler wählt selbst). "Zeigen Sie vergleichend auf, wie in einem anderen literarischen Werk [Motiv/Thema] dargestellt wird."
+- KEIN Vergleichstext! compare_text = null, compare_meta = null`}
 
-Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist (Der zerbrochne Krug – G9-Pflichtlektüre!), Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, Eichendorff, Droste-Hülshoff, Erpenbeck (Heimsuchung – G9-Pflichtlektüre!), Borchert, Bachmann, Bernhard, Herta Müller, etc.
+EPOCHEN-ZUORDNUNG:
+Die gewählte Epoche bestimmt, welche Autoren/Werke verwendet werden dürfen. Halte dich STRIKT an die korrekte literaturhistorische Zuordnung!
+LehrplanPLUS-Epochen (G9): Klassik und Romantik, Realismus (19. Jh.), Naturalismus (ca. 1880-1900), Moderne (Jahrhundertwende – Mitte 20. Jh.), Nachkriegszeit bis Mauerfall, Literatur seit 1989.
+Ländergemeinsames Themenfeld 2026: "Umbrüche in der deutschsprachigen Literatur um 1900".
 
-LehrplanPLUS-Epochen (G9): Klassik und Romantik, Realismus (19. Jh.), Moderne (Jahrhundertwende – Mitte 20. Jh.), Nachkriegszeit bis Mauerfall, Literatur seit 1989.
-Ländergemeinsames Themenfeld 2026: "Umbrüche in der deutschsprachigen Literatur um 1900".`;
+Nutze bekannte Werke wie: Goethe (Faust, Werther, Gedichte), Schiller (Die Räuber, Kabale und Liebe), Kleist (Der zerbrochne Krug – G9-Pflichtlektüre!), Büchner (Woyzeck), Fontane, Kafka, Rilke, Trakl, Brecht, Eichendorff, Droste-Hülshoff, Erpenbeck (Heimsuchung – G9-Pflichtlektüre!), Borchert, Bachmann, Bernhard, Herta Müller, Hauptmann (Naturalismus!), etc.`;
 
   } else if (type === "analyse") {
     systemPrompt = `Du erstellst Analyseaufgaben für pragmatische Texte (Deutsch-Abitur Bayern, ab 2026).
