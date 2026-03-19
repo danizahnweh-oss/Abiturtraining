@@ -429,6 +429,12 @@ footer a { color: var(--accent); }
           <input type="date" id="filterStudentFrom" onchange="renderStudents()" placeholder="Von" title="Registriert ab" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
           <label for="filterStudentTo" class="sr-only">Registriert bis</label>
           <input type="date" id="filterStudentTo" onchange="renderStudents()" placeholder="Bis" title="Registriert bis" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <label for="filterStudentSort" class="sr-only">Sortierung</label>
+          <select id="filterStudentSort" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+            <option value="name-asc">Name A–Z</option>
+            <option value="date-desc">Neueste zuerst</option>
+            <option value="date-asc">Älteste zuerst</option>
+          </select>
           <span id="regStudentCount" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
           <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄 Aktualisieren</button>
         </div>
@@ -1066,10 +1072,18 @@ function renderStudents() {
   const classFilter = document.getElementById("filterStudentClass")?.value || "";
   const fromDate = document.getElementById("filterStudentFrom")?.value || "";
   const toDate = document.getElementById("filterStudentTo")?.value || "";
-  let filtered = [...allStudents].sort((a, b) => a.name.localeCompare(b.name));
+  const sortMode = document.getElementById("filterStudentSort")?.value || "name-asc";
+  let filtered = [...allStudents];
   if (classFilter) filtered = filtered.filter(s => s.class_group === classFilter);
   if (fromDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) >= fromDate);
   if (toDate) filtered = filtered.filter(s => s.date && s.date.slice(0, 10) <= toDate);
+  filtered.sort((a, b) => {
+    switch (sortMode) {
+      case "date-desc": return (b.date || "").localeCompare(a.date || "");
+      case "date-asc": return (a.date || "").localeCompare(b.date || "");
+      default: return a.name.localeCompare(b.name);
+    }
+  });
 
   countEl.textContent = filtered.length + " Schüler";
 
