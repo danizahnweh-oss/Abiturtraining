@@ -1,5 +1,5 @@
-import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
-import { callOpenAI } from '../openai.js';
+import { jsonResponse, truncate, extractJSON, buildUserContent, corsHeaders } from '../utils.js';
+import { callOpenAI, callOpenAIStream } from '../openai.js';
 import { KORREKTUR_SINGLE, BILDER_HINWEIS_TEXT, zeitanpassung, klausurZeitHinweis, skaliereTokens } from '../config.js';
 
 export async function handleParseTaskDeutsch(request, env) {
@@ -646,6 +646,124 @@ export async function handleGradeDeutsch(request, env) {
       uebungsaufgaben: []
     }, 200, env);
   }
+}
+
+/* ================= DEUTSCH: GRADE STREAMING (SSE) ================= */
+// Streaming-Variante der Deutsch-Korrektur — sendet Server-Sent Events für Echtzeit-Fortschritt.
+// Umgeht das Worker-Timeout, da durch kontinuierlichen Datenfluss der CPU-Timer zurückgesetzt wird.
+export async function handleGradeDeutschStream(request, env) {
+  const body = await request.json();
+  const { task_instruction, primary_text, student_text, rubric_prompt, type, materials, zieltext, zielgruppe, images } = body;
+
+  if (!student_text || !rubric_prompt) {
+    return new Response(JSON.stringify({ error: "student_text und rubric_prompt erforderlich." }), {
+      status: 400, headers: corsHeaders(env, env._origin)
+    });
+  }
+
+  // Kontext aufbauen (identisch zu handleGradeDeutsch)
+  let contextInfo = `Aufgabenstellung:\n${truncate(task_instruction, 5000)}\n\n`;
+  if (primary_text) contextInfo += `Ausgangstext:\n${truncate(primary_text, 15000)}\n\n`;
+  if (materials && materials.length) {
+    contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
+  }
+  if (zieltext) contextInfo += `Geforderter Zieltext: ${truncate(zieltext, 200)}\n`;
+  if (zielgruppe) contextInfo += `Zielgruppe: ${truncate(zielgruppe, 200)}\n`;
+
+  const { readable, writable } = new TransformStream();
+  const writer = writable.getWriter();
+  const encoder = new TextEncoder();
+
+  const sendSSE = async (event, data) => {
+    await writer.write(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
+  };
+
+  // Korrektur im Hintergrund verarbeiten, Ergebnisse streamen
+  const processGrading = async () => {
+    try {
+      // Phase 1: Strukturanalyse
+      await sendSSE("status", { phase: "analyse", message: "Textstruktur wird analysiert..." });
+
+      let analyseText = "";
+      try {
+        const analyse = await analyzeTextStructure(env, contextInfo, student_text, type, images);
+        analyseText = `\n\nVORAB-STRUKTURANALYSE (automatisch erstellt – als Orientierung, nicht blindlings übernehmen):\n${JSON.stringify(analyse, null, 2)}\n\n`;
+        await sendSSE("status", { phase: "analyse_done", message: "Strukturanalyse abgeschlossen" });
+      } catch {
+        // Fallback: ohne Analyse weiter
+      }
+
+      // Phase 2: Bewertung mit Streaming
+      await sendSSE("status", { phase: "bewertung", message: "Dein Aufsatz wird bewertet..." });
+
+      const korrekturAnweisung = KORREKTUR_SINGLE;
+      const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
+      const messages = [
+        { role: "system", content: truncate(rubric_prompt, 5000) + bilderHinweis + korrekturAnweisung },
+        { role: "user", content: buildUserContent(`${analyseText}${contextInfo}\nSchülertext:\n${truncate(student_text, 15000)}`, images) }
+      ];
+
+      let charCount = 0;
+      const openaiRes = await callOpenAIStream(env, messages, 8000, { temperature: 0.3 }, async (chunk) => {
+        charCount += chunk.length;
+        // Alle ~1000 Zeichen Fortschritt senden (hält Verbindung aktiv + zeigt Progress)
+        if (charCount % 1000 < chunk.length) {
+          await sendSSE("progress", { chars: charCount });
+        }
+      });
+
+      // Phase 3: Ergebnis aufbereiten
+      await sendSSE("status", { phase: "auswertung", message: "Ergebnis wird aufbereitet..." });
+
+      try {
+        const parsed = extractJSON(openaiRes);
+        const verstehen = parsed.verstehen_np ?? null;
+        const darstellung = parsed.darstellung_np ?? null;
+        let gesamt = parsed.gesamt_np ?? null;
+
+        if (gesamt == null && verstehen != null && darstellung != null) {
+          const weight = type === "materialgestuetzt" ? 0.6 : 0.7;
+          gesamt = Math.round(verstehen * weight + darstellung * (1 - weight));
+          if (verstehen === 0 || darstellung === 0) gesamt = Math.min(gesamt, 3);
+        }
+
+        await sendSSE("result", {
+          scores: { verstehen, darstellung, total: gesamt },
+          feedback: parsed.feedback || "",
+          feedback_kurz: parsed.feedback_kurz || [],
+          korrektur_text: parsed.korrektur_text || "",
+          korrektur_text_a: parsed.korrektur_text_a || "",
+          korrektur_text_b: parsed.korrektur_text_b || "",
+          fehlende_aspekte: parsed.fehlende_aspekte || [],
+          uebungsaufgaben: parsed.uebungsaufgaben || []
+        });
+      } catch {
+        await sendSSE("result", {
+          scores: { verstehen: null, darstellung: null, total: null },
+          feedback: openaiRes,
+          feedback_kurz: [],
+          korrektur_text: "",
+          fehlende_aspekte: [],
+          uebungsaufgaben: []
+        });
+      }
+    } catch (err) {
+      const msg = err.message || "Unbekannter Fehler";
+      const isUnsafe = /api[_-]?key|token|secret|stack|\.js:/i.test(msg);
+      await sendSSE("error", { message: isUnsafe ? "Interner Fehler." : msg });
+    } finally {
+      await writer.close();
+    }
+  };
+
+  // Verarbeitung starten (nicht awaiten — läuft parallel zum Stream)
+  processGrading();
+
+  const headers = corsHeaders(env, env._origin);
+  headers["Content-Type"] = "text/event-stream";
+  headers["Cache-Control"] = "no-cache";
+
+  return new Response(readable, { headers });
 }
 
 /* ================= DEUTSCH: MODEL ANSWER ================= */

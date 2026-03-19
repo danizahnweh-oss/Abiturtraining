@@ -30,7 +30,7 @@ import {
 // Fach-Handler: Deutsch
 import {
   handleParseTaskDeutsch, handleGenerateGeschichte, handleGradeGeschichte,
-  handleGenerateDeutsch, handleGradeDeutsch, handleModelAnswerDeutsch
+  handleGenerateDeutsch, handleGradeDeutsch, handleGradeDeutschStream, handleModelAnswerDeutsch
 } from './subjects/deutsch.js';
 
 // Fach-Handler: Politik & Gesellschaft
@@ -337,6 +337,7 @@ export default {
       // ===== DEUTSCH =====
       if (pathname === "/api/generate-deutsch" && request.method === "POST") return await handleGenerateDeutsch(request, env);
       if (pathname === "/api/grade-deutsch" && request.method === "POST") return await handleGradeDeutsch(request, env);
+      if (pathname === "/api/grade-deutsch-stream" && request.method === "POST") return await handleGradeDeutschStream(request, env);
       if (pathname === "/api/model-answer-deutsch" && request.method === "POST") return await handleModelAnswerDeutsch(request, env);
       if (pathname === "/api/parse-task-deutsch" && request.method === "POST") return await handleParseTaskDeutsch(request, env);
 

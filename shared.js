@@ -174,6 +174,83 @@ async function showTrialBannerIfNeeded(containerId) {
   }
 }
 
+/* ================= STREAMING API (SSE-basiert) ================= */
+
+// Endpoints die Streaming unterstützen (Mapping: Grade-Endpoint → Stream-Endpoint)
+var STREAM_ENDPOINTS = {
+  "grade-deutsch": "grade-deutsch-stream"
+};
+
+// SSE-basierter API-Aufruf für Echtzeit-Fortschritt bei langen Korrekturen
+async function apiCallStream(streamEndpoint, body) {
+  // OCR-Bilder automatisch mitsenden
+  if (/grade/.test(streamEndpoint) && typeof getOCRImages === "function") {
+    var imgs = getOCRImages();
+    if (imgs.length) body.images = imgs;
+  }
+
+  var response = await fetch(API_BASE + "/api/" + streamEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Access-Token": getAccessToken()
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!response.ok) {
+    var err = await response.json().catch(function() { return {}; });
+    throw new Error(err.error || "HTTP " + response.status);
+  }
+
+  var reader = response.body.getReader();
+  var decoder = new TextDecoder();
+  var buffer = "";
+  var result = null;
+  var statusEl = document.getElementById("kiStatusText");
+
+  while (true) {
+    var chunk = await reader.read();
+    if (chunk.done) break;
+
+    buffer += decoder.decode(chunk.value, { stream: true });
+    var lines = buffer.split("\n");
+    buffer = lines.pop();
+
+    var currentEvent = null;
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (line.startsWith("event: ")) {
+        currentEvent = line.slice(7);
+      } else if (line.startsWith("data: ") && currentEvent) {
+        try {
+          var data = JSON.parse(line.slice(6));
+          if (currentEvent === "status" && statusEl && data.message) {
+            statusEl.innerHTML = data.message + '<span class="ki-dots"><span>.</span><span>.</span><span>.</span></span>';
+          } else if (currentEvent === "result") {
+            result = data;
+          } else if (currentEvent === "error") {
+            throw new Error(data.message || "Korrektur fehlgeschlagen.");
+          }
+        } catch (e) {
+          if (e.message && e.message !== "Korrektur fehlgeschlagen." && !e.message.startsWith("HTTP")) {
+            // JSON-Parse-Fehler ignorieren, echte Fehler weiterwerfen
+            if (currentEvent === "error") throw e;
+          } else {
+            throw e;
+          }
+        }
+        currentEvent = null;
+      } else if (line === "") {
+        currentEvent = null;
+      }
+    }
+  }
+
+  if (!result) throw new Error("Keine Ergebnisse empfangen.");
+  return result;
+}
+
 /* ================= ASYNC API (Queue-basiert) ================= */
 
 // KI-Roboter SVG-Animation (wird automatisch beim Korrigieren angezeigt)
@@ -223,6 +300,29 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
   // Grading-Kontext speichern fuer spaeteres Detail-Feedback
   _lastGradeBody = body;
+
+  // Streaming-Variante bevorzugen, wenn verfügbar (kein Timeout, Echtzeit-Fortschritt)
+  var streamEndpoint = STREAM_ENDPOINTS[gradeEndpoint];
+  if (streamEndpoint && typeof ReadableStream !== "undefined") {
+    // Roboter-Animation zeigen
+    var feedbackEl = document.getElementById("feedbackLoader");
+    var origHTML = null;
+    if (feedbackEl) {
+      origHTML = feedbackEl.innerHTML;
+      feedbackEl.innerHTML = KI_ROBOT_HTML;
+    }
+    try {
+      var streamResult = await apiCallStream(streamEndpoint, Object.assign({}, body));
+      // Loader-Inhalt wiederherstellen nach Erfolg
+      if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+      return streamResult;
+    } catch (streamErr) {
+      console.warn("Streaming fehlgeschlagen, Fallback auf Polling:", streamErr.message);
+      // Loader zurücksetzen für Polling-Fallback
+      if (feedbackEl && origHTML !== null) feedbackEl.innerHTML = origHTML;
+      // Weiter mit normalem Polling unten
+    }
+  }
 
   // OCR-Bilder automatisch mitsenden
   if (/grade/.test(gradeEndpoint) && typeof getOCRImages === "function") {
