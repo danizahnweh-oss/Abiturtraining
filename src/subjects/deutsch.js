@@ -514,10 +514,12 @@ AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in der Aufgabenstellung direk
   // Längere Texte brauchen mehr Tokens (Epik/Analyse/Erörterung: 1000-1500 Wörter ≈ 10000+ Tokens)
   const tokenMap = { interpretation: 10000, analyse: 10000, eroerterung: 10000, materialgestuetzt: 16000 };
   const maxTokens = tokenMap[type] || 8000;
+  // materialgestuetzt braucht viele Tokens → schnelleres Modell verwenden um Timeout zu vermeiden
+  const useModel = type === "materialgestuetzt" ? "gpt-4.1" : undefined;
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt + zeitHinweis },
     { role: "user", content: userPrompt }
-  ], skaliereTokens(maxTokens, bearbeitungszeit, refZeit));
+  ], skaliereTokens(maxTokens, bearbeitungszeit, refZeit), useModel ? { model: useModel } : undefined);
 
   const content = extractJSON(openaiRes);
   return jsonResponse(content, 200, env);
