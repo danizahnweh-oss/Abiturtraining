@@ -5159,8 +5159,9 @@
       if (name && token) {
         loadExamSubjects();
         loadHiddenSubjects();
+      } else {
+        renderSubjectLayout();
       }
-      renderSubjectLayout();
     }
 
     function saveAllPreferences() {
@@ -5517,9 +5518,9 @@
     function loadExamSubjects() {
       var name = sessionStorage.getItem("student_name");
       var token = sessionStorage.getItem("access_token");
-      if (!name || !token) return;
+      if (!name || !token) return Promise.resolve();
 
-      fetch(API_BASE + "/api/get-preferences", {
+      return fetch(API_BASE + "/api/get-preferences", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Access-Token": token },
         body: JSON.stringify({ student_name: name })
@@ -5543,7 +5544,6 @@
             applyExamBadges();
             updateExamCounter();
             saveLocalPreferences();
-            renderSubjectLayout();
             syncReminderPanels();
             // Erinnerungs-Button sichtbar machen
             var remBtn = document.getElementById("reminderSettingsBtn");
@@ -5551,7 +5551,13 @@
             loadReminders();
           }
         })
-        .catch(function () { });
+        .then(function () {
+          renderSubjectLayout();
+        })
+        .catch(function () {
+          // Bei Fehler trotzdem mit lokalen Daten rendern
+          renderSubjectLayout();
+        });
     }
 
     function applyExamBadges() {
@@ -5974,21 +5980,21 @@
           }
           loadStudentProgress();
           loadHiddenSubjects();
-          loadExamSubjects();
           // Gast-Praeferenzen (Wizard-Daten) in API hochladen
           if (examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0) {
             saveAllPreferences();
           }
-          renderSubjectLayout();
-          var _remBtn = document.getElementById("reminderSettingsBtn");
-          if (_remBtn) _remBtn.style.display = "";
           var profilLink = document.getElementById("profilLink");
           if (profilLink) profilLink.style.display = "";
           history.replaceState({ screen: pendingSubject ? "module-" + pendingSubject : "subjects" }, "");
-          // Abiturfaecher-Wizard nach Login/Registrierung anzeigen
-          if (!localStorage.getItem(LS_WIZARD_KEY)) {
-            setTimeout(function () { showAbiWizard(); }, 500);
-          }
+          // Layout und Wizard erst nach dem Laden der Abiturfaecher
+          loadExamSubjects().then(function () {
+            var _remBtn = document.getElementById("reminderSettingsBtn");
+            if (_remBtn) _remBtn.style.display = "";
+            if (!localStorage.getItem(LS_WIZARD_KEY)) {
+              setTimeout(function () { showAbiWizard(); }, 500);
+            }
+          });
           // Start onboarding if first time
           if (!isTourDone("onboarding_done")) {
             setTimeout(function () {
@@ -6598,17 +6604,17 @@
 
         loadStudentProgress();
         loadHiddenSubjects();
-        loadExamSubjects();
-        var _remBtn2 = document.getElementById("reminderSettingsBtn");
-        if (_remBtn2) _remBtn2.style.display = "";
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
 
-        // Layout und Wizard (fuer eingeloggte Nutzer)
-        renderSubjectLayout();
-        if (!localStorage.getItem(LS_WIZARD_KEY)) {
-          setTimeout(function () { showAbiWizard(); }, 500);
-        }
+        // Layout und Wizard erst nach dem Laden der Abiturfaecher rendern
+        loadExamSubjects().then(function () {
+          var _remBtn2 = document.getElementById("reminderSettingsBtn");
+          if (_remBtn2) _remBtn2.style.display = "";
+          if (!localStorage.getItem(LS_WIZARD_KEY)) {
+            setTimeout(function () { showAbiWizard(); }, 500);
+          }
+        });
       } else {
         // Nicht eingeloggt
         if (sessionStorage.getItem('role_selected') === '1') {
