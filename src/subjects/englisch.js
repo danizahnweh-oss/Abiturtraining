@@ -608,7 +608,7 @@ Formatiere als Markdown: Erst die Lösung, dann unter "---" eine kurze Erklärun
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: `AUFGABE:\n${truncate(task_en, 5000)}\n\nQUELLTEXT:\n${truncate(source_text_de, 15000)}` }
-  ]);
+  ], 4000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

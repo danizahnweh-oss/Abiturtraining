@@ -17,7 +17,9 @@
    };
    ============================ */
 
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+const API_BASE = window.location.hostname === "staging.myabiflow.de"
+  ? ""
+  : "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 const CONFIG = { storedData: null };
 
 /* ================= FOCUS-TRAP ================= */
@@ -216,7 +218,7 @@ var _lastGradeBody = null;
 async function apiCallAsync(gradeEndpoint, body, options) {
   options = options || {};
   var pollInterval = options.pollInterval || 3000;
-  var maxWait = options.maxWait || 180000; // 3 Minuten
+  var maxWait = options.maxWait || 300000; // 5 Minuten
   var onProgress = options.onProgress || null;
 
   // Grading-Kontext speichern fuer spaeteres Detail-Feedback

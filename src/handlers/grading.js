@@ -162,8 +162,8 @@ export async function cleanupOldGradingJobs(env) {
       console.log("Alte Grading-Jobs bereinigt:", result.meta.changes);
     }
 
-    // Jobs die länger als 5 Min im Status "processing" hängen auf "failed" setzen
-    const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    // Jobs die länger als 10 Min im Status "processing" hängen auf "failed" setzen
+    const fiveMinAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
     await env.DB.prepare(
       "UPDATE grading_jobs SET status = 'failed', error_msg = 'Zeitlimit überschritten', updated_at = ? WHERE status = 'processing' AND updated_at < ?"
     ).bind(new Date().toISOString(), fiveMinAgo).run();
