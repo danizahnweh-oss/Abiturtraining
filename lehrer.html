@@ -392,6 +392,13 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       <button class="tab-btn" id="modeRegister" onclick="setAuthMode('register')">Registrieren</button>
     </div>
 
+    <div id="registerHint" style="display:none;background:var(--bg-card,#f0f4ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;text-align:center;">
+      <p style="margin:0;font-size:.88rem;color:var(--ink,#1e293b);line-height:1.5;">
+        Sie sind Lehrkraft und möchten mit myAbiFlow Ihren Alltag erleichtern? Schicken Sie uns eine E-Mail an
+        <a href="mailto:info@myabiflow.de" style="color:var(--accent,#4f46e5);font-weight:600;">info@myabiflow.de</a>
+      </p>
+    </div>
+
     <label for="teacherName" class="sr-only">Ihr Name</label>
     <input type="text" id="teacherName" class="login-input" placeholder="Ihr Name ..." autocomplete="name"
            onkeyup="if(event.key==='Enter')doAuth()">
@@ -400,15 +407,6 @@ main { max-width: 1100px; margin: 1.5rem auto; }
            onkeyup="if(event.key==='Enter')doAuth()" style="margin-top:.5rem;">
 
     <div id="registerFields" style="display:none;">
-      <div style="background:var(--bg-card,#f0f4ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:1rem 1.1rem;margin-top:.5rem;text-align:center;">
-        <p style="margin:0 0 .5rem;font-size:.95rem;color:var(--ink,#1e293b);line-height:1.5;">
-          Sie sind Lehrkraft und möchten gerne mit myAbiFlow Ihren Alltag erleichtern?
-        </p>
-        <p style="margin:0;font-size:.95rem;color:var(--ink,#1e293b);line-height:1.5;">
-          Schicken Sie uns eine E-Mail an
-          <a href="mailto:info@myabiflow.de" style="color:var(--accent,#4f46e5);font-weight:600;text-decoration:underline;">info@myabiflow.de</a>
-        </p>
-      </div>
       <label for="teacherPwConfirm" class="sr-only">Passwort bestätigen</label>
       <input type="password" id="teacherPwConfirm" class="login-input" placeholder="Passwort bestaetigen ..." autocomplete="new-password" style="margin-top:.5rem;">
       <label for="teacherEmail" class="sr-only">E-Mail-Adresse</label>
@@ -671,6 +669,7 @@ function setAuthMode(mode) {
   document.getElementById("modeLogin").classList.toggle("active", mode === "login");
   document.getElementById("modeRegister").classList.toggle("active", mode === "register");
   document.getElementById("registerFields").style.display = mode === "register" ? "block" : "none";
+  document.getElementById("registerHint").style.display = mode === "register" ? "block" : "none";
   document.getElementById("authBtn").textContent = mode === "register" ? "Registrieren" : "Anmelden";
   document.getElementById("loginError").textContent = "";
   if (mode === "register") renderSubjectChips("registerSubjects", selectedRegisterSubjects);
