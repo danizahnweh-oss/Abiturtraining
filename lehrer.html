@@ -1745,9 +1745,18 @@ function replaceTaskImage(matKey, index, inputEl, imgId) {
   const reader = new FileReader();
   reader.onload = function() {
     const dataUrl = reader.result;
-    // Daten aktualisieren
+    // Daten aktualisieren — Data-URL in image_url UND im Inhalt-Feld speichern
+    // (Fachseiten uebergeben inhalt/content/text an loadEducationalImage)
     if (pendingTaskData[matKey] && pendingTaskData[matKey][index]) {
-      pendingTaskData[matKey][index].image_url = dataUrl;
+      const mat = pendingTaskData[matKey][index];
+      mat.image_url = dataUrl;
+      if (mat.inhalt !== undefined) mat.inhalt = dataUrl;
+      if (mat.content !== undefined) mat.content = dataUrl;
+      if (mat.text !== undefined) mat.text = dataUrl;
+      // Falls keines der Felder existiert, setze das gaengigste
+      if (mat.inhalt === undefined && mat.content === undefined && mat.text === undefined) {
+        mat.inhalt = dataUrl;
+      }
     }
     // Vorschau aktualisieren
     const imgEl = document.getElementById(imgId);

@@ -2032,6 +2032,22 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
   var el = document.getElementById(containerId);
   if (!el) return;
 
+  // Bereits fertiges Bild (z.B. Lehrer-Upload als Data-URL)? Direkt anzeigen.
+  if (typeof prompt === "string" && prompt.startsWith("data:image")) {
+    var labelsHtml = '';
+    if (labels && typeof labels === 'object') {
+      var numKeys = Object.keys(labels).filter(function(k) { return /^\d+$/.test(k); });
+      if (numKeys.length > 0) {
+        labelsHtml = '<div class="edu-img-numbered-legend">' +
+          numKeys.sort(function(a,b){ return parseInt(a)-parseInt(b); }).map(function(k) {
+            return '<div class="edu-img-legend-entry"><span class="edu-img-legend-num">' + escapeHtml(k) + '</span> ' + escapeHtml(labels[k]) + '</div>';
+          }).join('') + '</div>';
+      }
+    }
+    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);">' + labelsHtml + '</figure>';
+    return;
+  }
+
   // Bei Neu-Generierung: Ladeanimation anzeigen
   if (_isRetry) {
     el.innerHTML = '<div style="text-align:center;padding:1.5rem;"><div class="loader-spinner"></div><span style="display:block;margin-top:.5rem;font-size:.85rem;color:var(--ink-muted);">Bild wird neu generiert…</span></div>';
