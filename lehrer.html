@@ -1518,8 +1518,14 @@ function showTaskPreview() {
         <span style="font-size:.72rem;color:var(--ink-light);margin-left:.3rem;">${esc(mType)}</span>`;
       if (mType === 'text' || mType === 'statistik' || (!mType && content)) {
         html += `<textarea data-field="${matKey}" data-mat="${mi}" rows="${Math.min(6, Math.max(2, Math.ceil(content.length / 80)))}" style="${taStyle}margin-top:.3rem;">${esc(content)}</textarea>`;
-      } else if ((mType === 'bild' || mType === 'foto') && m.image_url && m.image_url !== '[KV]') {
-        html += `<img src="${m.image_url}" style="max-width:100%;max-height:150px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}">`;
+      } else if (mType === 'bild' || mType === 'foto') {
+        const imgId = 'matImg_' + matKey + '_' + mi;
+        if (m.image_url && m.image_url !== '[KV]') {
+          html += `<img id="${imgId}" src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}">`;
+        } else {
+          html += `<div id="${imgId}" style="margin-top:.3rem;padding:1.5rem;background:var(--bg);border:2px dashed var(--border);border-radius:var(--radius-sm);text-align:center;color:var(--ink-light);font-size:.82rem;">KI-Bild (wird beim Teilen generiert)</div>`;
+        }
+        html += `<div style="margin-top:.4rem;"><label class="btn-small btn-secondary" style="cursor:pointer;display:inline-flex;align-items:center;min-height:44px;">Bild ersetzen<input type="file" accept="image/*" style="display:none;" onchange="replaceTaskImage('${matKey}',${mi},this,'${imgId}')"></label></div>`;
       }
       html += `</div>`;
     });
@@ -1728,6 +1734,39 @@ async function showTaskResults(taskId) {
   } catch (e) {
     showToast(e.message, "error");
   }
+}
+
+/* ====== BILD ERSETZEN ====== */
+function replaceTaskImage(matKey, index, inputEl, imgId) {
+  const file = inputEl.files && inputEl.files[0];
+  if (!file) return;
+  if (!file.type.startsWith("image/")) { showToast("Bitte eine Bilddatei waehlen.", "error"); return; }
+  if (file.size > 10 * 1024 * 1024) { showToast("Bild zu gross (max. 10 MB).", "error"); return; }
+  const reader = new FileReader();
+  reader.onload = function() {
+    const dataUrl = reader.result;
+    // Daten aktualisieren
+    if (pendingTaskData[matKey] && pendingTaskData[matKey][index]) {
+      pendingTaskData[matKey][index].image_url = dataUrl;
+    }
+    // Vorschau aktualisieren
+    const imgEl = document.getElementById(imgId);
+    if (imgEl) {
+      if (imgEl.tagName === "IMG") {
+        imgEl.src = dataUrl;
+      } else {
+        // Platzhalter durch echtes Bild ersetzen
+        const img = document.createElement("img");
+        img.id = imgId;
+        img.src = dataUrl;
+        img.style.cssText = "max-width:100%;max-height:200px;border-radius:var(--radius-sm);display:block;";
+        img.alt = "Eigene Grafik";
+        imgEl.replaceWith(img);
+      }
+    }
+    showToast("Bild ersetzt.");
+  };
+  reader.readAsDataURL(file);
 }
 
 /* ====== TOAST ====== */
