@@ -27,6 +27,23 @@ const _urlParams = new URLSearchParams(window.location.search);
 const isTeacherMode = _urlParams.get("mode") === "teacher";
 const sharedTaskId = _urlParams.get("task_id") || null;
 
+// Teacher-Mode: Banner zum Uebernehmen der Aufgabe
+function _showTeacherAdoptBanner() {
+  if (document.getElementById("teacherAdoptBanner")) return;
+  var banner = document.createElement("div");
+  banner.id = "teacherAdoptBanner";
+  banner.style.cssText = "position:sticky;top:0;z-index:9999;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:.8rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.2);";
+  banner.innerHTML = '<span style="font-weight:600;">Aufgabe generiert — so sehen es deine Schueler.</span>'
+    + '<button onclick="_teacherAdoptTask()" style="background:#fff;color:#4f46e5;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:700;font-size:.85rem;cursor:pointer;min-height:44px;white-space:nowrap;">Aufgabe uebernehmen</button>';
+  document.body.prepend(banner);
+}
+
+function _teacherAdoptTask() {
+  window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, "*");
+  var banner = document.getElementById("teacherAdoptBanner");
+  if (banner) { banner.innerHTML = '<span style="font-weight:600;">Aufgabe uebernommen — du kannst den iFrame jetzt schliessen.</span>'; }
+}
+
 /* ================= FOCUS-TRAP ================= */
 
 /**
@@ -824,10 +841,9 @@ function nav(step, _pushHistory) {
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
 
-  // Teacher-Mode: Nach Generierung Aufgabe per postMessage an Lehrer-Seite senden
+  // Teacher-Mode: Aufgabe normal anzeigen, aber "Uebernehmen"-Banner einblenden
   if (isTeacherMode && step === "task" && CONFIG.storedData) {
-    window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, "*");
-    return;
+    _showTeacherAdoptBanner();
   }
 
   // Guard: steps 1-3 need a generated task
@@ -1876,16 +1892,17 @@ function updateTeacherCodeBtn(code) {
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
 
-  // Teacher-Mode: Login umgehen, nur Setup anzeigen
+  // Teacher-Mode: Login umgehen, Setup + Aufgabe anzeigen
   if (isTeacherMode) {
-    // Header, Nav-Buttons und Login verstecken
     const ls = document.getElementById("login-screen");
     const aw = document.getElementById("app-wrapper");
     if (ls) ls.style.display = "none";
     if (aw) aw.style.display = "flex";
-    // Nur Setup-Schritt anzeigen, Rest ausblenden
+    // Schreiben/Feedback/Fortschritt ausblenden, Setup+Task sichtbar lassen
+    const hideSteps = ["write", "feedback", "progress"];
     document.querySelectorAll("nav button").forEach(function(btn, i) {
-      if (i > 0) btn.style.display = "none";
+      const step = MODULE_CONFIG.steps[i];
+      if (hideSteps.includes(step)) btn.style.display = "none";
     });
     // Temporaerer Schueler-Name fuer API-Calls
     sessionStorage.setItem("access", "1");

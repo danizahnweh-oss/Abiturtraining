@@ -502,24 +502,19 @@ main { max-width: 1100px; margin: 1.5rem auto; }
           </div>
         </div>
 
-        <!-- Schritt 3: Vorschau + Bearbeiten + Speichern -->
+        <!-- Schritt 3: Bearbeiten + Speichern -->
         <div id="taskStep3" style="display:none;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
-            <span style="font-size:.85rem;font-weight:600;color:var(--accent);">Aufgabe generiert</span>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;">
+            <span style="font-size:.85rem;font-weight:600;color:var(--accent);">Aufgabe uebernommen — Texte bearbeiten</span>
             <button class="btn-small btn-secondary" onclick="resetTaskCreation()">Neue Aufgabe</button>
           </div>
-          <div class="preview-box" id="taskPreview"></div>
-          <div style="margin-top:1rem;">
+          <p style="font-size:.82rem;color:var(--ink-muted);margin-bottom:1rem;">Die Vorschau hast du im iFrame gesehen. Hier kannst du alle Texte anpassen, bevor du die Aufgabe teilst.</p>
+          <div style="margin-bottom:1rem;">
             <label for="taskTitleInput" style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">Titel (fuer deine Uebersicht)</label>
             <input type="text" id="taskTitleInput" placeholder="z.B. Klausur Analyse — Rede Bildung"
                    style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;min-height:44px;box-sizing:border-box;">
           </div>
-          <div style="margin-top:.8rem;">
-            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">Aufgabenstellung bearbeiten (optional)</label>
-            <textarea id="taskEditText" rows="6"
-                      style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;"
-                      placeholder="Hier kannst du die Aufgabenstellung anpassen..."></textarea>
-          </div>
+          <div id="taskEditFields"></div>
           <button class="btn" style="margin-top:1rem;width:100%;" onclick="saveTask()">Speichern &amp; Code erstellen</button>
         </div>
 
@@ -1455,111 +1450,84 @@ function showTaskPreview() {
   const iframe = document.getElementById("taskIframe");
   iframe.src = "about:blank";
 
-  const preview = document.getElementById("taskPreview");
   const d = pendingTaskData;
-  const sectionStyle = 'margin-bottom:1rem;padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);';
-  const labelStyle = 'font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-light);margin-bottom:.3rem;';
+  const container = document.getElementById("taskEditFields");
+  const taStyle = 'width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;';
   let html = "";
 
-  // === Hochgeladene Bilder (Aufgabenblaetter) ===
-  if (d._uploadImages && d._uploadImages.length) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabenblatt</div>`;
-    d._uploadImages.forEach(url => {
-      html += `<img src="${url}" style="width:100%;max-width:700px;border-radius:var(--radius-sm);margin-bottom:.5rem;display:block;" alt="Aufgabenblatt">`;
-    });
-    html += `</div>`;
+  function field(key, label, val, rows) {
+    if (!val) return "";
+    rows = rows || Math.min(Math.max(3, Math.ceil(val.length / 80)), 12);
+    return `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">${esc(label)}</label><textarea data-field="${key}" rows="${rows}" style="${taStyle}">${esc(val)}</textarea></div>`;
   }
 
-  // === Aufgabenstellung (Deutsch: task_instruction / Geschichte: task_instruction_a+b) ===
-  if (d.task_instruction) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabenstellung</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction.replace(/\n/g, '<br>')}</div></div>`;
-  }
-  if (d.task_instruction_a) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teil A — Quellenanalyse</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction_a.replace(/\n/g, '<br>')}</div></div>`;
-  }
-  if (d.task_instruction_b) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teil B — Darstellung</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction_b.replace(/\n/g, '<br>')}</div></div>`;
-  }
+  // === Aufgabenstellung / Aufgabentext ===
+  html += field("task_instruction", "Aufgabenstellung", d.task_instruction);
+  html += field("task_instruction_a", "Teil A — Quellenanalyse", d.task_instruction_a);
+  html += field("task_instruction_b", "Teil B — Darstellung", d.task_instruction_b);
+  html += field("aufgabe", "Aufgabentext", d.aufgabe);
 
-  // === Aufgabentext (Mathe/Chemie: aufgabe) ===
-  if (d.aufgabe) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabentext</div><div style="font-size:.9rem;line-height:1.6;">${d.aufgabe.replace(/\n/g, '<br>')}</div></div>`;
-  }
+  // === Primaertexte ===
+  html += field("primary_text", "Text" + (d.primary_meta ? " (" + d.primary_meta + ")" : ""), d.primary_text);
+  html += field("primary_text_a", "Quelle M 1" + (d.primary_meta_a ? " (" + d.primary_meta_a + ")" : ""), d.primary_text_a);
+  html += field("primary_text_b", "Materialimpuls" + (d.primary_meta_b ? " (" + d.primary_meta_b + ")" : ""), d.primary_text_b);
+  html += field("compare_text", "Vergleichstext" + (d.compare_meta ? " (" + d.compare_meta + ")" : ""), d.compare_text);
 
-  // === Primaertexte (Deutsch/Geschichte) ===
-  if (d.primary_text) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Text${d.primary_meta ? ' — ' + esc(d.primary_meta) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;">${d.primary_text.replace(/\n/g, '<br>')}</div></div>`;
-  }
-  if (d.primary_text_a) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Quelle M 1${d.primary_meta_a ? ' — ' + esc(d.primary_meta_a) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;">${d.primary_text_a.replace(/\n/g, '<br>')}</div></div>`;
-  }
-  if (d.primary_text_b) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Materialimpuls${d.primary_meta_b ? ' — ' + esc(d.primary_meta_b) : ''}</div><div style="font-size:.85rem;line-height:1.6;">${d.primary_text_b.replace(/\n/g, '<br>')}</div></div>`;
-  }
-  if (d.compare_text) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Vergleichstext${d.compare_meta ? ' — ' + esc(d.compare_meta) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:200px;overflow-y:auto;">${d.compare_text.replace(/\n/g, '<br>')}</div></div>`;
-  }
-
-  // === Teilaufgaben (Mathe/Chemie/Physik/Bio etc.) ===
+  // === Teilaufgaben (Mathe/Chemie/Physik/Bio) ===
   if (d.teilaufgaben && Array.isArray(d.teilaufgaben) && d.teilaufgaben.length) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teilaufgaben${d.gesamt_be ? ' (' + d.gesamt_be + ' BE)' : ''}</div>`;
-    d.teilaufgaben.forEach(t => {
-      html += `<div style="font-size:.9rem;margin:.4rem 0;display:flex;gap:.5rem;"><strong style="flex-shrink:0;">${esc(t.id || t.nr || '')}</strong><span>${esc(t.text || '')}${t.be ? ' <span style="color:var(--ink-light);font-size:.78rem;">(' + t.be + ' BE)</span>' : ''}</span></div>`;
+    html += `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.5rem;">Teilaufgaben${d.gesamt_be ? ' (' + d.gesamt_be + ' BE gesamt)' : ''}</label>`;
+    d.teilaufgaben.forEach((t, i) => {
+      html += `<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.4rem;">
+        <span style="font-weight:700;font-size:.85rem;min-width:2rem;padding-top:.5rem;">${esc(t.id || t.nr || (i+1)+')')}</span>
+        <textarea data-field="teilaufgaben" data-index="${i}" rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
+        <span style="font-size:.78rem;color:var(--ink-light);padding-top:.5rem;white-space:nowrap;">${t.be ? t.be + ' BE' : ''}</span>
+      </div>`;
     });
     html += `</div>`;
   }
 
-  // === Aufgabenbloecke (WR / PuG / Ethik etc.) ===
+  // === Aufgabenbloecke (WR / PuG / Ethik) ===
   if (d.aufgabenbloecke && Array.isArray(d.aufgabenbloecke)) {
-    d.aufgabenbloecke.forEach(block => {
-      html += `<div style="${sectionStyle}"><div style="${labelStyle}">${esc(block.titel || 'Aufgabenblock ' + (block.nr || ''))}${block.be_gesamt ? ' (' + block.be_gesamt + ' BE)' : ''}</div>`;
+    d.aufgabenbloecke.forEach((block, bi) => {
+      html += `<div style="margin-bottom:1rem;padding:.8rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);">
+        <label style="font-size:.82rem;font-weight:700;display:block;margin-bottom:.5rem;">${esc(block.titel || 'Block ' + (block.nr || bi+1))}${block.be_gesamt ? ' (' + block.be_gesamt + ' BE)' : ''}</label>`;
       if (block.teilaufgaben && Array.isArray(block.teilaufgaben)) {
-        block.teilaufgaben.forEach(t => {
-          html += `<div style="font-size:.9rem;margin:.4rem 0;display:flex;gap:.5rem;"><strong style="flex-shrink:0;">${esc(String(t.nr || ''))}</strong><span>${esc(t.text || '')}${t.be ? ' <span style="color:var(--ink-light);font-size:.78rem;">(' + t.be + ' BE, AFB ' + (t.afb || '') + ')</span>' : ''}</span></div>`;
+        block.teilaufgaben.forEach((t, ti) => {
+          html += `<div style="display:flex;gap:.4rem;align-items:flex-start;margin-bottom:.4rem;">
+            <span style="font-weight:700;font-size:.85rem;min-width:2.5rem;padding-top:.5rem;">${esc(String(t.nr || ''))}</span>
+            <textarea data-field="aufgabenbloecke" data-block="${bi}" data-index="${ti}" rows="2" style="${taStyle}flex:1;">${esc(t.text || '')}</textarea>
+            <span style="font-size:.78rem;color:var(--ink-light);padding-top:.5rem;white-space:nowrap;">${t.be ? t.be + ' BE' : ''}${t.afb ? ' AFB ' + t.afb : ''}</span>
+          </div>`;
         });
       }
       html += `</div>`;
     });
   }
 
-  // === Materialien (WR: materialien / Geschichte: zusatz_materialien / Chemie: material) ===
-  const mats = d.materialien || d.zusatz_materialien || d.material || d.materials || [];
+  // === Materialien (WR / Geschichte / Chemie) ===
+  const matKey = d.materialien ? "materialien" : d.zusatz_materialien ? "zusatz_materialien" : d.material ? "material" : null;
+  const mats = matKey ? d[matKey] : [];
   if (Array.isArray(mats) && mats.length) {
-    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Materialien</div>`;
-    mats.forEach(m => {
-      const mTitle = m.titel || m.title || m.nr || m.id || 'Material';
+    html += `<div style="margin-bottom:.8rem;"><label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.5rem;">Materialien</label>`;
+    mats.forEach((m, mi) => {
+      const mTitle = m.titel || m.title || m.nr || m.id || 'Material ' + (mi+1);
       const mType = m.typ || m.type || '';
-      html += `<div style="margin:.6rem 0;padding:.5rem;background:var(--bg);border-radius:var(--radius-sm);"><strong>${esc(mTitle)}</strong>`;
-      if (m.quelle || m.source) html += ` <span style="font-size:.75rem;color:var(--ink-light);">(${esc(m.quelle || m.source)})</span>`;
       const content = m.inhalt || m.content || m.text || '';
-      if (mType === 'text' || (!mType && content)) {
-        html += `<div style="font-size:.85rem;margin-top:.3rem;max-height:150px;overflow-y:auto;">${esc(content).slice(0, 800).replace(/\n/g, '<br>')}</div>`;
-      } else if (mType === 'statistik') {
-        html += `<div style="font-size:.82rem;margin-top:.3rem;font-family:var(--font-mono);max-height:150px;overflow-y:auto;white-space:pre-wrap;">${esc(content).slice(0, 600)}</div>`;
+      html += `<div style="margin-bottom:.6rem;padding:.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);">
+        <span style="font-size:.82rem;font-weight:700;">${esc(mTitle)}</span>
+        <span style="font-size:.72rem;color:var(--ink-light);margin-left:.3rem;">${esc(mType)}</span>`;
+      if (mType === 'text' || mType === 'statistik' || (!mType && content)) {
+        html += `<textarea data-field="${matKey}" data-mat="${mi}" rows="${Math.min(6, Math.max(2, Math.ceil(content.length / 80)))}" style="${taStyle}margin-top:.3rem;">${esc(content)}</textarea>`;
       } else if ((mType === 'bild' || mType === 'foto') && m.image_url && m.image_url !== '[KV]') {
-        html += `<img src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;" alt="${esc(mTitle)}">`;
-      } else if (content) {
-        html += `<div style="font-size:.82rem;margin-top:.3rem;color:var(--ink-light);">[${esc(mType || 'Material')}] ${esc(content).slice(0, 200)}</div>`;
+        html += `<img src="${m.image_url}" style="max-width:100%;max-height:150px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}">`;
       }
       html += `</div>`;
     });
     html += `</div>`;
   }
 
-  // === Gesamt-BE ===
-  if (d.gesamt_be && !d.teilaufgaben) {
-    html += `<div style="font-size:.85rem;font-weight:600;color:var(--accent);margin-top:.5rem;">Gesamt: ${d.gesamt_be} BE</div>`;
-  }
-
-  if (!html) html = '<p style="color:var(--ink-muted);">Vorschau nicht verfuegbar — Aufgabe wurde generiert.</p>';
-  preview.innerHTML = html;
-
-  // Aufgabenstellung in Textarea — alle relevanten Felder zusammenfuegen
-  const editText = document.getElementById("taskEditText");
-  let fullInstruction = d.task_instruction || d.instruction || d.aufgabe || '';
-  if (d.task_instruction_a) fullInstruction = 'Teil A:\n' + d.task_instruction_a;
-  if (d.task_instruction_b) fullInstruction += '\n\nTeil B:\n' + d.task_instruction_b;
-  editText.value = fullInstruction;
+  if (!html) html = '<p style="color:var(--ink-muted);">Keine bearbeitbaren Felder gefunden.</p>';
+  container.innerHTML = html;
 
   // Auto-Titel
   const titleInput = document.getElementById("taskTitleInput");
@@ -1581,21 +1549,43 @@ async function saveTask() {
   const title = document.getElementById("taskTitleInput").value.trim();
   if (!title) { showToast("Bitte einen Titel eingeben.", "error"); return; }
 
-  // Bearbeitete Aufgabenstellung uebernehmen
-  const editedText = document.getElementById("taskEditText").value.trim();
-  if (editedText) {
-    // Geschichte: Teil A / Teil B aufteilen
-    if (pendingTaskData.task_instruction_a && editedText.includes('Teil B:')) {
-      const parts = editedText.split(/\n*Teil B:\n*/);
-      pendingTaskData.task_instruction_a = parts[0].replace(/^Teil A:\n*/, '').trim();
-      pendingTaskData.task_instruction_b = (parts[1] || '').trim();
-    } else if (pendingTaskData.task_instruction) {
-      pendingTaskData.task_instruction = editedText;
-    } else if (pendingTaskData.aufgabe) {
-      pendingTaskData.aufgabe = editedText;
+  // Bearbeitete Felder aus dem Formular uebernehmen
+  document.querySelectorAll("#taskEditFields textarea[data-field]").forEach(ta => {
+    const field = ta.dataset.field;
+    const val = ta.value;
+    // Einfache Top-Level-Felder
+    if (["task_instruction", "task_instruction_a", "task_instruction_b", "aufgabe",
+         "primary_text", "primary_text_a", "primary_text_b", "compare_text"].includes(field)) {
+      pendingTaskData[field] = val;
     }
-    if (pendingTaskData.instruction) pendingTaskData.instruction = editedText;
-  }
+    // Teilaufgaben
+    if (field === "teilaufgaben" && ta.dataset.index != null) {
+      const idx = parseInt(ta.dataset.index);
+      if (pendingTaskData.teilaufgaben && pendingTaskData.teilaufgaben[idx]) {
+        pendingTaskData.teilaufgaben[idx].text = val;
+      }
+    }
+    // Aufgabenbloecke
+    if (field === "aufgabenbloecke" && ta.dataset.block != null && ta.dataset.index != null) {
+      const bi = parseInt(ta.dataset.block);
+      const ti = parseInt(ta.dataset.index);
+      if (pendingTaskData.aufgabenbloecke && pendingTaskData.aufgabenbloecke[bi]
+          && pendingTaskData.aufgabenbloecke[bi].teilaufgaben
+          && pendingTaskData.aufgabenbloecke[bi].teilaufgaben[ti]) {
+        pendingTaskData.aufgabenbloecke[bi].teilaufgaben[ti].text = val;
+      }
+    }
+    // Materialien
+    const matKeys = ["materialien", "zusatz_materialien", "material"];
+    if (matKeys.includes(field) && ta.dataset.mat != null) {
+      const mi = parseInt(ta.dataset.mat);
+      const arr = pendingTaskData[field];
+      if (arr && arr[mi]) {
+        const contentKey = arr[mi].inhalt !== undefined ? "inhalt" : arr[mi].content !== undefined ? "content" : "text";
+        arr[mi][contentKey] = val;
+      }
+    }
+  });
 
   try {
     const data = await teacherApi("/api/teacher-tasks", {
