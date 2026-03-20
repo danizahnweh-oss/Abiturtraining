@@ -326,7 +326,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 /* Vorschau-Bereich */
 .preview-box {
   background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 1.2rem; margin-top: 1rem; max-height: 400px; overflow-y: auto;
+  padding: 1.2rem; margin-top: 1rem; max-height: 600px; overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -1455,37 +1455,115 @@ function showTaskPreview() {
   const iframe = document.getElementById("taskIframe");
   iframe.src = "about:blank";
 
-  // Vorschau rendern
   const preview = document.getElementById("taskPreview");
   const d = pendingTaskData;
+  const sectionStyle = 'margin-bottom:1rem;padding:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);';
+  const labelStyle = 'font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-light);margin-bottom:.3rem;';
   let html = "";
-  if (d.task_instruction) html += `<div style="margin-bottom:.8rem;"><strong>Aufgabenstellung:</strong><br>${d.task_instruction}</div>`;
-  if (d.primary_text) html += `<div style="margin-bottom:.8rem;"><strong>Text:</strong><br><div style="max-height:200px;overflow-y:auto;padding:.5rem;background:var(--surface);border-radius:var(--radius);font-size:.85rem;">${d.primary_text}</div></div>`;
-  if (d.primary_meta) html += `<div style="font-size:.78rem;color:var(--ink-light);margin-bottom:.5rem;">${esc(d.primary_meta)}</div>`;
-  if (d.tasks && Array.isArray(d.tasks)) {
-    d.tasks.forEach((t, i) => {
-      html += `<div style="margin-top:.5rem;"><strong>Aufgabe ${i+1}:</strong> ${esc(typeof t === "string" ? t : t.task || t.instruction || JSON.stringify(t))}</div>`;
+
+  // === Hochgeladene Bilder (Aufgabenblaetter) ===
+  if (d._uploadImages && d._uploadImages.length) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabenblatt</div>`;
+    d._uploadImages.forEach(url => {
+      html += `<img src="${url}" style="width:100%;max-width:700px;border-radius:var(--radius-sm);margin-bottom:.5rem;display:block;" alt="Aufgabenblatt">`;
     });
+    html += `</div>`;
   }
-  if (d.materials && Array.isArray(d.materials)) {
-    d.materials.forEach((m, i) => {
-      html += `<div style="margin-top:.5rem;"><strong>Material ${i+1}:</strong> `;
-      if (m.type === "text") html += `<div style="font-size:.85rem;max-height:150px;overflow-y:auto;">${esc(m.content || "").slice(0, 500)}</div>`;
-      else if (m.image_url && m.image_url !== "[KV]") html += `<img src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius);margin-top:.3rem;" alt="Material">`;
-      else html += esc(m.title || m.type || "Material");
+
+  // === Aufgabenstellung (Deutsch: task_instruction / Geschichte: task_instruction_a+b) ===
+  if (d.task_instruction) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabenstellung</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction.replace(/\n/g, '<br>')}</div></div>`;
+  }
+  if (d.task_instruction_a) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teil A — Quellenanalyse</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction_a.replace(/\n/g, '<br>')}</div></div>`;
+  }
+  if (d.task_instruction_b) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teil B — Darstellung</div><div style="font-size:.9rem;line-height:1.6;">${d.task_instruction_b.replace(/\n/g, '<br>')}</div></div>`;
+  }
+
+  // === Aufgabentext (Mathe/Chemie: aufgabe) ===
+  if (d.aufgabe) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Aufgabentext</div><div style="font-size:.9rem;line-height:1.6;">${d.aufgabe.replace(/\n/g, '<br>')}</div></div>`;
+  }
+
+  // === Primaertexte (Deutsch/Geschichte) ===
+  if (d.primary_text) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Text${d.primary_meta ? ' — ' + esc(d.primary_meta) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;">${d.primary_text.replace(/\n/g, '<br>')}</div></div>`;
+  }
+  if (d.primary_text_a) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Quelle M 1${d.primary_meta_a ? ' — ' + esc(d.primary_meta_a) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;">${d.primary_text_a.replace(/\n/g, '<br>')}</div></div>`;
+  }
+  if (d.primary_text_b) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Materialimpuls${d.primary_meta_b ? ' — ' + esc(d.primary_meta_b) : ''}</div><div style="font-size:.85rem;line-height:1.6;">${d.primary_text_b.replace(/\n/g, '<br>')}</div></div>`;
+  }
+  if (d.compare_text) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Vergleichstext${d.compare_meta ? ' — ' + esc(d.compare_meta) : ''}</div><div style="font-size:.85rem;line-height:1.6;max-height:200px;overflow-y:auto;">${d.compare_text.replace(/\n/g, '<br>')}</div></div>`;
+  }
+
+  // === Teilaufgaben (Mathe/Chemie/Physik/Bio etc.) ===
+  if (d.teilaufgaben && Array.isArray(d.teilaufgaben) && d.teilaufgaben.length) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Teilaufgaben${d.gesamt_be ? ' (' + d.gesamt_be + ' BE)' : ''}</div>`;
+    d.teilaufgaben.forEach(t => {
+      html += `<div style="font-size:.9rem;margin:.4rem 0;display:flex;gap:.5rem;"><strong style="flex-shrink:0;">${esc(t.id || t.nr || '')}</strong><span>${esc(t.text || '')}${t.be ? ' <span style="color:var(--ink-light);font-size:.78rem;">(' + t.be + ' BE)</span>' : ''}</span></div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === Aufgabenbloecke (WR / PuG / Ethik etc.) ===
+  if (d.aufgabenbloecke && Array.isArray(d.aufgabenbloecke)) {
+    d.aufgabenbloecke.forEach(block => {
+      html += `<div style="${sectionStyle}"><div style="${labelStyle}">${esc(block.titel || 'Aufgabenblock ' + (block.nr || ''))}${block.be_gesamt ? ' (' + block.be_gesamt + ' BE)' : ''}</div>`;
+      if (block.teilaufgaben && Array.isArray(block.teilaufgaben)) {
+        block.teilaufgaben.forEach(t => {
+          html += `<div style="font-size:.9rem;margin:.4rem 0;display:flex;gap:.5rem;"><strong style="flex-shrink:0;">${esc(String(t.nr || ''))}</strong><span>${esc(t.text || '')}${t.be ? ' <span style="color:var(--ink-light);font-size:.78rem;">(' + t.be + ' BE, AFB ' + (t.afb || '') + ')</span>' : ''}</span></div>`;
+        });
+      }
       html += `</div>`;
     });
   }
+
+  // === Materialien (WR: materialien / Geschichte: zusatz_materialien / Chemie: material) ===
+  const mats = d.materialien || d.zusatz_materialien || d.material || d.materials || [];
+  if (Array.isArray(mats) && mats.length) {
+    html += `<div style="${sectionStyle}"><div style="${labelStyle}">Materialien</div>`;
+    mats.forEach(m => {
+      const mTitle = m.titel || m.title || m.nr || m.id || 'Material';
+      const mType = m.typ || m.type || '';
+      html += `<div style="margin:.6rem 0;padding:.5rem;background:var(--bg);border-radius:var(--radius-sm);"><strong>${esc(mTitle)}</strong>`;
+      if (m.quelle || m.source) html += ` <span style="font-size:.75rem;color:var(--ink-light);">(${esc(m.quelle || m.source)})</span>`;
+      const content = m.inhalt || m.content || m.text || '';
+      if (mType === 'text' || (!mType && content)) {
+        html += `<div style="font-size:.85rem;margin-top:.3rem;max-height:150px;overflow-y:auto;">${esc(content).slice(0, 800).replace(/\n/g, '<br>')}</div>`;
+      } else if (mType === 'statistik') {
+        html += `<div style="font-size:.82rem;margin-top:.3rem;font-family:var(--font-mono);max-height:150px;overflow-y:auto;white-space:pre-wrap;">${esc(content).slice(0, 600)}</div>`;
+      } else if ((mType === 'bild' || mType === 'foto') && m.image_url && m.image_url !== '[KV]') {
+        html += `<img src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;" alt="${esc(mTitle)}">`;
+      } else if (content) {
+        html += `<div style="font-size:.82rem;margin-top:.3rem;color:var(--ink-light);">[${esc(mType || 'Material')}] ${esc(content).slice(0, 200)}</div>`;
+      }
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === Gesamt-BE ===
+  if (d.gesamt_be && !d.teilaufgaben) {
+    html += `<div style="font-size:.85rem;font-weight:600;color:var(--accent);margin-top:.5rem;">Gesamt: ${d.gesamt_be} BE</div>`;
+  }
+
   if (!html) html = '<p style="color:var(--ink-muted);">Vorschau nicht verfuegbar — Aufgabe wurde generiert.</p>';
   preview.innerHTML = html;
 
-  // Aufgabenstellung in Textarea
+  // Aufgabenstellung in Textarea — alle relevanten Felder zusammenfuegen
   const editText = document.getElementById("taskEditText");
-  editText.value = d.task_instruction || d.instruction || "";
+  let fullInstruction = d.task_instruction || d.instruction || d.aufgabe || '';
+  if (d.task_instruction_a) fullInstruction = 'Teil A:\n' + d.task_instruction_a;
+  if (d.task_instruction_b) fullInstruction += '\n\nTeil B:\n' + d.task_instruction_b;
+  editText.value = fullInstruction;
 
   // Auto-Titel
   const titleInput = document.getElementById("taskTitleInput");
-  titleInput.value = (SUBJECT_NAMES[pendingTaskSubjectGroup] || "") + " — " + (d.topic || d.title || pendingTaskSubject).slice(0, 60);
+  titleInput.value = (SUBJECT_NAMES[pendingTaskSubjectGroup] || "") + " — " + (d.topic || d.thema || d.title || d.sachgebiet || d.fachbereich || pendingTaskSubject).slice(0, 60);
 }
 
 function resetTaskCreation() {
@@ -1506,7 +1584,16 @@ async function saveTask() {
   // Bearbeitete Aufgabenstellung uebernehmen
   const editedText = document.getElementById("taskEditText").value.trim();
   if (editedText) {
-    pendingTaskData.task_instruction = editedText;
+    // Geschichte: Teil A / Teil B aufteilen
+    if (pendingTaskData.task_instruction_a && editedText.includes('Teil B:')) {
+      const parts = editedText.split(/\n*Teil B:\n*/);
+      pendingTaskData.task_instruction_a = parts[0].replace(/^Teil A:\n*/, '').trim();
+      pendingTaskData.task_instruction_b = (parts[1] || '').trim();
+    } else if (pendingTaskData.task_instruction) {
+      pendingTaskData.task_instruction = editedText;
+    } else if (pendingTaskData.aufgabe) {
+      pendingTaskData.aufgabe = editedText;
+    }
     if (pendingTaskData.instruction) pendingTaskData.instruction = editedText;
   }
 
