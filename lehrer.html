@@ -471,7 +471,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
           Generiere eine Aufgabe wie deine Schueler — wenn sie dir gefaellt, erstelle einen Code zum Teilen.
         </p>
 
-        <!-- Schritt 1: Fach + Typ waehlen -->
+        <!-- Schritt 1: Fach + Typ + Modus waehlen -->
         <div id="taskStep1">
           <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem;">
             <div style="flex:1;min-width:200px;">
@@ -487,7 +487,39 @@ main { max-width: 1100px; margin: 1.5rem auto; }
               </select>
             </div>
           </div>
-          <button class="btn" onclick="openTaskIframe()" id="btnOpenIframe">Aufgabe generieren</button>
+
+          <!-- Modus-Umschalter -->
+          <div class="tab-nav" style="margin-bottom:1rem;">
+            <button class="tab-btn active" id="modeGenBtn" onclick="setTaskMode('generate')">KI generieren</button>
+            <button class="tab-btn" id="modeMatBtn" onclick="setTaskMode('materials')">Eigene Materialien</button>
+          </div>
+
+          <!-- Modus: KI generieren -->
+          <div id="taskModeGenerate">
+            <button class="btn" onclick="openTaskIframe()" id="btnOpenIframe">Aufgabe generieren</button>
+          </div>
+
+          <!-- Modus: Eigene Materialien -->
+          <div id="taskModeMaterials" style="display:none;">
+            <div id="matUploadZone" onclick="document.getElementById('matFileInput').click()" style="border:2px dashed var(--border);border-radius:var(--radius);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;min-height:44px;" role="button" tabindex="0" aria-label="Materialien hochladen" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('matFileInput').click()}" ondragover="event.preventDefault();this.style.borderColor='var(--accent)'" ondragleave="this.style.borderColor='var(--border)'" ondrop="event.preventDefault();this.style.borderColor='var(--border)';handleMaterialFiles(event.dataTransfer.files)">
+              <div style="font-size:2rem;margin-bottom:.3rem;">📎</div>
+              <div style="font-weight:600;font-size:.9rem;">Materialien hochladen</div>
+              <div style="font-size:.78rem;color:var(--ink-light);margin-top:.2rem;">1-5 Bilder oder PDFs · Klicken oder hierher ziehen</div>
+            </div>
+            <input type="file" id="matFileInput" accept="image/*,.pdf" multiple style="display:none" onchange="handleMaterialFiles(this.files)">
+
+            <div id="matPreviewArea" style="display:none;margin-top:.8rem;">
+              <div id="matPreviews" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;"></div>
+              <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:.3rem;">Zusaetzliche Anweisungen (optional)</label>
+              <textarea id="matInstructions" rows="2" placeholder="z.B. Fokus auf Tarifverhandlungen, AFB III betonen..."
+                        style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea>
+              <button class="btn" style="width:100%;margin-top:.8rem;" onclick="generateFromMaterials()" id="btnGenMat">Aufgaben generieren lassen</button>
+            </div>
+            <div id="matLoader" style="display:none;text-align:center;padding:1.5rem;color:var(--ink-muted);font-size:.9rem;">
+              <div style="margin-bottom:.5rem;">KI analysiert deine Materialien und erstellt Aufgaben...</div>
+              <div class="loader-spinner" style="margin:0 auto;"></div>
+            </div>
+          </div>
         </div>
 
         <!-- Schritt 2: iFrame mit Fachseite -->
@@ -1406,6 +1438,93 @@ function onTaskSubjectChange() {
   });
 }
 
+/* ====== TASK MODE UMSCHALTER ====== */
+function setTaskMode(mode) {
+  document.getElementById("modeGenBtn").classList.toggle("active", mode === "generate");
+  document.getElementById("modeMatBtn").classList.toggle("active", mode === "materials");
+  document.getElementById("taskModeGenerate").style.display = mode === "generate" ? "block" : "none";
+  document.getElementById("taskModeMaterials").style.display = mode === "materials" ? "block" : "none";
+}
+
+/* ====== MATERIAL-UPLOAD ====== */
+let materialUploadFiles = []; // Array von { url, base64 }
+
+async function handleMaterialFiles(files) {
+  if (!files || !files.length) return;
+  const maxFiles = 5 - materialUploadFiles.length;
+  if (maxFiles <= 0) { showToast("Maximal 5 Materialien erlaubt.", "error"); return; }
+
+  const fileArr = Array.from(files).slice(0, maxFiles);
+  for (const file of fileArr) {
+    if (!file.type.startsWith("image/") && file.type !== "application/pdf") {
+      showToast("Nur Bilder und PDFs erlaubt.", "error"); continue;
+    }
+    if (file.size > 10 * 1024 * 1024) { showToast("Datei zu gross (max 10 MB).", "error"); continue; }
+
+    // Base64 konvertieren
+    const dataUrl = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+    const base64 = dataUrl.split(",")[1];
+    materialUploadFiles.push({ url: dataUrl, base64 });
+  }
+
+  renderMaterialPreviews();
+}
+
+function renderMaterialPreviews() {
+  const container = document.getElementById("matPreviews");
+  const area = document.getElementById("matPreviewArea");
+  if (!materialUploadFiles.length) { area.style.display = "none"; return; }
+  area.style.display = "block";
+  container.innerHTML = materialUploadFiles.map((f, i) => `
+    <div style="position:relative;width:100px;height:100px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
+      <img src="${f.url}" style="width:100%;height:100%;object-fit:cover;" alt="Material ${i+1}">
+      <span style="position:absolute;top:2px;left:4px;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:1px 4px;border-radius:3px;">M ${i+1}</span>
+      <button onclick="removeMaterial(${i})" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:.8rem;cursor:pointer;line-height:1;" aria-label="Material entfernen">&times;</button>
+    </div>
+  `).join("");
+}
+
+function removeMaterial(index) {
+  materialUploadFiles.splice(index, 1);
+  renderMaterialPreviews();
+}
+
+async function generateFromMaterials() {
+  const subj = document.getElementById("taskSubjectSelect").value;
+  const typeSel = document.getElementById("taskTypeSelect");
+  if (!subj) { showToast("Bitte ein Fach waehlen.", "error"); return; }
+  if (!materialUploadFiles.length) { showToast("Bitte Materialien hochladen.", "error"); return; }
+
+  pendingTaskSubjectGroup = subj;
+  pendingTaskSubject = typeSel.value || subj;
+
+  const btn = document.getElementById("btnGenMat");
+  btn.disabled = true;
+  document.getElementById("matLoader").style.display = "block";
+
+  try {
+    const data = await teacherApi("/api/generate-from-materials", {
+      images: materialUploadFiles.map(f => f.base64),
+      subject: pendingTaskSubject,
+      subject_group: pendingTaskSubjectGroup,
+      instructions: document.getElementById("matInstructions").value.trim()
+    });
+
+    pendingTaskData = data;
+    showTaskPreview();
+    materialUploadFiles = [];
+  } catch (e) {
+    showToast("Fehler: " + e.message, "error");
+  }
+  btn.disabled = false;
+  document.getElementById("matLoader").style.display = "none";
+}
+
 function openTaskIframe() {
   const subj = document.getElementById("taskSubjectSelect").value;
   const typeSel = document.getElementById("taskTypeSelect");
@@ -1542,10 +1661,14 @@ function showTaskPreview() {
 
 function resetTaskCreation() {
   pendingTaskData = null;
+  materialUploadFiles = [];
   document.getElementById("taskStep1").style.display = "block";
   document.getElementById("taskStep2").style.display = "none";
   document.getElementById("taskStep3").style.display = "none";
   document.getElementById("taskStep4").style.display = "none";
+  document.getElementById("matPreviewArea").style.display = "none";
+  document.getElementById("matLoader").style.display = "none";
+  document.getElementById("matPreviews").innerHTML = "";
   const iframe = document.getElementById("taskIframe");
   iframe.src = "about:blank";
 }

@@ -1,6 +1,7 @@
 // Handler: Lehrer-Aufgaben-Sharing (Erstellen, Teilen, Ergebnisse)
-import { jsonResponse } from '../utils.js';
+import { jsonResponse, extractJSON, buildUserContent } from '../utils.js';
 import { verifyTeacherAuthToken, generateClassCode } from '../auth.js';
+import { callOpenAI } from '../openai.js';
 
 // 8-stelliger Share-Code fuer Aufgaben (laenger als 6-stellige Lehrer-Codes)
 function generateShareCode() {
@@ -262,4 +263,203 @@ export async function handleSubmitSharedTask(request, env) {
   }
 
   return jsonResponse({ success: true }, 200, env);
+}
+
+// ===== Lehrer: Aufgaben aus eigenen Materialien generieren =====
+
+const MATERIAL_PROMPTS = {
+  wr: `Du bist ein erfahrener WR-Lehrer (Bayern G9). Der Lehrer hat eigene Materialien (Grafiken, Tabellen, Texte) hochgeladen.
+Erstelle eine materialgestuetzte Klausuraufgabe dazu.
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Situationstext / Rahmenhandlung (3-5 Saetze, konkreter Bezug zu den Materialien)",
+  "aufgabenbloecke": [
+    {
+      "nr": 1,
+      "titel": "Block-Titel",
+      "teilaufgaben": [
+        { "nr": "1.1", "text": "Aufgabentext mit konkretem Bezug auf die Materialien", "be": 5, "afb": "I" }
+      ],
+      "be_gesamt": 15
+    }
+  ],
+  "gesamt_be": 60,
+  "thema": "Konkretes Thema",
+  "fachbereich": "bwl/vwl/recht"
+}
+
+Regeln:
+- Beziehe dich KONKRET auf die hochgeladenen Materialien (M 1, M 2, ...)
+- AFB I (Reproduktion) ca. 30%, AFB II (Transfer) ca. 40%, AFB III (Bewertung) ca. 30%
+- Teilaufgaben mit Operatoren (nennen, beschreiben, erklaeren, beurteilen, eroertern)
+- Die Materialien selbst werden NICHT in der Antwort mitgeliefert — nur Verweise darauf`,
+
+  history: `Du bist ein erfahrener Geschichte-Lehrer (Bayern G9). Der Lehrer hat eigene Materialien (Quellen, Bilder, Karten) hochgeladen.
+Erstelle eine quellenbasierte Geschichtsaufgabe dazu.
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction_a": "Teil A: Quellenanalyse-Aufgabenstellung (Bezug auf M 1)",
+  "task_instruction_b": "Teil B: Darstellungsaufgabe",
+  "thema": "Konkretes historisches Thema"
+}
+
+Regeln:
+- Teil A: Analysiere/Interpretiere die Quelle, ordne historisch ein
+- Teil B: Eigene Darstellung zu verwandtem Aspekt
+- Operatoren: analysieren, einordnen, beurteilen, darstellen`,
+
+  german: `Du bist ein erfahrener Deutsch-Lehrer (Bayern G9). Der Lehrer hat eigene Texte/Materialien hochgeladen.
+Erstelle eine Aufgabenstellung dazu (Analyse, Eroerterung oder materialgestuetztes Schreiben).
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Aufgabenstellung mit klarem Arbeitsauftrag und Bezug auf den Text/das Material",
+  "thema": "Thema der Aufgabe"
+}
+
+Regeln:
+- Klare Operatoren verwenden (analysieren, eroertern, vergleichen)
+- Aufgabe soll zum hochgeladenen Material passen`,
+
+  science: `Du bist ein erfahrener Naturwissenschafts-Lehrer (Bayern G9). Der Lehrer hat eigene Materialien (Diagramme, Versuchsbeschreibungen, Grafiken) hochgeladen.
+Erstelle eine materialgestuetzte Klausuraufgabe dazu.
+
+Antworte NUR mit validem JSON:
+{
+  "aufgabe": "Einleitender Aufgabentext mit Kontext und Bezug auf die Materialien",
+  "teilaufgaben": [
+    { "id": "a)", "text": "Aufgabentext mit Bezug auf Material", "be": 5 }
+  ],
+  "gesamt_be": 40,
+  "sachgebiet": "Konkretes Sachgebiet"
+}
+
+Regeln:
+- Beziehe dich KONKRET auf die hochgeladenen Materialien
+- Teilaufgaben von leicht nach schwer
+- Operatoren: beschreiben, erklaeren, begruenden, bewerten`,
+
+  languages: `Du bist ein erfahrener Fremdsprachen-Lehrer (Bayern G9). Der Lehrer hat eigene Materialien (Texte, Bilder) hochgeladen.
+Erstelle eine Aufgabenstellung dazu.
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Task description referencing the uploaded materials",
+  "tasks": [
+    { "task": "Sub-task with reference to materials", "words": 150 }
+  ],
+  "thema": "Topic"
+}`,
+
+  default: `Du bist ein erfahrener Lehrer (Bayern G9). Der Lehrer hat eigene Materialien hochgeladen.
+Erstelle eine materialgestuetzte Aufgabe dazu.
+
+Antworte NUR mit validem JSON:
+{
+  "task_instruction": "Aufgabenstellung mit Kontext und Bezug auf die Materialien",
+  "teilaufgaben": [
+    { "id": "a)", "text": "Teilaufgabe mit Bezug auf Material", "be": 5 }
+  ],
+  "gesamt_be": 40,
+  "thema": "Konkretes Thema"
+}
+
+Regeln:
+- Beziehe dich KONKRET auf die hochgeladenen Materialien
+- Klare Operatoren verwenden
+- Teilaufgaben von leicht nach schwer`
+};
+
+const SUBJECT_GROUP_TO_PROMPT = {
+  wr: "wr", pug: "wr", // Gleiche Struktur
+  history: "history",
+  german: "german",
+  mathe: "science", chemie: "science", physik: "science", biologie: "science", informatik: "science",
+  english: "languages", french: "languages", italian: "languages", latein: "languages",
+  ethik: "default", religion: "default", katholisch: "default", geographie: "default", sport: "default"
+};
+
+export async function handleGenerateFromMaterials(request, env) {
+  const token = request.headers.get("X-Teacher-Auth-Token");
+  const teacherId = await verifyTeacherAuthToken(token, env);
+  if (!teacherId) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { images, subject, subject_group, instructions, niveau } = await request.json();
+
+  if (!images || !Array.isArray(images) || images.length < 1) {
+    return jsonResponse({ error: "Mindestens 1 Bild erforderlich." }, 400, env);
+  }
+  if (images.length > 5) {
+    return jsonResponse({ error: "Maximal 5 Bilder erlaubt." }, 400, env);
+  }
+  if (!subject_group) {
+    return jsonResponse({ error: "Fachgruppe (subject_group) erforderlich." }, 400, env);
+  }
+
+  const promptKey = SUBJECT_GROUP_TO_PROMPT[subject_group] || "default";
+  let systemPrompt = MATERIAL_PROMPTS[promptKey] || MATERIAL_PROMPTS.default;
+
+  // Materialien-Hinweis
+  const matCount = images.length;
+  let userText = `Der Lehrer hat ${matCount} Material${matCount > 1 ? 'ien' : ''} hochgeladen (M 1${matCount > 1 ? ' bis M ' + matCount : ''}).
+Erstelle passende Aufgaben, die sich auf diese Materialien beziehen.
+Fach: ${subject_group} | Aufgabentyp: ${subject || subject_group}`;
+
+  if (niveau) userText += ` | Niveau: ${niveau}`;
+  if (instructions) userText += `\n\nZusaetzliche Anweisungen des Lehrers: ${instructions}`;
+
+  const messages = [
+    { role: "system", content: systemPrompt },
+    { role: "user", content: buildUserContent(userText, images) }
+  ];
+
+  try {
+    const openaiRes = await callOpenAI(env, messages, 6000, { model: "gpt-5.2", temperature: 0.3, jsonMode: true });
+    const parsed = extractJSON(openaiRes);
+
+    // Materialien-Array mit den hochgeladenen Bildern erstellen
+    const matFieldName = (subject_group === "wr" || subject_group === "pug") ? "materialien"
+      : (subject_group === "chemie" || subject_group === "physik" || subject_group === "biologie") ? "material"
+      : "materialien";
+
+    // Falls die KI kein Materialien-Array erstellt hat, erstellen wir eins
+    if (!parsed[matFieldName]) {
+      parsed[matFieldName] = [];
+    }
+
+    // Bilder als Materialien hinzufuegen/aktualisieren
+    images.forEach((base64, i) => {
+      const dataUrl = base64.startsWith("data:") ? base64 : `data:image/jpeg;base64,${base64}`;
+      const matNr = `M ${i + 1}`;
+      const existing = parsed[matFieldName].find(m => (m.nr || m.id || "") === matNr);
+      if (existing) {
+        existing.image_url = dataUrl;
+        existing.inhalt = dataUrl;
+        existing.content = dataUrl;
+        existing.text = dataUrl;
+        if (!existing.typ && !existing.type) existing.typ = "bild";
+      } else {
+        parsed[matFieldName].push({
+          nr: matNr,
+          id: matNr,
+          titel: `Material ${i + 1}`,
+          typ: "bild",
+          type: "bild",
+          inhalt: dataUrl,
+          content: dataUrl,
+          text: dataUrl,
+          image_url: dataUrl,
+          quelle: ""
+        });
+      }
+    });
+
+    return jsonResponse(parsed, 200, env);
+  } catch (e) {
+    return jsonResponse({ error: "Aufgabenerstellung fehlgeschlagen: " + e.message }, 500, env);
+  }
 }
