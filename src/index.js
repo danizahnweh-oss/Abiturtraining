@@ -12,6 +12,7 @@ import {
 // Handler
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes } from './handlers/teacher.js';
+import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs } from './handlers/grading.js';
@@ -283,6 +284,24 @@ export default {
         cleanupRateLimitMaps();
         return await handleTeacherResults(request, env);
       }
+      if (pathname === "/api/teacher-profile" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherProfile(request, env);
+      }
+      if (pathname === "/api/teacher-tasks" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherTasks(request, env);
+      }
+      if (pathname === "/api/teacher-task-results" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherTaskResults(request, env);
+      }
 
       // ===== STRIPE WEBHOOK (vor Auth-Check, eigene Signatur-Prüfung) =====
       if (pathname === "/api/stripe/webhook" && request.method === "POST") {
@@ -309,6 +328,8 @@ export default {
       // ===== LEHRER-CODE (Schüler-Seite) =====
       if (pathname === "/api/link-student-code" && request.method === "POST") return await handleLinkStudentCode(request, env);
       if (pathname === "/api/student-codes" && request.method === "POST") return await handleStudentCodes(request, env);
+      if (pathname === "/api/get-shared-task" && request.method === "POST") return await handleGetSharedTask(request, env);
+      if (pathname === "/api/submit-shared-task" && request.method === "POST") return await handleSubmitSharedTask(request, env);
 
       // ===== STUDENT RESULTS =====
       if (pathname === "/api/student-results" && request.method === "POST") return await handleStudentResults(request, env);

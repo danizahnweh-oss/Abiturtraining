@@ -270,5 +270,5 @@ export async function handleSubmitResult(request, env) {
     }
   }
 
-  return jsonResponse({ success: true }, 200, env);
+  return jsonResponse({ success: true, result_id: id }, 200, env);
 }

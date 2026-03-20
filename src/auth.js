@@ -218,6 +218,38 @@ export async function ensureMigrations(env) {
     await addCol("subscription_plan", "TEXT DEFAULT 'free'");
     await addCol("trial_end", "TEXT DEFAULT NULL");
 
+    // Lehrer-Faecher-Spalte
+    try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN subjects TEXT DEFAULT '[]'").run(); } catch (_) {}
+
+    // Lehrer-Aufgaben-Sharing
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS teacher_tasks (
+        id            TEXT PRIMARY KEY,
+        teacher_id    TEXT NOT NULL,
+        share_code    TEXT NOT NULL UNIQUE COLLATE NOCASE,
+        subject       TEXT NOT NULL,
+        subject_group TEXT NOT NULL,
+        title         TEXT NOT NULL,
+        task_meta     TEXT NOT NULL,
+        kv_key        TEXT,
+        active        INTEGER NOT NULL DEFAULT 1,
+        created_at    TEXT NOT NULL,
+        FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS task_submissions (
+        id                 TEXT PRIMARY KEY,
+        task_id            TEXT NOT NULL,
+        student_name_lower TEXT NOT NULL,
+        result_id          TEXT,
+        submitted_at       TEXT NOT NULL,
+        UNIQUE(task_id, student_name_lower),
+        FOREIGN KEY (task_id) REFERENCES teacher_tasks(id) ON DELETE CASCADE
+      )
+    `).run();
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

@@ -22,6 +22,11 @@ const API_BASE = window.location.hostname === "staging.myabiflow.de"
   : "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
 const CONFIG = { storedData: null };
 
+/* ================= TEACHER MODE & SHARED TASK ================= */
+const _urlParams = new URLSearchParams(window.location.search);
+const isTeacherMode = _urlParams.get("mode") === "teacher";
+const sharedTaskId = _urlParams.get("task_id") || null;
+
 /* ================= FOCUS-TRAP ================= */
 
 /**
@@ -110,7 +115,22 @@ async function apiCall(endpoint, body, _isRetry) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.error || `HTTP ${res.status}`);
   }
-  return res.json();
+  const json = await res.json();
+
+  // Shared-Task: Nach submit-result automatisch Zuordnung machen
+  if (endpoint === "/api/submit-result" && json.result_id) {
+    const stId = sessionStorage.getItem("_shared_task_id");
+    if (stId) {
+      apiCall("/api/submit-shared-task", {
+        task_id: stId,
+        result_id: json.result_id,
+        student_name: sessionStorage.getItem("student_name") || "Unbekannt"
+      }).catch(function(e) { console.warn("submit-shared-task:", e); });
+      sessionStorage.removeItem("_shared_task_id");
+    }
+  }
+
+  return json;
 }
 
 /* ================= SUBSCRIPTION CHECK ================= */
@@ -804,6 +824,12 @@ function nav(step, _pushHistory) {
   const steps = MODULE_CONFIG.steps;
   const idx = steps.indexOf(step);
 
+  // Teacher-Mode: Nach Generierung Aufgabe per postMessage an Lehrer-Seite senden
+  if (isTeacherMode && step === "task" && CONFIG.storedData) {
+    window.parent.postMessage({ type: "task-generated", data: CONFIG.storedData }, "*");
+    return;
+  }
+
   // Guard: steps 1-3 need a generated task
   if (idx >= 1 && idx <= 3 && !CONFIG.storedData) {
     showToast("Bitte zuerst eine Aufgabe generieren.");
@@ -925,6 +951,27 @@ function restoreSession() {
       updateWordCount();
     }
   } catch (e) { console.warn("restoreSession failed:", e); }
+}
+
+/* ================= SHARED TASK LOADING ================= */
+async function loadSharedTask() {
+  const taskId = sharedTaskId || sessionStorage.getItem("_shared_task_id");
+  if (!taskId) return false;
+  try {
+    const data = await apiCall("/api/get-shared-task", { task_id: taskId });
+    if (data && data.task_data) {
+      CONFIG.storedData = data.task_data;
+      // _shared_task_id merken fuer spaetere Zuordnung nach Grading
+      sessionStorage.setItem("_shared_task_id", data.task_id);
+      if (typeof renderTask === "function") renderTask(data.task_data);
+      nav("task");
+      return true;
+    }
+  } catch (e) {
+    console.warn("loadSharedTask failed:", e);
+    showToast("Aufgabe konnte nicht geladen werden: " + e.message);
+  }
+  return false;
 }
 
 /* ================= PROGRESS ================= */
@@ -1829,6 +1876,30 @@ function updateTeacherCodeBtn(code) {
 if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   initTheme();
 
+  // Teacher-Mode: Login umgehen, nur Setup anzeigen
+  if (isTeacherMode) {
+    // Header, Nav-Buttons und Login verstecken
+    const ls = document.getElementById("login-screen");
+    const aw = document.getElementById("app-wrapper");
+    if (ls) ls.style.display = "none";
+    if (aw) aw.style.display = "flex";
+    // Nur Setup-Schritt anzeigen, Rest ausblenden
+    document.querySelectorAll("nav button").forEach(function(btn, i) {
+      if (i > 0) btn.style.display = "none";
+    });
+    // Temporaerer Schueler-Name fuer API-Calls
+    sessionStorage.setItem("access", "1");
+    sessionStorage.setItem("student_name", "Lehrer-Vorschau");
+    nav(MODULE_CONFIG.steps[0]);
+    initHL();
+    return;
+  }
+
+  // Shared Task laden
+  if (sharedTaskId) {
+    sessionStorage.setItem("_shared_task_id", sharedTaskId);
+  }
+
   var isLoggedIn = sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name");
 
   // Modules mit eigenem Login-Screen
@@ -1854,9 +1925,10 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     }
     _makeProfileGreetingClickable();
     restoreSession();
-    // Sicherstellen, dass die aktive Section sichtbar ist
-    // (fadeUp-Animation lief ggf. ab, während app-wrapper noch hidden war)
-    if (!currentStep) {
+    // Shared Task laden falls vorhanden
+    if (sharedTaskId || sessionStorage.getItem("_shared_task_id")) {
+      loadSharedTask();
+    } else if (!currentStep) {
       nav(MODULE_CONFIG.steps[0]);
     }
     initHL();
@@ -1875,6 +1947,10 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     }
     _makeProfileGreetingClickable();
     restoreSession();
+    // Shared Task laden falls vorhanden
+    if (sharedTaskId || sessionStorage.getItem("_shared_task_id")) {
+      loadSharedTask();
+    }
     initHL();
     initTeacherCodeUI();
     setInterval(saveSession, 30000);
@@ -1883,6 +1959,10 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
     const greeting = document.getElementById("studentGreeting");
     if (greeting) greeting.style.display = "none";
     initHL();
+    // Auch Gaeste koennen Shared Tasks laden (nach Login-Redirect)
+    if (sharedTaskId) {
+      showToast("Bitte zuerst anmelden, um die Aufgabe zu bearbeiten.");
+    }
   }
   history.replaceState({ step: MODULE_CONFIG.steps[0] }, "");
 

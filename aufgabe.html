@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="blue">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aufgaben-Code eingeben – bearbeite eine Aufgabe, die deine Lehrkraft fuer dich erstellt hat.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4f46e5">
+<title>myAbiFlow · Aufgaben-Code</title>
+<meta property="og:title" content="myAbiFlow · Aufgaben-Code">
+<meta property="og:description" content="Aufgaben-Code eingeben – bearbeite eine Aufgabe, die deine Lehrkraft fuer dich erstellt hat.">
+<meta property="og:image" content="https://myabiflow.de/og-image.png">
+<meta property="og:url" content="https://myabiflow.de/aufgabe.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="myAbiFlow">
+<link rel="canonical" href="https://myabiflow.de/aufgabe.html">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="shared-v4.css">
+<style>
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
+.code-box {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 2rem; width: 100%; max-width: 480px; text-align: center;
+}
+.code-box h1 { font-size: 1.4rem; margin: 0 0 .5rem; }
+.code-box p { font-size: .85rem; color: var(--ink-muted); margin-bottom: 1.5rem; }
+.code-input {
+  width: 100%; padding: .8rem 1rem; font-size: 1.5rem; font-family: var(--font-mono);
+  text-align: center; letter-spacing: .15em; text-transform: uppercase;
+  border: 2px solid var(--border); border-radius: var(--radius); background: var(--bg);
+  color: var(--ink); box-sizing: border-box; min-height: 56px;
+}
+.code-input:focus { border-color: var(--accent); outline: none; }
+.code-input::placeholder { letter-spacing: .05em; text-transform: none; font-size: 1rem; }
+.btn-full { width: 100%; margin-top: 1rem; padding: .8rem; font-size: 1rem; min-height: 48px; }
+.error-msg { color: #ef4444; font-size: .85rem; margin-top: .8rem; min-height: 1.2rem; }
+.task-info {
+  margin-top: 1.5rem; padding: 1rem; background: var(--accent-soft); border-radius: var(--radius);
+  text-align: left; display: none;
+}
+.task-info h3 { margin: 0 0 .3rem; font-size: .95rem; color: var(--accent); }
+.task-info p { font-size: .82rem; color: var(--ink-muted); margin: .2rem 0; }
+.loader { display: none; margin-top: 1rem; font-size: .85rem; color: var(--ink-muted); }
+@media (max-width: 640px) {
+  .code-box { padding: 1.5rem; }
+  .code-input { font-size: 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="code-box">
+  <a href="index.html"><img src="logo-v2.png" alt="myAbiFlow" width="120" style="margin-bottom:1rem;"></a>
+  <h1>Aufgaben-Code</h1>
+  <p>Gib den Code ein, den du von deiner Lehrkraft erhalten hast.</p>
+
+  <label for="shareCodeInput" class="sr-only">Aufgaben-Code</label>
+  <input type="text" id="shareCodeInput" class="code-input" placeholder="z.B. ABCD1234" maxlength="8" autocomplete="off" spellcheck="false"
+         oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"
+         onkeyup="if(event.key==='Enter')loadTask()">
+
+  <button class="btn btn-full" onclick="loadTask()">Aufgabe laden</button>
+
+  <div class="loader" id="loader">Aufgabe wird geladen...</div>
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="task-info" id="taskInfo">
+    <h3 id="taskTitle"></h3>
+    <p id="taskTeacher"></p>
+    <p id="taskSubject"></p>
+    <button class="btn btn-full" onclick="goToTask()" style="margin-top:.8rem;">Aufgabe starten</button>
+  </div>
+
+  <p style="margin-top:1.5rem;font-size:.78rem;">
+    <a href="index.html">Zurueck zum Trainer</a>
+  </p>
+</div>
+
+<script>
+const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+
+// Mapping: subject-type -> Fachseiten-URL
+const SUBJECT_URL_MAP = {
+  "mediation": "/mediation.html",
+  "writing": "/writing.html",
+  "deutsch-analyse": "/analyse.html",
+  "deutsch-eroerterung": "/eroerterung.html",
+  "deutsch-interpretation": "/interpretation.html",
+  "deutsch-materialgestuetzt-argumentierend": "/materialgestuetzt-argumentierend.html",
+  "deutsch-materialgestuetzt-informierend": "/materialgestuetzt-informierend.html",
+  "geschichte": "/geschichte.html",
+  "geschichte-abitur": "/geschichte-abitur.html",
+  "pug-klausur": "/politik.html",
+  "pug-abitur": "/pug-abitur.html",
+  "wr": "/wr.html",
+  "wr-abitur": "/wr-abitur.html",
+  "french-mediation": "/francais-mediation.html",
+  "french-writing": "/francais-schreiben.html",
+  "italian-mediation": "/italiano-mediation.html",
+  "italian-writing": "/italiano-schreiben.html",
+  "ethik": "/ethik.html",
+  "ethik-abitur": "/ethik-abitur.html",
+  "religion": "/religion.html",
+  "religion-abitur": "/religion-abitur.html",
+  "katholisch": "/katholisch.html",
+  "katholisch-abitur": "/katholisch-abitur.html",
+  "geographie": "/geographie.html",
+  "geographie-abitur": "/geographie-abitur.html",
+  "latein": "/latein.html",
+  "latein-abitur": "/latein-abitur.html",
+  "mathe": "/mathe.html",
+  "mathe-abitur": "/mathe-abitur.html",
+  "chemie": "/chemie.html",
+  "chemie-abitur": "/chemie-abitur.html",
+  "physik": "/physik.html",
+  "physik-abitur": "/physik-abitur.html",
+  "biologie": "/biologie.html",
+  "biologie-abitur": "/biologie-abitur.html",
+  "sport": "/sport.html",
+  "sport-abitur": "/sport-abitur.html",
+  "informatik": "/informatik.html",
+  "informatik-abitur": "/informatik-abitur.html"
+};
+
+const SUBJECT_NAMES = {
+  english: "Englisch", german: "Deutsch", history: "Geschichte",
+  pug: "PuG", wr: "WR", french: "Franzoesisch", italian: "Italienisch",
+  ethik: "Ethik", religion: "Ev. Religion", katholisch: "Kath. Religion",
+  geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
+  chemie: "Chemie", physik: "Physik", biologie: "Biologie",
+  sport: "Sport", informatik: "Informatik"
+};
+
+let loadedTask = null;
+
+// Theme
+(function() {
+  var t = localStorage.getItem("theme");
+  if (t) document.documentElement.setAttribute("data-theme", t);
+})();
+
+async function loadTask() {
+  const code = document.getElementById("shareCodeInput").value.trim();
+  const errEl = document.getElementById("errorMsg");
+  const loader = document.getElementById("loader");
+  const info = document.getElementById("taskInfo");
+  errEl.textContent = "";
+  info.style.display = "none";
+
+  if (!code || code.length < 6) {
+    errEl.textContent = "Bitte einen gueltigen Code eingeben (mind. 6 Zeichen).";
+    return;
+  }
+
+  loader.style.display = "block";
+  try {
+    const token = sessionStorage.getItem("access_token") || "";
+    const res = await fetch(API_BASE + "/api/get-shared-task", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Access-Token": token },
+      body: JSON.stringify({ share_code: code })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errEl.textContent = data.error || "Aufgabe nicht gefunden.";
+      loader.style.display = "none";
+      return;
+    }
+    loadedTask = data;
+    document.getElementById("taskTitle").textContent = data.title || "Aufgabe";
+    document.getElementById("taskTeacher").textContent = "Von: " + (data.teacher_name || "Lehrkraft");
+    document.getElementById("taskSubject").textContent = "Fach: " + (SUBJECT_NAMES[data.subject_group] || data.subject_group);
+    info.style.display = "block";
+  } catch (e) {
+    errEl.textContent = "Verbindungsfehler: " + e.message;
+  }
+  loader.style.display = "none";
+}
+
+function goToTask() {
+  if (!loadedTask) return;
+  const url = SUBJECT_URL_MAP[loadedTask.subject];
+  if (!url) {
+    document.getElementById("errorMsg").textContent = "Fachseite fuer diesen Aufgabentyp nicht gefunden.";
+    return;
+  }
+  // Task-ID in Session speichern fuer shared.js
+  sessionStorage.setItem("_shared_task_id", loadedTask.task_id);
+  window.location.href = url + "?task_id=" + encodeURIComponent(loadedTask.task_id);
+}
+</script>
+</body>
+</html>

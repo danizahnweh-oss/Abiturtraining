@@ -3,7 +3,7 @@ import { jsonResponse } from '../utils.js';
 import { safeCompare, hashPassword, verifyPassword, generateTeacherToken, verifyTeacherAuthToken, generateClassCode } from '../auth.js';
 
 export async function handleTeacherRegister(request, env) {
-  const { name, password, register_secret, email } = await request.json();
+  const { name, password, register_secret, email, subjects } = await request.json();
   if (!env.TEACHER_REGISTER_SECRET || !env.TEACHER_AUTH_SECRET) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
   }
@@ -28,11 +28,12 @@ export async function handleTeacherRegister(request, env) {
   const id = Date.now().toString(36) + crypto.randomUUID().slice(0, 8);
   const salt = crypto.randomUUID();
   const hash = await hashPassword(password, salt);
+  const subjectsJson = Array.isArray(subjects) ? JSON.stringify(subjects) : "[]";
   await env.DB.prepare(
-    "INSERT INTO teachers (id, name, name_lower, email, salt, hash, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
-  ).bind(id, name.trim(), nameLower, email || null, salt, hash, new Date().toISOString()).run();
+    "INSERT INTO teachers (id, name, name_lower, email, salt, hash, subjects, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+  ).bind(id, name.trim(), nameLower, email || null, salt, hash, subjectsJson, new Date().toISOString()).run();
   const token = await generateTeacherToken(env, id);
-  return jsonResponse({ success: true, token, teacher_id: id, teacher_name: name.trim() }, 200, env);
+  return jsonResponse({ success: true, token, teacher_id: id, teacher_name: name.trim(), subjects: JSON.parse(subjectsJson) }, 200, env);
 }
 
 // Lehrer-Login
@@ -49,7 +50,7 @@ export async function handleTeacherAuthLogin(request, env) {
   }
   const nameLower = name.trim().toLowerCase();
   const teacher = await env.DB.prepare(
-    "SELECT id, name, salt, hash FROM teachers WHERE name_lower = ?"
+    "SELECT id, name, salt, hash, subjects FROM teachers WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!teacher) {
     return jsonResponse({ error: "Konto nicht gefunden. Bitte zuerst registrieren." }, 404, env);
@@ -59,7 +60,7 @@ export async function handleTeacherAuthLogin(request, env) {
     return jsonResponse({ error: "Falsches Passwort." }, 401, env);
   }
   const token = await generateTeacherToken(env, teacher.id);
-  return jsonResponse({ success: true, token, teacher_id: teacher.id, teacher_name: teacher.name }, 200, env);
+  return jsonResponse({ success: true, token, teacher_id: teacher.id, teacher_name: teacher.name, subjects: JSON.parse(teacher.subjects || "[]") }, 200, env);
 }
 
 // Lehrer-Codes verwalten
