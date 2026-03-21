@@ -17,9 +17,7 @@
    };
    ============================ */
 
-const API_BASE = window.location.hostname === "staging.myabiflow.de"
-  ? ""
-  : "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+const API_BASE = "";
 const CONFIG = { storedData: null };
 
 /* ================= TEACHER MODE & SHARED TASK ================= */
