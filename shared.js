@@ -2502,10 +2502,6 @@ function _doLogout() {
 /* ================= FEEDBACK-WIDGET ================= */
 
 function initFeedbackWidget() {
-  // Nur auf Hetzner (staging) aktivieren — auf Cloudflare noch ausgeblendet
-  if (window.location.hostname !== "staging.myabiflow.de" && window.location.hostname !== "myabiflow.de") return;
-  if (API_BASE !== "") return; // Cloudflare Worker → noch nicht aktiv
-
   // Nicht auf Dashboard/Lehrer/Impressum/AGB-Seiten anzeigen
   var page = window.location.pathname;
   if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404/.test(page)) return;
