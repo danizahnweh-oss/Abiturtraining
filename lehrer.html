@@ -27,6 +27,7 @@
 <link rel="stylesheet" href="shared-v4.css">
 
 <style>
+html { scroll-behavior: smooth; }
 body { display: block; }
 header { position: static; z-index: auto; }
 main { max-width: 1100px; margin: 1.5rem auto; }
@@ -36,6 +37,190 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 .btn-secondary:hover { background: var(--accent-soft); color: var(--accent); }
 .btn-small { padding: .45rem .8rem; font-size: .82rem; }
 .card { padding: 1.8rem; }
+
+/* ====== LANDING ====== */
+#login-screen { flex-direction: column; align-items: stretch; overflow-y: auto; -webkit-overflow-scrolling: touch; gap: 0; padding: 0; }
+
+@keyframes staggerFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.landing-hero {
+  background: var(--accent);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 1.5rem 3rem;
+  text-align: center;
+}
+.landing-hero::before {
+  content: '';
+  position: absolute;
+  top: -5rem; right: -5rem;
+  width: 16rem; height: 16rem;
+  background: rgba(255,255,255,.1);
+  border-radius: 50%;
+  filter: blur(3rem);
+  pointer-events: none;
+}
+.landing-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10rem; left: 30%;
+  width: 20rem; height: 20rem;
+  background: rgba(99,102,241,.2);
+  border-radius: 50%;
+  filter: blur(3rem);
+  pointer-events: none;
+}
+.landing-hero-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.landing-hero .school-badge {
+  background: rgba(255,255,255,.2);
+  color: white;
+  animation: fadeUp .6s ease-out;
+}
+.landing-hero h1 {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: .8rem 0 1rem;
+  line-height: 1.15;
+  animation: fadeUp .6s ease-out;
+}
+.landing-hero p {
+  font-size: 1.05rem;
+  opacity: .9;
+  line-height: 1.6;
+  max-width: 550px;
+  margin: 0 auto 1.5rem;
+  animation: fadeUp .6s ease-out .15s both;
+}
+[data-theme="dark"] .landing-hero { background: #312e81; }
+
+.landing-cta {
+  display: inline-block;
+  background: white;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: .85rem 2rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  min-height: 44px;
+  transition: transform .2s, box-shadow .2s;
+  animation: fadeUp .6s ease-out .3s both;
+}
+.landing-cta:hover, .landing-cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+[data-theme="dark"] .landing-cta {
+  background: rgba(255,255,255,.15);
+  color: white;
+  border: 1px solid rgba(255,255,255,.3);
+}
+
+.landing-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+.landing-section-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--ink);
+  margin: 0 0 2rem;
+}
+
+.landing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+.landing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  opacity: 0;
+  animation: staggerFadeIn .4s ease forwards;
+  transition: transform .2s, box-shadow .2s;
+}
+.landing-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,.08)); }
+.landing-card-icon { font-size: 2rem; margin-bottom: .6rem; }
+.landing-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--ink); margin: 0 0 .4rem; }
+.landing-card p { font-size: .85rem; color: var(--ink-light); line-height: 1.5; margin: 0; }
+
+.landing-steps-section {
+  background: var(--bg, #f8fafc);
+  max-width: 100%;
+  padding: 3rem 1.5rem;
+}
+.landing-steps-section .landing-section-title { max-width: 900px; margin: 0 auto 2rem; }
+.landing-steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.landing-step {
+  flex: 1;
+  min-width: 200px;
+  max-width: 260px;
+  text-align: center;
+  opacity: 0;
+  animation: staggerFadeIn .4s ease forwards;
+}
+.landing-step-number {
+  width: 48px; height: 48px;
+  background: var(--accent);
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto .8rem;
+}
+.landing-step h3 { font-family: var(--font-display); font-size: .95rem; font-weight: 700; margin: 0 0 .3rem; color: var(--ink); }
+.landing-step p { font-size: .82rem; color: var(--ink-light); line-height: 1.5; margin: 0; }
+.landing-step-arrow { color: var(--accent); font-size: 1.5rem; font-weight: 700; margin-top: 1rem; flex-shrink: 0; }
+
+.landing-cta-section { text-align: center; padding-bottom: 1rem; }
+.landing-cta-text { font-size: 1.1rem; font-weight: 600; color: var(--ink); margin: 0; }
+
+#login-screen .login-box { margin: 0 auto 2rem; }
+
+@media (max-width: 768px) {
+  .landing-hero { padding: 3rem 1rem 2rem; }
+  .landing-hero h1 { font-size: 1.7rem; }
+  .landing-hero p { font-size: .92rem; }
+  .landing-features { grid-template-columns: 1fr; }
+  .landing-step-arrow { display: none; }
+  .landing-steps { flex-direction: column; align-items: center; }
+  .landing-step { max-width: 100%; }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .landing-features { grid-template-columns: repeat(2, 1fr); }
+  .landing-hero h1 { font-size: 2rem; }
+}
 
 /* Stats */
 .stats-grid {
@@ -383,7 +568,71 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 
 <!-- LOGIN -->
 <div id="login-screen">
-  <div class="login-box">
+
+  <!-- LANDING -->
+  <div class="landing-hero">
+    <div class="landing-hero-inner">
+      <div class="school-badge">Fuer Lehrkraefte</div>
+      <h1>Ihr digitaler Abitur-Assistent</h1>
+      <p>Erstellen Sie KI-gestuetzte Aufgaben, behalten Sie den Fortschritt Ihrer Schueler im Blick und erkennen Sie Foerderbedarf fruehzeitig – alles an einem Ort.</p>
+      <a href="#login-box" class="landing-cta">Jetzt starten</a>
+    </div>
+  </div>
+
+  <div class="landing-section">
+    <h2 class="landing-section-title">Was myAbiFlow fuer Sie leistet</h2>
+    <div class="landing-features">
+      <div class="landing-card" style="animation-delay:.1s">
+        <div class="landing-card-icon">⚡</div>
+        <h3>KI-Aufgaben in Sekunden</h3>
+        <p>Generieren Sie lehrplankonforme Aufgaben per Knopfdruck – oder laden Sie eigene Materialien hoch. Die KI erstellt automatisch Erwartungshorizont und Bewertungskriterien.</p>
+      </div>
+      <div class="landing-card" style="animation-delay:.2s">
+        <div class="landing-card-icon">📊</div>
+        <h3>Schueler-Fortschritt im Blick</h3>
+        <p>Sehen Sie auf einen Blick, wer gut vorbereitet ist und wer Hilfe braucht. Das automatische Warnsystem meldet schwache Leistungen, bevor es zu spaet ist.</p>
+      </div>
+      <div class="landing-card" style="animation-delay:.3s">
+        <div class="landing-card-icon">🎯</div>
+        <h3>Staerken- &amp; Schwaechen-Analyse</h3>
+        <p>KI-gestuetzte Auswertung zeigt individuelle Kompetenzluecken und Heatmaps – damit Sie gezielt foerdern statt pauschal wiederholen.</p>
+      </div>
+      <div class="landing-card" style="animation-delay:.4s">
+        <div class="landing-card-icon">🔗</div>
+        <h3>Einfache Code-Verteilung</h3>
+        <p>Schueler brauchen kein eigenes Konto. Einfach Code teilen – fertig. Ergebnisse fliessen automatisch in Ihr Dashboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-section landing-steps-section">
+    <h2 class="landing-section-title">In 3 Schritten loslegen</h2>
+    <div class="landing-steps">
+      <div class="landing-step" style="animation-delay:.2s">
+        <div class="landing-step-number">1</div>
+        <h3>Konto erstellen</h3>
+        <p>Registrieren Sie sich mit Ihrem Namen und einem Passwort.</p>
+      </div>
+      <div class="landing-step-arrow" aria-hidden="true">→</div>
+      <div class="landing-step" style="animation-delay:.35s">
+        <div class="landing-step-number">2</div>
+        <h3>Aufgabe erstellen</h3>
+        <p>Waehlen Sie Fach und Thema – die KI generiert die Aufgabe automatisch.</p>
+      </div>
+      <div class="landing-step-arrow" aria-hidden="true">→</div>
+      <div class="landing-step" style="animation-delay:.5s">
+        <div class="landing-step-number">3</div>
+        <h3>Code an Schueler geben</h3>
+        <p>Schueler geben den Code ein, bearbeiten die Aufgabe und Sie sehen die Ergebnisse.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-section landing-cta-section">
+    <p class="landing-cta-text">Bereit, Ihren Abitur-Unterricht zu vereinfachen?</p>
+  </div>
+
+  <div class="login-box" id="login-box">
     <div class="school-badge">Lehrer-Bereich</div>
     <h2>Lehrer-Konto</h2>
 
