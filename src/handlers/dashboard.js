@@ -195,7 +195,37 @@ export async function handleGetFeedback(request, env) {
   }
 
   const rows = await env.DB.prepare(
-    "SELECT id, rating, category, message, page, student_name, created_at FROM feedback ORDER BY created_at DESC LIMIT 200"
+    "SELECT id, rating, category, message, page, student_name, valuable, created_at FROM feedback ORDER BY created_at DESC LIMIT 200"
   ).bind().all();
   return jsonResponse({ feedback: rows.results || rows }, 200, env);
+}
+
+/* ================= DASHBOARD: FEEDBACK ALS WERTVOLL MARKIEREN ================= */
+export async function handleToggleFeedbackValuable(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { id, valuable } = await request.json();
+  if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+
+  await env.DB.prepare(
+    "UPDATE feedback SET valuable = ? WHERE id = ?"
+  ).bind(valuable ? 1 : 0, id).run();
+
+  // Wertvolles Feedback des Schülers zählen
+  const row = await env.DB.prepare("SELECT student_name FROM feedback WHERE id = ?").bind(id).first();
+  let valuableCount = 0;
+  if (row && row.student_name) {
+    const countRow = await env.DB.prepare(
+      "SELECT COUNT(*) as cnt FROM feedback WHERE student_name = ? AND valuable = 1"
+    ).bind(row.student_name).first();
+    valuableCount = countRow ? countRow.cnt : 0;
+  }
+
+  return jsonResponse({ success: true, valuableCount }, 200, env);
 }

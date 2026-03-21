@@ -144,9 +144,11 @@ CREATE TABLE IF NOT EXISTS feedback (
     message TEXT,
     page TEXT,
     student_name TEXT,
+    valuable BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 CREATE INDEX IF NOT EXISTS idx_feedback_created_at ON feedback(created_at);
+CREATE INDEX IF NOT EXISTS idx_feedback_student ON feedback(student_name, valuable);
 
 -- ============================================================
 -- Hilfsfunktionen

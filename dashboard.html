@@ -644,6 +644,7 @@ footer a { color: var(--accent); }
           <button class="tab-btn" onclick="filterFeedback('bug')" data-filter="bug">🐛 Probleme</button>
           <button class="tab-btn" onclick="filterFeedback('wunsch')" data-filter="wunsch">💡 Wünsche</button>
           <button class="tab-btn" onclick="filterFeedback('lob')" data-filter="lob">👍 Lob</button>
+          <button class="tab-btn" onclick="filterFeedback('valuable')" data-filter="valuable">⭐ Wertvoll</button>
         </div>
 
         <div id="feedbackList" style="display:flex;flex-direction:column;gap:10px;">
@@ -1367,8 +1368,11 @@ function renderFeedback(items) {
     const msg = f.message ? '<p style="margin:.5rem 0 0;font-size:.88rem;color:var(--ink);">' + escapeHtml(f.message) + '</p>' : '';
     const name = f.student_name ? ' · ' + escapeHtml(f.student_name) : '';
     const page = f.page ? ' · <code style="font-size:.75rem;">' + escapeHtml(f.page) + '</code>' : '';
-    return '<div style="padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm,12px);background:var(--surface);">' +
+    const isValuable = f.valuable ? true : false;
+    const starBtn = '<button class="feedback-star' + (isValuable ? ' active' : '') + '" onclick="toggleValuable(' + f.id + ', ' + !isValuable + ')" title="' + (isValuable ? 'Nicht mehr wertvoll' : 'Als wertvoll markieren') + '" style="background:none;border:none;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;padding:4px;border-radius:8px;transition:background .15s;">' + (isValuable ? '⭐' : '☆') + '</button>';
+    return '<div style="padding:12px 16px;border:1px solid ' + (isValuable ? 'var(--accent)' : 'var(--border)') + ';border-radius:var(--radius-sm,12px);background:' + (isValuable ? 'var(--accent-glow)' : 'var(--surface)') + ';transition:border-color .2s,background .2s;" data-feedback-id="' + f.id + '">' +
       '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+        starBtn +
         '<span style="font-size:1.4rem;">' + RATING_EMOJIS[f.rating] + '</span>' +
         cat +
         '<span style="margin-left:auto;font-size:.75rem;color:var(--ink-muted);">' + date + name + page + '</span>' +
@@ -1378,12 +1382,38 @@ function renderFeedback(items) {
   }).join("");
 }
 
+async function toggleValuable(id, valuable) {
+  try {
+    const res = await fetch(API_BASE + "/api/feedback-valuable", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ id, valuable })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    // Lokalen State aktualisieren
+    const item = feedbackData.find(f => f.id === id);
+    if (item) item.valuable = valuable;
+    // Aktiven Filter beibehalten
+    const activeFilter = document.querySelector("#tab-feedback [data-filter].active");
+    const cat = activeFilter ? activeFilter.dataset.filter : "all";
+    filterFeedback(cat);
+    if (data.valuableCount >= 10 && valuable) {
+      alert("Hinweis: " + (item ? item.student_name : "Schüler") + " hat jetzt " + data.valuableCount + " wertvolle Feedbacks!");
+    }
+  } catch (e) {
+    alert("Fehler: " + e.message);
+  }
+}
+
 function filterFeedback(cat) {
   document.querySelectorAll("#tab-feedback [data-filter]").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.filter === cat);
   });
   if (cat === "all") {
     renderFeedback(feedbackData);
+  } else if (cat === "valuable") {
+    renderFeedback(feedbackData.filter(f => f.valuable));
   } else {
     renderFeedback(feedbackData.filter(f => f.category === cat));
   }
