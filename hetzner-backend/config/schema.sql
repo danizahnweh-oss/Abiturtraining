@@ -136,6 +136,18 @@ CREATE TABLE IF NOT EXISTS tutor_knowledge (
 );
 CREATE INDEX IF NOT EXISTS idx_tutor_embedding ON tutor_knowledge USING ivfflat (embedding vector_cosine_ops) WITH (lists = 10);
 
+-- Schüler-Feedback zur Website
+CREATE TABLE IF NOT EXISTS feedback (
+    id SERIAL PRIMARY KEY,
+    rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 4),
+    category TEXT,
+    message TEXT,
+    page TEXT,
+    student_name TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_feedback_created_at ON feedback(created_at);
+
 -- ============================================================
 -- Hilfsfunktionen
 -- ============================================================

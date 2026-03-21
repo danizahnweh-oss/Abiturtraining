@@ -9,11 +9,14 @@ import {
   rateLimitMap, loginRateLimitMap, ensureMigrations
 } from './auth.js';
 
+// Feedback Rate Limiting (eigene Map, max 5 pro Minute)
+const feedbackRateLimitMap = new Map();
+
 // Handler
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
-import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords } from './handlers/dashboard.js';
+import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs } from './handlers/grading.js';
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
@@ -259,6 +262,14 @@ export default {
         return await handleClassPasswords(request, env);
       }
 
+      // ===== FEEDBACK LESEN (Dashboard) =====
+      if (pathname === "/api/feedback-list" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleGetFeedback(request, env);
+      }
+
       // ===== LEHRER-CODE-SYSTEM (eigene Auth) =====
       if (pathname === "/api/teacher-register" && request.method === "POST") {
         const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
@@ -320,6 +331,31 @@ export default {
         if (authError) return authError;
         const jobId = pathname.replace("/api/grade-status/", "");
         return await handleGradeStatus(jobId, env);
+      }
+
+      // ===== FEEDBACK (kein Auth nötig, eigenes Rate Limit) =====
+      if (pathname === "/api/feedback" && request.method === "POST") {
+        const feedbackLimit = checkRateLimit(request, feedbackRateLimitMap, 5, env);
+        if (feedbackLimit) return feedbackLimit;
+        cleanupRateLimitMaps();
+        try {
+          const body = await request.json();
+          const rating = parseInt(body.rating);
+          if (!rating || rating < 1 || rating > 4) {
+            return jsonResponse({ error: "Bewertung (1-4) ist erforderlich." }, 400, env);
+          }
+          const category = body.category || null;
+          const message = body.message ? String(body.message).slice(0, 2000) : null;
+          const page = body.page ? String(body.page).slice(0, 200) : null;
+          const studentName = body.studentName ? String(body.studentName).slice(0, 100) : null;
+          await env.DB.prepare(
+            "INSERT INTO feedback (rating, category, message, page, student_name) VALUES (?, ?, ?, ?, ?)"
+          ).bind(rating, category, message, page, studentName).run();
+          return jsonResponse({ success: true }, 200, env);
+        } catch (e) {
+          console.error("Feedback-Fehler:", e.message);
+          return jsonResponse({ error: "Feedback konnte nicht gespeichert werden." }, 500, env);
+        }
       }
 
       // ===== AUTH CHECK für restliche /api/ Endpoints =====

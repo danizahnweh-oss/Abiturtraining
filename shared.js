@@ -2499,6 +2499,151 @@ function _doLogout() {
   location.reload();
 }
 
+/* ================= FEEDBACK-WIDGET ================= */
+
+function initFeedbackWidget() {
+  // Nicht auf Dashboard/Lehrer/Impressum/AGB-Seiten anzeigen
+  var page = window.location.pathname;
+  if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404/.test(page)) return;
+
+  // Widget-Container
+  var widget = document.createElement("div");
+  widget.className = "feedback-widget";
+  widget.innerHTML =
+    '<button class="feedback-fab" aria-label="Feedback geben" title="Feedback geben">' +
+      '<span class="feedback-fab-pulse"></span>' +
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' +
+      '</svg>' +
+      '<span class="feedback-fab-label">Feedback</span>' +
+    '</button>' +
+    '<div class="feedback-panel" role="dialog" aria-label="Feedback" aria-hidden="true">' +
+      '<div class="feedback-panel-header">' +
+        '<span>Wie findest du myAbiFlow?</span>' +
+        '<button class="feedback-close" aria-label="Schließen">&times;</button>' +
+      '</div>' +
+      '<div class="feedback-panel-body">' +
+        '<div class="feedback-emojis" role="radiogroup" aria-label="Bewertung">' +
+          '<button class="feedback-emoji" data-rating="1" aria-label="Schlecht" title="Schlecht">😞</button>' +
+          '<button class="feedback-emoji" data-rating="2" aria-label="Geht so" title="Geht so">😐</button>' +
+          '<button class="feedback-emoji" data-rating="3" aria-label="Gut" title="Gut">😊</button>' +
+          '<button class="feedback-emoji" data-rating="4" aria-label="Super" title="Super">🤩</button>' +
+        '</div>' +
+        '<div class="feedback-categories" style="display:none">' +
+          '<button class="feedback-cat" data-cat="bug">🐛 Problem</button>' +
+          '<button class="feedback-cat" data-cat="wunsch">💡 Wunsch</button>' +
+          '<button class="feedback-cat" data-cat="lob">👍 Lob</button>' +
+        '</div>' +
+        '<textarea class="feedback-text" placeholder="Was möchtest du uns sagen? (optional)" rows="3" style="display:none"></textarea>' +
+        '<button class="feedback-submit btn" style="display:none">Absenden</button>' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(widget);
+
+  var fab = widget.querySelector(".feedback-fab");
+  var panel = widget.querySelector(".feedback-panel");
+  var closeBtn = widget.querySelector(".feedback-close");
+  var emojis = widget.querySelectorAll(".feedback-emoji");
+  var cats = widget.querySelectorAll(".feedback-cat");
+  var catGroup = widget.querySelector(".feedback-categories");
+  var textarea = widget.querySelector(".feedback-text");
+  var submitBtn = widget.querySelector(".feedback-submit");
+
+  var selectedRating = 0;
+  var selectedCategory = null;
+
+  function togglePanel(open) {
+    if (open) {
+      panel.classList.add("open");
+      panel.setAttribute("aria-hidden", "false");
+      fab.style.display = "none";
+    } else {
+      panel.classList.remove("open");
+      panel.setAttribute("aria-hidden", "true");
+      fab.style.display = "";
+      // Zustand zurücksetzen
+      selectedRating = 0;
+      selectedCategory = null;
+      emojis.forEach(function(e) { e.classList.remove("active"); });
+      cats.forEach(function(c) { c.classList.remove("active"); });
+      catGroup.style.display = "none";
+      textarea.style.display = "none";
+      textarea.value = "";
+      submitBtn.style.display = "none";
+    }
+  }
+
+  fab.addEventListener("click", function() { togglePanel(true); });
+  closeBtn.addEventListener("click", function() { togglePanel(false); });
+
+  // Emoji-Auswahl
+  emojis.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      selectedRating = parseInt(btn.dataset.rating);
+      emojis.forEach(function(e) { e.classList.remove("active"); });
+      btn.classList.add("active");
+      catGroup.style.display = "";
+      textarea.style.display = "";
+      submitBtn.style.display = "";
+    });
+  });
+
+  // Kategorie-Auswahl
+  cats.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      cats.forEach(function(c) { c.classList.remove("active"); });
+      btn.classList.add("active");
+      selectedCategory = btn.dataset.cat;
+    });
+  });
+
+  // Absenden
+  submitBtn.addEventListener("click", async function() {
+    if (!selectedRating) return;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Wird gesendet…";
+    try {
+      var res = await fetch(API_BASE + "/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          rating: selectedRating,
+          category: selectedCategory,
+          message: textarea.value.trim() || null,
+          page: window.location.pathname,
+          studentName: sessionStorage.getItem("student_name") || null
+        })
+      });
+      if (res.ok) {
+        showToast("Danke für dein Feedback!", "success");
+      } else {
+        showToast("Feedback konnte nicht gesendet werden.");
+      }
+    } catch (e) {
+      showToast("Feedback konnte nicht gesendet werden.");
+    }
+    togglePanel(false);
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Absenden";
+  });
+
+  // Panel schließen bei Klick außerhalb
+  document.addEventListener("click", function(e) {
+    if (panel.classList.contains("open") && !widget.contains(e.target)) {
+      togglePanel(false);
+    }
+  });
+
+  // Escape-Taste
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && panel.classList.contains("open")) {
+      togglePanel(false);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", initFeedbackWidget);
+
 /* ================= KI-HINWEIS AUFGABEN ================= */
 
 function _appendKiHinweisToTask() {

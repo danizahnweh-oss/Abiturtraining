@@ -391,6 +391,7 @@ footer a { color: var(--accent); }
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('overview')">Übersicht</button>
       <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+      <button class="tab-btn" onclick="switchTab('feedback')">Feedback</button>
     </div>
 
     <!-- ═══════ TAB: ÜBERSICHT ═══════ -->
@@ -631,6 +632,25 @@ footer a { color: var(--accent); }
       </div>
 
     </div><!-- /tab-analytics -->
+
+    <!-- ═══════ TAB: FEEDBACK ═══════ -->
+    <div id="tab-feedback" style="display:none">
+      <div class="card">
+        <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Schüler-Feedback</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Rückmeldungen zur Website von Schülern</p>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;">
+          <button class="tab-btn active" onclick="filterFeedback('all')" data-filter="all">Alle</button>
+          <button class="tab-btn" onclick="filterFeedback('bug')" data-filter="bug">🐛 Probleme</button>
+          <button class="tab-btn" onclick="filterFeedback('wunsch')" data-filter="wunsch">💡 Wünsche</button>
+          <button class="tab-btn" onclick="filterFeedback('lob')" data-filter="lob">👍 Lob</button>
+        </div>
+
+        <div id="feedbackList" style="display:flex;flex-direction:column;gap:10px;">
+          <p style="color:var(--ink-muted);">Wird geladen…</p>
+        </div>
+      </div>
+    </div><!-- /tab-feedback -->
 
   </main>
 
@@ -1303,10 +1323,70 @@ function typeToSubject(type) {
 function switchTab(tab) {
   document.getElementById("tab-overview").style.display = tab === "overview" ? "block" : "none";
   document.getElementById("tab-analytics").style.display = tab === "analytics" ? "block" : "none";
-  document.querySelectorAll(".tab-btn").forEach((btn, i) => {
-    btn.classList.toggle("active", (i === 0 && tab === "overview") || (i === 1 && tab === "analytics"));
+  document.getElementById("tab-feedback").style.display = tab === "feedback" ? "block" : "none";
+  document.querySelectorAll(".tab-nav > .tab-btn").forEach((btn, i) => {
+    btn.classList.toggle("active", (i === 0 && tab === "overview") || (i === 1 && tab === "analytics") || (i === 2 && tab === "feedback"));
   });
   if (tab === "analytics") renderAnalytics();
+  if (tab === "feedback") loadFeedback();
+}
+
+/* ====== FEEDBACK ====== */
+let feedbackData = [];
+let feedbackLoaded = false;
+
+async function loadFeedback() {
+  if (feedbackLoaded) return;
+  try {
+    const res = await fetch(API_BASE + "/api/feedback-list", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
+    });
+    if (!res.ok) throw new Error("Fehler");
+    const data = await res.json();
+    feedbackData = data.feedback || [];
+    feedbackLoaded = true;
+    renderFeedback(feedbackData);
+  } catch (e) {
+    document.getElementById("feedbackList").innerHTML = '<p style="color:var(--warning);">Feedback konnte nicht geladen werden.</p>';
+  }
+}
+
+const RATING_EMOJIS = ["", "😞", "😐", "😊", "🤩"];
+const CAT_LABELS = { bug: "🐛 Problem", wunsch: "💡 Wunsch", lob: "👍 Lob" };
+
+function renderFeedback(items) {
+  const list = document.getElementById("feedbackList");
+  if (!items.length) {
+    list.innerHTML = '<p style="color:var(--ink-muted);">Noch kein Feedback vorhanden.</p>';
+    return;
+  }
+  list.innerHTML = items.map(f => {
+    const date = new Date(f.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    const cat = f.category ? '<span style="font-size:.78rem;background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:8px;font-weight:500;">' + (CAT_LABELS[f.category] || f.category) + '</span>' : '';
+    const msg = f.message ? '<p style="margin:.5rem 0 0;font-size:.88rem;color:var(--ink);">' + escapeHtml(f.message) + '</p>' : '';
+    const name = f.student_name ? ' · ' + escapeHtml(f.student_name) : '';
+    const page = f.page ? ' · <code style="font-size:.75rem;">' + escapeHtml(f.page) + '</code>' : '';
+    return '<div style="padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-sm,12px);background:var(--surface);">' +
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
+        '<span style="font-size:1.4rem;">' + RATING_EMOJIS[f.rating] + '</span>' +
+        cat +
+        '<span style="margin-left:auto;font-size:.75rem;color:var(--ink-muted);">' + date + name + page + '</span>' +
+      '</div>' +
+      msg +
+    '</div>';
+  }).join("");
+}
+
+function filterFeedback(cat) {
+  document.querySelectorAll("#tab-feedback [data-filter]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.filter === cat);
+  });
+  if (cat === "all") {
+    renderFeedback(feedbackData);
+  } else {
+    renderFeedback(feedbackData.filter(f => f.category === cat));
+  }
 }
 
 /* ====== ANALYTICS ====== */

@@ -183,3 +183,19 @@ export async function handleClassPasswords(request, env) {
 
   return jsonResponse({ error: "Unbekannte Aktion." }, 400, env);
 }
+
+/* ================= DASHBOARD: FEEDBACK LESEN ================= */
+export async function handleGetFeedback(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const rows = await env.DB.prepare(
+    "SELECT id, rating, category, message, page, student_name, created_at FROM feedback ORDER BY created_at DESC LIMIT 200"
+  ).bind().all();
+  return jsonResponse({ feedback: rows.results || rows }, 200, env);
+}
