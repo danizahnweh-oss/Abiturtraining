@@ -599,22 +599,19 @@
       color: var(--accent)
     }
 
-    .role-btn-teacher {
-      opacity: .5;
-      cursor: not-allowed
+    .role-btn-teacher:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, .1)
     }
 
-    .role-btn-teacher:hover {
-      transform: none;
-      box-shadow: none
+    .role-btn-teacher:hover .role-label {
+      color: var(--accent)
     }
 
     .role-btn-teacher .role-desc {
-      color: var(--accent);
-      font-weight: 600;
-      font-size: .78rem;
-      text-transform: uppercase;
-      letter-spacing: .03em
+      color: var(--text-muted);
+      font-size: .85rem
     }
 
     @media (max-width: 600px) {
@@ -3345,11 +3342,11 @@
           <span class="role-label">Ich bin Schüler/in</span>
           <span class="role-desc">Abitur-Training starten</span>
         </button>
-        <div class="role-btn role-btn-teacher" role="img" aria-label="Lehrkraft / Schule – bald verfügbar">
+        <button class="role-btn role-btn-teacher" type="button" onclick="window.location.href='lehrer.html'">
           <span class="role-icon" aria-hidden="true">🏫</span>
           <span class="role-label">Ich bin Lehrkraft / Schule</span>
-          <span class="role-desc">Bald verfügbar</span>
-        </div>
+          <span class="role-desc">Zum Lehrer-Bereich</span>
+        </button>
       </div>
     </div>
   </div>
