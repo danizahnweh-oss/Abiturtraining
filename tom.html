@@ -103,9 +103,9 @@
         <h3>1.1 Zutrittskontrolle</h3>
         <p>Physischer Zugang zu Servern:</p>
         <ul>
-            <li>Alle Server werden von <strong>Cloudflare, Inc.</strong> in zertifizierten Rechenzentren betrieben (ISO 27001, SOC 2 Type II)</li>
-            <li>Die Datenbank liegt in Cloudflare-Rechenzentren in <strong>Western Europe (EU)</strong></li>
-            <li>Zugang zu Rechenzentren nur f&uuml;r autorisiertes Cloudflare-Personal mit biometrischer Authentifizierung</li>
+            <li>Der Server wird von <strong>Hetzner Online GmbH</strong> in einem zertifizierten Rechenzentrum in <strong>N&uuml;rnberg, Deutschland</strong> betrieben (ISO 27001)</li>
+            <li>Die Datenbank (PostgreSQL) liegt auf demselben Server in <strong>Deutschland</strong></li>
+            <li>Zugang zum Rechenzentrum nur f&uuml;r autorisiertes Hetzner-Personal</li>
             <li>myAbiFlow-Mitarbeiter haben <strong>keinen physischen Zugang</strong> zu Servern</li>
         </ul>
 
@@ -116,7 +116,7 @@
             <tr><td>Token-Authentifizierung</td><td>HMAC-SHA256 signierte Tokens mit 24h G&uuml;ltigkeit. Tokens werden ausschlie&szlig;lich im Session Storage des Browsers gespeichert.</td></tr>
             <tr><td>Rate Limiting</td><td>Max. 25 API-Anfragen pro Minute und IP-Adresse. Max. 5 Login-Versuche pro Minute.</td></tr>
             <tr><td>CORS-Schutz</td><td>API akzeptiert nur Anfragen von <code>https://myabiflow.de</code> (Origin-Whitelist).</td></tr>
-            <tr><td>Admin-Zugang</td><td>Cloudflare Dashboard mit 2-Faktor-Authentifizierung (TOTP). Zugang nur f&uuml;r den Gesch&auml;ftsf&uuml;hrer.</td></tr>
+            <tr><td>Admin-Zugang</td><td>Server-Zugang ausschlie&szlig;lich &uuml;ber SSH mit Public-Key-Authentifizierung (kein Passwort-Login). Zugang nur f&uuml;r den Gesch&auml;ftsf&uuml;hrer.</td></tr>
         </table>
 
         <h3>1.3 Zugriffskontrolle (Berechtigungen)</h3>
@@ -124,7 +124,7 @@
             <tr><th>Rolle</th><th>Zugriff</th></tr>
             <tr><td>Sch&uuml;ler/in</td><td>Eigenes Konto, eigene Ergebnisse, eigene Lernpl&auml;ne</td></tr>
             <tr><td>Lehrkraft</td><td>Ergebnisse der zugeordneten Sch&uuml;ler (Zuordnung &uuml;ber Klassen-Code)</td></tr>
-            <tr><td>Administrator</td><td>Cloudflare Dashboard, Datenbank-Zugang (nur Gesch&auml;ftsf&uuml;hrer)</td></tr>
+            <tr><td>Administrator</td><td>Server-Zugang via SSH, Datenbank-Zugang (nur Gesch&auml;ftsf&uuml;hrer)</td></tr>
         </table>
         <ul>
             <li>Lehrkr&auml;fte sehen <strong>nur</strong> die Ergebnisse ihrer eigenen, per Code zugeordneten Sch&uuml;ler</li>
@@ -136,7 +136,7 @@
         <ul>
             <li>Sch&uuml;lerdaten sind durch <code>student_id</code> logisch getrennt</li>
             <li>Lehrkr&auml;fte-Zugriff ist durch <code>student_teacher_links</code> auf zugeordnete Sch&uuml;ler beschr&auml;nkt</li>
-            <li>API-Keys f&uuml;r KI-Dienste (OpenAI, Gemini) sind als Cloudflare Secrets gespeichert und nicht im Code</li>
+            <li>API-Keys f&uuml;r KI-Dienste (OpenAI, Gemini) sind als Umgebungsvariablen auf dem Server gespeichert und nicht im Code</li>
         </ul>
 
         <h2>2. Integrit&auml;t (Art. 32 Abs. 1 lit. b DSGVO)</h2>
@@ -162,24 +162,25 @@
 
         <h3>3.1 Verf&uuml;gbarkeitskontrolle</h3>
         <ul>
-            <li><strong>Cloudflare Edge Network:</strong> Globales CDN mit automatischem Failover und DDoS-Schutz</li>
+            <li><strong>Hetzner Cloud Server:</strong> Dedizierter Server in N&uuml;rnberg mit Nginx als Reverse Proxy, Firewall (UFW) und automatischen Sicherheitsupdates</li>
             <li><strong>Service Worker:</strong> Progressive Web App (PWA) mit Offline-Cache f&uuml;r statische Inhalte</li>
-            <li><strong>Asynchrone Verarbeitung:</strong> Korrektur-Auftr&auml;ge werden in einer Queue verarbeitet &ndash; bei Ausfall der KI-API wird der Auftrag automatisch wiederholt (max. 2 Versuche)</li>
+            <li><strong>Prozess-Management:</strong> PM2 &uuml;berwacht alle Services und startet sie bei Absturz automatisch neu</li>
+            <li><strong>Asynchrone Verarbeitung:</strong> Korrektur-Auftr&auml;ge werden in einer Queue (BullMQ/Redis) verarbeitet &ndash; bei Ausfall der KI-API wird der Auftrag automatisch wiederholt (max. 2 Versuche)</li>
             <li><strong>Dead Letter Queue:</strong> Fehlgeschlagene Auftr&auml;ge werden zur manuellen Pr&uuml;fung gesichert</li>
         </ul>
 
         <h3>3.2 Wiederherstellbarkeit</h3>
         <ul>
-            <li>Cloudflare D1 bietet automatische Backups der Datenbank</li>
+            <li>PostgreSQL-Datenbank auf Hetzner-Server in Deutschland mit Snapshot-M&ouml;glichkeit</li>
             <li>Quellcode wird in einem Git-Repository (GitHub) versioniert</li>
-            <li>Deployment &uuml;ber Cloudflare Pages mit Rollback-M&ouml;glichkeit auf vorherige Versionen</li>
+            <li>Deployment &uuml;ber automatisiertes Deploy-Script mit Rollback-M&ouml;glichkeit &uuml;ber Git</li>
         </ul>
 
         <h2>4. Verfahren zur regelm&auml;&szlig;igen &Uuml;berpr&uuml;fung (Art. 32 Abs. 1 lit. d DSGVO)</h2>
 
         <h3>4.1 Datenschutz-Management</h3>
         <ul>
-            <li>Regelm&auml;&szlig;ige &Uuml;berpr&uuml;fung der Auftragsverarbeitungsvertr&auml;ge mit Cloudflare, OpenAI, Google und Resend</li>
+            <li>Regelm&auml;&szlig;ige &Uuml;berpr&uuml;fung der Auftragsverarbeitungsvertr&auml;ge mit Hetzner, OpenAI, Google und Resend</li>
             <li>&Uuml;berpr&uuml;fung der DPF-Zertifizierungen der US-Dienstleister</li>
             <li>Datenschutz-Folgenabsch&auml;tzung (DSFA) wurde durchgef&uuml;hrt und wird bei wesentlichen &Auml;nderungen aktualisiert</li>
         </ul>
@@ -197,7 +198,7 @@
         <h2>5. &Uuml;bersicht Auftragsverarbeiter</h2>
         <table>
             <tr><th>Anbieter</th><th>Zweck</th><th>Standort</th><th>Garantie</th></tr>
-            <tr><td>Cloudflare, Inc.</td><td>Hosting, CDN, Datenbank, Edge Computing</td><td>USA (Daten: EU)</td><td>DPF + DPA</td></tr>
+            <tr><td>Hetzner Online GmbH</td><td>Hosting, Server, Datenbank</td><td>Deutschland (N&uuml;rnberg)</td><td>DPA</td></tr>
             <tr><td>OpenAI, L.L.C.</td><td>KI-Korrektur und Feedback</td><td>USA</td><td>DPF + DPA</td></tr>
             <tr><td>Google Ireland Ltd.</td><td>Kolloquiumstrainer, KI-Tutor</td><td>Irland/USA</td><td>SCCs + DPA</td></tr>
             <tr><td>Resend, Inc.</td><td>E-Mail-Versand</td><td>USA</td><td>DPF + DPA</td></tr>

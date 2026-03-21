@@ -116,7 +116,7 @@
                 Sch&uuml;lern (in der Regel 16&ndash;18 Jahre, teils unter 16)</li>
             <li><strong>KI-basierte Bewertung:</strong> Automatisierte Bewertung von Sch&uuml;lerleistungen durch KI-Modelle</li>
             <li><strong>Systematische Verarbeitung:</strong> Regelm&auml;&szlig;ige, strukturierte Erfassung von Lernleistungen</li>
-            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an US-Dienstleister (OpenAI, Cloudflare, Resend)</li>
+            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an US-Dienstleister (OpenAI, Resend) f&uuml;r KI-Korrektur und E-Mail-Versand</li>
         </ul>
 
         <h2>2. Beschreibung der Verarbeitung</h2>
@@ -151,7 +151,7 @@
 
         <h3>2.4 Datenfl&uuml;sse</h3>
         <ol>
-            <li><strong>Sch&uuml;ler &rarr; myAbiFlow (Cloudflare EU):</strong> Registrierung, Login, Aufgabenabgabe &ndash; HTTPS-verschl&uuml;sselt</li>
+            <li><strong>Sch&uuml;ler &rarr; myAbiFlow (Hetzner, Deutschland):</strong> Registrierung, Login, Aufgabenabgabe &ndash; HTTPS-verschl&uuml;sselt</li>
             <li><strong>myAbiFlow &rarr; OpenAI (USA):</strong> Aufgabentexte + Bilder zur Korrektur &ndash; <em>ohne Namen/Noten</em></li>
             <li><strong>myAbiFlow &rarr; Google Gemini (EU/USA):</strong> Texte und Audio f&uuml;r Kolloquium/Tutor &ndash; <em>ohne Namen/Noten</em></li>
             <li><strong>myAbiFlow &rarr; Resend (USA):</strong> E-Mail-Adresse + Fach f&uuml;r Erinnerungen &ndash; <em>nur bei Aktivierung</em></li>
@@ -240,10 +240,10 @@
                 <td>R2 – US-Beh&ouml;rdenzugriff</td>
                 <td>
                     <ul style="margin: 0; padding-left: 1.2rem;">
-                        <li>Datenbank in EU (Western Europe) gehostet</li>
-                        <li>EU-US Data Privacy Framework (DPF) f&uuml;r alle US-Anbieter</li>
+                        <li>Datenbank und Server in <strong>Deutschland</strong> gehostet (Hetzner, N&uuml;rnberg)</li>
+                        <li>EU-US Data Privacy Framework (DPF) f&uuml;r verbleibende US-Anbieter (OpenAI, Resend)</li>
                         <li>Datenminimierung: Nur Vornamen, keine Nachnamen oder Adressen</li>
-                        <li>Mittelfristig: Migration auf deutschen Hosting-Anbieter geplant</li>
+                        <li>Hosting-Migration von Cloudflare (USA) auf Hetzner (Deutschland) abgeschlossen (M&auml;rz 2026)</li>
                     </ul>
                 </td>
                 <td><span class="risk-low">Umgesetzt</span></td>
@@ -274,9 +274,9 @@
                 <td>R5 – Datenverlust</td>
                 <td>
                     <ul style="margin: 0; padding-left: 1.2rem;">
-                        <li>Cloudflare D1 mit automatischen Backups</li>
+                        <li>PostgreSQL-Datenbank auf Hetzner-Server in Deutschland</li>
                         <li>Quellcode versioniert in Git (GitHub)</li>
-                        <li>Cloudflare Pages mit Rollback-Funktion</li>
+                        <li>Server-Snapshots &uuml;ber Hetzner Cloud verf&uuml;gbar</li>
                     </ul>
                 </td>
                 <td><span class="risk-low">Umgesetzt</span></td>
@@ -346,11 +346,11 @@
         <p>Die DSFA wird jedoch dem zust&auml;ndigen schulischen Datenschutzbeauftragten bzw. der Schulleitung
             auf Anfrage zur Verf&uuml;gung gestellt.</p>
 
-        <h2>7. Geplante Verbesserungen</h2>
+        <h2>7. Umgesetzte und geplante Verbesserungen</h2>
         <ul>
-            <li><strong>Migration auf deutschen Hosting-Anbieter</strong> (Hetzner/IONOS) &ndash;
-                Datenbank und Backend sollen mittelfristig auf Server in Deutschland umgezogen werden,
-                um die Abh&auml;ngigkeit von US-Anbietern zu reduzieren</li>
+            <li><strong>&#10003; Migration auf deutschen Hosting-Anbieter abgeschlossen</strong> (M&auml;rz 2026) &ndash;
+                Datenbank, Backend und statische Dateien laufen auf einem Hetzner-Server in N&uuml;rnberg (Deutschland).
+                Die Abh&auml;ngigkeit von US-Hosting-Anbietern wurde vollst&auml;ndig beseitigt.</li>
             <li><strong>Datenexport-Funktion</strong> &ndash; Automatisierter Export aller Sch&uuml;lerdaten
                 in einem maschinenlesbaren Format (Art. 20 DSGVO)</li>
             <li><strong>Selbstl&ouml;schung</strong> &ndash; Sch&uuml;ler sollen ihr Konto eigenst&auml;ndig
@@ -363,8 +363,8 @@
             <p>Die identifizierten Risiken werden durch die umgesetzten technischen und organisatorischen
                 Ma&szlig;nahmen auf ein akzeptables Niveau gesenkt. Die Verarbeitung ist erforderlich,
                 verh&auml;ltnism&auml;&szlig;ig und mit angemessenen Schutzma&szlig;nahmen versehen.</p>
-            <p>Die geplante Migration auf einen deutschen Hosting-Anbieter wird das Schutzniveau
-                weiter erh&ouml;hen und die DSGVO-Konformit&auml;t st&auml;rken.</p>
+            <p>Durch die erfolgte Migration auf einen deutschen Hosting-Anbieter (Hetzner, N&uuml;rnberg)
+                wurde das Schutzniveau weiter erh&ouml;ht. S&auml;mtliche Nutzerdaten verbleiben in Deutschland.</p>
         </div>
 
         <hr style="margin: 3rem 0; border: none; border-top: 1px solid var(--border);">

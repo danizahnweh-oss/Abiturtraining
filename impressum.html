@@ -178,21 +178,21 @@
         </ul>
 
         <h2>3. Hosting und Datenverarbeitung</h2>
-        <p>Diese Webseite wird über <strong>Cloudflare, Inc.</strong> gehostet (Cloudflare Pages und Cloudflare Workers).</p>
-        <p><strong>Datenverarbeitung durch Cloudflare:</strong></p>
+        <p>Diese Webseite wird auf einem dedizierten Server der <strong>Hetzner Online GmbH</strong>
+            in <strong>Deutschland (Standort: Nürnberg)</strong> gehostet.</p>
+        <p><strong>Datenverarbeitung:</strong></p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li>Technisch notwendige Verbindungsdaten (IP-Adresse, Browser-Typ, Zeitpunkt) werden kurzzeitig verarbeitet</li>
-            <li>Die <strong>Datenbank mit allen Nutzerdaten</strong> (Konten, Ergebnisse, Bewertungen) liegt auf Cloudflare-Servern
-                in der <strong>Europäischen Union (Standort: Western Europe)</strong></li>
-            <li>Die serverseitige Anwendungslogik läuft auf Cloudflare Workers (Edge Computing)</li>
+            <li>Technisch notwendige Verbindungsdaten (IP-Adresse, Browser-Typ, Zeitpunkt) werden in Server-Logs
+                kurzzeitig verarbeitet und nach 14 Tagen automatisch gelöscht</li>
+            <li>Die <strong>Datenbank mit allen Nutzerdaten</strong> (Konten, Ergebnisse, Bewertungen) liegt auf dem
+                Hetzner-Server in <strong>Deutschland</strong> (PostgreSQL)</li>
+            <li>Die serverseitige Anwendungslogik läuft auf demselben Server (Node.js)</li>
         </ul>
-        <p><strong>Rechtsgrundlage für die Datenübermittlung in die USA:</strong>
-            Cloudflare ist unter dem <strong>EU-U.S. Data Privacy Framework (DPF)</strong> zertifiziert
-            (Angemessenheitsbeschluss der EU-Kommission vom 10. Juli 2023, Art. 45 DSGVO).
-            Zusätzlich besteht ein <strong>Auftragsverarbeitungsvertrag (DPA)</strong> gemäß Art. 28 DSGVO.</p>
-        <p>Anbieter: Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA.<br>
-            Datenschutzerklärung: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a><br>
-            DPF-Eintrag: <a href="https://www.dataprivacyframework.gov/list" target="_blank" rel="noopener">dataprivacyframework.gov</a></p>
+        <p><strong>Keine Datenübermittlung in Drittländer durch das Hosting:</strong>
+            Sämtliche Hosting-Daten verbleiben in <strong>Deutschland</strong>. Eine Übermittlung in die USA
+            oder andere Drittländer findet durch das Hosting nicht statt.</p>
+        <p>Anbieter: Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen, Deutschland.<br>
+            Datenschutzerklärung: <a href="https://www.hetzner.com/de/legal/privacy-policy/" target="_blank" rel="noopener">hetzner.com/de/legal/privacy-policy</a></p>
 
         <h2>4. Welche Daten wir speichern</h2>
         <p><strong>Bei der Registrierung:</strong></p>
@@ -328,7 +328,7 @@
             <li><strong>Verschlüsselte Übertragung</strong> – Alle Daten werden ausschließlich über HTTPS/TLS übertragen</li>
             <li><strong>Sichere Passwortspeicherung</strong> – PBKDF2 mit individuellen Salts (kein Klartext)</li>
             <li><strong>Token-basierte Authentifizierung</strong> – HMAC-SHA256 signierte Tokens mit 24h Gültigkeit</li>
-            <li><strong>Datenhaltung in der EU</strong> – Die Datenbank liegt in der EU (Western Europe)</li>
+            <li><strong>Datenhaltung in Deutschland</strong> – Die Datenbank liegt auf einem Server in Deutschland (Hetzner, Nürnberg)</li>
             <li><strong>Zugangskontrolle</strong> – Lehrkräfte sehen nur die Ergebnisse ihrer eigenen Schüler</li>
             <li><strong>Rate Limiting</strong> – Schutz vor automatisierten Angriffen (max. 25 Anfragen/Minute)</li>
             <li><strong>Keine Tracking-Cookies</strong> – Kein Einsatz von Analyse- oder Werbe-Tools</li>
@@ -339,14 +339,15 @@
         <h2>14. Auftragsverarbeiter (Art. 28 DSGVO)</h2>
         <p>Folgende Dienstleister verarbeiten Daten in unserem Auftrag:</p>
         <ul style="color: var(--ink-light); margin-bottom: 1rem; padding-left: 1.5rem;">
-            <li><strong>Cloudflare, Inc.</strong> – Hosting, CDN, Datenbank (DPA + DPF-zertifiziert)</li>
+            <li><strong>Hetzner Online GmbH</strong> – Hosting, Server, Datenbank (DPA, Standort: Deutschland)</li>
             <li><strong>OpenAI, L.L.C.</strong> – KI-Korrektur und Feedback (DPA + DPF-zertifiziert)</li>
             <li><strong>Google Ireland Ltd.</strong> – KI-Tutor und Kolloquiumstrainer (DPA + SCCs)</li>
             <li><strong>Resend, Inc.</strong> – E-Mail-Versand (DPA + DPF-zertifiziert)</li>
         </ul>
-        <p>Mit allen Auftragsverarbeitern bestehen Verträge gemäß Art. 28 DSGVO. Die Übermittlung in die USA
-            ist jeweils durch das EU-U.S. Data Privacy Framework (Angemessenheitsbeschluss) und/oder
-            EU-Standardvertragsklauseln (SCCs) abgesichert.</p>
+        <p>Mit allen Auftragsverarbeitern bestehen Verträge gemäß Art. 28 DSGVO. Das Hosting erfolgt
+            vollständig in Deutschland. Für die Übermittlung an US-Dienstleister (OpenAI, Resend) greift das
+            EU-U.S. Data Privacy Framework (Angemessenheitsbeschluss). Für Google gelten
+            EU-Standardvertragsklauseln (SCCs).</p>
 
         <h2>15. Beschwerderecht</h2>
         <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren:</p>
