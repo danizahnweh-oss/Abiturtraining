@@ -12,15 +12,20 @@
   :root {
     --accent: #4f46e5;
     --accent-light: #e0e7ff;
+    --accent-glow: rgba(79,70,229,.15);
     --ink: #1e293b;
     --ink-light: #64748b;
     --bg: #f8fafc;
     --surface: #ffffff;
     --border: #e2e8f0;
     --radius: 16px;
+    --radius-sm: 10px;
     --green: #10b981;
     --amber: #f59e0b;
     --red: #ef4444;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
   }
 
   html { scroll-behavior: smooth; }
@@ -33,75 +38,222 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ====== STICKY NAV ====== */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    transition: transform .35s ease;
+    padding: 0 2rem;
+  }
+  .sticky-nav.visible { transform: translateY(0); }
+  .sticky-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .sticky-nav-logo {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+  .sticky-nav-links { display: flex; gap: .3rem; }
+  .sticky-nav-links a {
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    padding: .4rem .8rem;
+    border-radius: 99px;
+    transition: background .2s, color .2s;
+  }
+  .sticky-nav-links a:hover,
+  .sticky-nav-links a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ====== SCROLL ANIMATIONS ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(.9);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* stagger children */
+  .stagger > * { transition-delay: calc(var(--i, 0) * .1s); }
+
   /* ====== HERO ====== */
   .hero {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
     color: white;
     text-align: center;
-    padding: 5rem 2rem 4rem;
+    padding: 6rem 2rem 5rem;
     position: relative;
     overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .hero::before {
-    content: '';
+  .hero-bg-circle {
     position: absolute;
-    top: -8rem; right: -8rem;
-    width: 24rem; height: 24rem;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-bg-circle:nth-child(1) {
+    width: 400px; height: 400px;
     background: rgba(255,255,255,.08);
-    border-radius: 50%;
-    filter: blur(4rem);
+    top: -10%; right: -5%;
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -12rem; left: 20%;
-    width: 28rem; height: 28rem;
+  .hero-bg-circle:nth-child(2) {
+    width: 500px; height: 500px;
     background: rgba(99,102,241,.15);
-    border-radius: 50%;
-    filter: blur(5rem);
+    bottom: -15%; left: 10%;
+    animation-delay: -3s;
   }
-  .hero-inner { position: relative; z-index: 1; max-width: 750px; margin: 0 auto; }
+  .hero-bg-circle:nth-child(3) {
+    width: 250px; height: 250px;
+    background: rgba(167,139,250,.12);
+    top: 30%; left: -5%;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.03); }
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 750px; margin: 0 auto;
+  }
   .hero-badge {
     display: inline-block;
     background: rgba(255,255,255,.2);
-    padding: .4rem 1rem;
+    padding: .45rem 1.2rem;
     border-radius: 99px;
     font-size: .85rem;
     font-weight: 600;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.5rem;
     backdrop-filter: blur(4px);
+    animation: fadeUp .8s ease-out;
   }
   .hero h1 {
-    font-size: 2.8rem;
+    font-size: 3.2rem;
     font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 1rem;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+    animation: fadeUp .8s ease-out .15s both;
   }
   .hero p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     opacity: .92;
     max-width: 580px;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 2rem;
     line-height: 1.7;
+    animation: fadeUp .8s ease-out .3s both;
   }
-  .hero-url {
-    display: inline-block;
-    background: rgba(255,255,255,.15);
-    padding: .5rem 1.2rem;
-    border-radius: var(--radius);
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .8s ease-out .45s both;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
     font-weight: 700;
     font-size: 1rem;
-    letter-spacing: .02em;
+    padding: .9rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    min-height: 48px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+  .hero-cta-secondary {
+    background: rgba(255,255,255,.15);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,.3);
+  }
+  .hero-cta-secondary:hover {
+    background: rgba(255,255,255,.25);
+  }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    font-size: 1.5rem;
+    opacity: .7;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
   }
 
-  /* ====== SECTION ====== */
+  /* ====== SECTIONS ====== */
   .section {
     max-width: 960px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
   }
   .section-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
     text-align: center;
     margin-bottom: .5rem;
@@ -109,9 +261,9 @@
   }
   .section-subtitle {
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--ink-light);
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -128,56 +280,92 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 2rem;
-    transition: transform .2s, box-shadow .2s;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    position: relative;
+    overflow: hidden;
   }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .feature-card:hover::after,
+  .feature-card.expanded::after { transform: scaleX(1); }
   .feature-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-light);
   }
   .feature-icon {
     font-size: 2.2rem;
     margin-bottom: .8rem;
+    transition: transform .3s;
   }
+  .feature-card:hover .feature-icon { transform: scale(1.15); }
   .feature-card h3 {
     font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: .5rem;
     color: var(--ink);
   }
-  .feature-card p {
+  .feature-card > p {
     font-size: .9rem;
     color: var(--ink-light);
     line-height: 1.65;
   }
-  .feature-card ul {
-    list-style: none;
-    margin-top: .6rem;
+  .feature-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease, margin-top .3s ease;
+    margin-top: 0;
   }
-  .feature-card ul li {
+  .feature-card.expanded .feature-details {
+    max-height: 300px;
+    margin-top: 1rem;
+  }
+  .feature-details ul {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: .8rem;
+  }
+  .feature-details ul li {
     font-size: .88rem;
     color: var(--ink-light);
-    padding: .25rem 0;
-    padding-left: 1.4rem;
+    padding: .3rem 0;
+    padding-left: 1.6rem;
     position: relative;
   }
-  .feature-card ul li::before {
+  .feature-details ul li::before {
     content: '\2713';
     position: absolute;
     left: 0;
     color: var(--green);
     font-weight: 700;
   }
-
-  /* ====== FULL-WIDTH FEATURE ====== */
-  .feature-full {
-    grid-column: 1 / -1;
+  .feature-expand-hint {
+    font-size: .75rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    transition: opacity .3s;
   }
-  .feature-full .feature-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: start;
+  .feature-card.expanded .feature-expand-hint .hint-text { display: none; }
+  .feature-card.expanded .feature-expand-hint .hint-text-close { display: inline; }
+  .feature-expand-hint .hint-text-close { display: none; }
+  .feature-expand-hint .arrow {
+    transition: transform .3s;
+    display: inline-block;
   }
+  .feature-card.expanded .feature-expand-hint .arrow { transform: rotate(180deg); }
 
   /* ====== STEPS ====== */
   .steps-section {
@@ -188,8 +376,9 @@
   .steps {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
+    align-items: flex-start;
   }
   .step {
     flex: 1;
@@ -198,19 +387,25 @@
     text-align: center;
   }
   .step-number {
-    width: 56px; height: 56px;
+    width: 64px; height: 64px;
     background: var(--accent);
     color: white;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 800;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto .8rem;
+    transition: transform .3s, box-shadow .3s;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .step:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(79,70,229,.4);
   }
   .step h3 {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     margin-bottom: .3rem;
   }
@@ -218,146 +413,295 @@
     font-size: .88rem;
     color: var(--ink-light);
   }
-  .step-arrow {
+  .step-connector {
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
-    color: var(--accent);
-    font-weight: 700;
-    margin-top: 1rem;
+    padding-top: 1.2rem;
+  }
+  .step-connector-line {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    position: relative;
+  }
+  .step-connector-line::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: -4px;
+    width: 0; height: 0;
+    border-left: 8px solid var(--accent);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
   }
 
-  /* ====== TABS OVERVIEW ====== */
-  .tab-overview {
-    counter-reset: tab-counter;
-  }
-  .tab-item {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 1.5rem;
-    align-items: start;
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .tab-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  .tab-number {
-    counter-increment: tab-counter;
-    width: 64px; height: 64px;
-    background: var(--accent-light);
-    color: var(--accent);
-    font-size: 1.5rem;
-    font-weight: 800;
-    border-radius: var(--radius);
+  /* ====== INTERACTIVE TABS ====== */
+  .tabs-section { background: var(--bg); }
+  .tabs-nav {
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    gap: .5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
   }
-  .tab-item h3 {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: .4rem;
+  .tab-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 99px;
+    padding: .7rem 1.5rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all .3s;
+    min-height: 44px;
+    font-family: inherit;
+  }
+  .tab-btn:hover {
+    border-color: var(--accent);
     color: var(--accent);
   }
-  .tab-item > div > p {
-    font-size: .92rem;
+  .tab-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .tab-panel {
+    display: none;
+    animation: tabFadeIn .5s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-content h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+  .tab-content > p {
+    font-size: .95rem;
     color: var(--ink-light);
-    margin-bottom: .6rem;
+    margin-bottom: 1.5rem;
     line-height: 1.65;
   }
-  .tab-details {
+  .tab-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: .8rem;
-    margin-top: .8rem;
+    gap: 1rem;
   }
   .tab-detail {
     background: var(--bg);
-    border-radius: 12px;
-    padding: 1rem 1.2rem;
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.4rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .tab-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
   .tab-detail h4 {
-    font-size: .85rem;
+    font-size: .9rem;
     font-weight: 700;
-    margin-bottom: .2rem;
+    margin-bottom: .3rem;
     color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: .4rem;
   }
   .tab-detail p {
-    font-size: .82rem;
+    font-size: .84rem;
     color: var(--ink-light);
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
-  /* ====== HIGHLIGHTS ====== */
-  .highlights {
+  /* ====== DEMO MOCKUP ====== */
+  .demo-mockup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  .demo-toolbar {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .demo-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .demo-dot:nth-child(1) { background: #ef4444; }
+  .demo-dot:nth-child(2) { background: #f59e0b; }
+  .demo-dot:nth-child(3) { background: #10b981; }
+  .demo-url {
+    flex: 1;
+    text-align: center;
+    font-size: .75rem;
+    color: var(--ink-light);
+    font-weight: 500;
+  }
+  .demo-body { padding: 1.5rem; }
+  .demo-bar {
+    height: 12px;
+    border-radius: 6px;
+    background: var(--border);
+    margin-bottom: .5rem;
+    transition: width 1s ease;
+  }
+  .demo-bar.animated { background: linear-gradient(90deg, var(--accent-light), var(--accent)); }
+  .demo-heatmap {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    margin-top: 1rem;
+  }
+  .demo-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    transition: transform .2s;
+    cursor: default;
+  }
+  .demo-cell:hover { transform: scale(1.15); }
+
+  /* ====== COUNTER ====== */
+  .counters {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-top: 2rem;
   }
-  .highlight {
+  .counter {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .counter:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .counter-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .counter-label {
+    font-size: .9rem;
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* ====== EXTRAS ====== */
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .extra-card {
     text-align: center;
     padding: 2rem 1.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
   }
-  .highlight-value {
+  .extra-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .extra-icon {
     font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: .3rem;
+    margin-bottom: .6rem;
+    transition: transform .3s;
   }
-  .highlight-label {
-    font-size: .85rem;
+  .extra-card:hover .extra-icon { transform: scale(1.2) rotate(-5deg); }
+  .extra-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+  }
+  .extra-card p {
+    font-size: .88rem;
     color: var(--ink-light);
-    font-weight: 600;
+    line-height: 1.55;
   }
 
   /* ====== CTA ====== */
   .cta-section {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
     color: white;
     text-align: center;
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 60%; height: 200%;
+    background: rgba(255,255,255,.03);
+    transform: rotate(25deg);
+    pointer-events: none;
   }
   .cta-section h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
     margin-bottom: .8rem;
+    position: relative;
   }
   .cta-section p {
-    font-size: 1rem;
+    font-size: 1.05rem;
     opacity: .9;
-    max-width: 500px;
-    margin: 0 auto 1.5rem;
-    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.65;
+    position: relative;
   }
   .cta-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
     background: white;
     color: var(--accent);
     font-weight: 700;
-    font-size: 1rem;
-    padding: .85rem 2.5rem;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
     border-radius: var(--radius);
     text-decoration: none;
-    transition: transform .2s, box-shadow .2s;
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+    min-height: 48px;
   }
   .cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
   }
   .cta-contact {
-    margin-top: 1.2rem;
-    font-size: .9rem;
+    margin-top: 1.5rem;
+    font-size: .92rem;
     opacity: .85;
+    position: relative;
   }
   .cta-contact a { color: white; font-weight: 600; }
 
@@ -369,330 +713,580 @@
     color: var(--ink-light);
   }
 
+  /* ====== PROGRESS BAR ====== */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    z-index: 200;
+    width: 0%;
+    transition: width .1s linear;
+  }
+
   /* ====== PRINT ====== */
   @media print {
-    body { background: white; }
-    .hero { padding: 3rem 2rem 2.5rem; }
-    .hero h1 { font-size: 2rem; }
-    .section { padding: 2.5rem 1.5rem; }
-    .feature-card:hover { transform: none; box-shadow: none; }
-    .feature-card { break-inside: avoid; }
-    .tab-item { break-inside: avoid; }
-    .cta-section { break-before: page; }
+    .sticky-nav, .scroll-progress, .hero-scroll-hint { display: none; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
+    .feature-details { max-height: none; }
+    .tab-panel { display: block; margin-bottom: 2rem; }
+    .section { padding: 2rem 1.5rem; }
   }
 
   /* ====== RESPONSIVE ====== */
   @media (max-width: 768px) {
-    .hero h1 { font-size: 2rem; }
+    .hero { min-height: auto; padding: 4rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2.2rem; }
     .features { grid-template-columns: 1fr; }
-    .feature-full .feature-inner { grid-template-columns: 1fr; }
-    .tab-item { grid-template-columns: 1fr; }
-    .tab-number { margin-bottom: .5rem; }
-    .tab-details { grid-template-columns: 1fr; }
-    .highlights { grid-template-columns: 1fr; }
+    .tab-grid { grid-template-columns: 1fr; }
+    .counters { grid-template-columns: 1fr; }
+    .extras { grid-template-columns: 1fr; }
     .steps { flex-direction: column; align-items: center; }
-    .step-arrow { transform: rotate(90deg); }
+    .step-connector { transform: rotate(90deg); padding: 0; }
+    .sticky-nav-links a { font-size: .75rem; padding: .3rem .5rem; }
+    .demo-heatmap { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .extras { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
 </head>
 <body>
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="sticky-nav-inner">
+    <span class="sticky-nav-logo">myAbiFlow</span>
+    <div class="sticky-nav-links">
+      <a href="#features" data-section="features">Features</a>
+      <a href="#schritte" data-section="schritte">So geht's</a>
+      <a href="#bereiche" data-section="bereiche">Bereiche</a>
+      <a href="#zahlen" data-section="zahlen">Zahlen</a>
+      <a href="#kontakt" data-section="kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
 <!-- HERO -->
-<div class="hero">
+<section class="hero" id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
   <div class="hero-inner">
     <div class="hero-badge">Lehrer-Bereich</div>
     <h1>myAbiFlow<br>Ihr digitaler Abitur-Assistent</h1>
-    <p>KI-gestutzte Aufgaben erstellen, Schulerfortschritt verfolgen und Forderbedarfe fruhzeitig erkennen &ndash; alles an einem Ort.</p>
-    <div class="hero-url">myabiflow.de/lehrer</div>
+    <p>KI-gestuetzte Aufgaben erstellen, Schuelerfortschritt verfolgen und Foerderbedarfe fruehzeitig erkennen &ndash; alles an einem Ort.</p>
+    <div class="hero-cta-group">
+      <a href="#features" class="hero-cta">Entdecken &#8595;</a>
+      <a href="https://myabiflow.de/lehrer" class="hero-cta hero-cta-secondary" target="_blank">Direkt testen &#8599;</a>
+    </div>
   </div>
-</div>
+  <a href="#features" class="hero-scroll-hint" aria-label="Nach unten scrollen">&#8595;</a>
+</section>
 
-<!-- WAS IST myAbiFlow? -->
-<div class="section">
-  <h2 class="section-title">Was ist myAbiFlow?</h2>
-  <p class="section-subtitle">
-    myAbiFlow ist eine digitale Lernplattform fur das bayerische G9-Abitur.
-    Der Lehrer-Bereich gibt Ihnen als Lehrkraft die Werkzeuge, um Ihren Unterricht effizienter zu gestalten.
-  </p>
+<!-- FEATURES -->
+<section class="section" id="features">
+  <h2 class="section-title reveal">Was myAbiFlow fuer Sie leistet</h2>
+  <p class="section-subtitle reveal">Klicken Sie auf eine Karte, um mehr zu erfahren</p>
 
-  <div class="features">
-    <div class="feature-card">
+  <div class="features stagger">
+    <div class="feature-card reveal" style="--i:0" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#9889;</div>
       <h3>KI-Aufgaben in Sekunden</h3>
       <p>Generieren Sie lehrplankonforme Abitur-Aufgaben per Knopfdruck. Die KI erstellt automatisch Erwartungshorizont und Bewertungskriterien.</p>
-      <ul>
-        <li>Alle Abiturfacher verfugbar</li>
-        <li>Automatischer Erwartungshorizont</li>
-        <li>Verschiedene Aufgabentypen pro Fach</li>
-      </ul>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Alle Abiturfaecher verfuegbar</li>
+          <li>Automatischer Erwartungshorizont</li>
+          <li>Verschiedene Aufgabentypen pro Fach</li>
+          <li>Lehrplankonform nach LehrplanPLUS Bayern G9</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="feature-card">
+    <div class="feature-card reveal" style="--i:1" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#128203;</div>
       <h3>Eigene Materialien hochladen</h3>
-      <p>Laden Sie eigene Arbeitsblatter, Texte oder Bilder hoch &ndash; die KI erstellt daraus passende Aufgaben mit Bewertungskriterien.</p>
-      <ul>
-        <li>1&ndash;5 Bilder oder PDFs hochladen</li>
-        <li>Zusatzliche Anweisungen moglich</li>
-        <li>Aufgaben direkt bearbeitbar</li>
-      </ul>
+      <p>Laden Sie eigene Arbeitsblaetter, Texte oder Bilder hoch &ndash; die KI erstellt daraus passende Aufgaben mit Bewertungskriterien.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>1&ndash;5 Bilder oder PDFs hochladen</li>
+          <li>Zusaetzliche Anweisungen moeglich</li>
+          <li>Aufgaben direkt bearbeitbar</li>
+          <li>Drag &amp; Drop oder Klick-Upload</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="feature-card">
+    <div class="feature-card reveal" style="--i:2" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#128279;</div>
       <h3>Einfache Code-Verteilung</h3>
-      <p>Schuler brauchen kein eigenes Konto. Erstellen Sie einen Klassen-Code, teilen Sie ihn &ndash; fertig. Ergebnisse fliessen automatisch in Ihr Dashboard.</p>
-      <ul>
-        <li>Ein Code pro Klasse/Kurs</li>
-        <li>Schuler geben Code auf myabiflow.de ein</li>
-        <li>Kein Schuler-Account notig</li>
-      </ul>
+      <p>Schueler brauchen kein eigenes Konto. Erstellen Sie einen Klassen-Code, teilen Sie ihn &ndash; fertig.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Ein Code pro Klasse/Kurs</li>
+          <li>Schueler geben Code auf myabiflow.de ein</li>
+          <li>Kein Schueler-Account noetig</li>
+          <li>Ergebnisse fliessen automatisch ins Dashboard</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="feature-card">
+    <div class="feature-card reveal" style="--i:3" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#128200;</div>
-      <h3>Schuler-Fortschritt im Blick</h3>
-      <p>Sehen Sie auf einen Blick, wer gut vorbereitet ist und wer Hilfe braucht. Das automatische Warnsystem meldet schwache Leistungen fruhzeitig.</p>
-      <ul>
-        <li>Notenpunkte-Ubersicht pro Schuler</li>
-        <li>Automatisches Warnsystem</li>
-        <li>Leistungsentwicklung uber Zeit</li>
-      </ul>
+      <h3>Schueler-Fortschritt im Blick</h3>
+      <p>Sehen Sie auf einen Blick, wer gut vorbereitet ist und wer Hilfe braucht. Automatisches Warnsystem inklusive.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Notenpunkte-Uebersicht pro Schueler</li>
+          <li>Automatisches Warnsystem bei schwachen Leistungen</li>
+          <li>Leistungsentwicklung ueber Zeit</li>
+          <li>Individuelle Detailansicht per Klick</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="feature-card">
+    <div class="feature-card reveal" style="--i:4" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#127919;</div>
-      <h3>Starken- &amp; Schwachen-Analyse</h3>
-      <p>KI-gestutzte Auswertung zeigt individuelle Kompetenzlucken &ndash; damit Sie gezielt fordern statt pauschal wiederholen.</p>
-      <ul>
-        <li>Starken &amp; Schwachen pro Schuler</li>
-        <li>Klassen-Ubersicht aller Kompetenzen</li>
-        <li>Basierend auf KI-Bewertungen</li>
-      </ul>
+      <h3>Staerken- &amp; Schwaechen-Analyse</h3>
+      <p>KI-gestuetzte Auswertung zeigt individuelle Kompetenzluecken &ndash; gezielt foerdern statt pauschal wiederholen.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Staerken &amp; Schwaechen pro Schueler</li>
+          <li>Klassen-Uebersicht aller Kompetenzen</li>
+          <li>Basierend auf KI-Bewertungen</li>
+          <li>Top-5 Staerken &amp; Schwaechen auf einen Blick</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="feature-card">
+    <div class="feature-card reveal" style="--i:5" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#128202;</div>
       <h3>Analytics &amp; Heatmaps</h3>
-      <p>Interaktive Diagramme zeigen Fach-Ubersichten, Leistungstrends und eine Schuler-x-Facher-Heatmap fur schnelle Ubersicht.</p>
-      <ul>
-        <li>Fach-Ubersicht (Balkendiagramm)</li>
-        <li>Leistungsentwicklung (Liniendiagramm)</li>
-        <li>Heatmap: Schuler x Facher</li>
-      </ul>
+      <p>Interaktive Diagramme zeigen Fach-Uebersichten, Leistungstrends und eine Schueler-x-Faecher-Heatmap.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Fach-Uebersicht (Balkendiagramm)</li>
+          <li>Leistungsentwicklung (Liniendiagramm)</li>
+          <li>Heatmap: Schueler x Faecher</li>
+          <li>Ideal fuer Elterngespraeche &amp; Konferenzen</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SO FUNKTIONIERT'S -->
-<div class="steps-section">
+<!-- SCHRITTE -->
+<section class="steps-section" id="schritte">
   <div class="section">
-    <h2 class="section-title">So funktioniert's</h2>
-    <p class="section-subtitle">In drei einfachen Schritten zum digitalen Abitur-Unterricht</p>
+    <h2 class="section-title reveal">So funktioniert's</h2>
+    <p class="section-subtitle reveal">In drei einfachen Schritten zum digitalen Abitur-Unterricht</p>
     <div class="steps">
-      <div class="step">
+      <div class="step reveal-left">
         <div class="step-number">1</div>
         <h3>Konto erstellen</h3>
-        <p>Registrieren Sie sich mit Name, Passwort und Ihren Fachern. Sie erhalten einen Zugang per Registrierungsschlussel.</p>
+        <p>Registrieren Sie sich mit Name, Passwort und Ihren Faechern. Zugang per Registrierungsschluessel.</p>
       </div>
-      <div class="step-arrow" aria-hidden="true">&#8594;</div>
-      <div class="step">
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
         <div class="step-number">2</div>
         <h3>Aufgabe erstellen</h3>
-        <p>Wahlen Sie Fach und Aufgabentyp. Die KI generiert die Aufgabe &ndash; oder Sie laden eigene Materialien hoch.</p>
+        <p>Fach und Typ waehlen &ndash; die KI generiert alles. Oder eigene Materialien hochladen.</p>
       </div>
-      <div class="step-arrow" aria-hidden="true">&#8594;</div>
-      <div class="step">
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal-right">
         <div class="step-number">3</div>
-        <h3>Code an Schuler geben</h3>
-        <p>Schuler geben den Code auf myabiflow.de/aufgabe ein, bearbeiten die Aufgabe &ndash; und Sie sehen die Ergebnisse live.</p>
+        <h3>Code an Schueler</h3>
+        <p>Schueler geben den Code auf myabiflow.de/aufgabe ein und bearbeiten die Aufgabe. Sie sehen die Ergebnisse live.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- DIE 4 BEREICHE IM DETAIL -->
-<div class="section">
-  <h2 class="section-title">Die vier Bereiche im Detail</h2>
-  <p class="section-subtitle">Nach dem Login stehen Ihnen vier Tabs zur Verfugung</p>
+<!-- DIE 4 BEREICHE (Interactive Tabs) -->
+<section class="tabs-section" id="bereiche">
+  <div class="section">
+    <h2 class="section-title reveal">Die vier Bereiche im Detail</h2>
+    <p class="section-subtitle reveal">Klicken Sie auf einen Tab, um den Bereich zu erkunden</p>
 
-  <div class="tab-overview">
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" onclick="switchDemoTab('codes', this)">&#128196; Meine Codes</button>
+      <button class="tab-btn" onclick="switchDemoTab('tasks', this)">&#128221; Aufgaben</button>
+      <button class="tab-btn" onclick="switchDemoTab('students', this)">&#128101; Meine Schueler</button>
+      <button class="tab-btn" onclick="switchDemoTab('analytics', this)">&#128202; Analytics</button>
+    </div>
 
-    <!-- Tab 1: Meine Codes -->
-    <div class="tab-item">
-      <div class="tab-number">1</div>
-      <div>
-        <h3>Meine Codes</h3>
-        <p>
-          Erstellen und verwalten Sie Klassen-Codes. Jeder Code verbindet eine Klasse oder einen Kurs mit Ihrem Dashboard.
-          Schuler geben den Code auf der jeweiligen Fachseite ein, um ihre Ergebnisse automatisch mit Ihnen zu teilen.
-        </p>
-        <div class="tab-details">
+    <!-- Tab: Codes -->
+    <div class="tab-panel active" id="panel-codes">
+      <div class="tab-content">
+        <h3>&#128196; Meine Codes</h3>
+        <p>Erstellen und verwalten Sie Klassen-Codes. Jeder Code verbindet eine Klasse mit Ihrem Dashboard. Schueler geben den Code auf der Fachseite ein, um Ergebnisse automatisch zu teilen.</p>
+        <div class="tab-grid">
           <div class="tab-detail">
-            <h4>Codes erstellen</h4>
-            <p>Geben Sie eine Bezeichnung ein (z.B. &bdquo;12a Deutsch&ldquo;) und klicken Sie auf &bdquo;Neuer Code&ldquo;. Der Code wird sofort generiert.</p>
+            <h4>&#10024; Codes erstellen</h4>
+            <p>Bezeichnung eingeben (z.B. &bdquo;12a Deutsch&ldquo;) und auf &bdquo;Neuer Code&ldquo; klicken. Sofort einsatzbereit.</p>
           </div>
           <div class="tab-detail">
-            <h4>Codes teilen</h4>
-            <p>Kopieren Sie den Code per Klick und teilen Sie ihn mit Ihren Schulern &ndash; per Tafel, Mebis oder Ausdruck.</p>
+            <h4>&#128203; Codes teilen</h4>
+            <p>Per Klick kopieren und an Schueler verteilen &ndash; per Tafel, Mebis oder Ausdruck.</p>
           </div>
           <div class="tab-detail">
-            <h4>Codes verwalten</h4>
-            <p>Sehen Sie auf einen Blick, wie viele Schuler und Ergebnisse pro Code vorhanden sind. Nicht mehr benotigte Codes loschen.</p>
+            <h4>&#128736; Codes verwalten</h4>
+            <p>Schueler-Anzahl und Ergebnisse pro Code einsehen. Nicht benoetigte Codes loeschen.</p>
           </div>
           <div class="tab-detail">
-            <h4>Automatische Verknupfung</h4>
-            <p>Sobald ein Schuler den Code eingibt, erscheinen seine Ergebnisse automatisch in Ihrem Schuler-Tab.</p>
+            <h4>&#128268; Auto-Verknuepfung</h4>
+            <p>Sobald ein Schueler den Code eingibt, erscheinen seine Ergebnisse automatisch in Ihrem Dashboard.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Tab 2: Aufgaben -->
-    <div class="tab-item">
-      <div class="tab-number">2</div>
-      <div>
-        <h3>Aufgaben</h3>
-        <p>
-          Erstellen Sie Abitur-Aufgaben fur Ihre Schuler &ndash; entweder per KI-Generierung oder aus eigenen Materialien.
-          Jede Aufgabe kann bearbeitet, gespeichert und per Code geteilt werden.
-        </p>
-        <div class="tab-details">
+    <!-- Tab: Tasks -->
+    <div class="tab-panel" id="panel-tasks">
+      <div class="tab-content">
+        <h3>&#128221; Aufgaben</h3>
+        <p>Erstellen Sie Abitur-Aufgaben &ndash; entweder per KI-Generierung oder aus eigenen Materialien. Jede Aufgabe kann bearbeitet, gespeichert und per Code geteilt werden.</p>
+        <div class="tab-grid">
           <div class="tab-detail">
-            <h4>KI generieren</h4>
-            <p>Fach und Aufgabentyp wahlen &rarr; die KI erstellt eine vollstandige Aufgabe mit Erwartungshorizont. Sie konnen alles vor dem Teilen anpassen.</p>
+            <h4>&#129302; KI generieren</h4>
+            <p>Fach und Typ waehlen &rarr; vollstaendige Aufgabe mit Erwartungshorizont. Vor dem Teilen anpassbar.</p>
           </div>
           <div class="tab-detail">
-            <h4>Eigene Materialien</h4>
-            <p>Laden Sie bis zu 5 Bilder/PDFs hoch. Die KI analysiert Ihre Materialien und generiert passende Aufgaben daraus.</p>
+            <h4>&#128206; Eigene Materialien</h4>
+            <p>Bis zu 5 Bilder/PDFs hochladen. Die KI analysiert und generiert passende Aufgaben daraus.</p>
           </div>
           <div class="tab-detail">
-            <h4>Aufgaben bearbeiten</h4>
-            <p>Texte, Titel und Bewertungskriterien konnen vor dem Speichern frei angepasst werden. Auch gespeicherte Aufgaben sind nachtraglich bearbeitbar.</p>
+            <h4>&#9998; Aufgaben bearbeiten</h4>
+            <p>Texte, Titel und Kriterien frei anpassen. Auch gespeicherte Aufgaben nachtraeglich bearbeitbar.</p>
           </div>
           <div class="tab-detail">
-            <h4>Aufgaben-Code teilen</h4>
-            <p>Jede gespeicherte Aufgabe erhalt einen eigenen Code. Schuler geben ihn auf myabiflow.de/aufgabe ein und bearbeiten die Aufgabe.</p>
+            <h4>&#128279; Code teilen</h4>
+            <p>Jede Aufgabe erhaelt einen eigenen Code. Schueler bearbeiten sie auf myabiflow.de/aufgabe.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Tab 3: Meine Schuler -->
-    <div class="tab-item">
-      <div class="tab-number">3</div>
-      <div>
-        <h3>Meine Schuler</h3>
-        <p>
-          Das Herzstuck des Lehrer-Bereichs: Sehen Sie alle Schuler, ihre Ergebnisse und erkennen Sie Forderbedarfe auf einen Blick.
-        </p>
-        <div class="tab-details">
+    <!-- Tab: Students -->
+    <div class="tab-panel" id="panel-students">
+      <div class="tab-content">
+        <h3>&#128101; Meine Schueler</h3>
+        <p>Das Herzstueck: Alle Schueler, ihre Ergebnisse und Foerderbedarfe auf einen Blick. Mit interaktiver Heatmap und automatischem Warnsystem.</p>
+        <div class="tab-grid">
           <div class="tab-detail">
-            <h4>Statistik-Ubersicht</h4>
-            <p>Gesamtzahl der Schuler, durchschnittliche Notenpunkte und Anzahl der Ergebnisse &ndash; auf einen Blick.</p>
+            <h4>&#128200; Statistik-Uebersicht</h4>
+            <p>Gesamtzahl der Schueler, Durchschnitt und Ergebnisanzahl auf einen Blick.</p>
           </div>
           <div class="tab-detail">
-            <h4>Warnsystem</h4>
-            <p>Automatische Erkennung von Schulern mit schwachen Leistungen (unter 5 NP). Sie sehen sofort, wer besondere Aufmerksamkeit braucht.</p>
+            <h4>&#9888; Warnsystem</h4>
+            <p>Automatische Erkennung schwacher Leistungen (unter 5 NP). Sofort sehen, wer Hilfe braucht.</p>
           </div>
           <div class="tab-detail">
-            <h4>Starken &amp; Schwachen</h4>
-            <p>KI-basierte Analyse zeigt die haufigsten Starken und Schwachen Ihrer gesamten Klasse &ndash; ideal fur gezielte Wiederholung.</p>
+            <h4>&#127919; Staerken &amp; Schwaechen</h4>
+            <p>KI-basierte Analyse der haeufigsten Staerken und Schwaechen Ihrer gesamten Klasse.</p>
           </div>
           <div class="tab-detail">
-            <h4>Heatmap: Schuler x Facher</h4>
-            <p>Farbcodierte Ubersicht: Grun = gut, Gelb = mittel, Rot = Forderung notig. Schnelle visuelle Orientierung.</p>
+            <h4>&#128293; Heatmap</h4>
+            <p>Farbcodiert: Gruen = gut, Gelb = mittel, Rot = Foerderung noetig. Schnelle visuelle Orientierung.</p>
+          </div>
+        </div>
+        <!-- Mini Heatmap Demo -->
+        <div class="demo-mockup">
+          <div class="demo-toolbar">
+            <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+            <span class="demo-url">myabiflow.de/lehrer &mdash; Meine Schueler</span>
+          </div>
+          <div class="demo-body">
+            <div style="font-size:.8rem;font-weight:600;color:var(--ink-light);margin-bottom:.5rem;">Schueler x Faecher Heatmap (Demo)</div>
+            <div class="demo-heatmap" id="demoHeatmap"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Tab 4: Analytics -->
-    <div class="tab-item">
-      <div class="tab-number">4</div>
-      <div>
-        <h3>Analytics</h3>
-        <p>
-          Interaktive Diagramme fur datengestutzte Entscheidungen im Unterricht.
-        </p>
-        <div class="tab-details">
+    <!-- Tab: Analytics -->
+    <div class="tab-panel" id="panel-analytics">
+      <div class="tab-content">
+        <h3>&#128202; Analytics</h3>
+        <p>Interaktive Diagramme fuer datengestuetzte Entscheidungen im Unterricht. Von Fachuebersichten bis Leistungstrends.</p>
+        <div class="tab-grid">
           <div class="tab-detail">
-            <h4>Fach-Ubersicht</h4>
-            <p>Balkendiagramm zeigt die durchschnittlichen Notenpunkte pro Fach. Erkennen Sie auf einen Blick, wo Ihre Schuler stehen.</p>
+            <h4>&#128202; Fach-Uebersicht</h4>
+            <p>Balkendiagramm mit durchschnittlichen Notenpunkten pro Fach.</p>
           </div>
           <div class="tab-detail">
-            <h4>Leistungsentwicklung</h4>
-            <p>Liniendiagramm zeigt den Verlauf der Notenpunkte uber die Zeit &ndash; getrennt nach Fachern. Trends fruhzeitig erkennen.</p>
+            <h4>&#128200; Leistungsentwicklung</h4>
+            <p>Liniendiagramm zeigt den Verlauf der Notenpunkte ueber die Zeit, getrennt nach Faechern.</p>
           </div>
           <div class="tab-detail">
-            <h4>Schuler-Detail</h4>
-            <p>Klicken Sie auf einen Schuler fur eine individuelle Detailansicht mit personlichem Leistungsverlauf und Fach-Aufschlusselung.</p>
+            <h4>&#128100; Schueler-Detail</h4>
+            <p>Klick auf einen Schueler fuer individuelle Detailansicht mit persoenlichem Leistungsverlauf.</p>
           </div>
           <div class="tab-detail">
-            <h4>Datenexport</h4>
-            <p>Alle Daten sind jederzeit einsehbar und konnen fur Elterngesprache oder Konferenzen genutzt werden.</p>
+            <h4>&#128172; Fuer Gespraeche</h4>
+            <p>Alle Daten einsehbar fuer Elterngespraeche, Konferenzen und paedagogische Entscheidungen.</p>
+          </div>
+        </div>
+        <!-- Mini Chart Demo -->
+        <div class="demo-mockup">
+          <div class="demo-toolbar">
+            <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+            <span class="demo-url">myabiflow.de/lehrer &mdash; Analytics</span>
+          </div>
+          <div class="demo-body">
+            <div style="font-size:.8rem;font-weight:600;color:var(--ink-light);margin-bottom:.8rem;">Fach-Uebersicht (Demo)</div>
+            <div id="demoBars" style="display:flex;flex-direction:column;gap:.4rem;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- WEITERE FUNKTIONEN -->
-<div class="section" style="padding-top:0;">
-  <h2 class="section-title">Weitere Funktionen</h2>
-  <p class="section-subtitle">Komfort-Features fur den Schulalltag</p>
-
-  <div class="features" style="grid-template-columns: repeat(3, 1fr);">
-    <div class="feature-card" style="text-align:center;">
-      <div class="feature-icon">&#127769;</div>
-      <h3>Dark Mode</h3>
-      <p>Augenfreundliches dunkles Design &ndash; per Klick umschaltbar. Ideal fur Beamer-Prasentationen in abgedunkelten Raumen.</p>
-    </div>
-    <div class="feature-card" style="text-align:center;">
-      <div class="feature-icon">&#128100;</div>
-      <h3>Profil-Verwaltung</h3>
-      <p>Verwalten Sie Ihre Facher jederzeit uber das Profil. Neue Facher hinzufugen oder bestehende entfernen.</p>
-    </div>
-    <div class="feature-card" style="text-align:center;">
-      <div class="feature-icon">&#128241;</div>
-      <h3>Tablet-optimiert</h3>
-      <p>Funktioniert auf iPad, Android-Tablet und Desktop. Responsive Design fur jede Bildschirmgrosse.</p>
-    </div>
-  </div>
-</div>
+</section>
 
 <!-- ZAHLEN -->
-<div class="section" style="padding-top:0;">
-  <div class="highlights">
-    <div class="highlight">
-      <div class="highlight-value">15+</div>
-      <div class="highlight-label">Abiturfacher verfugbar</div>
+<section class="section" id="zahlen">
+  <h2 class="section-title reveal">myAbiFlow in Zahlen</h2>
+  <p class="section-subtitle reveal">Entwickelt fuer das bayerische G9-Abitur</p>
+  <div class="counters reveal">
+    <div class="counter">
+      <div class="counter-value" data-target="15">0</div>
+      <div class="counter-label">Abiturfaecher verfuegbar</div>
     </div>
-    <div class="highlight">
-      <div class="highlight-value">0 &euro;</div>
-      <div class="highlight-label">fur Schuler &ndash; kein Konto notig</div>
+    <div class="counter">
+      <div class="counter-value" data-target="0" data-suffix=" &euro;">0 &euro;</div>
+      <div class="counter-label">fuer Schueler &ndash; kein Konto noetig</div>
     </div>
-    <div class="highlight">
-      <div class="highlight-value">G9</div>
-      <div class="highlight-label">Bayern &ndash; lehrplankonform</div>
+    <div class="counter">
+      <div class="counter-value" data-text="G9">G9</div>
+      <div class="counter-label">Bayern &ndash; lehrplankonform</div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- WEITERE FUNKTIONEN -->
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title reveal">Weitere Funktionen</h2>
+  <p class="section-subtitle reveal">Komfort-Features fuer den Schulalltag</p>
+  <div class="extras stagger">
+    <div class="extra-card reveal" style="--i:0">
+      <div class="extra-icon">&#127769;</div>
+      <h3>Dark Mode</h3>
+      <p>Augenfreundliches dunkles Design per Klick. Ideal fuer Beamer in abgedunkelten Raeumen.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:1">
+      <div class="extra-icon">&#128100;</div>
+      <h3>Profil-Verwaltung</h3>
+      <p>Faecher jederzeit verwalten. Neue Faecher hinzufuegen oder bestehende entfernen.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:2">
+      <div class="extra-icon">&#128241;</div>
+      <h3>Tablet-optimiert</h3>
+      <p>Funktioniert auf iPad, Android-Tablet und Desktop. Responsive Design fuer jede Groesse.</p>
+    </div>
+  </div>
+</section>
 
 <!-- CTA -->
-<div class="cta-section">
-  <h2>Bereit, Ihren Abitur-Unterricht zu vereinfachen?</h2>
-  <p>Fordern Sie jetzt Ihren kostenlosen Zugang an und probieren Sie den Lehrer-Bereich mit Ihrer Klasse aus.</p>
-  <a href="https://myabiflow.de/lehrer" class="cta-btn">Jetzt starten</a>
-  <div class="cta-contact">
+<section class="cta-section" id="kontakt">
+  <h2 class="reveal">Bereit, Ihren Abitur-Unterricht zu vereinfachen?</h2>
+  <p class="reveal">Fordern Sie jetzt Ihren kostenlosen Zugang an und probieren Sie den Lehrer-Bereich mit Ihrer Klasse aus.</p>
+  <a href="https://myabiflow.de/lehrer" class="cta-btn reveal-scale" target="_blank">Jetzt starten &#8594;</a>
+  <div class="cta-contact reveal">
     Fragen? Schreiben Sie uns: <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>
   </div>
-</div>
+</section>
 
 <footer>
-  &copy; 2026 myAbiFlow &middot; Digitale Abiturvorbereitung fur Bayern G9
+  &copy; 2026 myAbiFlow &middot; Digitale Abiturvorbereitung fuer Bayern G9
 </footer>
+
+<script>
+/* ====== SCROLL REVEAL ====== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ====== SCROLL PROGRESS ====== */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / scrollHeight) * 100;
+  progressBar.style.width = progress + '%';
+}, { passive: true });
+
+/* ====== STICKY NAV ====== */
+const stickyNav = document.getElementById('stickyNav');
+const heroSection = document.getElementById('hero');
+const navObserver = new IntersectionObserver(([entry]) => {
+  stickyNav.classList.toggle('visible', !entry.isIntersecting);
+}, { threshold: 0.1 });
+navObserver.observe(heroSection);
+
+// Active nav link
+const navLinks = document.querySelectorAll('.sticky-nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sticky-nav-links a[data-section="${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ====== TAB SWITCHER ====== */
+function switchDemoTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+
+  // Trigger demo animations
+  if (tab === 'students') buildHeatmapDemo();
+  if (tab === 'analytics') buildBarDemo();
+}
+
+/* ====== HEATMAP DEMO ====== */
+function buildHeatmapDemo() {
+  const grid = document.getElementById('demoHeatmap');
+  grid.innerHTML = '';
+  const colors = ['#10b981', '#34d399', '#6ee7b7', '#fbbf24', '#f59e0b', '#fb923c', '#ef4444', '#f87171'];
+  const names = ['De', 'Ma', 'En', 'Ge', 'Ek', 'WR'];
+  const students = ['S1', 'S2', 'S3', 'S4', 'S5'];
+
+  // Header row
+  const blank = document.createElement('div');
+  blank.style.cssText = 'font-size:.6rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+  grid.appendChild(blank);
+  names.forEach(n => {
+    const h = document.createElement('div');
+    h.style.cssText = 'font-size:.6rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+    h.textContent = n;
+    grid.appendChild(h);
+  });
+
+  students.forEach(s => {
+    const label = document.createElement('div');
+    label.style.cssText = 'font-size:.6rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+    label.textContent = s;
+    grid.appendChild(label);
+    names.forEach((_, j) => {
+      const cell = document.createElement('div');
+      cell.className = 'demo-cell';
+      const score = Math.floor(Math.random() * 15) + 1;
+      const color = score >= 10 ? '#10b981' : score >= 7 ? '#34d399' : score >= 5 ? '#fbbf24' : score >= 3 ? '#fb923c' : '#ef4444';
+      cell.style.background = color;
+      cell.title = s + ' / ' + names[j] + ': ' + score + ' NP';
+      cell.style.transitionDelay = (j * 0.05 + Math.random() * 0.15) + 's';
+      cell.style.opacity = '0';
+      cell.style.transform = 'scale(0)';
+      grid.appendChild(cell);
+      setTimeout(() => {
+        cell.style.opacity = '1';
+        cell.style.transform = 'scale(1)';
+        cell.style.transition = 'opacity .4s, transform .4s';
+      }, 100 + j * 80 + Math.random() * 200);
+    });
+  });
+
+  // Grid template anpassen auf 7 columns (label + 6 faecher)
+  grid.style.gridTemplateColumns = '30px repeat(6, 1fr)';
+}
+
+/* ====== BAR CHART DEMO ====== */
+function buildBarDemo() {
+  const container = document.getElementById('demoBars');
+  container.innerHTML = '';
+  const faecher = [
+    { name: 'Deutsch', value: 11, color: '#4f46e5' },
+    { name: 'Mathe', value: 8, color: '#7c3aed' },
+    { name: 'Englisch', value: 12, color: '#06b6d4' },
+    { name: 'Geschichte', value: 9, color: '#f59e0b' },
+    { name: 'Ethik', value: 10, color: '#10b981' },
+  ];
+  faecher.forEach((f, i) => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:.6rem;';
+
+    const label = document.createElement('span');
+    label.style.cssText = 'font-size:.78rem;font-weight:600;color:var(--ink-light);width:70px;text-align:right;flex-shrink:0;';
+    label.textContent = f.name;
+
+    const barWrap = document.createElement('div');
+    barWrap.style.cssText = 'flex:1;height:20px;background:var(--border);border-radius:10px;overflow:hidden;';
+
+    const bar = document.createElement('div');
+    bar.style.cssText = `height:100%;border-radius:10px;background:${f.color};width:0%;transition:width 1s ease ${i * 0.15}s;`;
+
+    const val = document.createElement('span');
+    val.style.cssText = 'font-size:.78rem;font-weight:700;color:var(--ink);width:35px;flex-shrink:0;';
+    val.textContent = f.value + ' NP';
+
+    barWrap.appendChild(bar);
+    row.appendChild(label);
+    row.appendChild(barWrap);
+    row.appendChild(val);
+    container.appendChild(row);
+
+    setTimeout(() => {
+      bar.style.width = ((f.value / 15) * 100) + '%';
+    }, 200);
+  });
+}
+
+/* ====== ANIMATED COUNTERS ====== */
+const counterEls = document.querySelectorAll('.counter-value[data-target]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      if (target === 0) return; // 0 Euro bleibt
+      const suffix = el.dataset.suffix || '+';
+      let current = 0;
+      const step = Math.max(1, Math.floor(target / 30));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = current + suffix;
+      }, 40);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObserver.observe(el));
+
+/* ====== INIT DEMOS ====== */
+// Build first demos
+buildHeatmapDemo();
+</script>
 
 </body>
 </html>
