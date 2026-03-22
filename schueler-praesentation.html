@@ -547,6 +547,111 @@
     font-weight: 600;
   }
 
+  /* ====== PRICING ====== */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+  .pricing-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(79,70,229,.15);
+  }
+  .pricing-card.popular {
+    border-color: var(--accent);
+    box-shadow: 0 4px 24px rgba(79,70,229,.12);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: .8rem; right: -1.8rem;
+    background: var(--accent);
+    color: white;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .25rem 2.2rem;
+    transform: rotate(35deg);
+  }
+  .pricing-duration {
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: .8rem;
+  }
+  .pricing-price {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .pricing-price span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-light);
+  }
+  .pricing-per {
+    font-size: .82rem;
+    color: var(--ink-light);
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+  }
+  .pricing-save {
+    display: inline-block;
+    background: #dcfce7;
+    color: #16a34a;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: .25rem .7rem;
+    border-radius: 99px;
+    margin-bottom: 1rem;
+  }
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    flex: 1;
+  }
+  .pricing-features li {
+    font-size: .84rem;
+    color: var(--ink);
+    padding: .35rem 0;
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .pricing-features li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .pricing-trial {
+    margin-top: 1.2rem;
+    font-size: .8rem;
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+
   /* ====== EXTRAS ====== */
   .extras {
     display: grid;
@@ -672,6 +777,7 @@
       <a href="#trainings" data-section="trainings">Trainings</a>
       <a href="#faecher" data-section="faecher">Fächer</a>
       <a href="#zahlen" data-section="zahlen">Zahlen</a>
+      <a href="#preise" data-section="preise">Preise</a>
     </div>
   </div>
 </nav>
@@ -967,8 +1073,8 @@
       <div class="counter-label">Abiturfächer</div>
     </div>
     <div class="counter">
-      <div class="counter-value" data-target="0" data-suffix=" &euro;">0 &euro;</div>
-      <div class="counter-label">für Schüler &ndash; komplett kostenlos</div>
+      <div class="counter-value" data-target="7">0</div>
+      <div class="counter-label">Tage kostenlos testen</div>
     </div>
     <div class="counter">
       <div class="counter-value" data-text="G9">G9</div>
@@ -1000,6 +1106,70 @@
       <div class="extra-icon">&#128274;</div>
       <h3>Deine Daten gehören dir</h3>
       <p>Dein Konto, dein Fortschritt, deine Ergebnisse &ndash; alles sicher gespeichert und jederzeit abrufbar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREISE -->
+<section class="section" id="preise">
+  <h2 class="section-title reveal">Einfache Preise, kein Abo-Stress</h2>
+  <p class="section-subtitle reveal">Wähle den Zeitraum, der zu dir passt &ndash; mit 7 Tagen kostenlos testen</p>
+
+  <div class="pricing-grid reveal">
+    <div class="pricing-card">
+      <div class="pricing-duration">1 Monat</div>
+      <div class="pricing-price">15 <span>&euro;</span></div>
+      <div class="pricing-per">pro Monat</div>
+      <ul class="pricing-features">
+        <li>Alle Fächer &amp; Trainings</li>
+        <li>KI-Feedback &amp; Bewertung</li>
+        <li>Kolloquiumstrainer</li>
+        <li>Kompetenzprofil</li>
+      </ul>
+      <div class="pricing-trial">7 Tage kostenlos testen</div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-duration">6 Monate</div>
+      <div class="pricing-price">70 <span>&euro;</span></div>
+      <div class="pricing-per">11,67 &euro; / Monat</div>
+      <div class="pricing-save">22 % sparen</div>
+      <ul class="pricing-features">
+        <li>Alle Fächer &amp; Trainings</li>
+        <li>KI-Feedback &amp; Bewertung</li>
+        <li>Kolloquiumstrainer</li>
+        <li>Kompetenzprofil</li>
+      </ul>
+      <div class="pricing-trial">7 Tage kostenlos testen</div>
+    </div>
+
+    <div class="pricing-card popular">
+      <div class="pricing-badge">Beliebt</div>
+      <div class="pricing-duration">12 Monate</div>
+      <div class="pricing-price">120 <span>&euro;</span></div>
+      <div class="pricing-per">10 &euro; / Monat</div>
+      <div class="pricing-save">33 % sparen</div>
+      <ul class="pricing-features">
+        <li>Alle Fächer &amp; Trainings</li>
+        <li>KI-Feedback &amp; Bewertung</li>
+        <li>Kolloquiumstrainer</li>
+        <li>Kompetenzprofil</li>
+      </ul>
+      <div class="pricing-trial">7 Tage kostenlos testen</div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-duration">24 Monate</div>
+      <div class="pricing-price">180 <span>&euro;</span></div>
+      <div class="pricing-per">7,50 &euro; / Monat</div>
+      <div class="pricing-save">50 % sparen</div>
+      <ul class="pricing-features">
+        <li>Alle Fächer &amp; Trainings</li>
+        <li>KI-Feedback &amp; Bewertung</li>
+        <li>Kolloquiumstrainer</li>
+        <li>Kompetenzprofil</li>
+      </ul>
+      <div class="pricing-trial">7 Tage kostenlos testen</div>
     </div>
   </div>
 </section>
