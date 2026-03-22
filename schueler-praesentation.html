@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myAbiFlow · Für Schüler – Funktionsübersicht</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #4f46e5;
+    --accent-light: #e0e7ff;
+    --accent-glow: rgba(79,70,229,.15);
+    --ink: #1e293b;
+    --ink-light: #64748b;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== STICKY NAV ====== */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    transition: transform .35s ease;
+    padding: 0 2rem;
+  }
+  .sticky-nav.visible { transform: translateY(0); }
+  .sticky-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .sticky-nav-logo {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+  .sticky-nav-links { display: flex; gap: .3rem; }
+  .sticky-nav-links a {
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    padding: .4rem .8rem;
+    border-radius: 99px;
+    transition: background .2s, color .2s;
+  }
+  .sticky-nav-links a:hover,
+  .sticky-nav-links a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ====== SCROLL ANIMATIONS ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(.9);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+  .stagger > * { transition-delay: calc(var(--i, 0) * .1s); }
+
+  /* ====== HERO ====== */
+  .hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 40%, #7c3aed 100%);
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-bg-circle:nth-child(1) {
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,.08);
+    top: -10%; right: -5%;
+  }
+  .hero-bg-circle:nth-child(2) {
+    width: 500px; height: 500px;
+    background: rgba(99,102,241,.15);
+    bottom: -15%; left: 10%;
+    animation-delay: -3s;
+  }
+  .hero-bg-circle:nth-child(3) {
+    width: 250px; height: 250px;
+    background: rgba(167,139,250,.12);
+    top: 30%; left: -5%;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.03); }
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 750px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    padding: .45rem 1.2rem;
+    border-radius: 99px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+    animation: fadeUp .8s ease-out;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+    animation: fadeUp .8s ease-out .15s both;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    opacity: .92;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    animation: fadeUp .8s ease-out .3s both;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .8s ease-out .45s both;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: .9rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    min-height: 48px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+  .hero-cta-secondary {
+    background: rgba(255,255,255,.15);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,.3);
+  }
+  .hero-cta-secondary:hover { background: rgba(255,255,255,.25); }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    font-size: 1.5rem;
+    opacity: .7;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* ====== SECTIONS ====== */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ====== FEATURE GRID ====== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .feature-card:hover::after,
+  .feature-card.expanded::after { transform: scaleX(1); }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-light);
+  }
+  .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: .8rem;
+    transition: transform .3s;
+  }
+  .feature-card:hover .feature-icon { transform: scale(1.15); }
+  .feature-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+  }
+  .feature-card > p {
+    font-size: .9rem;
+    color: var(--ink-light);
+    line-height: 1.65;
+  }
+  .feature-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease, margin-top .3s ease;
+    margin-top: 0;
+  }
+  .feature-card.expanded .feature-details {
+    max-height: 300px;
+    margin-top: 1rem;
+  }
+  .feature-details ul {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: .8rem;
+  }
+  .feature-details ul li {
+    font-size: .88rem;
+    color: var(--ink-light);
+    padding: .3rem 0;
+    padding-left: 1.6rem;
+    position: relative;
+  }
+  .feature-details ul li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .feature-expand-hint {
+    font-size: .75rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+  .feature-card.expanded .feature-expand-hint .hint-text { display: none; }
+  .feature-card.expanded .feature-expand-hint .hint-text-close { display: inline; }
+  .feature-expand-hint .hint-text-close { display: none; }
+  .feature-expand-hint .arrow {
+    transition: transform .3s;
+    display: inline-block;
+  }
+  .feature-card.expanded .feature-expand-hint .arrow { transform: rotate(180deg); }
+
+  /* ====== STEPS ====== */
+  .steps-section {
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .step {
+    flex: 1;
+    min-width: 180px;
+    max-width: 220px;
+    text-align: center;
+  }
+  .step-number {
+    width: 64px; height: 64px;
+    background: var(--accent);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto .8rem;
+    transition: transform .3s, box-shadow .3s;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .step:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(79,70,229,.4);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+  .step p { font-size: .88rem; color: var(--ink-light); }
+  .step-connector { display: flex; align-items: center; padding-top: 1.2rem; }
+  .step-connector-line {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    position: relative;
+  }
+  .step-connector-line::after {
+    content: '';
+    position: absolute;
+    right: -4px; top: -4px;
+    width: 0; height: 0;
+    border-left: 8px solid var(--accent);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  /* ====== INTERACTIVE TABS ====== */
+  .tabs-section { background: var(--bg); }
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 99px;
+    padding: .7rem 1.5rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all .3s;
+    min-height: 44px;
+    font-family: inherit;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tab-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .tab-panel {
+    display: none;
+    animation: tabFadeIn .5s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-content h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+  .tab-content > p {
+    font-size: .95rem;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+  }
+  .tab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .tab-detail {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.4rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .tab-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .tab-detail h4 {
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .tab-detail p {
+    font-size: .84rem;
+    color: var(--ink-light);
+    line-height: 1.55;
+  }
+
+  /* ====== FÄCHER-GRID ====== */
+  .faecher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: .8rem;
+    margin-top: 1.5rem;
+  }
+  .fach-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: .8rem;
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    cursor: default;
+  }
+  .fach-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .fach-chip .fach-emoji { font-size: 1.4rem; display: block; margin-bottom: .3rem; }
+
+  /* ====== COUNTER ====== */
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .counter {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .counter:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .counter-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .counter-label {
+    font-size: .85rem;
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* ====== EXTRAS ====== */
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .extra-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .extra-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .extra-icon {
+    font-size: 2.5rem;
+    margin-bottom: .6rem;
+    transition: transform .3s;
+  }
+  .extra-card:hover .extra-icon { transform: scale(1.2) rotate(-5deg); }
+  .extra-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
+  .extra-card p { font-size: .88rem; color: var(--ink-light); line-height: 1.55; }
+
+  /* ====== CTA ====== */
+  .cta-section {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 60%; height: 200%;
+    background: rgba(255,255,255,.03);
+    transform: rotate(25deg);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: .8rem; position: relative; }
+  .cta-section p { font-size: 1.05rem; opacity: .9; max-width: 520px; margin: 0 auto 2rem; line-height: 1.65; position: relative; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+    min-height: 48px;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+
+  /* ====== SCROLL PROGRESS ====== */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    z-index: 200;
+    width: 0%;
+    transition: width .1s linear;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: .8rem;
+    color: var(--ink-light);
+  }
+
+  /* ====== PRINT ====== */
+  @media print {
+    .sticky-nav, .scroll-progress, .hero-scroll-hint { display: none; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
+    .feature-details { max-height: none; }
+    .tab-panel { display: block; margin-bottom: 2rem; }
+    .section { padding: 2rem 1.5rem; }
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .hero { min-height: auto; padding: 4rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .features { grid-template-columns: 1fr; }
+    .tab-grid { grid-template-columns: 1fr; }
+    .counters { grid-template-columns: repeat(2, 1fr); }
+    .extras { grid-template-columns: 1fr; }
+    .steps { flex-direction: column; align-items: center; }
+    .step-connector { transform: rotate(90deg); padding: 0; }
+    .sticky-nav-links a { font-size: .75rem; padding: .3rem .5rem; }
+    .faecher-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="sticky-nav-inner">
+    <span class="sticky-nav-logo">myAbiFlow</span>
+    <div class="sticky-nav-links">
+      <a href="#features" data-section="features">Features</a>
+      <a href="#schritte" data-section="schritte">So geht's</a>
+      <a href="#trainings" data-section="trainings">Trainings</a>
+      <a href="#faecher" data-section="faecher">Fächer</a>
+      <a href="#zahlen" data-section="zahlen">Zahlen</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Für Schüler</div>
+    <h1>myAbiFlow<br>Dein KI-Abiturtrainer</h1>
+    <p>Trainiere mit KI-gestützten Aufgaben für jedes Fach, simuliere mündliche Prüfungen und behalte deinen Fortschritt im Blick &ndash; kostenlos.</p>
+    <div class="hero-cta-group">
+      <a href="#features" class="hero-cta">Entdecken &#8595;</a>
+      <a href="https://myabiflow.de" class="hero-cta hero-cta-secondary" target="_blank">Jetzt loslegen &#8599;</a>
+    </div>
+  </div>
+  <a href="#features" class="hero-scroll-hint" aria-label="Nach unten scrollen">&#8595;</a>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <h2 class="section-title reveal">Was myAbiFlow für dich tut</h2>
+  <p class="section-subtitle reveal">Klicke auf eine Karte, um mehr zu erfahren</p>
+
+  <div class="features stagger">
+    <div class="feature-card reveal" style="--i:0" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128218;</div>
+      <h3>Klausurtraining mit KI</h3>
+      <p>Übe mit realistischen Klausuraufgaben &ndash; die KI erstellt sie passend zu deinem Fach, Halbjahr und Anforderungsniveau.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Grundlegendes (gA) oder erhöhtes (eA) Niveau wählbar</li>
+          <li>Halbjahre 12/1 bis 13/2 einzeln auswählbar</li>
+          <li>Bearbeitungszeit und Bewertungspunkte konfigurierbar</li>
+          <li>Handschriftliche Lösungen per Foto abgeben</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:1" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#127919;</div>
+      <h3>Sofortiges KI-Feedback</h3>
+      <p>Nach jeder Aufgabe bekommst du eine detaillierte Bewertung mit Notenpunkten, Musterlösung und Tipps zur Verbesserung.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Automatische Bewertung nach ISB-Standards</li>
+          <li>Notenpunkte-Vorschlag (0&ndash;15 NP)</li>
+          <li>Detaillierte Fehleranalyse</li>
+          <li>Musterlösung zum Vergleichen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:2" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#127908;</div>
+      <h3>Kolloquiumstrainer</h3>
+      <p>Simuliere deine mündliche Abiturprüfung &ndash; mit KI-Prüfer, Echtzeit-Dialog und Feedback wie in der echten Prüfung.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Teil 1: Kurzreferat (10 Min) + Fragen (5 Min)</li>
+          <li>Teil 2: Prüfungsgespräch (15 Min)</li>
+          <li>Verschiedene Prüfer-Stile (streng, freundlich, ...)</li>
+          <li>Feedback als PDF exportierbar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:3" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128200;</div>
+      <h3>Kompetenzprofil</h3>
+      <p>Verfolge deine Leistung über alle Fächer hinweg &ndash; mit Trends, Stärken-Analyse und persönlichen Empfehlungen.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Notenpunkte-Durchschnitt pro Fach</li>
+          <li>Tage-Streak für Lernkonsistenz</li>
+          <li>Trend-Anzeige (Verbesserung / Verschlechterung)</li>
+          <li>KI-basierte persönliche Empfehlungen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:4" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128196;</div>
+      <h3>Abitur-Vollprüfungen</h3>
+      <p>Trainiere mit kompletten Prüfungen im offiziellen Abitur-Format &ndash; mit Zeitvorgaben und realistischer Bewertung.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Echte Prüfungszeiten und -formate</li>
+          <li>Wahlaufgaben wie im Abitur</li>
+          <li>ISB-konforme Gesamtbewertung</li>
+          <li>Alle schriftlichen Prüfungsfächer verfügbar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:5" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128279;</div>
+      <h3>Lehrer-Aufgaben</h3>
+      <p>Deine Lehrkraft erstellt eine Aufgabe und gibt dir einen Code &ndash; du gibst ihn ein und los geht's.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Code eingeben auf myabiflow.de/aufgabe</li>
+          <li>Aufgabe direkt bearbeiten</li>
+          <li>KI-Feedback nach Abgabe</li>
+          <li>Ergebnis geht automatisch an die Lehrkraft</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHRITTE -->
+<section class="steps-section" id="schritte">
+  <div class="section">
+    <h2 class="section-title reveal">So funktioniert's</h2>
+    <p class="section-subtitle reveal">In vier einfachen Schritten zum Abitur-Training</p>
+    <div class="steps">
+      <div class="step reveal-left">
+        <div class="step-number">1</div>
+        <h3>Registrieren</h3>
+        <p>Erstelle dein kostenloses Konto mit Name und Passwort.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">2</div>
+        <h3>Fach wählen</h3>
+        <p>Wähle dein Fach aus über 15 Abiturfächern.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">3</div>
+        <h3>Aufgabe lösen</h3>
+        <p>Bearbeite die KI-generierte Aufgabe in deinem Tempo.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal-right">
+        <div class="step-number">4</div>
+        <h3>Feedback erhalten</h3>
+        <p>Die KI bewertet deine Lösung mit Notenpunkten und Tipps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAININGS (Interactive Tabs) -->
+<section class="tabs-section" id="trainings">
+  <div class="section">
+    <h2 class="section-title reveal">Die Trainings-Modi im Detail</h2>
+    <p class="section-subtitle reveal">Klicke auf einen Tab, um mehr zu erfahren</p>
+
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" onclick="switchDemoTab('klausur', this)">&#128221; Klausurtraining</button>
+      <button class="tab-btn" onclick="switchDemoTab('abitur', this)">&#128196; Abiturprüfung</button>
+      <button class="tab-btn" onclick="switchDemoTab('kolloquium', this)">&#127908; Kolloquium</button>
+      <button class="tab-btn" onclick="switchDemoTab('profil', this)">&#128200; Kompetenzprofil</button>
+    </div>
+
+    <!-- Tab: Klausur -->
+    <div class="tab-panel active" id="panel-klausur">
+      <div class="tab-content">
+        <h3>&#128221; Klausurtraining</h3>
+        <p>Einzelne Klausuraufgaben zum gezielten Üben. Wähle Fach, Halbjahr und Niveau &ndash; die KI generiert eine passende Aufgabe und bewertet deine Lösung.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#9889; KI-generierte Aufgaben</h4>
+            <p>Jede Aufgabe ist einzigartig und orientiert sich am LehrplanPLUS Bayern G9.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128203; Erwartungshorizont</h4>
+            <p>Nach der Abgabe siehst du die Musterlösung und eine detaillierte Fehleranalyse.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128247; Handschrift-Upload</h4>
+            <p>Schreibe deine Lösung auf Papier, fotografiere sie &ndash; die KI erkennt und bewertet den Text.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#9881; Konfigurierbar</h4>
+            <p>Bearbeitungszeit, Bewertungspunkte und gA/eA-Niveau frei einstellbar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Abitur -->
+    <div class="tab-panel" id="panel-abitur">
+      <div class="tab-content">
+        <h3>&#128196; Abitur-Vollprüfung</h3>
+        <p>Komplette Prüfungen im offiziellen Abitur-Format. Mit Wahlaufgaben, echten Zeitvorgaben und ISB-konformer Gesamtbewertung.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#128203; Offizielles Format</h4>
+            <p>Mehrere Aufgabenteile mit Wahlmöglichkeiten &ndash; genau wie im echten Abitur.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#9200; Echte Prüfungszeit</h4>
+            <p>Timer läuft mit der offiziellen Bearbeitungszeit. Perfektes Zeitmanagement üben.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#127919; Gesamtbewertung</h4>
+            <p>Automatische Gesamtpunkte nach ISB-Standards &ndash; wie in der Abiturkorrektur.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128218; Alle Fächer</h4>
+            <p>Von Deutsch und Mathe über Sprachen bis zu Naturwissenschaften und Geisteswissenschaften.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Kolloquium -->
+    <div class="tab-panel" id="panel-kolloquium">
+      <div class="tab-content">
+        <h3>&#127908; Kolloquiumstrainer</h3>
+        <p>Simuliere deine mündliche Abiturprüfung mit einem KI-Prüfer. Echtzeit-Dialog per Mikrofon und Text &ndash; mit detailliertem Feedback am Ende.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#127908; Kurzreferat (Teil 1)</h4>
+            <p>Halte ein 10-minütiges Referat zu deinem Schwerpunktthema. Die KI hört zu und stellt Nachfragen.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128172; Prüfungsgespräch (Teil 2)</h4>
+            <p>15 Minuten Dialog mit dem KI-Prüfer &ndash; Fragen aus allen Halbjahren deines Fachs.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#127917; Prüfer-Stile</h4>
+            <p>Wähle: Standard, streng, freundlich, Zeitdruck oder Detailfragen &ndash; für jede Vorbereitung.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128196; PDF-Feedback</h4>
+            <p>Ausführliches Feedback zum Download &ndash; mit Notenpunkten, Stärken und Verbesserungsvorschlägen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Profil -->
+    <div class="tab-panel" id="panel-profil">
+      <div class="tab-content">
+        <h3>&#128200; Kompetenzprofil</h3>
+        <p>Behalte deinen Lernfortschritt im Blick. Dein persönliches Dashboard zeigt dir Stärken, Schwächen und Trends über alle Fächer.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#128202; Fach-Statistiken</h4>
+            <p>Durchschnittliche Notenpunkte, Anzahl Aufgaben und Trend-Pfeile für jedes Fach.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128293; Tage-Streak</h4>
+            <p>Wie viele Tage in Folge hast du trainiert? Der Streak motiviert zum Dranbleiben.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#129302; KI-Empfehlungen</h4>
+            <p>Personalisierte Tipps basierend auf deiner Leistung &ndash; wo du dich als nächstes verbessern kannst.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128276; Erinnerungen</h4>
+            <p>Optionale Erinnerungen, wenn du ein Fach länger nicht trainiert hast. Intervall frei wählbar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FÄCHER -->
+<section class="section" id="faecher">
+  <h2 class="section-title reveal">Über 15 Abiturfächer</h2>
+  <p class="section-subtitle reveal">Alle Inhalte nach LehrplanPLUS Bayern G9</p>
+
+  <div class="faecher-grid reveal" id="faecherGrid"></div>
+</section>
+
+<!-- ZAHLEN -->
+<section class="section" id="zahlen" style="padding-top: 2rem;">
+  <h2 class="section-title reveal">myAbiFlow in Zahlen</h2>
+  <p class="section-subtitle reveal">Dein Abitur-Training in Zahlen</p>
+  <div class="counters reveal">
+    <div class="counter">
+      <div class="counter-value" data-target="15" data-suffix="+">0</div>
+      <div class="counter-label">Abiturfächer</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-target="0" data-suffix=" &euro;">0 &euro;</div>
+      <div class="counter-label">für Schüler &ndash; komplett kostenlos</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-text="G9">G9</div>
+      <div class="counter-label">Bayern &ndash; lehrplankonform</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-text="24/7">24/7</div>
+      <div class="counter-label">jederzeit trainieren</div>
+    </div>
+  </div>
+</section>
+
+<!-- WEITERE FUNKTIONEN -->
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title reveal">Weitere Features</h2>
+  <p class="section-subtitle reveal">Komfort-Funktionen für deinen Lernalltag</p>
+  <div class="extras stagger">
+    <div class="extra-card reveal" style="--i:0">
+      <div class="extra-icon">&#127769;</div>
+      <h3>Dark Mode</h3>
+      <p>Augenfreundliches dunkles Design &ndash; per Klick umschaltbar. Perfekt fürs Lernen am Abend.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:1">
+      <div class="extra-icon">&#128241;</div>
+      <h3>Tablet-optimiert</h3>
+      <p>Funktioniert auf iPad, Android-Tablet und Desktop. Responsive Design für jede Bildschirmgröße.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:2">
+      <div class="extra-icon">&#128274;</div>
+      <h3>Deine Daten gehören dir</h3>
+      <p>Dein Konto, dein Fortschritt, deine Ergebnisse &ndash; alles sicher gespeichert und jederzeit abrufbar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="kontakt">
+  <h2 class="reveal">Bereit fürs Abitur?</h2>
+  <p class="reveal">Erstelle jetzt dein kostenloses Konto und starte mit dem Training &ndash; in jedem Fach, jederzeit.</p>
+  <a href="https://myabiflow.de" class="cta-btn reveal-scale" target="_blank">Kostenlos starten &#8594;</a>
+</section>
+
+<footer>
+  &copy; 2026 myAbiFlow &middot; Digitale Abiturvorbereitung für Bayern G9
+</footer>
+
+<script>
+/* ====== SCROLL REVEAL ====== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ====== SCROLL PROGRESS ====== */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / scrollHeight) * 100 + '%';
+}, { passive: true });
+
+/* ====== STICKY NAV ====== */
+const stickyNav = document.getElementById('stickyNav');
+const heroSection = document.getElementById('hero');
+const navObserver = new IntersectionObserver(([entry]) => {
+  stickyNav.classList.toggle('visible', !entry.isIntersecting);
+}, { threshold: 0.1 });
+navObserver.observe(heroSection);
+
+// Active nav link
+const navLinks = document.querySelectorAll('.sticky-nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sticky-nav-links a[data-section="${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ====== TAB SWITCHER ====== */
+function switchDemoTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ====== FÄCHER GRID ====== */
+const faecher = [
+  { emoji: '&#128214;', name: 'Deutsch' },
+  { emoji: '&#128290;', name: 'Mathematik' },
+  { emoji: '&#127468;&#127463;', name: 'Englisch' },
+  { emoji: '&#127467;&#127479;', name: 'Französisch' },
+  { emoji: '&#127470;&#127481;', name: 'Italienisch' },
+  { emoji: '&#127466;&#127482;', name: 'Latein' },
+  { emoji: '&#128300;', name: 'Biologie' },
+  { emoji: '&#9879;', name: 'Chemie' },
+  { emoji: '&#9883;', name: 'Physik' },
+  { emoji: '&#128187;', name: 'Informatik' },
+  { emoji: '&#127758;', name: 'Geographie' },
+  { emoji: '&#128220;', name: 'Geschichte' },
+  { emoji: '&#9878;', name: 'PuG' },
+  { emoji: '&#128176;', name: 'WR' },
+  { emoji: '&#128161;', name: 'Ethik' },
+  { emoji: '&#9884;', name: 'Ev. Religion' },
+  { emoji: '&#9884;', name: 'Kath. Religion' },
+  { emoji: '&#9917;', name: 'Sport' },
+];
+
+const faecherGrid = document.getElementById('faecherGrid');
+faecher.forEach((f, i) => {
+  const chip = document.createElement('div');
+  chip.className = 'fach-chip';
+  chip.style.transitionDelay = (i * 0.04) + 's';
+  chip.innerHTML = `<span class="fach-emoji">${f.emoji}</span>${f.name}`;
+  faecherGrid.appendChild(chip);
+});
+
+/* ====== ANIMATED COUNTERS ====== */
+const counterEls = document.querySelectorAll('.counter-value[data-target]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      if (target === 0) return;
+      const suffix = el.dataset.suffix || '';
+      let current = 0;
+      const step = Math.max(1, Math.floor(target / 30));
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current + suffix;
+      }, 40);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(el => counterObserver.observe(el));
+</script>
+
+</body>
+</html>
