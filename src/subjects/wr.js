@@ -80,11 +80,18 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgabenblöcke (j
 
 AUFGABENSTRUKTUR:
 - Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
-- AFB I (Reproduktion): beschreiben, nennen, darstellen, zusammenfassen (ca. 20% der BE)
-- AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40% der BE)
-- AFB III (Reflexion/Problemlösung): beurteilen, erörtern, Stellung nehmen, entwickeln (ca. 40% der BE)
+- AFB I (ca. 20% der BE):
+  Wirtschaft: nennen/wiedergeben/zusammenfassen, beschreiben/darstellen, berechnen/ermitteln
+  Recht: nennen/aufzählen/wiedergeben/zusammenfassen, beschreiben/schildern/kennzeichnen/darstellen, ermitteln
+- AFB II (ca. 40% der BE):
+  Wirtschaft: erklären/erläutern, analysieren, auswerten, vergleichen, herausarbeiten, anwenden, erörtern
+  Recht: erklären/erläutern/aufzeigen, begründen, erörtern, analysieren von Rechtsnormen, herausarbeiten, vergleichen/abgrenzen, subsumieren, bestimmen/festhalten
+- AFB III (ca. 40% der BE):
+  Wirtschaft: beurteilen, Beschreiben und Interpretieren von Karikaturen, Stellung nehmen, selbstständiges Entwickeln, gestalten, diskutieren
+  Recht: prüfen/untersuchen, beurteilen/abwägen/diskutieren, Stellung nehmen/bewerten/würdigen, entwickeln, widerlegen, prüfen im Gutachtenstil/untersuchen im Gutachtenstil
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - Operatoren müssen korrekt und eindeutig verwendet werden
+- Verwende bei Rechts-Teilaufgaben die Rechts-Operatoren, bei Wirtschafts-Teilaufgaben die Wirtschafts-Operatoren
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Marktformen (Monopol, Oligopol, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
 ${isGA ? `- ⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH Inhalte aus dem gA-Lehrplan. Themen mit "nur eA" (z.B. Bilanzanalyse, BCG-Portfolio, Leverage-Effekt, Management/SWOT/Porter, Kapitalwertmethode, Vertragstypen/Leistungsstörungen, Moral Hazard, Spieltheorie, Gefährdungshaftung §833/§7 StVG) dürfen NICHT vorkommen. Die Aufgabe muss in Tiefe und Komplexität dem gA-Niveau entsprechen.` : ""}
@@ -975,9 +982,15 @@ Recht (WR12 LB3 + WR13 LB1): BGB-Systematik/Gutachtenstil (12.3.1), Herausgabean
 
 AUFGABENSTRUKTUR:
 - Jeder Aufgabenblock hat 2-4 Teilaufgaben mit steigendem Anforderungsniveau
-- AFB I (Reproduktion): beschreiben, nennen, darstellen (ca. 20%)
-- AFB II (Reorganisation/Transfer): erläutern, analysieren, vergleichen, berechnen (ca. 40%)
-- AFB III (Reflexion): beurteilen, erörtern, Stellung nehmen (ca. 40%)
+- AFB I (ca. 20%):
+  Wirtschaft: nennen/wiedergeben/zusammenfassen, beschreiben/darstellen, berechnen/ermitteln
+  Recht: nennen/aufzählen/wiedergeben/zusammenfassen, beschreiben/schildern/kennzeichnen/darstellen, ermitteln
+- AFB II (ca. 40%):
+  Wirtschaft: erklären/erläutern, analysieren, auswerten, vergleichen, herausarbeiten, anwenden, erörtern
+  Recht: erklären/erläutern/aufzeigen, begründen, erörtern, analysieren von Rechtsnormen, herausarbeiten, vergleichen/abgrenzen, subsumieren, bestimmen/festhalten
+- AFB III (ca. 40%):
+  Wirtschaft: beurteilen, Beschreiben und Interpretieren von Karikaturen, Stellung nehmen, selbstständiges Entwickeln, gestalten, diskutieren
+  Recht: prüfen/untersuchen, beurteilen/abwägen/diskutieren, Stellung nehmen/bewerten/würdigen, entwickeln, widerlegen, prüfen im Gutachtenstil/untersuchen im Gutachtenstil
 - Jede Teilaufgabe hat eine konkrete BE-Angabe
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Erläutern Sie die Marktformen (Monopol, Oligopol, ...)"). Die Schüler sollen selbst herausfinden, welche Aspekte relevant sind.
 - LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Inhalten, die in den oben angegebenen Lehrplan-Inhalten stehen. Gehe NICHT über den Lehrplan hinaus. Beachte insbesondere die eA/gA-Differenzierung.
