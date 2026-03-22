@@ -1,0 +1,15 @@
+{
+  "name": "myabiflow-e2e",
+  "private": true,
+  "scripts": {
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test tests/smoke/",
+    "test:api": "npx playwright test tests/api/",
+    "test:workflow": "npx playwright test tests/workflow/",
+    "test:tablet": "npx playwright test tests/tablet/",
+    "test:report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  }
+}

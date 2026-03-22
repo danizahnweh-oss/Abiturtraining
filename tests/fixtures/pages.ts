@@ -1,0 +1,63 @@
+/** Alle statischen HTML-Seiten im Root */
+export const ROOT_PAGES = [
+  "/",
+  "/eroerterung.html",
+  "/materialgestuetzt-argumentierend.html",
+  "/materialgestuetzt-informierend.html",
+  "/writing.html",
+  "/mediation.html",
+  "/listening.html",
+  "/francais-schreiben.html",
+  "/francais-mediation.html",
+  "/italiano-schreiben.html",
+  "/italiano-mediation.html",
+  "/mathe.html",
+  "/physik.html",
+  "/chemie.html",
+  "/biologie.html",
+  "/informatik.html",
+  "/geschichte.html",
+  "/geographie.html",
+  "/politik.html",
+  "/ethik.html",
+  "/religion.html",
+  "/katholisch.html",
+  "/latein.html",
+  "/sport.html",
+  "/wr.html",
+  "/mathe-abitur.html",
+  "/physik-abitur.html",
+  "/chemie-abitur.html",
+  "/biologie-abitur.html",
+  "/informatik-abitur.html",
+  "/geschichte-abitur.html",
+  "/geographie-abitur.html",
+  "/ethik-abitur.html",
+  "/religion-abitur.html",
+  "/katholisch-abitur.html",
+  "/latein-abitur.html",
+  "/sport-abitur.html",
+  "/wr-abitur.html",
+  "/pug-abitur.html",
+  "/abo.html",
+  "/profil.html",
+  "/barrierefreiheit.html",
+  "/404.html",
+];
+
+/** Wichtigste Seiten für Tablet-Tests */
+export const TABLET_TEST_PAGES = [
+  "/",
+  "/eroerterung.html",
+  "/mathe.html",
+  "/writing.html",
+  "/abo.html",
+  "/profil.html",
+];
+
+/** Statische Assets die immer erreichbar sein müssen */
+export const CRITICAL_ASSETS = [
+  "/shared.js",
+  "/shared-v4.css",
+  "/sw.js",
+];
