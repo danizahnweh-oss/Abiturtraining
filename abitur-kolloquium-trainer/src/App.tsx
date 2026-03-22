@@ -1301,10 +1301,10 @@ export default function App() {
                       </div>
                     ) : status === 'error' ? (
                       <p className="text-sm text-red-500 italic">Verbindungsfehler. Bitte Prüfung beenden und neu starten.</p>
-                    ) : modelTx.length > 0 ? (
-                      <div>
-                        <p className="text-xs font-semibold uppercase tracking-widest opacity-30 mb-2">{prüferLabel}</p>
-                        <p className="text-base leading-relaxed text-slate-800">{modelTx[modelTx.length - 1]}</p>
+                    ) : status === 'connected' ? (
+                      <div className="text-center">
+                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse mx-auto mb-3" />
+                        <p className="text-sm opacity-50">{examinerGender === 'female' ? 'Die' : 'Der'} {prüferLabel} hört zu.</p>
                       </div>
                     ) : (
                       <div className="text-center">
