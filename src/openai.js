@@ -12,7 +12,9 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
     };
     if (jsonMode) reqBody.response_format = { type: "json_object" };
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 95000); // 95s Timeout (Worker-Limit = 100s)
+    // Timeout: bei großen Anfragen (>10k tokens) auf 180s, sonst 95s
+    const timeoutMs = maxTokens > 10000 ? 180000 : 95000;
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       signal: controller.signal,

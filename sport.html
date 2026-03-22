@@ -59,7 +59,11 @@
       border-radius: var(--radius-sm);
       padding: 1.2rem;
       text-align: center;
-      cursor: pointer
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      min-height: 44px;
+      touch-action: manipulation
     }
 
     .hj-card:hover,
@@ -396,6 +400,11 @@
             style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
             <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
           </div>
+        </details>
+
+        <details style="margin-bottom:1rem" id="writeMaterialDetails">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CA; Material</summary>
+          <div style="margin-top:.5rem" id="writeMaterialRef"></div>
         </details>
 
         <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">
@@ -785,6 +794,18 @@
         writeRef.innerHTML += container.innerHTML;
       }
 
+      // Material im Write-Schritt anzeigen
+      var writeMat = document.getElementById("writeMaterialRef");
+      var writeMatDetails = document.getElementById("writeMaterialDetails");
+      writeMat.innerHTML = "";
+      if (d.material && d.material.length && matContainer) {
+        writeMat.innerHTML = matContainer.innerHTML;
+        writeMatDetails.style.display = "";
+        renderMath(writeMat);
+      } else {
+        writeMatDetails.style.display = "none";
+      }
+
       // Render per-Teilaufgabe textareas
       renderStudentTextareas(d);
     }
@@ -836,6 +857,8 @@
       document.getElementById("taskInstruction").innerHTML = "";
       document.getElementById("teilaufgabenContainer").innerHTML = "";
       document.getElementById("writeTaskRef").innerHTML = "";
+      document.getElementById("writeMaterialRef").innerHTML = "";
+      document.getElementById("writeMaterialDetails").style.display = "none";
       document.getElementById("studentTextareas").innerHTML = "";
       document.querySelectorAll("#sec-task .dynamic-material").forEach(function (el) { el.remove(); });
 

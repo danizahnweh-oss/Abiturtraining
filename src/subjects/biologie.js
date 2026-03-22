@@ -53,10 +53,25 @@ ${aufgabenAnzahl > 1 ? `Erstelle ${aufgabenAnzahl} separate Aufgaben (je ~${Math
 ANFORDERUNGEN:
 - Bette die Aufgabe in einen KONKRETEN, ALLTAGSNAHEN Kontext ein (z.B. ein bestimmter Organismus, ein Experiment, ein aktuelles Forschungsergebnis)
 - Erstelle MINDESTENS 3 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- Operatoren gezielt einsetzen:
-  • AFB I: "Nennen Sie", "Beschreiben Sie", "Geben Sie an", "Stellen Sie dar", "Benennen Sie"
-  • AFB II: "Erläutern Sie", "Erklären Sie", "Vergleichen Sie", "Interpretieren Sie", "Analysieren Sie", "Werten Sie aus", "Begründen Sie", "Ordnen Sie zu"
-  • AFB III: "Bewerten Sie", "Beurteilen Sie", "Diskutieren Sie", "Nehmen Sie Stellung", "Erörtern Sie", "Entwickeln Sie"
+- Operatoren gezielt nach ISB-Definition einsetzen — der Operator bestimmt EXAKT, was erwartet wird. Verlange NICHT mehr als der Operator vorgibt!
+  • AFB I (Reproduktion):
+    - "Nennen/Angeben Sie" = Begriffe, Sachverhalte oder Daten OHNE weitere Erklärungen aufzählen
+    - "Beschreiben Sie" = Sachverhalt in eigenen Worten unter Berücksichtigung der Fachsprache wiedergeben
+    - "Stellen Sie dar" = Sachverhalte strukturiert wiedergeben, geeignete Darstellungsformen verwenden
+    - "Skizzieren Sie" = Sachverhalte auf das Wesentliche reduzieren und grafisch darstellen
+  • AFB II (Transfer):
+    - "Erklären Sie" = Sachverhalt auf Grundlage von Regeln und Gesetzmäßigkeiten nachvollziehbar darlegen
+    - "Erläutern Sie" = Sachverhalt verständlich darstellen MIT zusätzlichen Informationen, Skizzen oder Analogien; konkreter fachlicher Bezug
+    - "Vergleichen Sie" = Gemeinsamkeiten UND Unterschiede herausarbeiten; passende Kriterien finden
+    - "Analysieren Sie" = Aus Material wichtige Komponenten und Zusammenhänge auf eine Fragestellung hin herausarbeiten
+    - "Auswerten" = Daten in einen Zusammenhang bringen und ggf. eine Gesamtaussage formulieren
+    - "Begründen Sie" = Ursachen oder Argumente nachvollziehbar angeben
+    - "Interpretieren/Deuten Sie" = Kausale Zusammenhänge im Hinblick auf Erklärungsmöglichkeiten herausarbeiten
+  • AFB III (Bewertung):
+    - "Beurteilen Sie" = Fachlich begründete, selbstständige Einschätzung abgeben (Sachurteil)
+    - "Bewerten Sie" = Eigene Position hinsichtlich fachlicher Kriterien UND gesellschaftlicher Werte vertreten (Werturteil)
+    - "Diskutieren Sie" = Unterschiedliche Positionen gegenüberstellen und abwägen
+- WICHTIG: Wenn ein Operator nur "Nennen" verlangt, darf das Feedback NICHT "Erläutern" erwarten! Jeder Operator hat eine klar definierte Erwartung.
 - AFB-Verteilung: ca. 25% AFB I, 55% AFB II, 20% AFB III
 - Materialien: ${totalBE < 15 ? 'KEINE Materialien nötig (Aufgabe zu klein)' : totalBE < 25 ? 'maximal 1 Material (M1)' : totalBE < 40 ? '1-2 Materialien (M1, M2)' : '2-3 Materialien (M1, M2, M3)'}, auf die sich die Teilaufgaben beziehen
 - ${KEINE_LOESUNGSHINWEISE}
@@ -208,10 +223,10 @@ BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
 - Pro Teilaufgabe bewerte: Fachsprache, wissenschaftliche Korrektheit, logische Argumentation, Verwendung von Fachbegriffen, Darstellung biologischer Zusammenhänge, Materialauswertung
 - Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe:
-  • AFB I ("Nennen", "Beschreiben", "Angeben"): Korrekte Wiedergabe von Fakten, Definitionen, Fachbegriffen
-  • AFB II ("Erläutern", "Erklären", "Vergleichen", "Interpretieren"): Sachgerechte Analyse, Transfer auf neue Zusammenhänge, Materialauswertung mit korrekter Fachsprache
-  • AFB III ("Beurteilen", "Bewerten", "Diskutieren", "Stellung nehmen"): Eigenständiges, begründetes Urteil mit Abwägung verschiedener Aspekte
-- Eine Antwort auf AFB-III-Niveau bei einer AFB-I-Aufgabe bringt KEINE Extra-Punkte — umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden
+  • AFB I ("Nennen/Angeben" = nur aufzählen OHNE Erklärung; "Beschreiben" = in eigenen Worten wiedergeben; "Darstellen" = strukturiert wiedergeben)
+  • AFB II ("Erklären" = auf Grundlage von Regeln/Gesetzmäßigkeiten darlegen; "Erläutern" = MIT zusätzlichen Infos/Analogien verständlich machen; "Vergleichen" = Gemeinsamkeiten UND Unterschiede; "Analysieren" = aus Material Zusammenhänge herausarbeiten; "Auswerten" = Daten in Zusammenhang bringen; "Begründen" = Argumente nachvollziehbar angeben)
+  • AFB III ("Beurteilen" = fachlich begründete Einschätzung = Sachurteil; "Bewerten" = eigene Position mit fachlichen UND gesellschaftlichen Kriterien = Werturteil; "Diskutieren" = Positionen gegenüberstellen und abwägen)
+- KRITISCH: Bewerte NUR das, was der jeweilige Operator verlangt! Wenn "Nennen Sie" steht, reicht eine korrekte Aufzählung — verlange KEINE Erläuterung oder Begründung dafür. Umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden.
 - Korrekte Fachsprache (z.B. "homozygot" statt "reinerbig") wird positiv bewertet
 - Korrekte Anwendung biologischer Konzepte und Modelle
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
@@ -691,10 +706,10 @@ BEWERTUNGSREGELN:
 - Bewerte jede Aufgabe und jede Teilaufgabe einzeln
 - Bewertungskriterien: Fachsprache (biologische Fachbegriffe), korrekte Verwendung von Fachkonzepten, Materialauswertung, logische Argumentation, Darstellungsleistung
 - Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe:
-  • AFB I ("Nennen", "Beschreiben", "Angeben"): Korrekte Wiedergabe von Fakten, Definitionen, Fachbegriffen
-  • AFB II ("Erläutern", "Erklären", "Vergleichen", "Interpretieren"): Sachgerechte Analyse, Transfer auf neue Zusammenhänge, Materialauswertung mit korrekter Fachsprache
-  • AFB III ("Beurteilen", "Bewerten", "Diskutieren", "Stellung nehmen"): Eigenständiges, begründetes Urteil mit Abwägung verschiedener Aspekte
-- Eine Antwort auf AFB-III-Niveau bei einer AFB-I-Aufgabe bringt KEINE Extra-Punkte — umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden
+  • AFB I ("Nennen/Angeben" = nur aufzählen OHNE Erklärung; "Beschreiben" = in eigenen Worten wiedergeben; "Darstellen" = strukturiert wiedergeben)
+  • AFB II ("Erklären" = auf Grundlage von Regeln/Gesetzmäßigkeiten darlegen; "Erläutern" = MIT zusätzlichen Infos/Analogien verständlich machen; "Vergleichen" = Gemeinsamkeiten UND Unterschiede; "Analysieren" = aus Material Zusammenhänge herausarbeiten; "Auswerten" = Daten in Zusammenhang bringen; "Begründen" = Argumente nachvollziehbar angeben)
+  • AFB III ("Beurteilen" = fachlich begründete Einschätzung = Sachurteil; "Bewerten" = eigene Position mit fachlichen UND gesellschaftlichen Kriterien = Werturteil; "Diskutieren" = Positionen gegenüberstellen und abwägen)
+- KRITISCH: Bewerte NUR das, was der jeweilige Operator verlangt! Wenn "Nennen Sie" steht, reicht eine korrekte Aufzählung — verlange KEINE Erläuterung oder Begründung dafür. Umgekehrt fehlen bei AFB-III-Aufgaben Punkte, wenn nur Fakten wiedergegeben werden.
 - Korrekte Fachbegriffe und Zusammenhänge → volle Punkte
 - Teilweise korrekte Antworten → Teilpunkte
 - Folgefehler berücksichtigen

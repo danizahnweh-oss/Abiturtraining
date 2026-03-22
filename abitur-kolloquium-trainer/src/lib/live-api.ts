@@ -65,26 +65,81 @@ const PRUEFER_PRESETS: Record<PrueferTyp, string> = {
 };
 
 // Fächerspezifische Operatoren nach ISB Bayern, gruppiert nach Anforderungsbereichen
+// MIT ISB-Definitionen, damit die KI den Erwartungshorizont korrekt einschätzt
 const OPERATOREN: Record<string, { AB_I: string[]; AB_II: string[]; AB_III: string[] }> = {
   MINT: {
-    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Geben Sie an', 'Definieren Sie'],
-    AB_II: ['Erklären Sie', 'Vergleichen Sie', 'Erläutern Sie', 'Wenden Sie an'],
-    AB_III: ['Bewerten Sie', 'Beurteilen Sie', 'Entwickeln Sie', 'Überprüfen Sie'],
+    AB_I: [
+      'Nennen/Angeben Sie (= aufzählen OHNE Erklärung)',
+      'Beschreiben Sie (= in eigenen Worten unter Berücksichtigung der Fachsprache wiedergeben)',
+      'Skizzieren Sie (= auf das Wesentliche reduziert grafisch darstellen)',
+      'Berechnen Sie (= Wert mithilfe einer Rechnung finden)',
+    ],
+    AB_II: [
+      'Erklären Sie (= auf Grundlage von Regeln/Gesetzmäßigkeiten nachvollziehbar darlegen)',
+      'Erläutern Sie (= MIT zusätzlichen Informationen/Analogien verständlich machen)',
+      'Vergleichen Sie (= Gemeinsamkeiten UND Unterschiede herausarbeiten)',
+      'Analysieren Sie (= aus Material Zusammenhänge auf eine Fragestellung hin herausarbeiten)',
+      'Begründen Sie (= Ursachen oder Argumente nachvollziehbar angeben)',
+    ],
+    AB_III: [
+      'Beurteilen Sie (= fachlich begründete Einschätzung = Sachurteil)',
+      'Bewerten Sie (= eigene Position mit fachlichen UND gesellschaftlichen Kriterien = Werturteil)',
+      'Diskutieren Sie (= Positionen gegenüberstellen und abwägen)',
+    ],
   },
   SPRACHEN: {
-    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Fassen Sie zusammen', 'Geben Sie wieder'],
-    AB_II: ['Analysieren Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Ordnen Sie ein', 'Charakterisieren Sie'],
-    AB_III: ['Beurteilen Sie', 'Erörtern Sie', 'Bewerten Sie', 'Nehmen Sie Stellung'],
+    AB_I: [
+      'Nennen Sie (= aufzählen OHNE Erklärung)',
+      'Beschreiben Sie (= in eigenen Worten wiedergeben)',
+      'Zusammenfassen (= Kernaussagen komprimiert wiedergeben)',
+    ],
+    AB_II: [
+      'Analysieren Sie (= Zusammenhänge herausarbeiten)',
+      'Erläutern Sie (= MIT Zusatzinfos verständlich machen)',
+      'Vergleichen Sie (= Gemeinsamkeiten UND Unterschiede)',
+      'Charakterisieren Sie (= wesentliche Merkmale herausarbeiten)',
+    ],
+    AB_III: [
+      'Beurteilen Sie (= Sachurteil)',
+      'Erörtern Sie (= Pro/Contra abwägen)',
+      'Bewerten Sie (= Werturteil)',
+      'Nehmen Sie Stellung (= begründete eigene Position)',
+    ],
   },
   GESELLSCHAFT: {
-    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Skizzieren Sie', 'Lokalisieren Sie'],
-    AB_II: ['Erklären Sie', 'Analysieren Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Ordnen Sie ein'],
-    AB_III: ['Erörtern Sie', 'Beurteilen Sie', 'Bewerten Sie', 'Nehmen Sie Stellung', 'Diskutieren Sie'],
+    AB_I: [
+      'Nennen Sie (= aufzählen OHNE Erklärung)',
+      'Beschreiben Sie (= in eigenen Worten wiedergeben)',
+      'Skizzieren Sie (= auf das Wesentliche reduziert darstellen)',
+    ],
+    AB_II: [
+      'Erklären Sie (= auf Grundlage von Regeln darlegen)',
+      'Analysieren Sie (= Zusammenhänge herausarbeiten)',
+      'Erläutern Sie (= MIT Zusatzinfos verständlich machen)',
+      'Vergleichen Sie (= Gemeinsamkeiten UND Unterschiede)',
+    ],
+    AB_III: [
+      'Erörtern Sie (= Pro/Contra abwägen)',
+      'Beurteilen Sie (= Sachurteil)',
+      'Bewerten Sie (= Werturteil)',
+      'Diskutieren Sie (= Positionen gegenüberstellen)',
+    ],
   },
   SPORT: {
-    AB_I: ['Nennen Sie', 'Beschreiben Sie', 'Geben Sie an'],
-    AB_II: ['Erklären Sie', 'Erläutern Sie', 'Vergleichen Sie', 'Analysieren Sie'],
-    AB_III: ['Beurteilen Sie', 'Bewerten Sie', 'Entwickeln Sie', 'Diskutieren Sie'],
+    AB_I: [
+      'Nennen Sie (= aufzählen OHNE Erklärung)',
+      'Beschreiben Sie (= in eigenen Worten wiedergeben)',
+    ],
+    AB_II: [
+      'Erklären Sie (= auf Grundlage von Regeln darlegen)',
+      'Erläutern Sie (= MIT Zusatzinfos verständlich machen)',
+      'Vergleichen Sie (= Gemeinsamkeiten UND Unterschiede)',
+    ],
+    AB_III: [
+      'Beurteilen Sie (= Sachurteil)',
+      'Bewerten Sie (= Werturteil)',
+      'Diskutieren Sie (= Positionen abwägen)',
+    ],
   },
 };
 
@@ -267,11 +322,11 @@ Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
     console.error('[Material-Gen] Fallback Fehler:', err);
   }
 
-  // Absoluter Fallback mit fachspezifischem Impuls
+  // Absoluter Fallback — konkreter als "Material wie im Unterricht"
   return {
-    aufgabenstellung: `Erläutern Sie den Schwerpunkt "${config.schwerpunkt}" im Kontext des Halbjahres ${config.schwerpunktHalbjahr}. Gehen Sie dabei auf zentrale Begriffe, Zusammenhänge und aktuelle Bezüge ein. Nehmen Sie abschließend kritisch Stellung.`,
-    material: `Material 1 – Fachlicher Impuls:\nSetzen Sie sich mit dem Themenbereich "${config.schwerpunkt}" auseinander. Berücksichtigen Sie dabei die im Unterricht behandelten Fachtexte, Modelle und Theorien.\n\nMaterial 2 – Transferaufgabe:\nReflektieren Sie, inwiefern die zentralen Konzepte aus "${config.schwerpunkt}" auf aktuelle gesellschaftliche oder wissenschaftliche Fragestellungen übertragen werden können. Beziehen Sie eigene Beispiele ein.`,
-    hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Beziehen Sie die Materialien in Ihren Vortrag ein. Planen Sie ca. 10 Minuten für den Vortrag.',
+    aufgabenstellung: `Stellen Sie die wesentlichen Aspekte des Themas "${config.schwerpunkt}" (${config.schwerpunktHalbjahr}) strukturiert dar. Erläutern Sie zentrale Fachbegriffe und Zusammenhänge. Beurteilen Sie abschließend die Bedeutung dieses Themenbereichs.`,
+    material: `Material 1 – Leitfragen zur Strukturierung:\n• Welche zentralen Fachbegriffe und Konzepte gehören zum Thema "${config.schwerpunkt}"?\n• Welche Zusammenhänge und Wechselwirkungen lassen sich erkennen?\n• Welche konkreten Beispiele oder Anwendungen gibt es?\n• Welche kontroversen Positionen oder offenen Fragen bestehen?\n\nMaterial 2 – Anforderungen an den Vortrag:\nIhr Kurzreferat soll die drei Anforderungsbereiche abdecken:\n(I) Grundwissen: Definieren und beschreiben Sie die wichtigsten Begriffe.\n(II) Anwendung: Erklären Sie Zusammenhänge und wenden Sie Ihr Wissen auf ein konkretes Beispiel an.\n(III) Bewertung: Nehmen Sie begründet Stellung zu einer aktuellen Fragestellung im Kontext des Themas.`,
+    hinweise: 'Strukturieren Sie Ihr Referat klar in Einleitung, Hauptteil und Schluss. Planen Sie ca. 10 Minuten für den Vortrag. Verwenden Sie durchgehend die korrekte Fachsprache.',
   };
 }
 
@@ -629,7 +684,15 @@ KRITISCHE REGEL FÜR DAS KURZREFERAT:
 Danach beende die Prüfung mit einer kurzen Verabschiedung.`;
     } else if (mode === 'fragen') {
       instruction += `
-ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.`;
+ABLAUF: Begrüße den Prüfling. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min). Dann wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III). Beende die Prüfung.
+
+INTERAKTIONSREGELN FÜR DIE FRAGEPHASE:
+- Du bist der GESPRÄCHSFÜHRER. Warte NICHT darauf, dass der Prüfling von sich aus etwas sagt — stelle aktiv Fragen.
+- Wenn der Prüfling auf eine Frage antwortet: Stelle eine ANSCHLUSSFRAGE oder gehe zum nächsten Thema.
+- Wenn der Prüfling schweigt oder zögert (>5 Sekunden): Formuliere die Frage um oder gib einen kleinen Hinweis als Hilfestellung.
+- Wenn der Prüfling dich ignoriert oder nicht reagiert: Wiederhole die Frage freundlich aber bestimmt, z.B. "Können Sie dazu noch etwas sagen?" oder "Versuchen Sie es einmal."
+- Halte den Gesprächsfluss aufrecht — es darf KEINE langen Pausen geben. Du führst das Gespräch.
+- Reagiere auf JEDE Antwort: kurzes Feedback ("Gut", "Richtig", "Da möchte ich nachfragen...") und dann die nächste Frage.`;
     } else {
       instruction += `
 ABLAUF:
@@ -637,7 +700,13 @@ ABLAUF:
    KRITISCHE REGEL: Während des Kurzreferats ABSOLUTE STILLE. KEIN EINZIGES WORT. KEINE Reaktion. Auch bei Pausen SCHWEIGEN. Erst wieder sprechen, wenn der Prüfling EXPLIZIT sagt, dass er fertig ist (z.B. "Damit bin ich am Ende", "Vielen Dank"). Nach 10–12 Min ohne Abschluss darfst du freundlich bitten, zum Ende zu kommen.
 2. Stelle 2–3 vertiefende Fragen zum Schwerpunkt (${hj}, AB II/III, ~5 Min).
 3. Wechsle zu ${weitere} mit 3–4 Fragen pro HJ (~15 Min, AB I→II→III).
-4. Beende die Prüfung.`;
+4. Beende die Prüfung.
+
+INTERAKTIONSREGELN FÜR DIE FRAGEPHASE (Punkte 2-4):
+- Du bist der GESPRÄCHSFÜHRER. Stelle aktiv Fragen, warte NICHT auf Initiative des Prüflings.
+- Wenn der Prüfling schweigt oder zögert: Formuliere die Frage um oder gib einen Hinweis.
+- Wenn der Prüfling dich ignoriert: Wiederhole die Frage freundlich aber bestimmt.
+- Reagiere auf JEDE Antwort: kurzes Feedback und dann die nächste Frage. Halte den Gesprächsfluss aufrecht.`;
     }
   }
 

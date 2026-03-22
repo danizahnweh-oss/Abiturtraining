@@ -76,10 +76,26 @@ IQB-REFERENZFORMAT (orientiere dich an den IQB-Beispielaufgaben wie Taschenofen,
   • Beurteilungen/Diskussionen (z.B. Umweltaspekte, Nachhaltigkeit)
 - Materialien M1-M7: Texte, Tabellen mit Messdaten, Diagramme (Temperatur-Zeit, Energie), Schemata, Sicherheitshinweise
 - AFB-Verteilung: ca. 30% AFB I, 50% AFB II, 20% AFB III
-- Operatoren gezielt einsetzen:
-  • AFB I: "Berechnen Sie", "Formulieren Sie", "Beschreiben Sie", "Skizzieren Sie" (4-6 BE)
-  • AFB II: "Erläutern Sie", "Zeigen Sie", "Erstellen Sie ein Fließschema" (6-13 BE)
-  • AFB III: "Beurteilen Sie", "Diskutieren Sie", "Vergleichen Sie kritisch" (4-6 BE)
+- Operatoren gezielt nach ISB-Definition einsetzen — der Operator bestimmt EXAKT, was erwartet wird. Verlange NICHT mehr als der Operator vorgibt!
+  • AFB I (Reproduktion):
+    - "Nennen/Angeben Sie" = Begriffe, Sachverhalte oder Daten OHNE weitere Erklärungen aufzählen
+    - "Beschreiben Sie" = Sachverhalt in eigenen Worten unter Berücksichtigung der Fachsprache wiedergeben
+    - "Skizzieren Sie" = Sachverhalte auf das Wesentliche reduzieren und grafisch darstellen
+    - "Aufstellen/Formulieren Sie" = Chemische Formeln, Gleichungen, Reaktionsgleichungen darstellen
+    - "Berechnen Sie" = Den Wert einer Größe mithilfe einer Rechnung finden
+  • AFB II (Transfer):
+    - "Erklären Sie" = Sachverhalt auf Grundlage von Regeln und Gesetzmäßigkeiten nachvollziehbar darlegen
+    - "Erläutern Sie" = Sachverhalt verständlich darstellen MIT zusätzlichen Informationen, Skizzen oder Analogien; konkreter fachlicher Bezug
+    - "Vergleichen Sie" = Gemeinsamkeiten UND Unterschiede herausarbeiten; passende Kriterien finden
+    - "Analysieren Sie" = Aus Material wichtige Komponenten und Zusammenhänge auf eine Fragestellung hin herausarbeiten
+    - "Auswerten" = Daten in einen Zusammenhang bringen und ggf. Gesamtaussage formulieren
+    - "Begründen Sie" = Ursachen oder Argumente nachvollziehbar angeben
+    - "Herleiten" = Auf Grundlage bekannter Gesetzmäßigkeiten Zusammenhang zwischen Größen herstellen
+  • AFB III (Bewertung):
+    - "Beurteilen Sie" = Fachlich begründete, selbstständige Einschätzung abgeben (Sachurteil)
+    - "Bewerten Sie" = Eigene Position hinsichtlich fachlicher Kriterien UND gesellschaftlicher Werte vertreten (Werturteil)
+    - "Diskutieren Sie" = Unterschiedliche Positionen gegenüberstellen und abwägen
+  WICHTIG: Wenn ein Operator nur "Nennen" verlangt, darf NICHT "Erläutern" erwartet werden!
 - Kompetenzbereiche abdecken: Sachkompetenz (S), Erkenntnisgewinnung (E), Kommunikation (K), Bewertung (B)
 
 SACHGEBIET: ${sgInfo.title}
@@ -219,6 +235,11 @@ export async function handleGradeChemie(request, env) {
 BEWERTUNGSREGELN:
 - Bewerte JEDE Teilaufgabe einzeln mit BE (0 bis max BE der Teilaufgabe)
 - Pro Teilaufgabe bewerte: Fachsprache, Reaktionsgleichungen, Mechanismen, quantitative Berechnungen, korrekte chemische Nomenklatur
+- Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe nach ISB-Definition:
+  • AFB I ("Nennen/Angeben" = nur aufzählen; "Beschreiben" = wiedergeben; "Berechnen" = Rechnung; "Formulieren" = Gleichung aufstellen)
+  • AFB II ("Erklären" = auf Regeln/Gesetze gestützt darlegen; "Erläutern" = MIT Zusatzinfos/Analogien; "Vergleichen" = Gemeinsamkeiten+Unterschiede; "Begründen" = Argumente angeben)
+  • AFB III ("Beurteilen" = Sachurteil; "Bewerten" = Werturteil mit gesellschaftlichen Kriterien; "Diskutieren" = Positionen abwägen)
+- KRITISCH: Bewerte NUR das, was der jeweilige Operator verlangt! "Nennen" = Aufzählung reicht, verlange KEINE Erläuterung!
 - Ansatz korrekt aber Rechenfehler → trotzdem Teilpunkte für Ansatz
 - Folgefehler: Wenn ein falsches Zwischenergebnis korrekt weiterverwendet wird, Punkte für den korrekten Lösungsweg
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie (z.B. H2O, NaOH + HCl -> NaCl + H2O) und LaTeX-Notation ($\\ce{H2O}$, $\\frac{1}{2}$). Interpretiere beides großzügig.
@@ -629,6 +650,11 @@ Der Schüler hat 3 von 4 Aufgabengruppen gewählt. Gesamt: ${maxBE} BE.
 BEWERTUNGSREGELN:
 - Bewerte jede Aufgabe und jede Teilaufgabe einzeln
 - Bewertungskriterien: Fachsprache, Reaktionsgleichungen, Mechanismen, quantitative Berechnungen, korrekte chemische Nomenklatur
+- Berücksichtige die Operatoren-Anforderung (AFB I/II/III) jeder Teilaufgabe nach ISB-Definition:
+  • AFB I ("Nennen/Angeben" = nur aufzählen; "Beschreiben" = wiedergeben; "Berechnen" = Rechnung; "Formulieren" = Gleichung aufstellen)
+  • AFB II ("Erklären" = auf Regeln/Gesetze gestützt darlegen; "Erläutern" = MIT Zusatzinfos/Analogien; "Vergleichen" = Gemeinsamkeiten+Unterschiede; "Begründen" = Argumente angeben)
+  • AFB III ("Beurteilen" = Sachurteil; "Bewerten" = Werturteil mit gesellschaftlichen Kriterien; "Diskutieren" = Positionen abwägen)
+- KRITISCH: Bewerte NUR das, was der jeweilige Operator verlangt!
 - Ansatz korrekt aber Rechenfehler → Teilpunkte
 - Folgefehler berücksichtigen
 - Der Schüler schreibt in einer Mischung aus Plain-Text-Chemie und LaTeX-Notation. Interpretiere beides großzügig.

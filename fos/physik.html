@@ -238,6 +238,10 @@
             <div class="task-box" id="writeTaskRef" style="margin:0;font-size:.9rem"></div>
           </div>
         </details>
+        <details style="margin-bottom:1rem" id="writeMaterialDetails">
+          <summary style="cursor:pointer;font-weight:600;color:var(--accent)">&#x1F4CA; Material</summary>
+          <div style="margin-top:.5rem" id="writeMaterialRef"></div>
+        </details>
         <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem">Tippe deine L&ouml;sung in Plain-Text-Mathe: z.B. <code>F = m * a</code>, <code>E = 1/2 * m * v^2</code>, <code>U = R * I</code></p>
         <div id="studentTextareas"></div>
         <div class="write-toolbar">
@@ -568,7 +572,19 @@
       if (d.grafik && d.grafik.commands && d.grafik.commands.length) { var ggbTarget = document.createElement("div"); container.parentNode.insertBefore(ggbTarget, container); createGeoGebraToggle(ggbTarget, d.grafik, "task"); }
       var writeRef = document.getElementById("writeTaskRef"); writeRef.innerHTML = instrEl.innerHTML;
       if (d.teilaufgaben && d.teilaufgaben.length) writeRef.innerHTML += container.innerHTML;
-      renderMath(writeRef); renderStudentTextareas(d);
+      renderMath(writeRef);
+      // Material im Write-Schritt anzeigen
+      var writeMat = document.getElementById("writeMaterialRef");
+      var writeMatDetails = document.getElementById("writeMaterialDetails");
+      writeMat.innerHTML = "";
+      if (d.material && d.material.length && matContainer) {
+        writeMat.innerHTML = matContainer.innerHTML;
+        writeMatDetails.style.display = "";
+        renderMath(writeMat);
+      } else {
+        writeMatDetails.style.display = "none";
+      }
+      renderStudentTextareas(d);
       requestAnimationFrame(function() { renderMath(document.getElementById("sec-task")); renderMath(document.getElementById("sec-write")); });
     }
 

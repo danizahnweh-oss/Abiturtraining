@@ -810,7 +810,14 @@
         CONFIG.selectedAufgaben = new Set();
         renderTask(d);
         nav("task");
-      } catch (e) { showToast("Fehler: " + e.message); }
+      } catch (e) {
+        var msg = e.message || "Unbekannter Fehler";
+        if (msg.includes("abort") || msg.includes("timeout") || msg.includes("Timeout")) {
+          showToast("Die Generierung hat zu lange gedauert. Bitte versuche es erneut – die Abiturprüfung ist sehr umfangreich.", 8000);
+        } else {
+          showToast("Fehler bei der Generierung: " + msg + " — Bitte versuche es erneut.", 8000);
+        }
+      }
       btn.disabled = false;
       document.getElementById("setupLoader").style.display = "none";
     }
