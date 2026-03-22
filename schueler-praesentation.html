@@ -576,18 +576,27 @@
   }
   .pricing-card.action {
     border-color: #f59e0b;
-    box-shadow: 0 4px 24px rgba(245,158,11,.15);
+    box-shadow: 0 8px 32px rgba(245,158,11,.25);
     background: linear-gradient(135deg, #fffbeb 0%, #ffffff 40%);
+    padding-top: 2.8rem;
+    transform: scale(1.04);
+    z-index: 2;
+  }
+  .pricing-card.action:hover {
+    transform: scale(1.07);
+    box-shadow: 0 16px 48px rgba(245,158,11,.3);
   }
   .pricing-action-badge {
     position: absolute;
-    top: .8rem; right: -1.8rem;
+    top: 0; left: 0; right: 0;
     background: linear-gradient(135deg, #f59e0b, #ef4444);
     color: white;
-    font-size: .7rem;
+    font-size: .75rem;
     font-weight: 700;
-    padding: .25rem 2.2rem;
-    transform: rotate(35deg);
+    padding: .4rem 0;
+    text-align: center;
+    letter-spacing: .05em;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
   .pricing-badge {
     position: absolute;
