@@ -611,6 +611,94 @@
     font-weight: 600;
   }
 
+  /* ====== PRICING ====== */
+  .pricing-card {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .pricing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(79,70,229,.15);
+  }
+  .pricing-badge {
+    position: absolute;
+    top: 1rem; right: -2rem;
+    background: var(--accent);
+    color: white;
+    font-size: .75rem;
+    font-weight: 700;
+    padding: .3rem 2.5rem;
+    transform: rotate(35deg);
+  }
+  .pricing-icon { font-size: 3rem; margin-bottom: .8rem; }
+  .pricing-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: .3rem;
+    color: var(--ink);
+  }
+  .pricing-desc {
+    font-size: .92rem;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  .pricing-price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .pricing-price span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--ink-light);
+  }
+  .pricing-per {
+    font-size: .88rem;
+    color: var(--ink-light);
+    margin-top: .3rem;
+    margin-bottom: 1.5rem;
+  }
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  .pricing-features li {
+    font-size: .9rem;
+    color: var(--ink);
+    padding: .45rem 0;
+    padding-left: 1.6rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+  .pricing-features li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .pricing-calc {
+    font-size: .82rem;
+    color: var(--ink-light);
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: .8rem 1rem;
+    margin-top: 1rem;
+  }
+  .pricing-calc strong { color: var(--accent); }
+
   /* ====== EXTRAS ====== */
   .extras {
     display: grid;
@@ -766,6 +854,7 @@
       <a href="#schritte" data-section="schritte">So geht's</a>
       <a href="#bereiche" data-section="bereiche">Bereiche</a>
       <a href="#zahlen" data-section="zahlen">Zahlen</a>
+      <a href="#preise" data-section="preise">Preise</a>
       <a href="#kontakt" data-section="kontakt">Kontakt</a>
     </div>
   </div>
@@ -827,13 +916,13 @@
     <div class="feature-card reveal" style="--i:2" onclick="this.classList.toggle('expanded')">
       <div class="feature-icon">&#128279;</div>
       <h3>Einfache Code-Verteilung</h3>
-      <p>Erstellen Sie einen Klassen-Code, teilen Sie ihn &ndash; Schüler verknüpfen ihn mit ihrem Konto.</p>
+      <p>Schüler brauchen kein eigenes Konto. Einfach Code teilen &ndash; fertig.</p>
       <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
       <div class="feature-details">
         <ul>
           <li>Ein Code pro Klasse/Kurs</li>
           <li>Schüler geben Code auf myabiflow.de ein</li>
-          <li>Schüler verknüpfen Code mit ihrem Konto</li>
+          <li>Kein Schüler-Account nötig</li>
           <li>Ergebnisse fliessen automatisch ins Dashboard</li>
         </ul>
       </div>
@@ -1068,12 +1157,38 @@
       <div class="counter-label">Abiturfächer verfügbar</div>
     </div>
     <div class="counter">
-      <div class="counter-value" data-target="0" data-suffix=" &euro;">0 &euro;</div>
-      <div class="counter-label">für Schüler &ndash; kostenlos nutzbar</div>
+      <div class="counter-value" data-target="75">0</div>
+      <div class="counter-label">Korrekturen pro Paket</div>
     </div>
     <div class="counter">
       <div class="counter-value" data-text="G9">G9</div>
       <div class="counter-label">Bayern &ndash; lehrplankonform</div>
+    </div>
+  </div>
+</section>
+
+<!-- KORREKTUR-PAKET -->
+<section class="section" id="preise" style="padding-bottom:2rem;">
+  <h2 class="section-title reveal">Korrektur-Paket für Lehrkräfte</h2>
+  <p class="section-subtitle reveal">Aufgaben erstellen, verteilen und KI-gestützt korrigieren lassen</p>
+
+  <div class="pricing-card reveal-scale">
+    <div class="pricing-badge">Beliebt</div>
+    <div class="pricing-icon">&#128218;</div>
+    <div class="pricing-title">Korrektur-Paket</div>
+    <div class="pricing-desc">Erstellen Sie Aufgaben und lassen Sie die KI die Schüler-Antworten korrigieren &ndash; mit Feedback und Notenpunkten.</div>
+    <div class="pricing-price">49 <span>&euro;</span></div>
+    <div class="pricing-per">pro Paket &middot; einmalig</div>
+    <ul class="pricing-features">
+      <li>75 KI-Korrekturen inklusive</li>
+      <li>Automatisches Feedback für jeden Schüler</li>
+      <li>Notenpunkte-Vorschlag durch KI</li>
+      <li>Erwartungshorizont-Abgleich</li>
+      <li>Ergebnisse direkt im Lehrer-Dashboard</li>
+      <li>Kein Abo &ndash; keine versteckten Kosten</li>
+    </ul>
+    <div class="pricing-calc">
+      Das sind nur <strong>0,65 &euro; pro Korrektur</strong> &ndash; weniger als ein Kaffee am Automaten.
     </div>
   </div>
 </section>
