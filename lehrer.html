@@ -501,7 +501,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   overflow: hidden; background: var(--bg); margin-top: 1rem;
 }
 .iframe-wrap iframe {
-  width: 100%; min-height: 500px; border: none; display: block;
+  width: 100%; min-height: 80vh; border: none; display: block;
 }
 .iframe-loading {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -535,7 +535,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   .detail-body { padding: .8rem 1rem 2rem; }
   .codes-grid { grid-template-columns: 1fr; }
   #insightsGrid { grid-template-columns: 1fr; }
-  .iframe-wrap iframe { min-height: 400px; }
+  .iframe-wrap iframe { min-height: 70vh; }
 }
 </style>
   <script type="application/ld+json">
@@ -873,7 +873,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 </div>
 
 <script>
-const API_BASE = "https://sag-abi-mediation-api.sanktannagymnasium.workers.dev";
+const API_BASE = "";
 
 let teacherAuthToken = "";
 let teacherName = "";

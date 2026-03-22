@@ -788,14 +788,17 @@ Struktur:
     function updateNiveau() {
       var niveau = document.getElementById("niveauSelect").value;
       var isGA = niveau === "gA";
-      document.getElementById("fachbereichSection").style.display = isGA ? "none" : "block";
+      document.getElementById("fachbereichSection").style.display = "block";
       document.getElementById("gaHint").style.display = isGA ? "block" : "none";
       document.getElementById("timerMinutes").value = isGA ? "210" : "135";
       document.getElementById("totalBE").value = isGA ? "100" : "60";
-      // Bei gA: Alle drei Fachbereiche aktivieren und Schwerpunkte anzeigen
+      // Bei gA: Alle drei Fachbereiche vorauswählen (können aber angepasst werden)
       if (isGA) {
         CONFIG.selectedSachgebiete = ["bwl", "vwl", "recht"];
         CONFIG.sachgebiet = "bwl";
+        document.querySelectorAll(".hj-card").forEach(function(c) {
+          c.classList.toggle("selected", CONFIG.selectedSachgebiete.indexOf(c.dataset.hj) !== -1);
+        });
       }
       renderSubtopics();
     }
