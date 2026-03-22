@@ -133,6 +133,39 @@ export async function handleTeacherTasks(request, env) {
     return jsonResponse({ success: true }, 200, env);
   }
 
+  // Aufgabe aktualisieren
+  if (action === "update") {
+    const { task_id, task_data, title } = body;
+    if (!task_id || !task_data) return jsonResponse({ error: "task_id und task_data erforderlich." }, 400, env);
+    const task = await env.DB.prepare(
+      "SELECT * FROM teacher_tasks WHERE id = ? AND teacher_id = ?"
+    ).bind(task_id, teacherId).first();
+    if (!task) return jsonResponse({ error: "Aufgabe nicht gefunden." }, 404, env);
+
+    // Komplette Aufgabendaten in KV aktualisieren
+    if (task.kv_key) {
+      await env.RESULTS_KV.put(task.kv_key, JSON.stringify(task_data));
+    }
+
+    // Metadaten (ohne Bilder) fuer D1 aktualisieren
+    const meta = { ...task_data };
+    delete meta._uploadImages;
+    delete meta.images;
+    if (meta.materials) {
+      meta.materials = meta.materials.map(m => {
+        if (m.type === "image" || m.type === "foto") return { ...m, image_url: "[KV]" };
+        return m;
+      });
+    }
+
+    const newTitle = title ? title.trim() : task.title;
+    await env.DB.prepare(
+      "UPDATE teacher_tasks SET title = ?, task_meta = ? WHERE id = ? AND teacher_id = ?"
+    ).bind(newTitle, JSON.stringify(meta), task_id, teacherId).run();
+
+    return jsonResponse({ success: true }, 200, env);
+  }
+
   // Aufgabe loeschen
   if (action === "delete") {
     const { task_id } = body;

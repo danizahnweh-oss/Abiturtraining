@@ -802,7 +802,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
                    style="width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;min-height:44px;box-sizing:border-box;">
           </div>
           <div id="taskEditFields"></div>
-          <button class="btn" style="margin-top:1rem;width:100%;" onclick="saveTask()">Speichern &amp; Code erstellen</button>
+          <button class="btn" id="taskSaveBtn" style="margin-top:1rem;width:100%;" onclick="saveTask()">Speichern &amp; Code erstellen</button>
         </div>
 
         <!-- Schritt 4: Code erstellt -->
@@ -887,6 +887,7 @@ let authMode = "login";
 let pendingTaskData = null; // Zwischenspeicher für generierte Aufgabe
 let pendingTaskSubject = "";
 let pendingTaskSubjectGroup = "";
+let editingTaskId = null; // ID der Aufgabe die gerade bearbeitet wird
 
 /* ====== THEME ====== */
 function toggleDark() {
@@ -1825,6 +1826,10 @@ function showTaskPreview() {
   const iframe = document.getElementById("taskIframe");
   iframe.src = "about:blank";
 
+  // Button-Text anpassen
+  const saveBtn = document.getElementById("taskSaveBtn");
+  if (!editingTaskId) saveBtn.textContent = "Speichern & Code erstellen";
+
   const d = pendingTaskData;
   const container = document.getElementById("taskEditFields");
   const taStyle = 'width:100%;padding:.6rem .8rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:16px;box-sizing:border-box;resize:vertical;font-family:inherit;';
@@ -1917,6 +1922,7 @@ function showTaskPreview() {
 
 function resetTaskCreation() {
   pendingTaskData = null;
+  editingTaskId = null;
   materialUploadFiles = [];
   document.getElementById("taskStep1").style.display = "block";
   document.getElementById("taskStep2").style.display = "none";
@@ -1973,18 +1979,33 @@ async function saveTask() {
   });
 
   try {
-    const data = await teacherApi("/api/teacher-tasks", {
-      action: "save",
-      task_data: pendingTaskData,
-      subject: pendingTaskSubject,
-      subject_group: pendingTaskSubjectGroup,
-      title
-    });
-    document.getElementById("taskStep3").style.display = "none";
-    document.getElementById("taskStep4").style.display = "block";
-    document.getElementById("taskShareCode").textContent = data.share_code;
-    showToast("Aufgabe gespeichert! Code: " + data.share_code);
-    loadTasks();
+    if (editingTaskId) {
+      // Bestehende Aufgabe aktualisieren
+      await teacherApi("/api/teacher-tasks", {
+        action: "update",
+        task_id: editingTaskId,
+        task_data: pendingTaskData,
+        title
+      });
+      showToast("Aufgabe aktualisiert!");
+      editingTaskId = null;
+      resetTaskCreation();
+      loadTasks();
+    } else {
+      // Neue Aufgabe speichern
+      const data = await teacherApi("/api/teacher-tasks", {
+        action: "save",
+        task_data: pendingTaskData,
+        subject: pendingTaskSubject,
+        subject_group: pendingTaskSubjectGroup,
+        title
+      });
+      document.getElementById("taskStep3").style.display = "none";
+      document.getElementById("taskStep4").style.display = "block";
+      document.getElementById("taskShareCode").textContent = data.share_code;
+      showToast("Aufgabe gespeichert! Code: " + data.share_code);
+      loadTasks();
+    }
   } catch (e) {
     showToast(e.message, "error");
   }
@@ -2021,6 +2042,7 @@ function renderTasks() {
       <div class="task-meta">${t.submission_count} Bearbeitungen · ${t.active ? 'Aktiv' : 'Deaktiviert'} · ${new Date(t.created_at).toLocaleDateString("de-DE")}</div>
       <div class="code-actions">
         <button class="btn-small btn" onclick="showTaskResults('${t.id}')">Ergebnisse</button>
+        <button class="btn-small btn" onclick="editTask('${t.id}')">Bearbeiten</button>
         <button class="btn-small ${t.active ? 'btn-secondary' : 'btn'}" onclick="toggleTask('${t.id}')">${t.active ? 'Deaktivieren' : 'Aktivieren'}</button>
         <button class="btn-small btn-secondary" style="color:#ef4444;" onclick="deleteTask('${t.id}','${esc(t.title)}')">Löschen</button>
       </div>
@@ -2032,6 +2054,39 @@ async function toggleTask(taskId) {
   try {
     await teacherApi("/api/teacher-tasks", { action: "toggle", task_id: taskId });
     loadTasks();
+  } catch (e) {
+    showToast(e.message, "error");
+  }
+}
+
+async function editTask(taskId) {
+  try {
+    const data = await teacherApi("/api/teacher-tasks", { action: "get", task_id: taskId });
+    const task = data.task;
+    const taskData = data.task_data;
+    if (!taskData) { showToast("Aufgabendaten konnten nicht geladen werden.", "error"); return; }
+
+    // Aufgabe ins Bearbeitungsformular laden
+    editingTaskId = taskId;
+    pendingTaskData = taskData;
+    pendingTaskSubject = task.subject;
+    pendingTaskSubjectGroup = task.subject_group;
+
+    // Schritt 3 anzeigen, andere Schritte ausblenden
+    document.getElementById("taskStep1").style.display = "none";
+    document.getElementById("taskStep2").style.display = "none";
+    document.getElementById("taskStep4").style.display = "none";
+    document.getElementById("taskStep3").style.display = "block";
+
+    // Bearbeitungsfelder aufbauen (bestehende Funktion)
+    showTaskPreview();
+
+    // Titel setzen und Button-Text anpassen
+    document.getElementById("taskTitleInput").value = task.title || "";
+    document.getElementById("taskSaveBtn").textContent = "Änderungen speichern";
+
+    // Zum Aufgaben-Bereich scrollen
+    document.getElementById("taskStep3").scrollIntoView({ behavior: "smooth", block: "start" });
   } catch (e) {
     showToast(e.message, "error");
   }
