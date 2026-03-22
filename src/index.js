@@ -364,6 +364,9 @@ export default {
         }
       }
 
+      // ===== SHARED TASK (kein Auth noetig – Schueler geben nur einen Code ein) =====
+      if (pathname === "/api/get-shared-task" && request.method === "POST") return await handleGetSharedTask(request, env);
+
       // ===== AUTH CHECK für restliche /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
         const authError = await checkAuth(request, env);
@@ -376,7 +379,6 @@ export default {
       // ===== LEHRER-CODE (Schüler-Seite) =====
       if (pathname === "/api/link-student-code" && request.method === "POST") return await handleLinkStudentCode(request, env);
       if (pathname === "/api/student-codes" && request.method === "POST") return await handleStudentCodes(request, env);
-      if (pathname === "/api/get-shared-task" && request.method === "POST") return await handleGetSharedTask(request, env);
       if (pathname === "/api/submit-shared-task" && request.method === "POST") return await handleSubmitSharedTask(request, env);
 
       // ===== STUDENT RESULTS =====

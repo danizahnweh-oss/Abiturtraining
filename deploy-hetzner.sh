@@ -84,11 +84,18 @@ if [ "$DEPLOY_BACKEND" = true ]; then
         --exclude='node_modules' \
         --exclude='.env' \
         --exclude='.DS_Store' \
-        "$REMOTE_BACKEND/" "$SERVER:$REMOTE_BACKEND/" \
+        "$LOCAL_DIR/hetzner-backend/" "$SERVER:$REMOTE_BACKEND/" \
         2>/dev/null || {
         # Falls lokaler Backend-Ordner nicht existiert, Server-Code beibehalten
         warn "Kein lokaler Backend-Ordner — überspringe rsync"
     }
+
+    # 1b. Modularen Worker-Code (src/) synchronisieren
+    log "Synchronisiere Worker-Code (src/)..."
+    rsync -avz --delete \
+        --exclude='index.original.js' \
+        --exclude='.DS_Store' \
+        "$LOCAL_DIR/src/" "$SERVER:/app/src/"
 
     # 2. Dependencies installieren (nur wenn package.json sich geändert hat)
     log "Prüfe Dependencies..."
