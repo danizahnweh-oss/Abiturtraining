@@ -1012,6 +1012,9 @@
         document.getElementById("resultIcon").textContent = "\u2705";
         document.getElementById("resultText").textContent =
           "Zahlung erfolgreich! Dein Abo ist jetzt aktiv. Viel Erfolg beim Lernen!";
+        // SessionStorage aktualisieren damit Paywall + Banner korrekt reagieren
+        sessionStorage.setItem("subscription_status", "active");
+        sessionStorage.removeItem("free_access");
         // URL aufräumen
         history.replaceState({}, "", window.location.pathname);
       } else if (params.get("canceled") === "true") {

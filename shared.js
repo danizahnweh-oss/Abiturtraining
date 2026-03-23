@@ -160,9 +160,14 @@ async function checkSubscription() {
   var token = getAccessToken();
   if (!studentId || !token) return { status: "none", plan: "free" };
 
-  // Cache prüfen
+  // Cache prüfen (Cache invalidieren wenn sessionStorage 'active' sagt aber Cache noch 'trialing')
+  var ssStatus = sessionStorage.getItem("subscription_status") || "";
   if (_subscriptionCache && (Date.now() - _subscriptionCacheTime < SUBSCRIPTION_CACHE_TTL)) {
-    return _subscriptionCache;
+    if (ssStatus === "active" && _subscriptionCache.status === "trialing") {
+      _subscriptionCache = null; // Cache invalidieren
+    } else {
+      return _subscriptionCache;
+    }
   }
 
   try {
