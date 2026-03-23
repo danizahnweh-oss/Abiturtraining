@@ -56,13 +56,15 @@ export async function handleCheckStudent(request, env) {
     // Gegen class_passwords-Tabelle pruefen
     let classGroup = null;
     let validClass = false;
+    let hasFreeAccess = false;
     const { results: classPasswords } = await env.DB.prepare(
-      "SELECT label, password FROM class_passwords WHERE active = 1"
+      "SELECT label, password, free_access FROM class_passwords WHERE active = 1"
     ).all();
     for (const row of (classPasswords || [])) {
       if (password === row.password) {
         validClass = true;
         classGroup = row.label;
+        hasFreeAccess = row.free_access === 1;
         break;
       }
     }
@@ -84,6 +86,18 @@ export async function handleCheckStudent(request, env) {
     await env.DB.prepare(
       "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, class_group, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
     ).bind(student_name.trim(), nameLower, level || "", salt, hash, classGroup, new Date().toISOString()).run();
+
+    // Bei free_access Schulcode: Abo-Status direkt auf 'active' setzen
+    if (hasFreeAccess) {
+      const student = await env.DB.prepare(
+        "SELECT id FROM students WHERE name_lower = ?"
+      ).bind(nameLower).first();
+      if (student) {
+        await env.DB.prepare(
+          "UPDATE students SET subscription_status = 'active', subscription_plan = 'school' WHERE id = ?"
+        ).bind(student.id).run();
+      }
+    }
   } else {
     if (!existing) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
@@ -102,8 +116,28 @@ export async function handleCheckStudent(request, env) {
     }
   }
 
+  // Student-ID laden (für Stripe und Paywall)
+  const student = await env.DB.prepare(
+    "SELECT id, subscription_status, subscription_plan, class_group FROM students WHERE name_lower = ?"
+  ).bind(nameLower).first();
+
+  // Prüfen ob der Schulcode free_access hat (auch beim Login)
+  let freeAccess = false;
+  if (student?.class_group) {
+    const cp = await env.DB.prepare(
+      "SELECT free_access FROM class_passwords WHERE label = ? AND active = 1"
+    ).bind(student.class_group).first();
+    freeAccess = cp?.free_access === 1;
+  }
+
   const token = await generateToken(env);
-  return jsonResponse({ success: true, token }, 200, env);
+  return jsonResponse({
+    success: true,
+    token,
+    student_id: student?.id || null,
+    subscription_status: student?.subscription_status || "none",
+    free_access: freeAccess
+  }, 200, env);
 }
 
 /* ================= STUDENT PREFERENCES ================= */

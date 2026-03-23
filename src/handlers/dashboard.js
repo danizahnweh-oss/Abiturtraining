@@ -129,7 +129,7 @@ export async function handleClassPasswords(request, env) {
 
   if (action === "list") {
     const { results: passwords } = await env.DB.prepare(
-      "SELECT id, label, password, active, created_at FROM class_passwords ORDER BY created_at DESC"
+      "SELECT id, label, password, active, free_access, created_at FROM class_passwords ORDER BY created_at DESC"
     ).all();
     const withCount = [];
     for (const p of (passwords || [])) {
@@ -171,6 +171,14 @@ export async function handleClassPasswords(request, env) {
     if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
     await env.DB.prepare(
       "UPDATE class_passwords SET active = CASE WHEN active = 1 THEN 0 ELSE 1 END WHERE id = ?"
+    ).bind(id).run();
+    return jsonResponse({ success: true }, 200, env);
+  }
+
+  if (action === "toggle-free-access") {
+    if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+    await env.DB.prepare(
+      "UPDATE class_passwords SET free_access = CASE WHEN free_access = 1 THEN 0 ELSE 1 END WHERE id = ?"
     ).bind(id).run();
     return jsonResponse({ success: true }, 200, env);
   }

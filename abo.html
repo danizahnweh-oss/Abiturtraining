@@ -297,6 +297,42 @@
       margin-bottom: 1.5rem;
     }
 
+    /* Abitur-Aktionskarte hervorgehoben */
+    .pricing-card.abitur-highlight {
+      border-color: #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(245, 158, 11, 0.02));
+    }
+
+    .pricing-card.abitur-highlight .pricing-badge {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+
+    .pricing-card.abitur-highlight .pricing-price {
+      color: #d97706;
+    }
+
+    .pricing-card.abitur-highlight.selected {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Abitur-Banner über dem Grid */
+    .abitur-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.04));
+      border: 1px solid #f59e0b;
+      border-radius: var(--radius-sm);
+      padding: .8rem 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: .9rem;
+      color: var(--ink);
+    }
+
+    .abitur-banner.visible { display: block; }
+
+    .abitur-banner strong { color: #d97706; }
+
     @media (max-width: 540px) {
       .pricing-grid { grid-template-columns: 1fr; }
     }
@@ -662,7 +698,21 @@
 
         <!-- Pricing (versteckt wenn Abo aktiv) -->
         <div class="pricing-section visible" id="pricingSection">
+          <div class="abitur-banner" id="abiturBanner">
+            <strong>Abiturendspurt!</strong> Nur bis 30. Juni &ndash; voller Zugang f&uuml;r nur 25&euro;.
+          </div>
           <div class="pricing-grid">
+            <!-- Abitur-Plan: nur bis 30. Juni sichtbar (per JS gesteuert) -->
+            <div class="pricing-card abitur-highlight" data-plan="abitur" id="abiturCard" tabindex="0" role="radio" aria-checked="false" style="display:none;">
+              <div class="pricing-badge">Abiturendspurt</div>
+              <div class="pricing-check">&#10003;</div>
+              <div class="pricing-plan">Bis zum Abitur</div>
+              <div class="pricing-price">25&#8364;</div>
+              <div class="pricing-detail">Einmalzahlung, bis 30. Juni</div>
+              <div class="pricing-monthly-price">Voller Zugang bis zum Abitur</div>
+              <div class="pricing-savings">Bestes Angebot</div>
+            </div>
+
             <div class="pricing-card" data-plan="monthly" tabindex="0" role="radio" aria-checked="false">
               <div class="pricing-check">&#10003;</div>
               <div class="pricing-plan">1 Monat</div>
@@ -918,6 +968,7 @@
             "6months": "6 Monate",
             "12months": "12 Monate",
             "24months": "24 Monate",
+            "abitur": "Bis zum Abitur",
             "school": "Schullizenz",
             "trial": "Testphase"
           };
@@ -969,6 +1020,26 @@
         document.getElementById("resultText").textContent =
           "Zahlung abgebrochen. Du kannst es jederzeit erneut versuchen.";
         history.replaceState({}, "", window.location.pathname);
+      }
+    })();
+
+    // Abitur-Plan nur bis 30. Juni anzeigen
+    (function() {
+      var now = new Date();
+      var cutoff = new Date(now.getFullYear(), 5, 30, 23, 59, 59); // 30. Juni
+      if (now <= cutoff) {
+        var card = document.getElementById("abiturCard");
+        var banner = document.getElementById("abiturBanner");
+        if (card) card.style.display = "";
+        if (banner) banner.classList.add("visible");
+        // Abitur-Plan als Standard-Auswahl setzen
+        document.querySelectorAll(".pricing-card").forEach(function(c) {
+          c.classList.remove("selected");
+          c.setAttribute("aria-checked", "false");
+        });
+        card.classList.add("selected");
+        card.setAttribute("aria-checked", "true");
+        selectedPlan = "abitur";
       }
     })();
 

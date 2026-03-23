@@ -31,6 +31,7 @@ function getPriceId(plan, env) {
     '6months':   env.STRIPE_PRICE_6MONTHS,      // 70€ einmalig
     '12months':  env.STRIPE_PRICE_12MONTHS,     // 120€ einmalig
     '24months':  env.STRIPE_PRICE_24MONTHS,     // 180€ einmalig
+    'abitur':    env.STRIPE_PRICE_ABITUR,        // 25€ einmalig, bis 30.06.
   };
   return map[plan] || null;
 }
@@ -40,10 +41,24 @@ function isRecurring(plan) {
   return plan === 'monthly';
 }
 
-/* Laufzeit in Tagen berechnen */
-function planDurationDays(plan) {
+/* Laufzeit berechnen: Enddatum zurückgeben */
+function planEndDate(plan) {
+  if (plan === 'abitur') {
+    // Bis 30. Juni des aktuellen Jahres (oder nächsten, falls schon vorbei)
+    const now = new Date();
+    let end = new Date(now.getFullYear(), 5, 30, 23, 59, 59); // 30. Juni
+    if (end <= now) end = new Date(now.getFullYear() + 1, 5, 30, 23, 59, 59);
+    return end;
+  }
   const map = { 'monthly': 30, '6months': 183, '12months': 365, '24months': 730 };
-  return map[plan] || 30;
+  const days = map[plan] || 30;
+  return new Date(Date.now() + days * 86400000);
+}
+
+// Rückwärtskompatibel
+function planDurationDays(plan) {
+  const end = planEndDate(plan);
+  return Math.ceil((end.getTime() - Date.now()) / 86400000);
 }
 
 /* ================= CHECKOUT SESSION ERSTELLEN ================= */
@@ -52,6 +67,15 @@ export async function handleCreateCheckout(request, env) {
 
   if (!plan || !student_id) {
     return jsonResponse({ error: 'Plan und Student-ID erforderlich.' }, 400, env);
+  }
+
+  // Abitur-Plan nur bis 30. Juni verfügbar
+  if (plan === 'abitur') {
+    const now = new Date();
+    const cutoff = new Date(now.getFullYear(), 5, 30, 23, 59, 59);
+    if (now > cutoff) {
+      return jsonResponse({ error: 'Der Abiturendspurt-Plan ist leider nicht mehr verfügbar.' }, 400, env);
+    }
   }
 
   const priceId = getPriceId(plan, env);
@@ -167,8 +191,7 @@ export async function handleStripeWebhook(request, env) {
 
         } else {
           // Einmalkauf: Laufzeit berechnen
-          const days = planDurationDays(plan);
-          const periodEnd = new Date(Date.now() + days * 86400000).toISOString();
+          const periodEnd = planEndDate(plan).toISOString();
 
           await env.DB.prepare(`
             INSERT INTO subscriptions (id, student_id, stripe_customer_id, plan, status, current_period_end, created_at, updated_at)

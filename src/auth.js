@@ -218,6 +218,9 @@ export async function ensureMigrations(env) {
     await addCol("subscription_plan", "TEXT DEFAULT 'free'");
     await addCol("trial_end", "TEXT DEFAULT NULL");
 
+    // free_access Spalte für Schulcodes (kostenloser Vollzugang)
+    try { await env.DB.prepare("ALTER TABLE class_passwords ADD COLUMN free_access INTEGER NOT NULL DEFAULT 0").run(); } catch (_) {}
+
     // Lehrer-Faecher-Spalte
     try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN subjects TEXT DEFAULT '[]'").run(); } catch (_) {}
 

@@ -2175,6 +2175,13 @@ var _loginModalMode = "login";
 
 function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
+    // Paywall-Check: Kein free_access und kein aktives Abo → zur Abo-Seite
+    var freeAccess = sessionStorage.getItem("free_access") === "1";
+    var subStatus = sessionStorage.getItem("subscription_status") || "none";
+    if (!freeAccess && subStatus !== "active" && subStatus !== "trialing") {
+      window.location.href = "/abo.html";
+      return;
+    }
     callback();
     return;
   }
@@ -2299,6 +2306,9 @@ async function _doLoginModal() {
       sessionStorage.setItem("access", "1");
       sessionStorage.setItem("access_token", data.token);
       sessionStorage.setItem("student_name", name);
+      if (data.student_id) sessionStorage.setItem("student_id", data.student_id);
+      if (data.free_access) sessionStorage.setItem("free_access", "1");
+      if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
       if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
 
       // Greeting aktualisieren
@@ -2310,6 +2320,13 @@ async function _doLoginModal() {
       _makeProfileGreetingClickable();
 
       _closeLoginModal();
+
+      // Paywall-Check: Kein free_access und kein aktives Abo → zur Abo-Seite
+      if (!data.free_access && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
+        window.location.href = "/abo.html";
+        return;
+      }
+
       // Callback ausfuehren (z.B. generateTask)
       if (_loginModalCallback) {
         var cb = _loginModalCallback;

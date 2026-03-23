@@ -487,8 +487,9 @@ footer a { color: var(--accent); }
             <tr>
               <th>Bezeichnung</th>
               <th>Passwort</th>
-              <th>Schüler</th>
+              <th>Sch&uuml;ler</th>
               <th>Status</th>
+              <th>Kostenlos</th>
               <th>Erstellt</th>
               <th></th>
             </tr>
@@ -1212,15 +1213,19 @@ function renderClassPasswords() {
     const statusBadge = cp.active
       ? '<span style="color:#059669;font-weight:700;font-size:.82rem;">Aktiv</span>'
       : '<span style="color:#dc2626;font-weight:700;font-size:.82rem;">Deaktiviert</span>';
+    const freeAccessBadge = cp.free_access
+      ? '<span style="color:#059669;font-weight:700;font-size:.82rem;cursor:pointer;" onclick="toggleFreeAccess(\'' + escapeHtml(cp.id) + '\')" title="Klicken um kostenlosen Zugang zu entfernen">&#10003; Ja</span>'
+      : '<span style="color:var(--ink-muted);font-size:.82rem;cursor:pointer;" onclick="toggleFreeAccess(\'' + escapeHtml(cp.id) + '\')" title="Klicken um kostenlosen Zugang zu gew\u00e4hren">&#10007; Nein</span>';
     return `<tr>
       <td><strong>${escapeHtml(cp.label)}</strong></td>
       <td><code style="font-family:monospace;font-size:.82rem;background:var(--accent-soft);padding:.15rem .4rem;border-radius:3px;">${escapeHtml(cp.password)}</code></td>
       <td style="font-family:monospace;font-weight:700;">${cp.student_count || 0}</td>
       <td>${statusBadge}</td>
+      <td style="text-align:center;">${freeAccessBadge}</td>
       <td style="font-size:.82rem;">${dateStr}</td>
       <td style="white-space:nowrap;">
         <button class="btn btn-small btn-secondary" onclick="toggleClassPassword('${escapeHtml(cp.id)}')" style="margin-right:.3rem;min-height:44px;">${cp.active ? 'Deaktivieren' : 'Aktivieren'}</button>
-        <button class="delete-btn" onclick="deleteClassPassword('${escapeHtml(cp.id)}', '${escapeHtml(cp.label).replace(/'/g, "\\'")}')" title="Löschen" style="min-width:44px;min-height:44px;">✕</button>
+        <button class="delete-btn" onclick="deleteClassPassword('${escapeHtml(cp.id)}', '${escapeHtml(cp.label).replace(/'/g, "\\'")}')" title="L\u00f6schen" style="min-width:44px;min-height:44px;">\u2715</button>
       </td>
     </tr>`;
   }).join("");
@@ -1261,6 +1266,15 @@ async function toggleClassPassword(id) {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
     body: JSON.stringify({ action: "toggle", id })
+  });
+  loadClassPasswords();
+}
+
+async function toggleFreeAccess(id) {
+  await fetch(API_BASE + "/api/class-passwords", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+    body: JSON.stringify({ action: "toggle-free-access", id })
   });
   loadClassPasswords();
 }

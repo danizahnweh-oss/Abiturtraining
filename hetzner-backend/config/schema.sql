@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS class_passwords (
     label TEXT NOT NULL,
     password TEXT NOT NULL,
     active INTEGER NOT NULL DEFAULT 1,
+    free_access INTEGER NOT NULL DEFAULT 0,
     created_at TEXT NOT NULL
 );
 
