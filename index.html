@@ -3403,6 +3403,7 @@
           style="display:none; background:var(--accent); color:#fff;" aria-label="Anmelden">Anmelden</button>
       </div>
     </div>
+    <div id="trialBannerContainer"></div>
     <div class="dashboard-hero">
       <h2 id="greetingText" role="heading" aria-level="2">Willkommen zurück!</h2>
       <p id="guestHint" style="display:none; color:rgba(255,255,255,0.7); font-size:0.95rem; margin-top:0.3rem;">Wähle
@@ -5982,6 +5983,11 @@
             return;
           }
 
+          // Trial-Banner anzeigen
+          if (data.subscription_status === "trialing") {
+            showTrialBannerIfNeeded("trialBannerContainer");
+          }
+
           // Show/hide auth-dependent UI elements
           var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
           var guestLoginBtn = document.getElementById("guestLoginBtn");
@@ -6627,6 +6633,7 @@
 
         loadStudentProgress();
         loadHiddenSubjects();
+        showTrialBannerIfNeeded("trialBannerContainer");
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";
 
