@@ -1,5 +1,6 @@
 import { jsonResponse, truncate, extractJSON, buildUserContent } from '../utils.js';
 import { callOpenAI } from '../openai.js';
+import { gradeWithWolframVerification } from '../handlers/wolfram-grading.js';
 import { BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis, KEINE_LOESUNGSHINWEISE } from '../config.js';
 
 export async function handleGeneratePhysik(request, env) {
@@ -213,7 +214,8 @@ Antworte NUR mit validem JSON:
     { role: "user", content: buildUserContent(`${aufgabenInfo}\n${studentSolutionText}`, images) }
   ];
 
-  const openaiRes = await callOpenAI(env, messages, 8000, { temperature: 0.3 });
+  // Sandwich-Architektur: WolframAlpha-Verifikation bei Rechenaufgaben
+  const openaiRes = await gradeWithWolframVerification(aufgabenInfo, studentSolutionText, images, sachgebiet || 'physik', messages, env);
 
   try {
     const parsed = extractJSON(openaiRes);

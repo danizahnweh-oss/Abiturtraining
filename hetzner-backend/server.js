@@ -55,6 +55,9 @@ const env = {
   STRIPE_PRICE_24MONTHS: process.env.STRIPE_PRICE_24MONTHS,
   STRIPE_PRICE_ABITUR: process.env.STRIPE_PRICE_ABITUR,
 
+  // WolframAlpha
+  WOLFRAM_APP_ID: process.env.WOLFRAM_APP_ID,
+
   // Konfiguration
   ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN || 'https://myabiflow.de',
   ALLOWED_ORIGIN_FOS: process.env.ALLOWED_ORIGIN_FOS || '',

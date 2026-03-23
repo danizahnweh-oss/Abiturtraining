@@ -9,6 +9,11 @@ export const MAX_BODY_SIZE = 10 * 1024 * 1024; // 10 MB (Bilder + Text bei Grade
 export const TOKEN_EXPIRY = 24 * 60 * 60 * 1000; // 24 Stunden
 export const API_TIMEOUT = 90000; // 90s timeout for external API calls
 
+/* ---- WolframAlpha ---- */
+export const WOLFRAM_TIMEOUT = 10000; // 10s Timeout für WolframAlpha API
+export const WOLFRAM_MAX_QUERIES_PER_GRADE = 5; // Max Queries pro Korrektur (Kostenbegrenzung)
+export const MINT_SUBJECTS_WITH_WOLFRAM = ['mathe', 'physik', 'chemie'];
+
 /* ---- Shared Prompt Constants ---- */
 const KEINE_LOESUNGSHINWEISE_BASE = `ABSOLUT KEINE LÖSUNGSHINWEISE IN KLAMMERN: Nenne in den Aufgabenstellungen NIEMALS konkrete Beispiele, Hinweise, Lösungsansätze oder Stichworte in Klammern. VERBOTEN sind z.B. Formulierungen wie "Untersuchen Sie ... (Metapher, Alliteration, ...)" oder "Erörtern Sie ... (Pro/Contra, ...)". Die Aufgabenstellung muss OHNE jegliche Klammer-Beispiele formuliert sein – die Schüler müssen selbst erkennen, welche Aspekte relevant sind. Prüfe jede Aufgabenstellung vor der Ausgabe und entferne alle Klammer-Hinweise!`;
 
