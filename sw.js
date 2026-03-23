@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v92';
+const CACHE_NAME = 'myabiflow-v93';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -59,8 +59,8 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // HTML pages: network-first so updates arrive immediately
-  if (event.request.mode === 'navigate' || url.pathname.endsWith('.html')) {
+  // HTML + shared.js: network-first so updates arrive immediately
+  if (event.request.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('/shared.js')) {
     event.respondWith(
       fetch(event.request).then(response => {
         if (response.ok) {
