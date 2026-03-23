@@ -306,8 +306,14 @@ export async function handleSubscriptionStatus(request, env) {
     trialDaysLeft = Math.max(0, Math.ceil(diff / 86400000));
   }
 
+  // Bei aktivem Trial: 'trialing' zurückgeben (nicht 'active'), damit der Banner angezeigt wird
+  let statusLabel = student.subscription_status || 'none';
+  if (isActive) {
+    statusLabel = (sub?.plan === 'trial' && trialDaysLeft > 0) ? 'trialing' : 'active';
+  }
+
   return jsonResponse({
-    status: isActive ? 'active' : (student.subscription_status || 'none'),
+    status: statusLabel,
     plan: sub?.plan || student.subscription_plan || 'free',
     current_period_end: sub?.current_period_end || null,
     cancel_at_period_end: sub?.cancel_at_period_end === 1,
