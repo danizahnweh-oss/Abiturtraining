@@ -2297,8 +2297,8 @@ function _ensureLoginModal() {
     '<input type="text" id="slModalName" placeholder="Dein Name …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="slRegFields" style="display:none;">' +
-    '<input type="password" id="slModalPwConfirm" placeholder="Passwort bestätigen …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
-    '<input type="password" id="slModalClassPw" placeholder="Schulcode …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="password" id="slModalPwConfirm" placeholder="Passwort best\u00e4tigen \u2026" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<p style="font-size:.82rem;color:var(--ink-muted);margin-top:.2rem;text-align:center;">Schulcode? Gibst du sp\u00e4ter beim Abo ein.</p>' +
     '</div>' +
     '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
     '<button id="slModalBtn" type="button" onclick="_doLoginModal()" style="width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Anmelden</button>' +
@@ -2350,10 +2350,7 @@ async function _doLoginModal() {
 
   if (_loginModalMode === "register") {
     var confirmPw = document.getElementById("slModalPwConfirm").value;
-    var classPw = document.getElementById("slModalClassPw").value.trim();
-    if (pw !== confirmPw) { err.textContent = "Passwörter stimmen nicht überein."; err.style.display = "block"; return; }
-    if (!classPw) { err.textContent = "Bitte gib den Schulcode ein."; err.style.display = "block"; return; }
-    body.password = classPw;
+    if (pw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
   }
 
   btn.disabled = true;

@@ -766,8 +766,8 @@
           <div class="divider">oder &uuml;ber deine Schule</div>
 
           <div class="license-section">
-            <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Deine Schule hat eine Lizenz?</strong></p>
-            <p>Frag deine Lehrkraft nach dem Schulcode und gib ihn hier ein.</p>
+            <p style="font-size: .95rem; margin-bottom: .4rem;"><strong style="color: var(--ink);">Du hast einen Schulcode?</strong></p>
+            <p>Gib den Code deiner Schule ein &ndash; damit bekommst du ggf. kostenlosen Zugang.</p>
             <div class="license-input-row">
               <label for="licenseInput" class="sr-only">Lizenzcode</label>
               <input type="text" class="license-input" id="licenseInput" placeholder="z.B. SAG-2026-ABCD" maxlength="19" autocomplete="off">
@@ -899,8 +899,14 @@
           license_code: code
         });
 
-        showToast("Schullizenz aktiviert! Viel Erfolg beim Lernen.", "success");
-        setTimeout(function() { window.location.reload(); }, 1500);
+        if (data.free_access) {
+          sessionStorage.setItem("subscription_status", "active");
+          sessionStorage.setItem("free_access", "1");
+          showToast("Schulcode aktiviert! Viel Erfolg beim Lernen.", "success");
+          setTimeout(function() { window.location.reload(); }, 1500);
+        } else {
+          showToast("Schule gespeichert! Bitte w\u00e4hle jetzt einen Plan.", "success");
+        }
       } catch (err) {
         showToast(err.message || "Ungültiger Lizenzcode.", "error");
         this.disabled = false;

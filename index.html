@@ -3374,13 +3374,10 @@
       <input type="password" id="personalPassword" class="login-input" placeholder="Dein Passwort ..."
         autocomplete="current-password" onkeyup="if(event.key==='Enter')doLogin()">
       <div id="registerFields" style="display:none">
-        <label for="personalPasswordConfirm" class="sr-only">Passwort bestätigen</label>
-        <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort bestätigen ..."
+        <label for="personalPasswordConfirm" class="sr-only">Passwort best&auml;tigen</label>
+        <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort best&auml;tigen ..."
           autocomplete="new-password">
-        <label for="classPassword" style="display:block;font-size:.85rem;font-weight:600;color:var(--ink-muted);margin-top:.6rem;">Schulcode</label>
-        <input type="password" id="classPassword" class="login-input" placeholder="Schulcode eingeben ..."
-          autocomplete="off" onkeyup="if(event.key==='Enter')doLogin()" aria-describedby="schulcodeHint">
-        <p id="schulcodeHint" style="font-size:.82rem;color:var(--ink-muted);margin-top:.3rem;">Den Schulcode erhältst du von deiner Lehrkraft oder Schule.</p>
+        <p style="font-size:.82rem;color:var(--ink-muted);margin-top:.4rem;text-align:center;">Hast du einen Schulcode? Den gibst du sp&auml;ter beim Abo ein.</p>
       </div>
       <br>
       <button class="btn" id="loginBtn" style="width:100%" onclick="doLogin()">Anmelden</button>
@@ -5972,10 +5969,7 @@
 
       if (loginMode === "register") {
         var confirmPw = document.getElementById("personalPasswordConfirm").value;
-        var classPw = document.getElementById("classPassword").value.trim();
         if (personalPw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
-        if (!classPw) { err.textContent = "Bitte gib den Schulcode ein."; err.style.display = "block"; return; }
-        body.password = classPw;
       }
 
       btn.disabled = true;

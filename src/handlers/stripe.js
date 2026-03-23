@@ -393,42 +393,58 @@ export async function handleStartTrial(request, env) {
   }, 200, env);
 }
 
-/* ================= SCHULLIZENZ EINLÖSEN ================= */
+/* ================= SCHULCODE / SCHULLIZENZ EINLÖSEN ================= */
 export async function handleRedeemLicense(request, env) {
   const { student_id, license_code } = await request.json();
 
   if (!student_id || !license_code) {
-    return jsonResponse({ error: 'Student-ID und Lizenzcode erforderlich.' }, 400, env);
+    return jsonResponse({ error: 'Student-ID und Schulcode erforderlich.' }, 400, env);
   }
 
-  // Lizenzcode in class_passwords suchen (Format: SAG-2026-XXXX-XXXX)
+  // Schulcode in class_passwords suchen
   const license = await env.DB.prepare(
-    'SELECT id, label FROM class_passwords WHERE password = ? AND active = 1'
-  ).bind(license_code.trim().toUpperCase()).first();
+    'SELECT id, label, free_access FROM class_passwords WHERE password = ? AND active = 1'
+  ).bind(license_code.trim()).first();
 
   if (!license) {
-    return jsonResponse({ error: 'Ungültiger oder abgelaufener Lizenzcode.' }, 404, env);
+    return jsonResponse({ error: 'Ung\u00fcltiger oder abgelaufener Schulcode.' }, 404, env);
   }
 
   const now = new Date().toISOString();
-  // Schullizenz = 1 Jahr ab jetzt
-  const periodEnd = new Date(Date.now() + 365 * 86400000).toISOString();
 
-  await env.DB.prepare(
-    'UPDATE students SET subscription_status = ?, subscription_plan = ?, class_group = ? WHERE id = ?'
-  ).bind('active', 'school', license.label, student_id).run();
+  if (license.free_access === 1) {
+    // Kostenloser Schulcode: Vollzugang + class_group setzen
+    const periodEnd = new Date(Date.now() + 365 * 86400000).toISOString();
 
-  await env.DB.prepare(`
-    INSERT INTO subscriptions (id, student_id, plan, status, current_period_end, school_license_code, created_at, updated_at)
-    VALUES (?, ?, 'school', 'active', ?, ?, ?, ?)
-  `).bind(crypto.randomUUID(), student_id, periodEnd, license_code.trim().toUpperCase(), now, now).run();
+    await env.DB.prepare(
+      'UPDATE students SET subscription_status = ?, subscription_plan = ?, class_group = ? WHERE id = ?'
+    ).bind('active', 'school', license.label, student_id).run();
 
-  return jsonResponse({
-    status: 'active',
-    plan: 'school',
-    school: license.label,
-    current_period_end: periodEnd,
-  }, 200, env);
+    await env.DB.prepare(`
+      INSERT INTO subscriptions (id, student_id, plan, status, current_period_end, school_license_code, created_at, updated_at)
+      VALUES (?, ?, 'school', 'active', ?, ?, ?, ?)
+    `).bind(crypto.randomUUID(), student_id, periodEnd, license_code.trim(), now, now).run();
+
+    return jsonResponse({
+      status: 'active',
+      plan: 'school',
+      school: license.label,
+      free_access: true,
+      current_period_end: periodEnd,
+    }, 200, env);
+  } else {
+    // Schulcode ohne free_access: Nur class_group setzen (Abo weiterhin noetig)
+    await env.DB.prepare(
+      'UPDATE students SET class_group = ? WHERE id = ?'
+    ).bind(license.label, student_id).run();
+
+    return jsonResponse({
+      status: 'linked',
+      school: license.label,
+      free_access: false,
+      message: 'Deine Schule wurde gespeichert. Bitte w\u00e4hle einen Plan, um myAbiFlow zu nutzen.',
+    }, 200, env);
+  }
 }
 
 /* ================= STRIPE WEBHOOK-SIGNATUR VERIFIZIEREN ================= */

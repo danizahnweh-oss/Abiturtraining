@@ -49,34 +49,6 @@ export async function handleCheckStudent(request, env) {
   ).bind(nameLower).first();
 
   if (mode === "register") {
-    if (!password || typeof password !== "string") {
-      return jsonResponse({ success: false, error: "Schulcode erforderlich." }, 400, env);
-    }
-
-    // Gegen class_passwords-Tabelle pruefen
-    let classGroup = null;
-    let validClass = false;
-    let hasFreeAccess = false;
-    const { results: classPasswords } = await env.DB.prepare(
-      "SELECT label, password, free_access FROM class_passwords WHERE active = 1"
-    ).all();
-    for (const row of (classPasswords || [])) {
-      if (password === row.password) {
-        validClass = true;
-        classGroup = row.label;
-        hasFreeAccess = row.free_access === 1;
-        break;
-      }
-    }
-
-    // Fallback: Master-Passwort
-    if (!validClass) {
-      validClass = await safeCompare(password, env.ACCESS_PASSWORD);
-    }
-
-    if (!validClass) {
-      return jsonResponse({ success: false, error: "Falscher Schulcode." }, 401, env);
-    }
     if (existing) {
       return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
     }
@@ -84,23 +56,15 @@ export async function handleCheckStudent(request, env) {
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
     await env.DB.prepare(
-      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, class_group, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
-    ).bind(student_name.trim(), nameLower, level || "", salt, hash, classGroup, new Date().toISOString()).run();
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?)"
+    ).bind(student_name.trim(), nameLower, level || "", salt, hash, new Date().toISOString()).run();
 
-    // Neuen Schüler laden
+    // Automatisch 3-Tage-Trial starten
     const newStudent = await env.DB.prepare(
       "SELECT id FROM students WHERE name_lower = ?"
     ).bind(nameLower).first();
 
-    if (hasFreeAccess) {
-      // free_access Schulcode: Abo-Status direkt auf 'active' setzen
-      if (newStudent) {
-        await env.DB.prepare(
-          "UPDATE students SET subscription_status = 'active', subscription_plan = 'school' WHERE id = ?"
-        ).bind(newStudent.id).run();
-      }
-    } else if (newStudent) {
-      // Kein free_access: Automatisch 3-Tage-Trial starten
+    if (newStudent) {
       const trialEnd = new Date(Date.now() + 3 * 86400000).toISOString();
       const now = new Date().toISOString();
       await env.DB.prepare(
