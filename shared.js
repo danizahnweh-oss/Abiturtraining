@@ -1703,6 +1703,80 @@ function clearOCR() {
   document.getElementById("ocrFileInput").value = "";
 }
 
+/* ================= VERWANDTE FÄCHER (SEO Interlinking) ================= */
+
+;(function() {
+  var path = window.location.pathname;
+  // Nur auf Fachseiten (Training + Abitur) anzeigen, nicht auf index/profil/abo etc.
+  var allSubjects = [
+    { file: "mathe-abitur.html", name: "Mathe Abitur", cat: "nawi" },
+    { file: "mathe.html", name: "Mathe Training", cat: "nawi" },
+    { file: "biologie-abitur.html", name: "Biologie Abitur", cat: "nawi" },
+    { file: "biologie.html", name: "Biologie Training", cat: "nawi" },
+    { file: "chemie-abitur.html", name: "Chemie Abitur", cat: "nawi" },
+    { file: "chemie.html", name: "Chemie Training", cat: "nawi" },
+    { file: "physik-abitur.html", name: "Physik Abitur", cat: "nawi" },
+    { file: "physik.html", name: "Physik Training", cat: "nawi" },
+    { file: "informatik-abitur.html", name: "Informatik Abitur", cat: "nawi" },
+    { file: "informatik.html", name: "Informatik Training", cat: "nawi" },
+    { file: "analyse.html", name: "Deutsch Analyse", cat: "sprachen" },
+    { file: "interpretation.html", name: "Deutsch Interpretation", cat: "sprachen" },
+    { file: "eroerterung.html", name: "Deutsch Er\u00f6rterung", cat: "sprachen" },
+    { file: "mediation.html", name: "Englisch Mediation", cat: "sprachen" },
+    { file: "writing.html", name: "Englisch Writing", cat: "sprachen" },
+    { file: "listening.html", name: "Englisch Listening", cat: "sprachen" },
+    { file: "latein.html", name: "Latein Training", cat: "sprachen" },
+    { file: "latein-abitur.html", name: "Latein Abitur", cat: "sprachen" },
+    { file: "geschichte-abitur.html", name: "Geschichte Abitur", cat: "gewi" },
+    { file: "geschichte.html", name: "Geschichte Training", cat: "gewi" },
+    { file: "geographie-abitur.html", name: "Geographie Abitur", cat: "gewi" },
+    { file: "geographie.html", name: "Geographie Training", cat: "gewi" },
+    { file: "pug-abitur.html", name: "PuG Abitur", cat: "gewi" },
+    { file: "politik.html", name: "PuG Training", cat: "gewi" },
+    { file: "wr-abitur.html", name: "WR Abitur", cat: "gewi" },
+    { file: "wr.html", name: "WR Training", cat: "gewi" },
+    { file: "ethik-abitur.html", name: "Ethik Abitur", cat: "gewi" },
+    { file: "ethik.html", name: "Ethik Training", cat: "gewi" },
+    { file: "religion-abitur.html", name: "Ev. Religion Abitur", cat: "gewi" },
+    { file: "religion.html", name: "Ev. Religion Training", cat: "gewi" },
+    { file: "katholisch-abitur.html", name: "Kath. Religion Abitur", cat: "gewi" },
+    { file: "katholisch.html", name: "Kath. Religion Training", cat: "gewi" },
+    { file: "sport-abitur.html", name: "Sport Abitur", cat: "nawi" },
+    { file: "sport.html", name: "Sport Training", cat: "nawi" }
+  ];
+
+  var currentFile = path.split("/").pop();
+  var current = allSubjects.find(function(s) { return s.file === currentFile; });
+  if (!current) return;
+
+  // Verwandte Fächer: gleiche Kategorie, aber anderes Fach (max 6)
+  var related = allSubjects.filter(function(s) {
+    return s.cat === current.cat && s.file !== currentFile;
+  });
+  // Mische und limitiere auf 6
+  for (var i = related.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = related[i]; related[i] = related[j]; related[j] = t;
+  }
+  related = related.slice(0, 6);
+
+  var footer = document.querySelector("footer");
+  if (!footer) return;
+
+  var section = document.createElement("nav");
+  section.setAttribute("aria-label", "Verwandte F\u00e4cher");
+  section.style.cssText = "max-width:900px;margin:2rem auto 0;padding:0 1rem;";
+  section.innerHTML = '<h3 style="font-family:var(--font-display);font-size:1.05rem;margin-bottom:.8rem;color:var(--ink);">Weitere F\u00e4cher entdecken</h3>' +
+    '<div style="display:flex;flex-wrap:wrap;gap:.5rem;">' +
+    related.map(function(s) {
+      return '<a href="/' + s.file + '" style="display:inline-block;padding:.45rem .9rem;border-radius:8px;background:var(--surface);border:1px solid var(--border);color:var(--ink);text-decoration:none;font-size:.88rem;transition:border-color .2s,background .2s;">' + s.name + '</a>';
+    }).join("") +
+    '</div>' +
+    '<a href="/" style="display:inline-block;margin-top:.8rem;font-size:.85rem;color:var(--accent);text-decoration:none;">\u2190 Alle F\u00e4cher anzeigen</a>';
+
+  footer.parentNode.insertBefore(section, footer);
+})();
+
 /* ================= LEGAL-LINKS + DASHBOARD-LINK IM FOOTER ================= */
 
 ;(function() {
