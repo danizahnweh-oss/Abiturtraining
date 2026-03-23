@@ -199,12 +199,17 @@ async function showTrialBannerIfNeeded(containerId) {
   if (sub.status === "trialing" && sub.trial_days_left > 0) {
     var container = document.getElementById(containerId);
     if (!container) return;
+    if (container.querySelector(".trial-hint-banner")) return;
     var banner = document.createElement("div");
     banner.className = "trial-hint-banner";
     banner.setAttribute("role", "status");
-    banner.innerHTML = '<span style="font-size:1.2em">&#9200;</span> Testphase: noch <strong>' +
-      sub.trial_days_left + ' Tage</strong>. <a href="/abo.html" style="color:var(--accent);font-weight:700;text-decoration:none;">Jetzt Abo wählen &rarr;</a>';
-    banner.style.cssText = "background:var(--accent-soft,#e0e7ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:.8rem 1.2rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem;font-size:.9rem;";
+    banner.innerHTML =
+      '<div style="display:flex;align-items:center;gap:.5rem;">' +
+        '<span style="font-size:1.1em;">&#9200;</span>' +
+        '<span>Deine <strong>kostenlose Testphase</strong> l\u00e4uft noch <strong>' + sub.trial_days_left + (sub.trial_days_left === 1 ? ' Tag' : ' Tage') + '</strong></span>' +
+      '</div>' +
+      '<a href="/abo.html" style="background:var(--accent,#4f46e5);color:#fff;padding:.45rem 1rem;border-radius:8px;font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;">Abo w\u00e4hlen</a>';
+    banner.style.cssText = "background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
     container.prepend(banner);
   }
 }
