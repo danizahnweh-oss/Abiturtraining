@@ -87,16 +87,29 @@ export async function handleCheckStudent(request, env) {
       "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, class_group, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
     ).bind(student_name.trim(), nameLower, level || "", salt, hash, classGroup, new Date().toISOString()).run();
 
-    // Bei free_access Schulcode: Abo-Status direkt auf 'active' setzen
+    // Neuen Schüler laden
+    const newStudent = await env.DB.prepare(
+      "SELECT id FROM students WHERE name_lower = ?"
+    ).bind(nameLower).first();
+
     if (hasFreeAccess) {
-      const student = await env.DB.prepare(
-        "SELECT id FROM students WHERE name_lower = ?"
-      ).bind(nameLower).first();
-      if (student) {
+      // free_access Schulcode: Abo-Status direkt auf 'active' setzen
+      if (newStudent) {
         await env.DB.prepare(
           "UPDATE students SET subscription_status = 'active', subscription_plan = 'school' WHERE id = ?"
-        ).bind(student.id).run();
+        ).bind(newStudent.id).run();
       }
+    } else if (newStudent) {
+      // Kein free_access: Automatisch 3-Tage-Trial starten
+      const trialEnd = new Date(Date.now() + 3 * 86400000).toISOString();
+      const now = new Date().toISOString();
+      await env.DB.prepare(
+        "UPDATE students SET subscription_status = 'trialing', subscription_plan = 'trial', trial_end = ? WHERE id = ?"
+      ).bind(trialEnd, newStudent.id).run();
+      await env.DB.prepare(`
+        INSERT INTO subscriptions (id, student_id, plan, status, trial_end, created_at, updated_at)
+        VALUES (?, ?, 'trial', 'trialing', ?, ?, ?)
+      `).bind(crypto.randomUUID(), newStudent.id, trialEnd, now, now).run();
     }
   } else {
     if (!existing) {

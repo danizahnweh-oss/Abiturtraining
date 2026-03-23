@@ -368,7 +368,7 @@ export async function handleStartTrial(request, env) {
     return jsonResponse({ error: 'Testphase wurde bereits genutzt.' }, 400, env);
   }
 
-  const trialEnd = new Date(Date.now() + 7 * 86400000).toISOString(); // 7 Tage
+  const trialEnd = new Date(Date.now() + 3 * 86400000).toISOString(); // 3 Tage
   const now = new Date().toISOString();
 
   await env.DB.prepare(
@@ -383,7 +383,7 @@ export async function handleStartTrial(request, env) {
   return jsonResponse({
     status: 'trialing',
     trial_end: trialEnd,
-    trial_days_left: 7,
+    trial_days_left: 3,
   }, 200, env);
 }
 
