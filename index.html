@@ -3377,6 +3377,9 @@
         <label for="personalPasswordConfirm" class="sr-only">Passwort best&auml;tigen</label>
         <input type="password" id="personalPasswordConfirm" class="login-input" placeholder="Passwort best&auml;tigen ..."
           autocomplete="new-password">
+        <label for="registerEmail" class="sr-only">E-Mail-Adresse</label>
+        <input type="email" id="registerEmail" class="login-input" placeholder="Deine E-Mail-Adresse ..."
+          autocomplete="email" style="font-size:16px;">
         <p style="font-size:.82rem;color:var(--ink-muted);margin-top:.4rem;text-align:center;">Hast du einen Schulcode? Den gibst du sp&auml;ter beim Abo ein.</p>
       </div>
       <br>
@@ -5950,7 +5953,11 @@
 
       if (loginMode === "register") {
         var confirmPw = document.getElementById("personalPasswordConfirm").value;
+        var regEmail = document.getElementById("registerEmail").value.trim();
         if (personalPw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
+        if (!regEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail)) { err.textContent = "Bitte gib eine g\u00fcltige E-Mail-Adresse ein."; err.style.display = "block"; return; }
+        body.email = regEmail;
+        try { if (localStorage.getItem("myabiflow_trial_used")) body.trial_used = true; } catch(e) {}
       }
 
       btn.disabled = true;
@@ -5973,6 +5980,10 @@
           if (data.free_access) sessionStorage.setItem("free_access", "1");
           if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
           if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+          // Ger\u00e4te-Flag: Trial auf diesem Ger\u00e4t wurde genutzt
+          if (loginMode === "register" && data.subscription_status === "trialing") {
+            try { localStorage.setItem("myabiflow_trial_used", "1"); } catch(e) {}
+          }
 
           // Paywall-Check: Kein free_access und kein aktives Abo → zur Abo-Seite
           if (!data.free_access && data.subscription_status !== "active" && data.subscription_status !== "trialing") {

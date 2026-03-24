@@ -2298,6 +2298,7 @@ function _ensureLoginModal() {
     '<input type="password" id="slModalPw" placeholder="Dein Passwort …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<div id="slRegFields" style="display:none;">' +
     '<input type="password" id="slModalPwConfirm" placeholder="Passwort best\u00e4tigen \u2026" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<input type="email" id="slModalEmail" placeholder="Deine E-Mail-Adresse \u2026" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border);border-radius:10px;margin-bottom:.6rem;background:var(--surface);color:var(--ink);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
     '<p style="font-size:.82rem;color:var(--ink-muted);margin-top:.2rem;text-align:center;">Schulcode? Gibst du sp\u00e4ter beim Abo ein.</p>' +
     '</div>' +
     '<div id="slModalError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
@@ -2350,11 +2351,15 @@ async function _doLoginModal() {
 
   if (_loginModalMode === "register") {
     var confirmPw = document.getElementById("slModalPwConfirm").value;
+    var regEmail = document.getElementById("slModalEmail").value.trim();
     if (pw !== confirmPw) { err.textContent = "Passw\u00f6rter stimmen nicht \u00fcberein."; err.style.display = "block"; return; }
+    if (!regEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(regEmail)) { err.textContent = "Bitte gib eine g\u00fcltige E-Mail-Adresse ein."; err.style.display = "block"; return; }
+    body.email = regEmail;
+    try { if (localStorage.getItem("myabiflow_trial_used")) body.trial_used = true; } catch(e) {}
   }
 
   btn.disabled = true;
-  btn.textContent = "Prüfe …";
+  btn.textContent = "Pr\u00fcfe \u2026";
   err.style.display = "none";
 
   try {
@@ -2391,6 +2396,10 @@ async function _doLoginModal() {
       if (data.free_access) sessionStorage.setItem("free_access", "1");
       if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
       if (!sessionStorage.getItem("student_level")) sessionStorage.setItem("student_level", "eA");
+      // Ger\u00e4te-Flag: Trial auf diesem Ger\u00e4t wurde genutzt
+      if (_loginModalMode === "register" && data.subscription_status === "trialing") {
+        try { localStorage.setItem("myabiflow_trial_used", "1"); } catch(e) {}
+      }
 
       // Greeting aktualisieren
       var greeting = document.getElementById("studentGreeting");

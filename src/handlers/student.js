@@ -25,7 +25,7 @@ export async function handleLogin(request, env) {
 
 /* ================= CHECK STUDENT (Register / Login) ================= */
 export async function handleCheckStudent(request, env) {
-  const { password, personal_password, student_name, mode, level } = await request.json();
+  const { password, personal_password, student_name, mode, level, email, trial_used } = await request.json();
 
   if (!env.ACCESS_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
@@ -34,13 +34,18 @@ export async function handleCheckStudent(request, env) {
     return jsonResponse({ success: false, error: "Name erforderlich." }, 400, env);
   }
   if (mode !== "register" && mode !== "login") {
-    return jsonResponse({ success: false, error: "Ungültiger Modus." }, 400, env);
+    return jsonResponse({ success: false, error: "Ung\u00fcltiger Modus." }, 400, env);
   }
   if (!personal_password || typeof personal_password !== "string") {
     return jsonResponse({ success: false, error: "Passwort erforderlich." }, 400, env);
   }
   if (mode === "register" && personal_password.length < 6) {
     return jsonResponse({ success: false, error: "Passwort muss mindestens 6 Zeichen haben." }, 400, env);
+  }
+  if (mode === "register") {
+    if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return jsonResponse({ success: false, error: "Bitte gib eine g\u00fcltige E-Mail-Adresse ein." }, 400, env);
+    }
   }
 
   const nameLower = student_name.trim().toLowerCase();
@@ -50,21 +55,35 @@ export async function handleCheckStudent(request, env) {
 
   if (mode === "register") {
     if (existing) {
-      return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte füge eine Zahl an (z.B. Max M. 2)." }, 409, env);
+      return jsonResponse({ success: false, error: "Dieser Name ist bereits vergeben. Bitte f\u00fcge eine Zahl an (z.B. Max M. 2)." }, 409, env);
+    }
+
+    // Pruefen ob mit dieser E-Mail schon ein Trial gestartet wurde
+    const emailLower = email.trim().toLowerCase();
+    const existingEmail = await env.DB.prepare(
+      "SELECT id, trial_end FROM students WHERE LOWER(email) = ?"
+    ).bind(emailLower).first();
+
+    let trialAllowed = true;
+    if (existingEmail && existingEmail.trial_end) {
+      trialAllowed = false; // Diese E-Mail hatte schon einen Trial
+    }
+    if (trial_used) {
+      trialAllowed = false; // Geraete-Flag: Trial wurde auf diesem Geraet schon genutzt
     }
 
     const salt = crypto.randomUUID();
     const hash = await hashPassword(personal_password, salt);
     await env.DB.prepare(
-      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?)"
-    ).bind(student_name.trim(), nameLower, level || "", salt, hash, new Date().toISOString()).run();
+      "INSERT INTO students (name, name_lower, level, salt, hash, hidden_subjects, email, created_at) VALUES (?, ?, ?, ?, ?, '[]', ?, ?)"
+    ).bind(student_name.trim(), nameLower, level || "", salt, hash, emailLower, new Date().toISOString()).run();
 
-    // Automatisch 3-Tage-Trial starten
     const newStudent = await env.DB.prepare(
       "SELECT id FROM students WHERE name_lower = ?"
     ).bind(nameLower).first();
 
-    if (newStudent) {
+    if (newStudent && trialAllowed) {
+      // Trial starten (3 Tage)
       const trialEnd = new Date(Date.now() + 3 * 86400000).toISOString();
       const now = new Date().toISOString();
       await env.DB.prepare(
@@ -75,6 +94,7 @@ export async function handleCheckStudent(request, env) {
         VALUES (?, ?, 'trial', 'trialing', ?, ?, ?)
       `).bind(crypto.randomUUID(), newStudent.id, trialEnd, now, now).run();
     }
+    // Kein Trial erlaubt → Schueler wird ohne Trial erstellt (muss direkt zahlen)
   } else {
     if (!existing) {
       return jsonResponse({ success: false, error: "Name nicht gefunden. Bitte zuerst registrieren." }, 404, env);
