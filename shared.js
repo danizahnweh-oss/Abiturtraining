@@ -2867,3 +2867,135 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+/* ================= DSGVO CONSENT-BANNER + TRACKING ================= */
+
+// Platzhalter-IDs – nach Einrichtung der Konten ersetzen:
+var TRACKING_CONFIG = {
+  GA_MEASUREMENT_ID: "G-XXXXXXXXXX",       // Google Analytics 4
+  AW_CONVERSION_ID: "AW-XXXXXXXXXX",       // Google Ads
+  META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
+};
+
+function getTrackingConsent() {
+  return localStorage.getItem("myabiflow_tracking_consent");
+}
+
+function setTrackingConsent(value) {
+  localStorage.setItem("myabiflow_tracking_consent", value);
+}
+
+// Google Tag (gtag.js) laden
+function loadGoogleTag() {
+  if (TRACKING_CONFIG.GA_MEASUREMENT_ID === "G-XXXXXXXXXX") return;
+  if (document.getElementById("gtag-script")) return;
+
+  var s = document.createElement("script");
+  s.id = "gtag-script";
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=" + TRACKING_CONFIG.GA_MEASUREMENT_ID;
+  document.head.appendChild(s);
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function() { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", TRACKING_CONFIG.GA_MEASUREMENT_ID, { anonymize_ip: true });
+
+  if (TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+    window.gtag("config", TRACKING_CONFIG.AW_CONVERSION_ID);
+  }
+}
+
+// Meta Pixel laden
+function loadMetaPixel() {
+  if (TRACKING_CONFIG.META_PIXEL_ID === "XXXXXXXXXXXXXXX") return;
+  if (window.fbq) return;
+
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,"script","https://connect.facebook.net/en_US/fbevents.js");
+
+  window.fbq("init", TRACKING_CONFIG.META_PIXEL_ID);
+  window.fbq("track", "PageView");
+}
+
+function loadTrackingScripts() {
+  loadGoogleTag();
+  loadMetaPixel();
+}
+
+// Tracking-Event senden (nur wenn Consent gegeben)
+function trackEvent(eventName, params) {
+  if (getTrackingConsent() !== "accepted") return;
+
+  // Google Analytics / Ads
+  if (window.gtag) {
+    window.gtag("event", eventName, params || {});
+  }
+
+  // Meta Pixel
+  if (window.fbq) {
+    window.fbq("track", eventName, params || {});
+  }
+}
+
+// UTM-Parameter aus URL lesen
+function getUtmParams() {
+  var params = new URLSearchParams(window.location.search);
+  var utm = {};
+  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach(function(key) {
+    var val = params.get(key);
+    if (val) utm[key] = val;
+  });
+  // UTM in sessionStorage speichern (bleibt waehrend des Besuchs erhalten)
+  if (Object.keys(utm).length > 0) {
+    sessionStorage.setItem("myabiflow_utm", JSON.stringify(utm));
+  }
+  return JSON.parse(sessionStorage.getItem("myabiflow_utm") || "{}");
+}
+
+// Consent-Banner anzeigen
+function initConsentBanner() {
+  if (getTrackingConsent()) {
+    // Consent schon gegeben oder abgelehnt
+    if (getTrackingConsent() === "accepted") loadTrackingScripts();
+    return;
+  }
+
+  var banner = document.createElement("div");
+  banner.id = "consentBanner";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-label", "Cookie-Hinweis");
+  banner.style.cssText = "position:fixed;bottom:0;left:0;right:0;z-index:99999;background:var(--surface,#fff);border-top:1px solid var(--border,#e2e8f0);padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.875rem;color:var(--ink,#0f172a);box-shadow:0 -4px 20px rgba(0,0,0,.1);font-family:var(--font-body,'DM Sans',sans-serif);";
+
+  banner.innerHTML =
+    '<p style="flex:1;min-width:200px;margin:0;line-height:1.5;">' +
+      'Wir nutzen Cookies fuer Analyse und Marketing, um myAbiFlow zu verbessern. ' +
+      '<a href="/dsfa.html" style="color:var(--accent,#4f46e5);text-decoration:underline;">Mehr erfahren</a>' +
+    '</p>' +
+    '<div style="display:flex;gap:.5rem;flex-shrink:0;">' +
+      '<button id="consentReject" style="background:transparent;color:var(--ink-light,#475569);border:1px solid var(--border,#e2e8f0);padding:.5rem 1rem;border-radius:8px;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Ablehnen</button>' +
+      '<button id="consentAccept" style="background:var(--accent,#4f46e5);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;min-height:44px;min-width:44px;font-family:inherit;">Akzeptieren</button>' +
+    '</div>';
+
+  document.body.appendChild(banner);
+
+  document.getElementById("consentAccept").addEventListener("click", function() {
+    setTrackingConsent("accepted");
+    loadTrackingScripts();
+    banner.remove();
+  });
+
+  document.getElementById("consentReject").addEventListener("click", function() {
+    setTrackingConsent("rejected");
+    banner.remove();
+  });
+}
+
+// UTM-Parameter beim Laden erfassen + Consent-Banner initialisieren
+document.addEventListener("DOMContentLoaded", function() {
+  getUtmParams();
+  initConsentBanner();
+});
+

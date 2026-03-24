@@ -63,7 +63,7 @@ function planDurationDays(plan) {
 
 /* ================= CHECKOUT SESSION ERSTELLEN ================= */
 export async function handleCreateCheckout(request, env) {
-  const { plan, student_id, student_name } = await request.json();
+  const { plan, student_id, student_name, utm } = await request.json();
 
   if (!plan || !student_id) {
     return jsonResponse({ error: 'Plan und Student-ID erforderlich.' }, 400, env);
@@ -123,6 +123,9 @@ export async function handleCreateCheckout(request, env) {
     'cancel_url': `${allowedOrigin}/abo.html?canceled=true`,
     'metadata[student_id]': student_id,
     'metadata[plan]': plan,
+    'metadata[utm_source]': (utm && utm.utm_source) || '',
+    'metadata[utm_medium]': (utm && utm.utm_medium) || '',
+    'metadata[utm_campaign]': (utm && utm.utm_campaign) || '',
     'locale': 'de',
     'allow_promotion_codes': 'true',
   };

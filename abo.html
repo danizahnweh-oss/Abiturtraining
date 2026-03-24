@@ -648,6 +648,42 @@
       .abo-title { font-size: 1.3rem; }
       .pricing-price { font-size: 1.8rem; }
     }
+
+    /* Sticky CTA fuer Mobile/Tablet */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 9998;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: .75rem 1rem;
+      padding-bottom: calc(.75rem + env(safe-area-inset-bottom, 0px));
+      box-shadow: 0 -4px 20px rgba(0,0,0,.1);
+    }
+    .sticky-cta .sticky-cta-btn {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .85rem 1.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      min-height: 48px;
+      font-family: var(--font-display);
+      transition: background .2s;
+    }
+    .sticky-cta .sticky-cta-btn:hover { background: var(--accent-hover); }
+    @media (max-width: 1024px) {
+      .sticky-cta { display: block; }
+      /* Platz fuer Sticky CTA am Seitenende */
+      body { padding-bottom: 80px; }
+    }
   </style>
 </head>
 <body>
@@ -781,6 +817,13 @@
             <span class="trust-item">&#10060; Jederzeit k&uuml;ndbar</span>
             <span class="trust-item">&#127979; Schullizenzen verf&uuml;gbar</span>
           </div>
+
+          <!-- Social Proof -->
+          <div class="social-proof" style="text-align:center;margin-top:1.5rem;padding:1rem;background:var(--accent-glow);border-radius:var(--radius-sm);border:1px solid var(--accent-soft);">
+            <p style="font-size:.9rem;color:var(--ink-light);margin:0;line-height:1.5;">
+              &#127891; Schueler am <strong style="color:var(--ink);">St.-Anna-Gymnasium Muenchen</strong> lernen bereits mit myAbiFlow
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -859,11 +902,28 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> Weiterleitung zu Stripe...';
 
+      // UTM-Parameter fuer Stripe Metadata mitsenden
+      var utmData = (typeof getUtmParams === "function") ? getUtmParams() : {};
+
       try {
         var data = await aboApi("/api/stripe/create-checkout", {
           plan: selectedPlan,
-          student_id: studentId
+          student_id: studentId,
+          utm: utmData
         });
+
+        // Conversion-Events tracken
+        if (typeof trackEvent === "function") {
+          trackEvent("InitiateCheckout", { plan: selectedPlan, value: selectedPlan });
+          // Google Ads Conversion
+          if (window.gtag && TRACKING_CONFIG && TRACKING_CONFIG.AW_CONVERSION_ID !== "AW-XXXXXXXXXX") {
+            window.gtag("event", "conversion", {
+              send_to: TRACKING_CONFIG.AW_CONVERSION_ID + "/checkout",
+              value: 1.0,
+              currency: "EUR"
+            });
+          }
+        }
 
         if (data.url) {
           window.location.href = data.url;
@@ -1055,6 +1115,30 @@
 
     // Status laden
     loadSubscriptionStatus();
+
+    // Sticky CTA: verstecken wenn Abo aktiv oder wenn Checkout-Button sichtbar
+    (function() {
+      var stickyCta = document.getElementById("stickyCta");
+      if (!stickyCta) return;
+
+      // Klick leitet zum Checkout-Button weiter
+      stickyCta.querySelector(".sticky-cta-btn").addEventListener("click", function() {
+        var checkoutBtn = document.getElementById("checkoutBtn");
+        if (checkoutBtn) checkoutBtn.click();
+      });
+
+      // Sticky CTA ausblenden wenn Pricing-Section nicht sichtbar
+      var observer = new MutationObserver(function() {
+        var pricingSection = document.getElementById("pricingSection");
+        stickyCta.style.display = (pricingSection && pricingSection.classList.contains("visible")) ? "" : "none";
+      });
+      observer.observe(document.getElementById("pricingSection"), { attributes: true, attributeFilter: ["class"] });
+    })();
   </script>
+
+  <!-- Sticky CTA fuer Mobile/Tablet -->
+  <div class="sticky-cta" id="stickyCta">
+    <button class="sticky-cta-btn" type="button">Jetzt Abo abschliessen &rarr;</button>
+  </div>
 </body>
 </html>
