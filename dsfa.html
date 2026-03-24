@@ -116,7 +116,7 @@
                 Sch&uuml;lern (in der Regel 16&ndash;18 Jahre, teils unter 16)</li>
             <li><strong>KI-basierte Bewertung:</strong> Automatisierte Bewertung von Sch&uuml;lerleistungen durch KI-Modelle</li>
             <li><strong>Systematische Verarbeitung:</strong> Regelm&auml;&szlig;ige, strukturierte Erfassung von Lernleistungen</li>
-            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an US-Dienstleister (OpenAI, Resend) f&uuml;r KI-Korrektur und E-Mail-Versand</li>
+            <li><strong>Daten&uuml;bermittlung in Drittl&auml;nder:</strong> &Uuml;bermittlung an US-Dienstleister (OpenAI, Wolfram|Alpha, Resend) f&uuml;r KI-Korrektur, mathematische Verifikation und E-Mail-Versand</li>
         </ul>
 
         <h2>2. Beschreibung der Verarbeitung</h2>
@@ -154,6 +154,7 @@
             <li><strong>Sch&uuml;ler &rarr; myAbiFlow (Hetzner, Deutschland):</strong> Registrierung, Login, Aufgabenabgabe &ndash; HTTPS-verschl&uuml;sselt</li>
             <li><strong>myAbiFlow &rarr; OpenAI (USA):</strong> Aufgabentexte + Bilder zur Korrektur &ndash; <em>ohne Namen/Noten</em></li>
             <li><strong>myAbiFlow &rarr; Google Gemini (EU/USA):</strong> Texte und Audio f&uuml;r Kolloquium/Tutor &ndash; <em>ohne Namen/Noten</em></li>
+            <li><strong>myAbiFlow &rarr; Wolfram|Alpha (USA):</strong> Mathematische Ausdr&uuml;cke und Formeln zur Verifikation &ndash; <em>kein Personenbezug</em></li>
             <li><strong>myAbiFlow &rarr; Resend (USA):</strong> E-Mail-Adresse + Fach f&uuml;r Erinnerungen &ndash; <em>nur bei Aktivierung</em></li>
             <li><strong>Lehrkraft &rarr; myAbiFlow:</strong> Dashboard-Zugriff auf zugeordnete Sch&uuml;lerergebnisse &ndash; HTTPS + Token-Auth</li>
         </ol>
@@ -254,6 +255,7 @@
                     <ul style="margin: 0; padding-left: 1.2rem;">
                         <li>OpenAI API: Daten werden nicht zum Training verwendet (API-TOS)</li>
                         <li>Google Gemini API: Daten werden nicht zum Training verwendet (Gemini API Terms)</li>
+                        <li>Wolfram|Alpha API: Nur mathematische Ausdr&uuml;cke ohne Personenbezug &uuml;bermittelt</li>
                         <li>Keine Namen/Noten in KI-Anfragen enthalten</li>
                     </ul>
                 </td>
