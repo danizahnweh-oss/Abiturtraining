@@ -2871,7 +2871,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Platzhalter-IDs – nach Einrichtung der Konten ersetzen:
 var TRACKING_CONFIG = {
-  GA_MEASUREMENT_ID: "G-XXXXXXXXXX",       // Google Analytics 4
+  GA_MEASUREMENT_ID: "G-H2T0ZWDHW8",       // Google Analytics 4
   AW_CONVERSION_ID: "AW-XXXXXXXXXX",       // Google Ads
   META_PIXEL_ID: "XXXXXXXXXXXXXXX"          // Meta/Facebook Pixel
 };
