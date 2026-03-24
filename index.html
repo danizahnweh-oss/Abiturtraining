@@ -3394,6 +3394,7 @@
       <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" style="height: 101px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="logout-btn" id="pwaInstallBtn" onclick="pwaInstallPrompt()" aria-label="App installieren" style="display:none; background:var(--accent); color:#fff;">📲 App installieren</button>
         <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" id="profileBtn" onclick="showProfileModal()" aria-label="Profil öffnen" style="display:none">👤 Profil</button>
@@ -6724,6 +6725,38 @@
     window.addEventListener("pageshow", function (e) {
       if (e.persisted) checkSession();
     });
+
+    // ====== PWA Install Button ======
+    var _deferredInstallPrompt = null;
+    window.addEventListener("beforeinstallprompt", function (e) {
+      e.preventDefault();
+      _deferredInstallPrompt = e;
+      var btn = document.getElementById("pwaInstallBtn");
+      if (btn) btn.style.display = "";
+    });
+    window.addEventListener("appinstalled", function () {
+      _deferredInstallPrompt = null;
+      var btn = document.getElementById("pwaInstallBtn");
+      if (btn) btn.style.display = "none";
+    });
+    function pwaInstallPrompt() {
+      if (_deferredInstallPrompt) {
+        _deferredInstallPrompt.prompt();
+        _deferredInstallPrompt.userChoice.then(function (result) {
+          _deferredInstallPrompt = null;
+          var btn = document.getElementById("pwaInstallBtn");
+          if (btn) btn.style.display = "none";
+        });
+      } else if (/iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.userAgent.includes("Mac") && "ontouchend" in document)) {
+        // iOS: Anleitung zeigen, da kein beforeinstallprompt
+        alert("Tippe auf das Teilen-Symbol (Quadrat mit Pfeil) und dann auf „Zum Home-Bildschirm".");
+      }
+    }
+    // Button ausblenden, wenn bereits als PWA geöffnet
+    if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone) {
+      var btn = document.getElementById("pwaInstallBtn");
+      if (btn) btn.style.display = "none";
+    }
   </script>
   <script src="tour.js"></script>
   <script src="ai-tutor.js"></script>
