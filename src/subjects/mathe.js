@@ -55,7 +55,7 @@ Lehrplan-Inhalte Jgst. 13:
   const sgInfo = sgThemen[sg] || sgThemen.analysis;
 
   const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
-Erstelle eine authentische Mathematik-Aufgabe.
+Erstelle eine anspruchsvolle, authentische Mathematik-Aufgabe auf ECHTEM ABITURNIVEAU.
 
 AUFGABE:
 - Gesamt: EXAKT ${totalBE} BE — die Summe aller Teilaufgaben-BE MUSS EXAKT ${totalBE} ergeben!
@@ -69,6 +69,21 @@ ${aufgabenAnzahl > 1 ? `- Erstelle ${aufgabenAnzahl} separate Aufgaben (je ca. $
 - VALIDIERUNG: Zähle am Ende nach — die Summe aller "be"-Werte MUSS EXAKT ${totalBE} ergeben!
 - Hilfsmittel/CAS erlaubt
 - KEINE LÖSUNGSHINWEISE: Nenne in den Aufgabenstellungen KEINE konkreten Beispiele, Hinweise oder Lösungsansätze in Klammern (z.B. NICHT "Bestimmen Sie die Extrempunkte (Hoch- und Tiefpunkte, ...)"). Die Schüler sollen selbst herausfinden, welche Methoden anzuwenden sind.
+
+HOHES NIVEAU — KRITISCHE REGELN:
+- NIEMALS nackte Mathe-Fragen stellen wie "Bestimmen Sie die erste Ableitung" oder "Berechnen Sie die Nullstellen"!
+- STATTDESSEN: Mathematische Operationen IMMER in den Sachkontext einbetten:
+  FALSCH: "Bestimmen Sie f'(x)."
+  RICHTIG: "Bestimmen Sie den Zeitpunkt, zu dem die Wachstumsrate maximal ist."
+  FALSCH: "Berechnen Sie die Nullstellen von f."
+  RICHTIG: "Ermitteln Sie, nach wie vielen Stunden der Wirkstoff vollständig abgebaut ist."
+  FALSCH: "Bestimmen Sie das Integral von f im Intervall [0; 5]."
+  RICHTIG: "Berechnen Sie die Gesamtmenge des freigesetzten CO₂ in den ersten fünf Stunden."
+  FALSCH: "Bestimmen Sie die Gleichung der Tangente im Punkt P."
+  RICHTIG: "Ein Ingenieur plant eine geradlinige Zufahrt, die den Hang im Punkt P tangential berührt. Bestimmen Sie die Gleichung dieser Zufahrt."
+- Der Schüler muss SELBST erkennen, welche mathematische Methode (Ableitung, Integral, Nullstelle, ...) nötig ist — das ist Teil der Aufgabe!
+- Aufgaben sollen MEHRSTUFIGES DENKEN erfordern: Mehrere Konzepte kombinieren, nicht isolierte Standardaufgaben
+- VARIANZ: Verwende ungewöhnliche Funktionstypen, überraschende Kontexte, und fordere auch Modellkritik/Interpretation
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
@@ -84,14 +99,15 @@ PFLICHT-REGELN FÜR JEDE TEILAUFGABE:
 - Operatoren nach AFB:
   AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie", "Skizzieren Sie"
   AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie"
-  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist"
-- AFB-Verteilung: ca. 30% AFB I, 50% AFB II, 20% AFB III
+  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist", "Entwickeln Sie ein Modell"
+- AFB-Verteilung: ca. 20% AFB I, 50% AFB II, 30% AFB III — Schwerpunkt auf Transfer und Begründung!
+- KEINE reinen Reproduktionsaufgaben! Auch AFB-I-Aufgaben müssen im Sachkontext stehen.
 
-SACHKONTEXT-ANFORDERUNGEN:
-- Bei ≥15 BE: Die Aufgabe MUSS in einen KONKRETEN Sachkontext eingebettet sein (z.B. aus der obigen Sachkontext-Ideen-Liste)
-- Einleitung: 1-3 Sätze, die den Sachzusammenhang beschreiben, BEVOR die Funktion/Formel kommt
-  Beispiel: "Junge Hunde wachsen in ihren ersten Lebensmonaten sehr schnell. Die momentane Zunahme der Körpermasse eines Hundes wird durch die Funktion $f$ mit $f(t) = \\frac{1}{100} \\cdot (2t^{3} - 43t^{2} + 248t)$, $0 \\le t \\le 10$ (t in Monaten), modelliert."
-- Bei <15 BE: Sachkontext optional, aber JEDE Teilaufgabe muss trotzdem einen vollständigen Aufgabentext mit Operator haben
+SACHKONTEXT IST PFLICHT:
+- JEDE Aufgabe MUSS in einen KONKRETEN, REALISTISCHEN Sachkontext eingebettet sein — auch bei wenigen BE!
+- Einleitung: 2-4 Sätze, die den Sachzusammenhang lebendig beschreiben, BEVOR die Funktion/Formel kommt
+  Beispiel: "In einer Wetterstation wird die Temperaturentwicklung eines Frühlingstages untersucht. Die Temperatur $T$ (in °C) lässt sich im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden ab Mitternacht) modellhaft durch die Funktion $T$ beschreiben."
+- Die Teilaufgaben fragen IMMER im Kontext — NICHT "Bestimmen Sie die Extremstellen", SONDERN "Bestimmen Sie, wann die Temperatur am höchsten ist"
 
 KONTROLLWERTE:
 - Bei mehrstufigen Aufgaben (≥15 BE): Gib bei einem wichtigen Zwischenergebnis einen Kontrollwert an — "(zur Kontrolle: ...)"
@@ -156,12 +172,12 @@ WICHTIG: Das folgende Beispiel zeigt NUR die JSON-Struktur und das erwartete Qua
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 {
-  "aufgabe": "In einer Messstation wird seit 2010 die Feinstaubkonzentration in der Luft gemessen. Die Konzentration $c$ (in $\\mu g/m^{3}$) lässt sich im Zeitraum $0 \\le t \\le 12$ ($t$ in Monaten) modellhaft durch die Funktion $c$ mit $c(t) = 8 \\cdot t \\cdot e^{-0{,}3t} + 15$ beschreiben.",
+  "aufgabe": "Ein Pharmaunternehmen testet einen neuen Wirkstoff. Nach der Einnahme einer Tablette wird die Wirkstoffkonzentration $c$ (in mg/l) im Blut gemessen. Im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden nach der Einnahme) lässt sich die Konzentration modellhaft durch die Funktion $c$ mit $c(t) = 5{,}4 \\cdot t \\cdot e^{-0{,}35t}$ beschreiben. Ab einer Konzentration von $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.",
   "teilaufgaben": [
-    {"id": "a)", "text": "Berechnen Sie $c(0)$ und $c(5)$ und beschreiben Sie die Bedeutung der Ergebnisse im Sachzusammenhang.", "be": 3},
-    {"id": "b)", "text": "Bestimmen Sie den Zeitpunkt, zu dem die Feinstaubkonzentration maximal ist.", "be": 5},
-    {"id": "c)", "text": "Ermitteln Sie die durchschnittliche Feinstaubkonzentration in den ersten 12 Monaten.", "be": 5},
-    {"id": "d)", "text": "Beurteilen Sie, ob das Modell für große Werte von $t$ sinnvoll ist.", "be": 2}
+    {"id": "a)", "text": "Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.", "be": 4},
+    {"id": "b)", "text": "Der Beipackzettel gibt an, dass die maximale Konzentration etwa zwei Stunden nach der Einnahme erreicht wird. Überprüfen Sie diese Angabe mithilfe des Modells.", "be": 4},
+    {"id": "c)", "text": "Die Gesamtbelastung des Körpers wird durch die Fläche unter dem Konzentrationsgraphen beschrieben. Bei dem alten Wirkstoff beträgt diese Belastung im gleichen Zeitraum $38$ mg·h/l. Vergleichen Sie die Belastung durch den neuen Wirkstoff mit der des alten.", "be": 5},
+    {"id": "d)", "text": "Eine Ärztin schlägt vor, nach $12$ Stunden eine zweite Tablette einzunehmen. Die Gesamtkonzentration ergibt sich dann aus der Summe beider Einzelkonzentrationen. Beurteilen Sie, ob dabei die kritische Grenze von $8$ mg/l überschritten werden könnte.", "be": 4}
   ],
   "gesamt_be": ${totalBE},
   "sachgebiet": "${sg}"
@@ -169,11 +185,13 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung zum LÖSEN der Aufgabe nötig ist. Grafik-Format: {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 WICHTIG: Generiere EIGENE Aufgaben! Das Beispiel oben ist NUR zur Orientierung.`;
 
-  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' Mathematik-Aufgaben' : 'eine Mathematik-Aufgabe'} (EXAKT ${totalBE} BE gesamt, mindestens ${minTeilaufgaben} Teilaufgaben) im Sachgebiet ${sgInfo.title}.
-${totalBE >= 15 ? 'Die Aufgabe MUSS in einen konkreten Sachkontext eingebettet sein (z.B. Modellierung, Messdaten, Alltagsproblem).' : 'Die Aufgabe soll klar formuliert sein mit vollständigen Aufgabenstellungen.'}
-Jede Teilaufgabe braucht einen klaren Operator (Bestimmen Sie, Zeigen Sie, Begründen Sie, etc.) — NIEMALS nur eine Formel ohne Anweisung!
+  const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' anspruchsvolle Mathematik-Aufgaben' : 'eine anspruchsvolle Mathematik-Aufgabe'} (EXAKT ${totalBE} BE gesamt, mindestens ${minTeilaufgaben} Teilaufgaben) im Sachgebiet ${sgInfo.title}.
+Die Aufgabe MUSS in einen konkreten, realistischen Sachkontext eingebettet sein — KEINE abstrakten Rechenaufgaben!
+ALLE Teilaufgaben im Sachkontext formulieren: Statt "Bestimmen Sie die Ableitung" → "Bestimmen Sie, wann die Geschwindigkeit maximal ist".
+Der Schüler muss SELBST erkennen, welche mathematische Methode nötig ist.
+Schwerpunkt auf AFB II und III: Begründen, Beurteilen, Modellieren, Transferleistung.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).
-PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben. Erstelle genügend Teilaufgaben!`;
+PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben.`;
 
   const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
   const openaiRes = await callOpenAI(env, [
@@ -354,7 +372,7 @@ LATEX-FORMATIERUNG (echte Mathematik, NICHT Code-Syntax!):
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 6000);
+  ], 6000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -384,7 +402,13 @@ export async function handleParseTaskMathe(request, env) {
 /* ================= MATHEMATIK ABITUR: GENERATE ================= */
 export async function handleGenerateAbiturMathe(request, env) {
   const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
-Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit 100 BE.
+Erstelle eine VOLLSTÄNDIGE, ANSPRUCHSVOLLE Abiturprüfung mit 100 BE auf ECHTEM PRÜFUNGSNIVEAU.
+
+WICHTIGSTE REGEL — KONTEXTGEBUNDENE AUFGABEN:
+ALLE Teilaufgaben müssen im Sachkontext formuliert sein! Der Schüler muss SELBST erkennen, welche mathematische Methode nötig ist.
+VERBOTEN: "Bestimmen Sie f'(x)", "Berechnen Sie die Nullstellen", "Bestimmen Sie das Integral"
+STATTDESSEN: "Ermitteln Sie, wann die Wachstumsrate am größten ist", "Bestimmen Sie, nach wie vielen Stunden kein Wirkstoff mehr nachweisbar ist", "Berechnen Sie die Gesamtmenge des freigesetzten CO₂"
+Die mathematische Methode (Ableiten, Integrieren, Nullstellen, ...) wird NICHT genannt — der Schüler erkennt sie selbst!
 
 PRÜFUNGSSTRUKTUR:
 
@@ -417,11 +441,14 @@ Geometrie: M12.5 Vektoren (Skalar-/Kreuzprodukt, Winkel, Flächeninhalte), M13.3
 
 ISB-AUFGABENSTRUKTUR (basierend auf den offiziellen illustrierenden Prüfungsaufgaben Bayern 2025):
 
-TEIL A — KOMPAKTE AUFGABEN (je 5 BE, 2-3 Teilaufgaben, OHNE CAS):
-- Analysis: Funktion mit klarer Definition + Definitionsmenge, dann Operatoren wie "Zeigen Sie", "Bestimmen Sie"
-- Stochastik: Sachkontext (z.B. Gärtnerei, Würfelspiel, Verkehr), dann Berechnung + Erläuterung
-- Geometrie: Sachkontext mit Koordinatenmodell (z.B. Bühne/Lampe/Schatten, Gebäude), dann rechnerische Untersuchung
+TEIL A — KOMPAKTE, ABER ANSPRUCHSVOLLE AUFGABEN (je 5 BE, 2-3 Teilaufgaben, OHNE CAS):
 - Teil A Aufgaben MÜSSEN ohne CAS lösbar sein → nur "schöne" Zahlen, keine komplizierten Dezimalzahlen
+- TROTZDEM anspruchsvoll: Kombiniere mehrere Konzepte, fordere Begründungen, verlange Transferleistung!
+- VARIANZ-PFLICHT: Jede Aufgabe muss sich DEUTLICH von den anderen unterscheiden!
+  Analysis: Variiere zwischen Symmetrie-Argumenten, Schar-Parametern, Tangenten-Problemen, Flächenvergleichen, Umkehrfunktionen, Monotonie-Beweisen, Grenzwertbetrachtungen — NICHT immer "Nullstellen + Ableitung"!
+  Stochastik: Variiere zwischen bedingter Wahrscheinlichkeit, Kombinatorik, Binomialverteilung, Erwartungswert-Vergleich, Baumdiagramm-Argumenten, Sigma-Regeln — NICHT immer die gleiche Struktur!
+  Geometrie: Variiere zwischen Abständen, Winkeln, Spiegelungen, Ebenen-Lagen, Kreuzprodukt-Anwendungen, Kugelberechnungen — NICHT immer "Nachweis + Abstand"!
+- JEDE Teil-A-Aufgabe in einen Mini-Sachkontext einbetten (1-2 Sätze reichen)
 
 TEIL B — GROSSE MEHRTEILIGE AUFGABEN:
 • B1 Analysis (30 BE): MUSS aus 2-3 NUMMERIERTEN ABSCHNITTEN bestehen (im "text"-Feld mit "1 ...", "2 ...", "3 ..." nummeriert), die AUFEINANDER AUFBAUEN:
@@ -447,11 +474,14 @@ TEIL B — GROSSE MEHRTEILIGE AUFGABEN:
 PFLICHT-REGELN FÜR ALLE AUFGABEN:
 - JEDE Teilaufgabe MUSS einen klaren OPERATOR haben — NIEMALS nur eine Formel ohne Anweisung!
   VERBOTEN: {"text": "$f(x) = 2x^{3} - 6x^{2}$"}
-  RICHTIG: {"text": "Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f$ mit $f(x) = 2x^{3} - 6x^{2}$. Bestimmen Sie die Nullstellen von $f$."}
+  VERBOTEN: {"text": "Bestimmen Sie die Nullstellen von $f$."}  ← zu abstrakt, keine Kontexteinbettung!
+  RICHTIG: {"text": "Ermitteln Sie, nach wie vielen Monaten der Pegelstand wieder das Ausgangsniveau erreicht."}
 - Operatoren nach AFB:
   AFB I: "Geben Sie an", "Berechnen Sie", "Bestimmen Sie", "Skizzieren Sie"
   AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie", "Weisen Sie nach"
-  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist"
+  AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist", "Entwickeln Sie"
+- AFB-Verteilung: ca. 20% AFB I, 50% AFB II, 30% AFB III — Schwerpunkt auf Transfer und Begründung!
+- AUCH bei AFB-I-Aufgaben: Im Sachkontext formulieren, nicht abstrakt!
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -538,10 +568,11 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
 Hinweis: "grafik" ist OPTIONAL pro Aufgabe.
 WICHTIG: Generiere für ALLE Aufgaben VOLLSTÄNDIGE, AUSFORMULIERTE Teilaufgaben mit klaren Operatoren! MINDESTENS 2 Teilaufgaben pro Teil-A-Aufgabe, MINDESTENS 6 Teilaufgaben pro Teil-B-Aufgabe. Verwende KOMPLETT ANDERE Funktionen, Kontexte und Zahlenwerte als im Beispiel! B1 MUSS 2-3 nummerierte Abschnitte haben, B2 und B3 MÜSSEN Sachkontexte haben!`;
 
-  const userPrompt = `Erstelle eine vollständige Mathematik-Abiturprüfung (eA, 100 BE).
-Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS lösbar
+  const userPrompt = `Erstelle eine vollständige, ANSPRUCHSVOLLE Mathematik-Abiturprüfung (eA, 100 BE).
+Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS lösbar — JEDE Aufgabe mit Mini-Sachkontext, KEINE abstrakten Rechenaufgaben! Maximale VARIANZ zwischen den Aufgaben — jede Aufgabe greift ANDERE Konzepte und Methoden auf!
 Teil B: B1 Analysis (30 BE, 2-3 nummerierte Abschnitte mit Sachkontext), B2 Stochastik (20 BE, durchgängiger Sachkontext), B3 Geometrie (20 BE, 3D-Modell mit Sachkontext), mit CAS
-KRITISCH: Alle Formeln in LaTeX-Notation. JEDE Teilaufgabe braucht einen klaren Operator — NIEMALS nur eine Formel ohne Anweisung!`;
+KRITISCH: ALLE Teilaufgaben im Sachkontext formulieren! Der Schüler muss SELBST erkennen, welche Mathe-Methode nötig ist (NICHT "Bestimmen Sie die Ableitung", SONDERN "Bestimmen Sie, wann die Zuwachsrate maximal ist").
+Alle Formeln in LaTeX-Notation. Hohes Niveau mit viel AFB II und III.`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
@@ -733,7 +764,7 @@ WICHTIG:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 10000);
+  ], 10000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
