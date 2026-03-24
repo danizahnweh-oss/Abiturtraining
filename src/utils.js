@@ -25,7 +25,7 @@ export function corsHeaders(env, requestOrigin) {
   const primary = env?.ALLOWED_ORIGIN || "https://myabiflow.de";
   const origin = (requestOrigin && isOriginAllowed(requestOrigin, env)) ? requestOrigin : primary;
   return {
-    "Content-Type": "application/json",
+    "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": origin,
     "Access-Control-Allow-Headers": "Content-Type, X-Access-Token, X-Teacher-Token, X-Teacher-Auth-Token",
     "Access-Control-Allow-Methods": "POST, OPTIONS",

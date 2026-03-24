@@ -49,7 +49,7 @@ Antworte NUR mit dem Feedback als Markdown-Text (kein JSON, keine Codeblöcke).`
     const result = await callOpenAI(env, [
       { role: "system", content: systemPrompt },
       { role: "user", content: userPrompt }
-    ], 3000, { temperature: 0.5 });
+    ], 3000, { temperature: 0.5, jsonMode: false });
 
     return jsonResponse({ feedback: result }, 200, env);
   } catch (err) {

@@ -4,6 +4,23 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
   const t0 = Date.now();
   let phase = "fetch";
   try {
+    // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
+    if (jsonMode) {
+      const hasJson = messages.some(m => {
+        const txt = typeof m.content === "string" ? m.content : JSON.stringify(m.content);
+        return /json/i.test(txt);
+      });
+      if (!hasJson && messages.length > 0) {
+        // "json" in den System-Prompt einfügen, damit OpenAI keinen 400-Fehler wirft
+        const sysIdx = messages.findIndex(m => m.role === "system");
+        if (sysIdx >= 0) {
+          messages = [...messages];
+          messages[sysIdx] = { ...messages[sysIdx], content: messages[sysIdx].content + "\n\nRespond with valid JSON." };
+        } else {
+          messages = [{ role: "system", content: "Respond with valid JSON." }, ...messages];
+        }
+      }
+    }
     const reqBody = {
       model,
       messages,
@@ -50,6 +67,22 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
 export async function callOpenAIStream(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}, onChunk) {
   const t0 = Date.now();
   try {
+    // Defensive Prüfung: gpt-5.2 erfordert das Wort "json" in den Messages bei json_object
+    if (jsonMode) {
+      const hasJson = messages.some(m => {
+        const txt = typeof m.content === "string" ? m.content : JSON.stringify(m.content);
+        return /json/i.test(txt);
+      });
+      if (!hasJson && messages.length > 0) {
+        const sysIdx = messages.findIndex(m => m.role === "system");
+        if (sysIdx >= 0) {
+          messages = [...messages];
+          messages[sysIdx] = { ...messages[sysIdx], content: messages[sysIdx].content + "\n\nRespond with valid JSON." };
+        } else {
+          messages = [{ role: "system", content: "Respond with valid JSON." }, ...messages];
+        }
+      }
+    }
     const reqBody = {
       model,
       messages,

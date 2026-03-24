@@ -298,7 +298,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Teilaufgabe. Am Ende
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 5000);
+  ], 5000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -481,7 +481,7 @@ Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 8000);
+  ], 8000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

@@ -280,7 +280,7 @@ SPORT-SPEZIFISCHE REGELN:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 6000, { model: "gpt-5.2", temperature: 0.4 });
+  ], 6000, { model: "gpt-5.2", temperature: 0.4, jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -602,7 +602,7 @@ WICHTIG:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 10000, { model: "gpt-5.2", temperature: 0.4 });
+  ], 10000, { model: "gpt-5.2", temperature: 0.4, jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

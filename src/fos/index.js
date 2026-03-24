@@ -973,7 +973,7 @@ WICHTIG:
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 10000);
+  ], 10000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

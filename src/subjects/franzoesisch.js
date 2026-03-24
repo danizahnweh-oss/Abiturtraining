@@ -57,7 +57,7 @@ Formatiere als Markdown: Erst die Lösung auf Französisch, dann unter "---" ein
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: `AUFGABE:\n${truncate(task_fr, 5000)}\n\nQUELLTEXT:\n${truncate(source_text_de, 15000)}` }
-  ]);
+  ], 4000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
@@ -92,7 +92,7 @@ Formatiere als Markdown mit klaren Überschriften für jede Aufgabe. Am Ende unt
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 6000);
+  ], 6000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }

@@ -218,7 +218,7 @@ Formatiere als Markdown mit klaren Überschriften. Am Ende unter "---" eine kurz
   const answer = await callOpenAI(env, [
     { role: "system", content: systemPrompt },
     { role: "user", content: userContent }
-  ], 8000);
+  ], 8000, { jsonMode: false });
 
   return jsonResponse({ model_answer: answer }, 200, env);
 }
