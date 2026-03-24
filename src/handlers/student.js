@@ -46,6 +46,29 @@ export async function handleCheckStudent(request, env) {
     if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return jsonResponse({ success: false, error: "Bitte gib eine g\u00fcltige E-Mail-Adresse ein." }, 400, env);
     }
+    // Wegwerf-Mail-Domains blockieren
+    const emailDomain = email.split("@")[1]?.toLowerCase();
+    const disposableDomains = [
+      "tempmail.com","temp-mail.org","tempmailo.com","temp-mail.io","tempmail.de",
+      "guerrillamail.com","guerrillamail.de","guerrillamail.net","guerrillamailblock.com","grr.la",
+      "sharklasers.com","guerrillamail.info","guerrillamail.biz","guerrillamail.org",
+      "mailinator.com","trashmail.com","trashmail.de","trashmail.net","trashmail.me",
+      "throwaway.email","throwaway.com","yopmail.com","yopmail.fr","yopmail.net",
+      "10minutemail.com","10minute.email","10minmail.com",
+      "minutemail.com","tempail.com","tempr.email","dispostable.com",
+      "maildrop.cc","mailnesia.com","mailcatch.com","fakeinbox.com",
+      "mailnull.com","spamgourmet.com","mytrashmail.com","getairmail.com",
+      "mohmal.com","emailondeck.com","getnada.com","burnermail.io",
+      "inboxbear.com","anonbox.net","discard.email","discardmail.com",
+      "harakirimail.com","mailexpire.com","meltmail.com","nospam.ze.tc",
+      "trash-mail.com","wegwerfmail.de","wegwerfmail.net","wegwerf-email.de",
+      "spoofmail.de","muellmail.com","einrot.com","spamfree24.org",
+      "trashmail.org","byom.de","emailfake.com","crazymailing.com",
+      "tmail.ws","tempinbox.com","mailtemp.net"
+    ];
+    if (disposableDomains.includes(emailDomain)) {
+      return jsonResponse({ success: false, error: "Bitte verwende eine richtige E-Mail-Adresse (keine Wegwerf-Mail)." }, 400, env);
+    }
   }
 
   const nameLower = student_name.trim().toLowerCase();
