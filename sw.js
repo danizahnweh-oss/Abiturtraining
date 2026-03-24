@@ -1,4 +1,4 @@
-const CACHE_NAME = 'myabiflow-v100';
+const CACHE_NAME = 'myabiflow-v101';
 const STATIC_ASSETS = [
   './',
   './index.html',

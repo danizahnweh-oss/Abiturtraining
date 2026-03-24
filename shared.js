@@ -2749,6 +2749,98 @@ function initFeedbackWidget() {
 
 document.addEventListener("DOMContentLoaded", initFeedbackWidget);
 
+/* ================= WÖCHENTLICHER FEEDBACK-NUDGE ================= */
+
+function initFeedbackNudge() {
+  // Nur auf Trainingsseiten (nicht auf Präsentation, Dashboard, etc.)
+  var page = window.location.pathname;
+  if (/dashboard|lehrer|impressum|agb|barrierefreiheit|dsfa|tom|404|praesentation|datenschutz|features/.test(page)) return;
+
+  var NUDGE_KEY = "feedback_nudge_last";
+  var WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+  var lastShown = parseInt(localStorage.getItem(NUDGE_KEY) || "0", 10);
+
+  if (Date.now() - lastShown < WEEK_MS) return;
+
+  // Verzögert anzeigen (nach 30 Sekunden aktiver Nutzung)
+  setTimeout(function() {
+    // Prüfen ob Feedback-Panel gerade offen ist
+    var openPanel = document.querySelector(".feedback-panel.open");
+    if (openPanel) return;
+
+    showFeedbackNudge();
+    localStorage.setItem(NUDGE_KEY, String(Date.now()));
+  }, 30000);
+}
+
+function showFeedbackNudge() {
+  // Overlay
+  var overlay = document.createElement("div");
+  overlay.className = "feedback-nudge-overlay";
+
+  // Modal
+  var modal = document.createElement("div");
+  modal.className = "feedback-nudge-modal";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-label", "Feedback geben");
+  modal.innerHTML =
+    '<button class="feedback-nudge-close" aria-label="Schließen">&times;</button>' +
+    '<div class="feedback-nudge-icon">💬</div>' +
+    '<h3 class="feedback-nudge-title">Deine Meinung zählt!</h3>' +
+    '<p class="feedback-nudge-text">Hilf uns, myAbiFlow noch besser zu machen. Was gefällt dir? Was können wir verbessern?</p>' +
+    '<div class="feedback-nudge-actions">' +
+      '<button class="feedback-nudge-btn feedback-nudge-btn-primary" data-action="widget">Feedback geben</button>' +
+      '<a href="mailto:feedback@myabiflow.de?subject=Feedback%20zu%20myAbiFlow" class="feedback-nudge-btn feedback-nudge-btn-secondary">Per E-Mail schreiben</a>' +
+    '</div>' +
+    '<button class="feedback-nudge-later">Später erinnern</button>';
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Animation
+  requestAnimationFrame(function() {
+    overlay.classList.add("visible");
+  });
+
+  // Schließen-Funktion
+  function closeNudge() {
+    overlay.classList.remove("visible");
+    setTimeout(function() { overlay.remove(); }, 300);
+  }
+
+  // Schließen-Button
+  modal.querySelector(".feedback-nudge-close").addEventListener("click", closeNudge);
+
+  // "Später erinnern" — nächstes Mal in 3 Tagen
+  modal.querySelector(".feedback-nudge-later").addEventListener("click", function() {
+    localStorage.setItem("feedback_nudge_last", String(Date.now() - (4 * 24 * 60 * 60 * 1000)));
+    closeNudge();
+  });
+
+  // Feedback-Widget öffnen
+  modal.querySelector('[data-action="widget"]').addEventListener("click", function() {
+    closeNudge();
+    // Feedback-FAB klicken
+    setTimeout(function() {
+      var fab = document.querySelector(".feedback-fab");
+      if (fab) fab.click();
+    }, 350);
+  });
+
+  // Overlay-Klick schließt
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) closeNudge();
+  });
+
+  // Escape-Taste
+  function escHandler(e) {
+    if (e.key === "Escape") { closeNudge(); document.removeEventListener("keydown", escHandler); }
+  }
+  document.addEventListener("keydown", escHandler);
+}
+
+document.addEventListener("DOMContentLoaded", initFeedbackNudge);
+
 /* ================= KI-HINWEIS AUFGABEN ================= */
 
 function _appendKiHinweisToTask() {
