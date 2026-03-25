@@ -3767,7 +3767,7 @@
         <!-- Lehrer-Code Eingabe -->
         <div id="teacherCodeSection" style="margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--border);">
           <div style="display:flex;align-items:center;gap:.6rem;">
-            <label for="examTeacherCode" style="font-size:.85rem;color:var(--ink-muted);white-space:nowrap;">Lehrer-Code:</label>
+            <label for="examTeacherCode" style="font-size:.85rem;color:var(--ink-muted);white-space:nowrap;text-transform:none;letter-spacing:normal;">Lehrer-Code:</label>
             <input type="text" id="examTeacherCode" placeholder="z.B. ABC123"
               style="flex:1;padding:.45rem .6rem;font-size:.9rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--ink);min-height:44px;box-sizing:border-box;"
               maxlength="6" autocomplete="off">
@@ -4728,7 +4728,7 @@
 
     /* ====== SUBJECT FILTER ====== */
     var hiddenSubjectsCache = [];
-    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "biologie", "sport", "informatik"];
+    var VALID_SUBJECTS = ["english", "german", "history", "pug", "wr", "french", "italian", "spanisch", "ethik", "religion", "katholisch", "geographie", "latein", "mathe", "chemie", "physik", "biologie", "kunst", "sport", "informatik"];
 
     function getSubjectKey(card) {
       var classes = card.className.split(" ");
@@ -5116,11 +5116,11 @@
     var SUBJECT_DISPLAY = {
       english: "Englisch", german: "Deutsch", history: "Geschichte", geschichte: "Geschichte",
       pug: "Politik & Gesellschaft", wr: "Wirtschaft & Recht",
-      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      french: "Französisch", italian: "Italienisch", spanisch: "Spanisch", ethik: "Ethik",
       religion: "Ev. Religion", katholisch: "Kath. Religion",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
       chemie: "Chemie", physik: "Physik", biologie: "Biologie",
-      sport: "Sport", informatik: "Informatik"
+      kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
 
     var SUBJECT_EMOJI = {
