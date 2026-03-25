@@ -101,6 +101,14 @@
       --accent-inf-hover: #075985;
       --accent-inf-soft: #e0f2fe;
       --accent-inf-glow: rgba(2, 132, 199, .08);
+      --accent-kun: #d946ef;
+      --accent-kun-hover: #c026d3;
+      --accent-kun-soft: #fae8ff;
+      --accent-kun-glow: rgba(217, 70, 239, .08);
+      --accent-spa: #ea580c;
+      --accent-spa-hover: #c2410c;
+      --accent-spa-soft: #fff7ed;
+      --accent-spa-glow: rgba(234, 88, 12, .08);
       --accent-kol: #047857;
       --accent-kol-hover: #065f46;
       --accent-kol-soft: #d1fae5;
@@ -176,6 +184,14 @@
       --accent-inf-hover: #7dd3fc;
       --accent-inf-soft: rgba(56, 189, 248, .15);
       --accent-inf-glow: rgba(56, 189, 248, .08);
+      --accent-kun: #e879f9;
+      --accent-kun-hover: #f0abfc;
+      --accent-kun-soft: rgba(232, 121, 249, .15);
+      --accent-kun-glow: rgba(232, 121, 249, .08);
+      --accent-spa: #fb923c;
+      --accent-spa-hover: #fdba74;
+      --accent-spa-soft: rgba(251, 146, 60, .15);
+      --accent-spa-glow: rgba(251, 146, 60, .08);
       --accent-kol: #34d399;
       --accent-kol-hover: #6ee7b7;
       --accent-kol-soft: rgba(52, 211, 153, .15);
@@ -1109,6 +1125,14 @@
 
     .subject-card.informatik::before {
       background: linear-gradient(135deg, var(--accent-inf-glow), transparent)
+    }
+
+    .subject-card.kunst::before {
+      background: linear-gradient(135deg, var(--accent-kun-glow), transparent)
+    }
+
+    .subject-card.spanisch::before {
+      background: linear-gradient(135deg, var(--accent-spa-glow), transparent)
     }
 
     .subject-card:hover,
@@ -2771,7 +2795,7 @@
     .exam-type-modal {
       background: var(--surface);
       border-radius: 1.5rem;
-      max-width: 440px;
+      max-width: 500px;
       width: 100%;
       padding: 2rem;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25);
