@@ -4579,6 +4579,82 @@
     <footer>© 2026 myAbiFlow · Informatik Trainer</footer>
   </div>
 
+  <!-- ====== KUNST MODULE SCREEN ====== -->
+  <div id="module-screen-kunst" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h2 style="margin-top:.3rem">Kunst <span style="color:var(--accent-kun)">Trainer</span></h2>
+      </div>
+      <div class="header-right">
+        <span id="userInfoKun" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnKun"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <div class="module-card kunst" style="opacity:.6;pointer-events:none;cursor:default">
+        <div class="module-icon">🎨</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Werkerschließung, Analyse und Interpretation – kommt bald!</div>
+        <div class="module-badge">Kommt bald</div>
+      </div>
+      <div class="module-card kunst" style="opacity:.6;pointer-events:none;cursor:default">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Besondere Fachprüfung (eA) – kommt bald!</div>
+        <div class="module-badge">Kommt bald</div>
+      </div>
+    </div>
+    <footer>© 2026 myAbiFlow · Kunst Trainer</footer>
+  </div>
+
+  <!-- ====== SPANISCH MODULE SCREEN ====== -->
+  <div id="module-screen-spanisch" style="display:none;min-height:100vh;flex-direction:column">
+    <div class="module-header">
+      <div>
+        <a href="#" class="back-link" onclick="showSubjectSelection(true); return false;">← Fachauswahl</a>
+        <h2 style="margin-top:.3rem">Spanisch <span style="color:var(--accent-spa)">Trainer</span></h2>
+      </div>
+      <div class="header-right">
+        <span id="userInfoSpa" style="font-size:.85rem;color:var(--ink-muted)"></span>
+        <button class="theme-toggle" onclick="toggleDark()" id="themeBtnSpa"
+          aria-label="Dark Mode umschalten">🌙</button>
+      </div>
+    </div>
+    <div class="level-toggle" role="radiogroup" aria-label="Anforderungsniveau">
+      <div class="level-pill">
+        <button class="level-btn" data-level="gA" onclick="setLevel('gA')" role="radio" aria-checked="false">gA</button>
+        <button class="level-btn active" data-level="eA" onclick="setLevel('eA')" role="radio"
+          aria-checked="true">eA</button>
+      </div>
+    </div>
+    <div class="greeting-bar">Was möchtest du üben?</div>
+    <div class="module-grid">
+      <div class="module-card spanisch" style="opacity:.6;pointer-events:none;cursor:default">
+        <div class="module-icon">🇪🇸</div>
+        <div class="module-title">Klausurtraining</div>
+        <div class="module-desc">Mediation, Writing, Hörverstehen – kommt bald!</div>
+        <div class="module-badge">Kommt bald</div>
+      </div>
+      <div class="module-card spanisch" style="opacity:.6;pointer-events:none;cursor:default">
+        <div class="module-icon">📝</div>
+        <div class="module-title">Abiturtraining</div>
+        <div class="module-desc">Komplette Spanisch-Abiturprüfung – kommt bald!</div>
+        <div class="module-badge">Kommt bald</div>
+      </div>
+    </div>
+    <footer>© 2026 myAbiFlow · Spanisch Trainer</footer>
+  </div>
+
   <script>
     let loginMode = "login";
 
@@ -6097,6 +6173,9 @@
       document.getElementById("module-screen-physik").style.display = "none";
       document.getElementById("module-screen-biologie").style.display = "none";
       document.getElementById("module-screen-sport").style.display = "none";
+      document.getElementById("module-screen-informatik").style.display = "none";
+      document.getElementById("module-screen-kunst").style.display = "none";
+      document.getElementById("module-screen-spanisch").style.display = "none";
       sessionStorage.removeItem("current_subject");
       // Skip-Link auf Hauptinhalt aktualisieren
       var skipLink = document.getElementById("skipLink");
@@ -6138,22 +6217,22 @@
     var subjectNameMap = {
       english: "Englisch", german: "Deutsch", history: "Geschichte",
       pug: "Politik und Gesellschaft", wr: "Wirtschaft und Recht",
-      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      french: "Französisch", italian: "Italienisch", spanisch: "Spanisch", ethik: "Ethik",
       religion: "Evangelische Religionslehre",
       katholisch: "Katholische Religionslehre",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
       chemie: "Chemie", physik: "Physik", biologie: "Biologie",
-      sport: "Sport", informatik: "Informatik"
+      kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
     var subjectTitleMap = {
       english: "Englisch", german: "Deutsch", history: "Geschichte",
       pug: "Politik & Gesellschaft", wr: "Wirtschaft & Recht",
-      french: "Französisch", italian: "Italienisch", ethik: "Ethik",
+      french: "Französisch", italian: "Italienisch", spanisch: "Spanisch", ethik: "Ethik",
       religion: "Ev. Religion",
       katholisch: "Kath. Religion",
       geographie: "Geographie", latein: "Latein", mathe: "Mathematik",
       chemie: "Chemie", physik: "Physik", biologie: "Biologie",
-      sport: "Sport", informatik: "Informatik"
+      kunst: "Kunst", sport: "Sport", informatik: "Informatik"
     };
     var _pendingSubjectForModal = null;
 
@@ -6176,7 +6255,9 @@
       physik: ["physik", "physik-abitur"],
       biologie: ["biologie", "biologie-abitur"],
       sport: ["sport", "sport-abitur"],
-      informatik: ["informatik", "informatik-abitur"]
+      informatik: ["informatik", "informatik-abitur"],
+      kunst: ["kunst", "kunst-abitur"],
+      spanisch: ["spanisch-mediation", "spanisch-writing"]
     };
 
     /* ====== TRAINING STARTEN ====== */
@@ -6391,14 +6472,16 @@
         latein: "module-screen-latein", mathe: "module-screen-mathe",
         chemie: "module-screen-chemie", physik: "module-screen-physik",
         biologie: "module-screen-biologie", sport: "module-screen-sport",
-        informatik: "module-screen-informatik", german: "module-screen-german"
+        informatik: "module-screen-informatik", kunst: "module-screen-kunst",
+        spanisch: "module-screen-spanisch", german: "module-screen-german"
       };
       var infoMap = {
         english: "userInfoEn", history: "userInfoGe", pug: "userInfoPug",
         wr: "userInfoWr", french: "userInfoFr", italian: "userInfoIt",
+        spanisch: "userInfoSpa",
         ethik: "userInfoEth", religion: "userInfoRel", katholisch: "userInfoKath", geographie: "userInfoGeo", latein: "userInfoLat",
         mathe: "userInfoMat", chemie: "userInfoChe", physik: "userInfoPhy",
-        biologie: "userInfoBio", sport: "userInfoSpo",
+        biologie: "userInfoBio", kunst: "userInfoKun", sport: "userInfoSpo",
         informatik: "userInfoInf", german: "userInfoDe"
       };
 
