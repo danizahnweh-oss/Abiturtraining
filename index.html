@@ -3398,7 +3398,7 @@
         <button class="tour-restart-btn" onclick="toggleTour()" title="Tour nochmal zeigen" aria-label="Onboarding-Tour neu starten">❓</button>
         <button class="theme-toggle" onclick="toggleDark()" id="themeBtn" aria-label="Dark Mode umschalten">🌙</button>
         <button class="logout-btn" id="profileBtn" onclick="showProfileModal()" aria-label="Profil öffnen" style="display:none">👤 Profil</button>
-        <button class="logout-btn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
+        <button class="logout-btn" id="logoutBtn" onclick="logout()" aria-label="Abmelden">Abmelden</button>
         <button class="logout-btn" id="guestLoginBtn"
           onclick="document.getElementById('login-screen').style.display='flex';document.getElementById('subject-screen').style.display='none'"
           style="display:none; background:var(--accent); color:#fff;" aria-label="Anmelden">Anmelden</button>
@@ -5998,7 +5998,7 @@
           }
 
           // Show/hide auth-dependent UI elements
-          var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
+          var logoutBtn = document.getElementById("logoutBtn");
           var guestLoginBtn = document.getElementById("guestLoginBtn");
           var userInfoEl = document.getElementById("userInfo");
           var profileBtn = document.getElementById("profileBtn");
@@ -6437,7 +6437,7 @@
         if (badge) badge.remove();
       });
       // Hide auth-dependent UI
-      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
+      var logoutBtn = document.getElementById("logoutBtn");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
       var userInfoEl = document.getElementById("userInfo");
       var profileBtn = document.getElementById("profileBtn");
@@ -6606,7 +6606,7 @@
       document.getElementById("role-screen").style.display = "none";
 
       // UI-Elemente je nach Login-Status
-      var logoutBtn = document.querySelector(".logout-btn:not(#guestLoginBtn):not(#profileBtn)");
+      var logoutBtn = document.getElementById("logoutBtn");
       var guestLoginBtn = document.getElementById("guestLoginBtn");
       var userInfoEl = document.getElementById("userInfo");
       var guestHint = document.getElementById("guestHint");
