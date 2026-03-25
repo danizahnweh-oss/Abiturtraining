@@ -15,8 +15,8 @@ function isThinkingText(text: string): boolean {
 export const SUBJECTS = [
   'Biologie', 'Chemie', 'Deutsch', 'Englisch', 'Ethik',
   'Evangelische Religionslehre', 'Französisch', 'Geographie', 'Geschichte', 'Informatik',
-  'Italienisch', 'Katholische Religionslehre', 'Latein', 'Mathematik', 'Physik',
-  'Politik und Gesellschaft', 'Sport', 'Wirtschaft und Recht'
+  'Italienisch', 'Katholische Religionslehre', 'Kunst', 'Latein', 'Mathematik', 'Physik',
+  'Politik und Gesellschaft', 'Spanisch', 'Sport', 'Wirtschaft und Recht'
 ] as const;
 
 export type ExamLevel = 'gA' | 'eA';
@@ -145,7 +145,7 @@ const OPERATOREN: Record<string, { AB_I: string[]; AB_II: string[]; AB_III: stri
 
 function getOperatorenFuerFach(subject: string) {
   const mint = ['Biologie', 'Chemie', 'Physik', 'Informatik'];
-  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein'];
+  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein', 'Spanisch'];
   if (mint.includes(subject)) return OPERATOREN.MINT;
   if (sprachen.includes(subject)) return OPERATOREN.SPRACHEN;
   if (subject === 'Sport') return OPERATOREN.SPORT;
@@ -419,7 +419,7 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
 
 function getMaterialTypenFuerFach(subject: string): string {
   const mint = ['Biologie', 'Chemie', 'Physik', 'Mathematik', 'Informatik'];
-  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein'];
+  const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein', 'Spanisch'];
   if (mint.includes(subject)) return 'Daten-Tabellen, Experimentergebnisse, Statistiken mit Zahlenwerten, Diagramm-Beschreibungen';
   if (sprachen.includes(subject)) return 'Zitate aus Primär-/Sekundärliteratur, kurze Textauszüge, Karikaturbeschreibungen';
   if (subject === 'Sport') return 'Trainingsdaten, Leistungsstatistiken, Studienergebnisse';

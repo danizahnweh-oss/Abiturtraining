@@ -451,6 +451,56 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     },
   },
 
+  'Kunst': {
+    // LehrplanPLUS Kunst (G9) gA – Halbjahre: Objekt, Raum, Körper, Interaktion & Transformation
+    // Quelle: ISB Illustrierende Prüfungsaufgaben Kunst ab 2026, LehrplanPLUS Bayern
+    halbjahre: {
+      '12/1': [
+        'Werkerschließung: Design und Objektkunst an der Schnittstelle von Kunst und Alltag (Funktion, Material, Form, Wirkung)',
+        'Kunsthistorische Positionen: Readymade, Assemblage und Konzeptkunst (Duchamp, Droog Design, Schnittstelle Kunst/Design)',
+        'Bildnerische Praxis: Experiment mit Objekten, Materialerkundung und gestalterische Dokumentation',
+      ],
+      '12/2': [
+        'Werkerschließung: Architektur und Raumgestaltung (Struktur, Material, Konstruktion, Nachhaltigkeit)',
+        'Kunsthistorische Positionen: Rauminstallation, ortsspezifische Kunst und utopische Entwürfe',
+        'Bildnerische Praxis: Raumkonzepte, Modellbau und perspektivische Darstellung',
+      ],
+      '13/1': [
+        'Werkerschließung: Körperbilder und Körperkonstruktionen (Polaritäten, Idealisierung, Verfremdung)',
+        'Kunsthistorische Positionen: Figuration und Abstraktion im 20./21. Jh. (Malerei, Plastik, Fotografie)',
+        'Bildnerische Praxis: Figurendarstellung, Porträt und experimentelle Körperbilder',
+      ],
+      '13/2': [
+        'Werkerschließung: Künstlerische Interventionen und Aktionskunst (Freiheit der Kunst, gesellschaftliche Einflussnahme)',
+        'Kunsthistorische Positionen: Performance, Partizipation und erweiterter Kunstbegriff (Beuys, Fluxus, Aktivismus)',
+        'Bildnerische Praxis: Konzeptentwicklung für Interventionen, Dokumentation und mediale Inszenierung',
+      ],
+    },
+    // LehrplanPLUS Kunst (G9) eA – Besondere Fachprüfung (schriftlich-praktisch)
+    halbjahreEA: {
+      '12/1': [
+        'Vertiefte Werkerschließung: Objekt zwischen Kunst und Design – symbolische, ästhetische und praktische Funktionen',
+        'Recherche in Kontexten: Konsumkritik, Statusobjekte und die Rolle des Designers (Droog Design, Bauhaus)',
+        'Künstlerisches Projekt: Experimentelle Objektgestaltung mit Bezug zu Design und Konzeptkunst',
+      ],
+      '12/2': [
+        'Vertiefte Werkerschließung: Architektur als Spannungsfeld von Funktionalität, Ästhetik und Utopie',
+        'Recherche in Kontexten: Partizipative Architektur, Denkmalschutz und nachhaltige Stadtentwicklung',
+        'Künstlerisches Projekt: Ortsspezifische Intervention oder architektonischer Entwurf',
+      ],
+      '13/1': [
+        'Vertiefte Werkerschließung: Körperbilder zwischen Naturbeobachtung, Karikatur und Verfremdung',
+        'Recherche in Kontexten: Genderfragen, Schönheitsideale und Körperdarstellung in Medien und Kunst',
+        'Künstlerisches Projekt: Figurative Malerei oder plastisches Arbeiten mit experimentellen Methoden',
+      ],
+      '13/2': [
+        'Vertiefte Werkerschließung: Interventionen im öffentlichen Raum – Medialität, Kommunikation und Diskurse',
+        'Recherche in Kontexten: Erweiterter Kunstbegriff, Kunstfreiheit, Postkolonialismus, Klimawandel',
+        'Künstlerisches Projekt: Konzeption und Dokumentation einer künstlerischen Intervention',
+      ],
+    },
+  },
+
   'Latein': {
     // L12 LB2 = 12/1 (Philosophie), LB3 = 12/2 (Satire), L13 LB2 = 13/1 (Augustus), LB3 = 13/2 (Staatsphilosophie)
     halbjahre: {
@@ -618,6 +668,57 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Internationale Konfliktbearbeitung und Friedenssicherung',
         'Menschenrechte und humanitäres Engagement',
         'Globalisierung und internationale Kooperation',
+      ],
+    },
+  },
+
+  'Spanisch': {
+    // LehrplanPLUS Sp12/13 gA (spät beginnende Fremdsprache): 2-Jahres-Block, keine offizielle Halbjahr-Zuordnung.
+    // eA (Leistungsfach, 3. Fremdsprache): erweiterte Inhalte in halbjahreEA.
+    // Themengebiete nach gängiger Schulpraxis und ISB-Illustrierenden Prüfungsaufgaben (Stand 2023/2025) gruppiert.
+    halbjahre: {
+      '12/1': [
+        'La sociedad española actual (juventud, familia, convivencia, multiculturalidad)',
+        'Facetas de España: regiones, turismo e identidad cultural (País Vasco, Cataluña, Andalucía)',
+        'Vida cotidiana en España y Latinoamérica (tradiciones, fiestas, gastronomía)',
+      ],
+      '12/2': [
+        'Relaciones hispano-alemanas e hispano-europeas; España en la UE',
+        'España: historia reciente (Guerra Civil, dictadura franquista, transición democrática)',
+        'El mundo laboral y las perspectivas de los jóvenes en España',
+      ],
+      '13/1': [
+        'Latinoamérica: diversidad cultural, geográfica y lingüística (pueblos indígenas, identidad)',
+        'Migración en el contexto hispanohablante (emigración, inmigración, interculturalidad)',
+        'Movimientos sociales y empoderamiento (igualdad de género, derechos humanos)',
+      ],
+      '13/2': [
+        'Globalización: medio ambiente, sostenibilidad y urbanización en el mundo hispanohablante',
+        'Literatura y cine del mundo hispanohablante (García Márquez, Almodóvar, Allende)',
+        'Arte y cultura hispánica (Gaudí, Picasso, Dalí, Frida Kahlo, música)',
+      ],
+    },
+    // eA-Schwerpunkte (Leistungsfach): Erweiterte Inhalte laut LehrplanPLUS Sp12/13 eA
+    halbjahreEA: {
+      '12/1': [
+        'Sociedad española e hispanoamericana: multiculturalidad, convivencia, juventud, turismo',
+        'Migraciones en el mundo hispanohablante (emigración histórica, inmigración actual, identidad cultural)',
+        'Regiones con fuerte identidad (País Vasco, Cataluña, Galicia) y patrimonio cultural',
+      ],
+      '12/2': [
+        'Sostenibilidad, recursos naturales y urbanización (medio ambiente, energías renovables, megalópolis)',
+        'Instituciones políticas, estructura del estado; historia española (absolutismo, república, democracia)',
+        'Arte y arquitectura hispánica (Gaudí, Picasso, Dalí, Frida Kahlo); patrimonio cultural de la UNESCO',
+      ],
+      '13/1': [
+        'Fases decisivas de la historia del mundo hispanohablante (colonización, independencia, dictaduras, democratización, memoria histórica)',
+        'Latinoamérica: pueblos indígenas, diversidad lingüística y cultural, movimientos sociales',
+        'Cine y música como reflejo de la sociedad (Almodóvar, Buñuel, nueva canción latinoamericana)',
+      ],
+      '13/2': [
+        'Literatura hispánica (del Siglo de Oro a la contemporánea: Cervantes, García Márquez, Allende, Grandes)',
+        'Paisaje mediático y su relevancia social en el mundo hispanohablante',
+        'Relaciones entre España/Latinoamérica y Europa; interculturalidad y globalización',
       ],
     },
   },
