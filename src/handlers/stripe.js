@@ -406,7 +406,7 @@ export async function handleRedeemLicense(request, env) {
 
   // Schulcode in class_passwords suchen
   const license = await env.DB.prepare(
-    'SELECT id, label, free_access FROM class_passwords WHERE password = ? AND active = 1'
+    'SELECT id, label, free_access FROM class_passwords WHERE UPPER(password) = UPPER(?) AND active = 1'
   ).bind(license_code.trim()).first();
 
   if (!license) {

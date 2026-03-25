@@ -155,7 +155,7 @@ export async function handleClassPasswords(request, env) {
       return jsonResponse({ error: "Diese Bezeichnung existiert bereits." }, 409, env);
     }
     const existingPw = await env.DB.prepare(
-      "SELECT 1 FROM class_passwords WHERE password = ?"
+      "SELECT 1 FROM class_passwords WHERE UPPER(password) = UPPER(?)"
     ).bind(password.trim()).first();
     if (existingPw) {
       return jsonResponse({ error: "Dieses Passwort wird bereits verwendet." }, 409, env);
