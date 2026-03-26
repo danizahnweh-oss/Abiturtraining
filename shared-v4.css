@@ -11,6 +11,7 @@ html {
 
 /* ====== CSS CUSTOM PROPERTIES ====== */
 :root {
+  /* --- Farben --- */
   --ink: #0f172a;
   --ink-light: #475569;
   --ink-muted: #475569;
@@ -27,13 +28,49 @@ html {
   --success-bg: #ecfdf5;
   --warning: #dc2626;
   --warning-bg: #fef2f2;
-  --radius: 16px;
-  --radius-sm: 12px;
-  --radius-lg: 24px;
+
+  /* --- Type Scale (Minor Third 1.200, Base 18px) --- */
+  --text-xs: 0.694rem;   /* ~12.5px – Badges, Captions */
+  --text-sm: 0.833rem;   /* ~15px  – Labels, Helper */
+  --text-base: 1rem;     /* 18px   – Body */
+  --text-lg: 1.2rem;     /* ~21.6px – Subheadings */
+  --text-xl: 1.44rem;    /* ~25.9px – Section Headings */
+  --text-2xl: 1.728rem;  /* ~31.1px – Page Headings */
+  --text-3xl: 2.074rem;  /* ~37.3px – Hero */
+
+  /* --- Spacing (8pt Grid) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
+  /* --- Component Heights --- */
+  --height-xs: 28px;
+  --height-sm: 32px;
+  --height-md: 40px;
+  --height-lg: 48px;
+  --height-xl: 56px;
+
+  /* --- Border Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
+
+  /* --- Shadows --- */
   --shadow-sm: 0 1px 3px rgba(79, 70, 229, 0.04);
   --shadow-md: 0 4px 16px rgba(79, 70, 229, 0.06);
   --shadow-lg: 0 8px 32px rgba(79, 70, 229, 0.08);
+
+  /* --- Fonts --- */
   --font-display: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
@@ -273,7 +310,7 @@ html {
   background: var(--border);
   border: none;
   padding: .35rem .7rem;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   cursor: pointer;
   font-family: var(--font-body);
   font-size: .78rem;
@@ -303,7 +340,7 @@ html {
 .formel-btn {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   padding: .4rem .3rem;
   cursor: pointer;
   font-size: .8rem;
@@ -443,15 +480,15 @@ html {
 .logo-brand .logo-icon {
   height: 48px;
   width: auto;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   /* Soften edges if background is visible */
 }
 
 .logo-brand .logo-text {
   font-family: var(--font-body);
   font-weight: 800;
-  font-size: 1.8rem;
-  color: #312e81;
+  font-size: var(--text-2xl);
+  color: var(--ink);
   letter-spacing: -0.03em;
 }
 
@@ -501,17 +538,17 @@ header .logo-brand .logo-text {
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: var(--space-7);
+  padding: var(--space-4);
   max-width: 1320px;
-  margin: 0 auto 3rem;
+  margin: 0 auto var(--space-9);
 }
 
 .module-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 2rem 1.5rem;
+  padding: var(--space-6);
   text-align: center;
   text-decoration: none;
   color: var(--ink);
@@ -769,11 +806,11 @@ section.active {
 /* ====== CARDS ====== */
 .card {
   background: var(--surface);
-  padding: 2rem;
+  padding: var(--space-6);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-7);
 }
 
 .card-header {
@@ -796,14 +833,16 @@ label {
 select,
 input[type="number"] {
   width: 100%;
-  padding: .75rem 1rem;
+  height: var(--height-lg);
+  padding: 0 var(--space-4);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   font-family: var(--font-body);
-  font-size: .95rem;
+  font-size: var(--text-base);
   background: var(--surface);
   color: var(--ink);
-  transition: border-color .2s, box-shadow .2s;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: border-color .2s ease-out, box-shadow .2s ease-out;
 }
 
 /* Explizite option-Farben für Dark Mode (WebKit erbt nicht immer CSS-Variablen) */
@@ -839,30 +878,38 @@ input:focus:not(:focus-visible) {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: .5rem;
+  justify-content: center;
+  gap: var(--space-2);
   background: var(--accent);
   color: white;
   border: none;
-  padding: .75rem 1.5rem;
+  height: var(--height-lg);
+  padding: 0 var(--space-6);
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: .95rem;
-  transition: background-color .2s, transform .2s, box-shadow .2s;
+  font-size: var(--text-base);
+  transition: background-color .2s ease-out, transform .2s ease-out, box-shadow .2s ease-out;
 }
 
 .btn:hover,
 .btn:focus-visible {
   background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn:disabled {
   opacity: .5;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 .btn-secondary {
@@ -887,8 +934,9 @@ input:focus:not(:focus-visible) {
 }
 
 .btn-small {
-  padding: .5rem 1rem;
-  font-size: .85rem;
+  height: var(--height-sm);
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
 }
 
 /* ====== TASK & SOURCE ====== */
@@ -1178,7 +1226,7 @@ textarea:focus:not(:focus-visible) {
   background: #fecdd3;
   color: #be123c;
   padding: 2px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
 }
 
 [data-theme="dark"] .fehler-rs-demo {
@@ -1190,7 +1238,7 @@ textarea:focus:not(:focus-visible) {
   background: #fed7aa;
   color: #c2410c;
   padding: 2px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
 }
 
 [data-theme="dark"] .fehler-gr-demo {
@@ -3947,6 +3995,18 @@ button:focus-visible,
   background: var(--bg, #f8f9fa);
   color: var(--ink, #0f172a);
   border: 1px solid var(--border, #e2e8f0);
+}
+
+/* ====== REDUCED MOTION ====== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .feedback-nudge-btn-secondary:hover {
