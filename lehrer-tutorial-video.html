@@ -417,6 +417,15 @@
     flex-shrink: 0;
   }
   .fullscreen-btn:hover { background: rgba(255,255,255,.08); color: #e2e8f0; }
+  .skip-btn {
+    padding: .35rem .8rem; border-radius: 8px;
+    font-size: .78rem; font-weight: 700;
+    color: #fbbf24; background: rgba(251,191,36,.1);
+    border: 1px solid rgba(251,191,36,.25); cursor: pointer;
+    transition: all .2s; min-height: 36px; flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .skip-btn:hover { background: rgba(251,191,36,.2); border-color: rgba(251,191,36,.5); }
 
   /* ====== ANIMATIONS ====== */
   @keyframes fadeSlideUp {
@@ -463,9 +472,10 @@
     </div>
     <span class="time-label" id="timeTotal">0:00</span>
   </div>
-  <button class="speed-btn" id="speedBtn" title="Geschwindigkeit">1x</button>
+  <button class="speed-btn" id="speedBtn" title="Geschwindigkeit">1.5x</button>
   <span class="slide-counter" id="slideCounter">1 / 1</span>
   <button class="fullscreen-btn" id="fullscreenBtn" title="Vollbild">&#9974;</button>
+  <button class="skip-btn" id="skipBtn" title="Tutorial &uuml;berspringen">&#xbb; &Uuml;berspringen</button>
 </div>
 
 <script>
@@ -991,7 +1001,7 @@ const SLIDES = [
 /* ====== PLAYER ENGINE ====== */
 let currentSlide = 0;
 let isPlaying = true;
-let speed = 1;
+let speed = 1.5;
 let elapsed = 0;
 let slideElapsed = 0;
 let tickInterval = null;
@@ -1006,6 +1016,7 @@ const timeTotalEl = document.getElementById('timeTotal');
 const slideCounterEl = document.getElementById('slideCounter');
 const speedBtn = document.getElementById('speedBtn');
 const fullscreenBtn = document.getElementById('fullscreenBtn');
+const skipBtn = document.getElementById('skipBtn');
 
 const totalDuration = SLIDES.reduce((s, sl) => s + sl.duration, 0);
 
@@ -1114,6 +1125,11 @@ prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1, 'prev'));
 nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1, 'next'));
 speedBtn.addEventListener('click', cycleSpeed);
 fullscreenBtn.addEventListener('click', toggleFullscreen);
+skipBtn.addEventListener('click', () => {
+  isPlaying = false;
+  updateUI();
+  window.location.href = 'lehrer.html';
+});
 
 // Klick auf Progressbar
 progressBar.addEventListener('click', (e) => {
