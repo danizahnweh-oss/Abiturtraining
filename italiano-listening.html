@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="de" data-accent="teal">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Italienisch Hörverstehen üben fürs bayerische Abitur – Hörverständnis-Training mit KI-Bewertung auf myAbiFlow.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d9488">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev https://www.google-analytics.com https://region1.google-analytics.com; media-src 'self' blob:; worker-src 'self' blob:;">
+  <title>Italienisch Hörverstehen üben – Abitur Bayern G9 · myAbiFlow</title>
+  <meta property="og:title" content="Italienisch Hörverstehen üben – Abitur Bayern G9 · myAbiFlow">
+  <meta property="og:description" content="Italienisch Hörverstehen üben fürs bayerische Abitur – Hörverständnis-Training mit KI-Bewertung auf myAbiFlow.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/italiano-listening.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Italienisch Hörverstehen üben – Abitur Bayern G9 · myAbiFlow">
+  <meta name="twitter:description" content="Italienisch Hörverstehen üben fürs bayerische Abitur – Hörverständnis-Training mit KI-Bewertung auf myAbiFlow.">
+  <meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+  <link rel="canonical" href="https://myabiflow.de/italiano-listening.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <script src="/vendor/marked.min.js" defer></script>
+  <script src="/vendor/purify.min.js" defer></script>
+  <script src="/vendor/chart.umd.min.js" defer></script>
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+
+  <style>
+    /* Page-specific overrides */
+    :root {
+      --lc-accent: #0d9488;
+      --lc-accent-glow: rgba(13, 148, 136, 0.08);
+    }
+    [data-theme="dark"] {
+      --lc-accent-glow: rgba(13, 148, 136, 0.15);
+    }
+
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      z-index: 9999;
+    }
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(13, 148, 136, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(13, 148, 136, 0.1) 0%, transparent 50%);
+    }
+    .login-box { position: relative; animation: fadeUp .5s ease-out; }
+
+    header { backdrop-filter: blur(12px); }
+    [data-theme="dark"] header { background: rgba(30, 30, 46, 0.92); }
+    main { max-width: 860px; }
+
+    .scores-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Audio-Player */
+    .audio-player-card {
+      background: var(--lc-accent-glow);
+      border: 2px solid var(--lc-accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .play-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--lc-accent);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .play-btn:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+    .play-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .play-btn svg { width: 28px; height: 28px; }
+
+    .audio-progress {
+      width: 100%;
+      max-width: 500px;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 0.5rem auto;
+    }
+    .audio-progress-fill {
+      height: 100%;
+      background: var(--lc-accent);
+      width: 0%;
+      transition: width 0.3s;
+      border-radius: 3px;
+    }
+    .audio-time {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--ink-light);
+    }
+    .play-count {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--border-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink-light);
+    }
+
+    /* Fragen-UI */
+    .question-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      background: var(--bg);
+      transition: border-color 0.2s;
+    }
+    .question-card.answered { border-color: var(--lc-accent); }
+    .question-card.correct { border-color: var(--ink-success, #16a34a); background: rgba(22,163,106,0.04); }
+    .question-card.wrong { border-color: var(--warning, #dc2626); background: rgba(220,38,38,0.04); }
+
+    .question-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--lc-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .question-text {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      line-height: 1.5;
+    }
+    .question-type-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 10px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .badge-mc { background: #dbeafe; color: #1d4ed8; }
+    .badge-tf { background: #fef3c7; color: #92400e; }
+    .badge-short { background: #ede9fe; color: #6d28d9; }
+    [data-theme="dark"] .badge-mc { background: rgba(59,130,246,0.2); color: #93bbfd; }
+    [data-theme="dark"] .badge-tf { background: rgba(245,158,11,0.2); color: #fbbf24; }
+    [data-theme="dark"] .badge-short { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+
+    /* MC Options */
+    .mc-options { display: flex; flex-direction: column; gap: 0.5rem; }
+    .mc-option {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.7rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 0.95rem;
+      min-height: 48px;
+    }
+    .mc-option:hover { border-color: var(--lc-accent); background: var(--lc-accent-glow); }
+    .mc-option.selected { border-color: var(--lc-accent); background: var(--lc-accent-glow); }
+    .mc-option.correct-answer { border-color: #16a34a; background: rgba(22,163,106,0.08); }
+    .mc-option.wrong-answer { border-color: #dc2626; background: rgba(220,38,38,0.06); }
+    .mc-radio {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .mc-option.selected .mc-radio { border-color: var(--lc-accent); }
+    .mc-option.selected .mc-radio::after {
+      content: '';
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--lc-accent);
+    }
+
+    /* TF Buttons */
+    .tf-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .tf-btn {
+      padding: 0.6rem 1.2rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: border-color 0.15s, background 0.15s;
+      min-height: 48px;
+      min-width: 80px;
+    }
+    .tf-btn:hover { border-color: var(--lc-accent); }
+    .tf-btn.selected { border-color: var(--lc-accent); background: var(--lc-accent-glow); color: var(--lc-accent); }
+    .tf-btn.correct-answer { border-color: #16a34a; background: rgba(22,163,106,0.08); color: #16a34a; }
+    .tf-btn.wrong-answer { border-color: #dc2626; background: rgba(220,38,38,0.06); color: #dc2626; }
+
+    /* Short answer */
+    .short-answer {
+      width: 100%;
+      min-height: 60px;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 16px;
+      resize: vertical;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .short-answer:focus { border-color: var(--lc-accent); outline: none; }
+
+    /* Feedback-Indikatoren */
+    .result-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .result-correct { color: #16a34a; }
+    .result-wrong { color: #dc2626; }
+    .result-partial { color: #d97706; }
+    .correct-answer-text {
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.8rem;
+      background: rgba(22,163,106,0.06);
+      border-left: 3px solid #16a34a;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.9rem;
+      color: var(--ink-light);
+    }
+
+    /* Notizfeld */
+    .notes-area {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.75rem 1rem;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 16px;
+      resize: vertical;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .notes-area:focus { border-color: var(--lc-accent); outline: none; }
+
+    /* Transkript */
+    .transcript-toggle {
+      cursor: pointer;
+      color: var(--lc-accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+    .transcript-body {
+      margin-top: 0.8rem;
+      padding: 1rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-sm);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      white-space: pre-wrap;
+    }
+
+    .timer-display { font-size: 1.6rem; min-width: 80px; }
+    .timer-display.warning { animation: pulse 1s infinite; }
+    .timer-controls { margin-left: auto; }
+
+    .feedback-body h1 { font-family: var(--font-display); font-size: 1.4rem; margin: 1.5rem 0 .8rem; }
+    .feedback-body h3 { font-size: 1rem; margin: 1rem 0 .5rem; }
+    .feedback-body strong { color: var(--ink); }
+
+    @media (max-width: 640px) {
+      .scores-grid { grid-template-columns: 1fr; }
+      .audio-controls { gap: 0.6rem; }
+      .play-btn { width: 56px; height: 56px; }
+      .tf-options { flex-direction: column; }
+      .tf-btn { width: 100%; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Course",
+      "name": "Italienisch Hörverstehen",
+      "description": "Hörverständnis-Training fürs bayerische Italienisch-Abitur.",
+      "url": "https://myabiflow.de/italiano-listening.html",
+      "provider": {
+        "@id": "https://myabiflow.de/#organization"
+      },
+      "inLanguage": "de",
+      "educationalLevel": "Abitur (Gymnasium Bayern G9)",
+      "about": "Italienisch Hörverstehen",
+      "audience": {
+        "@type": "EducationalAudience",
+        "educationalRole": "student",
+        "audienceType": "Gymnasiasten in Bayern (G9)"
+      },
+      "learningResourceType": "Übungsaufgaben",
+      "isAccessibleForFree": true,
+      "hasCourseInstance": {
+        "@type": "CourseInstance",
+        "courseMode": "online",
+        "courseWorkload": "PT30M",
+        "instructor": {
+          "@type": "Thing",
+          "name": "KI-Tutor (Flowie)"
+        }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "category": "Kostenlose Basisversion"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Startseite",
+          "item": "https://myabiflow.de/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Italienisch Hörverstehen",
+          "item": "https://myabiflow.de/italiano-listening.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
+  <!-- ====== LOGIN REDIRECT ====== -->
+  <div id="login-screen" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;">
+      <p style="color:var(--ink-muted);margin-bottom:1rem;">Bitte zuerst über die Startseite einloggen.</p>
+      <a href="index.html" style="color:var(--accent);font-weight:600;text-decoration:none;font-size:1.1rem;">→ Zur
+        Startseite</a>
+    </div>
+  </div>
+
+  <!-- ====== APP ====== -->
+  <div id="app-wrapper">
+
+    <header>
+      <a href="index.html" class="header-logo-link"><img src="logo.webp" alt="myAbiFlow" class="header-logo"></a>
+      <h1><a href="index.html?back=italian" style="color:var(--ink);text-decoration:none;">←</a> Hörverstehen
+        <span>Comprehension</span></h1>
+      <div class="header-right">
+        <span id="studentGreeting" class="header-meta" style="display:none"></span>
+        <div class="header-meta">myAbiFlow</div>
+        <button class="theme-toggle" onclick="toggleDarkMode()" aria-label="Dark Mode umschalten"
+          id="themeToggleBtn">🌙</button>
+      </div>
+    </header>
+
+    <nav>
+      <button id="nav-setup" class="active" onclick="nav('setup')">
+        <span class="step-num">1</span> Setup
+      </button>
+      <button id="nav-listen" onclick="nav('listen')">
+        <span class="step-num">2</span> Hören
+      </button>
+      <button id="nav-answer" onclick="nav('answer')">
+        <span class="step-num">3</span> Antworten
+      </button>
+      <button id="nav-feedback" onclick="nav('feedback')">
+        <span class="step-num">4</span> Bewertung
+      </button>
+      <button id="nav-progress" onclick="nav('progress')" style="margin-left:auto;">
+        <span class="step-num">📊</span> Fortschritt
+      </button>
+    </nav>
+
+    <main id="main-content">
+
+      <!-- ====== STEP 1: SETUP ====== -->
+      <section id="setup" class="active">
+        <div class="card">
+          <h2 class="card-header">Hörverstehen</h2>
+          <p style="color:var(--ink-muted);font-size:.9rem;margin-bottom:1.2rem;">
+            Die KI erstellt einen italienischen Hörtext und liest ihn dir vor. Danach beantwortest du Fragen dazu
+            – genau wie im Abitur.
+          </p>
+
+          <div class="form-group">
+            <label for="topicSelect">Themenfeld</label>
+            <select id="topicSelect">
+              <option value="Science & Technology: Artificial Intelligence and Society">Science & Technology: AI & Society</option>
+              <option value="Global Chances and Challenges: Climate Change and Sustainability">Global Challenges: Climate & Sustainability</option>
+              <option value="The Media: Social Media, Fake News and Digital Literacy">The Media: Social Media & Digital Literacy</option>
+              <option value="Politics and Society: Democracy, Migration, Social Justice">Politics & Society: Democracy & Social Justice</option>
+              <option value="The World of Work: Future Careers and Automation">World of Work: Future Careers & Automation</option>
+              <option value="Culture and Identity: Multiculturalism and Globalisation">Culture & Identity: Multiculturalism</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Format des Hörtextes</label>
+            <select id="formatSelect">
+              <option value="news report">Nachrichtenbericht</option>
+              <option value="interview">Interview</option>
+              <option value="lecture or talk">Vortrag / Rede</option>
+              <option value="dialogue or conversation">Dialog / Gespräch</option>
+              <option value="podcast episode">Podcast</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Stimme</label>
+            <select id="voiceSelect">
+              <option value="Kore">Weiblich (Kore)</option>
+              <option value="Puck">Männlich (Puck)</option>
+            </select>
+          </div>
+
+          <button class="btn" id="generateBtn" onclick="generateHörverstehen()" style="background:var(--lc-accent);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Aufgabe generieren
+          </button>
+
+          <div id="setupLoader" class="loader">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Aufgabe wird generiert …</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== STEP 2: LISTEN ====== -->
+      <section id="listen">
+        <div class="card audio-player-card">
+          <h2 class="card-header" style="text-align:center;">🎧 Hörtext</h2>
+          <p id="listeningTitle" style="font-weight:600;font-size:1.1rem;margin-bottom:0.5rem;"></p>
+          <p id="listeningFormat" style="color:var(--ink-muted);font-size:.85rem;margin-bottom:1rem;"></p>
+
+          <!-- Audio-Generierungs-Loader -->
+          <div id="audioLoader" class="loader" style="display:none;">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Hörtext wird vorbereitet … <span id="audioProgress"></span></div>
+          </div>
+
+          <!-- Audio Player -->
+          <div id="audioPlayerUI" style="display:none;">
+            <div class="audio-controls">
+              <button class="play-btn" id="playBtn" onclick="togglePlay()" aria-label="Audio abspielen">
+                <svg id="playIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <svg id="pauseIcon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="display:none;" aria-hidden="true">
+                  <rect x="6" y="4" width="4" height="16"/>
+                  <rect x="14" y="4" width="4" height="16"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="audio-progress">
+              <div class="audio-progress-fill" id="audioProgressBar"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.4rem;">
+              <span class="audio-time" id="audioCurrentTime">0:00</span>
+              <span class="play-count" id="playCount">Abspielen: 0/2</span>
+              <span class="audio-time" id="audioDuration">0:00</span>
+            </div>
+            <div id="audioSourceLabel" style="text-align:center;margin-top:.5rem;font-size:.75rem;color:var(--ink-muted);"></div>
+          </div>
+
+          <audio id="audioElement" preload="auto"></audio>
+        </div>
+
+        <!-- Notizfeld -->
+        <div class="card">
+          <h2 class="card-header">Notizen (optional)</h2>
+          <p style="color:var(--ink-muted);font-size:.85rem;margin-bottom:.8rem;">
+            Du kannst dir beim Hören Stichpunkte machen – genau wie im Abitur.
+          </p>
+          <textarea class="notes-area" id="listeningNotes" placeholder="Notizen beim Hören …"></textarea>
+        </div>
+
+        <button class="btn" id="toQuestionsBtn" onclick="nav('answer')" disabled style="background:var(--lc-accent);opacity:0.5;">
+          Weiter zu den Fragen →
+        </button>
+        <p id="listenHint" style="text-align:center;color:var(--ink-muted);font-size:.85rem;margin-top:.5rem;">
+          Höre den Text mindestens einmal an, um fortfahren zu können.
+        </p>
+      </section>
+
+      <!-- ====== STEP 3: ANSWER ====== -->
+      <section id="answer">
+        <!-- Timer Bar -->
+        <div class="timer-bar" id="timerBar">
+          <div>
+            <div class="timer-label">Verbleibende Zeit</div>
+            <div class="timer-display" id="timerDisplay">30:00</div>
+          </div>
+          <div class="timer-controls">
+            <button onclick="pauseTimer()" id="timerPauseBtn">⏸ Pause</button>
+            <button onclick="stopTimer()">✕ Stopp</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;">
+            <h2 class="card-header" style="margin-bottom:0">Fragen zum Hörtext</h2>
+            <div class="timer-setup" id="timerSetup">
+              <label style="margin:0;text-transform:none;font-size:.85rem;letter-spacing:0;">⏱ Timer:</label>
+              <input type="number" id="timerMinutes" value="30" min="5" max="60" step="5">
+              <span style="font-size:.85rem;color:var(--ink-muted)">Min</span>
+              <button class="btn btn-small btn-secondary" onclick="startTimer()">Timer starten</button>
+            </div>
+          </div>
+
+          <div id="questionsContainer"></div>
+
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.5rem;">
+            <button class="btn" id="submitBtn" onclick="submitAnswers()" style="background:var(--lc-accent);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Antworten abgeben
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== STEP 4: FEEDBACK ====== -->
+      <section id="feedback">
+        <div id="feedbackLoader" class="loader">
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Bewertung wird erstellt …</div>
+        </div>
+
+        <div id="feedbackContent" style="display:none;">
+          <!-- Score -->
+          <div class="scores-grid" id="scoresGrid">
+            <div class="score-card total" style="border-color:var(--lc-accent);">
+              <div class="score-label">Punkte</div>
+              <div class="score-value" id="scorePoints">–</div>
+              <div class="score-max" id="scoreMax">von 20</div>
+            </div>
+            <div class="score-card" style="background:var(--lc-accent-glow);border-color:var(--lc-accent);">
+              <div class="score-label">Prozent</div>
+              <div class="score-value" id="scorePercent">–</div>
+              <div class="score-max">%</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Notenpunkte</div>
+              <div class="score-value" id="scoreNP">–</div>
+              <div class="score-max">von 15 NP</div>
+            </div>
+            <div class="score-card">
+              <div class="score-label">Schulnote</div>
+              <div class="score-value" id="scoreGrade" style="font-size:1.8rem;">–</div>
+              <div class="score-max" id="scoreGradeLabel"></div>
+            </div>
+          </div>
+
+          <!-- Fragen mit Feedback -->
+          <div class="card">
+            <h2 class="card-header">Auswertung</h2>
+            <div id="feedbackQuestions"></div>
+          </div>
+
+          <!-- Transkript -->
+          <div class="card">
+            <details>
+              <summary class="transcript-toggle">📄 Hörtext-Transkript anzeigen</summary>
+              <div class="transcript-body" id="transcriptBody"></div>
+            </details>
+          </div>
+
+          <!-- Nochmal anhören (unbegrenzt im Feedback) -->
+          <div class="card" id="feedbackAudioCard" style="display:none;">
+            <h2 class="card-header"><span aria-hidden="true">🎧</span> Nochmal anhören</h2>
+            <audio id="feedbackAudio" controls style="width:100%;margin-top:.5rem;"
+              aria-label="Hörtext nochmal anhören"></audio>
+            <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem;">
+              Das vollständige Transkript findest du im Abschnitt „Hörtext-Transkript" oben.
+            </p>
+          </div>
+
+          <!-- Actions -->
+          <div class="pdf-actions">
+            <button class="btn btn-secondary btn-small" onclick="exportPDF()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Als PDF exportieren
+            </button>
+            <button class="btn btn-secondary btn-small" onclick="resetAll()">
+              Neue Aufgabe starten
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====== STEP 5: PROGRESS ====== -->
+      <section id="progress">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
+            <h2 class="card-header" style="margin-bottom:0">Dein Fortschritt</h2>
+            <button class="btn btn-small btn-secondary" onclick="clearHistory()" id="clearHistoryBtn"
+              style="display:none;">
+              Verlauf löschen
+            </button>
+          </div>
+
+          <div id="progressEmpty" class="history-empty">
+            <div class="empty-icon">📈</div>
+            <p>Noch keine Ergebnisse vorhanden.</p>
+            <p style="font-size:.85rem;">Deine Bewertungen erscheinen hier nach jeder Abgabe.</p>
+          </div>
+
+          <div id="progressContent" style="display:none;">
+            <div class="history-chart">
+              <canvas id="progressChart"></canvas>
+            </div>
+
+            <div class="scores-grid" style="margin:1.5rem 0;">
+              <div class="score-card">
+                <div class="score-label">Versuche</div>
+                <div class="score-value" id="statAttempts">0</div>
+              </div>
+              <div class="score-card">
+                <div class="score-label">Durchschnitt</div>
+                <div class="score-value" id="statAverage">–</div>
+                <div class="score-max">%</div>
+              </div>
+              <div class="score-card total">
+                <div class="score-label">Bestes Ergebnis</div>
+                <div class="score-value" id="statBest">–</div>
+                <div class="score-max">%</div>
+              </div>
+            </div>
+
+            <h3 style="font-family:var(--font-display);margin-bottom:.8rem;">Vergangene Versuche</h3>
+            <div style="overflow-x:auto;">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Datum</th>
+                    <th>Thema</th>
+                    <th>Punkte</th>
+                    <th>Note</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="historyTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2026 myAbiFlow · Hörverstehen Italienisch
+      <br><a href="index.html?back=italian"
+        style="color:var(--ink-muted);font-size:.75rem;text-decoration:none;opacity:.6;">← Zurück zur Modulauswahl</a>
+    </footer>
+
+  </div>
+
+  <script>
+    const MODULE_CONFIG = {
+      sectionPrefix: "",
+      steps: ["setup", "listen", "answer", "feedback", "progress"],
+      storagePrefix: "italiano_listening",
+      historyKey: "italiano_listening_history_",
+      historyType: "italiano-listening",
+      pdfFilename: "Hoerverstehen_Italiano",
+      chartColor: "#0d9488",
+      minWords: 0,
+      hasOwnLogin: true
+    };
+  </script>
+  <script src="shared.js"></script>
+  <script>
+    /* ================= LISTENING STATE ================= */
+    let listeningData = null; // {title, transcript, questions, ...}
+    let audioUrl = null;
+    let playCount = 0;
+    const MAX_PLAYS = 2;
+    let feedbackMode = false;
+    let studentAnswers = {};
+
+    // Audio-Modus: 'gemini' = HTML-Audio-Element, 'speech' = Web Speech API
+    let audioMode = 'speech';
+    // Speech Synthesis State
+    let synthUtterance = null;
+    let synthEstDuration = 0;
+    let synthStartTime = null;
+    let synthProgressTimer = null;
+
+    /* ================= SESSION RECOVERY ================= */
+    function saveSession() {
+      const session = {
+        listeningData: listeningData,
+        audioUrl: null, // Audio-Blob-URLs sind nicht persistent
+        playCount: playCount,
+        studentAnswers: studentAnswers,
+        notes: document.getElementById("listeningNotes").value,
+        currentStep: document.querySelector("section.active")?.id || "setup"
+      };
+      localStorage.setItem("session_" + getStudentKey(), JSON.stringify(session));
+    }
+
+    function restoreSession() {
+      try {
+        const raw = localStorage.getItem("session_" + getStudentKey());
+        if (!raw) return false;
+        const session = JSON.parse(raw);
+
+        if (session.listeningData && session.listeningData.transcript) {
+          listeningData = session.listeningData;
+          CONFIG.storedData = session.listeningData;
+          playCount = session.playCount || 0;
+          studentAnswers = session.studentAnswers || {};
+          if (session.notes) document.getElementById("listeningNotes").value = session.notes;
+
+          renderListenStep();
+          renderQuestions();
+          restoreStudentAnswers();
+
+          if (session.currentStep && session.currentStep !== "setup") {
+            nav(session.currentStep);
+          }
+          return true;
+        }
+        return false;
+      } catch { return false; }
+    }
+
+    /* ================= GENERATE ================= */
+    async function generateHörverstehen() {
+      const topic = document.getElementById("topicSelect").value;
+      const format = document.getElementById("formatSelect").value;
+      const btn = document.getElementById("generateBtn");
+
+      btn.disabled = true;
+      document.getElementById("setupLoader").style.display = "block";
+
+      try {
+        // Schritt 1: Hörtext + Fragen generieren
+        const data = await apiCall("/api/generate-listening", { topic, format });
+
+        if (!data.transcript || !data.questions) {
+          throw new Error("Unvollständige Aufgabe erhalten.");
+        }
+
+        listeningData = data;
+        CONFIG.storedData = data;
+        playCount = 0;
+        studentAnswers = {};
+        feedbackMode = false;
+        audioUrl = null;
+
+        renderListenStep();
+        renderQuestions();
+        saveSession();
+        nav("listen");
+
+        // Schritt 2: Audio generieren (im Hintergrund)
+        generateAudio();
+      } catch (e) {
+        showToast("Fehler beim Generieren: " + e.message);
+      }
+
+      btn.disabled = false;
+      document.getElementById("setupLoader").style.display = "none";
+    }
+
+    /* ================= GEMINI TTS (primär) + Web Speech (Fallback) ================= */
+
+    const TTS_PROXY = 'https://gemini-proxy.sanktannagymnasium.workers.dev';
+    const TTS_SAMPLE_RATE = 24000;
+    const TTS_VOICE_PAIRS = { Kore:'Puck', Puck:'Kore', Aoede:'Charon', Charon:'Aoede', Fenrir:'Leda', Leda:'Fenrir' };
+
+    function pcmToWav(int16, rate) {
+      const d = int16.length * 2;
+      const b = new ArrayBuffer(44 + d), v = new DataView(b);
+      const ws = (o, s) => { for (let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); };
+      ws(0,'RIFF'); v.setUint32(4, 36+d, true); ws(8,'WAVE');
+      ws(12,'fmt '); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+      v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+      ws(36,'data'); v.setUint32(40,d,true);
+      let off=44; for (let i=0;i<int16.length;i++) { v.setInt16(off,int16[i],true); off+=2; }
+      return new Blob([b], { type:'audio/wav' });
+    }
+
+    async function tryGeminiTTS(text, voice, speakers, onProgress) {
+      voice = voice || 'Kore';
+      let speechConfig;
+      if (speakers && speakers.length >= 2) {
+        const second = TTS_VOICE_PAIRS[voice] || 'Puck';
+        speechConfig = { multiSpeakerVoiceConfig: { speakerVoiceConfigs: [
+          { speaker: speakers[0], voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+          { speaker: speakers[1], voiceConfig: { prebuiltVoiceConfig: { voiceName: second !== voice ? second : 'Puck' } } }
+        ]}};
+      } else {
+        speechConfig = { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } };
+      }
+
+      if (onProgress) onProgress(10);
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), 90000);
+
+      try {
+        // Non-Streaming-Endpunkt: stabiler durch Cloudflare Worker, kein SSE-Parsing
+        const res = await fetch(
+          TTS_PROXY + '/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=PROXY',
+          { method:'POST', headers:{'Content-Type':'application/json'}, signal:ctrl.signal,
+            body: JSON.stringify({
+              contents:[{role:'user',parts:[{text}]}],
+              generationConfig:{ responseModalities:['AUDIO'], speechConfig }
+            }) }
+        );
+        clearTimeout(tid);
+        if (!res.ok) { const t = await res.text(); throw new Error('TTS '+res.status+': '+t.slice(0,200)); }
+        if (onProgress) onProgress(80);
+
+        const data = await res.json();
+        if (onProgress) onProgress(90);
+
+        const parts = data?.candidates?.[0]?.content?.parts || [];
+        let audioData = null;
+        for (const p of parts) { if (p.inlineData?.data) { audioData = p.inlineData; break; } }
+        if (!audioData) throw new Error('Kein Audio in der Antwort erhalten.');
+
+        const bytes = Uint8Array.from(atob(audioData.data), c=>c.charCodeAt(0));
+        const mimeType = audioData.mimeType || '';
+        let blob;
+        if (mimeType.includes('wav')||mimeType.includes('mp3')||mimeType.includes('mpeg')) {
+          blob = new Blob([bytes], {type:mimeType});
+        } else {
+          blob = pcmToWav(new Int16Array(bytes.buffer, 0, Math.floor(bytes.byteLength/2)), TTS_SAMPLE_RATE);
+        }
+        if (onProgress) onProgress(100);
+        return URL.createObjectURL(blob);
+      } catch(e) { clearTimeout(tid); throw e; }
+    }
+
+    function getSpeechVoice() {
+      const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+      for (const name of ['Samantha','Alex','Karen','Daniel','Moira']) {
+        const v = voices.find(v=>v.name.includes(name)&&v.lang.startsWith('en'));
+        if (v) return v;
+      }
+      return voices.find(v=>v.lang.startsWith('en-')) || voices.find(v=>v.lang.startsWith('en')) || null;
+    }
+
+    function setupSpeechPlayer() {
+      audioMode = 'speech';
+      const text = listeningData.transcript;
+      synthEstDuration = (text.split(/\s+/).length / 120) * 60;
+      document.getElementById("audioDuration").textContent = formatTime(synthEstDuration);
+
+      synthUtterance = new SpeechSynthesisUtterance(text);
+      synthUtterance.lang = 'en-US'; synthUtterance.rate = 0.9; synthUtterance.pitch = 1.0;
+      const v = getSpeechVoice(); if (v) synthUtterance.voice = v;
+
+      synthUtterance.onstart = function() {
+        synthStartTime = Date.now();
+        document.getElementById("playIcon").style.display = "none";
+        document.getElementById("pauseIcon").style.display = "block";
+        synthProgressTimer = setInterval(function() {
+          if (!synthStartTime) return;
+          const e = (Date.now()-synthStartTime)/1000;
+          document.getElementById("audioProgressBar").style.width = Math.min(e/synthEstDuration,1)*100+"%";
+          document.getElementById("audioCurrentTime").textContent = formatTime(e);
+        }, 500);
+      };
+      synthUtterance.onpause = function() {
+        clearInterval(synthProgressTimer);
+        document.getElementById("playIcon").style.display = "block";
+        document.getElementById("pauseIcon").style.display = "none";
+      };
+      synthUtterance.onresume = function() {
+        document.getElementById("playIcon").style.display = "none";
+        document.getElementById("pauseIcon").style.display = "block";
+        synthProgressTimer = setInterval(function() {
+          if (!synthStartTime) return;
+          const e = (Date.now()-synthStartTime)/1000;
+          document.getElementById("audioProgressBar").style.width = Math.min(e/synthEstDuration,1)*100+"%";
+          document.getElementById("audioCurrentTime").textContent = formatTime(e);
+        }, 500);
+      };
+      synthUtterance.onend = function() {
+        clearInterval(synthProgressTimer);
+        document.getElementById("playIcon").style.display = "block";
+        document.getElementById("pauseIcon").style.display = "none";
+        document.getElementById("audioProgressBar").style.width = "0%";
+        document.getElementById("audioCurrentTime").textContent = "0:00";
+        if (!feedbackMode) { playCount++; updatePlayCount(); saveSession(); if (playCount>=1) enableQuestions(); }
+      };
+      synthUtterance.onerror = function(e) {
+        clearInterval(synthProgressTimer);
+        if (e.error!=='interrupted'&&e.error!=='canceled') { showToast("Sprachausgabe-Fehler: "+e.error); enableQuestions(); }
+      };
+
+      document.getElementById("audioSourceLabel").textContent = "🔊 Browser-Stimme (Gemini nicht verfügbar)";
+      document.getElementById("audioLoader").style.display = "none";
+      document.getElementById("audioPlayerUI").style.display = "block";
+      updatePlayCount();
+    }
+
+    function setupGeminiPlayer(url) {
+      audioMode = 'gemini';
+      audioUrl = url;
+      const audioEl = document.getElementById("audioElement");
+      audioEl.src = url; audioEl.load();
+      document.getElementById("feedbackAudio").src = url;
+
+      audioEl.onloadedmetadata = function() {
+        document.getElementById("audioDuration").textContent = formatTime(audioEl.duration);
+      };
+      audioEl.ontimeupdate = function() {
+        if (!audioEl.duration) return;
+        document.getElementById("audioProgressBar").style.width = (audioEl.currentTime/audioEl.duration*100)+"%";
+        document.getElementById("audioCurrentTime").textContent = formatTime(audioEl.currentTime);
+      };
+      audioEl.onended = function() {
+        document.getElementById("playIcon").style.display = "block";
+        document.getElementById("pauseIcon").style.display = "none";
+        document.getElementById("audioProgressBar").style.width = "0%";
+        document.getElementById("audioCurrentTime").textContent = "0:00";
+        if (!feedbackMode) { playCount++; updatePlayCount(); saveSession(); if (playCount>=1) enableQuestions(); }
+      };
+
+      document.getElementById("audioSourceLabel").textContent = "✨ Gemini-Stimme";
+      document.getElementById("audioLoader").style.display = "none";
+      document.getElementById("audioPlayerUI").style.display = "block";
+      updatePlayCount();
+    }
+
+    async function generateAudio() {
+      document.getElementById("audioLoader").style.display = "block";
+      document.getElementById("audioPlayerUI").style.display = "none";
+      document.getElementById("audioProgress").textContent = "Gemini-Stimme wird geladen …";
+
+      // 1. Gemini TTS versuchen
+      try {
+        const voice = document.getElementById("voiceSelect").value;
+        const url = await tryGeminiTTS(
+          listeningData.transcript, voice, listeningData.speakers,
+          pct => { document.getElementById("audioProgress").textContent = Math.round(pct)+"%"; }
+        );
+        setupGeminiPlayer(url);
+        return;
+      } catch(e) {
+        console.error('[Hörverstehen] Gemini TTS fehlgeschlagen:', e.message, e);
+        showToast('Gemini-Stimme nicht verfügbar – Browser-Stimme wird genutzt');
+      }
+
+      // 2. Fallback: Web Speech API
+      document.getElementById("audioProgress").textContent = "";
+      if (!window.speechSynthesis) {
+        document.getElementById("audioLoader").style.display = "none";
+        showToast("Audio nicht verfügbar."); enableQuestions(); return;
+      }
+      if (speechSynthesis.getVoices().length > 0) {
+        setupSpeechPlayer();
+      } else {
+        speechSynthesis.addEventListener('voiceschanged', function onV() {
+          speechSynthesis.removeEventListener('voiceschanged', onV); setupSpeechPlayer();
+        });
+        setTimeout(setupSpeechPlayer, 1000);
+      }
+    }
+
+    /* ================= AUDIO PLAYER ================= */
+    function togglePlay() {
+      const btn = document.getElementById("playBtn");
+
+      if (audioMode === 'gemini') {
+        const audioEl = document.getElementById("audioElement");
+        if (audioEl.paused) {
+          if (playCount >= MAX_PLAYS && !feedbackMode) { showToast("Du hast den Text bereits 2x angehört."); return; }
+          audioEl.play();
+          document.getElementById("playIcon").style.display = "none";
+          document.getElementById("pauseIcon").style.display = "block";
+          if (btn) btn.setAttribute("aria-label", "Audio pausieren");
+        } else {
+          audioEl.pause();
+          document.getElementById("playIcon").style.display = "block";
+          document.getElementById("pauseIcon").style.display = "none";
+          if (btn) btn.setAttribute("aria-label", "Audio abspielen");
+        }
+        return;
+      }
+
+      // Web Speech Modus
+      if (!synthUtterance) return;
+      if (speechSynthesis.speaking && !speechSynthesis.paused) {
+        speechSynthesis.pause();
+        if (btn) btn.setAttribute("aria-label", "Audio abspielen");
+      } else if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+        if (btn) btn.setAttribute("aria-label", "Audio pausieren");
+      } else {
+        if (playCount >= MAX_PLAYS && !feedbackMode) { showToast("Du hast den Text bereits 2x angehört."); return; }
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(synthUtterance.text);
+        u.lang=synthUtterance.lang; u.rate=synthUtterance.rate; u.pitch=synthUtterance.pitch;
+        if (synthUtterance.voice) u.voice=synthUtterance.voice;
+        u.onstart=synthUtterance.onstart; u.onpause=synthUtterance.onpause;
+        u.onresume=synthUtterance.onresume; u.onend=synthUtterance.onend; u.onerror=synthUtterance.onerror;
+        synthUtterance=u; synthStartTime=Date.now();
+        speechSynthesis.speak(synthUtterance);
+        if (btn) btn.setAttribute("aria-label", "Audio pausieren");
+      }
+    }
+
+    window.addEventListener("pagehide", function() {
+      if (window.speechSynthesis) speechSynthesis.cancel();
+    });
+
+    function updatePlayCount() {
+      const countEl = document.getElementById("playCount");
+      if (feedbackMode) {
+        countEl.textContent = "Unbegrenzt";
+      } else {
+        countEl.textContent = "Abspielen: " + playCount + "/" + MAX_PLAYS;
+      }
+
+      // Play-Button deaktivieren wenn 2x gehört
+      const playBtn = document.getElementById("playBtn");
+      if (playCount >= MAX_PLAYS && !feedbackMode) {
+        playBtn.disabled = true;
+      } else {
+        playBtn.disabled = false;
+      }
+    }
+
+    function enableQuestions() {
+      const btn = document.getElementById("toQuestionsBtn");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      document.getElementById("listenHint").textContent =
+        playCount >= MAX_PLAYS
+          ? "Du hast den Text 2x angehört. Du kannst jetzt die Fragen beantworten."
+          : "Du kannst jetzt zu den Fragen weiterschalten oder den Text nochmal anhören.";
+    }
+
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return "0:00";
+      var m = Math.floor(seconds / 60);
+      var s = Math.floor(seconds % 60);
+      return m + ":" + String(s).padStart(2, "0");
+    }
+
+    /* ================= RENDER LISTEN STEP ================= */
+    function renderListenStep() {
+      if (!listeningData) return;
+      document.getElementById("listeningTitle").textContent = listeningData.title || "Hörtext";
+      var fmt = listeningData.format || "";
+      var fmtMap = {
+        "news report": "Nachrichtenbericht",
+        "interview": "Interview",
+        "lecture or talk": "Vortrag",
+        "dialogue or conversation": "Dialog",
+        "podcast episode": "Podcast"
+      };
+      document.getElementById("listeningFormat").textContent = fmtMap[fmt] || fmt;
+    }
+
+    /* ================= RENDER QUESTIONS ================= */
+    function renderQuestions() {
+      if (!listeningData || !listeningData.questions) return;
+      var container = document.getElementById("questionsContainer");
+      container.innerHTML = "";
+
+      listeningData.questions.forEach(function(q, idx) {
+        var card = document.createElement("div");
+        card.className = "question-card";
+        card.id = "qcard-" + q.id;
+
+        var typeLabel = q.type === "mc" ? "Multiple Choice" : q.type === "tf" ? "True / False / Not Given" : "Kurzantwort";
+        var badgeClass = q.type === "mc" ? "badge-mc" : q.type === "tf" ? "badge-tf" : "badge-short";
+
+        var html = '<div class="question-num">Frage ' + (idx + 1) + ' <span class="question-type-badge ' + badgeClass + '">' + typeLabel + '</span> <span style="color:var(--ink-muted);font-size:.75rem;">(' + q.points + (q.points === 1 ? ' Punkt' : ' Punkte') + ')</span></div>';
+        html += '<div class="question-text">' + escapeHtml(q.question) + '</div>';
+
+        if (q.type === "mc") {
+          html += '<div class="mc-options">';
+          (q.options || []).forEach(function(opt) {
+            var letter = opt.charAt(0);
+            html += '<div class="mc-option" data-qid="' + q.id + '" data-val="' + letter + '" onclick="selectMC(' + q.id + ',\'' + letter + '\')">';
+            html += '<div class="mc-radio"></div>';
+            html += '<div>' + escapeHtml(opt) + '</div>';
+            html += '</div>';
+          });
+          html += '</div>';
+        } else if (q.type === "tf") {
+          html += '<div class="tf-options">';
+          html += '<button class="tf-btn" data-qid="' + q.id + '" data-val="true" onclick="selectTF(' + q.id + ',\'true\')">True</button>';
+          html += '<button class="tf-btn" data-qid="' + q.id + '" data-val="false" onclick="selectTF(' + q.id + ',\'false\')">False</button>';
+          html += '<button class="tf-btn" data-qid="' + q.id + '" data-val="not_given" onclick="selectTF(' + q.id + ',\'not_given\')">Not Given</button>';
+          html += '</div>';
+        } else if (q.type === "short") {
+          html += '<textarea class="short-answer" id="short-' + q.id + '" placeholder="Your answer …" oninput="onShortAnswer(' + q.id + ')" style="font-size:16px;"></textarea>';
+        }
+
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    function restoreStudentAnswers() {
+      if (!studentAnswers || !listeningData) return;
+      for (var id in studentAnswers) {
+        var q = listeningData.questions.find(function(qq) { return qq.id == id; });
+        if (!q) continue;
+        var val = studentAnswers[id];
+        if (q.type === "mc") selectMC(q.id, val, true);
+        else if (q.type === "tf") selectTF(q.id, val, true);
+        else if (q.type === "short") {
+          var ta = document.getElementById("short-" + q.id);
+          if (ta) ta.value = val;
+        }
+      }
+    }
+
+    /* ================= ANSWER HANDLERS ================= */
+    function selectMC(qid, val, silent) {
+      studentAnswers[qid] = val;
+      // UI update
+      document.querySelectorAll('.mc-option[data-qid="' + qid + '"]').forEach(function(el) {
+        el.classList.toggle("selected", el.getAttribute("data-val") === val);
+      });
+      document.getElementById("qcard-" + qid).classList.add("answered");
+      if (!silent) saveSession();
+    }
+
+    function selectTF(qid, val, silent) {
+      studentAnswers[qid] = val;
+      document.querySelectorAll('.tf-btn[data-qid="' + qid + '"]').forEach(function(el) {
+        el.classList.toggle("selected", el.getAttribute("data-val") === val);
+      });
+      document.getElementById("qcard-" + qid).classList.add("answered");
+      if (!silent) saveSession();
+    }
+
+    function onShortAnswer(qid) {
+      var ta = document.getElementById("short-" + qid);
+      if (ta) {
+        studentAnswers[qid] = ta.value;
+        document.getElementById("qcard-" + qid).classList.toggle("answered", ta.value.trim().length > 0);
+      }
+    }
+
+    /* ================= SUBMIT ================= */
+    async function submitAnswers() {
+      if (!listeningData || !listeningData.questions) return;
+
+      // Prüfe ob mindestens eine Antwort gegeben wurde
+      var answered = Object.keys(studentAnswers).filter(function(k) {
+        return studentAnswers[k] && String(studentAnswers[k]).trim().length > 0;
+      });
+      if (answered.length === 0) {
+        showToast("Bitte beantworte mindestens eine Frage.");
+        return;
+      }
+
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      nav("feedback");
+      document.getElementById("feedbackLoader").style.display = "block";
+      document.getElementById("feedbackContent").style.display = "none";
+
+      try {
+        var data = await apiCall("/api/grade-listening", {
+          questions: listeningData.questions,
+          student_answers: studentAnswers,
+          transcript: listeningData.transcript
+        });
+
+        // Scores anzeigen
+        document.getElementById("scorePoints").textContent = data.total_points + "/" + data.max_points;
+        document.getElementById("scoreMax").textContent = "von " + data.max_points;
+        document.getElementById("scorePercent").textContent = data.percentage;
+        document.getElementById("scoreNP").textContent = data.notenpunkte;
+
+        var grade = npToGrade(data.notenpunkte);
+        document.getElementById("scoreGrade").textContent = grade.note;
+        document.getElementById("scoreGradeLabel").textContent = grade.label;
+
+        // Fragen-Feedback rendern
+        renderFeedbackQuestions(data.results);
+
+        // Transkript anzeigen
+        document.getElementById("transcriptBody").textContent = listeningData.transcript || "";
+
+        // Audio im Feedback verfügbar machen
+        if (audioUrl) {
+          document.getElementById("feedbackAudioCard").style.display = "block";
+        }
+
+        // History speichern
+        saveToHistory({
+          topic: listeningData.title || "Hörverstehen",
+          total_points: data.total_points,
+          max_points: data.max_points,
+          percentage: data.percentage,
+          content: data.notenpunkte,
+          total: data.notenpunkte
+        });
+
+        // Server-Ergebnis
+        apiCall("/api/submit-result", {
+          student_name: sessionStorage.getItem("student_name") || "Unbekannt",
+          course: sessionStorage.getItem("student_course") || "",
+          type: "listening",
+          topic: listeningData.title || "Hörverstehen",
+          content: data.notenpunkte,
+          total: data.notenpunkte,
+          date: new Date().toISOString()
+        }).catch(function() {});
+
+        stopTimer();
+        feedbackMode = true;
+        document.getElementById("feedbackContent").style.display = "block";
+      } catch (e) {
+        document.getElementById("feedbackContent").style.display = "block";
+        document.getElementById("feedbackQuestions").innerHTML =
+          '<p style="color:var(--warning);font-weight:600;">Fehler: ' + escapeHtml(e.message) + '</p>';
+      }
+
+      document.getElementById("feedbackLoader").style.display = "none";
+      btn.disabled = false;
+    }
+
+    /* ================= FEEDBACK RENDERING ================= */
+    function renderFeedbackQuestions(results) {
+      var container = document.getElementById("feedbackQuestions");
+      container.innerHTML = "";
+
+      results.forEach(function(r, idx) {
+        var card = document.createElement("div");
+        var isCorrect = r.is_correct || (r.points_awarded === r.max_points);
+        var isPartial = !isCorrect && r.points_awarded > 0;
+        card.className = "question-card " + (isCorrect ? "correct" : isPartial ? "" : "wrong");
+
+        var typeLabel = r.type === "mc" ? "Multiple Choice" : r.type === "tf" ? "True / False / Not Given" : "Kurzantwort";
+        var badgeClass = r.type === "mc" ? "badge-mc" : r.type === "tf" ? "badge-tf" : "badge-short";
+
+        var html = '<div class="question-num">Frage ' + (idx + 1) + ' <span class="question-type-badge ' + badgeClass + '">' + typeLabel + '</span> <span style="color:var(--ink-muted);font-size:.75rem;">' + r.points_awarded + '/' + r.max_points + ' Pkt.</span></div>';
+        html += '<div class="question-text">' + escapeHtml(r.question) + '</div>';
+
+        // Schülerantwort
+        html += '<div class="result-indicator ' + (isCorrect ? 'result-correct' : isPartial ? 'result-partial' : 'result-wrong') + '">';
+        if (isCorrect) html += '✓ Richtig';
+        else if (isPartial) html += '~ Teilweise richtig (' + r.points_awarded + '/' + r.max_points + ')';
+        else html += '✗ Falsch';
+        html += '</div>';
+
+        // Schülerantwort und korrekte Antwort
+        if (r.type === "short") {
+          html += '<div style="margin-top:.5rem;font-size:.9rem;"><strong>Deine Antwort:</strong> ' + escapeHtml(r.student_answer || "(keine)") + '</div>';
+          if (r.feedback) {
+            html += '<div style="margin-top:.3rem;font-size:.85rem;color:var(--ink-muted);font-style:italic;">' + escapeHtml(r.feedback) + '</div>';
+          }
+        } else {
+          html += '<div style="margin-top:.3rem;font-size:.9rem;">Deine Antwort: <strong>' + escapeHtml(r.student_answer || "(keine)") + '</strong></div>';
+        }
+
+        if (!isCorrect) {
+          html += '<div class="correct-answer-text">Korrekte Antwort: <strong>' + escapeHtml(String(r.correct_answer)) + '</strong></div>';
+        }
+
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+    }
+
+    /* ================= TIMER ================= */
+    function startTimer() {
+      const minutes = parseInt(document.getElementById("timerMinutes").value) || 30;
+      timerSeconds = minutes * 60;
+      timerPaused = false;
+      document.getElementById("timerBar").classList.add("active");
+      document.getElementById("timerSetup").style.display = "none";
+      updateTimerDisplay();
+      timerInterval = setInterval(function() {
+        if (timerPaused) return;
+        timerSeconds--;
+        updateTimerDisplay();
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          document.getElementById("timerDisplay").textContent = "00:00";
+          document.getElementById("timerDisplay").classList.add("warning");
+          showToast("Zeit abgelaufen! Du kannst deine Antworten trotzdem noch abgeben.");
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+      timerSeconds = 0;
+      timerPaused = false;
+      document.getElementById("timerBar").classList.remove("active");
+      document.getElementById("timerSetup").style.display = "flex";
+      document.getElementById("timerDisplay").classList.remove("warning");
+      document.getElementById("timerPauseBtn").textContent = "⏸ Pause";
+    }
+
+    function updateTimerDisplay() {
+      var m = Math.floor(timerSeconds / 60);
+      var s = timerSeconds % 60;
+      var display = document.getElementById("timerDisplay");
+      display.textContent = String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+      display.classList.toggle("warning", timerSeconds <= 120 && timerSeconds > 0);
+    }
+
+    /* ================= RESET ================= */
+    function resetAll() {
+      if (!confirm("Neue Aufgabe starten? Alle aktuellen Daten werden gelöscht.")) return;
+      localStorage.removeItem("session_" + getStudentKey());
+      listeningData = null;
+      CONFIG.storedData = null;
+      audioUrl = null;
+      playCount = 0;
+      studentAnswers = {};
+      feedbackMode = false;
+
+      document.getElementById("questionsContainer").innerHTML = "";
+      document.getElementById("feedbackContent").style.display = "none";
+      document.getElementById("listeningNotes").value = "";
+      document.getElementById("audioPlayerUI").style.display = "none";
+      document.getElementById("audioLoader").style.display = "none";
+      document.getElementById("toQuestionsBtn").disabled = true;
+      document.getElementById("toQuestionsBtn").style.opacity = "0.5";
+      document.getElementById("listenHint").textContent = "Höre den Text mindestens einmal an, um fortfahren zu können.";
+
+      var audioEl = document.getElementById("audioElement");
+      audioEl.src = "";
+      document.getElementById("feedbackAudio").src = "";
+
+      stopTimer();
+      nav("setup");
+    }
+
+    /* ================= UTILS ================= */
+    function npToGrade(np) {
+      if (np >= 15) return { note: "1+", label: "sehr gut" };
+      if (np >= 14) return { note: "1", label: "sehr gut" };
+      if (np >= 13) return { note: "1–", label: "sehr gut" };
+      if (np >= 12) return { note: "2+", label: "gut" };
+      if (np >= 11) return { note: "2", label: "gut" };
+      if (np >= 10) return { note: "2–", label: "gut" };
+      if (np >= 9) return { note: "3+", label: "befriedigend" };
+      if (np >= 8) return { note: "3", label: "befriedigend" };
+      if (np >= 7) return { note: "3–", label: "befriedigend" };
+      if (np >= 6) return { note: "4+", label: "ausreichend" };
+      if (np >= 5) return { note: "4", label: "ausreichend" };
+      if (np >= 4) return { note: "4–", label: "ausreichend" };
+      if (np >= 3) return { note: "5+", label: "mangelhaft" };
+      if (np >= 2) return { note: "5", label: "mangelhaft" };
+      if (np >= 1) return { note: "5–", label: "mangelhaft" };
+      return { note: "6", label: "ungenügend" };
+    }
+
+    /* ================= PROGRESS (Hörverstehen-spezifisch) ================= */
+    function renderHistoryTable(history) {
+      var tbody = document.getElementById("historyTableBody");
+      tbody.innerHTML = history.slice().reverse().map(function(h, i) {
+        var realIdx = history.length - 1 - i;
+        var d = new Date(h.date);
+        var dateStr = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+        var timeStr = String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+        return '<tr>' +
+          '<td>' + dateStr + '<br><span style="font-size:.75rem;color:var(--ink-muted)">' + timeStr + '</span></td>' +
+          '<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + escapeHtml(h.topic) + '</td>' +
+          '<td class="history-score">' + (h.total_points || h.percentage || "–") + (h.max_points ? '/' + h.max_points : '%') + '</td>' +
+          '<td class="history-score" style="font-size:1.05rem;">' + (h.total != null ? h.total + '/15 NP' : "–") + '</td>' +
+          '<td><button class="history-delete" onclick="deleteHistoryEntry(' + realIdx + ')" title="Löschen">✕</button></td>' +
+        '</tr>';
+      }).join("");
+    }
+
+    function renderProgressChart() {
+      var history = getHistory();
+      if (!history.length) return;
+      var ctx = document.getElementById("progressChart");
+      if (!ctx) return;
+      if (progressChartInstance) { progressChartInstance.destroy(); progressChartInstance = null; }
+
+      var isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      var gridColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.06)";
+      var textColor = isDark ? "#b0b0c8" : "#8888a4";
+
+      progressChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: history.map(function(_, i) { return "#" + (i + 1); }),
+          datasets: [
+            {
+              label: "Prozent",
+              data: history.map(function(h) { return h.percentage || 0; }),
+              borderColor: "#0d9488",
+              backgroundColor: "rgba(124,58,237,0.1)",
+              fill: true,
+              tension: 0.3,
+              borderWidth: 2.5,
+              pointRadius: 4,
+              pointBackgroundColor: "#0d9488"
+            }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: textColor, font: { size: 11 } } } },
+          scales: {
+            y: { min: 0, max: 100, grid: { color: gridColor }, ticks: { color: textColor, stepSize: 20, callback: function(v) { return v + "%"; } } },
+            x: { grid: { display: false }, ticks: { color: textColor } }
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
