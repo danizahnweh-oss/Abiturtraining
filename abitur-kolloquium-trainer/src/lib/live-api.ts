@@ -57,7 +57,7 @@ export type ExamMode = 'gesamt' | 'referat' | 'fragen';
 export type PrueferTyp = 'standard' | 'streng' | 'freundlich' | 'zeitdruck' | 'detailfragen';
 
 const PRUEFER_PRESETS: Record<PrueferTyp, string> = {
-  standard: 'Wohlwollend aber anspruchsvoll. Fehler → Nachfrage statt Korrektur. Bei Stocken → Hilfestellung. Natürlicher Gesprächsfluss.',
+  standard: 'Freundlich und fair. Gib dem Prüfling das Gefühl, dass du auf seiner Seite bist. Bei Fehlern: behutsame Nachfrage ("Sind Sie sich da sicher?") statt sofortige Korrektur. Bei Stocken: ermutigende Hilfestellung ("Denken Sie nochmal an..."). Lobe gute Ansätze kurz ("Gut", "Genau"). Natürlicher, entspannter Gesprächsfluss — wie ein wohlwollendes Fachgespräch, kein Verhör.',
   streng: 'Sehr sachlich und fordernd. Hake bei Ungenauigkeiten sofort nach. Akzeptiere keine vagen Antworten — verlange präzise Fachbegriffe und konkrete Beispiele. Kein Lob für Selbstverständliches. Halte den Prüfling unter Druck, bleibe aber fair.',
   freundlich: 'Besonders ermutigend und unterstützend. Nicke zustimmend, gib positive Rückmeldung bei guten Ansätzen. Bei Schwierigkeiten gib sanfte Hinweise statt harter Nachfragen. Lobe gute Fachsprache und schlüssige Argumente.',
   zeitdruck: 'Halte dich streng an die Zeit. Nach 10 Min Referat sofort unterbrechen. Fragen zügig stellen, bei zu langen Antworten freundlich aber bestimmt zum nächsten Punkt übergehen. Kein Abwarten — wenn der Prüfling zögert, nächste Frage.',
@@ -284,11 +284,27 @@ Anforderungen:
    - Ein echtes oder realistisches Zitat (mit Autor, Werk, Jahr)
    - ODER eine konkrete Statistik/Tabelle mit echten Zahlenwerten
    - ODER einen kurzen Quellentext-Auszug (3–5 Sätze) aus einem Fachbuch oder einer Studie
+   - ODER ein Schaubild/Diagramm als Textbeschreibung (z.B. beschriftete Zeichnung, Prozessdiagramm, Stammbaum)
    Jedes Material MUSS eine Quellenangabe haben (Autor, Titel, Jahr).
 3. Gib kurze Hinweise zur Bearbeitung.
-
+${config.subject === 'Biologie' ? `
+WICHTIG für Biologie: Bevorzuge visuelle Materialien, wie sie typisch für Biologie-Prüfungen sind:
+- Beschriftete Schaubilder (z.B. "Abbildung: Bau einer tierischen Zelle" mit Beschriftung der Organellen)
+- Prozessdiagramme (z.B. vereinfachtes Schema der Photosynthese oder Proteinbiosynthese)
+- Stammbäume (z.B. Erbgang einer genetischen Erkrankung)
+- Experimentergebnisse als Tabelle oder Diagramm (z.B. Enzymaktivität bei verschiedenen Temperaturen)
+Vermeide reine Textwände. Stelle das Material so dar, wie es auf einem Aufgabenblatt stehen würde: mit Abbildungstitel, Beschriftungen und Legende.
+` : ''}${config.subject === 'Chemie' ? `
+WICHTIG für Chemie: Bevorzuge fachtypische Materialien:
+- Reaktionsgleichungen mit Strukturformeln
+- Energiediagramme (exotherm/endotherm)
+- Experimentergebnisse als Tabelle
+` : ''}
 BEISPIEL für gutes Material (Fach Geschichte):
-"Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen. Wir wollen eine Gesellschaft, die mehr Freiheit bietet und mehr Mitverantwortung fordert.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik:\\nWahlbeteiligung bei Bundestagswahlen: 1972: 91,1% | 1980: 88,6% | 1990: 77,8% | 2002: 79,1% | 2021: 76,6%\\n(Quelle: Bundeswahlleiter, 2021)"
+"Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen. Wir wollen eine Gesellschaft, die mehr Freiheit bietet und mehr Mitverantwortung fordert.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik:\\nWahlbeteiligung bei Bundestagswahlen: 1972: 91,1% | 1980: 88,6% | 1990: 77,8% | 2002: 79,1% | 2021: 76,6%\\n(Quelle: Bundeswahlleiter, 2021)"${config.subject === 'Biologie' ? `
+
+BEISPIEL für gutes Biologie-Material:
+"Material 1 – Schaubild:\\nAbbildung: Vereinfachtes Schema der Lichtreaktion der Photosynthese\\n\\n  H₂O → [Photosystem II] → Elektronentransportkette → [Photosystem I] → NADPH\\n         |                    |\\n         O₂                  ATP (via Chemiosmose)\\n\\nBeschriftung: Thylakoidmembran, Lumen, Stroma\\n(Quelle: nach Campbell Biologie, 11. Auflage, 2019)\\n\\nMaterial 2 – Experimentergebnis:\\nEnzymaktivität der Amylase bei verschiedenen pH-Werten:\\npH 4: 12% | pH 5: 38% | pH 6: 71% | pH 7: 100% | pH 8: 65% | pH 9: 22%\\n(Quelle: Versuchsergebnisse nach Purves Biologie, 2011)"` : ''}
 
 Antworte als JSON-Objekt mit den Feldern: aufgabenstellung, material, hinweise.`;
 
@@ -418,7 +434,9 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
 /* ───────── Material-Impulse für den Fragenteil ───────── */
 
 function getMaterialTypenFuerFach(subject: string): string {
-  const mint = ['Biologie', 'Chemie', 'Physik', 'Mathematik', 'Informatik'];
+  if (subject === 'Biologie') return 'Schaubilder (z.B. Zellaufbau, Stoffwechselwege, Stammbäume), Diagramme (Balken-/Kreisdiagramm mit Messwerten), Experimentergebnisse als Tabelle, kurze Abbildungsbeschreibungen mit Beschriftung';
+  if (subject === 'Chemie') return 'Reaktionsgleichungen, Energiediagramme, Experimentergebnisse, Stoffdaten-Tabellen, Strukturformeln';
+  const mint = ['Physik', 'Mathematik', 'Informatik'];
   const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein', 'Spanisch'];
   if (mint.includes(subject)) return 'Daten-Tabellen, Experimentergebnisse, Statistiken mit Zahlenwerten, Diagramm-Beschreibungen';
   if (sprachen.includes(subject)) return 'Zitate aus Primär-/Sekundärliteratur, kurze Textauszüge, Karikaturbeschreibungen';
@@ -445,6 +463,12 @@ export async function generateMaterialImpulse(config: ExamConfig): Promise<Mater
 Verwende typ "quelle" für mathematische Aufgabenstellungen.`
     : '';
 
+  const bioHinweis = config.subject === 'Biologie'
+    ? `\n\nWICHTIG für Biologie: Bevorzuge mindestens 1 Schaubild-Material (typ "schaubild") mit chartDaten.
+Biologie-typische Schaubilder: Vergleichsdiagramme (z.B. Enzymaktivität, Populationsentwicklung), Messwert-Tabellen als Balkendiagramm.
+Vermeide reine Textwände — in Bio-Prüfungen werden fast immer Abbildungen und Diagramme vorgelegt.`
+    : '';
+
   const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
 
 Erstelle 2 realistische Material-Impulse, die einem Prüfling während des Fragenteils ${isMathe ? 'zum WEITEREN GEBIET' : 'zu den WEITEREN HALBJAHREN'} vorgelegt werden.
@@ -453,7 +477,7 @@ Fach: ${config.subject}
 Anforderungsniveau: ${levelLabel}
 ${weitereLabel}
 
-Geeignete Material-Typen für dieses Fach: ${materialTypen}${matheHinweis}
+Geeignete Material-Typen für dieses Fach: ${materialTypen}${matheHinweis}${bioHinweis}
 
 Anforderungen:
 1. Jedes Material muss sich auf ${isMathe ? 'das weitere Gebiet' : 'eines der weiteren Halbjahre'} beziehen (nicht auf den Schwerpunkt "${config.schwerpunkt}").
@@ -767,8 +791,10 @@ interface LiveAPISession {
   close(): void;
 }
 
-const MAX_RECONNECT_ATTEMPTS = 8;
+const MAX_RECONNECT_ATTEMPTS = 12;
 const RECONNECT_BASE_DELAY_MS = 1500;
+/** Maximale Verzögerung zwischen Reconnect-Versuchen (30 Sekunden) */
+const MAX_RECONNECT_DELAY_MS = 30_000;
 /** Wenn vom Server 45s lang keine Nachricht kommt → proaktiver Reconnect */
 const ACTIVITY_TIMEOUT_MS = 45_000;
 /** Intervall für den Activity-Check */
@@ -990,8 +1016,11 @@ ${transcript}`;
 
     this.reconnecting = true;
     this.reconnectAttempts++;
-    // Exponentielles Backoff mit Jitter
-    const baseDelay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
+    // Exponentielles Backoff mit Jitter, gedeckelt auf MAX_RECONNECT_DELAY_MS
+    const baseDelay = Math.min(
+      RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1),
+      MAX_RECONNECT_DELAY_MS
+    );
     const jitter = Math.random() * 1000;
     const delay = baseDelay + jitter;
     console.log(`Reconnect in ${Math.round(delay)}ms (Versuch ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
@@ -1000,6 +1029,15 @@ ${transcript}`;
       this.reconnecting = false;
       this.connect();
     }, delay);
+  }
+
+  /** Manueller Reconnect-Versuch von außen (z.B. nach Klick auf "Erneut verbinden") */
+  retryConnect() {
+    if (this.stopped) return;
+    this.reconnectAttempts = 0;
+    this.reconnecting = false;
+    this.config.onStatusChange?.('reconnecting');
+    this.connect();
   }
 
   stop() {
@@ -1207,7 +1245,10 @@ export class StatefulLiveSession {
     }
     this.reconnecting = true;
     this.reconnectAttempts++;
-    const baseDelay = RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1);
+    const baseDelay = Math.min(
+      RECONNECT_BASE_DELAY_MS * Math.pow(2, this.reconnectAttempts - 1),
+      MAX_RECONNECT_DELAY_MS
+    );
     const jitter = Math.random() * 1000;
     const delay = baseDelay + jitter;
     console.log(`Session-Reconnect in ${Math.round(delay)}ms (Versuch ${this.reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS})`);
@@ -1216,6 +1257,15 @@ export class StatefulLiveSession {
       this.reconnecting = false;
       this.connectWebSocket(); // Gleiche sessionId → DO stellt Kontext her
     }, delay);
+  }
+
+  /** Manueller Reconnect-Versuch von außen (z.B. nach Klick auf "Erneut verbinden") */
+  retryConnect() {
+    if (this.stopped) return;
+    this.reconnectAttempts = 0;
+    this.reconnecting = false;
+    this.config.onStatusChange?.('reconnecting');
+    this.connectWebSocket();
   }
 
   stop() {

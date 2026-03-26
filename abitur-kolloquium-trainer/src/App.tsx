@@ -777,6 +777,22 @@ export default function App() {
     return () => clearInterval(interval);
   }, [step, exam.elapsed, modelTx, userTx, subject, level, examMode, schwerpunkt, spHalbjahr, weitereHJ, gestrichen, material, matImpulse, examinerGender, prueferTyp]);
 
+  /* ── Bei Verbindungsfehler sofort Transkripte sichern ── */
+  useEffect(() => {
+    if (step !== 'exam' || (status !== 'error' && status !== 'reconnecting')) return;
+    try {
+      sessionStorage.setItem('kolloquium_active_exam', JSON.stringify({
+        subject, examLevel: level, examMode, schwerpunkt, spHalbjahr,
+        weitereHJ, gestrichen, material, matImpulse,
+        modelTx, userTx, elapsed: exam.elapsed,
+        examinerGender, prueferTyp, timestamp: Date.now(),
+      }));
+      sessionStorage.setItem('kolloquium_transcript_backup', JSON.stringify({
+        modelTx, userTx, timestamp: Date.now(),
+      }));
+    } catch { /* sessionStorage voll */ }
+  }, [status]);
+
   /* ───────── RENDER ───────── */
 
   return (
@@ -1248,11 +1264,19 @@ export default function App() {
                     ) : (
                       <X size={16} className="shrink-0" />
                     )}
-                    <span>
+                    <span className="flex-1">
                       {status === 'reconnecting'
                         ? 'Verbindung wird wiederhergestellt... Das Gespräch wird nahtlos fortgesetzt.'
-                        : 'Verbindung verloren. Bitte beende die Prüfung und starte eine neue.'}
+                        : 'Verbindung verloren. Dein bisheriges Gespräch ist gespeichert.'}
                     </span>
+                    {status === 'error' && (
+                      <button
+                        onClick={() => sessionRef.current?.retryConnect()}
+                        className="shrink-0 px-4 py-1.5 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 transition-colors"
+                      >
+                        Erneut verbinden
+                      </button>
+                    )}
                   </div>
                 )}
 
