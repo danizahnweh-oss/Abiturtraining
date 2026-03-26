@@ -1825,7 +1825,7 @@ function clearOCR() {
     if (!/dashboard/i.test(footer.innerHTML)) {
       var br = document.createElement("br");
       var a = document.createElement("a");
-      a.href = "/dashboard.html";
+      a.href = "/lehrer.html";
       a.textContent = "Lehrer-Dashboard \u2192";
       a.style.cssText = "font-size:0.75rem; color:var(--ink-light); text-decoration:underline; margin-top:0.25rem; display:inline-block;";
       footer.appendChild(br);
