@@ -190,7 +190,7 @@ export async function tryDeductTeacherCredit(jobId, endpoint, env) {
     if (credit) {
       // Fach aus dem Endpoint ableiten (z.B. "grade-deutsch" → "deutsch")
       const subject = endpoint.replace(/^(fos-)?grade(-abitur|-abitur13)?-/, '');
-      await deductTeacherCredit(credit.teacher_id, credit.credit_id, studentNameLower, jobId, subject, env);
+      await deductTeacherCredit(credit.teacher_id, null, studentNameLower, jobId, subject, env);
     }
   } catch (err) {
     console.error("Teacher-Credit-Abbuchung fehlgeschlagen:", err.message);

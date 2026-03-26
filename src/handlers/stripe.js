@@ -347,6 +347,7 @@ export async function handleSubscriptionStatus(request, env) {
   }
 
   // Lehrer-Credits prüfen (nur wenn kein eigenes Abo aktiv)
+  // Jeder Lehrer hat 20 Gratis-Korrekturen pro Monat für seine Schüler
   let teacherCreditsAvailable = false;
   let teacherCreditsName = null;
   if (!isActive) {
@@ -355,17 +356,18 @@ export async function handleSubscriptionStatus(request, env) {
     ).bind(student_id).first();
 
     if (studentName) {
-      const now = new Date().toISOString();
+      const mStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString();
       const tcRow = await env.DB.prepare(`
         SELECT t.name AS teacher_name
         FROM student_teacher_links stl
         JOIN teachers t ON t.id = stl.teacher_id
-        JOIN teacher_credits tc ON tc.teacher_id = stl.teacher_id
-          AND tc.credits_used < tc.credits_total
-          AND (tc.expires_at IS NULL OR tc.expires_at > ?)
         WHERE stl.student_name_lower = ?
+          AND (
+            SELECT COUNT(*) FROM teacher_credit_usage tcu
+            WHERE tcu.teacher_id = stl.teacher_id AND tcu.used_at >= ?
+          ) < 20
         LIMIT 1
-      `).bind(now, studentName.name_lower).first();
+      `).bind(studentName.name_lower, mStart).first();
 
       if (tcRow) {
         teacherCreditsAvailable = true;

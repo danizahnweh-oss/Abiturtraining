@@ -19,7 +19,7 @@ import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, han
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
-import { handleTeacherCreditCheckout, handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
+import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails } from './handlers/email.js';
@@ -308,13 +308,7 @@ export default {
         cleanupRateLimitMaps();
         return await handleTeacherProfile(request, env);
       }
-      // Lehrer-Korrekturguthaben
-      if (pathname === "/api/teacher/create-checkout" && request.method === "POST") {
-        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
-        if (rl) return rl;
-        cleanupRateLimitMaps();
-        return await handleTeacherCreditCheckout(request, env);
-      }
+      // Lehrer-Korrekturguthaben (20 Gratis pro Monat)
       if (pathname === "/api/teacher/credit-balance" && request.method === "POST") {
         const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
