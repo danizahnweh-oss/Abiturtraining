@@ -14,7 +14,7 @@ const feedbackRateLimitMap = new Map();
 
 // Handler
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
-import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes } from './handlers/teacher.js';
+import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
@@ -278,6 +278,9 @@ export default {
       }
 
       // ===== LEHRER-CODE-SYSTEM (eigene Auth) =====
+      if (pathname === "/api/teacher-approve" && request.method === "GET") {
+        return await handleTeacherApprove(request, env);
+      }
       if (pathname === "/api/teacher-register" && request.method === "POST") {
         const loginLimit = checkRateLimit(request, loginRateLimitMap, MAX_LOGIN_ATTEMPTS, env);
         if (loginLimit) return loginLimit;

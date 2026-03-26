@@ -224,6 +224,11 @@ export async function ensureMigrations(env) {
     // Lehrer-Faecher-Spalte
     try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN subjects TEXT DEFAULT '[]'").run(); } catch (_) {}
 
+    // Lehrer-Status (pending/approved) — bestehende Lehrer automatisch approved
+    try {
+      await env.DB.prepare("ALTER TABLE teachers ADD COLUMN status TEXT DEFAULT 'approved'").run();
+    } catch (_) {}
+
     // Lehrer-Aufgaben-Sharing
     await env.DB.prepare(`
       CREATE TABLE IF NOT EXISTS teacher_tasks (

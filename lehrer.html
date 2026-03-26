@@ -990,6 +990,10 @@ async function doAuth() {
       });
       const data = await res.json();
       if (!res.ok) { showError(data.error || "Registrierung fehlgeschlagen."); return; }
+      if (data.pending) {
+        showPendingScreen();
+        return;
+      }
       teacherAuthToken = data.token;
       teacherId = data.teacher_id;
       teacherName = data.teacher_name;
@@ -1006,7 +1010,10 @@ async function doAuth() {
         body: JSON.stringify({ name, password: pw })
       });
       const data = await res.json();
-      if (!res.ok) { showError(data.error || "Anmeldung fehlgeschlagen."); return; }
+      if (!res.ok) {
+        if (data.pending) { showPendingScreen(); return; }
+        showError(data.error || "Anmeldung fehlgeschlagen."); return;
+      }
       teacherAuthToken = data.token;
       teacherId = data.teacher_id;
       teacherName = data.teacher_name;
@@ -1016,6 +1023,16 @@ async function doAuth() {
       showError("Verbindungsfehler: " + e.message);
     }
   }
+}
+
+function showPendingScreen() {
+  document.getElementById("login-screen").innerHTML =
+    '<div class="card" style="max-width:500px;margin:2rem auto;text-align:center;padding:2.5rem;">' +
+    '<div style="font-size:2.5rem;margin-bottom:1rem;">📋</div>' +
+    '<h2 style="margin:0 0 .8rem;">Registrierung erfolgreich!</h2>' +
+    '<p style="color:var(--ink-muted);font-size:.95rem;line-height:1.6;">Dein Konto wird gerade geprüft. Du wirst benachrichtigt, sobald es freigeschaltet ist.</p>' +
+    '<p style="color:var(--ink-muted);font-size:.85rem;margin-top:1rem;">Das dauert in der Regel nur wenige Stunden.</p>' +
+    '</div>';
 }
 
 function showApp() {

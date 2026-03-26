@@ -26,10 +26,67 @@ export async function handleTeacherRegister(request, env) {
   const hash = await hashPassword(password, salt);
   const subjectsJson = Array.isArray(subjects) ? JSON.stringify(subjects) : "[]";
   await env.DB.prepare(
-    "INSERT INTO teachers (id, name, name_lower, email, salt, hash, subjects, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-  ).bind(id, name.trim(), nameLower, email || null, salt, hash, subjectsJson, new Date().toISOString()).run();
-  const token = await generateTeacherToken(env, id);
-  return jsonResponse({ success: true, token, teacher_id: id, teacher_name: name.trim(), subjects: JSON.parse(subjectsJson) }, 200, env);
+    "INSERT INTO teachers (id, name, name_lower, email, salt, hash, subjects, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)"
+  ).bind(id, name.trim(), nameLower, email, salt, hash, subjectsJson, new Date().toISOString()).run();
+
+  // Telegram-Benachrichtigung an Admin
+  sendTeacherApprovalNotification(env, id, name.trim(), email, JSON.parse(subjectsJson));
+
+  return jsonResponse({ success: true, pending: true, message: "Registrierung erfolgreich! Dein Konto wird in Kürze freigeschaltet." }, 200, env);
+}
+
+// Telegram-Benachrichtigung bei neuer Lehrer-Registrierung
+async function sendTeacherApprovalNotification(env, teacherId, name, email, subjects) {
+  try {
+    const botToken = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
+    if (!botToken || !chatId) return;
+
+    const allowedOrigin = env.ALLOWED_ORIGIN || 'https://myabiflow.de';
+    const approveUrl = `${allowedOrigin}/api/teacher-approve?id=${teacherId}&secret=${env.TEACHER_AUTH_SECRET}`;
+    const subjectList = subjects.length ? subjects.join(', ') : 'keine';
+
+    const text = `📋 *Neue Lehrer-Registrierung*\n\n` +
+      `👤 *Name:* ${name}\n` +
+      `📧 *E-Mail:* ${email}\n` +
+      `📚 *Fächer:* ${subjectList}\n\n` +
+      `[✅ Freischalten](${approveUrl})`;
+
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
+    });
+  } catch (e) {
+    console.error('Telegram-Benachrichtigung fehlgeschlagen:', e.message);
+  }
+}
+
+// Lehrer-Konto freischalten (GET — klickbar aus Telegram)
+export async function handleTeacherApprove(request, env) {
+  const url = new URL(request.url);
+  const teacherId = url.searchParams.get('id');
+  const secret = url.searchParams.get('secret');
+
+  if (!secret || secret !== env.TEACHER_AUTH_SECRET) {
+    return new Response('Nicht autorisiert.', { status: 403 });
+  }
+  if (!teacherId) {
+    return new Response('Keine Teacher-ID.', { status: 400 });
+  }
+
+  const teacher = await env.DB.prepare("SELECT name, email FROM teachers WHERE id = ?").bind(teacherId).first();
+  if (!teacher) {
+    return new Response('Lehrkraft nicht gefunden.', { status: 404 });
+  }
+
+  await env.DB.prepare("UPDATE teachers SET status = 'approved' WHERE id = ?").bind(teacherId).run();
+
+  return new Response(
+    `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Freischaltung</title></head><body style="font-family:system-ui;padding:2rem;text-align:center;">` +
+    `<h2>✅ Freigeschaltet!</h2><p><strong>${teacher.name}</strong> (${teacher.email}) kann sich jetzt anmelden.</p></body></html>`,
+    { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+  );
 }
 
 // Lehrer-Login
@@ -46,10 +103,13 @@ export async function handleTeacherAuthLogin(request, env) {
   }
   const nameLower = name.trim().toLowerCase();
   const teacher = await env.DB.prepare(
-    "SELECT id, name, salt, hash, subjects FROM teachers WHERE name_lower = ?"
+    "SELECT id, name, salt, hash, subjects, status FROM teachers WHERE name_lower = ?"
   ).bind(nameLower).first();
   if (!teacher) {
     return jsonResponse({ error: "Konto nicht gefunden. Bitte zuerst registrieren." }, 404, env);
+  }
+  if (teacher.status === 'pending') {
+    return jsonResponse({ error: "Dein Konto wird noch geprüft. Du wirst benachrichtigt, sobald es freigeschaltet ist.", pending: true }, 403, env);
   }
   const match = await verifyPassword(password, teacher.salt, teacher.hash);
   if (!match) {
