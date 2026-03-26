@@ -748,12 +748,14 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       document.getElementById("setupLoader").style.display = "none";
     }
 
+    function renderMd(text) { return DOMPurify.sanitize(marked.parse(text || "")); }
+
     function renderTask(d) {
       // Multi-Aufgaben-Format: tasks-Array vom Backend
       if (d.tasks && d.tasks.length > 0) {
         return renderMultiTasks(d);
       }
-      const taskHtml = escapeHtml(d.task_instruction || "").replace(/\n/g, "<br>");
+      const taskHtml = renderMd(d.task_instruction || "");
       document.getElementById("taskInstruction").innerHTML = taskHtml;
       document.getElementById("writeTaskRef").innerHTML = taskHtml;
 
@@ -779,7 +781,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       } else {
         // Standard: Textquelle
         titleEl.textContent = "Material M 1";
-        const sourceHtml = (d.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+        const sourceHtml = renderMd(d.primary_text || "");
         sourceEl.innerHTML = sourceHtml;
         metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = sourceHtml;
@@ -800,7 +802,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
       tasks.forEach((t, idx) => {
         const nr = t.aufgabe_nr || (idx + 1);
-        const taskText = escapeHtml(t.task_instruction || "").replace(/\n/g, "<br>");
+        const taskText = renderMd(t.task_instruction || "");
         const pType = (t.primary_type || "text").toLowerCase();
         const meta = t.primary_meta ? `<div class="material-source">${escapeHtml(t.primary_meta)}</div>` : "";
         const mNr = materialNr;
@@ -820,7 +822,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             ${meta}`;
           pendingImages.push({ prompt: t.primary_text, id: imgId, labels: t.primary_bild_labels || null });
         } else {
-          const sourceText = (t.primary_text || "").split("\n").map(p => `<p>${escapeHtml(p)}</p>`).join("");
+          const sourceText = renderMd(t.primary_text || "");
           materialHtml = `<h4 class="card-header">M ${mNr}: Textquelle</h4>
             <div class="source-text">${sourceText}</div>
             ${meta}`;
@@ -842,7 +844,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
             body = `<div class="material-img-loading" id="img-zm-${idx}-${mi}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
             pendingImages.push({ prompt: m.content, id: `img-zm-${idx}-${mi}`, labels: m.bild_labels || m.image_labels || null });
           } else {
-            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+            body = renderMd(m.content || "");
           }
           zmHtml += `<div class="material-card" style="margin-top:0.75rem;">
             <h4>M ${zmNr}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
@@ -895,7 +897,7 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           } else if (m.type === "foto") {
             body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Foto wird geladen...</span></div>`;
           } else {
-            body = escapeHtml(m.content || "").replace(/\n/g, "<br>");
+            body = renderMd(m.content || "");
           }
           return `<div class="material-card">
         <h4>M ${i + 2}: ${escapeHtml(m.title || "")} ${typeBadge}</h4>
