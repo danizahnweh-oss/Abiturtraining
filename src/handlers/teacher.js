@@ -3,19 +3,15 @@ import { jsonResponse } from '../utils.js';
 import { safeCompare, hashPassword, verifyPassword, generateTeacherToken, verifyTeacherAuthToken, generateClassCode } from '../auth.js';
 
 export async function handleTeacherRegister(request, env) {
-  const { name, password, register_secret, email, subjects } = await request.json();
-  if (!env.TEACHER_REGISTER_SECRET || !env.TEACHER_AUTH_SECRET) {
+  const { name, password, email, subjects } = await request.json();
+  if (!env.TEACHER_AUTH_SECRET) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
-  }
-  if (!register_secret || typeof register_secret !== "string") {
-    return jsonResponse({ error: "Registrierungsschluessel erforderlich." }, 400, env);
-  }
-  const secretValid = await safeCompare(register_secret, env.TEACHER_REGISTER_SECRET);
-  if (!secretValid) {
-    return jsonResponse({ error: "Falscher Registrierungsschluessel." }, 401, env);
   }
   if (!name || typeof name !== "string" || !name.trim()) {
     return jsonResponse({ error: "Name erforderlich." }, 400, env);
+  }
+  if (!email || typeof email !== "string" || !email.includes("@")) {
+    return jsonResponse({ error: "Gültige E-Mail-Adresse erforderlich." }, 400, env);
   }
   if (!password || typeof password !== "string" || password.length < 8) {
     return jsonResponse({ error: "Passwort muss mindestens 8 Zeichen haben." }, 400, env);
