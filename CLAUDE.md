@@ -67,6 +67,11 @@ Bei **jeder** Änderung an HTML, CSS oder JS automatisch sicherstellen, dass die
 - API-Keys und Secrets gehören in Umgebungsvariablen auf dem Server, nie in den Code
 - ALLOWED_ORIGIN ist `https://myabiflow.de`
 
+## Memory aktuell halten
+- Wenn sich **Firmen-/Geschäftsinformationen** ändern oder erweitert werden (z.B. Rechtsform, Preismodell, Pilotschulen, Partnerschaften, Roadmap, neue Features, Meilensteine), die entsprechenden Memory-Dateien in `~/.claude/projects/-Users-danielzahnewh-Desktop-Abiturtraining/memory/` sofort aktualisieren
+- Das gilt auch für neue Referenzen, geänderte Hosting-Infos, Design-Entscheidungen etc.
+- Im Zweifel lieber updaten als vergessen
+
 ## Wichtige Dateien
 - `shared.js` / `shared-v4.css` — gemeinsame Logik und Styles aller HTML-Seiten
 - `dashboard.html` — Lehrer-Dashboard (Token-Auth)
