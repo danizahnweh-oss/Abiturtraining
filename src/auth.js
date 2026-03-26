@@ -86,6 +86,12 @@ export async function safeCompare(a, b) {
 
 /* ---- Auth-Check (Token statt Passwort) ---- */
 export async function checkAuth(request, env) {
+  // Lehrer-Token als Alternative akzeptieren (fuer Teacher-Mode iFrame)
+  const teacherToken = request.headers.get("X-Teacher-Auth-Token") || "";
+  if (teacherToken) {
+    const teacherId = await verifyTeacherAuthToken(teacherToken, env);
+    if (teacherId) return null; // Lehrer ist authentifiziert
+  }
   const token = request.headers.get("X-Access-Token") || "";
   if (!env.ACCESS_PASSWORD) {
     return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);

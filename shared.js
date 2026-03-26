@@ -23,6 +23,7 @@ const CONFIG = { storedData: null };
 /* ================= TEACHER MODE & SHARED TASK ================= */
 const _urlParams = new URLSearchParams(window.location.search);
 const isTeacherMode = _urlParams.get("mode") === "teacher";
+const _teacherToken = _urlParams.get("teacher_token") || "";
 const sharedTaskId = _urlParams.get("task_id") || null;
 
 // Teacher-Mode: Banner zum Uebernehmen der Aufgabe
@@ -105,6 +106,14 @@ function getAccessToken() {
   return sessionStorage.getItem("access_token") || "";
 }
 
+// API-Headers: Im Teacher-Mode zusaetzlich den Lehrer-Token mitsenden
+function _apiHeaders(contentType) {
+  var h = { "X-Access-Token": getAccessToken() };
+  if (contentType) h["Content-Type"] = contentType;
+  if (isTeacherMode && _teacherToken) h["X-Teacher-Auth-Token"] = _teacherToken;
+  return h;
+}
+
 async function apiCall(endpoint, body, _isRetry) {
   // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
   if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
@@ -113,11 +122,12 @@ async function apiCall(endpoint, body, _isRetry) {
   }
   const res = await fetch(API_BASE + endpoint, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+    headers: _apiHeaders("application/json"),
     body: JSON.stringify(body)
   });
   // 401 = Token abgelaufen/ungueltig → Login-Modal zeigen und API-Call wiederholen
-  if (res.status === 401 && !_isRetry && typeof requireLogin === "function") {
+  // Im Teacher-Mode kein Schüler-Login-Modal anzeigen
+  if (res.status === 401 && !_isRetry && !isTeacherMode && typeof requireLogin === "function") {
     sessionStorage.removeItem("access");
     sessionStorage.removeItem("access_token");
     return new Promise(function(resolve, reject) {
@@ -265,10 +275,7 @@ async function apiCallStream(streamEndpoint, body) {
 
   var response = await fetch(API_BASE + "/api/" + streamEndpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Access-Token": getAccessToken()
-    },
+    headers: _apiHeaders("application/json"),
     body: JSON.stringify(body)
   });
 
@@ -421,7 +428,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
 
     var submitRes = await fetch(API_BASE + "/api/grade-submit", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-Access-Token": getAccessToken() },
+      headers: _apiHeaders("application/json"),
       body: JSON.stringify(submitBody)
     });
 
@@ -470,7 +477,7 @@ async function apiCallAsync(gradeEndpoint, body, options) {
       var statusRes;
       try {
         statusRes = await fetch(API_BASE + "/api/grade-status/" + jobId, {
-          headers: { "X-Access-Token": getAccessToken() }
+          headers: _apiHeaders()
         });
       } catch (fetchErr) {
         _networkErrors++;
@@ -2125,6 +2132,11 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
   if (typeof window.generateTask === "function") {
     var _origGenerateTask = window.generateTask;
     window.generateTask = function () {
+      if (isTeacherMode) {
+        // Lehrer-Modus (iFrame aus Lehrer-Dashboard): kein Schüler-Login nötig
+        _origGenerateTask();
+        return;
+      }
       if (sessionStorage.getItem("access") !== "1") {
         requireLogin(function () { _origGenerateTask(); });
         return;

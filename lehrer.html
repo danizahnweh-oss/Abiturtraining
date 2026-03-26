@@ -1886,7 +1886,7 @@ function openTaskIframe() {
   document.getElementById("iframeSubjectLabel").textContent = SUBJECT_NAMES[subj] + " — " + typeOpt.textContent;
 
   const iframe = document.getElementById("taskIframe");
-  iframe.src = url + "?mode=teacher";
+  iframe.src = url + "?mode=teacher&teacher_token=" + encodeURIComponent(teacherAuthToken);
   document.getElementById("iframeLoading").style.display = "flex";
   iframe.onload = () => { document.getElementById("iframeLoading").style.display = "none"; };
 }
