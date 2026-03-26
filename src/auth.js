@@ -253,6 +253,35 @@ export async function ensureMigrations(env) {
       )
     `).run();
 
+    // Lehrer-Korrekturguthaben (49 € / 75 Korrekturen)
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS teacher_credits (
+        id         TEXT PRIMARY KEY,
+        teacher_id TEXT NOT NULL,
+        credits_total INTEGER NOT NULL DEFAULT 75,
+        credits_used  INTEGER NOT NULL DEFAULT 0,
+        stripe_payment_intent TEXT,
+        created_at TEXT NOT NULL,
+        expires_at TEXT,
+        FOREIGN KEY (teacher_id) REFERENCES teachers(id) ON DELETE CASCADE
+      )
+    `).run();
+
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS teacher_credit_usage (
+        id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+        teacher_id         TEXT NOT NULL,
+        credit_id          TEXT NOT NULL,
+        student_name_lower TEXT NOT NULL,
+        grading_job_id     TEXT,
+        subject            TEXT,
+        used_at            TEXT NOT NULL
+      )
+    `).run();
+
+    // Stripe-Customer-ID für Lehrer
+    try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN stripe_customer_id TEXT DEFAULT NULL").run(); } catch (_) {}
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

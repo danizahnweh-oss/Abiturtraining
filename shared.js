@@ -178,6 +178,14 @@ async function checkSubscription() {
     });
     if (!res.ok) return { status: "none", plan: "free" };
     var data = await res.json();
+    // Lehrer-Credits in sessionStorage speichern
+    if (data.teacher_credits_available) {
+      sessionStorage.setItem("teacher_credits_available", "1");
+      if (data.teacher_credits_name) sessionStorage.setItem("teacher_credits_name", data.teacher_credits_name);
+    } else {
+      sessionStorage.removeItem("teacher_credits_available");
+      sessionStorage.removeItem("teacher_credits_name");
+    }
     _subscriptionCache = data;
     _subscriptionCacheTime = Date.now();
     return data;
@@ -193,7 +201,11 @@ async function requireSubscription() {
   if (sub.status === "active" || sub.status === "trialing") {
     return true;
   }
-  // Kein Abo → zur Abo-Seite weiterleiten
+  // Lehrer-Credits als Alternative prüfen
+  if (sub.teacher_credits_available) {
+    return true;
+  }
+  // Kein Abo und keine Lehrer-Credits → zur Abo-Seite weiterleiten
   window.location.href = "/abo.html";
   return false;
 }
@@ -216,6 +228,23 @@ async function showTrialBannerIfNeeded(containerId) {
       '<a href="/abo.html" style="background:var(--accent,#4f46e5);color:#fff;padding:.45rem 1rem;border-radius:8px;font-weight:700;font-size:.82rem;text-decoration:none;white-space:nowrap;min-height:36px;display:inline-flex;align-items:center;">Abo w\u00e4hlen</a>';
     banner.style.cssText = "background:var(--surface,#fff);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
     container.prepend(banner);
+  }
+  // Lehrer-Credits-Banner (wenn kein eigenes Abo, aber Lehrer stellt Credits bereit)
+  if (sub.teacher_credits_available && sub.status !== "active" && sub.status !== "trialing") {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    if (container.querySelector(".teacher-credits-banner")) return;
+    var tcBanner = document.createElement("div");
+    tcBanner.className = "teacher-credits-banner";
+    tcBanner.setAttribute("role", "status");
+    var tName = sub.teacher_credits_name || "Deine Lehrkraft";
+    tcBanner.innerHTML =
+      '<div style="display:flex;align-items:center;gap:.5rem;">' +
+        '<span style="font-size:1.1em;">&#127891;</span>' +
+        '<span><strong>' + tName + '</strong> stellt dir Korrekturen zur Verf\u00fcgung.</span>' +
+      '</div>';
+    tcBanner.style.cssText = "background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:.75rem 1.2rem;margin:0 1rem 1rem;display:flex;align-items:center;gap:1rem;font-size:.9rem;box-shadow:0 2px 8px rgba(0,0,0,.06);";
+    container.prepend(tcBanner);
   }
 }
 
@@ -2259,10 +2288,11 @@ var _loginModalMode = "login";
 
 function requireLogin(callback) {
   if (sessionStorage.getItem("access") === "1" && sessionStorage.getItem("student_name")) {
-    // Paywall-Check: Kein free_access und kein aktives Abo → zur Abo-Seite
+    // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
     var freeAccess = sessionStorage.getItem("free_access") === "1";
     var subStatus = sessionStorage.getItem("subscription_status") || "none";
-    if (!freeAccess && subStatus !== "active" && subStatus !== "trialing") {
+    var teacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
+    if (!freeAccess && !teacherCredits && subStatus !== "active" && subStatus !== "trialing") {
       window.location.href = "/abo.html";
       return;
     }
@@ -2411,8 +2441,12 @@ async function _doLoginModal() {
 
       _closeLoginModal();
 
-      // Paywall-Check: Kein free_access und kein aktives Abo → zur Abo-Seite
-      if (!data.free_access && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
+      // Lehrer-Credits asynchron prüfen und in sessionStorage speichern
+      checkSubscription();
+
+      // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
+      var hasTeacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
+      if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
         window.location.href = "/abo.html";
         return;
       }

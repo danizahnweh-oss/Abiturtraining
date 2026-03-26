@@ -18,7 +18,8 @@ import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, hand
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
-import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs } from './handlers/grading.js';
+import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
+import { handleTeacherCreditCheckout, handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
 import { handleGenerateImage, handleFetchUnsplash, handleSubmitResult } from './handlers/media.js';
 import { handleDetailFeedback, handleRewrite } from './handlers/features.js';
 import { handleUnsubscribe, sendReminderEmails } from './handlers/email.js';
@@ -307,6 +308,26 @@ export default {
         cleanupRateLimitMaps();
         return await handleTeacherProfile(request, env);
       }
+      // Lehrer-Korrekturguthaben
+      if (pathname === "/api/teacher/create-checkout" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherCreditCheckout(request, env);
+      }
+      if (pathname === "/api/teacher/credit-balance" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherCreditBalance(request, env);
+      }
+      if (pathname === "/api/teacher/credit-history" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleTeacherCreditHistory(request, env);
+      }
+
       if (pathname === "/api/teacher-tasks" && request.method === "POST") {
         const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rl) return rl;
@@ -664,6 +685,9 @@ export default {
         await env.DB.prepare(
           "UPDATE grading_jobs SET status = 'completed', result_data = ?, updated_at = ? WHERE id = ?"
         ).bind(JSON.stringify(result), new Date().toISOString(), jobId).run();
+
+        // Lehrer-Credit abbuchen (wenn Schüler kein eigenes Abo hat)
+        await tryDeductTeacherCredit(jobId, endpoint, env);
 
         message.ack();
       } catch (err) {

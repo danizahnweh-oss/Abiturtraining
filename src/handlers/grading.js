@@ -1,5 +1,6 @@
 // Handler: Async Grading (Submit, Status, Execute, Cleanup)
 import { jsonResponse, truncate } from '../utils.js';
+import { findAvailableTeacherCredits, deductTeacherCredit } from './teacher-credits.js';
 
 /* ================= ASYNC GRADING: HANDLER ================= */
 
@@ -72,6 +73,9 @@ export async function processGradeDirectly(jobId, endpoint, inputData, images, e
     await env.DB.prepare(
       "UPDATE grading_jobs SET status = 'completed', result_data = ?, updated_at = ? WHERE id = ?"
     ).bind(JSON.stringify(result), new Date().toISOString(), jobId).run();
+
+    // Lehrer-Credit abbuchen (wenn Schüler kein eigenes Abo hat)
+    await tryDeductTeacherCredit(jobId, endpoint, env);
   } catch (err) {
     console.error("Direct grading failed for job " + jobId + ":", err.message);
     const safeMsg = truncate(err.message || "Unbekannter Fehler", 500);
@@ -149,6 +153,48 @@ export async function executeGradeHandler(endpoint, inputData, env) {
   }
 
   return responseData;
+}
+
+// Lehrer-Credit abbuchen, wenn Schüler kein eigenes Abo hat
+export async function tryDeductTeacherCredit(jobId, endpoint, env) {
+  try {
+    // Job-Daten laden (student_name)
+    const job = await env.DB.prepare(
+      "SELECT student_name FROM grading_jobs WHERE id = ?"
+    ).bind(jobId).first();
+    if (!job || !job.student_name) return;
+
+    const studentNameLower = job.student_name.trim().toLowerCase();
+
+    // Prüfen ob Schüler ein eigenes aktives Abo hat
+    const student = await env.DB.prepare(
+      "SELECT id, subscription_status FROM students WHERE name_lower = ?"
+    ).bind(studentNameLower).first();
+
+    if (student) {
+      // Aktives Abo → keine Credits abbuchen
+      if (student.subscription_status === 'active' || student.subscription_status === 'trialing') {
+        const sub = await env.DB.prepare(
+          "SELECT status, current_period_end, school_license_code FROM subscriptions WHERE student_id = ? AND status IN ('active', 'trialing') LIMIT 1"
+        ).bind(student.id).first();
+
+        if (sub) {
+          if (sub.school_license_code) return; // Schullizenz
+          if (sub.current_period_end && new Date(sub.current_period_end) > new Date()) return; // Gültiges Abo
+        }
+      }
+    }
+
+    // Kein aktives Abo → Lehrer-Credits prüfen und abbuchen
+    const credit = await findAvailableTeacherCredits(studentNameLower, env);
+    if (credit) {
+      // Fach aus dem Endpoint ableiten (z.B. "grade-deutsch" → "deutsch")
+      const subject = endpoint.replace(/^(fos-)?grade(-abitur|-abitur13)?-/, '');
+      await deductTeacherCredit(credit.teacher_id, credit.credit_id, studentNameLower, jobId, subject, env);
+    }
+  } catch (err) {
+    console.error("Teacher-Credit-Abbuchung fehlgeschlagen:", err.message);
+  }
 }
 
 export async function cleanupOldGradingJobs(env) {

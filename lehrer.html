@@ -690,6 +690,26 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   </header>
 
   <main id="main-content">
+    <!-- Korrekturguthaben -->
+    <div id="credits-section" class="card" style="margin-bottom:1.5rem;display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;">
+        <div>
+          <h3 style="margin:0 0 .3rem;font-size:1rem;">Korrekturguthaben</h3>
+          <p id="creditsInfo" style="margin:0;font-size:.85rem;color:var(--ink-muted);">Wird geladen…</p>
+        </div>
+        <button class="btn" id="buyCreditsBtn" onclick="buyCredits()" style="white-space:nowrap;min-height:44px;">75 Korrekturen kaufen – 49 €</button>
+      </div>
+      <div id="creditsBarWrap" style="margin-top:.8rem;background:var(--border);border-radius:8px;height:8px;overflow:hidden;display:none;">
+        <div id="creditsBar" style="height:100%;background:var(--accent);border-radius:8px;transition:width .3s;"></div>
+      </div>
+      <div id="creditsHistory" style="margin-top:1rem;display:none;">
+        <button class="btn-small btn-secondary" onclick="toggleCreditHistory()" style="font-size:.8rem;">Letzte Abbuchungen anzeigen</button>
+        <div id="creditHistoryList" style="display:none;margin-top:.6rem;"></div>
+      </div>
+    </div>
+    <!-- Erfolgs-/Abbruch-Toast für Guthaben-Kauf -->
+    <div id="credits-toast" style="display:none;padding:.8rem 1.2rem;border-radius:10px;margin-bottom:1rem;font-size:.9rem;font-weight:500;"></div>
+
     <div class="tab-nav" id="mainTabNav">
       <button class="tab-btn active" onclick="switchTab('codes')">Meine Codes</button>
       <button class="tab-btn" onclick="switchTab('tasks')">Aufgaben</button>
@@ -1010,6 +1030,100 @@ function showApp() {
   loadCodes();
   loadResults();
   loadTasks();
+  loadCredits();
+  checkCreditUrlParams();
+}
+
+/* ====== KORREKTURGUTHABEN ====== */
+async function loadCredits() {
+  try {
+    var data = await teacherApi("/api/teacher/credit-balance", { teacher_id: teacherId });
+    var section = document.getElementById("credits-section");
+    section.style.display = "block";
+    var info = document.getElementById("creditsInfo");
+    var barWrap = document.getElementById("creditsBarWrap");
+    var bar = document.getElementById("creditsBar");
+    var historySection = document.getElementById("creditsHistory");
+
+    if (data.credits_total === 0) {
+      info.textContent = "Du hast noch kein Guthaben. Kaufe ein Paket, damit deine Schüler ohne eigenes Abo Korrekturen nutzen können.";
+      barWrap.style.display = "none";
+      historySection.style.display = "none";
+    } else {
+      info.innerHTML = "<strong>" + data.credits_remaining + "</strong> von <strong>" + data.credits_total + "</strong> Korrekturen verfügbar";
+      barWrap.style.display = "block";
+      var pct = Math.round((data.credits_remaining / data.credits_total) * 100);
+      bar.style.width = pct + "%";
+      bar.style.background = pct < 15 ? "#ef4444" : pct < 30 ? "#f59e0b" : "var(--accent)";
+      historySection.style.display = data.credits_remaining < data.credits_total ? "block" : "none";
+    }
+  } catch (e) {
+    console.error("loadCredits:", e);
+  }
+}
+
+async function buyCredits() {
+  try {
+    var btn = document.getElementById("buyCreditsBtn");
+    btn.disabled = true;
+    btn.textContent = "Wird geladen…";
+    var data = await teacherApi("/api/teacher/create-checkout", { teacher_id: teacherId });
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Fehler: Keine Checkout-URL erhalten.");
+      btn.disabled = false;
+      btn.textContent = "75 Korrekturen kaufen – 49 €";
+    }
+  } catch (e) {
+    alert("Fehler: " + e.message);
+    var btn = document.getElementById("buyCreditsBtn");
+    btn.disabled = false;
+    btn.textContent = "75 Korrekturen kaufen – 49 €";
+  }
+}
+
+var _creditHistoryLoaded = false;
+async function toggleCreditHistory() {
+  var list = document.getElementById("creditHistoryList");
+  if (list.style.display !== "none") {
+    list.style.display = "none";
+    return;
+  }
+  list.style.display = "block";
+  if (_creditHistoryLoaded) return;
+  try {
+    var data = await teacherApi("/api/teacher/credit-history", { teacher_id: teacherId, limit: 30 });
+    if (!data.usage || !data.usage.length) {
+      list.innerHTML = '<p style="font-size:.8rem;color:var(--ink-muted);">Noch keine Abbuchungen.</p>';
+    } else {
+      list.innerHTML = '<table style="width:100%;font-size:.8rem;border-collapse:collapse;"><tr style="text-align:left;color:var(--ink-muted);"><th style="padding:.3rem .5rem;">Schüler</th><th style="padding:.3rem .5rem;">Fach</th><th style="padding:.3rem .5rem;">Datum</th></tr>' +
+        data.usage.map(function(u) {
+          return '<tr><td style="padding:.3rem .5rem;">' + esc(u.student_name_lower) + '</td><td style="padding:.3rem .5rem;">' + esc(u.subject || "–") + '</td><td style="padding:.3rem .5rem;">' + new Date(u.used_at).toLocaleDateString("de-DE") + '</td></tr>';
+        }).join("") + '</table>';
+    }
+    _creditHistoryLoaded = true;
+  } catch (e) {
+    list.innerHTML = '<p style="font-size:.8rem;color:#ef4444;">Fehler: ' + esc(e.message) + '</p>';
+  }
+}
+
+function checkCreditUrlParams() {
+  var params = new URLSearchParams(window.location.search);
+  var toast = document.getElementById("credits-toast");
+  if (params.get("credits_success") === "true") {
+    toast.style.display = "block";
+    toast.style.background = "#dcfce7";
+    toast.style.color = "#166534";
+    toast.textContent = "75 Korrekturen wurden deinem Guthaben gutgeschrieben!";
+    window.history.replaceState({}, "", window.location.pathname);
+  } else if (params.get("credits_canceled") === "true") {
+    toast.style.display = "block";
+    toast.style.background = "#fef3c7";
+    toast.style.color = "#92400e";
+    toast.textContent = "Kauf abgebrochen. Du kannst jederzeit erneut kaufen.";
+    window.history.replaceState({}, "", window.location.pathname);
+  }
 }
 
 function logout() {

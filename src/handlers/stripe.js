@@ -168,9 +168,40 @@ export async function handleStripeWebhook(request, env) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object;
+        const customerId = session.customer;
+
+        // Lehrer-Korrekturguthaben (49 € / 75 Korrekturen)
+        if (session.metadata?.type === 'teacher_credits') {
+          const teacherId = session.metadata.teacher_id;
+          const credits = parseInt(session.metadata.credits) || 75;
+          const paymentIntent = session.payment_intent;
+
+          if (teacherId) {
+            // Idempotenz: Prüfen ob dieses Payment schon verarbeitet wurde
+            const existing = await env.DB.prepare(
+              'SELECT id FROM teacher_credits WHERE stripe_payment_intent = ?'
+            ).bind(paymentIntent).first();
+
+            if (!existing) {
+              const expiresAt = new Date(Date.now() + 365 * 86400000).toISOString(); // 12 Monate
+              await env.DB.prepare(`
+                INSERT INTO teacher_credits (id, teacher_id, credits_total, credits_used, stripe_payment_intent, created_at, expires_at)
+                VALUES (?, ?, ?, 0, ?, ?, ?)
+              `).bind(crypto.randomUUID(), teacherId, credits, paymentIntent, now, expiresAt).run();
+
+              // Stripe-Customer-ID auf Lehrer speichern
+              if (customerId) {
+                await env.DB.prepare(
+                  'UPDATE teachers SET stripe_customer_id = ? WHERE id = ?'
+                ).bind(customerId, teacherId).run();
+              }
+            }
+          }
+          break;
+        }
+
         const studentId = session.metadata?.student_id;
         const plan = session.metadata?.plan || 'unknown';
-        const customerId = session.customer;
 
         if (!studentId) break;
 
@@ -315,6 +346,34 @@ export async function handleSubscriptionStatus(request, env) {
     statusLabel = (sub?.plan === 'trial' && trialDaysLeft > 0) ? 'trialing' : 'active';
   }
 
+  // Lehrer-Credits prüfen (nur wenn kein eigenes Abo aktiv)
+  let teacherCreditsAvailable = false;
+  let teacherCreditsName = null;
+  if (!isActive) {
+    const studentName = await env.DB.prepare(
+      'SELECT name_lower FROM students WHERE id = ?'
+    ).bind(student_id).first();
+
+    if (studentName) {
+      const now = new Date().toISOString();
+      const tcRow = await env.DB.prepare(`
+        SELECT t.name AS teacher_name
+        FROM student_teacher_links stl
+        JOIN teachers t ON t.id = stl.teacher_id
+        JOIN teacher_credits tc ON tc.teacher_id = stl.teacher_id
+          AND tc.credits_used < tc.credits_total
+          AND (tc.expires_at IS NULL OR tc.expires_at > ?)
+        WHERE stl.student_name_lower = ?
+        LIMIT 1
+      `).bind(now, studentName.name_lower).first();
+
+      if (tcRow) {
+        teacherCreditsAvailable = true;
+        teacherCreditsName = tcRow.teacher_name;
+      }
+    }
+  }
+
   return jsonResponse({
     status: statusLabel,
     plan: sub?.plan || student.subscription_plan || 'free',
@@ -323,6 +382,8 @@ export async function handleSubscriptionStatus(request, env) {
     trial_days_left: trialDaysLeft,
     is_school_license: !!sub?.school_license_code,
     has_stripe_customer: !!student.stripe_customer_id,
+    teacher_credits_available: teacherCreditsAvailable,
+    teacher_credits_name: teacherCreditsName,
   }, 200, env);
 }
 
