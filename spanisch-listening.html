@@ -434,12 +434,12 @@
           <div class="form-group">
             <label for="topicSelect">Themenfeld</label>
             <select id="topicSelect">
-              <option value="Science & Technology: Artificial Intelligence and Society">Science & Technology: AI & Society</option>
-              <option value="Global Chances and Challenges: Climate Change and Sustainability">Global Challenges: Climate & Sustainability</option>
-              <option value="The Media: Social Media, Fake News and Digital Literacy">The Media: Social Media & Digital Literacy</option>
-              <option value="Politics and Society: Democracy, Migration, Social Justice">Politics & Society: Democracy & Social Justice</option>
-              <option value="The World of Work: Future Careers and Automation">World of Work: Future Careers & Automation</option>
-              <option value="Culture and Identity: Multiculturalism and Globalisation">Culture & Identity: Multiculturalism</option>
+              <option value="La sociedad española: juventud, familia, multiculturalidad y convivencia">Sociedad: Juventud, familia y convivencia</option>
+              <option value="España y Latinoamérica: diversidad cultural, lenguas indígenas e identidad">España y Latinoamérica: Diversidad e identidad</option>
+              <option value="Medio ambiente, sostenibilidad y cambio climático en el mundo hispanohablante">Medio ambiente y sostenibilidad</option>
+              <option value="Ciencia, tecnología y la mujer en la ciencia en España">Ciencia y tecnología</option>
+              <option value="Movilidad urbana, transporte y urbanización en ciudades españolas">Movilidad urbana y transporte</option>
+              <option value="Migración, integración y derechos humanos en el contexto hispanohablante">Migración e integración</option>
             </select>
           </div>
 
@@ -797,7 +797,51 @@
 
       try {
         // Schritt 1: Hörtext + Fragen generieren
-        const data = await apiCall("/api/generate-listening", { topic, format });
+        const prompt_template = `Du bist ein erfahrener Spanischlehrer am bayerischen Gymnasium und erstellst eine Hörverstehen-Aufgabe (Comprensión auditiva) für das Abitur (Niveau B1+/B2).
+
+THEMA: {topic}
+FORMAT: {format}
+
+Erstelle einen SPANISCHEN Hörtext und passende Fragen.
+
+TEIL 1 – HÖRTEXT:
+- 350–550 Wörter, authentisch klingender SPANISCHER Text
+- Format: {format} (z.B. Nachrichtenbericht, Interview, Vortrag, Dialog)
+- Sprachniveau B1+/B2 (Oberstufe)
+- Natürliche spanische Sprache mit klarer Struktur
+- WICHTIG für TTS: Jede Sprechzeile MUSS mit "Sprechername: " beginnen, z.B.:
+  Presentador: Bienvenidos al programa de hoy.
+  Experta: Muchas gracias por la invitación.
+- Verwende genau 2 Sprecher (z.B. Presentador + Experta, Entrevistador + Invitado)
+- Bei Monolog-Formaten: nur 1 Sprecher (z.B. "Locutor: ...")
+
+TEIL 2 – FRAGEN (insgesamt 20 Punkte):
+Erstelle einen Mix aus drei Fragetypen. ALLE FRAGEN AUF SPANISCH:
+
+A) Opción múltiple (5 Fragen, je 1 Punkt = 5 Punkte):
+- 4 Optionen (A, B, C, D), genau eine richtig
+- Fragen zur Hauptaussage, Details und Schlussfolgerungen
+
+B) Verdadero / Falso / No se menciona (5 Fragen, je 1 Punkt = 5 Punkte):
+- "true" = so gesagt, "false" = Gegenteil, "not_given" = nicht erwähnt
+
+C) Respuestas cortas (5 Fragen, je 2 Punkte = 10 Punkte):
+- Offene Fragen, 1-2 Sätze Antwort auf Spanisch
+
+OUTPUT FORMAT – Antworte NUR mit reinem JSON:
+{
+  "title": "Kurzer spanischer Titel",
+  "transcript": "Der vollständige spanische Hörtext...",
+  "format": "{format}",
+  "speakers": ["Presentador", "Experta"],
+  "questions": [
+    {"id": 1, "type": "mc", "question": "¿Cuál es el tema principal?", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "correct": "B", "points": 1},
+    {"id": 6, "type": "tf", "question": "Según la experta...", "correct": "true", "points": 1},
+    {"id": 11, "type": "short", "question": "Explique por qué...", "sample_answer": "Porque...", "points": 2}
+  ],
+  "total_points": 20
+}`;
+        const data = await apiCall("/api/generate-listening", { topic, format, prompt_template });
 
         if (!data.transcript || !data.questions) {
           throw new Error("Unvollständige Aufgabe erhalten.");
@@ -897,11 +941,11 @@
 
     function getSpeechVoice() {
       const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-      for (const name of ['Samantha','Alex','Karen','Daniel','Moira']) {
-        const v = voices.find(v=>v.name.includes(name)&&v.lang.startsWith('en'));
+      for (const name of ['Mónica','Jorge','Paulina','Juan','Diego']) {
+        const v = voices.find(v=>v.name.includes(name)&&v.lang.startsWith('es'));
         if (v) return v;
       }
-      return voices.find(v=>v.lang.startsWith('en-')) || voices.find(v=>v.lang.startsWith('en')) || null;
+      return voices.find(v=>v.lang.startsWith('es-')) || voices.find(v=>v.lang.startsWith('es')) || null;
     }
 
     function setupSpeechPlayer() {

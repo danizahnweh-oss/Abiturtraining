@@ -434,12 +434,12 @@
           <div class="form-group">
             <label for="topicSelect">Themenfeld</label>
             <select id="topicSelect">
-              <option value="Science & Technology: Artificial Intelligence and Society">Science & Technology: AI & Society</option>
-              <option value="Global Chances and Challenges: Climate Change and Sustainability">Global Challenges: Climate & Sustainability</option>
-              <option value="The Media: Social Media, Fake News and Digital Literacy">The Media: Social Media & Digital Literacy</option>
-              <option value="Politics and Society: Democracy, Migration, Social Justice">Politics & Society: Democracy & Social Justice</option>
-              <option value="The World of Work: Future Careers and Automation">World of Work: Future Careers & Automation</option>
-              <option value="Culture and Identity: Multiculturalism and Globalisation">Culture & Identity: Multiculturalism</option>
+              <option value="La società italiana: giovani, famiglia, volontariato e vita quotidiana">Società: Giovani, famiglia e vita quotidiana</option>
+              <option value="Italia: turismo, cultura, arte e patrimonio culturale">Italia: Turismo, arte e patrimonio</option>
+              <option value="Immigrazione, emigrazione e integrazione in Italia">Migrazione e integrazione</option>
+              <option value="Ambiente, sostenibilità e cambiamento climatico in Italia">Ambiente e sostenibilità</option>
+              <option value="Made in Italy: economia, lavoro e innovazione">Made in Italy: Economia e lavoro</option>
+              <option value="Cinema, musica e letteratura italiana contemporanea">Cinema, musica e letteratura</option>
             </select>
           </div>
 
@@ -797,7 +797,50 @@
 
       try {
         // Schritt 1: Hörtext + Fragen generieren
-        const data = await apiCall("/api/generate-listening", { topic, format });
+        const prompt_template = `Du bist ein erfahrener Italienischlehrer am bayerischen Gymnasium und erstellst eine Hörverstehen-Aufgabe (Comprensione orale) für das Abitur (Niveau B1+/B2).
+
+THEMA: {topic}
+FORMAT: {format}
+
+Erstelle einen ITALIENISCHEN Hörtext und passende Fragen.
+
+TEIL 1 – HÖRTEXT:
+- 350–550 Wörter, authentisch klingender ITALIENISCHER Text
+- Format: {format} (z.B. Nachrichtenbericht, Interview, Vortrag, Dialog)
+- Sprachniveau B1+/B2 (Oberstufe)
+- Natürliche italienische Sprache mit klarer Struktur
+- WICHTIG für TTS: Jede Sprechzeile MUSS mit "Sprechername: " beginnen, z.B.:
+  Conduttore: Benvenuti al programma di oggi.
+  Esperta: Grazie per l'invito.
+- Verwende genau 2 Sprecher (z.B. Conduttore + Esperta, Intervistatore + Ospite)
+- Bei Monolog-Formaten: nur 1 Sprecher (z.B. "Presentatore: ...")
+
+TEIL 2 – FRAGEN (insgesamt 20 Punkte):
+Erstelle einen Mix aus drei Fragetypen. ALLE FRAGEN AUF ITALIENISCH:
+
+A) Scelta multipla (5 Fragen, je 1 Punkt = 5 Punkte):
+- 4 Optionen (A, B, C, D), genau eine richtig
+
+B) Vero / Falso / Non menzionato (5 Fragen, je 1 Punkt = 5 Punkte):
+- "true" = so gesagt, "false" = Gegenteil, "not_given" = nicht erwähnt
+
+C) Risposte brevi (5 Fragen, je 2 Punkte = 10 Punkte):
+- Offene Fragen, 1-2 Sätze Antwort auf Italienisch
+
+OUTPUT FORMAT – Antworte NUR mit reinem JSON:
+{
+  "title": "Kurzer italienischer Titel",
+  "transcript": "Der vollständige italienische Hörtext...",
+  "format": "{format}",
+  "speakers": ["Conduttore", "Esperta"],
+  "questions": [
+    {"id": 1, "type": "mc", "question": "Qual è il tema principale?", "options": ["A) ...", "B) ...", "C) ...", "D) ..."], "correct": "B", "points": 1},
+    {"id": 6, "type": "tf", "question": "Secondo l'esperta...", "correct": "true", "points": 1},
+    {"id": 11, "type": "short", "question": "Spiegate perché...", "sample_answer": "Perché...", "points": 2}
+  ],
+  "total_points": 20
+}`;
+        const data = await apiCall("/api/generate-listening", { topic, format, prompt_template });
 
         if (!data.transcript || !data.questions) {
           throw new Error("Unvollständige Aufgabe erhalten.");
@@ -897,11 +940,11 @@
 
     function getSpeechVoice() {
       const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
-      for (const name of ['Samantha','Alex','Karen','Daniel','Moira']) {
-        const v = voices.find(v=>v.name.includes(name)&&v.lang.startsWith('en'));
+      for (const name of ['Alice','Luca','Federica','Paola']) {
+        const v = voices.find(v=>v.name.includes(name)&&v.lang.startsWith('it'));
         if (v) return v;
       }
-      return voices.find(v=>v.lang.startsWith('en-')) || voices.find(v=>v.lang.startsWith('en')) || null;
+      return voices.find(v=>v.lang.startsWith('it-')) || voices.find(v=>v.lang.startsWith('it')) || null;
     }
 
     function setupSpeechPlayer() {
