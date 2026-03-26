@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>myAbiFlow · Lehrer-Tutorial – Schritt für Schritt</title>
+<meta name="description" content="Interaktives Tutorial für den myAbiFlow Lehrerbereich. Alle Funktionen Schritt für Schritt erklärt.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #4f46e5;
+    --accent-light: #e0e7ff;
+    --accent-glow: rgba(79,70,229,.15);
+    --ink: #1e293b;
+    --ink-light: #64748b;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== SCROLL PROGRESS ====== */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+    z-index: 200;
+    width: 0%;
+    transition: width .1s linear;
+  }
+
+  /* ====== STICKY NAV ====== */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    transition: transform .35s ease;
+    padding: 0 2rem;
+  }
+  .sticky-nav.visible { transform: translateY(0); }
+  .sticky-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .sticky-nav-logo {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .sticky-nav-links { display: flex; gap: .3rem; flex-wrap: wrap; }
+  .sticky-nav-links a {
+    text-decoration: none;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    padding: .35rem .65rem;
+    border-radius: 99px;
+    transition: background .2s, color .2s;
+    white-space: nowrap;
+  }
+  .sticky-nav-links a:hover,
+  .sticky-nav-links a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ====== SCROLL ANIMATIONS ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(.9);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+  /* ====== HERO ====== */
+  .hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-bg-circle:nth-child(1) {
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,.08);
+    top: -10%; right: -5%;
+  }
+  .hero-bg-circle:nth-child(2) {
+    width: 500px; height: 500px;
+    background: rgba(99,102,241,.15);
+    bottom: -15%; left: 10%;
+    animation-delay: -3s;
+  }
+  .hero-bg-circle:nth-child(3) {
+    width: 250px; height: 250px;
+    background: rgba(167,139,250,.12);
+    top: 30%; left: -5%;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.03); }
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 750px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    padding: .45rem 1.2rem;
+    border-radius: 99px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+    animation: fadeUp .8s ease-out;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    animation: fadeUp .8s ease-out .15s both;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    opacity: .92;
+    max-width: 580px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    animation: fadeUp .8s ease-out .3s both;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .8s ease-out .45s both;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: .9rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    min-height: 48px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+  .hero-cta-secondary {
+    background: rgba(255,255,255,.15);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,.3);
+  }
+  .hero-cta-secondary:hover { background: rgba(255,255,255,.25); }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    font-size: 1.5rem;
+    opacity: .7;
+    text-decoration: none;
+    color: white;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* ====== TOC (Table of Contents) ====== */
+  .toc-section {
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .toc-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.4rem;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    border: 1.5px solid transparent;
+    min-height: 48px;
+  }
+  .toc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-light);
+  }
+  .toc-num {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    color: white;
+    font-weight: 800;
+    font-size: .9rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .toc-card span {
+    font-size: .92rem;
+    font-weight: 600;
+  }
+
+  /* ====== SECTIONS ====== */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: .5rem;
+    color: var(--ink);
+  }
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ====== TUTORIAL STEP ====== */
+  .tut-section {
+    border-top: 1px solid var(--border);
+  }
+  .tut-section:nth-child(even) {
+    background: white;
+  }
+  .tut-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .tut-num {
+    width: 52px; height: 52px;
+    background: var(--accent);
+    color: white;
+    font-weight: 800;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .tut-header h2 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .tut-header h2 .tut-emoji {
+    margin-right: .4rem;
+  }
+
+  /* ====== INSTRUCTION BLOCKS ====== */
+  .instruction-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .instruction-block:hover {
+    box-shadow: var(--shadow-md);
+  }
+  .instruction-block h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .instruction-block p {
+    font-size: .95rem;
+    color: var(--ink-light);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .instruction-block p:last-child { margin-bottom: 0; }
+
+  /* ====== STEP LIST ====== */
+  .step-list {
+    list-style: none;
+    counter-reset: step;
+  }
+  .step-list li {
+    counter-increment: step;
+    padding: .8rem 0 .8rem 3rem;
+    position: relative;
+    font-size: .93rem;
+    color: var(--ink);
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-list li:last-child { border-bottom: none; }
+  .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    width: 28px; height: 28px;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: .8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: .75rem;
+  }
+  .step-list li strong { color: var(--ink); }
+
+  /* ====== TIP / WARNING BOXES ====== */
+  .tip-box {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    font-size: .88rem;
+    color: #065f46;
+    line-height: 1.6;
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+  }
+  .tip-box .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .warn-box {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    font-size: .88rem;
+    color: #92400e;
+    line-height: 1.6;
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+  }
+  .warn-box .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .info-box {
+    background: var(--accent-light);
+    border: 1px solid #c7d2fe;
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+    font-size: .88rem;
+    color: #3730a3;
+    line-height: 1.6;
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+  }
+  .info-box .tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+
+  /* ====== MOCKUP BROWSER ====== */
+  .mockup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  .mockup-toolbar {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .mockup-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .mockup-dot:nth-child(1) { background: #ef4444; }
+  .mockup-dot:nth-child(2) { background: #f59e0b; }
+  .mockup-dot:nth-child(3) { background: #10b981; }
+  .mockup-url {
+    flex: 1;
+    text-align: center;
+    font-size: .75rem;
+    color: var(--ink-light);
+    font-weight: 500;
+  }
+  .mockup-body {
+    padding: 1.5rem;
+  }
+
+  /* ====== MOCKUP UI ELEMENTS ====== */
+  .mock-tabs {
+    display: flex;
+    gap: .4rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  .mock-tab {
+    padding: .45rem 1rem;
+    border-radius: 99px;
+    font-size: .78rem;
+    font-weight: 600;
+    background: var(--bg);
+    color: var(--ink-light);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all .2s;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+  .mock-tab.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .mock-input {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .8rem;
+  }
+  .mock-input-field {
+    flex: 1;
+    height: 38px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0 .8rem;
+    font-size: .8rem;
+    color: var(--ink-light);
+    background: var(--bg);
+  }
+  .mock-btn {
+    padding: .5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: .78rem;
+    font-weight: 600;
+    color: white;
+    background: var(--accent);
+    border: none;
+    min-height: 38px;
+    cursor: default;
+    white-space: nowrap;
+  }
+  .mock-btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  .mock-btn-green { background: var(--green); }
+  .mock-btn-red { background: var(--red); }
+  .mock-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .78rem;
+  }
+  .mock-table th {
+    text-align: left;
+    padding: .5rem .6rem;
+    font-weight: 700;
+    color: var(--ink-light);
+    border-bottom: 2px solid var(--border);
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+  .mock-table td {
+    padding: .55rem .6rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink);
+  }
+  .mock-badge {
+    display: inline-block;
+    padding: .15rem .5rem;
+    border-radius: 99px;
+    font-size: .7rem;
+    font-weight: 600;
+  }
+  .mock-badge-green { background: #d1fae5; color: #065f46; }
+  .mock-badge-red { background: #fee2e2; color: #991b1b; }
+  .mock-badge-amber { background: #fef3c7; color: #92400e; }
+  .mock-code {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .2rem .6rem;
+    font-family: monospace;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+  }
+  .mock-stat {
+    text-align: center;
+    padding: 1rem;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+  }
+  .mock-stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .mock-stat-label {
+    font-size: .75rem;
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* ====== MINI HEATMAP ====== */
+  .mock-heatmap {
+    display: grid;
+    gap: 3px;
+    margin-top: .8rem;
+  }
+  .mock-heatcell {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    transition: transform .2s;
+  }
+  .mock-heatcell:hover { transform: scale(1.15); }
+
+  /* ====== BARS ====== */
+  .mock-bar-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .35rem;
+  }
+  .mock-bar-label {
+    font-size: .72rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    width: 55px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .mock-bar-track {
+    flex: 1;
+    height: 16px;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .mock-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 1.2s ease;
+    width: 0%;
+  }
+  .mock-bar-val {
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--ink);
+    width: 30px;
+    flex-shrink: 0;
+  }
+
+  /* ====== UPLOAD ZONE ====== */
+  .mock-upload {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--ink-light);
+    font-size: .85rem;
+    transition: border-color .2s;
+  }
+  .mock-upload-icon { font-size: 2rem; margin-bottom: .3rem; }
+
+  /* ====== WARN CARDS ====== */
+  .mock-warn {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .6rem .8rem;
+    border-radius: var(--radius-sm);
+    font-size: .8rem;
+    margin-bottom: .4rem;
+  }
+  .mock-warn-red { background: #fee2e2; color: #991b1b; }
+  .mock-warn-amber { background: #fef3c7; color: #92400e; }
+
+  /* ====== CTA ====== */
+  .cta-section {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6366f1 100%);
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 60%; height: 200%;
+    background: rgba(255,255,255,.03);
+    transform: rotate(25deg);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: .8rem;
+    position: relative;
+  }
+  .cta-section p {
+    font-size: 1.05rem;
+    opacity: .9;
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    line-height: 1.65;
+    position: relative;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+    min-height: 48px;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+  .cta-contact {
+    margin-top: 1.5rem;
+    font-size: .92rem;
+    opacity: .85;
+    position: relative;
+  }
+  .cta-contact a { color: white; font-weight: 600; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: .8rem;
+    color: var(--ink-light);
+  }
+
+  /* ====== PRINT ====== */
+  @media print {
+    .sticky-nav, .scroll-progress, .hero-scroll-hint { display: none; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
+    .section { padding: 2rem 1.5rem; }
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .hero { min-height: auto; padding: 4rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2rem; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .mock-table { font-size: .7rem; }
+    .mock-table th, .mock-table td { padding: .4rem; }
+    .sticky-nav-links a { font-size: .7rem; padding: .3rem .45rem; }
+    .tut-header h2 { font-size: 1.3rem; }
+    .instruction-block { padding: 1.4rem; }
+    .mockup-body { padding: 1rem; }
+    .mock-tabs { gap: .3rem; }
+    .mock-tab { font-size: .72rem; padding: .35rem .7rem; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .toc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="sticky-nav-inner">
+    <a href="#hero" class="sticky-nav-logo">myAbiFlow Tutorial</a>
+    <div class="sticky-nav-links">
+      <a href="#login" data-section="login">Login</a>
+      <a href="#codes" data-section="codes">Codes</a>
+      <a href="#aufgaben" data-section="aufgaben">Aufgaben</a>
+      <a href="#schueler" data-section="schueler">Sch&uuml;ler</a>
+      <a href="#analytics" data-section="analytics">Analytics</a>
+      <a href="#extras" data-section="extras">Extras</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Interaktives Tutorial</div>
+    <h1>Lehrer-Bereich<br>Schritt f&uuml;r Schritt</h1>
+    <p>Lernen Sie alle Funktionen des myAbiFlow Lehrer-Bereichs kennen &ndash; von der Registrierung bis zur Analytics-Auswertung. Einfach erkl&auml;rt, mit interaktiven Beispielen.</p>
+    <div class="hero-cta-group">
+      <a href="#inhalt" class="hero-cta">Tutorial starten &#8595;</a>
+      <a href="https://myabiflow.de/lehrer" class="hero-cta hero-cta-secondary" target="_blank">Direkt zum Lehrer-Bereich &#8599;</a>
+    </div>
+  </div>
+  <a href="#inhalt" class="hero-scroll-hint" aria-label="Nach unten scrollen">&#8595;</a>
+</section>
+
+<!-- ==================== INHALTSVERZEICHNIS ==================== -->
+<section class="toc-section" id="inhalt">
+  <div class="section" style="padding-top:3.5rem;padding-bottom:3.5rem;">
+    <h2 class="section-title reveal">Inhalts&uuml;bersicht</h2>
+    <p class="section-subtitle reveal">Klicken Sie auf ein Kapitel, um direkt dorthin zu springen</p>
+    <div class="toc-grid reveal">
+      <a href="#login" class="toc-card"><span class="toc-num">1</span><span>Registrierung &amp; Login</span></a>
+      <a href="#codes" class="toc-card"><span class="toc-num">2</span><span>Meine Codes verwalten</span></a>
+      <a href="#aufgaben" class="toc-card"><span class="toc-num">3</span><span>Aufgaben erstellen</span></a>
+      <a href="#schueler" class="toc-card"><span class="toc-num">4</span><span>Meine Sch&uuml;ler</span></a>
+      <a href="#analytics" class="toc-card"><span class="toc-num">5</span><span>Analytics &amp; Heatmaps</span></a>
+      <a href="#extras" class="toc-card"><span class="toc-num">6</span><span>Profil, Guthaben &amp; mehr</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 1. REGISTRIERUNG & LOGIN ==================== -->
+<section class="tut-section" id="login">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">1</div>
+      <h2><span class="tut-emoji">&#128272;</span> Registrierung &amp; Login</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#9997; So registrieren Sie sich</h3>
+      <p>Um den Lehrer-Bereich nutzen zu k&ouml;nnen, ben&ouml;tigen Sie ein Lehrer-Konto. Die Registrierung ist in wenigen Sekunden erledigt.</p>
+      <ol class="step-list">
+        <li>&Ouml;ffnen Sie <strong>myabiflow.de/lehrer</strong> in Ihrem Browser</li>
+        <li>Klicken Sie auf <strong>&bdquo;Registrieren&ldquo;</strong> (Umschalter oben)</li>
+        <li>Geben Sie Ihren <strong>Namen</strong> und ein <strong>Passwort</strong> ein</li>
+        <li>Tragen Sie Ihre <strong>E-Mail-Adresse</strong> ein</li>
+        <li>W&auml;hlen Sie Ihre <strong>F&auml;cher</strong> aus (mindestens eines)</li>
+        <li>Klicken Sie auf <strong>&bdquo;Registrieren&ldquo;</strong></li>
+      </ol>
+      <div class="info-box">
+        <span class="tip-icon">&#128274;</span>
+        <span>F&uuml;r die Aktivierung Ihres Kontos kontaktieren Sie <strong>info@myabiflow.de</strong>. Sie erhalten einen Registrierungsschl&uuml;ssel, den Ihre Schule von uns bekommt.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128273; So loggen Sie sich ein</h3>
+      <p>Nach der Registrierung k&ouml;nnen Sie sich jederzeit einloggen:</p>
+      <ol class="step-list">
+        <li>&Ouml;ffnen Sie <strong>myabiflow.de/lehrer</strong></li>
+        <li>Geben Sie Ihren <strong>Namen</strong> und Ihr <strong>Passwort</strong> ein</li>
+        <li>Klicken Sie auf <strong>&bdquo;Anmelden&ldquo;</strong></li>
+      </ol>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Ihr Login bleibt gespeichert, solange Sie den Browser nicht schlie&szlig;en. Sie m&uuml;ssen sich nicht bei jedem Besuch neu anmelden.</span>
+      </div>
+    </div>
+
+    <!-- Mockup: Login-Screen -->
+    <div class="mockup reveal-scale">
+      <div class="mockup-toolbar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        <span class="mockup-url">myabiflow.de/lehrer</span>
+      </div>
+      <div class="mockup-body" style="max-width:360px;margin:0 auto;padding:2rem;">
+        <div style="text-align:center;margin-bottom:1.2rem;">
+          <div style="font-size:1.3rem;font-weight:800;color:var(--accent);">myAbiFlow</div>
+          <div style="font-size:.85rem;color:var(--ink-light);">Lehrer-Bereich</div>
+        </div>
+        <div class="mock-input">
+          <div class="mock-input-field" style="width:100%;">Max Mustermann</div>
+        </div>
+        <div class="mock-input">
+          <div class="mock-input-field" style="width:100%;">&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</div>
+        </div>
+        <div style="margin-top:.8rem;">
+          <div class="mock-btn" style="width:100%;text-align:center;display:block;">Anmelden</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 2. MEINE CODES ==================== -->
+<section class="tut-section" id="codes">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">2</div>
+      <h2><span class="tut-emoji">&#128196;</span> Meine Codes verwalten</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128161; Was sind Codes?</h3>
+      <p>Codes sind der Schl&uuml;ssel, mit dem Sie Ihre Sch&uuml;ler mit Ihrem Dashboard verbinden. Jeder Code geh&ouml;rt zu einer Klasse oder einem Kurs. Wenn ein Sch&uuml;ler den Code auf myabiflow.de eingibt, werden seine Ergebnisse automatisch in Ihrem Lehrer-Bereich angezeigt.</p>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#10024; Neuen Code erstellen</h3>
+      <ol class="step-list">
+        <li>Wechseln Sie zum Tab <strong>&bdquo;Meine Codes&ldquo;</strong></li>
+        <li>Geben Sie eine <strong>Bezeichnung</strong> ein (z.B. &bdquo;12a Deutsch&ldquo; oder &bdquo;Q12 Physik eA&ldquo;)</li>
+        <li>Klicken Sie auf <strong>&bdquo;Neuer Code&ldquo;</strong></li>
+        <li>Der Code wird sofort generiert und ist einsatzbereit</li>
+      </ol>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Tipp: Erstellen Sie pro Kurs oder Klasse einen eigenen Code. So k&ouml;nnen Sie die Ergebnisse sp&auml;ter sauber filtern.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128203; Codes an Sch&uuml;ler verteilen</h3>
+      <p>Klicken Sie auf den Code, um ihn in die <strong>Zwischenablage zu kopieren</strong>. Dann k&ouml;nnen Sie ihn per Tafel, Mebis, E-Mail oder Ausdruck an Ihre Sch&uuml;ler weitergeben.</p>
+      <p>Ihre Sch&uuml;ler geben den Code dann auf der jeweiligen Fachseite (z.B. myabiflow.de/deutsch) unter <strong>&bdquo;Lehrer-Code eingeben&ldquo;</strong> ein.</p>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128736; Codes verwalten</h3>
+      <p>In der Code-&Uuml;bersicht sehen Sie f&uuml;r jeden Code:</p>
+      <ol class="step-list">
+        <li><strong>Bezeichnung</strong> &ndash; der Name, den Sie vergeben haben</li>
+        <li><strong>Status</strong> &ndash; aktiv (gr&uuml;n) oder inaktiv (rot)</li>
+        <li><strong>Erstellt am</strong> &ndash; wann der Code angelegt wurde</li>
+        <li>Per Klick k&ouml;nnen Sie Codes <strong>aktivieren/deaktivieren</strong> oder <strong>l&ouml;schen</strong></li>
+      </ol>
+      <div class="warn-box">
+        <span class="tip-icon">&#9888;</span>
+        <span>Ein deaktivierter Code kann von Sch&uuml;lern nicht mehr verwendet werden. Die bisherigen Ergebnisse bleiben aber erhalten.</span>
+      </div>
+    </div>
+
+    <!-- Mockup: Codes Tab -->
+    <div class="mockup reveal-scale">
+      <div class="mockup-toolbar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        <span class="mockup-url">myabiflow.de/lehrer &mdash; Meine Codes</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-tabs">
+          <div class="mock-tab active">&#128196; Meine Codes</div>
+          <div class="mock-tab">&#128221; Aufgaben</div>
+          <div class="mock-tab">&#128101; Meine Sch&uuml;ler</div>
+          <div class="mock-tab">&#128202; Analytics</div>
+        </div>
+        <div class="mock-input">
+          <div class="mock-input-field">Bezeichnung (z.B. &bdquo;12a Deutsch&ldquo;)</div>
+          <div class="mock-btn">+ Neuer Code</div>
+        </div>
+        <table class="mock-table">
+          <thead>
+            <tr><th>Bezeichnung</th><th>Code</th><th>Status</th><th>Erstellt</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>12a Deutsch</strong></td>
+              <td><span class="mock-code">ABF-7K2M &#128203;</span></td>
+              <td><span class="mock-badge mock-badge-green">Aktiv</span></td>
+              <td>24.03.2026</td>
+              <td style="text-align:right;"><span class="mock-btn-outline mock-btn" style="font-size:.7rem;padding:.25rem .5rem;min-height:auto;">Deaktivieren</span></td>
+            </tr>
+            <tr>
+              <td><strong>Q12 Physik eA</strong></td>
+              <td><span class="mock-code">ABF-9P3X &#128203;</span></td>
+              <td><span class="mock-badge mock-badge-green">Aktiv</span></td>
+              <td>20.03.2026</td>
+              <td style="text-align:right;"><span class="mock-btn-outline mock-btn" style="font-size:.7rem;padding:.25rem .5rem;min-height:auto;">Deaktivieren</span></td>
+            </tr>
+            <tr>
+              <td><strong>11b Englisch</strong></td>
+              <td><span class="mock-code">ABF-4L8N &#128203;</span></td>
+              <td><span class="mock-badge mock-badge-red">Inaktiv</span></td>
+              <td>15.02.2026</td>
+              <td style="text-align:right;"><span class="mock-btn" style="font-size:.7rem;padding:.25rem .5rem;min-height:auto;background:var(--red);">L&ouml;schen</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 3. AUFGABEN ERSTELLEN ==================== -->
+<section class="tut-section" id="aufgaben">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">3</div>
+      <h2><span class="tut-emoji">&#128221;</span> Aufgaben erstellen</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128161; Zwei Wege zur Aufgabe</h3>
+      <p>Im Tab <strong>&bdquo;Aufgaben&ldquo;</strong> haben Sie zwei M&ouml;glichkeiten, Aufgaben zu erstellen:</p>
+      <ol class="step-list">
+        <li><strong>KI-Generierung</strong> &ndash; Die KI erstellt eine komplette Aufgabe mit Erwartungshorizont</li>
+        <li><strong>Eigene Materialien</strong> &ndash; Laden Sie Bilder oder PDFs hoch, die KI erstellt daraus Aufgaben</li>
+      </ol>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#129302; Weg 1: KI-Aufgabe generieren</h3>
+      <ol class="step-list">
+        <li>Wechseln Sie zum Tab <strong>&bdquo;Aufgaben&ldquo;</strong></li>
+        <li>W&auml;hlen Sie ein <strong>Fach</strong> aus (z.B. Deutsch, Mathematik, Geschichte&hellip;)</li>
+        <li>W&auml;hlen Sie den <strong>Aufgabentyp</strong> (z.B. Er&ouml;rterung, Analyse, Textvergleich&hellip;)</li>
+        <li>Klicken Sie auf <strong>&bdquo;Aufgabe generieren&ldquo;</strong></li>
+        <li>Die KI erstellt die Aufgabe inklusive <strong>Erwartungshorizont</strong> und <strong>Bewertungskriterien</strong></li>
+        <li>Pr&uuml;fen und <strong>bearbeiten</strong> Sie die Aufgabe bei Bedarf</li>
+        <li>Klicken Sie auf <strong>&bdquo;Aufgabe speichern&ldquo;</strong></li>
+      </ol>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Alle generierten Aufgaben sind an den <strong>LehrplanPLUS Bayern G9</strong> angepasst. Sie k&ouml;nnen den Text aber jederzeit anpassen.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128206; Weg 2: Eigene Materialien hochladen</h3>
+      <ol class="step-list">
+        <li>W&auml;hlen Sie <strong>&bdquo;Eigene Materialien&ldquo;</strong> als Modus</li>
+        <li><strong>Ziehen Sie Dateien</strong> in die Upload-Zone (oder klicken Sie zum Ausw&auml;hlen)</li>
+        <li>Erlaubt: <strong>Bilder</strong> (JPG, PNG) und <strong>PDFs</strong> &ndash; max. 10 MB pro Datei</li>
+        <li>Bis zu <strong>5 Materialien</strong> gleichzeitig</li>
+        <li>Optional: Geben Sie <strong>zus&auml;tzliche Anweisungen</strong> ein (z.B. &bdquo;Erstelle Aufgaben zum Thema Expressionismus&ldquo;)</li>
+        <li>Klicken Sie auf <strong>&bdquo;Aufgabe erstellen&ldquo;</strong></li>
+      </ol>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128279; Aufgabe teilen</h3>
+      <p>Nach dem Speichern erh&auml;lt jede Aufgabe einen <strong>eigenen Code</strong>. Diesen Code geben Sie an Ihre Sch&uuml;ler weiter:</p>
+      <ol class="step-list">
+        <li>Der <strong>Aufgaben-Code</strong> wird automatisch angezeigt</li>
+        <li>Klicken Sie auf den Code, um ihn zu <strong>kopieren</strong></li>
+        <li>Sch&uuml;ler &ouml;ffnen <strong>myabiflow.de/aufgabe</strong> und geben den Code ein</li>
+        <li>Die Sch&uuml;ler bearbeiten die Aufgabe &ndash; Ergebnisse landen automatisch in Ihrem Dashboard</li>
+      </ol>
+      <div class="info-box">
+        <span class="tip-icon">&#128218;</span>
+        <span>Sie k&ouml;nnen beliebig viele Aufgaben erstellen und jederzeit neue generieren.</span>
+      </div>
+    </div>
+
+    <!-- Mockup: Aufgaben Tab -->
+    <div class="mockup reveal-scale">
+      <div class="mockup-toolbar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        <span class="mockup-url">myabiflow.de/lehrer &mdash; Aufgaben</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-tabs">
+          <div class="mock-tab">&#128196; Meine Codes</div>
+          <div class="mock-tab active">&#128221; Aufgaben</div>
+          <div class="mock-tab">&#128101; Meine Sch&uuml;ler</div>
+          <div class="mock-tab">&#128202; Analytics</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <div style="font-size:.75rem;font-weight:600;color:var(--ink-light);margin-bottom:.4rem;">Fach w&auml;hlen</div>
+            <div class="mock-input-field" style="width:100%;display:flex;align-items:center;">Deutsch</div>
+          </div>
+          <div>
+            <div style="font-size:.75rem;font-weight:600;color:var(--ink-light);margin-bottom:.4rem;">Aufgabentyp</div>
+            <div class="mock-input-field" style="width:100%;display:flex;align-items:center;">Er&ouml;rterung</div>
+          </div>
+        </div>
+        <div class="mock-btn" style="width:100%;text-align:center;display:block;margin-bottom:1.5rem;">&#129302; Aufgabe generieren</div>
+
+        <div style="border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem;">
+          <div style="font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:.3rem;">Oder: Eigene Materialien hochladen</div>
+          <div class="mock-upload">
+            <div class="mock-upload-icon">&#128206;</div>
+            <div>Dateien hierher ziehen oder klicken</div>
+            <div style="font-size:.75rem;color:var(--ink-light);margin-top:.3rem;">Bilder &amp; PDFs &middot; max. 5 Dateien &middot; je max. 10 MB</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4. MEINE SCHÜLER ==================== -->
+<section class="tut-section" id="schueler">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">4</div>
+      <h2><span class="tut-emoji">&#128101;</span> Meine Sch&uuml;ler</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128200; Die Sch&uuml;ler-&Uuml;bersicht</h3>
+      <p>Im Tab <strong>&bdquo;Meine Sch&uuml;ler&ldquo;</strong> sehen Sie alle Sch&uuml;ler, die Ihren Code eingegeben haben. F&uuml;r jeden Sch&uuml;ler gibt es eine Karte mit:</p>
+      <ol class="step-list">
+        <li><strong>Versuche</strong> &ndash; Wie viele Aufgaben der Sch&uuml;ler bearbeitet hat</li>
+        <li><strong>Durchschnitt (&Oslash;)</strong> &ndash; Mittlere Notenpunkte &uuml;ber alle Versuche</li>
+        <li><strong>Beste Leistung</strong> &ndash; H&ouml;chste erreichte Punktzahl</li>
+        <li><strong>Trend</strong> &ndash; Pfeil nach oben (&#128200;) oder unten (&#128201;) je nach Entwicklung</li>
+      </ol>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128269; Sch&uuml;ler-Detailansicht</h3>
+      <p>Klicken Sie auf einen Sch&uuml;ler, um die <strong>Detailansicht</strong> zu &ouml;ffnen:</p>
+      <ol class="step-list">
+        <li><strong>Pers&ouml;nliche Statistiken</strong> &ndash; Versuche, Durchschnitt, Beste Leistung, Trend</li>
+        <li><strong>Fach-Grid</strong> &ndash; Ergebnisse aufgeschl&uuml;sselt nach F&auml;chern</li>
+        <li><strong>Detaillierte Scores</strong> &ndash; Inhalt, Sprache und Gesamt pro Versuch</li>
+        <li><strong>St&auml;rken &amp; Schw&auml;chen</strong> &ndash; KI-basierte Analyse der Kompetenzen</li>
+      </ol>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Die Detailansicht eignet sich hervorragend f&uuml;r <strong>Elterngespr&auml;che</strong> &ndash; Sie k&ouml;nnen die Entwicklung des Sch&uuml;lers anhand konkreter Daten zeigen.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#9888; Automatisches Warnsystem</h3>
+      <p>Das Warnsystem erkennt automatisch Sch&uuml;ler mit F&ouml;rderbedarf:</p>
+      <ol class="step-list">
+        <li><strong>Rot</strong> &ndash; Sch&uuml;ler mit einem Durchschnitt <strong>unter 5 Notenpunkten</strong></li>
+        <li><strong>Gelb</strong> &ndash; Sch&uuml;ler mit <strong>abfallendem Trend</strong> (Verschlechterung)</li>
+      </ol>
+      <div class="warn-box">
+        <span class="tip-icon">&#9888;</span>
+        <span>Warnungen erscheinen automatisch oben im Tab. So verpassen Sie keinen F&ouml;rderbedarf.</span>
+      </div>
+    </div>
+
+    <!-- Mockup: Schüler Tab -->
+    <div class="mockup reveal-scale">
+      <div class="mockup-toolbar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        <span class="mockup-url">myabiflow.de/lehrer &mdash; Meine Sch&uuml;ler</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-tabs">
+          <div class="mock-tab">&#128196; Meine Codes</div>
+          <div class="mock-tab">&#128221; Aufgaben</div>
+          <div class="mock-tab active">&#128101; Meine Sch&uuml;ler</div>
+          <div class="mock-tab">&#128202; Analytics</div>
+        </div>
+
+        <!-- Warnungen -->
+        <div class="mock-warn mock-warn-red">&#128308; <strong>Lisa M.</strong> &ndash; Durchschnitt 3,8 NP &ndash; dringender F&ouml;rderbedarf</div>
+        <div class="mock-warn mock-warn-amber">&#128992; <strong>Tom K.</strong> &ndash; abfallender Trend in den letzten 3 Versuchen</div>
+
+        <!-- Stats -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1rem 0;">
+          <div class="mock-stat">
+            <div class="mock-stat-value">24</div>
+            <div class="mock-stat-label">Sch&uuml;ler</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-value">9,2</div>
+            <div class="mock-stat-label">&Oslash; Notenpunkte</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-value">156</div>
+            <div class="mock-stat-label">Versuche gesamt</div>
+          </div>
+        </div>
+
+        <!-- Schüler-Karten -->
+        <div style="font-size:.78rem;font-weight:700;color:var(--ink-light);margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.02em;">Sch&uuml;ler-&Uuml;bersicht</div>
+        <table class="mock-table">
+          <thead>
+            <tr><th>Sch&uuml;ler</th><th>Versuche</th><th>&Oslash;</th><th>Best</th><th>Trend</th></tr>
+          </thead>
+          <tbody>
+            <tr style="cursor:pointer;">
+              <td><strong>Anna S.</strong></td>
+              <td>8</td>
+              <td>11,4 NP</td>
+              <td>14 NP</td>
+              <td>&#128200;</td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td><strong>Ben W.</strong></td>
+              <td>6</td>
+              <td>9,7 NP</td>
+              <td>12 NP</td>
+              <td>&#128200;</td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td><strong>Lisa M.</strong></td>
+              <td>5</td>
+              <td style="color:var(--red);font-weight:700;">3,8 NP</td>
+              <td>6 NP</td>
+              <td>&#128201;</td>
+            </tr>
+            <tr style="cursor:pointer;">
+              <td><strong>Tom K.</strong></td>
+              <td>7</td>
+              <td>7,1 NP</td>
+              <td>10 NP</td>
+              <td>&#128201;</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="font-size:.72rem;color:var(--ink-light);margin-top:.6rem;text-align:center;">Klicken Sie auf einen Sch&uuml;ler f&uuml;r die Detailansicht</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5. ANALYTICS & HEATMAPS ==================== -->
+<section class="tut-section" id="analytics">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">5</div>
+      <h2><span class="tut-emoji">&#128202;</span> Analytics &amp; Heatmaps</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128200; Fach-&Uuml;bersicht</h3>
+      <p>Das <strong>Balkendiagramm</strong> zeigt die durchschnittlichen Notenpunkte pro Fach f&uuml;r alle Sch&uuml;ler. So erkennen Sie auf einen Blick, in welchen F&auml;chern Ihre Klasse stark ist und wo Nachholbedarf besteht.</p>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128293; Sch&uuml;ler-x-F&auml;cher Heatmap</h3>
+      <p>Die interaktive <strong>Heatmap</strong> ist das m&auml;chtigste Werkzeug im Analytics-Bereich:</p>
+      <ol class="step-list">
+        <li><strong>Zeilen</strong> = Sch&uuml;ler, <strong>Spalten</strong> = F&auml;cher</li>
+        <li><strong>Gr&uuml;n</strong> (&#8805; 10 NP) = gute Leistung</li>
+        <li><strong>Gelb</strong> (5&ndash;9 NP) = mittlere Leistung</li>
+        <li><strong>Rot</strong> (&lt; 5 NP) = F&ouml;rderbedarf</li>
+        <li>Klicken Sie auf eine <strong>Zelle</strong>, um die Sch&uuml;ler-Detailansicht zu &ouml;ffnen</li>
+      </ol>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Die Heatmap eignet sich perfekt f&uuml;r <strong>p&auml;dagogische Konferenzen</strong> &ndash; Sie sehen sofort, welche Sch&uuml;ler in welchen F&auml;chern unterst&uuml;tzt werden m&uuml;ssen.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128200; Leistungsentwicklung (Trend)</h3>
+      <p>Das <strong>Liniendiagramm</strong> zeigt die Entwicklung der durchschnittlichen Notenpunkte &uuml;ber die Zeit, aufgeschl&uuml;sselt nach F&auml;chern. So erkennen Sie:</p>
+      <ol class="step-list">
+        <li>Ob sich die Klasse insgesamt <strong>verbessert oder verschlechtert</strong></li>
+        <li>In welchen F&auml;chern der <strong>gr&ouml;&szlig;te Fortschritt</strong> stattfindet</li>
+        <li>Ob einzelne F&auml;cher <strong>stagnierende Leistungen</strong> zeigen</li>
+      </ol>
+    </div>
+
+    <!-- Mockup: Analytics -->
+    <div class="mockup reveal-scale">
+      <div class="mockup-toolbar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+        <span class="mockup-url">myabiflow.de/lehrer &mdash; Analytics</span>
+      </div>
+      <div class="mockup-body">
+        <div class="mock-tabs">
+          <div class="mock-tab">&#128196; Meine Codes</div>
+          <div class="mock-tab">&#128221; Aufgaben</div>
+          <div class="mock-tab">&#128101; Meine Sch&uuml;ler</div>
+          <div class="mock-tab active">&#128202; Analytics</div>
+        </div>
+
+        <!-- Fach-Übersicht Bars -->
+        <div style="font-size:.82rem;font-weight:700;color:var(--ink-light);margin-bottom:.6rem;">Fach-&Uuml;bersicht (Durchschnitt)</div>
+        <div id="tutBars"></div>
+
+        <!-- Heatmap -->
+        <div style="font-size:.82rem;font-weight:700;color:var(--ink-light);margin:1.2rem 0 .5rem;">Sch&uuml;ler x F&auml;cher Heatmap</div>
+        <div id="tutHeatmap" class="mock-heatmap"></div>
+        <div style="display:flex;gap:.8rem;margin-top:.5rem;justify-content:center;">
+          <div style="display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--ink-light);">
+            <div style="width:12px;height:12px;border-radius:2px;background:#10b981;"></div> &#8805; 10 NP
+          </div>
+          <div style="display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--ink-light);">
+            <div style="width:12px;height:12px;border-radius:2px;background:#fbbf24;"></div> 5&ndash;9 NP
+          </div>
+          <div style="display:flex;align-items:center;gap:.3rem;font-size:.68rem;color:var(--ink-light);">
+            <div style="width:12px;height:12px;border-radius:2px;background:#ef4444;"></div> &lt; 5 NP
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 6. EXTRAS ==================== -->
+<section class="tut-section" id="extras">
+  <div class="section">
+    <div class="tut-header reveal">
+      <div class="tut-num">6</div>
+      <h2><span class="tut-emoji">&#9881;</span> Profil, Guthaben &amp; mehr</h2>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128100; Profil verwalten</h3>
+      <p>Klicken Sie oben rechts auf Ihren <strong>Namen</strong>, um das Profil-Overlay zu &ouml;ffnen. Dort sehen Sie:</p>
+      <ol class="step-list">
+        <li>Ihren <strong>Namen</strong> und Ihre <strong>E-Mail-Adresse</strong></li>
+        <li>Ihren <strong>Status</strong> (Pending = warten auf Aktivierung, Approved = freigeschaltet)</li>
+        <li>Ihre ausgew&auml;hlten <strong>F&auml;cher</strong> &ndash; diese k&ouml;nnen Sie jederzeit &auml;ndern</li>
+      </ol>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128176; Guthaben &amp; Korrekturen</h3>
+      <p>Das Korrektur-Guthaben zeigt, wie viele <strong>KI-Korrekturen</strong> Ihnen noch zur Verf&uuml;gung stehen:</p>
+      <ol class="step-list">
+        <li>Der <strong>Guthaben-Balken</strong> zeigt visuell, wie viele Korrekturen &uuml;brig sind</li>
+        <li>Klicken Sie auf <strong>&bdquo;Verlauf anzeigen&ldquo;</strong>, um zu sehen, wann welche Korrekturen verbraucht wurden</li>
+        <li>Jede Aufgabe, die ein Sch&uuml;ler einreicht und die KI korrigiert, verbraucht <strong>eine Korrektur</strong></li>
+      </ol>
+      <div class="info-box">
+        <span class="tip-icon">&#128176;</span>
+        <span>Ein <strong>Korrektur-Paket</strong> (75 Korrekturen f&uuml;r 49&nbsp;&euro;) k&ouml;nnen Sie jederzeit nachbestellen. Das sind nur <strong>0,65&nbsp;&euro; pro Korrektur</strong>.</span>
+      </div>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#127769; Dark Mode</h3>
+      <p>Oben rechts finden Sie den <strong>Theme-Toggle</strong>. Per Klick wechseln Sie zwischen dem hellen und dunklen Design. Ideal f&uuml;r:</p>
+      <ol class="step-list">
+        <li><strong>Abgedunkelte R&auml;ume</strong> bei Beamer-Pr&auml;sentationen</li>
+        <li><strong>Abends</strong> am Laptop, wenn Sie Ergebnisse pr&uuml;fen</li>
+        <li><strong>Pers&ouml;nliche Vorliebe</strong> &ndash; Ihre Einstellung wird gespeichert</li>
+      </ol>
+    </div>
+
+    <div class="instruction-block reveal">
+      <h3>&#128241; Tablet-Nutzung</h3>
+      <p>Der gesamte Lehrer-Bereich ist f&uuml;r <strong>Tablets optimiert</strong> (iPad, Android, Surface). Alle Buttons sind gro&szlig; genug f&uuml;r Touch-Bedienung und das Layout passt sich automatisch an.</p>
+      <div class="tip-box">
+        <span class="tip-icon">&#128161;</span>
+        <span>Tipp: Speichern Sie <strong>myabiflow.de/lehrer</strong> als Lesezeichen auf Ihrem Tablet-Homescreen &ndash; so haben Sie den Lehrer-Bereich immer griffbereit wie eine App.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta-section" id="start">
+  <h2 class="reveal">Bereit loszulegen?</h2>
+  <p class="reveal">Sie kennen jetzt alle Funktionen des Lehrer-Bereichs. Melden Sie sich an und erstellen Sie Ihre erste Aufgabe!</p>
+  <a href="https://myabiflow.de/lehrer" class="cta-btn reveal-scale" target="_blank">Zum Lehrer-Bereich &#8594;</a>
+  <div class="cta-contact reveal">
+    Fragen? Schreiben Sie uns: <a href="mailto:info@myabiflow.de">info@myabiflow.de</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 myAbiFlow &middot; Digitale Abiturvorbereitung f&uuml;r Bayern G9
+</footer>
+
+<script>
+/* ====== SCROLL REVEAL ====== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ====== SCROLL PROGRESS ====== */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = ((scrollTop / scrollHeight) * 100) + '%';
+}, { passive: true });
+
+/* ====== STICKY NAV ====== */
+const stickyNav = document.getElementById('stickyNav');
+const heroSection = document.getElementById('hero');
+const navObserver = new IntersectionObserver(([entry]) => {
+  stickyNav.classList.toggle('visible', !entry.isIntersecting);
+}, { threshold: 0.1 });
+navObserver.observe(heroSection);
+
+/* Active nav link */
+const navLinks = document.querySelectorAll('.sticky-nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.sticky-nav-links a[data-section="${entry.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ====== ANALYTICS MOCKUP: BARS ====== */
+function buildTutBars() {
+  const container = document.getElementById('tutBars');
+  if (!container || container.dataset.built) return;
+  container.dataset.built = '1';
+  const faecher = [
+    { name: 'Deutsch', value: 11, color: '#4f46e5' },
+    { name: 'Mathe', value: 8, color: '#7c3aed' },
+    { name: 'Englisch', value: 12, color: '#06b6d4' },
+    { name: 'Geschichte', value: 9, color: '#f59e0b' },
+    { name: 'Ethik', value: 10, color: '#10b981' },
+  ];
+  faecher.forEach((f, i) => {
+    const row = document.createElement('div');
+    row.className = 'mock-bar-row';
+    row.innerHTML = `
+      <span class="mock-bar-label">${f.name}</span>
+      <div class="mock-bar-track"><div class="mock-bar-fill" style="background:${f.color};" data-width="${(f.value/15)*100}"></div></div>
+      <span class="mock-bar-val">${f.value} NP</span>`;
+    container.appendChild(row);
+  });
+}
+
+/* ====== ANALYTICS MOCKUP: HEATMAP ====== */
+function buildTutHeatmap() {
+  const grid = document.getElementById('tutHeatmap');
+  if (!grid || grid.dataset.built) return;
+  grid.dataset.built = '1';
+  const faecher = ['De', 'Ma', 'En', 'Ge', 'Ek'];
+  const schueler = ['Anna', 'Ben', 'Lisa', 'Tom', 'Mia'];
+  const scores = [
+    [12, 10, 13, 11, 9],
+    [9, 8, 11, 7, 10],
+    [4, 3, 5, 2, 6],
+    [7, 6, 8, 9, 5],
+    [11, 13, 10, 12, 14],
+  ];
+
+  grid.style.gridTemplateColumns = '40px repeat(' + faecher.length + ', 1fr)';
+
+  // Header
+  const blank = document.createElement('div');
+  blank.style.cssText = 'font-size:.65rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+  grid.appendChild(blank);
+  faecher.forEach(f => {
+    const h = document.createElement('div');
+    h.style.cssText = 'font-size:.65rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+    h.textContent = f;
+    grid.appendChild(h);
+  });
+
+  schueler.forEach((s, si) => {
+    const label = document.createElement('div');
+    label.style.cssText = 'font-size:.65rem;font-weight:700;color:var(--ink-light);display:flex;align-items:center;justify-content:center;';
+    label.textContent = s;
+    grid.appendChild(label);
+    scores[si].forEach((score, fi) => {
+      const cell = document.createElement('div');
+      cell.className = 'mock-heatcell';
+      const color = score >= 10 ? '#10b981' : score >= 5 ? '#fbbf24' : '#ef4444';
+      cell.style.background = color;
+      cell.title = s + ' / ' + faecher[fi] + ': ' + score + ' NP';
+      cell.style.opacity = '0';
+      cell.style.transform = 'scale(0)';
+      grid.appendChild(cell);
+      setTimeout(() => {
+        cell.style.opacity = '1';
+        cell.style.transform = 'scale(1)';
+        cell.style.transition = 'opacity .4s, transform .4s';
+      }, 100 + fi * 60 + si * 40);
+    });
+  });
+}
+
+/* ====== ANIMATE BARS ON SCROLL ====== */
+const analyticsSection = document.getElementById('analytics');
+const analyticsObserver = new IntersectionObserver(([entry]) => {
+  if (entry.isIntersecting) {
+    buildTutBars();
+    buildTutHeatmap();
+    // Animate bars
+    setTimeout(() => {
+      document.querySelectorAll('.mock-bar-fill').forEach((bar, i) => {
+        setTimeout(() => {
+          bar.style.width = bar.dataset.width + '%';
+        }, i * 120);
+      });
+    }, 300);
+    analyticsObserver.disconnect();
+  }
+}, { threshold: 0.2 });
+if (analyticsSection) analyticsObserver.observe(analyticsSection);
+</script>
+</body>
+</html>
