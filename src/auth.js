@@ -274,7 +274,7 @@ export async function ensureMigrations(env) {
 
     await env.DB.prepare(`
       CREATE TABLE IF NOT EXISTS teacher_credit_usage (
-        id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+        id                 SERIAL PRIMARY KEY,
         teacher_id         TEXT NOT NULL,
         credit_id          TEXT NOT NULL,
         student_name_lower TEXT NOT NULL,
