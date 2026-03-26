@@ -208,6 +208,32 @@ export async function handleGetFeedback(request, env) {
   return jsonResponse({ feedback: rows.results || rows }, 200, env);
 }
 
+/* ================= DASHBOARD: REGISTRIERTE LEHRER ================= */
+export async function handleGetTeachers(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { results: teachers } = await env.DB.prepare(
+    "SELECT id, name, email, subjects, status, created_at FROM teachers ORDER BY created_at DESC"
+  ).all();
+
+  const safe = (teachers || []).map(t => ({
+    id: t.id,
+    name: t.name,
+    email: t.email || "",
+    subjects: JSON.parse(t.subjects || "[]"),
+    status: t.status || "approved",
+    created_at: t.created_at,
+  }));
+
+  return jsonResponse({ success: true, teachers: safe }, 200, env);
+}
+
 /* ================= DASHBOARD: FEEDBACK ALS WERTVOLL MARKIEREN ================= */
 export async function handleToggleFeedbackValuable(request, env) {
   const token = request.headers.get("X-Teacher-Token");

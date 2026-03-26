@@ -69,6 +69,29 @@ footer a { color: var(--accent); }
   margin-top: .3rem;
 }
 
+/* ====== SECTION HEADERS ====== */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin: 2rem 0 1rem;
+}
+.section-header h3 {
+  font-family: var(--font-display);
+  font-size: .82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+.section-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
 /* ====== TABLE ====== */
 .results-table {
   width: 100%;
@@ -415,6 +438,15 @@ footer a { color: var(--accent); }
         <div class="stat-value" id="statBest">–</div>
         <div class="stat-label">Bestes Ergebnis</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-value" id="statTeachers">0</div>
+        <div class="stat-label">Lehrer registriert</div>
+      </div>
+    </div>
+
+    <!-- ═══ Bereich: Verwaltung ═══ -->
+    <div class="section-header">
+      <h3>Verwaltung</h3>
     </div>
 
     <!-- Registered Students -->
@@ -501,6 +533,22 @@ footer a { color: var(--accent); }
         <div class="icon">🔑</div>
         <p>Noch keine Klassenpasswörter angelegt. Schüler können sich nur mit dem Master-Passwort registrieren.</p>
       </div>
+    </div>
+
+    <!-- Registrierte Lehrer -->
+    <div class="card" id="teachersCard">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
+        <h2 style="font-family:var(--font-display);">Registrierte Lehrer</h2>
+        <span id="teacherCountBadge" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
+      </div>
+      <div id="teachersList" style="display:grid;gap:.5rem;">
+        <p style="color:var(--ink-muted);font-size:.88rem;">Wird geladen …</p>
+      </div>
+    </div>
+
+    <!-- ═══ Bereich: Ergebnisse ═══ -->
+    <div class="section-header">
+      <h3>Ergebnisse &amp; Leistung</h3>
     </div>
 
     <!-- Student Overview Cards -->
@@ -725,6 +773,7 @@ async function loadResults() {
     renderAll();
     loadStudents();
     loadClassPasswords();
+    loadTeachers();
   } catch (e) {
     err.textContent = "Verbindungsfehler: " + e.message;
     err.style.display = "block";
@@ -1287,6 +1336,57 @@ async function deleteClassPassword(id, label) {
     body: JSON.stringify({ action: "delete", id })
   });
   loadClassPasswords();
+}
+
+/* ====== LEHRER-LISTE ====== */
+let allTeachers = [];
+
+async function loadTeachers() {
+  try {
+    const res = await fetch(API_BASE + "/api/dashboard-teachers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
+    });
+    if (res.status === 401) return;
+    const data = await res.json();
+    allTeachers = data.teachers || [];
+    document.getElementById("statTeachers").textContent = allTeachers.length;
+    renderTeachers();
+  } catch (e) {
+    document.getElementById("teachersList").innerHTML = '<p style="color:var(--warning);">Lehrer konnten nicht geladen werden.</p>';
+  }
+}
+
+function renderTeachers() {
+  const container = document.getElementById("teachersList");
+  const badge = document.getElementById("teacherCountBadge");
+  const approved = allTeachers.filter(t => t.status === "approved");
+  const pending = allTeachers.filter(t => t.status === "pending");
+  badge.textContent = allTeachers.length + " gesamt" + (pending.length ? " · " + pending.length + " ausstehend" : "");
+
+  if (!allTeachers.length) {
+    container.innerHTML = '<p style="color:var(--ink-muted);font-size:.88rem;">Noch keine Lehrer registriert.</p>';
+    return;
+  }
+
+  container.innerHTML = allTeachers.map(t => {
+    const d = t.created_at ? new Date(t.created_at) : null;
+    const dateStr = d ? d.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }) : "–";
+    const statusBadge = t.status === "approved"
+      ? '<span style="color:#059669;font-weight:700;font-size:.78rem;">Freigeschaltet</span>'
+      : '<span style="color:#f59e0b;font-weight:700;font-size:.78rem;">Ausstehend</span>';
+    const subjects = t.subjects.length ? t.subjects.map(s => '<span style="font-size:.72rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .4rem;border-radius:4px;font-weight:600;">' + escapeHtml(s) + '</span>').join(" ") : "";
+    return '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;padding:.8rem 1rem;border:1px solid var(--border-light);border-radius:var(--radius-sm);background:var(--surface);">' +
+      '<div style="display:flex;flex-direction:column;gap:.25rem;">' +
+        '<div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;">' +
+          '<strong style="font-size:.92rem;">' + escapeHtml(t.name) + '</strong> ' + statusBadge +
+        '</div>' +
+        (t.email ? '<span style="font-size:.8rem;color:var(--ink-muted);">' + escapeHtml(t.email) + '</span>' : '') +
+        (subjects ? '<div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem;">' + subjects + '</div>' : '') +
+      '</div>' +
+      '<span style="font-size:.78rem;color:var(--ink-muted);white-space:nowrap;">' + dateStr + '</span>' +
+    '</div>';
+  }).join("");
 }
 
 /* ====== SUBJECT MAPPING ====== */
