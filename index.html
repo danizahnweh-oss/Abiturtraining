@@ -959,69 +959,13 @@
       animation: staggerFadeIn .4s ease forwards
     }
 
-    .subject-card:nth-child(1) {
-      animation-delay: .05s
-    }
-
-    .subject-card:nth-child(2) {
-      animation-delay: .1s
-    }
-
-    .subject-card:nth-child(3) {
-      animation-delay: .15s
-    }
-
-    .subject-card:nth-child(4) {
-      animation-delay: .2s
-    }
-
-    .subject-card:nth-child(5) {
-      animation-delay: .25s
-    }
-
-    .subject-card:nth-child(6) {
-      animation-delay: .3s
-    }
-
-    .subject-card:nth-child(7) {
-      animation-delay: .35s
-    }
-
-    .subject-card:nth-child(8) {
-      animation-delay: .4s
-    }
-
-    .subject-card:nth-child(9) {
-      animation-delay: .45s
-    }
-
-    .subject-card:nth-child(10) {
-      animation-delay: .5s
-    }
-
-    .subject-card:nth-child(11) {
-      animation-delay: .55s
-    }
-
-    .subject-card:nth-child(12) {
-      animation-delay: .6s
-    }
-
-    .subject-card:nth-child(13) {
-      animation-delay: .65s
-    }
-
-    .subject-card:nth-child(14) {
-      animation-delay: .7s
-    }
-
-    .subject-card:nth-child(15) {
-      animation-delay: .75s
-    }
-
-    .subject-card:nth-child(16) {
-      animation-delay: .8s
-    }
+    .subject-card:nth-child(1) { animation-delay: .05s }
+    .subject-card:nth-child(2) { animation-delay: .1s }
+    .subject-card:nth-child(3) { animation-delay: .15s }
+    .subject-card:nth-child(4) { animation-delay: .2s }
+    .subject-card:nth-child(5) { animation-delay: .25s }
+    /* Ab Karte 6: alle gleichzeitig einblenden */
+    .subject-card:nth-child(n+6) { animation-delay: .3s }
 
     @keyframes staggerFadeIn {
       from {
@@ -1855,6 +1799,41 @@
         max-height: 95dvh;
         padding: 1.2rem
       }
+    }
+
+    /* ====== SMART CTA ====== */
+    .smart-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 16px;
+      padding: .7rem 1.3rem;
+      color: #fff;
+      font-size: .95rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      min-height: 48px
+    }
+    .smart-cta-btn:hover {
+      background: rgba(255,255,255,.25);
+      transform: translateY(-1px)
+    }
+    .smart-cta-btn:focus-visible {
+      outline: 3px solid rgba(255,255,255,.5);
+      outline-offset: 2px
+    }
+    .smart-cta-sub {
+      font-size: .75rem;
+      font-weight: 400;
+      opacity: .75;
+      margin-top: .1rem
     }
 
     /* ====== TWO-GRID LAYOUT ====== */
@@ -3237,6 +3216,12 @@
     </div>
     <script>
       (function () {
+        // Splash nur beim allerersten Besuch zeigen
+        if (localStorage.getItem('splash_seen')) {
+          var sp = document.getElementById('splash');
+          if (sp) sp.style.display = 'none';
+          return;
+        }
         // Immer helles Video laden (Light Mode ist Default)
         var vid = document.getElementById('splashVideo');
         vid.src = 'weiß.mp4';
@@ -3253,7 +3238,7 @@
             splash.style.animation = 'splash-fade-out .6s ease forwards';
             setTimeout(function () {
               splash.style.display = 'none';
-              sessionStorage.setItem('splash_shown', '1');
+              localStorage.setItem('splash_seen', '1');
             }, 700);
           }
         }
@@ -3440,6 +3425,8 @@
         </button>
       </div>
       <div id="countdownBar" class="countdown-bar" style="margin-top:1rem;"></div>
+      <!-- Personalisierter CTA -->
+      <div id="smartCta" style="display:none;margin-top:1rem;"></div>
     </div>
     <div class="kolloquium-banner">
       <button type="button" class="kolloquium-card training-card" onclick="openTrainingModal()" aria-label="Training starten">
@@ -3472,17 +3459,6 @@
           <div class="kol-desc">KI-Analyse deiner Stärken, Schwächen und Trends – personalisierte Empfehlungen für dein Abitur.</div>
         </div>
         <div class="kol-badge">KI-Analyse</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
-      </a>
-    </div>
-    <div class="kolloquium-banner">
-      <a href="aufgabe.html" class="kolloquium-card" aria-label="Aufgaben-Code eingeben">
-        <div class="kol-icon" aria-hidden="true">📋</div>
-        <div class="kol-body">
-          <div class="kol-title">Aufgaben-Code</div>
-          <div class="kol-desc">Hast du einen Code von deiner Lehrkraft? Gib ihn hier ein und bearbeite die Aufgabe.</div>
-        </div>
-        <div class="kol-badge">Code eingeben</div>
         <div class="kol-arrow" aria-hidden="true">→</div>
       </a>
     </div>
@@ -3567,17 +3543,35 @@
       <div class="exam-subjects-grid" id="examSubjectsGrid" aria-label="Deine Abiturfächer"></div>
     </div>
 
-    <!-- Weitere Faecher Sektion (kleinere Karten, nach Wizard sichtbar) -->
+    <!-- Weitere Faecher Sektion (kleinere Karten, nach Wizard sichtbar, einklappbar) -->
     <div id="additionalSubjectSection" style="display:none;">
       <div class="section-header">
-        <h3 class="section-label">Weitere Fächer</h3>
+        <button type="button" class="section-toggle-btn" onclick="toggleAdditionalSubjects()" aria-expanded="false" aria-controls="additionalSubjectsContent" style="display:flex;align-items:center;gap:.4rem;background:none;border:none;padding:0;cursor:pointer;font-family:inherit">
+          <span class="toggle-chevron" id="additionalChevron" style="font-size:.7rem;color:var(--ink-light);transition:transform .2s">▶</span>
+          <h3 class="section-label" style="margin:0">Weitere Fächer</h3>
+          <span id="additionalCount" style="font-size:.65rem;color:var(--ink-muted);margin-left:.2rem"></span>
+        </button>
         <button class="section-edit-btn" onclick="toggleAdditionalDateSettings()" type="button">📅 Termine</button>
       </div>
-      <div id="additionalDateSettings" class="exam-settings" style="display:none;">
-        <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine nächsten Prüfungstermine ein.</p>
-        <div id="additionalDateRows"></div>
+      <div id="additionalSubjectsContent" style="display:none;overflow:hidden;">
+        <div id="additionalDateSettings" class="exam-settings" style="display:none;">
+          <p style="margin:0 0 .5rem;font-size:.85rem;color:var(--ink-muted);">Trage deine nächsten Prüfungstermine ein.</p>
+          <div id="additionalDateRows"></div>
+        </div>
+        <div class="additional-subjects-grid" id="additionalSubjectsGrid" aria-label="Weitere Fächer"></div>
       </div>
-      <div class="additional-subjects-grid" id="additionalSubjectsGrid" aria-label="Weitere Fächer"></div>
+    </div>
+
+    <!-- Aufgaben-Code (unter Weitere Fächer) -->
+    <div class="kolloquium-banner" id="aufgabenCodeBanner" style="margin-top:.5rem">
+      <a href="aufgabe.html" class="kolloquium-card" aria-label="Aufgaben-Code eingeben" style="border-color:var(--border);opacity:.85">
+        <div class="kol-icon" aria-hidden="true">📋</div>
+        <div class="kol-body">
+          <div class="kol-title" style="color:var(--ink-light)">Aufgaben-Code</div>
+          <div class="kol-desc">Hast du einen Code von deiner Lehrkraft? Gib ihn hier ein.</div>
+        </div>
+        <div class="kol-arrow" aria-hidden="true" style="color:var(--ink-light)">→</div>
+      </a>
     </div>
 
     <!-- Haupt-Grid (Fallback wenn kein Wizard abgeschlossen) -->
@@ -5123,6 +5117,7 @@
             studentResults = data.results;
             renderProgressBar(data.results);
             renderLastActivity(data.results);
+            renderSmartCta(data.results);
           }
         })
         .catch(function () { });
@@ -5130,9 +5125,20 @@
 
     function renderProgressBar(results) {
       var bar = document.getElementById("progressBar");
-      if (!results.length) { bar.style.display = "none"; return; }
+      if (!results.length) {
+        bar.style.display = "";
+        bar.innerHTML = '<div style="text-align:center;padding:1rem 1.5rem;font-size:.88rem;color:var(--ink-muted);line-height:1.5">' +
+          '📊 <strong style="color:var(--ink)">Dein Fortschritt</strong><br>' +
+          'Starte deine erste Aufgabe – hier siehst du dann Punkte, Streak und mehr.</div>';
+        return;
+      }
 
       bar.style.display = "";
+      bar.innerHTML = '<div class="progress-stats">' +
+        '<div class="pstat"><span id="pStatTotal">0</span><small>Aufgaben</small></div>' +
+        '<div class="pstat"><span id="pStatAvg">&ndash;</span><small>&Oslash; Punkte</small></div>' +
+        '<div class="pstat"><span id="pStatStreak">0</span><small>Tage-Streak</small></div>' +
+        '</div>';
       document.getElementById("pStatTotal").textContent = results.length;
 
       var totals = results.map(function (r) { return r.total; }).filter(function (t) { return t != null; });
@@ -5171,6 +5177,81 @@
         }
       }
       document.getElementById("pStatStreak").textContent = streak;
+    }
+
+    function renderSmartCta(results) {
+      var el = document.getElementById("smartCta");
+      if (!el) return;
+      var isLoggedIn = !!sessionStorage.getItem("access_token");
+      if (!isLoggedIn) { el.style.display = "none"; return; }
+
+      var hasAbiSubjects = examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0;
+
+      // Priorität 1: Keine Abifächer konfiguriert
+      if (!hasAbiSubjects) {
+        el.style.display = "";
+        el.innerHTML = '<button type="button" class="smart-cta-btn" onclick="showAbiWizard()">' +
+          '<span style="font-size:1.3rem">🎯</span>' +
+          '<span>Richte deine 5 Abifächer ein<span class="smart-cta-sub" style="display:block">Personalisiertes Training & Countdown</span></span>' +
+          '<span style="opacity:.6">→</span></button>';
+        return;
+      }
+
+      // Priorität 2: Nächste Prüfung < 21 Tage
+      var examAll = examSubjectsCache.written.concat(examSubjectsCache.oral);
+      var soonestSubj = null, soonestDays = 999;
+      examAll.forEach(function(subj) {
+        var d = getExamDate(subj);
+        if (d) {
+          var days = Math.ceil((d - Date.now()) / 86400000);
+          if (days > 0 && days < soonestDays) { soonestDays = days; soonestSubj = subj; }
+        }
+      });
+      if (soonestSubj && soonestDays <= 21) {
+        el.style.display = "";
+        var name = SUBJECT_DISPLAY[soonestSubj] || soonestSubj;
+        el.innerHTML = '<button type="button" class="smart-cta-btn" onclick="selectSubject(\'' + soonestSubj + '\', true)">' +
+          '<span style="font-size:1.3rem">' + (SUBJECT_EMOJI[soonestSubj] || "📚") + '</span>' +
+          '<span>' + name + ' üben – noch ' + soonestDays + ' Tage<span class="smart-cta-sub" style="display:block">Deine nächste Prüfung steht bald an</span></span>' +
+          '<span style="opacity:.6">→</span></button>';
+        return;
+      }
+
+      // Priorität 3: Letzte Aktivität weiterführen
+      if (results && results.length > 0) {
+        var sorted = results.slice().sort(function(a,b) { return new Date(b.date) - new Date(a.date); });
+        var lastResult = sorted[0];
+        var lastSubj = null;
+        Object.keys(SUBJECT_TYPES).forEach(function(subj) {
+          if (SUBJECT_TYPES[subj].indexOf(lastResult.type) !== -1) lastSubj = subj;
+        });
+        if (lastSubj) {
+          var pts = lastResult.total != null ? Math.round(lastResult.total * 10) / 10 + " Punkte" : "";
+          var lastDate = new Date(lastResult.date);
+          var daysAgo = Math.floor((Date.now() - lastDate) / 86400000);
+          var when = daysAgo === 0 ? "heute" : daysAgo === 1 ? "gestern" : "vor " + daysAgo + " Tagen";
+          el.style.display = "";
+          el.innerHTML = '<button type="button" class="smart-cta-btn" onclick="selectSubject(\'' + lastSubj + '\', true)">' +
+            '<span style="font-size:1.3rem">' + (SUBJECT_EMOJI[lastSubj] || "📚") + '</span>' +
+            '<span>' + (SUBJECT_DISPLAY[lastSubj] || lastSubj) + ' weiterüben' + (pts ? ' – ' + pts : '') +
+            '<span class="smart-cta-sub" style="display:block">Zuletzt ' + when + ' geübt</span></span>' +
+            '<span style="opacity:.6">→</span></button>';
+          return;
+        }
+      }
+
+      // Priorität 4: Erstbesucher mit Abifächern
+      if (hasAbiSubjects && (!results || results.length === 0)) {
+        var firstSubj = examAll[0];
+        el.style.display = "";
+        el.innerHTML = '<button type="button" class="smart-cta-btn" onclick="selectSubject(\'' + firstSubj + '\', true)">' +
+          '<span style="font-size:1.3rem">🚀</span>' +
+          '<span>Starte dein erstes Training<span class="smart-cta-sub" style="display:block">Wähle ein Abifach und leg los</span></span>' +
+          '<span style="opacity:.6">→</span></button>';
+        return;
+      }
+
+      el.style.display = "none";
     }
 
     function renderLastActivity(results) {
@@ -5563,9 +5644,24 @@
       if (additionalSubjectsCache.length > 0) {
         if (additionalSection) additionalSection.style.display = "";
         renderAdditionalSubjectGrid();
+        // Anzahl anzeigen und eingeklappten Zustand wiederherstellen
+        var examAll = examSubjectsCache.written.concat(examSubjectsCache.oral);
+        var additionalCount = additionalSubjectsCache.filter(function(s) { return examAll.indexOf(s) === -1; }).length;
+        var countEl = document.getElementById("additionalCount");
+        if (countEl) countEl.textContent = "(" + additionalCount + ")";
+        var contentEl = document.getElementById("additionalSubjectsContent");
+        var chevronEl = document.getElementById("additionalChevron");
+        var toggleBtn = additionalSection.querySelector(".section-toggle-btn");
+        var wasOpen = localStorage.getItem("additionalSubjectsOpen") === "1";
+        if (contentEl) contentEl.style.display = wasOpen ? "" : "none";
+        if (chevronEl) chevronEl.style.transform = wasOpen ? "rotate(90deg)" : "";
+        if (toggleBtn) toggleBtn.setAttribute("aria-expanded", wasOpen);
       } else {
         if (additionalSection) additionalSection.style.display = "none";
       }
+
+      // Smart CTA aktualisieren (nutzt examSubjectsCache)
+      renderSmartCta(studentResults);
     }
 
     function renderExamSubjectGrid() {
@@ -5939,7 +6035,24 @@
       renderAdditionalDatePanel();
     }
 
+    function toggleAdditionalSubjects() {
+      var content = document.getElementById("additionalSubjectsContent");
+      var chevron = document.getElementById("additionalChevron");
+      var btn = content.parentElement.querySelector(".section-toggle-btn");
+      if (!content) return;
+      var isOpen = content.style.display !== "none";
+      content.style.display = isOpen ? "none" : "";
+      chevron.style.transform = isOpen ? "" : "rotate(90deg)";
+      btn.setAttribute("aria-expanded", !isOpen);
+      localStorage.setItem("additionalSubjectsOpen", isOpen ? "0" : "1");
+    }
+
     function toggleAdditionalDateSettings() {
+      // Bereich automatisch öffnen wenn eingeklappt
+      var content = document.getElementById("additionalSubjectsContent");
+      if (content && content.style.display === "none") {
+        toggleAdditionalSubjects();
+      }
       var panel = document.getElementById("additionalDateSettings");
       if (!panel) return;
       var isOpen = panel.style.display !== "none";
@@ -6827,7 +6940,7 @@
       var splash = document.getElementById("splash");
       if (!splash) return;
       var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (sessionStorage.getItem("splash_shown") || reducedMotion) {
+      if (localStorage.getItem("splash_seen") || reducedMotion) {
         splash.style.display = "none";
         return;
       }
@@ -6835,7 +6948,7 @@
       setTimeout(function () {
         if (splash.style.display !== "none") {
           splash.style.display = "none";
-          sessionStorage.setItem("splash_shown", "1");
+          localStorage.setItem("splash_seen", "1");
         }
       }, 15000);
     };
