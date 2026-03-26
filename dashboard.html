@@ -40,7 +40,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 .card { padding: 1.8rem; }
 footer a { color: var(--accent); }
 
-/* ====== STATS GRID ====== */
+/* ====== STATS GRID (farbig) ====== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -51,14 +51,37 @@ footer a { color: var(--accent); }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.2rem;
+  padding: 1.4rem 1.2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform .15s, box-shadow .15s;
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--stat-color, var(--accent));
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.stat-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin: 0 auto .6rem;
+  background: color-mix(in srgb, var(--stat-color, var(--accent)) 12%, transparent);
 }
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--stat-color, var(--accent));
+  line-height: 1;
 }
 .stat-label {
   font-size: .78rem;
@@ -66,31 +89,146 @@ footer a { color: var(--accent); }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .04em;
-  margin-top: .3rem;
+  margin-top: .4rem;
 }
+.stat-card--blue { --stat-color: #2563eb; }
+.stat-card--violet { --stat-color: #7c3aed; }
+.stat-card--green { --stat-color: #059669; }
+.stat-card--amber { --stat-color: #f59e0b; }
+.stat-card--pink { --stat-color: #db2777; }
+[data-theme="dark"] .stat-card--blue { --stat-color: #60a5fa; }
+[data-theme="dark"] .stat-card--violet { --stat-color: #a78bfa; }
+[data-theme="dark"] .stat-card--green { --stat-color: #34d399; }
+[data-theme="dark"] .stat-card--amber { --stat-color: #fbbf24; }
+[data-theme="dark"] .stat-card--pink { --stat-color: #f472b6; }
 
-/* ====== SECTION HEADERS ====== */
-.section-header {
+/* ====== QUICK ACTIONS ====== */
+.quick-actions {
+  display: flex;
+  gap: .6rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.quick-action-btn {
   display: flex;
   align-items: center;
-  gap: .8rem;
-  margin: 2rem 0 1rem;
+  gap: .5rem;
+  padding: .65rem 1.1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all .15s;
+  min-height: 44px;
 }
-.section-header h3 {
+.quick-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ====== COLLAPSIBLE CARDS ====== */
+.collapsible-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.collapsible-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  min-height: 56px;
+  transition: background .15s;
+}
+.collapsible-header::-webkit-details-marker { display: none; }
+.collapsible-header:hover { background: var(--accent-glow); }
+.collapsible-title {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.collapsible-title h2 {
   font-family: var(--font-display);
-  font-size: .82rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
+  margin: 0;
+}
+.collapsible-icon {
+  font-size: 1.2rem;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.collapsible-badge {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  font-weight: 700;
+  padding: .2rem .6rem;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.collapsible-chevron {
+  font-size: 1rem;
   color: var(--ink-muted);
+  transition: transform .2s ease;
+  flex-shrink: 0;
+  margin-left: .5rem;
+}
+details[open] > .collapsible-header .collapsible-chevron {
+  transform: rotate(180deg);
+}
+.collapsible-body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* ====== TAB NAV (scrollbar fuer 5 Tabs) ====== */
+.tab-nav {
+  display: flex;
+  gap: .3rem;
+  margin-bottom: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .3rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tab-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: 0 0 auto;
+  padding: .7rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  border: none;
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all .15s;
+  min-height: 44px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
 }
-.section-header::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
+.tab-btn:hover { color: var(--ink); background: var(--accent-glow); }
+.tab-btn.active { background: var(--accent); color: #fff; }
 
 /* ====== TABLE ====== */
 .results-table {
@@ -136,6 +274,7 @@ footer a { color: var(--accent); }
   transition: color .15s;
 }
 .delete-btn:hover { color: var(--warning); }
+.results-table tbody tr:nth-child(even) td { background: var(--accent-glow); }
 
 /* ====== CHART ====== */
 .chart-container {
@@ -201,33 +340,6 @@ footer a { color: var(--accent); }
   color: var(--ink-light);
 }
 .empty-state .icon { font-size: 2.5rem; margin-bottom: .8rem; }
-
-/* ====== TAB NAV ====== */
-.tab-nav {
-  display: flex;
-  gap: .3rem;
-  margin-bottom: 1.5rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: .3rem;
-}
-.tab-btn {
-  flex: 1;
-  padding: .7rem 1rem;
-  font-family: var(--font-body);
-  font-size: .9rem;
-  font-weight: 600;
-  border: none;
-  border-radius: calc(var(--radius) - 2px);
-  background: transparent;
-  color: var(--ink-light);
-  cursor: pointer;
-  transition: all .15s;
-  min-height: 44px;
-}
-.tab-btn:hover { color: var(--ink); background: var(--accent-glow); }
-.tab-btn.active { background: var(--accent); color: #fff; }
 
 /* ====== HEATMAP ====== */
 .heatmap-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -336,13 +448,22 @@ footer a { color: var(--accent); }
 .detail-subj-stats { font-size: .8rem; color: var(--ink-light); display: flex; gap: .6rem; }
 .detail-subj-stats strong { color: var(--accent); font-family: var(--font-mono); }
 
+/* ====== FEEDBACK FARBEN ====== */
+.feedback-card--bug { border-left: 4px solid #ef4444; }
+.feedback-card--wunsch { border-left: 4px solid #f59e0b; }
+.feedback-card--lob { border-left: 4px solid #10b981; }
+
 @media (max-width: 640px) {
   header { padding: .8rem 1rem; }
-  main { padding: 0 1rem; }
+  main { padding: 0 .75rem; }
   .card { padding: 1.2rem; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
+  .collapsible-body { padding: 0 1rem 1rem; }
+  .collapsible-header { padding: .8rem 1rem; }
   .detail-stats { grid-template-columns: 1fr 1fr; }
   .detail-body { padding: .8rem 1rem 2rem; }
+  .quick-actions { gap: .4rem; }
+  .quick-action-btn { padding: .5rem .8rem; font-size: .8rem; }
 }
 </style>
   <script type="application/ld+json">
@@ -412,222 +533,281 @@ footer a { color: var(--accent); }
   <main id="main-content">
     <!-- Tab Navigation -->
     <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('overview')">Übersicht</button>
-      <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
-      <button class="tab-btn" onclick="switchTab('feedback')">Feedback</button>
+      <button class="tab-btn active" onclick="switchTab('dashboard')"><span>📊</span> Dashboard</button>
+      <button class="tab-btn" onclick="switchTab('verwaltung')"><span>⚙️</span> Verwaltung</button>
+      <button class="tab-btn" onclick="switchTab('ergebnisse')"><span>📋</span> Ergebnisse</button>
+      <button class="tab-btn" onclick="switchTab('analytics')"><span>📈</span> Analytics</button>
+      <button class="tab-btn" onclick="switchTab('feedback')"><span>💬</span> Feedback</button>
     </div>
 
-    <!-- ═══════ TAB: ÜBERSICHT ═══════ -->
-    <div id="tab-overview">
+    <!-- ═══════ TAB: DASHBOARD ═══════ -->
+    <div id="tab-dashboard">
 
     <!-- Stats Overview -->
     <div class="stats-grid" id="statsGrid">
-      <div class="stat-card">
+      <div class="stat-card stat-card--blue">
+        <div class="stat-icon">👥</div>
         <div class="stat-value" id="statStudents">0</div>
         <div class="stat-label">Schüler</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card stat-card--violet">
+        <div class="stat-icon">📝</div>
         <div class="stat-value" id="statAttempts">0</div>
         <div class="stat-label">Versuche gesamt</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card stat-card--green">
+        <div class="stat-icon">📊</div>
         <div class="stat-value" id="statAverage">–</div>
-        <div class="stat-label">Ø Gesamt (/ 15)</div>
+        <div class="stat-label">Durchschnitt (/ 15)</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card stat-card--amber">
+        <div class="stat-icon">🏆</div>
         <div class="stat-value" id="statBest">–</div>
         <div class="stat-label">Bestes Ergebnis</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card stat-card--pink">
+        <div class="stat-icon">🎓</div>
         <div class="stat-value" id="statTeachers">0</div>
         <div class="stat-label">Lehrer registriert</div>
       </div>
     </div>
 
-    <!-- ═══ Bereich: Verwaltung ═══ -->
-    <div class="section-header">
-      <h3>Verwaltung</h3>
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-action-btn" onclick="switchTab('verwaltung')">➕ Neues Passwort</button>
+      <button class="quick-action-btn" onclick="exportCSV()">📊 CSV Export</button>
+      <button class="quick-action-btn" onclick="loadResults()">🔄 Aktualisieren</button>
+      <button class="quick-action-btn" onclick="switchTab('analytics')">⚠️ Warnsystem</button>
     </div>
 
+    <!-- Chart -->
+    <details class="collapsible-card" open>
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(37,99,235,.12);">📈</div>
+          <h2>Klassenentwicklung</h2>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div class="chart-container">
+          <canvas id="classChart" role="img" aria-label="Klassenentwicklung: Durchschnittliche Punktzahl aller Schüler im Zeitverlauf"></canvas>
+        </div>
+      </div>
+    </details>
+
+    </div><!-- /tab-dashboard -->
+
+    <!-- ═══════ TAB: VERWALTUNG ═══════ -->
+    <div id="tab-verwaltung" style="display:none">
+
     <!-- Registered Students -->
-    <div class="card" id="registeredStudentsCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
-        <h2 style="font-family:var(--font-display);">Registrierte Schüler</h2>
-        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+    <details class="collapsible-card" open id="registeredStudentsCard">
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(37,99,235,.12);">👤</div>
+          <h2>Registrierte Schüler</h2>
+          <span class="collapsible-badge" id="regStudentCount">0</span>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div class="filter-bar" style="margin-bottom:1rem;">
           <label for="filterStudentClass" class="sr-only">Klasse filtern</label>
-          <select id="filterStudentClass" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <select id="filterStudentClass" onchange="renderStudents()" style="font-size:16px;min-height:44px;">
             <option value="">Alle Klassen</option>
           </select>
           <label for="filterStudentFrom" class="sr-only">Registriert ab</label>
-          <input type="date" id="filterStudentFrom" onchange="renderStudents()" placeholder="Von" title="Registriert ab" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <input type="date" id="filterStudentFrom" onchange="renderStudents()" title="Registriert ab" style="font-size:16px;min-height:44px;">
           <label for="filterStudentTo" class="sr-only">Registriert bis</label>
-          <input type="date" id="filterStudentTo" onchange="renderStudents()" placeholder="Bis" title="Registriert bis" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <input type="date" id="filterStudentTo" onchange="renderStudents()" title="Registriert bis" style="font-size:16px;min-height:44px;">
           <label for="filterStudentSort" class="sr-only">Sortierung</label>
-          <select id="filterStudentSort" onchange="renderStudents()" style="padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);min-height:44px;">
+          <select id="filterStudentSort" onchange="renderStudents()" style="font-size:16px;min-height:44px;">
             <option value="name-asc">Name A–Z</option>
             <option value="date-desc">Neueste zuerst</option>
             <option value="date-asc">Älteste zuerst</option>
           </select>
-          <span id="regStudentCount" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
-          <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄 Aktualisieren</button>
+          <button class="btn btn-small" onclick="loadStudents()" style="min-height:44px;">🔄</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="results-table" id="studentsTable">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Klasse</th>
+                <th>Registriert am</th>
+                <th>Ausgeblendete Fächer</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="studentsBody"></tbody>
+          </table>
+        </div>
+        <div id="noRegistered" class="empty-state" style="display:none;">
+          <div class="icon">👤</div>
+          <p>Noch keine Schüler registriert.</p>
         </div>
       </div>
-      <div style="overflow-x:auto;">
-        <table class="results-table" id="studentsTable">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Klasse</th>
-              <th>Registriert am</th>
-              <th>Ausgeblendete Fächer</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="studentsBody"></tbody>
-        </table>
-      </div>
-      <div id="noRegistered" class="empty-state" style="display:none;">
-        <div class="icon">👤</div>
-        <p>Noch keine Schüler registriert.</p>
-      </div>
-    </div>
+    </details>
 
     <!-- Klassenpasswörter verwalten -->
-    <div class="card" id="classPasswordsCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
-        <h2 style="font-family:var(--font-display);">Klassenpasswörter</h2>
-        <button class="btn btn-small" onclick="toggleNewClassPassword()" style="min-height:44px;">+ Neues Passwort</button>
-      </div>
-      <div id="newClassPasswordForm" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);">
-        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;">
-          <div style="flex:1;min-width:150px;">
-            <label for="cpLabel" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
-            <input type="text" id="cpLabel" placeholder="z.B. 12a, Q12 Physik eA" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
-          </div>
-          <div style="flex:1;min-width:150px;">
-            <label for="cpPassword" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
-            <input type="text" id="cpPassword" placeholder="Schulcode" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
-          </div>
-          <button class="btn btn-small" onclick="createClassPassword()" style="min-height:44px;">Erstellen</button>
-          <button class="btn btn-small btn-secondary" onclick="toggleNewClassPassword()" style="min-height:44px;">Abbrechen</button>
+    <details class="collapsible-card" id="classPasswordsCard">
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(124,58,237,.12);">🔑</div>
+          <h2>Klassenpasswörter</h2>
+          <span class="collapsible-badge" id="classPasswordCount">0</span>
         </div>
-        <div id="cpError" style="color:#dc2626;font-size:.82rem;margin-top:.5rem;display:none;"></div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div style="margin-bottom:1rem;">
+          <button class="btn btn-small" onclick="toggleNewClassPassword()" style="min-height:44px;">+ Neues Passwort</button>
+        </div>
+        <div id="newClassPasswordForm" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--accent-glow);border:1px solid var(--border);border-radius:var(--radius-sm);">
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end;">
+            <div style="flex:1;min-width:150px;">
+              <label for="cpLabel" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Bezeichnung</label>
+              <input type="text" id="cpLabel" placeholder="z.B. 12a, Q12 Physik eA" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+            </div>
+            <div style="flex:1;min-width:150px;">
+              <label for="cpPassword" style="font-size:.78rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:.3rem;">Passwort</label>
+              <input type="text" id="cpPassword" placeholder="Schulcode" style="width:100%;padding:.5rem .8rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:16px;background:var(--surface);color:var(--ink);">
+            </div>
+            <button class="btn btn-small" onclick="createClassPassword()" style="min-height:44px;">Erstellen</button>
+            <button class="btn btn-small btn-secondary" onclick="toggleNewClassPassword()" style="min-height:44px;">Abbrechen</button>
+          </div>
+          <div id="cpError" style="color:#dc2626;font-size:.82rem;margin-top:.5rem;display:none;"></div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="results-table" id="classPasswordsTable">
+            <thead>
+              <tr>
+                <th>Bezeichnung</th>
+                <th>Passwort</th>
+                <th>Schüler</th>
+                <th>Status</th>
+                <th>Kostenlos</th>
+                <th>Erstellt</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="classPasswordsBody"></tbody>
+          </table>
+        </div>
+        <div id="noClassPasswords" class="empty-state" style="display:none;">
+          <div class="icon">🔑</div>
+          <p>Noch keine Klassenpasswörter angelegt.</p>
+        </div>
       </div>
-      <div style="overflow-x:auto;">
-        <table class="results-table" id="classPasswordsTable">
-          <thead>
-            <tr>
-              <th>Bezeichnung</th>
-              <th>Passwort</th>
-              <th>Sch&uuml;ler</th>
-              <th>Status</th>
-              <th>Kostenlos</th>
-              <th>Erstellt</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="classPasswordsBody"></tbody>
-        </table>
-      </div>
-      <div id="noClassPasswords" class="empty-state" style="display:none;">
-        <div class="icon">🔑</div>
-        <p>Noch keine Klassenpasswörter angelegt. Schüler können sich nur mit dem Master-Passwort registrieren.</p>
-      </div>
-    </div>
+    </details>
 
     <!-- Registrierte Lehrer -->
-    <div class="card" id="teachersCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
-        <h2 style="font-family:var(--font-display);">Registrierte Lehrer</h2>
-        <span id="teacherCountBadge" style="font-size:.82rem;color:var(--ink-muted);font-weight:600;"></span>
+    <details class="collapsible-card" id="teachersCard">
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(219,39,119,.12);">🎓</div>
+          <h2>Registrierte Lehrer</h2>
+          <span class="collapsible-badge" id="teacherCountBadge">0</span>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div id="teachersList" style="display:grid;gap:.5rem;">
+          <p style="color:var(--ink-muted);font-size:.88rem;">Wird geladen …</p>
+        </div>
       </div>
-      <div id="teachersList" style="display:grid;gap:.5rem;">
-        <p style="color:var(--ink-muted);font-size:.88rem;">Wird geladen …</p>
-      </div>
-    </div>
+    </details>
 
-    <!-- ═══ Bereich: Ergebnisse ═══ -->
-    <div class="section-header">
-      <h3>Ergebnisse &amp; Leistung</h3>
-    </div>
+    </div><!-- /tab-verwaltung -->
+
+    <!-- ═══════ TAB: ERGEBNISSE ═══════ -->
+    <div id="tab-ergebnisse" style="display:none">
 
     <!-- Student Overview Cards -->
-    <div class="card">
-      <h2 style="font-family:var(--font-display);margin-bottom:1rem;">Schüler-Übersicht (Ergebnisse)</h2>
-      <div id="studentGrid" class="student-grid"></div>
-      <div id="noStudents" class="empty-state" style="display:none;">
-        <div class="icon">📭</div>
-        <p>Noch keine Ergebnisse vorhanden.</p>
+    <details class="collapsible-card" open>
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(5,150,105,.12);">👥</div>
+          <h2>Schüler-Übersicht</h2>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div id="studentGrid" class="student-grid"></div>
+        <div id="noStudents" class="empty-state" style="display:none;">
+          <div class="icon">📭</div>
+          <p>Noch keine Ergebnisse vorhanden.</p>
+        </div>
       </div>
-    </div>
-
-    <!-- Chart -->
-    <div class="card">
-      <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Klassenentwicklung</h2>
-      <div class="chart-container">
-        <canvas id="classChart" role="img" aria-label="Klassenentwicklung: Durchschnittliche Punktzahl aller Schüler im Zeitverlauf"></canvas>
-      </div>
-    </div>
+    </details>
 
     <!-- Results Table -->
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1rem;">
-        <h2 style="font-family:var(--font-display);">Alle Ergebnisse</h2>
-        <div style="display:flex;gap:.5rem;">
+    <details class="collapsible-card">
+      <summary class="collapsible-header">
+        <div class="collapsible-title">
+          <div class="collapsible-icon" style="background:rgba(245,158,11,.12);">📋</div>
+          <h2>Alle Ergebnisse</h2>
+          <span class="collapsible-badge" id="resultCount">0</span>
+        </div>
+        <span class="collapsible-chevron">▾</span>
+      </summary>
+      <div class="collapsible-body">
+        <div style="display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap;">
           <button class="btn btn-small" onclick="loadResults()">🔄 Aktualisieren</button>
           <button class="btn btn-small btn-secondary" onclick="exportCSV()">📊 CSV Export</button>
         </div>
-      </div>
 
-      <div class="filter-bar">
-        <label for="filterCourse" class="sr-only">Klasse</label>
-        <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
-          <option value="">Alle Klassen</option>
-        </select>
-        <label for="filterSubject" class="sr-only">Fach</label>
-        <select id="filterSubject" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
-          <option value="">Alle Fächer</option>
-        </select>
-        <label for="filterStudent" class="sr-only">Schüler</label>
-        <select id="filterStudent" onchange="renderTable()">
-          <option value="">Alle Schüler</option>
-        </select>
-        <label for="filterSort" class="sr-only">Sortierung</label>
-        <select id="filterSort" onchange="renderTable()">
-          <option value="date-desc">Neueste zuerst</option>
-          <option value="date-asc">Älteste zuerst</option>
-          <option value="score-desc">Beste zuerst</option>
-          <option value="score-asc">Schwächste zuerst</option>
-          <option value="name-asc">Name A–Z</option>
-        </select>
-      </div>
+        <div class="filter-bar">
+          <label for="filterCourse" class="sr-only">Klasse</label>
+          <select id="filterCourse" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
+            <option value="">Alle Klassen</option>
+          </select>
+          <label for="filterSubject" class="sr-only">Fach</label>
+          <select id="filterSubject" onchange="renderTable(); renderStudentCards(); renderChart();" style="min-height:44px;">
+            <option value="">Alle Fächer</option>
+          </select>
+          <label for="filterStudent" class="sr-only">Schüler</label>
+          <select id="filterStudent" onchange="renderTable()">
+            <option value="">Alle Schüler</option>
+          </select>
+          <label for="filterSort" class="sr-only">Sortierung</label>
+          <select id="filterSort" onchange="renderTable()">
+            <option value="date-desc">Neueste zuerst</option>
+            <option value="date-asc">Älteste zuerst</option>
+            <option value="score-desc">Beste zuerst</option>
+            <option value="score-asc">Schwächste zuerst</option>
+            <option value="name-asc">Name A–Z</option>
+          </select>
+        </div>
 
-      <div style="overflow-x:auto;">
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th>Datum</th>
-              <th>Schüler</th>
-              <th>Kurs</th>
-              <th>Fach</th>
-              <th>Thema</th>
-              <th>Inhalt</th>
-              <th>Sprache</th>
-              <th>Gesamt</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="resultsBody"></tbody>
-        </table>
-      </div>
+        <div style="overflow-x:auto;">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Schüler</th>
+                <th>Kurs</th>
+                <th>Fach</th>
+                <th>Thema</th>
+                <th>Inhalt</th>
+                <th>Sprache</th>
+                <th>Gesamt</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
 
-      <div id="noResults" class="empty-state" style="display:none;">
-        <div class="icon">📋</div>
-        <p>Keine Ergebnisse für diesen Filter.</p>
+        <div id="noResults" class="empty-state" style="display:none;">
+          <div class="icon">📋</div>
+          <p>Keine Ergebnisse für diesen Filter.</p>
+        </div>
       </div>
-    </div>
+    </details>
 
-    </div><!-- /tab-overview -->
+    </div><!-- /tab-ergebnisse -->
 
     <!-- ═══════ TAB: ANALYTICS ═══════ -->
     <div id="tab-analytics" style="display:none">
@@ -892,6 +1072,8 @@ function renderTable() {
 
   const tbody = document.getElementById("resultsBody");
   const noResults = document.getElementById("noResults");
+  const rcBadge = document.getElementById("resultCount");
+  if (rcBadge) rcBadge.textContent = filtered.length;
 
   if (!filtered.length) {
     tbody.innerHTML = "";
@@ -908,7 +1090,7 @@ function renderTable() {
       <td>${dateStr}<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span></td>
       <td><strong>${escapeHtml(r.student_name)}</strong></td>
       <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(r.course || "–")}</span></td>
-      <td><span style="font-size:.8rem;">${(() => { const s = typeToSubject(r.type); return s ? (SUBJECT_NAMES[s] || r.type) : r.type; })()}</span></td>
+      <td>${(() => { const s = typeToSubject(r.type); const c = s ? SUBJECT_COLORS[s] || '#6366f1' : '#6366f1'; const n = s ? (SUBJECT_NAMES[s] || r.type) : r.type; return '<span style="font-size:.8rem;background:' + c + '15;color:' + c + ';padding:.15rem .5rem;border-radius:4px;font-weight:700;">' + n + '</span>'; })()}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(r.topic || "—")}</td>
       <td class="score-cell">${r.content ?? "–"}/15</td>
       <td class="score-cell">${r.language ?? "–"}/15</td>
@@ -1156,7 +1338,7 @@ function renderStudents() {
     }
   });
 
-  countEl.textContent = filtered.length + " Schüler";
+  countEl.textContent = filtered.length;
 
   if (!filtered.length) {
     tbody.innerHTML = "";
@@ -1248,6 +1430,8 @@ async function loadClassPasswords() {
 function renderClassPasswords() {
   const tbody = document.getElementById("classPasswordsBody");
   const noEl = document.getElementById("noClassPasswords");
+  const cpBadge = document.getElementById("classPasswordCount");
+  if (cpBadge) cpBadge.textContent = allClassPasswords.length;
   if (!allClassPasswords.length) {
     tbody.innerHTML = "";
     noEl.style.display = "block";
@@ -1360,9 +1544,8 @@ async function loadTeachers() {
 function renderTeachers() {
   const container = document.getElementById("teachersList");
   const badge = document.getElementById("teacherCountBadge");
-  const approved = allTeachers.filter(t => t.status === "approved");
   const pending = allTeachers.filter(t => t.status === "pending");
-  badge.textContent = allTeachers.length + " gesamt" + (pending.length ? " · " + pending.length + " ausstehend" : "");
+  badge.textContent = allTeachers.length + (pending.length ? " (" + pending.length + " ausstehend)" : "");
 
   if (!allTeachers.length) {
     container.innerHTML = '<p style="color:var(--ink-muted);font-size:.88rem;">Noch keine Lehrer registriert.</p>';
@@ -1435,15 +1618,21 @@ function typeToSubject(type) {
 }
 
 /* ====== TAB SWITCHING ====== */
+const TAB_IDS = ['dashboard', 'verwaltung', 'ergebnisse', 'analytics', 'feedback'];
 function switchTab(tab) {
-  document.getElementById("tab-overview").style.display = tab === "overview" ? "block" : "none";
-  document.getElementById("tab-analytics").style.display = tab === "analytics" ? "block" : "none";
-  document.getElementById("tab-feedback").style.display = tab === "feedback" ? "block" : "none";
-  document.querySelectorAll(".tab-nav > .tab-btn").forEach((btn, i) => {
-    btn.classList.toggle("active", (i === 0 && tab === "overview") || (i === 1 && tab === "analytics") || (i === 2 && tab === "feedback"));
+  TAB_IDS.forEach(t => {
+    const el = document.getElementById('tab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
   });
-  if (tab === "analytics") renderAnalytics();
-  if (tab === "feedback") loadFeedback();
+  document.querySelectorAll('.tab-nav > .tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', TAB_IDS[i] === tab);
+  });
+  if (tab === 'analytics') renderAnalytics();
+  if (tab === 'feedback') loadFeedback();
+  if (tab === 'dashboard') {
+    // Chart neu rendern falls Canvas-Größe sich geändert hat
+    setTimeout(() => { if (chartInstance) renderChart(); }, 50);
+  }
 }
 
 /* ====== FEEDBACK ====== */
@@ -1484,7 +1673,8 @@ function renderFeedback(items) {
     const page = f.page ? ' · <code style="font-size:.75rem;">' + escapeHtml(f.page) + '</code>' : '';
     const isValuable = f.valuable ? true : false;
     const starBtn = '<button class="feedback-star' + (isValuable ? ' active' : '') + '" onclick="toggleValuable(' + f.id + ', ' + !isValuable + ')" title="' + (isValuable ? 'Nicht mehr wertvoll' : 'Als wertvoll markieren') + '" style="background:none;border:none;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;padding:4px;border-radius:8px;transition:background .15s;">' + (isValuable ? '⭐' : '☆') + '</button>';
-    return '<div style="padding:12px 16px;border:1px solid ' + (isValuable ? 'var(--accent)' : 'var(--border)') + ';border-radius:var(--radius-sm,12px);background:' + (isValuable ? 'var(--accent-glow)' : 'var(--surface)') + ';transition:border-color .2s,background .2s;" data-feedback-id="' + f.id + '">' +
+    const catBorderColor = f.category === 'bug' ? '#ef4444' : f.category === 'wunsch' ? '#f59e0b' : f.category === 'lob' ? '#10b981' : 'transparent';
+    return '<div style="padding:12px 16px;border:1px solid ' + (isValuable ? 'var(--accent)' : 'var(--border)') + ';border-left:4px solid ' + catBorderColor + ';border-radius:var(--radius-sm,12px);background:' + (isValuable ? 'var(--accent-glow)' : 'var(--surface)') + ';transition:border-color .2s,background .2s;" data-feedback-id="' + f.id + '">' +
       '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
         starBtn +
         '<span style="font-size:1.4rem;">' + RATING_EMOJIS[f.rating] + '</span>' +
@@ -1925,6 +2115,17 @@ function closeStudentDetail() {
 window.onload = function() {
   initTheme();
   document.getElementById("login-screen").style.display = "flex";
+
+  // Chart in <details> neu rendern wenn geoeffnet
+  document.querySelectorAll('details.collapsible-card').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open && d.querySelector('canvas')) {
+        setTimeout(() => {
+          if (chartInstance && d.querySelector('#classChart')) renderChart();
+        }, 60);
+      }
+    });
+  });
 };
 </script>
 
