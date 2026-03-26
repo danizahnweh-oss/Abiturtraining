@@ -16,7 +16,7 @@ const feedbackRateLimitMap = new Map();
 import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePreferences, handleCheckReminders, handleChangePassword, handleUpdateProfile } from './handlers/student.js';
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
-import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers } from './handlers/dashboard.js';
+import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher } from './handlers/dashboard.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
@@ -269,6 +269,14 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleGetTeachers(request, env);
+      }
+
+      // ===== LEHRER FREISCHALTEN (Dashboard) =====
+      if (pathname === "/api/dashboard-approve-teacher" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleApproveTeacher(request, env);
       }
 
       // ===== FEEDBACK (Dashboard) =====
