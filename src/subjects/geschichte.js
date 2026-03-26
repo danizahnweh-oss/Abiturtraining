@@ -91,6 +91,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   "primary_text_a": "Die historische Textquelle M 1 (400-800 Wörter) MIT Quelleneinleitung",
   "primary_meta_a": "Quellenangabe: Autor, Textsorte, Datum",
   "zusatz_materialien": [
+    {"title": "Statistik: ...", "type": "statistik", "content": "| Jahr | Wert A (%) | Wert B (%) |\\n|---|---|---|\\n| 1871 | 4,8 | 3,2 |\\n| 1880 | 7,6 | 6,8 |", "source": "Quelle: ..."},
     {"title": "Schaubild: ...", "type": "bild", "content": "Bildprompt auf Englisch. Visuellen Inhalt beschreiben, NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1", "2": "Beschriftung 2"}, "source": ""}
   ],
   "task_instruction_b": "Vollständige Aufgabenstellung Teil B: 2 Teilaufgaben mit BE-Angaben in Klammern",
@@ -111,7 +112,9 @@ KRITISCH:
 - Teil A: 3 Teilaufgaben mit steigendem AFB und BE-Angaben in Klammern
 - Teil B: Eigenständige Darstellungsaufgabe mit BE-Angaben, ggf. mit Transfer zu ${transferSP.replace("_", "/")}
 - ALLE Materialien (Texte, Statistiken) müssen auf DEUTSCH sein! Bilder: NUR Nummern als Beschriftungen, KEINE Wörter!
-- Erstelle ergänzende Materialien (zusatz_materialien) NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist. Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!
+- Erstelle ergänzende Materialien (zusatz_materialien) NUR wenn sie in den Aufgabenstellungen referenziert werden ("mithilfe von M 2", "anhand von M 2"). Keine ungenutzten Materialien! BEVORZUGE "statistik" (Zeitleisten als Tabelle, Zahlenvergleiche) oder "foto" (historische Gebäude, Denkmäler, Gedenkstätten, Orte). Verwende "bild" NUR wenn ein Strukturdiagramm wirklich nötig ist.
+- STATISTIK-FORMAT: Statistiken MÜSSEN als Markdown-Tabelle mit Pipe-Zeichen formatiert sein! Beispiel: "| Jahr | Bevölkerung (Mio.) |\n|---|---|\n| 1871 | 41,0 |\n| 1890 | 49,4 |". NIEMALS als "1871: 41,0" oder andere Formate!
+- Der Bild-Prompt ist auf Englisch (5-10 Sätze) und beschreibt NUR den visuellen Inhalt. Verwende NUR NUMMERN (1, 2, 3...) als Beschriftungen im Bild statt Text. KEINE Wörter im Bild! Liefere zusätzlich "bild_labels" als Objekt: {"1": "Deutsche Beschriftung", ...}. KEINE Karikaturen oder Personen!
 AUFGABENBEZUG: JEDES bereitgestellte Material (inkl. Zusatzmaterialien) MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden. Es darf KEINE Materialien ohne Aufgabenbezug geben!`;
 
   const openaiRes = await callOpenAI(env, [

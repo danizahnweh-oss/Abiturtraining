@@ -750,6 +750,38 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
 
     function renderMd(text) { return DOMPurify.sanitize(marked.parse(text || "")); }
 
+    // Statistik-Content normalisieren: verschiedene Formate in gueltige Markdown-Tabelle umwandeln
+    function normalizeStatistik(content) {
+      if (!content) return content;
+      var lines = content.split("\n").filter(function(l) { return l.trim(); });
+      var hasSeparator = lines.some(function(l) { return /^\|[\s\-:|]+\|$/.test(l.trim()); });
+      var allPipes = lines.every(function(l) { return l.trim().startsWith("|") && l.trim().endsWith("|"); });
+      if (hasSeparator && allPipes) return content;
+      // Format "Header1 | Header2" (Pipes aber kein Markdown)
+      var pipeLines = lines.filter(function(l) { return l.includes("|"); });
+      if (pipeLines.length >= 2) {
+        var result = pipeLines.map(function(l, i) {
+          var cells = l.split("|").map(function(c) { return c.trim(); }).filter(Boolean);
+          var row = "| " + cells.join(" | ") + " |";
+          if (i === 0) row += "\n|" + cells.map(function() { return " --- "; }).join("|") + "|";
+          return row;
+        });
+        return result.join("\n");
+      }
+      // Format "1871: 4,8"
+      var kvLines = lines.filter(function(l) { return /^\d[\d\s.\/\-–]*[:]\s/.test(l.trim()); });
+      if (kvLines.length >= 2) {
+        var rows = kvLines.map(function(l) {
+          var parts = l.trim().split(/:\s+/);
+          return "| " + parts[0].trim() + " | " + parts.slice(1).join(" | ").trim() + " |";
+        });
+        var colCount = rows[0].split("|").length - 2;
+        var sep = "|" + Array(colCount).fill(" --- ").join("|") + "|";
+        return "| Jahr | Wert |" + "\n" + sep + "\n" + rows.join("\n");
+      }
+      return content;
+    }
+
     function renderTask(d) {
       // Multi-Aufgaben-Format: tasks-Array vom Backend
       if (d.tasks && d.tasks.length > 0) {
@@ -765,13 +797,14 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       const sourceEl = document.getElementById("sourceText");
       const metaEl = document.getElementById("sourceMeta");
 
-      if (pType === "statistik" && (d.primary_text || "").includes("|")) {
+      if (pType === "statistik") {
+        var normPrimary = normalizeStatistik(d.primary_text || "");
         titleEl.textContent = "Material M 1 — Statistik";
-        sourceEl.innerHTML = DOMPurify.sanitize(marked.parse(d.primary_text || ""));
+        sourceEl.innerHTML = DOMPurify.sanitize(marked.parse(normPrimary));
         sourceEl.innerHTML += `<div class="material-chart"><canvas id="chart-primary"></canvas></div>`;
         metaEl.textContent = d.primary_meta ? `Quelle: ${d.primary_meta}` : "";
         document.getElementById("writeSourceRef").innerHTML = sourceEl.innerHTML;
-        setTimeout(() => renderStatistikChart(d.primary_text, "chart-primary"), 100);
+        setTimeout(() => renderStatistikChart(normPrimary, "chart-primary"), 100);
       } else if (pType === "foto" || pType === "bild") {
         titleEl.textContent = "Material M 1 — " + (pType === "foto" ? "Historisches Foto" : "Bild");
         sourceEl.innerHTML = `<div class="material-img-loading" id="img-primary"><div class="loader-spinner"></div><span>${pType === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
@@ -809,12 +842,13 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
         materialNr++;
 
         let materialHtml;
-        if (pType === "statistik" && (t.primary_text || "").includes("|")) {
+        if (pType === "statistik") {
+          var normMulti = normalizeStatistik(t.primary_text || "");
           materialHtml = `<h4 class="card-header">M ${mNr}: Statistik</h4>
-            <div class="source-text">${DOMPurify.sanitize(marked.parse(t.primary_text || ""))}</div>
+            <div class="source-text">${DOMPurify.sanitize(marked.parse(normMulti))}</div>
             <div class="material-chart"><canvas id="chart-multi-${idx}"></canvas></div>
             ${meta}`;
-          pendingCharts.push({ text: t.primary_text, id: `chart-multi-${idx}` });
+          pendingCharts.push({ text: normMulti, id: `chart-multi-${idx}` });
         } else if (pType === "foto" || pType === "bild") {
           const imgId = `img-multi-${idx}`;
           materialHtml = `<h4 class="card-header">M ${mNr}: ${pType === "foto" ? "Historisches Foto" : "Bild"}</h4>
@@ -836,10 +870,11 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            body = DOMPurify.sanitize(marked.parse(m.content || ""));
+          if (m.type === "statistik") {
+            var normZm = normalizeStatistik(m.content || "");
+            body = DOMPurify.sanitize(marked.parse(normZm));
             body += `<div class="material-chart"><canvas id="chart-zm-${idx}-${mi}"></canvas></div>`;
-            pendingCharts.push({ text: m.content, id: `chart-zm-${idx}-${mi}` });
+            pendingCharts.push({ text: normZm, id: `chart-zm-${idx}-${mi}` });
           } else if (m.type === "bild" || m.type === "foto") {
             body = `<div class="material-img-loading" id="img-zm-${idx}-${mi}"><div class="loader-spinner"></div><span>${m.type === "foto" ? "Foto" : "Bild"} wird generiert...</span></div>`;
             pendingImages.push({ prompt: m.content, id: `img-zm-${idx}-${mi}`, labels: m.bild_labels || m.image_labels || null });
@@ -889,8 +924,9 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
           const typeBadges = { statistik: 'Statistik', bild: 'Bild', foto: 'Foto' };
           const typeBadge = `<span class="material-type-badge">${typeBadges[m.type] || 'Text'}</span>`;
           let body;
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            body = DOMPurify.sanitize(marked.parse(m.content || ""));
+          if (m.type === "statistik") {
+            var normZmContent = normalizeStatistik(m.content || "");
+            body = DOMPurify.sanitize(marked.parse(normZmContent));
             body += `<div class="material-chart"><canvas id="chart-${prefix}-${i}"></canvas></div>`;
           } else if (m.type === "bild") {
             body = `<div class="material-img-loading" id="img-${prefix}-${i}"><div class="loader-spinner"></div><span>Bild wird generiert...</span></div>`;
@@ -906,8 +942,8 @@ gesamt_np = round(verstehen_np * 0.7 + darstellung_np * 0.3)`;
       </div>`;
         }).join("") + '</div>';
         zm.forEach((m, i) => {
-          if (m.type === "statistik" && (m.content || "").includes("|")) {
-            renderStatistikChart(m.content, `chart-${prefix}-${i}`);
+          if (m.type === "statistik") {
+            renderStatistikChart(normalizeStatistik(m.content || ""), `chart-${prefix}-${i}`);
           } else if (m.type === "bild") {
             loadEducationalImage(m.content, `img-${prefix}-${i}`, m.bild_labels || m.image_labels || null);
           } else if (m.type === "foto") {
