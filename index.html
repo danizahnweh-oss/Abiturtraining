@@ -3212,7 +3212,7 @@
       <canvas id="splashCanvas" class="splash-wave-video" width="500" height="500"></canvas>
       <video id="splashVideo" muted playsinline preload="auto" style="display:none">
       </video>
-      <img src="logo.webp" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo" loading="eager" decoding="async" width="2095" height="431">
+      <img src="logo.webp" class="splash-logo" id="splashLogo" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" loading="eager" decoding="async" width="2095" height="431">
     </div>
     <script>
       (function () {
@@ -3345,7 +3345,7 @@
   <!-- ====== ROLE SELECTION SCREEN ====== -->
   <div id="role-screen" role="region" aria-label="Willkommen">
     <div class="role-box">
-      <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" loading="eager" decoding="async">
+      <img src="logo.webp" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" width="2095" height="431" loading="eager" decoding="async">
       <div class="abitur-badge">Dein Weg zum Abitur</div>
       <h1>Deine KI-gestützte Abitur-Vorbereitung für Bayern G9</h1>
       <p>Wähle deinen Bereich:</p>
@@ -3368,7 +3368,7 @@
   <div id="login-screen">
     <div class="login-box">
       <div style="text-align:center; margin-bottom:1.5rem;">
-        <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" loading="eager" decoding="async" style="height: 49px; width: auto;">
+        <img src="logo.webp" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" width="2095" height="431" loading="eager" decoding="async" style="height: 49px; width: auto;">
       </div>
       <div class="abitur-badge" id="abiturYearBadge">Abitur 2026</div>
       <div class="login-mode-toggle" role="tablist" aria-label="Anmeldemodus">
@@ -3400,7 +3400,7 @@
   <!-- ====== SUBJECT SELECTION SCREEN ====== -->
   <div id="subject-screen" role="main">
     <div class="subject-header">
-      <img src="logo.webp" alt="myAbiFlow Logo" width="2095" height="431" loading="lazy" decoding="async" style="height: 101px; width: auto;">
+      <img src="logo.webp" alt="myAbiFlow Logo – Abitur Vorbereitung Bayern" width="2095" height="431" loading="lazy" decoding="async" style="height: 101px; width: auto;">
       <div class="header-right">
         <span id="userInfo" style="font-size:.85rem;color:var(--ink-muted)"></span>
         <button class="logout-btn" id="pwaInstallBtn" onclick="pwaInstallPrompt()" aria-label="App installieren" style="display:none; background:var(--accent); color:#fff;">📲 App installieren</button>
@@ -6990,9 +6990,9 @@
       if (btn) btn.style.display = "none";
     }
   </script>
-  <script src="tour.js"></script>
-  <script src="ai-tutor.js"></script>
-  <script src="shared.js"></script>
+  <script src="tour.js" defer></script>
+  <script src="ai-tutor.js" defer></script>
+  <script src="shared.js" defer></script>
 </body>
 
 </html>
