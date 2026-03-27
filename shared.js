@@ -1692,7 +1692,7 @@ function renderOCRPages() {
   if (!ocrPages.length) { c.innerHTML = ""; return; }
   c.innerHTML = ocrPages.map((p, i) => `
     <div class="ocr-page-thumb ${p.status}">
-      <img src="${p.url}" alt="Seite ${i + 1}">
+      <img src="${p.url}" alt="Seite ${i + 1}" loading="lazy" decoding="async">
       <div class="page-num">Seite ${i + 1}</div>
       <button class="remove-page" onclick="removeOCRPage(${i})" title="Entfernen">✕</button>
     </div>
@@ -2167,7 +2167,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
           }).join('') + '</div>';
       }
     }
-    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);">' + labelsHtml + '</figure>';
+    el.innerHTML = '<figure class="material-figure"><img src="' + prompt + '" class="material-img" alt="Material" style="max-width:100%;border-radius:var(--radius-sm);" loading="lazy" decoding="async">' + labelsHtml + '</figure>';
     return;
   }
 
@@ -2263,7 +2263,7 @@ async function loadEducationalImage(prompt, containerId, labels, style, _isRetry
     el.innerHTML =
       '<figure class="edu-img-figure">' +
         '<div class="edu-img-wrapper">' +
-          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img">' +
+          '<img src="' + d.url + '" alt="' + altText + '" class="edu-img" loading="lazy" decoding="async">' +
         '</div>' +
         titleHtml + labelsHtml + numberedLegendHtml + caption + legendHtml + credit +
         aiNoticeHtml + regenBtnHtml +

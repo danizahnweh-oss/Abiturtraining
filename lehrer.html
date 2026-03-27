@@ -674,7 +674,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
 <!-- APP -->
 <div id="app-wrapper" style="display:none;">
   <header>
-    <a href="index.html" class="header-logo-link"><img src="logo-v2.png" alt="myAbiFlow – KI-Abiturtrainer Bayern" class="header-logo" width="65" height="15"></a>
+    <a href="index.html" class="header-logo-link"><img src="logo-v2.png" alt="myAbiFlow – KI-Abiturtrainer Bayern" class="header-logo" width="65" height="15" loading="eager" decoding="async"></a>
     <h2>Lehrer-<span>Bereich</span></h2>
     <div class="header-right">
       <span id="teacherGreeting" style="font-size:.85rem;font-weight:600;color:var(--ink-muted);"></span>
@@ -1823,7 +1823,7 @@ function renderMaterialPreviews() {
   area.style.display = "block";
   container.innerHTML = materialUploadFiles.map((f, i) => `
     <div style="position:relative;width:100px;height:100px;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);flex-shrink:0;">
-      <img src="${f.url}" style="width:100%;height:100%;object-fit:cover;" alt="Material ${i+1}">
+      <img src="${f.url}" style="width:100%;height:100%;object-fit:cover;" alt="Material ${i+1}" loading="lazy" decoding="async">
       <span style="position:absolute;top:2px;left:4px;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:1px 4px;border-radius:3px;">M ${i+1}</span>
       <button onclick="removeMaterial(${i})" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;font-size:.8rem;cursor:pointer;line-height:1;" aria-label="Material entfernen">&times;</button>
     </div>
@@ -1985,7 +1985,7 @@ function showTaskPreview() {
       } else if (mType === 'bild' || mType === 'foto') {
         const imgId = 'matImg_' + matKey + '_' + mi;
         if (m.image_url && m.image_url !== '[KV]') {
-          html += `<img id="${imgId}" src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}">`;
+          html += `<img id="${imgId}" src="${m.image_url}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;display:block;" alt="${esc(mTitle)}" loading="lazy" decoding="async">`;
         } else {
           html += `<div id="${imgId}" style="margin-top:.3rem;padding:1.5rem;background:var(--bg);border:2px dashed var(--border);border-radius:var(--radius-sm);text-align:center;color:var(--ink-light);font-size:.82rem;">KI-Bild (wird beim Teilen generiert)</div>`;
         }
