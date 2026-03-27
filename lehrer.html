@@ -158,7 +158,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
   animation: staggerFadeIn .4s ease forwards;
   transition: transform .2s, box-shadow .2s;
 }
-.landing-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,.08)); }
+/* Kein Hover: Feature-Cards sind nicht klickbar */
 .landing-card-icon { font-size: 2rem; margin-bottom: .6rem; }
 .landing-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--ink); margin: 0 0 .4rem; }
 .landing-card p { font-size: .85rem; color: var(--ink-light); line-height: 1.5; margin: 0; }
@@ -641,10 +641,9 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       <button class="tab-btn" id="modeRegister" onclick="setAuthMode('register')">Registrieren</button>
     </div>
 
-    <div id="registerHint" style="display:none;background:var(--bg-card,#f0f4ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;text-align:center;">
-      <p style="margin:0;font-size:.88rem;color:var(--ink,#1e293b);line-height:1.5;">
-        Sie sind Lehrkraft und möchten mit myAbiFlow Ihren Alltag erleichtern? Schicken Sie uns eine E-Mail an
-        <a href="mailto:info@myabiflow.de" style="color:var(--accent,#4f46e5);font-weight:600;">info@myabiflow.de</a>
+    <div id="registerHint" style="display:none;background:var(--accent-soft,#e0e7ff);border:1px solid var(--accent,#4f46e5);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+      <p style="margin:0;font-size:.88rem;color:var(--ink,#1e293b);line-height:1.5;text-align:center;">
+        <strong>Hinweis:</strong> Nach der Registrierung wird Ihr Konto innerhalb von 24 Stunden freigeschaltet. Sie erhalten eine E-Mail, sobald Sie loslegen können.
       </p>
     </div>
 
@@ -664,8 +663,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       <div id="registerSubjects" class="chips-wrap"></div>
     </div>
 
-    <br>
-    <button class="btn" style="width:100%" onclick="doAuth()" id="authBtn">Anmelden</button>
+    <button class="btn" style="width:100%;margin-top:1rem" onclick="doAuth()" id="authBtn">Anmelden</button>
     <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
     <p style="margin-top:1rem;font-size:.8rem;">
       <a href="index.html">Zurück zum Trainer</a>
@@ -707,15 +705,14 @@ main { max-width: 1100px; margin: 1.5rem auto; }
       </div>
     </div>
 
-    <div class="tab-nav" id="mainTabNav">
-      <button class="tab-btn active" onclick="switchTab('codes')">Meine Codes</button>
-      <button class="tab-btn" onclick="switchTab('tasks')">Aufgaben</button>
-      <button class="tab-btn" onclick="switchTab('students')">Meine Schüler</button>
-      <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+    <div class="tab-nav" id="mainTabNav" role="tablist" aria-label="Lehrer-Navigation">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-codes" onclick="switchTab('codes')">Meine Codes</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-tasks" onclick="switchTab('tasks')">Aufgaben</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-students" onclick="switchTab('students')">Übersicht</button>
     </div>
 
     <!-- TAB: CODES -->
-    <div id="tab-codes">
+    <div id="tab-codes" role="tabpanel">
       <div class="card" style="margin-bottom:1.5rem;">
         <h2 style="margin:0 0 1rem;">Klassen-Codes</h2>
         <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">
@@ -736,7 +733,7 @@ main { max-width: 1100px; margin: 1.5rem auto; }
     </div>
 
     <!-- TAB: AUFGABEN -->
-    <div id="tab-tasks" style="display:none;">
+    <div id="tab-tasks" role="tabpanel" style="display:none;">
       <div class="card" style="margin-bottom:1.5rem;">
         <h2 style="margin:0 0 1rem;">Aufgabe erstellen</h2>
         <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">
@@ -839,13 +836,13 @@ main { max-width: 1100px; margin: 1.5rem auto; }
         <h2 style="margin:0 0 1rem;">Gespeicherte Aufgaben</h2>
         <div id="tasksList" class="codes-grid"></div>
         <div id="tasksEmpty" style="display:none;text-align:center;padding:2rem;color:var(--ink-muted);font-size:.9rem;">
-          Noch keine Aufgaben erstellt.
+          📝 Noch keine Aufgaben erstellt.<br><span style="font-size:.82rem;opacity:.7;">Erstelle deine erste Aufgabe oben – wähle ein Fach und lass die KI den Rest machen.</span>
         </div>
       </div>
     </div>
 
     <!-- TAB: SCHUELER -->
-    <div id="tab-students" style="display:none;">
+    <div id="tab-students" role="tabpanel" style="display:none;">
       <div class="stats-grid" id="statsGrid"></div>
 
       <!-- Warnsystem -->
@@ -869,10 +866,8 @@ main { max-width: 1100px; margin: 1.5rem auto; }
           <table class="heatmap-table" id="heatmapTable"></table>
         </div>
       </div>
-    </div>
 
-    <!-- TAB: ANALYTICS -->
-    <div id="tab-analytics" style="display:none;">
+      <!-- Charts (ehemals Analytics-Tab) -->
       <div class="card" style="margin-bottom:1.5rem;">
         <h2 style="margin:0 0 1rem;">Fach-Übersicht</h2>
         <div style="max-height:400px;"><canvas id="subjectChart"></canvas></div>
@@ -1150,7 +1145,7 @@ function renderCodes() {
   empty.style.display = "none";
   grid.innerHTML = allCodes.map(c => `
     <div class="code-card ${c.active ? '' : 'inactive'}">
-      <div class="code-value" onclick="copyCode('${c.code}')" tabindex="0" role="button" aria-label="Code ${c.code} kopieren" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();copyCode('${c.code}')}" title="Klicken zum Kopieren">${c.code}</div>
+      <div class="code-value" onclick="copyCode('${c.code}')" tabindex="0" role="button" aria-label="Code ${c.code} kopieren" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();copyCode('${c.code}')}" title="Klicken zum Kopieren">${c.code} <span style="font-size:.6rem;vertical-align:middle;opacity:.5;">📋</span></div>
       <div class="code-label">${esc(c.label)}</div>
       <div class="code-meta">${c.student_count} Schüler · ${c.active ? 'Aktiv' : 'Deaktiviert'} · ${new Date(c.created_at).toLocaleDateString("de-DE")}</div>
       <div class="code-actions">
@@ -1214,17 +1209,18 @@ async function loadResults() {
 }
 
 /* ====== TABS ====== */
-const TAB_ORDER = ["codes", "tasks", "students", "analytics"];
+const TAB_ORDER = ["codes", "tasks", "students"];
 function switchTab(tab) {
   TAB_ORDER.forEach(t => {
     const el = document.getElementById("tab-" + t);
     if (el) el.style.display = t === tab ? "block" : "none";
   });
   document.querySelectorAll("#mainTabNav .tab-btn").forEach((btn, i) => {
-    btn.classList.toggle("active", TAB_ORDER[i] === tab);
+    const isActive = TAB_ORDER[i] === tab;
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-selected", isActive);
   });
-  if (tab === "students") renderStudentsTab();
-  if (tab === "analytics") renderAnalytics();
+  if (tab === "students") { renderStudentsTab(); renderAnalytics(); }
   if (tab === "tasks") loadTasks();
 }
 
@@ -1390,17 +1386,19 @@ function renderInsights() {
   });
   const topStr = Object.entries(strengths).sort((a,b) => b[1] - a[1]).slice(0, 8);
   const topWeak = Object.entries(weaknesses).sort((a,b) => b[1] - a[1]).slice(0, 8);
+  const totalResults = allResults.length;
   const grid = document.getElementById("insightsGrid");
   if (!topStr.length && !topWeak.length) {
     grid.innerHTML = '<p style="color:var(--text-secondary);grid-column:1/-1;">Noch keine Detail-Daten vorhanden.</p>';
     return;
   }
+  const fmtCount = (c) => `bei ${c} von ${totalResults} Bewertungen`;
   grid.innerHTML = `
     <div class="insight-box"><h3>Häufigste Stärken</h3>${topStr.length
-      ? '<ul class="insight-list">' + topStr.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count">${c}x</span></li>`).join("") + '</ul>'
+      ? '<ul class="insight-list">' + topStr.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count" title="${fmtCount(c)}">${c}×</span></li>`).join("") + '</ul>'
       : '<p style="color:var(--text-secondary);">Keine Daten</p>'}</div>
     <div class="insight-box"><h3>Häufigste Schwächen</h3>${topWeak.length
-      ? '<ul class="insight-list">' + topWeak.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count red">${c}x</span></li>`).join("") + '</ul>'
+      ? '<ul class="insight-list">' + topWeak.map(([s, c]) => `<li><span>${esc(s)}</span><span class="insight-count red" title="${fmtCount(c)}">${c}×</span></li>`).join("") + '</ul>'
       : '<p style="color:var(--text-secondary);">Keine Daten</p>'}</div>
   `;
 }
