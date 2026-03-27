@@ -2,6 +2,7 @@
 <html lang="de" data-accent="blue">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Lehrer-Dashboard von myAbiFlow – Nutzungsstatistiken und Verwaltung.">
 <link rel="manifest" href="manifest.json">
@@ -64,10 +65,7 @@ footer a { color: var(--accent); }
   height: 3px;
   background: var(--stat-color, var(--accent));
 }
-.stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
+/* Kein Hover-Effekt: Stat-Cards sind nicht klickbar */
 .stat-icon {
   width: 44px; height: 44px;
   border-radius: var(--radius-sm);
@@ -509,8 +507,7 @@ details[open] > .collapsible-header .collapsible-chevron {
            autocomplete="current-password"
            onkeyup="if(event.key==='Enter')loginTeacher()">
 
-    <br><br>
-    <button class="btn" style="width:100%" onclick="loginTeacher()">Anmelden</button>
+    <button class="btn" style="width:100%;margin-top:1rem" onclick="loginTeacher()">Anmelden</button>
     <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
     <p style="margin-top:1rem;font-size:.8rem;">
       <a href="lehrer.html">Lehrer-Login (eigenes Konto)</a> ·
@@ -532,16 +529,16 @@ details[open] > .collapsible-header .collapsible-chevron {
 
   <main id="main-content">
     <!-- Tab Navigation -->
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('dashboard')"><span>📊</span> Dashboard</button>
-      <button class="tab-btn" onclick="switchTab('verwaltung')"><span>⚙️</span> Verwaltung</button>
-      <button class="tab-btn" onclick="switchTab('ergebnisse')"><span>📋</span> Ergebnisse</button>
-      <button class="tab-btn" onclick="switchTab('analytics')"><span>📈</span> Analytics</button>
-      <button class="tab-btn" onclick="switchTab('feedback')"><span>💬</span> Feedback</button>
+    <div class="tab-nav" role="tablist" aria-label="Dashboard-Navigation">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-dashboard" onclick="switchTab('dashboard')"><span>📊</span> Dashboard</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-verwaltung" onclick="switchTab('verwaltung')"><span>⚙️</span> Verwaltung</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-ergebnisse" onclick="switchTab('ergebnisse')"><span>📋</span> Ergebnisse</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-analytics" onclick="switchTab('analytics')"><span>📈</span> Analytics</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-feedback" onclick="switchTab('feedback')"><span>💬</span> Feedback</button>
     </div>
 
     <!-- ═══════ TAB: DASHBOARD ═══════ -->
-    <div id="tab-dashboard">
+    <div id="tab-dashboard" role="tabpanel">
 
     <!-- Stats Overview -->
     <div class="stats-grid" id="statsGrid">
@@ -580,6 +577,16 @@ details[open] > .collapsible-header .collapsible-chevron {
       <button class="quick-action-btn" onclick="switchTab('analytics')">⚠️ Warnsystem</button>
     </div>
 
+    <!-- Warning-Banner (befüllt sich automatisch aus renderWarnSystem) -->
+    <div id="dashboardWarnings" style="display:none;margin-bottom:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem">⚠️</span>
+        <strong style="font-size:.85rem;color:var(--ink)">Brauchen Aufmerksamkeit</strong>
+        <span id="dashWarnCount" style="font-size:.72rem;font-weight:700;padding:.15rem .5rem;border-radius:99px;background:rgba(239,68,68,.12);color:#dc2626;font-family:var(--font-mono)"></span>
+      </div>
+      <div id="dashWarnCards" class="warn-grid"></div>
+    </div>
+
     <!-- Chart -->
     <details class="collapsible-card" open>
       <summary class="collapsible-header">
@@ -599,7 +606,7 @@ details[open] > .collapsible-header .collapsible-chevron {
     </div><!-- /tab-dashboard -->
 
     <!-- ═══════ TAB: VERWALTUNG ═══════ -->
-    <div id="tab-verwaltung" style="display:none">
+    <div id="tab-verwaltung" role="tabpanel" style="display:none">
 
     <!-- Registered Students -->
     <details class="collapsible-card" open id="registeredStudentsCard">
@@ -722,7 +729,7 @@ details[open] > .collapsible-header .collapsible-chevron {
     </div><!-- /tab-verwaltung -->
 
     <!-- ═══════ TAB: ERGEBNISSE ═══════ -->
-    <div id="tab-ergebnisse" style="display:none">
+    <div id="tab-ergebnisse" role="tabpanel" style="display:none">
 
     <!-- Student Overview Cards -->
     <details class="collapsible-card" open>
@@ -810,7 +817,7 @@ details[open] > .collapsible-header .collapsible-chevron {
     </div><!-- /tab-ergebnisse -->
 
     <!-- ═══════ TAB: ANALYTICS ═══════ -->
-    <div id="tab-analytics" style="display:none">
+    <div id="tab-analytics" role="tabpanel" style="display:none">
 
       <!-- Warnsystem -->
       <div class="card" id="warnCard" style="display:none">
@@ -863,7 +870,7 @@ details[open] > .collapsible-header .collapsible-chevron {
     </div><!-- /tab-analytics -->
 
     <!-- ═══════ TAB: FEEDBACK ═══════ -->
-    <div id="tab-feedback" style="display:none">
+    <div id="tab-feedback" role="tabpanel" style="display:none">
       <div class="card">
         <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Schüler-Feedback</h2>
         <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Rückmeldungen zur Website von Schülern</p>
@@ -1651,7 +1658,9 @@ function switchTab(tab) {
     if (el) el.style.display = t === tab ? 'block' : 'none';
   });
   document.querySelectorAll('.tab-nav > .tab-btn').forEach((btn, i) => {
-    btn.classList.toggle('active', TAB_IDS[i] === tab);
+    const isActive = TAB_IDS[i] === tab;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive);
   });
   if (tab === 'analytics') renderAnalytics();
   if (tab === 'feedback') loadFeedback();
@@ -1931,18 +1940,35 @@ function renderWarnSystem() {
     }
   });
 
-  if (!warnings.length) {
-    card.style.display = "none";
-    return;
-  }
-
-  card.style.display = "block";
-  grid.innerHTML = warnings.map(w => {
+  // Warning-HTML generieren
+  const warnHtml = warnings.map(w => {
     const courseTag = w.course ? ' <span style="font-size:.7rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .3rem;border-radius:3px;">' + escapeHtml(w.course) + '</span>' : '';
     return '<div class="warn-card' + (w.level === "yellow" ? " warn-yellow" : "") + '">' +
       '<div class="warn-name">' + escapeHtml(w.name) + courseTag + '</div>' +
       '<div class="warn-reason">' + escapeHtml(w.reason) + '</div></div>';
   }).join("");
+
+  // Analytics-Tab Warning-Card
+  if (!warnings.length) {
+    card.style.display = "none";
+  } else {
+    card.style.display = "block";
+    grid.innerHTML = warnHtml;
+  }
+
+  // Dashboard Warning-Banner
+  const dashWarn = document.getElementById("dashboardWarnings");
+  const dashCards = document.getElementById("dashWarnCards");
+  const dashCount = document.getElementById("dashWarnCount");
+  if (dashWarn) {
+    if (!warnings.length) {
+      dashWarn.style.display = "none";
+    } else {
+      dashWarn.style.display = "";
+      dashCards.innerHTML = warnHtml;
+      dashCount.textContent = warnings.length;
+    }
+  }
 }
 
 function renderTrendChart() {
