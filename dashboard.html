@@ -587,6 +587,26 @@ details[open] > .collapsible-header .collapsible-chevron {
       <div id="dashWarnCards" class="warn-grid"></div>
     </div>
 
+    <!-- Pending Teachers Alert -->
+    <div id="dashPendingTeachers" style="display:none;margin-bottom:1rem;padding:1rem 1.2rem;border:1px solid #f59e0b40;border-left:4px solid #f59e0b;border-radius:var(--radius);background:rgba(245,158,11,.04);">
+      <div style="display:flex;align-items:center;gap:.6rem;justify-content:space-between;flex-wrap:wrap;">
+        <div>
+          <strong style="font-size:.9rem;">🔔 Lehrer warten auf Freischaltung</strong>
+          <p id="dashPendingTeacherNames" style="margin:.3rem 0 0;font-size:.82rem;color:var(--ink-light);"></p>
+        </div>
+        <button class="btn btn-small" onclick="switchTab('verwaltung')" style="white-space:nowrap;min-height:44px;">Zur Verwaltung →</button>
+      </div>
+    </div>
+
+    <!-- Registrierte Schüler (Kurz-Übersicht) -->
+    <div id="dashStudentsSummary" style="display:none;margin-bottom:1rem;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;">
+        <strong style="font-size:.9rem;">👥 Registrierte Schüler <span id="dashStudentCount" style="font-size:.78rem;font-weight:700;padding:.1rem .5rem;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-family:var(--font-mono);margin-left:.3rem;"></span></strong>
+        <button class="btn-small btn-secondary" onclick="switchTab('verwaltung')" style="font-size:.78rem;">Alle anzeigen →</button>
+      </div>
+      <div id="dashStudentList" style="display:flex;flex-wrap:wrap;gap:.4rem;"></div>
+    </div>
+
     <!-- Chart -->
     <details class="collapsible-card" open>
       <summary class="collapsible-header">
@@ -1373,6 +1393,28 @@ function renderStudents() {
       <td><button class="delete-btn" onclick="deleteStudent('${escapeHtml(s.name).replace(/'/g, "\\'")}')" title="Schüler entfernen" style="min-width:44px;min-height:44px;">✕</button></td>
     </tr>`;
   }).join("");
+
+  // Dashboard Schüler-Übersicht aktualisieren
+  renderDashStudents();
+}
+
+function renderDashStudents() {
+  const summary = document.getElementById("dashStudentsSummary");
+  const list = document.getElementById("dashStudentList");
+  const count = document.getElementById("dashStudentCount");
+  if (!summary) return;
+  if (!allStudents.length) { summary.style.display = "none"; return; }
+  summary.style.display = "";
+  count.textContent = allStudents.length;
+  // Letzte 20 Schüler als Pills anzeigen
+  const recent = [...allStudents].sort((a,b) => (b.date||"").localeCompare(a.date||"")).slice(0, 20);
+  list.innerHTML = recent.map(s => {
+    const cls = s.class_group ? ' <span style="font-size:.65rem;opacity:.6;">' + escapeHtml(s.class_group) + '</span>' : '';
+    return '<span style="display:inline-flex;align-items:center;gap:.2rem;font-size:.78rem;font-weight:600;padding:.25rem .6rem;border-radius:8px;border:1px solid var(--border);background:var(--surface);">' + escapeHtml(s.name) + cls + '</span>';
+  }).join("");
+  if (allStudents.length > 20) {
+    list.innerHTML += '<span style="font-size:.78rem;color:var(--ink-muted);padding:.25rem .4rem;">+' + (allStudents.length - 20) + ' weitere</span>';
+  }
 }
 
 async function deleteStudent(name) {
@@ -1553,6 +1595,18 @@ function renderTeachers() {
   const badge = document.getElementById("teacherCountBadge");
   const pending = allTeachers.filter(t => t.status === "pending");
   badge.textContent = allTeachers.length + (pending.length ? " (" + pending.length + " ausstehend)" : "");
+
+  // Dashboard Alert für ausstehende Lehrer
+  const dashPending = document.getElementById("dashPendingTeachers");
+  const dashPendingNames = document.getElementById("dashPendingTeacherNames");
+  if (dashPending) {
+    if (pending.length > 0) {
+      dashPending.style.display = "";
+      dashPendingNames.textContent = pending.map(t => t.name).join(", ");
+    } else {
+      dashPending.style.display = "none";
+    }
+  }
 
   if (!allTeachers.length) {
     container.innerHTML = '<p style="color:var(--ink-muted);font-size:.88rem;">Noch keine Lehrer registriert.</p>';
