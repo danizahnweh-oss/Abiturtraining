@@ -283,6 +283,61 @@
       color: var(--accent-inf)
     }
 
+    /* ====== QUICK ACTIONS BAR ====== */
+    .quick-actions-bar {
+      max-width: 1000px;
+      width: 100%;
+      margin: 1rem auto 0;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap
+    }
+    .quick-action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .55rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all .15s;
+      text-decoration: none;
+      min-height: 44px
+    }
+    .quick-action-pill:hover,
+    .quick-action-pill:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+      box-shadow: var(--shadow-sm)
+    }
+    .quick-action-pill:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px
+    }
+    .qap-icon { font-size: 1.1rem; flex-shrink: 0 }
+    .qap-label { white-space: nowrap }
+    .qap-badge {
+      font-size: .6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      padding: .15rem .4rem;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--accent)
+    }
+    @media (max-width: 480px) {
+      .quick-actions-bar { padding: 0 .75rem; gap: .4rem }
+      .quick-action-pill { padding: .5rem .75rem; font-size: .78rem }
+    }
+
     /* ====== KOLLOQUIUM TRAINER BANNER ====== */
     .kolloquium-banner {
       max-width: 1000px;
@@ -2658,6 +2713,12 @@
         opacity: 1
       }
 
+      .toggle-chevron,
+      .kolloquium-card,
+      .quick-action-pill {
+        transition: none
+      }
+
     }
 
     /* ====== MOBILE (#4) ====== */
@@ -3428,38 +3489,19 @@
       <!-- Personalisierter CTA -->
       <div id="smartCta" style="display:none;margin-top:1rem;"></div>
     </div>
-    <div class="kolloquium-banner">
-      <button type="button" class="kolloquium-card training-card" onclick="openTrainingModal()" aria-label="Training starten">
-        <div class="kol-icon" aria-hidden="true">📝</div>
-        <div class="kol-body">
-          <div class="kol-title" style="color:var(--accent)">Training starten</div>
-          <div class="kol-desc">Wähle ein Fach und starte direkt mit dem Üben – schriftliche Aufgaben, Abiturtraining und mehr.</div>
-        </div>
-        <div class="kol-badge" style="background:var(--accent-soft,rgba(59,130,246,.1));color:#3730a3">Fach wählen</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
+    <div class="quick-actions-bar">
+      <button type="button" class="quick-action-pill" onclick="openTrainingModal()" aria-label="Training starten">
+        <span class="qap-icon">📝</span>
+        <span class="qap-label">Training starten</span>
       </button>
-    </div>
-    <div class="kolloquium-banner">
-      <a href="#" class="kolloquium-card" onclick="requireLogin(function(){ window.location.href='abitur-kolloquium-trainer/dist/'; }); return false;" aria-label="Kolloquiumstrainer öffnen">
-        <div class="kol-icon" aria-hidden="true">🎤</div>
-        <div class="kol-body">
-          <div class="kol-title">Kolloquiumstrainer</div>
-          <div class="kol-desc">Simuliere mündliche Abiturprüfungen mit KI – Echtzeit-Dialog, Fachwissen-Check und
-            sofortiges Feedback.</div>
-        </div>
-        <div class="kol-badge">Live · KI-Prüfer</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
+      <a href="#" class="quick-action-pill" onclick="requireLogin(function(){ window.location.href='abitur-kolloquium-trainer/dist/'; }); return false;" aria-label="Kolloquiumstrainer öffnen">
+        <span class="qap-icon">🎤</span>
+        <span class="qap-label">Kolloquium</span>
+        <span class="qap-badge">Live</span>
       </a>
-    </div>
-    <div id="profilLink" class="kolloquium-banner" style="display:none">
-      <a href="profil.html" class="kolloquium-card profil-card" aria-label="Mein Kompetenzprofil öffnen">
-        <div class="kol-icon" aria-hidden="true">📊</div>
-        <div class="kol-body">
-          <div class="kol-title">Mein Kompetenzprofil</div>
-          <div class="kol-desc">KI-Analyse deiner Stärken, Schwächen und Trends – personalisierte Empfehlungen für dein Abitur.</div>
-        </div>
-        <div class="kol-badge">KI-Analyse</div>
-        <div class="kol-arrow" aria-hidden="true">→</div>
+      <a href="profil.html" class="quick-action-pill" id="profilLink" style="display:none" aria-label="Mein Kompetenzprofil">
+        <span class="qap-icon">📊</span>
+        <span class="qap-label">Kompetenzprofil</span>
       </a>
     </div>
     <div id="progressBar" class="progress-bar">
@@ -4783,6 +4825,14 @@
       var examGrid = document.getElementById("examSubjectsGrid");
       var isVisible = localStorage.getItem("countdown_visible") !== "0";
 
+      // Globalen Countdown ausblenden wenn Abifächer mit eigenen Countdowns sichtbar sind
+      var hasAbiSubjects = examSubjectsCache && (examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0);
+      if (hasAbiSubjects) {
+        if (bar) bar.style.display = "none";
+        if (toggle) toggle.style.display = "none";
+        return;
+      }
+
       var cohortToggleHtml = '<div class="cohort-toggle">' +
         '<button class="cohort-btn' + (cohort === "q12" ? " active" : "") + '" onclick="switchCohort(\'q12\')">Q12</button>' +
         '<button class="cohort-btn' + (cohort === "q13" ? " active" : "") + '" onclick="switchCohort(\'q13\')">Q13</button>' +
@@ -5402,6 +5452,12 @@
       localStorage.setItem(LS_WIZARD_KEY, "1");
       document.getElementById("abiWizardOverlay").style.display = "none";
       renderSubjectLayout();
+      // Tour nach Wizard starten
+      if (!isTourDone("onboarding_done")) {
+        setTimeout(function () {
+          startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
+        }, 500);
+      }
     }
 
     function finishAbiWizard() {
@@ -5411,6 +5467,12 @@
       saveAllPreferences();
       document.getElementById("abiWizardOverlay").style.display = "none";
       renderSubjectLayout();
+      // Tour nach Wizard starten
+      if (!isTourDone("onboarding_done")) {
+        setTimeout(function () {
+          startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
+        }, 500);
+      }
     }
 
     function wizardGoToStep1() {
@@ -5629,15 +5691,18 @@
       var mainGrid = document.getElementById("mainSubjectGrid");
       var examSection = document.getElementById("examSubjectSection");
       var additionalSection = document.getElementById("additionalSubjectSection");
+      var filterBar = document.querySelector(".subject-filter-bar");
 
       if (!hasAbiSubjects) {
         if (mainGrid) mainGrid.style.display = "";
         if (examSection) examSection.style.display = "none";
         if (additionalSection) additionalSection.style.display = "none";
+        if (filterBar) filterBar.style.display = "";
         return;
       }
 
       if (mainGrid) mainGrid.style.display = "none";
+      if (filterBar) filterBar.style.display = "none";
       if (examSection) examSection.style.display = "";
       renderExamSubjectGrid();
 
@@ -6120,6 +6185,29 @@
     }
 
     function renderReminders(reminders) {
+      var hasAbiSubjects = examSubjectsCache && (examSubjectsCache.written.length > 0 || examSubjectsCache.oral.length > 0);
+
+      // Alte Badges entfernen
+      document.querySelectorAll(".reminder-badge").forEach(function(b) { b.remove(); });
+
+      // Badges direkt auf Abifach-Cards wenn Two-Grid aktiv
+      if (hasAbiSubjects) {
+        reminders.forEach(function(r) {
+          var card = document.querySelector("#examSubjectsGrid .subject-card." + r.subject);
+          if (!card) return;
+          var days = r.daysSince === null ? "Noch nie geübt" : r.daysSince + "d nicht geübt";
+          var badge = document.createElement("span");
+          badge.className = "reminder-badge";
+          badge.textContent = days;
+          badge.style.cssText = "position:absolute;top:.35rem;right:.35rem;font-size:.55rem;font-weight:700;padding:.15rem .4rem;border-radius:6px;background:rgba(245,158,11,.15);color:#b45309;white-space:nowrap;z-index:1";
+          card.style.position = "relative";
+          card.appendChild(badge);
+        });
+        document.getElementById("reminderBanner").style.display = "none";
+        return;
+      }
+
+      // Fallback: Banner wenn kein Two-Grid-Layout
       var container = document.getElementById("reminderItems");
       container.innerHTML = "";
 
@@ -6255,15 +6343,17 @@
             var _remBtn = document.getElementById("reminderSettingsBtn");
             if (_remBtn) _remBtn.style.display = "";
             if (!localStorage.getItem(LS_WIZARD_KEY)) {
+              // Wizard anzeigen – Tour erst NACH Wizard starten (sonst ueberdeckt Tour den Wizard)
               setTimeout(function () { showAbiWizard(); }, 500);
+            } else {
+              // Kein Wizard noetig → Tour direkt starten
+              if (!isTourDone("onboarding_done")) {
+                setTimeout(function () {
+                  startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
+                }, 600);
+              }
             }
           });
-          // Start onboarding if first time
-          if (!isTourDone("onboarding_done")) {
-            setTimeout(function () {
-              startTour({ steps: indexTourSteps, storageKey: "onboarding_done" });
-            }, 600);
-          }
         } else {
           err.textContent = data.error || "Fehler bei der Anmeldung.";
           err.style.display = "block";
