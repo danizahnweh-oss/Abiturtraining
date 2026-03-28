@@ -7,7 +7,7 @@
   <meta name="description" content="Englisch Textproduktion üben fürs bayerische Abitur – Essays, Comments und mehr mit KI-Feedback auf myAbiFlow.">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#4f46e5">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev https://www.google-analytics.com https://region1.google-analytics.com; media-src 'self' blob:; worker-src 'self' blob:;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://myabiflow.de https://*.myabiflow.de https://generativelanguage.googleapis.com https://sag-abi-mediation-api.sanktannagymnasium.workers.dev https://www.google-analytics.com https://region1.google-analytics.com https://www.google.com https://www.googletagmanager.com; media-src 'self' blob:; worker-src 'self' blob:;">
   <title>Englisch Textproduktion üben – Abitur Bayern G9 · myAbiFlow</title>
   <meta property="og:title" content="Englisch Textproduktion üben – Abitur Bayern G9 · myAbiFlow">
   <meta property="og:description" content="Englisch Textproduktion üben fürs bayerische Abitur – Essays, Comments und mehr mit KI-Feedback auf myAbiFlow.">
@@ -1518,7 +1518,9 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         showToast("Dein Text ist zu kurz (mindestens 30 Wörter).");
         return;
       }
-      if (!CONFIG.storedData?.article_text || !CONFIG.storedData?.task_instruction) {
+      const sd = CONFIG.storedData;
+      const hasTasks = sd?.task_instruction || sd?.task_1 || sd?.task_2;
+      if (!sd?.article_text || !hasTasks) {
         showToast("Bitte zuerst eine Prüfung generieren (Schritt 1).");
         return;
       }
@@ -1658,7 +1660,9 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
         return;
       }
 
-      if (!CONFIG.storedData.article_text || !CONFIG.storedData.task_instruction) {
+      const sd = CONFIG.storedData;
+      const taskText = sd.task_instruction || getSelectedTasks();
+      if (!sd.article_text || !taskText) {
         showToast("Keine Aufgabe vorhanden.");
         return;
       }
@@ -1668,8 +1672,8 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
 
       try {
         const data = await apiCall("/api/model-answer", {
-          source_text_de: CONFIG.storedData.article_text,
-          task_en: CONFIG.storedData.task_instruction
+          source_text_de: sd.article_text,
+          task_en: taskText
         });
 
         body.innerHTML = DOMPurify.sanitize(marked.parse(data.model_answer || "Keine Musterlösung generiert."));
