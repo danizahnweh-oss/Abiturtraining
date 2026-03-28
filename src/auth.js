@@ -293,6 +293,19 @@ export async function ensureMigrations(env) {
     // Stripe-Customer-ID für Lehrer
     try { await env.DB.prepare("ALTER TABLE teachers ADD COLUMN stripe_customer_id TEXT DEFAULT NULL").run(); } catch (_) {}
 
+    // Nachrichten (Admin → Schüler)
+    await env.DB.prepare(`
+      CREATE TABLE IF NOT EXISTS messages (
+        id TEXT PRIMARY KEY,
+        recipient_name_lower TEXT NOT NULL,
+        subject TEXT NOT NULL,
+        body TEXT NOT NULL,
+        read INTEGER NOT NULL DEFAULT 0,
+        created_at TEXT NOT NULL,
+        read_at TEXT
+      )
+    `).run();
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);

@@ -3572,6 +3572,9 @@
       <!-- Personalisierter CTA -->
       <div id="smartCta" style="display:none;margin-top:1rem;"></div>
     </div>
+    <!-- Nachrichten-Banner -->
+    <div id="messagesBox" style="display:none; margin: 0 1rem 1rem; max-width: 700px; margin-left:auto; margin-right:auto;"></div>
+
     <div class="quick-actions-bar">
       <button type="button" class="quick-action-pill" onclick="openTrainingModal()" aria-label="Training starten">
         <span class="qap-icon">📝</span>
@@ -5270,6 +5273,66 @@
 
     /* ====== PROGRESS DASHBOARD (#8) ====== */
     var studentResults = null;
+
+    function loadStudentMessages() {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      fetch(API_BASE + "/api/messages/inbox", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ student_name: name })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var msgs = (data.messages || []).filter(function(m) { return !m.read; });
+        var box = document.getElementById("messagesBox");
+        if (!box || !msgs.length) return;
+        box.style.display = "block";
+        box.innerHTML = msgs.map(function(m) {
+          var date = new Date(m.created_at + "Z").toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+          return '<div style="background:var(--accent-soft, #e0e7ff);border:1px solid var(--accent, #4f46e5);border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;">'
+            + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:.4rem;">'
+            + '<strong style="font-size:.95rem;color:var(--accent, #4f46e5);">✉️ ' + escapeHtmlSafe(m.subject) + '</strong>'
+            + '<span style="font-size:.8rem;color:var(--ink-muted);">' + date + '</span>'
+            + '</div>'
+            + '<p style="margin:0;font-size:.9rem;color:var(--ink);white-space:pre-wrap;">' + escapeHtmlSafe(m.body) + '</p>'
+            + '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="margin-top:.5rem;background:none;border:1px solid var(--accent, #4f46e5);color:var(--accent, #4f46e5);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Gelesen</button>'
+            + '</div>';
+        }).join('');
+      })
+      .catch(function() {});
+    }
+
+    function escapeHtmlSafe(str) {
+      var d = document.createElement("div");
+      d.textContent = str || "";
+      return d.innerHTML;
+    }
+
+    function markMessageRead(id, btn) {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+
+      fetch(API_BASE + "/api/messages/mark-read", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ id: id, student_name: name })
+      })
+      .then(function() {
+        var card = btn.parentElement;
+        card.style.opacity = "0";
+        card.style.transition = "opacity 0.3s";
+        setTimeout(function() {
+          card.remove();
+          var box = document.getElementById("messagesBox");
+          if (box && !box.children.length) box.style.display = "none";
+        }, 300);
+      })
+      .catch(function() {});
+    }
 
     function loadStudentProgress() {
       var name = sessionStorage.getItem("student_name");
@@ -7084,6 +7147,7 @@
 
         loadStudentProgress();
         loadHiddenSubjects();
+        loadStudentMessages();
         showTrialBannerIfNeeded("trialBannerContainer");
         var profilLink = document.getElementById("profilLink");
         if (profilLink) profilLink.style.display = "";

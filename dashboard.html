@@ -535,6 +535,7 @@ details[open] > .collapsible-header .collapsible-chevron {
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-ergebnisse" onclick="switchTab('ergebnisse')"><span>📋</span> Ergebnisse</button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-analytics" onclick="switchTab('analytics')"><span>📈</span> Analytics</button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-feedback" onclick="switchTab('feedback')"><span>💬</span> Feedback</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-nachrichten" onclick="switchTab('nachrichten')"><span>✉️</span> Nachrichten</button>
     </div>
 
     <!-- ═══════ TAB: DASHBOARD ═══════ -->
@@ -908,6 +909,42 @@ details[open] > .collapsible-header .collapsible-chevron {
         </div>
       </div>
     </div><!-- /tab-feedback -->
+
+    <!-- ═══════ TAB: NACHRICHTEN ═══════ -->
+    <div id="tab-nachrichten" role="tabpanel" style="display:none">
+      <div class="card">
+        <h2 style="font-family:var(--font-display);margin-bottom:.5rem;">Nachrichten an Schüler</h2>
+        <p style="font-size:.85rem;color:var(--ink-muted);margin-bottom:1rem;">Schreibe einzelnen Schülern persönliche Nachrichten, z.B. als Antwort auf Feedback.</p>
+
+        <!-- Compose -->
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;">
+          <h3 style="font-size:1rem;margin-bottom:.75rem;">Neue Nachricht</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:.75rem;">
+            <div style="flex:1;min-width:200px;">
+              <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Empfänger (Schülername)</label>
+              <input type="text" id="msgRecipient" list="studentNameList" placeholder="Name eingeben…" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;">
+              <datalist id="studentNameList"></datalist>
+            </div>
+            <div style="flex:1;min-width:200px;">
+              <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Betreff</label>
+              <input type="text" id="msgSubject" placeholder="z.B. Antwort auf dein Feedback" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;" maxlength="200">
+            </div>
+          </div>
+          <label style="font-size:.8rem;font-weight:600;display:block;margin-bottom:4px;">Nachricht</label>
+          <textarea id="msgBody" rows="4" placeholder="Deine Nachricht an den Schüler…" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px;resize:vertical;" maxlength="5000"></textarea>
+          <div style="display:flex;justify-content:flex-end;margin-top:.75rem;">
+            <button onclick="sendMessage()" style="padding:10px 24px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:.95rem;min-height:44px;">Nachricht senden</button>
+          </div>
+          <p id="msgStatus" style="font-size:.85rem;margin-top:.5rem;display:none;"></p>
+        </div>
+
+        <!-- Gesendete Nachrichten -->
+        <h3 style="font-size:1rem;margin-bottom:.75rem;">Gesendete Nachrichten</h3>
+        <div id="messagesList" style="display:flex;flex-direction:column;gap:10px;">
+          <p style="color:var(--ink-muted);">Wird geladen…</p>
+        </div>
+      </div>
+    </div><!-- /tab-nachrichten -->
 
   </main>
 
@@ -1705,7 +1742,7 @@ function typeToSubject(type) {
 }
 
 /* ====== TAB SWITCHING ====== */
-const TAB_IDS = ['dashboard', 'verwaltung', 'ergebnisse', 'analytics', 'feedback'];
+const TAB_IDS = ['dashboard', 'verwaltung', 'ergebnisse', 'analytics', 'feedback', 'nachrichten'];
 function switchTab(tab) {
   TAB_IDS.forEach(t => {
     const el = document.getElementById('tab-' + t);
@@ -1718,6 +1755,7 @@ function switchTab(tab) {
   });
   if (tab === 'analytics') renderAnalytics();
   if (tab === 'feedback') loadFeedback();
+  if (tab === 'nachrichten') loadMessages();
   if (tab === 'dashboard') {
     // Chart neu rendern falls Canvas-Größe sich geändert hat
     setTimeout(() => { if (chartInstance) renderChart(); }, 50);
@@ -1763,11 +1801,12 @@ function renderFeedback(items) {
     const isValuable = f.valuable ? true : false;
     const starBtn = '<button class="feedback-star' + (isValuable ? ' active' : '') + '" onclick="toggleValuable(' + f.id + ', ' + !isValuable + ')" title="' + (isValuable ? 'Nicht mehr wertvoll' : 'Als wertvoll markieren') + '" style="background:none;border:none;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;padding:4px;border-radius:8px;transition:background .15s;">' + (isValuable ? '⭐' : '☆') + '</button>';
     const catBorderColor = f.category === 'bug' ? '#ef4444' : f.category === 'wunsch' ? '#f59e0b' : f.category === 'lob' ? '#10b981' : 'transparent';
+    const replyBtn = f.student_name ? ' <button onclick="replyToFeedback(\'' + escapeHtml(f.student_name).replace(/'/g, "\\'") + '\')" style="background:none;border:none;cursor:pointer;color:var(--accent);font-size:.8rem;font-weight:600;padding:4px 8px;min-height:44px;" title="Auf Feedback antworten">↩ Antworten</button>' : '';
     return '<div style="padding:12px 16px;border:1px solid ' + (isValuable ? 'var(--accent)' : 'var(--border)') + ';border-left:4px solid ' + catBorderColor + ';border-radius:var(--radius-sm,12px);background:' + (isValuable ? 'var(--accent-glow)' : 'var(--surface)') + ';transition:border-color .2s,background .2s;" data-feedback-id="' + f.id + '">' +
       '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">' +
         starBtn +
         '<span style="font-size:1.4rem;">' + RATING_EMOJIS[f.rating] + '</span>' +
-        cat +
+        cat + replyBtn +
         '<span style="margin-left:auto;font-size:.75rem;color:var(--ink-muted);">' + date + name + page + '</span>' +
       '</div>' +
       msg +
@@ -1810,6 +1849,115 @@ function filterFeedback(cat) {
   } else {
     renderFeedback(feedbackData.filter(f => f.category === cat));
   }
+}
+
+function replyToFeedback(studentName) {
+  switchTab('nachrichten');
+  document.getElementById("msgRecipient").value = studentName;
+  document.getElementById("msgSubject").value = "Antwort auf dein Feedback";
+  document.getElementById("msgBody").focus();
+}
+
+/* ====== NACHRICHTEN ====== */
+let messagesData = [];
+let messagesLoaded = false;
+
+async function loadMessages() {
+  // Schülernamen-Autocomplete befüllen
+  const dl = document.getElementById("studentNameList");
+  if (dl && allStudents.length && !dl.children.length) {
+    allStudents.forEach(s => {
+      const opt = document.createElement("option");
+      opt.value = s.name;
+      dl.appendChild(opt);
+    });
+  }
+  if (messagesLoaded) return;
+  try {
+    const res = await fetch(API_BASE + "/api/messages/list", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken }
+    });
+    if (!res.ok) throw new Error("Fehler");
+    const data = await res.json();
+    messagesData = data.messages || [];
+    messagesLoaded = true;
+    renderMessages(messagesData);
+  } catch (e) {
+    document.getElementById("messagesList").innerHTML = '<p style="color:var(--danger);">Fehler beim Laden.</p>';
+  }
+}
+
+function renderMessages(msgs) {
+  const container = document.getElementById("messagesList");
+  if (!msgs.length) {
+    container.innerHTML = '<p style="color:var(--ink-muted);">Noch keine Nachrichten gesendet.</p>';
+    return;
+  }
+  container.innerHTML = msgs.map(m => {
+    const date = new Date(m.created_at + "Z").toLocaleString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    const readBadge = m.read
+      ? '<span style="background:#d1fae5;color:#047857;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">Gelesen' + (m.read_at ? ' · ' + new Date(m.read_at + "Z").toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : '') + '</span>'
+      : '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">Ungelesen</span>';
+    return '<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:.5rem;">'
+      + '<div><strong>' + escapeHtml(m.recipient_name_lower) + '</strong> · <span style="color:var(--ink-muted);font-size:.85rem;">' + date + '</span></div>'
+      + '<div style="display:flex;gap:6px;align-items:center;">' + readBadge
+      + ' <button onclick="deleteMessage(\'' + m.id + '\')" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:.85rem;padding:4px 8px;min-height:44px;" title="Löschen">🗑️</button></div>'
+      + '</div>'
+      + '<div style="font-weight:600;font-size:.9rem;margin-bottom:.25rem;">' + escapeHtml(m.subject) + '</div>'
+      + '<div style="font-size:.9rem;color:var(--ink-muted);white-space:pre-wrap;">' + escapeHtml(m.body) + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+async function sendMessage() {
+  const recipient = document.getElementById("msgRecipient").value.trim();
+  const subject = document.getElementById("msgSubject").value.trim();
+  const body = document.getElementById("msgBody").value.trim();
+  const status = document.getElementById("msgStatus");
+
+  if (!recipient) { showMsgStatus("Bitte Schülername eingeben.", true); return; }
+  if (!body) { showMsgStatus("Bitte Nachricht eingeben.", true); return; }
+
+  try {
+    const res = await fetch(API_BASE + "/api/messages/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ student_name: recipient, subject: subject || "Nachricht", body })
+    });
+    const data = await res.json();
+    if (!res.ok) { showMsgStatus(data.error || "Fehler", true); return; }
+    showMsgStatus("Nachricht an " + recipient + " gesendet!", false);
+    document.getElementById("msgRecipient").value = "";
+    document.getElementById("msgSubject").value = "";
+    document.getElementById("msgBody").value = "";
+    messagesLoaded = false;
+    loadMessages();
+  } catch (e) {
+    showMsgStatus("Verbindungsfehler: " + e.message, true);
+  }
+}
+
+function showMsgStatus(msg, isError) {
+  const el = document.getElementById("msgStatus");
+  el.textContent = msg;
+  el.style.display = "block";
+  el.style.color = isError ? "var(--danger)" : "var(--accent)";
+  setTimeout(() => { el.style.display = "none"; }, 4000);
+}
+
+async function deleteMessage(id) {
+  if (!confirm("Nachricht wirklich löschen?")) return;
+  try {
+    await fetch(API_BASE + "/api/messages/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ id })
+    });
+    messagesLoaded = false;
+    loadMessages();
+  } catch (_) {}
 }
 
 /* ====== ANALYTICS ====== */
