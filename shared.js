@@ -1643,10 +1643,10 @@ function loadPdfJs() {
     if (_pdfjsLoading) return;
     _pdfjsLoading = true;
     const s = document.createElement("script");
-    s.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+    s.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js";
     s.onload = function () {
       _pdfjsLoaded = true; _pdfjsLoading = false;
-      if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
       _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = [];
     };
     s.onerror = function () { _pdfjsLoading = false; _pdfjsCbs.forEach(function (c) { c(); }); _pdfjsCbs = []; };
