@@ -29,6 +29,7 @@ cp *.js _site/
 cp manifest.json _site/
 cp robots.txt _site/
 cp sitemap.xml _site/
+cp BingSiteAuth.xml _site/ 2>/dev/null || true
 cp _redirects _site/
 
 # 5. Fonts + Vendor-Bibliotheken kopieren (lokal, DSGVO-konform)
