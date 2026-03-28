@@ -5286,7 +5286,7 @@
       })
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        var msgs = (data.messages || []).filter(function(m) { return !m.read; });
+        var msgs = (data.messages || []).filter(function(m) { return !m.is_read; });
         var box = document.getElementById("messagesBox");
         if (!box || !msgs.length) return;
         box.style.display = "block";

@@ -2,6 +2,46 @@
 import { jsonResponse } from '../utils.js';
 import { verifyToken } from '../auth.js';
 
+/* ================= EMAIL-BENACHRICHTIGUNG ================= */
+async function notifyByEmail(nameLower, msgSubject, env) {
+  if (!env.RESEND_API_KEY) return;
+  try {
+    const student = await env.DB.prepare(
+      "SELECT name, email FROM students WHERE name_lower = ? AND email IS NOT NULL AND email != ''"
+    ).bind(nameLower).first();
+    if (!student || !student.email) return;
+
+    const html = `<!DOCTYPE html><html lang="de"><head><meta charset="utf-8"></head><body style="font-family:system-ui,sans-serif;background:#f0f0f5;padding:20px;margin:0">
+<div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.1)">
+<h2 style="color:#2563eb;margin-top:0">myAbiFlow – Neue Nachricht</h2>
+<p>Hallo ${student.name},</p>
+<p>du hast eine neue Nachricht erhalten: <strong>${msgSubject}</strong></p>
+<p style="text-align:center;margin:24px 0">
+<a href="https://myabiflow.de" style="background:#2563eb;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">Nachricht lesen →</a>
+</p>
+<p style="font-size:12px;color:#999;margin-top:24px;border-top:1px solid #eee;padding-top:12px">
+Diese Nachricht wurde über myAbiFlow gesendet.
+</p>
+</div></body></html>`;
+
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + env.RESEND_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "myAbiFlow <noreply@myabiflow.de>",
+        to: [student.email],
+        subject: "Du hast eine Nachricht von myAbiFlow",
+        html
+      })
+    });
+  } catch (e) {
+    console.error("Nachricht-Email Fehler:", e.message);
+  }
+}
+
 /* ================= DASHBOARD: NACHRICHT SENDEN ================= */
 export async function handleSendMessage(request, env) {
   const token = request.headers.get("X-Teacher-Token");
@@ -22,10 +62,14 @@ export async function handleSendMessage(request, env) {
   const msgSubject = (subject && typeof subject === "string") ? subject.trim().slice(0, 200) : "Nachricht";
   const msgBody = body.trim().slice(0, 5000);
   const id = crypto.randomUUID();
+  const now = new Date().toISOString();
 
   await env.DB.prepare(
-    "INSERT INTO messages (id, recipient_name_lower, subject, body, read, created_at) VALUES (?, ?, ?, ?, 0, datetime('now'))"
-  ).bind(id, nameLower, msgSubject, msgBody).run();
+    "INSERT INTO messages (id, recipient_name_lower, subject, body, is_read, created_at) VALUES (?, ?, ?, ?, 0, ?)"
+  ).bind(id, nameLower, msgSubject, msgBody, now).run();
+
+  // Email-Benachrichtigung (async, blockiert nicht die Response)
+  notifyByEmail(nameLower, msgSubject, env);
 
   return jsonResponse({ success: true, id }, 200, env);
 }
@@ -39,7 +83,7 @@ export async function handleListMessages(request, env) {
   }
 
   const { results } = await env.DB.prepare(
-    "SELECT id, recipient_name_lower, subject, body, read, created_at, read_at FROM messages ORDER BY created_at DESC LIMIT 500"
+    "SELECT id, recipient_name_lower, subject, body, is_read, created_at, read_at FROM messages ORDER BY created_at DESC LIMIT 500"
   ).all();
 
   return jsonResponse({ messages: results || [] }, 200, env);
@@ -69,7 +113,7 @@ export async function handleStudentMessages(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const rows = (await env.DB.prepare(
-    "SELECT id, subject, body, read, created_at, read_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at DESC LIMIT 50"
+    "SELECT id, subject, body, is_read, created_at, read_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at DESC LIMIT 50"
   ).bind(nameLower).all()).results || [];
 
   return jsonResponse({ messages: rows }, 200, env);
@@ -81,9 +125,10 @@ export async function handleMarkMessageRead(request, env) {
   if (!id || !student_name) return jsonResponse({ error: "id und student_name erforderlich." }, 400, env);
 
   const nameLower = student_name.trim().toLowerCase();
+  const now = new Date().toISOString();
   await env.DB.prepare(
-    "UPDATE messages SET read = 1, read_at = datetime('now') WHERE id = ? AND recipient_name_lower = ?"
-  ).bind(id, nameLower).run();
+    "UPDATE messages SET is_read = 1, read_at = ? WHERE id = ? AND recipient_name_lower = ?"
+  ).bind(now, id, nameLower).run();
 
   return jsonResponse({ success: true }, 200, env);
 }
