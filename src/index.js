@@ -419,6 +419,31 @@ export default {
           await env.DB.prepare(
             "INSERT INTO feedback (rating, category, message, page, student_name) VALUES (?, ?, ?, ?, ?)"
           ).bind(rating, category, message, page, studentName).run();
+
+          // Email-Benachrichtigung an Admin
+          if (env.RESEND_API_KEY) {
+            const catLabel = { bug: "🐛 Problem", wunsch: "💡 Wunsch", lob: "👍 Lob" }[category] || "Feedback";
+            const ratingStars = "⭐".repeat(rating);
+            fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: { "Authorization": "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+              body: JSON.stringify({
+                from: "myAbiFlow <noreply@myabiflow.de>",
+                to: ["info@myabiflow.de"],
+                subject: "Neues Feedback: " + catLabel + " " + ratingStars,
+                html: `<div style="font-family:system-ui,sans-serif;max-width:500px;margin:0 auto;padding:20px">
+<h2 style="color:#2563eb;margin-top:0">Neues Schüler-Feedback</h2>
+<p><strong>Bewertung:</strong> ${ratingStars} (${rating}/4)</p>
+<p><strong>Kategorie:</strong> ${catLabel}</p>
+${studentName ? `<p><strong>Schüler:</strong> ${studentName}</p>` : ''}
+${page ? `<p><strong>Seite:</strong> ${page}</p>` : ''}
+${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margin:12px 0;white-space:pre-wrap">${message}</div>` : '<p style="color:#888">Keine Nachricht</p>'}
+<p style="margin-top:16px"><a href="https://myabiflow.de/dashboard.html" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">Im Dashboard ansehen →</a></p>
+</div>`
+              })
+            }).catch(e => console.error("Feedback-Email Fehler:", e.message));
+          }
+
           return jsonResponse({ success: true }, 200, env);
         } catch (e) {
           console.error("Feedback-Fehler:", e.message);
