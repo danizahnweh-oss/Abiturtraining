@@ -3266,8 +3266,83 @@
         "@type": "Answer",
         "text": "Ja, du kannst deine handschriftlichen Lösungen fotografieren und hochladen. Die integrierte OCR-Erkennung wandelt deine Handschrift in Text um, der dann von der KI bewertet wird."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie kann ich mich auf das Kolloquium in Bayern vorbereiten?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "myAbiFlow bietet einen KI-Kolloquiumstrainer speziell für das bayerische G9-Abitur. Du wählst dein Fach und Themengebiet, hältst ein 10-minütiges Kurzreferat und beantwortest anschließend Prüfungsfragen – genau wie in der echten Prüfung. Die KI gibt dir sofort Feedback zu Inhalt, Struktur und Fachsprache."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Fächer kann ich im G9-Abitur Bayern wählen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Im bayerischen G9-Abitur gibt es 5 Prüfungsfächer: Deutsch und Mathematik sind Pflicht als erhöhtes Anforderungsniveau (eA). Dazu wählst du ein weiteres Leistungsfach (eA) und zwei Grundkursfächer (gA). myAbiFlow unterstützt alle wählbaren Fächer mit passendem Training."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Gibt es eine App zur Abiturvorbereitung Bayern?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "myAbiFlow ist eine Web-App, die auf jedem Gerät im Browser funktioniert – Handy, Tablet und PC. Du brauchst keinen Download. Die App bietet KI-gestütztes Klausur- und Abiturtraining für alle Fächer am bayerischen Gymnasium (G9) und der Fachoberschule (FOS/BOS)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie funktioniert das Kolloquium im bayerischen Abitur G9?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das Kolloquium besteht aus zwei Teilen: Teil 1 ist ein Kurzreferat (ca. 10 Minuten) mit anschließenden Fragen (5 Minuten). Teil 2 ist ein Prüfungsgespräch (15 Minuten) über weitere Themen des Fachs. Es zählt als mündliche Abiturprüfung. myAbiFlow simuliert beide Teile realistisch mit KI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann myAbiFlow auch für die FOS/BOS verwendet werden?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, myAbiFlow bietet einen eigenen FOS/BOS-Bereich mit fachspezifischen Modulen für die bayerische Fachoberschule und Berufsoberschule. Alle Aufgaben orientieren sich am FOS-Lehrplan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie gut ist die KI-Bewertung im Vergleich zu einem Lehrer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die KI-Bewertung orientiert sich an den offiziellen ISB-Bewertungskriterien und dem Erwartungshorizont des LehrplanPLUS Bayern. Sie ersetzt keinen Lehrer, bietet aber sofortiges, detailliertes Feedback mit Punktebewertung, Fehleranalyse und Musterlösung – ideal zum Üben."
+      }
     }
   ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "myAbiFlow",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Web",
+  "url": "https://myabiflow.de",
+  "description": "KI-gestützter Abitur-Trainer für das bayerische Gymnasium (G9) und die Fachoberschule (FOS/BOS). Übe Kolloquium, Deutsch, Mathe und 14 weitere Fächer mit automatischer ISB-Bewertung.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR",
+    "description": "Kostenlose Basisversion"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "myAbiFlow UG (haftungsbeschränkt) i.G."
+  },
+  "inLanguage": "de",
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student",
+    "audienceType": "Abiturienten Bayern"
+  }
 }
   </script>
 </head>
@@ -3855,6 +3930,43 @@
         <button class="exam-type-cancel" onclick="closeTrainingModal()">Abbrechen</button>
       </div>
     </div>
+
+    <!-- ====== FAQ-SECTION (sichtbar für KI-Crawler + Nutzer) ====== -->
+    <section id="faq" style="max-width:720px;margin:3rem auto 1rem;padding:0 1rem;">
+      <h2 style="font-size:1.3rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem;text-align:center;">Häufige Fragen</h2>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Ist myAbiFlow kostenlos?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Ja, myAbiFlow bietet eine kostenlose Basisversion mit KI-gestütztem Klausur- und Abiturtraining für alle Fächer am bayerischen Gymnasium (G9) und der FOS.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Für welche Fächer gibt es Abiturtraining?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">myAbiFlow bietet Training für über 16 Fächer: Deutsch, Englisch, Mathematik, Geschichte, Geographie, Politik und Gesellschaft, Wirtschaft und Recht, Ethik, Ev. und Kath. Religion, Biologie, Chemie, Physik, Informatik, Sport, Französisch, Italienisch und Latein.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Wie kann ich mich auf das Kolloquium in Bayern vorbereiten?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">myAbiFlow bietet einen KI-Kolloquiumstrainer speziell für das bayerische G9-Abitur. Du wählst dein Fach und Themengebiet, hältst ein 10-minütiges Kurzreferat und beantwortest anschließend Prüfungsfragen – genau wie in der echten Prüfung. Die KI gibt dir sofort Feedback zu Inhalt, Struktur und Fachsprache.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Wie funktioniert das Kolloquium im bayerischen Abitur G9?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Das Kolloquium besteht aus zwei Teilen: Teil 1 ist ein Kurzreferat (ca. 10 Minuten) mit anschließenden Fragen (5 Minuten). Teil 2 ist ein Prüfungsgespräch (15 Minuten) über weitere Themen des Fachs. Es zählt als mündliche Abiturprüfung.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Wie funktioniert die KI-Bewertung?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Du bearbeitest lehrplankonforme Aufgaben und bekommst sofort automatisches Feedback mit Punktebewertung, detaillierter Fehleranalyse und einer Musterlösung – orientiert an den offiziellen ISB-Bewertungskriterien.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Gibt es eine App zur Abiturvorbereitung Bayern?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">myAbiFlow ist eine Web-App, die auf jedem Gerät im Browser funktioniert – Handy, Tablet und PC. Du brauchst keinen Download. Die App bietet KI-gestütztes Training für alle Fächer am bayerischen Gymnasium und der FOS.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Kann ich auch handschriftliche Lösungen abgeben?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Ja, du kannst deine handschriftlichen Lösungen fotografieren und hochladen. Die integrierte OCR-Erkennung wandelt deine Handschrift in Text um, der dann von der KI bewertet wird.</p>
+      </details>
+      <details style="border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.5rem;background:var(--bg-card);">
+        <summary style="padding:.8rem 1rem;cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);">Kann myAbiFlow auch für die FOS/BOS verwendet werden?</summary>
+        <p style="padding:0 1rem .8rem;font-size:.9rem;color:var(--ink-light);line-height:1.6;">Ja, myAbiFlow bietet einen eigenen FOS/BOS-Bereich mit fachspezifischen Modulen für die bayerische Fachoberschule und Berufsoberschule unter fos.myabiflow.de.</p>
+      </details>
+    </section>
 
     <a href="https://fos.myabiflow.de" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem 1rem;background:var(--bg-warm);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:.85rem;color:var(--ink-light);text-decoration:none;transition:all .2s;max-width:500px;margin:1rem auto;">
       Du bist an der FOS? → fos.myabiflow.de
