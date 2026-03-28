@@ -421,24 +421,24 @@
           <label>Lernbereich / Themenbereich (für Prüfungsteil A)</label>
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
-              <div class="hj-icon">🤔</div>
+              <div class="hj-icon">🎨</div>
               <div class="hj-name">12/1</div>
-              <div class="hj-desc">Theorie und Praxis des Handelns</div>
+              <div class="hj-desc">Malerei und Grafik</div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
-              <div class="hj-icon">🔗</div>
+              <div class="hj-icon">🏛️</div>
               <div class="hj-name">12/2</div>
-              <div class="hj-desc">Freiheit und Determination</div>
+              <div class="hj-desc">Architektur und Design</div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
-              <div class="hj-icon">⚖️</div>
+              <div class="hj-icon">🗿</div>
               <div class="hj-name">13/1</div>
-              <div class="hj-desc">Recht und Gerechtigkeit</div>
+              <div class="hj-desc">Plastik und Skulptur</div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
-              <div class="hj-icon">🌟</div>
+              <div class="hj-icon">✨</div>
               <div class="hj-name">13/2</div>
-              <div class="hj-desc">Sinnorientierung und Lebensgestaltung</div>
+              <div class="hj-desc">Moderne und Gegenwart</div>
             </div>
           </div>
         </div>
@@ -784,42 +784,42 @@ Tipp: Teil B geht über die Materialien hinaus.
     CONFIG.lernbereich = "12_1";
 
     const HJ_LABELS = {
-      "12_1": "12/1 – Theorie und Praxis des Handelns",
-      "12_2": "12/2 – Freiheit und Determination",
-      "13_1": "13/1 – Recht und Gerechtigkeit",
-      "13_2": "13/2 – Sinnorientierung und Lebensgestaltung"
+      "12_1": "12/1 – Malerei und Grafik",
+      "12_2": "12/2 – Architektur und Design",
+      "13_1": "13/1 – Plastik und Skulptur",
+      "13_2": "13/2 – Moderne und Gegenwart"
     };
 
-    const HJ_ICONS = { "12_1": "🤔", "12_2": "🔗", "13_1": "⚖️", "13_2": "🌟" };
+    const HJ_ICONS = { "12_1": "🎨", "12_2": "🏛️", "13_1": "🗿", "13_2": "✨" };
 
     const SCHWERPUNKTE = {
       "12_1": [
         { value: "random", label: "Zufällig" },
-        { value: "handlungstheorie", label: "Handlungstheorie & Handlungstypen" },
-        { value: "utilitarismus", label: "Utilitarismus" },
-        { value: "pflichtkunst", label: "Pflichtkunst (Kant)" },
-        { value: "tugendkunst", label: "Tugendkunst (Aristoteles)" }
+        { value: "bildanalyse", label: "Bildanalyse & Komposition" },
+        { value: "farbe", label: "Farbgestaltung & Licht" },
+        { value: "epochen-malerei", label: "Malerei-Epochen (Renaissance bis Impressionismus)" },
+        { value: "druckgrafik", label: "Druckgrafik (Holzschnitt, Radierung, Lithografie)" }
       ],
       "12_2": [
         { value: "random", label: "Zufällig" },
-        { value: "willensfreiheit", label: "Willensfreiheit" },
-        { value: "determinismus", label: "Determinismus & Kompatibilismus" },
-        { value: "verantwortung", label: "Verantwortung & Schuld" },
-        { value: "menschenbild", label: "Menschenbilder" }
+        { value: "architekturanalyse", label: "Architekturanalyse & Raumwirkung" },
+        { value: "architektur-epochen", label: "Architektur-Epochen (Gotik bis Moderne)" },
+        { value: "design", label: "Produkt- & Kommunikationsdesign" },
+        { value: "bauhaus", label: "Bauhaus & Funktionalismus" }
       ],
       "13_1": [
         { value: "random", label: "Zufällig" },
-        { value: "gerechtigkeit", label: "Gerechtigkeitstheorien (Rawls, Aristoteles)" },
-        { value: "menschenrechte", label: "Menschenrechte & Menschenwürde" },
-        { value: "rechtsphilosophie", label: "Rechtsphilosophie (Naturrecht, Rechtspositivismus)" },
-        { value: "strafe", label: "Straftheorien & Gerechtigkeit" }
+        { value: "plastik-analyse", label: "Plastische Gestaltungsmittel" },
+        { value: "skulptur-epochen", label: "Skulptur (Antike bis Moderne)" },
+        { value: "installation", label: "Installation & Land Art" },
+        { value: "kunsttheorie", label: "Kunsttheorie (Mimesis, Abstraktion, Konzeptkunst)" }
       ],
       "13_2": [
         { value: "random", label: "Zufällig" },
-        { value: "sinnfrage", label: "Sinnfrage & Existenzphilosophie" },
-        { value: "glueck", label: "Glück & gelingendes Leben" },
-        { value: "religion", label: "Religion & Kunst" },
-        { value: "tod", label: "Tod & Endlichkeit" }
+        { value: "moderne-stroemungen", label: "Expressionismus, Kubismus, Surrealismus" },
+        { value: "pop-art", label: "Pop Art & Postmoderne" },
+        { value: "zeitgenoessisch", label: "Zeitgenössische Kunst (Performance, Video, Neue Medien)" },
+        { value: "kunst-gesellschaft", label: "Kunst & Gesellschaft (Kunstmarkt, politische Kunst)" }
       ]
     };
 
