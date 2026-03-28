@@ -17,6 +17,7 @@ import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePrefer
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher } from './handlers/dashboard.js';
+import { handleSendMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
@@ -134,6 +135,12 @@ import {
   handleGenerateAbiturInformatik, handleGradeAbiturInformatik, handleModelAnswerAbiturInformatik
 } from './subjects/informatik.js';
 
+// Fach-Handler: Kunst
+import {
+  handleParseTaskKunst,
+  handleGenerateAbiturKunst, handleGradeAbiturKunst, handleModelAnswerAbiturKunst
+} from './subjects/kunst.js';
+
 // FOS-System
 import { handleFOSRoute } from './fos/index.js';
 
@@ -171,6 +178,7 @@ setGradeHandlerMap({
   "grade-abitur-physik": handleGradeAbiturPhysik,
   "grade-abitur-biologie": handleGradeAbiturBiologie,
   "grade-abitur-informatik": handleGradeAbiturInformatik,
+  "grade-abitur-kunst": handleGradeAbiturKunst,
 });
 
 /* FOS-Handler für Grading registrieren */
@@ -291,6 +299,26 @@ export default {
         if (rl) return rl;
         cleanupRateLimitMaps();
         return await handleToggleFeedbackValuable(request, env);
+      }
+
+      // ===== NACHRICHTEN (Dashboard → Schüler) =====
+      if (pathname === "/api/messages/send" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleSendMessage(request, env);
+      }
+      if (pathname === "/api/messages/list" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleListMessages(request, env);
+      }
+      if (pathname === "/api/messages/delete" && request.method === "POST") {
+        const rl = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
+        if (rl) return rl;
+        cleanupRateLimitMaps();
+        return await handleDeleteMessage(request, env);
       }
 
       // ===== LEHRER-CODE-SYSTEM (eigene Auth) =====
@@ -414,6 +442,10 @@ export default {
       if (pathname === "/api/link-student-code" && request.method === "POST") return await handleLinkStudentCode(request, env);
       if (pathname === "/api/student-codes" && request.method === "POST") return await handleStudentCodes(request, env);
       if (pathname === "/api/submit-shared-task" && request.method === "POST") return await handleSubmitSharedTask(request, env);
+
+      // ===== SCHÜLER-NACHRICHTEN =====
+      if (pathname === "/api/messages/inbox" && request.method === "POST") return await handleStudentMessages(request, env);
+      if (pathname === "/api/messages/mark-read" && request.method === "POST") return await handleMarkMessageRead(request, env);
 
       // ===== STUDENT RESULTS =====
       if (pathname === "/api/student-results" && request.method === "POST") return await handleStudentResults(request, env);
@@ -605,6 +637,12 @@ export default {
       if (pathname === "/api/generate-abitur-informatik" && request.method === "POST") return await handleGenerateAbiturInformatik(request, env);
       if (pathname === "/api/grade-abitur-informatik" && request.method === "POST") return await handleGradeAbiturInformatik(request, env);
       if (pathname === "/api/model-answer-abitur-informatik" && request.method === "POST") return await handleModelAnswerAbiturInformatik(request, env);
+
+      // ===== KUNST ABITUR =====
+      if (pathname === "/api/generate-abitur-kunst" && request.method === "POST") return await handleGenerateAbiturKunst(request, env);
+      if (pathname === "/api/grade-abitur-kunst" && request.method === "POST") return await handleGradeAbiturKunst(request, env);
+      if (pathname === "/api/model-answer-abitur-kunst" && request.method === "POST") return await handleModelAnswerAbiturKunst(request, env);
+      if (pathname === "/api/parse-task-kunst" && request.method === "POST") return await handleParseTaskKunst(request, env);
 
       // ===== FOS ENDPOINTS =====
       if (pathname.startsWith("/api/fos-") && request.method === "POST") {
