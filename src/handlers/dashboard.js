@@ -272,20 +272,35 @@ export async function handleToggleFeedbackValuable(request, env) {
   }
 
   const { id, valuable } = await request.json();
-  if (!id) return jsonResponse({ error: "id erforderlich." }, 400, env);
+  if (id == null) return jsonResponse({ error: "id erforderlich." }, 400, env);
 
+  const boolVal = valuable ? true : false;
   await env.DB.prepare(
     "UPDATE feedback SET valuable = ? WHERE id = ?"
-  ).bind(valuable ? 1 : 0, id).run();
+  ).bind(boolVal, id).run();
 
   // Wertvolles Feedback des Schülers zählen
   const row = await env.DB.prepare("SELECT student_name FROM feedback WHERE id = ?").bind(id).first();
   let valuableCount = 0;
   if (row && row.student_name) {
     const countRow = await env.DB.prepare(
-      "SELECT COUNT(*) as cnt FROM feedback WHERE student_name = ? AND valuable = 1"
+      "SELECT COUNT(*) as cnt FROM feedback WHERE student_name = ? AND valuable = true"
     ).bind(row.student_name).first();
     valuableCount = countRow ? countRow.cnt : 0;
+  }
+
+  // Bei "wertvoll" → Dankes-Nachricht an den Schüler senden
+  if (boolVal && row && row.student_name) {
+    const nameLower = row.student_name.trim().toLowerCase();
+    try {
+      const msgId = crypto.randomUUID();
+      const now = new Date().toISOString();
+      await env.DB.prepare(
+        "INSERT INTO messages (id, recipient_name_lower, subject, body, is_read, created_at) VALUES (?, ?, ?, ?, 0, ?)"
+      ).bind(msgId, nameLower, "Dein Feedback wurde als hilfreich markiert", "Dein Feedback wurde als hilfreich markiert. Vielen Dank! Wir schätzen deine Rückmeldung sehr – sie hilft uns, myAbiFlow für alle besser zu machen.", now).run();
+    } catch (e) {
+      console.error("Feedback-Danke Nachricht Fehler:", e.message);
+    }
   }
 
   return jsonResponse({ success: true, valuableCount }, 200, env);
