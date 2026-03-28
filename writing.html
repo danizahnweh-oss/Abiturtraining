@@ -585,7 +585,7 @@
               <path d="M9 20h6" />
               <path d="M12 4v16" />
             </svg>
-            <span id="wordCountLabel">0</span> Wörter
+            <span id="wordCount">0</span> Wörter
           </div>
         </div>
 
@@ -1379,7 +1379,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       document.getElementById("articleTitle").innerText = d.headline || "Ausgangstext";
       document.getElementById("articleBody").innerHTML =
         (d.article_text || "").split("\n").filter(p => p.trim()).map(p => `<p>${escapeHtml(p)}</p>`).join("");
-      document.getElementById("wordCountLabel").innerText = countWords(d.article_text || "");
+      document.getElementById("wordCount").innerText = countWords(d.article_text || "");
       if (d.source_info) {
         document.getElementById("sourceInfo").innerText = d.source_info;
       }
@@ -1617,7 +1617,7 @@ Schreibe auf DEUTSCH, zitiere Schülertext auf Englisch.`;
       CONFIG.cartoonUrl = null;
       document.getElementById("articleTitle").innerText = "Ausgangstext";
       document.getElementById("articleBody").innerHTML = "";
-      document.getElementById("wordCountLabel").innerText = "0";
+      document.getElementById("wordCount").innerText = "0";
       clearOCR();
       clearTaskUpload();
       stopTimer();

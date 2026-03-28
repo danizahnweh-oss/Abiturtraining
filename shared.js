@@ -97,7 +97,8 @@ function countWords(text) {
 }
 
 function updateWordCount() {
-  document.getElementById("wordCount").textContent = countWords(document.getElementById("studentText").value);
+  var el = document.getElementById("wordCount");
+  if (el) el.textContent = countWords(document.getElementById("studentText").value);
 }
 
 /* ================= API ================= */
