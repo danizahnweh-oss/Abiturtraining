@@ -17,7 +17,7 @@ import { handleLogin, handleCheckStudent, handleGetPreferences, handleSavePrefer
 import { handleTeacherRegister, handleTeacherAuthLogin, handleTeacherCodes, handleLinkStudentCode, handleTeacherResults, handleStudentCodes, handleTeacherApprove } from './handlers/teacher.js';
 import { handleTeacherProfile, handleTeacherTasks, handleTeacherTaskResults, handleGetSharedTask, handleSubmitSharedTask, handleGenerateFromMaterials } from './handlers/teacher-tasks.js';
 import { handleTeacherLogin, handleGetResults, handleDeleteResult, handleGetStudents, handleDeleteStudent, handleClassPasswords, handleGetFeedback, handleToggleFeedbackValuable, handleGetTeachers, handleApproveTeacher } from './handlers/dashboard.js';
-import { handleSendMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead } from './handlers/messages.js';
+import { handleSendMessage, handleListMessages, handleDeleteMessage, handleStudentMessages, handleMarkMessageRead, handleReplyMessage } from './handlers/messages.js';
 import { handleStudentResults, handleCompetencyProfile, handleLearningPlan } from './handlers/analytics.js';
 import { setGradeHandlerMap, setFOSRouteHandler, handleGradeSubmit, handleGradeStatus, executeGradeHandler, cleanupOldGradingJobs, tryDeductTeacherCredit } from './handlers/grading.js';
 import { handleTeacherCreditBalance, handleTeacherCreditHistory } from './handlers/teacher-credits.js';
@@ -446,6 +446,7 @@ export default {
       // ===== SCHÜLER-NACHRICHTEN =====
       if (pathname === "/api/messages/inbox" && request.method === "POST") return await handleStudentMessages(request, env);
       if (pathname === "/api/messages/mark-read" && request.method === "POST") return await handleMarkMessageRead(request, env);
+      if (pathname === "/api/messages/reply" && request.method === "POST") return await handleReplyMessage(request, env);
 
       // ===== STUDENT RESULTS =====
       if (pathname === "/api/student-results" && request.method === "POST") return await handleStudentResults(request, env);

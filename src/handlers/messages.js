@@ -83,7 +83,7 @@ export async function handleListMessages(request, env) {
   }
 
   const { results } = await env.DB.prepare(
-    "SELECT id, recipient_name_lower, subject, body, is_read, created_at, read_at FROM messages ORDER BY created_at DESC LIMIT 500"
+    "SELECT id, recipient_name_lower, subject, body, is_read, created_at, read_at, reply, reply_at FROM messages ORDER BY created_at DESC LIMIT 500"
   ).all();
 
   return jsonResponse({ messages: results || [] }, 200, env);
@@ -113,7 +113,7 @@ export async function handleStudentMessages(request, env) {
 
   const nameLower = student_name.trim().toLowerCase();
   const rows = (await env.DB.prepare(
-    "SELECT id, subject, body, is_read, created_at, read_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at DESC LIMIT 50"
+    "SELECT id, subject, body, is_read, created_at, read_at, reply, reply_at FROM messages WHERE recipient_name_lower = ? ORDER BY created_at DESC LIMIT 50"
   ).bind(nameLower).all()).results || [];
 
   return jsonResponse({ messages: rows }, 200, env);
@@ -129,6 +129,31 @@ export async function handleMarkMessageRead(request, env) {
   await env.DB.prepare(
     "UPDATE messages SET is_read = 1, read_at = ? WHERE id = ? AND recipient_name_lower = ?"
   ).bind(now, id, nameLower).run();
+
+  return jsonResponse({ success: true }, 200, env);
+}
+
+/* ================= SCHÜLER: AUF NACHRICHT ANTWORTEN ================= */
+export async function handleReplyMessage(request, env) {
+  const { id, student_name, reply } = await request.json();
+  if (!id || !student_name) return jsonResponse({ error: "id und student_name erforderlich." }, 400, env);
+  if (!reply || typeof reply !== "string" || reply.trim().length === 0) {
+    return jsonResponse({ error: "Antwort darf nicht leer sein." }, 400, env);
+  }
+
+  const nameLower = student_name.trim().toLowerCase();
+  const replyText = reply.trim().slice(0, 5000);
+  const now = new Date().toISOString();
+
+  // Nur eigene Nachrichten beantworten
+  const msg = await env.DB.prepare(
+    "SELECT id FROM messages WHERE id = ? AND recipient_name_lower = ?"
+  ).bind(id, nameLower).first();
+  if (!msg) return jsonResponse({ error: "Nachricht nicht gefunden." }, 404, env);
+
+  await env.DB.prepare(
+    "UPDATE messages SET reply = ?, reply_at = ?, is_read = 1, read_at = COALESCE(read_at, ?) WHERE id = ? AND recipient_name_lower = ?"
+  ).bind(replyText, now, now, id, nameLower).run();
 
   return jsonResponse({ success: true }, 200, env);
 }

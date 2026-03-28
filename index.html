@@ -5286,19 +5286,43 @@
       })
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        var msgs = (data.messages || []).filter(function(m) { return !m.is_read; });
+        var msgs = data.messages || [];
+        // Ungelesene und kürzlich beantwortete zeigen
+        var visible = msgs.filter(function(m) { return !m.is_read || m.reply; });
         var box = document.getElementById("messagesBox");
-        if (!box || !msgs.length) return;
+        if (!box || !visible.length) return;
         box.style.display = "block";
-        box.innerHTML = msgs.map(function(m) {
+        box.innerHTML = visible.map(function(m) {
           var date = new Date(m.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
-          return '<div style="background:var(--accent-soft, #e0e7ff);border:1px solid var(--accent, #4f46e5);border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;">'
+          var replySection = '';
+          if (m.reply) {
+            var replyDate = new Date(m.reply_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+            replySection = '<div style="margin-top:.75rem;padding:.75rem;background:rgba(255,255,255,0.5);border-radius:8px;border-left:3px solid var(--accent, #4f46e5);">'
+              + '<div style="font-size:.8rem;color:var(--ink-muted);margin-bottom:.25rem;">Deine Antwort · ' + replyDate + '</div>'
+              + '<p style="margin:0;font-size:.88rem;color:var(--ink);white-space:pre-wrap;">' + escapeHtmlSafe(m.reply) + '</p>'
+              + '</div>';
+          }
+          var buttons = '';
+          if (!m.reply) {
+            buttons = '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:.5rem;">'
+              + '<button onclick="toggleReplyBox(\'' + m.id + '\')" style="background:var(--accent, #4f46e5);color:#fff;border:none;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Antworten</button>'
+              + '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="background:none;border:1px solid var(--border, #ccc);color:var(--ink-muted);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;min-height:44px;">Gelesen</button>'
+              + '</div>'
+              + '<div id="reply-box-' + m.id + '" style="display:none;margin-top:.75rem;">'
+              + '<textarea id="reply-text-' + m.id + '" rows="3" placeholder="Deine Antwort…" style="width:100%;padding:10px 12px;border:1px solid var(--border, #ccc);border-radius:8px;background:var(--bg, #fff);color:var(--ink);font-size:16px;resize:vertical;" maxlength="5000"></textarea>'
+              + '<button onclick="sendReply(\'' + m.id + '\')" style="margin-top:.5rem;background:var(--accent, #4f46e5);color:#fff;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Absenden</button>'
+              + '</div>';
+          } else {
+            buttons = '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="margin-top:.5rem;background:none;border:1px solid var(--border, #ccc);color:var(--ink-muted);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;min-height:44px;">Ausblenden</button>';
+          }
+          return '<div style="background:var(--accent-soft, #e0e7ff);border:1px solid var(--accent, #4f46e5);border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;" id="msg-card-' + m.id + '">'
             + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:.4rem;">'
-            + '<strong style="font-size:.95rem;color:var(--accent, #4f46e5);">✉️ ' + escapeHtmlSafe(m.subject) + '</strong>'
+            + '<strong style="font-size:.95rem;color:var(--accent, #4f46e5);">\u2709\uFE0F ' + escapeHtmlSafe(m.subject) + '</strong>'
             + '<span style="font-size:.8rem;color:var(--ink-muted);">' + date + '</span>'
             + '</div>'
             + '<p style="margin:0;font-size:.9rem;color:var(--ink);white-space:pre-wrap;">' + escapeHtmlSafe(m.body) + '</p>'
-            + '<button onclick="markMessageRead(\'' + m.id + '\', this)" style="margin-top:.5rem;background:none;border:1px solid var(--accent, #4f46e5);color:var(--accent, #4f46e5);padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;min-height:44px;">Gelesen</button>'
+            + replySection
+            + buttons
             + '</div>';
         }).join('');
       })
@@ -5309,6 +5333,40 @@
       var d = document.createElement("div");
       d.textContent = str || "";
       return d.innerHTML;
+    }
+
+    function toggleReplyBox(msgId) {
+      var box = document.getElementById("reply-box-" + msgId);
+      if (!box) return;
+      box.style.display = box.style.display === "none" ? "block" : "none";
+      if (box.style.display === "block") {
+        var ta = document.getElementById("reply-text-" + msgId);
+        if (ta) ta.focus();
+      }
+    }
+
+    function sendReply(msgId) {
+      var name = sessionStorage.getItem("student_name");
+      var token = sessionStorage.getItem("access_token");
+      if (!name || !token) return;
+      var ta = document.getElementById("reply-text-" + msgId);
+      var reply = ta ? ta.value.trim() : "";
+      if (!reply) { if (ta) ta.focus(); return; }
+
+      fetch(API_BASE + "/api/messages/reply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": token },
+        body: JSON.stringify({ id: msgId, student_name: name, reply: reply })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success) {
+          // Nachricht neu laden
+          loadStudentMessages();
+          if (typeof showToast === "function") showToast("Antwort gesendet!", "success");
+        }
+      })
+      .catch(function() {});
     }
 
     function markMessageRead(id, btn) {
@@ -5322,7 +5380,7 @@
         body: JSON.stringify({ id: id, student_name: name })
       })
       .then(function() {
-        var card = btn.parentElement;
+        var card = document.getElementById("msg-card-" + id) || btn.parentElement;
         card.style.opacity = "0";
         card.style.transition = "opacity 0.3s";
         setTimeout(function() {

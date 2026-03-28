@@ -302,9 +302,14 @@ export async function ensureMigrations(env) {
         body TEXT NOT NULL,
         is_read INTEGER NOT NULL DEFAULT 0,
         created_at TEXT NOT NULL,
-        read_at TEXT
+        read_at TEXT,
+        reply TEXT,
+        reply_at TEXT
       )
     `).run();
+    // Migration: reply-Spalten hinzufügen falls Tabelle schon existiert
+    try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply TEXT DEFAULT NULL").run(); } catch (_) {}
+    try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply_at TEXT DEFAULT NULL").run(); } catch (_) {}
 
     _migrated = true;
   } catch (e) {

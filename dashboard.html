@@ -1899,14 +1899,23 @@ function renderMessages(msgs) {
     const readBadge = m.is_read
       ? '<span style="background:#d1fae5;color:#047857;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">Gelesen' + (m.read_at ? ' · ' + new Date(m.read_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) : '') + '</span>'
       : '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">Ungelesen</span>';
-    return '<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem;">'
+    const replySection = m.reply
+      ? '<div style="margin-top:.75rem;padding:.75rem;background:var(--accent-glow, rgba(79,70,229,.06));border-radius:8px;border-left:3px solid var(--accent);">'
+        + '<div style="font-size:.8rem;color:var(--ink-muted);margin-bottom:.25rem;">💬 Antwort vom Schüler · ' + new Date(m.reply_at).toLocaleString("de-DE", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" }) + '</div>'
+        + '<p style="margin:0;font-size:.88rem;color:var(--ink);white-space:pre-wrap;">' + escapeHtml(m.reply) + '</p>'
+        + '</div>'
+      : '';
+    const borderColor = m.reply ? 'var(--accent)' : 'var(--border)';
+    return '<div style="background:var(--bg);border:1px solid ' + borderColor + ';border-radius:10px;padding:1rem;' + (m.reply ? 'border-left:3px solid var(--accent);' : '') + '">'
       + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:.5rem;">'
       + '<div><strong>' + escapeHtml(m.recipient_name_lower) + '</strong> · <span style="color:var(--ink-muted);font-size:.85rem;">' + date + '</span></div>'
       + '<div style="display:flex;gap:6px;align-items:center;">' + readBadge
+      + (m.reply ? ' <span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:600;">Antwort erhalten</span>' : '')
       + ' <button onclick="deleteMessage(\'' + m.id + '\')" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:.85rem;padding:4px 8px;min-height:44px;" title="Löschen">🗑️</button></div>'
       + '</div>'
       + '<div style="font-weight:600;font-size:.9rem;margin-bottom:.25rem;">' + escapeHtml(m.subject) + '</div>'
       + '<div style="font-size:.9rem;color:var(--ink-muted);white-space:pre-wrap;">' + escapeHtml(m.body) + '</div>'
+      + replySection
       + '</div>';
   }).join('');
 }
