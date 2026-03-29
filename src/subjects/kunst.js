@@ -15,11 +15,11 @@ export async function handleParseTaskKunst(request, env) {
   const content = [
     {
       type: "text",
-      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Kunst (Bayern). Extrahiere:
-1. Die Aufgabenstellung Teil A (task_instruction) - vollständig mit allen Teilaufgaben und BE-Angaben
-2. Den/die Materialtext(e) (primary_text) - vollständig mit allen Quellentexten, Bildbeschreibungen, Werkanalysen
-3. Die Aufgabenstellung Teil B / Ausweitung (task_instruction_b) - falls vorhanden
-4. Quellenangaben (primary_meta) - Künstler, Werk, Epoche, Quelle
+      text: `Diese Bilder zeigen eine Abitur-Aufgabe im Fach Kunst (Bayern, Besondere Fachprüfung eA). Extrahiere:
+1. Die Werkerschließungs-Aufgabenstellung (task_instruction) - vollständig mit allen Teilaufgaben und BE-Angaben (Annäherung, Beschreibung, Analyse, Interpretation)
+2. Den/die Materialtext(e) (primary_text) - vollständig mit allen Werkbeschreibungen, Quellentexten, Künstlerzitaten
+3. Die Kontextaufgabe (task_instruction_b) - falls vorhanden (Bezüge zu anderen Halbjahren/Positionen)
+4. Quellenangaben (primary_meta) - Künstler, Werktitel, Jahr, Museum/Sammlung
 
 Antworte NUR mit validem JSON:
 {"task_instruction": "...", "primary_text": "...", "task_instruction_b": "...", "primary_meta": "..."}`
@@ -35,63 +35,58 @@ Antworte NUR mit validem JSON:
 /* ================= KUNST ABITUR: GENERATE ================= */
 export async function handleGenerateAbiturKunst(request, env) {
   const body = await request.json();
-  const { lernbereich, schwerpunkt, level, bearbeitungszeit } = body;
+  const { lernbereich, schwerpunkt, bearbeitungszeit } = body;
 
-  const isEA = (level || "eA").toLowerCase() === "ea";
-  const niveauLabel = isEA ? "erhöhtes Anforderungsniveau (eA)" : "grundlegendes Anforderungsniveau (gA)";
-  const refZeit = isEA ? 270 : 210;
-  const refBE = isEA ? 120 : 100;
+  // Kunst-Abitur ist ausschließlich eA (Besondere Fachprüfung)
+  const refZeit = 300;
+  const refBE = 60;
   const zeitHinweis = zeitanpassung(bearbeitungszeit, refZeit, refBE);
-  const bePruefungA = isEA ? "85 BE" : "75 BE";
-  const bePruefungB = isEA ? "35 BE" : "25 BE";
-  const beGesamt = isEA ? "120 BE" : "100 BE";
 
   const lbThemen = {
     "12_1": {
-      title: "Bildende Kunst: Malerei und Grafik",
-      lernbereiche: "LB 12.1 (Bildende Kunst: Malerei und Grafik)",
-      inhalte: `- Bildanalyse: Komposition, Farbgestaltung, Licht und Schatten, Perspektive
-- Malerei-Epochen: Renaissance, Barock, Klassizismus, Romantik, Impressionismus
-- Grafische Techniken: Zeichnung, Druckgrafik (Holzschnitt, Radierung, Lithografie)
-- Künstler und Werke im Kontext: Dürer, Rembrandt, Caspar David Friedrich, Monet, Cézanne
-- Ikonografie und Ikonologie: Bildthemen, Symbolik, Lesarten
-- Gestaltungsprinzipien: Goldener Schnitt, Bildrhythmus, Kontraste`
+      title: "Objekt",
+      lernbereiche: "Ku12 LB 1 (Objekt)",
+      inhalte: `- Alltags-/Gebrauchsgegenstände, Fundstücke: symbolische und ästhetische Qualitäten
+- Zusammenwirken von Volumen, Form, Oberfläche, Materialität
+- Readymade (Duchamp), Installation, Montage, Assemblage
+- Designpositionen 20./21. Jh.: Bauhaus, Ulmer Schule, zeitgenössisches Design
+- Objet trouvé, transkulturelle Perspektiven
+- Werkerschließung: ästhetische, praktische, symbolische Funktionen
+- Bildnerische Methoden inkl. digitaler Verfahren (3D-Druck, CAD)`
     },
     "12_2": {
-      title: "Architektur und Design",
-      lernbereiche: isEA
-        ? "LB 12.2 (Architektur und Design) und LB 12.3 (Medienkunst)"
-        : "LB 12.2 (Architektur und Design)",
-      inhalte: `- Architekturanalyse: Grundriss, Aufriss, Raumwirkung, Konstruktion, Material
-- Architektur-Epochen: Gotik, Renaissance, Barock, Klassizismus, Jugendstil, Bauhaus, Moderne
-- Design: Produktdesign, Kommunikationsdesign, Form follows Function
-- Stadtplanung und Raumkonzepte
-- Designgeschichte: Arts and Crafts, Bauhaus, Ulmer Schule, Postmoderne
-- Wechselwirkung von Funktion, Material, Ästhetik`
+      title: "Raum",
+      lernbereiche: "Ku12 LB 2 (Raum)",
+      inhalte: `- Materialeigenschaften, räumliche Situationen
+- Entwurf von Bauaufgaben: Wohn-/Versammlungsräume, öffentliche Räume
+- Darstellungsformen: Grundriss, Aufriss, Schnitt, CAD, Modellbau
+- Raumkunst, Installationen, Raumillusionen
+- Baukörper, Material, Konstruktion, Licht
+- Nachhaltiges Bauen, Smart City, partizipative Prozesse
+- Temporäre Architekturen, digitale Animation
+- Architekturgeschichte: Gotik, Renaissance, Barock, Bauhaus, Moderne, Dekonstruktivismus`
     },
     "13_1": {
-      title: "Plastik und Skulptur",
-      lernbereiche: isEA
-        ? "LB 13.1 (Plastik und Installation) und LB 13.2 (Kunsttheorie)"
-        : "LB 13.1 (Plastik und Skulptur)",
-      inhalte: `- Plastische Gestaltungsmittel: Volumen, Oberfläche, Raumbezug, Material
-- Skulptur vs. Plastik: subtraktive und additive Verfahren
-- Epochen: Antike Plastik, Michelangelo, Rodin, Brancusi, Beuys, Serra
-- Installation und Environment: Rauminstallation, Land Art, Environments
-- Kunsttheorie: Mimesis, Abstraktion, Konzeptkunst
-- Werkbetrachtung und Interpretation plastischer Werke`
+      title: "Körper",
+      lernbereiche: "Ku13 LB 1 (Körper)",
+      inhalte: `- Proportionen, Aufbau, Ausdruck menschlicher Körper
+- Darstellungsverfahren: Malerei, Plastik, Performance, Fotografie, Film, digitale Medien
+- Themenfeld: Natürlichkeit/Künstlichkeit, Schönheitsideale, Verletzlichkeit, Sterblichkeit
+- Figuration, Abstraktion, Deformation, Expression, Idealisierung, (Selbst-)Inszenierung
+- Körper-Raum-Beziehung, Körper-Körper-Beziehung
+- Polaritäten (Gegensatzpaare in der Körperdarstellung)
+- Kunstgeschichtliche Positionen: Antike Idealplastik, Michelangelo, Rodin, Giacometti, Beuys, Abramović`
     },
     "13_2": {
-      title: "Kunst der Moderne und Gegenwart",
-      lernbereiche: isEA
-        ? "LB 13.3 (Kunst der Moderne und Gegenwart) und LB 13.4 (Kunstrezeption)"
-        : "LB 13.2 (Kunst der Moderne und Gegenwart)",
-      inhalte: `- Moderne Kunstströmungen: Expressionismus, Kubismus, Surrealismus, Abstraktion, Pop Art
-- Zeitgenössische Kunst: Performance, Videokunst, Neue Medien, Street Art
-- Kunstmarkt und Kunstinstitutionen: Museum, Galerie, Biennale, Documenta
-- Kunstkritik und Rezeption: Methoden der Werkanalyse
-- Künstlerische Positionen: Kandinsky, Picasso, Duchamp, Warhol, Richter, Abramović
-- Kunst und Gesellschaft: Provokation, politische Kunst, Kunst im öffentlichen Raum`
+      title: "Interaktion und Transformation",
+      lernbereiche: "Ku13 LB 2 (Interaktion und Transformation)",
+      inhalte: `- Wandlungs- und Umbruchprozesse: Migration, Klimawandel, Identität, Diversität
+- Künstlerische Interventionen in Situationen sozialer Interaktion
+- Installation, Aktion, Performance, Sound-Collage, Gaming
+- Künstlerische Strategien, Erweiterungen des Kunstbegriffs
+- Dokumentationsformen: Skizze, Story-Board, Video, Blog, Fotostrecke
+- Kommunikationspotenzial von Zeichen, Klang, Schrift, Sprache
+- Künstlerische Positionen: Beuys (Soziale Plastik), Fluxus, Situationismus, Banksy, Ai Weiwei`
     }
   };
 
@@ -101,57 +96,70 @@ export async function handleGenerateAbiturKunst(request, env) {
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESEN SCHWERPUNKT VERWENDEN:\n' + schwerpunkt + '\nALLE Teilaufgaben müssen sich direkt auf diesen Schwerpunkt beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans!'
     : '';
 
-  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Kunst (ab 2026, G9).
-Erstelle eine VOLLSTÄNDIGE Abiturprüfung mit Prüfungsteil A (${bePruefungA}) und Prüfungsteil B (${bePruefungB}) auf ${niveauLabel}.
-Gesamtumfang: ${beGesamt}.
+  const systemPrompt = `Du bist ein Experte für das bayerische Abitur im Fach Kunst (Besondere Fachprüfung, eA, ab 2026, G9).
+Erstelle den SCHRIFTLICH-THEORETISCHEN TEIL einer Kunst-Abiturprüfung als Werkerschließung.
+Gesamt: 60 BE. Bearbeitungszeit: 300 Minuten (inkl. bildnerisch-praktischem Teil, der hier nicht gestellt wird).
 
-PRÜFUNGSTEIL A (${bePruefungA}):
-- 3-4 Teilaufgaben mit steigendem Anforderungsniveau (AFB I → II → III)
-- 2-3 Materialien (Werkabbildungen als Bildbeschreibung, Quellentexte/Kunstkritiken 400-800 Wörter, ggf. Statistik)
-- Verwende offizielle Operatoren: beschreiben, analysieren, vergleichen, erläutern, interpretieren, erörtern, beurteilen, gestalterisch umsetzen
-- Situiere die Aufgabe an einem konkreten Kunstwerk, einer Epoche oder einem kunsttheoretischen Problem
-- KEINE LÖSUNGSHINWEISE in den Aufgabenstellungen
+PRÜFUNGSFORMAT — BESONDERE FACHPRÜFUNG KUNST:
+Die echte Prüfung hat einen schriftlich-theoretischen und einen bildnerisch-praktischen Teil.
+Du erstellst hier NUR den schriftlich-theoretischen Teil (Werkerschließung + Kontextaufgabe).
 
-PRÜFUNGSTEIL B – Ausweitung (${bePruefungB}):
-- 1-2 Teilaufgaben, die den Lernbereich erweitern oder vertiefen
-- Bezug zu einem ANDEREN Künstler, einer anderen Epoche oder einem aktuellen Kunstdiskurs
-- Höherer Reflexionsanspruch (vorwiegend AFB II-III)
-- Kann auf Material aus Teil A Bezug nehmen oder neues Material einführen
+WERKERSCHLIESSUNG — AUFGABENSTRUKTUR:
+Die Aufgabe basiert auf einem konkreten KUNSTWERK (oder einer Gruppe von Werken) und folgt den Schritten der Werkerschließung:
+
+1. ANNÄHERUNG (ca. 5 BE): Erste Eindrücke, Assoziationen verbalisieren
+   → Operatoren: "Schildern Sie Ihre ersten Eindrücke…", "Beschreiben Sie spontan…"
+2. BESCHREIBUNG (ca. 8-10 BE): Umfängliche Erfassung des Wahrgenommenen (Motive, Figuren, Objekte, Materialien)
+   → Operatoren: "Beschreiben Sie…", "Benennen Sie…"
+3. FORMALE ANALYSE (ca. 12-15 BE): Fläche, Raum, Licht, Farbe, Material, Technik, Komposition
+   → Operatoren: "Analysieren Sie…", "Untersuchen Sie das Zusammenspiel von…"
+4. ERWEITERTE ANALYSE / INTERPRETATION (ca. 10-12 BE): Funktionen, Medialität, Deutungsansätze
+   → Operatoren: "Entwickeln Sie Interpretationsansätze…", "Herausarbeiten Sie…"
+5. KONTEXTAUFGABE (ca. 8-10 BE): Bezüge zu Werken/Positionen aus ANDEREN Halbjahren
+   → Operatoren: "Stellen Sie Bezüge her…", "Vergleichen Sie…", "Diskutieren Sie…"
+6. STELLUNGNAHME / WERTUNG (ca. 5-8 BE): Kritische Stellungnahme mit Begründung
+   → Operatoren: "Reflektieren Sie…", "Nehmen Sie Stellung…", "Beurteilen Sie…"
 
 LERNBEREICH: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
 ${lb.lernbereiche}
 Relevante Inhalte:
 ${lb.inhalte}${schwerpunktZusatz}
 
-LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen, Künstlern und Konzepten, die in den oben angegebenen Lernbereichen stehen. Gehe NICHT über den Lehrplan hinaus.
-${!isEA ? `⚠️ STRENGE gA-BESCHRÄNKUNG: Diese Aufgabe ist für das GRUNDLEGENDE Anforderungsniveau (gA). Verwende AUSSCHLIESSLICH die oben für gA aufgelisteten Inhalte. Themen und Künstler, die NUR im eA-Lehrplan stehen, dürfen NICHT vorkommen.` : ""}
+MATERIALIEN:
+- MINDESTENS 1 Werkabbildung als "bild" (Bildprompt auf Englisch, 5-10 Sätze, NUR Nummern als Marker, bild_labels als Objekt)
+- MINDESTENS 1 Textquelle als "text" (Kunstkritik, Künstlerzitat, kunsttheoretischer Text — 200-500 Wörter Fließtext)
+- Optional: "foto" (Künstlerporträt, Ausstellungsansicht), "statistik" (Markdown-Tabelle)
+
+LEHRPLAN-TREUE: Stelle NUR Aufgaben zu Themen und Künstlern, die im oben angegebenen Lernbereich stehen.
 
 Antworte NUR mit validem JSON:
 {
   "teil_a": {
-    "task_instruction": "Vollständige Aufgabenstellung Teil A mit allen Teilaufgaben und BE",
+    "task_instruction": "Werkerschließung: Alle Teilaufgaben (Annäherung, Beschreibung, Analyse, Interpretation) mit BE-Angaben",
     "materials": [
-      {"title": "Abb. 1: Werktitel, Künstler (Jahr)", "type": "bild", "content": "Bildprompt auf Englisch. Beschreibe das Kunstwerk visuell (5-10 Sätze). NUR Nummern als Marker im Bild, KEINE Wörter.", "bild_labels": {"1": "Beschriftung 1"}, "source": "Künstler, Werktitel, Jahr, Museum"},
-      {"title": "Textquelle 1: Kunstkritik / Quelltext", "type": "text", "content": "Kunstkritik oder kunsttheoretischer Text (400-800 Wörter)", "source": "Autor, Werk, Jahr"}
+      {"title": "Abb. 1: Werktitel, Künstler (Jahr)", "type": "bild", "content": "Bildprompt auf Englisch (5-10 Sätze). NUR Nummern als Marker.", "bild_labels": {"1": "Beschriftung"}, "source": "Künstler, Werktitel, Jahr, Museum"},
+      {"title": "Textquelle 1: Titel", "type": "text", "content": "Kunstkritik oder Künstlerzitat (200-500 Wörter)", "source": "Autor, Quelle, Jahr"}
     ]
   },
   "teil_b": {
-    "task_instruction": "Vollständige Aufgabenstellung Teil B (Ausweitung) mit BE",
+    "task_instruction": "Kontextaufgabe + Stellungnahme mit BE-Angaben",
     "materials": []
   },
   "lernbereich": "${lernbereich || "12_1"}",
-  "thema": "Konkretes Thema der Prüfung"
+  "thema": "Konkretes Thema / Kunstwerk der Prüfung"
 }`;
 
-  const userPrompt = `Erstelle eine vollständige Kunst-Abiturprüfung (Teil A + Teil B):
+  const userPrompt = `Erstelle eine Werkerschließungs-Aufgabe für die Kunst-Abiturprüfung:
 - Lernbereich: ${lernbereich?.replace("_", "/") || "12/1"} – ${lb.title}
-- Niveau: ${niveauLabel}
-- Teil A: ${bePruefungA}, Teil B: ${bePruefungB}, Gesamt: ${beGesamt}
+- Niveau: eA (Besondere Fachprüfung)
+- Gesamt: 60 BE (schriftlich-theoretischer Teil)
 
-KRITISCH: Jedes Textmaterial in Teil A MUSS 400-800 Wörter lang sein.
-AUFGABENBEZUG: JEDES bereitgestellte Material MUSS in mindestens einer Teilaufgabe direkt referenziert und verwendet werden.
-Teil B soll eine thematische Vertiefung oder Erweiterung darstellen.
-${!isEA ? `STRENG BEACHTEN: Dies ist eine gA-Prüfung! Verwende NUR Stoff aus dem gA-Lehrplan.` : ""}`;
+KRITISCH:
+- Die Aufgabe muss sich an einem KONKRETEN Kunstwerk orientieren (mit Werkabbildung)
+- Teilaufgaben folgen den Schritten der Werkerschließung (Annäherung → Beschreibung → Analyse → Interpretation)
+- Die Kontextaufgabe verlangt Bezüge zu Werken/Positionen aus ANDEREN Halbjahren
+- Jedes Material MUSS in mindestens einer Teilaufgabe referenziert werden
+- Textmaterialien MÜSSEN 200-500 Wörter lang sein`;
 
   const openaiRes = await callOpenAI(env, [
     { role: "system", content: systemPrompt + zeitHinweis },
@@ -172,16 +180,16 @@ export async function handleGradeAbiturKunst(request, env) {
   }
 
   let contextInfo = "";
-  if (task_instruction_a) contextInfo += `Aufgabenstellung Teil A:\n${truncate(task_instruction_a, 5000)}\n\n`;
-  if (task_instruction_b) contextInfo += `Aufgabenstellung Teil B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (task_instruction_a) contextInfo += `Werkerschließung (Aufgabenstellung):\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) contextInfo += `Kontextaufgabe:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) contextInfo += `Material:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
     contextInfo += `Materialien:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}\n\n`;
   }
 
   let studentTexts = "";
-  if (student_text_a) studentTexts += `Schülertext Teil A:\n${truncate(student_text_a, 12000)}\n\n`;
-  if (student_text_b) studentTexts += `Schülertext Teil B:\n${truncate(student_text_b, 6000)}`;
+  if (student_text_a) studentTexts += `Schülertext Werkerschließung:\n${truncate(student_text_a, 12000)}\n\n`;
+  if (student_text_b) studentTexts += `Schülertext Kontextaufgabe & Stellungnahme:\n${truncate(student_text_b, 6000)}`;
 
   const korrekturAnweisung = KORREKTUR_SINGLE;
   const bilderHinweis = (images && images.length) ? BILDER_HINWEIS_TEXT : "";
@@ -227,28 +235,32 @@ export async function handleGradeAbiturKunst(request, env) {
 export async function handleModelAnswerAbiturKunst(request, env) {
   const { task_instruction_a, task_instruction_b, primary_text, materials } = await request.json();
 
-  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Kunst (Leistungsfach).
-Schreibe eine vorbildliche Musterlösung für die GESAMTE Abiturprüfung (Teil A + Teil B) auf DEUTSCH.
+  const systemPrompt = `Du bist ein sehr guter Oberstufenschüler am bayerischen Gymnasium im Fach Kunst (Leistungsfach, eA).
+Schreibe eine vorbildliche Musterlösung für die Werkerschließung und Kontextaufgabe auf DEUTSCH.
 
-WICHTIG – GANZE SÄTZE:
-- Verwende vollständige Sätze, keine Stichpunkte oder reinen Aufzählungen
-- Fachterminologie korrekt verwenden
-- Strukturiere mit Absätzen und ggf. Überschriften pro Teilaufgabe
+STRUKTUR DER WERKERSCHLIESSUNG:
+Folge den Schritten der Werkerschließung:
+1. Annäherung — Spontane Eindrücke, Assoziationen, Wirkung des Werks
+2. Beschreibung — Systematische Erfassung: Motive, Figuren, Objekte, Materialien, Technik
+3. Formale Analyse — Komposition, Farbgebung, Licht-Schatten, Raumwirkung, Materialität
+4. Interpretation — Deutungsansätze auf Basis der Analyse, Bezug zu Materialien/Textquellen
 
-Inhaltlich:
-- Bearbeite ALLE Teilaufgaben beider Prüfungsteile
-- Verwende kunsthistorische Fachbegriffe korrekt (Komposition, Farbgebung, Perspektive, Ikonografie, Stil, Epoche etc.)
-- Beschreibe Kunstwerke präzise (formale Analyse: Farbe, Form, Linie, Raum, Komposition)
-- Beziehe die Materialien ein und zitiere daraus
-- Zeige kunsthistorisches Kontextwissen
-- Formuliere eigenständige, begründete Urteile und Interpretationen
+KONTEXTAUFGABE & STELLUNGNAHME:
+- Bezüge zu Werken/Positionen aus anderen Halbjahren
+- Vergleiche und Einordnung
+- Eigene begründete Stellungnahme/Wertung
+
+WICHTIG:
+- Verwende vollständige Sätze, keine Stichpunkte
+- Korrekte kunsthistorische und gestalterische Fachbegriffe verwenden
+- Beziehe die Materialien (Werkabbildungen, Textquellen) konkret ein
 - Zielumfang: 1200-1800 Wörter insgesamt
 
-Formatiere als Markdown. Am Ende unter "---" eine kurze Reflexion.`;
+Formatiere als Markdown mit Überschriften für jeden Schritt der Werkerschließung.`;
 
   let userContent = "";
-  if (task_instruction_a) userContent += `TEIL A:\n${truncate(task_instruction_a, 5000)}\n\n`;
-  if (task_instruction_b) userContent += `TEIL B:\n${truncate(task_instruction_b, 3000)}\n\n`;
+  if (task_instruction_a) userContent += `WERKERSCHLIESSUNG:\n${truncate(task_instruction_a, 5000)}\n\n`;
+  if (task_instruction_b) userContent += `KONTEXTAUFGABE:\n${truncate(task_instruction_b, 3000)}\n\n`;
   if (primary_text) userContent += `MATERIAL:\n${truncate(primary_text, 15000)}\n\n`;
   if (materials && materials.length) {
     userContent += `MATERIALIEN:\n${materials.slice(0, 10).map((m, i) => `Material ${i + 1}: ${truncate(m.title, 200)}\n${truncate(m.content, 3000)}`).join("\n\n")}`;

@@ -418,27 +418,27 @@
       <div class="card" id="setupGenerate">
         <h2 class="card-header">Neue Abituraufgabe generieren</h2>
         <div class="form-group">
-          <label>Lernbereich / Themenbereich (für Prüfungsteil A)</label>
+          <label>Lernbereich (Halbjahr)</label>
           <div class="hj-grid">
             <div class="hj-card selected" data-hj="12_1" onclick="selectLernbereich('12_1')">
-              <div class="hj-icon">🎨</div>
+              <div class="hj-icon">🔧</div>
               <div class="hj-name">12/1</div>
-              <div class="hj-desc">Malerei und Grafik</div>
+              <div class="hj-desc">Objekt</div>
             </div>
             <div class="hj-card" data-hj="12_2" onclick="selectLernbereich('12_2')">
               <div class="hj-icon">🏛️</div>
               <div class="hj-name">12/2</div>
-              <div class="hj-desc">Architektur und Design</div>
+              <div class="hj-desc">Raum</div>
             </div>
             <div class="hj-card" data-hj="13_1" onclick="selectLernbereich('13_1')">
-              <div class="hj-icon">🗿</div>
+              <div class="hj-icon">🧍</div>
               <div class="hj-name">13/1</div>
-              <div class="hj-desc">Plastik und Skulptur</div>
+              <div class="hj-desc">Körper</div>
             </div>
             <div class="hj-card" data-hj="13_2" onclick="selectLernbereich('13_2')">
-              <div class="hj-icon">✨</div>
+              <div class="hj-icon">🔄</div>
               <div class="hj-name">13/2</div>
-              <div class="hj-desc">Moderne und Gegenwart</div>
+              <div class="hj-desc">Interaktion und Transformation</div>
             </div>
           </div>
         </div>
@@ -451,7 +451,7 @@
         <button class="btn" id="generateBtn" onclick="generateTask()">✨ Abituraufgabe generieren</button>
         <div class="loader" id="setupLoader">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Generiere Abituraufgabe (Teil A + B) …</div>
+          <div class="loader-text">Generiere Werkerschließungsaufgabe …</div>
         </div>
       </div>
 
@@ -477,29 +477,29 @@
         </div>
         <hr style="margin:1.5rem 0;border:none;border-top:1px solid var(--border)">
         <h3 style="font-size:.95rem;margin-bottom:.8rem">Oder manuell eingeben:</h3>
-        <div class="form-group"><label for="manualTaskInstruction">Aufgabenstellung Prüfungsteil A</label><textarea id="manualTaskInstruction"
-            style="min-height:60px" placeholder="Stellen Sie … dar! / Diskutieren Sie …"></textarea></div>
-        <div class="form-group"><label for="manualPrimaryText">Material / Text</label><textarea id="manualPrimaryText" style="min-height:120px"
-            placeholder="Materialtext hier einfügen …"></textarea></div>
-        <div class="form-group"><label for="manualTaskInstructionB">Aufgabenstellung Prüfungsteil B (Ausweitung)</label><textarea
+        <div class="form-group"><label for="manualTaskInstruction">Aufgabenstellung Werkerschließung</label><textarea id="manualTaskInstruction"
+            style="min-height:60px" placeholder="Beschreiben Sie … / Analysieren Sie … / Entwickeln Sie Interpretationsansätze …"></textarea></div>
+        <div class="form-group"><label for="manualPrimaryText">Material (Werkbeschreibung, Textquelle)</label><textarea id="manualPrimaryText" style="min-height:120px"
+            placeholder="Werkbeschreibung oder Quelltext hier einfügen …"></textarea></div>
+        <div class="form-group"><label for="manualTaskInstructionB">Kontextaufgabe (Bezüge zu anderen Halbjahren)</label><textarea
             id="manualTaskInstructionB" style="min-height:60px"
-            placeholder="Prüfungsteil B: Transfer-/Ausweitungsaufgabe …"></textarea></div>
+            placeholder="Stellen Sie Bezüge her zu … / Vergleichen Sie …"></textarea></div>
         <div class="form-group"><label for="manualMeta">Quelle</label><input type="text" id="manualMeta"
-            placeholder="z.B. FAZ, 12.03.2024"></div>
+            placeholder="z.B. Künstler, Werktitel, Jahr, Museum"></div>
         <button class="btn btn-secondary" onclick="useManualTask()">Manuell verwenden</button>
       </div>
 
       <div class="card">
         <label for="timerMinutes">Bearbeitungszeit (Min.)</label>
-        <input type="number" id="timerMinutes" value="270" min="60" max="315" style="max-width:120px">
-        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">eA: 270 Min. / gA: 210 Min.</div>
+        <input type="number" id="timerMinutes" value="300" min="60" max="315" style="max-width:120px">
+        <div style="font-size:.8rem;color:var(--ink-muted);margin-top:.3rem">Besondere Fachprüfung Kunst (eA): 300 Min.</div>
       </div>
     </section>
 
     <!-- STEP 2: READ MATERIALS -->
     <section id="sec-task">
       <div class="card">
-        <h3 class="teil-header">Prüfungsteil A <span class="teil-badge" id="teilABadge">85 BE</span></h3>
+        <h3 class="teil-header">Werkerschließung <span class="teil-badge" id="teilABadge">60 BE</span></h3>
         <h2 class="card-header">Aufgabenstellung</h2>
         <div class="task-box" id="taskInstructionA">…</div>
       </div>
@@ -547,10 +547,9 @@
       </div>
 
       <div class="card">
-        <h3 class="teil-header">Prüfungsteil B – Ausweitung <span class="teil-badge" id="teilBBadge">35 BE</span></h3>
+        <h3 class="teil-header">Kontextaufgabe <span class="teil-badge" id="teilBBadge"></span></h3>
         <div class="task-box" id="taskInstructionB" style="font-size:.95rem">…</div>
-        <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Prüfungsteil B geht über die Materialien
-          hinaus. Nutze dein Fachwissen.</p>
+        <p style="font-size:.8rem;color:var(--ink-muted);margin-top:.5rem">Bezüge zu Werken und Positionen aus anderen Halbjahren herstellen.</p>
       </div>
 
       <button class="btn" onclick="nav('write')">Weiter zum Schreiben →</button>
@@ -574,36 +573,37 @@
           <summary style="cursor:pointer;font-weight:600;color:var(--accent)">📋 Aufgabe & Materialien</summary>
           <div
             style="margin-top:1rem;padding:1rem;background:var(--bg-warm);border-radius:var(--radius-sm);max-height:350px;overflow-y:auto">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Prüfungsteil A</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Werkerschließung</div>
             <div class="task-box" id="writeTaskRefA" style="margin:0 0 1rem 0;font-size:.9rem"></div>
             <div id="writeMaterialsRef" style="font-size:.85rem"></div>
             <hr style="margin:1rem 0;border:none;border-top:1px solid var(--border)">
-            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Prüfungsteil B – Ausweitung</div>
+            <div style="font-weight:600;color:var(--accent);margin-bottom:.3rem">Kontextaufgabe</div>
             <div class="task-box" id="writeTaskRefB" style="margin:0;font-size:.9rem"></div>
           </div>
         </details>
 
-        <!-- Teil A Textarea -->
+        <!-- Werkerschließung Textarea -->
         <div class="write-part">
-          <h3>Prüfungsteil A</h3>
-          <textarea id="studentTextA" aria-label="Deine Antwort zu Teil A" placeholder="Beginne hier mit Prüfungsteil A …
+          <h3>Werkerschließung</h3>
+          <textarea id="studentTextA" aria-label="Deine Werkerschließung" placeholder="Beginne hier mit der Werkerschließung …
 
-Tipp: Strukturiere deinen Text:
-• Einleitung mit Bezug zur Aufgabenstellung
-• Hauptteil mit Fachbegriffen und Materialverweisen
-• Schluss mit begründetem Urteil" oninput="updateWordCounts()"></textarea>
+Tipp: Folge den Schritten der Werkerschließung:
+• Annäherung: Erste Eindrücke und Assoziationen
+• Beschreibung: Was siehst du? (Motive, Figuren, Objekte)
+• Formale Analyse: Komposition, Farbe, Raum, Material, Technik
+• Interpretation: Deutung auf Basis deiner Analyse" oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountA">0</span> Wörter</div>
         </div>
 
-        <!-- Teil B Textarea -->
+        <!-- Kontextaufgabe Textarea -->
         <div class="write-part">
-          <h3>Prüfungsteil B – Ausweitung</h3>
-          <textarea id="studentTextB" aria-label="Deine Antwort zu Teil B" placeholder="Beginne hier mit Prüfungsteil B (Ausweitung) …
+          <h3>Kontextaufgabe & Stellungnahme</h3>
+          <textarea id="studentTextB" aria-label="Deine Kontextaufgabe" placeholder="Kontextaufgabe und Stellungnahme …
 
-Tipp: Teil B geht über die Materialien hinaus.
-• Beziehe dein Fachwissen ein
-• Transfer zu anderen Lernbereichen/Themen
-• Eigenständige philosophische Reflexion" oninput="updateWordCounts()"></textarea>
+Tipp: Hier gehst du über das einzelne Werk hinaus:
+• Bezüge zu anderen Künstlern/Epochen/Halbjahren
+• Vergleiche mit verwandten Positionen
+• Eigene begründete Stellungnahme/Wertung" oninput="updateWordCounts()"></textarea>
           <div class="word-counter"><span id="wordCountB">0</span> Wörter</div>
         </div>
 
@@ -639,8 +639,8 @@ Tipp: Teil B geht über die Materialien hinaus.
           <textarea id="ocrText" aria-label="Erkannter Text aus Upload" style="min-height:200px;" placeholder="Erkannter Text erscheint hier …"
             oninput="updateOCRWordCount()"></textarea>
           <div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap;align-items:center;">
-            <button class="btn btn-small" onclick="useOCRTextA()">✓ In Teil A übernehmen</button>
-            <button class="btn btn-small" onclick="useOCRTextB()">✓ In Teil B übernehmen</button>
+            <button class="btn btn-small" onclick="useOCRTextA()">✓ In Werkerschließung</button>
+            <button class="btn btn-small" onclick="useOCRTextB()">✓ In Kontextaufgabe</button>
             <button class="btn btn-small btn-secondary" onclick="clearOCR()">Verwerfen</button>
             <span style="font-size:.8rem;color:var(--ink-muted);margin-left:auto;" id="ocrWordCount"></span>
           </div>
@@ -661,12 +661,12 @@ Tipp: Teil B geht über die Materialien hinaus.
           <h2 class="card-header">Bewertung</h2>
           <div class="scores-grid">
             <div class="score-card">
-              <div class="score-label">Teil A (Inhalt)</div>
+              <div class="score-label">Werkerschließung</div>
               <div class="score-value" id="scoreTeilA">–</div>
               <div class="score-max">/ 15</div>
             </div>
             <div class="score-card">
-              <div class="score-label">Teil B (Inhalt)</div>
+              <div class="score-label">Kontextaufgabe</div>
               <div class="score-value" id="scoreTeilB">–</div>
               <div class="score-max">/ 15</div>
             </div>
@@ -691,11 +691,11 @@ Tipp: Teil B geht über die Materialien hinaus.
           <div class="korrektur-legende"><span class="fehler-rs-demo">Rechtschreibung</span><span
               class="fehler-gr-demo">Grammatik</span></div>
           <div class="korrektur-teil">
-            <h3>Teil A</h3>
+            <h3>Werkerschließung</h3>
             <div class="korrektur-body" id="korrekturBodyA"></div>
           </div>
           <div class="korrektur-teil">
-            <h3>Teil B</h3>
+            <h3>Kontextaufgabe</h3>
             <div class="korrektur-body" id="korrekturBodyB"></div>
           </div>
         </div>
@@ -784,74 +784,74 @@ Tipp: Teil B geht über die Materialien hinaus.
     CONFIG.lernbereich = "12_1";
 
     const HJ_LABELS = {
-      "12_1": "12/1 – Malerei und Grafik",
-      "12_2": "12/2 – Architektur und Design",
-      "13_1": "13/1 – Plastik und Skulptur",
-      "13_2": "13/2 – Moderne und Gegenwart"
+      "12_1": "12/1 – Objekt",
+      "12_2": "12/2 – Raum",
+      "13_1": "13/1 – Körper",
+      "13_2": "13/2 – Interaktion und Transformation"
     };
 
-    const HJ_ICONS = { "12_1": "🎨", "12_2": "🏛️", "13_1": "🗿", "13_2": "✨" };
+    const HJ_ICONS = { "12_1": "🔧", "12_2": "🏛️", "13_1": "🧍", "13_2": "🔄" };
 
     const SCHWERPUNKTE = {
       "12_1": [
         { value: "random", label: "Zufällig" },
-        { value: "bildanalyse", label: "Bildanalyse & Komposition" },
-        { value: "farbe", label: "Farbgestaltung & Licht" },
-        { value: "epochen-malerei", label: "Malerei-Epochen (Renaissance bis Impressionismus)" },
-        { value: "druckgrafik", label: "Druckgrafik (Holzschnitt, Radierung, Lithografie)" }
+        { value: "readymade", label: "Readymade, Assemblage & Installation" },
+        { value: "design", label: "Designpositionen (20./21. Jh.)" },
+        { value: "funktion-aesthetik", label: "Funktion, Material & Ästhetik" },
+        { value: "objektanalyse", label: "Werkerschließung: Objekt" }
       ],
       "12_2": [
         { value: "random", label: "Zufällig" },
-        { value: "architekturanalyse", label: "Architekturanalyse & Raumwirkung" },
-        { value: "architektur-epochen", label: "Architektur-Epochen (Gotik bis Moderne)" },
-        { value: "design", label: "Produkt- & Kommunikationsdesign" },
-        { value: "bauhaus", label: "Bauhaus & Funktionalismus" }
+        { value: "architektur", label: "Architektur & Bauaufgaben" },
+        { value: "rauminstallation", label: "Raumkunst & Raumillusion" },
+        { value: "nachhaltigkeit", label: "Nachhaltiges Bauen & Smart City" },
+        { value: "raumanalyse", label: "Werkerschließung: Raum" }
       ],
       "13_1": [
         { value: "random", label: "Zufällig" },
-        { value: "plastik-analyse", label: "Plastische Gestaltungsmittel" },
-        { value: "skulptur-epochen", label: "Skulptur (Antike bis Moderne)" },
-        { value: "installation", label: "Installation & Land Art" },
-        { value: "kunsttheorie", label: "Kunsttheorie (Mimesis, Abstraktion, Konzeptkunst)" }
+        { value: "koerperdarstellung", label: "Körperdarstellung (Malerei, Plastik, Performance)" },
+        { value: "figuration-abstraktion", label: "Figuration & Abstraktion" },
+        { value: "schoenheitsideale", label: "Schönheitsideale & Inszenierung" },
+        { value: "koerper-raum", label: "Körper-Raum-Beziehung" }
       ],
       "13_2": [
         { value: "random", label: "Zufällig" },
-        { value: "moderne-stroemungen", label: "Expressionismus, Kubismus, Surrealismus" },
-        { value: "pop-art", label: "Pop Art & Postmoderne" },
-        { value: "zeitgenoessisch", label: "Zeitgenössische Kunst (Performance, Video, Neue Medien)" },
-        { value: "kunst-gesellschaft", label: "Kunst & Gesellschaft (Kunstmarkt, politische Kunst)" }
+        { value: "intervention", label: "Künstlerische Interventionen" },
+        { value: "performance", label: "Performance, Aktion & Neue Medien" },
+        { value: "transformation", label: "Wandel: Migration, Identität, Diversität" },
+        { value: "kunstbegriff", label: "Erweiterung des Kunstbegriffs" }
       ]
     };
 
-    const BEWERTUNG_PROMPT = `Du bewertest eine vollständige Abiturprüfung im Fach Kunst (Bayern, Abitur ab 2026).
-Die Prüfung besteht aus Prüfungsteil A und Prüfungsteil B (Ausweitung).
+    const BEWERTUNG_PROMPT = `Du bewertest den schriftlich-theoretischen Teil einer Abiturprüfung im Fach Kunst (Bayern, Besondere Fachprüfung eA, ab 2026).
+Die Prüfung ist eine Werkerschließung mit Kontextaufgabe. Gesamt: 60 BE (nur schriftlich-theoretischer Teil wird hier bewertet).
 
 BEWERTUNGSKRITERIEN:
 
-PRÜFUNGSTEIL A – INHALT:
-- Präzise Themaerschließung und korrekte Verwendung von Fachbegriffen
-- Sinnvoller Aufbau und schlüssige Argumentation
-- Angemessener Grad der Reflexion und eigenständiges begründetes Urteil
-- Korrekte Anwendung der Operatoren (darstellen, ermitteln, erarbeiten, erläutern, begründen, beurteilen, bewerten, diskutieren)
-- Angemessene Berücksichtigung des beigefügten Materials mit Textbelegen
+WERKERSCHLIESSUNG (teil_a_np, 50%):
+- Annäherung: Erste Eindrücke und Assoziationen treffend verbalisiert
+- Beschreibung: Umfängliche Erfassung des Wahrgenommenen (Motive, Figuren, Objekte, Materialien)
+- Formale Analyse: Fläche, Raum, Licht, Farbe, Material, Technik, Komposition fachlich korrekt untersucht
+- Erweiterte Analyse: Funktionen, Medialität, Kommunikation, Rezeption, Partizipation
+- Interpretationsansätze: Deutende Schlüsse auf Basis der Analysen, nachvollziehbar begründet
 
-PRÜFUNGSTEIL B – INHALT (Ausweitung):
-- Eigenständiger Transfer über die Materialien hinaus
-- Verknüpfung mit anderen Lernbereichen/Themenbereichen oder breitere philosophische Reflexion
-- Korrekte Anwendung der Operatoren
+KONTEXTAUFGABE & STELLUNGNAHME (teil_b_np, 20%):
+- Bezüge zu Werken/Positionen aus anderen Halbjahren hergestellt
+- Wissen über künstlerische Positionen und Epochen eingebracht
+- Kritische Stellungnahme mit argumentativer Begründung
 - Eigenständiges, differenziertes Urteil
 
-DARSTELLUNG (für beide Teile zusammen):
+DARSTELLUNG (darstellung_np, 30%):
 - Klarer Aufbau und logische Gliederung
-- Angemessene Fachterminologie
+- Korrekte kunsthistorische und gestalterische Fachterminologie
 - Sprachliche Gewandtheit und Korrektheit
 
-ANFORDERUNGSEBENEN:
-- I (Reproduktion): Darstellen, Beschreiben, Nennen
-- II (Reorganisation und Transfer): Ermitteln, Erarbeiten, Erläutern, Analysieren, Vergleichen
-- III (Reflexion und Problemlösung): Begründen, Beurteilen, Bewerten, Diskutieren, Stellung nehmen
+OPERATOREN IM FACH KUNST:
+- schildern, beschreiben (AFB I)
+- analysieren, untersuchen, herausarbeiten, vergleichen, erläutern (AFB II)
+- entwickeln, diskutieren, reflektieren, Stellung nehmen, beurteilen (AFB III)
 
-WICHTIG – GANZE SÄTZE: Antworten sollen in vollständigen Sätzen formuliert sein, nicht in Stichpunkten oder reinen Aufzählungen. Fußnoten und Quellenverweise sind erlaubt. Es muss kein perfekt strukturierter Aufsatz sein — entscheidend ist die Formulierung in ganzen Sätzen.
+WICHTIG: Antworten sollen in vollständigen Sätzen formuliert sein. Skizzenhafte Notizen oder reine Aufzählungen reichen nicht. Fachbegriffe der Werkerschließung müssen korrekt verwendet werden.
 
 Antworte NUR JSON: {"teil_a_np":<0-15>,"teil_b_np":<0-15>,"darstellung_np":<0-15>,"gesamt_np":<0-15>,"feedback":"<Markdown>"}
 gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
@@ -864,8 +864,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     function updateTimerDefault() {
-      const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-      document.getElementById("timerMinutes").value = level === "ea" ? 270 : 210;
+      document.getElementById("timerMinutes").value = 300;
     }
 
     function updateSchwerpunkte() {
@@ -875,10 +874,8 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
     }
 
     function updateBEBadges() {
-      const level = (sessionStorage.getItem("student_level") || "eA").toLowerCase();
-      const isEA = level === "ea";
-      document.getElementById("teilABadge").textContent = isEA ? "85 BE" : "75 BE";
-      document.getElementById("teilBBadge").textContent = isEA ? "35 BE" : "25 BE";
+      document.getElementById("teilABadge").textContent = "60 BE";
+      document.getElementById("teilBBadge").textContent = "";
     }
 
     function setSetupMode(m) {
@@ -946,7 +943,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
           lernbereich: CONFIG.lernbereich,
           schwerpunkt: document.getElementById("schwerpunktSelect").value,
           level: level,
-          bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 270
+          bearbeitungszeit: parseInt(document.getElementById("timerMinutes").value) || 300
         });
         // Flatten nested teil_a/teil_b from API into flat structure for renderTask
         const d = {
@@ -1040,7 +1037,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       const taskB = d.task_instruction_b || "";
       document.getElementById("taskInstructionB").innerHTML = taskB
         ? escapeHtml(taskB).replace(/\n/g, "<br>")
-        : '<span style="color:var(--ink-muted)">Kein Prüfungsteil B vorhanden.</span>';
+        : '<span style="color:var(--ink-muted)">Keine Kontextaufgabe vorhanden.</span>';
 
       const lbLabel = HJ_LABELS[d.lernbereich || CONFIG.lernbereich] || "";
       document.getElementById("textTitle").textContent = "Materialien – " + lbLabel;
@@ -1093,7 +1090,7 @@ gesamt_np = round(teil_a_np * 0.5 + teil_b_np * 0.2 + darstellung_np * 0.3)`;
       document.getElementById("writeTaskRefA").innerHTML = escapeHtml(taskA).replace(/\n/g, "<br>");
       document.getElementById("writeTaskRefB").innerHTML = taskB
         ? escapeHtml(taskB).replace(/\n/g, "<br>")
-        : '<span style="color:var(--ink-muted)">Kein Prüfungsteil B</span>';
+        : '<span style="color:var(--ink-muted)">Keine Kontextaufgabe</span>';
 
       const refContainer = document.getElementById("writeMaterialsRef");
       if (d.materials && d.materials.length) {
