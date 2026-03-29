@@ -10,51 +10,195 @@ export async function handleGenerateMathe(request, env) {
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!\nVERBOTEN: Aufgaben zu Themen erstellen, die NICHT in der obigen Liste stehen. Wenn z.B. "Kurvendiskussion" gewählt ist, erstelle KEINE Wachstums-/Abklingaufgaben!'
     : '';
 
-  // Beispiele je nach Unterpunkt, damit die KI nicht immer Wachstum generiert
+  // Mehrere Beispiele je Unterpunkt für maximale Varianz (zufällige Auswahl)
   const analysisBeispiele = {
-    'Ableitungsregeln und Ableitungsfunktion': {
-      aufgabe: 'Ein Architekt entwirft eine geschwungene Fassade. Die Höhe $h$ der Fassade (in Metern) wird im Bereich $0 \\le x \\le 20$ ($x$ in Metern ab dem linken Rand) durch $h(x) = -0{,}004x^{3} + 0{,}12x^{2} - 0{,}5x + 8$ beschrieben.',
-      teilaufgaben: [
-        {id: 'a)', text: 'Bestimmen Sie die Stellen, an denen die Fassade am steilsten ansteigt bzw. abfällt.', be: 4},
-        {id: 'b)', text: 'Der Architekt möchte wissen, an welcher Stelle die Krümmung der Fassade wechselt. Ermitteln Sie diese Stelle.', be: 4}
-      ]
-    },
-    'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': {
-      aufgabe: 'Eine Halfpipe in einem Skatepark hat im Querschnitt die Form des Graphen der Funktion $f$ mit $f(x) = \\frac{1}{8}x^{4} - x^{2} + 2$ ($x$ in Metern, $-3 \\le x \\le 3$). Die Höhe $f(x)$ gibt die Höhe des Randes in Metern über dem Boden an.',
-      teilaufgaben: [
-        {id: 'a)', text: 'Bestimmen Sie die tiefste Stelle der Halfpipe und geben Sie deren Höhe über dem Boden an.', be: 4},
-        {id: 'b)', text: 'Ermitteln Sie die Bereiche, in denen ein Skater bergab bzw. bergauf fährt.', be: 4},
-        {id: 'c)', text: 'Bestimmen Sie die Stellen, an denen die Krümmung der Halfpipe wechselt, und interpretieren Sie das Ergebnis im Sachzusammenhang.', be: 5}
-      ]
-    },
-    'Integralrechnung (Stammfunktion, Flächenberechnung)': {
-      aufgabe: 'Bei einem Starkregenereignis wird die Zuflussrate $z$ (in m³/h) in ein Regenrückhaltebecken gemessen. Im Zeitraum $0 \\le t \\le 6$ ($t$ in Stunden) lässt sich die Zuflussrate modellhaft durch $z(t) = -2t^{2} + 10t + 3$ beschreiben.',
-      teilaufgaben: [
-        {id: 'a)', text: 'Berechnen Sie die Gesamtmenge an Wasser, die in den ersten vier Stunden in das Becken fließt.', be: 4},
-        {id: 'b)', text: 'Ab einer Zuflussrate von $15$ m³/h droht das Becken überzulaufen. Bestimmen Sie den Zeitraum, in dem Überlaufgefahr besteht.', be: 5}
-      ]
-    },
-    'Funktionsscharen und Parameter': {
-      aufgabe: 'Ein Ingenieur modelliert verschiedene Brückenprofile durch die Funktionenschar $f_a$ mit $f_a(x) = -a \\cdot x^{2} \\cdot (x - 6)$ für $0 \\le x \\le 6$ ($a > 0$, $x$ in Metern). Der Parameter $a$ bestimmt die Höhe des Brückenprofils.',
-      teilaufgaben: [
-        {id: 'a)', text: 'Zeigen Sie, dass alle Brückenprofile der Schar die gleiche Spannweite haben.', be: 3},
-        {id: 'b)', text: 'Bestimmen Sie den Wert von $a$, für den die Brücke eine maximale Höhe von $4$ Metern erreicht.', be: 5}
-      ]
-    },
-    'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': {
-      aufgabe: 'Ein Pharmaunternehmen testet einen neuen Wirkstoff. Die Wirkstoffkonzentration $c$ (in mg/l) im Blut wird im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden) durch $c(t) = 5{,}4 \\cdot t \\cdot e^{-0{,}35t}$ beschrieben. Ab $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.',
-      teilaufgaben: [
-        {id: 'a)', text: 'Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.', be: 4},
-        {id: 'b)', text: 'Überprüfen Sie, ob die maximale Konzentration tatsächlich etwa zwei Stunden nach Einnahme erreicht wird.', be: 4}
-      ]
-    }
+    'Ableitungsregeln und Ableitungsfunktion': [
+      {
+        aufgabe: 'Ein Architekt entwirft eine geschwungene Fassade. Die Höhe $h$ der Fassade (in Metern) wird im Bereich $0 \\le x \\le 20$ ($x$ in Metern ab dem linken Rand) durch $h(x) = -0{,}004x^{3} + 0{,}12x^{2} - 0{,}5x + 8$ beschrieben.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Stellen, an denen die Fassade am steilsten ansteigt bzw. abfällt.', be: 4},
+          {id: 'b)', text: 'Der Architekt möchte wissen, an welcher Stelle die Krümmung der Fassade wechselt. Ermitteln Sie diese Stelle.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Radweg verläuft entlang eines Flussufers. Das Höhenprofil $h$ des Weges (in Metern über NN) wird im Abschnitt $0 \\le x \\le 12$ ($x$ in Kilometern) durch $h(x) = 0{,}5x^{3} - 6x^{2} + 18x + 200$ modelliert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Steigung des Radwegs an der Stelle $x = 2$ und interpretieren Sie das Ergebnis.', be: 3},
+          {id: 'b)', text: 'Ein Rennradfahrer möchte wissen, an welchen Stellen der Weg am steilsten bergauf bzw. bergab führt. Ermitteln Sie diese Stellen.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Die Temperatur $T$ (in °C) in einem Gewächshaus wird an einem Sommertag im Zeitraum $0 \\le t \\le 14$ ($t$ in Stunden ab 6:00 Uhr) durch $T(t) = -0{,}08t^{3} + 1{,}2t^{2} - 2t + 18$ beschrieben.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die momentane Änderungsrate der Temperatur um 10:00 Uhr.', be: 3},
+          {id: 'b)', text: 'Der Gärtner möchte wissen, wann die Temperatur am schnellsten steigt. Ermitteln Sie diesen Zeitpunkt.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Physiker untersucht die Bewegung eines Modellautos auf einer Teststrecke. Die Position $s$ (in Metern) des Autos wird im Zeitraum $0 \\le t \\le 8$ ($t$ in Sekunden) durch $s(t) = \\frac{1}{3}t^{3} - 4t^{2} + 15t$ beschrieben.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Geschwindigkeit und die Beschleunigung des Modellautos zum Zeitpunkt $t = 3$.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie, zu welchem Zeitpunkt das Auto seine maximale Geschwindigkeit erreicht.', be: 4}
+        ]
+      }
+    ],
+    'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': [
+      {
+        aufgabe: 'Eine Halfpipe in einem Skatepark hat im Querschnitt die Form des Graphen der Funktion $f$ mit $f(x) = \\frac{1}{8}x^{4} - x^{2} + 2$ ($x$ in Metern, $-3 \\le x \\le 3$). Die Höhe $f(x)$ gibt die Höhe des Randes in Metern über dem Boden an.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die tiefste Stelle der Halfpipe und geben Sie deren Höhe über dem Boden an.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie die Bereiche, in denen ein Skater bergab bzw. bergauf fährt.', be: 4},
+          {id: 'c)', text: 'Bestimmen Sie die Stellen, an denen die Krümmung der Halfpipe wechselt, und interpretieren Sie das Ergebnis im Sachzusammenhang.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Landschaftsarchitekt plant einen künstlichen Hügel in einem Park. Das Querschnittsprofil wird durch $f(x) = -0{,}02x^{4} + 0{,}8x^{2}$ ($x$ in Metern, $-5 \\le x \\le 5$) beschrieben, wobei $f(x)$ die Höhe in Metern über dem Bodenniveau angibt.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die maximale Höhe des Hügels und die Stelle, an der sie erreicht wird.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie die Breite des Hügels auf Bodenniveau.', be: 3},
+          {id: 'c)', text: 'Ein Wanderweg soll dort angelegt werden, wo der Hügel am steilsten ist. Bestimmen Sie diese Stellen.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Der Querschnitt eines Flussbetts wird im Bereich $-4 \\le x \\le 4$ ($x$ in Metern) durch die Funktion $f$ mit $f(x) = 0{,}25x^{4} - 2x^{2} - 1$ modelliert. Dabei gibt $f(x)$ die Tiefe in Metern unter der Wasseroberfläche an (negative Werte = unter Wasser).',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die tiefste Stelle des Flussbetts.', be: 3},
+          {id: 'b)', text: 'Untersuchen Sie, ob das Flussbett eine oder mehrere tiefe Rinnen aufweist.', be: 5},
+          {id: 'c)', text: 'Ermitteln Sie die Stellen, an denen das Flussbett seine steilsten Böschungen hat.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Unternehmen stellt Designvasen her. Der Querschnitt einer Vase wird durch $f(x) = x^{3} - 9x^{2} + 27x - 15$ ($0 \\le x \\le 7$, $x$ in cm) beschrieben, wobei $f(x)$ den Radius der Vase in cm auf Höhe $x$ angibt.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die engste und die weiteste Stelle der Vase.', be: 5},
+          {id: 'b)', text: 'Untersuchen Sie, ob die Vase eine bauchige oder eine schlanke Form hat, indem Sie die Wendestelle bestimmen.', be: 4},
+          {id: 'c)', text: 'Ermitteln Sie die Bereiche, in denen sich die Vase nach oben hin verengt bzw. weitet.', be: 3}
+        ]
+      },
+      {
+        aufgabe: 'Die Geschwindigkeit $v$ (in km/h) eines Zuges auf einer Teststrecke wird im Zeitraum $0 \\le t \\le 10$ ($t$ in Minuten) durch $v(t) = -0{,}3t^{3} + 3{,}6t^{2} - 7{,}2t + 60$ modelliert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die maximale und die minimale Geschwindigkeit des Zuges im gegebenen Zeitraum.', be: 5},
+          {id: 'b)', text: 'Ermitteln Sie die Zeitintervalle, in denen der Zug beschleunigt bzw. bremst.', be: 4},
+          {id: 'c)', text: 'Bestimmen Sie den Zeitpunkt, an dem die Beschleunigung des Zuges am größten ist.', be: 4}
+        ]
+      }
+    ],
+    'Integralrechnung (Stammfunktion, Flächenberechnung)': [
+      {
+        aufgabe: 'Bei einem Starkregenereignis wird die Zuflussrate $z$ (in m³/h) in ein Regenrückhaltebecken gemessen. Im Zeitraum $0 \\le t \\le 6$ ($t$ in Stunden) lässt sich die Zuflussrate modellhaft durch $z(t) = -2t^{2} + 10t + 3$ beschreiben.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie die Gesamtmenge an Wasser, die in den ersten vier Stunden in das Becken fließt.', be: 4},
+          {id: 'b)', text: 'Ab einer Zuflussrate von $15$ m³/h droht das Becken überzulaufen. Bestimmen Sie den Zeitraum, in dem Überlaufgefahr besteht.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Solarpanel erzeugt im Laufe eines Tages eine Leistung $P$ (in kW), die im Zeitraum $0 \\le t \\le 14$ ($t$ in Stunden ab 6:00 Uhr) durch $P(t) = -0{,}04t^{3} + 0{,}48t^{2} - 0{,}2t$ modelliert wird.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie die gesamte Energie (in kWh), die das Solarpanel an diesem Tag erzeugt.', be: 4},
+          {id: 'b)', text: 'Ein Haushalt benötigt eine konstante Leistung von $1{,}5$ kW. Bestimmen Sie den Zeitraum, in dem das Panel mehr Leistung erzeugt, als der Haushalt verbraucht.', be: 5},
+          {id: 'c)', text: 'Berechnen Sie die überschüssige Energiemenge, die in diesem Zeitraum ins Netz eingespeist werden kann.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Stausee wird über einen Zufluss gespeist und über eine Turbine entleert. Die Zuflussrate beträgt konstant $8$ m³/s. Die Abflussrate $a$ (in m³/s) wird im Zeitraum $0 \\le t \\le 10$ ($t$ in Stunden) durch $a(t) = 3t^{2} - 24t + 56$ beschrieben.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Zeitpunkte, zu denen die Abflussrate gleich der Zuflussrate ist.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie, in welchem Zeitraum der Wasserstand im Stausee steigt.', be: 3},
+          {id: 'c)', text: 'Berechnen Sie die Wasserstandsänderung (in m³) im Zeitraum von $t = 2$ bis $t = 6$.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Bei einem Marathon wird die Laufgeschwindigkeit $v$ (in km/h) eines Läufers im Zeitraum $0 \\le t \\le 4$ ($t$ in Stunden) durch $v(t) = -1{,}5t^{2} + 3t + 12$ modelliert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie die Strecke, die der Läufer in den ersten zwei Stunden zurücklegt.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie, nach welcher Zeit der Läufer die Halbmarathon-Distanz von $21{,}1$ km erreicht.', be: 5}
+        ]
+      }
+    ],
+    'Funktionsscharen und Parameter': [
+      {
+        aufgabe: 'Ein Ingenieur modelliert verschiedene Brückenprofile durch die Funktionenschar $f_a$ mit $f_a(x) = -a \\cdot x^{2} \\cdot (x - 6)$ für $0 \\le x \\le 6$ ($a > 0$, $x$ in Metern). Der Parameter $a$ bestimmt die Höhe des Brückenprofils.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Zeigen Sie, dass alle Brückenprofile der Schar die gleiche Spannweite haben.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie den Wert von $a$, für den die Brücke eine maximale Höhe von $4$ Metern erreicht.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Eine Firma produziert parabelförmige Satellitenschüsseln. Der Querschnitt wird durch die Funktionenschar $f_a(x) = a \\cdot x^{2}$ ($a > 0$) beschrieben. Die Schüssel hat jeweils einen Durchmesser von $80$ cm.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Tiefe der Schüssel in Abhängigkeit von $a$.', be: 3},
+          {id: 'b)', text: 'Der Brennpunkt einer Parabel $y = a \\cdot x^{2}$ liegt bei $\\frac{1}{4a}$. Bestimmen Sie $a$ so, dass der Brennpunkt genau $20$ cm über dem Scheitel liegt.', be: 4},
+          {id: 'c)', text: 'Berechnen Sie das Volumen der Schüssel (Rotationskörper) für den in b) bestimmten Wert von $a$.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Architekturbüro entwirft Torbögen. Die Form jedes Bogens wird durch $f_k(x) = -k \\cdot x^{2} + 4k$ ($k > 0$, $x$ in Metern) modelliert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Zeigen Sie, dass die Höhe aller Torbögen der Schar proportional zu ihrer Spannweite ist.', be: 4},
+          {id: 'b)', text: 'Ein Lastwagen mit $3{,}5$ m Höhe und $2{,}4$ m Breite muss durch den Bogen passen. Bestimmen Sie den kleinsten Wert von $k$, für den dies möglich ist.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'In einem Wasserpark werden Rutschen mit verschiedenen Steilheiten gebaut. Die Rutschbahn wird durch $f_t(x) = t \\cdot x^{3} - 3t \\cdot x^{2}$ ($t > 0$, $0 \\le x \\le 3$, $x$ in Metern) modelliert, wobei $f_t(x)$ die Höhe in Metern angibt.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Zeigen Sie, dass alle Rutschen der Schar am gleichen Punkt den Boden berühren.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie den Wendepunkt der Rutsche in Abhängigkeit von $t$ und beschreiben Sie dessen Bedeutung.', be: 4},
+          {id: 'c)', text: 'Ein Sicherheitstest erfordert, dass die maximale Steigung der Rutsche $60°$ nicht überschreitet. Bestimmen Sie den größtmöglichen Wert von $t$.', be: 5}
+        ]
+      }
+    ],
+    'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': [
+      {
+        aufgabe: 'Ein Pharmaunternehmen testet einen neuen Wirkstoff. Die Wirkstoffkonzentration $c$ (in mg/l) im Blut wird im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden) durch $c(t) = 5{,}4 \\cdot t \\cdot e^{-0{,}35t}$ beschrieben. Ab $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.', be: 4},
+          {id: 'b)', text: 'Überprüfen Sie, ob die maximale Konzentration tatsächlich etwa zwei Stunden nach Einnahme erreicht wird.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'In einem See wird die Konzentration $k$ eines Schadstoffs (in µg/l) nach einem Chemieunfall gemessen. Für $t \\ge 0$ ($t$ in Tagen) gilt $k(t) = 120 \\cdot e^{-0{,}08t}$. Der Grenzwert für unbedenkliches Wasser liegt bei $10$ µg/l.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie, nach wie vielen Tagen der Grenzwert erstmals unterschritten wird.', be: 4},
+          {id: 'b)', text: 'Berechnen Sie die mittlere Schadstoffkonzentration in den ersten $20$ Tagen.', be: 5},
+          {id: 'c)', text: 'Beurteilen Sie, ob das Modell für große Zeitwerte realistisch ist.', be: 3}
+        ]
+      },
+      {
+        aufgabe: 'Eine Bäckerei untersucht den Abkühlvorgang frisch gebackener Brote. Die Temperatur $T$ (in °C) eines Brotes lässt sich für $t \\ge 0$ ($t$ in Minuten) durch $T(t) = 22 + 178 \\cdot e^{-0{,}03t}$ modellieren. Die Raumtemperatur beträgt $22$ °C.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie, nach welcher Zeit das Brot auf $50$ °C abgekühlt ist.', be: 4},
+          {id: 'b)', text: 'Berechnen Sie die momentane Abkühlungsrate $15$ Minuten nach dem Backen.', be: 3},
+          {id: 'c)', text: 'Erklären Sie anhand des Modells, warum das Brot anfangs schneller abkühlt als später.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Eine Biologin untersucht das Wachstum einer Bakterienkultur. Die Anzahl $N$ der Bakterien (in Tausend) wird für $t \\ge 0$ ($t$ in Stunden) durch $N(t) = \\frac{500}{1 + 24 \\cdot e^{-0{,}6t}}$ modelliert (logistisches Wachstum).',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Anfangsanzahl der Bakterien und die maximale Kapazität der Kultur.', be: 3},
+          {id: 'b)', text: 'Ermitteln Sie den Zeitpunkt, an dem die Bakterienkultur am schnellsten wächst.', be: 5},
+          {id: 'c)', text: 'Vergleichen Sie das logistische Modell mit einem rein exponentiellen Wachstumsmodell und beurteilen Sie die Unterschiede.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Mobilfunkanbieter untersucht die Verbreitung einer neuen App. Die Anzahl $A$ der aktiven Nutzer (in Tausend) wird für $t \\ge 0$ ($t$ in Wochen nach Launch) durch $A(t) = 80 \\cdot t \\cdot e^{-0{,}15t}$ modelliert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie, wann die App die meisten aktiven Nutzer hat.', be: 4},
+          {id: 'b)', text: 'Ab einer Nutzerzahl von $50\\,000$ ist die App profitabel. Bestimmen Sie den Zeitraum, in dem dies der Fall ist.', be: 5},
+          {id: 'c)', text: 'Berechnen Sie die durchschnittliche Nutzerzahl in den ersten $20$ Wochen.', be: 5}
+        ]
+      }
+    ]
   };
 
-  // Passendes Beispiel wählen basierend auf den gewählten Unterpunkten
+  // Zufälliges Beispiel aus dem Array wählen
   function getBeispielForUnterpunkte(up) {
     if (!up || up.length === 0) return null;
     for (const u of up) {
-      if (analysisBeispiele[u]) return analysisBeispiele[u];
+      const arr = analysisBeispiele[u];
+      if (arr && arr.length > 0) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
     }
     return null;
   }
