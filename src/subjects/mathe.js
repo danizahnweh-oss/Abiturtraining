@@ -7,10 +7,60 @@ export async function handleGenerateMathe(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
-    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!'
+    ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!\nVERBOTEN: Aufgaben zu Themen erstellen, die NICHT in der obigen Liste stehen. Wenn z.B. "Kurvendiskussion" gewählt ist, erstelle KEINE Wachstums-/Abklingaufgaben!'
     : '';
 
+  // Beispiele je nach Unterpunkt, damit die KI nicht immer Wachstum generiert
+  const analysisBeispiele = {
+    'Ableitungsregeln und Ableitungsfunktion': {
+      aufgabe: 'Ein Architekt entwirft eine geschwungene Fassade. Die Höhe $h$ der Fassade (in Metern) wird im Bereich $0 \\le x \\le 20$ ($x$ in Metern ab dem linken Rand) durch $h(x) = -0{,}004x^{3} + 0{,}12x^{2} - 0{,}5x + 8$ beschrieben.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Bestimmen Sie die Stellen, an denen die Fassade am steilsten ansteigt bzw. abfällt.', be: 4},
+        {id: 'b)', text: 'Der Architekt möchte wissen, an welcher Stelle die Krümmung der Fassade wechselt. Ermitteln Sie diese Stelle.', be: 4}
+      ]
+    },
+    'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': {
+      aufgabe: 'Eine Halfpipe in einem Skatepark hat im Querschnitt die Form des Graphen der Funktion $f$ mit $f(x) = \\frac{1}{8}x^{4} - x^{2} + 2$ ($x$ in Metern, $-3 \\le x \\le 3$). Die Höhe $f(x)$ gibt die Höhe des Randes in Metern über dem Boden an.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Bestimmen Sie die tiefste Stelle der Halfpipe und geben Sie deren Höhe über dem Boden an.', be: 4},
+        {id: 'b)', text: 'Ermitteln Sie die Bereiche, in denen ein Skater bergab bzw. bergauf fährt.', be: 4},
+        {id: 'c)', text: 'Bestimmen Sie die Stellen, an denen die Krümmung der Halfpipe wechselt, und interpretieren Sie das Ergebnis im Sachzusammenhang.', be: 5}
+      ]
+    },
+    'Integralrechnung (Stammfunktion, Flächenberechnung)': {
+      aufgabe: 'Bei einem Starkregenereignis wird die Zuflussrate $z$ (in m³/h) in ein Regenrückhaltebecken gemessen. Im Zeitraum $0 \\le t \\le 6$ ($t$ in Stunden) lässt sich die Zuflussrate modellhaft durch $z(t) = -2t^{2} + 10t + 3$ beschreiben.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Berechnen Sie die Gesamtmenge an Wasser, die in den ersten vier Stunden in das Becken fließt.', be: 4},
+        {id: 'b)', text: 'Ab einer Zuflussrate von $15$ m³/h droht das Becken überzulaufen. Bestimmen Sie den Zeitraum, in dem Überlaufgefahr besteht.', be: 5}
+      ]
+    },
+    'Funktionsscharen und Parameter': {
+      aufgabe: 'Ein Ingenieur modelliert verschiedene Brückenprofile durch die Funktionenschar $f_a$ mit $f_a(x) = -a \\cdot x^{2} \\cdot (x - 6)$ für $0 \\le x \\le 6$ ($a > 0$, $x$ in Metern). Der Parameter $a$ bestimmt die Höhe des Brückenprofils.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Zeigen Sie, dass alle Brückenprofile der Schar die gleiche Spannweite haben.', be: 3},
+        {id: 'b)', text: 'Bestimmen Sie den Wert von $a$, für den die Brücke eine maximale Höhe von $4$ Metern erreicht.', be: 5}
+      ]
+    },
+    'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': {
+      aufgabe: 'Ein Pharmaunternehmen testet einen neuen Wirkstoff. Die Wirkstoffkonzentration $c$ (in mg/l) im Blut wird im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden) durch $c(t) = 5{,}4 \\cdot t \\cdot e^{-0{,}35t}$ beschrieben. Ab $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.', be: 4},
+        {id: 'b)', text: 'Überprüfen Sie, ob die maximale Konzentration tatsächlich etwa zwei Stunden nach Einnahme erreicht wird.', be: 4}
+      ]
+    }
+  };
+
+  // Passendes Beispiel wählen basierend auf den gewählten Unterpunkten
+  function getBeispielForUnterpunkte(up) {
+    if (!up || up.length === 0) return null;
+    for (const u of up) {
+      if (analysisBeispiele[u]) return analysisBeispiele[u];
+    }
+    return null;
+  }
+
   const sg = sachgebiet || "analysis";
+  const customBeispiel = (sg === 'analysis' || sg.includes('analysis')) ? getBeispielForUnterpunkte(unterpunkte) : null;
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
@@ -53,6 +103,24 @@ Lehrplan-Inhalte Jgst. 13:
   };
 
   const sgInfo = sgThemen[sg] || sgThemen.analysis;
+
+  // Beispiel-JSON für den Prompt zusammenbauen (passt sich an gewählte Unterpunkte an)
+  const defaultBeispiel = {
+    aufgabe: 'Ein Pharmaunternehmen testet einen neuen Wirkstoff. Nach der Einnahme einer Tablette wird die Wirkstoffkonzentration $c$ (in mg/l) im Blut gemessen. Im Zeitraum $0 \\\\le t \\\\le 24$ ($t$ in Stunden nach der Einnahme) lässt sich die Konzentration modellhaft durch die Funktion $c$ mit $c(t) = 5{,}4 \\\\cdot t \\\\cdot e^{-0{,}35t}$ beschreiben. Ab einer Konzentration von $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.',
+    teilaufgaben: [
+      {id: 'a)', text: 'Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.', be: 4},
+      {id: 'b)', text: 'Der Beipackzettel gibt an, dass die maximale Konzentration etwa zwei Stunden nach der Einnahme erreicht wird. Überprüfen Sie diese Angabe mithilfe des Modells.', be: 4},
+      {id: 'c)', text: 'Die Gesamtbelastung des Körpers wird durch die Fläche unter dem Konzentrationsgraphen beschrieben. Bei dem alten Wirkstoff beträgt diese Belastung im gleichen Zeitraum $38$ mg·h/l. Vergleichen Sie die Belastung durch den neuen Wirkstoff mit der des alten.', be: 5},
+      {id: 'd)', text: 'Eine Ärztin schlägt vor, nach $12$ Stunden eine zweite Tablette einzunehmen. Die Gesamtkonzentration ergibt sich dann aus der Summe beider Einzelkonzentrationen. Beurteilen Sie, ob dabei die kritische Grenze von $8$ mg/l überschritten werden könnte.', be: 4}
+    ]
+  };
+  const beispiel = customBeispiel || defaultBeispiel;
+  const beispielJSON = JSON.stringify({
+    aufgabe: beispiel.aufgabe,
+    teilaufgaben: beispiel.teilaufgaben,
+    gesamt_be: totalBE,
+    sachgebiet: sg
+  }, null, 2);
 
   const systemPrompt = `Du bist ein Experte für das bayerische Mathematik-Abitur (eA, G9, ab 2026).
 Erstelle eine anspruchsvolle, authentische Mathematik-Aufgabe auf ECHTEM ABITURNIVEAU.
@@ -171,19 +239,13 @@ Im Zweifel: KEINE Grafik. Nur wenige Aufgaben brauchen tatsächlich eine Grafik.
 WICHTIG: Das folgende Beispiel zeigt NUR die JSON-Struktur und das erwartete Qualitätsniveau. Generiere KOMPLETT EIGENE, NEUE Aufgaben mit ANDEREN Funktionen, Kontexten und Zahlenwerten! Kopiere NIEMALS Inhalte aus dem Beispiel!
 
 Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
-{
-  "aufgabe": "Ein Pharmaunternehmen testet einen neuen Wirkstoff. Nach der Einnahme einer Tablette wird die Wirkstoffkonzentration $c$ (in mg/l) im Blut gemessen. Im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden nach der Einnahme) lässt sich die Konzentration modellhaft durch die Funktion $c$ mit $c(t) = 5{,}4 \\cdot t \\cdot e^{-0{,}35t}$ beschreiben. Ab einer Konzentration von $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.",
-  "teilaufgaben": [
-    {"id": "a)", "text": "Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.", "be": 4},
-    {"id": "b)", "text": "Der Beipackzettel gibt an, dass die maximale Konzentration etwa zwei Stunden nach der Einnahme erreicht wird. Überprüfen Sie diese Angabe mithilfe des Modells.", "be": 4},
-    {"id": "c)", "text": "Die Gesamtbelastung des Körpers wird durch die Fläche unter dem Konzentrationsgraphen beschrieben. Bei dem alten Wirkstoff beträgt diese Belastung im gleichen Zeitraum $38$ mg·h/l. Vergleichen Sie die Belastung durch den neuen Wirkstoff mit der des alten.", "be": 5},
-    {"id": "d)", "text": "Eine Ärztin schlägt vor, nach $12$ Stunden eine zweite Tablette einzunehmen. Die Gesamtkonzentration ergibt sich dann aus der Summe beider Einzelkonzentrationen. Beurteilen Sie, ob dabei die kritische Grenze von $8$ mg/l überschritten werden könnte.", "be": 4}
-  ],
-  "gesamt_be": ${totalBE},
-  "sachgebiet": "${sg}"
-}
+${beispielJSON}
 Hinweis: "grafik" ist OPTIONAL — nur wenn eine Visualisierung zum LÖSEN der Aufgabe nötig ist. Grafik-Format: {"type": "graphing", "commands": ["f(x) = 2*x^2 - 3*x + 1"]}
 WICHTIG: Generiere EIGENE Aufgaben! Das Beispiel oben ist NUR zur Orientierung.`;
+
+  const unterpunkteHinweis = unterpunkte && unterpunkte.length > 0
+    ? `\n⚠️ THEMA: Der Schüler hat explizit "${unterpunkte.join(', ')}" als Schwerpunkt gewählt. Die Aufgabe MUSS sich auf dieses Thema konzentrieren! Erstelle KEINE Wachstumsaufgaben, wenn Kurvendiskussion gewählt wurde, und umgekehrt.`
+    : '';
 
   const userPrompt = `Erstelle ${aufgabenAnzahl > 1 ? aufgabenAnzahl + ' anspruchsvolle Mathematik-Aufgaben' : 'eine anspruchsvolle Mathematik-Aufgabe'} (EXAKT ${totalBE} BE gesamt, mindestens ${minTeilaufgaben} Teilaufgaben) im Sachgebiet ${sgInfo.title}.
 Die Aufgabe MUSS in einen konkreten, realistischen Sachkontext eingebettet sein — KEINE abstrakten Rechenaufgaben!
@@ -191,7 +253,7 @@ ALLE Teilaufgaben im Sachkontext formulieren: Statt "Bestimmen Sie die Ableitung
 Der Schüler muss SELBST erkennen, welche mathematische Methode nötig ist.
 Schwerpunkt auf AFB II und III: Begründen, Beurteilen, Modellieren, Transferleistung.
 KRITISCH: Alle Formeln in LaTeX-Notation ($...$, $$...$$).
-PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben.`;
+PFLICHT: Die Summe aller Teilaufgaben-BE muss EXAKT ${totalBE} ergeben.${unterpunkteHinweis}`;
 
   const maxTokens = Math.max(6000, 3000 + aufgabenAnzahl * 2000 + totalBE * 80);
   const openaiRes = await callOpenAI(env, [
