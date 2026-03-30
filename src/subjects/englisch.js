@@ -274,6 +274,17 @@ export async function handleGenerateListening(request, env) {
 THEMA: ${safeTopic}
 FORMAT: ${safeFormat}
 
+VARIANZ – WICHTIG:
+Wähle einen KONKRETEN, SPEZIFISCHEN Aspekt innerhalb des Themenfeldes. Verwende NICHT das gesamte Themenfeld als Thema, sondern greife einen einzelnen, präzisen Sachverhalt heraus.
+Beispiele für gute Konkretisierung:
+- Statt "AI & Society" → "A city council debates whether to use facial recognition in public transport"
+- Statt "Climate Change" → "A marine biologist reports on coral bleaching in the Great Barrier Reef"
+- Statt "Social Media" → "A school introduces a phone-free policy after cyberbullying incidents"
+- Statt "Democracy" → "Young voters in Scotland discuss the impact of lowering the voting age to 16"
+- Statt "Future Careers" → "A former truck driver retrains as a drone operator"
+- Statt "Multiculturalism" → "A British-Indian chef opens a fusion restaurant and faces backlash from traditionalists"
+Erfinde einen NEUEN, EINZIGARTIGEN Kontext – kopiere KEINES der obigen Beispiele!
+
 Erstelle einen englischen Hörtext und passende Fragen.
 
 TEIL 1 – HÖRTEXT:
@@ -281,6 +292,7 @@ TEIL 1 – HÖRTEXT:
 - Format: ${safeFormat} (z.B. Nachrichtenbericht, Interview, Vortrag, Dialog)
 - Sprachniveau B2/C1 (Oberstufe)
 - Natürliche Sprache mit klarer Struktur
+- Der Text muss einen KONKRETEN Fall, eine KONKRETE Person/Organisation oder ein KONKRETES Ereignis behandeln – NICHT abstrakt über das Thema philosophieren
 - WICHTIG für TTS-Sprecherzuordnung: Jede Sprechzeile MUSS mit "Sprechername: " beginnen (ohne Klammern!), z.B.:
   Reporter: Welcome to today's programme.
   Expert: Thank you for having me.
