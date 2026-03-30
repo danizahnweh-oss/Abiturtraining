@@ -599,7 +599,7 @@ ${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margi
       if (pathname === "/api/model-answer-abitur-latein" && request.method === "POST") return await handleModelAnswerAbiturLatein(request, env);
 
       // ===== MATHEMATIK =====
-      if (pathname === "/api/generate-mathe" && request.method === "POST") return await handleGenerateMathe(request, env);
+      if (pathname === "/api/generate-mathe" && request.method === "POST") { console.log('[ROUTE-HIT] generate-mathe aufgerufen'); return await handleGenerateMathe(request, env); }
       if (pathname === "/api/grade-mathe" && request.method === "POST") return await handleGradeMathe(request, env);
       if (pathname === "/api/model-answer-mathe" && request.method === "POST") return await handleModelAnswerMathe(request, env);
       if (pathname === "/api/parse-task-mathe" && request.method === "POST") return await handleParseTaskMathe(request, env);

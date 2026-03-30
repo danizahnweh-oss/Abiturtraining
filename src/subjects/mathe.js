@@ -6,6 +6,7 @@ import { BILDER_HINWEIS_MINT, UEBUNGSAUFGABEN_ANWEISUNG, klausurZeitHinweis, zei
 export async function handleGenerateMathe(request, env) {
   const body = await request.json();
   const { sachgebiet, unterpunkte, be, zeit, anzahl } = body;
+  console.log('[MATHE-DEBUG] sachgebiet:', sachgebiet, '| unterpunkte:', JSON.stringify(unterpunkte));
   const schwerpunktZusatz = unterpunkte && unterpunkte.length > 0
     ? '\n\n⚠️ STRIKTE THEMENEINSCHRÄNKUNG — NUR DIESE UNTERPUNKTE VERWENDEN:\n' + unterpunkte.join(', ') + '\nALLE Teilaufgaben müssen sich direkt auf diese Unterpunkte beziehen. Erstelle KEINE Aufgaben zu anderen Themen des Lehrplans, auch wenn sie im selben Sachgebiet liegen!\nVERBOTEN: Aufgaben zu Themen erstellen, die NICHT in der obigen Liste stehen. Wenn z.B. "Kurvendiskussion" gewählt ist, erstelle KEINE Wachstums-/Abklingaufgaben!'
     : '';
@@ -453,16 +454,15 @@ export async function handleGenerateMathe(request, env) {
   const sgThemen = {
     analysis: {
       title: "Analysis",
-      inhalte: `Lehrplan-Inhalte Jgst. 12:
-- M12.1.1: Ganzrationale Funktionen (mit Parametern), Stammfunktionen, Funktionenscharen
-- M12.1.2: Natürliche Exponentialfunktion, Produkt-/Kettenregel, Wachstums-/Abklingmodelle, Grenzwerte
+      inhalte: `Lehrplan-Inhalte (verwende eine MISCHUNG dieser Funktionstypen, NICHT nur e-Funktionen!):
+- M12.1.1: Ganzrationale Funktionen (mit Parametern), Stammfunktionen, Funktionenscharen ← BEVORZUGT!
+- M12.1.2: Natürliche Exponentialfunktion (NUR bei Wachstumsaufgaben verwenden!)
 - M12.1.3: Sinus-/Kosinusfunktion (Ableitungen, einfache Verknüpfungen)
 - M12.4.1: Gebrochen-rationale Funktionen, Quotientenregel
 - M12.4.2: Wurzelfunktion, Umkehrfunktion, Potenzfunktionen mit rationalen Exponenten
-- M12.4.3: Natürliche Logarithmusfunktion als Umkehrfunktion von e^x
-Lehrplan-Inhalte Jgst. 13:
-- M13.1: Bestimmtes Integral als Flächenbilanz, Hauptsatz, Stammfunktionen, Flächenberechnung, uneigentliche Integrale, Rotationsvolumen
-- M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme`,
+- M13.1: Bestimmtes Integral als Flächenbilanz, Hauptsatz, Flächenberechnung, Rotationsvolumen
+- M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme
+WICHTIG: Wähle den Funktionstyp passend zum Thema — e-Funktionen NUR bei Wachstum/Abnahme!`,
       kontexte: `Produktionskosten/-gewinn, Geschwindigkeit und zurückgelegte Strecke, Wasserstand/Pegelstand, Temperaturverlauf, Höhenprofil einer Straße/Rutsche, Flächenberechnung (Grundstück, Solarpanel), Brückenprofil, Flussbett-Querschnitt, Vase/Behälter-Design, Achterbahn-Profil`,
       kontexteNachUnterpunkt: {
         'Ableitungsregeln und Ableitungsfunktion': 'Geschwindigkeit/Beschleunigung, Temperaturänderung, Steigung eines Radwegs/Bergprofils, Produktionsrate, Fassadenform',
@@ -474,31 +474,63 @@ Lehrplan-Inhalte Jgst. 13:
       inhalteNachUnterpunkt: {
         'Ableitungsregeln und Ableitungsfunktion': `Relevante Lehrplan-Inhalte:
 - Ableitungsregeln: Potenzregel, Summenregel, Faktorregel, Produktregel, Kettenregel, Quotientenregel
-- Funktionstypen: ganzrationale Funktionen, gebrochen-rationale Funktionen, Wurzelfunktionen, trigonometrische Funktionen
 - Anwendung: Tangentengleichung, momentane Änderungsrate, Geschwindigkeit/Beschleunigung
-VERBOTEN: Keine e-Funktionen verwenden, außer der Schüler hat explizit "Wachstum" gewählt!`,
+
+ERLAUBTE Funktionstypen (verwende NUR diese!):
+✅ Ganzrationale Funktionen: $f(x) = 2x^{3} - 5x^{2} + 3x$
+✅ Gebrochen-rationale Funktionen: $f(x) = \\frac{3x}{x^{2} + 1}$
+✅ Wurzelfunktionen: $f(x) = 2\\sqrt{x} + x$
+✅ Trigonometrische Funktionen: $f(x) = 3\\sin(2x) + x$
+✅ Produkte/Verkettungen dieser Typen
+
+🚫 STRIKT VERBOTEN — die Aufgabe wird ABGELEHNT wenn diese vorkommen:
+🚫 $e^{x}$, $e^{-x}$, $e^{kx}$ — KEINE e-Funktionen!
+🚫 Wachstums-/Abklingmodelle
+🚫 Natürliche Logarithmusfunktion $\\ln(x)$`,
         'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': `Relevante Lehrplan-Inhalte:
 - Nullstellen, Extremstellen (Hoch-/Tiefpunkte), Wendepunkte, Monotonie, Krümmung
-- Symmetrie (Achsen-/Punktsymmetrie), Verhalten für x → ±∞
-- Funktionstypen: GANZRATIONALE FUNKTIONEN (Grad 3 oder 4), gebrochen-rationale Funktionen
-- KEINE e-Funktionen! Verwende Polynome wie $f(x) = x^{3} - 6x^{2} + 9x$ oder $f(x) = \\frac{1}{4}x^{4} - 2x^{2}$
-VERBOTEN: Keine e-Funktionen, keine Wachstumsmodelle!`,
+- Symmetrie (Achsen-/Punktsymmetrie), Verhalten für $x \\to \\pm\\infty$
+
+ERLAUBTE Funktionstypen (verwende NUR diese!):
+✅ Ganzrationale Funktionen Grad 3: $f(x) = x^{3} - 6x^{2} + 9x - 2$
+✅ Ganzrationale Funktionen Grad 4: $f(x) = \\frac{1}{4}x^{4} - 2x^{2} + 3$
+✅ Gebrochen-rationale Funktionen: $f(x) = \\frac{x^{2} - 4}{x^{2} + 1}$
+
+🚫 STRIKT VERBOTEN — die Aufgabe wird ABGELEHNT wenn diese vorkommen:
+🚫 $e^{x}$, $e^{-x}$, $e^{kx}$, $t \\cdot e^{-at}$ — KEINE e-Funktionen!
+🚫 Wachstums-/Abklingmodelle, Konzentrationsverläufe
+🚫 Die Aufgabe darf KEIN $e$ im Funktionsterm enthalten!`,
         'Integralrechnung (Stammfunktion, Flächenberechnung)': `Relevante Lehrplan-Inhalte:
 - Stammfunktionen, bestimmtes Integral, Hauptsatz der Differential-/Integralrechnung
 - Flächenberechnung (auch zwischen zwei Graphen), Flächenbilanz
 - Uneigentliche Integrale, Rotationsvolumen
-- Funktionstypen: ganzrationale Funktionen, einfache trigonometrische Funktionen ($\\sin$, $\\cos$)
-VERBOTEN: Keine e-Funktionen als Hauptfunktion! Verwende Polynome oder Sinusfunktionen.`,
+
+ERLAUBTE Funktionstypen (verwende NUR diese!):
+✅ Ganzrationale Funktionen: $f(x) = -2x^{2} + 10x + 3$
+✅ Trigonometrische Funktionen: $f(x) = 4\\sin\\left(\\frac{\\pi}{6}x\\right)$
+✅ Einfache Wurzelfunktionen: $f(x) = \\sqrt{x}$
+
+🚫 STRIKT VERBOTEN — die Aufgabe wird ABGELEHNT wenn diese vorkommen:
+🚫 $e^{x}$, $e^{-x}$, $e^{kx}$ — KEINE e-Funktionen!
+🚫 Wachstums-/Abklingmodelle
+🚫 Die Aufgabe darf KEIN $e$ im Funktionsterm enthalten!`,
         'Funktionsscharen und Parameter': `Relevante Lehrplan-Inhalte:
 - Funktionenscharen mit Parameter: $f_a(x) = ...$, Ortskurven, gemeinsame Punkte
 - Parameterbestimmung, Scharverhalten
-- Funktionstypen: GANZRATIONALE FUNKTIONEN mit Parameter (z.B. $f_a(x) = ax^{2}(x-6)$, $f_t(x) = x^{3} - tx$)
-VERBOTEN: Keine e-Funktionen-Scharen! Verwende Polynom-Scharen.`,
+
+ERLAUBTE Funktionstypen (verwende NUR diese!):
+✅ Ganzrationale Scharen: $f_a(x) = a \\cdot x^{2} \\cdot (6 - x)$
+✅ Ganzrationale Scharen: $f_t(x) = x^{3} - t \\cdot x$
+✅ Gebrochen-rationale Scharen: $f_k(x) = \\frac{kx}{x^{2} + 1}$
+
+🚫 STRIKT VERBOTEN — die Aufgabe wird ABGELEHNT wenn diese vorkommen:
+🚫 $e^{kx}$, $a \\cdot e^{-bx}$, $x \\cdot e^{kx}$ — KEINE e-Funktionen-Scharen!
+🚫 Die Aufgabe darf KEIN $e$ im Funktionsterm enthalten!`,
         'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': `Relevante Lehrplan-Inhalte:
 - Natürliche Exponentialfunktion $e^{x}$, Produkt-/Kettenregel für e-Funktionen
 - Wachstums-/Abklingmodelle, Grenzwerte
 - Natürliche Logarithmusfunktion $\\ln(x)$ als Umkehrfunktion
-- Funktionstypen: e-Funktionen (hier sind sie gewollt!)`
+- Funktionstypen: e-Funktionen sind hier GEWOLLT und ERWÜNSCHT!`
       }
     },
     stochastik: {
