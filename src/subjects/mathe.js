@@ -191,11 +191,249 @@ export async function handleGenerateMathe(request, env) {
     ]
   };
 
+  // Beispiele für Stochastik-Unterpunkte
+  const stochastikBeispiele = {
+    'Wahrscheinlichkeitsrechnung (Kombinatorik, Baumdiagramm)': [
+      {
+        aufgabe: 'Bei einem Schulturnier treten $8$ Mannschaften an. In der Vorrunde werden sie zufällig in $2$ Gruppen zu je $4$ Teams gelost. Die Mannschaften A und B kommen aus derselben Schule.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass A und B in derselbe Gruppe gelost werden.', be: 4},
+          {id: 'b)', text: 'In jeder Gruppe spielt jede Mannschaft gegen jede. Berechnen Sie die Gesamtzahl der Spiele im Turnier.', be: 3},
+          {id: 'c)', text: 'Aus den $8$ Mannschaften soll ein Dreierteam für ein Showmatch ausgelost werden. Bestimmen Sie die Anzahl der Möglichkeiten, wenn A dabei sein muss.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'In einer Urne befinden sich $5$ rote, $4$ blaue und $3$ grüne Kugeln. Es werden nacheinander $3$ Kugeln ohne Zurücklegen gezogen.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass alle drei gezogenen Kugeln die gleiche Farbe haben.', be: 4},
+          {id: 'b)', text: 'Berechnen Sie die Wahrscheinlichkeit, dass mindestens eine rote Kugel gezogen wird.', be: 4},
+          {id: 'c)', text: 'Die Kugeln werden nun mit Zurücklegen gezogen. Vergleichen Sie die Wahrscheinlichkeit aus b) mit dieser neuen Situation.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Passwort besteht aus $4$ Zeichen. Erlaubt sind die $26$ Kleinbuchstaben und die Ziffern $0$ bis $9$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie die Gesamtzahl möglicher Passwörter.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass ein zufällig erzeugtes Passwort mindestens eine Ziffer enthält.', be: 5},
+          {id: 'c)', text: 'Ein Hacker probiert $1000$ Passwörter pro Sekunde. Beurteilen Sie die Sicherheit des Passworts.', be: 4}
+        ]
+      }
+    ],
+    'Binomialverteilung und Erwartungswert': [
+      {
+        aufgabe: 'In einer Fabrik werden Glühbirnen produziert. Erfahrungsgemäß sind $3\\%$ der Glühbirnen defekt. Ein Händler kauft eine Lieferung von $200$ Glühbirnen.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass in der Lieferung höchstens $4$ defekte Glühbirnen enthalten sind.', be: 4},
+          {id: 'b)', text: 'Der Händler reklamiert die Lieferung, wenn mehr als $10$ Glühbirnen defekt sind. Berechnen Sie die Wahrscheinlichkeit dafür.', be: 4},
+          {id: 'c)', text: 'Bestimmen Sie die erwartete Anzahl defekter Glühbirnen und die zugehörige Standardabweichung.', be: 3}
+        ]
+      },
+      {
+        aufgabe: 'An einer Kreuzung wird die Helmtragequote von Radfahrern untersucht. Stadtweite Studien zeigen eine Quote von $62\\%$. An einem Morgen werden $50$ Radfahrer beobachtet.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass genau $30$ der beobachteten Radfahrer einen Helm tragen.', be: 3},
+          {id: 'b)', text: 'Berechnen Sie die Wahrscheinlichkeit, dass mindestens $35$ Radfahrer einen Helm tragen.', be: 4},
+          {id: 'c)', text: 'Bestimmen Sie das Intervall, in dem die Helmträger-Anzahl mit etwa $90\\%$ Wahrscheinlichkeit liegt.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Online-Versandhaus weiß aus Erfahrung, dass $8\\%$ der Pakete beim Versand beschädigt werden. An einem Tag werden $120$ Pakete versendet.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie die erwartete Anzahl beschädigter Pakete und die zugehörige Standardabweichung.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass an diesem Tag mehr als $15$ Pakete beschädigt ankommen.', be: 4},
+          {id: 'c)', text: 'Das Unternehmen erstattet pro beschädigtem Paket $12{,}50$ € Entschädigung. Bestimmen Sie die erwarteten Gesamtkosten an einem Tag.', be: 4}
+        ]
+      }
+    ],
+    'Hypothesentests (Signifikanztest)': [
+      {
+        aufgabe: 'Ein Süßwarenhersteller behauptet, dass mindestens $20\\%$ seiner Bonbons die Geschmacksrichtung Erdbeere haben. Ein Verbraucherschützer zweifelt daran und führt einen Test mit $100$ zufällig ausgewählten Bonbons durch.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Formulieren Sie eine geeignete Nullhypothese und Alternativhypothese.', be: 2},
+          {id: 'b)', text: 'Bestimmen Sie den Ablehnungsbereich zum Signifikanzniveau $5\\%$.', be: 5},
+          {id: 'c)', text: 'Bei der Stichprobe wurden $14$ Erdbeerbonbons gefunden. Entscheiden Sie, ob die Behauptung des Herstellers widerlegt werden kann.', be: 3},
+          {id: 'd)', text: 'Erklären Sie den Fehler 1. Art und den Fehler 2. Art im Sachzusammenhang.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Eine Airline gibt an, dass $90\\%$ ihrer Flüge pünktlich starten. Nach Beschwerden soll dies überprüft werden. Dazu werden $80$ zufällig ausgewählte Flüge untersucht.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Legen Sie geeignete Hypothesen fest und begründen Sie Ihre Wahl.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie die Entscheidungsregel zum Signifikanzniveau $\\alpha = 0{,}05$.', be: 5},
+          {id: 'c)', text: 'Es wurden $66$ pünktliche Flüge gezählt. Treffen Sie eine Entscheidung und interpretieren Sie das Ergebnis.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Saatguthersteller wirbt damit, dass die Keimquote seiner Samen bei $85\\%$ liegt. Ein Gärtner hat den Eindruck, dass die Quote niedriger ist, und pflanzt $60$ Samen ein.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Formulieren Sie die Hypothesen des Gärtners als statistischen Test.', be: 2},
+          {id: 'b)', text: 'Bestimmen Sie den Ablehnungsbereich für das Signifikanzniveau $\\alpha = 0{,}05$.', be: 5},
+          {id: 'c)', text: 'Berechnen Sie die Wahrscheinlichkeit eines Fehlers 2. Art, falls die tatsächliche Keimquote nur $70\\%$ beträgt.', be: 5}
+        ]
+      }
+    ],
+    'Bedingte Wahrscheinlichkeit und Unabhängigkeit': [
+      {
+        aufgabe: 'Ein Corona-Schnelltest hat eine Sensitivität von $95\\%$ (erkennt Infizierte korrekt) und eine Spezifität von $98\\%$ (erkennt Gesunde korrekt). In der Bevölkerung sind aktuell $2\\%$ infiziert.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Stellen Sie die Situation in einem vollständigen Baumdiagramm dar.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass eine zufällig getestete Person tatsächlich infiziert ist, wenn der Test positiv ausfällt.', be: 5},
+          {id: 'c)', text: 'Beurteilen Sie die Aussagekraft des Tests in einer Population, in der nur $0{,}1\\%$ infiziert sind.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein E-Mail-Provider nutzt einen Spam-Filter. Erfahrungsgemäß sind $40\\%$ aller eingehenden E-Mails Spam. Der Filter erkennt $96\\%$ der Spam-Mails korrekt, sortiert aber auch $3\\%$ der erwünschten Mails fälschlich als Spam aus.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass eine als Spam markierte E-Mail tatsächlich Spam ist.', be: 5},
+          {id: 'b)', text: 'Berechnen Sie die Wahrscheinlichkeit, dass eine erwünschte Mail im Spam-Ordner landet.', be: 3},
+          {id: 'c)', text: 'Der Nutzer erhält täglich $150$ E-Mails. Bestimmen Sie die erwartete Anzahl fälschlich aussortierter erwünschter Mails pro Woche.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'In einer Stadt gibt es zwei Taxiunternehmen: $85\\%$ der Taxis sind gelb (Firma A) und $15\\%$ sind blau (Firma B). Nachts verursacht ein Taxi einen Unfall. Ein Zeuge sagt, das Taxi sei blau gewesen. Tests zeigen, dass der Zeuge Farben nachts in $80\\%$ der Fälle korrekt erkennt.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Wahrscheinlichkeit, dass das Unfalltaxi tatsächlich blau war.', be: 5},
+          {id: 'b)', text: 'Überprüfen Sie, ob die Ereignisse "Taxi ist blau" und "Zeuge sagt blau" stochastisch unabhängig sind.', be: 3},
+          {id: 'c)', text: 'Beurteilen Sie, ob die Zeugenaussage allein als Beweis ausreicht, und begründen Sie Ihre Einschätzung.', be: 4}
+        ]
+      }
+    ]
+  };
+
+  // Beispiele für Geometrie-Unterpunkte
+  const geometrieBeispiele = {
+    'Vektoren und Vektoroperationen': [
+      {
+        aufgabe: 'Ein Kran hebt eine Last am Punkt $P(3|2|8)$. Die Last wird über zwei Seile gehalten, die an den Punkten $A(0|0|10)$ und $B(6|0|10)$ befestigt sind.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Vektoren $\\overrightarrow{AP}$ und $\\overrightarrow{BP}$ und berechnen Sie deren Beträge.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie den Winkel, den die beiden Seile am Punkt $P$ einschließen.', be: 4},
+          {id: 'c)', text: 'Berechnen Sie den Flächeninhalt des Dreiecks $ABP$.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Ein Segelboot fährt mit dem Geschwindigkeitsvektor $\\vec{v}_B = \\begin{pmatrix} 4 \\\\ 3 \\\\ 0 \\end{pmatrix}$ (in km/h). Gleichzeitig wirkt eine Meeresströmung $\\vec{v}_S = \\begin{pmatrix} -1 \\\\ 2 \\\\ 0 \\end{pmatrix}$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die resultierende Geschwindigkeit und deren Betrag.', be: 3},
+          {id: 'b)', text: 'Ermitteln Sie den Winkel zwischen der Fahrtrichtung des Bootes und der Strömungsrichtung.', be: 4},
+          {id: 'c)', text: 'Das Boot möchte den Punkt $Z(20|15|0)$ vom Startpunkt $S(0|0|0)$ aus erreichen. Beurteilen Sie, ob der aktuelle Kurs dafür geeignet ist.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Auf einer Baustelle steht ein Kran am Punkt $K(0|0|0)$. Der Ausleger zeigt in Richtung $\\vec{a} = \\begin{pmatrix} 8 \\\\ 6 \\\\ 12 \\end{pmatrix}$ (in Metern). Eine Last hängt am Punkt $L(8|6|0)$ senkrecht unter der Auslegerspitze.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Länge des Auslegers.', be: 2},
+          {id: 'b)', text: 'Ein zweiter Kran steht bei $K_2(15|0|0)$ mit Ausleger $\\vec{b} = \\begin{pmatrix} -5 \\\\ 8 \\\\ 10 \\end{pmatrix}$. Prüfen Sie, ob sich die Auslegerspitzen näher als $3$ m kommen.', be: 5},
+          {id: 'c)', text: 'Berechnen Sie den Winkel, unter dem der Ausleger des ersten Krans zum Boden geneigt ist.', be: 4}
+        ]
+      }
+    ],
+    'Geraden und Ebenen im Raum': [
+      {
+        aufgabe: 'Das Dach eines Gebäudes wird durch die Eckpunkte $A(0|0|6)$, $B(10|0|6)$, $C(10|8|6)$ und die Dachspitze $S(5|4|10)$ beschrieben. Die Dachfläche $ABS$ bildet eine Ebene.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Stellen Sie eine Parametergleichung der Geraden durch $A$ und $S$ auf.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie eine Gleichung der Ebene, in der die Dachfläche $ABS$ liegt, in Koordinatenform.', be: 5},
+          {id: 'c)', text: 'Ein Schornstein ragt senkrecht durch den Punkt $P(3|2|6)$ nach oben. Bestimmen Sie den Punkt, an dem er die Dachfläche durchstößt.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'In einer Fabrikhalle wird ein Laserstrahl vom Punkt $L(1|2|5)$ in Richtung $\\vec{d} = \\begin{pmatrix} 2 \\\\ 1 \\\\ -1 \\end{pmatrix}$ ausgesendet. Die Rückwand der Halle liegt in der Ebene $E: 2x + y - z = 20$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie den Punkt, an dem der Laserstrahl die Rückwand trifft.', be: 4},
+          {id: 'b)', text: 'Ermitteln Sie den Winkel, unter dem der Laserstrahl auf die Wand trifft.', be: 4},
+          {id: 'c)', text: 'Ein Spiegel wird an der Wand so platziert, dass der Strahl parallel zum Boden reflektiert wird. Bestimmen Sie die Neigung des Spiegels.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Eine Skipiste führt vom Punkt $A(0|0|800)$ geradlinig zum Punkt $B(300|200|400)$ (Koordinaten in Metern). Ein Sessellift verläuft vom Punkt $C(100|300|400)$ zum Punkt $D(0|50|750)$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Länge der Skipiste und den Neigungswinkel gegenüber der Horizontalen.', be: 4},
+          {id: 'b)', text: 'Untersuchen Sie, ob sich Skipiste und Sessellift kreuzen.', be: 5},
+          {id: 'c)', text: 'Bestimmen Sie den minimalen Abstand zwischen Skipiste und Sessellift.', be: 5}
+        ]
+      }
+    ],
+    'Lagebeziehungen und Schnittmengen': [
+      {
+        aufgabe: 'Ein Tunnel wird durch einen Berg gebohrt. Die Tunnelachse verläuft als Gerade $g: \\vec{x} = \\begin{pmatrix} 0 \\\\ 0 \\\\ 100 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 1 \\\\ 2 \\\\ 0 \\end{pmatrix}$. Die Bergoberfläche kann lokal durch die Ebene $E: x + 2y + 3z = 600$ angenähert werden.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Untersuchen Sie die Lagebeziehung zwischen der Tunnelachse und der Bergoberfläche.', be: 4},
+          {id: 'b)', text: 'Ein Belüftungsschacht verläuft als Gerade $h: \\vec{x} = \\begin{pmatrix} 50 \\\\ 100 \\\\ 150 \\end{pmatrix} + s \\cdot \\begin{pmatrix} 1 \\\\ 2 \\\\ -3 \\end{pmatrix}$. Bestimmen Sie den Durchstoßpunkt des Schachts durch die Bergoberfläche.', be: 4},
+          {id: 'c)', text: 'Prüfen Sie, ob der Belüftungsschacht die Tunnelachse schneidet.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'In einem Gebäude verlaufen zwei Kabelkanäle als Geraden: $g: \\vec{x} = \\begin{pmatrix} 1 \\\\ 0 \\\\ 3 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 2 \\\\ 1 \\\\ -1 \\end{pmatrix}$ und $h: \\vec{x} = \\begin{pmatrix} 5 \\\\ 3 \\\\ 1 \\end{pmatrix} + s \\cdot \\begin{pmatrix} 1 \\\\ -1 \\\\ 2 \\end{pmatrix}$. Die Decke liegt in der Ebene $E: z = 4$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Untersuchen Sie, ob sich die beiden Kabelkanäle kreuzen, schneiden oder parallel verlaufen.', be: 5},
+          {id: 'b)', text: 'Bestimmen Sie die Durchstoßpunkte beider Kabelkanäle durch die Decke.', be: 4},
+          {id: 'c)', text: 'Ermitteln Sie den Schnittwinkel der Geraden $g$ und $h$ mit der Deckenebene.', be: 4}
+        ]
+      }
+    ],
+    'Abstandsberechnungen (Punkt-Gerade, Punkt-Ebene)': [
+      {
+        aufgabe: 'Eine Seilbahn verläuft geradlinig vom Tal $T(0|0|500)$ zum Gipfel $G(800|600|2000)$ (Koordinaten in Metern). Ein Berggasthaus befindet sich am Punkt $H(400|500|1200)$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie den kürzesten Abstand des Berggasthauses zur Seilbahnstrecke.', be: 5},
+          {id: 'b)', text: 'Ermitteln Sie den Punkt auf der Seilbahnstrecke, der dem Gasthaus am nächsten liegt.', be: 4},
+          {id: 'c)', text: 'Die Gemeinde plant eine Schutzhütte, die genau $200$ m von der Seilbahn entfernt auf der Höhe $z = 1000$ liegen soll. Geben Sie die Menge aller möglichen Standorte an.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Flugzeug fliegt auf der Geraden $g: \\vec{x} = \\begin{pmatrix} 0 \\\\ 0 \\\\ 10 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 3 \\\\ 4 \\\\ 0 \\end{pmatrix}$ (Koordinaten in km). Ein Funkturm steht am Punkt $F(5|1|0)$. Seine Spitze liegt bei $F_S(5|1|0{,}3)$.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie den minimalen Abstand des Flugzeugs zum Funkturm (Punkt $F$).', be: 4},
+          {id: 'b)', text: 'Ein Sicherheitsradius von $2$ km um den Funkturm darf nicht unterschritten werden. Prüfen Sie, ob die Flugroute sicher ist.', be: 4},
+          {id: 'c)', text: 'Bestimmen Sie den Abstand des Funkturm-Standorts zur Ebene $E: 3x + 4y = 50$.', be: 4}
+        ]
+      },
+      {
+        aufgabe: 'Neben einer Autobahn, die als Gerade $g: \\vec{x} = \\begin{pmatrix} 0 \\\\ 0 \\\\ 0 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}$ modelliert wird, steht ein Wohnhaus am Punkt $W(2|3|0)$. Lärmschutzwände müssen ab $50$ m Abstand nicht errichtet werden (Koordinaten in Dekametern).',
+        teilaufgaben: [
+          {id: 'a)', text: 'Berechnen Sie den Abstand des Wohnhauses zur Autobahn.', be: 3},
+          {id: 'b)', text: 'Bestimmen Sie, ob eine Lärmschutzwand erforderlich ist.', be: 2},
+          {id: 'c)', text: 'Die Autobahn soll durch eine Umgehungsstraße ersetzt werden, die als Gerade $h$ durch $P(0|5|0)$ mit Richtung $\\begin{pmatrix} 1 \\\\ 1 \\\\ 0 \\end{pmatrix}$ verläuft. Vergleichen Sie den Abstand zum Wohnhaus mit dem bisherigen.', be: 5}
+        ]
+      }
+    ],
+    'Kreise und Kugeln': [
+      {
+        aufgabe: 'Ein kugelförmiger Wassertank mit Mittelpunkt $M(0|0|5)$ und Radius $r = 4$ (in Metern) wird von einer Rohrleitung durchquert, die als Gerade $g: \\vec{x} = \\begin{pmatrix} -6 \\\\ 0 \\\\ 5 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 1 \\\\ 0 \\\\ 0 \\end{pmatrix}$ verläuft.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie die Punkte, an denen die Rohrleitung in den Tank eintritt und aus ihm austritt.', be: 4},
+          {id: 'b)', text: 'Berechnen Sie die Länge des Rohrabschnitts innerhalb des Tanks.', be: 3},
+          {id: 'c)', text: 'Der Boden liegt in der Ebene $z = 0$. Bestimmen Sie den Radius des Kreises, in dem der Tank den Boden berührt.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Radargerät am Punkt $R(0|0|0)$ hat eine Reichweite von $50$ km (kugelförmiger Erfassungsbereich). Ein Flugzeug fliegt auf der Geraden $g: \\vec{x} = \\begin{pmatrix} -60 \\\\ 30 \\\\ 10 \\end{pmatrix} + t \\cdot \\begin{pmatrix} 2 \\\\ -1 \\\\ 0 \\end{pmatrix}$ ($t$ in Minuten, Koordinaten in km).',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie, ob und wann das Flugzeug in den Erfassungsbereich des Radars eintritt.', be: 5},
+          {id: 'b)', text: 'Berechnen Sie die Gesamtzeit, die das Flugzeug im Radarbereich verbringt.', be: 4},
+          {id: 'c)', text: 'Ein zweites Radar steht bei $R_2(80|0|0)$ mit gleicher Reichweite. Untersuchen Sie, ob es einen Bereich gibt, der von keinem der beiden Radargeräte erfasst wird.', be: 5}
+        ]
+      },
+      {
+        aufgabe: 'Ein Heißluftballon wird als Kugel mit Mittelpunkt $M(3|4|h)$ und Radius $8$ m modelliert. Er schwebt in einer Höhe $h = 50$ m. Eine Ebene $E: z = 0$ stellt den Boden dar.',
+        teilaufgaben: [
+          {id: 'a)', text: 'Bestimmen Sie den Abstand des Ballons (Kugeloberfläche) zum Boden.', be: 3},
+          {id: 'b)', text: 'Ein Laserpointer sendet vom Punkt $L(0|0|0)$ einen Strahl in Richtung $\\begin{pmatrix} 3 \\\\ 4 \\\\ 50 \\end{pmatrix}$. Prüfen Sie, ob der Strahl den Ballon trifft.', be: 5},
+          {id: 'c)', text: 'Der Ballon sinkt gleichmäßig mit $2$ m/s. Bestimmen Sie den Zeitpunkt, an dem er den Boden berührt.', be: 4}
+        ]
+      }
+    ]
+  };
+
+  // Alle Beispiele zusammenfassen
+  const alleBeispiele = { ...analysisBeispiele, ...stochastikBeispiele, ...geometrieBeispiele };
+
   // Zufälliges Beispiel aus dem Array wählen
   function getBeispielForUnterpunkte(up) {
     if (!up || up.length === 0) return null;
     for (const u of up) {
-      const arr = analysisBeispiele[u];
+      const arr = alleBeispiele[u];
       if (arr && arr.length > 0) {
         return arr[Math.floor(Math.random() * arr.length)];
       }
@@ -204,7 +442,7 @@ export async function handleGenerateMathe(request, env) {
   }
 
   const sg = sachgebiet || "analysis";
-  const customBeispiel = (sg === 'analysis' || sg.includes('analysis')) ? getBeispielForUnterpunkte(unterpunkte) : null;
+  const customBeispiel = getBeispielForUnterpunkte(unterpunkte);
   const totalBE = be || 25;
   const zeitMinuten = zeit || 45;
   const zeitHinweis = klausurZeitHinweis(zeitMinuten, totalBE, 2);
@@ -241,7 +479,13 @@ Lehrplan-Inhalte Jgst. 13:
 - M12.3: Einseitiger Signifikanztest, Nullhypothese, Fehler 1. und 2. Art, Ablehnungsbereich, Signifikanzniveau
 Lehrplan-Inhalte Jgst. 13:
 - M13.2: Normalverteilung, diskrete vs. stetige Zufallsgrößen, Dichtefunktion, kumulative Verteilungsfunktion, Sigma-Regeln`,
-      kontexte: `Verkehrszählung (Radfahrer, Helme, E-Bikes), Qualitätskontrolle (Produktionsfehler, fehlerhafte Verpackungen), Wahlumfragen, medizinische Tests (Schnelltest-Zuverlässigkeit), Versicherungen (Pedelecs, Schadenshäufigkeit), Schulveranstaltung (Lose, Glücksrad, CD-Verkauf)`
+      kontexte: `Verkehrszählung (Radfahrer, Helme, E-Bikes), Qualitätskontrolle (Produktionsfehler, fehlerhafte Verpackungen), Wahlumfragen, medizinische Tests (Schnelltest-Zuverlässigkeit), Versicherungen (Pedelecs, Schadenshäufigkeit), Schulveranstaltung (Lose, Glücksrad, CD-Verkauf)`,
+      kontexteNachUnterpunkt: {
+        'Wahrscheinlichkeitsrechnung (Kombinatorik, Baumdiagramm)': 'Losziehen (mit/ohne Zurücklegen), Glücksrad, Kartenspiel, Sitzplatzverteilung, Passwort-Kombinationen, Sportturnier-Auslosungen',
+        'Binomialverteilung und Erwartungswert': 'Qualitätskontrolle (Ausschussquote), Verkehrszählung (Helmtragequote), medizinischer Schnelltest, Münzwurf-Experiment, Wahlprognosen',
+        'Hypothesentests (Signifikanztest)': 'Produktionsüberwachung (Fehlerquote gestiegen?), Wahlumfrage-Überprüfung, Medikamenten-Wirksamkeit, Reklamationsquote, Kundenzufriedenheit',
+        'Bedingte Wahrscheinlichkeit und Unabhängigkeit': 'Medizinische Tests (Sensitivität/Spezifität), Spam-Filter, Wettervorhersage-Zuverlässigkeit, Versicherungsrisiko, Drogentest-Zuverlässigkeit'
+      }
     },
     geometrie: {
       title: "Geometrie",
@@ -249,7 +493,14 @@ Lehrplan-Inhalte Jgst. 13:
 - M12.5: Punkte/Figuren/Körper im 3D-Koordinatensystem, Vektoren (Addition, Skalarprodukt, Kreuzprodukt, Betrag), Winkel, Flächeninhalte, Volumina
 Lehrplan-Inhalte Jgst. 13:
 - M13.3: Geraden und Ebenen (Parameter-, Normalen-, Koordinatenform), Lagebeziehungen, Schnittpunkte/-geraden, Schnittwinkel, Abstände (Punkt-Gerade, Punkt-Ebene, windschiefe Geraden, Hesse'sche Normalform), Kugeln (Koordinatenform, Lage zu Geraden/Ebenen)`,
-      kontexte: `Theaterkulisse mit Licht/Schatten, Hügel/Berg mit Weinanbau und Burg, Dach-/Gebäudemodell, Sonnensegel/Zeltdach, Brückenkonstruktion, Aussichtsturm/Sichtlinie, Rampe/Auffahrt`
+      kontexte: `Theaterkulisse mit Licht/Schatten, Hügel/Berg mit Weinanbau und Burg, Dach-/Gebäudemodell, Sonnensegel/Zeltdach, Brückenkonstruktion, Aussichtsturm/Sichtlinie, Rampe/Auffahrt`,
+      kontexteNachUnterpunkt: {
+        'Vektoren und Vektoroperationen': 'Kräftezerlegung (Seilbahn, Brücke), Segeln (Wind-/Strömungsvektoren), Drohnen-Navigation, Kranausleger, Flugzeug-Kursberechnung',
+        'Geraden und Ebenen im Raum': 'Dachkonstruktion (Firste, Dachflächen), Laserstrahl in Fabrikhalle, Sonnenlicht auf Gebäude, Rampe/Auffahrt im Parkhaus, Skisprungschanze',
+        'Lagebeziehungen und Schnittmengen': 'Tunnel durch einen Berg, Kreuzung zweier Straßen/Pipelines, Bohrung durch Gestein, Lichtstrahlen im Museum, Kabelverlegung im Gebäude',
+        'Abstandsberechnungen (Punkt-Gerade, Punkt-Ebene)': 'Sicherheitsabstand Flugzeug-Berg, Abstand Aussichtsturm zur Seilbahn, Lotrechter Abstand eines Punktes zur Hauswand, Mindestabstand Pipeline-Haus',
+        'Kreise und Kugeln': 'Radarüberwachung (Kugelreichweite), Wassertank (Kugel), Satelliten-Abdeckung, Heißluftballon-Flugzone, Springbrunnen-Fontäne'
+      }
     }
   };
 
