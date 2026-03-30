@@ -470,6 +470,35 @@ Lehrplan-Inhalte Jgst. 13:
         'Integralrechnung (Stammfunktion, Flächenberechnung)': 'Wassermengen (Zufluss/Abfluss), Energieerzeugung (Solar/Wind), Zurückgelegte Strecke, Materialverbrauch, Einnahmen über Zeit',
         'Funktionsscharen und Parameter': 'Brückenprofile, Torbögen, Satellitenschüsseln, Rutschbahnen mit verschiedener Steilheit, Dachformen',
         'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': 'Wachstums-/Abklingmodelle (Bakterienkultur, Medikament im Blut, Bevölkerung), CO₂-Messung, Abkühlvorgänge, App-Verbreitung, Schadstoffabbau'
+      },
+      inhalteNachUnterpunkt: {
+        'Ableitungsregeln und Ableitungsfunktion': `Relevante Lehrplan-Inhalte:
+- Ableitungsregeln: Potenzregel, Summenregel, Faktorregel, Produktregel, Kettenregel, Quotientenregel
+- Funktionstypen: ganzrationale Funktionen, gebrochen-rationale Funktionen, Wurzelfunktionen, trigonometrische Funktionen
+- Anwendung: Tangentengleichung, momentane Änderungsrate, Geschwindigkeit/Beschleunigung
+VERBOTEN: Keine e-Funktionen verwenden, außer der Schüler hat explizit "Wachstum" gewählt!`,
+        'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': `Relevante Lehrplan-Inhalte:
+- Nullstellen, Extremstellen (Hoch-/Tiefpunkte), Wendepunkte, Monotonie, Krümmung
+- Symmetrie (Achsen-/Punktsymmetrie), Verhalten für x → ±∞
+- Funktionstypen: GANZRATIONALE FUNKTIONEN (Grad 3 oder 4), gebrochen-rationale Funktionen
+- KEINE e-Funktionen! Verwende Polynome wie $f(x) = x^{3} - 6x^{2} + 9x$ oder $f(x) = \\frac{1}{4}x^{4} - 2x^{2}$
+VERBOTEN: Keine e-Funktionen, keine Wachstumsmodelle!`,
+        'Integralrechnung (Stammfunktion, Flächenberechnung)': `Relevante Lehrplan-Inhalte:
+- Stammfunktionen, bestimmtes Integral, Hauptsatz der Differential-/Integralrechnung
+- Flächenberechnung (auch zwischen zwei Graphen), Flächenbilanz
+- Uneigentliche Integrale, Rotationsvolumen
+- Funktionstypen: ganzrationale Funktionen, einfache trigonometrische Funktionen ($\\sin$, $\\cos$)
+VERBOTEN: Keine e-Funktionen als Hauptfunktion! Verwende Polynome oder Sinusfunktionen.`,
+        'Funktionsscharen und Parameter': `Relevante Lehrplan-Inhalte:
+- Funktionenscharen mit Parameter: $f_a(x) = ...$, Ortskurven, gemeinsame Punkte
+- Parameterbestimmung, Scharverhalten
+- Funktionstypen: GANZRATIONALE FUNKTIONEN mit Parameter (z.B. $f_a(x) = ax^{2}(x-6)$, $f_t(x) = x^{3} - tx$)
+VERBOTEN: Keine e-Funktionen-Scharen! Verwende Polynom-Scharen.`,
+        'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': `Relevante Lehrplan-Inhalte:
+- Natürliche Exponentialfunktion $e^{x}$, Produkt-/Kettenregel für e-Funktionen
+- Wachstums-/Abklingmodelle, Grenzwerte
+- Natürliche Logarithmusfunktion $\\ln(x)$ als Umkehrfunktion
+- Funktionstypen: e-Funktionen (hier sind sie gewollt!)`
       }
     },
     stochastik: {
@@ -506,7 +535,7 @@ Lehrplan-Inhalte Jgst. 13:
 
   const sgInfo = sgThemen[sg] || sgThemen.analysis;
 
-  // Kontexte an gewählten Unterpunkt anpassen (nur bei Analysis)
+  // Kontexte und Lehrplaninhalte an gewählten Unterpunkt anpassen
   const aktuelleKontexte = (() => {
     if (sgInfo.kontexteNachUnterpunkt && unterpunkte && unterpunkte.length > 0) {
       for (const u of unterpunkte) {
@@ -514,6 +543,15 @@ Lehrplan-Inhalte Jgst. 13:
       }
     }
     return sgInfo.kontexte;
+  })();
+
+  const aktuelleInhalte = (() => {
+    if (sgInfo.inhalteNachUnterpunkt && unterpunkte && unterpunkte.length > 0) {
+      for (const u of unterpunkte) {
+        if (sgInfo.inhalteNachUnterpunkt[u]) return sgInfo.inhalteNachUnterpunkt[u];
+      }
+    }
+    return sgInfo.inhalte;
   })();
 
   // Beispiel-JSON für den Prompt zusammenbauen (passt sich an gewählte Unterpunkte an)
@@ -595,7 +633,7 @@ HOHES NIVEAU — KRITISCHE REGELN:
 
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
-${sgInfo.inhalte}${schwerpunktZusatz}
+${aktuelleInhalte}${schwerpunktZusatz}
 Sachkontext-Ideen: ${aktuelleKontexte}
 
 ISB-REFERENZFORMAT (orientiere dich an den illustrierenden Prüfungsaufgaben des ISB Bayern 2025):
