@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kolloquiumstrainer – Mündliche Abiturprüfung üben | myAbiFlow</title>
+<meta name="description" content="Übe dein Kolloquium für das bayerische Abitur G9 mit KI-Simulation. Kurzreferat + Prüfungsgespräch in 20 Fächern. Sofort-Feedback mit Notenpunkten.">
+<link rel="canonical" href="https://myabiflow.de/kolloquium-praesentation.html">
+<meta property="og:title" content="Kolloquiumstrainer – Mündliche Abiturprüfung üben | myAbiFlow">
+<meta property="og:description" content="Simuliere dein Kolloquium mit einem KI-Prüfer. Echtzeit-Dialog, verschiedene Prüfer-Stile und detailliertes Feedback.">
+<meta property="og:image" content="https://myabiflow.de/og-image.png">
+<meta property="og:url" content="https://myabiflow.de/kolloquium-praesentation.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="myAbiFlow">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kolloquiumstrainer – Mündliche Abiturprüfung üben | myAbiFlow">
+<meta name="twitter:description" content="Simuliere dein Kolloquium mit einem KI-Prüfer. Echtzeit-Dialog, verschiedene Prüfer-Stile und detailliertes Feedback.">
+<meta name="twitter:image" content="https://myabiflow.de/og-image.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://myabiflow.de/"},{"@type":"ListItem","position":2,"name":"Kolloquiumstrainer","item":"https://myabiflow.de/kolloquium-praesentation.html"}]}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Kolloquiumstrainer – Mündliche Abiturprüfung Bayern G9",
+  "description": "KI-gestützter Trainer für das mündliche Abitur (Kolloquium) am bayerischen Gymnasium G9. Kurzreferat üben, Prüfungsgespräch simulieren, Sofort-Feedback erhalten.",
+  "provider": {
+    "@type": "Organization",
+    "name": "myAbiFlow",
+    "url": "https://myabiflow.de"
+  },
+  "educationalLevel": "Abitur",
+  "inLanguage": "de",
+  "isAccessibleForFree": true,
+  "audience": {
+    "@type": "EducationalAudience",
+    "educationalRole": "student"
+  }
+}
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #4f46e5;
+    --accent-light: #e0e7ff;
+    --accent-glow: rgba(79,70,229,.15);
+    --ink: #1e293b;
+    --ink-light: #64748b;
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --border: #e2e8f0;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== STICKY NAV ====== */
+  .sticky-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    transition: transform .35s ease;
+    padding: 0 2rem;
+  }
+  .sticky-nav.visible { transform: translateY(0); }
+  .sticky-nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .sticky-nav-logo {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--accent);
+  }
+  .sticky-nav-links { display: flex; gap: .3rem; }
+  .sticky-nav-links a {
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    padding: .4rem .8rem;
+    border-radius: 99px;
+    transition: background .2s, color .2s;
+  }
+  .sticky-nav-links a:hover,
+  .sticky-nav-links a.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ====== SCROLL ANIMATIONS ====== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(.9);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+  .stagger > * { transition-delay: calc(var(--i, 0) * .1s); }
+
+  /* ====== HERO ====== */
+  .hero {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #a855f7 100%);
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-bg-circle:nth-child(1) {
+    width: 400px; height: 400px;
+    background: rgba(255,255,255,.08);
+    top: -10%; right: -5%;
+  }
+  .hero-bg-circle:nth-child(2) {
+    width: 500px; height: 500px;
+    background: rgba(168,85,247,.15);
+    bottom: -15%; left: 10%;
+    animation-delay: -3s;
+  }
+  .hero-bg-circle:nth-child(3) {
+    width: 250px; height: 250px;
+    background: rgba(167,139,250,.12);
+    top: 30%; left: -5%;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.03); }
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 750px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    padding: .45rem 1.2rem;
+    border-radius: 99px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+    animation: fadeUp .8s ease-out;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.12;
+    margin-bottom: 1.2rem;
+    animation: fadeUp .8s ease-out .15s both;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    opacity: .92;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+    animation: fadeUp .8s ease-out .3s both;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp .8s ease-out .45s both;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: .9rem 2rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    min-height: 48px;
+  }
+  .hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+  .hero-cta-secondary {
+    background: rgba(255,255,255,.15);
+    color: white;
+    border: 1.5px solid rgba(255,255,255,.3);
+  }
+  .hero-cta-secondary:hover { background: rgba(255,255,255,.25); }
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    font-size: 1.5rem;
+    opacity: .7;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* ====== SECTIONS ====== */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: .5rem;
+  }
+  .section-subtitle {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ====== FEATURE GRID ====== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    cursor: pointer;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .4s ease;
+  }
+  .feature-card:hover::after,
+  .feature-card.expanded::after { transform: scaleX(1); }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-light);
+  }
+  .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: .8rem;
+    transition: transform .3s;
+  }
+  .feature-card:hover .feature-icon { transform: scale(1.15); }
+  .feature-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: .5rem;
+  }
+  .feature-card > p {
+    font-size: .9rem;
+    color: var(--ink-light);
+    line-height: 1.65;
+  }
+  .feature-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .5s ease, margin-top .3s ease;
+    margin-top: 0;
+  }
+  .feature-card.expanded .feature-details {
+    max-height: 300px;
+    margin-top: 1rem;
+  }
+  .feature-details ul {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: .8rem;
+  }
+  .feature-details ul li {
+    font-size: .88rem;
+    color: var(--ink-light);
+    padding: .3rem 0;
+    padding-left: 1.6rem;
+    position: relative;
+  }
+  .feature-details ul li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .feature-expand-hint {
+    font-size: .75rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-top: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+  }
+  .feature-card.expanded .feature-expand-hint .hint-text { display: none; }
+  .feature-card.expanded .feature-expand-hint .hint-text-close { display: inline; }
+  .feature-expand-hint .hint-text-close { display: none; }
+  .feature-expand-hint .arrow {
+    transition: transform .3s;
+    display: inline-block;
+  }
+  .feature-card.expanded .feature-expand-hint .arrow { transform: rotate(180deg); }
+
+  /* ====== STEPS ====== */
+  .steps-section {
+    background: white;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .step {
+    flex: 1;
+    min-width: 160px;
+    max-width: 200px;
+    text-align: center;
+  }
+  .step-number {
+    width: 64px; height: 64px;
+    background: var(--accent);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto .8rem;
+    transition: transform .3s, box-shadow .3s;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .step:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 8px 24px rgba(79,70,229,.4);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+  .step p { font-size: .88rem; color: var(--ink-light); }
+  .step-connector { display: flex; align-items: center; padding-top: 1.2rem; }
+  .step-connector-line {
+    width: 40px; height: 2px;
+    background: var(--accent);
+    position: relative;
+  }
+  .step-connector-line::after {
+    content: '';
+    position: absolute;
+    right: -4px; top: -4px;
+    width: 0; height: 0;
+    border-left: 8px solid var(--accent);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  /* ====== INTERACTIVE TABS ====== */
+  .tabs-section { background: var(--bg); }
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 99px;
+    padding: .7rem 1.5rem;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all .3s;
+    min-height: 44px;
+    font-family: inherit;
+  }
+  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tab-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: 0 4px 16px rgba(79,70,229,.3);
+  }
+  .tab-panel {
+    display: none;
+    animation: tabFadeIn .5s ease;
+  }
+  .tab-panel.active { display: block; }
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-content h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: .5rem;
+  }
+  .tab-content > p {
+    font-size: .95rem;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+  }
+  .tab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .tab-detail {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem 1.4rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .tab-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .tab-detail h4 {
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .tab-detail p {
+    font-size: .84rem;
+    color: var(--ink-light);
+    line-height: 1.55;
+  }
+
+  /* ====== DEMO MOCKUP ====== */
+  .demo-mockup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 1.5rem;
+    box-shadow: var(--shadow-md);
+  }
+  .demo-toolbar {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .demo-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .demo-dot:nth-child(1) { background: #ef4444; }
+  .demo-dot:nth-child(2) { background: #f59e0b; }
+  .demo-dot:nth-child(3) { background: #10b981; }
+  .demo-url {
+    flex: 1;
+    text-align: center;
+    font-size: .75rem;
+    color: var(--ink-light);
+    font-weight: 500;
+  }
+  .demo-body { padding: 1.5rem; }
+
+  /* ====== EXAM FLOW DEMO ====== */
+  .exam-flow {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    margin-top: 1rem;
+  }
+  .exam-phase {
+    flex: 1;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    text-align: center;
+    position: relative;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .exam-phase:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .exam-phase-icon {
+    font-size: 2rem;
+    margin-bottom: .5rem;
+  }
+  .exam-phase h4 {
+    font-size: .9rem;
+    font-weight: 700;
+    margin-bottom: .2rem;
+  }
+  .exam-phase p {
+    font-size: .78rem;
+    color: var(--ink-light);
+  }
+  .exam-phase-time {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .2rem .6rem;
+    border-radius: 99px;
+    margin-top: .4rem;
+  }
+  .exam-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  /* ====== CHAT DEMO ====== */
+  .chat-demo {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    margin-top: 1rem;
+  }
+  .chat-bubble {
+    max-width: 80%;
+    padding: .8rem 1.2rem;
+    border-radius: var(--radius-sm);
+    font-size: .84rem;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: chatIn .4s ease forwards;
+  }
+  .chat-bubble.pruefer {
+    background: var(--accent-light);
+    color: var(--accent);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+  }
+  .chat-bubble.schueler {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-bubble-label {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin-bottom: .2rem;
+    opacity: .7;
+  }
+  @keyframes chatIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ====== FÄCHER-GRID ====== */
+  .faecher-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: .8rem;
+    margin-top: 1.5rem;
+  }
+  .fach-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: .8rem;
+    text-align: center;
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--ink);
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+    cursor: default;
+  }
+  .fach-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .fach-chip .fach-emoji { font-size: 1.4rem; display: block; margin-bottom: .3rem; }
+
+  /* ====== COUNTER ====== */
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .counter {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .counter:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .counter-value {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .counter-label {
+    font-size: .85rem;
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  /* ====== PRÜFER-STILE ====== */
+  .pruefer-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .pruefer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform .3s, box-shadow .3s, border-color .3s;
+    cursor: default;
+  }
+  .pruefer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-light);
+  }
+  .pruefer-emoji { font-size: 2.5rem; margin-bottom: .5rem; }
+  .pruefer-card h3 {
+    font-size: .95rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+  }
+  .pruefer-card p {
+    font-size: .78rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  /* ====== EXTRAS ====== */
+  .extras {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .extra-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .extra-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  .extra-icon {
+    font-size: 2.5rem;
+    margin-bottom: .6rem;
+    transition: transform .3s;
+  }
+  .extra-card:hover .extra-icon { transform: scale(1.2) rotate(-5deg); }
+  .extra-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
+  .extra-card p { font-size: .88rem; color: var(--ink-light); line-height: 1.55; }
+
+  /* ====== CTA ====== */
+  .cta-section {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
+    color: white;
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -20%;
+    width: 60%; height: 200%;
+    background: rgba(255,255,255,.03);
+    transform: rotate(25deg);
+    pointer-events: none;
+  }
+  .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: .8rem; position: relative; }
+  .cta-section p { font-size: 1.05rem; opacity: .9; max-width: 520px; margin: 0 auto 2rem; line-height: 1.65; position: relative; }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: white;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    position: relative;
+    min-height: 48px;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,.2);
+  }
+
+  /* ====== SCROLL PROGRESS ====== */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4f46e5, #a855f7);
+    z-index: 200;
+    width: 0%;
+    transition: width .1s linear;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: .8rem;
+    color: var(--ink-light);
+  }
+
+  /* ====== PRINT ====== */
+  @media print {
+    .sticky-nav, .scroll-progress, .hero-scroll-hint { display: none; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+    .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
+    .feature-details { max-height: none; }
+    .tab-panel { display: block; margin-bottom: 2rem; }
+    .section { padding: 2rem 1.5rem; }
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .hero { min-height: auto; padding: 4rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2.2rem; }
+    .features { grid-template-columns: 1fr; }
+    .tab-grid { grid-template-columns: 1fr; }
+    .counters { grid-template-columns: repeat(2, 1fr); }
+    .extras { grid-template-columns: 1fr; }
+    .pruefer-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps { flex-direction: column; align-items: center; }
+    .step-connector { transform: rotate(90deg); padding: 0; }
+    .sticky-nav-links a { font-size: .75rem; padding: .3rem .5rem; }
+    .faecher-grid { grid-template-columns: repeat(3, 1fr); }
+    .exam-flow { flex-direction: column; }
+    .exam-arrow { transform: rotate(90deg); justify-content: center; }
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .pruefer-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Sticky Navigation -->
+<nav class="sticky-nav" id="stickyNav">
+  <div class="sticky-nav-inner">
+    <span class="sticky-nav-logo">myAbiFlow</span>
+    <div class="sticky-nav-links">
+      <a href="#features" data-section="features">Features</a>
+      <a href="#ablauf" data-section="ablauf">Ablauf</a>
+      <a href="#details" data-section="details">Details</a>
+      <a href="#pruefer" data-section="pruefer">Pr&uuml;fer</a>
+      <a href="#faecher" data-section="faecher">F&auml;cher</a>
+      <a href="#zahlen" data-section="zahlen">Zahlen</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">&#127908; Kolloquiumstrainer</div>
+    <h1>Dein KI-Pr&uuml;fer f&uuml;rs<br>m&uuml;ndliche Abitur</h1>
+    <p>Simuliere dein Kolloquium mit einem KI-Pr&uuml;fer &ndash; Kurzreferat halten, Pr&uuml;fungsgespr&auml;ch f&uuml;hren und sofort detailliertes Feedback erhalten. In 20 F&auml;chern, jederzeit.</p>
+    <div class="hero-cta-group">
+      <a href="#features" class="hero-cta">Entdecken &#8595;</a>
+      <a href="https://myabiflow.de/abitur-kolloquium-trainer/dist/" class="hero-cta hero-cta-secondary" target="_blank">Jetzt &uuml;ben &#8599;</a>
+    </div>
+  </div>
+  <a href="#features" class="hero-scroll-hint" aria-label="Nach unten scrollen">&#8595;</a>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <h2 class="section-title reveal">Was den Kolloquiumstrainer besonders macht</h2>
+  <p class="section-subtitle reveal">Klicke auf eine Karte, um mehr zu erfahren</p>
+
+  <div class="features stagger">
+    <div class="feature-card reveal" style="--i:0" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#127908;</div>
+      <h3>Echtzeit-Dialog per Mikrofon</h3>
+      <p>Sprich direkt mit dem KI-Pr&uuml;fer &ndash; wie in einer echten Pr&uuml;fungssituation. Dein Mikrofon wird zum Pr&uuml;fungsraum.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Spracheingabe in Echtzeit</li>
+          <li>Nat&uuml;rlicher Dialog mit dem KI-Pr&uuml;fer</li>
+          <li>Alternativ auch per Text antworten</li>
+          <li>Automatische Spracherkennung</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:1" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128218;</div>
+      <h3>Echte Pr&uuml;fungsstruktur</h3>
+      <p>Exakt nach G9-Vorgaben: Teil 1 (Kurzreferat + Nachfragen) und Teil 2 (Pr&uuml;fungsgespr&auml;ch) &ndash; mit realistischen Zeitvorgaben.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Teil 1: 10 Min Kurzreferat + 5 Min Nachfragen</li>
+          <li>Teil 2: 15 Min Pr&uuml;fungsgespr&auml;ch</li>
+          <li>Timer l&auml;uft wie in der echten Pr&uuml;fung</li>
+          <li>Automatische Phasenwechsel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:2" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128196;</div>
+      <h3>Material &amp; Impulse</h3>
+      <p>Der KI-Pr&uuml;fer generiert realistische Pr&uuml;fungsmaterialien &ndash; Zitate, Statistiken, Quellen und Schaubilder als Gespr&auml;chsgrundlage.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Automatisch generierte Aufgabenstellung</li>
+          <li>Zitate, Statistiken und Quellentexte</li>
+          <li>Schaubilder und Diagramme</li>
+          <li>Material zum Kurzreferat angezeigt</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:3" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128202;</div>
+      <h3>Detailliertes Feedback</h3>
+      <p>Nach der Pr&uuml;fung erh&auml;ltst du eine ausf&uuml;hrliche Bewertung mit Notenpunkten, St&auml;rken-Analyse und konkreten Verbesserungsvorschl&auml;gen.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Notenpunkte-Vorschlag (0&ndash;15 NP)</li>
+          <li>Bewertung nach offiziellen Kriterien</li>
+          <li>Individuelle St&auml;rken und Schw&auml;chen</li>
+          <li>Konkrete Tipps zur Verbesserung</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:4" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#127917;</div>
+      <h3>5 Pr&uuml;fer-Stile</h3>
+      <p>W&auml;hle deinen Pr&uuml;fer: Standard, streng, freundlich, Zeitdruck oder Detailfragen &ndash; f&uuml;r jede Art von Vorbereitung.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Standard: Ausgewogene Pr&uuml;fungssimulation</li>
+          <li>Streng: Kritische R&uuml;ckfragen, hohe Erwartungen</li>
+          <li>Freundlich: Unterst&uuml;tzend und ermutigend</li>
+          <li>Zeitdruck: Schnelle Fragen, wenig Bedenkzeit</li>
+          <li>Detailfragen: Tiefgehende Wissensfragen</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="feature-card reveal" style="--i:5" onclick="this.classList.toggle('expanded')">
+      <div class="feature-icon">&#128229;</div>
+      <h3>PDF-Export</h3>
+      <p>Lade dein Feedback als PDF herunter &ndash; perfekt zum Nacharbeiten, Teilen mit Lehrern oder zum Vergleichen mit fr&uuml;heren Versuchen.</p>
+      <div class="feature-expand-hint"><span class="hint-text">Mehr erfahren</span><span class="hint-text-close">Weniger</span> <span class="arrow">&#9660;</span></div>
+      <div class="feature-details">
+        <ul>
+          <li>Ausf&uuml;hrliches Feedback-PDF</li>
+          <li>Mit Notenpunkten und Bewertungskriterien</li>
+          <li>St&auml;rken, Schw&auml;chen und Verbesserungstipps</li>
+          <li>Ideal zum Nacharbeiten und Vergleichen</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABLAUF -->
+<section class="steps-section" id="ablauf">
+  <div class="section">
+    <h2 class="section-title reveal">So l&auml;uft dein Kolloquium ab</h2>
+    <p class="section-subtitle reveal">In f&uuml;nf Schritten zur Pr&uuml;fungssimulation</p>
+    <div class="steps">
+      <div class="step reveal-left">
+        <div class="step-number">1</div>
+        <h3>Fach w&auml;hlen</h3>
+        <p>W&auml;hle dein Pr&uuml;fungsfach aus 20 Abiturf&auml;chern.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">2</div>
+        <h3>Einstellungen</h3>
+        <p>Schwerpunkt, Niveau (gA/eA) und Pr&uuml;fer-Stil festlegen.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">3</div>
+        <h3>Kurzreferat</h3>
+        <p>Halte dein 10-min&uuml;tiges Referat zum Schwerpunktthema.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">4</div>
+        <h3>Gespr&auml;ch</h3>
+        <p>15 Minuten Dialog mit dem KI-Pr&uuml;fer zu verschiedenen Themen.</p>
+      </div>
+      <div class="step-connector reveal-scale">
+        <div class="step-connector-line"></div>
+      </div>
+      <div class="step reveal-right">
+        <div class="step-number">5</div>
+        <h3>Feedback</h3>
+        <p>Sofort Notenpunkte, Bewertung und Tipps erhalten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS (Interactive Tabs) -->
+<section class="tabs-section" id="details">
+  <div class="section">
+    <h2 class="section-title reveal">Die Pr&uuml;fungsphasen im Detail</h2>
+    <p class="section-subtitle reveal">Klicke auf einen Tab, um mehr zu erfahren</p>
+
+    <div class="tabs-nav reveal">
+      <button class="tab-btn active" onclick="switchDemoTab('teil1', this)">&#127908; Teil 1: Kurzreferat</button>
+      <button class="tab-btn" onclick="switchDemoTab('teil2', this)">&#128172; Teil 2: Gespr&auml;ch</button>
+      <button class="tab-btn" onclick="switchDemoTab('feedback', this)">&#128202; Feedback</button>
+    </div>
+
+    <!-- Tab: Teil 1 -->
+    <div class="tab-panel active" id="panel-teil1">
+      <div class="tab-content">
+        <h3>&#127908; Teil 1: Kurzreferat + Nachfragen</h3>
+        <p>Du erh&auml;ltst eine Aufgabenstellung mit Material zu deinem Schwerpunktthema. Halte ein 10-min&uuml;tiges Kurzreferat &ndash; anschlie&szlig;end stellt der Pr&uuml;fer 5 Minuten Nachfragen.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#128196; Aufgabenstellung</h4>
+            <p>KI-generierte Aufgabe mit Quellen, Zitaten oder Statistiken als Grundlage f&uuml;r dein Referat.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#9200; 10 Minuten Redezeit</h4>
+            <p>Timer l&auml;uft mit &ndash; du siehst genau, wie viel Zeit dir noch bleibt. Wie in der echten Pr&uuml;fung.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128172; 5 Minuten Nachfragen</h4>
+            <p>Der KI-Pr&uuml;fer stellt gezielte R&uuml;ckfragen zu deinem Referat &ndash; Vertiefung und Kl&auml;rung.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#127908; Sprache oder Text</h4>
+            <p>Antworte per Mikrofon oder tippe deine Antworten ein &ndash; beides funktioniert.</p>
+          </div>
+        </div>
+        <!-- Exam Flow Demo -->
+        <div class="exam-flow" style="margin-top: 1.5rem;">
+          <div class="exam-phase">
+            <div class="exam-phase-icon">&#128196;</div>
+            <h4>Material lesen</h4>
+            <p>Aufgabe &amp; Quellen</p>
+          </div>
+          <div class="exam-arrow">&#8594;</div>
+          <div class="exam-phase">
+            <div class="exam-phase-icon">&#127908;</div>
+            <h4>Kurzreferat</h4>
+            <p>Du pr&auml;sentierst</p>
+            <span class="exam-phase-time">10 Min</span>
+          </div>
+          <div class="exam-arrow">&#8594;</div>
+          <div class="exam-phase">
+            <div class="exam-phase-icon">&#128172;</div>
+            <h4>Nachfragen</h4>
+            <p>Pr&uuml;fer fragt nach</p>
+            <span class="exam-phase-time">5 Min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Teil 2 -->
+    <div class="tab-panel" id="panel-teil2">
+      <div class="tab-content">
+        <h3>&#128172; Teil 2: Pr&uuml;fungsgespr&auml;ch</h3>
+        <p>15 Minuten Dialog mit dem KI-Pr&uuml;fer. Er stellt Fragen aus allen Halbjahren deines Fachs &ndash; nicht nur zum Schwerpunkt. Wie im echten Kolloquium.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#127758; Breites Themenspektrum</h4>
+            <p>Fragen aus allen Halbjahren (12/1 bis 13/2), nicht nur zu deinem Schwerpunktthema.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128260; Adaptiver Dialog</h4>
+            <p>Der Pr&uuml;fer passt sich deinen Antworten an &ndash; vertieft bei guten Antworten, hilft bei Schwierigkeiten.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#9200; 15 Minuten</h4>
+            <p>Exakt wie in der echten Pr&uuml;fung. Der Timer zeigt dir die verbleibende Zeit an.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#127919; Lehrplankonform</h4>
+            <p>Alle Fragen orientieren sich am LehrplanPLUS Bayern G9 &ndash; verifizierte Lehrplan-Schwerpunkte.</p>
+          </div>
+        </div>
+        <!-- Chat Demo -->
+        <div class="demo-mockup">
+          <div class="demo-toolbar">
+            <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+            <span class="demo-url">Kolloquiumstrainer &mdash; Pr&uuml;fungsgespr&auml;ch</span>
+          </div>
+          <div class="demo-body">
+            <div class="chat-demo" id="chatDemo"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Feedback -->
+    <div class="tab-panel" id="panel-feedback">
+      <div class="tab-content">
+        <h3>&#128202; Detailliertes Feedback</h3>
+        <p>Nach der Pr&uuml;fung erh&auml;ltst du eine umfassende Bewertung &ndash; mit Notenpunkten, St&auml;rken, Schw&auml;chen und konkreten Verbesserungsvorschl&auml;gen. Als PDF exportierbar.</p>
+        <div class="tab-grid">
+          <div class="tab-detail">
+            <h4>&#127942; Notenpunkte</h4>
+            <p>Vorschlag von 0&ndash;15 NP nach den offiziellen Bewertungskriterien des bayerischen Kolloquiums.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#9989; St&auml;rken-Analyse</h4>
+            <p>Was hast du gut gemacht? Konkrete Beispiele aus deinem Referat und dem Gespr&auml;ch.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128161; Verbesserungstipps</h4>
+            <p>Wo kannst du dich verbessern? Gezielte Empfehlungen f&uuml;r den n&auml;chsten Versuch.</p>
+          </div>
+          <div class="tab-detail">
+            <h4>&#128229; PDF-Download</h4>
+            <p>Lade das Feedback als PDF herunter &ndash; zum Nacharbeiten oder zum Teilen mit deiner Lehrkraft.</p>
+          </div>
+        </div>
+        <!-- Feedback Demo -->
+        <div class="demo-mockup">
+          <div class="demo-toolbar">
+            <div class="demo-dot"></div><div class="demo-dot"></div><div class="demo-dot"></div>
+            <span class="demo-url">Kolloquiumstrainer &mdash; Feedback</span>
+          </div>
+          <div class="demo-body" id="feedbackDemo"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÜFER-STILE -->
+<section class="section" id="pruefer">
+  <h2 class="section-title reveal">5 Pr&uuml;fer-Stile f&uuml;r jede Vorbereitung</h2>
+  <p class="section-subtitle reveal">W&auml;hle den Pr&uuml;fer, der am besten zu deiner Lernphase passt</p>
+
+  <div class="pruefer-grid stagger">
+    <div class="pruefer-card reveal" style="--i:0">
+      <div class="pruefer-emoji">&#128104;&#8205;&#127891;</div>
+      <h3>Standard</h3>
+      <p>Ausgewogene Pr&uuml;fung &ndash; sachlich, fair und nah an der Realit&auml;t.</p>
+    </div>
+    <div class="pruefer-card reveal" style="--i:1">
+      <div class="pruefer-emoji">&#128560;</div>
+      <h3>Streng</h3>
+      <p>Kritische R&uuml;ckfragen und hohe Erwartungen &ndash; f&uuml;r Fortgeschrittene.</p>
+    </div>
+    <div class="pruefer-card reveal" style="--i:2">
+      <div class="pruefer-emoji">&#128522;</div>
+      <h3>Freundlich</h3>
+      <p>Unterst&uuml;tzend und ermutigend &ndash; ideal zum Einstieg.</p>
+    </div>
+    <div class="pruefer-card reveal" style="--i:3">
+      <div class="pruefer-emoji">&#9201;</div>
+      <h3>Zeitdruck</h3>
+      <p>Schnelle Fragen, wenig Bedenkzeit &ndash; Stressresistenz trainieren.</p>
+    </div>
+    <div class="pruefer-card reveal" style="--i:4">
+      <div class="pruefer-emoji">&#128270;</div>
+      <h3>Detailfragen</h3>
+      <p>Tiefgehende Wissensfragen &ndash; perfekt f&uuml;r die Feinvorbereitung.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FÄCHER -->
+<section class="section" id="faecher">
+  <h2 class="section-title reveal">20 Abiturf&auml;cher verf&uuml;gbar</h2>
+  <p class="section-subtitle reveal">Alle Inhalte nach LehrplanPLUS Bayern G9</p>
+  <div class="faecher-grid reveal" id="faecherGrid"></div>
+</section>
+
+<!-- ZAHLEN -->
+<section class="section" id="zahlen">
+  <h2 class="section-title reveal">Kolloquiumstrainer in Zahlen</h2>
+  <p class="section-subtitle reveal">Deine Vorbereitung auf das m&uuml;ndliche Abitur</p>
+  <div class="counters reveal">
+    <div class="counter">
+      <div class="counter-value" data-target="20">0</div>
+      <div class="counter-label">Abiturf&auml;cher</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-target="5">0</div>
+      <div class="counter-label">Pr&uuml;fer-Stile</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-target="30" data-suffix=" Min">0</div>
+      <div class="counter-label">Pr&uuml;fungsdauer</div>
+    </div>
+    <div class="counter">
+      <div class="counter-value" data-text="24/7">24/7</div>
+      <div class="counter-label">jederzeit &uuml;ben</div>
+    </div>
+  </div>
+</section>
+
+<!-- WEITERE FEATURES -->
+<section class="section" style="padding-top:0;">
+  <h2 class="section-title reveal">Weitere Features</h2>
+  <p class="section-subtitle reveal">Komfort-Funktionen f&uuml;r dein Pr&uuml;fungstraining</p>
+  <div class="extras stagger">
+    <div class="extra-card reveal" style="--i:0">
+      <div class="extra-icon">&#128290;</div>
+      <h3>Mathe-Spezial</h3>
+      <p>Mathe-Kolloquium mit Aufgaben-Vortrag statt klassischem Kurzreferat &ndash; wie in der echten Pr&uuml;fung.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:1">
+      <div class="extra-icon">&#127769;</div>
+      <h3>Dark Mode</h3>
+      <p>Augenfreundliches dunkles Design &ndash; perfekt f&uuml;rs &Uuml;ben am Abend.</p>
+    </div>
+    <div class="extra-card reveal" style="--i:2">
+      <div class="extra-icon">&#128241;</div>
+      <h3>Tablet-optimiert</h3>
+      <p>Funktioniert auf iPad, Android-Tablet und Desktop. Responsive Design f&uuml;r jede Bildschirmgr&ouml;&szlig;e.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="start">
+  <h2 class="reveal">Bereit f&uuml;r dein Kolloquium?</h2>
+  <p class="reveal">Starte jetzt deine erste Pr&uuml;fungssimulation &ndash; in deinem Fach, mit deinem Pr&uuml;fer-Stil, jederzeit.</p>
+  <a href="https://myabiflow.de/abitur-kolloquium-trainer/dist/" class="cta-btn reveal-scale" target="_blank">Jetzt &uuml;ben &#8594;</a>
+</section>
+
+<footer>
+  &copy; 2026 myAbiFlow &middot; Digitale Abiturvorbereitung f&uuml;r Bayern G9
+</footer>
+
+<script>
+/* ====== SCROLL REVEAL ====== */
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ====== SCROLL PROGRESS ====== */
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / scrollHeight) * 100 + '%';
+}, { passive: true });
+
+/* ====== STICKY NAV ====== */
+const stickyNav = document.getElementById('stickyNav');
+const heroSection = document.getElementById('hero');
+const navObserver = new IntersectionObserver(([entry]) => {
+  stickyNav.classList.toggle('visible', !entry.isIntersecting);
+}, { threshold: 0.1 });
+navObserver.observe(heroSection);
+
+// Active nav link
+const navLinks = document.querySelectorAll('.sticky-nav-links a');
+const sections = document.querySelectorAll('section[id]');
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector('.sticky-nav-links a[data-section="' + entry.target.id + '"]');
+      if (link) link.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+sections.forEach(s => sectionObserver.observe(s));
+
+/* ====== TAB SWITCHER ====== */
+function switchDemoTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tabs-nav .tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  btn.classList.add('active');
+
+  if (tab === 'teil2') buildChatDemo();
+  if (tab === 'feedback') buildFeedbackDemo();
+}
+
+/* ====== CHAT DEMO ====== */
+function buildChatDemo() {
+  const container = document.getElementById('chatDemo');
+  container.innerHTML = '';
+  const messages = [
+    { type: 'pruefer', label: 'Pr\u00fcfer', text: 'Erkl\u00e4ren Sie bitte den Unterschied zwischen einer Demokratie und einer Autokratie.' },
+    { type: 'schueler', label: 'Du', text: 'Eine Demokratie zeichnet sich durch Volkssouver\u00e4nit\u00e4t, Gewaltenteilung und den Schutz von Grundrechten aus. In einer Autokratie hingegen...' },
+    { type: 'pruefer', label: 'Pr\u00fcfer', text: 'Gut. K\u00f6nnen Sie ein konkretes Beispiel f\u00fcr einen Wechsel von Autokratie zu Demokratie nennen?' },
+    { type: 'schueler', label: 'Du', text: 'Ein Beispiel w\u00e4re die friedliche Revolution in der DDR 1989, die zur Wiedervereinigung und...' },
+  ];
+
+  messages.forEach(function(msg, i) {
+    var bubble = document.createElement('div');
+    bubble.className = 'chat-bubble ' + msg.type;
+    bubble.style.animationDelay = (i * 0.3) + 's';
+    var label = document.createElement('div');
+    label.className = 'chat-bubble-label';
+    label.textContent = msg.label;
+    bubble.appendChild(label);
+    bubble.appendChild(document.createTextNode(msg.text));
+    container.appendChild(bubble);
+  });
+}
+
+/* ====== FEEDBACK DEMO ====== */
+function buildFeedbackDemo() {
+  var container = document.getElementById('feedbackDemo');
+  container.innerHTML = '';
+
+  var html = '<div style="text-align:center;margin-bottom:1.2rem;">';
+  html += '<div style="font-size:2.5rem;font-weight:800;color:var(--accent);">12 NP</div>';
+  html += '<div style="font-size:.85rem;color:var(--ink-light);font-weight:600;">Bewertung: Gut +</div>';
+  html += '</div>';
+
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">';
+  html += '<div style="background:#dcfce7;border-radius:var(--radius-sm);padding:1rem;">';
+  html += '<div style="font-size:.8rem;font-weight:700;color:#16a34a;margin-bottom:.3rem;">\u2713 St\u00e4rken</div>';
+  html += '<div style="font-size:.82rem;color:var(--ink);line-height:1.5;">Klare Gliederung, gute Fachsprache, souver\u00e4ner Umgang mit R\u00fcckfragen</div>';
+  html += '</div>';
+  html += '<div style="background:#fef3c7;border-radius:var(--radius-sm);padding:1rem;">';
+  html += '<div style="font-size:.8rem;font-weight:700;color:#d97706;margin-bottom:.3rem;">\u2191 Verbesserungspotenzial</div>';
+  html += '<div style="font-size:.82rem;color:var(--ink);line-height:1.5;">Mehr konkrete Beispiele nennen, Zeitmanagement im Referat optimieren</div>';
+  html += '</div>';
+  html += '</div>';
+
+  container.innerHTML = html;
+}
+
+/* ====== FÄCHER GRID ====== */
+var faecher = [
+  { emoji: '\uD83D\uDCD6', name: 'Deutsch' },
+  { emoji: '\uD83D\uDD22', name: 'Mathematik' },
+  { emoji: '\uD83C\uDDEC\uD83C\uDDE7', name: 'Englisch' },
+  { emoji: '\uD83C\uDDEB\uD83C\uDDF7', name: 'Franz\u00f6sisch' },
+  { emoji: '\uD83C\uDDEE\uD83C\uDDF9', name: 'Italienisch' },
+  { emoji: '\uD83C\uDDEA\uD83C\uDDFA', name: 'Latein' },
+  { emoji: '\uD83C\uDDEA\uD83C\uDDF8', name: 'Spanisch' },
+  { emoji: '\uD83D\uDD2C', name: 'Biologie' },
+  { emoji: '\u269B', name: 'Chemie' },
+  { emoji: '\u269B', name: 'Physik' },
+  { emoji: '\uD83C\uDFA8', name: 'Kunst' },
+  { emoji: '\uD83D\uDCBB', name: 'Informatik' },
+  { emoji: '\uD83C\uDF0E', name: 'Geographie' },
+  { emoji: '\uD83D\uDCDC', name: 'Geschichte' },
+  { emoji: '\u2696', name: 'PuG' },
+  { emoji: '\uD83D\uDCB0', name: 'WR' },
+  { emoji: '\uD83D\uDCA1', name: 'Ethik' },
+  { emoji: '\u269C', name: 'Ev. Religion' },
+  { emoji: '\u269C', name: 'Kath. Religion' },
+  { emoji: '\u26BD', name: 'Sport' },
+];
+
+var faecherGrid = document.getElementById('faecherGrid');
+faecher.forEach(function(f, i) {
+  var chip = document.createElement('div');
+  chip.className = 'fach-chip';
+  chip.style.transitionDelay = (i * 0.04) + 's';
+  chip.innerHTML = '<span class="fach-emoji">' + f.emoji + '</span>' + f.name;
+  faecherGrid.appendChild(chip);
+});
+
+/* ====== ANIMATED COUNTERS ====== */
+var counterEls = document.querySelectorAll('.counter-value[data-target]');
+var counterObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var el = entry.target;
+      var target = parseInt(el.dataset.target);
+      if (target === 0) return;
+      var suffix = el.dataset.suffix || '';
+      var current = 0;
+      var step = Math.max(1, Math.floor(target / 30));
+      var timer = setInterval(function() {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current + suffix;
+      }, 40);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counterEls.forEach(function(el) { counterObserver.observe(el); });
+</script>
+
+</body>
+</html>
