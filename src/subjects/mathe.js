@@ -225,7 +225,14 @@ export async function handleGenerateMathe(request, env) {
 Lehrplan-Inhalte Jgst. 13:
 - M13.1: Bestimmtes Integral als Flächenbilanz, Hauptsatz, Stammfunktionen, Flächenberechnung, uneigentliche Integrale, Rotationsvolumen
 - M13.4: Anwendungen der Differential-/Integralrechnung, Parameterfunktionen, Extremwertprobleme`,
-      kontexte: `Wachstums-/Abklingmodelle (Bakterienkultur, Medikament im Blut, Bevölkerung), CO₂-/Feinstaub-Messung, Produktionskosten/-gewinn, Geschwindigkeit und zurückgelegte Strecke, Wasserstand/Pegelstand, Temperaturverlauf, Höhenprofil einer Straße/Rutsche`
+      kontexte: `Produktionskosten/-gewinn, Geschwindigkeit und zurückgelegte Strecke, Wasserstand/Pegelstand, Temperaturverlauf, Höhenprofil einer Straße/Rutsche, Flächenberechnung (Grundstück, Solarpanel), Brückenprofil, Flussbett-Querschnitt, Vase/Behälter-Design, Achterbahn-Profil`,
+      kontexteNachUnterpunkt: {
+        'Ableitungsregeln und Ableitungsfunktion': 'Geschwindigkeit/Beschleunigung, Temperaturänderung, Steigung eines Radwegs/Bergprofils, Produktionsrate, Fassadenform',
+        'Kurvendiskussion (Extrema, Wendepunkte, Monotonie)': 'Höhenprofil einer Straße/Rutsche, Vase/Behälter-Form, Flussquerschnitt, Geschwindigkeitsverlauf eines Fahrzeugs, Hügellandschaft, Achterbahn',
+        'Integralrechnung (Stammfunktion, Flächenberechnung)': 'Wassermengen (Zufluss/Abfluss), Energieerzeugung (Solar/Wind), Zurückgelegte Strecke, Materialverbrauch, Einnahmen über Zeit',
+        'Funktionsscharen und Parameter': 'Brückenprofile, Torbögen, Satellitenschüsseln, Rutschbahnen mit verschiedener Steilheit, Dachformen',
+        'Wachstums- und Abnahmeprozesse (e-Funktion, ln)': 'Wachstums-/Abklingmodelle (Bakterienkultur, Medikament im Blut, Bevölkerung), CO₂-Messung, Abkühlvorgänge, App-Verbreitung, Schadstoffabbau'
+      }
     },
     stochastik: {
       title: "Stochastik",
@@ -248,16 +255,39 @@ Lehrplan-Inhalte Jgst. 13:
 
   const sgInfo = sgThemen[sg] || sgThemen.analysis;
 
+  // Kontexte an gewählten Unterpunkt anpassen (nur bei Analysis)
+  const aktuelleKontexte = (() => {
+    if (sgInfo.kontexteNachUnterpunkt && unterpunkte && unterpunkte.length > 0) {
+      for (const u of unterpunkte) {
+        if (sgInfo.kontexteNachUnterpunkt[u]) return sgInfo.kontexteNachUnterpunkt[u];
+      }
+    }
+    return sgInfo.kontexte;
+  })();
+
   // Beispiel-JSON für den Prompt zusammenbauen (passt sich an gewählte Unterpunkte an)
-  const defaultBeispiel = {
-    aufgabe: 'Ein Pharmaunternehmen testet einen neuen Wirkstoff. Nach der Einnahme einer Tablette wird die Wirkstoffkonzentration $c$ (in mg/l) im Blut gemessen. Im Zeitraum $0 \\\\le t \\\\le 24$ ($t$ in Stunden nach der Einnahme) lässt sich die Konzentration modellhaft durch die Funktion $c$ mit $c(t) = 5{,}4 \\\\cdot t \\\\cdot e^{-0{,}35t}$ beschreiben. Ab einer Konzentration von $2$ mg/l gilt der Wirkstoff als therapeutisch wirksam.',
-    teilaufgaben: [
-      {id: 'a)', text: 'Ermitteln Sie den Zeitraum, in dem der Wirkstoff therapeutisch wirksam ist.', be: 4},
-      {id: 'b)', text: 'Der Beipackzettel gibt an, dass die maximale Konzentration etwa zwei Stunden nach der Einnahme erreicht wird. Überprüfen Sie diese Angabe mithilfe des Modells.', be: 4},
-      {id: 'c)', text: 'Die Gesamtbelastung des Körpers wird durch die Fläche unter dem Konzentrationsgraphen beschrieben. Bei dem alten Wirkstoff beträgt diese Belastung im gleichen Zeitraum $38$ mg·h/l. Vergleichen Sie die Belastung durch den neuen Wirkstoff mit der des alten.', be: 5},
-      {id: 'd)', text: 'Eine Ärztin schlägt vor, nach $12$ Stunden eine zweite Tablette einzunehmen. Die Gesamtkonzentration ergibt sich dann aus der Summe beider Einzelkonzentrationen. Beurteilen Sie, ob dabei die kritische Grenze von $8$ mg/l überschritten werden könnte.', be: 4}
-    ]
-  };
+  // Neutrale Default-Beispiele (kein Wachstum), zufällig gewählt
+  const defaultBeispiele = [
+    {
+      aufgabe: 'In einer Wetterstation wird die Temperaturentwicklung eines Frühlingstages untersucht. Die Temperatur $T$ (in °C) lässt sich im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden ab Mitternacht) durch $T(t) = -0{,}1t^{3} + 3{,}6t^{2} - 36t + 120$ modellieren.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Bestimmen Sie die Tageszeit, zu der die höchste Temperatur erreicht wird, und geben Sie diese Temperatur an.', be: 4},
+        {id: 'b)', text: 'Ermitteln Sie die Zeitintervalle, in denen die Temperatur steigt bzw. fällt.', be: 4},
+        {id: 'c)', text: 'Bestimmen Sie die Zeitpunkte, an denen die Temperatur am schnellsten steigt bzw. fällt.', be: 5},
+        {id: 'd)', text: 'Berechnen Sie die mittlere Temperatur zwischen 8:00 und 20:00 Uhr.', be: 4}
+      ]
+    },
+    {
+      aufgabe: 'Ein Architekt entwirft eine geschwungene Brücke. Das Profil der Brücke wird im Bereich $0 \\le x \\le 30$ ($x$ in Metern) durch $f(x) = -0{,}006x^{3} + 0{,}18x^{2} - 0{,}3x$ beschrieben, wobei $f(x)$ die Höhe in Metern über der Fahrbahn angibt.',
+      teilaufgaben: [
+        {id: 'a)', text: 'Bestimmen Sie die maximale Höhe der Brücke und die Stelle, an der sie erreicht wird.', be: 4},
+        {id: 'b)', text: 'Ermitteln Sie die Spannweite der Brücke (Abstand zwischen den Auflagepunkten auf Fahrbahnhöhe).', be: 4},
+        {id: 'c)', text: 'Berechnen Sie die Querschnittsfläche des Brückenprofils.', be: 5},
+        {id: 'd)', text: 'Beurteilen Sie, ob ein Schiff mit $6$ m Höhe und $10$ m Breite unter der Brücke hindurchfahren kann.', be: 4}
+      ]
+    }
+  ];
+  const defaultBeispiel = defaultBeispiele[Math.floor(Math.random() * defaultBeispiele.length)];
   const beispiel = customBeispiel || defaultBeispiel;
   const beispielJSON = JSON.stringify({
     aufgabe: beispiel.aufgabe,
@@ -286,11 +316,11 @@ HOHES NIVEAU — KRITISCHE REGELN:
 - NIEMALS nackte Mathe-Fragen stellen wie "Bestimmen Sie die erste Ableitung" oder "Berechnen Sie die Nullstellen"!
 - STATTDESSEN: Mathematische Operationen IMMER in den Sachkontext einbetten:
   FALSCH: "Bestimmen Sie f'(x)."
-  RICHTIG: "Bestimmen Sie den Zeitpunkt, zu dem die Wachstumsrate maximal ist."
+  RICHTIG: "Bestimmen Sie, wann die Temperatur am schnellsten steigt."
   FALSCH: "Berechnen Sie die Nullstellen von f."
-  RICHTIG: "Ermitteln Sie, nach wie vielen Stunden der Wirkstoff vollständig abgebaut ist."
+  RICHTIG: "Ermitteln Sie, an welchen Stellen der Radweg auf Meeresniveau liegt."
   FALSCH: "Bestimmen Sie das Integral von f im Intervall [0; 5]."
-  RICHTIG: "Berechnen Sie die Gesamtmenge des freigesetzten CO₂ in den ersten fünf Stunden."
+  RICHTIG: "Berechnen Sie die Gesamtmenge an Wasser, die in den ersten fünf Stunden in das Becken fließt."
   FALSCH: "Bestimmen Sie die Gleichung der Tangente im Punkt P."
   RICHTIG: "Ein Ingenieur plant eine geradlinige Zufahrt, die den Hang im Punkt P tangential berührt. Bestimmen Sie die Gleichung dieser Zufahrt."
 - Der Schüler muss SELBST erkennen, welche mathematische Methode (Ableitung, Integral, Nullstelle, ...) nötig ist — das ist Teil der Aufgabe!
@@ -300,7 +330,7 @@ HOHES NIVEAU — KRITISCHE REGELN:
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
 ${sgInfo.inhalte}${schwerpunktZusatz}
-Sachkontext-Ideen: ${sgInfo.kontexte}
+Sachkontext-Ideen: ${aktuelleKontexte}
 
 ISB-REFERENZFORMAT (orientiere dich an den illustrierenden Prüfungsaufgaben des ISB Bayern 2025):
 
