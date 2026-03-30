@@ -76,7 +76,7 @@ export async function handleGetStudents(request, env) {
   }
 
   const { results: students } = await env.DB.prepare(
-    "SELECT name, level, hidden_subjects, class_group, created_at AS date FROM students ORDER BY name ASC"
+    "SELECT name, level, hidden_subjects, class_group, email, created_at AS date FROM students ORDER BY name ASC"
   ).all();
 
   const safe = (students || []).map(s => ({
@@ -85,6 +85,7 @@ export async function handleGetStudents(request, env) {
     date: s.date || "",
     hidden_subjects: JSON.parse(s.hidden_subjects || "[]"),
     class_group: s.class_group || null,
+    email: s.email || "",
   }));
 
   return jsonResponse({ success: true, students: safe }, 200, env);

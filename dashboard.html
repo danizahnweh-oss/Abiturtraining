@@ -662,6 +662,7 @@ details[open] > .collapsible-header .collapsible-chevron {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>E-Mail</th>
                 <th>Klasse</th>
                 <th>Registriert am</th>
                 <th>Ausgeblendete Fächer</th>
@@ -1422,8 +1423,12 @@ function renderStudents() {
     const classTag = s.class_group
       ? `<span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(s.class_group)}</span>`
       : '<span style="color:var(--ink-muted);">–</span>';
+    const emailStr = s.email
+      ? `<a href="mailto:${escapeHtml(s.email)}" style="color:var(--accent);text-decoration:none;font-size:.85rem;">${escapeHtml(s.email)}</a>`
+      : '<span style="color:var(--ink-muted);">–</span>';
     return `<tr>
       <td><strong>${escapeHtml(s.name)}</strong></td>
+      <td>${emailStr}</td>
       <td>${classTag}</td>
       <td>${dateStr}${timeStr ? `<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span>` : ""}</td>
       <td style="font-size:.82rem;">${hidden}</td>
