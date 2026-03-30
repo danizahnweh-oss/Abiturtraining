@@ -578,6 +578,21 @@ HOHES NIVEAU — KRITISCHE REGELN:
 - Aufgaben sollen MEHRSTUFIGES DENKEN erfordern: Mehrere Konzepte kombinieren, nicht isolierte Standardaufgaben
 - VARIANZ: Verwende ungewöhnliche Funktionstypen, überraschende Kontexte, und fordere auch Modellkritik/Interpretation
 
+⚠️ FUNKTIONSTYP-VARIANZ (KRITISCH!):
+- Verwende NICHT nur e-Funktionen! Der Lehrplan umfasst VIELE Funktionstypen:
+  • Ganzrationale Funktionen ($x^{3}$, $x^{4}$, Polynome mit Parametern)
+  • Gebrochen-rationale Funktionen ($\frac{2x}{x^{2}+1}$)
+  • Trigonometrische Funktionen ($\sin$, $\cos$)
+  • Wurzelfunktionen ($\sqrt{x}$)
+  • Logarithmusfunktionen ($\ln(x)$)
+  • Potenzfunktionen mit rationalen Exponenten ($x^{\frac{3}{2}}$)
+  • Zusammengesetzte Funktionen (Produkte, Verkettungen)
+- e-Funktionen sind NUR beim Unterpunkt "Wachstums- und Abnahmeprozesse" der Standard-Funktionstyp!
+- Bei Kurvendiskussion: bevorzugt ganzrationale Funktionen (Grad 3 oder 4)
+- Bei Integralrechnung: ganzrationale oder einfache trigonometrische Funktionen
+- Bei Ableitungsregeln: Mix aus verschiedenen Funktionstypen (Produkt-/Kettenregel demonstrieren)
+- Bei Funktionsscharen: ganzrationale Funktionen mit Parameter
+
 SACHGEBIET: ${sgInfo.title}
 Relevante Inhalte:
 ${sgInfo.inhalte}${schwerpunktZusatz}
@@ -614,12 +629,8 @@ WICHTIG:
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
-- e-FUNKTION KRITISCH: Exponent IMMER in geschweifte Klammern!
-  RICHTIG: $e^{-x}$, $e^{2x}$, $e^{-0{,}5x}$, $e^{-\frac{x}{2}}$
-  FALSCH: $e^-x$, $e^(-x)$, $e^{-0.5x}$, $\exp(-x)$
-  NIEMALS $e^-x$ (Klammern fehlen!), NIEMALS $\exp(...)$, NIEMALS runde Klammern $e^(...)$
 - Brüche: $\frac{1}{2}$ (NICHT $1/2$)
-- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$) — auch im Exponenten: $e^{-0{,}12x}$ (NICHT $e^{-0.12x}$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
 - Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
 - Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
 - Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
@@ -627,7 +638,11 @@ LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Ableitung: $f'(x)$, $f''(x)$
 - Vektoren: $\vec{a}$, $\overrightarrow{AB}$
 - Intervall: $0 \le x \le 30$ (NICHT $0 <= x <= 30$)
-BEISPIEL: $$p(x) = 3{,}6 \cdot x \cdot e^{-0{,}12x} + 0{,}4 \quad (0 \le x \le 30)$$
+- e-Funktion (falls verwendet): Exponent IMMER in geschweifte Klammern: $e^{-0{,}5x}$ (NICHT $e^-x$ oder $\exp(...)$)
+BEISPIELE für verschiedene Funktionstypen:
+$$f(x) = -0{,}5x^{3} + 6x^{2} - 15x + 20 \quad (0 \le x \le 10)$$
+$$g(x) = \frac{4x^{2}}{x^{2} + 1} \quad (x \in \mathbb{R})$$
+$$h(x) = 2 \cdot \sin\left(\frac{\pi}{6} \cdot x\right) + 5 \quad (0 \le x \le 24)$$
 
 GEOGEBRA-VISUALISIERUNG (optional):
 Falls die Aufgabe von einer grafischen Darstellung profitiert, füge ein "grafik"-Feld hinzu.
@@ -636,7 +651,7 @@ Falls die Aufgabe von einer grafischen Darstellung profitiert, füge ein "grafik
 - Stochastik: type "probability" — nur wenn es die Aufgabe verdeutlicht
 
 KRITISCHE GEOGEBRA-REGELN:
-1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: b(x) = 80*x*exp(-0.2*x)
+1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: f(x) = -0.5*x^3 + 6*x^2 - 15*x + 20
 2. Immer * für Multiplikation: 2*x, NICHT 2x
 3. e-Funktion: exp(x), NICHT e^x oder e^(x)
 4. Nur EINFACHE Befehle: Funktionsdefinitionen, Punkte, Geraden
@@ -644,8 +659,8 @@ KRITISCHE GEOGEBRA-REGELN:
 6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
 7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
 
-KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2))
-FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
+KORREKT: f(x) = -0.5*x^3 + 6*x^2 - 15*x + 20, A = (2, f(2))
+FALSCH: f(t) = -0.5*t^3 + 6*t^2, Integral(f, 0, 5), B(x) = ..., SetColor(...)
 8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
 9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
@@ -894,7 +909,7 @@ Erstelle eine VOLLSTÄNDIGE, ANSPRUCHSVOLLE Abiturprüfung mit 100 BE auf ECHTEM
 WICHTIGSTE REGEL — KONTEXTGEBUNDENE AUFGABEN:
 ALLE Teilaufgaben müssen im Sachkontext formuliert sein! Der Schüler muss SELBST erkennen, welche mathematische Methode nötig ist.
 VERBOTEN: "Bestimmen Sie f'(x)", "Berechnen Sie die Nullstellen", "Bestimmen Sie das Integral"
-STATTDESSEN: "Ermitteln Sie, wann die Wachstumsrate am größten ist", "Bestimmen Sie, nach wie vielen Stunden kein Wirkstoff mehr nachweisbar ist", "Berechnen Sie die Gesamtmenge des freigesetzten CO₂"
+STATTDESSEN: "Bestimmen Sie, wann die Temperatur am höchsten ist", "Ermitteln Sie, an welcher Stelle der Radweg am steilsten ansteigt", "Berechnen Sie die Gesamtmenge an Wasser in den ersten fünf Stunden"
 Die mathematische Methode (Ableiten, Integrieren, Nullstellen, ...) wird NICHT genannt — der Schüler erkennt sie selbst!
 
 PRÜFUNGSSTRUKTUR:
@@ -940,8 +955,8 @@ TEIL A — KOMPAKTE, ABER ANSPRUCHSVOLLE AUFGABEN (je 5 BE, 2-3 Teilaufgaben, OH
 TEIL B — GROSSE MEHRTEILIGE AUFGABEN:
 • B1 Analysis (30 BE): MUSS aus 2-3 NUMMERIERTEN ABSCHNITTEN bestehen (im "text"-Feld mit "1 ...", "2 ...", "3 ..." nummeriert), die AUFEINANDER AUFBAUEN:
   - Abschnitt 1 (ca. 11 BE): Innermathematische Untersuchung einer konkreten Funktion (z.B. ganzrationale Funktion mit Graph). Teilaufgaben: Symmetrie, Krümmung, lokale/mittlere Änderungsrate, Tangente.
-  - Abschnitt 2 (ca. 9 BE): Weitere Funktion oder Funktionenschar (z.B. $g_k: x \\mapsto 3x \\cdot e^{kx}$ mit $k \\in \\mathbb{R} \\setminus \\{0\\}$). Teilaufgaben: Extrempunkte der Schar, Parameter bestimmen, Gleichung lösen.
-  - Abschnitt 3 (ca. 10 BE): SACHKONTEXT — die Funktionen aus 1 und 2 werden in einem realen Modell verwendet (z.B. Hundewachstum, CO₂-Konzentration, Temperaturverlauf). Teilaufgaben: "Formulieren Sie eine Aussage im Sachzusammenhang", Integration, Modellvergleich, Modellkritik.
+  - Abschnitt 2 (ca. 9 BE): Weitere Funktion oder Funktionenschar (z.B. $f_k: x \\mapsto k \\cdot x^{2} \\cdot (6 - x)$ mit $k > 0$ ODER gebrochen-rationale Schar ODER trigonometrische Funktion). Teilaufgaben: Extrempunkte der Schar, Parameter bestimmen, Gleichung lösen. WICHTIG: NICHT immer e-Funktionen verwenden — variiere die Funktionstypen!
+  - Abschnitt 3 (ca. 10 BE): SACHKONTEXT — die Funktionen aus 1 und 2 werden in einem realen Modell verwendet (z.B. Brückenprofil, Pegelstand, Temperaturverlauf, Produktionskosten). Teilaufgaben: "Formulieren Sie eine Aussage im Sachzusammenhang", Integration, Modellvergleich, Modellkritik.
   KONTROLLWERTE: Bei 1-2 wichtigen Zwischenergebnissen "(zur Kontrolle: ...)" angeben!
 
 • B2 Stochastik (20 BE): MUSS 3 NUMMERIERTE ABSCHNITTE mit durchgängigem Sachkontext haben!
@@ -981,12 +996,8 @@ WICHTIG:
 
 LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Multiplikation: $3{,}6 \cdot x$ (NIEMALS $3.6 * x$)
-- e-FUNKTION KRITISCH: Exponent IMMER in geschweifte Klammern!
-  RICHTIG: $e^{-x}$, $e^{2x}$, $e^{-0{,}5x}$, $e^{-\frac{x}{2}}$
-  FALSCH: $e^-x$, $e^(-x)$, $e^{-0.5x}$, $\exp(-x)$
-  NIEMALS $e^-x$ (Klammern fehlen!), NIEMALS $\exp(...)$, NIEMALS runde Klammern $e^(...)$
 - Brüche: $\frac{1}{2}$ (NICHT $1/2$)
-- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$) — auch im Exponenten: $e^{-0{,}12x}$ (NICHT $e^{-0.12x}$)
+- Dezimalkomma (deutsch!): $3{,}6$ (NICHT $3.6$)
 - Potenzen: $x^{2}$, $x^{n+1}$ (Klammern bei mehreren Zeichen)
 - Wurzeln: $\sqrt{x}$, $\sqrt[3]{x}$
 - Vergleiche: $\le$, $\ge$, $\ne$, $\approx$ (NICHT <=, >=)
@@ -994,7 +1005,11 @@ LATEX-FORMATIERUNG (schreibe echte Mathematik, NICHT Code-Syntax!):
 - Ableitung: $f'(x)$, $f''(x)$
 - Vektoren: $\vec{a}$, $\overrightarrow{AB}$
 - Intervall: $0 \le x \le 30$ (NICHT $0 <= x <= 30$)
-BEISPIEL: $$p(x) = 3{,}6 \cdot x \cdot e^{-0{,}12x} + 0{,}4 \quad (0 \le x \le 30)$$
+- e-Funktion (falls verwendet): Exponent IMMER in geschweifte Klammern: $e^{-0{,}5x}$ (NICHT $e^-x$ oder $\exp(...)$)
+BEISPIELE für verschiedene Funktionstypen:
+$$f(x) = -0{,}5x^{3} + 6x^{2} - 15x + 20 \quad (0 \le x \le 10)$$
+$$g(x) = \frac{4x^{2}}{x^{2} + 1} \quad (x \in \mathbb{R})$$
+$$h(x) = 2 \cdot \sin\left(\frac{\pi}{6} \cdot x\right) + 5 \quad (0 \le x \le 24)$$
 
 GEOGEBRA-VISUALISIERUNG (optional, pro Aufgabe):
 Jede Aufgabe kann ein optionales "grafik"-Feld enthalten, um eine interaktive Grafik anzuzeigen.
@@ -1003,7 +1018,7 @@ Jede Aufgabe kann ein optionales "grafik"-Feld enthalten, um eine interaktive Gr
 - Stochastik: type "probability" — nur wenn sinnvoll
 
 KRITISCHE GEOGEBRA-REGELN:
-1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: b(x) = 80*x*exp(-0.2*x)
+1. Variable ist IMMER x (NICHT t, n, k!). Auch wenn die Aufgabe t verwendet: f(x) = -0.5*x^3 + 6*x^2 - 15*x + 20
 2. Immer * für Multiplikation: 2*x, NICHT 2x
 3. e-Funktion: exp(x), NICHT e^x oder e^(x)
 4. Nur EINFACHE Befehle: Funktionsdefinitionen, Punkte, Geraden
@@ -1011,8 +1026,8 @@ KRITISCHE GEOGEBRA-REGELN:
 6. KEINE LaTeX-Syntax ($, \frac, \int, etc.) in GeoGebra-Befehlen!
 7. Funktionsnamen: Kleinbuchstaben (f, g, h), NICHT Großbuchstaben (F, G, B)
 
-KORREKT: f(x) = 80*x*exp(-0.2*x), A = (2, f(2))
-FALSCH: b(t) = 80*t*e^(-0.2*t), Integral(f, 0, 5), B(x) = ..., SetColor(...)
+KORREKT: f(x) = -0.5*x^3 + 6*x^2 - 15*x + 20, A = (2, f(2))
+FALSCH: f(t) = -0.5*t^3 + 6*t^2, Integral(f, 0, 5), B(x) = ..., SetColor(...)
 8. KEINE SetColor-Befehle — Farben werden automatisch gesetzt.
 9. "settings" ist NICHT nötig — die Achsen werden automatisch angepasst.
 
@@ -1047,7 +1062,7 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
     {"id": "A10", "sachgebiet": "Geometrie", "be": 5, "text": "Die Punkte $P$ und $Q$ liegen in der Ebene $E: 5x_1 - 4x_2 + 3x_3 - 6 = 0$ und haben voneinander den Abstand $10$.", "teilaufgaben": [{"id": "a)", "text": "Ermitteln Sie mögliche Koordinaten von $P$ und $Q$.", "be": 5}]}
   ],
   "teil_b": [
-    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "1 Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f: x \\mapsto \\frac{1}{100} \\cdot (2x^{3} - 43x^{2} + 248x)$. Abbildung 1 zeigt den Graphen $G_f$ von $f$ im Bereich $0 \\le x \\le 10$.", "teilaufgaben": [{"id": "1a)", "text": "Begründen Sie anhand des Terms von $f$, dass $G_f$ nicht symmetrisch bezüglich des Koordinatenursprungs ist, und zeigen Sie rechnerisch, dass $G_f$ für $x < 7\\frac{1}{6}$ rechtsgekrümmt ist.", "be": 4}, {"id": "1b)", "text": "Es gibt eine Stelle $x_0 \\in [0; 10]$, an der die lokale Änderungsrate von $f$ mit der mittleren Änderungsrate von $f$ im Intervall $[0; 10]$ übereinstimmt. Ermitteln Sie grafisch einen Näherungswert für $x_0$.", "be": 3}, {"id": "1c)", "text": "Bestimmen Sie eine Gleichung der Tangente $t$ an $G_f$ im Punkt $(10|f(10))$.\\n(zur Kontrolle: Gleichung von $t$: $y = -0{,}12x + 3$)", "be": 4}, {"id": "2a)", "text": "Betrachtet wird die Schar der in $\\mathbb{R}$ definierten Funktionen $g_k: x \\mapsto 3x \\cdot e^{kx}$ mit $k \\in \\mathbb{R} \\setminus \\{0\\}$. Der Graph jeder Funktion $g_k$ hat genau einen Extrempunkt $E_k$. Alle Extrempunkte $E_k$ liegen auf einer Geraden $h$. Bestimmen Sie rechnerisch die Steigung von $h$.", "be": 5}, {"id": "2b)", "text": "Der Graph $G$ einer Funktion dieser Schar besitzt den Hochpunkt $(4|\\frac{12}{e})$. Begründen Sie, dass $G$ der Graph der Funktion $g_k$ mit $k = -0{,}25$ ist.", "be": 2}, {"id": "2c)", "text": "Geben Sie alle Werte $a \\in \\mathbb{R}$ an, für die die Gleichung $3x \\cdot e^{-0{,}25x} = a$ genau eine Lösung besitzt.", "be": 2}, {"id": "3a)", "text": "Junge Hunde wachsen in ihren ersten Lebensmonaten sehr schnell. Zur Beschreibung der Zunahme der Körpermasse werden zwei Modelle betrachtet: Modell A verwendet für $0 \\le x \\le 10$ den Graphen $G_f$ und für $10 \\le x \\le 25$ die Tangente $t$; Modell B verwendet für $0 \\le x \\le 25$ den Graphen von $g_{-0{,}25}$. Die $y$-Koordinate steht jeweils für die momentane Änderungsrate der Körpermasse in kg pro Monat. Formulieren Sie eine Aussage im Sachzusammenhang, die für beide Modelle für $x = 4$ zutrifft.", "be": 1}, {"id": "3b)", "text": "Berechnen Sie auf der Grundlage von Modell A, wie viele Monate nach der Geburt ein Hund erstmals nicht mehr an Körpermasse zunimmt.\\n(zur Kontrolle: 25 Monate)", "be": 2}, {"id": "3c)", "text": "Begründen Sie, dass auf der Grundlage von Modell A die Masse, um die ein Hund in den ersten 25 Monaten insgesamt zunimmt, mit dem Term $\\int_0^{10} f(x)\\,dx + 13{,}5$ berechnet werden kann.", "be": 3}, {"id": "3d)", "text": "Geben Sie für zwei verschiedene in $[0; 10]$ definierte Funktionen, deren Funktionswerte für $x > 0$ zwischen denen von $f$ und $g_{-0{,}25}$ liegen, jeweils einen Funktionsterm an.", "be": 4}]},
+    {"id": "B1", "sachgebiet": "Analysis", "be": 30, "text": "1 Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f: x \\mapsto \\frac{1}{100} \\cdot (2x^{3} - 43x^{2} + 248x)$. Abbildung 1 zeigt den Graphen $G_f$ von $f$ im Bereich $0 \\le x \\le 10$.", "teilaufgaben": [{"id": "1a)", "text": "Begründen Sie anhand des Terms von $f$, dass $G_f$ nicht symmetrisch bezüglich des Koordinatenursprungs ist, und zeigen Sie rechnerisch, dass $G_f$ für $x < 7\\frac{1}{6}$ rechtsgekrümmt ist.", "be": 4}, {"id": "1b)", "text": "Es gibt eine Stelle $x_0 \\in [0; 10]$, an der die lokale Änderungsrate von $f$ mit der mittleren Änderungsrate von $f$ im Intervall $[0; 10]$ übereinstimmt. Ermitteln Sie grafisch einen Näherungswert für $x_0$.", "be": 3}, {"id": "1c)", "text": "Bestimmen Sie eine Gleichung der Tangente $t$ an $G_f$ im Punkt $(10|f(10))$.\\n(zur Kontrolle: Gleichung von $t$: $y = -0{,}12x + 3$)", "be": 4}, {"id": "2a)", "text": "Betrachtet wird die Schar der in $\\mathbb{R}$ definierten Funktionen $g_a: x \\mapsto a \\cdot x^{2} \\cdot (6 - x)$ mit $a > 0$. Zeigen Sie, dass jeder Graph $G_a$ genau einen Hochpunkt besitzt, und bestimmen Sie dessen Koordinaten in Abhängigkeit von $a$.", "be": 5}, {"id": "2b)", "text": "Bestimmen Sie den Wert von $a$, für den der Hochpunkt von $G_a$ auf dem Graphen $G_f$ liegt.", "be": 3}, {"id": "2c)", "text": "Für einen bestimmten Wert von $a$ schließen $G_a$ und die $x$-Achse eine Fläche mit dem Inhalt $108$ ein. Bestimmen Sie diesen Wert von $a$.", "be": 3}, {"id": "3a)", "text": "Ein Fluss hat ein Querschnittsprofil, das im Bereich $0 \\le x \\le 6$ ($x$ in Metern) durch die Funktion $g_a$ mit $a = 0{,}5$ beschrieben werden kann. Dabei gibt $g_{0{,}5}(x)$ die Tiefe des Flussbetts in Metern unter der Wasseroberfläche an. Formulieren Sie eine Aussage im Sachzusammenhang, die sich aus dem Hochpunkt von $G_{0{,}5}$ ergibt.", "be": 1}, {"id": "3b)", "text": "Berechnen Sie die Querschnittsfläche des Flussbetts.\\n(zur Kontrolle: $27$ m²)", "be": 3}, {"id": "3c)", "text": "Bei Hochwasser steigt der Wasserstand um $h$ Meter. Die neue Querschnittsfläche ergibt sich aus $A(h) = 27 + 6h$. Bestimmen Sie, um wie viel Meter der Wasserstand steigen muss, damit sich die Querschnittsfläche verdoppelt.", "be": 2}]},
     {"id": "B2", "sachgebiet": "Stochastik", "be": 20, "text": "1 Bei einer Verkehrszählung zur Untersuchung des Sicherheitsbewusstseins im Straßenverkehr wurden 630 Radfahrer erfasst. Ein Drittel davon fuhr ein Fahrrad mit Elektromotor, 147 waren mit einem Fahrrad ohne Elektromotor unterwegs und trugen keinen Helm. Insgesamt trugen $40\\%$ der Radfahrer keinen Helm. Betrachtet werden die Ereignisse E: „Die Person fuhr ein Fahrrad mit Elektromotor" und H: „Die Person trug einen Helm".", "teilaufgaben": [{"id": "1a)", "text": "Begründen Sie anhand der vorliegenden Daten, dass $E$ und $H$ stochastisch abhängig sind.", "be": 3}, {"id": "1b)", "text": "Beschreiben Sie das Ereignis $\\bar{E} \\cap H$ im Sachzusammenhang und ermitteln Sie die Wahrscheinlichkeit dafür, dass die Person einen Helm trug, wenn bekannt ist, dass sie auf einem Fahrrad ohne Elektromotor unterwegs war.", "be": 3}, {"id": "2a)", "text": "Nach einer statistischen Erhebung tritt auf einer $50\\,\\text{km}$ langen, mit dem Fahrrad zurückgelegten Strecke mit einer Wahrscheinlichkeit von $1{,}6\\%$ eine Reifenpanne auf. Ermitteln Sie auf $50\\,\\text{km}$ genau, ab welcher Gesamtstrecke die Wahrscheinlichkeit für mindestens eine Reifenpanne mehr als $90\\%$ beträgt.", "be": 5}, {"id": "3a)", "text": "Im Jahr 2020 wurden in Deutschland rund fünf Millionen Fahrräder verkauft, davon $40\\%$ Pedelecs. Unter 200 zufällig ausgewählten Fahrrädern beschreibt $X$ die Anzahl der Pedelecs. Bestimmen Sie $P(70 \\le X \\le 90)$ und beschreiben Sie die Bedeutung im Sachzusammenhang.", "be": 3}, {"id": "3b)", "text": "Für jedes vierte verkaufte Pedelec wurde eine Versicherung abgeschlossen. $Y$ beschreibt die Anzahl der versicherten Pedelecs unter den 200 Fahrrädern. Berechnen Sie $P(Y = 0)$.", "be": 2}, {"id": "3c)", "text": "Ermitteln Sie den größtmöglichen Wert von $k$, für den $P_{0{,}1}^{200}(Y \\ge k) > 0{,}8$ gilt, und interpretieren Sie das Ergebnis im Sachzusammenhang.", "be": 4}]},
     {"id": "B3", "sachgebiet": "Geometrie", "be": 20, "text": "Gegeben sind die Punkte $A(17|-10|0)$, $B(17|20|0)$, $C(2|4|8)$ und $D(2|-10|8)$. Es gilt $\\overline{AB} \\parallel \\overline{CD}$, somit ist das Viereck $ABCD$ ein Trapez. In einem Modell stellt die $x_1 x_2$-Ebene die horizontale Grundfläche dar, auf der sich ein Hügel erhebt. Ein Hang des Hügels wird durch das Trapez $ABCD$ dargestellt. Auf einem Plateau steht eine Burg, deren höchste Stelle der vorderen Fassade durch $S(-6|2|12)$ dargestellt wird. Eine Längeneinheit entspricht $10\\,\\text{m}$.", "teilaufgaben": [{"id": "a)", "text": "Zeigen Sie, dass das Trapez $ABCD$ bei $D$ einen rechten Innenwinkel hat.", "be": 2}, {"id": "b)", "text": "Bestimmen Sie den Flächeninhalt des Trapezes $ABCD$.\\n(zur Kontrolle: $374$)", "be": 3}, {"id": "c)", "text": "Das Trapez $ABCD$ liegt in der Ebene $H$. Bestimmen Sie eine Gleichung von $H$ in Koordinatenform.\\n(zur Kontrolle: $H: 8x_1 + 15x_3 - 136 = 0$)", "be": 3}, {"id": "d)", "text": "Bestimmen Sie die Höhe der vorderen Burgfassade an ihrer höchsten Stelle in Metern.", "be": 2}, {"id": "e)", "text": "Der Hang wird auf seiner gesamten Fläche für den Weinanbau genutzt. Berechnen Sie den Inhalt der Weinanbaufläche in Hektar und untersuchen Sie mithilfe der folgenden Tabelle, um welche Weinanbaulage es sich handelt: Flachlage $0°$ bis $3°$, Hanglage $3°$ bis $17°$, Steillage $17°$ oder mehr.", "be": 5}, {"id": "f)", "text": "Ein Arbeiter steht auf dem Hang an der Stelle $P(5{,}75|-2{,}5|6)$ und versucht, aus einer Blickhöhe von zwei Metern die Burg zu sehen. Beurteilen Sie, ob der Hang die freie Sicht auf die höchste Stelle der vorderen Fassade verhindert.", "be": 5}]}
   ]
