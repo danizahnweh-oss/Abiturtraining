@@ -116,6 +116,14 @@ function _apiHeaders(contentType) {
 }
 
 async function apiCall(endpoint, body, _isRetry) {
+  // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
+  if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
+    var sub = await checkSubscription();
+    if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
+      window.location.href = "/abo.html";
+      throw new Error("Kein aktives Abo.");
+    }
+  }
   // Auto-Attach: OCR-Bilder bei Grade-Endpoints mitsenden
   if (/\/api\/(fos-)?grade/.test(endpoint) && typeof getOCRImages === "function") {
     const imgs = getOCRImages();
@@ -380,6 +388,15 @@ async function apiCallAsync(gradeEndpoint, body, options) {
   var maxWait = options.maxWait || 300000; // 5 Minuten
   var onProgress = options.onProgress || null;
 
+  // Abo-Check vor Korrektur
+  if (!isTeacherMode) {
+    var sub = await checkSubscription();
+    if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
+      window.location.href = "/abo.html";
+      throw new Error("Kein aktives Abo.");
+    }
+  }
+
   // Grading-Kontext speichern fuer spaeteres Detail-Feedback
   _lastGradeBody = body;
 
@@ -444,6 +461,15 @@ async function apiCallAsync(gradeEndpoint, body, options) {
           apiCallAsync(gradeEndpoint, body, options).then(resolve).catch(reject);
         });
       });
+    }
+
+    if (submitRes.status === 403) {
+      var errData = await submitRes.json().catch(function() { return {}; });
+      if (errData.requires_subscription) {
+        window.location.href = "/abo.html";
+        throw new Error("Kein aktives Abo.");
+      }
+      throw new Error(errData.error || "Zugriff verweigert.");
     }
 
     if (!submitRes.ok) {

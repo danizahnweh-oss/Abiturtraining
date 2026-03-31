@@ -27,6 +27,45 @@ export async function handleGradeSubmit(request, env, ctx) {
     return jsonResponse({ error: "Ungültiger Endpoint: " + (endpoint || "(leer)") }, 400, env);
   }
 
+  // Abo-Check: Nur mit aktivem Abo, Trial oder Lehrer-Credits erlaubt
+  const studentNameLower = (student_name || "").trim().toLowerCase();
+  if (studentNameLower) {
+    const student = await env.DB.prepare(
+      "SELECT id, subscription_status, trial_end FROM students WHERE name_lower = ?"
+    ).bind(studentNameLower).first();
+
+    if (student) {
+      let hasAccess = false;
+
+      // Aktives Abo prüfen
+      if (student.subscription_status === 'active') {
+        const sub = await env.DB.prepare(
+          "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
+        ).bind(student.id).first();
+        if (sub && (sub.school_license_code || (sub.current_period_end && new Date(sub.current_period_end) > new Date()))) {
+          hasAccess = true;
+        }
+      }
+
+      // Trial prüfen
+      if (!hasAccess && student.subscription_status === 'trialing' && student.trial_end) {
+        if (new Date(student.trial_end) > new Date()) {
+          hasAccess = true;
+        }
+      }
+
+      // Lehrer-Credits prüfen
+      if (!hasAccess) {
+        const credit = await findAvailableTeacherCredits(studentNameLower, env);
+        if (credit) hasAccess = true;
+      }
+
+      if (!hasAccess) {
+        return jsonResponse({ error: "Kein aktives Abo. Bitte schließe ein Abo ab, um Aufgaben korrigieren zu lassen.", requires_subscription: true }, 403, env);
+      }
+    }
+  }
+
   // Minimale Input-Validierung
   const hasText = inputData.student_text || inputData.student_texts || inputData.text_a ||
                   inputData.student_text_en || inputData.rubric_prompt;
