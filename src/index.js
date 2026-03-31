@@ -5,7 +5,7 @@
 import { jsonResponse, corsHeaders, getAllowedOrigins, isOriginAllowed, checkBodySize, truncate } from './utils.js';
 import { MAX_BODY_SIZE, MAX_REQUESTS_PER_WINDOW, MAX_LOGIN_ATTEMPTS } from './config.js';
 import {
-  checkAuth, checkRateLimit, cleanupRateLimitMaps,
+  checkAuth, checkSubscriptionAccess, checkRateLimit, cleanupRateLimitMaps,
   rateLimitMap, loginRateLimitMap, ensureMigrations
 } from './auth.js';
 
@@ -456,11 +456,25 @@ ${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margi
 
       // ===== AUTH CHECK für restliche /api/ Endpoints =====
       if (pathname.startsWith("/api/")) {
+        // Lehrer-Token: kein Abo-Check nötig
+        const isTeacherRequest = !!request.headers.get("X-Teacher-Auth-Token");
         const authError = await checkAuth(request, env);
         if (authError) return authError;
         const rateLimitError = checkRateLimit(request, rateLimitMap, MAX_REQUESTS_PER_WINDOW, env);
         if (rateLimitError) return rateLimitError;
         cleanupRateLimitMaps();
+
+        // Abo-Check für generate/grade Endpoints (nicht für Lehrer)
+        if (!isTeacherRequest && /^\/(api)\/(fos-)?(generate|grade)/.test(pathname) && request.method === "POST") {
+          const cloned = request.clone();
+          try {
+            const body = await cloned.json();
+            const studentName = body.student_name || "";
+            const isGrade = /grade/.test(pathname);
+            const subError = await checkSubscriptionAccess(studentName, env, isGrade);
+            if (subError) return subError;
+          } catch (e) { /* Body-Parse fehlgeschlagen → durchlassen, Handler kümmert sich */ }
+        }
       }
 
       // ===== LEHRER-CODE (Schüler-Seite) =====

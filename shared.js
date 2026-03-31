@@ -119,7 +119,10 @@ async function apiCall(endpoint, body, _isRetry) {
   // Abo-Check vor kostenpflichtigen Endpoints (generate/grade)
   if (/\/api\/(fos-)?(generate|grade)/.test(endpoint) && !isTeacherMode) {
     var sub = await checkSubscription();
-    if (sub.status !== "active" && sub.status !== "trialing" && !sub.teacher_credits_available) {
+    var isGrade = /\/api\/(fos-)?grade/.test(endpoint);
+    // Generierung: nur mit Abo/Trial. Korrektur: auch mit Lehrer-Credits.
+    var hasAccess = sub.status === "active" || sub.status === "trialing" || (isGrade && sub.teacher_credits_available);
+    if (!hasAccess) {
       window.location.href = "/abo.html";
       throw new Error("Kein aktives Abo.");
     }
@@ -2483,6 +2486,24 @@ async function _doLoginModal() {
       // Lehrer-Credits asynchron prüfen und in sessionStorage speichern
       checkSubscription();
 
+      // E-Mail nachtragen falls fehlend
+      if (data.email_missing) {
+        _showEmailCollectModal(function() {
+          // Paywall-Check nach E-Mail-Dialog
+          var hasTeacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
+          if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
+            window.location.href = "/abo.html";
+            return;
+          }
+          if (_loginModalCallback) {
+            var cb = _loginModalCallback;
+            _loginModalCallback = null;
+            cb();
+          }
+        });
+        return;
+      }
+
       // Paywall-Check: Kein free_access, kein aktives Abo und keine Lehrer-Credits → zur Abo-Seite
       var hasTeacherCredits = sessionStorage.getItem("teacher_credits_available") === "1";
       if (!data.free_access && !hasTeacherCredits && data.subscription_status !== "active" && data.subscription_status !== "trialing") {
@@ -2513,6 +2534,76 @@ function _closeLoginModal() {
   var overlay = document.getElementById("sharedLoginOverlay");
   if (overlay) overlay.style.display = "none";
   _loginModalCallback = null;
+}
+
+/* ================= E-MAIL NACHTRAGEN ================= */
+function _showEmailCollectModal(callback) {
+  // Overlay erstellen
+  var overlay = document.createElement("div");
+  overlay.id = "emailCollectOverlay";
+  overlay.style.cssText = "position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);padding:1rem;";
+  overlay.innerHTML =
+    '<div style="background:var(--surface,#fff);border-radius:16px;padding:1.8rem;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,.15);">' +
+    '<h3 style="margin:0 0 .5rem;font-size:1.1rem;color:var(--ink,#1a1a1a);">E-Mail-Adresse ergänzen</h3>' +
+    '<p style="margin:0 0 1rem;font-size:.88rem;color:var(--ink-muted,#666);">Bitte hinterlege deine E-Mail-Adresse, damit wir dir bei Bedarf Erinnerungen schicken können.</p>' +
+    '<input type="email" id="emailCollectInput" placeholder="Deine E-Mail-Adresse …" style="width:100%;padding:.7rem .9rem;font-size:16px;border:1px solid var(--border,#ddd);border-radius:10px;margin-bottom:.6rem;background:var(--surface,#fff);color:var(--ink,#1a1a1a);box-sizing:border-box;min-height:44px;font-family:inherit;">' +
+    '<div id="emailCollectError" style="display:none;color:#ef4444;font-size:.82rem;margin-bottom:.6rem;text-align:center;"></div>' +
+    '<button id="emailCollectBtn" type="button" style="width:100%;padding:.85rem;background:var(--accent,#4f6ef7);color:#fff;border:none;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;min-height:52px;font-family:inherit;">Speichern</button>' +
+    '<button id="emailCollectSkip" type="button" style="width:100%;padding:.6rem;background:none;border:none;color:var(--ink-muted,#666);font-size:.82rem;cursor:pointer;margin-top:.4rem;">Später</button>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var input = document.getElementById("emailCollectInput");
+  var errEl = document.getElementById("emailCollectError");
+  var saveBtn = document.getElementById("emailCollectBtn");
+  var skipBtn = document.getElementById("emailCollectSkip");
+
+  setTimeout(function() { input.focus(); }, 100);
+
+  function close() {
+    var el = document.getElementById("emailCollectOverlay");
+    if (el) el.remove();
+    if (callback) callback();
+  }
+
+  skipBtn.onclick = close;
+
+  saveBtn.onclick = async function() {
+    var email = input.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
+      errEl.style.display = "block";
+      return;
+    }
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Speichere …";
+    errEl.style.display = "none";
+    try {
+      var name = sessionStorage.getItem("student_name");
+      var res = await fetch(API_BASE + "/api/preferences", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" },
+        body: JSON.stringify({ student_name: name, email: email })
+      });
+      var d = await res.json();
+      if (d.success) {
+        close();
+      } else {
+        errEl.textContent = d.error || "Fehler beim Speichern.";
+        errEl.style.display = "block";
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Speichern";
+      }
+    } catch(e) {
+      errEl.textContent = "Verbindungsfehler. Bitte versuche es erneut.";
+      errEl.style.display = "block";
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Speichern";
+    }
+  };
+
+  // Enter-Taste
+  input.onkeyup = function(e) { if (e.key === "Enter") saveBtn.onclick(); };
 }
 
 /* ================= PROFIL-MODAL ================= */

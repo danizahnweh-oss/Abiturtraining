@@ -84,6 +84,49 @@ export async function safeCompare(a, b) {
   return result === 0;
 }
 
+/* ---- Subscription-Check für kostenpflichtige Endpoints ---- */
+// allowTeacherCredits: true bei Grade-Endpoints, false bei Generate-Endpoints
+import { findAvailableTeacherCredits } from './handlers/teacher-credits.js';
+
+export async function checkSubscriptionAccess(studentName, env, allowTeacherCredits = false) {
+  const studentNameLower = (studentName || "").trim().toLowerCase();
+  if (!studentNameLower) return null; // Kein Student-Name → kein Check möglich
+
+  const student = await env.DB.prepare(
+    "SELECT id, subscription_status, trial_end FROM students WHERE name_lower = ?"
+  ).bind(studentNameLower).first();
+
+  if (!student) return null; // Unbekannter Schüler → durchlassen (Gast)
+
+  // Aktives Abo prüfen
+  if (student.subscription_status === 'active') {
+    const sub = await env.DB.prepare(
+      "SELECT current_period_end, school_license_code FROM subscriptions WHERE student_id = $1 AND status = 'active' LIMIT 1"
+    ).bind(student.id).first();
+    if (sub && (sub.school_license_code || (sub.current_period_end && new Date(sub.current_period_end) > new Date()))) {
+      return null; // Zugang erlaubt
+    }
+  }
+
+  // Trial prüfen
+  if (student.subscription_status === 'trialing' && student.trial_end) {
+    if (new Date(student.trial_end) > new Date()) {
+      return null; // Trial aktiv
+    }
+  }
+
+  // Lehrer-Credits nur bei Grade-Endpoints erlauben
+  if (allowTeacherCredits) {
+    const credit = await findAvailableTeacherCredits(studentNameLower, env);
+    if (credit) return null; // Lehrer-Credits verfügbar
+  }
+
+  return jsonResponse({
+    error: "Kein aktives Abo. Bitte schließe ein Abo ab.",
+    requires_subscription: true
+  }, 403, env);
+}
+
 /* ---- Auth-Check (Token statt Passwort) ---- */
 export async function checkAuth(request, env) {
   // Lehrer-Token als Alternative akzeptieren (fuer Teacher-Mode iFrame)
