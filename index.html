@@ -6588,7 +6588,7 @@
         saveBtn.disabled = true; saveBtn.textContent = "Speichere …"; errEl.style.display = "none";
         try {
           var sName = sessionStorage.getItem("student_name");
-          var r = await fetch(API_BASE + "/api/preferences", { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" }, body: JSON.stringify({ student_name: sName, email: email }) });
+          var r = await fetch(API_BASE + "/api/save-preferences", { method: "POST", headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" }, body: JSON.stringify({ student_name: sName, email: email }) });
           var d = await r.json();
           if (d.success) { close(); } else { errEl.textContent = d.error || "Fehler beim Speichern."; errEl.style.display = "block"; saveBtn.disabled = false; saveBtn.textContent = "Speichern"; }
         } catch(e) { errEl.textContent = "Verbindungsfehler."; errEl.style.display = "block"; saveBtn.disabled = false; saveBtn.textContent = "Speichern"; }

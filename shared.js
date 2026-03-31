@@ -2580,7 +2580,7 @@ function _showEmailCollectModal(callback) {
     errEl.style.display = "none";
     try {
       var name = sessionStorage.getItem("student_name");
-      var res = await fetch(API_BASE + "/api/preferences", {
+      var res = await fetch(API_BASE + "/api/save-preferences", {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-Access-Token": sessionStorage.getItem("access_token") || "" },
         body: JSON.stringify({ student_name: name, email: email })
