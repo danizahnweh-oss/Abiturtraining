@@ -18,6 +18,7 @@ import dotenv from 'dotenv';
 import cron from 'node-cron';
 import { initDB, closeDB } from './src/db-adapter.js';
 import { initQueues, startQueueWorker, closeQueues } from './src/queue-adapter.js';
+import { createKVAdapter } from './src/kv-adapter.js';
 
 dotenv.config();
 
@@ -31,6 +32,9 @@ const GRADING_QUEUE = initQueues(process.env.REDIS_URL || 'redis://127.0.0.1:637
 const env = {
   // Datenbank (D1-kompatibel)
   DB: db,
+
+  // KV-Store (Cloudflare KV-kompatibel, nutzt PostgreSQL)
+  RESULTS_KV: createKVAdapter(),
 
   // Queue (Cloudflare Queue-kompatibel)
   GRADING_QUEUE: GRADING_QUEUE,
