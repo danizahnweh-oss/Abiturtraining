@@ -1147,18 +1147,46 @@ function renderTable() {
   }
 
   noResults.style.display = "none";
+  // Fächer mit echten Inhalt/Sprache-Noten (content + language sind jeweils 0-15 NP)
+  const TWO_SCORE_TYPES = new Set([
+    "mediation", "writing", "french-mediation", "french-writing", "italian-mediation",
+    "deutsch-interpretation", "deutsch-analyse", "deutsch-eroerterung",
+    "deutsch-materialgestuetzt-informierend", "deutsch-materialgestuetzt-argumentierend",
+    "ethik", "geschichte", "religion", "katholisch", "kunst", "pug-klausur",
+    "latein", "latein-abitur", "religion-abitur"
+  ]);
+  // Fächer mit Bewertungseinheiten (content = BE-Rohpunkte)
+  const BE_TYPES = new Set([
+    "mathe-abitur", "physik-abitur", "chemie-abitur", "biologie-abitur",
+    "sport-abitur", "informatik-abitur", "fos_religion"
+  ]);
+
   tbody.innerHTML = filtered.map(r => {
     const d = new Date(r.date);
     const dateStr = `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`;
     const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+
+    let contentCell, languageCell;
+    if (TWO_SCORE_TYPES.has(r.type)) {
+      contentCell = `${r.content ?? "–"}/15`;
+      languageCell = `${r.language ?? "–"}/15`;
+    } else if (BE_TYPES.has(r.type)) {
+      contentCell = r.content != null ? `${r.content} BE` : "–";
+      languageCell = '<span style="color:var(--ink-muted)">–</span>';
+    } else {
+      // Mathe, Sport, Informatik, Listening etc. – nur Gesamt relevant
+      contentCell = '<span style="color:var(--ink-muted)">–</span>';
+      languageCell = '<span style="color:var(--ink-muted)">–</span>';
+    }
+
     return `<tr>
       <td>${dateStr}<br><span style="font-size:.75rem;color:var(--ink-muted)">${timeStr}</span></td>
       <td><strong>${escapeHtml(r.student_name)}</strong></td>
       <td><span style="font-size:.8rem;background:var(--accent-soft);color:var(--accent);padding:.15rem .5rem;border-radius:4px;font-weight:700;">${escapeHtml(r.course || "–")}</span></td>
       <td>${(() => { const s = typeToSubject(r.type); const c = s ? SUBJECT_COLORS[s] || '#6366f1' : '#6366f1'; const n = s ? (SUBJECT_NAMES[s] || r.type) : r.type; return '<span style="font-size:.8rem;background:' + c + '15;color:' + c + ';padding:.15rem .5rem;border-radius:4px;font-weight:700;">' + n + '</span>'; })()}</td>
       <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(r.topic || "—")}</td>
-      <td class="score-cell">${r.content ?? "–"}/15</td>
-      <td class="score-cell">${r.language ?? "–"}/15</td>
+      <td class="score-cell">${contentCell}</td>
+      <td class="score-cell">${languageCell}</td>
       <td class="score-cell" style="font-size:1.05rem;">${r.total ?? "–"}/15</td>
       <td><button class="delete-btn" data-id="${escapeHtml(r.id)}" onclick="deleteResult(this.dataset.id)" title="Löschen">✕</button></td>
     </tr>`;
