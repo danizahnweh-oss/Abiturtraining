@@ -119,11 +119,17 @@ export function extractJSON(text) {
 /* ---- Bilder-Support für multimodale OpenAI-Aufrufe ---- */
 export function buildUserContent(textContent, images) {
   if (!images || !images.length) return textContent;
+  // Bei vielen Seiten (>6) auf "auto" wechseln, damit das Modell nicht
+  // mit Token-Masse überfordert wird und inkonsistent bewertet
+  const detail = images.length > 6 ? "auto" : "high";
+  const hinweis = images.length > 6
+    ? `\n\n[WICHTIG: Die Schülerlösung umfasst ${images.length} Seiten. Betrachte JEDE Seite sorgfältig und vollständig, bevor du die Bewertung abgibst. Vergib Punkte konsistent über alle Seiten hinweg.]`
+    : "";
   return [
-    { type: "text", text: textContent },
+    { type: "text", text: textContent + hinweis },
     ...images.slice(0, 10).map(img => ({
       type: "image_url",
-      image_url: { url: `data:image/jpeg;base64,${img}`, detail: "high" }
+      image_url: { url: `data:image/jpeg;base64,${img}`, detail }
     }))
   ];
 }

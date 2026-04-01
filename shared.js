@@ -1611,7 +1611,10 @@ function compressImage(file, maxDim) {
 
 /** Komprimierte Base64-Bilder aller erfolgreich erkannten OCR-Seiten */
 function getOCRImages() {
-  return ocrPages.filter(function (p) { return p.base64 && p.status === "done"; }).map(function (p) { return p.base64; });
+  var done = ocrPages.filter(function (p) { return p.base64 && p.status === "done"; });
+  // Bei vielen Seiten (>6) sind die Bilder bereits mit 2000px gespeichert.
+  // Wir geben sie trotzdem zurück – das Backend wechselt auf detail:"auto".
+  return done.map(function (p) { return p.base64; });
 }
 
 async function handleOCRFiles(fileList) {
@@ -1629,6 +1632,9 @@ async function handleOCRFiles(fileList) {
   const ocrEndpoint = (typeof MODULE_CONFIG !== "undefined" && MODULE_CONFIG.ocrEndpoint) || "/api/ocr";
   document.getElementById("ocrLoader").style.display = "block";
 
+  // Bei vielen Seiten (>6) Bilder stärker komprimieren, damit KI nicht überfordert wird
+  const maxDim = ocrPages.length > 6 ? 1400 : 2000;
+
   for (let i = startIdx; i < ocrPages.length; i++) {
     const p = ocrPages[i];
     p.status = "processing";
@@ -1636,7 +1642,7 @@ async function handleOCRFiles(fileList) {
     document.getElementById("ocrProgress").textContent = `Seite ${i + 1} von ${ocrPages.length} wird erkannt …`;
 
     try {
-      const b64 = await compressImage(p.file, 2000);
+      const b64 = await compressImage(p.file, maxDim);
       p.base64 = b64;
       const d = await apiCall(ocrEndpoint, { image_base64: b64 });
       p.text = d.text || "";
