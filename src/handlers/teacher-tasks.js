@@ -23,8 +23,8 @@ export async function handleTeacherProfile(request, env) {
   const { action, subjects } = await request.json();
 
   if (action === "get") {
-    const row = await env.DB.prepare("SELECT subjects FROM teachers WHERE id = ?").bind(teacherId).first();
-    return jsonResponse({ success: true, subjects: JSON.parse(row?.subjects || "[]") }, 200, env);
+    const row = await env.DB.prepare("SELECT name, subjects FROM teachers WHERE id = ?").bind(teacherId).first();
+    return jsonResponse({ success: true, name: row?.name || "", subjects: JSON.parse(row?.subjects || "[]") }, 200, env);
   }
 
   if (action === "update") {

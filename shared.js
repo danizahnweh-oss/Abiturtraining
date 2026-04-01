@@ -2052,9 +2052,18 @@ if (typeof MODULE_CONFIG !== 'undefined') window.onload = function () {
       const step = MODULE_CONFIG.steps[i];
       if (hideSteps.includes(step)) btn.style.display = "none";
     });
-    // Temporaerer Schueler-Name fuer API-Calls
+    // Lehrer-Name per API holen, Fallback "Lehrer-Vorschau"
     sessionStorage.setItem("access", "1");
     sessionStorage.setItem("student_name", "Lehrer-Vorschau");
+    if (_teacherToken) {
+      fetch("https://myabiflow.de/api/teacher-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Teacher-Auth-Token": _teacherToken },
+        body: JSON.stringify({ action: "get" })
+      }).then(function(r) { return r.json(); }).then(function(d) {
+        if (d.name) sessionStorage.setItem("student_name", "Lehrer: " + d.name);
+      }).catch(function() {});
+    }
     nav(MODULE_CONFIG.steps[0]);
     initHL();
     return;
