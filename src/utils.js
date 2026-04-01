@@ -133,3 +133,92 @@ export function buildUserContent(textContent, images) {
     }))
   ];
 }
+
+/* ---- Batch-Extraktion: Bilder in Gruppen lesen, dann Text-basiert bewerten ---- */
+
+const MINT_ENDPOINTS = /mathe|physik|chemie|bio|informatik/;
+
+function getExtractionPrompt(isMint) {
+  if (isMint) {
+    return `Du bist ein Experte für das Lesen handschriftlicher Schülerlösungen in MINT-Fächern.
+
+AUFGABE: Transkribiere den VOLLSTÄNDIGEN Inhalt jeder Seite. Erfasse ALLES:
+- Handgeschriebenen Text (wortgetreu)
+- Mathematische Formeln und Gleichungen (in LaTeX-Notation)
+- Rechenwege und Zwischenschritte
+- Diagramme, Skizzen, Graphen (beschreibe sie präzise)
+- Reaktionsgleichungen
+- Tabellen und Wertetabellen
+- Durchgestrichene Passagen mit [DURCHGESTRICHEN] markieren
+
+Gib die Transkription seitenweise aus:
+--- Seite X ---
+[Inhalt]
+
+WICHTIG: Lass NICHTS aus. Jede Zahl, jede Formel, jeder Pfeil zählt.`;
+  }
+  return `Du bist ein Experte für das Lesen handschriftlicher Schülerlösungen.
+
+AUFGABE: Transkribiere den VOLLSTÄNDIGEN Inhalt jeder Seite. Erfasse ALLES:
+- Handgeschriebenen Text (wortgetreu, mit Absätzen)
+- Überschriften und Gliederungspunkte
+- Randnotizen oder Ergänzungen
+- Durchgestrichene Passagen mit [DURCHGESTRICHEN] markieren
+
+Gib die Transkription seitenweise aus:
+--- Seite X ---
+[Inhalt]
+
+WICHTIG: Lass NICHTS aus. Jedes Wort zählt für die anschließende Bewertung.`;
+}
+
+/**
+ * Extrahiert Text aus vielen Bildern in Batches.
+ * Gibt den zusammengeführten transkribierten Text zurück.
+ * @param {string[]} images - Base64-kodierte JPEG-Bilder
+ * @param {string} endpoint - Grade-Endpoint (für MINT-Erkennung)
+ * @param {object} env - Environment mit OPENAI_API_KEY
+ * @param {function} callOpenAIFn - callOpenAI-Funktion (Dependency Injection)
+ * @returns {Promise<string>} - Transkribierter Gesamttext
+ */
+export async function batchExtractFromImages(images, endpoint, env, callOpenAIFn) {
+  const isMint = MINT_ENDPOINTS.test(endpoint);
+  const systemPrompt = getExtractionPrompt(isMint);
+  const BATCH_SIZE = 4;
+  const batches = [];
+
+  for (let i = 0; i < images.length; i += BATCH_SIZE) {
+    batches.push(images.slice(i, i + BATCH_SIZE));
+  }
+
+  console.log(`[batchExtract] ${images.length} Bilder in ${batches.length} Batches (${isMint ? 'MINT' : 'Text'})`);
+
+  const results = [];
+  for (let b = 0; b < batches.length; b++) {
+    const batch = batches[b];
+    const startPage = b * BATCH_SIZE + 1;
+
+    const userContent = [
+      { type: "text", text: `Transkribiere die folgenden ${batch.length} Seite(n) (Seite ${startPage} bis ${startPage + batch.length - 1}):` },
+      ...batch.map(img => ({
+        type: "image_url",
+        image_url: { url: `data:image/jpeg;base64,${img}`, detail: "high" }
+      }))
+    ];
+
+    const messages = [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: userContent }
+    ];
+
+    const text = await callOpenAIFn(env, messages, 4000, {
+      temperature: 0.1,
+      jsonMode: false
+    });
+
+    results.push(text);
+    console.log(`[batchExtract] Batch ${b + 1}/${batches.length} fertig (${text.length} Zeichen)`);
+  }
+
+  return results.join("\n\n");
+}

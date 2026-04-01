@@ -1,5 +1,6 @@
 // Handler: Async Grading (Submit, Status, Execute, Cleanup)
-import { jsonResponse, truncate } from '../utils.js';
+import { jsonResponse, truncate, batchExtractFromImages } from '../utils.js';
+import { callOpenAI } from '../openai.js';
 import { findAvailableTeacherCredits, deductTeacherCredit } from './teacher-credits.js';
 
 /* ================= ASYNC GRADING: HANDLER ================= */
@@ -68,8 +69,39 @@ export async function processGradeDirectly(jobId, endpoint, inputData, images, e
       "UPDATE grading_jobs SET status = 'processing', attempts = 1, updated_at = ? WHERE id = ?"
     ).bind(new Date().toISOString(), jobId).run();
 
-    // Bilder für den Handler wieder anhängen
-    const fullInput = { ...inputData, images };
+    // Batch-Extraktion bei vielen Seiten (>5): Bilder erst lesen, dann text-basiert bewerten
+    let finalImages = images;
+    if (images && images.length > 5) {
+      console.log(`[grading] Job ${jobId}: ${images.length} Bilder → Batch-Extraktion`);
+      const extractedText = await batchExtractFromImages(images, endpoint, env, callOpenAI);
+
+      // Extrahierten Text an den Schülertext anhängen
+      const separator = "\n\n=== VOLLSTÄNDIGE TRANSKRIPTION AUS FOTOS ===\n";
+      if (inputData.student_text) {
+        inputData.student_text = inputData.student_text + separator + extractedText;
+      } else if (inputData.student_text_a || inputData.student_text_b) {
+        // Bei 2-teiligen Aufgaben (Geschichte, Latein etc.) → an beide Teile anhängen
+        const hint = separator + extractedText;
+        if (inputData.student_text_a) inputData.student_text_a += hint;
+        if (inputData.student_text_b) inputData.student_text_b += hint;
+      } else if (inputData.student_texts && typeof inputData.student_texts === "object") {
+        // Bei Teilaufgaben-Struktur (Mathe, Chemie) → an ersten Eintrag anhängen
+        const keys = Object.keys(inputData.student_texts);
+        if (keys.length) {
+          inputData.student_texts[keys[0]] = (inputData.student_texts[keys[0]] || "") + separator + extractedText;
+        }
+      } else {
+        // Fallback: als eigenes Feld mitgeben
+        inputData.student_text = separator + extractedText;
+      }
+
+      // Nur 2 Referenzbilder behalten (für Handschrift-Kontext)
+      finalImages = images.slice(0, 2);
+      console.log(`[grading] Job ${jobId}: Extraktion fertig (${extractedText.length} Zeichen), ${finalImages.length} Referenzbilder`);
+    }
+
+    // Bilder für den Handler anhängen
+    const fullInput = { ...inputData, images: finalImages };
     const result = await executeGradeHandler(endpoint, fullInput, env);
 
     await env.DB.prepare(
