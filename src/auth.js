@@ -354,6 +354,13 @@ export async function ensureMigrations(env) {
     try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply TEXT DEFAULT NULL").run(); } catch (_) {}
     try { await env.DB.prepare("ALTER TABLE messages ADD COLUMN reply_at TEXT DEFAULT NULL").run(); } catch (_) {}
 
+    // E-Mail-Pflicht: NULL-Einträge auf Platzhalter setzen, dann NOT NULL Constraint
+    try {
+      await env.DB.prepare("UPDATE students SET email = 'fehlt@unbekannt.de' WHERE email IS NULL OR TRIM(email) = ''").run();
+      await env.DB.prepare("ALTER TABLE students ALTER COLUMN email SET NOT NULL").run();
+      await env.DB.prepare("ALTER TABLE students ALTER COLUMN email SET DEFAULT ''").run();
+    } catch (_) { /* Constraint existiert bereits oder D1 unterstützt es nicht */ }
+
     _migrated = true;
   } catch (e) {
     console.error("Migration error:", e);
