@@ -596,7 +596,7 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       historyType: "mathe-abitur",
       pdfFilename: "Mathe_Abitur",
       chartColor: "#10b981",
-      minWords: 20
+      minWords: 5
     };
   </script>
   <script src="tour.js" defer></script>
@@ -752,6 +752,10 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       latex = latex.replace(/\\exp\s*\\left\s*\((.+?)\\right\s*\)/g, 'e^{$1}');
       // \exp(...) → e^{...}
       latex = latex.replace(/\\exp\s*\(([^)]+)\)/g, 'e^{$1}');
+      // Grad-Zeichen: \,/\circ oder /\circ → ^\circ (häufiger KI-Fehler)
+      latex = latex.replace(/\\,?\/\\circ/g, '^\\circ');
+      // \circ ohne ^ davor (z.B. "22\,\circ") → ^\circ
+      latex = latex.replace(/([0-9}])\\,?\\circ/g, '$1^\\circ');
       return latex;
     }
 
@@ -998,7 +1002,18 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
       var tA = document.getElementById("studentTextA").value;
       var tB = document.getElementById("studentTextB").value;
       var totalWords = countWords(tA) + countWords(tB);
-      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben"); return; }
+      // Wenn OCR-Text vorhanden aber nicht übernommen → automatisch in Teil A übernehmen
+      if (totalWords < MODULE_CONFIG.minWords) {
+        var ocrEl = document.getElementById("ocrText");
+        var ocrText = ocrEl ? ocrEl.value.trim() : "";
+        if (ocrText && countWords(ocrText) >= MODULE_CONFIG.minWords) {
+          useOCRTextA();
+          tA = document.getElementById("studentTextA").value;
+          totalWords = countWords(tA) + countWords(tB);
+          showToast("OCR-Text wurde automatisch in Teil A übernommen", "success");
+        }
+      }
+      if (totalWords < MODULE_CONFIG.minWords) { showToast("Bitte eine L\u00f6sung eingeben (mindestens " + MODULE_CONFIG.minWords + " W\u00f6rter)"); return; }
       if (!CONFIG.storedData) { showToast("Erst Aufgabe erstellen"); return; }
       if (CONFIG.selectedWahl.size < WAHL_NEEDED && CONFIG.storedData.teil_a_wahl?.length) {
         showToast("Bitte " + WAHL_NEEDED + " Wahlaufgaben ausw\u00e4hlen"); return;
@@ -1241,6 +1256,11 @@ B3 Geometrie: ..." oninput="updateWordCounts()"></textarea>
           var mf = document.getElementById("formelMF");
           if (mf) {
             mf.addEventListener("input", updateFormelPreview);
+            // Touch-Geräte: expliziter Focus bei Tap (iPad-Fix)
+            mf.addEventListener("touchend", function (ev) {
+              ev.preventDefault();
+              mf.focus();
+            });
           }
           renderFormelTabs();
           renderFormelButtons();

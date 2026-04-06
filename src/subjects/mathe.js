@@ -679,13 +679,15 @@ PFLICHT-REGELN FÜR JEDE TEILAUFGABE:
   AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie"
   AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist", "Entwickeln Sie ein Modell"
 - AFB-Verteilung: ca. 20% AFB I, 50% AFB II, 30% AFB III — Schwerpunkt auf Transfer und Begründung!
-- KEINE reinen Reproduktionsaufgaben! Auch AFB-I-Aufgaben müssen im Sachkontext stehen.
+- KEINE reinen Reproduktionsaufgaben! Auch AFB-I-Aufgaben müssen über reine Formel-Anwendung hinausgehen.
 
-SACHKONTEXT IST PFLICHT:
-- JEDE Aufgabe MUSS in einen KONKRETEN, REALISTISCHEN Sachkontext eingebettet sein — auch bei wenigen BE!
-- Einleitung: 2-4 Sätze, die den Sachzusammenhang lebendig beschreiben, BEVOR die Funktion/Formel kommt
-  Beispiel: "In einer Wetterstation wird die Temperaturentwicklung eines Frühlingstages untersucht. Die Temperatur $T$ (in °C) lässt sich im Zeitraum $0 \\le t \\le 24$ ($t$ in Stunden ab Mitternacht) modellhaft durch die Funktion $T$ beschreiben."
-- Die Teilaufgaben fragen IMMER im Kontext — NICHT "Bestimmen Sie die Extremstellen", SONDERN "Bestimmen Sie, wann die Temperatur am höchsten ist"
+SACHKONTEXT — REALISTISCHE MISCHUNG:
+- Im echten Abitur stehen NICHT alle Aufgaben in einem Sachkontext! Mische realistisch:
+  • Teil A: Ca. die HÄLFTE der Aufgaben mit kurzem Sachkontext (1-2 Sätze), die andere Hälfte rein innermathematisch (z.B. "Gegeben ist die Funktion $f$ mit...")
+  • Teil B: B1 Analysis hat Sachkontext nur im letzten Abschnitt (Abschnitt 3). Abschnitte 1 und 2 sind innermathematisch. B2 Stochastik und B3 Geometrie haben durchgängigen Sachkontext.
+- Innermathematische Aufgaben sind NICHT minderwertig — sie prüfen reines mathematisches Können!
+  Beispiel innermathematisch: "Gegeben ist die in $\\mathbb{R}$ definierte Funktion $f: x \\mapsto (\\ln x)^{2}$. Bestimmen Sie eine Gleichung der Tangente an den Graphen von $f$ im Punkt $P(e|1)$."
+- Bei Sachkontext-Aufgaben: Teilaufgaben IM Kontext formulieren (NICHT "Bestimmen Sie die Extremstellen", SONDERN "Bestimmen Sie, wann die Temperatur am höchsten ist")
 
 KONTROLLWERTE:
 - Bei mehrstufigen Aufgaben (≥15 BE): Gib bei einem wichtigen Zwischenergebnis einen Kontrollwert an — "(zur Kontrolle: ...)"
@@ -1018,9 +1020,11 @@ TEIL A — KOMPAKTE, ABER ANSPRUCHSVOLLE AUFGABEN (je 5 BE, 2-3 Teilaufgaben, OH
 - TROTZDEM anspruchsvoll: Kombiniere mehrere Konzepte, fordere Begründungen, verlange Transferleistung!
 - VARIANZ-PFLICHT: Jede Aufgabe muss sich DEUTLICH von den anderen unterscheiden!
   Analysis: Variiere zwischen Symmetrie-Argumenten, Schar-Parametern, Tangenten-Problemen, Flächenvergleichen, Umkehrfunktionen, Monotonie-Beweisen, Grenzwertbetrachtungen — NICHT immer "Nullstellen + Ableitung"!
-  Stochastik: Variiere zwischen bedingter Wahrscheinlichkeit, Kombinatorik, Binomialverteilung, Erwartungswert-Vergleich, Baumdiagramm-Argumenten, Sigma-Regeln — NICHT immer die gleiche Struktur!
+  Stochastik: ABITURNIVEAU, NICHT Mittelstufe! Reine Pfadregeln oder einfache Baumdiagramme sind zu leicht!
+    Variiere zwischen: bedingter Wahrscheinlichkeit (Vierfeldertafel), Kombinatorik (Urnenmodell mit/ohne Zurücklegen), Binomialverteilung (Mindestens-/Höchstens-Aufgaben), Erwartungswert-Vergleich, Sigma-Regeln, stochastischer Unabhängigkeit — NICHT immer die gleiche Struktur!
+    MINDESTENS AFB II: "Begründen Sie", "Beurteilen Sie die Aussage", "Zeigen Sie, dass die Ereignisse stochastisch (un)abhängig sind"
   Geometrie: Variiere zwischen Abständen, Winkeln, Spiegelungen, Ebenen-Lagen, Kreuzprodukt-Anwendungen, Kugelberechnungen — NICHT immer "Nachweis + Abstand"!
-- JEDE Teil-A-Aufgabe in einen Mini-Sachkontext einbetten (1-2 Sätze reichen)
+- MISCHUNG: Ca. die Hälfte der Teil-A-Aufgaben mit Mini-Sachkontext (1-2 Sätze), die andere Hälfte rein innermathematisch — wie im echten Abitur!
 
 TEIL B — GROSSE MEHRTEILIGE AUFGABEN:
 • B1 Analysis (30 BE): MUSS aus 2-3 NUMMERIERTEN ABSCHNITTEN bestehen (im "text"-Feld mit "1 ...", "2 ...", "3 ..." nummeriert), die AUFEINANDER AUFBAUEN:
@@ -1053,7 +1057,7 @@ PFLICHT-REGELN FÜR ALLE AUFGABEN:
   AFB II: "Zeigen Sie, dass", "Ermitteln Sie", "Begründen Sie", "Untersuchen Sie", "Weisen Sie nach"
   AFB III: "Beurteilen Sie", "Formulieren Sie eine Aussage im Sachzusammenhang", "Begründen Sie, ob das Modell sinnvoll ist", "Entwickeln Sie"
 - AFB-Verteilung: ca. 20% AFB I, 50% AFB II, 30% AFB III — Schwerpunkt auf Transfer und Begründung!
-- AUCH bei AFB-I-Aufgaben: Im Sachkontext formulieren, nicht abstrakt!
+- Auch AFB-I-Aufgaben dürfen innermathematisch sein — aber sie müssen über reine Formel-Einsetzung hinausgehen!
 
 WICHTIG:
 - Verwende LaTeX-Notation für alle Formeln: $...$ für inline, $$...$$ für Display
@@ -1138,12 +1142,20 @@ Antworte NUR mit validem JSON (keine Markdown-Codeblöcke):
   ]
 }
 Hinweis: "grafik" ist OPTIONAL pro Aufgabe.
-WICHTIG: Generiere für ALLE Aufgaben VOLLSTÄNDIGE, AUSFORMULIERTE Teilaufgaben mit klaren Operatoren! MINDESTENS 2 Teilaufgaben pro Teil-A-Aufgabe, MINDESTENS 6 Teilaufgaben pro Teil-B-Aufgabe. Verwende KOMPLETT ANDERE Funktionen, Kontexte und Zahlenwerte als im Beispiel! B1 MUSS 2-3 nummerierte Abschnitte haben, B2 und B3 MÜSSEN Sachkontexte haben!`;
+WICHTIG: Generiere für ALLE Aufgaben VOLLSTÄNDIGE, AUSFORMULIERTE Teilaufgaben mit klaren Operatoren! MINDESTENS 2 Teilaufgaben pro Teil-A-Aufgabe, MINDESTENS 6 Teilaufgaben pro Teil-B-Aufgabe. Verwende KOMPLETT ANDERE Funktionen, Kontexte und Zahlenwerte als im Beispiel! B1 MUSS 2-3 nummerierte Abschnitte haben, B2 und B3 MÜSSEN Sachkontexte haben!
+
+ANTI-REDUNDANZ zwischen Teil A und Teil B (KRITISCH!):
+- Die Analysis-Aufgaben im A-Teil dürfen NICHT die gleichen Konzepte abfragen wie B1 Analysis!
+  Wenn B1 Nullstellen + Extremwerte behandelt, dann A-Teil Analysis: Symmetrie, Tangenten, Scharparameter, Integrale, Umkehrfunktionen etc.
+  Wenn A-Teil Nullstellen fragt, darf B1 Abschnitt 1 NICHT auch mit Nullstellen starten!
+- Die Stochastik im A-Teil darf NICHT nur Pfadregeln sein — das ist Mittelstufe!
+  A-Teil Stochastik muss OBERSTUFEN-Konzepte prüfen: bedingte Wahrscheinlichkeit, stochastische Unabhängigkeit, Kombinatorik (Urnenmodell), Normalverteilung/Sigma-Regeln, Binomialverteilung
+- Prüfe vor der Ausgabe: Gibt es Aufgaben-Paare (A-Teil + B-Teil), die sich inhaltlich stark ähneln? Falls ja: eine davon umschreiben!`;
 
   const userPrompt = `Erstelle eine vollständige, ANSPRUCHSVOLLE Mathematik-Abiturprüfung (eA, 100 BE).
-Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS lösbar — JEDE Aufgabe mit Mini-Sachkontext, KEINE abstrakten Rechenaufgaben! Maximale VARIANZ zwischen den Aufgaben — jede Aufgabe greift ANDERE Konzepte und Methoden auf!
-Teil B: B1 Analysis (30 BE, 2-3 nummerierte Abschnitte mit Sachkontext), B2 Stochastik (20 BE, durchgängiger Sachkontext), B3 Geometrie (20 BE, 3D-Modell mit Sachkontext), mit CAS
-KRITISCH: ALLE Teilaufgaben im Sachkontext formulieren! Der Schüler muss SELBST erkennen, welche Mathe-Methode nötig ist (NICHT "Bestimmen Sie die Ableitung", SONDERN "Bestimmen Sie, wann die Zuwachsrate maximal ist").
+Teil A: 4 Pflichtaufgaben + 6 Wahlaufgaben (je 5 BE), ohne CAS lösbar — realistische MISCHUNG aus innermathematischen und Sachkontext-Aufgaben (wie im echten Abitur, NICHT alle im Kontext)! Maximale VARIANZ zwischen den Aufgaben — jede Aufgabe greift ANDERE Konzepte und Methoden auf! Stochastik-Aufgaben auf OBERSTUFEN-Niveau (NICHT nur Pfadregeln)!
+Teil B: B1 Analysis (30 BE, 2-3 nummerierte Abschnitte, Sachkontext nur in Abschnitt 3), B2 Stochastik (20 BE, durchgängiger Sachkontext), B3 Geometrie (20 BE, 3D-Modell mit Sachkontext), mit CAS
+ANTI-REDUNDANZ: A-Teil und B-Teil dürfen NICHT die gleichen Konzepte abfragen (z.B. nicht zweimal Nullstellen + Extremwerte)!
 Alle Formeln in LaTeX-Notation. Hohes Niveau mit viel AFB II und III.`;
 
   const openaiRes = await callOpenAI(env, [
