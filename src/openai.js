@@ -1,3 +1,33 @@
+/* ================= TELEGRAM ERROR-ALERT ================= */
+// Sendet API-Fehler per Telegram an den Admin (fire-and-forget)
+async function notifyApiError(env, model, status, detail, elapsed) {
+  try {
+    const botToken = env.TELEGRAM_BOT_TOKEN;
+    const chatId = env.TELEGRAM_CHAT_ID;
+    if (!botToken || !chatId) return;
+
+    const text = `🚨 *OpenAI API Fehler*\n\n` +
+      `📌 *Status:* ${status}\n` +
+      `🤖 *Modell:* ${model}\n` +
+      `⏱ *Dauer:* ${elapsed}ms\n\n` +
+      `\`\`\`\n${detail.substring(0, 800)}\n\`\`\``;
+
+    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'Markdown' }),
+    });
+  } catch { /* Telegram-Fehler nicht eskalieren */ }
+}
+
+// Benutzerfreundliche Fehlermeldung basierend auf HTTP-Status
+function userFriendlyError(status) {
+  if (status === 429) return "Der KI-Dienst ist vorübergehend überlastet. Bitte versuche es in ein paar Minuten erneut.";
+  if (status === 503 || status === 502) return "Der KI-Dienst ist gerade nicht erreichbar. Bitte versuche es später erneut.";
+  if (status >= 500) return "Ein Serverfehler ist aufgetreten. Bitte versuche es später erneut.";
+  return null; // Kein Mapping → Original-Fehler durchlassen
+}
+
 /* ================= OPENAI CALL ================= */
 
 export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt-5.2", temperature = 0.7, jsonMode = true } = {}) {
@@ -46,7 +76,12 @@ export async function callOpenAI(env, messages, maxTokens = 4000, { model = "gpt
     const data = await response.json();
     if (!response.ok) {
       const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
-      throw new Error("OpenAI(" + response.status + "): " + detail);
+      const elapsed = Date.now() - t0;
+      // Admin per Telegram benachrichtigen (fire-and-forget)
+      notifyApiError(env, model, response.status, detail, elapsed);
+      // Benutzerfreundliche Meldung wenn möglich
+      const friendly = userFriendlyError(response.status);
+      throw new Error(friendly || "OpenAI(" + response.status + "): " + detail);
     }
     phase = "done";
     const content = data.choices[0].message.content;
@@ -104,7 +139,10 @@ export async function callOpenAIStream(env, messages, maxTokens = 4000, { model 
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
       const detail = data?.error?.message || JSON.stringify(data).substring(0, 200);
-      throw new Error("OpenAI(" + response.status + "): " + detail);
+      const elapsed = Date.now() - t0;
+      notifyApiError(env, model, response.status, detail, elapsed);
+      const friendly = userFriendlyError(response.status);
+      throw new Error(friendly || "OpenAI(" + response.status + "): " + detail);
     }
 
     const reader = response.body.getReader();
