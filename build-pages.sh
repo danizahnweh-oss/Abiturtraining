@@ -1,6 +1,7 @@
 #!/bin/bash
-# Build-Script für Cloudflare Pages
+# Build-Script für Hetzner-Deploy
 # Sammelt alle statischen Dateien in _site/ und baut den Kolloquiumstrainer
+# Deploy: rsync -az _site/ root@162.55.62.231:/var/www/myabiflow/
 
 set -e
 
@@ -70,3 +71,5 @@ ls -la _site/ | head -30
 echo ""
 echo "Kolloquiumstrainer:"
 ls -la _site/abitur-kolloquium-trainer/dist/ | head -10
+echo ""
+echo "Deploy mit: rsync -az --delete _site/ root@162.55.62.231:/var/www/myabiflow/ -e 'ssh -i ~/.ssh/id_ed25519'"
