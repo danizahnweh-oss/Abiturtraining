@@ -567,7 +567,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       '13/1': [
         'Flächeninhalt und bestimmtes Integral: Hauptsatz, Integrationsregeln, uneigentliche Integrale, Rotationsvolumen',
         'Normalverteilung: Dichtefunktion, Sigma-Regeln, Standardisierung',
-        'Geraden und Ebenen im Raum: Lagebeziehungen, Abstände, Hesse\'sche Normalform, Kugelgleichungen',
+        'Geraden und Ebenen im Raum: Lagebeziehungen, Abstände, Kugelgleichungen (Hesse\'sche Normalform fakultativ)',
       ],
       '13/2': [
         'Anwendungen der Differential- und Integralrechnung: Extremwertprobleme, Parameterfunktionen, verknüpfte Funktionen',
@@ -586,7 +586,7 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       'Geometrie': [
         'Vektoren, lineare Abhängigkeit, Vektorprodukt/Kreuzprodukt',
         'Geraden und Ebenen im Raum (Parameterform, Koordinatenform, Normalenform)',
-        'Lagebeziehungen, Schnittaufgaben, Abstände, Hesse\'sche Normalform',
+        'Lagebeziehungen, Schnittaufgaben, Abstände (Hesse\'sche Normalform fakultativ)',
         'Winkelberechnungen, Kreise und Kugeln',
       ],
       'Stochastik': [
