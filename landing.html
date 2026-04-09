@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Bereite dich mit KI auf das Abitur Bayern vor. Übe Kolloquium, Deutsch, Mathe & 14 weitere Fächer mit sofortigem KI-Feedback. Speziell für Bayern G9 & FOS/BOS.">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="color-scheme" content="light dark">
+  <title>myAbiFlow – KI-Abiturvorbereitung für Bayern | G9 & FOS/BOS</title>
+  <meta property="og:title" content="myAbiFlow – KI-Abiturvorbereitung für Bayern">
+  <meta property="og:description" content="Übe fürs schriftliche Abitur und Kolloquium mit sofortigem KI-Feedback. Speziell für Bayern G9 & FOS/BOS.">
+  <meta property="og:image" content="https://myabiflow.de/og-image.png">
+  <meta property="og:url" content="https://myabiflow.de/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="myAbiFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://myabiflow.de/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/wave-icon-new.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="shared-v4.css">
+
+  <!-- Dark Mode vor dem ersten Paint setzen -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+
+  <style>
+    /* ===== LANDING PAGE STYLES ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    .lp-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .lp-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+
+    .lp-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .lp-logo img {
+      height: 18px;
+      width: auto;
+    }
+
+    .lp-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .lp-nav-login {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--ink-light);
+      text-decoration: none;
+      padding: var(--space-2) var(--space-3);
+      border-radius: var(--radius-sm);
+      transition: color .15s, background .15s;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .lp-nav-login:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-light);
+      transition: background .15s, color .15s;
+      font-size: 18px;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ===== HERO ===== */
+    .lp-hero {
+      padding: var(--space-10) var(--space-6) 80px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .lp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-6);
+      letter-spacing: 0.01em;
+    }
+
+    .lp-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 var(--space-5);
+      color: var(--ink);
+    }
+
+    .lp-hero h1 span {
+      color: var(--accent);
+    }
+
+    .lp-hero-sub {
+      font-size: var(--text-lg);
+      color: var(--ink-light);
+      max-width: 600px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.6;
+    }
+
+    .lp-hero-ctas {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+    }
+
+    .lp-hero-ctas .btn {
+      font-size: var(--text-base);
+      padding: 0 var(--space-7);
+      height: 52px;
+      min-width: 180px;
+    }
+
+    .lp-trust-row {
+      display: flex;
+      gap: var(--space-6);
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lp-trust-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .lp-trust-item svg {
+      color: var(--success);
+      flex-shrink: 0;
+    }
+
+    /* ===== SOCIAL PROOF BAR ===== */
+    .lp-proof-bar {
+      background: var(--accent-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-4) var(--space-6);
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    /* ===== SECTION WRAPPER ===== */
+    .lp-section {
+      padding: 80px var(--space-6);
+    }
+
+    .lp-section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .lp-section-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+
+    .lp-section-title {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--space-4);
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .lp-section-sub {
+      font-size: var(--text-base);
+      color: var(--ink-light);
+      max-width: 560px;
+      margin: 0 0 var(--space-8);
+      line-height: 1.6;
+    }
+
+    /* ===== FEATURES GRID ===== */
+    .lp-features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+
+    .lp-feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-7);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+
+    .lp-feature-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .lp-feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius);
+      background: var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: var(--space-5);
+    }
+
+    .lp-feature-title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin: 0 0 var(--space-3);
+      color: var(--ink);
+    }
+
+    .lp-feature-desc {
+      font-size: var(--text-sm);
+      color: var(--ink-light);
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* ===== TESTIMONIAL ===== */
+    .lp-testimonial-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lp-testimonial-card {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .lp-testimonial-quote {
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.5;
+      margin: 0 0 var(--space-6);
+      position: relative;
+    }
+
+    .lp-testimonial-quote::before {
+      content: '\201E';
+      font-size: 5rem;
+      color: var(--accent-soft);
+      line-height: 0;
+      position: absolute;
+      top: 2rem;
+      left: -1.5rem;
+      font-family: Georgia, serif;
+      pointer-events: none;
+    }
+
+    .lp-testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+
+    .lp-testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, var(--accent), #818cf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .lp-testimonial-name {
+      font-weight: 700;
+      font-size: var(--text-sm);
+      color: var(--ink);
+    }
+
+    .lp-testimonial-role {
+      font-size: var(--text-xs);
+      color: var(--ink-muted);
+    }
+
+    .lp-stars {
+      color: #f59e0b;
+      font-size: var(--text-base);
+      margin-bottom: var(--space-6);
+      letter-spacing: 2px;
+    }
+
+    /* ===== FÄCHER GRID ===== */
+    .lp-faecher-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .lp-fach-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: transform .15s;
+    }
+
+    .lp-fach-chip:hover {
+      transform: translateY(-1px);
+    }
+
+    /* ===== LEHRER BLOCK ===== */
+    .lp-lehrer-block {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+      border-radius: var(--radius-xl);
+      padding: 60px var(--space-10);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-8);
+    }
+
+    .lp-lehrer-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .lp-lehrer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      margin-bottom: var(--space-5);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .lp-lehrer-title {
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--space-4);
+      line-height: 1.2;
+    }
+
+    .lp-lehrer-desc {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.8);
+      margin: 0 0 var(--space-4);
+      line-height: 1.6;
+    }
+
+    .lp-lehrer-proof {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.65);
+      margin: 0 0 var(--space-7);
+    }
+
+    .lp-lehrer-ctas {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: white;
+      color: #312e81;
+      border: none;
+    }
+
+    .btn-white:hover {
+      background: #f0f0ff;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost-white {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.4);
+      font-weight: 600;
+      height: 48px;
+      padding: 0 var(--space-6);
+      border-radius: var(--radius-sm);
+      font-size: var(--text-base);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: background .15s, border-color .15s;
+      text-decoration: none;
+      font-family: var(--font-body);
+    }
+
+    .btn-ghost-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .lp-lehrer-illustration {
+      font-size: 100px;
+      line-height: 1;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+
+    /* ===== PRICING TEASER ===== */
+    .lp-pricing-teaser {
+      background: var(--bg-warm);
+    }
+
+    .lp-pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      margin-bottom: var(--space-8);
+    }
+
+    .lp-pricing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      text-align: center;
+      transition: box-shadow .2s;
+    }
+
+    .lp-pricing-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .lp-pricing-card.featured {
+      border-color: var(--accent);
+      border-width: 2px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .lp-pricing-featured-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    .lp-pricing-card-icon {
+      font-size: 28px;
+      margin-bottom: var(--space-3);
+    }
+
+    .lp-pricing-card-title {
+      font-size: var(--text-base);
+      font-weight: 700;
+      margin: 0 0 var(--space-2);
+      color: var(--ink);
+    }
+
+    .lp-pricing-card-desc {
+      font-size: var(--text-sm);
+      color: var(--ink-muted);
+      margin: 0;
+    }
+
+    .lp-pricing-cta-row {
+      text-align: center;
+    }
+
+    .lp-pricing-tagline {
+      font-size: var(--text-sm);
+      color: var(--ink-muted);
+      margin-top: var(--space-4);
+    }
+
+    /* ===== FOOTER ===== */
+    .lp-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: var(--space-8) var(--space-6);
+    }
+
+    .lp-footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+
+    .lp-footer-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .lp-footer-logo img {
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .lp-footer-copy {
+      font-size: var(--text-xs);
+      color: var(--ink-muted);
+    }
+
+    .lp-footer-links {
+      display: flex;
+      gap: var(--space-5);
+      flex-wrap: wrap;
+    }
+
+    .lp-footer-links a {
+      font-size: var(--text-xs);
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .lp-footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .lp-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .lp-lehrer-block {
+        flex-direction: column;
+        padding: 48px var(--space-7);
+        text-align: center;
+      }
+
+      .lp-lehrer-ctas {
+        justify-content: center;
+      }
+
+      .lp-lehrer-illustration {
+        font-size: 72px;
+        order: -1;
+      }
+
+      .lp-pricing-cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lp-hero {
+        padding: var(--space-9) var(--space-5) 60px;
+      }
+
+      .lp-features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lp-section {
+        padding: 60px var(--space-5);
+      }
+
+      .lp-lehrer-block {
+        padding: var(--space-8) var(--space-6);
+      }
+
+      .lp-pricing-cards {
+        grid-template-columns: 1fr;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .lp-testimonial-quote {
+        font-size: var(--text-lg);
+      }
+
+      .lp-testimonial-quote::before {
+        display: none;
+      }
+
+      .lp-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-4);
+      }
+
+      .lp-nav-inner {
+        padding: 0 var(--space-5);
+      }
+
+      .lp-hero-ctas .btn {
+        min-width: 0;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .lp-hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .lp-trust-row {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-3);
+      }
+    }
+
+    /* ===== DARK MODE OVERRIDES ===== */
+    [data-theme="dark"] .lp-nav {
+      background: rgba(20, 20, 31, 0.95);
+    }
+
+    [data-theme="dark"] .lp-lehrer-block {
+      background: linear-gradient(135deg, #0f0e1a 0%, #1e1b4b 60%, #312e81 100%);
+    }
+
+    [data-theme="dark"] .lp-pricing-teaser {
+      background: var(--bg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="lp-nav" role="navigation" aria-label="Hauptnavigation">
+    <div class="lp-nav-inner">
+      <a href="landing.html" class="lp-logo" aria-label="myAbiFlow – zur Startseite">
+        <img src="logo-v2.png" alt="myAbiFlow" width="130" height="18">
+      </a>
+      <div class="lp-nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Dark Mode umschalten" title="Erscheinungsbild wechseln">
+          <span id="themeIcon">☀️</span>
+        </button>
+        <a href="index.html?app=1" class="lp-nav-login">Einloggen</a>
+        <a href="index.html?app=1" class="btn" style="height:40px; padding:0 var(--space-5); font-size:var(--text-sm);">Kostenlos starten</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="lp-hero" aria-labelledby="hero-heading">
+    <div class="lp-badge" role="note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Speziell für Bayern G9 &amp; FOS/BOS
+    </div>
+    <h1 id="hero-heading">
+      KI-Abiturvorbereitung<br><span>für Bayern</span>
+    </h1>
+    <p class="lp-hero-sub">
+      Übe fürs schriftliche Abitur und Kolloquium mit sofortigem KI-Feedback, realistischen Aufgaben und gezielter Vorbereitung — nicht nur fürs Abi, sondern auch für die nächste Klausur.
+    </p>
+    <div class="lp-hero-ctas">
+      <a href="index.html?app=1" class="btn">Kostenlos testen →</a>
+      <a href="lehrer.html" class="btn btn-secondary">Für Lehrkräfte &amp; Schulen</a>
+    </div>
+    <div class="lp-trust-row" role="list">
+      <div class="lp-trust-item" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        14+ Fächer für Bayern G9 &amp; FOS/BOS
+      </div>
+      <div class="lp-trust-item" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Sofortiges KI-Feedback
+      </div>
+      <div class="lp-trust-item" role="listitem">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Kolloquium mit KI üben
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOCIAL PROOF BAR ===== -->
+  <div class="lp-proof-bar" role="note">
+    🎓 Bereits am St.-Anna-Gymnasium München im Einsatz &nbsp;·&nbsp; Über 150 Schülerinnen und Schüler nutzen myAbiFlow
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="lp-section" aria-labelledby="features-heading">
+    <div class="lp-section-inner">
+      <div class="lp-section-label">Was myAbiFlow bietet</div>
+      <h2 class="lp-section-title" id="features-heading">Alles für dein Abitur — an einem Ort</h2>
+      <p class="lp-section-sub">Von der nächsten Klausur bis zum Kolloquium: gezieltes Üben mit echtem Feedback statt allgemeiner Übungsaufgaben.</p>
+      <div class="lp-features-grid">
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon" aria-hidden="true">✍️</div>
+          <h3 class="lp-feature-title">Schriftliches Abitur</h3>
+          <p class="lp-feature-desc">Übe Aufsätze, Klausuren und Mathe-Aufgaben mit sofortigem KI-Feedback nach echten Abitur-Bewertungskriterien. Mit Punkten, Teilpunkten und konkreten Verbesserungshinweisen.</p>
+        </div>
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon" aria-hidden="true">🎤</div>
+          <h3 class="lp-feature-title">Kolloquium-Trainer</h3>
+          <p class="lp-feature-desc">Übe dein mündliches Abitur mit einem realistischen KI-Gesprächspartner. Mit Kurzreferat, Prüfungsgespräch und direktem Feedback zur Struktur und zu den Inhalten.</p>
+        </div>
+        <div class="lp-feature-card">
+          <div class="lp-feature-icon" aria-hidden="true">📊</div>
+          <h3 class="lp-feature-title">Lehrer-Dashboard</h3>
+          <p class="lp-feature-desc">Lehrkräfte erstellen abiturnahe Aufgaben in wenigen Minuten, teilen sie per Code mit ihrer Klasse und werten alle Ergebnisse gesammelt aus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIAL ===== -->
+  <section class="lp-section lp-testimonial-section" aria-labelledby="testimonial-heading">
+    <div class="lp-section-inner">
+      <div class="lp-testimonial-card">
+        <h2 class="lp-section-label" id="testimonial-heading" style="margin-bottom: var(--space-5);">Was Schülerinnen sagen</h2>
+        <div class="lp-stars" aria-label="5 von 5 Sternen">★★★★★</div>
+        <blockquote class="lp-testimonial-quote">
+          Sonst bekommt man oft nur einen allgemeinen Übungsaufsatz. Mit myAbiFlow habe ich das Gefühl, mich wirklich gezielt aufs Abitur und auf die nächste Klausur vorbereiten zu können.
+        </blockquote>
+        <div class="lp-testimonial-author">
+          <div class="lp-testimonial-avatar" aria-hidden="true">A</div>
+          <div>
+            <div class="lp-testimonial-name">Anja</div>
+            <div class="lp-testimonial-role">Schülerin, Bayern G9</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FÄCHER ===== -->
+  <section class="lp-section" aria-labelledby="faecher-heading">
+    <div class="lp-section-inner">
+      <div class="lp-section-label">Fächer</div>
+      <h2 class="lp-section-title" id="faecher-heading">14+ Fächer — alle für Bayern</h2>
+      <p class="lp-section-sub">Schriftliche und mündliche Vorbereitung für alle relevanten Abiturfächer nach LehrplanPLUS Bayern.</p>
+      <div class="lp-faecher-grid" role="list">
+        <span class="lp-fach-chip" role="listitem" style="background:#d1fae5; color:#065f46; border-color:#a7f3d0;">📝 Deutsch</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#dbeafe; color:#1e40af; border-color:#bfdbfe;">🇬🇧 Englisch</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#d1fae5; color:#065f46; border-color:#a7f3d0;">📐 Mathematik</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">🏛️ Geschichte</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#ffe4e6; color:#9f1239; border-color:#fecdd3;">⚖️ Politik &amp; Gesellschaft</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#ede9fe; color:#5b21b6; border-color:#ddd6fe;">💼 Wirtschaft &amp; Recht</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fce7f3; color:#9d174d; border-color:#fbcfe8;">🇫🇷 Französisch</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fce7f3; color:#9d174d; border-color:#fbcfe8;">🇮🇹 Italienisch</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fce7f3; color:#9d174d; border-color:#fbcfe8;">🇪🇸 Spanisch</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">🏺 Latein</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#e0e7ff; color:#3730a3; border-color:#c7d2fe;">🌿 Ethik</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#e0e7ff; color:#3730a3; border-color:#c7d2fe;">✝️ Religion</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#cffafe; color:#164e63; border-color:#a5f3fc;">🌍 Geographie</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#ffedd5; color:#9a3412; border-color:#fed7aa;">🧪 Chemie</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fef9c3; color:#713f12; border-color:#fef08a;">⚡ Physik</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#dcfce7; color:#14532d; border-color:#bbf7d0;">🔬 Biologie</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#dbeafe; color:#1e40af; border-color:#bfdbfe;">💻 Informatik</span>
+        <span class="lp-fach-chip" role="listitem" style="background:#fdf4ff; color:#701a75; border-color:#f5d0fe;">🎨 Kunst</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEHRER BLOCK ===== -->
+  <section class="lp-section" aria-labelledby="lehrer-heading">
+    <div class="lp-section-inner">
+      <div class="lp-lehrer-block">
+        <div class="lp-lehrer-content">
+          <div class="lp-lehrer-badge">Für Lehrkräfte &amp; Schulen</div>
+          <h2 class="lp-lehrer-title" id="lehrer-heading">Abiturnahe Aufgaben in Minuten — für die ganze Klasse</h2>
+          <p class="lp-lehrer-desc">Mit myAbiFlow erstellen Lehrkräfte individuelle Aufgaben, teilen sie per Code mit Schülerinnen und Schülern und werten alle Ergebnisse gesammelt aus.</p>
+          <p class="lp-lehrer-proof">🏫 Bereits an mehreren bayerischen Schulen im Einsatz</p>
+          <div class="lp-lehrer-ctas">
+            <a href="lehrer.html" class="btn btn-white">Zugang anfragen →</a>
+            <a href="lehrer.html" class="btn-ghost-white">Mehr erfahren</a>
+          </div>
+        </div>
+        <div class="lp-lehrer-illustration" aria-hidden="true">🏫</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING TEASER ===== -->
+  <section class="lp-section lp-pricing-teaser" aria-labelledby="pricing-heading">
+    <div class="lp-section-inner">
+      <div class="lp-section-label">Preise</div>
+      <h2 class="lp-section-title" id="pricing-heading">Günstiger als regelmäßige Nachhilfe</h2>
+      <p class="lp-section-sub">Direkt auf Bayern zugeschnitten — für jeden die passende Option.</p>
+      <div class="lp-pricing-cards">
+        <div class="lp-pricing-card">
+          <div class="lp-pricing-card-icon" aria-hidden="true">⚡</div>
+          <div class="lp-pricing-card-title">Endspurt</div>
+          <div class="lp-pricing-card-desc">Ideal kurz vor dem Abitur — alles inklusive, zeitlich begrenzt</div>
+        </div>
+        <div class="lp-pricing-card featured" aria-label="Empfohlen">
+          <div class="lp-pricing-featured-badge">Beliebt</div>
+          <div class="lp-pricing-card-icon" aria-hidden="true">📅</div>
+          <div class="lp-pricing-card-title">Monatlich flexibel</div>
+          <div class="lp-pricing-card-desc">Für laufende Vorbereitung und Klausuren das ganze Schuljahr</div>
+        </div>
+        <div class="lp-pricing-card">
+          <div class="lp-pricing-card-icon" aria-hidden="true">🏫</div>
+          <div class="lp-pricing-card-title">Schule &amp; Klasse</div>
+          <div class="lp-pricing-card-desc">Für Klassen, Kurse und Pilotnutzung an Schulen</div>
+        </div>
+      </div>
+      <div class="lp-pricing-cta-row">
+        <a href="abo.html" class="btn">Alle Pläne ansehen →</a>
+        <p class="lp-pricing-tagline">Kostenloser Testzugang verfügbar · Keine Kreditkarte nötig</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="lp-footer" role="contentinfo">
+    <div class="lp-footer-inner">
+      <div class="lp-footer-left">
+        <a href="landing.html" class="lp-footer-logo" aria-label="myAbiFlow">
+          <img src="logo-v2.png" alt="myAbiFlow">
+        </a>
+        <span class="lp-footer-copy">© 2026 myAbiFlow UG. Alle Rechte vorbehalten.</span>
+      </div>
+      <nav class="lp-footer-links" aria-label="Footer-Navigation">
+        <a href="impressum.html">Impressum</a>
+        <a href="lehrer.html">Für Lehrkräfte</a>
+        <a href="abo.html">Preise</a>
+        <a href="index.html?app=1">Einloggen</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- ===== DARK MODE + THEME TOGGLE ===== -->
+  <script>
+    (function () {
+      var btn = document.getElementById('themeToggle');
+      var icon = document.getElementById('themeIcon');
+      var html = document.documentElement;
+
+      function isDark() {
+        return html.getAttribute('data-theme') === 'dark';
+      }
+
+      function updateIcon() {
+        icon.textContent = isDark() ? '🌙' : '☀️';
+      }
+
+      updateIcon();
+
+      btn.addEventListener('click', function () {
+        if (isDark()) {
+          html.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+        updateIcon();
+      });
+    })();
+  </script>
+
+</body>
+</html>

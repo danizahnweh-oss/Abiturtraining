@@ -30,6 +30,17 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="shared-v4.css">
+  <!-- Nicht eingeloggte Besucher zur Landingpage weiterleiten -->
+  <script>
+    (function () {
+      var isLoggedIn = sessionStorage.getItem('access') === '1' && sessionStorage.getItem('student_name');
+      var isTeacher = sessionStorage.getItem('teacher_auth') === '1';
+      var params = window.location.search;
+      if (!isLoggedIn && !isTeacher && !params.includes('app') && !params.includes('login')) {
+        window.location.replace('landing.html');
+      }
+    })();
+  </script>
   <style>
     /* German accent (index uses both EN blue + DE green + PuG red) */
     :root {
