@@ -536,7 +536,7 @@ WICHTIGE ANWEISUNGEN:
 - Benenne KONKRET, was fachlich falsch, ungenau oder oberflächlich war. Nenne die korrekte Antwort.
 - Bewerte EHRLICH und KRITISCH. Vergib KEINE Gefälligkeitsnoten. Wenn die Leistung schwach war, sage das klar.
 - Unterscheide zwischen auswendig Gelerntem (AB I) und eigenständigem Denken (AB II/III).
-- Bewerte auch die Ausdrucksweise: Fachsprache, Argumentationsstruktur, Präsentationsfähigkeit.
+- Bewerte die Ausdrucksweise nach diesen Kriterien: Sind Fachbegriffe korrekt verwendet? Ist die Argumentationsstruktur schlüssig? Wie ist die Präsentationsfähigkeit? — Umgangssprachliche Formulierungen sind KEIN Fehler und dürfen NICHT negativ bewertet werden. Perfektes Standarddeutsch ist nicht erforderlich; entscheidend ist die fachliche Korrektheit.
 
 Strukturiere dein Feedback so:
 
@@ -574,7 +574,8 @@ ${config.materialImpulse.map((m, i) => `Material ${i + 1}: "${m.titel}" (${m.que
 - Wie gut hat der Prüfling die Materialien in seine Antworten einbezogen?
 - Hat er/sie die Materialien korrekt analysiert und interpretiert?
 - Was hätte man aus den Materialien noch herauslesen können?` : ''}
-Schreibe auf Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch. Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.`;
+Schreibe auf Hochdeutsch (Standarddeutsch). Sei EHRLICH – Schönreden hilft dem Prüfling nicht bei der Vorbereitung.
+WICHTIG zur Sprache: Umgangssprachliche Formulierungen des Prüflings sind KEIN Fehler und dürfen NICHT negativ bewertet werden. Nur falsch verwendete Fachbegriffe zählen als sprachlicher Mangel. Beziehe etwaige Sprachkritik ausschließlich auf Fachbegriffe.`;
 
   const feedbackPromise = ai.models.generateContent({
     model: "gemini-2.5-flash",
@@ -597,7 +598,11 @@ function getLanguageInstruction(subject: string): string {
   const lang = langMap[subject];
   if (lang) return `\n\nSPRACHE: Führe das GESAMTE Prüfungsgespräch auf ${lang}. Bewertung: 60 % Sprache/Gesprächsfähigkeit, 40 % Inhalt. Auch dein Feedback gibst du auf ${lang}.`;
   if (subject === 'Latein') return '\n\nSPRACHE: Gespräch auf Hochdeutsch (Standarddeutsch). KEIN Dialekt, KEIN Bayerisch. Lateinische Fachbegriffe und Zitate gehören zur Prüfung.';
-  return '\n\nSPRACHE: Sprich durchgehend Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch.';
+  return `\n\nSPRACHE: Das Prüfungsgespräch findet auf DEUTSCH statt. Der Prüfling spricht Deutsch.
+- Erkenne deutsche Wörter auch bei undeutlicher Aussprache oder leichtem Verschlucken (z.B. "Leitfrage" nicht als "Lightfrage" interpretieren – im Zweifel immer das deutsche Wort annehmen).
+- Umgangssprachliche Formulierungen des Prüflings sind KEIN Problem, solange der fachliche Inhalt stimmt. Nicht jeder Schüler spricht Standarddeutsch – das ist normal und kein Fehler.
+- Nur Fachbegriffe müssen korrekt sein. Perfektes Hochdeutsch ist NICHT erforderlich.
+- Du selbst sprichst Hochdeutsch ohne Dialekt oder Bayerisch.`;
 }
 
 function buildFeedbackInstruction(config: LiveSessionConfig): string {
@@ -610,7 +615,7 @@ function buildFeedbackInstruction(config: LiveSessionConfig): string {
   const feedbackLang = feedbackLangMap[config.subject];
   const langHint = feedbackLang
     ? `Gib dein Feedback auf ${feedbackLang}.`
-    : 'Sprich durchgehend Hochdeutsch (Standarddeutsch). Verwende KEINEN Dialekt und KEIN Bayerisch.';
+    : 'Gib dein Feedback auf Hochdeutsch. Wichtig: Umgangssprachliche Formulierungen des Prüflings sind KEIN Kritikpunkt – bewerte ausschließlich die fachliche Korrektheit, nicht den Sprachstil. Nur falsche Fachbegriffe sind zu bemängeln.';
 
   const prüferRolle = config.gender === 'female'
     ? 'eine strenge aber faire bayerische Abiturprüferin'
