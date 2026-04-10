@@ -351,33 +351,29 @@ Antworte als JSON mit: aufgabenstellung, material, hinweise.`;
 import { getMatheGebietInhalte } from './curriculum';
 
 export async function generateMatheAufgaben(config: ExamConfig): Promise<ExamMaterial> {
-  // Beide verbleibenden Gebiete (z.B. "Analysis und Geometrie")
-  const gebiete = config.weitereHalbjahre; // z.B. ['Analysis', 'Geometrie']
-  const alleInhalte = gebiete.map(g => `${g}: ${getMatheGebietInhalte(g).join('; ')}`).join('\n');
-
-  const gebiet1 = gebiete[0] || 'Analysis';
-  const gebiet2 = gebiete[1] || '';
+  // Nur das Schwerpunkt-Gebiet (Teil 1 – Vortrag)
+  const schwerpunktGebiet = config.schwerpunktHalbjahr || config.schwerpunkt || 'Analysis';
+  const gebiete = [schwerpunktGebiet];
+  const inhalte = getMatheGebietInhalte(schwerpunktGebiet).join('; ');
 
   const prompt = `Du bist ein erfahrener Mathematik-Prüfer für das bayerische Abitur-Kolloquium 2026 (erhöhtes Anforderungsniveau).
 
-Erstelle ein realistisches Aufgabenblatt für eine mündliche Mathematik-Prüfung.
+Erstelle ein realistisches Aufgabenblatt für eine mündliche Mathematik-Prüfung (Teil 1 – Prüfungsschwerpunkt).
 Der Prüfling hat 30 Minuten Vorbereitungszeit und soll die Aufgaben dann in einem 10-minütigen Vortrag präsentieren.
 
-Prüfungsgebiete: ${gebiete.join(' und ')}
-(Das Gebiet ${config.schwerpunktHalbjahr || 'eines der Gebiete'} wurde ausgeschlossen.)
+Prüfungsschwerpunkt: ${schwerpunktGebiet}
 
 Relevante Inhalte:
-${alleInhalte}
+${schwerpunktGebiet}: ${inhalte}
 
 WICHTIGE REGELN (ISB-Vorgaben):
+- Alle Aufgaben beziehen sich ausschließlich auf den Schwerpunkt "${schwerpunktGebiet}"
 - Die Aufgaben müssen einen EINFACHEN EINSTIEG erlauben und so angelegt sein, dass JEDE NOTE erreichbar ist
 - KEINE umfangreichen Rechnungen – der Prüfling soll Lösungswege ERLÄUTERN, nicht durchrechnen
 - Besonders geeignet: Erläuterung von Lösungswegen, Interpretation vorgegebener Ergebnisse/Skizzen/Graphen
 - Anforderungsbereiche I (Reproduktion), II (Transfer) und III (Reflexion) abdecken
-- Die Aufgaben sollen BEIDE Gebiete abdecken (gemischt)
-- 4–6 Aufgaben mit Teilaufgaben (a, b, c, d), ca. 50/50 auf beide Gebiete verteilt
+- 3–5 Aufgaben mit Teilaufgaben (a, b, c, d)
 - Aufgaben müssen nicht inhaltlich zusammenhängen
-- Strukturiere das Aufgabenblatt mit Überschriften: "${gebiet1}" und "${gebiet2}"
 
 ${gebiete.includes('Analysis') ? `BEISPIEL-AUFGABENTYPEN für Analysis:
 - Funktion gegeben → Graph zuordnen/begründen, Definitionsmenge/Wertemenge angeben
@@ -417,16 +413,26 @@ Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines 
     }
   }
 
-  // Fallback: gemischtes Aufgabenblatt
-  const analysisAufgaben = `Analysis\n\n1. Gegeben ist die Funktion f: x ↦ 3/(1+x²) − 1.\na) Begründen Sie anhand charakteristischer Eigenschaften, welcher der vorgelegten Graphen zur Funktion f gehört.\nb) Geben Sie die maximale Definitionsmenge und die Wertemenge von f an.\nc) Beschreiben Sie, wie man die Gleichung der Tangente an den Graphen von f an der Stelle x = 1 ermittelt.\n\n2. Gegeben ist die Funktion g: x ↦ x·e^(−x²), D = ℝ.\nErmitteln Sie die Nullstellen und die Extremstellen von g.`;
-  const geoAufgaben = `Geometrie\n\n1. Erklären Sie, wann drei Vektoren linear abhängig sind.\n\n2. Gegeben sind die Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2) und die Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0.\na) Zeigen Sie, dass sich E und g schneiden.\nb) Bestimmen Sie die Hesse'sche Normalenform von E und erläutern Sie eine Anwendung.\n\n3. Berechnen Sie den Flächeninhalt eines Parallelogramms, das durch a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2) aufgespannt wird.`;
-  const stochAufgaben = `Stochastik\n\n1. Ein Glücksrad wird 100-mal gedreht. Die Wahrscheinlichkeit für "Gewinn" beträgt p = 0,3.\na) Berechnen Sie den Erwartungswert und die Standardabweichung.\nb) Bestimmen Sie die Wahrscheinlichkeit für 25–35 Gewinne mithilfe der Sigma-Regeln.\n\n2. Führen Sie einen Signifikanztest zum Niveau α = 5% durch (n = 50, H₀: p ≤ 0,05).`;
-
-  const aufgabenTeile = gebiete.map(g => g === 'Analysis' ? analysisAufgaben : g === 'Geometrie' ? geoAufgaben : stochAufgaben);
+  // Fallback: Aufgaben für das Schwerpunkt-Gebiet
+  const fallbackMap: Record<string, { aufgaben: string; material: string }> = {
+    'Analysis': {
+      aufgaben: `Analysis\n\n1. Gegeben ist die Funktion f: x ↦ 3/(1+x²) − 1.\na) Begründen Sie anhand charakteristischer Eigenschaften, welcher der vorgelegten Graphen zur Funktion f gehört.\nb) Geben Sie die maximale Definitionsmenge und die Wertemenge von f an.\nc) Beschreiben Sie, wie man die Gleichung der Tangente an den Graphen von f an der Stelle x = 1 ermittelt.\n\n2. Gegeben ist die Funktion g: x ↦ x·e^(−x²), D = ℝ.\nErmitteln Sie die Nullstellen und die Extremstellen von g.`,
+      material: 'f(x) = 3/(1+x²) − 1, g(x) = x·e^(−x²)',
+    },
+    'Geometrie': {
+      aufgaben: `Geometrie\n\n1. Erklären Sie, wann drei Vektoren linear abhängig sind.\n\n2. Gegeben sind die Gerade g: X⃗ = (−1, 0, 3) + λ·(3, −2, −2) und die Ebene E: 3x₁ + x₂ − 2x₃ − 2 = 0.\na) Zeigen Sie, dass sich E und g schneiden.\nb) Bestimmen Sie die Hesse'sche Normalenform von E und erläutern Sie eine Anwendung.\n\n3. Berechnen Sie den Flächeninhalt eines Parallelogramms, das durch a⃗ = (0, 3, −1) und b⃗ = (2, 2, 2) aufgespannt wird.`,
+      material: 'g: X⃗ = (−1,0,3) + λ·(3,−2,−2), E: 3x₁+x₂−2x₃−2=0, a⃗=(0,3,−1), b⃗=(2,2,2)',
+    },
+    'Stochastik': {
+      aufgaben: `Stochastik\n\n1. Ein Glücksrad wird 100-mal gedreht. Die Wahrscheinlichkeit für "Gewinn" beträgt p = 0,3.\na) Berechnen Sie den Erwartungswert und die Standardabweichung.\nb) Bestimmen Sie die Wahrscheinlichkeit für 25–35 Gewinne mithilfe der Sigma-Regeln.\n\n2. Führen Sie einen Signifikanztest zum Niveau α = 5% durch (n = 50, H₀: p ≤ 0,05).`,
+      material: 'B(100; 0,3), α = 0,05, n = 50',
+    },
+  };
+  const fb = fallbackMap[schwerpunktGebiet] ?? fallbackMap['Analysis'];
 
   return {
-    aufgabenstellung: aufgabenTeile.join('\n\n'),
-    material: gebiete.map(g => g === 'Analysis' ? 'f(x) = 3/(1+x²) − 1, g(x) = x·e^(−x²)' : g === 'Geometrie' ? 'g: X⃗ = (−1,0,3) + λ·(3,−2,−2), E: 3x₁+x₂−2x₃−2=0, a⃗=(0,3,−1), b⃗=(2,2,2)' : 'B(100; 0,3), α = 0,05, n = 50').join(' | '),
+    aufgabenstellung: fb.aufgaben,
+    material: fb.material,
     hinweise: 'Sie haben 30 Minuten Vorbereitungszeit. Notieren Sie sich Lösungswege und Ergebnisse. Erläutern Sie im Vortrag die Vorgehensweise – umfangreiche Rechnungen müssen nicht im Detail ausgeführt werden.',
   };
 }

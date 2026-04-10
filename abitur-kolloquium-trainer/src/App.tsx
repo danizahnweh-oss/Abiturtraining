@@ -366,9 +366,9 @@ export default function App() {
         ? (customSchwerpunkte[spHalbjahr] || []).filter(s => s.trim())
         : getSchwerpunkte(subject, spHalbjahr, level))
     : [];
-  // Mathe: beide verbleibenden Gebiete als Array; andere Fächer: weitere Halbjahre
+  // Mathe: das eine nicht-gewählte Gebiet; andere Fächer: weitere Halbjahre
   const weitereHJ = isMathe
-    ? matheGebiete
+    ? (schwerpunkt ? matheGebiete.filter(g => g !== schwerpunkt) : matheGebiete)
     : ((gestrichen && spHalbjahr) ? availHJ.filter(h => h !== spHalbjahr) : []);
   const canGenerate = isMathe
     ? !!(subject && gestrichen && schwerpunkt)
@@ -930,7 +930,7 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* ── Mathe: Gebiet ausschließen (kein Schwerpunkt nötig) ── */}
+                  {/* ── Mathe: Gebiet ausschließen ── */}
                   {isMathe && subject && CURRICULUM[subject] && (
                     <>
                       <div className="space-y-2">
@@ -938,12 +938,26 @@ export default function App() {
                         <p className="text-xs opacity-50 ml-1 -mt-1">Welches Gebiet möchtest du ausschließen? (Analysis ist immer dabei)</p>
                         <div className="flex gap-3">
                           {getMatheStreichbareGebiete().map(g => (
-                            <Pill key={g} active={gestrichen === g} onClick={() => { setGestrichen(g); setSchwerpunkt(g === 'Geometrie' ? 'Analysis und Stochastik' : 'Analysis und Geometrie'); }} className="flex-1 text-center">
+                            <Pill key={g} active={gestrichen === g} onClick={() => { setGestrichen(g); setSchwerpunkt(''); }} className="flex-1 text-center">
                               <span className="font-medium">{g}</span>
                             </Pill>
                           ))}
                         </div>
                       </div>
+                      {/* ── Mathe: Schwerpunkt wählen ── */}
+                      {gestrichen && (
+                        <div className="space-y-2">
+                          <label className="text-xs font-semibold uppercase tracking-widest opacity-40 ml-1">Schwerpunkt wählen</label>
+                          <p className="text-xs opacity-50 ml-1 -mt-1">Aus welchem Gebiet kommen deine Aufgaben für den Vortrag?</p>
+                          <div className="flex gap-3">
+                            {matheGebiete.map(g => (
+                              <Pill key={g} active={schwerpunkt === g} onClick={() => setSchwerpunkt(g)} className="flex-1 text-center">
+                                <span className="font-medium">{g}</span>
+                              </Pill>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </>
                   )}
 
@@ -1043,15 +1057,15 @@ export default function App() {
                       <div className="grid gap-2">
                         <Pill active={examMode === 'gesamt'} onClick={() => setExamMode('gesamt')} className="w-full">
                           <span className="font-medium">Gesamte Prüfung</span>
-                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Aufgaben-Vortrag + Fragen zu ${schwerpunkt} (ca. 30 Min)` : 'Kurzreferat + Fragen zum Schwerpunkt + Fragen zu weiteren Halbjahren (ca. 30 Min)'}</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Vortrag + Fragen ${schwerpunkt} (15 Min) · Fragen ${weitereHJ[0]} (15 Min)` : 'Kurzreferat + Fragen zum Schwerpunkt + Fragen zu weiteren Halbjahren (ca. 30 Min)'}</span>
                         </Pill>
                         <Pill active={examMode === 'referat'} onClick={() => setExamMode('referat')} className="w-full">
                           <span className="font-medium">{isMathe ? 'Nur Aufgaben-Vortrag' : 'Nur Kurzreferat'}</span>
-                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Vorbereitung + Aufgaben-Vortrag zu ${schwerpunkt} (ca. 10 Min)` : 'Vorbereitung + Kurzreferat mit Feedback (ca. 10 Min)'}</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Vorbereitung + Aufgaben-Vortrag zu ${schwerpunkt} (10 Min)` : 'Vorbereitung + Kurzreferat mit Feedback (ca. 10 Min)'}</span>
                         </Pill>
                         <Pill active={examMode === 'fragen'} onClick={() => setExamMode('fragen')} className="w-full">
                           <span className="font-medium">Nur Fragenteil</span>
-                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Fragen zu ${schwerpunkt}, ohne Vortrag (ca. 20 Min)` : 'Fragen zum Schwerpunkt + weitere Halbjahre, ohne Referat (ca. 20 Min)'}</span>
+                          <span className="block text-xs opacity-60 mt-0.5">{isMathe ? `Fragen ${schwerpunkt} (5 Min) + Fragen ${weitereHJ[0]} (15 Min), ohne Vortrag` : 'Fragen zum Schwerpunkt + weitere Halbjahre, ohne Referat (ca. 20 Min)'}</span>
                         </Pill>
                       </div>
                     </div>
@@ -1110,7 +1124,7 @@ export default function App() {
                   <div className="mt-6 p-4 bg-emerald-50 rounded-2xl border border-emerald-100 text-sm">
                     <p className="font-medium text-emerald-800 mb-1">Zusammenfassung:</p>
                     <p className="text-emerald-700 opacity-80">
-                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? (isMathe ? 'Nur Vortrag' : 'Nur Referat') : 'Nur Fragen'} · {prueferTyp !== 'standard' ? `Prüfertyp: ${prueferTyp} · ` : ''}{isMathe ? <>Gebiete: <em>{schwerpunkt}</em> · Ausgeschlossen: {gestrichen}</> : <>Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}</>}
+                      {subject} ({level}) · {examMode === 'gesamt' ? 'Gesamte Prüfung' : examMode === 'referat' ? (isMathe ? 'Nur Vortrag' : 'Nur Referat') : 'Nur Fragen'} · {prueferTyp !== 'standard' ? `Prüfertyp: ${prueferTyp} · ` : ''}{isMathe ? <>Schwerpunkt: <em>{schwerpunkt}</em> · Teil 2: {weitereHJ[0]} · Ausgeschlossen: {gestrichen}</> : <>Schwerpunkt aus {spHalbjahr}: <em>{schwerpunkt}</em> · Gestrichen: {gestrichen} · Teil 2: {weitereHJ.join(', ')}</>}
                     </p>
                   </div>
                 )}
