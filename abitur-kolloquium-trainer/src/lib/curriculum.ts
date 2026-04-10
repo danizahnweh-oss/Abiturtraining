@@ -769,7 +769,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Strafrecht: Aufbau einer Straftat (Tatbestandsmäßigkeit, Rechtswidrigkeit, Schuld), Strafzwecktheorien, Strafzumessung',
       ],
       '13/2': [
-        'Geld und Preisniveau: Preisniveaustabilität, Geldpolitik der EZB (Transmissionsmechanismus, Mandat, Unabhängigkeit), Wirkungsgrenzen',
+        'Preisniveaustabilität: Inflation und Deflation (Ursachen, Messung, Folgen), magisches Viereck, Zielkonflikte',
+        'Geldpolitik der EZB: Transmissionsmechanismus, Mandat, Unabhängigkeit, Wirkungsgrenzen',
         'Außenhandel und Währung: Leistungsbilanz, außenwirtschaftliches Gleichgewicht, Wechselkursbildung, außenhandels- und währungspolitische Maßnahmen',
       ],
     },
