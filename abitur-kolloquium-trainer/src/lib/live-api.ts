@@ -36,10 +36,17 @@ export interface MaterialImpuls {
   chartDaten?: ChartDaten;
 }
 
+export interface GeoGebraGrafik {
+  id: string;
+  type: 'graphing' | '3d' | 'probability';
+  commands: string[];
+}
+
 export interface ExamMaterial {
   aufgabenstellung: string;
   material: string;
   hinweise: string;
+  grafiken?: GeoGebraGrafik[];
   materialImpulse?: MaterialImpuls[];
 }
 
@@ -395,11 +402,30 @@ ${gebiete.includes('Stochastik') ? `BEISPIEL-AUFGABENTYPEN für Stochastik:
 - Normalverteilung: Wahrscheinlichkeiten mit Sigma-Regeln bestimmen
 - Baumdiagramm erstellen und bedingte Wahrscheinlichkeiten berechnen` : ''}
 
-Gib im Feld "material" konkrete mathematische Objekte an, die dem Prüfling vorgelegt werden:
-Funktionsterme, Gleichungen, Vektoren, Matrizen, Graphen-Beschreibungen, Tabellen mit Werten.
+Gib im Feld "material" konkrete mathematische Objekte als Text an (Funktionsterme, Gleichungen, Vektoren, Tabellen).
+
+GEOGEBRA-VISUALISIERUNG (optional):
+Falls eine Aufgabe einen Graphen ZEIGT den der Prüfling ablesen soll (z.B. "Welcher Graph gehört zu f?", "Lesen Sie ab"), füge ein "grafiken"-Array hinzu.
+- Analysis: type "graphing" — Funktionsgraphen, Punkte, Tangenten
+- Geometrie: type "3d" — Punkte, Geraden, Ebenen im Raum
+
+GEOGEBRA-REGELN (KRITISCH):
+1. Variable immer x: f(x) = 2*x^2 - 3*x, NICHT f(t) = ...
+2. Multiplikation immer *: 2*x, NICHT 2x
+3. e-Funktion: exp(x), NICHT e^x
+4. Nur einfache Befehle: Funktionen, Punkte (A = (2, 3)), Geraden
+5. VERBOTEN: Integral(), Derivative(), Solve(), If(), Sequence()
+6. KEINE LaTeX in GeoGebra-Befehlen
+7. Funktionsnamen: Kleinbuchstaben (f, g), NICHT Großbuchstaben
+8. KEINE SetColor-Befehle
+
+WANN Grafik: NUR wenn der Graph dem Prüfling gezeigt wird (z.B. "Welcher Graph ist f?")
+WANN KEINE Grafik: Kurvendiskussion (Schüler berechnet selbst), reine Rechenaufgaben, Stochastik
 
 Antworte EXAKT in diesem JSON-Format (kein Markdown, kein Codeblock, nur reines JSON):
-{"aufgabenstellung":"Die vollständigen Aufgaben mit Teilaufgaben, klar formuliert mit Operatoren, mit Gebiet-Überschriften","material":"Konkrete mathematische Objekte (Funktionsterme, Vektoren, Graphen-Beschreibungen etc.)","hinweise":"Bearbeitungshinweise für die Vorbereitungszeit"}`;
+{"aufgabenstellung":"Aufgaben mit Teilaufgaben, klar formuliert, mit Gebiet-Überschriften","material":"Konkrete mathematische Objekte als Text","hinweise":"Bearbeitungshinweise","grafiken":[{"id":"Abb. 1","type":"graphing","commands":["f(x) = x^2 - 2*x"]}]}
+
+Das "grafiken"-Feld ist optional – weglassen wenn keine Graphen benötigt werden.`;
 
   for (let attempt = 0; attempt < 3; attempt++) {
     try {

@@ -17,6 +17,7 @@ import {
   LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
   type ExamLevel, type ExamMode, type ExamMaterial, type MaterialImpuls, type PrueferTyp,
 } from './lib/live-api';
+import { GeoGebraGraph } from './GeoGebraGraph';
 
 const USE_STATEFUL_SESSIONS = false;
 import { downloadFeedbackPdf } from './lib/pdf-export';
@@ -1193,6 +1194,13 @@ export default function App() {
                 <div className="prose prose-sm max-w-none whitespace-pre-wrap opacity-80 leading-relaxed">
                   {renderMarkdown(material.material)}
                 </div>
+                {material.grafiken && material.grafiken.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    {material.grafiken.map((g, i) => (
+                      <GeoGebraGraph key={i} grafik={g} />
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Hinweise */}
