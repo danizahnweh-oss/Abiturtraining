@@ -1693,6 +1693,7 @@ function renderTeachers() {
     const approveBtn = isPending
       ? '<button class="btn btn-small" onclick="approveTeacher(\'' + escapeHtml(t.id) + '\', \'' + escapeHtml(t.name).replace(/'/g, "\\'") + '\')" style="min-height:44px;background:#059669;">Freischalten</button>'
       : '';
+    const deleteBtn = '<button class="btn btn-small" onclick="deleteTeacher(\'' + escapeHtml(t.id) + '\', \'' + escapeHtml(t.name).replace(/'/g, "\\'") + '\')" style="min-height:44px;background:#dc2626;color:#fff;">Entfernen</button>';
     const subjects = t.subjects.length ? t.subjects.map(s => '<span style="font-size:.72rem;background:var(--accent-soft);color:var(--accent);padding:.1rem .4rem;border-radius:4px;font-weight:600;">' + escapeHtml(s) + '</span>').join(" ") : "";
     return '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;padding:.8rem 1rem;border:1px solid ' + (isPending ? '#f59e0b40' : 'var(--border-light)') + ';border-radius:var(--radius-sm);background:' + (isPending ? 'rgba(245,158,11,.04)' : 'var(--surface)') + ';">' +
       '<div style="display:flex;flex-direction:column;gap:.25rem;">' +
@@ -1702,8 +1703,9 @@ function renderTeachers() {
         (t.email ? '<span style="font-size:.8rem;color:var(--ink-muted);">' + escapeHtml(t.email) + '</span>' : '') +
         (subjects ? '<div style="display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem;">' + subjects + '</div>' : '') +
       '</div>' +
-      '<div style="display:flex;align-items:center;gap:.6rem;">' +
+      '<div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">' +
         approveBtn +
+        deleteBtn +
         '<span style="font-size:.78rem;color:var(--ink-muted);white-space:nowrap;">' + dateStr + '</span>' +
       '</div>' +
     '</div>';
@@ -1723,6 +1725,23 @@ async function approveTeacher(id, name) {
     // Lokalen State aktualisieren
     const t = allTeachers.find(t => t.id === id);
     if (t) t.status = "approved";
+    renderTeachers();
+  } catch (e) {
+    alert("Fehler: " + e.message);
+  }
+}
+
+async function deleteTeacher(id, name) {
+  if (!confirm('Lehrkraft "' + name + '" wirklich entfernen? Diese Aktion kann nicht rückgängig gemacht werden.')) return;
+  try {
+    const res = await fetch(API_BASE + "/api/dashboard-delete-teacher", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Teacher-Token": teacherToken },
+      body: JSON.stringify({ teacher_id: id })
+    });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || "Fehler."); return; }
+    allTeachers = allTeachers.filter(t => t.id !== id);
     renderTeachers();
   } catch (e) {
     alert("Fehler: " + e.message);
@@ -1829,7 +1848,7 @@ function renderFeedback(items) {
     const date = new Date(f.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
     const cat = f.category ? '<span style="font-size:.78rem;background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:8px;font-weight:500;">' + (CAT_LABELS[f.category] || f.category) + '</span>' : '';
     const msg = f.message ? '<p style="margin:.5rem 0 0;font-size:.88rem;color:var(--ink);">' + escapeHtml(f.message) + '</p>' : '';
-    const name = f.student_name ? ' · ' + escapeHtml(f.student_name) : '';
+    const name = ' · ' + (f.student_name ? escapeHtml(f.student_name) : '<em style="color:var(--ink-muted);">Anonym</em>');
     const page = f.page ? ' · <code style="font-size:.75rem;">' + escapeHtml(f.page) + '</code>' : '';
     const isValuable = f.valuable ? true : false;
     const starBtn = '<button class="feedback-star' + (isValuable ? ' active' : '') + '" onclick="toggleValuable(' + f.id + ', ' + !isValuable + ')" title="' + (isValuable ? 'Nicht mehr wertvoll' : 'Als wertvoll markieren') + '" style="background:none;border:none;cursor:pointer;font-size:1.2rem;min-width:44px;min-height:44px;padding:4px;border-radius:8px;transition:background .15s;">' + (isValuable ? '⭐' : '☆') + '</button>';

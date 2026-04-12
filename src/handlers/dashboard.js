@@ -262,6 +262,30 @@ export async function handleApproveTeacher(request, env) {
   return jsonResponse({ success: true, name: teacher.name }, 200, env);
 }
 
+/* ================= DASHBOARD: LEHRER ENTFERNEN ================= */
+export async function handleDeleteTeacher(request, env) {
+  const token = request.headers.get("X-Teacher-Token");
+  if (!env.TEACHER_PASSWORD) {
+    return jsonResponse({ error: "Server nicht konfiguriert." }, 500, env);
+  }
+  if (!token || !(await verifyToken(token, env, env.TEACHER_PASSWORD))) {
+    return jsonResponse({ error: "Nicht autorisiert." }, 401, env);
+  }
+
+  const { teacher_id } = await request.json();
+  if (!teacher_id || typeof teacher_id !== "string") {
+    return jsonResponse({ error: "teacher_id erforderlich." }, 400, env);
+  }
+
+  const teacher = await env.DB.prepare("SELECT name FROM teachers WHERE id = ?").bind(teacher_id).first();
+  if (!teacher) {
+    return jsonResponse({ error: "Lehrkraft nicht gefunden." }, 404, env);
+  }
+
+  await env.DB.prepare("DELETE FROM teachers WHERE id = ?").bind(teacher_id).run();
+  return jsonResponse({ success: true, name: teacher.name }, 200, env);
+}
+
 /* ================= DASHBOARD: FEEDBACK ALS WERTVOLL MARKIEREN ================= */
 export async function handleToggleFeedbackValuable(request, env) {
   const token = request.headers.get("X-Teacher-Token");

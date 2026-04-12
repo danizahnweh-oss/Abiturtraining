@@ -2479,6 +2479,8 @@ async function _doLoginModal() {
       sessionStorage.setItem("access", "1");
       sessionStorage.setItem("access_token", data.token);
       sessionStorage.setItem("student_name", name);
+      // Fallback für Feedback nach Tab-Neustart
+      try { localStorage.setItem("myabiflow_student_name", name); } catch(e) {}
       if (data.student_id) sessionStorage.setItem("student_id", data.student_id);
       if (data.free_access) sessionStorage.setItem("free_access", "1");
       if (data.subscription_status) sessionStorage.setItem("subscription_status", data.subscription_status);
@@ -2895,7 +2897,7 @@ function initFeedbackWidget() {
           category: selectedCategory,
           message: textarea.value.trim() || null,
           page: window.location.pathname,
-          studentName: sessionStorage.getItem("student_name") || null
+          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null
         })
       });
       if (res.ok) {
