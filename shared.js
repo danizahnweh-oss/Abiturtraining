@@ -2821,6 +2821,13 @@ function initFeedbackWidget() {
           '<button class="feedback-cat" data-cat="lob">👍 Lob</button>' +
         '</div>' +
         '<textarea class="feedback-text" placeholder="Was möchtest du uns sagen? (optional)" rows="3" style="display:none"></textarea>' +
+        '<div class="feedback-photo-area" style="display:none">' +
+          '<label class="feedback-photo-label">' +
+            '<input type="file" class="feedback-photo-input" accept="image/*" style="display:none">' +
+            '<span class="feedback-photo-btn">📷 Foto hinzufügen (optional)</span>' +
+          '</label>' +
+          '<div class="feedback-photo-preview" style="display:none"></div>' +
+        '</div>' +
         '<button class="feedback-submit btn" style="display:none">Absenden</button>' +
       '</div>' +
     '</div>';
@@ -2835,8 +2842,13 @@ function initFeedbackWidget() {
   var textarea = widget.querySelector(".feedback-text");
   var submitBtn = widget.querySelector(".feedback-submit");
 
+  var photoInput = widget.querySelector(".feedback-photo-input");
+  var photoArea = widget.querySelector(".feedback-photo-area");
+  var photoPreview = widget.querySelector(".feedback-photo-preview");
+
   var selectedRating = 0;
   var selectedCategory = null;
+  var selectedPhoto = null; // base64 JPEG
 
   function togglePanel(open) {
     if (open) {
@@ -2855,6 +2867,11 @@ function initFeedbackWidget() {
       catGroup.style.display = "none";
       textarea.style.display = "none";
       textarea.value = "";
+      photoArea.style.display = "none";
+      photoPreview.style.display = "none";
+      photoPreview.innerHTML = "";
+      photoInput.value = "";
+      selectedPhoto = null;
       submitBtn.style.display = "none";
     }
   }
@@ -2870,6 +2887,7 @@ function initFeedbackWidget() {
       btn.classList.add("active");
       catGroup.style.display = "";
       textarea.style.display = "";
+      photoArea.style.display = "";
       submitBtn.style.display = "";
     });
   });
@@ -2880,6 +2898,41 @@ function initFeedbackWidget() {
       cats.forEach(function(c) { c.classList.remove("active"); });
       btn.classList.add("active");
       selectedCategory = btn.dataset.cat;
+    });
+  });
+
+  // Foto-Upload
+  photoInput.addEventListener("change", async function() {
+    var file = photoInput.files[0];
+    if (!file) return;
+    // Bild via Canvas komprimieren (max 800px, JPEG 0.65)
+    var dataURL = await new Promise(function(resolve) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var maxW = 800;
+          var scale = Math.min(1, maxW / img.width);
+          var canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL("image/jpeg", 0.65));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+    selectedPhoto = dataURL.split(",")[1]; // nur base64-Teil
+    // Vorschau anzeigen
+    photoPreview.innerHTML = '<img src="' + dataURL + '" alt="Vorschau">' +
+      '<button class="feedback-photo-remove" aria-label="Foto entfernen" title="Foto entfernen">&times;</button>';
+    photoPreview.style.display = "";
+    photoPreview.querySelector(".feedback-photo-remove").addEventListener("click", function() {
+      selectedPhoto = null;
+      photoInput.value = "";
+      photoPreview.style.display = "none";
+      photoPreview.innerHTML = "";
     });
   });
 
@@ -2897,7 +2950,8 @@ function initFeedbackWidget() {
           category: selectedCategory,
           message: textarea.value.trim() || null,
           page: window.location.pathname,
-          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null
+          studentName: sessionStorage.getItem("student_name") || localStorage.getItem("myabiflow_student_name") || null,
+          photo: selectedPhoto || null
         })
       });
       if (res.ok) {

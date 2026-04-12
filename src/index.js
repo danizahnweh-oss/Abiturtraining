@@ -424,6 +424,9 @@ export default {
           const message = body.message ? String(body.message).slice(0, 2000) : null;
           const page = body.page ? String(body.page).slice(0, 200) : null;
           const studentName = body.studentName ? String(body.studentName).slice(0, 100) : null;
+          // Foto: base64 JPEG, max ~500KB base64 (~375KB Bild)
+          const photo = (body.photo && typeof body.photo === "string" && body.photo.length < 700000)
+            ? body.photo : null;
           await env.DB.prepare(
             "INSERT INTO feedback (rating, category, message, page, student_name) VALUES (?, ?, ?, ?, ?)"
           ).bind(rating, category, message, page, studentName).run();
@@ -446,6 +449,7 @@ export default {
 ${studentName ? `<p><strong>Schüler:</strong> ${studentName}</p>` : ''}
 ${page ? `<p><strong>Seite:</strong> ${page}</p>` : ''}
 ${message ? `<div style="background:#f8f9fa;padding:12px;border-radius:8px;margin:12px 0;white-space:pre-wrap">${message}</div>` : '<p style="color:#888">Keine Nachricht</p>'}
+${photo ? `<div style="margin:12px 0"><p style="font-weight:600;margin-bottom:6px">📷 Foto:</p><img src="data:image/jpeg;base64,${photo}" style="max-width:480px;border-radius:8px;display:block" alt="Feedback-Foto"></div>` : ''}
 <p style="margin-top:16px"><a href="https://myabiflow.de/dashboard.html" style="background:#2563eb;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600">Im Dashboard ansehen →</a></p>
 </div>`
               })
