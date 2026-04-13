@@ -6,6 +6,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
+import 'katex/contrib/mhchem'; // Chemische Formeln: \ce{H2O}, \ce{Fe^{3+}} etc.
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
@@ -32,7 +33,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-/* ───────── Markdown + LaTeX Hilfsfunktion ───────── */
+/* ───────── Markdown + LaTeX + Tabellen Hilfsfunktionen ───────── */
 
 function renderLatexSegment(text: string, key: number): React.ReactNode {
   // Suche nach LaTeX-Blöcken: $$...$$ (Display) und $...$ (Inline) und \begin{}...\end{}
@@ -72,14 +73,72 @@ function renderLatexSegment(text: string, key: number): React.ReactNode {
   });
 }
 
-function renderMarkdown(text: string) {
-  // Erst Bold-Markdown auflösen, dann LaTeX
+/** Erkennt Markdown-Tabellen und rendert sie als HTML-<table> */
+function parseMarkdownTable(tableText: string): React.ReactNode | null {
+  const lines = tableText.trim().split('\n').filter(l => l.trim());
+  if (lines.length < 2) return null;
+  // Prüfe ob Zeile 2 ein Separator ist (|---|---|)
+  if (!/^\|?\s*[-:]+/.test(lines[1])) return null;
+
+  const parseRow = (line: string) =>
+    line.replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim());
+
+  const headers = parseRow(lines[0]);
+  const rows = lines.slice(2).map(parseRow);
+
+  return (
+    <div className="overflow-x-auto my-3 rounded-xl border border-slate-200 shadow-sm">
+      <table className="min-w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-slate-100">
+            {headers.map((h, i) => (
+              <th key={i} className="px-4 py-2.5 text-left font-semibold text-slate-700 border-b border-slate-200 whitespace-nowrap">
+                {renderInlineMarkdown(h)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, ri) => (
+            <tr key={ri} className={ri % 2 === 0 ? 'bg-white' : 'bg-slate-50/60'}>
+              {row.map((cell, ci) => (
+                <td key={ci} className="px-4 py-2 text-slate-700 border-b border-slate-100 whitespace-nowrap">
+                  {renderInlineMarkdown(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** Rendert Inline-Markdown (Bold + LaTeX) ohne Tabellen/Blöcke */
+function renderInlineMarkdown(text: string): React.ReactNode {
   const parts = text.split(/(\*\*.*?\*\*)/g);
   return parts.map((part, i) =>
     part.startsWith('**') && part.endsWith('**')
       ? <strong key={i}>{renderLatexSegment(part.slice(2, -2), i)}</strong>
       : renderLatexSegment(part, i)
   );
+}
+
+function renderMarkdown(text: string) {
+  // Erst Tabellen extrahieren, dann den Rest inline rendern
+  // Tabellen-Pattern: mindestens 2 Zeilen mit | am Anfang, mit Separator-Zeile
+  const tablePattern = /((?:^|\n)\|[^\n]+\|\n\|[\s:-]+\|(?:\n\|[^\n]+\|)*)/g;
+  const segments = text.split(tablePattern);
+
+  return segments.map((segment, i) => {
+    // Prüfe ob dieses Segment eine Tabelle ist
+    if (/^\|[^\n]+\|\n\|[\s:-]+\|/.test(segment.trim()) || /\n\|[^\n]+\|\n\|[\s:-]+\|/.test(segment)) {
+      const table = parseMarkdownTable(segment);
+      if (table) return <React.Fragment key={i}>{table}</React.Fragment>;
+    }
+    // Normaler Text: Bold + LaTeX
+    return <React.Fragment key={i}>{renderInlineMarkdown(segment)}</React.Fragment>;
+  });
 }
 
 /* ───────── Timer hooks ───────── */

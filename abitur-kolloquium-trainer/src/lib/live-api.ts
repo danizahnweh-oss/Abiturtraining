@@ -302,10 +302,12 @@ WICHTIG für Biologie: Bevorzuge visuelle Materialien, wie sie typisch für Biol
 - Experimentergebnisse als Tabelle oder Diagramm (z.B. Enzymaktivität bei verschiedenen Temperaturen)
 Vermeide reine Textwände. Stelle das Material so dar, wie es auf einem Aufgabenblatt stehen würde: mit Abbildungstitel, Beschriftungen und Legende.
 ` : ''}${config.subject === 'Chemie' ? `
-WICHTIG für Chemie: Bevorzuge fachtypische Materialien:
-- Reaktionsgleichungen mit Strukturformeln
-- Energiediagramme (exotherm/endotherm)
-- Experimentergebnisse als Tabelle
+WICHTIG für Chemie – Formatierung:
+- Chemische Formeln IMMER in LaTeX-mhchem-Notation: $\\ce{H2O}$, $\\ce{Fe^{3+}}$, $\\ce{Cu^{2+} + 2e^- -> Cu}$
+- Reaktionsgleichungen als Display-Formel: $$\\ce{2H2 + O2 -> 2H2O}$$
+- Messwerte und Stoffdaten IMMER als Markdown-Tabelle mit | Spalte1 | Spalte2 | Format
+- Energiediagramme als Textbeschreibung mit Zahlenwerten
+- Strukturformeln als IUPAC-Name + Summenformel in \\ce{}-Notation
 ` : ''}
 BEISPIEL für gutes Material (Fach Geschichte):
 "Material 1 – Quelle:\\nRede von Bundeskanzler Willy Brandt vor dem Deutschen Bundestag am 28. Oktober 1969: \\"Wir wollen mehr Demokratie wagen. Wir wollen eine Gesellschaft, die mehr Freiheit bietet und mehr Mitverantwortung fordert.\\"\\n(Quelle: Regierungserklärung Willy Brandt, 28.10.1969)\\n\\nMaterial 2 – Statistik:\\nWahlbeteiligung bei Bundestagswahlen: 1972: 91,1% | 1980: 88,6% | 1990: 77,8% | 2002: 79,1% | 2021: 76,6%\\n(Quelle: Bundeswahlleiter, 2021)"${config.subject === 'Biologie' ? `
@@ -467,7 +469,7 @@ Das "grafiken"-Feld ist optional – weglassen wenn keine Graphen benötigt werd
 
 function getMaterialTypenFuerFach(subject: string): string {
   if (subject === 'Biologie') return 'Schaubilder (z.B. Zellaufbau, Stoffwechselwege, Stammbäume), Diagramme (Balken-/Kreisdiagramm mit Messwerten), Experimentergebnisse als Tabelle, kurze Abbildungsbeschreibungen mit Beschriftung';
-  if (subject === 'Chemie') return 'Reaktionsgleichungen, Energiediagramme, Experimentergebnisse, Stoffdaten-Tabellen, Strukturformeln';
+  if (subject === 'Chemie') return 'Reaktionsgleichungen (in LaTeX \\ce{}-Notation), Energiediagramme, Experimentergebnisse als Markdown-Tabelle (|Spalte|Wert|), Stoffdaten-Tabellen, Strukturformeln als \\ce{}-Notation';
   const mint = ['Physik', 'Mathematik', 'Informatik'];
   const sprachen = ['Deutsch', 'Englisch', 'Französisch', 'Italienisch', 'Latein', 'Spanisch'];
   if (mint.includes(subject)) return 'Daten-Tabellen, Experimentergebnisse, Statistiken mit Zahlenwerten, Diagramm-Beschreibungen';
@@ -501,6 +503,19 @@ Biologie-typische Schaubilder: Vergleichsdiagramme (z.B. Enzymaktivität, Popula
 Vermeide reine Textwände — in Bio-Prüfungen werden fast immer Abbildungen und Diagramme vorgelegt.`
     : '';
 
+  const chemieHinweis = config.subject === 'Chemie'
+    ? `\n\nWICHTIG für Chemie – Formatierung im "inhalt"-Feld:
+- Chemische Formeln in LaTeX-mhchem-Notation: $\\ce{H2O}$, $\\ce{Fe^{3+} + e^- -> Fe^{2+}}$
+- Reaktionsgleichungen als Display-Formel: $$\\ce{2H2 + O2 -> 2H2O}$$
+- Messwerte IMMER als Markdown-Tabelle:
+| Größe | Wert |
+|---|---|
+| Temperatur | 25 °C |
+| Konzentration | 0,1 mol/L |
+- Standardpotentiale als Markdown-Tabelle mit Spalten: Halbreaktion | E⁰ / V | z
+- Keine Pipe-getrennte Inline-Daten — IMMER echte Markdown-Tabellen verwenden`
+    : '';
+
   const prompt = `Du bist ein erfahrener Prüfungsausschuss-Vorsitzender für das bayerische Abitur-Kolloquium.
 
 Erstelle 2 realistische Material-Impulse, die einem Prüfling während des Fragenteils ${isMathe ? 'zum WEITEREN GEBIET' : 'zu den WEITEREN HALBJAHREN'} vorgelegt werden.
@@ -509,7 +524,7 @@ Fach: ${config.subject}
 Anforderungsniveau: ${levelLabel}
 ${weitereLabel}
 
-Geeignete Material-Typen für dieses Fach: ${materialTypen}${matheHinweis}${bioHinweis}
+Geeignete Material-Typen für dieses Fach: ${materialTypen}${matheHinweis}${bioHinweis}${chemieHinweis}
 
 Anforderungen:
 1. Jedes Material muss sich auf ${isMathe ? 'das weitere Gebiet' : 'eines der weiteren Halbjahre'} beziehen (nicht auf den Schwerpunkt "${config.schwerpunkt}").
