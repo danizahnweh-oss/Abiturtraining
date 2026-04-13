@@ -123,8 +123,12 @@ export class AudioProcessor {
     if (this.sendCallback) {
       const toSend = this.buffer.slice(0, this.bufferOffset);
       const bytes = new Uint8Array(toSend.buffer, toSend.byteOffset, toSend.byteLength);
-      const base64 = btoa(String.fromCharCode(...bytes));
-      this.sendCallback(base64);
+      // Spread-Operator vermeiden: bei großen Arrays Stack-Overflow in Firefox möglich
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      this.sendCallback(btoa(binary));
     }
     this.bufferOffset = 0;
   }
@@ -145,6 +149,11 @@ export class AudioProcessor {
     this.processor = null;
   }
 }
+
+// Firefox aktualisiert AudioContext.currentTime seltener als Chrome/Safari →
+// ohne Lookahead-Buffer entstehen Lücken zwischen Audio-Chunks
+const isFirefox = typeof navigator !== 'undefined' && navigator.userAgent.includes('Firefox');
+const PLAYBACK_LOOKAHEAD = isFirefox ? 0.15 : 0.03; // 150ms Firefox, 30ms andere
 
 export class AudioPlayer {
   private audioContext: AudioContext | null = null;
@@ -176,9 +185,11 @@ export class AudioPlayer {
     source.buffer = buffer;
     source.connect(this.audioContext.destination);
 
-    const currentTime = this.audioContext.currentTime;
-    if (this.nextStartTime < currentTime) {
-      this.nextStartTime = currentTime;
+    // Lookahead sicherstellt, dass Audio immer etwas in der Zukunft geplant wird.
+    // Firefox braucht mehr Vorlauf, damit der Scheduler nicht ins Stocken gerät.
+    const minStart = this.audioContext.currentTime + PLAYBACK_LOOKAHEAD;
+    if (this.nextStartTime < minStart) {
+      this.nextStartTime = minStart;
     }
 
     source.start(this.nextStartTime);
