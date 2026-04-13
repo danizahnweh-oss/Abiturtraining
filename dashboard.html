@@ -1905,6 +1905,7 @@ const ACTIVITY_CONFIG = {
 };
 
 async function loadActivityFeed(force) {
+  if (!teacherToken) return;
   if (activityFeedLoaded && !force) return;
   const list = document.getElementById('activityFeedList');
   try {
