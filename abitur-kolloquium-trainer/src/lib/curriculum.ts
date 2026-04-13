@@ -373,7 +373,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Russland und China im 20. und 21. Jahrhundert (Zerfall der Sowjetunion, Transformation Chinas, UNO-Agieren)',
       ],
       '13/2': [
-        'Historische Grundlagen moderner demokratischer Staatsordnungen (attische Demokratie, Heiliges Römisches Reich, Aufklärung: Menschenrechte, Volkssouveränität, Gewaltenteilung)',
+        'Historische Grundlagen demokratischer Ordnungen: attische Demokratie, Heiliges Römisches Reich (Goldene Bulle, Föderalismus)',
+        'Aufklärung und moderne Staatlichkeit: Menschenrechte, Volkssouveränität, Gewaltenteilung, Verfassungsentwicklung',
         'Von nationalistischer Konfrontation zu europäischer Integration (Nationsvorstellungen um 1800, deutsch-französisches Verhältnis, europäische Einigung nach 1945)',
       ],
     },
@@ -395,7 +396,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Russland und China im 20./21. Jh. (Stalinismus, Gorbatschow, Maoismus, wirtschaftliche Transformation, geopolitische Interessenpolitik, Neue Seidenstraße)',
       ],
       '13/2': [
-        'Historische Grundlagen moderner demokratischer Staatsordnungen (attische Demokratie, Imperium Romanum – Verwaltung und römisches Recht, Heiliges Römisches Reich – Goldene Bulle, Föderalismus, Aufklärung)',
+        'Historische Grundlagen demokratischer Ordnungen: attische Demokratie, Imperium Romanum (Verwaltung, römisches Recht), Heiliges Römisches Reich (Goldene Bulle, Föderalismus)',
+        'Aufklärung und moderne Staatlichkeit: Menschenrechte, Volkssouveränität, Gewaltenteilung, Verfassungsentwicklung (auch im europäischen Vergleich)',
         'Von nationalistischer Konfrontation zu europäischer Integration (Nationsvorstellungen in Deutschland, Frankreich und Polen, deutsch-französisches und deutsch-polnisches Verhältnis, Besatzung Polens im WWII, europäische Einigung)',
       ],
     },
@@ -556,7 +558,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // (Quelle: ISB Bayern "IlluPA Mathematik – Hinweise zur mündlichen Prüfung", Juli 2024)
     halbjahre: {
       '12/1': [
-        'Untersuchung von Funktionen: ganzrationale Funktionen, Exponentialfunktion, Sinus-/Kosinusfunktion, Stammfunktion, Produkt- und Kettenregel',
+        'Funktionstypen und ihre Eigenschaften: ganzrationale Funktionen, Exponentialfunktion, Sinus-/Kosinusfunktion',
+        'Ableitungs- und Stammfunktionen: Produkt- und Kettenregel, Stammfunktion, Zusammenhang Ableitung und Funktion',
         'Zufallsgrößen und Binomialverteilung: Erwartungswert, Standardabweichung, axiomatische Wahrscheinlichkeitsdefinition',
       ],
       '12/2': [
@@ -626,7 +629,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // eA-Schwerpunkte: Zusätzliche Inhalte laut LehrplanPLUS Ph12/13 eA
     halbjahreEA: {
       '12/1': [
-        'Coulombkraft und radialsymmetrisches Feld; Materie im E-Feld (Influenz, Polarisation, Dielektrikum)',
+        'Coulombkraft und radialsymmetrisches elektrisches Feld (Feldverlauf, Potenzial)',
+        'Materie im elektrischen Feld: Influenz, Polarisation, Dielektrikum, Kapazität mit Dielektrikum',
         'DGL für Auf-/Entladevorgang des Kondensators; Analogie E-Feld und Gravitationsfeld',
       ],
       '12/2': [
@@ -640,8 +644,9 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Schrödinger-Gleichung, wasserstoffähnliche Systeme, Pauli-Prinzip, Moseley-Gesetz, Strukturuntersuchung mit Röntgen-/Synchrotronstrahlung',
       ],
       '13/2': [
-        'Energie- und Impulsbilanzen bei Kernreaktionen; Nuklidkarte und Zerfallsreihen',
-        'Erhaltungssätze in der Kern- und Elementarteilchenphysik; mittlere Lebensdauer',
+        'Energie- und Impulsbilanzen bei Kernreaktionen (Massen-Energie-Äquivalenz, Q-Wert)',
+        'Nuklidkarte und Zerfallsreihen; mittlere Lebensdauer, Aktivität',
+        'Erhaltungssätze in der Kern- und Elementarteilchenphysik (Leptonenzahl, Baryonenzahl, Ladungserhaltung)',
       ],
     },
   },
@@ -744,7 +749,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '13/2': [
         'Sportpsychologie: Motivation und Sinnperspektiven, Emotion, Aggression',
-        'Soziale und gesellschaftspolitische Aspekte: Bildung/Erziehung/Sozialverhalten, organisierter und nichtorganisierter Sport, Fairness, Doping, Medien und Kommerzialisierung, Umwelt und Sport',
+        'Sport und Gesellschaft: Bildung, Erziehung, Sozialverhalten, organisierter und nichtorganisierter Sport, Fairness und Doping',
+        'Sport in der modernen Welt: Medien und Kommerzialisierung, Umwelt und Sport, gesellschaftspolitische Bedeutung',
       ],
     },
   },
@@ -755,7 +761,8 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
     // WR13 gA: LB1 Recht (24 Std.) → 13/1, LB2 VWL (18 Std.) = 13/2
     halbjahre: {
       '12/1': [
-        'Unternehmensaufbau: unternehmerische Zielsetzungen (ökonomisch, ökologisch, sozial, ethisch), Stakeholder, Break-even-Analyse (fixe und variable Kosten)',
+        'Unternehmensaufbau: unternehmerische Zielsetzungen (ökonomisch, ökologisch, sozial, ethisch), Stakeholder-Analyse',
+        'Kosten und Gewinn: fixe und variable Kosten, Break-even-Analyse, Deckungsbeitragsrechnung',
         'Investition, Finanzierung und Erfolgsmessung: statische Investitionsverfahren (Gewinnvergleichsrechnung, Amortisationsrechnung), Eigen- vs. Fremdfinanzierung, Eigenkapital- und Umsatzrentabilität',
       ],
       '12/2': [
@@ -815,11 +822,13 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
         'Praktische Softwareentwicklung: MVC-Architektur, Wasserfallmodell, agile Methoden, Testen, Refaktorierung',
       ],
       '13/1': [
-        'Formale Sprachen und Automaten: EBNF, Syntaxdiagramme, DEA/NEA, reguläre Sprachen, Äquivalenz DEA/NEA',
+        'Formale Sprachen: EBNF, Syntaxdiagramme, reguläre Sprachen',
+        'Automatentheorie: DEA, NEA, Äquivalenz DEA/NEA, Spracherkennung',
         'Funktionsweise eines Rechners: Von-Neumann-Architektur, Registermaschine, Assemblersprache, Befehlszyklus',
       ],
       '13/2': [
-        'Grenzen der Berechenbarkeit: Laufzeitaufwand (linear, quadratisch, exponentiell, logarithmisch), O-Notation, Brute-Force, Halteproblem',
+        'Laufzeitanalyse und Algorithmen: Laufzeitaufwand (linear, quadratisch, exponentiell, logarithmisch), O-Notation, Brute-Force',
+        'Grenzen der Berechenbarkeit: Halteproblem, Entscheidbarkeit, Komplexitätsklassen',
         'Künstliche Intelligenz: Neuronale Netze (Forward Propagation, Backpropagation), k-Means-Algorithmus, supervised/unsupervised/reinforcement learning',
       ],
     },
@@ -837,11 +846,13 @@ export const CURRICULUM: Record<string, SubjectCurriculum> = {
       ],
       '13/1': [
         'Internet der Dinge: IoT-Systeme, Sensoren/Aktoren, Client-Server-Anwendung, Physical Computing, Sicherheitsmaßnahmen für IoT',
-        'Künstliche Intelligenz: Wissensbasierte Systeme (Fakten, Regeln, Inferenzmaschine), Neuronale Netze (Forward Propagation, Backpropagation, Kostenfunktion), k-Means-Algorithmus, supervised/unsupervised/reinforcement Learning, ethische Fragen',
+        'Wissensbasierte Systeme: Fakten, Regeln, Inferenzmaschine, Prolog-artige Anfragen',
+        'Maschinelles Lernen: Neuronale Netze (Forward Propagation, Backpropagation, Kostenfunktion), k-Means-Algorithmus, supervised/unsupervised/reinforcement Learning, ethische Fragen',
       ],
       '13/2': [
         'Formale Sprachen und Automaten: EBNF, Syntaxdiagramme, Ableitungsbaum, DEA/NEA, reguläre Sprachen, Turingmaschine, Turing-erkennbare Sprachen',
-        'Algorithmen und Berechenbarkeit: Turing-Berechenbarkeit, Church-Turing-These, Laufzeitaufwand (O-Notation), Best/Average/Worst Case, Sortieralgorithmen (Bubblesort, Mergesort), Lösungsstrategien (Brute-Force, Greedy, Divide and Conquer), Probleme (SAT, Handlungsreisenden, Rucksack, Clique), Komplexitätsklassen P/NP, Halteproblem',
+        'Algorithmen und Sortierung: Laufzeitaufwand (O-Notation), Best/Average/Worst Case, Sortieralgorithmen (Bubblesort, Mergesort), Lösungsstrategien (Brute-Force, Greedy, Divide and Conquer)',
+        'Berechenbarkeit und Komplexität: Turing-Berechenbarkeit, Church-Turing-These, Probleme (SAT, Handlungsreisenden, Rucksack, Clique), Komplexitätsklassen P/NP, Halteproblem',
       ],
     },
   },
