@@ -12,7 +12,7 @@ import {
   Mic, MicOff, GraduationCap, Play, Square, Settings2,
   ChevronDown, Clock, FileText, MessageCircle, Loader2,
   RotateCcw, PenLine, Volume2, ArrowLeft, Download,
-  Quote, BarChart3, Image, ChevronUp, X, User,
+  Quote, BarChart3, Image, ChevronUp, X, User, ShieldCheck,
 } from 'lucide-react';
 import {
   LiveSession, StatefulLiveSession, SUBJECTS, generateExamMaterial, generateMatheAufgaben, generateMaterialImpulse, generateWrittenFeedback,
@@ -1210,10 +1210,21 @@ export default function App() {
                   </div>
                 )}
 
+                {/* Datenschutz-Hinweis */}
+                {canGenerate && (
+                  <div className="mt-6 flex items-start gap-3 p-4 bg-blue-50 rounded-2xl border border-blue-100 text-sm text-blue-800">
+                    <ShieldCheck size={18} className="shrink-0 mt-0.5 text-blue-500" />
+                    <p>
+                      <span className="font-medium">Deine Stimme ist sicher:</span>{' '}
+                      Deine Sprache wird in Echtzeit in Text umgewandelt. Nur das Texttranskript wird zur Bewertung an die KI geschickt – Audioaufnahmen werden <span className="font-medium">nicht gespeichert</span>.
+                    </p>
+                  </div>
+                )}
+
                 <button
                   onClick={handleGenerate}
                   disabled={!canGenerate}
-                  className="w-full mt-6 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
+                  className="w-full mt-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl py-4 font-medium flex items-center justify-center gap-2 hover:from-emerald-600 hover:to-emerald-700 disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 active:scale-[0.98]"
                 >
                   <Play size={18} fill="currentColor" />
                   {examMode === 'fragen' ? 'Prüfung starten' : 'Aufgabenstellung generieren'}
@@ -1294,6 +1305,15 @@ export default function App() {
               <p className="flex items-center gap-1.5 text-xs text-slate-400 px-1">
                 🤖 KI-generiert – Inhalte können Fehler enthalten.
               </p>
+
+              {/* Datenschutz-Hinweis */}
+              <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-2xl border border-blue-100 text-sm text-blue-800">
+                <ShieldCheck size={18} className="shrink-0 mt-0.5 text-blue-500" />
+                <p>
+                  <span className="font-medium">Deine Stimme ist sicher:</span>{' '}
+                  Deine Sprache wird in Echtzeit in Text umgewandelt. Nur das Texttranskript wird zur Bewertung an die KI geschickt – Audioaufnahmen werden <span className="font-medium">nicht gespeichert</span>.
+                </p>
+              </div>
 
               <button
                 onClick={startExam}
